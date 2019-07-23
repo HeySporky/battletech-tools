@@ -3,6 +3,8 @@ import './Home.scss';
 import TopMenu from '../../Components/TopMenu';
 import ShowAlerts from '../../Components/ShowAlerts';
 import {IAppGlobals} from '../../AppRouter';
+import SanitizedHTML from '../../Components/SanitizedHTML';
+import MechCreatorSideMenu from '../../Components/MechCreatorSideMenu';
 
 export default class MechCreatorHome extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -22,11 +24,35 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
           <TopMenu current="mech-creator" sub="home" appGlobals={this.props.appGlobals}  />
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
-            <p>
-              Look, ma, a wild Battlemech has appeared (Battlemech object)!
-              <br />Make: {this.props.appGlobals.currentBattleMech.make}
-              <br />Tonnage: {this.props.appGlobals.currentBattleMech.tonnage}
-            </p>
+            <div className="row">
+              <div className="col-md-3 col-lg-2">
+                <MechCreatorSideMenu
+                  appGlobals={this.props.appGlobals}
+                  current="home"
+                />              </div>
+              <div className="col-md-9 col-lg-10">
+                  <div className="row">
+                    <div className="col-md-12 col-lg-8">
+                      <div className="text-section">
+                        <h2>Welcome</h2>
+                        <div className="section-content">
+                          <p>Welcome to a BattleTech 'mech builder.</p>
+
+                          <p>This tool attempts to closely follow the steps in the BattleTech TechManual and the steps in that book should be referenced during 'mech creation</p>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div className="d-none d-lg-block col-lg-4">
+                      <div className="mech-tro">
+                        <SanitizedHTML raw={true} html={this.props.appGlobals.currentBattleMech.makeTROHTML()} />
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+            </div>
+
           </div>
         </div>
       );
