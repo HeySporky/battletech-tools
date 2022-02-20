@@ -1,6 +1,6 @@
 
-import {IBattleMechExport} from '../../Classes/BattleMech';
-import {IASGroupExport} from '../../Classes/AlphaStrikeGroup';
+import {IBattleMechExport} from '../../classes/battlemech';
+import {IASGroupExport} from '../../classes/alpha-strike-group';
 
 export enum SyncLocations {
     localStorage,

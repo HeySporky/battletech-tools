@@ -2,15 +2,15 @@
  * The data here is/may be copyrighted and NOT included in the GPLv3 license.
  */
 
-import { ASMULRole } from "../Classes/AlphaStrikeUnit";
-import AlphaStrikeGroup from "../Classes/AlphaStrikeGroup";
+import { ASMULRole } from "../classes/alpha-strike-unit";
+import AlphaStrikeGroup from "../classes/alpha-strike-group";
 
 export interface IFormationBonus {
     Name: string;
     IdealRole?: ASMULRole;
     IsValid(group:AlphaStrikeGroup): boolean;
     BonusDescription: string
-    RequirementsDescription: string  
+    RequirementsDescription: string
 }
 
 class FormationBonusBase {
@@ -27,7 +27,7 @@ class FormationBonusBase {
 
 }
 class None extends FormationBonusBase implements IFormationBonus {
-    Name: string="None"; 
+    Name: string="None";
     IsValid(group: AlphaStrikeGroup): boolean {
         return true;
     }
@@ -50,10 +50,10 @@ class BattleLance extends FormationBonusBase implements IFormationBonus {
         let result =true;
         result = result && (Math.ceil(group.members.length*.50)<=group.members.filter(x=>x.size>=3).length);
         let brawlerSniperSkirmisherCount = this.RoleCount(group, "Brawler") + this.RoleCount(group, "Sniper")+this.RoleCount(group, "Skirmisher");
-        result = result && (brawlerSniperSkirmisherCount >=3) 
+        result = result && (brawlerSniperSkirmisherCount >=3)
         return result;
     }
-    
+
 }
 class LightBattleLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Light Battle Lance";
@@ -70,7 +70,7 @@ class LightBattleLance extends FormationBonusBase implements IFormationBonus {
         result = result && (this.RoleCount(group, "Scout")>=1);
         return result;
     }
-    
+
 }
 class MediumBattleLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Medium Battle Lance";
@@ -86,7 +86,7 @@ class MediumBattleLance extends FormationBonusBase implements IFormationBonus {
         result = result && (Math.ceil(group.members.length*.50)<=group.members.filter(x=>x.size===2).length);
         return result;
     }
-    
+
 }
 class HeavyBattleLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Heavy Battle Lance";
@@ -102,7 +102,7 @@ class HeavyBattleLance extends FormationBonusBase implements IFormationBonus {
         result = result && (Math.ceil(group.members.length*.50)<=group.members.filter(x=>x.size>=3).length);
         return result;
     }
-    
+
 }
 class AssaultLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Assault Lance";
@@ -124,10 +124,10 @@ class AssaultLance extends FormationBonusBase implements IFormationBonus {
         let medRange3OrGreaterCount = group.members.filter(x=>+x.damage.medium>=3).length;
         result = result && (Math.ceil(group.members.length*.75)<=medRange3OrGreaterCount);
         result = result && (this.RoleCount(group, "Juggernaut")>=1||this.RoleCount(group, "Sniper")>=2)
-        
+
         return result;
     }
-    
+
 }
 class FastAssaultLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Fast Assault Lance";
@@ -147,10 +147,10 @@ class FastAssaultLance extends FormationBonusBase implements IFormationBonus {
         // faster than 10 or Jump capable
 
         result = result && (group.members.filter(x=>(x.move.filter(y=>y.type==="j").length>0)||(x.move.filter(y=>y.move>=10).length>0)).length===group.members.length);
-        
+
         return result;
     }
-    
+
 }
 class StrikerCavalryLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Striker/Cavalry Lance";
@@ -167,16 +167,16 @@ class StrikerCavalryLance extends FormationBonusBase implements IFormationBonus 
             return false;
         }
         let result =true;
-        
+
         // 50% striker or skirmisher
         result = result && (Math.ceil(group.members.length*.50)<=(this.RoleCount(group, "Striker")+this.RoleCount(group, "Skirmisher")));
         // faster than 10 or Jump capable greater than 8
 
         result = result && !(group.members.filter(x=>(x.move.filter(y=>y.type==="j"&&y.move<8).length>0)||(x.move.filter(y=>y.move<10&& y.type!=="j").length>0)));
-        
+
         return result;
     }
-    
+
 }
 class LightStrikerCavalryLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Light Striker/Cavalry Lance";
@@ -191,17 +191,17 @@ class LightStrikerCavalryLance extends FormationBonusBase implements IFormationB
         let result =true;
         //must have 2 with long damage
         result = result && (group.members.filter(x=>+x.damage.long>0).length>=2)
-        
+
         // 2 striker or skirmisher
         result = result && ((this.RoleCount(group, "Striker")+this.RoleCount(group, "Skirmisher"))>=2);
-        // faster than 10 
+        // faster than 10
 
 
         result = result && (group.members.filter(x=>(x.move.filter(y=>y.move>=10).length>0)).length===group.members.length);
-        
+
         return result;
     }
-    
+
 }
 class HeavyStrikerCavalryLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Heavy Striker/Cavalry Lance";
@@ -219,17 +219,17 @@ class HeavyStrikerCavalryLance extends FormationBonusBase implements IFormationB
         let result =true;
         //must have 2 with long damage
         result = result && (group.members.filter(x=>+x.damage.long>1).length>=1)
-        
+
         // 2 striker or skirmisher
         result = result && ((this.RoleCount(group, "Striker")+this.RoleCount(group, "Skirmisher"))>=2);
-        // faster than 8 
+        // faster than 8
 
 
         result = result && (group.members.filter(x=>(x.move.filter(y=>y.move>=8).length>0)).length===group.members.length);
-        
+
         return result;
     }
-    
+
 }
 class FireLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Fire Lance";
@@ -243,12 +243,12 @@ class FireLance extends FormationBonusBase implements IFormationBonus {
             return true;
         }
         let result =true;
-        
+
         // 75% sniper or missileboat
-        result = result && (Math.ceil(group.members.length*.75)<=(this.RoleCount(group, "Missile Boat")+this.RoleCount(group, "Sniper")));         
+        result = result && (Math.ceil(group.members.length*.75)<=(this.RoleCount(group, "Missile Boat")+this.RoleCount(group, "Sniper")));
         return result;
     }
-    
+
 }
 class FireSupportLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Fire Support Lance";
@@ -258,13 +258,13 @@ class FireSupportLance extends FormationBonusBase implements IFormationBonus {
 
     IsValid(group: AlphaStrikeGroup): boolean {
         let result =true;
-        
+
         // 3 IF mechs
         console.log(group);
-        result = result && (group.members.filter(x=>x.abilities.includes('IF')).length>=3);         
+        result = result && (group.members.filter(x=>x.abilities.includes('IF')).length>=3);
         return result;
     }
-    
+
 }
 class ArtilleryFireLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Artillery Fire Lance";
@@ -274,12 +274,12 @@ class ArtilleryFireLance extends FormationBonusBase implements IFormationBonus {
 
     IsValid(group: AlphaStrikeGroup): boolean {
         let result =true;
-        
+
         // 2 Art mechs
-        result = result && (group.members.filter(x=>x.abilities.includes('ART')).length>=2);         
+        result = result && (group.members.filter(x=>x.abilities.includes('ART')).length>=2);
         return result;
     }
-    
+
 }
 
 class DirectFireLance extends FormationBonusBase implements IFormationBonus {
@@ -290,13 +290,13 @@ class DirectFireLance extends FormationBonusBase implements IFormationBonus {
 
     IsValid(group: AlphaStrikeGroup): boolean {
         let result =true;
-        
+
         // 3 or larger
         result = result && (group.members.filter(x=>x.size>=3).length>=2);
-        result = result && (group.members.filter(x=>+x.damage.long<2).length===0);  
+        result = result && (group.members.filter(x=>+x.damage.long<2).length===0);
         return result;
     }
-    
+
 }
 class AntiAirLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Anti-Air Lance";
@@ -310,13 +310,13 @@ class AntiAirLance extends FormationBonusBase implements IFormationBonus {
             return true;
         }
         let result =true;
-        
+
         // 75% sniper or missileboat
-        result = result && (Math.ceil(group.members.length*.75)<=(this.RoleCount(group, "Missile Boat")+this.RoleCount(group, "Sniper")));         
+        result = result && (Math.ceil(group.members.length*.75)<=(this.RoleCount(group, "Missile Boat")+this.RoleCount(group, "Sniper")));
         result = result && ((group.members.filter(x=>x.abilities.includes('FLK')).length + group.members.filter(x=>x.abilities.includes('AC')).length + group.members.filter(x=>x.abilities.includes('ART')).length)>=2)
         return result;
     }
-    
+
 }
 
 class ReconLance extends FormationBonusBase implements IFormationBonus {
@@ -331,14 +331,14 @@ class ReconLance extends FormationBonusBase implements IFormationBonus {
             return true;
         }
         let result =true;
-        
-        // faster than 10 
+
+        // faster than 10
 
         result = result && ((this.RoleCount(group, "Scout")+this.RoleCount(group, "Striker"))>=2);
         result = result && (group.members.filter(x=>(x.move.filter(y=>y.move>=10).length>0)).length===group.members.length);
         return result;
     }
-    
+
 }
 class LightRecon extends FormationBonusBase implements IFormationBonus {
     Name: string = "Light Recon Lance";
@@ -348,14 +348,14 @@ class LightRecon extends FormationBonusBase implements IFormationBonus {
 
     IsValid(group: AlphaStrikeGroup): boolean {
         let result =true;
-        
+
 
         result = result && (group.members.filter(x=>x.size===1).length===group.members.length);
         result = result && (group.members.filter(x=>(x.move.filter(y=>y.move>=12).length>0)).length===group.members.length);
         result = result && (this.RoleCount(group, "Scout")===group.members.length)
         return result;
     }
-    
+
 }
 class HeavyReconLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Heavy Recon Lance";
@@ -369,10 +369,10 @@ class HeavyReconLance extends FormationBonusBase implements IFormationBonus {
         result = result && (group.members.filter(x=>(x.move.filter(y=>y.move>=8).length>0)).length===group.members.length);
         result = result && (group.members.filter(x=>(x.move.filter(y=>y.move>=10).length>0)).length>=2);
         result = result && (group.members.filter(x=>x.size>=3).length>=1);
-        result = result && (this.RoleCount(group, "Scout")>=2);  
+        result = result && (this.RoleCount(group, "Scout")>=2);
         return result;
     }
-    
+
 }
 class PursuitLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Pursuit Lance";
@@ -389,10 +389,10 @@ class PursuitLance extends FormationBonusBase implements IFormationBonus {
 
         result = result && (group.members.filter(x=>x.size<=2).length===group.members.length);
         result = result && (Math.ceil(group.members.length*.75)<=(group.members.filter(x=>(x.move.filter(y=>y.move>=12).length>0)).length));
-        result = result && (group.members.filter(x=>+x.damage.medium<=1).length>=1);  
+        result = result && (group.members.filter(x=>+x.damage.medium<=1).length>=1);
         return result;
     }
-    
+
 }
 class ProbeLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Probe Lance";
@@ -405,11 +405,11 @@ class ProbeLance extends FormationBonusBase implements IFormationBonus {
 
         result = result && (group.members.filter(x=>x.size>3).length===0);
         result = result && (Math.ceil(group.members.length*.75)<=(group.members.filter(x=>(x.move.filter(y=>y.move>=10).length>0)).length));
-        result = result && (group.members.filter(x=>+x.damage.medium<2).length===0); 
-        
+        result = result && (group.members.filter(x=>+x.damage.medium<2).length===0);
+
         return result;
     }
-    
+
 }
 class SweepLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Sweep Lance";
@@ -422,11 +422,11 @@ class SweepLance extends FormationBonusBase implements IFormationBonus {
 
         result = result && (group.members.filter(x=>x.size>2).length===0);
         result = result && (group.members.filter(x=>(x.move.filter(y=>y.move>=10).length>0)).length===group.members.length);
-        result = result && (group.members.filter(x=>+x.damage.short<2).length===0); 
+        result = result && (group.members.filter(x=>+x.damage.short<2).length===0);
 
         return result;
     }
-    
+
 }
 class CommandLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Command Lance";
@@ -436,14 +436,14 @@ class CommandLance extends FormationBonusBase implements IFormationBonus {
 
     IsValid(group: AlphaStrikeGroup): boolean {
         let result =true;
-        //50 percent of the units must have one of the following unit roles: Sniper, Missile Boat, Skirmisher, or Juggernaut. 
+        //50 percent of the units must have one of the following unit roles: Sniper, Missile Boat, Skirmisher, or Juggernaut.
         //One additional unit in the lance must be a Brawler, Striker, or Scout.
         result = result && (Math.ceil(group.members.length*.5)<=(this.RoleCount(group, "Missile Boat")+this.RoleCount(group, "Sniper")+this.RoleCount(group, "Skirmisher")+this.RoleCount(group, "Juggernaut")));
-        result = result && ((this.RoleCount(group, "Brawler")+this.RoleCount(group, "Striker")+this.RoleCount(group, "Scout"))>=1); 
+        result = result && ((this.RoleCount(group, "Brawler")+this.RoleCount(group, "Striker")+this.RoleCount(group, "Scout"))>=1);
 
         return result;
     }
-    
+
 }
 class SupportLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Support Lance";
@@ -454,7 +454,7 @@ class SupportLance extends FormationBonusBase implements IFormationBonus {
     IsValid(group: AlphaStrikeGroup): boolean {
         return true;
     }
-    
+
 }
 
 export const formationBonuses: IFormationBonus[] = [

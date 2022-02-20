@@ -1,7 +1,7 @@
 import React from 'react';
-import { IAppGlobals } from '../AppRouter';
-import './About.scss';
-import UIPage from '../Components/UIPage';
+import { IAppGlobals } from '../app-router';
+import './about.scss';
+import UIPage from '../components/ui-page';
 
 export default class About extends React.Component<IAboutProps, IAboutState> {
     constructor(props: IAboutProps) {
@@ -66,7 +66,7 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
 
 
             <h4>Exceptions</h4>
-            <p>The data in ./src/Data/* contains copyrighted material and is not included. Each of the comments header in the file repeats this exception in the above license.</p>
+            <p>The data in ./src/data/* contains copyrighted material and is not included. Each of the comments header in the file repeats this exception in the above license.</p>
               </div>
           </div>
         </div>

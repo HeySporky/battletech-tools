@@ -1,18 +1,18 @@
-import { battlemechLocations } from "../Data/battlemechLocations";
-import { IArmorType, ICritialLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync } from "../Data/dataInterfaces";
-import { btEraOptions } from "../Data/era-options";
-import { mechArmorTypes } from "../Data/mech-armor-types";
-import { mechClanEquipment } from "../Data/mech-clan-equipment";
-import { mechEngineOptions } from "../Data/mech-engine-options";
-import { mechEngineTypes } from "../Data/mech-engine-types";
-import { mechGyroTypes } from "../Data/mech-gyro-types";
-import { mechHeatSinkTypes } from "../Data/mech-heat-sink-types";
-import { mechInternalStructureTypes } from "../Data/mech-internal-structure-types";
-import { mechJumpJetTypes } from "../Data/mech-jump-jet-types";
-import { mechTypeOptions } from "../Data/mech-type-options";
-import { btTechOptions } from "../Data/tech-options";
+import { battlemechLocations } from "../data/battlemech-locations";
+import { IArmorType, ICritialLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync } from "../data/data-interfaces";
+import { btEraOptions } from "../data/era-options";
+import { mechArmorTypes } from "../data/mech-armor-types";
+import { mechClanEquipment } from "../data/mech-clan-equipment";
+import { mechEngineOptions } from "../data/mech-engine-options";
+import { mechEngineTypes } from "../data/mech-engine-types";
+import { mechGyroTypes } from "../data/mech-gyro-types";
+import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
+import { mechInternalStructureTypes } from "../data/mech-internal-structure-types";
+import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
+import { mechTypeOptions } from "../data/mech-type-options";
+import { btTechOptions } from "../data/tech-options";
 import { addCommas, generateUUID, getISEquipmentList, getMovementModifier } from "../utils";
-import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./AlphaStrikeUnit";
+import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./alpha-strike-unit";
 
 
 interface INumericalHash {

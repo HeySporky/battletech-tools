@@ -1,7 +1,7 @@
 import React from 'react';
-import './Home.scss';
-import {IAppGlobals} from '../AppRouter';
-import UIPage from '../Components/UIPage';
+import './home.scss';
+import {IAppGlobals} from '../app-router';
+import UIPage from '../components/ui-page';
 
 export default class Home extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
