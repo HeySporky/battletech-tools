@@ -4,6 +4,7 @@ import { IAppGlobals } from '../../app-router';
 import Error404 from "../error404";
 import AlphaStrikeHome from './home';
 import AlphaStrikeRosterRouter from './roster/_router';
+import AlphaStrikeUnitEditorRouter from './unit-editor/_router';
 
 export default class AlphaStrikeRouter extends React.Component<IAlphaStrikeRouterProps, IAlphaStrikeRouterState> {
 
@@ -18,6 +19,11 @@ export default class AlphaStrikeRouter extends React.Component<IAlphaStrikeRoute
                 }/>
                 <Route path={`roster/*`} element={
                     <AlphaStrikeRosterRouter
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+                <Route path={`unit-editor/*`} element={
+                    <AlphaStrikeUnitEditorRouter
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
