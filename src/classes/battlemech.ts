@@ -3016,7 +3016,7 @@ export class BattleMech {
 
         }
 
-        let createdBy = "\n\nCreated with BattleTech Tools: [url]https://jdgwf.github.io/battletech-tools/[/url]\n\n";
+        let createdBy = "\n\nCreated with BattleTech Tools: [url]https://heysporky.github.io/battletech-tools/[/url]\n\n";
 
         return "[code]" + html + "[/code]" + createdBy;
 

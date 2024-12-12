@@ -1816,7 +1816,7 @@ Neither Topps nor Catalyst Game Labs makes no representation or warranty as to t
         style={{fontWeight: 700}}
         fontSize={15}
     >
-    https://jdgwf.github.io/battletech-tools/
+    https://heysporky.github.io/battletech-tools/
     </text>
             </g>
 

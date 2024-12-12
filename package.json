@@ -1,7 +1,7 @@
 {
   "name": "battletech-tools",
   "version": "0.7.0",
-  "homepage": "https://jdgwf.github.io/battletech-tools",
+  "homepage": "https://heysporky.github.io/battletech-tools",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
