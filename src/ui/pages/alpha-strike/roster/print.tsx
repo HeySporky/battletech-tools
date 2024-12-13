@@ -151,7 +151,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                       {unit.currentPilotHeroAbility ? (
                         <div className={"card"}>
                         <AlphaStrikePilotCardSVG
-                          pilotAbility={unit.currentPilotVeteranAbility}
+                          pilotAbility={unit.currentPilotHeroAbility}
                           inPlay={false}
                           appGlobals={this.props.appGlobals}
                           className="small-margins"
