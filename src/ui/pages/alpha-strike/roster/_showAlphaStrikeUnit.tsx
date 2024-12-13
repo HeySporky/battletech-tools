@@ -111,8 +111,12 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                           (
                             <>
                             {/* Regular Skill Level */}
+                        <br></br>
+                        <p>Special Pilot Abilities (SPAs) are an optional rule, and their cost does not count towards your force's total PV.
+                        <br></br>
+                        The table for recommended allowed SPA points on a pilot can be found on p.92 of Alpha Strike Commander's Edition.</p>
                         <label>
-                            Pilot Card (Regulars):&nbsp;
+                            Special Pilot Ability (Regulars):&nbsp;
                             <select
                               value={this.props.showASUnit.currentPilotAbilityID}
                               onChange={this.updateUnitPilotAbility}
@@ -134,7 +138,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                           (
                             <>
                         <label>
-                            Pilot Card #2 (Veterans and Elites):&nbsp;
+                            Special Pilot Ability #2 (Veterans and Elites):&nbsp;
                             <select
                               value={this.props.showASUnit.currentPilotAbilityID2}
                               onChange={this.updateUnitPilotAbility2}
@@ -146,8 +150,8 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                                 )
                               })}
                             </select>
-                            {this.props.showASUnit.currentPilotAbility ? (
-                              <div>{this.props.showASUnit.currentPilotAbility.summary}</div>
+                            {this.props.showASUnit.currentPilotVeteranAbility ? (
+                              <div>{this.props.showASUnit.currentPilotVeteranAbility.summary}</div>
                             ): null}
                           </label>
 
@@ -156,7 +160,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                           (
                             <>
                             <label>
-                                Pilot Card #3 (Heroes and Legends):&nbsp;
+                                Special Pilot Ability #3 (Heroes and Legends):&nbsp;
                                 <select
                                   value={this.props.showASUnit.currentPilotAbilityID3}
                                   onChange={this.updateUnitPilotAbility3}
@@ -168,8 +172,8 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                                     )
                                   })}
                                 </select>
-                                {this.props.showASUnit.currentPilotAbility ? (
-                                  <div>{this.props.showASUnit.currentPilotAbility.summary}</div>
+                                {this.props.showASUnit.currentPilotHeroAbility ? (
+                                  <div>{this.props.showASUnit.currentPilotHeroAbility.summary}</div>
                                 ): null}
                               </label>
 
@@ -180,7 +184,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                             </>
                           ) : null}
                             </>
-                          ) : "Pilot Cards are not available for Green Units."}
+                          ) : "Special pilot abilities are not available for Green Units."}
 
 
                           <div className="text-right"><strong>Total Pilot Card Points: {this.props.showASUnit.getTotalPilotAbilityPoints()}</strong></div>

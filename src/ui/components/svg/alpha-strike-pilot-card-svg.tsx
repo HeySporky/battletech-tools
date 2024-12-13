@@ -74,7 +74,7 @@ export default class AlphaStrikePilotCardSVG extends React.Component<IAlphaStrik
                 <rect x="0" y="0" width="1000" height="640px" fill="rgb(0,0,0)"></rect>
                 <rect x="10" y="10" style={{zIndex: -1}} width="980" height="580" fill="rgb(255,255,255)"></rect>
                 <rect x="850" y="9" width="150" height="35" fill="rgb(0,0,0)"></rect>
-                <text x="990" y="35" textAnchor="end" fill="rgb(255,255,255)" stroke="rgb(255,255,255)" fontFamily="sans-serif" fontSize="33">PV: {this.props.pilotAbility.cost}</text>
+                <text x="990" y="35" textAnchor="end" fill="rgb(255,255,255)" stroke="rgb(255,255,255)" fontFamily="sans-serif" fontSize="33">Cost: {this.props.pilotAbility.cost}</text>
 
 
                 <text x="20" y="60" fontFamily="sans-serif" fontSize="60">{this.props.pilotAbility.ability.toUpperCase()}</text>

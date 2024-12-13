@@ -542,6 +542,28 @@ export class AlphaStrikeUnit {
         return null;
     }
 
+    public get currentPilotVeteranAbility(): IASPilotAbility | null {
+        if( this._pilot.alphaStrikeAbilities.length > 1 ) {
+            for( let abi of CONST_AS_PILOT_ABILITIES ) {
+                if( this._pilot.alphaStrikeAbilities[1] === abi.id )
+                    return abi;
+            }
+
+        }
+        return null;
+    }
+
+    public get currentPilotHeroAbility(): IASPilotAbility | null {
+        if( this._pilot.alphaStrikeAbilities.length > 2 ) {
+            for( let abi of CONST_AS_PILOT_ABILITIES ) {
+                if( this._pilot.alphaStrikeAbilities[2] === abi.id )
+                    return abi;
+            }
+
+        }
+        return null;
+    }
+
     public getPilotAbilities(): any[] {
         let rv: any[] = [];
 
