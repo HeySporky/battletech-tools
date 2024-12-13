@@ -5,7 +5,9 @@ export function callAnalytics(
     appSessionID: string = "",
     appVersion: string = "",
 ) {
-
+    //Spork: Disabling Analytics for now
+    return;
+    /*
     try {
         if(!window) {
             return;
@@ -52,4 +54,5 @@ export function callAnalytics(
     catch {
 
     }
+    */
 }
