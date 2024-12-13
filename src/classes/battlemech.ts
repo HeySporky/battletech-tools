@@ -8943,7 +8943,8 @@ export class BattleMech {
             );
 
             if( !newItem ) {
-                console.warn( "Cannot find any equipment named: '" + itemName + "'" );
+                //TODO: Commenting out warning - Why is this firing  during alpha strike generation?
+                //console.warn( "Cannot find any equipment named: '" + itemName + "'" );
                 this._sswImportErrors.push( "Cannot find any equipment named: '" + itemName + "'" )
             } else {
 
@@ -9235,6 +9236,8 @@ export class BattleMech {
                         );
 
                         if( !success ) {
+                            //TODO: Why is this firing during Alpha Strike build?
+                            /*
                             console.warn(
                                 "unsuccessful crit allocation",
                                 this.getName(),
@@ -9247,6 +9250,7 @@ export class BattleMech {
                                 this._unallocatedCriticals,
 
                             )
+                                */
                         }
                         item.location = item.allocationLocation;
                     }

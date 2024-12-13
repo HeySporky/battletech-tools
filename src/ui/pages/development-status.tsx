@@ -16,24 +16,14 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
         <UIPage current="dev-status" appGlobals={this.props.appGlobals}>
             <h2>Development Status</h2>
 
-            <p><strong>Current Focus:</strong> Classic BattleTech Roster</p>
+            <p><strong>Current Focus:</strong> Understanding the Repo</p>
             <div className="flex">
 
               <TextSection
             label="General App"
             className="grow with-margins large-max-width-50"
           >
-                    <h4>Completed</h4>
-                    <ul>
-                      <li><del>General Scaffolding</del></li>
-                      <li><del>Menu</del></li>
-                      <li><del>Routing</del></li>
-                      <li><del>Local Storage</del></li>
-                      <li><del>(S)CSS</del></li>
-                    </ul>
-
                     <h4>Possible Future</h4>
-                    <p>Although I'm encountering resistance with being hosted on GitHub, I'm not ruling out the possibility of syncing via these services. That said, the backup/restore functionality of the app seems to work quite well.</p>
                     <ul>
                       <li>Google Drive Sign in/Sync</li>
                       <li>Office 365/ OneDrive Sign in/Sync</li>
@@ -49,28 +39,19 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                 className="grow with-margins large-max-width-50"
               >
 
-                    <div className="alert alert-success">This section should be pretty feature complete, although there are some UI annoyances.</div>
-                    <h4>Completed</h4>
+                    <div className="alert alert-success">This will be the focus of initial efforts in taking over the project.</div>
                     <ul>
-                      <li><del>Search MUL</del></li>
-                      <li><del>Add Units</del></li>
-                      <li><del>Group Units</del></li>
-                      <li><del>Move Units</del></li>
-                      <li><del>Remove Units</del></li>
-                      <li><del>Remove Groups</del></li>
-                      <li><del>Rename Units</del></li>
-                      <li><del>Rename Groups</del></li>
-                      <li><del>Unit Skills</del></li>
-                      <li><del>Group Favorites</del></li>
-                      <li><del>Printable AS Rosters</del></li>
+                      <li>Force Manual Formation Bonuses</li>
+                      <li>Filter Mechs by Faction</li>
+                      <li>SPA Point Calculation Fix</li>
                     </ul>
-
                   </TextSection>
 
               <TextSection
             label="'Mech Creator'"
             className="grow with-margins large-max-width-50"
           >
+            <div>
                     <h4>Completed</h4>
                     <ul>
                       <li><del>Typescript interfaces for data</del></li>
@@ -109,6 +90,7 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       </li>
 
                     </ul>
+                    </div>
 
                   </TextSection>
 

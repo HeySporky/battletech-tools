@@ -438,6 +438,48 @@ class CommandLance extends FormationBonusBase implements IFormationBonus {
     }
 
 }
+class LightFireLance extends FormationBonusBase implements IFormationBonus {
+    Name: string = "Light Fire Lance";
+    BonusDescription: string = "If a unit in this Formation hits a target with at least one of its weapons (atleast one weapon attack), other units in this Formation making weapon attacks against the same target receive a –1 target number modifier to their attack rolls. This bonus is cumulative per attacking unit, up to a –3 target number modifier.";
+    RequirementsDescription: string = "No unit of Heavy weight class or larger (Size 3+) may be included. At least 50 percent of the units in this formation must have either the Missile Boat or Sniper Unit Roles.";
+
+    IsValid(group: AlphaStrikeGroup): boolean {
+        let result = true;
+        result = result && (Math.ceil(group.members.length*.5)<=(this.RoleCount(group, "Missile Boat")+this.RoleCount(group, "Sniper")));
+        result = result && (group.members.filter(x=>x.size>2).length===0);
+        return result;
+    }
+}
+
+class RifleLance extends FormationBonusBase implements IFormationBonus {
+    Name: string = "Rifle Lance";
+    BonusDescription: string = "At the beginning of each turn, up to two Rifle Lance units may receive either the Weapon Specialist or Sandblaster Special Pilot Ability. The player may assign the same SPA to both units, or one unit may receive Weapon Specialist and the other unit Sandblaster.";
+    RequirementsDescription: string = "Exclusive to House Davion (Not Implemented). At least 75 percent of the units in this Formation must be Medium or Heavy (Size 2 or 3). No units may be Light (Size 1). At least 50 percent of these units must have an autocannon, including LB-X, Ultra, or Rotary autocannons (usually with the AC or FLK special ability), and all units must have at least a minimum Walk/Cruise speed of 4 (Move 8”+).";
+
+    IsValid(group: AlphaStrikeGroup): boolean {
+        console.log('Rifle Lance');
+        let result = true;
+        result = result && (group.members.filter(x=>x.size===1).length===0);
+        result = result && (Math.ceil(group.members.length*.75)<=(group.members.filter(x=>x.size===2||x.size===3).length));
+        result = result && (Math.ceil(group.members.length*.5)<=group.members.filter(x=>(x.abilities.filter(y=>y.includes('AC')||y.includes('FLK')).length>0)).length);
+        result = result && (group.members.filter(x=>x.move.filter(y=>y.move>8)).length===group.members.length);
+        return result;
+    }
+
+}
+
+class HunterLance extends FormationBonusBase implements IFormationBonus {
+    Name: string = "Hunter Lance";
+    BonusDescription: string = "At the beginning of each turn, 50 percent of the units in the Formation may be granted the Combat Intuition Special Pilot Ability.";
+    RequirementsDescription: string = "At least 50 percent of the units in this Formation must have the Ambusher or Juggernaut role.";
+
+    IsValid(group: AlphaStrikeGroup): boolean {
+        let result = true;
+        result = result && (Math.ceil(group.members.length*.5)<=(this.RoleCount(group, "Ambusher")+this.RoleCount(group, "Juggernaut")));
+        return result;
+    }
+}
+
 class SupportLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Support Lance";
     BonusDescription: string = "Before the start of play, each Support Lance must designate one other formation type in its army to support. Half of the units in the Support Lance (round down) receive the same SPAs as the supported formation. The Support Lance’s number of SPAs received of each type may not exceed the number the supported formation receives, as determined at start of play. If a bonus ability from the supported formation is assigned at the beginning of each turn, the Support Lance must assign them at start of play and may not switch them to another unit during game play. This bonus ability is retained as long as the Support Lance still has three or more active units on the field; they are not lost if the supported lance is reduced below its own ability to retain the bonus ability. If the Support Lance is supporting a Command Lance, it receives the two SPAs assigned to the Command Lance’s non-commander units, assigning one SPA each to any appropriate Support Lance unit. However, the Support Lance does not receive the commander’s Tactical Genius Special Pilot Ability.";
@@ -448,6 +490,8 @@ class SupportLance extends FormationBonusBase implements IFormationBonus {
     }
 
 }
+
+
 
 export const formationBonuses: IFormationBonus[] = [
     new None(),
@@ -472,6 +516,9 @@ export const formationBonuses: IFormationBonus[] = [
     new ProbeLance(),
     new SweepLance(),
     new CommandLance(),
+    new LightFireLance(),
+    new RifleLance(),
+    new HunterLance(),
     new SupportLance(),
 
 ];
