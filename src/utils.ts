@@ -29,6 +29,7 @@ export async function getMULASSearchResults(
     roleFilter: string,
     eraFilter: number,
     typeFilter: number,
+    factionFilter: Array<number>,
     offLine: boolean,
     overrideSearchLimitLength: boolean = false,
     appGlobals: IAppGlobals | null = null,
@@ -89,7 +90,12 @@ export async function getMULASSearchResults(
         typesFilterURI.push( "&Types=" + typeFilter.toString() );
     }
 
-
+    let factionFilterURI: string[] = [];
+    if( factionFilter.length > 0 ) {
+        for( let faction of factionFilter ) {
+            factionFilterURI.push( "&Factions=" + faction.toString() );
+        }
+    }
 
     if( offLine === false ) {
         // let url = "https://btmul.net/Unit/QuickList?MinPV=1&MaxPV=999";
@@ -108,12 +114,14 @@ export async function getMULASSearchResults(
         url += typesFilterURI.join();
         url += techFilterURI.join();
         url += roleFilterURI.join();
+        url += factionFilterURI.join();
 
         if( searchTerm && searchTerm.trim() ) {
             url += "&Name=" + replaceAll(searchTerm, " ", "%20", false, false, true);
         }
 
         let totalTerms = rulesNumbersURI.length + typesFilterURI.length + techFilterURI.length + roleFilterURI.length;
+        console.log(url);
 
         if(
             searchTerm.length >= 3

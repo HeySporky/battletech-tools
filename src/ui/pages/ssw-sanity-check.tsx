@@ -112,6 +112,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                 "", // role
                 0,
                 10,
+                [], //faction
                 !navigator.onLine,
                 true,
                 this.props.appGlobals,

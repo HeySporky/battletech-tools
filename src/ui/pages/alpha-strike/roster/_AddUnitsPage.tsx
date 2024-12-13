@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { FaBars, FaEye, FaPlus } from "react-icons/fa";
+import { FaBars, FaEye, FaPlus, FaTrash } from "react-icons/fa";
 import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
 import { getMULASSearchResults } from '../../../../utils';
-import { getMULAerospaceRoles, getMULEraIDs, getMULEraLabel, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
+import { getMULAerospaceRoles, getMULEraIDs, getMULEraLabel, getMULFactionIDs, getMULFactionLabels, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
@@ -108,6 +108,46 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       this.updateSearchResults();
     }
 
+    updateFactionSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
+        
+        let appSettings = this.props.appGlobals.appSettings;
+  
+        appSettings.alphaStrikeFactionSearchTerm = event.currentTarget.value;
+        if( appSettings.alphaStrikeFactionSearchTerm.length < 3 ) {
+          appSettings.alphaStrikeFactionSuggestions = [];
+          this.props.appGlobals.saveAppSettings( appSettings );
+          return;
+        }
+
+        let arrFound = [];
+        for( let factionID of getMULFactionIDs() ) {
+          if( getMULFactionLabels(factionID).toLowerCase().includes( appSettings.alphaStrikeFactionSearchTerm.toLowerCase() ) ) {
+            arrFound.push( factionID  );
+          }
+        }
+        appSettings.alphaStrikeFactionSuggestions = arrFound;
+        this.props.appGlobals.saveAppSettings( appSettings );
+    }
+
+    addFactionSelected = ( factionID: number ): void => {
+      if( this.props.appGlobals.appSettings.alphaStrikeSearchFactions.includes( factionID ) ) {
+        return;
+      }
+      let appSettings = this.props.appGlobals.appSettings;
+      appSettings.alphaStrikeSearchFactions.push( factionID );
+      console.log(appSettings.alphaStrikeSearchFactions);
+      this.props.appGlobals.saveAppSettings( appSettings );
+    }
+
+    removeFactionSelected = ( factionID: number ): void => {
+      console.log('removeFactionSelected', factionID);
+      let appSettings = this.props.appGlobals.appSettings;
+      appSettings.alphaStrikeSearchFactions = appSettings.alphaStrikeSearchFactions.filter( (faction) => faction !== factionID );
+      console.log(appSettings.alphaStrikeSearchFactions);
+      this.props.appGlobals.saveAppSettings( appSettings );
+    }
+
+
     updateSearchResults = async (): Promise<void> => {
 
       // console.log("updateSearchResults called")
@@ -118,6 +158,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.props.appGlobals.appSettings.alphaStrikeSearchRole,
         this.props.appGlobals.appSettings.alphaStrikeSearchEra,
         this.props.appGlobals.appSettings.alphaStrikeSearchType,
+        [],//This is where Faction Search will go - Research AppSettings
         !navigator.onLine,
         false,
         this.props.appGlobals,
@@ -169,6 +210,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
       }
     }
+
 
     handleSort = ({ target: { value } }: any) => {
         this.setState({ searchSort: value });
@@ -258,7 +300,20 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         })} */}
                       </select>
                     </label>
-
+                          <InputField
+                         type="search"
+                         onChange={this.updateFactionSearch}
+                         value={this.props.appGlobals.appSettings.alphaStrikeFactionSearchTerm}
+                         label="Faction Search"
+                        />
+                      {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.length > 0 ? (
+                      <label htmlFor="factionFilter">
+                      Add to Faction Filter?<br />
+                      {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.map( (factionID) => { 
+                        return <div className="text-left"><button onClick={() => this.addFactionSelected(factionID)} className="btn-sm btn btn-primary"><FaPlus /></button>&nbsp;{getMULFactionLabels(factionID)}</div>
+                      })}
+                      </label>
+                      ) : null}
                       </div>
                       <div className="col-md-6 text-center">
 
@@ -301,7 +356,16 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                       </select>
                     </label>
+                    {this.props.appGlobals.appSettings.alphaStrikeSearchFactions.length > 0 ? (
+                    <label htmlFor="factionFilter">
+                      Faction Filter:<br />
+                      {this.props.appGlobals.appSettings.alphaStrikeSearchFactions.map( (factionID) => { 
+                        return <div className="text-left"><button onClick={() => this.removeFactionSelected(factionID)} className="btn btn-sm btn-danger"><FaTrash /></button>{getMULFactionLabels(factionID)}</div>
+                      })}
+                      </label>
+                    ):null}
                       </div>
+                     
                     </div>
                   </fieldset>
 

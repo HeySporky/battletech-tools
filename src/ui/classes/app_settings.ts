@@ -21,6 +21,9 @@ export class AppSettings {
     alphaStrikeSearchRole: string = "";
     alphaStrikeSearchEra: number = 0;
     alphaStrikeSearchType: number = 0;
+    alphaStrikeFactionSearchTerm: string = "";
+    alphaStrikeFactionSuggestions: Array<number> = [];
+    alphaStrikeSearchFactions: Array<number> = [];
 
     equipmentEditorFile: string = "";
     asValues: Record<string, number> = {};
