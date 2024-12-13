@@ -329,7 +329,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                       <br /><span className="small-text">{abi.summary}</span>
                                     </td>
                                     <td>
-                                      {abi.cost}
+                                    
                                     </td>
                                   </tr>
 

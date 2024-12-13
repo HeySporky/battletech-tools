@@ -137,6 +137,28 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                         />
                       </div>
                       ) : null}
+                       {unit.currentPilotVeteranAbility ? (
+                        <div className={"card"}>
+                        <AlphaStrikePilotCardSVG
+                          pilotAbility={unit.currentPilotVeteranAbility}
+                          inPlay={false}
+                          appGlobals={this.props.appGlobals}
+                          className="small-margins"
+                          measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
+                        />
+                      </div>
+                      ) : null}
+                      {unit.currentPilotHeroAbility ? (
+                        <div className={"card"}>
+                        <AlphaStrikePilotCardSVG
+                          pilotAbility={unit.currentPilotVeteranAbility}
+                          inPlay={false}
+                          appGlobals={this.props.appGlobals}
+                          className="small-margins"
+                          measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
+                        />
+                      </div>
+                      ) : null}
                     </React.Fragment>
                     )
                   })}

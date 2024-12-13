@@ -342,7 +342,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <text x="988" y="60" textAnchor="end" fontFamily="sans-serif" fontSize="20">Base PV: {this.props.asUnit.basePoints.toString().toUpperCase()}</text>
                 ) : null}
                 {this.props.asUnit.currentPilotAbility ? (
-                    <text x="988" y={this.props.asUnit.currentPoints !== this.props.asUnit.basePoints ? "80" : "60"} textAnchor="end" fontFamily="sans-serif" fontSize="20">Pilot PV: {this.props.asUnit.currentPilotAbility.cost.toString().toUpperCase()}</text>
+                    <text x="988" y={this.props.asUnit.currentPoints !== this.props.asUnit.basePoints ? "80" : "60"} textAnchor="end" fontFamily="sans-serif" fontSize="20">SPA Total: {this.props.asUnit.getTotalPilotAbilityPoints()}</text>
                 ) : null}
                 <rect x="20" y="100" width="550" height="105" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
                 <rect x="25" y="105" width="540" height="95" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>

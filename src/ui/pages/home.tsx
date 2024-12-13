@@ -87,14 +87,16 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                     </h4>
                   <p>This is a development fork of <a href="https://jdgwf.github.io/battletech-tools/">Jeff's Battletech Tools</a>. The goal is to keep the project running and updated after Jeff's untimely passing, while leaving the original site as it was. The original code base can be found on <a href="https://github.com/jdgwf/battletech-tools">GitHub</a>.</p>
 
-                  <p>This first push will have Formation Bonuses from the Davion Force Manual, as well as an Updated ReadMe as a test of the deployment systems.</p>
-                  <p>
-                    <li><strong>Patch Notes</strong></li>
-                    <li>- Added Davion Force Manual Formations to AS Builder</li>
-                    <li>- Updated ReadMes</li>
-                    <li>- Removed extraneous console warnings</li>
-                    <li>- Disabled custom analytics</li>
-                  </p>
+                    <p>This first push will have Formation Bonuses from the Davion Force Manual, as well as an Updated ReadMe as a test of the deployment systems.</p>
+                    <p><strong>Patch Notes</strong></p>
+                    <p>- Added Davion Force Manual Formations to AS Builder</p>
+                    <p>- Updated ReadMes</p>
+                    <p>- Removed extraneous console warnings</p>
+                    <p>- Disabled custom analytics</p>
+                    <p>- Made Special Pilot Ability rules more clear on pilot edit page</p>
+                    <p>- Fixed bug where SPAs were being added to force PV totals.</p>
+                    <p>- Fixed bug where first picked SPA description was showing for second and third SPAs</p>
+                    <p>- All of a pilot's SPAs now show when printing your force.</p>
                   </li>
                   
                   </ul>
