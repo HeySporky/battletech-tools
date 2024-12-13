@@ -65,7 +65,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                     <li>
                       <h4><Link to="settings/backup-and-restore">Backing up and Restoring</Link></h4>
                       <p className="alert alert-warning alert-thin">Your data is always private and stored on your own device. This means that if you lose your device you lose your data!</p>
-                      <p><strong>He wanted this app to be forever free and forever open source,</strong> even after his untimely demise. Having this app hosted at GitHub helps guarantee that.</p>
+                      <p><strong>Jeff wanted this app to be forever free and forever open source,</strong> even after his untimely demise. Having this app hosted at GitHub helps guarantee that.</p>
                     </li>
                   </ul>
                   <h3>Why? What's the purpose of ths app? I use Solaris Skunk Werks/Mech Factory/ etc.</h3>
