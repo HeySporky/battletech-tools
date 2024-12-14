@@ -29,7 +29,7 @@ export async function getMULASSearchResults(
     roleFilter: string,
     eraFilter: number,
     typeFilter: number,
-    factionFilter: Array<number>,
+    factionFilter: number[],
     offLine: boolean,
     overrideSearchLimitLength: boolean = false,
     appGlobals: IAppGlobals | null = null,
@@ -40,7 +40,6 @@ export async function getMULASSearchResults(
     let rulesNumbersURI: string[] = [];
 
     // console.log("mechRules", mechRules, searchTerm)
-
 
     if( mechRules.toLowerCase() === "introductory" ) {
         rulesNumbersURI.push( "&Rules=55" );
@@ -93,7 +92,7 @@ export async function getMULASSearchResults(
     let factionFilterURI: string[] = [];
     if( factionFilter.length > 0 ) {
         for( let faction of factionFilter ) {
-            factionFilterURI.push( "&Factions=" + faction.toString() );
+            factionFilterURI.push( "&Factions=" + faction );
         }
     }
     console.log('Searching...');
@@ -114,7 +113,7 @@ export async function getMULASSearchResults(
         url += typesFilterURI.join();
         url += techFilterURI.join();
         url += roleFilterURI.join();
-        url += factionFilterURI.join();
+        url += factionFilterURI.join("");
 
         if( searchTerm && searchTerm.trim() ) {
             url += "&Name=" + replaceAll(searchTerm, " ", "%20", false, false, true);
