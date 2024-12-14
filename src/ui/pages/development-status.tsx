@@ -14,10 +14,16 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
     render = (): JSX.Element => {
       return (
         <UIPage current="dev-status" appGlobals={this.props.appGlobals}>
-            <h2>Development Status</h2>
-
-            <p><strong>Current Focus:</strong> Understanding the Repo</p>
             <div className="flex">
+
+            <TextSection label="Development Status" className='grow with-margins large-max-width-100'>
+
+            <p><strong>Current Focus:</strong> Understanding the Repo<br />
+            <strong>Production Site:</strong> <a href="https://jeffs-bt-tools.github.io/battletech-tools">https://jeffs-bt-tools.github.io/battletech-tools</a><br />
+            <strong>Development Site:</strong> <a href="https://heysporky.github.io/battletech-tools">https://heysporky.github.io/battletech-tools</a><br />
+            <strong>Development Repo</strong> <a href="https://github.com/HeySporky/battletech-tools">https://github.com/HeySporky/battletech-tools</a></p>
+            </TextSection>
+            
 
               <TextSection
             label="General App"
@@ -39,11 +45,11 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                 className="grow with-margins large-max-width-50"
               >
 
-                    <div className="alert alert-success">This will be the focus of initial efforts in taking over the project.</div>
+                    <div className="alert alert-success">This will be the focus of our initial efforts.</div>
                     <ul>
-                      <li>Force Manual Formation Bonuses</li>
-                      <li>Filter Mechs by Faction</li>
-                      <li>SPA Point Calculation Fix</li>
+                      <li>Force Manual Formation Bonuses (Davion done... Kurita is gonna be hard.)</li>
+                      <li><del>Filter Mechs by Faction</del></li>
+                      <li><del>SPA Point Calculation Fix</del></li>
                     </ul>
                   </TextSection>
 
