@@ -83,6 +83,13 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                   <h4>
+                      <strong>December 13th, 2024</strong> - New Fork
+                    </h4>
+                      <p>Temporary Patch notes - Beta Testing Alpha Strike</p>
+
+                   </li>                
+                  <li>
+                  <h4>
                       <strong>December 12th, 2024</strong> - New Fork
                     </h4>
                   <p>This is a development fork of <a href="https://jdgwf.github.io/battletech-tools/">Jeff's Battletech Tools</a>. The goal is to keep the project running and updated after Jeff's untimely passing, while leaving the original site as it was. The original code base can be found on <a href="https://github.com/jdgwf/battletech-tools">GitHub</a>.</p>

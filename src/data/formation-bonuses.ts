@@ -457,7 +457,6 @@ class RifleLance extends FormationBonusBase implements IFormationBonus {
     RequirementsDescription: string = "Exclusive to House Davion (Not Implemented). At least 75 percent of the units in this Formation must be Medium or Heavy (Size 2 or 3). No units may be Light (Size 1). At least 50 percent of these units must have an autocannon, including LB-X, Ultra, or Rotary autocannons (usually with the AC or FLK special ability), and all units must have at least a minimum Walk/Cruise speed of 4 (Move 8”+).";
 
     IsValid(group: AlphaStrikeGroup): boolean {
-        console.log('Rifle Lance');
         let result = true;
         result = result && (group.members.filter(x=>x.size===1).length===0);
         result = result && (Math.ceil(group.members.length*.75)<=(group.members.filter(x=>x.size===2||x.size===3).length));

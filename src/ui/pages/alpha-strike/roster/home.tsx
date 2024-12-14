@@ -55,6 +55,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             "", // Role
             0, // clan invasion
             0, // Type Filter
+            [], //Faction Filter
             !navigator.onLine,
             false,
             this.props.appGlobals,
