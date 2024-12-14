@@ -147,7 +147,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
               <div className="print-logo">
                 <BattleTechLogo />
               </div>
-              <p>Printed using Jeff's BattleTech Tools at https://heysporky.github.io/battletech-tools/. Huge thanks to the Master Unit List</p>
+              <p>Printed using Jeff's BattleTech Tools IIC at https://{window.location.hostname}/battletech-tools/. Huge thanks to the Master Unit List</p>
               <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.</p>
             </div>
           </div>

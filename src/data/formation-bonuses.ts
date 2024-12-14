@@ -461,7 +461,7 @@ class RifleLance extends FormationBonusBase implements IFormationBonus {
         result = result && (group.members.filter(x=>x.size===1).length===0);
         result = result && (Math.ceil(group.members.length*.75)<=(group.members.filter(x=>x.size===2||x.size===3).length));
         result = result && (Math.ceil(group.members.length*.5)<=group.members.filter(x=>(x.abilities.filter(y=>y.includes('AC')||y.includes('FLK')).length>0)).length);
-        result = result && (group.members.filter(x=>x.move.filter(y=>y.move>8)).length===group.members.length);
+        result = result && (group.members.filter(x=>x.move.filter(y=>y.move>=8)).length===group.members.length);
         return result;
     }
 

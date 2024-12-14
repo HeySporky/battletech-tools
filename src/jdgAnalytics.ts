@@ -5,7 +5,7 @@ export function callAnalytics(
     appSessionID: string = "",
     appVersion: string = "",
 ) {
-    //Spork: Disabling Analytics for now
+    //Disabling Analytics for now
     return;
     /*
     try {
