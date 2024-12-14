@@ -88,6 +88,10 @@ export class AppSettings {
                 this.alphaStrikeSearchRole = io.alphaStrikeSearchRole;
             }
 
+            if ( typeof( io.alphaStrikeSearchFactions ) !== "undefined" ) {
+                this.alphaStrikeSearchFactions = io.alphaStrikeSearchFactions;
+            }
+
             if ( typeof( io.asValues ) !== "undefined" ) {
                 this.asValues = io.asValues;
             }
@@ -117,6 +121,8 @@ export class AppSettings {
             alphaStrikeSearchRole: this.alphaStrikeSearchRole,
             alphaStrikeMeasurementsInHexes: this.alphaStrikeMeasurementsInHexes,
             asValues: this.asValues,
+            alphaStrikeSearchFactions: this.alphaStrikeSearchFactions,
+        
 
             mechRulesFilter: this.mechRulesFilter,
             mechNameFilter: this.mechNameFilter,
@@ -139,7 +145,8 @@ export interface IAppSettingsExport {
     alphaStrikeSearchType: number;
     alphaStrikeInPlayCardMode: boolean;
     alphaStrikeMeasurementsInHexes: boolean;
-
+    alphaStrikeSearchFactions: Array<number>;
+   
     equipmentEditorFile: string;
     asValues: Record<string, number>;
 

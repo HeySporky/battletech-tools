@@ -137,6 +137,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       appSettings.alphaStrikeSearchFactions.push( factionID );
       console.log(appSettings.alphaStrikeSearchFactions);
       this.props.appGlobals.saveAppSettings( appSettings );
+      this.updateSearchResults();
     }
 
     removeFactionSelected = ( factionID: number ): void => {
@@ -145,6 +146,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       appSettings.alphaStrikeSearchFactions = appSettings.alphaStrikeSearchFactions.filter( (faction) => faction !== factionID );
       console.log(appSettings.alphaStrikeSearchFactions);
       this.props.appGlobals.saveAppSettings( appSettings );
+      this.updateSearchResults();
     }
 
 
@@ -158,7 +160,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.props.appGlobals.appSettings.alphaStrikeSearchRole,
         this.props.appGlobals.appSettings.alphaStrikeSearchEra,
         this.props.appGlobals.appSettings.alphaStrikeSearchType,
-        [],//This is where Faction Search will go - Research AppSettings
+        this.props.appGlobals.appSettings.alphaStrikeSearchFactions,//This is where Faction Search will go - Research AppSettings
         !navigator.onLine,
         false,
         this.props.appGlobals,
@@ -300,20 +302,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         })} */}
                       </select>
                     </label>
-                          <InputField
-                         type="search"
-                         onChange={this.updateFactionSearch}
-                         value={this.props.appGlobals.appSettings.alphaStrikeFactionSearchTerm}
-                         label="Faction Search"
-                        />
-                      {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.length > 0 ? (
-                      <label htmlFor="factionFilter">
-                      Add to Faction Filter?<br />
-                      {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.map( (factionID) => { 
-                        return <div className="text-left"><button onClick={() => this.addFactionSelected(factionID)} className="btn-sm btn btn-primary"><FaPlus /></button>&nbsp;{getMULFactionLabels(factionID)}</div>
-                      })}
-                      </label>
-                      ) : null}
+                          
+                      
                       </div>
                       <div className="col-md-6 text-center">
 
@@ -356,17 +346,43 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                       </select>
                     </label>
-                    {this.props.appGlobals.appSettings.alphaStrikeSearchFactions.length > 0 ? (
+                    
+                      </div>
+                     
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 text-center">
+                      <InputField
+                         type="search"
+                         onChange={this.updateFactionSearch}
+                         value={this.props.appGlobals.appSettings.alphaStrikeFactionSearchTerm}
+                         label="Filter Availability By Factions"
+                         placeholder='Type 3 or more characters to search. MUL uses OR logic for multiple factions.'
+                        />
+                      </div>
+                      <div className="col-md-6 text-center">
+                      {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.length > 0 ? (
+                      <label htmlFor="factionFilter">
+                      Add to Faction Filter?<br />
+                      {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.map( (factionID) => { 
+                        return <div className="text-left"><button onClick={() => this.addFactionSelected(factionID)} className="btn-sm btn btn-primary"><FaPlus /></button>&nbsp;{getMULFactionLabels(factionID)}</div>
+                      })}
+                      </label>
+                      ) : null}
+                      </div>
+                      <div className="col-md-6 text-center">
+                      {this.props.appGlobals.appSettings.alphaStrikeSearchFactions.length > 0 ? (
                     <label htmlFor="factionFilter">
-                      Faction Filter:<br />
+                      Current Faction Filter:<br />
                       {this.props.appGlobals.appSettings.alphaStrikeSearchFactions.map( (factionID) => { 
                         return <div className="text-left"><button onClick={() => this.removeFactionSelected(factionID)} className="btn btn-sm btn-danger"><FaTrash /></button>{getMULFactionLabels(factionID)}</div>
                       })}
                       </label>
                     ):null}
                       </div>
-                     
                     </div>
+                  
+
                   </fieldset>
 
                 <h3 className="text-center">Search Results ({this.state.searchResults.length})</h3>

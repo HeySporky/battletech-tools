@@ -96,7 +96,7 @@ export async function getMULASSearchResults(
             factionFilterURI.push( "&Factions=" + faction.toString() );
         }
     }
-
+    console.log('Searching...');
     if( offLine === false ) {
         // let url = "https://btmul.net/Unit/QuickList?MinPV=1&MaxPV=999";
         // let url = "http://localhost:5001/Unit/QuickList?MinPV=1&MaxPV=999";
@@ -121,7 +121,6 @@ export async function getMULASSearchResults(
         }
 
         let totalTerms = rulesNumbersURI.length + typesFilterURI.length + techFilterURI.length + roleFilterURI.length;
-        console.log(url);
 
         if(
             searchTerm.length >= 3
