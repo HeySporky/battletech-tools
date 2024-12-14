@@ -18,11 +18,17 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
     render = (): JSX.Element => {
       return (
         <UIPage current="home" appGlobals={this.props.appGlobals}>
-
+          <div className="row">
+            <div className="col-md">
+            <TextSection label="Jeff's Battletech Tools IIC - State of the Site">
+              The original <a href="https://jdgwf.github.io/battletech-tools">Jeff's BattleTech Tools</a> was created by Jeffery D. Gordon. He passed from cancer in late 2024. This site is a fork of his original work, and is maintained by a group of volunteers. We are working to keep the site up to date and add new features. If you have any questions or suggestions, please feel free to reach out to us on the <a href="https://discord.gg/DYr7jKg3">Discord</a>.
+             <br /><br />Cancer sucks. Donate today to help those in need: <a href="https://donate.cancer.org">https://donate.cancer.org</a><br /><br /></TextSection>
+              </div>
+          </div>
           <div className="row">
             <div className="col-md">
               <TextSection
-                label="Jeff's BattleTech Tools"
+                label="Available Tools"
                 >
                   <ul className='styleless'>
                     <li>
@@ -82,16 +88,18 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             >
                   <ul className="news">
                   <li>
-                  <h4>
-                      <strong>December 13th, 2024</strong> - New Fork
-                    </h4>
-                      <p>Temporary Patch notes - Beta Testing Alpha Strike</p>
+                  <h3>
+                      <strong>December 13th, 2024</strong> - Faction Filtering
+                    </h3>
+                    <h4>Author - Spork</h4>
+                      <p>We've added Faction Filters to the Alpha Strike Roster. It works identically to the <a href="http://masterunitlist.info">MUL</a> faction search on the unit page. The search will pull up a mech if it's available for ANY of the factions you pick, not ALL of them.</p>
 
                    </li>                
                   <li>
-                  <h4>
+                  <h3>
                       <strong>December 12th, 2024</strong> - New Fork
-                    </h4>
+                    </h3>
+                    <h4>Author - Spork</h4>
                   <p>This is a development fork of <a href="https://jdgwf.github.io/battletech-tools/">Jeff's Battletech Tools</a>. The goal is to keep the project running and updated after Jeff's untimely passing, while leaving the original site as it was. The original code base can be found on <a href="https://github.com/jdgwf/battletech-tools">GitHub</a>.</p>
 
                     <p>This first push will have Formation Bonuses from the Davion Force Manual, as well as an Updated ReadMe as a test of the deployment systems.</p>
@@ -104,6 +112,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                     <p>- Fixed bug where SPAs were being added to force PV totals.</p>
                     <p>- Fixed bug where first picked SPA description was showing for second and third SPAs</p>
                     <p>- All of a pilot's SPAs now show when printing your force.</p>
+
                   </li>
                   
                   </ul>

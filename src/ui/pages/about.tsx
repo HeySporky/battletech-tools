@@ -16,13 +16,18 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
     render = (): JSX.Element => {
       return (
     <UIPage current="about" appGlobals={this.props.appGlobals}>
-
-    <div className="text-center">Version {pjson.version}</div>
-
     <div className="row">
         <div className="col-md-6">
+        <TextSection
+            label="Current Maintainers"
+          >   
+              <h4>Michael "Spork" Evans</h4>
+              <strong>Developer</strong><br /><a href="https://github.com/HeySporky">GitHub</a><br /><br />
+              <h4>A Great Discord Community -  <a href="https://discord.gg/DYr7jKg3">Join us!</a></h4>
+              <br />
+              </TextSection>
           <TextSection
-            label="Credits"
+            label="Original Maintainers"
           >
               <h4><a href="https://github.com/JDGwf" rel="noopener noreferrer" target="_blank">Jeffrey D. Gordon</a></h4>
               <strong>Original Developer</strong> - <a href="https://jdgwf.com/">Jeffery D. Gordon</a><br />
@@ -39,6 +44,16 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
               </TextSection>
         </div>
         <div className="col-md-6">
+        <TextSection
+          label="Software License"
+        >
+            <p>This project is open source (GPLv3) with exceptions to the Data directory, see below.</p>
+
+            <p>View the full license here: <a href="https://github.com/HeySporky/battletech-tools/blob/master/LICENSE">at the GitHub repository</a></p>
+
+            <h4>Exceptions</h4>
+            <p>The data in ./src/data/* contains copyrighted material and is not included. Each of the comments header in the file repeats this exception in the above license.</p>
+          </TextSection>
           <TextSection
             label="Copyrights"
           >
@@ -51,31 +66,14 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
 
           <p><a href="http://bg.battletech.com/?page_id=34">See additional information on the BattleTech The Board Game Website</a></p>
         </TextSection>
-
-      </div>
-    </div>
-    <div className="row">
-      <div className="col-md-6">
         <TextSection
-          label="Software License"
-        >
-            <p>This project is open source (GPLv3) with exceptions to the Data directory, see below.</p>
-
-            <p>View the full license here: <a href="https://github.com/HeySporky/battletech-tools/blob/master/LICENSE">at the GitHub repository</a></p>
-
-            <h4>Exceptions</h4>
-            <p>The data in ./src/data/* contains copyrighted material and is not included. Each of the comments header in the file repeats this exception in the above license.</p>
-          </TextSection>
-        </div>
-
-      <div className="col-md-6">
-      <TextSection
         label="Bug Reporting"
       >
           <p>Please submit any bugs as issues on the <a href="https://github.com/HeySporky/battletech-tools/issues">github project</a>.</p>
         </TextSection>
       </div>
-	</div>
+    </div>
+
           </UIPage>
       );
     }

@@ -1805,7 +1805,7 @@ Neither Topps nor Catalyst Game Labs makes no representation or warranty as to t
         style={{fontWeight: 700}}
         fontSize={20}
     >
-    Created with Jeff's BattleTech Tools
+    Created with Jeff's BattleTech Tools IIC
     </text>
     <text
         x={20}
