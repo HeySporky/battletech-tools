@@ -22,8 +22,8 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
             label="Current Maintainers"
           >   
               <h4>Michael "Spork" Evans</h4>
-              <strong>Developer</strong><br /><a href="https://github.com/HeySporky">GitHub</a><br /><br />
-              <h4>A Great Discord Community -  <a href="https://discord.gg/DYr7jKg3">Join us!</a></h4>
+              <strong>Developer</strong><br /><a href="https://github.com/HeySporky" target="_blank">GitHub</a><br /><br />
+              <h4>A Great Discord Community -  <a href="https://discord.gg/DYr7jKg3" target="_blank">Join us!</a></h4>
               <br />
               </TextSection>
           <TextSection

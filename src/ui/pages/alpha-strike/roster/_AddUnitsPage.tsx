@@ -239,7 +239,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             label="Search for Units"
         >
             <div className="small-text text-center">
-                We integrate with the <a href="http://masterunitlist.info/" target="mul">Master Unit List</a> to make sure that all the stats are as official and as up to date as possible.
+                We integrate with the <a href="http://masterunitlist.info/" target="_blank">Master Unit List</a> to make sure that all the stats are as official and as up to date as possible.
             </div>
 {navigator && navigator.onLine ? (
     <>

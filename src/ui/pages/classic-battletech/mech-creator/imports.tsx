@@ -301,7 +301,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                             <p>Since we're still short on base equipment for Clans, right now only the TRO3039 is loadable. Don't worry we'll get it taken care of as this app develops. TRO 3050/3055 is the next target!</p>
 
                             <div className="text-center">
-                              <a href="https://github.com/Solaris-Skunk-Werks/SSW-Master" target="ssw">Solaris Skunk Werks Master Data Repo</a>
+                              <a href="https://github.com/Solaris-Skunk-Werks/SSW-Master" target="_blank">Solaris Skunk Werks Master Data Repo</a>
                             </div>
 
                           </div>

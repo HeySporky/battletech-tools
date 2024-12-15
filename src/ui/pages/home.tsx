@@ -22,7 +22,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             <div className="col-md">
             <TextSection label="Jeff's Battletech Tools IIC - State of the Site">
               The original <a href="https://jdgwf.github.io/battletech-tools">Jeff's BattleTech Tools</a> was created by Jeffery D. Gordon. He passed from cancer in late 2024. This site is a fork of his original work, and is maintained by a group of volunteers. We are working to keep the site up to date and add new features. If you have any questions or suggestions, please feel free to reach out to us on the <a href="https://discord.gg/DYr7jKg3">Discord</a>.
-             <br /><br />Cancer sucks. Donate today to help those in need: <a href="https://donate.cancer.org">https://donate.cancer.org</a><br /><br /></TextSection>
+             <br /><br />Cancer sucks. Donate today to help those in need: <a href="https://donate.cancer.org" target="_blank">https://donate.cancer.org</a><br /><br /></TextSection>
               </div>
           </div>
           <div className="row">
@@ -34,7 +34,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                     <li>
                       <h3><Link to="alpha-strike/roster">Alpha Strike Roster</Link></h3>
                       <ul>
-                        <li>The ability to search the <a href="http://masterunitlist.info" target="mul">Master Unit List (MUL)</a> and add Alpha Strike Units to your Companies/Lances/Stars/Binaries, etc.</li>
+                        <li>The ability to search the <a href="http://masterunitlist.info" target="_blank">Master Unit List (MUL)</a> and add Alpha Strike Units to your Companies/Lances/Stars/Binaries, etc.</li>
                         <li>After the MUL is searched and added to your forces, your units are stored offline on your local device.</li>
                         <li>You may print your AS forces here (which you can do on the MUL if you like), but more importantly you can...</li>
                         <li>Play your Alpha Strike games using a live in-play virtual stack of Alpha Strike Cards. When you unit takes damage or heat, the effects of the damage affect the card live and immediately. All your to-hit rolls are updated on-the-fly.</li>
@@ -92,7 +92,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                       <strong>December 13th, 2024</strong> - Faction Filtering
                     </h3>
                     <h4>Author - Spork</h4>
-                      <p>We've added Faction Filters to the Alpha Strike Roster. It works identically to the <a href="http://masterunitlist.info">MUL</a> faction search on the unit page. The search will pull up a mech if it's available for ANY of the factions you pick, not ALL of them.</p>
+                      <p>We've added Faction Filters to the Alpha Strike Roster. It works identically to the <a href="http://masterunitlist.info" target="_blank">MUL</a> faction search on the unit page. The search will pull up a mech if it's available for ANY of the factions you pick, not ALL of them.</p>
 
                    </li>                
                   <li>
@@ -100,7 +100,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                       <strong>December 12th, 2024</strong> - New Fork
                     </h3>
                     <h4>Author - Spork</h4>
-                  <p>This is a development fork of <a href="https://jdgwf.github.io/battletech-tools/">Jeff's Battletech Tools</a>. The goal is to keep the project running and updated after Jeff's untimely passing, while leaving the original site as it was. The original code base can be found on <a href="https://github.com/jdgwf/battletech-tools">GitHub</a>.</p>
+                  <p>This is a development fork of <a href="https://jdgwf.github.io/battletech-tools/" target="_blank">Jeff's Battletech Tools</a>. The goal is to keep the project running and updated after Jeff's untimely passing, while leaving the original site as it was. The original code base can be found on <a href="https://github.com/jdgwf/battletech-tools">GitHub</a>.</p>
 
                     <p>This first push will have Formation Bonuses from the Davion Force Manual, as well as an Updated ReadMe as a test of the deployment systems.</p>
                     <p><strong>Patch Notes</strong></p>
