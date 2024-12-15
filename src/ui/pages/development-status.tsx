@@ -19,9 +19,9 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
             <TextSection label="Development Status" className='grow with-margins large-max-width-100'>
 
             <p><strong>Current Focus:</strong> Understanding the Repo<br />
-            <strong>Production Site:</strong> <a href="https://jeffs-bt-tools.github.io/battletech-tools">https://jeffs-bt-tools.github.io/battletech-tools</a><br />
-            <strong>Development Site:</strong> <a href="https://heysporky.github.io/battletech-tools">https://heysporky.github.io/battletech-tools</a><br />
-            <strong>Development Repo</strong> <a href="https://github.com/HeySporky/battletech-tools">https://github.com/HeySporky/battletech-tools</a></p>
+            <strong>Production Site:</strong> <a href="https://jeffs-bt-tools.github.io/battletech-tools" target="_blank">https://jeffs-bt-tools.github.io/battletech-tools</a><br />
+            <strong>Development Site:</strong> <a href="https://heysporky.github.io/battletech-tools" target="_blank">https://heysporky.github.io/battletech-tools</a><br />
+            <strong>Development Repo</strong> <a href="https://github.com/HeySporky/battletech-tools" target="_blank">https://github.com/HeySporky/battletech-tools</a></p>
             </TextSection>
             
 
