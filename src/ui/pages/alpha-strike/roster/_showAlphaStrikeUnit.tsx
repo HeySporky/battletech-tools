@@ -5,6 +5,7 @@ import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import StandardModal from '../../../components/standard-modal';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
+import { formationBonuses } from '../../../../data/formation-bonuses';
 
 export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlphaStrikeUnitEditViewModalProps, IAlphaStrikeUnitEditViewModalState> {
 
@@ -19,6 +20,10 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
     updateUnitSkill = (event: React.FormEvent<HTMLSelectElement>): void => {
       if(this.props.showASUnit) {
         this.props.showASUnit.setSkill( +event.currentTarget.value );
+        for(let i = 0; i < this.props.appGlobals.currentASForce!.groups.length; i++){
+          this.props.appGlobals.currentASForce!.groups[i].setAvailableFormationBonuses(formationBonuses.filter(x => x.IsValid(this.props.appGlobals.currentASForce!.groups[i])));
+          console.log(this.props.appGlobals.currentASForce!.groups[i].availableFormationBonuses)
+         }
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
     }
