@@ -489,6 +489,9 @@ class PhalanxStar extends FormationBonusBase implements IFormationBonus {
     
     IsValid(group: AlphaStrikeGroup): boolean {
         let result = true;
+        if(group.members.length === 0){
+            return result;
+        }
         let aType = group.members.map(x => x.type);
 
         //TODO: Are we going to run into other formations that care about type? If so, make TypeCount function.
@@ -507,6 +510,9 @@ class RogueStar extends FormationBonusBase implements IFormationBonus {
 
     IsValid(group: AlphaStrikeGroup): boolean {
         let result = true;
+        if(group.members.length === 0){
+            return result;
+        }
         let aName = group.members.map(x => x.name);
         //At least two of the same named model. Duplicated model will not have the same index as the first model, so that's what we're looking for.
         result = result && (aName.filter((x, index, arr) => arr.indexOf(x) !== index).length >= 1);
@@ -521,6 +527,9 @@ class StrategicCommandStar extends FormationBonusBase implements IFormationBonus
 
     IsValid(group: AlphaStrikeGroup): boolean {
         let result = true;
+        if(group.members.length === 0){
+            return result;
+        }
         //Exactly 1 Aerospace Fighter
         result = result && (group.members.filter(x => x.type === 'CF').length === 1);
         //Either 4 Mechs or 4 Elementals
