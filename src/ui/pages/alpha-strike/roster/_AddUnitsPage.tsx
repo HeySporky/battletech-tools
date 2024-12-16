@@ -135,7 +135,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       }
       let appSettings = this.props.appGlobals.appSettings;
       appSettings.alphaStrikeSearchFactions.push( factionID );
-      console.log(appSettings.alphaStrikeSearchFactions);
       this.props.appGlobals.saveAppSettings( appSettings );
       this.updateSearchResults();
     }
@@ -201,7 +200,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       groupIndex: number = 0,
     ): void => {
       if( this.props.appGlobals.currentASForce ) {
-
         this.props.appGlobals.currentASForce.addToGroup( mulUnit, groupIndex );
 
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );

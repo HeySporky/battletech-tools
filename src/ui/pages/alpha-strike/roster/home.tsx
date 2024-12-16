@@ -15,6 +15,7 @@ import AlphaStrikeUnitEditViewModal from './_showAlphaStrikeUnit';
 import { CONST_FORCE_PACKS, IForcePack } from "../../../../data/force-packs-mechs";
 import { joinListWithEndLabel } from "../../../../utils/joinListWithEndLabel";
 import { getMULASSearchResults } from "../../../../utils";
+import { formationBonuses } from '../../../..//data/formation-bonuses';
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
 
@@ -269,6 +270,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
 
         if( newGroup.members.length > 0 ) {
+          newGroup.setAvailableFormationBonuses(formationBonuses.filter(x=>x.IsValid(newGroup)))
           currentASForce.groups.push( newGroup );
           this.props.appGlobals.saveCurrentASForce( currentASForce );
           this.setState({

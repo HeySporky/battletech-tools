@@ -24,7 +24,6 @@ class FormationBonusBase {
     RoleCount(group:AlphaStrikeGroup, role:string):number{
         return group.members.filter(x=>x.role===role).length;
     }
-
 }
 class None extends FormationBonusBase implements IFormationBonus {
     Name: string="None";
@@ -428,6 +427,10 @@ class CommandLance extends FormationBonusBase implements IFormationBonus {
     RequirementsDescription: string = "At least one unit in the Command Lance must be designated as either the force commander or a key lieutenant. For the purposes of building a force, these rules recommend that one unit in the overall combat force be identified as the force’s field commander, with no more than 1 sub-commanding lieutenant assigned for every 6 non-infantry units in the entire force. The Command Lance would then be established as the lance in which the senior force commander is assigned, but additional Command Lances can be built around the sub-commanders as well. In this formation, 50 percent of the units must have one of the following unit roles: Sniper, Missile Boat, Skirmisher, or Juggernaut. One additional unit in the lance must be a Brawler, Striker, or Scout. The unit designated as the commander’s unit may be any of the lance’s members, including these prerequisite units.";
 
     IsValid(group: AlphaStrikeGroup): boolean {
+        if(group.members.length === 0){
+            //This is the only formation that doesn't show in empty groups, so I'm forcing it to.
+            return true;
+        }
         let result =true;
         //50 percent of the units must have one of the following unit roles: Sniper, Missile Boat, Skirmisher, or Juggernaut.
         //One additional unit in the lance must be a Brawler, Striker, or Scout.
@@ -479,6 +482,59 @@ class HunterLance extends FormationBonusBase implements IFormationBonus {
     }
 }
 
+class PhalanxStar extends FormationBonusBase implements IFormationBonus {
+    Name: string = "Phalanx Star"
+    BonusDescription: string = "The Phalanx Star Formation receives the equivalent of a 4-point Float Like A Butterfly Special Pilot Ability (see p . 96, AS:CE), except that the ability may be used by any unit in the Phalanx Star, rather one unit alone . This SPA need not be assigned to any specific unit(s) and may be employed after a successful attack or critical hit roll by any unit, to a maximum of six times for the entire Formation per track . As with the normal Float Like A Butterfly SPA, only one reroll per attack or critical hit roll is possible.";
+    RequirementsDescription: string = "The Phalanx Star must consist of at least two combat vehicles or BattleMechs, with the remainder of the Star comprised of Elementals, more combat vehicles or more BattleMechs . There must be at least two different unit types (BattleMech, combat vehicle, battle armor) in a Phalanx Star . A Clan Steel Viper Phalanx Star may include conventional infantry in place of battle armor."    
+    
+    IsValid(group: AlphaStrikeGroup): boolean {
+        let result = true;
+        let aType = group.members.map(x => x.type);
+
+        //TODO: Are we going to run into other formations that care about type? If so, make TypeCount function.
+        result = result && (aType.filter(x => x === 'BM').length >= 2 || aType.filter(x => x === 'CV').length >= 2);
+        //Make sure there's at least 2 different types. 2 items will have an index of 0 if that's true.
+        result = result && (aType.filter((x,index, arr) => arr.indexOf(x) === index).length >= 2);
+        result = result && (aType.filter(x => x !== 'BM' && x !== 'CV' && x !== 'BA' && x !== 'CI' ).length < 1)
+        return result
+    }
+}
+
+class RogueStar extends FormationBonusBase implements IFormationBonus {
+    Name: string = "Rogue Star";
+    BonusDescription: string = "At the beginning of each turn, up to two Rogue Star units may receive the Combat Intuition Special Pilot Ability (see p . 73, CO, or p . 93, AS:CE).";
+    RequirementsDescription: string = "At least two of the units in the Formation must be the same model (including the same OmniMech configuration).";
+
+    IsValid(group: AlphaStrikeGroup): boolean {
+        let result = true;
+        let aName = group.members.map(x => x.name);
+        //At least two of the same named model. Duplicated model will not have the same index as the first model, so that's what we're looking for.
+        result = result && (aName.filter((x, index, arr) => arr.indexOf(x) !== index).length >= 1);
+        return result;
+    }
+}
+
+class StrategicCommandStar extends FormationBonusBase implements IFormationBonus {
+    Name: string = "Strategic Command Star";
+    BonusDescription: string = "The Strategic Command Star receives the same bonus abilities as a Command Star . The Strategic Command Star is treated as a Command Lance for the purposes of a Support Lance Formation, if present";
+    RequirementsDescription: string = " This Formation must be comprised of either 4 points of ’Mechs or Elementals and 1 point of aerospace fighters .  If the Strategic Command Star is comprised of ’Mechs, at least two must be Heavy or Assault ’Mechs .  No ’Mechs may be light or size 1 . In addition, every unit must have a Gunnery Skill rating of 3 (TW) or Skill 3 (AS) . The unit designated as the commander’s unit may be any of the Star’s members, except for the aerospace units ";
+
+    IsValid(group: AlphaStrikeGroup): boolean {
+        let result = true;
+        //Exactly 1 Aerospace Fighter
+        result = result && (group.members.filter(x => x.type === 'CF').length === 1);
+        //Either 4 Mechs or 4 Elementals
+        result = result && (group.members.filter(x => x.type ==='BM').length === 4 || group.members.filter(x => x.type === 'BA').length === 4);
+        //If Mechs, check they're not little baby mechs.
+        if(group.members.filter(x => x.type === 'BM').length > 0){
+            result = result && (group.members.filter(x => x.size === 1 && x.type === 'BM').length === 0);
+            result = result && (group.members.filter(x => x.size >= 3).length >=2);
+        }
+        result = result && (group.members.filter(x => x.currentSkill <= 3).length === group.members.length);
+        return result;
+    }
+}
+
 class SupportLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Support Lance";
     BonusDescription: string = "Before the start of play, each Support Lance must designate one other formation type in its army to support. Half of the units in the Support Lance (round down) receive the same SPAs as the supported formation. The Support Lance’s number of SPAs received of each type may not exceed the number the supported formation receives, as determined at start of play. If a bonus ability from the supported formation is assigned at the beginning of each turn, the Support Lance must assign them at start of play and may not switch them to another unit during game play. This bonus ability is retained as long as the Support Lance still has three or more active units on the field; they are not lost if the supported lance is reduced below its own ability to retain the bonus ability. If the Support Lance is supporting a Command Lance, it receives the two SPAs assigned to the Command Lance’s non-commander units, assigning one SPA each to any appropriate Support Lance unit. However, the Support Lance does not receive the commander’s Tactical Genius Special Pilot Ability.";
@@ -518,6 +574,9 @@ export const formationBonuses: IFormationBonus[] = [
     new LightFireLance(),
     new RifleLance(),
     new HunterLance(),
+    new PhalanxStar(),
+    new RogueStar(),
+    new StrategicCommandStar(),
     new SupportLance(),
 
 ];
