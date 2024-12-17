@@ -3,14 +3,13 @@ import { IAppGlobals } from '../app-router';
 import './about.scss';
 import UIPage from '../components/ui-page';
 import TextSection from '../components/text-section';
-let pjson = require('../../../package.json');
 
 export default class About extends React.Component<IAboutProps, IAboutState> {
 
   constructor(props: IAboutProps) {
     super(props);
 
-    this.props.appGlobals.makeDocumentTitle("About Jeff's BattleTech Tools");
+    this.props.appGlobals.makeDocumentTitle("About Jeff's BattleTech Tools IIC");
   }
 
     render = (): JSX.Element => {
@@ -22,23 +21,31 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
             label="Current Maintainers"
           >   
               <h4>Michael "Spork" Evans</h4>
-              <strong>Developer</strong><br /><a href="https://github.com/HeySporky" target="_blank">GitHub</a><br /><br />
-              <h4>A Great Discord Community -  <a href="https://discord.gg/DYr7jKg3" target="_blank">Join us!</a></h4>
+              Software Development - <a href="https://github.com/HeySporky">GitHub</a> - <a href="https://instagram.com/TheSpork">Instagram</a><br /><br />
+
+              <h4>FleetfootMike</h4>
+              DevOps/Design - <a href="https://www.talesfromtheperiphery.org.uk/">Podcast</a><br /><br />
+
+              <h4>Phasertech</h4>
+              More Info Soon!<br /><br />
+              <h4>Shadoblade</h4>
+              More Info Soon!<br /><br />
+              <h4>A Great Discord Community -  <a href="https://discord.gg/DYr7jKg3">Join us!</a></h4>
               <br />
               </TextSection>
           <TextSection
             label="Original Maintainers"
           >
-              <h4><a href="https://github.com/JDGwf" rel="noopener noreferrer" target="_blank">Jeffrey D. Gordon</a></h4>
+              <h4><a href="https://github.com/JDGwf" rel="noopener noreferrer">Jeffrey D. Gordon</a></h4>
               <strong>Original Developer</strong> - <a href="https://jdgwf.com/">Jeffery D. Gordon</a><br />
-              <p>Jeff started playing BattleTech in 1985 and started his career as a professional developer in 1996. He created this and other gaming tools as a labor of love. He passed from cancer in late 2024. You can find his original version of this software at <a href="https://jdgwf.github.io">https://jdgwf.github.io</a></p>
+              <p>Jeff started playing BattleTech in 1985 and started his career as a professional developer in 1996. He created this and other gaming tools as a labor of love. He passed from cancer in late 2024. You can find his original version of this software at <a href="https://jdgwf.github.io/battletech-tools">https://jdgwf.github.io/battletech-tools</a></p>
 
               <hr />
-              <h4><a href="https://github.com/MoonSword22" rel="noopener noreferrer" target="_blank">MoonSword22</a></h4>
+              <h4><a href="https://github.com/MoonSword22" rel="noopener noreferrer">MoonSword22</a></h4>
               <p><strong>Data Entry and consulting</strong></p>
 
               <hr />
-              <h4><a href="https://github.com/cam-smith" rel="noopener noreferrer" target="_blank">cam-smith</a></h4>
+              <h4><a href="https://github.com/cam-smith" rel="noopener noreferrer">cam-smith</a></h4>
               <p><strong>Fixes for formation bonuses and aero damages</strong></p>
 
               </TextSection>
