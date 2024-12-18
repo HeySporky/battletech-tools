@@ -695,6 +695,13 @@ body {
     }
   }
 
+  .btn-md {
+    > svg {
+      height: 1.5em;
+      width: 1.5em;
+    }
+  }
+
   .btn-secondary {
     background-color: $secondaryBG;
     border-color: $secondaryBG;

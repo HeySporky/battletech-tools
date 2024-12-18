@@ -24,6 +24,7 @@ import Error404 from "./pages/error404";
 import Home from "./pages/home";
 import SettingsRouter from "./pages/settings/_router";
 import SSWSanityCheck from "./pages/ssw-sanity-check";
+import { IAlphaStrikeMPDeploymentSet, IAlphaStrikeMPDeployment, getDeploymentById, generateScenarioDeployments } from "../data/alpha-strike-mp-deployments";
 // import init, { AlphaStrikeUnit, add_testing, MULUnit } from "btlibs";
 let pjson = require('../../package.json');
 
@@ -92,6 +93,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             saveCurrentBattleMech: this.saveCurrentBattleMech,
 
             saveBattleMechSaves: this.saveBattleMechSaves,
+
+            currentDeployments: null
         }
         this.state = {
             updated: false,
@@ -651,4 +654,9 @@ export interface IAppGlobals {
     removeCBTGroupFavorite( asGroupIndex: number ): void;
 
     saveFavoriteCBTGroups( asGroups: BattleMechGroup[] ): void;
+
+    //Game Management
+    currentDeployments: IAlphaStrikeMPDeployment[] | null;
+
+
 }

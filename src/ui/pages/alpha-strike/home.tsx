@@ -27,6 +27,10 @@ export default class AlphaStrikeHome extends React.Component<IAlphaStrikeHomePro
                   <MdTableView />
                   Alpha Strike Roster
                 </Link>
+                <Link  to={`${process.env.PUBLIC_URL}/alpha-strike/game-management`}>
+                  <MdTableView />
+                  Alpha Strike Game Management
+                </Link>
               </div>
            </TextSection>
 
