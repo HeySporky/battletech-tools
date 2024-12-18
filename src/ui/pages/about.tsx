@@ -20,17 +20,19 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
         <TextSection
             label="Current Maintainers"
           >   
-              <h4>Michael "Spork" Evans</h4>
-              Software Development - <a href="https://github.com/HeySporky">GitHub</a> - <a href="https://instagram.com/TheSpork">Instagram</a><br /><br />
+              <h4><strong>Michael "Spork" Evans</strong></h4>
+              Software Architecture and Development - <a href="https://github.com/HeySporky">GitHub</a> - <a href="https://instagram.com/TheSpork">Instagram</a><br /><br />
 
-              <h4>FleetfootMike</h4>
+              <h4><strong>FleetfootMike</strong></h4>
               DevOps/Design - <a href="https://www.talesfromtheperiphery.org.uk/">Podcast</a><br /><br />
 
-              <h4>Phasertech</h4>
+              <h4><strong>Phasertech</strong></h4>
+              QA/User Experience<br /><br />
+              <h4><strong>Shadoblade</strong></h4>
               More Info Soon!<br /><br />
-              <h4>Shadoblade</h4>
-              More Info Soon!<br /><br />
-              <h4>A Great Discord Community -  <a href="https://discord.gg/DYr7jKg3">Join us!</a></h4>
+              <h4><strong>blackstarthegodkiller</strong></h4>
+              Spiritual Bum / Research Lead<br /><br /><br /><br />
+              <h4><strong>A Great Discord Community</strong> -  <a href="https://discord.gg/DYr7jKg3">Join us!</a></h4>
               <br />
               </TextSection>
           <TextSection
