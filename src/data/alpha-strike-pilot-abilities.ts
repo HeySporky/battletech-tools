@@ -460,7 +460,7 @@ export const CONST_AS_PILOT_ABILITIES: IASPilotAbility[] = [
     ability: "Goshen Grad",
     cost: 2,
     asce_page: 0,
-    summary: ["If closer and inbetwen attack and friendly unit, attack must choose this pilot."]
+    summary: ["If closer and inbetween attacker and friendly unit, attacker must choose this pilot."]
 }
 ]
 
