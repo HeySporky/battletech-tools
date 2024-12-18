@@ -60,7 +60,7 @@ export function getMULFactionLabels(id: number): string {
         if(id === 76){ return 'Free Worlds League (Rim Commonality)'; }
         if(id === 77){ return 'Filtvelt Coalition'; }
         if(id === 78){ return 'Calderon Protectorate'; }
-        if(id === 79){ return 'Blank General List'; }
+        //if(id === 79){ return 'Blank General List'; } We don't need this one
         if(id === 80){ return 'Clan Stone Lion'; }
         if(id === 82){ return 'Clan Sea Fox'; }
         if(id === 83){ return 'St. Ives Compact'; }
@@ -94,7 +94,7 @@ export function getMULFactionLabels(id: number): string {
 }
 
 export function getMULFactionIDs(): number[] {
-    return [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49,54,55,56,57,59,60,67,72,74,75,76,77,78,79,80,82,83,84,85,86,87,88,89,90,91,92,94,95,96,97,98,100,101,102,104,105,106,107,108,109,110,111];
+    return [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49,54,55,56,57,59,60,67,72,74,75,76,77,78,80,82,83,84,85,86,87,88,89,90,91,92,94,95,96,97,98,100,101,102,104,105,106,107,108,109,110,111];
 }
 
 export function getMULEraLabel(
