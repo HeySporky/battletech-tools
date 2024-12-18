@@ -455,6 +455,13 @@ export const CONST_AS_PILOT_ABILITIES: IASPilotAbility[] = [
     asce_page: 101,
     summary: ["Infantry unit is harder to attack in urban terrain, and may “spawn” support"],
 },
+{
+    id: 66,
+    ability: "Goshen Grad",
+    cost: 2,
+    asce_page: 0,
+    summary: ["If closer and inbetwen attack and friendly unit, attack must choose this pilot."]
+}
 ]
 
 export interface IASPilotAbility {
