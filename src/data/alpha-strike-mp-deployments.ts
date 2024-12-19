@@ -1,3 +1,5 @@
+import { generateUUID } from "../utils/generateUUID";
+
 export function generateScenarioDeployments(deploymentSet: IAlphaStrikeMPDeploymentSet, numberOfDeploments: number): IAlphaStrikeMPDeployment[] {
     let returnDeployments: IAlphaStrikeMPDeployment[] = [];
     let totalDeploymentWeight = deploymentSet.deploymentWeights.reduce((a, b) => a + b, 0);
@@ -31,6 +33,8 @@ export const getDeploymentById = (deploymentId: number): IAlphaStrikeMPDeploymen
     if(deployment === undefined) {
         throw new Error(`Deployment with id ${deploymentId} not found`);
     }else{
+        deployment.uuid = generateUUID();
+        deployment.banned = false;
         return deployment;
     }
 }
@@ -88,6 +92,8 @@ export interface IAlphaStrikeMPDeployment {
     description: string;
     largemap: string;
     smallmap: string;
+    banned?: boolean;
+    uuid?: string;
 }
 
 export interface IAlphaStrikeMPDeploymentSet {

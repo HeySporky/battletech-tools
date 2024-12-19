@@ -74,6 +74,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     label: "Roster",
                     url: "/alpha-strike/roster",
                     tag: "alpha-strike-roster",
+                },
+                {
+                    label: "Game Management",
+                    url: "/alpha-strike/game-management",
+                    tag: "alpha-strike-game-management"
                 }
             ]
 
