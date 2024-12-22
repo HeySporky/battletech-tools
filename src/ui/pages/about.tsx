@@ -32,7 +32,7 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
               More Info Soon!<br /><br />
               <h4><strong>blackstarthegodkiller</strong></h4>
               Spiritual Bum / Research Lead<br /><br /><br /><br />
-              <h4><strong>A Great Discord Community</strong> -  <a href="https://discord.gg/DYr7jKg3">Join us!</a></h4>
+              <h4><strong>A Great Discord Community</strong> -  <a href="https://discord.gg/U539K45v8U">Join us!</a></h4>
               <br />
               </TextSection>
           <TextSection
