@@ -20,7 +20,7 @@ OS X:
 - `npm run start`
 - Browse to `localhost:3000` on your browser.
 
-Be sure to join our [Discord](https://discord.gg/DYr7jKg3) and talk to other developers:
+Be sure to join our [Discord](https://discord.gg/U539K45v8U) and talk to other developers:
 
 
 ### Technology
