@@ -6,6 +6,7 @@ import StandardModal from '../../../components/standard-modal';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+import AlphaStrikeMPMaps from "../../../components/svg/alpha-strike-mp-maps";
 import { MdTableView } from "react-icons/md";
 import { generateScenarioDeployments, getDeploymentById, IAlphaStrikeMPDeployment, IAlphaStrikeMPDeploymentSet } from "../../../../data/alpha-strike-mp-deployments";
 import { generateAvailableScenarios, getScenarioById, IAlphaStrikeMPScenario, IAlphaStrikeMPScenarioSet } from "../../../../data/alpha-strike-mp-scenarios";
@@ -97,7 +98,9 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                                             </div>
                                             <div className="col-md-2"><button style={{display: this.numberOfOptions < 2 ? 'none': 'block'}} className="btn btn-danger btn-sm" value={d.uuid} onClick={e => this.toggleDeployment(e)}><FaTrash />&nbsp;Ban</button></div>
                                             <p>{d.description}</p>
-                                            
+                                        </div>
+                                        <div className="row">
+                                            <AlphaStrikeMPMaps />
                                         </div>
                                     </div>
                                 )
