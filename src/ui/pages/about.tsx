@@ -39,7 +39,7 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
             label="Original Maintainers"
           >
               <h4><a href="https://github.com/JDGwf" rel="noopener noreferrer">Jeffrey D. Gordon</a></h4>
-              <strong>Original Developer</strong> - <a href="https://jdgwf.com/">Jeffery D. Gordon</a><br />
+              <strong>Original Developer</strong> - <a href="https://jdgwf.com/">Jeffrey D. Gordon</a><br />
               <p>Jeff started playing BattleTech in 1985 and started his career as a professional developer in 1996. He created this and other gaming tools as a labor of love. He passed from cancer in late 2024. You can find his original version of this software at <a href="https://jdgwf.github.io/battletech-tools">https://jdgwf.github.io/battletech-tools</a></p>
 
               <hr />
