@@ -49,12 +49,15 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         newGroup.customName = pack.name;
 
         for( let member of pack.members ) {
-          let data: IASMULUnit[] = await getMULASSearchResults(
+          let data: IASMULUnit[] = await getMULASSearchResults  (
             member,
-            "intro+standard",
-            pack.tech === "clan" ? "clan" : "inner sphere",
+              // not all lance packs are standard rules any more
+            pack.rules === "experimental" ? "intro+standard+advanced+experimental" :
+               pack.rules === "advanced" ? "intro+standard+advanced" : "intro+standard",
+            // some lance packs are mixed (is/clan) if not 'is' then 'clan' or 'is+clan'
+            pack.tech === "is" ? "inner sphere" : pack.tech,
             "", // Role
-            0, // clan invasion
+            0, // FIXME? clan invasion
             0, // Type Filter
             [], //Faction Filter
             !navigator.onLine,

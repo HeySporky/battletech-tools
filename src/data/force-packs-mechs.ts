@@ -1,6 +1,7 @@
 export interface IForcePack {
     name: string;
     tech: string;
+    rules: string,
     groupLabel: string;
     members: string[];
 }
@@ -9,6 +10,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Clan Command Star",
         groupLabel: "Star",
         tech: "clan",
+        rules: "standard",
         members: [
             "Daishi (Dire Wolf) Prime",
             "Ryoken (Stormcrow) Prime",
@@ -21,6 +23,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Clan Heavy Striker Star",
         groupLabel: "Star",
         tech: "clan",
+        rules: "standard",
         members: [
             "Man O' War (Gargoyle) Prime",
             "Loki (Hellbringer) Prime",
@@ -30,9 +33,10 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         ],
     },
     {
-        name: "Clan Fire Star:",
+        name: "Clan Fire Star",
         groupLabel: "Star",
         tech: "clan",
+        rules: "standard",
         members: [
             "Masakari (Warhawk) Prime",
             "Nova Cat Prime",
@@ -45,6 +49,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Clan Heavy Star",
         groupLabel: "Star",
         tech: "clan",
+        rules: "standard",
         members: [
             "Behemoth (Stone Rhino)",
             "Supernova",
@@ -57,6 +62,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Clan Support Star",
         groupLabel: "Star",
         tech: "clan",
+        rules: "standard",
         members: [
             "Night Gyr Prime",
             "Hankyu (Arctic Cheetah) Prime",
@@ -69,6 +75,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Clan Heavy Battle Star",
         groupLabel: "Star",
         tech: "clan",
+        rules: "standard",
         members: [
             "Turkina Prime",
             "Kingfisher Prime",
@@ -81,6 +88,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Clan Striker Star",
         groupLabel: "Star",
         tech: "clan",
+        rules: "standard",
         members: [
             "Goshawk (Vapor Eagle)",
             "Hellhound (Conjurer)",
@@ -93,6 +101,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Clan Ad Hoc Star",
         groupLabel: "Star",
         tech: "clan",
+        rules: "standard",
         members: [
             "Kodiak",
             "Pack Hunter",
@@ -105,6 +114,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Clan Elementals",
         groupLabel: "Star",
         tech: "clan",
+        rules: "standard",
         members: [
             "Elemental Battle Armor [Laser] (sqd5)",
             "Elemental Battle Armor [Laser] (sqd5)",
@@ -117,6 +127,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Inner Sphere Command Lance",
         groupLabel: "Lance",
         tech: "is",
+        rules: "standard",
         members: [
             "Marauder MAD-3R",
             "Archer ARC-2R",
@@ -127,6 +138,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Inner Sphere Battle Lance",
         groupLabel: "Lance",
         tech: "is",
+        rules: "standard",
         members: [
             "Warhammer WHM-6R",
             "Rifleman RFL-3N",
@@ -137,6 +149,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Inner Sphere Direct Fire Lance",
         groupLabel: "Lance",
         tech: "is",
+        rules: "standard",
         members: [
             "Atlas AS7-D",
             "Marauder II MAD-4A",
@@ -147,6 +160,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Inner Sphere Heavy Lance",
         groupLabel: "Lance",
         tech: "is",
+        rules: "standard",
         members: [
             "Banshee BNC-3S",
             "Grasshopper GHR-5H",
@@ -157,6 +171,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Inner Sphere Striker Lance",
         groupLabel: "Lance",
         tech: "is",
+        rules: "standard",
         members: [
             "Blackjack BJ-1",
             "Jenner JR7-D ",
@@ -167,6 +182,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Inner Sphere Fire Lance",
         groupLabel: "Lance",
         tech: "is",
+        rules: "standard",
         members: [
             "Longbow LGB-0W",
             "Stalker STK-3F",
@@ -177,6 +193,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Inner Sphere Heavy Battle Lance",
         groupLabel: "Lance",
         tech: "is",
+        rules: "standard",
         members: [
             "Nightstar NSR-9J",
             "Cataphract CTF-1X",
@@ -187,6 +204,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Inner Sphere Urban Lance",
         groupLabel: "Lance",
         tech: "is",
+        rules: "standard",
         members: [
             "Victor VTR-9B",
             "Enforcer ENF-4R",
@@ -197,11 +215,113 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         name: "Inner Sphere Support Lance",
         groupLabel: "Lance",
         tech: "is",
+        rules: "standard",
         members: [
             "Cyclops CP-10-Z",
             "Thug THG-11E",
             "Dragon DRG-1N",
             "Spider SDR-7M",
+        ],
+    },
+    {
+        name: "Wolf's Dragoons Assault Star",
+        groupLabel: "Star",
+        tech: "is+clan",
+        rules: "standard",
+        members: [
+            "Annihilator ANH-2A",
+            "Mad Cat (Timber Wolf) Prime",
+            "Rifleman RFL-3N",
+            "Archer ARC-2W",
+           "Blackjack BJ-2",
+        ],
+    },{
+        name: "Eridani Light Horse Hunter Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        rules: "standard",
+        members: [
+            "Thunderbolt TDR-5SE",
+            "Cyclops CP-11-A",
+            "Banshee BNC-3S",
+            "Sagittaire SGT-8R",
+        ],
+    },{
+        name: "Hansen's Roughriders Battle Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        rules: "standard",
+        members: [
+            "Penetrator PTR-4D",
+            "Hatchetman HCT-6D",
+            "Enforcer ENF-5D",
+            "Atlas AS7-D",
+        ],
+    },{
+        name: "Northwind Highlanders Command Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        rules: "standard",
+        members: [
+            "Grasshopper GHR-5J",
+            "Gunslinger GUN-1ERD",
+            "Highlander HGN-732",
+            "Warhammer WHM-7S",
+        ],
+    },{
+        name: "Kell Hounds Striker Lance",
+        groupLabel: "Lance",
+        tech: "is+clan",
+        rules: "advanced",
+        members: [
+            "Wolfhound WLF-6S",
+            "Griffin C",
+            "Crusader CRD-8R",
+            "Nightsky NGS-7S",
+        ],
+    },{
+        name: "Gray Death Legion Heavy Battle Lance",
+        groupLabel: "Lance",
+        tech: "is+clan",
+        rules: "standard",
+        members: [
+            "Regent Prime",
+            "Man O' War (Gargoyle) C",
+            "Catapult CPLT-K2K",
+            "Shadow Hawk SHD-7H",
+        ],
+    },{
+        name: "Snord's Irregulars Assault Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        rules: "experimental",
+        members: [
+            "Spartan SPT-N2",
+            "Hybrid Rifleman RFL-3N (Sneede)",
+            "Guillotine GLT-3N",
+            "Highlander HGN-732",
+        ],
+    },{
+        name: "McCarron's Armored Cavalry Assault Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        rules: "standard",
+        members: [
+            "Tian-Zong TNZ-N1",
+            "Black Knight BL-12-KNT",
+            "Awesome AWS-9Q",
+            "Starslayer STY-3Dr",
+        ],
+    },{
+        name: "Black Remnant Command Lance",
+        groupLabel: "Lance",
+        tech: "is+clan",
+        rules: "advanced",
+        members: [
+            "Cyclops CP-11-H",
+            "Flashman FLS-10E",
+            "Star Adder (Blood Asp) I",
+            "Dragon Fire DGR-3F",
         ],
     },
 ]

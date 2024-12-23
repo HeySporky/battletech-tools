@@ -54,6 +54,18 @@ export async function getMULASSearchResults(
         rulesNumbersURI.push( "&Rules=55" );
         rulesNumbersURI.push( "&Rules=4" );
     }
+    if( mechRules.toLowerCase() === "intro+standard+advanced" ) {
+        rulesNumbersURI.push( "&Rules=55" );
+        rulesNumbersURI.push( "&Rules=4" );
+        rulesNumbersURI.push( "&Rules=5" );
+        rulesNumbersURI.push( "&Rules=6" );
+    }
+    if( mechRules.toLowerCase() === "intro+standard+advanced+experimental" ) {
+        rulesNumbersURI.push( "&Rules=55" );
+        rulesNumbersURI.push( "&Rules=4" );
+        rulesNumbersURI.push( "&Rules=5" );
+        rulesNumbersURI.push( "&Rules=6" );
+    }
     if( mechRules.toLowerCase() === "experimental" ) {
         rulesNumbersURI.push( "&Rules=6" );
     }
@@ -70,6 +82,9 @@ export async function getMULASSearchResults(
     }
 
     let techFilterURI: string[] = [];
+    // we can get passed 'is+clan' here from home.tsx if we're searching for mechs
+    // in a mixed-tech lance (e.g. GDL, WD, KH) - we just skip any filtering
+    // at this point.
     if( techFilter.toLowerCase() === "inner sphere" ) {
         techFilterURI.push( "&Technologies=1" );
     }
