@@ -49,13 +49,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         newGroup.customName = pack.name;
 
         for( let member of pack.members ) {
+          // we are searching for an explicit name match, nothing more.
           let data: IASMULUnit[] = await getMULASSearchResults  (
             member,
-              // not all lance packs are standard rules any more
-            pack.rules === "experimental" ? "intro+standard+advanced+experimental" :
-               pack.rules === "advanced" ? "intro+standard+advanced" : "intro+standard",
-            // some lance packs are mixed (is/clan) if not 'is' then 'clan' or 'is+clan'
-            pack.tech === "is" ? "inner sphere" : pack.tech,
+            "", // Rules
+            "", // Tech
             "", // Role
             0, // FIXME? clan invasion
             0, // Type Filter
@@ -112,165 +110,22 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           )
 
           // console.log( "data", data)
-
+          // looking for an exact name match only
           let foundAUnit = false;
-
-          if( data.length === 1 ) {
-            let newUnit = new AlphaStrikeUnit();
-            newUnit.importMUL( data[0] );
-            if( pack.tech === "clan" ) newUnit.setSkill(3);
-            newGroup.members.push(
-              newUnit
-            )
-            foundAUnit = true;
-          } else {
-            // look for Intro first...
-            for( let item of data ) {
-              if( item.Rules.toLowerCase().trim() === "introductory" ) {
-                if( item.Name && item.Name.toLowerCase().indexOf(" prime") > -1 ) {
-                  // console.log("Adding intro rules unit via prime in name", item.Name, item.RS)
-                  let newUnit = new AlphaStrikeUnit();
-                  newUnit.importMUL( item );
-
-                  if( pack.tech === "clan" ) newUnit.setSkill(3);
-
-                  newGroup.members.push(
-                    newUnit
-                  )
-
-                  foundAUnit = true;
-                  break;
-                }
-                if( item.Name && item.Name.toLowerCase().indexOf(" (standard)") > -1 ) {
-                  // console.log("Adding intro rules unit via prime in name", item.Name, item.RS)
-                  let newUnit = new AlphaStrikeUnit();
-                  newUnit.importMUL( item );
-
-                  if( pack.tech === "clan" ) newUnit.setSkill(3);
-
-                  newGroup.members.push(
-                    newUnit
-                  )
-
-                  foundAUnit = true;
-                  break;
-                }
-                if( item.RS && item.RS.toLowerCase().indexOf("rs3039") > -1 ) {
-                  // console.log("Adding intro rules unit via rs3039", item.Name, item.RS)
-                  let newUnit = new AlphaStrikeUnit();
-                  newUnit.importMUL( item );
-                  if( pack.tech === "clan" ) newUnit.setSkill(3);
-                  newGroup.members.push(
-                    newUnit
-                  )
-                  foundAUnit = true;
-                  break;
-                }
-
-                if( item.RS && item.RS.toLowerCase().indexOf("rs3050") > -1 ) {
-
-                  // console.log("Adding intro rules unit via rs3050", item.Name, item.RS)
-                  let newUnit = new AlphaStrikeUnit();
-                  newUnit.importMUL( item );
-                  if( pack.tech === "clan" ) newUnit.setSkill(3);
-                  newGroup.members.push(
-                    newUnit
-                  )
-                  foundAUnit = true;
-                  break;
-                }
-              }
-
-            }
-
-            if(!foundAUnit) {
-              // console.log("data", data)
-              for( let item of data ) {
-                if( item.Rules.toLowerCase().trim() === "standard" ) {
-                  if( item.Name && item.Name.toLowerCase().indexOf(" prime") > -1 ) {
-                    // console.log("Adding unit via prime in name", item.Name, item.RS)
-                    let newUnit = new AlphaStrikeUnit();
-                    newUnit.importMUL( item );
-                    if( pack.tech === "clan" ) newUnit.setSkill(3);
-                    newGroup.members.push(
-                      newUnit
-                    )
-                    foundAUnit = true;
-                    break;
-                  }
-                  if( item.Name && item.Name.toLowerCase().indexOf(" (standard)") > -1 ) {
-                    // console.log("Adding intro rules unit via prime in name", item.Name, item.RS)
-                    let newUnit = new AlphaStrikeUnit();
-                    newUnit.importMUL( item );
-
-                    if( pack.tech === "clan" ) newUnit.setSkill(3);
-
-                    newGroup.members.push(
-                      newUnit
-                    )
-
-                    foundAUnit = true;
-                    break;
-                  }
-                  if( item.RS && item.RS.toLowerCase().indexOf("rs3039") > -1 ) {
-                    // console.log("Adding unit via rs3039", item.Name, item.RS)
-                    let newUnit = new AlphaStrikeUnit();
-                    newUnit.importMUL( item );
-                    if( pack.tech === "clan" ) newUnit.setSkill(3);
-                    newGroup.members.push(
-                      newUnit
-                    )
-                    foundAUnit = true;
-                    break;
-                  }
-
-                  if( item.RS && item.RS.toLowerCase().indexOf("rs3050") > -1 ) {
-
-                    // console.log("Adding unit via rs3050", item, item.Name, item.RS)
-                    let newUnit = new AlphaStrikeUnit();
-                    newUnit.importMUL( item );
-                    if( pack.tech === "clan" ) newUnit.setSkill(3);
-                    newGroup.members.push(
-                      newUnit
-                    )
-                    foundAUnit = true;
-                    break;
-                  }
-                  if( item.RS && item.RS.toLowerCase().indexOf("rg") === 0 ) {
-
-                    // console.log("Adding unit via rg*", item, item.Name, item.RS)
-                    let newUnit = new AlphaStrikeUnit();
-                    newUnit.importMUL( data[0]  );
-                    if( pack.tech === "clan" ) newUnit.setSkill(3);
-                    newGroup.members.push(
-                      newUnit
-                    )
-                    foundAUnit = true;
-                    break;
-                  }
-                }
-
-              }
-            }
-          }
-
-
-          if(!foundAUnit) {
-            if( data[0] ) {
-              // try to add the first found...
+          for( let item of data ) {
+            if( item.Name.toLowerCase() === member.toLowerCase() ) {
               let newUnit = new AlphaStrikeUnit();
-              newUnit.importMUL( data[0]  );
+              newUnit.importMUL( item );
               if( pack.tech === "clan" ) newUnit.setSkill(3);
-              newGroup.members.push(
-                newUnit
-              )
-            } else {
-              console.log("No match found for '" + member +"' data", data);
+              newGroup.members.push(newUnit);
+              foundAUnit = true;
+              break;
             }
           }
-
+          if ( !foundAUnit ) {
+            console.log("No match found for '" + member +"' data", data);
+          }
         }
-
 
         if( newGroup.members.length > 0 ) {
           newGroup.setAvailableFormationBonuses(formationBonuses.filter(x=>x.IsValid(newGroup)))
@@ -280,10 +135,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             updated: true,
           })
         }
-
       }
-
-
     }
 
     removeFavoriteConfirm = ( asFavGroupIndex: number ): void => {
