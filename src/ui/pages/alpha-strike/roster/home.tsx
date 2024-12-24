@@ -113,7 +113,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           // looking for an exact name match only
           let foundAUnit = false;
           for( let item of data ) {
-            if( item.Name.toLowerCase() === member.toLowerCase() ) {
+            if( item.Name.toLowerCase().trim() === member.toLowerCase() ) {
               let newUnit = new AlphaStrikeUnit();
               newUnit.importMUL( item );
               if( pack.tech === "clan" ) newUnit.setSkill(3);
