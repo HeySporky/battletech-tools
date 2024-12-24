@@ -9,6 +9,17 @@ import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
 
+//TODO: Clearfix Hack for overflowing results
+/*
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+*/
+
+
 export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrikeAddUnitsViewProps, IAlphaStrikeAddUnitsViewState> {
 
     constructor( props: IAlphaStrikeAddUnitsViewProps ) {

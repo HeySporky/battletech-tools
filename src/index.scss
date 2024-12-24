@@ -610,6 +610,7 @@ body {
         border-bottom: solid 1px $primaryBGHover;
         cursor: pointer;
         padding: .125rem .5rem;
+        margin: auto;
         &:hover {
           background-color: $primaryBG;
           color: $primaryTextColor;
@@ -692,6 +693,13 @@ body {
     > svg {
       height: .7em;
       width: .7em;
+    }
+  }
+
+  .btn-md {
+    > svg {
+      height: 1.5em;
+      width: 1.5em;
     }
   }
 

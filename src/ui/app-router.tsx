@@ -18,12 +18,16 @@ import SanitizedHTML from './components/sanitized-html';
 import About from "./pages/about";
 import AlphaStrikeRouter from "./pages/alpha-strike/_router";
 import ClassicBattleTechRouter from "./pages/classic-battletech/_router";
+import GameManagementRouter from "./pages/game-management/_router";
 import DevelopmentStatus from "./pages/development-status";
 import EquipmentEditor from "./pages/equipment-editor";
 import Error404 from "./pages/error404";
 import Home from "./pages/home";
 import SettingsRouter from "./pages/settings/_router";
 import SSWSanityCheck from "./pages/ssw-sanity-check";
+import { IAlphaStrikeMPDeploymentSet, IAlphaStrikeMPDeployment, getDeploymentById, generateScenarioDeployments } from "../data/alpha-strike-mp-deployments";
+import { IAlphaStrikeMPScenario} from "../data/alpha-strike-mp-scenarios";
+import { IAlphaStrikeMPTerrain } from "../data/alpha-strike-mp-terrain";
 // import init, { AlphaStrikeUnit, add_testing, MULUnit } from "btlibs";
 let pjson = require('../../package.json');
 
@@ -92,6 +96,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             saveCurrentBattleMech: this.saveCurrentBattleMech,
 
             saveBattleMechSaves: this.saveBattleMechSaves,
+
+            currentDeployments: null,
+            currentScenarios: null,
+            currentTerrains: null,
+            hideMPIntro: false,
         }
         this.state = {
             updated: false,
@@ -576,6 +585,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                         appGlobals={this.state.appGlobals}
                     />
                 }/>
+                <Route path={`${process.env.PUBLIC_URL}/game-management/*`}  element={
+                    <GameManagementRouter
+                        appGlobals={this.state.appGlobals}
+                    />
+                }/>
 
                 <Route path="*" element={
                     <Error404
@@ -651,4 +665,12 @@ export interface IAppGlobals {
     removeCBTGroupFavorite( asGroupIndex: number ): void;
 
     saveFavoriteCBTGroups( asGroups: BattleMechGroup[] ): void;
+
+    //Game Management
+    currentDeployments: IAlphaStrikeMPDeployment[] | null;
+    currentScenarios: IAlphaStrikeMPScenario[] | null;
+    currentTerrains: IAlphaStrikeMPTerrain[] | null;
+    hideMPIntro: boolean;
+
+
 }
