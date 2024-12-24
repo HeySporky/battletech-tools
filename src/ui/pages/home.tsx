@@ -89,6 +89,16 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                   <h3>
+                      <strong>December 24th, 2024</strong> - More Force Packs!
+                    </h3>
+                    <h4>Author - Spork</h4>
+                      <p>Patch Notes:</p>
+                      <p>FleetFootMike and Shadowblad have been working to add several force packs to the Alpha Strike roster, as well as rework the way that system is architected. Enjoy!.</p>
+
+                   </li>                
+                  <li> 
+                  <li>
+                  <h3>
                       <strong>December 16th, 2024</strong> - Tukayyid Formation Bonuses
                     </h3>
                     <h4>Author - Spork</h4>
