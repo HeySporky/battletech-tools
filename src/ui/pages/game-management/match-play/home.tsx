@@ -1,4 +1,4 @@
-import { FaDice, FaTrash } from "react-icons/fa";
+import { FaAccessibleIcon, FaDice, FaEye, FaPage4, FaTrash } from "react-icons/fa";
 import React from 'react';
 import { IAppGlobals } from '../../../app-router';
 import TextSection from '../../../components/text-section';
@@ -95,10 +95,29 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
             this.setState({updated: true});
         }
 
+        toggleIntro = () => {
+            this.props.appGlobals.hideMPIntro = !this.props.appGlobals.hideMPIntro;
+            this.setState({updated: true});
+        }
+
     
         render = (): JSX.Element => {
           return (
             <UIPage current="game-management-match-play" appGlobals={this.props.appGlobals}>
+                {this.props.appGlobals.hideMPIntro === false ? (
+                <TextSection label="Alpha Strike Match Play Introduction">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <p>This tool is based on the Alpha Strike Match Play Beta document from CGL available <a href="https://drive.google.com/file/d/1ghyNvGYCpojPYmxRY6lk-AZX-1ybZB8t/view" target="_matchplay">here</a>.</p>
+                            <p>One of the problems my group had when introducing people to Alpha Strike was figuring out which format to play. Though still in beta, the Match Play format gave my group a good starting point for objective based game play, and all of the missions were straight forward and fairly easy for new players to understand. Additionally, from Match Play's base, we were able to add and tweak new rules that we wanted to try. That strightforwardness made this a good first tool to build as the new development team learns Jeff's codebase.</p>
+                            <p><strong>The major change I've made from the main Match Play document is the addition of an optional ban system</strong>, similar to those found in MOBAs. After rolling initiative, each player goes back and forth banning one item at a time until there is a single objective and deployment remaining. This gives players a chance to avoid objectives their forces aren't prepared for, while still keeping a random element to the game that I find builds excitement. Additionally, I'd strongly recommend not playing asymetrical objectives in this format as it is often extremely one-sided, especially for newer players.</p>
+                            <p>Thanks, and be sure to join our <a href="https://discord.gg/U539K45v8U" target="_discord">Discord</a> to submit feedback!</p>
+                            <p className="text-right">-Spork</p>
+                            <p className="text-right"><button className="btn btn-primary" onClick={this.toggleIntro}>Hide intro in the future</button></p>
+                        </div>
+                    </div>
+                </TextSection>
+                ) : null}
               <TextSection
                 label="Alpha Strike Match Play Generator"
               >
@@ -128,6 +147,9 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
  
                     </div>
                     <div className="col-md-6 text-right">
+                    {this.props.appGlobals.hideMPIntro === true ? (
+                    <button className="btn btn-primary btn-md" onClick={this.toggleIntro}><FaEye />&nbsp;Show Intro</button>
+                    ) : null}
                     <button className="btn btn-primary btn-md" onClick={this.regenerateCards}><FaDice />&nbsp;Reroll</button>
  
                     </div>
@@ -146,6 +168,11 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                                             </div>
                                             <div className="col-md-2"><button style={{display: this.numberOfOptions < 2 ? 'none': 'block'}} className="btn btn-danger btn-sm" value={d.uuid} onClick={e => this.toggleDeployment(e)}><FaTrash />&nbsp;Ban</button></div>
                                             <p>{d.description}</p>
+                                            {this.gameSize === "battle" ? (
+                                            <p>{d.largeedges}</p>
+                                            ) : (
+                                            <p>{d.smalledges}</p>
+                                            )}
                                         </div>
                                     </div>                                    
                                 )
@@ -154,7 +181,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                             <div className="row">
                             {this.props.appGlobals.currentDeployments.map((d) => {
                                 return(
-                                    <div className="col-md-4">
+                                    <div className="col-md-4" style={{opacity: d.banned ? 0.25 : 1}}>
                                         <div className="col-md-6">
                                     <AlphaStrikeMPMaps 
                                         battleSize={this.gameSize}
@@ -176,7 +203,12 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                                         </div>
                                         <div className="col-md-2"><button style={{display: this.numberOfOptions < 2 ? 'none': 'block'}} className="btn btn-danger btn-sm" value={s.uuid} onClick={e => this.toggleScenario(e)}><FaTrash />&nbsp;Ban</button></div>
                                             <p className="text-left">{s.description}</p>
-                                            
+                                            {this.gameSize === "battle" ? (
+                                            <p>Victory points to win: {s.victoryPointsLarge}</p>
+                                            ) : (
+                                            <p>Victory points to win: {s.victoryPointsSmall}</p>
+                                            )}
+
                                         </div>
                                     </div>
                                 )

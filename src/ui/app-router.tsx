@@ -99,7 +99,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
             currentDeployments: null,
             currentScenarios: null,
-            currentTerrains: null
+            currentTerrains: null,
+            hideMPIntro: false,
         }
         this.state = {
             updated: false,
@@ -669,6 +670,7 @@ export interface IAppGlobals {
     currentDeployments: IAlphaStrikeMPDeployment[] | null;
     currentScenarios: IAlphaStrikeMPScenario[] | null;
     currentTerrains: IAlphaStrikeMPTerrain[] | null;
+    hideMPIntro: boolean;
 
 
 }
