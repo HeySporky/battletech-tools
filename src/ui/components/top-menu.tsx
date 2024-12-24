@@ -74,11 +74,6 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     label: "Roster",
                     url: "/alpha-strike/roster",
                     tag: "alpha-strike-roster",
-                },
-                {
-                    label: "Game Management",
-                    url: "/alpha-strike/game-management",
-                    tag: "alpha-strike-game-management"
                 }
             ]
 
@@ -133,6 +128,26 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
 
         });
     }
+
+    menuStructure.push({
+        label: "Game Management",
+        url: "/game-management/match-play",
+        tag: "game-management-home",
+        startsWithTag: "game-management",
+        subMenu: [
+            {
+                label: "Home",
+                url: "/game-management/",
+                tag: "game-management-home",
+            },
+            {
+                label: "Alpha Strike Match Play Generator",
+                url: "/game-management/match-play",
+                tag: "game-management-match-play",
+            }
+        ]
+
+    });
 
     menuStructure.push(
         {

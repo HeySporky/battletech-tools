@@ -17,7 +17,6 @@ export function generateAvailableScenarios(scenarioSet: IAlphaStrikeMPScenarioSe
 
     while(returnScenarios.length < numberOfScenarios) {
         let randomIndex = Math.floor(Math.random() * totalScenarioWeight);
-        console.log(randomIndex)
         let scenarioId = weightedScenarios[randomIndex];
         if(returnScenarios.find((d) => d.id === scenarioId) !== undefined) {
             continue;

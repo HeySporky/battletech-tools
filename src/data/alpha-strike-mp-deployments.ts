@@ -17,7 +17,6 @@ export function generateScenarioDeployments(deploymentSet: IAlphaStrikeMPDeploym
 
     while(returnDeployments.length < numberOfDeploments) {
         let randomIndex = Math.floor(Math.random() * totalDeploymentWeight);
-        console.log(randomIndex)
         let deploymentId = weightedDeployments[randomIndex];
         if(returnDeployments.find((d) => d.id === deploymentId) !== undefined) {
             continue;

@@ -5,7 +5,7 @@ import Error404 from "../../error404";
 import Home from './home';
 
 
-export default class AlphaStrikeGameManagementRouter extends React.Component<IAlphaStrikeGameManagementRouterProps, IAlphaStrikeGameManagementRouterState> {
+export default class MatchPlayRouter extends React.Component<IMatchPlayRouterProps, IMatchPlayRouterState> {
 
     render = (): JSX.Element => {
         return(
@@ -27,10 +27,10 @@ export default class AlphaStrikeGameManagementRouter extends React.Component<IAl
     }
 }
 
-interface IAlphaStrikeGameManagementRouterProps {
+interface IMatchPlayRouterProps {
     appGlobals: IAppGlobals;
 }
 
-interface IAlphaStrikeGameManagementRouterState {
+interface IMatchPlayRouterState {
 
 }
