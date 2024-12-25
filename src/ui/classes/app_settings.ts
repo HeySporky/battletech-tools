@@ -24,6 +24,7 @@ export class AppSettings {
     alphaStrikeFactionSearchTerm: string = "";
     alphaStrikeFactionSuggestions: Array<number> = [];
     alphaStrikeSearchFactions: Array<number> = [];
+    hideMPIntro: boolean = false;
 
     equipmentEditorFile: string = "";
     asValues: Record<string, number> = {};
@@ -122,6 +123,7 @@ export class AppSettings {
             alphaStrikeMeasurementsInHexes: this.alphaStrikeMeasurementsInHexes,
             asValues: this.asValues,
             alphaStrikeSearchFactions: this.alphaStrikeSearchFactions,
+            hideMPIntro: this.hideMPIntro,
         
 
             mechRulesFilter: this.mechRulesFilter,
@@ -146,6 +148,7 @@ export interface IAppSettingsExport {
     alphaStrikeInPlayCardMode: boolean;
     alphaStrikeMeasurementsInHexes: boolean;
     alphaStrikeSearchFactions: Array<number>;
+    hideMPIntro: boolean;
    
     equipmentEditorFile: string;
     asValues: Record<string, number>;
