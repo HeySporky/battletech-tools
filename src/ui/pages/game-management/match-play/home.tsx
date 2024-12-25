@@ -95,8 +95,14 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
             this.setState({updated: true});
         }
 
+        saveAppSettings = () => {
+            let appSettings = this.props.appGlobals.appSettings;
+            this.props.appGlobals.saveAppSettings(appSettings);
+        }
+
         toggleIntro = () => {
-            this.props.appGlobals.hideMPIntro = !this.props.appGlobals.hideMPIntro;
+            this.props.appGlobals.appSettings.hideMPIntro = !this.props.appGlobals.appSettings.hideMPIntro;
+            this.saveAppSettings();
             this.setState({updated: true});
         }
 
@@ -104,7 +110,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
         render = (): JSX.Element => {
           return (
             <UIPage current="game-management-match-play" appGlobals={this.props.appGlobals}>
-                {this.props.appGlobals.hideMPIntro === false ? (
+                {this.props.appGlobals.appSettings.hideMPIntro === false ? (
                 <TextSection label="Alpha Strike Match Play Introduction">
                     <div className="row">
                         <div className="col-md-12">
@@ -147,7 +153,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
  
                     </div>
                     <div className="col-md-6 text-right">
-                    {this.props.appGlobals.hideMPIntro === true ? (
+                    {this.props.appGlobals.appSettings.hideMPIntro === true ? (
                     <button className="btn btn-primary btn-md" onClick={this.toggleIntro}><FaEye />&nbsp;Show Intro</button>
                     ) : null}
                     <button className="btn btn-primary btn-md" onClick={this.regenerateCards}><FaDice />&nbsp;Reroll</button>
@@ -167,30 +173,22 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                                             <h4><strong>{d.name}</strong></h4>
                                             </div>
                                             <div className="col-md-2"><button style={{display: this.numberOfOptions < 2 ? 'none': 'block'}} className="btn btn-danger btn-sm" value={d.uuid} onClick={e => this.toggleDeployment(e)}><FaTrash />&nbsp;Ban</button></div>
-                                            <p>{d.description}</p>
+                                            <p className="deployment-description">{d.description}</p>
                                             {this.gameSize === "battle" ? (
                                             <p>{d.largeedges}</p>
                                             ) : (
                                             <p>{d.smalledges}</p>
                                             )}
+                                            <div className="col-md-6">
+                                            <AlphaStrikeMPMaps
+                                                battleSize={this.gameSize}
+                                                deployment={d}
+                                            />
+                                            </div>
                                         </div>
                                     </div>                                    
                                 )
                             })}
-                            </div>
-                            <div className="row">
-                            {this.props.appGlobals.currentDeployments.map((d) => {
-                                return(
-                                    <div className="col-md-4" style={{opacity: d.banned ? 0.25 : 1}}>
-                                        <div className="col-md-6">
-                                    <AlphaStrikeMPMaps 
-                                        battleSize={this.gameSize}
-                                        deployment={d}
-                                    />
-                                    </div></div>
-                                )
-                            })}
-
                             </div>
                             <div className="row" style={{marginTop: '1em'}}>
                             <h3><strong>Available Scenarios</strong></h3>
