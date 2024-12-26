@@ -31,7 +31,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                 label="Available Tools"
                 >
                   <ul className='styleless'>
-                    <li>
+                  <li>
                       <h3><Link to="alpha-strike/roster">Alpha Strike Roster</Link></h3>
                       <ul>
                         <li>The ability to search the <a href="http://masterunitlist.info" target="_blank">Master Unit List (MUL)</a> and add Alpha Strike Units to your Companies/Lances/Stars/Binaries, etc.</li>
@@ -88,6 +88,15 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
             >
                   <ul className="news">
                   <li>
+                  <h3>
+                      <strong>December 26th, 2024</strong> - Alpha Strike Match Play Generator
+                    </h3>
+                    <h4>Author - Spork</h4>
+                      <p>Patch Notes:</p>
+                      <p>The initial release of our matchplay generator can be found <Link to="game-management/match-play">here</Link>. This will allow you to generate deployments and scenarios for the Alpha Strike Match Play Beta, and includes a custom ban system to add some variety to the format.</p>
+
+                   </li>                
+                   <li>
                   <h3>
                       <strong>December 24th, 2024</strong> - More Force Packs!
                     </h3>
