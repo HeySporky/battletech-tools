@@ -241,6 +241,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         name: "Weak Jump Jets",
         summary: [
             "This unit has particularly underpowered, weak jump jets. Weak Jump Jets subtract the # from their TMM when using Jumping movement.",
+            "Jeff’s Tools integrates this rule into your unit card in the form of TMM: # / #J",
         ],
         asce_page: 78,
         type: ESpecialAbilityType.Standard,
@@ -250,6 +251,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         name: "Strong Jump Jets",
         summary: [
             "This unit has particularly overpowered, strong jump jets compared to their non-jump movement. Strong Jump Jets add the # to their TMM when using Jumping movement.",
+            "Jeff’s Tools integrates this rule into your unit card in the form of TMM: # / #J",
         ],
         asce_page: 78,
         type: ESpecialAbilityType.Standard,
