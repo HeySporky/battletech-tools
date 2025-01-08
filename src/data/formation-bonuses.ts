@@ -101,7 +101,7 @@ class HeavyBattleLance extends FormationBonusBase implements IFormationBonus {
 class AssaultLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Assault Lance";
     IdealRole: ASMULRole = {Id:108, Name: "Juggernaut", Image:"", SortOrder:108};
-    BonusDescription: string = "At the beginning of play, the Assault Lance’s controlling player must choose either the Demoralizer or the Multi- Tasker SPAs (see pp. 93 and 98, respectively). When each turn of game play begins, the player may designate up to half the units in the Assault Lance (rounded down) to receive the chosen ability for the duration of the turn. Destroyed or withdrawn units do not count towards the current number of units in the formation. Note that while the chosen ability can switch its user from turn to turn, it cannot be changed to a different ability during the course of the same scenario.";
+    BonusDescription: string = "At the beginning of play, the Assault Lance’s controlling player must choose either the Demoralizer or the Multi-Tasker SPAs (see pp. 93 and 98, respectively). When each turn of game play begins, the player may designate up to half the units in the Assault Lance (rounded down) to receive the chosen ability for the duration of the turn. Destroyed or withdrawn units do not count towards the current number of units in the formation. Note that while the chosen ability can switch its user from turn to turn, it cannot be changed to a different ability during the course of the same scenario.";
     RequirementsDescription: string = "At least 3 units in a basic Assault Lance must be of Size 3 or greater, and there can be no units of Size 1 in this formation type. All units in an Assault Lance must have a minimum (undamaged) Armor value of 5 points, and at least 75 percent of the units in this formation must possess a Medium-range attack value of 3 or more. An Assault Lance must contain at least one unit of the Juggernaut role, or 2 units of the Sniper role.";
 
     IsValid(group: AlphaStrikeGroup): boolean {
@@ -213,17 +213,17 @@ class LightStrikerCavalryLance extends FormationBonusBase implements IFormationB
 class HeavyStrikerCavalryLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Heavy Striker/Cavalry Lance";
     BonusDescription: string = "75 percent of the units in a standard Striker/ Cavalry Lance receive the Speed Demon Special Pilot Ability (see p. 99).";
-    RequirementsDescription: string = "All units in a Heavy Striker/ Cavalry Lance must have a minimum Move of 8”, with or without jumping capability. At least 3 units in this formation type must be of Size 3, and none may be smaller than a Size 2. At least 1 unit in this formation type must have a Long-range attack value greater than 1 point. At least 2 units in the Heavy Striker/Cavalry Lance must be of the Striker or Skirmisher unit roles.";
+    RequirementsDescription: string = "All units in a Heavy Striker/ Cavalry Lance must have a minimum Move of 8”, with or without jumping capability. At least 3 units in this formation type must be of Size 3 or greater, and none may be smaller than a Size 2. At least 1 unit in this formation type must have a Long-range attack value greater than 1 point. At least 2 units in the Heavy Striker/Cavalry Lance must be of the Striker or Skirmisher unit roles.";
 
     IsValid(group: AlphaStrikeGroup): boolean {
-        if (group.members.filter(x=>x.size===3).length>=3){
+        if (group.members.filter(x=>x.size>=3).length<3){
             return false;
         }
         if (group.members.filter(x=>x.size<2).length>0){
             return false;
         }
         let result =true;
-        //must have 2 with long damage
+        //must have at least 1 with long damage
         result = result && (group.members.filter(x=>+x.damage.long>1).length>=1)
 
         // 2 striker or skirmisher
@@ -372,8 +372,8 @@ class HeavyReconLance extends FormationBonusBase implements IFormationBonus {
 }
 class PursuitLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Pursuit Lance";
-    IdealRole: ASMULRole = {Id:107, Name: "Skirmisher", Image:"", SortOrder:107};
-    BonusDescription: string = "75 percent of the units in this formation receive the Blood Stalker Special Pilot Ability (see p. 93). The Pursuit Lance may choose an enemy Formation rather than a single unit as the target for the Blood Stalker SPA. If this option is used, all members of the Pursuit Lance must choose the same enemy Formation for the Blood Stalker SPA granted by this ability, and the destruction of the chosen Formation is the only time the Pursuit Lance may change the target of the Blood Stalker SPA, by choosing a new enemy Formation.";
+    IdealRole: ASMULRole = {Id:107, Name: "Striker", Image:"", SortOrder:107};
+    BonusDescription: string = "75 percent of the units in this formation (round normally) receive the Blood Stalker Special Pilot Ability (see p. 93). The Pursuit Lance may choose an enemy Formation rather than a single unit as the target for the Blood Stalker SPA. If this option is used, all members of the Pursuit Lance must choose the same enemy Formation for the Blood Stalker SPA granted by this ability, and the destruction of the chosen Formation is the only time the Pursuit Lance may change the target of the Blood Stalker SPA, by choosing a new enemy Formation.";
     RequirementsDescription: string = "All units in a Pursuit Lance must be of Size 2 or less, and 75 percent of this formation must have a Move of 12” or more, regardless of jumping capability. At least 1 unit in the Pursuit Lance must have a Medium-range attack value over 1 point.";
 
     IsValid(group: AlphaStrikeGroup): boolean {
@@ -423,7 +423,7 @@ class SweepLance extends FormationBonusBase implements IFormationBonus {
 }
 class CommandLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Command Lance";
-    BonusDescription: string = "Prior to the beginning of play, half of the non- commander units in this formation (round up) receive one of the following Special Pilot Abilities for free (each unit may receive a different SPA): Antagonizer, Blood Stalker, Combat Intuition, Eagle’s Eyes, Marksman, or Multi-Tasker (see pp. 92, 93, 93, 95, 97 and 98, respectively).  In addition to this, the commander’s unit receives the Tactical Genius SPA (see p. 100). If the Special Pilot Abilities rules are in full effect and the commander already has the Tactical Genius SPA, this ability adds a +1 modifier to the force’s Initiative roll results instead (including any rerolls made as a result of the Tactical Genius SPA).";
+    BonusDescription: string = "Prior to the beginning of play, half of the units in this formation (round up) receive one of the following Special Pilot Abilities for free (each unit may receive a different SPA): Antagonizer, Blood Stalker, Combat Intuition, Eagle’s Eyes, Marksman, or Multi-Tasker (see pp. 92, 93, 93, 95, 97 and 98, respectively).  In addition to this, the commander’s unit receives the Tactical Genius SPA (see p. 100). If the Special Pilot Abilities rules are in full effect and the commander already has the Tactical Genius SPA, this ability adds a +1 modifier to the force’s Initiative roll results instead (including any rerolls made as a result of the Tactical Genius SPA).";
     RequirementsDescription: string = "At least one unit in the Command Lance must be designated as either the force commander or a key lieutenant. For the purposes of building a force, these rules recommend that one unit in the overall combat force be identified as the force’s field commander, with no more than 1 sub-commanding lieutenant assigned for every 6 non-infantry units in the entire force. The Command Lance would then be established as the lance in which the senior force commander is assigned, but additional Command Lances can be built around the sub-commanders as well. In this formation, 50 percent of the units must have one of the following unit roles: Sniper, Missile Boat, Skirmisher, or Juggernaut. One additional unit in the lance must be a Brawler, Striker, or Scout. The unit designated as the commander’s unit may be any of the lance’s members, including these prerequisite units.";
 
     IsValid(group: AlphaStrikeGroup): boolean {
@@ -485,8 +485,8 @@ class HunterLance extends FormationBonusBase implements IFormationBonus {
 class PhalanxStar extends FormationBonusBase implements IFormationBonus {
     Name: string = "Phalanx Star"
     BonusDescription: string = "The Phalanx Star Formation receives the equivalent of a 4-point Float Like A Butterfly Special Pilot Ability (see p . 96, AS:CE), except that the ability may be used by any unit in the Phalanx Star, rather one unit alone . This SPA need not be assigned to any specific unit(s) and may be employed after a successful attack or critical hit roll by any unit, to a maximum of six times for the entire Formation per track . As with the normal Float Like A Butterfly SPA, only one reroll per attack or critical hit roll is possible.";
-    RequirementsDescription: string = "The Phalanx Star must consist of at least two combat vehicles or BattleMechs, with the remainder of the Star comprised of Elementals, more combat vehicles or more BattleMechs . There must be at least two different unit types (BattleMech, combat vehicle, battle armor) in a Phalanx Star . A Clan Steel Viper Phalanx Star may include conventional infantry in place of battle armor."    
-    
+    RequirementsDescription: string = "The Phalanx Star must consist of at least two combat vehicles or BattleMechs, with the remainder of the Star comprised of Elementals, more combat vehicles or more BattleMechs . There must be at least two different unit types (BattleMech, combat vehicle, battle armor) in a Phalanx Star . A Clan Steel Viper Phalanx Star may include conventional infantry in place of battle armor."
+
     IsValid(group: AlphaStrikeGroup): boolean {
         let result = true;
         if(group.members.length === 0){
