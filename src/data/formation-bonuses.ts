@@ -372,7 +372,7 @@ class HeavyReconLance extends FormationBonusBase implements IFormationBonus {
 }
 class PursuitLance extends FormationBonusBase implements IFormationBonus {
     Name: string = "Pursuit Lance";
-    IdealRole: ASMULRole = {Id:107, Name: "Striker", Image:"", SortOrder:107};
+    IdealRole: ASMULRole = {Id:106, Name: "Striker", Image:"", SortOrder:106};
     BonusDescription: string = "75 percent of the units in this formation (round normally) receive the Blood Stalker Special Pilot Ability (see p. 93). The Pursuit Lance may choose an enemy Formation rather than a single unit as the target for the Blood Stalker SPA. If this option is used, all members of the Pursuit Lance must choose the same enemy Formation for the Blood Stalker SPA granted by this ability, and the destruction of the chosen Formation is the only time the Pursuit Lance may change the target of the Blood Stalker SPA, by choosing a new enemy Formation.";
     RequirementsDescription: string = "All units in a Pursuit Lance must be of Size 2 or less, and 75 percent of this formation must have a Move of 12” or more, regardless of jumping capability. At least 1 unit in the Pursuit Lance must have a Medium-range attack value over 1 point.";
 
