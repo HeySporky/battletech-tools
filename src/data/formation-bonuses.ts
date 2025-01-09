@@ -555,6 +555,19 @@ class SupportLance extends FormationBonusBase implements IFormationBonus {
 
 }
 
+class OrderLance extends FormationBonusBase implements IFormationBonus {
+    Name: string = "Order Lance";
+    BonusDescription: string = "Designate one Unit as the command Unit of the Formation; it receives the Tactical Genius, Antagonizer or Sniper SPA. All Units in the Formation receive the Iron Will or Speed Demon SPA; the SPA chosen applies to all Units in the Formation.";
+    RequirementsDescription: string = "Exclusive to House Kurita Forces. All Units in the Formation must be of the same Size and model (all Dragons/ Grand Dragons, all Panthers, etc).";
+    IsValid(group: AlphaStrikeGroup): boolean {
+        let gLen = group.members.length;
+        if (gLen < 2) {
+            return false;
+        }
+        let firstClass = group.members[0].class;
+        return group.members.filter(x => x.class===firstClass).length === gLen;
+    }
+}
 
 
 export const formationBonuses: IFormationBonus[] = [
@@ -587,5 +600,6 @@ export const formationBonuses: IFormationBonus[] = [
     new RogueStar(),
     new StrategicCommandStar(),
     new SupportLance(),
+    new OrderLance()
 
 ];

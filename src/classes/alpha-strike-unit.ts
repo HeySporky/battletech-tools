@@ -151,6 +151,7 @@ export class AlphaStrikeUnit {
     public isInfantry: boolean = false;
     public immobile: boolean = false;
 
+    public class: string = ""
     public variant: string = "";
     public name: string = "";
     public dateIntroduced: string = "";
@@ -256,7 +257,7 @@ export class AlphaStrikeUnit {
         if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
 
             this.costCR = +incomingMechData.Cost;
-
+            this.class = incomingMechData.Class ? incomingMechData.Class : "";
             this.variant = incomingMechData.Variant ? incomingMechData.Variant : "";
             this.name = incomingMechData.Name;
             this.dateIntroduced = incomingMechData.DateIntroduced;
