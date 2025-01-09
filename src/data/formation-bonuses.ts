@@ -485,8 +485,8 @@ class HunterLance extends FormationBonusBase implements IFormationBonus {
 class PhalanxStar extends FormationBonusBase implements IFormationBonus {
     Name: string = "Phalanx Star"
     BonusDescription: string = "The Phalanx Star Formation receives the equivalent of a 4-point Float Like A Butterfly Special Pilot Ability (see p . 96, AS:CE), except that the ability may be used by any unit in the Phalanx Star, rather one unit alone . This SPA need not be assigned to any specific unit(s) and may be employed after a successful attack or critical hit roll by any unit, to a maximum of six times for the entire Formation per track . As with the normal Float Like A Butterfly SPA, only one reroll per attack or critical hit roll is possible.";
-    RequirementsDescription: string = "The Phalanx Star must consist of at least two combat vehicles or BattleMechs, with the remainder of the Star comprised of Elementals, more combat vehicles or more BattleMechs . There must be at least two different unit types (BattleMech, combat vehicle, battle armor) in a Phalanx Star . A Clan Steel Viper Phalanx Star may include conventional infantry in place of battle armor."    
-    
+    RequirementsDescription: string = "The Phalanx Star must consist of at least two combat vehicles or BattleMechs, with the remainder of the Star comprised of Elementals, more combat vehicles or more BattleMechs . There must be at least two different unit types (BattleMech, combat vehicle, battle armor) in a Phalanx Star . A Clan Steel Viper Phalanx Star may include conventional infantry in place of battle armor."
+
     IsValid(group: AlphaStrikeGroup): boolean {
         let result = true;
         if(group.members.length === 0){
@@ -555,6 +555,19 @@ class SupportLance extends FormationBonusBase implements IFormationBonus {
 
 }
 
+class OrderLance extends FormationBonusBase implements IFormationBonus {
+    Name: string = "Order Lance";
+    BonusDescription: string = "Designate one Unit as the command Unit of the Formation; it receives the Tactical Genius, Antagonizer or Sniper SPA. All Units in the Formation receive the Iron Will or Speed Demon SPA; the SPA chosen applies to all Units in the Formation.";
+    RequirementsDescription: string = "Exclusive to House Kurita Forces. All Units in the Formation must be of the same Size and model (all Dragons/ Grand Dragons, all Panthers, etc).";
+    IsValid(group: AlphaStrikeGroup): boolean {
+        let gLen = group.members.length;
+        if (gLen < 2) {
+            return false;
+        }
+        let firstClass = group.members[0].class;
+        return group.members.filter(x => x.class===firstClass).length === gLen;
+    }
+}
 
 
 export const formationBonuses: IFormationBonus[] = [
@@ -587,5 +600,6 @@ export const formationBonuses: IFormationBonus[] = [
     new RogueStar(),
     new StrategicCommandStar(),
     new SupportLance(),
+    new OrderLance()
 
 ];
