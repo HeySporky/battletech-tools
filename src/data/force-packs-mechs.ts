@@ -352,5 +352,87 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
             "Lancelot LNC25-01",
             "Mongoose MON-66",
         ],
+    },{
+        name: "First Star League Command Lance",
+        groupLabel: "Lance",
+        tech: "Is",
+        members: [
+            "Atlas II AS7-D-H",
+            "Thunder Hawk TDK-7S",
+            "Orion ON1-K",
+            'Phoenix Hawk PXH-1b "Special"',
+         ],
+    },{
+        name: "Inner Sphere Battle Armor Platoon",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "IS Standard Battle Armor [Laser] (Sqd4)",
+            "IS Standard Battle Armor [Laser] (Sqd4)",
+            "IS Standard Battle Armor [Laser] (Sqd4)",
+            "IS Standard Battle Armor [Laser] (Sqd4)",
+        ],
+    },{
+        name: "Legendary MechWarriors Pack III",
+        groupLabel: "Lance",
+        tech: "is+Clan",
+        members: [
+            "Marauder (Bounty Hunter-3015)",
+            "Warhammer WHM-9K",
+            "Griffin GRF-2N",
+            "Mad Cat (Timber Wolf) (Bounty Hunter)",
+            "Loki Mk II (Hel) Prime",
+            "Marauder II (Bounty Hunter)",
+        ],
+    },{
+        name: "Inner Sphere Security Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "JagerMech JM6-S",
+            "Scorpion SCP-1N",
+            "Vulcan VL-2T",
+            "Whitworth WTH-1",
+        ],
+    },{
+        name: "Inner Sphere Recon Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "Firestarter FS9-H",
+            "Spector SPR-5F",
+            "Ostscout OTT-7J",
+            "Javelin JVN-10N"
+      ],
+    },{
+        name: "Inner Sphere Heavy Recon Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "Charger CGR-1A1",
+            "Ostroc OSR-2C",
+            "Merlin MLN-1A",
+            "Assassin ASN-109"
+      ],
+    },{
+        name: "Battlefield Support: Fire Lance",
+        groupLabel: "Lance",
+        tech: "Is",
+        members: [
+            "SRM Carrier",
+            "SRM Carrier",
+            "LRM Carrier",
+            "LRM Carrier",
+         ],
+    },{
+        name:"Battlefield Support: Battle Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "Manticore Heavy Tank",
+            "Manticore Heavy Tank",
+            "Vedette Medium Tank",
+            "Vedette Medium Tank",
+        ],
     },
 ]
