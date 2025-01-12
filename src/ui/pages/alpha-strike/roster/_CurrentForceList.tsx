@@ -306,6 +306,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                    &nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}
                                   </>
                                 ) : null}
+								&nbsp;|&nbsp;<strong title="Role">Role</strong>: {asUnit.role}
 
                               </td>
                               <td className="text-center small-text">
