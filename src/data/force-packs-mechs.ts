@@ -377,7 +377,7 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
         groupLabel: "Lance",
         tech: "is+Clan",
         members: [
-            "Marauder Bounty Hunter 3015",
+            "Marauder (Bounty Hunter-3015)",
             "Warhammer WHM-9K",
             "Griffin GRF-2N",
             "Mad Cat (Timber Wolf) (Bounty Hunter)",
