@@ -186,7 +186,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                   />
                 </li>
 
-                <li title="Reset movement and apply damage"><span className="current" onClick={this.nextRound}><FiRefreshCcw /></span></li>
+                <li title="Reset movement tokens"><span className="" onClick={this.nextRound}><FiRefreshCcw /></span></li>
 
                 <li className="logo">
                     <a
