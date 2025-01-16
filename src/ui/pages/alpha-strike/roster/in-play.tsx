@@ -107,6 +107,30 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
       })
     }
 
+    nextRound = (
+      e: React.FormEvent<HTMLSpanElement>
+    ): void => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      if (this.props.appGlobals.currentASForce) {
+        for (let group of this.props.appGlobals.currentASForce.groups) {
+          for( let unit of group.members ) {
+
+            // Reset movement
+            if( unit && unit.movementType ) {
+              unit.movementType = '';
+            }
+
+            // TODO: Figure out how to apply temp damage
+
+          }
+        }
+
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+
+      }      
+    } 
+
 
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentASForce) {
@@ -161,6 +185,8 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                     appGlobals={this.props.appGlobals}
                   />
                 </li>
+
+                <li title="Reset movement and apply damage"><span className="current" onClick={this.nextRound}><FiRefreshCcw /></span></li>
 
                 <li className="logo">
                     <a
