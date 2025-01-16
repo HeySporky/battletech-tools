@@ -1366,13 +1366,16 @@ export class AlphaStrikeUnit {
 
         // Update To-Hit with movement
         let movementToHit = 0;
-        if (this.movementType === "standstill") {
-            movementToHit = -1;
-        } else if (this.movementType === "jump" && this.type && this.type.toLowerCase() !== "ba") {
-            movementToHit = 2;
-            for ( let ability = 0; ability < this._pilot.alphaStrikeAbilities.length; ability++) {
-                if (this._pilot.alphaStrikeAbilities[ability] === 26) {
-                    movementToHit = 1;
+        // Battle Armor and Infantry are not affected by attacker movement modifiers. AS:CE pg 42.
+        if (this.type && this.type.toLowerCase() !== "ba" && this.type.toLowerCase() !== "ci") {
+            if (this.movementType === "standstill") {
+                movementToHit = -1;
+            } else if (this.movementType === "jump") {
+                movementToHit = 2;
+                for ( let ability = 0; ability < this._pilot.alphaStrikeAbilities.length; ability++) {
+                    if (this._pilot.alphaStrikeAbilities[ability] === 26) {
+                        movementToHit = 1;
+                    }
                 }
             }
         }
