@@ -263,8 +263,9 @@ class FireSupportLance extends FormationBonusBase implements IFormationBonus {
         let result =true;
 
         // 3 IF mechs
-        // console.log(group);
-        result = result && (group.members.filter(x=>x.abilities.includes('IF')).length>=3);
+        //console.log(group);
+        var regex = /IF\d+/;
+        result = result && (group.members.filter(x=>x.abilities.some(y=>regex.test(y))).length>=3);
         return result;
     }
 
@@ -278,7 +279,8 @@ class ArtilleryFireLance extends FormationBonusBase implements IFormationBonus {
         let result =true;
 
         // 2 Art mechs
-        result = result && (group.members.filter(x=>x.abilities.includes('ART')).length>=2);
+        var regex = /ART\d+/;
+        result = result && (group.members.filter(x=>x.abilities.some(y=>regex.test(y))).length>=2);
         return result;
     }
 
@@ -313,7 +315,9 @@ class AntiAirLance extends FormationBonusBase implements IFormationBonus {
 
         // 75% sniper or missileboat
         result = result && (Math.ceil(group.members.length*.75)<=(this.RoleCount(group, "Missile Boat")+this.RoleCount(group, "Sniper")));
-        result = result && ((group.members.filter(x=>x.abilities.includes('FLK')).length + group.members.filter(x=>x.abilities.includes('AC')).length + group.members.filter(x=>x.abilities.includes('ART')).length)>=2)
+        var artRegex = /ART\d+/;
+        var acRegex = /AC\d+/;
+        result = result && ((group.members.filter(x=>x.abilities.includes('FLK')).length + group.members.filter(x=>x.abilities.some(y=>artRegex.test(y))).length + group.members.filter(x=>x.abilities.some(y=>acRegex.test(y))).length)>=2);
         return result;
     }
 
@@ -463,7 +467,8 @@ class RifleLance extends FormationBonusBase implements IFormationBonus {
         let result = true;
         result = result && (group.members.filter(x=>x.size===1).length===0);
         result = result && (Math.ceil(group.members.length*.75)<=(group.members.filter(x=>x.size===2||x.size===3).length));
-        result = result && (Math.ceil(group.members.length*.5)<=group.members.filter(x=>(x.abilities.filter(y=>y.includes('AC')||y.includes('FLK')).length>0)).length);
+        var acRegex = /AC\d+/;
+        result = result && (Math.ceil(group.members.length*.5)<=group.members.filter(x=>(x.abilities.filter(y=>acRegex.test(y)||y.includes('FLK')).length>0)).length);
         result = result && (group.members.filter(x=>x.move.filter(y=>y.move>=8)).length===group.members.length);
         return result;
     }
@@ -560,12 +565,15 @@ class OrderLance extends FormationBonusBase implements IFormationBonus {
     BonusDescription: string = "Designate one Unit as the command Unit of the Formation; it receives the Tactical Genius, Antagonizer or Sniper SPA. All Units in the Formation receive the Iron Will or Speed Demon SPA; the SPA chosen applies to all Units in the Formation.";
     RequirementsDescription: string = "Exclusive to House Kurita Forces. All Units in the Formation must be of the same Size and model (all Dragons/ Grand Dragons, all Panthers, etc).";
     IsValid(group: AlphaStrikeGroup): boolean {
-        let gLen = group.members.length;
-        if (gLen < 2) {
+        var result = true;
+        if (group.members.length < 2) {
             return false;
         }
         let firstClass = group.members[0].class;
-        return group.members.filter(x => x.class===firstClass).length === gLen;
+        console.log(firstClass)
+        console.log(group.members.filter(x=>x.class !== firstClass))
+        result = result && (group.members.filter(x=>x.class !== firstClass).length === 0);
+        return result;
     }
 }
 
