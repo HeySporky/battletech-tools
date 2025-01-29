@@ -108,6 +108,7 @@ export interface IAlphaStrikeUnitExport {
     tmm: number;
     // Additional Fields we use internally
     classification: string;
+    class: string;
     costCR: number;
     mulID: number;
     currentHeat: number;
@@ -389,6 +390,8 @@ export class AlphaStrikeUnit {
 
             if( incomingMechData.classification )
                 this.classification = incomingMechData.classification;
+            if( incomingMechData.class)
+                this.class = incomingMechData.class;
             this.costCR = incomingMechData.costCR / 1;
 
             this.mulID = incomingMechData.mulID / 1;
@@ -1539,6 +1542,7 @@ export class AlphaStrikeUnit {
             vehicleMotive11:  _vehicleMotive11,
             vehicleMotive12:  _vehicleMotive12,
             classification:  this.classification,
+            class:  this.class?? "",
             costCR:  this.costCR,
             mulID:  this.mulID,
             currentHeat:  _currentHeat,
