@@ -1,0 +1,25 @@
+.flex-grid {
+    flex-flow: row wrap;
+    display: flex;
+    .unit-card {
+        padding: 5px;
+        text-align: center;
+    }
+    &.flex-1 .unit-card {
+        flex-basis: 100%;
+        padding: 10px 0;
+    }
+    &.flex-2 .unit-card {
+        flex-basis: 50%;
+        padding: 10px;
+    }
+    &.flex-3 .unit-card {
+        flex-basis: 33.333%;
+    }
+    &.flex-4 .unit-card {
+        flex-basis: 25%;
+    }
+    &.flex-5 .unit-card {
+        flex-basis: 20%;
+    }
+}
