@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "QTEurotype";
+    src: url("./ui/fonts/QTEurotype.otf");
+}
+
 $fontSize: 14px;
 
 $lightBG: #fdfde3;
@@ -59,3 +64,52 @@ $colorBrightRed: #f00;
 $colorBrightOrange: rgb(255, 174, 0);
 $colorBlue: #00e;
 $colorGreen: #090;
+
+:root {
+    --primary: #dfab2d;
+    --primaryHover: #b48a25;
+    --primaryText: #000000;
+    --hoverText: #000000;
+    --green: #a3ee34;
+    --yellow: #f8f810;
+    --orange: #ee9f0d;
+    --red: #e70a0a;
+    --crimson: #dc143c;
+    --minimal: #279e98;
+    --ht: #961f1f;
+    --flk: #70699e;
+    --wrecked: #ffd6d6;
+    --staged: #dda0dd;
+    --rad: 4px;
+    .desaturated {
+        --primary: #666666;
+        --primaryHover: #999999;
+        --primaryText: #ffffff;
+        --hoverText: #000000;
+        --green: #e4fcc1;
+        --yellow: #fcfcd5;
+        --orange: #f5e4c4;
+        --red: #eccccc;
+        --crimson: #cfadb4;
+        --minimal: #87acaa;
+        --ht: #947171;
+        --flk: #7d7a8d;
+        --wrecked: #fceeee;
+        --staged: #dbbddb;
+    }
+    .retro {
+        --primary: #009900;
+        --primaryHover: #00cc00;
+        --primaryText: #ffffff;
+        --hoverText: #000000;
+        --wrecked: #6b6b6b;
+        --staged: #99bb99;
+        --green: #ffffff;
+        --yellow: #b6f5a6;
+        --orange: #7acf6f;
+        --red: #3da839;
+        --crimson: #259b1a;
+        --ht: var(--crimson);
+        --rad: 0;
+    }
+}

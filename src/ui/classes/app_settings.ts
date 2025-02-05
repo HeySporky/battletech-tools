@@ -15,7 +15,9 @@ export class AppSettings {
 
     alphasStrikeCachedSearchResults: IASMULUnit[] = [];
     alphaStrikeSearchTerm: string = "";
-    alphaStrikeInPlayColumns: number = 2;
+    alphaStrikeVariableDamage: string = "";
+    alphaStrikeAIMode: boolean = false;
+    alphaStrikeCombatRolls: boolean = false;
     alphaStrikeSearchRules: string = "";
     alphaStrikeSearchTech: string = "";
     alphaStrikeSearchRole: string = "";
@@ -66,8 +68,16 @@ export class AppSettings {
                 this.alphaStrikeSearchTerm = io.alphaStrikeSearchTerm;
             }
 
-            if ( typeof( io.alphaStrikeInPlayColumns ) !== "undefined" ) {
-                this.alphaStrikeInPlayColumns = io.alphaStrikeInPlayColumns;
+            if ( typeof( io.alphaStrikeVariableDamage ) !== "undefined" ) {
+                this.alphaStrikeVariableDamage = io.alphaStrikeVariableDamage;
+            }
+
+            if ( typeof( io.alphaStrikeAIMode ) !== "undefined" ) {
+                this.alphaStrikeAIMode = io.alphaStrikeAIMode;
+            }
+
+            if ( typeof( io.alphaStrikeCombatRolls ) !== "undefined" ) {
+                this.alphaStrikeCombatRolls = io.alphaStrikeCombatRolls;
             }
 
             if ( typeof( io.equipmentEditorFile ) !== "undefined" ) {
@@ -113,7 +123,9 @@ export class AppSettings {
             installEquipCategory: this.installEquipCategory,
             alphasStrikeCachedSearchResults: this.alphasStrikeCachedSearchResults,
             alphaStrikeSearchTerm: this.alphaStrikeSearchTerm,
-            alphaStrikeInPlayColumns: this.alphaStrikeInPlayColumns,
+            alphaStrikeVariableDamage: this.alphaStrikeVariableDamage,
+            alphaStrikeAIMode: this.alphaStrikeAIMode,
+            alphaStrikeCombatRolls: this.alphaStrikeCombatRolls,
             equipmentEditorFile: this.equipmentEditorFile,
             alphaStrikeSearchRules: this.alphaStrikeSearchRules,
             alphaStrikeSearchEra: this.alphaStrikeSearchEra,
@@ -145,7 +157,9 @@ export interface IAppSettingsExport {
     alphaStrikeSearchRole: string;
     alphaStrikeSearchEra: number;
     alphaStrikeSearchType: number;
-    alphaStrikeInPlayColumns: number;
+    alphaStrikeVariableDamage: string;
+    alphaStrikeAIMode: boolean;
+    alphaStrikeCombatRolls: boolean;
     alphaStrikeMeasurementsInHexes: boolean;
     alphaStrikeSearchFactions: Array<number>;
     hideMPIntro: boolean;

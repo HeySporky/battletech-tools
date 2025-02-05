@@ -395,7 +395,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Standard,
     },
     {
-        tag: "TUR#",
+        tag: "TUR(#/#/#)",
         name: "Turret",
         summary: [
             "A unit with a turret has some (or all) of its weapons mounted with a 360-degree field of fire. Damage for all turret-mounted weapons are included in the base damage values for the unit, and then separately for the TUR special ability. Thus, when a unit with a turret wishes to make an attack outside of its normal forward field of fire, it must use the damage values for its TUR special ability in place of the unit’s standard damage values.",

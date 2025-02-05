@@ -1,0 +1,155 @@
+svg.alpha-strike-card {
+    max-width: 1050px;
+    text {
+        text-rendering: optimizeLegibility;
+    }
+    p,
+    p a {
+        text-align: left;
+        color: black;
+    }
+
+    .impact {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        text-transform: uppercase;
+    }
+
+    .vertical-text {
+        transform: rotate(-90deg);
+        font-size: 16px;
+        font-weight: 700;
+        font-family: "QTEurotype", sans-serif;
+        letter-spacing: 2px;
+    }
+
+    .strong {
+        font-weight: 500;
+    }
+
+    .card-title {
+        font-size: 44px;
+        font-weight: bolder;
+    }
+
+    .unit-portrait {
+        mix-blend-mode: darken;
+        transform: translate(-25%, 4%) scale(115%);
+    }
+
+    &.unit-type-bm .unit-portrait,
+    &.unit-type-pm .unit-portrait {
+        transform: translate(-2.5%, 0%) scale(89%);
+    }
+
+    &.unit-type-js .unit-portrait,
+    &.unit-type-ci .unit-portrait {
+        transform: translate(-25%, 14%) scale(115%);
+    }
+
+    .card-name {
+        .variant {
+            font-size: 2rem;
+            font-family: "QTEurotype", sans-serif;
+        }
+        .impact {
+            font-size: 3.6rem;
+        }
+        .pilot-abilities {
+            font-size: 1.7rem;
+            font-weight: 600;
+        }
+    }
+
+    .data-pair {
+        font-size: 1.8rem;
+        font-weight: 700;
+        tspan {
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+        &.small {
+            font-size: 1rem;
+            &.spa,
+            &.base {
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+    .damage-column {
+        font-size: 1.2rem;
+        text-anchor: middle;
+        .damage {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+    }
+
+    .heat-text {
+        font-size: 2rem;
+        fill: white;
+        font-weight: 700;
+    }
+
+    .crit-label {
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 20px;
+    }
+
+    .crit-description {
+        font-size: 20px;
+    }
+
+    .point-value {
+        font-size: 52px;
+        font-weight: 700;
+        .current {
+            tspan {
+                font-size: 46px;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .threshold {
+        font-size: 44px;
+    }
+
+    .specials {
+        font-size: 25px;
+        line-height: 2.2rem;
+        color: black;
+    }
+
+    .description {
+        font-size: 48px;
+    }
+
+    .pilot-ability {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        .ability-name {
+            font-size: 2.8rem;
+            font-weight: 600;
+        }
+        .ability-cost {
+            font-size: 2rem;
+            color: #666;
+        }
+        p {
+            flex-basis: 100%;
+            font-size: 2.2rem;
+            line-height: 2.6rem;
+            margin: 0;
+        }
+        &+.pilot-ability {
+            margin: 14px 0;
+            padding-top: 8px;
+            border-top: 1px solid #aaa;
+        }
+    }
+
+}

@@ -1168,7 +1168,7 @@ body.desaturated {
 
 }
 
-body.retro {
+.retro {
   // * {
   //   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
   //   filter: grayscale(100%);
@@ -1352,9 +1352,9 @@ body.retro {
   }
 
   a {
-    color: #fff !important;
+    color: #fff;
     &:hover {
-      color: #eee !important;
+      color: #eee;
     }
   }
 

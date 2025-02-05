@@ -243,17 +243,17 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         setTimeout(
             () => {
                 // console.log("starting SSW import");
-                for( let sswXML of sswMechs ) {
-                    let basicSSWInfo = getSSWXMLBasicInfo( sswXML );
+                // for( let sswXML of sswMechs ) {
+                //     let basicSSWInfo = getSSWXMLBasicInfo( sswXML );
 
-                    if( basicSSWInfo && basicSSWInfo.rules_level_ssw < 3 ) {
-                        let bmObj = new BattleMech();
-                        bmObj.importSSWXML( sswXML );
-                        bmObj.basicSSWInfo = basicSSWInfo;
+                //     if( basicSSWInfo && basicSSWInfo.rules_level_ssw < 3 ) {
+                //         let bmObj = new BattleMech();
+                //         bmObj.importSSWXML( sswXML );
+                //         bmObj.basicSSWInfo = basicSSWInfo;
 
-                        appGlobals.sswMechObjects.push(bmObj);
-                    }
-                }
+                //         appGlobals.sswMechObjects.push(bmObj);
+                //     }
+                // }
                 // console.log("SSW import complete")
                 this.setState({
                     appGlobals: appGlobals,

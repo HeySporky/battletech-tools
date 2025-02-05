@@ -1,0 +1,724 @@
+$primary: var(--primary);
+$primaryHover: var(--primaryHover);
+$primaryText: var(--primaryText);
+$hoverText: var(--hoverText);
+$green: var(--green);
+$yellow: var(--yellow);
+$orange: var(--orange);
+$red: var(--red);
+$crimson: var(--crimson);
+$minimal: var(--minimal);
+$ht: var(--ht);
+$flk: var(--flk);
+$wrecked: var(--wrecked);
+$staged: var(--staged);
+$radius: var(--rad);
+
+.alpha-strike-play-card {
+    background-color: #fff;
+    color: #000;
+    padding: 12px;
+    border-radius: $radius;
+    box-sizing: border-box;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    container: card/inline-size;
+    min-width: 300px;
+    a {
+        color: $primary;
+        &:hover {
+            color: $primaryHover;
+        }
+    }
+    &.wrecked {
+        background-color: $wrecked;
+    }
+    h4 {
+        line-height: 20px;
+    }
+    a {
+        cursor: pointer;
+        user-select: none;
+    }
+    > * {
+        flex-wrap: nowrap;
+    }
+    > :last-child {
+        flex-grow: 1;
+    }
+    .row {
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        padding: 0;
+        margin: 0;
+        > * {
+            width: auto;
+            padding: 0;
+            margin: 0;
+        }
+    }
+    .column {
+        display: flex;
+        flex-direction: column;
+        > * {
+            height: auto;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    }
+    .variant {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 100%;
+        width: 100%;
+        flex-basis: 100%;
+    }
+    .unit-portrait {
+        flex-grow: 1;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: 50%;
+        mix-blend-mode: multiply;
+        img {
+            display: none;
+        }
+    }
+    button {
+        border-radius: $radius;
+        border: 1px solid #bababa;
+        background-color: color-mix(in srgb,$primary, #fff 80%);
+        &.physical {
+            background-color: #eee;
+            .button {
+                background-color: #666;
+                color: #fff;
+            }
+        }
+        &:not(:disabled):hover {
+            background-color: color-mix(in srgb,$primary, #fff 70%);
+            border-color: #888;
+            box-shadow: 0 1px 3px rgba(0,0,0,.25);
+            color: $hoverText;
+            &.physical {
+                background-color: #ccc;
+                .button {
+                    background-color: #444;
+                    color: #fff;
+                }
+            }
+            .button {
+                background-color: $primaryHover;
+                color: $hoverText;
+            }
+        }
+        .button,
+        &.button {
+            background-color: $primary;
+            border-radius: $radius;
+            border: none;
+            font-weight: 600;
+            color: $primaryText;
+            &:not(.no-hover):hover {
+                background-color: $primaryHover;
+                color: $hoverText;
+            }
+        }
+        &:disabled:not(.no-hover) .button {
+            opacity: .7;
+            &:hover {
+                background-color: $primary;
+                color: $primaryText;
+            }
+            &.physical,
+            &.physical:hover {
+                background-color: #bababa;
+                color: #fff;
+            }
+        }
+        &.no-hover *:not(.range) {
+            color: $hoverText;
+            &.button {
+                color: $primaryText;
+            }
+            &.physical {
+                color: #fff;
+            }
+        }
+        &:not(:disabled) .disabled {
+            opacity: .3;
+        }
+    }
+    .armor-structure {
+        button:not(.button) {
+            background-color: #fff;
+            &.active {
+                background-color: $red;
+            }
+            &.staged {
+                background-color:color-mix(in srgb,$red, #fff 80%);
+                border-color: $staged;
+                &.active {
+                    background-color: #fff;
+                }
+            }
+        }
+        .structure button {
+            background-color: #eee;
+            &.active {
+                background-color: $crimson;
+            }
+            &.staged {
+                background-color: color-mix(in srgb,$red, #fff 60%);
+                &.active {
+                    background-color: #eee;
+                }
+            }
+        }
+    }
+    .data-pair {
+        font-weight: bold;
+        font-size: 1rem;
+        line-height: 20px;
+        span {
+            font-weight: normal;
+            font-size: .75rem;
+            margin-right: 6px;
+        }
+        a {
+            text-decoration: none;
+        }
+        &.staged,
+        .staged {
+            color: $staged;
+            &:hover {
+                color: color-mix(in srgb,$staged, #000 20%);
+            }
+        }
+    }
+    a.data-pair {
+        text-decoration: none;
+        span {
+            color: #000;
+        }
+    }
+    .move-type {
+        text-transform: capitalize;
+        letter-spacing: -0.5px;
+    }
+    .move-heat {
+        gap: 16px;
+        .move-stats {
+            min-width: 64px;
+            .alt-adjust {
+                gap: 4px;
+            }
+            button {
+                flex-grow: 1;
+                flex-basis: calc(50% - 2px);
+                font-weight: 700;
+                line-height: 20px;
+                padding-bottom: 2px;
+            }
+        }
+    }
+    .heat.column {
+        min-width: 80px;
+        flex-grow: .5;
+        button {
+            flex-basis: 25%;
+            border-radius: 0;
+            font-weight: 600;
+            border: 1px solid #666;
+            background-color: #eee;
+            $radius: calc(var(--rad)*1.5);
+            &:hover {
+                background-color: darken(#eee, 5%);
+            }
+            &.staged {
+                background-color: $staged;
+                border-color: #000;
+                box-shadow: $staged 0px 0px 4px inset;
+            }
+            &:has(~ .staged),
+            &.staged ~ button {
+                opacity: .4;
+            }
+            &:nth-last-child(5).active {
+                background-color: $green;
+                &:hover {
+                    background-color: color-mix(in srgb,$green, #000 10%);;
+                }
+            }
+            &:nth-last-child(4).active {
+                background-color: $yellow;
+                &:hover {
+                    background-color: color-mix(in srgb,$yellow, #000 10%);;
+                }
+            }
+            &:nth-last-child(3).active {
+                background-color: $orange;
+                &:hover {
+                    background-color: color-mix(in srgb,$orange, #000 10%);;
+                }
+            }
+            &:nth-last-child(2).active {
+                background-color: $red;
+                &:hover {
+                    background-color: color-mix(in srgb,$red, #000 10%);;
+                }
+            }
+            &:last-child.active.active {
+                background-color: $crimson;
+                color: #fff;
+                &:hover {
+                    background-color: color-mix(in srgb,$crimson, #000 10%);
+                }
+            }
+            &:first-child {
+                border-radius: $radius 0 0 $radius;
+            }
+            &:last-child {
+                border-radius: 0 $radius $radius 0;
+            }
+        }
+        button:first-child:nth-last-child(5),
+        button:first-child:nth-last-child(5) ~ button {
+            flex-basis: 20%;
+        }
+    }
+    .attack-row h4 {
+        writing-mode: sideways-lr;
+        text-transform: uppercase;
+        text-align: center;
+        width: 20px;
+        font-size: 12px;
+    }
+    .attacks {
+        flex-grow: 1;
+        display: flex;
+        gap: 4px;
+        button {
+            flex-grow: 1;
+            flex-basis: 20%;
+            width: auto;
+            padding: 4px;
+            .button {
+                font-weight: 600;
+                white-space: nowrap;
+            }
+            .data-pair {
+                margin-bottom: 6px;
+                flex-grow: 1;
+                span {
+                    margin: 0;
+                    font-weight: 600;
+                    &.range {
+                        font-size: 12px;
+                        color: rgba(0,0,0,.5);
+                        letter-spacing: -0.5px;
+                    }
+                }
+            }
+            
+        }
+    }
+    .armor-crits {
+        gap: 8px;
+        &.row {
+            flex-grow: 1;
+        }
+        >:first-child {
+            max-width: calc(100% - 100px);
+            flex-grow: 1;
+            &:last-child {
+                max-width: 100%;
+            }
+        }
+        button.damage {
+            padding: 0 4px;
+        }
+        .armor-structure {
+            position: relative;
+            gap: 2px;
+            > .column.evenly {
+                gap: 8px;
+                flex-grow: 0;
+                flex-shrink: 1;
+                flex-basis: 1;
+            }
+            .take-damage {
+                button {
+                    flex-basis: 10%;
+                }
+            }
+            button.damage {
+                min-height: 52px;
+            }
+        }
+        .armor,
+        .structure {
+            label {
+                width: 16px;
+                margin: 0 4px;
+                text-align: center;
+                line-height: 20px;
+                font-weight: 600;
+            }
+            .dots {
+                gap: 2px 1px;
+            }
+            button {
+                border-radius: calc($radius * 2.5);
+                height: 20px;
+                width: 20px;
+            }
+        }
+        .vehicle.row {
+            span {
+                margin-right: 1px;
+            }
+        }
+        .crits {
+            width: 92px;
+            max-width: 92px;
+            button {
+                padding: 2px;
+                line-height: 1rem;
+                font-size: 1.2rem;
+                margin-top: 4px;
+            }
+        }
+    }
+    .list {
+        span::after {
+           content: ' ';
+        }
+        span:last-child:not(:first-child) {
+            display: none;
+        }
+    }
+    .overlay {
+        position: absolute;
+        border-radius: 4px;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        padding: 12px;
+        background-color: rgba(#fff,.95);
+        z-index: 100;
+        h5 {
+            margin-bottom: 10px;
+        }
+        .row + h5 {
+            margin-top: 18px;
+        }
+        .row {
+            gap: 20px;
+        }
+    }
+    .staged-actions {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        transform: translate(0, -25%);
+        text-align: center;
+        button {
+            background-color: $staged;
+            box-shadow: 0px 1px 4px rgba(0,0,0,.45);
+            color: #000;
+            &:last-child {
+                background-color: #eee;
+                color: #000;
+            }
+            &:hover {
+                background-color: color-mix(in srgb,$staged, #000 10%) !important;
+            }
+        }
+    }
+    @container card (max-width: 316px)  {
+        .attack-row h4 {
+            display: none;
+        }
+    }
+    @container card (max-width: 302px) {
+        .heat + .unit-portrait {
+            display: none;
+        }
+    }
+    button.staged {
+        background-color: $staged;
+        &:not(:disabled):hover {
+            background-color: color-mix(in srgb,$staged, #000 10%);;
+        }
+    }
+    #crit-buttons {
+        gap: 8px;
+        > * {
+            flex-grow: 1;
+        }
+    }
+    .attack-overlay {
+        font-size: .825rem;
+        // gap: 4px; // Figure this out later with container sizing 
+        h3 {
+            margin-bottom: -4px;
+            button {
+                color: #000;
+                background-color: transparent;
+                border: none;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                padding: 4px 4px;
+                border-radius: 50%;
+                font-size: 24px;
+                &:hover {
+                    background-color: rgba(0,0,0,0.2);
+                }
+            }
+        }
+        .label {
+            font-weight: 500;
+        }
+        button {
+            padding: 2px 8px;
+            min-width: 30px;
+            border: 1px solid #bababa;
+            background-color: #eee;
+            &:hover {
+                background-color: darken(#eee, 5%);
+            }
+            &.staged {
+                background-color: $staged;
+                &:not(:disabled):hover {
+                    background-color: color-mix(in srgb,$staged, #000 10%);
+                }
+            }
+            &#roll-dice {
+                background-color: $primary;
+                border: none;
+                min-height: 48px;
+                &:not(:disabled):hover {
+                    background-color: $primaryHover;
+                }
+            }
+        }
+        .button-group button {
+            border-radius: 0;
+            &:first-child {
+                border-radius: 4px 0 0 4px;
+            }
+            &:last-child {
+                border-radius: 0 4px 4px 0;
+            }
+            &:first-child:last-child {
+                border-radius: 4px;
+            }
+        }
+        .row {
+            gap: 0 12px;
+            &.button-group {
+                gap: 0;
+            }
+        }
+        .data-pair {
+            &.fancy {
+                font-size: 2rem;
+                line-height: 1.8rem;
+                color: $primary;
+                span {
+                    font-size: .8rem;
+                    line-height: 1.2rem;
+                    color: #000;
+                }
+            }
+        }
+        .die-pair {
+            height: 20px;
+            span:not(.die) {
+                font-size: 1rem;
+                position: relative;
+                top: -4px;
+            }
+        }
+        .die {
+            display: inline-block;
+            font-size: 1.25rem;
+            line-height: 1.25rem;
+            // height: 1.25rem;
+            &.miss {
+                opacity: .2;
+            }
+            &.damage {
+                color: $crimson;
+            }
+            &.minimal {
+                color: $minimal;
+            }
+            &.ht {
+                color: $ht;
+            }
+            &.flk {
+                color: $flk;
+                &.flk-hit.miss {
+                    opacity: 1;
+                }
+            }
+            svg {
+                vertical-align: baseline;
+            }
+        }
+        .results {
+            margin-top: 4px;
+            .row {
+                gap: 8px;
+                &#damage-dice {
+                    gap: 4px;
+                }
+            }
+            > .column {
+                flex-shrink: 1;
+            }
+            &.single-roll .die {
+                font-size: 3rem;
+                line-height: 3rem;
+            }
+        }
+        .end {
+            margin-top: auto;
+            margin-left: auto;
+        }
+    }
+}
+
+.token-wrapper {
+    text-align: center;
+    font-weight: 600;
+    --h: 72px;
+    $tokenColor: color-mix(in srgb,$primary, #fff 80%);
+    .data {
+        position: absolute;
+        line-height: 1rem;
+        width: 100%;
+        top: 6px;
+        height: calc(100% - 12px);
+    }
+    span {
+        font-size: .75rem;
+        font-weight: 400;
+    }
+
+    .token-inner {
+        --b: 2px; /* adjust to control the border  */
+        height: var(--h); /* adjust to control the size  */
+        aspect-ratio: 1/cos(30deg);
+        clip-path: 
+        polygon(0 50%,50% -50%,100% 50%,50% 150%,0 50%,
+        var(--b) 50%,
+        calc(25% + var(--b)*cos(60deg)) calc(100% - var(--b)*sin(60deg)),
+        calc(75% - var(--b)*cos(60deg)) calc(100% - var(--b)*sin(60deg)),
+        calc(100% - var(--b)) 50%,
+        calc(75% - var(--b)*cos(60deg)) calc(var(--b)*sin(60deg)),
+        calc(25% + var(--b)*cos(60deg)) calc(var(--b)*sin(60deg)),
+        var(--b) 50%);
+        background-color: color-mix(in srgb,$primary, #fff 60%);
+        position: absolute;
+        top: 0;
+    }
+
+    .token {
+        cursor: pointer;
+        position: relative;
+        height: var(--h); /* adjust to control the size  */
+        aspect-ratio: 1/cos(30deg);
+        clip-path: polygon(50% -50%,100% 50%,50% 150%,0 50%);
+        background-color: $tokenColor;
+        &:hover {
+            background-color: color-mix(in srgb,$primary, #fff 70%);
+        }
+        &.standstill,
+        &.low {
+            $tokenColor: #666;
+            background-color: $tokenColor;
+            color: #fff;
+            .token-inner {
+                background-color: darken($tokenColor, 20%);
+            }
+            &:hover {
+                background-color: darken($tokenColor, 5%);
+            }
+        }
+        &.ground,
+        &.middle,
+        &.charge {
+            $tokenColor: #fff;
+            background-color: $tokenColor;
+            .token-inner {
+                background-color: darken($tokenColor, 20%);
+            }
+            &:hover {
+                background-color: darken($tokenColor, 5%);
+            }
+        }
+        &.sprint,
+        &.high {
+            $tokenColor: color-mix(in srgb,$primary, #fff 80%);
+            background-color: $tokenColor;
+            .token-inner {
+                background-color: color-mix(in srgb,$primary, #fff 60%);
+            }
+            &:hover {
+                background-color: color-mix(in srgb,$primary, #fff 70%);
+            }
+        }
+        &.jump,
+        &.extreme,
+        &.dfa {
+            $tokenColor: $crimson;
+            background-color: $tokenColor;
+            color: #fff;
+            .token-inner {
+                background-color: color-mix(in srgb,$tokenColor, #000 30%);
+            }
+            &:hover {
+                background-color: color-mix(in srgb,$tokenColor, #000 10%);
+            }
+        }
+        &.immobile {
+            cursor: not-allowed;
+            $tokenColor: $crimson;
+            background-color: $tokenColor;
+            color: #fff;
+            .token-inner {
+                background-color: color-mix(in srgb,$tokenColor, #000 30%);
+            }
+        }
+        &.hull.down {
+            $tokenColor: #eee;
+            background-color: $tokenColor;
+            .token-inner {
+                background-color: darken($tokenColor, 20%);
+            }
+            &:hover {
+                background-color: darken($tokenColor, 5%);
+            }
+        }
+        &.dfa .move-type {
+            text-transform: uppercase;
+        }
+        span {
+            font-size: .75rem;
+            font-weight: 400;
+        }
+    }
+}
+
+
