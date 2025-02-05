@@ -182,7 +182,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
             }
             return (
               <React.Fragment key={groupIndex}>
-              <div className="text-section lr-margin">
+              <div className="text-section lr-margin in-play-group">
                 <h2>
                   {group.isUnderStrength() ? (
                     <button
