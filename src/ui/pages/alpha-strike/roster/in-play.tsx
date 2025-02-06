@@ -28,8 +28,22 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
         this.props.appGlobals.makeDocumentTitle("Playing Alpha Strike");
     }
 
+    nextRound = (
+      e: React.FormEvent<HTMLSpanElement>
+    ): void => {
+      if( e && e.preventDefault ) e.preventDefault();
 
+      if (this.props.appGlobals.currentASForce) {
+        for (let group of this.props.appGlobals.currentASForce.groups) {
+          for( let unit of group.members ) {
+            unit.applyRound();
+          }
+        }
 
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+
+      }      
+    } 
 
     toggleCardMode = (
       e: React.FormEvent<HTMLSpanElement>
@@ -161,6 +175,8 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                     appGlobals={this.props.appGlobals}
                   />
                 </li>
+
+                <li title="Apply damage and heat changes to end the round"><span className="" onClick={this.nextRound}>End Round</span></li>
 
                 <li className="logo">
                     <a
