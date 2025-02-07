@@ -33,16 +33,26 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
     ): void => {
       if( e && e.preventDefault ) e.preventDefault();
 
-      if (this.props.appGlobals.currentASForce) {
-        for (let group of this.props.appGlobals.currentASForce.groups) {
-          for( let unit of group.members ) {
-            unit.applyRound();
-          }
+      this.props.appGlobals.openConfirmDialog(
+        "End Round",
+        "Ending the round will apply all the pending updates to all units heat and damage.",
+        "End Round",
+        "Cancel",
+        () => {
+          if (this.props.appGlobals.currentASForce) {
+            for (let group of this.props.appGlobals.currentASForce.groups) {
+              for( let unit of group.members ) {
+                unit.applyRound();
+              }
+            }
+    
+            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+    
+          }  
         }
+      )
 
-        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
-
-      }      
+          
     } 
 
     toggleCardMode = (
