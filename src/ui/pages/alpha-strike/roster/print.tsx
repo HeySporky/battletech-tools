@@ -8,9 +8,9 @@ import AlphaStrikePilotCardSVG from '../../../components/svg/alpha-strike-pilot-
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import './print.scss';
 import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
+import AlphaStrikeUnitToken from '../../../components/svg/alpha-strike-unit-token';
 
 export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps, IPrintState> {
-    bigVersion: boolean = false;
     constructor(props: IPrintProps) {
         super(props);
 
@@ -142,9 +142,43 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
           </div>
           ) : null}
 
+          {/* Print out unit tokens for each unit in the force */}
+          <div className={"print-section "}>
+            <div className='section-header'>
+              <h2>Unit Tokens</h2>
+            </div>
+            <div className="section-content tokens">
+          {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
+            if( group.members.length === 0) {
+              return (<></>);
+            }
+            return (
+              <React.Fragment key={groupIndex}>
+                  {group.members.map( (unit, unitIndex) => {
+                  
+                    return (
+
+                    <React.Fragment key={unitIndex}>
+                        <AlphaStrikeUnitToken
+                          asUnit={unit}
+                          groupName={group.getName(groupIndex + 1)}
+                          appGlobals={this.props.appGlobals}
+                        />
+                    </React.Fragment>
+                    )
+                  })}
+
+            </React.Fragment>
+            )
+          })}
+          
+            </div>
+          </div>
+
             <footer className="print-footer">
               <div className="print-logo">
                 <BattleTechLogo
+                        width={120}
                         baseColor='rgb(35,31,32)'
                         altColor='rgb(105,106,108)'
                     />
