@@ -1039,36 +1039,57 @@ export class AlphaStrikeUnit {
 
         if( typeof( this.currentArmor ) === "undefined" || this.currentArmor.length === 0 ) {
             this.currentArmor = [];
-            this.roundArmor = [];
             for( let armorCount = 0; armorCount < this.armor; armorCount++) {
                 this.currentArmor.push( false );
+            }
+        }
+
+        if( typeof( this.roundArmor ) === "undefined" || this.roundArmor.length !== this.currentArmor.length ) {
+            this.roundArmor = [];
+            for( let armorCount = 0; armorCount < this.armor; armorCount++) {
                 this.roundArmor.push( false );
             }
         }
 
         if( typeof( this.currentStructure ) === "undefined" || this.currentStructure.length === 0 ) {
             this.currentStructure = [];
-            this.roundStructure = [];
             for( let structureCount = 0; structureCount < this.structure; structureCount++) {
                 this.currentStructure.push( false );
+            }
+        }
+
+        if( typeof( this.roundStructure ) === "undefined" || this.roundArmor.length !== this.currentStructure.length ) {
+            this.roundStructure = [];
+            for( let structureCount = 0; structureCount < this.armor; structureCount++) {
                 this.roundStructure.push( false );
             }
         }
 
         if( typeof( this.engineHits ) === "undefined"  || this.engineHits.length === 0  ) {
             this.engineHits = [];
-            this.roundEngineHits = [];
             for( let engineHitsCount = 0; engineHitsCount < 2; engineHitsCount++) {
                 this.engineHits.push( false );
                 this.roundEngineHits.push( false );
             }
         }
 
+        if( typeof( this.roundEngineHits ) === "undefined"  || this.roundEngineHits. length !== this.engineHits.length ) {
+            this.roundEngineHits = [];
+            for( let engineHitsCount = 0; engineHitsCount < 2; engineHitsCount++) {
+                this.roundEngineHits.push( false );
+            }
+        }
+
         if( typeof( this.fireControlHits ) === "undefined"  || this.fireControlHits.length === 0  ) {
             this.fireControlHits = [];
-            this.roundFireControlHits = [];
             for( let fcHitsCount = 0; fcHitsCount < 4; fcHitsCount++) {
                 this.fireControlHits.push( false );
+            }
+        }
+
+        if( typeof( this.roundFireControlHits ) === "undefined"  || this.roundFireControlHits.length !== this.fireControlHits.length  ) {
+            this.roundFireControlHits = [];
+            for( let fcHitsCount = 0; fcHitsCount < 4; fcHitsCount++) {
                 this.roundFireControlHits.push( false );
             }
         }
@@ -1081,6 +1102,14 @@ export class AlphaStrikeUnit {
                 this.roundVehicleMotive910.push( false );
             }
         }
+
+        if( typeof(this.roundVehicleMotive910) === "undefined" || this.roundVehicleMotive910.length !== this.vehicleMotive910.length ) {
+            this.roundVehicleMotive910 = [];
+            for(let hitCount = 0; hitCount < 2; hitCount++) {
+                this.roundVehicleMotive910.push( false );
+            }
+        }
+
         if( typeof(this.vehicleMotive11) === "undefined" || this.vehicleMotive11.length === 0 ) {
             this.vehicleMotive11 = [];
             this.roundVehicleMotive11 = [];
@@ -1090,9 +1119,15 @@ export class AlphaStrikeUnit {
             }
         }
 
+        if( typeof(this.roundVehicleMotive11) === "undefined" || this.roundVehicleMotive11.length !== this.vehicleMotive11.length ) {
+            this.roundVehicleMotive11 = [];
+            for(let hitCount = 0; hitCount < 2; hitCount++) {
+                this.roundVehicleMotive11.push( false );
+            }
+        }
+
         if( typeof( this.mpControlHits ) === "undefined"  || this.mpControlHits.length === 0  ) {
             this.mpControlHits = [];
-            this.roundMpControlHits = [];
             let numberOfHits = 4;
             if(
                 ( this.type && this.type.toLowerCase() === "bm" )
@@ -1114,6 +1149,11 @@ export class AlphaStrikeUnit {
 
             for( let mpHitsCount = 0; mpHitsCount < numberOfHits; mpHitsCount++) {
                 this.mpControlHits.push( false );
+            }
+        }
+
+        if( typeof( this.roundMpControlHits ) === "undefined"  || this.roundMpControlHits.length !== this.mpControlHits.length  ) {
+            for ( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
                 this.roundMpControlHits.push( false );
             }
         }
@@ -1127,7 +1167,12 @@ export class AlphaStrikeUnit {
             }
         }
 
-
+        if( typeof( this.roundWeaponHits ) === "undefined"  || this.roundWeaponHits.length !== this.weaponHits.length ) {
+            this.roundWeaponHits = [];
+            for( let weaponHitsCount = 0; weaponHitsCount < 4; weaponHitsCount++) {
+                this.roundWeaponHits.push( false );
+            }
+        }
 
 
 
