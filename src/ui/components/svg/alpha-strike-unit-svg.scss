@@ -1,0 +1,37 @@
+.move-token {
+    fill: rgb(0,0,0);
+    &.standstill,
+    &.low,
+    &.jump,
+    &.extreme {
+        fill: rgb(255,255,255);
+    }
+    &:not(text) {
+        fill: rgba(255,255,255,.2);
+        stroke: rgb(0,0,0);
+        stroke-width: 3;
+        filter: drop-shadow(rgba(0,0,0,.5) 0 .15rem .3rem);
+        &.ground,
+        &.middle {
+            fill: rgb(255,255,255);
+        }
+        &.standstill,
+        &.low {
+            fill: rgb(0,0,0);
+        }
+        &.sprint,
+        &.high {
+            fill: rgb(204,187,0);
+        }
+        &.jump,
+        &.extreme {
+            fill: rgb(200,0,0);
+        }
+        &.grounded {
+            fill: rgb(210,210,210);
+        }
+        &.big {
+            filter: drop-shadow(black 0 .5rem 1rem);
+        }
+    }
+}

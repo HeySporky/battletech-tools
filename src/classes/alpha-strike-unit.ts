@@ -124,6 +124,7 @@ export interface IAlphaStrikeUnitExport {
     imageURL: string;
 
     move: IMoveNumber[];
+    movementType: string;
     jumpMove: number;
     structure: number;
     armor: number;
@@ -177,6 +178,7 @@ export class AlphaStrikeUnit {
     public currentMoveSprint: string = "";
     public currentMoveHexesSprint: string = "";
     public currentTMM: string = "";
+    public movementType: string = "";
 
     public armor: number = 0;
     public structure: number = 1;
@@ -799,6 +801,7 @@ export class AlphaStrikeUnit {
         this.vehicleMotive910 = [];
         this.vehicleMotive11 = [];
         this.vehicleMotive12 = false;
+        this.movementType = "";
         this.calcCurrentValues();
     }
 
@@ -1059,9 +1062,21 @@ export class AlphaStrikeUnit {
             extremeMinimal: this.damage.extremeMinimal ? true : false,
         };
 
+        // Consider Speed-Demon from pilot skills
+        let speedDemon = false;
+        for ( let ability = 0; ability < this._pilot.alphaStrikeAbilities.length; ability++) {
+            if (this._pilot.alphaStrikeAbilities[ability] === 46) {
+                speedDemon = true;
+            }
+        }
 
         for( let moveC = 0; moveC < this.move.length; moveC++ ) {
             this.move[moveC].currentMove = this.move[moveC].move;
+
+            if (this.move[moveC].type === '' && speedDemon) {
+                this.move[moveC].currentMove = this.move[moveC].move + 2;
+            }
+            
         }
 
         // Calculate Critical Movement
@@ -1224,7 +1239,11 @@ export class AlphaStrikeUnit {
 
             }
 
-            this.currentMoveSprint = "" + (+this.move[0].currentMove * 1.5 ) + "\"";
+            // Consider Speed Demon
+            let sprintBase = !speedDemon? this.move[0].currentMove : this.move[0].currentMove - 2;
+            let sprintBonus = speedDemon? 4 : 0;
+
+            this.currentMoveSprint = "" + (sprintBase * 1.5 + sprintBonus) + "\"";
             this.currentMoveHexesSprint = "" + ( Math.ceil(( +this.move[0].currentMove / 2) * 1.5) )+ "⬣";
 
             this.currentMove += this.move[moveC].currentMove.toString() + "\"" + this.move[moveC].type;
@@ -1299,6 +1318,7 @@ export class AlphaStrikeUnit {
             // shut down units have a tmm of -4 (ASC pg. 53)
             if( this.currentHeat === 4 ){
                 tmpTMM = -4;
+                this.move[moveC].currentMove = 0;
                 this.immobile = true;
             } else {
                 // -1 TMM at OV2 or OV3 (ASC pg. 52)
@@ -1317,8 +1337,9 @@ export class AlphaStrikeUnit {
                 // }
             }
 
-            if( this.move[moveC].currentMove > 0 )
-            this.immobile = false;
+            if( this.move[moveC].currentMove > 0) {
+                this.immobile = false;
+            }
 
             if( tmpTMM.toString() + "/" !== this.currentTMM )
                 this.currentTMM += tmpTMM.toString() + this.move[moveC].type.toLowerCase();
@@ -1331,15 +1352,42 @@ export class AlphaStrikeUnit {
                 this.currentMoveHexes += "/";
             }
 
+            if(this.movementType.toLowerCase() === "standstill" && !this.immobile) {
+                this.currentTMM = "0";
+            }
+    
+            if(this.movementType.toLowerCase() === "jump" && !this.immobile) {
+                tmpTMM++;
+                this.currentTMM = tmpTMM.toString() + "j";
+            }
+    
+
         }
-        if( this.currentTMM.endsWith("/"))
+        if( this.currentTMM.endsWith("/")) {
             this.currentTMM = this.currentTMM.substring( 0, this.currentTMM.length - 1);
+        }
+
+        // Update To-Hit with movement
+        let movementToHit = 0;
+        // Battle Armor and Infantry are not affected by attacker movement modifiers. AS:CE pg 42.
+        if (this.type && this.type.toLowerCase() !== "ba" && this.type.toLowerCase() !== "ci") {
+            if (this.movementType === "standstill") {
+                movementToHit = -1;
+            } else if (this.movementType === "jump") {
+                movementToHit = 2;
+                for ( let ability = 0; ability < this._pilot.alphaStrikeAbilities.length; ability++) {
+                    if (this._pilot.alphaStrikeAbilities[ability] === 26) {
+                        movementToHit = 1;
+                    }
+                }
+            }
+        }
 
         // Calculate To-Hits with Criticals
-        this.currentToHitShort = this.currentSkill + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
-        this.currentToHitMedium = this.currentSkill + 2 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
-        this.currentToHitLong = this.currentSkill + 4 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
-        this.currentToHitExtreme = this.currentSkill + 6 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
+        this.currentToHitShort = this.currentSkill + this.currentHeat + currentFCHits * 2 + movementToHit; // + currentEngineHits;
+        this.currentToHitMedium = this.currentSkill + 2 + this.currentHeat + currentFCHits * 2 + movementToHit; // + currentEngineHits;
+        this.currentToHitLong = this.currentSkill + 4 + this.currentHeat + currentFCHits * 2 + movementToHit; // + currentEngineHits;
+        this.currentToHitExtreme = this.currentSkill + 6 + this.currentHeat + currentFCHits * 2 + movementToHit; // + currentEngineHits;
 
         this.currentHeat = this.currentHeat / 1;
 
@@ -1569,6 +1617,7 @@ export class AlphaStrikeUnit {
             basePoints:  this.basePoints,
             currentSkill:  this.currentSkill,
             uuid: this.uuid,
+            movementType: this.movementType,
         };
 
         return rv;
