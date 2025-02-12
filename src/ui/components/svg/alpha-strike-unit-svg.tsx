@@ -566,7 +566,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 </g>
 
                 {/* Critical Hits */}
-                {!this.props.asUnit.isInfantry ? (
+                {!this.props.asUnit.isInfantry && this.props.asUnit.type !== "JS" ? (
                 <g transform={showHeat ? "translate(584, 456)" : "translate(584, 440)"}>
                 {/* Outline Box and Title */}
                 <rect x="0" y="0" width="430" height={showHeat ? 180 : 196} fill="rgb(209,210,212)" stroke='rgb(0,0,0)' strokeWidth={3} rx="20" ry="20"></rect>

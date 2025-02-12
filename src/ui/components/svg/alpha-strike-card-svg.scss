@@ -42,6 +42,11 @@ svg.alpha-strike-card {
     transform: translate(-2.5%, 0%) scale(89%);
 }
 
+.unit-type-js .unit-portrait,
+.unit-type-ci .unit-portrait {
+    transform: translate(-25%, 14%) scale(115%);
+}
+
 .card-name {
     .variant {
         font-size: 2rem;
