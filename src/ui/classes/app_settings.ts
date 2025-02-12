@@ -15,7 +15,7 @@ export class AppSettings {
 
     alphasStrikeCachedSearchResults: IASMULUnit[] = [];
     alphaStrikeSearchTerm: string = "";
-    alphaStrikeInPlayCardMode: boolean = false;
+    alphaStrikeInPlayColumns: number = 2;
     alphaStrikeSearchRules: string = "";
     alphaStrikeSearchTech: string = "";
     alphaStrikeSearchRole: string = "";
@@ -66,8 +66,8 @@ export class AppSettings {
                 this.alphaStrikeSearchTerm = io.alphaStrikeSearchTerm;
             }
 
-            if ( typeof( io.alphaStrikeInPlayCardMode ) !== "undefined" ) {
-                this.alphaStrikeInPlayCardMode = io.alphaStrikeInPlayCardMode;
+            if ( typeof( io.alphaStrikeInPlayColumns ) !== "undefined" ) {
+                this.alphaStrikeInPlayColumns = io.alphaStrikeInPlayColumns;
             }
 
             if ( typeof( io.equipmentEditorFile ) !== "undefined" ) {
@@ -113,7 +113,7 @@ export class AppSettings {
             installEquipCategory: this.installEquipCategory,
             alphasStrikeCachedSearchResults: this.alphasStrikeCachedSearchResults,
             alphaStrikeSearchTerm: this.alphaStrikeSearchTerm,
-            alphaStrikeInPlayCardMode: this.alphaStrikeInPlayCardMode,
+            alphaStrikeInPlayColumns: this.alphaStrikeInPlayColumns,
             equipmentEditorFile: this.equipmentEditorFile,
             alphaStrikeSearchRules: this.alphaStrikeSearchRules,
             alphaStrikeSearchEra: this.alphaStrikeSearchEra,
@@ -145,7 +145,7 @@ export interface IAppSettingsExport {
     alphaStrikeSearchRole: string;
     alphaStrikeSearchEra: number;
     alphaStrikeSearchType: number;
-    alphaStrikeInPlayCardMode: boolean;
+    alphaStrikeInPlayColumns: number;
     alphaStrikeMeasurementsInHexes: boolean;
     alphaStrikeSearchFactions: Array<number>;
     hideMPIntro: boolean;
