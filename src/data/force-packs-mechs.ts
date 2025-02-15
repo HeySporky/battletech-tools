@@ -276,6 +276,17 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
             "Highlander HGN-732",
         ],
     },{
+        name:"Somerset Strikers Force Pack",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "Hatamoto-Chi HTM-27T",
+            "Mauler MAL-1R",
+            "Axman AXM-2N",
+            "Bushwacker BSW-X1",
+            "Wolfhound WLF-2",
+        ],
+    },{
         name: "McCarron's Armored Cavalry Assault Lance",
         groupLabel: "Lance",
         tech: "is",
@@ -319,16 +330,6 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
             "UrbanMech UM-R68",
         ],
     },{
-        name: "Legendary MechWarriors Pack",
-        groupLabel: "Lance",
-        tech: "is+clan",
-        members: [
-            "Daishi (Dire Wolf) \"Widowmaker\"",
-            "Archer ARC-2R",
-            "Marauder MAD-3R",
-            "Mad Cat (Timber Wolf) (Pryde)",
-        ],
-    },{
         name: "ComStar Command Level II",
         groupLabel: "Level II",
         tech: "is",
@@ -363,14 +364,36 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
             'Phoenix Hawk PXH-1b "Special"',
          ],
     },{
-        name: "Inner Sphere Battle Armor Platoon",
+        name: "Second Star League Assault Lance",
         groupLabel: "Lance",
-        tech: "is",
+        tech: "is+Clan",
         members: [
-            "IS Standard Battle Armor [Laser] (Sqd4)",
-            "IS Standard Battle Armor [Laser] (Sqd4)",
-            "IS Standard Battle Armor [Laser] (Sqd4)",
-            "IS Standard Battle Armor [Laser] (Sqd4)",
+            "Daishi (Dire Wolf) \"Prometheus\"",
+            "Emperor EMP-6A",
+            "Argus AGS-4D",
+            "Helios HEL-3D",
+            "Coolant Truck 135-K \"Lifesaver\"",
+        ],
+    },{
+        name: "Legendary MechWarriors Pack",
+        groupLabel: "Lance",
+        tech: "is+clan",
+        members: [
+            "Daishi (Dire Wolf) \"Widowmaker\"",
+            "Archer ARC-2R",
+            "Marauder MAD-3R",
+            "Mad Cat (Timber Wolf) (Pryde)",
+        ],
+    },{
+        name: "Legendary MechWarriors Pack II",
+        groupLabel: "Lance",
+        tech: "is+Clan",
+        members: [
+            "SM5 Field Commander (Prototype) Prime",
+            "Devastator DVS-2",
+            "Charger CGR-3K",
+            "Marauder (Red Hunter-3146)",
+            "Caesar CES-3R \"Archangel\"",
         ],
     },{
         name: "Legendary MechWarriors Pack III",
@@ -383,6 +406,16 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
             "Mad Cat (Timber Wolf) (Bounty Hunter)",
             "Loki Mk II (Hel) Prime",
             "Marauder II (Bounty Hunter)",
+        ],
+    },{
+        name: "Inner Sphere Battle Armor Platoon",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "IS Standard Battle Armor [Laser] (Sqd4)",
+            "IS Standard Battle Armor [Laser] (Sqd4)",
+            "IS Standard Battle Armor [Laser] (Sqd4)",
+            "IS Standard Battle Armor [Laser] (Sqd4)",
         ],
     },{
         name: "Inner Sphere Security Lance",
@@ -435,4 +468,95 @@ export const CONST_FORCE_PACKS: IForcePack[] = [
             "Vedette Medium Tank",
         ],
     },
+    {
+        name: "Battlefield Support: Cavalry Lance",
+        groupLabel: "Lance",
+        tech: "Is",
+        members: [
+            "Condor Heavy Hover Tank",
+            "Condor Heavy Hover Tank",
+            "Pegasus Scout Hover Tank",
+            "Pegasus Scout Hover Tank",
+         ],
+    },{
+        name: "Battlefield Support: Assault Lance",
+        groupLabel: "Lance",
+        tech: "Is",
+        members: [
+            "Schrek PPC Carrier",
+            "Schrek PPC Carrier",
+            "Demolisher Heavy Tank (Defensive)",
+            "Demolisher Heavy Tank (Defensive)",
+         ],
+    },{
+        name: "Battlefield Support: Command Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "Von Luckner Heavy Tank VNL-K65N",
+            "Von Luckner Heavy Tank VNL-K65N",
+            "SturmFeur Heavy Tank",
+            "SturmFeur Heavy Tank",
+        ],
+    },{
+        name: "Battlefield Support: Rifle Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "Bulldog Medium Tank",
+            "Bulldog Medium Tank",
+            "Hetzer Wheeled Assault Gun",
+            "Hetzer Wheeled Assault Gun",
+        ],
+    },{
+        name: "Battlefield Support: Sweep Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "Drillson Heavy Hover Tank",
+            "Drillson Heavy Hover Tank",
+            "J. Edgar Light Hover Tank",
+            "J. Edgar Light Hover Tank",
+        ],
+    },{
+        name: "Battlefield Support: Heavy Battle Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+           "Patton Tank",
+            "Patton Tank",
+            "Pike Support Vehicle",
+            "Pike Support Vehicle"
+        ],
+    },{
+        name: "Battlefield Support: Hunter Lance",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "Ontos Heavy Tank",
+            "Ontos Heavy Tank",
+            "Behemoth Heavy Tank",
+            "Behemoth Heavy Tank"
+        ],
+    },{
+        name: "Battlefield Support: Recon Lance",
+        groupLabel: "Lance",
+        tech: "Is",
+        members: [
+            "Warrior Attack Helicopter H-7",
+            "Warrior Attack Helicopter H-7",
+            "Skulker Wheeled Scout Tank",
+            "Skulker Wheeled Scout Tank",
+         ],
+    },{
+        name:"Battlefield Support: Objectives",
+        groupLabel: "Lance",
+        tech: "is",
+        members: [
+            "Mobile Long Tom Artillery LT-MOB-25",
+            "Mobile Long Tom Artillery Ammunition Carriage LT-MOB-25",
+            "M.A.S.H. Truck",
+            "Mobile Headquarters",
+        ],
+    }
 ]
