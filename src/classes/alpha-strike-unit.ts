@@ -1058,9 +1058,9 @@ export class AlphaStrikeUnit {
             }
         }
 
-        if( typeof( this.roundStructure ) === "undefined" || this.roundArmor.length !== this.currentStructure.length ) {
+        if( typeof( this.roundStructure ) === "undefined" || this.roundStructure.length !== this.currentStructure.length ) {
             this.roundStructure = [];
-            for( let structureCount = 0; structureCount < this.armor; structureCount++) {
+            for( let structureCount = 0; structureCount < this.structure; structureCount++) {
                 this.roundStructure.push( false );
             }
         }
@@ -1683,7 +1683,7 @@ export class AlphaStrikeUnit {
 
     public takeDamage( numberOfPoints: number ) {
         let leftOverPoints = numberOfPoints;
-
+        
         for( let pointCounter = 0; pointCounter < numberOfPoints; pointCounter++ ) {
             for( let armorCounter = 0; armorCounter < this.roundArmor.length; armorCounter++ ) {
                 if( this.roundArmor[armorCounter] === false && this.currentArmor[armorCounter] === false ) {
@@ -1695,8 +1695,7 @@ export class AlphaStrikeUnit {
                     this.roundArmor[armorCounter] = false;
                 }
             }
-
-            for( let structureCounter = 0; structureCounter < this.roundStructure.length; structureCounter++ ) {
+            for( let structureCounter = 0; structureCounter < leftOverPoints; structureCounter++ ) {
                 if( this.roundStructure[structureCounter] === false && this.currentStructure[structureCounter] === false ) {
                     if( leftOverPoints > 0 ) {
                         this.roundStructure[structureCounter] = true;
@@ -1706,6 +1705,7 @@ export class AlphaStrikeUnit {
                     this.roundStructure[structureCounter] = false;
                 }
             }
+            
         }
 
         this.calcCurrentValues();
