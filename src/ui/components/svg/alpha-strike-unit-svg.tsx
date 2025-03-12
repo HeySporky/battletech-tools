@@ -12,6 +12,9 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     buttonRadius = 15;
 
     activeDotColor = "rgb(200,0,0)";
+    roundDotColor = "rgb(0,180,180)";
+    roundStrokeColor = "rgb(0,140,140)";
+    roundActiveColor = "rgb(230,255,255)";
 
     critLineHeight = 50;
 
@@ -44,7 +47,6 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     private _takeDamage = ( damageTaken: number ): void => {
         if( this.props.inPlay && this.props.asUnit ) {
             this.props.asUnit.takeDamage( damageTaken );
-            this.props.asUnit.calcCurrentValues();
             this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         }
         this.setState({
@@ -53,32 +55,25 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     }
 
     private _toggleArmorOrStructure = ( target: string, indexNumber: number ) => {
-
-
         if( this.props.inPlay && this.props.asUnit ) {
             if( target === "armor" ) {
-                if( this.props.asUnit.currentArmor.length > indexNumber) {
-                    this.props.asUnit.currentArmor[indexNumber] = !this.props.asUnit.currentArmor[indexNumber];
-                    this.props.asUnit.calcCurrentValues();
-                    this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                if( this.props.asUnit.roundArmor.length > indexNumber) {
+                    this.props.asUnit.roundArmor[indexNumber] = !this.props.asUnit.roundArmor[indexNumber];
                 }
 
             } else {
-                if( this.props.asUnit.currentStructure.length > indexNumber) {
-                    this.props.asUnit.currentStructure[indexNumber] = !this.props.asUnit.currentStructure[indexNumber];
-                    this.props.asUnit.calcCurrentValues();
-                    this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                if( this.props.asUnit.roundStructure.length > indexNumber) {
+                    this.props.asUnit.roundStructure[indexNumber] = !this.props.asUnit.roundStructure[indexNumber];
                 }
             }
+            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         }
     }
 
     private _toggleEngineHit = (  indexNumber: number ) => {
         if( this.props.inPlay && this.props.asUnit ) {
-
-            if( this.props.asUnit.engineHits.length > indexNumber) {
-                this.props.asUnit.engineHits[indexNumber] = !this.props.asUnit.engineHits[indexNumber];
-                this.props.asUnit.calcCurrentValues();
+            if( this.props.asUnit.roundEngineHits.length > indexNumber) {
+                this.props.asUnit.roundEngineHits[indexNumber] = !this.props.asUnit.roundEngineHits[indexNumber];
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
         }
@@ -86,8 +81,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
     private _setHeat = ( newValue: number ) => {
         if( this.props.inPlay && this.props.asUnit ) {
-            this.props.asUnit.currentHeat = newValue;
-            this.props.asUnit.calcCurrentValues();
+            this.props.asUnit.setHeat(newValue);
             this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         }
     }
@@ -95,9 +89,8 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     private _toggleWeaponHit = (indexNumber: number ): void =>  {
         if( this.props.inPlay && this.props.asUnit ) {
 
-            if( this.props.asUnit.weaponHits.length > indexNumber) {
-                this.props.asUnit.weaponHits[indexNumber] = !this.props.asUnit.weaponHits[indexNumber];
-                this.props.asUnit.calcCurrentValues();
+            if( this.props.asUnit.roundWeaponHits.length > indexNumber) {
+                this.props.asUnit.roundWeaponHits[indexNumber] = !this.props.asUnit.roundWeaponHits[indexNumber];
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
         }
@@ -106,9 +99,8 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     private _toggleVehicle910 = (indexNumber: number ): void =>  {
         if( this.props.inPlay && this.props.asUnit ) {
 
-            if( this.props.asUnit.vehicleMotive910.length > indexNumber) {
-                this.props.asUnit.vehicleMotive910[indexNumber] = !this.props.asUnit.vehicleMotive910[indexNumber];
-                this.props.asUnit.calcCurrentValues();
+            if( this.props.asUnit.roundVehicleMotive910.length > indexNumber) {
+                this.props.asUnit.roundVehicleMotive910[indexNumber] = !this.props.asUnit.roundVehicleMotive910[indexNumber];
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
         }
@@ -117,9 +109,8 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     private _toggleVehicle11 = (indexNumber: number ): void =>  {
         if( this.props.inPlay && this.props.asUnit ) {
 
-            if( this.props.asUnit.vehicleMotive11.length > indexNumber) {
-                this.props.asUnit.vehicleMotive11[indexNumber] = !this.props.asUnit.vehicleMotive11[indexNumber];
-                this.props.asUnit.calcCurrentValues();
+            if( this.props.asUnit.roundVehicleMotive11.length > indexNumber) {
+                this.props.asUnit.roundVehicleMotive11[indexNumber] = !this.props.asUnit.roundVehicleMotive11[indexNumber];
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
         }
@@ -128,8 +119,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     private _toggleVehicle12 = (): void => {
         if( this.props.inPlay && this.props.asUnit ) {
 
-            this.props.asUnit.vehicleMotive12 = !this.props.asUnit.vehicleMotive12;
-            this.props.asUnit.calcCurrentValues();
+            this.props.asUnit.roundVehicleMotive12 = !this.props.asUnit.roundVehicleMotive12;
             this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
 
         }
@@ -138,9 +128,8 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     private _toggleFireControlHit = (indexNumber: number ): void => {
         if( this.props.inPlay && this.props.asUnit ) {
 
-            if( this.props.asUnit.fireControlHits.length > indexNumber) {
-                this.props.asUnit.fireControlHits[indexNumber] = !this.props.asUnit.fireControlHits[indexNumber];
-                this.props.asUnit.calcCurrentValues();
+            if( this.props.asUnit.roundFireControlHits.length > indexNumber) {
+                this.props.asUnit.roundFireControlHits[indexNumber] = !this.props.asUnit.roundFireControlHits[indexNumber];
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
         }
@@ -149,11 +138,17 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     private _toggleMPHit = (indexNumber: number ): void => {
         if( this.props.inPlay && this.props.asUnit ) {
 
-            if( this.props.asUnit.mpControlHits.length > indexNumber) {
-                this.props.asUnit.mpControlHits[indexNumber] = !this.props.asUnit.mpControlHits[indexNumber];
-                this.props.asUnit.calcCurrentValues();
+            if( this.props.asUnit.roundMpControlHits.length > indexNumber) {
+                this.props.asUnit.roundMpControlHits[indexNumber] = !this.props.asUnit.roundMpControlHits[indexNumber];
                 this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
             }
+        }
+    }
+
+    private _ApplyRound = (): void => {
+        if( this.props.inPlay && this.props.asUnit ) {
+            this.props.asUnit.applyRound();
+            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
         }
     }
 
@@ -169,7 +164,6 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     }
 
     private _makeArmorDots = (
-        count: number,
         xLoc: number,
         yLoc: number,
         fillColor: string = "rgb(255,255,255)",
@@ -182,52 +176,51 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         if( radius === 0 ) {
             radius = this.buttonRadius - 5;
         }
-        let currentLeftCount = 0;
-        for( let currentCount = 0; currentCount < count; currentCount++ ) {
 
-            if( currentCount > 15 ) {
-
-                if( currentCount === 16) {
-                    yLoc += (radius * 2 + 9);
-                    currentLeftCount = 0;
-                } else {
-                    currentLeftCount++;
-                }
+        let dotArray: boolean[] = [];
+        let roundDotArray: boolean[] = [];
+        if (this.props.asUnit) {
+            if (target === "armor") {
+                dotArray = this.props.asUnit.currentArmor;
+                roundDotArray = this.props.asUnit.roundArmor;
             } else {
-                currentLeftCount = currentCount;
+                dotArray = this.props.asUnit.currentStructure;
+                roundDotArray = this.props.asUnit.roundStructure;
             }
+        }
+
+        dotArray.map( (point, pointIndex) => {
+            fillColor = target === "armor" ? "rgb(255,255,255)" :"rgb(153,153,153)";
+            strokeColor = "rgb(0,0,0)";
+
+            if (this.props.inPlay) {
+                if (roundDotArray[pointIndex]) {
+                    fillColor = !point ? this.roundDotColor : this.roundActiveColor;
+                    strokeColor = this.roundStrokeColor;
+                } else {
+                    fillColor = point ? this.activeDotColor : fillColor;
+                }
+            }
+
             dots.push(
-                <React.Fragment
-                    key={currentCount}
-                >
+                <React.Fragment key={pointIndex}>
                     <circle className={this.props.inPlay ? "cursor-pointer" : ""}
-                        cx={this.damageLeftBase + xLoc + (currentLeftCount * (radius * 2 + 9)) }
+                        cx={this.damageLeftBase + xLoc + (pointIndex * (radius * 2 + 9)) }
                         cy={yLoc}
                         r={radius + 3}
                         fill={strokeColor}
-                        onClick={() => this._toggleArmorOrStructure( target, currentCount )}
+                        onClick={() => this._toggleArmorOrStructure( target, pointIndex )}
                     />
-                    {target === "armor" ? (
-                        <circle className={this.props.inPlay ? "cursor-pointer" : ""}
-                            cx={this.damageLeftBase + xLoc + (currentLeftCount * (radius * 2 + 9)) }
-                            cy={yLoc}
-                            r={radius}
-                            fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentArmor.length > currentCount && this.props.asUnit.currentArmor[currentCount] ? this.activeDotColor : fillColor}
-                            onClick={() => this._toggleArmorOrStructure( target, currentCount )}
-                        />
-                    ) : (
-                        <circle className={this.props.inPlay ? "cursor-pointer" : ""}
-                            cx={this.damageLeftBase + xLoc + (currentLeftCount * (radius * 2 + 9)) }
-                            cy={yLoc}
-                            r={radius}
-                            fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentStructure.length > currentCount && this.props.asUnit.currentStructure[currentCount] ? this.activeDotColor : fillColor}
-                            onClick={() => this._toggleArmorOrStructure( target, currentCount )}
-                        />
-                    )}
-
+                    <circle className={this.props.inPlay ? "cursor-pointer" : ""}
+                        cx={this.damageLeftBase + xLoc + (pointIndex * (radius * 2 + 9)) }
+                        cy={yLoc}
+                        r={radius}
+                        fill={fillColor}
+                        onClick={() => this._toggleArmorOrStructure( target, pointIndex )}
+                    />
                 </React.Fragment>
             )
-        }
+        })
 
         return dots;
     }
@@ -448,7 +441,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     y="330"
                     width="25"
                     height="50"
-                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 0 ? "rgb(0,200,0)" : "rgb(102,102,102)"}
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 0 ? "rgb(0,200,0)" : this.props.inPlay && this.props.asUnit.roundHeat === 0 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></rect>
                 <circle
                     onClick={() => this._setHeat(0)}
@@ -456,7 +449,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     cx="325"
                     cy="355"
                     r="25"
-                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 0 ? "rgb(0,200,0)" : "rgb(102,102,102)"}
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 0 ? "rgb(0,200,0)" : this.props.inPlay && this.props.asUnit.roundHeat === 0 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></circle>
                 <text onClick={() => this._setHeat(0)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="315" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>0</text>
 
@@ -468,7 +461,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     y="330"
                     width="45"
                     height="50"
-                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 1 ? "rgb(204, 187, 0)" : "rgb(102,102,102)"}
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 1 ? "rgb(204, 187, 0)" : this.props.inPlay && this.props.asUnit.roundHeat === 1 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></rect>
                 <text onClick={() => this._setHeat(1)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="365" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
 
@@ -480,7 +473,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     y="330"
                     width="45"
                     height="50"
-                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 2 ? "rgb(236,87,16)" : "rgb(102,102,102)"}
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 2 ? "rgb(236,87,16)" : this.props.inPlay && this.props.asUnit.roundHeat === 2 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></rect>
                 <text onClick={() => this._setHeat(2)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="415" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
 
@@ -492,7 +485,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     y="330"
                     width="45"
                     height="50"
-                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 3 ? "rgb(200,0,0)" : "rgb(102,102,102)"}
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 3 ? "rgb(200,0,0)" : this.props.inPlay && this.props.asUnit.roundHeat === 3 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></rect>
                 <text onClick={() => this._setHeat(3)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="465" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
 
@@ -504,7 +497,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     y="330"
                     width="25"
                     height="50"
-                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(255,10,10)" : "rgb(102,102,102)"}
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(255,10,10)" : this.props.inPlay && this.props.asUnit.roundHeat > 3 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></rect>
                 <circle
                     onClick={() => this._setHeat(4)}
@@ -512,7 +505,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     cx="530"
                     cy="355"
                     r="25"
-                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(255,10,10)" : "rgb(102,102,102)"}
+                    fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(255,10,10)" : this.props.asUnit.roundHeat > 3 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></circle>
                 <text onClick={() => this._setHeat(4)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="515" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>S</text>
 
@@ -574,7 +567,6 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <text x={this.damageLeftBase + 40} y="440" fontFamily="sans-serif" fontSize="25">A: </text>
 
                     {this._makeArmorDots(
-                        this.props.asUnit.armor,
                         90,
                         this.props.asUnit.armor > 16 ? 420 : 432,
                         "rgb(255,255,255)",
@@ -587,7 +579,6 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     {/* Structure */}
                     <text x={this.damageLeftBase + 40} y="485" fontFamily="sans-serif" fontSize="25">S: </text>
                     {this._makeArmorDots(
-                        this.props.asUnit.structure,
                         90,
                         477,
                         "rgb(153,153,153)",
@@ -703,9 +694,10 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                         <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">ENGINE</text>
 
                         {this.props.asUnit.engineHits.map( (ehValue, ehIndex) => {
-                            let fillColor = "rgb(255,255,255)";
-                            if( ehValue ) {
-                                fillColor = this.activeDotColor;
+                            let fillColor = this.props.inPlay && this.props.asUnit?.roundEngineHits[ehIndex] ? this.roundDotColor : "rgb(255,255,255)";
+                            let strokeColor = this.props.inPlay && this.props.asUnit?.roundEngineHits[ehIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
+                            if( this.props.inPlay && ehValue ) {
+                                fillColor = this.props.asUnit?.roundEngineHits[ehIndex] ? this.roundActiveColor : this.activeDotColor;
                             }
                             return (
                                 <React.Fragment key={ehIndex}>
@@ -713,7 +705,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         cx={770 + (this.buttonRadius * 2 + 3 ) * ehIndex}
                                         cy={critLineStart - 27 + this.buttonRadius + 2}
                                         r={this.buttonRadius}
-                                        fill="rgb(0,0,0)"
+                                        fill={strokeColor}
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
                                         onClick={() => this._toggleEngineHit(ehIndex)}
                                     ></circle>
@@ -738,9 +730,10 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">FIRE CONTROL</text>
                 {this.props.asUnit.fireControlHits.map( (fcValue, fcIndex) => {
-                            let fillColor = "rgb(255,255,255)";
-                            if( fcValue ) {
-                                fillColor = this.activeDotColor;
+                            let fillColor = this.props.inPlay && this.props.asUnit?.roundFireControlHits[fcIndex] ? this.roundDotColor : "rgb(255,255,255)";
+                            let strokeColor = this.props.inPlay && this.props.asUnit?.roundFireControlHits[fcIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
+                            if( this.props.inPlay &&  fcValue ) {
+                                fillColor = this.props.asUnit?.roundFireControlHits[fcIndex] ? this.roundActiveColor : this.activeDotColor;
                             }
                             return (
                                 <React.Fragment key={fcIndex}>
@@ -748,7 +741,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         cx={770 + (this.buttonRadius * 2 + 3 ) * fcIndex}
                                         cy={critLineStart - 27 + this.buttonRadius + 2}
                                         r={this.buttonRadius}
-                                        fill="rgb(0,0,0)"
+                                        fill={strokeColor}
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
                                         onClick={() => this._toggleFireControlHit(fcIndex)}
                                     ></circle>
@@ -770,9 +763,10 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <>
                         <text x="750"y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MP</text>
                         {this.props.asUnit.mpControlHits.map( (mpValue, mpIndex) => {
-                            let fillColor = "rgb(255,255,255)";
-                            if( mpValue ) {
-                                fillColor = this.activeDotColor;
+                            let fillColor = this.props.inPlay && this.props.asUnit?.roundMpControlHits[mpIndex] ? this.roundDotColor : "rgb(255,255,255)";
+                            let strokeColor = this.props.inPlay && this.props.asUnit?.roundMpControlHits[mpIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
+                            if( this.props.inPlay &&  mpValue ) {
+                                fillColor = this.props.asUnit?.roundMpControlHits[mpIndex] ? this.roundActiveColor : this.activeDotColor;
                             }
                             return (
                                 <React.Fragment key={mpIndex}>
@@ -780,7 +774,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         cx={770 + (this.buttonRadius * 2 + 3 ) * mpIndex}
                                         cy={critLineStart - 27 + this.buttonRadius + 2}
                                         r={this.buttonRadius}
-                                        fill="rgb(0,0,0)"
+                                        fill={strokeColor}
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
                                         onClick={() => this._toggleMPHit(mpIndex)}
                                     ></circle>
@@ -805,9 +799,10 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">WEAPONS</text>
                 {this.props.asUnit.weaponHits.map( (whValue, whIndex) => {
-                            let fillColor = "rgb(255,255,255)";
-                            if( whValue ) {
-                                fillColor = this.activeDotColor;
+                            let fillColor = this.props.inPlay && this.props.asUnit?.roundWeaponHits[whIndex] ? this.roundDotColor : "rgb(255,255,255)";
+                            let strokeColor = this.props.inPlay && this.props.asUnit?.roundWeaponHits[whIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
+                            if( whValue && this.props.inPlay ) {
+                                fillColor = this.props.inPlay && this.props.asUnit?.roundWeaponHits[whIndex] ? this.roundActiveColor : this.activeDotColor;
                             }
                             return (
                                 <React.Fragment key={whIndex}>
@@ -815,7 +810,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                         cx={770 + (this.buttonRadius * 2 + 3 ) * whIndex}
                                         cy={critLineStart - 27 + this.buttonRadius + 2}
                                         r={this.buttonRadius}
-                                        fill="rgb(0,0,0)"
+                                        fill={strokeColor}
                                         className={this.props.inPlay ? "cursor-pointer" : ""}
                                         onClick={() => this._toggleWeaponHit(whIndex)}
                                     ></circle>
@@ -836,16 +831,19 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {this.props.asUnit.type.toLowerCase() === 'cv' ||  this.props.asUnit.type.toLowerCase() === 'sv'? (
                     <>
                         <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MOTIVE</text>
-                        <circle onClick={() => this._toggleVehicle910(0)} className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle onClick={() => this._toggleVehicle910(0)} className="" cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive910[0] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
-                        <circle onClick={() => this._toggleVehicle910(1)} className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle onClick={() => this._toggleVehicle910(1)} className="" cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive910[1] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
-                        <circle onClick={() => this._toggleVehicle11(0)} className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle onClick={() => this._toggleVehicle11(0)} className="" cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive11[0] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
-                        <circle onClick={() => this._toggleVehicle11(1)} className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle onClick={() => this._toggleVehicle11(1)} className="" cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive11[1] ? this.activeDotColor : "rgb(255,255,255)"}></circle>
-                        <circle onClick={() => this._toggleVehicle12()} className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill="rgb(0,0,0)"></circle>
-                        <circle onClick={() => this._toggleVehicle12()} className="" cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.asUnit.vehicleMotive12 ? this.activeDotColor : "rgb(255,255,255)"}></circle>
+                        
+                        <circle onClick={() => this._toggleVehicle910(0)} className={this.props.inPlay ? "cursor-pointer" : ""} cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill={this.props.inPlay && this.props.asUnit.roundVehicleMotive910[0] ? this.roundStrokeColor : "rgb(0,0,0)"}></circle>
+                        <circle onClick={() => this._toggleVehicle910(0)} className={this.props.inPlay ? "cursor-pointer" : ""} cx="770" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.inPlay && this.props.asUnit.vehicleMotive910[0] ? this.props.asUnit.roundVehicleMotive910[0] ? this.roundActiveColor : this.activeDotColor : this.props.inPlay && this.props.asUnit.roundVehicleMotive910[0] ? this.roundDotColor : "rgb(255,255,255)"}></circle>
+                        <circle onClick={() => this._toggleVehicle910(1)} className={this.props.inPlay ? "cursor-pointer" : ""} cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill={this.props.inPlay && this.props.asUnit.roundVehicleMotive910[1] ? this.roundStrokeColor : "rgb(0,0,0)"}></circle>
+                        <circle onClick={() => this._toggleVehicle910(1)} className={this.props.inPlay ? "cursor-pointer" : ""} cx="801" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.inPlay && this.props.asUnit.vehicleMotive910[1] ? this.props.asUnit.roundVehicleMotive910[1] ? this.roundActiveColor : this.activeDotColor : this.props.inPlay && this.props.asUnit.roundVehicleMotive910[1] ? this.roundDotColor : "rgb(255,255,255)"}></circle>
+                        
+                        <circle onClick={() => this._toggleVehicle11(0)} className={this.props.inPlay ? "cursor-pointer" : ""} cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill={this.props.inPlay && this.props.asUnit.roundVehicleMotive11[0] ? this.roundStrokeColor : "rgb(0,0,0)"}></circle>
+                        <circle onClick={() => this._toggleVehicle11(0)} className={this.props.inPlay ? "cursor-pointer" : ""} cx="847" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.inPlay && this.props.asUnit.vehicleMotive11[0] ? this.props.asUnit.roundVehicleMotive11[0] ? this.roundActiveColor : this.activeDotColor : this.props.inPlay && this.props.asUnit.roundVehicleMotive11[0] ? this.roundDotColor : "rgb(255,255,255)"}></circle>
+                        <circle onClick={() => this._toggleVehicle11(1)} className={this.props.inPlay ? "cursor-pointer" : ""} cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill={this.props.inPlay && this.props.asUnit.roundVehicleMotive11[1] ? this.roundStrokeColor : "rgb(0,0,0)"}></circle>
+                        <circle onClick={() => this._toggleVehicle11(1)} className={this.props.inPlay ? "cursor-pointer" : ""} cx="878" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.inPlay && this.props.asUnit.vehicleMotive11[1] ? this.props.asUnit.roundVehicleMotive11[1] ? this.roundActiveColor : this.activeDotColor : this.props.inPlay && this.props.asUnit.roundVehicleMotive11[1] ? this.roundDotColor : "rgb(255,255,255)"}></circle>
+                        
+                        <circle onClick={() => this._toggleVehicle12()} className={this.props.inPlay ? "cursor-pointer" : ""} cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius} fill={this.props.inPlay && this.props.asUnit.roundVehicleMotive12 ? this.roundStrokeColor : "rgb(0,0,0)"}></circle>
+                        <circle onClick={() => this._toggleVehicle12()} className={this.props.inPlay ? "cursor-pointer" : ""} cx="934" cy={critLineStart + this.buttonRadius - 27 + 3} r={this.buttonRadius - 3} fill={this.props.inPlay && this.props.asUnit.vehicleMotive12 ? this.props.asUnit.roundVehicleMotive12 ? this.roundActiveColor : this.activeDotColor : this.props.inPlay && this.props.asUnit.roundVehicleMotive12 ? this.roundDotColor : "rgb(255,255,255)"}></circle>
                         <text x="775" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="8">-2 MV</text>
                         <text x="827" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="8">½ Move &amp; TMM Each</text>
                         <text x="919" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="8">0 MV</text>
@@ -874,6 +872,21 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 <rect x="10" y="610" width="960" height="35" fill="rgb(0,0,0)"></rect>
                 <text x="20" y="625" textAnchor="start" fontFamily="sans-serif" fill="rgb(253,253,227)" style={{fontWeight: 700}} fontSize="30">ALPHA STRIKE</text>
+
+                {this.props.inPlay && this.props.asUnit.hasRoundStaged() ? (
+                    <g transform='translate(435, 584)'>
+                        <rect x="0" y="0" width="130" height="40" rx="5" ry="5" onClick={(e) => this._ApplyRound()} fill={this.roundDotColor} stroke={this.roundStrokeColor} strokeWidth={3}></rect>
+                        <text x="65" y="30" 
+                            onClick={(e) => this._ApplyRound()}
+                            className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
+                            fontFamily="sans-serif" 
+                            fontSize="30"
+                            fontWeight="bold"
+                            fill="rgb(255,255,255)"
+                            textAnchor='middle'
+                            >APPLY</text>
+                    </g>
+                ) : null }
 
                 <BattleTechLogo
                     xLoc={750}
