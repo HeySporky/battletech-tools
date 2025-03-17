@@ -1695,7 +1695,7 @@ export class AlphaStrikeUnit {
                     this.roundArmor[armorCounter] = false;
                 }
             }
-            for( let structureCounter = 0; structureCounter < leftOverPoints; structureCounter++ ) {
+            for( let structureCounter = 0; structureCounter < this.roundStructure.length; structureCounter++ ) {
                 if( this.roundStructure[structureCounter] === false && this.currentStructure[structureCounter] === false ) {
                     if( leftOverPoints > 0 ) {
                         this.roundStructure[structureCounter] = true;
