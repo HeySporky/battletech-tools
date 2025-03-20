@@ -89,6 +89,18 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                   <h3>
+                      <strong>March 20th, 2025</strong> - Play Mode Improvements
+                    </h3>
+                    <h4>Author - Spork</h4>
+                      <p>Patch Notes:</p>
+                      <p>We've added a couple of improvements to the play mode feature!</p>
+                      <p>First, you can now choose how many cards appear in each row. This should help users on smaller screens see easier.</p>
+                      <p>Secondly, damage for a round is now tracked in a blue color and doesn't affect your stats until you hit 'Apply' or 'End Round'.</p>
+                      <p>As always, feedback and bug reports can be made on our Discord!</p>
+
+                   </li>   
+                  <li>
+                  <h3>
                       <strong>December 26th, 2024</strong> - Alpha Strike Match Play Generator
                     </h3>
                     <h4>Author - Spork</h4>
