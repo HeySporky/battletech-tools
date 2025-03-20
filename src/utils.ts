@@ -122,25 +122,47 @@ export async function getMULASSearchResults(
             url += "&AvailableEras=" + eraFilter.toString();
         }
 
-
         url += rulesNumbersURI.join("");
         url += typesFilterURI.join();
         url += techFilterURI.join();
         url += roleFilterURI.join();
         url += factionFilterURI.join("");
 
-        if( searchTerm && searchTerm.trim() ) {
-            url += "&Name=" + replaceAll(searchTerm, " ", "%20", false, false, true);
+        var abilitySearch = [];
+        var nameSearch = [];
+
+        var searchTerms = searchTerm.split(" ");
+        for (var i = 0; i < searchTerms.length; i++) {
+            if (searchTerms[i].startsWith("a:")) {
+                searchTerms[i] = searchTerms[i].substring(2);
+                if( searchTerms[i].length > 1 ){
+                    abilitySearch.push(searchTerms[i]);
+                }
+            }else{
+                if( searchTerms[i].length > 2 ){
+                    nameSearch.push(searchTerms[i]);
+                }
+            }
+        }
+        console.log(nameSearch)
+        console.log(abilitySearch)
+        if( abilitySearch.length > 0 ) {
+            url += "&HasBFAbility=" + abilitySearch.join("+");
         }
 
-        let totalTerms = rulesNumbersURI.length + typesFilterURI.length + techFilterURI.length + roleFilterURI.length;
+        if( nameSearch.length > 0) {
+            if(nameSearch.join("%20").length > 2){
+                url += "&Name=" + nameSearch.join("%20");
+            }
+        }
+
+
+        console.log(url);
 
         if(
-            searchTerm.length >= 3
+            nameSearch.length > 0
             || overrideSearchLimitLength
-            || (
-                totalTerms > 2
-            )
+            || abilitySearch.length > 0
         ) {
             await fetch(url)
             .then(async res => {

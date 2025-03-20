@@ -261,7 +261,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                          type="search"
                          onChange={this.updateSearch}
                          value={this.props.appGlobals.appSettings.alphaStrikeSearchTerm}
-                         label="Search Name"
+                         label="Search Terms"
                     />
                       </div>
                       <div className="col-md-6 text-center">
