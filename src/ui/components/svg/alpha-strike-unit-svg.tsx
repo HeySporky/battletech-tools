@@ -264,7 +264,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
             damageColWidth=110;
         }
 
-        let abilitiesSplit: string[][] = this._splitAbilities(this.props.asUnit.abilities.join( ", "));
+        let abilitiesSplit: string[][] = this._splitAbilities(this.props.asUnit.currentAbilities.join( ", "));
 
         let pilotAbilitiesList = this.props.asUnit.getPilotAbilityList();
 
