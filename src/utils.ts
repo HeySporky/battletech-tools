@@ -113,7 +113,9 @@ export async function getMULASSearchResults(
     if( offLine === false ) {
         // let url = "https://btmul.net/Unit/QuickList?MinPV=1&MaxPV=999";
         // let url = "http://localhost:5001/Unit/QuickList?MinPV=1&MaxPV=999";
-        let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?MinPV=1&MaxPV=999"
+        let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?"
+        let minpv = 1;
+        let maxpv = 999;
 
         // if( eraFilter && eraFilter > 0 ) {
         //     url += "&Eras=" + eraFilter.toString();
@@ -130,25 +132,77 @@ export async function getMULASSearchResults(
 
         var abilitySearch = [];
         var nameSearch = [];
+        var minDamage = [-1, -1, -1];
 
-        var searchTerms = searchTerm.split(" ");
+        var searchTerms = searchTerm.trim().split(" ");
         for (var i = 0; i < searchTerms.length; i++) {
-            if (searchTerms[i].startsWith("a:")) {
-                searchTerms[i] = searchTerms[i].substring(2);
-                if( searchTerms[i].length > 1 ){
-                    abilitySearch.push(searchTerms[i]);
-                }
-            }else{
-                if( searchTerms[i].length > 2 ){
-                    nameSearch.push(searchTerms[i]);
-                }
+            let term = searchTerms[i];
+            let value;
+            switch (true) {
+                case term.startsWith("a:"):
+                    value = term.substring(2);
+                    if (value.length > 1) {
+                        abilitySearch.push(value);
+                    }
+                    break;
+        
+                case term.startsWith("pv>"):
+                    value = term.substring(3);
+                    minpv = parseInt(value) + 1;
+                    break;
+        
+                case term.startsWith("pv<"):
+                    value = term.substring(3);
+                    maxpv = parseInt(value) - 1;
+                    break;
+        
+                case term.startsWith("pv="):
+                    value = term.substring(3);
+                    minpv = parseInt(value);
+                    maxpv = parseInt(value);
+                    break;
+        
+                case term.startsWith("short>"):
+                    if (term.includes("=")) {
+                        value = term.substring(7);
+                        minDamage[0] = parseInt(value);
+                    } else {
+                        value = term.substring(6);
+                        minDamage[0] = parseInt(value) + 1;
+                    }
+                    break;
+        
+                case term.startsWith("medium>"):
+                    if (term.includes("=")) {
+                        value = term.substring(8);
+                        minDamage[1] = parseInt(value);
+                    } else {
+                        value = term.substring(7);
+                        minDamage[1] = parseInt(value) + 1;
+                    }
+                    break;
+        
+                case term.startsWith("long>"):
+                    if (term.includes("=")) {
+                        value = term.substring(6);
+                        minDamage[2] = parseInt(value);
+                    } else {
+                        value = term.substring(5);
+                        minDamage[2] = parseInt(value) + 1;
+                    }
+                    break;
+        
+                default:
+                    nameSearch.push(term);
+                    break;
             }
         }
-        console.log(nameSearch)
-        console.log(abilitySearch)
         if( abilitySearch.length > 0 ) {
             url += "&HasBFAbility=" + abilitySearch.join("+");
         }
+
+        url += "&MinPV=" + minpv.toString();
+        url += "&MaxPV=" + maxpv.toString();
 
         if( nameSearch.length > 0) {
             if(nameSearch.join("%20").length > 2){
@@ -157,12 +211,12 @@ export async function getMULASSearchResults(
         }
 
 
-        console.log(url);
 
         if(
-            nameSearch.length > 0
+            nameSearch.join("%20").length > 2
             || overrideSearchLimitLength
             || abilitySearch.length > 0
+            || maxpv - minpv <= 20
         ) {
             await fetch(url)
             .then(async res => {
@@ -173,11 +227,23 @@ export async function getMULASSearchResults(
                 }
 
                 returnUnits = returnData.Units;
-
+               
                 if( !returnUnits ) {
                     return [];
                 }
-
+                for (i = 0; i < returnUnits.length; i++) {
+                    console.log('Checking', returnUnits[i].Name);
+                    if( returnUnits[i].BFDamageShort < minDamage[0] ) {
+                        returnUnits.splice(i, 1);
+                        i--;
+                    }else if( returnUnits[i].BFDamageMedium < minDamage[1] ) {
+                        returnUnits.splice(i, 1);
+                        i--;
+                    }else if( returnUnits[i].BFDamageLong < minDamage[2] ) {
+                        returnUnits.splice(i, 1);
+                        i--;
+                    }
+                }
             })
             .catch(err => {
                 console.error('MUL Fetch Error: ', err);

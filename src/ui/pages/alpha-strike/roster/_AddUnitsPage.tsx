@@ -25,6 +25,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     constructor( props: IAlphaStrikeAddUnitsViewProps ) {
         super(props)
 
+
         this.state = {
             searchResults: this.props.appGlobals.appSettings.alphasStrikeCachedSearchResults,
             contextMenuSearch: -1,
@@ -162,7 +163,10 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
     updateSearchResults = async (): Promise<void> => {
 
-      // console.log("updateSearchResults called")
+      
+    
+
+
       let data: IASMULUnit[] = await getMULASSearchResults(
         this.props.appGlobals.appSettings.alphaStrikeSearchTerm,
         this.props.appGlobals.appSettings.alphaStrikeSearchRules,
