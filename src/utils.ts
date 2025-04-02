@@ -133,8 +133,17 @@ export async function getMULASSearchResults(
         var abilitySearch = [];
         var nameSearch = [];
         var minDamage = [-1, -1, -1];
+        var minArmorStructure = [-1, -1];
+        var introDate = [-1,10000]
+    
+
 
         var searchTerms = searchTerm.trim().split(" ");
+
+        // log search terms
+        console.log( searchTerms );
+        
+
         for (var i = 0; i < searchTerms.length; i++) {
             let term = searchTerms[i];
             let value;
@@ -191,6 +200,46 @@ export async function getMULASSearchResults(
                         minDamage[2] = parseInt(value) + 1;
                     }
                     break;
+
+                case term.startsWith("armor>"):
+                    if (term.includes("=")) {
+                        value = term.substring(7);
+                        minArmorStructure[0] = parseInt(value);
+                    } else {
+                        value = term.substring(6);
+                        minArmorStructure[0] = parseInt(value) + 1;
+                    }
+                    break;
+
+                case term.startsWith("structure>"):
+                    if (term.includes("=")) {
+                        value = term.substring(11);
+                        minArmorStructure[1] = parseInt(value);
+                    } else {
+                        value = term.substring(10);
+                        minArmorStructure[1] = parseInt(value) + 1;
+                    }
+                    break;
+            
+                case term.startsWith("intro>"):
+                    if (term.includes("=")) {
+                        value = term.substring(7);
+                        introDate[0] = parseInt(value);
+                    } else {
+                        value = term.substring(6);
+                        introDate[0] = parseInt(value) + 1;
+                    }
+                    break;
+
+                case term.startsWith("intro<"):
+                    if (term.includes("=")) {
+                        value = term.substring(7);
+                        introDate[1] = parseInt(value);
+                    } else {
+                        value = term.substring(6);
+                        introDate[1] = parseInt(value) - 1;
+                    }
+                    break;
         
                 default:
                     nameSearch.push(term);
@@ -216,7 +265,7 @@ export async function getMULASSearchResults(
             nameSearch.join("%20").length > 2
             || overrideSearchLimitLength
             || abilitySearch.length > 0
-            || maxpv - minpv <= 20
+            || maxpv - minpv <= 40
         ) {
             await fetch(url)
             .then(async res => {
@@ -232,7 +281,7 @@ export async function getMULASSearchResults(
                     return [];
                 }
                 for (i = 0; i < returnUnits.length; i++) {
-                    console.log('Checking', returnUnits[i].Name);
+                    
                     if( returnUnits[i].BFDamageShort < minDamage[0] ) {
                         returnUnits.splice(i, 1);
                         i--;
@@ -240,6 +289,18 @@ export async function getMULASSearchResults(
                         returnUnits.splice(i, 1);
                         i--;
                     }else if( returnUnits[i].BFDamageLong < minDamage[2] ) {
+                        returnUnits.splice(i, 1);
+                        i--;
+                    }else if( returnUnits[i].BFArmor < minArmorStructure[0] ) {
+                        returnUnits.splice(i, 1);
+                        i--;
+                    }else if( returnUnits[i].BFStructure < minArmorStructure[1] ) {
+                        returnUnits.splice(i, 1);
+                        i--;
+                    }else if( parseInt(returnUnits[i].DateIntroduced) < introDate[0] ) {
+                        returnUnits.splice(i, 1);
+                        i--;
+                    }else if( parseInt(returnUnits[i].DateIntroduced) > introDate[1] ) {
                         returnUnits.splice(i, 1);
                         i--;
                     }
