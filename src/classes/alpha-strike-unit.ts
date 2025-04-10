@@ -3,6 +3,8 @@ import { CONST_AS_SPECIAL_ABILITIES, IASSpecialAbility } from "../data/alpha-str
 import { IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
 import { generateUUID } from "../utils/generateUUID";
 import Pilot, { IPilot } from "./pilot";
+import { CONST_AS_OPFOR_BEHAVIORS, OpForBehavior } from "../data/bryms-opfor-behaviors";
+import { CONST_AS_BEHAVIOR_TABLE } from "../data/bryms-opfor-behaviors";
 
 export interface IAlphaStrikeDamage {
     short: number;
@@ -18,8 +20,20 @@ export interface IAlphaStrikeDamage {
 export interface IMoveNumber {
     move: number;
     currentMove: number;
+    currentSprint: number;
     type: string;
+    tmm: number;
 };
+
+export interface IASAttack {
+    name: string;
+    type: string;
+    damage: number;
+    minimal: boolean;
+    toHit: number;
+    range: number;
+    disabled: boolean;
+}
 
 export interface ASMULType {
     Id: number;
@@ -92,29 +106,32 @@ export interface IASMULUnit {
 export interface IAlphaStrikeUnitExport {
     mechCreatorUUID: string;
 
-
     customName?: string;
 
     currentArmor?: boolean[];
     currentStructure?: boolean[];
-    engineHits?: boolean[];
-    fireControlHits?: boolean[];
-    mpControlHits?: boolean[];
-    weaponHits?: boolean[];
-    vehicleMotive910?: boolean[];
-    vehicleMotive11?: boolean[];
+    engineHits?: number;
+    fireControlHits?: number;
+    mpControlHits?: number;
+    weaponHits?: number;
+    vehicleMotive910?: number;
+    vehicleMotive11?: number;
     vehicleMotive12?: boolean;
 
     roundArmor?: boolean[];
     roundStructure?: boolean[];
-    roundEngineHits?: boolean[];
-    roundFireControlHits?: boolean[];
-    roundMpControlHits?: boolean[];
-    roundWeaponHits?: boolean[];
-    roundVehicleMotive910?: boolean[];
-    roundVehicleMotive11?: boolean[];
+    roundEngineHits?: number;
+    roundFireControlHits?: number;
+    roundMpControlHits?: number;
+    roundWeaponHits?: number;
+    roundVehicleMotive910?: number;
+    roundVehicleMotive11?: number;
     roundVehicleMotive12?: boolean;
     roundHeat?: number;
+    hullDown?: boolean;
+    currentBehavior?: OpForBehavior;
+
+    attacks?: IASAttack[];
 
     tmm: number;
     // Additional Fields we use internally
@@ -135,6 +152,8 @@ export interface IAlphaStrikeUnitExport {
     imageURL: string;
 
     move: IMoveNumber[];
+    moveToken: IMoveNumber;
+    altitude: number;
     jumpMove: number;
     structure: number;
     armor: number;
@@ -188,6 +207,17 @@ export class AlphaStrikeUnit {
     public currentMoveSprint: string = "";
     public currentMoveHexesSprint: string = "";
     public currentTMM: string = "";
+    public moveToken: IMoveNumber = {
+        move: 0,
+        currentMove: 0,
+        currentSprint: 0,
+        type: '',
+        tmm: 0
+    };
+    public altitude: number = 0;
+    public currentAbilities: string[] = [];
+
+    public attacks: IASAttack[] = [];
 
     public armor: number = 0;
     public structure: number = 1;
@@ -237,25 +267,36 @@ export class AlphaStrikeUnit {
     public currentHeat: number = 0;
     public currentArmor: boolean[] = [];
     public currentStructure: boolean[] = [];
-    public engineHits: boolean[] = [];
-    public fireControlHits: boolean[] = [];
-    public mpControlHits: boolean[] = [];
-    public weaponHits: boolean[] = [];
+    public engineHits: number = 0;
+    public fireControlHits: number = 0;
+    public mpControlHits: number = 0;
+    public weaponHits: number = 0;
+    public maxWeaponHits: number = 0;
+    public maxMPHits: number = 0;
 
-    public vehicleMotive910: boolean[] = [];
-    public vehicleMotive11: boolean[] = [];
+    public vehicleMotive910: number = 0;
+    public vehicleMotive11: number = 0;
     public vehicleMotive12: boolean = false;
 
     public roundHeat: number = 0;
     public roundArmor: boolean[] = [];
     public roundStructure: boolean[] = [];
-    public roundEngineHits: boolean[] = [];
-    public roundFireControlHits: boolean[] = [];
-    public roundMpControlHits: boolean[] = [];
-    public roundWeaponHits: boolean[] = [];
-    public roundVehicleMotive910: boolean[] = [];
-    public roundVehicleMotive11: boolean[] = [];
+    public roundEngineHits: number = 0;
+    public roundFireControlHits: number = 0;
+    public roundMpControlHits: number = 0;
+    public roundWeaponHits: number = 0;
+    public roundVehicleMotive910: number = 0;
+    public roundVehicleMotive11: number = 0;
     public roundVehicleMotive12: boolean = false;
+    public hullDown: boolean = false;
+    public behaviors:string[] = [];
+    public currentBehavior: OpForBehavior = {
+        name: "",
+        quarry: "",
+        movement: "",
+        attack: "",
+        reroll: false
+    };
 
     private _pilot: Pilot = new Pilot( {
         name: "",
@@ -291,8 +332,6 @@ export class AlphaStrikeUnit {
 
             this.tro = incomingMechData.TRO;
 
-
-
             this.mulID = incomingMechData.Id;
 
             this.tonnage = +incomingMechData.Tonnage;
@@ -317,13 +356,11 @@ export class AlphaStrikeUnit {
                 short: incomingMechData.BFDamageShort,
                 medium: incomingMechData.BFDamageMedium,
                 long: incomingMechData.BFDamageLong,
-                extreme: 0,
+                extreme: incomingMechData.BFDamageLong >= 1 ? incomingMechData.BFDamageLong -1 : 0,
             };
 
             if( incomingMechData.BFDamageExtreme ) {
                 this.damage.extreme = incomingMechData.BFDamageExtreme;
-            } else {
-                this.damage.extreme = 0;
             }
 
             if( incomingMechData.BFDamageShortMin ) {
@@ -340,12 +377,12 @@ export class AlphaStrikeUnit {
             }
 
             if( incomingMechData.BFAbilities && incomingMechData.BFAbilities.trim() ) {
-                this.abilities = incomingMechData.BFAbilities.split(",");
-                if (!this.abilities){
+                let matches = incomingMechData.BFAbilities.match(/([^,(]+(\(.*?\))*)+/g);
+                if (!matches){
                     this.abilities = [];
                 } else {
-                    for( let abi of this.abilities ) {
-                        abi = abi.trim();
+                    for( let match of matches ) {
+                        this.abilities.push(match.trim());
                     }
                 }
             }
@@ -354,8 +391,6 @@ export class AlphaStrikeUnit {
 
             this.basePoints = +incomingMechData.BFPointValue;
 
-
-
             this.imageURL = incomingMechData.ImageUrl;
 
             let tmpMove = incomingMechData.BFMove;
@@ -363,42 +398,47 @@ export class AlphaStrikeUnit {
             let tmpMoveObj: IMoveNumber = {
                 move: 0,
                 currentMove: 0,
-                type: ""
+                currentSprint: 0,
+                type: "",
+                tmm: 0
             }
             while( tmpMove.indexOf('"') > 0 )
                 tmpMove = tmpMove.replace('"', "");
-            if( tmpMove.indexOf("/") > 0 ) {
-                //split move....
-                let moveArray = tmpMove.split( "/" );
+                if( tmpMove.indexOf("/") > 0 ) {
+                    //split move....
+                    let moveArray = tmpMove.split( "/" );
 
-                for( let moveCount = 0; moveCount < moveArray.length; moveCount++ ) {
+                    for( let moveCount = 0; moveCount < moveArray.length; moveCount++ ) {
+                        tmpMoveObj = {
+                            move: 0,
+                            currentMove: 0,
+                            currentSprint: 0,
+                            type: "",
+                            tmm: 0
+                        };
+
+                        tmpMoveObj.move = this._getRawNumber( moveArray[moveCount] );
+                        tmpMoveObj.type = this._getRawAlpha( moveArray[moveCount] );
+
+                        this.move.push( tmpMoveObj );
+                    }
+                } else {
+
                     tmpMoveObj = {
                         move: 0,
                         currentMove: 0,
-                        type: ""
+                        currentSprint: 0,
+                        type: "",
+                        tmm: 0
                     };
 
-                    tmpMoveObj.move = this._getRawNumber( moveArray[moveCount] );
-                    tmpMoveObj.type = this._getRawAlpha( moveArray[moveCount] );
+                    tmpMoveObj.move = this._getRawNumber( tmpMove );
+                    tmpMoveObj.type = this._getRawAlpha( tmpMove );
 
                     this.move.push( tmpMoveObj );
+
                 }
-
-            } else {
-
-                tmpMoveObj = {
-                    move: 0,
-                    currentMove: 0,
-                    type: ""
-                };
-
-                tmpMoveObj.move = this._getRawNumber( tmpMove );
-                tmpMoveObj.type = this._getRawAlpha( tmpMove );
-
-                this.move.push( tmpMoveObj );
-
-            }
-            this.calcCurrentValues();
+                this.calcCurrentValues();
         }
 
     }
@@ -431,6 +471,12 @@ export class AlphaStrikeUnit {
 
             this.role =  incomingMechData.role;
 
+            for (let table of CONST_AS_BEHAVIOR_TABLE) {
+                if (table.role === this.role) {
+                    this.behaviors = table.behavior;
+                }
+            }
+
             this.tonnage = incomingMechData.tonnage / 1;
 
             this.threshold = incomingMechData.threshold / 1;
@@ -457,6 +503,10 @@ export class AlphaStrikeUnit {
 
             if( !this.damage.extreme )
                 this.damage.extreme = 0;
+
+            if (incomingMechData.attacks) {
+                this.attacks = incomingMechData.attacks;
+            }
 
             this.move = incomingMechData.move;
 
@@ -511,8 +561,9 @@ export class AlphaStrikeUnit {
             this.vehicleMotive12 = incomingMechData.vehicleMotive12;
         }
 
-        if( incomingMechData.mpControlHits )
-        this.mpControlHits = incomingMechData.mpControlHits;
+        if( incomingMechData.mpControlHits ) {
+            this.mpControlHits = incomingMechData.mpControlHits;
+        }
 
         if( incomingMechData.weaponHits )
             this.weaponHits = incomingMechData.weaponHits;
@@ -557,13 +608,27 @@ export class AlphaStrikeUnit {
             this.roundHeat = incomingMechData.roundHeat;
         }
 
-            if( incomingMechData.customName )
+        if( incomingMechData.customName )
             this.customName = incomingMechData.customName;
-
 
         if( incomingMechData.pilot)
             this._pilot.import(incomingMechData.pilot);
 
+        if (incomingMechData.moveToken) {
+            this.moveToken = incomingMechData.moveToken;
+        }
+
+        if (incomingMechData.hullDown) {
+            this.hullDown = incomingMechData.hullDown
+        }
+
+        if (incomingMechData.currentBehavior) {
+            this.currentBehavior = incomingMechData.currentBehavior;
+        }
+
+        if (incomingMechData.altitude) {
+            this.altitude = incomingMechData.altitude >= 0 ? incomingMechData.altitude : 0;
+        }
 
         this.calcCurrentValues();
     }
@@ -633,8 +698,6 @@ export class AlphaStrikeUnit {
     public getPilotAbilities(): any[] {
         let rv: any[] = [];
 
-
-
         for( let id of this._pilot.alphaStrikeAbilities ) {
             let found = false;
             for( let card of CONST_AS_PILOT_ABILITIES ) {
@@ -646,7 +709,6 @@ export class AlphaStrikeUnit {
             }
             if(!found ) rv.push( null );
         }
-
 
         return rv;
     }
@@ -663,7 +725,6 @@ export class AlphaStrikeUnit {
             }
         }
 
-
         return rv;
     }
 
@@ -677,7 +738,6 @@ export class AlphaStrikeUnit {
                 }
             }
         }
-
 
         return rv;
     }
@@ -700,6 +760,34 @@ export class AlphaStrikeUnit {
 
     }
 
+    public rollOpForBehavior(): void {
+        if (this.currentBehavior.name === "" && this.behaviors.length > 0) {
+            let index = Math.floor(Math.random() * 8);
+            let IF = false;
+            // Automatically reroll Indirect Fire behavior for Sniper and Missile Boat without IF#
+            if (this.role === "Sniper" || this.role === "Missile Boat") {
+                // See if any abilities are IF#
+                for (let ability of this.abilities) {
+                    if (ability.substring(0,2) === "IF") {
+                        IF = true;
+                    }
+                }
+                // Reroll until we get an new random number besides 2,3,4
+                if (!IF) {
+                    while (index > 1 && index < 5) {
+                        index = Math.floor(Math.random() * 8);
+                    }
+                }
+                
+            }
+
+            for (let action of CONST_AS_OPFOR_BEHAVIORS) {
+                if (action.name === this.behaviors[index]) {
+                    this.currentBehavior = action;
+                }
+            }
+        }
+    }
 
     private _getRawNumber( incomingString: string ): number {
         let myString = incomingString.replace(/\D/g,'');
@@ -736,19 +824,19 @@ export class AlphaStrikeUnit {
             return true;
         }
 
-        if( this.getEngineHits() > 0 ) {
+        if( this.engineHits > 0 ) {
             return true;
         }
 
-        if( this.getFireControlHits() > 0 ) {
+        if( this.fireControlHits > 0 ) {
             return true;
         }
 
-        if( this.getMPHits() > 0 ) {
+        if( this.mpControlHits > 0 ) {
             return true;
         }
 
-        if( this.getWeaponHits() > 0 ) {
+        if( this.weaponHits > 0 ) {
             return true;
         }
 
@@ -758,15 +846,11 @@ export class AlphaStrikeUnit {
             ( this.type && this.type.trim().toLowerCase() === "cv" )
         ) {
 
-            for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive910.length; mpHitsCount++) {
-                if( this.vehicleMotive910[ mpHitsCount ] ) {
-                    return true;
-                }
+            if( this.vehicleMotive910 > 0 ) {
+                return true;
             }
-            for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive11.length; mpHitsCount++) {
-                if( this.vehicleMotive11[ mpHitsCount ] ) {
-                    return true;
-                }
+            if( this.vehicleMotive11 > 0 ) {
+                return true;
             }
 
             if( this.vehicleMotive12 ) {
@@ -792,25 +876,17 @@ export class AlphaStrikeUnit {
                 return true;
             }
         }
-        for( let point of this.roundEngineHits ) {
-            if (point) {
-                return true;
-            }
+        if (this.engineHits !== this.roundEngineHits) {
+            return true;
         }
-        for( let point of this.roundFireControlHits ) {
-            if (point) {
-                return true;
-            }
+        if (this.fireControlHits !== this.roundFireControlHits) {
+            return true;
         }
-        for( let point of this.roundMpControlHits ) {
-            if (point) {
-                return true;
-            }
+        if (this.mpControlHits !== this.roundMpControlHits) {
+            return true;
         }
-        for( let point of this.roundWeaponHits ) {
-            if (point) {
-                return true;
-            }
+        if (this.weaponHits !== this.roundWeaponHits) {
+            return true;
         }
 
         if(
@@ -819,15 +895,11 @@ export class AlphaStrikeUnit {
             ( this.type && this.type.trim().toLowerCase() === "cv" )
         ) {
 
-            for( let mpHitsCount = 0; mpHitsCount < this.roundVehicleMotive910.length; mpHitsCount++) {
-                if( this.roundVehicleMotive910[ mpHitsCount ] ) {
-                    return true;
-                }
+            if( this.roundVehicleMotive910 !== this.vehicleMotive910 ) {
+                return true;
             }
-            for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive11.length; mpHitsCount++) {
-                if( this.roundVehicleMotive11[ mpHitsCount ] ) {
-                    return true;
-                }
+            if( this.roundVehicleMotive11 !== this.vehicleMotive11 ) {
+                return true;
             }
 
             if( this.roundVehicleMotive12 ) {
@@ -837,105 +909,106 @@ export class AlphaStrikeUnit {
         return false;
     }
 
-
-    public getEngineHits(): number {
-        let rv = 0;
-        if( this.engineHits ) {
-            for( let val of this.engineHits  ) {
-                if( val ) {
-                    rv++;
-                }
-            }
-        }
-
-        return rv;
-    }
-
     hasTripeStrengthMyomer(): boolean {
-
         return this.hasAbility("tsm");
-
     }
 
-    public hasAbility( ability: string ): boolean {
+    hasC3(): boolean {
         for( let abi of this.abilities ) {
-            if( abi.toLowerCase().trim() === ability.toLowerCase().trim()) {
+            if (abi.toLowerCase().trim().indexOf('c3') > -1) {
                 return true;
             }
         }
         return false;
     }
-    public getFireControlHits(): number {
-        let rv = 0;
-        if( this.engineHits ) {
-            for( let val of this.fireControlHits  ) {
-                if( val ) {
-                    rv++;
-                }
+
+    public hasAbility( ability: string ): boolean {
+        for( let abi of this.abilities ) {
+            if (abi.toLowerCase().trim() === ability.toLowerCase().trim()) {
+                return true;
             }
         }
-
-        return rv;
+        return false;
     }
 
-    public getMPHits(): number {
-        let rv = 0;
-        if( this.engineHits ) {
-            for( let val of this.mpControlHits  ) {
-                if( val ) {
-                    rv++;
+    public getAbilityValues = ( ability: string, range: number = 0 ) => {
+        let result = {
+            damage: -1,
+            minimal: false,
+        }
+        // Find the ability
+        for(let abi of this.currentAbilities) {
+            if (abi.toLowerCase().indexOf(ability.toLowerCase()) > -1) {
+                // This should fix TUR with specials to only return TUR values.
+                let abilityString = abi.split(',')[0];
+                // Get its value for this range
+                let regex = new RegExp(String.raw`((?<=${ability}.*)(\d\*?))`, "gi");
+                let matches = abilityString.match(regex);
+                if (matches && range < matches.length) {
+                    result.minimal = matches[range].indexOf('*') > -1;
+                    result.damage = parseInt(matches[range]);
                 }
             }
         }
 
-        return rv;
+        return result;
+    }
+
+    public hasPilotAbility( ability: string ): boolean {
+        for( let abi of this.getPilotAbilities()) {
+            if( abi && abi.ability.toLowerCase().trim() === ability.toLowerCase().trim()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public isWrecked(): boolean {
-        this.calcCurrentValues()
+        this.calcCurrentValues();
         return !this.active;
-    }
-
-
-    public getWeaponHits(): number {
-        let rv = 0;
-        if( this.engineHits ) {
-            for( let val of this.weaponHits  ) {
-                if( val ) {
-                    rv++;
-                }
-            }
-        }
-
-        return rv;
     }
 
     public reset() {
         this.currentArmor = [];
         this.currentStructure = [];
         this.currentHeat = 0;
-        this.engineHits = [];
-        this.fireControlHits = [];
-        this.weaponHits = [];
-        this.mpControlHits = [];
-        this.vehicleMotive910 = [];
-        this.vehicleMotive11 = [];
+        this.engineHits = 0;
+        this.fireControlHits = 0;
+        this.weaponHits = 0;
+        this.mpControlHits = 0;
+        this.vehicleMotive910 = 0;
+        this.vehicleMotive11 = 0;
         this.vehicleMotive12 = false;
+        this.moveToken = {
+            move: 0,
+            currentMove: 0,
+            currentSprint: 0,
+            type: '',
+            tmm: 0
+        };
+        this.altitude = 0;
         this.roundArmor = [];
         this.roundStructure = [];
         this.roundHeat = 0;
-        this.roundEngineHits = [];
-        this.roundFireControlHits = [];
-        this.roundWeaponHits = [];
-        this.roundMpControlHits = [];
-        this.roundVehicleMotive910 = [];
-        this.roundVehicleMotive11 = [];
+        this.roundEngineHits = 0;
+        this.roundFireControlHits = 0;
+        this.roundWeaponHits = 0;
+        this.roundMpControlHits = 0;
+        this.roundVehicleMotive910 = 0;
+        this.roundVehicleMotive11 = 0;
         this.roundVehicleMotive12 = false;
+        this.hullDown = false;
+        this.currentBehavior = {
+            name: "",
+            quarry: "",
+            movement: "",
+            attack: "",
+            reroll: false
+        };
         this.calcCurrentValues();
     }
 
     public calcCurrentValues() {
-
 
         while( this._pilot.alphaStrikeAbilities.length < 3 ) this._pilot.alphaStrikeAbilities.push(0);
         if( this.currentSkill > 4 ) {
@@ -947,16 +1020,6 @@ export class AlphaStrikeUnit {
             this._pilot.alphaStrikeAbilities[2] = 0;
         } else if( this.currentSkill > 1 ) {
             this._pilot.alphaStrikeAbilities[2] = 0;
-        }
-        if(
-            (this.type && this.type.trim().toLowerCase() === "sv")
-                ||
-            (this.type && this.type.trim().toLowerCase() === "cv")
-        ) {
-            while( this.mpControlHits.length < 5 ) {
-                this.mpControlHits.push( false );
-            }
-
         }
 
         this.isAerospace = false;
@@ -976,6 +1039,10 @@ export class AlphaStrikeUnit {
         ) {
             this.isInfantry = true;
         }
+
+        this.maxWeaponHits = this.damage.short > this.damage.medium ? this.damage.short : this.damage.medium;
+        this.maxWeaponHits = this.maxWeaponHits > this.damage.long ? this.maxWeaponHits : this.damage.long;
+        this.maxWeaponHits += 1; // For 1 => 0* => 0
 
         let pvDifference = 0;
         if( this.currentSkill < 4) {
@@ -1037,7 +1104,7 @@ export class AlphaStrikeUnit {
             this.currentPoints = this.basePoints;
         }
 
-        if( typeof( this.currentArmor ) === "undefined" || this.currentArmor.length === 0 ) {
+        if( typeof( this.currentArmor ) === "undefined" || this.currentArmor.length === 0 || this.currentArmor.length > this.armor ) {
             this.currentArmor = [];
             for( let armorCount = 0; armorCount < this.armor; armorCount++) {
                 this.currentArmor.push( false );
@@ -1051,7 +1118,7 @@ export class AlphaStrikeUnit {
             }
         }
 
-        if( typeof( this.currentStructure ) === "undefined" || this.currentStructure.length === 0 ) {
+        if( typeof( this.currentStructure ) === "undefined" || this.currentStructure.length === 0 || this.currentStructure.length > this.armor ) {
             this.currentStructure = [];
             for( let structureCount = 0; structureCount < this.structure; structureCount++) {
                 this.currentStructure.push( false );
@@ -1065,499 +1132,463 @@ export class AlphaStrikeUnit {
             }
         }
 
-        if( typeof( this.engineHits ) === "undefined"  || this.engineHits.length === 0  ) {
-            this.engineHits = [];
-            for( let engineHitsCount = 0; engineHitsCount < 2; engineHitsCount++) {
-                this.engineHits.push( false );
-                this.roundEngineHits.push( false );
-            }
+        if( typeof( this.engineHits ) !== "number" ) {
+            this.engineHits = 0;
         }
 
-        if( typeof( this.roundEngineHits ) === "undefined"  || this.roundEngineHits. length !== this.engineHits.length ) {
-            this.roundEngineHits = [];
-            for( let engineHitsCount = 0; engineHitsCount < 2; engineHitsCount++) {
-                this.roundEngineHits.push( false );
-            }
+        if( typeof( this.roundEngineHits ) !== "number" ) {
+            this.roundEngineHits = this.engineHits;
         }
 
-        if( typeof( this.fireControlHits ) === "undefined"  || this.fireControlHits.length === 0  ) {
-            this.fireControlHits = [];
-            for( let fcHitsCount = 0; fcHitsCount < 4; fcHitsCount++) {
-                this.fireControlHits.push( false );
-            }
+        if( typeof( this.fireControlHits ) !== "number" ) {
+            this.fireControlHits = 0;
         }
 
-        if( typeof( this.roundFireControlHits ) === "undefined"  || this.roundFireControlHits.length !== this.fireControlHits.length  ) {
-            this.roundFireControlHits = [];
-            for( let fcHitsCount = 0; fcHitsCount < 4; fcHitsCount++) {
-                this.roundFireControlHits.push( false );
-            }
+        if( typeof( this.roundFireControlHits ) !== "number" ) {
+            this.roundFireControlHits = this.fireControlHits;
         }
 
-        if( typeof(this.vehicleMotive910) === "undefined" || this.vehicleMotive910.length === 0 ) {
-            this.vehicleMotive910 = [];
-            this.roundVehicleMotive910 = [];
-            for(let hitCount = 0; hitCount < 2; hitCount++) {
-                this.vehicleMotive910.push( false );
-                this.roundVehicleMotive910.push( false );
-            }
+        if( typeof(this.vehicleMotive910) !== "number" ) {
+            this.vehicleMotive910 = 0;
         }
 
-        if( typeof(this.roundVehicleMotive910) === "undefined" || this.roundVehicleMotive910.length !== this.vehicleMotive910.length ) {
-            this.roundVehicleMotive910 = [];
-            for(let hitCount = 0; hitCount < 2; hitCount++) {
-                this.roundVehicleMotive910.push( false );
-            }
+        if( typeof(this.roundVehicleMotive910) !== "number" ) {
+            this.roundVehicleMotive910 = this.vehicleMotive910;
         }
 
-        if( typeof(this.vehicleMotive11) === "undefined" || this.vehicleMotive11.length === 0 ) {
-            this.vehicleMotive11 = [];
-            this.roundVehicleMotive11 = [];
-            for(let hitCount = 0; hitCount < 2; hitCount++) {
-                this.vehicleMotive11.push( false );
-                this.roundVehicleMotive11.push( false );
-            }
+        if( typeof(this.vehicleMotive11) !== "number") {
+            this.vehicleMotive11 = 0;
         }
 
-        if( typeof(this.roundVehicleMotive11) === "undefined" || this.roundVehicleMotive11.length !== this.vehicleMotive11.length ) {
-            this.roundVehicleMotive11 = [];
-            for(let hitCount = 0; hitCount < 2; hitCount++) {
-                this.roundVehicleMotive11.push( false );
-            }
+        if( typeof(this.roundVehicleMotive11) !== "number" ) {
+            this.roundVehicleMotive11 = this.vehicleMotive11;
         }
 
-        if( typeof( this.mpControlHits ) === "undefined"  || this.mpControlHits.length === 0  ) {
-            this.mpControlHits = [];
-            let numberOfHits = 4;
+        if( typeof( this.mpControlHits ) !== "number" ) {
+            this.mpControlHits = 0;
+        }
+
+        if (this.maxMPHits === 0) {
             if(
                 ( this.type && this.type.toLowerCase() === "bm" )
                     ||
                 ( this.type && this.type.toLowerCase() === "im" )
             ) {
-                // mechs have 4 hits
-                numberOfHits = 4;
-            }
-
-            if(
-                ( this.type && this.type.trim().toLowerCase() === "sv" )
-                    ||
-                ( this.type && this.type.trim().toLowerCase() === "cv" )
-            ) {
-                // vehicles have 5 hits
-                numberOfHits = 5;
-            }
-
-            for( let mpHitsCount = 0; mpHitsCount < numberOfHits; mpHitsCount++) {
-                this.mpControlHits.push( false );
+                let move = this.move[0].move
+                for (move; move > 2; move = Math.floor(move / 2)) {
+                    this.maxMPHits++;
+                }
+                if (move <= 2 && move > 0) {
+                    this.maxMPHits++;
+                }
             }
         }
 
-        if( typeof( this.roundMpControlHits ) === "undefined"  || this.roundMpControlHits.length !== this.mpControlHits.length  ) {
-            for ( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
-                this.roundMpControlHits.push( false );
-            }
+        if( typeof( this.roundMpControlHits ) !== "number" ) {
+            this.roundMpControlHits = 0;
         }
 
-        if( typeof( this.weaponHits ) === "undefined"  || this.weaponHits.length === 0  ) {
-            this.weaponHits = [];
-            this.roundWeaponHits = [];
-            for( let weaponHitsCount = 0; weaponHitsCount < 4; weaponHitsCount++) {
-                this.weaponHits.push( false );
-                this.roundWeaponHits.push( false );
-            }
+        if( typeof( this.weaponHits ) !== "number" ) {
+            this.weaponHits = 0;
         }
 
-        if( typeof( this.roundWeaponHits ) === "undefined"  || this.roundWeaponHits.length !== this.weaponHits.length ) {
-            this.roundWeaponHits = [];
-            for( let weaponHitsCount = 0; weaponHitsCount < 4; weaponHitsCount++) {
-                this.roundWeaponHits.push( false );
-            }
+        if( typeof( this.roundWeaponHits ) !== "number" ) {
+            this.roundWeaponHits = this.weaponHits;
         }
 
-
-
-        let currentWeaponHits = 0;
-        for( let weaponHitsCount = 0; weaponHitsCount < this.weaponHits.length; weaponHitsCount++) {
-            if( this.weaponHits[ weaponHitsCount ] )
-                currentWeaponHits++;
-        }
-
-        let currentFCHits = 0;
-        for( let fcHitsCount = 0; fcHitsCount < this.fireControlHits.length; fcHitsCount++) {
-            if( this.fireControlHits[ fcHitsCount ] )
-                currentFCHits++;
-        }
-
-        // let currentMPHits = 0;
-        // for( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
-        //     if( this.mpControlHits[ mpHitsCount ] )
-        //         currentMPHits++;
-        // }
-
-        let currentEngineHits = 0;
-        for( let engineHitsCount = 0; engineHitsCount < this.engineHits.length; engineHitsCount++) {
-            if( this.engineHits[ engineHitsCount ] )
-                currentEngineHits++;
-        }
+        let currentWeaponHits = this.weaponHits;
+        let currentFCHits = this.fireControlHits;
+        let currentEngineHits = this.engineHits;
 
         // Calculate Current Damage Values from Crits...
-        let shortDamage = this.damage.short;
-        let mediumDamage = this.damage.medium;
-        let longDamage = this.damage.long;
-        let extremeDamage = this.damage.extreme;
-
-        if( shortDamage.toString().toString() !== "0*") {
-            shortDamage = (+shortDamage - currentWeaponHits);
-        } else {
-            if( currentWeaponHits )
-                shortDamage = 0;
-        }
-
-        if( mediumDamage.toString() !== "0*") {
-            mediumDamage = (+mediumDamage - currentWeaponHits)
-        } else {
-            if( currentWeaponHits )
-                mediumDamage =0;
-        }
-
-        if( longDamage.toString() !== "0*") {
-            longDamage = (+longDamage - currentWeaponHits)
-        } else {
-            if( currentWeaponHits )
-                longDamage = 0;
-        }
-
-        if( extremeDamage.toString() !== "0*") {
-            extremeDamage = (+extremeDamage - currentWeaponHits)
-        } else {
-            if( currentWeaponHits )
-                extremeDamage = 0;
-        }
-
-        if( +shortDamage < 0 )
-            shortDamage = 0;
-
-        if( +mediumDamage < 0 )
-            mediumDamage = 0;
-
-        if( +longDamage < 0 )
-            longDamage = 0;
-
-        if( +extremeDamage < 0 )
-            extremeDamage = 0;
-
         this.currentDamage = {
-            short: shortDamage,
-            medium: mediumDamage,
-            long: longDamage,
-            extreme: extremeDamage,
+            short: this.damage.short - currentWeaponHits,
+            medium: this.damage.medium - currentWeaponHits,
+            long: this.damage.long - currentWeaponHits,
+            extreme: this.damage.extreme - currentWeaponHits,
             shortMinimal: this.damage.shortMinimal ? true : false,
             mediumMinimal: this.damage.mediumMinimal ? true : false,
             longMinimal: this.damage.longMinimal ? true : false,
             extremeMinimal: this.damage.extremeMinimal ? true : false,
         };
 
+        if( this.currentDamage.short < 0 ) {
+            this.currentDamage.short = 0;
+            this.currentDamage.shortMinimal = false;
+        } else if (this.damage.short > 0 && this.currentDamage.short === 0) {
+            this.currentDamage.shortMinimal = true;
+        }
+
+        if( this.currentDamage.medium < 0 ) {
+            this.currentDamage.medium = 0;
+            this.currentDamage.mediumMinimal = false;
+        } else if (this.damage.medium > 0 && this.currentDamage.medium === 0) {
+            this.currentDamage.mediumMinimal = true;
+        }
+
+        if( this.currentDamage.long < 0 ) {
+            this.currentDamage.long = 0;
+            this.currentDamage.longMinimal = false;
+        } else if (this.damage.long > 0 && this.currentDamage.long === 0) {
+            this.currentDamage.longMinimal = true;
+        }
+
+        if( this.currentDamage.extreme < 0 ) {
+            this.currentDamage.extreme = 0;
+            this.currentDamage.extremeMinimal = false;
+        } else if (this.damage.extreme > 0 && this.currentDamage.extreme === 0) {
+            this.currentDamage.extremeMinimal = true;
+        }
+
+        this.currentAbilities = this.abilities.map( (abi) => {
+            // console.log(abi.split(/\d|\(/));
+            
+            // Update special results with weapon hits.
+            if (this.weaponHits > 0) {
+                for(let name of ['flk', 'tur','srm','lrm','if','rear','ht','art','ac','iatm','msl','narc']) {
+                    if (abi.toLowerCase().startsWith(name)) {
+                        let string = '';
+                        let onlyStrings = abi.split(/\d|-/);
+                        let values = abi.match(/(\d+|-+)/g);
+                        
+                        // We've broken the longer string into an array of strings and values, we need to recombine it.
+                        if (values && values.length && values.length === onlyStrings.length - 1) {
+                            for (let range = 0; range < values.length; range++){
+                                let valueNum = parseInt(values[range]) - this.weaponHits;
+                                let newValue = '-';
+                                if (valueNum > 0) {
+                                    newValue = valueNum.toString();
+                                } else if (valueNum === 0) {
+                                    newValue = '0*';
+                                }
+
+                                string += onlyStrings[range] + newValue;
+                                if (range === values.length - 1) {
+                                    string += valueNum !== 0 ? onlyStrings[range + 1] : '';
+                                }
+                            }
+                            abi = string;
+                        }
+                    }
+                }
+            }
+
+            return abi;
+        })
+
+        // Consider Speed-Demon from pilot skills
+        let speedDemon = false;
+        for ( let ability = 0; ability < this._pilot.alphaStrikeAbilities.length; ability++) {
+            if (this._pilot.alphaStrikeAbilities[ability] === 46) {
+                speedDemon = true;
+            }
+        }
+
+        if (this.move.length === 1 && this.move[0].type === 'j') {
+            let newMove = [{
+                move: this.move[0].move,
+                type: '',
+                currentMove: 0,
+                currentSprint: 0,
+                tmm: 0,
+            }, this.move[0]];
+            this.move = newMove;
+        }
+
+        let heatValue = this.hasPilotAbility('Hot Dog') && this.currentHeat > 0 ? this.currentHeat - 1 : this.currentHeat;
+        this.currentMove = "";
+        this.currentMoveHexes = "";
+        this.currentTMM = "";
 
         for( let moveC = 0; moveC < this.move.length; moveC++ ) {
             this.move[moveC].currentMove = this.move[moveC].move;
-        }
+            if( this.move[moveC].move < 5 ) {
+                this.move[moveC].tmm = 0;
+            } else if( this.move[moveC].move < 9 ) {
+                this.move[moveC].tmm = 1;
+            } else if( this.move[moveC].move < 13 ) {
+                this.move[moveC].tmm = 2;
+            } else if( this.move[moveC].move < 19 ) {
+                this.move[moveC].tmm = 3;
+            } else if( this.move[moveC].move < 35 ) {
+                this.move[moveC].tmm = 4;
+            } else {
+                this.move[moveC].tmm = 5;
+            }
 
-        // Calculate Critical Movement
-        if(
-            ( this.type && this.type.toLowerCase() === "bm" )
-                ||
-            ( this.type && this.type.toLowerCase() === "im" )
-        ) {
-            // for BattleMechs
-            for( let count = 0; count < this.getMPHits(); count++ ) {
-                for( let moveC = 0; moveC < this.move.length; moveC++ ) {
-                    let moveHit = Math.round(this.move[moveC].currentMove / 2);
+            // Calculate BatteMech MP crit effects
+            if(( this.type && this.type.toLowerCase() === "bm" ) || ( this.type && this.type.toLowerCase() === "im" )) {
+                for( let count = 0; count < this.mpControlHits; count++ ) {
+                    // Reduce movement by half for each hit. We round up the amount we subract to round down the effect.
+                    let moveHit = Math.ceil(this.move[moveC].currentMove / 2);
+                    // Reduce by minimum 2"
                     if( moveHit < 2 ) {
                         moveHit = 2;
                     }
                     this.move[moveC].currentMove -= moveHit;
+                    // Movement can't go below 0
                     if( this.move[moveC].currentMove < 0 ) {
                         this.move[moveC].currentMove = 0;
                     }
+                    // Reduce TMM by 1, bottom out at zero
+                    this.move[moveC].tmm = this.move[moveC].tmm - 1 > 0 ? this.move[moveC].tmm - 1 : 0;
                 }
-            }
-
-        }
-
-        if(
-            ( this.type && this.type.trim().toLowerCase() === "sv" )
-                ||
-            ( this.type && this.type.trim().toLowerCase() === "cv" )
-        ) {
-            let vehicle11Hits = 0;
-            let vehicle910Hits = 0;
-
-            for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive910.length; mpHitsCount++) {
-                if( this.vehicleMotive910[ mpHitsCount ] ) {
-                    vehicle910Hits++;
+            } else if (( this.type && this.type.trim().toLowerCase() === "sv" ) || ( this.type && this.type.trim().toLowerCase() === "cv" )) {
+                // Vehicle Motive Crit effects
+                if (this.engineHits > 0) {
+                    this.move[moveC].currentMove = Math.floor( this.move[moveC].currentMove / 2 );
+                    this.move[moveC].tmm = Math.floor(this.move[moveC].tmm / 2);
                 }
-            }
-            for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive11.length; mpHitsCount++) {
-                if( this.vehicleMotive11[ mpHitsCount ] ) {
-                    vehicle11Hits++;
-                }
-            }
 
-            for( let moveC = 0; moveC < this.move.length; moveC++ ) {
-
-                for( let count = 0; count < vehicle11Hits; count++) {
+                for( let count = 0; count < this.vehicleMotive11; count++) {
                     let half = Math.floor( this.move[moveC].currentMove / 2 );
                     if( half < 2 ) {
                         half = 2;
                     }
                     this.move[moveC].currentMove -= half;
+                    let tmmHalf = Math.floor(this.move[moveC].tmm / 2);
+                    if (tmmHalf < 1) {
+                        tmmHalf = 1;
+                    }
+                    this.move[moveC].tmm -= tmmHalf;
                 }
 
-                for( let count = 0; count < vehicle910Hits; count++) {
+                for( let count = 0; count < this.vehicleMotive910; count++) {
                     this.move[moveC].currentMove -= 2;
+                    this.move[moveC].tmm -= 1;
                 }
 
                 if( this.move[moveC].currentMove < 0 ) {
                     this.move[moveC].currentMove = 0;
+                    this.move[moveC].tmm = 0;
                 }
 
                 if( this.vehicleMotive12 ) {
                     this.move[moveC].currentMove = 0;
                 }
             }
-        }
 
-        this.currentMove = "";
-        this.currentTMM = "";
-        this.currentMoveHexes = "";
 
-        this.immobile = true;
-        if( this.move[0].type === "j" ) {
-            this.move = [
-                {
-                    move: this.move[0].move,
-                    currentMove: this.move[0].currentMove,
-                    type: "",
-                },
-                {
-                    move: this.move[0].move,
-                    currentMove: this.move[0].currentMove,
-                    type: this.move[0].type,
+            
+            if (this.move[moveC].type !== 'j') {
+                // Adjust movement for heat
+                this.move[moveC].currentMove -= heatValue*2;
+                // Negate heat 1 and add 2" for TSM
+                if (this.hasTripeStrengthMyomer() && this.currentHeat > 0) {
+                    this.move[moveC].currentMove += 4;
+                };
+                if (heatValue > 1) {
+                    this.move[moveC].tmm -= 1;
                 }
-            ]
-        }
-        for( let moveC = 0; moveC < this.move.length; moveC++ ) {
-
-
-
-
-            let tmpTMM = 0;
-
-
-            if( this.hasTripeStrengthMyomer() && this.currentHeat === 1 ) {
-                if( this.move[moveC].currentMove < 5 ) {
-                    tmpTMM = 0;
-                } else if( this.move[moveC].currentMove < 9 ) {
-                    tmpTMM = 1;
-                } else if( this.move[moveC].currentMove < 13 ) {
-                    tmpTMM = 2;
-                } else if( this.move[moveC].currentMove < 19 ) {
-                    tmpTMM = 3;
-                } else if( this.move[moveC].currentMove < 35 ) {
-                    tmpTMM = 4;
-                } else {
-                    tmpTMM = 5;
-                }
-            } else {
-                if( this.move[moveC].move < 5 ) {
-                    tmpTMM = 0;
-                } else if( this.move[moveC].move < 9 ) {
-                    tmpTMM = 1;
-                } else if( this.move[moveC].move < 13 ) {
-                    tmpTMM = 2;
-                } else if( this.move[moveC].move < 19 ) {
-                    tmpTMM = 3;
-                } else if( this.move[moveC].move < 35 ) {
-                    tmpTMM = 4;
-                } else {
-                    tmpTMM = 5;
-                }
-            }
-
-
-
-            // Subtract Heat from Current Move
-            if( this.move[moveC].type !== "j" || this.move.length === 1 ) {
-                // if( this.type.toLowerCase().trim() === "bm" ) {
-
-                // }
-                if( this.hasTripeStrengthMyomer() ) {
-                    switch( this.currentHeat ) {
-                        case 1: {
-                            this.move[moveC].currentMove += 2;
-                            break;
-                        }
-                        case 2: {
-                            // no effect on movement
-                            break;
-                        }
-                        default: {
-                            this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
-
-                            break;
-                        }
-                    }
-                    if (this.move[moveC].currentMove < 0 || this.currentHeat === 4){
-                        this.move[moveC].currentMove = 0;
-                    }
-                } else {
-                    // if( this.move[moveC].type != "j" ) {
-                        this.move[moveC].currentMove = this.move[moveC].currentMove - this.currentHeat * 2;
-                        //can't have minus move, or heat level "4" === shutdown
-                        if (this.move[moveC].currentMove < 0 || this.currentHeat === 4){
-                            this.move[moveC].currentMove = 0;
-                        }
-                    // }
-                }
-
-            }
-
-            this.currentMoveSprint = "" + (+this.move[0].currentMove * 1.5 ) + "\"";
-            this.currentMoveHexesSprint = "" + ( Math.ceil(( +this.move[0].currentMove / 2) * 1.5) )+ "⬣";
-
-            this.currentMove += this.move[moveC].currentMove.toString() + "\"" + this.move[moveC].type;
-            this.currentMoveHexes += ( this.move[moveC].currentMove / 2).toString() + "⬣" + this.move[moveC].type;
-
-
-
-
-
-            // if( this.move[moveC].type === "j" ) {
-            //     tmpTMM++;
-            // }
-            if( this.move[moveC].type === "j" && (
-                this.hasAbility("JMPS") || this.hasAbility("JMPW")
-            )
-            ) {
-                tmpTMM++;
-            }
-
-            // MP Hits against Move
-            for( let count = 0; count < this.getMPHits(); count++ ) {
-                let tmmHit = Math.round(tmpTMM / 2);
-                if( tmmHit < 1 ) {
-                    tmmHit = 1;
-                }
-                tmpTMM -= tmmHit;
-
-                if( tmpTMM < 0 ) {
-                    tmpTMM = 0;
-                }
-
-                // for( let moveC = 0; moveC < this.move.length; moveC++ ) {
-                    // let moveHit = Math.round(this.move[moveC].currentMove / 2);
-                    // if( moveHit < 2 ) {
-                    //     moveHit = 2;
-                    // }
-                    // this.move[moveC].currentMove -= moveHit;
-                    // if( this.move[moveC].currentMove < 0 ) {
-                    //     this.move[moveC].currentMove = 0;
-                    // }
-                // }
-            }
-            if(
-                ( this.type && this.type.trim().toLowerCase() === "sv" )
-                    ||
-                ( this.type && this.type.trim().toLowerCase() === "cv" )
-            ) {
-
-                for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive910.length; mpHitsCount++) {
-                    if( this.vehicleMotive910[ mpHitsCount ] ) {
-                        tmpTMM -= 1;
-                    }
-                }
-                for( let mpHitsCount = 0; mpHitsCount < this.vehicleMotive11.length; mpHitsCount++) {
-                    if( this.vehicleMotive11[ mpHitsCount ] ) {
-                        let half = Math.floor(tmpTMM / 2);
-                        if( half < 1 ) {
-                            half = 1;
-                        }
-                        tmpTMM -= half;
+                // Calculate Sprint & Speed Demon
+                if (this.isGroundUnit()) {
+                    this.move[moveC].currentSprint = Math.ceil(this.move[moveC].currentMove*1.5);
+                    if (speedDemon && this.move[moveC].currentMove > 0) {
+                        this.move[moveC].currentMove += 2;
+                        this.move[moveC].currentSprint += 4;
                     }
                 }
             }
 
-            if( this.move[moveC].currentMove < 0 ) {
+            // Failsafe to keep at 0
+            if( this.move[moveC].currentMove < 0 || heatValue > 3 ) {
                 this.move[moveC].currentMove = 0;
+                this.move[moveC].tmm = 0;
+                this.move[moveC].currentSprint = 0;
             }
 
-            if( this.move[moveC].currentMove === 0 )
-                tmpTMM = -4;
+            this.immobile = this.move[moveC].currentMove > 0 ? false : true;
 
-            // shut down units have a tmm of -4 (ASC pg. 53)
-            if( this.currentHeat === 4 ){
-                tmpTMM = -4;
-                this.immobile = true;
-            } else {
-                // -1 TMM at OV2 or OV3 (ASC pg. 52)
-                if( this.currentHeat > 1 && this.move[moveC].type !== "j" ){
-                    tmpTMM -= 1;
-                    if( tmpTMM < 0 ) {
-                        tmpTMM = 0;
-                    }
-                }
-                // UNCOMMENT the below area if it's a -1 TMM at OV3 on top of the -1 TMM at OV2
-                // if( this.currentHeat > 2 ){
-                //     tmpTMM -= 1;
-                //     if( tmpTMM < 0 ) {
-                //         tmpTMM = 0;
-                //     }
-                // }
-            }
-
-            if( this.move[moveC].currentMove > 0 )
-            this.immobile = false;
-
-            if( tmpTMM.toString() + "/" !== this.currentTMM )
-                this.currentTMM += tmpTMM.toString() + this.move[moveC].type.toLowerCase();
-
-
-
+            // Update strings for non-play mode
+            this.currentMove += this.move[moveC].currentMove.toString() + "\"" + this.move[moveC].type;
+            this.currentMoveHexes += ( this.move[moveC].currentMove / 2).toString() + "⬣" + this.move[moveC].type; 
+            
+            
             if( moveC !== this.move.length - 1 ) {
-                this.currentTMM += "/";
+                this.currentTMM += this.move[moveC].tmm + "/";
                 this.currentMove += "/";
                 this.currentMoveHexes += "/";
+            } else {
+                this.currentTMM += this.move[moveC].tmm + this.move[moveC].type;
             }
-
         }
-        if( this.currentTMM.endsWith("/"))
-            this.currentTMM = this.currentTMM.substring( 0, this.currentTMM.length - 1);
+        
+        this.currentMoveSprint = "" + (+this.move[0].currentMove * 1.5 ) + "\"";
+        this.currentMoveHexesSprint = "" + ( Math.ceil(( +this.move[0].currentMove / 2) * 1.5) )+ "⬣";
+
+
+
+        // Update To-Hit with movement
+        let movementToHit = 0;
+        // Battle Armor and Infantry are not affected by attacker movement modifiers. AS:CE pg 42.
+        if (this.type && this.type.toLowerCase() !== "ba" && this.type.toLowerCase() !== "ci") {
+            if (this.moveToken.type.toLowerCase() === "standstill" || this.moveToken.type.toLowerCase() === 'hull down') {
+                movementToHit = -1;
+            } else if (this.moveToken.type === "jump" || this.moveToken.type === 'dfa') {
+                movementToHit = 2;
+                for ( let ability = 0; ability < this._pilot.alphaStrikeAbilities.length; ability++) {
+                    if (this._pilot.alphaStrikeAbilities[ability] === 26) {
+                        movementToHit = 1;
+                    }
+                }
+            }
+        }
 
         // Calculate To-Hits with Criticals
-        this.currentToHitShort = this.currentSkill + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
-        this.currentToHitMedium = this.currentSkill + 2 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
-        this.currentToHitLong = this.currentSkill + 4 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
-        this.currentToHitExtreme = this.currentSkill + 6 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
+        this.currentToHitShort = this.currentSkill + heatValue + currentFCHits * 2 + movementToHit; // + currentEngineHits;
+        this.currentToHitMedium = this.currentSkill + 2 + heatValue + currentFCHits * 2 + movementToHit; // + currentEngineHits;
+        this.currentToHitLong = this.currentSkill + 4 + heatValue + currentFCHits * 2 + movementToHit; // + currentEngineHits;
+        this.currentToHitExtreme = this.currentSkill + 6 + heatValue + currentFCHits * 2 + movementToHit; // + currentEngineHits;
 
-        this.currentHeat = this.currentHeat / 1;
-
-        // Engine Hit Heat Effects
-        // if( currentEngineHits === 1 )
-        //     if( this.currentHeat < 1)
-        //         this.currentHeat = 1;
-
-        if( this.currentHeat < 0 )
-            this.currentHeat = 0;
-
-        if( this.currentHeat > 4 )
-            this.currentHeat = 4;
-
-        this.getCurrentStructure();
-
-        if( currentEngineHits > 1 )
+        if( currentEngineHits > 1 || this.getCurrentStructure() < 1) {
             this.active = false;
+        } else {
+            this.active = true;
+        }
 
+        // Here we do the attacks!
+        this.attacks = [];
+            if (this.hasAbility('AM')) {
+                this.attacks.push(
+                    {
+                        name: 'AM',
+                        type: 'physical',
+                        damage: this.damage.short,
+                        minimal: this.damage.shortMinimal ? true : false,
+                        toHit: this.getCurrentToHit(0, 'physical'),
+                        range: 0,
+                        disabled: this.moveToken.type !== 'ground' && this.moveToken.type !== 'standstill' && this.moveToken.type !== 'jump',
+                    }
+                );
+            } 
+            if (this.type.toLowerCase() === 'bm' || this.type.toLowerCase() === 'pm' || this.type.toLowerCase() === 'im') {
+                let name = 'Normal';
+                let damage = this.size;
+                if (this.hasAbility('MEL')) {
+                    name = 'Melee';
+                    damage += 1;
+                }
+                if (this.hasAbility('I-TSM') || this.hasAbility('TSMX')) {
+                    damage += 1;
+                }
+                if (this.hasAbility('TSM') && this.currentHeat > 0) {
+                    damage += 1;
+                }
+                if (this.hasPilotAbility('Fist Fire')) {
+                    damage += Math.ceil(this.damage.short/2);
+                }
+                if (this.hasPilotAbility('Zweihander')) {
+                    damage += 1;
+                }
+                if (this.hasPilotAbility('Melee Master')) {
+                    damage += 1;
+                }
+                let disabled = this.moveToken.type !== 'ground' && this.moveToken.type !== 'standstill' && this.moveToken.type !== 'jump';
+                disabled = this.immobile ? this.currentHeat > 3 : disabled;
+                this.attacks.push(
+                    {
+                        name: name,
+                        type: 'physical',
+                        damage: damage,
+                        minimal: false,
+                        toHit: this.getCurrentToHit(0, 'physical'),
+                        range: 0,
+                        disabled: disabled,
+                    }
+                );
+            }
+            // Add Specials for BattleMechs and Vehicles
+            if (this.isGroundUnit() && this.type.toLowerCase() !== 'pm' && !this.isInfantry) {
+                for (let move of this.move) {
+                    if (move.currentMove > 0 && move.type !== 'v') {
+                        let damage = this.size + Math.floor(move.tmm/2);
+                        let name = 'Charge';
+                        let disabled =  this.moveToken.type.toLowerCase() !== 'charge';
 
+                        if (move.type === 'j') {
+                            damage += 1;
+                            damage = this.hasAbility("JMPS2") ? damage + 1 : damage;
+                            damage = this.hasAbility("JMPW2") ? damage - 1 : damage;
+                            name = 'Death from Above';
+                            disabled = this.moveToken.type.toLowerCase() !== 'dfa';
+                        }
+                        if (this.hasPilotAbility('Melee Master')) {
+                            damage += 1;
+                        }
+
+                        this.attacks.push({
+                            name: name,
+                            type: 'physical',
+                            damage: damage,
+                            minimal: false,
+                            toHit: this.getCurrentToHit(0, name),
+                            range: 0,
+                            disabled: disabled,
+                        });
+                    }
+                }
+            }
+            let damage = this.getCurrentDamage(0);
+            this.attacks.push({
+                name: 'Short',
+                type: 'weapon',
+                damage: damage.value,
+                minimal: damage.minimal,
+                toHit: this.getCurrentToHit(0),
+                range: 0,
+                disabled: damage.disabled,
+            });
+            damage = this.getCurrentDamage(1);
+            this.attacks.push({
+                name: 'Medium',
+                type: 'weapon',
+                damage: damage.value,
+                minimal: damage.minimal,
+                toHit: this.getCurrentToHit(1),
+                range: 1,
+                disabled: damage.disabled,
+            });
+            damage = this.getCurrentDamage(2);
+            this.attacks.push({
+                name: this.getAbilityValues('ART').damage > -1 ? 'L / ART' : 'Long',
+                type: 'weapon',
+                damage: damage.value,
+                minimal: damage.minimal,
+                toHit: this.getCurrentToHit(2),
+                range: 2,
+                disabled: damage.disabled,
+            });
+            damage = this.getCurrentDamage(3);
+            this.attacks.push({
+                name: 'Extreme',
+                type: 'weapon',
+                damage: damage.value,
+                minimal: damage.minimal,
+                toHit: this.getCurrentToHit(3),
+                range: 3,
+                disabled: damage.disabled,
+        });
+
+        if (this.getAbilityValues('BOMB').damage > -1) {
+            this.attacks.push({
+                name: 'Dive Bomb',
+                type: 'bomb',
+                damage: this.getAbilityValues('BOMB').damage,
+                minimal: false,
+                toHit: this.getCurrentToHit(this.getHeightRange(this.moveToken.type), 'bomb'),
+                range: 1,
+                disabled: this.getHeightRange(this.moveToken.type) > 1 || this.moveToken.type === '',
+            });
+            this.attacks.push({
+                name: 'Altitude Bomb',
+                type: 'bomb',
+                damage: this.getAbilityValues('BOMB').damage,
+                minimal: false,
+                toHit: this.getCurrentToHit(this.getHeightRange(this.moveToken.type), 'bomb'),
+                range: 2,
+                disabled: this.getHeightRange(this.moveToken.type) < 2 || this.moveToken.type === '',
+            });
+        }
     }
     /**
     * Returns a boolean if the unit is a ground unit. This is used for
@@ -1585,6 +1616,15 @@ export class AlphaStrikeUnit {
         return true;
     }
 
+    public getTMM(): string {
+        let tmm = ''
+        for (let moveC = 0; moveC < this.move.length; moveC++) {
+            tmm += this.move[moveC].tmm + this.move[moveC].type;
+            tmm = moveC < this.move.length -1 ? tmm + '/' : tmm;
+        }
+        return tmm;
+    }
+
     public getSpecialAbility( tag: string ): IASSpecialAbility | null {
         if( this.abilities ) {
             for( let def of CONST_AS_SPECIAL_ABILITIES ) {
@@ -1607,7 +1647,8 @@ export class AlphaStrikeUnit {
                     if( tag.toLowerCase().startsWith(baseTag) ) {
                         let tmp = tag.toLowerCase().replace(baseTag, "");
                         if( tmp.length > 0 ) {
-                            if( !Number.isNaN(Number(tmp[0])) ) {
+                            // The special needs to start with a number, or with - after weapon crits reduce it to 0.
+                            if( !Number.isNaN(Number(tmp[0]) || tmp.startsWith('-') ) ) {
                                 let newDef = JSON.parse(JSON.stringify(def));
                                 newDef.rawTag = tag;
                                 return newDef;
@@ -1622,63 +1663,46 @@ export class AlphaStrikeUnit {
     }
 
     public setHeat( newHeatValue: number ) {
+        this.currentHeat = newHeatValue;
         this.roundHeat = newHeatValue;
     }
 
     public applyRound() {
-        this.currentHeat = this.roundHeat;
-        this.roundArmor.map( (point, pointIndex) => {
-            if (point) {
+        if (this.roundHeat === -1) {
+            this.currentHeat = 0;
+            this.roundHeat = 0;
+        } else if (this.roundHeat !== this.currentHeat) {
+            this.currentHeat = this.roundHeat;
+        }
+
+        for(let pointIndex = 0; pointIndex < this.roundArmor.length; pointIndex++) {
+            if (this.roundArmor[pointIndex]) {
                 this.currentArmor[pointIndex] = !this.currentArmor[pointIndex];
                 this.roundArmor[pointIndex] = false;
             }
-        })
-        this.roundStructure.map( (point, pointIndex) => {
-            if (point) {
+        }
+        for(let pointIndex = 0; pointIndex < this.roundStructure.length; pointIndex++) {
+            if (this.roundStructure[pointIndex]) {
                 this.currentStructure[pointIndex] = !this.currentStructure[pointIndex];
                 this.roundStructure[pointIndex] = false;
             }
-        })
-        this.roundEngineHits.map( (point, pointIndex) => {
-            if (point) {
-                this.engineHits[pointIndex] = !this.engineHits[pointIndex];
-                this.roundEngineHits[pointIndex] = false;
-            }
-        })
-        this.roundFireControlHits.map( (point, pointIndex) => {
-            if (point) {
-                this.fireControlHits[pointIndex] = !this.fireControlHits[pointIndex];
-                this.roundFireControlHits[pointIndex] = false;
-            }
-        })
-        this.roundMpControlHits.map( (point, pointIndex) => {
-            if (point) {
-                this.mpControlHits[pointIndex] = !this.mpControlHits[pointIndex];
-                this.roundMpControlHits[pointIndex] = false;
-            }
-        })
-        this.roundWeaponHits.map( (point, pointIndex) => {
-            if (point) {
-                this.weaponHits[pointIndex] = !this.weaponHits[pointIndex];
-                this.roundWeaponHits[pointIndex] = false;
-            }
-        })
-        this.roundVehicleMotive910.map( (point, pointIndex) => {
-            if (point) {
-                this.vehicleMotive910[pointIndex] = !this.vehicleMotive910[pointIndex];
-                this.roundVehicleMotive910[pointIndex] = false;
-            }
-        })
-        this.roundVehicleMotive11.map( (point, pointIndex) => {
-            if (point) {
-                this.vehicleMotive11[pointIndex] = !this.vehicleMotive11[pointIndex];
-                this.roundVehicleMotive11[pointIndex] = false;
-            }
-        })
-        if (this.roundVehicleMotive12) {
-            this.vehicleMotive12 = !this.vehicleMotive12;
         }
-        this.roundVehicleMotive12 = false;
+        this.engineHits = this.roundEngineHits;
+        this.fireControlHits = this.roundFireControlHits;
+        this.mpControlHits = this.roundMpControlHits;
+        this.weaponHits = this.roundWeaponHits;
+
+        this.vehicleMotive910 = this.roundVehicleMotive910;
+        this.vehicleMotive11 = this.roundVehicleMotive11;
+        this.vehicleMotive12 = this.roundVehicleMotive12
+
+        // Set the unit to hull down, so next round if it is still hull down it gets the -1 toHit modifier
+        if (this.moveToken.type === 'hull down') {
+            this.hullDown = true;
+        } else {
+            this.hullDown = false;
+        }
+
     }
 
     public takeDamage( numberOfPoints: number ) {
@@ -1695,6 +1719,7 @@ export class AlphaStrikeUnit {
                     this.roundArmor[armorCounter] = false;
                 }
             }
+
             for( let structureCounter = 0; structureCounter < this.roundStructure.length; structureCounter++ ) {
                 if( this.roundStructure[structureCounter] === false && this.currentStructure[structureCounter] === false ) {
                     if( leftOverPoints > 0 ) {
@@ -1705,9 +1730,7 @@ export class AlphaStrikeUnit {
                     this.roundStructure[structureCounter] = false;
                 }
             }
-            
         }
-
         this.calcCurrentValues();
     }
 
@@ -1729,12 +1752,236 @@ export class AlphaStrikeUnit {
             }
         }
 
-        if( structPoints < 1 )
-            this.active = false;
-        else
-            this.active = true;
-
         return structPoints;
+    }
+
+    public getHeightRange = ( height: string = 'low' ) => {
+        let range = 0;
+        switch (height) {
+            case 'low':
+                break;
+            case 'middle':
+                range = 1;
+                break;
+            case 'high':
+                range = 2;
+                break;
+            case 'extreme':
+                range = 3;
+                break;
+        }
+
+        return range;
+    }
+
+    public getCurrentDamage( range: number = 0 ) {
+        let rangeString = 'short';
+        switch (range) {
+            case 0:
+                rangeString = 'short';
+                break;
+            case 1:
+                rangeString = 'medium';
+                break;
+            case 2: 
+                rangeString = 'long';
+                break;
+            case 3:
+                rangeString = 'extreme';
+                break;
+        }
+        
+        let damage = {
+            // @ts-ignore
+            value: this.damage[rangeString] ? this.damage[rangeString] : 0,
+            // @ts-ignore
+            minimal: this.damage[rangeString+'Minimal'] ? true : false,
+            disabled: false,
+        }
+
+        // Reduce from weapon hits
+        damage.value -= this.weaponHits;
+
+        // Reduce vehicle damage from Engine hits
+        if ((this.type.toLowerCase() === 'cv' || this.type.toLowerCase() === 'sv') && this.engineHits) {
+            for (let hits = 0; hits < this.engineHits; hits++) {
+                damage.value = damage.value/2;
+            }
+            damage.value = Math.floor(damage.value);
+        }
+
+        // Adjust for hull-down
+        if (this.moveToken.type === 'hull down') {
+            if (this.type.toLowerCase() === 'cv' || this.type.toLowerCase() === 'sv') {
+                damage.value = -1; // This will eval to 0, no minimal
+            } else if(this.type.toLowerCase() === 'bm' || this.type.toLowerCase() === 'im') {
+                // Reduce by 1, but not below 0*
+                damage.value = damage.value - 1;
+                if (damage.value < 1) {
+                    damage.value = 0;
+                    damage.minimal = true;
+                }
+            } else {
+                // Half damage, rounded down
+                damage.value = Math.floor(damage.value);
+            }
+            // Check to see if turret is better, and use that instead
+            let turret = this.getAbilityValues('TUR', range);
+            if (turret.damage > damage.value || (turret.minimal === true && damage.minimal === false)) {
+                damage.value = turret.damage;
+                damage.minimal = turret.minimal;
+            }
+        }
+
+        // Sandblaster SPA check
+        if (this.hasPilotAbility('Sandblaster')) {
+            for(let SPA of ['AC', 'FLK', 'IATM', 'LRM', 'SRM', 'TOR']) {
+                if (this.getAbilityValues(SPA, range).damage > -1) {
+                    damage.value += range === 0 ? 2 : 1;
+                }
+            }
+        }
+
+        // SPA adjustments based on movement
+        if (this.moveToken.type === 'standstill' || this.moveToken.type === 'hull down') {
+            // Cluster Hitter SPA check
+            if (this.hasPilotAbility('Cluster Hitter')) {
+                for(let SPA of ['FLK', 'LRM', 'SRM']) {
+                    if (this.getAbilityValues(SPA, range).damage > -1) {
+                        damage.value += 1;
+                    }
+                }
+            }
+
+            // Half damage for unit with Marksman SPA that did not move
+            if (this.hasPilotAbility('Marksman')) {
+                damage.value = Math.floor(damage.value/2);
+                damage.value = damage.value < 1 ? 1 : damage.value;
+            }
+        }
+        
+        // Check for minimal damage
+        if( damage.value < 0 ) {
+            damage.value = 0;
+            damage.minimal = false;
+            // @ts-ignore
+        } else if (this.damage['range'] > 0 && damage.value === 0) {
+            damage.minimal = true;
+        }
+
+        if(this.moveToken.type === 'sprint' || this.moveToken.type === 'charge' || this.moveToken.type === 'dfa') {
+            damage.disabled = true;
+        }
+        if (!this.immobile && this.moveToken.type === '') {
+            damage.disabled = true;
+        }
+        if (damage.value < 1 && !damage.minimal) {
+            if (range === 2 && this.getAbilityValues('ART').damage > 0) {
+
+            } else {
+                damage.disabled = true;
+            }
+        }
+        if (this.currentHeat > 3) {
+            damage.disabled = true;
+        }
+
+        return damage;
+    }
+
+    public getCurrentToHit( range: number = 0, type: string = 'weapon' ) {
+        let toHit = this.currentSkill;
+
+        // Check Attacker Movement
+        if (!this.isInfantry) {
+            if (this.moveToken.type === "standstill" || this.immobile || (this.hullDown && this.moveToken.type === 'hull down')) {
+                toHit -= 1;
+            } else if (this.moveToken.type === "jump" || this.moveToken.type === 'dfa') {
+                toHit += this.hasPilotAbility('Jumping Jack') ? 1 : 2;
+            }
+        }
+
+        // Weapon Attack Type
+        // -- Industrial Mech with no AFC
+        if (this.type.toLowerCase() === 'im' && !this.hasAbility('AFC')) {
+            toHit += 1;
+        }
+        // -- Support Vehicle with BFC or AFC
+        if (this.type.toLowerCase() === 'sv' && !this.hasAbility('AFC')) {
+            if (this.hasAbility('BFC')) {
+                toHit += 1;
+            } else {
+                toHit += 2;
+            }
+        }
+        // -- Grounded Dropship
+
+        // -- Unit has SHLD and is a weapon attack
+        if (this.hasAbility('SHLD') && type === 'weapon') {
+            toHit += 1;
+        }
+        
+        let heatValue = this.hasPilotAbility('Hot Dog') && this.currentHeat > 0 ? this.currentHeat - 1 : this.currentHeat;
+        if (type !== 'physical') {
+            // -- Fire Control Hits
+            toHit += this.fireControlHits*2;
+            // -- Heat
+            toHit += heatValue;
+
+            // Golden Goose reduces toHit for bombs
+            if (type.toLowerCase() === 'bomb' && this.hasPilotAbility('Golden Goose')) {
+                toHit += -2;
+            }
+
+        } else {
+            // -- Charge or DFA
+            if (type.toLowerCase() === 'charge' || type.toLowerCase() === 'death from above') {
+                toHit += 1;
+            } 
+            // Physical normal or MEL
+            else {
+                if(this.hasAbility('I-TSM')) {
+                    toHit += 2;
+                }
+            }
+            if (this.hasPilotAbility('Melee Specialist')) {
+                toHit += -1;
+            }
+            // -- AM attack
+            if (this.isInfantry && this.hasAbility('AM')) {
+                toHit += this.type.toLowerCase() === 'ci' ? 3 : 1;
+            }
+        }
+
+        // Adjust for Range Master
+        if (this.hasPilotAbility('Range Master (M)')) {
+            if (range === 0) {
+                toHit += 2;
+            } else if (range === 1) {
+                toHit += -2;
+            }
+        } else if (this.hasPilotAbility('Range Master (L)')) {
+            if (range === 0) {
+                toHit += 2;
+            } else if (range === 2) {
+                toHit += -2;
+            }
+        } else if (this.hasPilotAbility('Range Master (E)')) {
+            if (range === 0) {
+                toHit += 2;
+            } else if (range === 3) {
+                toHit += -2;
+            }
+        }
+
+        // Add Range
+        let rangeMod = 2;
+        if (this.hasPilotAbility('Sniper')) {
+            rangeMod = 1;
+        }
+        toHit += rangeMod*range;
+
+        return toHit;
     }
 
     public setArmor( nv: number ) {
@@ -1751,27 +1998,36 @@ export class AlphaStrikeUnit {
 
         let _currentArmor: boolean[] = [];
         let _currentStructure: boolean[] = [];
-        let _engineHits: boolean[] = [];
-        let _fireControlHits: boolean[] = [];
-        let _mpControlHits: boolean[] = [];
-        let _weaponHits: boolean[] = [];
+        let _engineHits: number = 0;
+        let _fireControlHits: number = 0;
+        let _mpControlHits: number = 0;
+        let _weaponHits: number = 0;
 
-        let _vehicleMotive910: boolean[] = [];
-        let _vehicleMotive11: boolean[] = [];
+        let _vehicleMotive910: number = 0;
+        let _vehicleMotive11: number = 0;
         let _vehicleMotive12: boolean = false;
 
         let _currentHeat = 0;
 
         let _roundArmor: boolean[] = [];
         let _roundStructure: boolean[] = [];
-        let _roundEngineHits: boolean[] = [];
-        let _roundFireControlHits: boolean[] = [];
-        let _roundMpControlHits: boolean[] = [];
-        let _roundWeaponHits: boolean[] = [];
-        let _roundVehicleMotive910: boolean[] = [];
-        let _roundVehicleMotive11: boolean[] = [];
+        let _roundEngineHits: number = 0;
+        let _roundFireControlHits: number = 0;
+        let _roundMpControlHits: number = 0;
+        let _roundWeaponHits: number = 0;
+        let _roundVehicleMotive910: number = 0;
+        let _roundVehicleMotive11: number = 0;
         let _roundVehicleMotive12: boolean = false;
         let _roundHeat = 0;
+        let _hullDown = false;
+
+        let _behavior: OpForBehavior = {
+            name: "",
+            quarry: "",
+            movement: "",
+            attack: "",
+            reroll: false
+        };
 
         if( !noInPlayVariables ) {
             _currentArmor = this.currentArmor;
@@ -1795,6 +2051,8 @@ export class AlphaStrikeUnit {
             _roundVehicleMotive11 = this.roundVehicleMotive11;
             _roundVehicleMotive12 = this.roundVehicleMotive12;
             _roundHeat = this.roundHeat;
+            _hullDown = this.hullDown;
+            _behavior = this.currentBehavior;
         }
 
         let rv:  IAlphaStrikeUnitExport = {
@@ -1819,6 +2077,8 @@ export class AlphaStrikeUnit {
             roundVehicleMotive11: _roundVehicleMotive11,
             roundVehicleMotive12: _roundVehicleMotive12,
             roundHeat: _roundHeat,
+            hullDown: _hullDown,
+            currentBehavior: _behavior,
             classification:  this.classification,
             class:  this.class?? "",
             costCR:  this.costCR,
@@ -1847,6 +2107,8 @@ export class AlphaStrikeUnit {
             basePoints:  this.basePoints,
             currentSkill:  this.currentSkill,
             uuid: this.uuid,
+            moveToken: this.moveToken,
+            altitude: this.altitude,
         };
 
         return rv;

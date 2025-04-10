@@ -267,11 +267,25 @@ export const CONST_AS_PILOT_ABILITIES: IASPilotAbility[] = [
     summary: ["Improves accuracy for indirect fire, and enables indirect attacks without a spotter"],
 },
 {
-    id: 39,
-    ability: "Range Master",
+    id: 39.1,
+    ability: "Range Master (M)",
     cost: 2,
     asce_page: 98,
-    summary: ["Unit swaps normal range modifier for Medium, Long, or Extreme range with Short"],
+    summary: ["Unit modifies target number for Medium range by -2 and Short range by +2"],
+},
+{
+    id: 39.2,
+    ability: "Range Master (L)",
+    cost: 2,
+    asce_page: 98,
+    summary: ["Unit modifies target number for Long range by -2 and Short range by +2"],
+},
+{
+    id: 39.3,
+    ability: "Range Master (E)",
+    cost: 2,
+    asce_page: 98,
+    summary: ["Unit modifies target number for Extreme range by -2 and Short range by +2"],
 },
 {
     id: 40,

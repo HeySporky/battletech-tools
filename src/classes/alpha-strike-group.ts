@@ -88,7 +88,7 @@ export default class AlphaStrikeGroup {
 			}
 		} else {
 			if( this.customName ) {
-				return this.groupLabel + " #" + groupNumber.toString() + ": " + this.customName;
+				return this.customName;
 			} else {
 				return this.groupLabel + "Group #" + groupNumber.toString();
 			}

@@ -43,6 +43,40 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
       })
     }
 
+    setAlphaStrikeAIMode = ( event: React.FormEvent<HTMLInputElement>): void => {
+      let appSettingsHome = this.props.appGlobals.appSettings;
+      appSettingsHome.alphaStrikeAIMode = event.currentTarget.checked;
+      this.props.appGlobals.saveAppSettings( appSettingsHome );
+    }
+
+    setAlphaStrikeCombatRolls = ( event: React.FormEvent<HTMLInputElement>): void => {
+      let appSettingsHome = this.props.appGlobals.appSettings;
+      appSettingsHome.alphaStrikeCombatRolls = event.currentTarget.checked;
+      this.props.appGlobals.saveAppSettings( appSettingsHome );
+
+      // Get rid of any move tokens.
+      if (this.props.appGlobals.currentASForce && !appSettingsHome.alphaStrikeCombatRolls) {
+        for (let group of this.props.appGlobals.currentASForce.groups) {
+          for( let unit of group.members ) {
+              unit.moveToken = {
+                move: 0,
+                currentMove: 0,
+                currentSprint: 0,
+                type: '',
+                tmm: 0,
+              }
+          }
+        }
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      }
+    }
+
+    setAlphaStrikeVariableDamage = (event: React.FormEvent<HTMLSelectElement> ): void => {
+      let appSettingsHome = this.props.appGlobals.appSettings;
+      appSettingsHome.alphaStrikeVariableDamage = event.currentTarget.value;
+      this.props.appGlobals.saveAppSettings( appSettingsHome );
+    }
+
     render = (): JSX.Element => {
 
       return (
@@ -70,11 +104,39 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
                     onChange={this.setDeveloperMenu}
                   />
 
-              <InputCheckbox
-                  label='Alpha Strike Roster: Display Measurements in Hexes'
-                  checked={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
-                  onChange={this.setAlphaStrikeMeasurementsInHexes}
-                />
+                  <InputCheckbox
+                    label='Alpha Strike Roster: Display Measurements in Hexes'
+                    checked={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
+                    onChange={this.setAlphaStrikeMeasurementsInHexes}
+                  />
+
+                  <InputCheckbox
+                    label='Alpha Strike: Enable Combat Rolls & Movement Tokens'
+                    checked={this.props.appGlobals.appSettings.alphaStrikeCombatRolls}
+                    onChange={this.setAlphaStrikeCombatRolls}
+                    description='This will add interactive movement tokens, buttons to roll critical hits, and enable attack buttons.'
+                  />
+
+                  <label>
+                    Damage Calculations:
+                    <select
+                      value={this.props.appGlobals.appSettings.alphaStrikeVariableDamage}
+                      onChange={this.setAlphaStrikeVariableDamage}
+                      disabled={!this.props.appGlobals.appSettings.alphaStrikeCombatRolls}
+                    >
+                      <option value="">Standard (one roll, full damage)</option>
+                      <option value="damage">Multiple Damage Rolls</option>
+                      <option value="attack">Multiple Attack Rolls</option>
+                    </select>
+                    <div className='small-text'>Choose between standard and variable damage rules for combat rolls.</div>
+                  </label>
+
+                  <InputCheckbox
+                    label='Alpha Strike: Enable generated behaviors'
+                    checked={this.props.appGlobals.appSettings.alphaStrikeAIMode}
+                    onChange={this.setAlphaStrikeAIMode}
+                    description="Adds a button to generate behaviors based on Brym's OpFor for units in play mode."
+                  />
 
                 </fieldset>
 

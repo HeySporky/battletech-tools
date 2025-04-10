@@ -1,0 +1,107 @@
+.tokens {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: left;
+}
+.alpha-strike-unit-token {
+    border: 1px solid black;
+    box-sizing: border-box;
+    width: 2in;
+    height: 1.25in;
+    display: flex;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    > * {
+        width: 50%;
+        box-sizing: border-box;
+        position: relative;
+    }
+    .front {
+        writing-mode: sideways-rl;
+        border-right: 1px solid black;
+        padding-right: 4px;
+        position: relative;
+        img {
+            mix-blend-mode: darken;
+            position: absolute;
+            left: -8px;
+            top: 22px;
+            max-width: 1.25in;
+            width: 110px;
+            transform: rotate(90deg);
+        }
+    }
+    .back {
+        padding-left: 4px;
+        writing-mode: sideways-lr;
+        .group {
+            font-size: 12px;
+            line-height: 14px;
+            margin-left: 14px;
+        }
+    }
+    .unit-name {
+        padding: 4px 0;
+        font-size: 12px;
+        font-weight: 700;
+        .custom-name {
+            font-size: 14px;
+        }
+        .custom-name + .class {
+            font-weight: 400;
+        }
+    }
+    svg {
+        display: none;
+        max-width: 100%;
+        top: 50%;
+    }
+    &.bm,
+    &.im {
+        width: 4in;
+        order: 1000;
+        img {
+            left: 30px;
+            top: -14px;
+            width: 106px;
+        }
+    }
+    &.superheavy {
+        width: 6in;
+        height: 1.5in;
+        order: 2000;
+        img {
+            left: 50px;
+            top: -20px;
+            width: 100%;
+            max-width: 1.4in;
+        }
+    }
+    &.pm {
+        height: 1in;
+        width: 2in;
+        order: 3000;
+        img {
+            left: 12px;
+            top: 0;
+            width: 72px;
+            max-width: 1in;
+        }
+    }
+    &.ba,
+    &.ci {
+        img {
+            left: 12px;
+            top: 10px;
+            width: 70px;
+        }
+    }
+    &.af,
+    &.js {
+        img {
+            top: 28px;
+        }
+    }
+}
