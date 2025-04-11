@@ -1255,8 +1255,13 @@ export class AlphaStrikeUnit {
                 || abi.startsWith("IF")) {
                 let type = abi.split(/\d/)[0].trim();
                 let values = abi.slice(type.length);
+                let turret = false;
+                if (values.endsWith(")")) {
+                    turret = true;
+                    values = values.slice(0, values.length - 1);
+                }
                 let damageValues = values.split("/");
-                return type + damageValues.map((damageValue) => {
+                let abiString = type + damageValues.map((damageValue) => {
                     let damage = 0;
                     let minimal = false;
                     let dash = false;
@@ -1267,6 +1272,8 @@ export class AlphaStrikeUnit {
                     }
                     return dash ? "-" : minimal ? "0*" : damage.toString();
                 }).join("/");
+
+                return turret? abiString + ")" : abiString;
             } else {
                 return abi;
             }
