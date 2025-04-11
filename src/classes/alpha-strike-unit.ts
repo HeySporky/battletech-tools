@@ -1242,20 +1242,19 @@ export class AlphaStrikeUnit {
         };
 
         this.currentAbilities = this.abilities.map((abi) => {
-            // Fairly comprehensive list, probably missing some
-            // TODO: Add Artillery
-            // TODO: Do something more efficient than checking the type
-            if (abi.startsWith("HT")
-                || abi.startsWith("FLK")
-                || abi.startsWith("LRM")
-                || abi.startsWith("TUR")
-                || abi.startsWith("SRM")
-                || abi.startsWith("AC")
-                || abi.startsWith("REAR")
-                || abi.startsWith("IF")) {
-                let type = abi.split(/\d/)[0].trim();
+                let split = abi.split(/\d/);
+
+                // If there are no numbers, it's not got damage values
+                if (split.length === 1) {
+                    return abi;
+                }
+                let type = split[0].trim();
+
                 let values = abi.slice(type.length);
                 let turret = false;
+
+                // If the last character is a parenthesis, remove it and set turret to true
+                // This is a bit of a hack, but it works for now
                 if (values.endsWith(")")) {
                     turret = true;
                     values = values.slice(0, values.length - 1);
@@ -1274,10 +1273,6 @@ export class AlphaStrikeUnit {
                 }).join("/");
 
                 return turret? abiString + ")" : abiString;
-            } else {
-                return abi;
-            }
-
         });
 
 
