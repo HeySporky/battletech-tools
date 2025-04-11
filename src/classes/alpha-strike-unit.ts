@@ -1201,20 +1201,19 @@ export class AlphaStrikeUnit {
             if( this.engineHits[ engineHitsCount ] )
                 currentEngineHits++;
         }
-
         // Calculate Current Damage Values from Crits...
-        function update_damage(damage: number, hits: number, minimal: boolean | undefined): [number, boolean] {
+        function updateDamage(damage: number, weaponHits: number, minimal: boolean | undefined): [number, boolean] {
             if (minimal == false) {
-                damage = (+damage - currentWeaponHits);
+                damage = (+damage - weaponHits);
                 // If weapon damage is now 0, and there are still hits, we have hit the minimal damage threshold
-                if (damage == 0 && currentWeaponHits > 0) {
+                if (damage == 0 && weaponHits > 0) {
                     minimal = true;
                 } else if (damage < 0) {
                     damage = 0;
                 }
                 // If we are already at minimal damage and have weapon hits, we go to 0 damage
             } else if (minimal == true) {
-                if (hits) {
+                if (weaponHits) {
                     damage = 0;
                     minimal = false;
                 }
@@ -1226,11 +1225,11 @@ export class AlphaStrikeUnit {
             return [damage, minimal ? true : false];
         }
 
-        let [shortDamage, shortMinimal] = update_damage(this.damage.short, currentWeaponHits, this.damage.shortMinimal);
-        let [mediumDamage, mediumMinimal] = update_damage(this.damage.medium, currentWeaponHits, this.damage.mediumMinimal);
-        let [longDamage, longMinimal] = update_damage(this.damage.long, currentWeaponHits, this.damage.longMinimal);
-        let [extremeDamage, extremeMinimal] = update_damage(this.damage.extreme, currentWeaponHits, this.damage.extremeMinimal);
-
+        let [shortDamage, shortMinimal] = updateDamage(this.damage.short, currentWeaponHits, this.damage.shortMinimal);
+        let [mediumDamage, mediumMinimal] = updateDamage(this.damage.medium, currentWeaponHits, this.damage.mediumMinimal);
+        let [longDamage, longMinimal] = updateDamage(this.damage.long, currentWeaponHits, this.damage.longMinimal);
+        let [extremeDamage, extremeMinimal] = updateDamage(this.damage.extreme, currentWeaponHits, this.damage.extremeMinimal);
+        
         this.currentDamage = {
             short: shortDamage,
             medium: mediumDamage,
@@ -1243,6 +1242,9 @@ export class AlphaStrikeUnit {
         };
 
         this.currentAbilities = this.abilities.map((abi) => {
+            // Fairly comprehensive list, probably missing some
+            // TODO: Add Artillery
+            // TODO: Do something more efficient than checking the type
             if (abi.startsWith("HT")
                 || abi.startsWith("FLK")
                 || abi.startsWith("LRM")
@@ -1251,43 +1253,20 @@ export class AlphaStrikeUnit {
                 || abi.startsWith("AC")
                 || abi.startsWith("REAR")
                 || abi.startsWith("IF")) {
-                let type = abi.split(/\d/)[0];
+                let type = abi.split(/\d/)[0].trim();
                 let values = abi.slice(type.length);
                 let damageValues = values.split("/");
-                let [shortMinimal, mediumMinimal, longMinimal] = [false, false, false];
-                let [shortDamage, mediumDamage, longDamage] = [0, 0, 0];
-                let returnString = type;
-                if (damageValues[0] == "0*") {
-                    shortMinimal = true;
-                } else {
-                    shortDamage = +damageValues[0];
-                }
-                [shortDamage, shortMinimal] = update_damage(shortDamage, currentWeaponHits, shortMinimal);
-                let shortString = shortMinimal ? "0*" : damageValues[0] == "-" ? "-" : shortDamage.toString();
-                returnString = returnString.concat(shortString);
-                // IF only has 1 value
-                if (type !== "IF") {
-                    if (damageValues[1] == "0*") {
-                        mediumMinimal = true;
-                    } else if (damageValues[1] !== "-") {
-                        mediumDamage = +damageValues[1];
+                return type + damageValues.map((damageValue) => {
+                    let damage = 0;
+                    let minimal = false;
+                    let dash = false;
+                    if (damageValue == "-") {
+                        dash = true;
+                    } else {
+                        [damage, minimal] = updateDamage(+damageValue, currentWeaponHits, damageValue === "0*");
                     }
-                    [mediumDamage, mediumMinimal] = update_damage(mediumDamage, currentWeaponHits, mediumMinimal);
-                    let mediumString = mediumMinimal ? "0*" : damageValues[1] == "-" ? "-" : mediumDamage.toString();
-                    returnString = returnString.concat("/", mediumString);
-                }
-                // IF and SRM don't have a long range value
-                if (type !== "IF" && type !== "SRM") {
-                    if (damageValues[2] == "0*") {
-                        longMinimal = true;
-                    } else if (damageValues[2] !== "-") {
-                        longDamage = +damageValues[2];
-                    }
-                    [longDamage, longMinimal] = update_damage(longDamage, currentWeaponHits, longMinimal);
-                    let longString = longMinimal ? "0*" : damageValues[2] == "-" ? "-" : longDamage.toString();
-                    returnString = returnString.concat("/", longString);
-                }
-                return returnString;
+                    return dash ? "-" : minimal ? "0*" : damage.toString();
+                }).join("/");
             } else {
                 return abi;
             }
