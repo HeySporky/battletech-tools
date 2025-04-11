@@ -605,7 +605,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <rect x="20" y="510" width="960" height="60" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
                 <rect x="25" y="515" width="950" height="50" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
                 <text x="30" y="540" textAnchor="left" fontFamily="sans-serif" fontSize="25">SPECIAL:&nbsp;
-                {abilitiesSplit.map( (line, lineIndex) => {
+                {this._splitAbilities(this.props.asUnit.currentAbilities.join( ", ")).map( (line, lineIndex) => { 
                     if( lineIndex === 0 ) {
                         return (
                             <React.Fragment key={lineIndex}>
