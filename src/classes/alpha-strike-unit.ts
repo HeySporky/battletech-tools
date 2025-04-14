@@ -234,6 +234,8 @@ export class AlphaStrikeUnit {
         extremeMinimal: false,
     };
 
+    public currentAbilities: string[] = [];
+
     public currentHeat: number = 0;
     public currentArmor: boolean[] = [];
     public currentStructure: boolean[] = [];
@@ -1199,63 +1201,79 @@ export class AlphaStrikeUnit {
             if( this.engineHits[ engineHitsCount ] )
                 currentEngineHits++;
         }
-
         // Calculate Current Damage Values from Crits...
-        let shortDamage = this.damage.short;
-        let mediumDamage = this.damage.medium;
-        let longDamage = this.damage.long;
-        let extremeDamage = this.damage.extreme;
-
-        if( shortDamage.toString().toString() !== "0*") {
-            shortDamage = (+shortDamage - currentWeaponHits);
-        } else {
-            if( currentWeaponHits )
-                shortDamage = 0;
+        function updateDamage(damage: number, weaponHits: number, minimal: boolean | undefined): [number, boolean] {
+            if (minimal == false) {
+                damage = (+damage - weaponHits);
+                // If weapon damage is now 0, and there are still hits, we have hit the minimal damage threshold
+                if (damage == 0 && weaponHits > 0) {
+                    minimal = true;
+                } else if (damage < 0) {
+                    damage = 0;
+                }
+                // If we are already at minimal damage and have weapon hits, we go to 0 damage
+            } else if (minimal == true) {
+                if (weaponHits) {
+                    damage = 0;
+                    minimal = false;
+                }
+            }
+            // Catch the rest
+            else {
+                damage = 0;
+            }
+            return [damage, minimal ? true : false];
         }
 
-        if( mediumDamage.toString() !== "0*") {
-            mediumDamage = (+mediumDamage - currentWeaponHits)
-        } else {
-            if( currentWeaponHits )
-                mediumDamage =0;
-        }
-
-        if( longDamage.toString() !== "0*") {
-            longDamage = (+longDamage - currentWeaponHits)
-        } else {
-            if( currentWeaponHits )
-                longDamage = 0;
-        }
-
-        if( extremeDamage.toString() !== "0*") {
-            extremeDamage = (+extremeDamage - currentWeaponHits)
-        } else {
-            if( currentWeaponHits )
-                extremeDamage = 0;
-        }
-
-        if( +shortDamage < 0 )
-            shortDamage = 0;
-
-        if( +mediumDamage < 0 )
-            mediumDamage = 0;
-
-        if( +longDamage < 0 )
-            longDamage = 0;
-
-        if( +extremeDamage < 0 )
-            extremeDamage = 0;
-
+        let [shortDamage, shortMinimal] = updateDamage(this.damage.short, currentWeaponHits, this.damage.shortMinimal);
+        let [mediumDamage, mediumMinimal] = updateDamage(this.damage.medium, currentWeaponHits, this.damage.mediumMinimal);
+        let [longDamage, longMinimal] = updateDamage(this.damage.long, currentWeaponHits, this.damage.longMinimal);
+        let [extremeDamage, extremeMinimal] = updateDamage(this.damage.extreme, currentWeaponHits, this.damage.extremeMinimal);
+        
         this.currentDamage = {
             short: shortDamage,
             medium: mediumDamage,
             long: longDamage,
             extreme: extremeDamage,
-            shortMinimal: this.damage.shortMinimal ? true : false,
-            mediumMinimal: this.damage.mediumMinimal ? true : false,
-            longMinimal: this.damage.longMinimal ? true : false,
-            extremeMinimal: this.damage.extremeMinimal ? true : false,
+            shortMinimal: shortMinimal,
+            mediumMinimal: mediumMinimal,
+            longMinimal: longMinimal,
+            extremeMinimal: extremeMinimal,
         };
+
+        this.currentAbilities = this.abilities.map((abi) => {
+                let split = abi.split(/\d/);
+
+                // If there are no numbers, it's not got damage values
+                if (split.length === 1) {
+                    return abi;
+                }
+                let type = split[0].trim();
+
+                let values = abi.slice(type.length);
+                let turret = false;
+
+                // If the last character is a parenthesis, remove it and set turret to true
+                // This is a bit of a hack, but it works for now
+                if (values.endsWith(")")) {
+                    turret = true;
+                    values = values.slice(0, values.length - 1);
+                }
+                let damageValues = values.split("/");
+                let abiString = type + damageValues.map((damageValue) => {
+                    let damage = 0;
+                    let minimal = false;
+                    let dash = false;
+                    if (damageValue == "-") {
+                        dash = true;
+                    } else {
+                        [damage, minimal] = updateDamage(+damageValue, currentWeaponHits, damageValue === "0*");
+                    }
+                    return dash ? "-" : minimal ? "0*" : damage.toString();
+                }).join("/");
+
+                return turret? abiString + ")" : abiString;
+        });
 
 
         for( let moveC = 0; moveC < this.move.length; moveC++ ) {
