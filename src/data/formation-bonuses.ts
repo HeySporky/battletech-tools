@@ -691,6 +691,9 @@ class Horde extends FormationBonusBase implements IFormationBonus {
     BonusDescription: string = "Swarm–When any Unit in this Formation is targeted, the targeted Unit’s player may switch the target to any other Unit in this Formation that is a legal target (within line of sight) and at the same range (or less) from the attacker.";
     RequirementsDescription: string = "Must have 5 to 10 Units. All Units must be unit size 1. No Unit may have a damage value, at any range or from any special ability, greater than 2.";
     IsValid(group: AlphaStrikeGroup): boolean {
+        if(this.HasMinimumMembers(group)===false){
+            return false;
+        }
         var result = true;
         if (group.members.length < 5 || group.members.length > 10) {
             return false;
@@ -712,6 +715,9 @@ class BerserkerLance extends FormationBonusBase implements IFormationBonus {
     RequirementsDescription: string = "As Battle Lance.";
     IdealRole: ASMULRole = {Id:109, Name: "Brawler", Image:"", SortOrder:109};
     IsValid(group: AlphaStrikeGroup): boolean {
+        if(this.HasMinimumMembers(group)===false){
+            return false;
+        }
         if (this.CheckIdealRole(group, this.IdealRole.Name)){
             return true;
         }
@@ -728,8 +734,11 @@ class AntiMechLance extends FormationBonusBase implements IFormationBonus {
     BonusDescription: string = "Enemy Units in base-to-base contact with an Anti-‘Mech Lance suffer a –1 To-Hit Modifier penalty to any weapon attacks made by that enemy Unit.";
     RequirementsDescription: string = "All Units must be infantry.";
     IsValid(group: AlphaStrikeGroup): boolean {
+        if(this.HasMinimumMembers(group)===false){
+            return false;
+        }
         let result = true;
-        result = result && (group.members.filter(x => x.type === 'CI').length === group.members.length)
+        result = result && (group.members.filter(x => x.type === 'CI' || x.type === 'BA').length === group.members.length)
         return result
     }
 }
