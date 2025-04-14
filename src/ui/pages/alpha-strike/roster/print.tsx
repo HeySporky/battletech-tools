@@ -1,24 +1,18 @@
 import React from 'react';
-import { FaArrowCircleLeft, FaGlasses, FaMicroscope, FaPrint } from "react-icons/fa";
+import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { CONST_BATTLETECH_URL } from '../../../../configVars';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import AlphaStrikePilotCardSVG from '../../../components/svg/alpha-strike-pilot-card-svg';
-import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
+import AlphaStrikePrintUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import './print.scss';
 import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
+import AlphaStrikeUnitToken from '../../../components/svg/alpha-strike-unit-token';
 
 export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps, IPrintState> {
-    bigVersion: boolean = false;
     constructor(props: IPrintProps) {
         super(props);
-
-        let lBigVersion = localStorage.getItem("big_version");
-
-        if( lBigVersion && +lBigVersion > 0 ) {
-          this.bigVersion = true;
-        }
 
         this.state = {
             updated: false,
@@ -27,28 +21,10 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
         this.props.appGlobals.makeDocumentTitle("Printing Alpha Strike Force");
     }
 
-
-
-    toggleBigVersion = ( e: React.FormEvent<HTMLSpanElement>) => {
-
-      this.bigVersion = !this.bigVersion;
-
-      localStorage.setItem(
-        "big_version",
-        this.bigVersion ? "1" : "0"
-      )
-
-      this.setState({
-        updated: true,
-      })
-    }
-
     render = (): JSX.Element => {
+      // Create a running list of pilot ability cards to render on the last page.
+      let forceSPAs: any[] = [];
 
-      let printSectionClass = "print-section";
-      if( this.bigVersion ) {
-        printSectionClass += " big-version";
-      }
       if(!this.props.appGlobals.currentASForce) {
         return <></>;
       }
@@ -64,12 +40,6 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                   />
 
                 </li>
-                {this.bigVersion ? (
-                  <li><span title="Click here to use the regular print version" onClick={this.toggleBigVersion} className="current" ><FaMicroscope /></span></li>
-                ) : (
-                  <li><span title="Click here to use the larger cards print version" onClick={this.toggleBigVersion} className="current" ><FaGlasses /></span></li>
-                )}
-
 
                 <li className="logo">
                     <a
@@ -82,11 +52,9 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                     </a>
                 </li>
             </ul>
-            {this.bigVersion ? (
-              <div className="header-message">Note: In my experience it's best to print these in Landscape. Don't forget to uncheck "headers and footers" to save space and unnecessary spacing.</div>
-            ) : (
-              <div className="header-message">Note: Don't forget to uncheck "headers and footers" to save space and unnecessary spacing.</div>
-            )}
+
+              <div className="header-message">Note: Don't forget to uncheck "headers and footers" to save ink and unnecessary spacing.</div>
+
           </header>
           <div className="print-cards">
           {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
@@ -95,73 +63,51 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
             }
             return (
               <React.Fragment key={groupIndex}>
-              <div className={printSectionClass}>
-                <h2>
+              <div className={"print-section"}>
+                <div className='section-header'>
+                  <h2>{group.getName(groupIndex + 1)}</h2>
                   <div className="units-summary">
                   {group.getTotalPoints()} points - {group.getTotalUnits()} units
                   </div>
-                  {group.getName(groupIndex + 1)}
-                </h2>
+                </div>
 
                 <div className="section-content">
-                {group.formationBonus!.Name!=="None"?(
-                    <>
-                    <div className="card lance-bonus">
-                      <p><strong>Bonus</strong>:&nbsp;
-                      <em>{group.formationBonus!.Name}</em> - {group.formationBonus!.BonusDescription}</p>
-                    </div>
-                    </>
-                  ) : null}
-
                   {group.members.map( (unit, unitIndex) => {
+                    // Add the pilot's abilities to the cards we need to print at the end.
+                    if (unit.getPilotAbilityList().length > 0) {
+                      forceSPAs.push(
+                        {
+                          abilities: unit.getPilotAbilities(),
+                          totalCost: unit.getTotalPilotAbilityPoints(),
+                          variant: unit.customName ? unit.customName : unit.variant,
+                          class: unit.class ? unit.class : unit.name.replace(unit.variant, " ").trim(),
+                        }
+                      );
+                    }
+                   
                     return (
 
                     <React.Fragment key={unitIndex}>
-                      <div className={"card"}>
-                        <AlphaStrikeUnitSVG
+                      <div className={"unit-card"}>
+                        <AlphaStrikePrintUnitSVG
                           asUnit={unit}
                           inPlay={false}
+                          forPrint={true}
                           appGlobals={this.props.appGlobals}
-                          className="small-margins"
                           measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
                         />
                       </div>
-                      {unit.currentPilotAbility ? (
-                        <div className={"card"}>
-                        <AlphaStrikePilotCardSVG
-                          pilotAbility={unit.currentPilotAbility}
-                          inPlay={false}
-                          appGlobals={this.props.appGlobals}
-                          className="small-margins"
-                          measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
-                        />
-                      </div>
-                      ) : null}
-                       {unit.currentPilotVeteranAbility ? (
-                        <div className={"card"}>
-                        <AlphaStrikePilotCardSVG
-                          pilotAbility={unit.currentPilotVeteranAbility}
-                          inPlay={false}
-                          appGlobals={this.props.appGlobals}
-                          className="small-margins"
-                          measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
-                        />
-                      </div>
-                      ) : null}
-                      {unit.currentPilotHeroAbility ? (
-                        <div className={"card"}>
-                        <AlphaStrikePilotCardSVG
-                          pilotAbility={unit.currentPilotHeroAbility}
-                          inPlay={false}
-                          appGlobals={this.props.appGlobals}
-                          className="small-margins"
-                          measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
-                        />
-                      </div>
-                      ) : null}
                     </React.Fragment>
                     )
                   })}
+                  {group.formationBonus!.Name!=="None"?(
+                    <div className="lance-bonus">
+                      <p>
+                        <strong>Bonus</strong>:&nbsp;
+                        <em>{group.formationBonus!.Name}</em> - {group.formationBonus!.BonusDescription}
+                      </p>
+                    </div>
+                  ) : null}
 
                   </div>
               </div>
@@ -170,14 +116,76 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
             )
           })}
 
+          {/* Print out the SPAs for the units in this force. */}
+          {forceSPAs.length > 0 ? (
+          <div className="print-section">
+            <div className='section-header'>
+              <h2>Special Pilot Abilities</h2>
+            </div>
+            <div className='section-content'>
+              {forceSPAs.map( (unit, unitIndex) => {
+                return (
+                  <div className={"ability-card"} key={unitIndex}>
+                    <AlphaStrikePilotCardSVG
+                      pilotAbilities={unit.abilities}
+                      totalCost={unit.totalCost}
+                      unitVariant={unit.variant}
+                      unitClass={unit.class}
+                      inPlay={false}
+                      appGlobals={this.props.appGlobals}
+                      measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
+                    />
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+          ) : null}
+
+          {/* Print out unit tokens for each unit in the force */}
+          <div className={"print-section "}>
+            <div className='section-header'>
+              <h2>Unit Tokens</h2>
+            </div>
+            <div className="section-content tokens">
+          {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
+            if( group.members.length === 0) {
+              return (<></>);
+            }
+            return (
+              <React.Fragment key={groupIndex}>
+                  {group.members.map( (unit, unitIndex) => {
+                  
+                    return (
+
+                    <React.Fragment key={unitIndex}>
+                        <AlphaStrikeUnitToken
+                          asUnit={unit}
+                          groupName={group.getName(groupIndex + 1)}
+                          appGlobals={this.props.appGlobals}
+                        />
+                    </React.Fragment>
+                    )
+                  })}
+
+            </React.Fragment>
+            )
+          })}
+          
+            </div>
+          </div>
+
             <footer className="print-footer">
               <div className="print-logo">
-                <BattleTechLogo />
+                <BattleTechLogo
+                        width={120}
+                        baseColor='rgb(35,31,32)'
+                        altColor='rgb(105,106,108)'
+                    />
               </div>
               <p>Printed using Jeff's BattleTech Tools IIC at https://{window.location.hostname}/battletech-tools/. Huge thanks to the Master Unit List</p>
               <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.</p>
             </footer>
-            {/* <header className="print-header">&nbsp;</header> */}
           </div>
 
 
