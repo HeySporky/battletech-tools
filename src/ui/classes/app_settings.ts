@@ -102,6 +102,9 @@ export class AppSettings {
             if ( typeof( io.mechRulesFilter ) !== "undefined" ) {
                 this.mechRulesFilter = io.mechRulesFilter;
             }
+            if ( typeof( io.hideMPIntro ) !== "undefined" ) {
+                this.hideMPIntro = io.hideMPIntro;
+            }
         }
     }
 

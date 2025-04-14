@@ -240,6 +240,7 @@ export async function getMULASSearchResults(
                         introDate[1] = parseInt(value) - 1;
                     }
                     break;
+
         
                 default:
                     nameSearch.push(term);
