@@ -112,6 +112,8 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                       <p>Updated print mode to improve look and feel. Added mech tokens and ability cards.</p>
                       <p>Ability crits will now lower values of appropriate special weapon attacks. (LRM,SRM,IF,HT,ARTX,TUR,etc.)</p>
                       <p>Formations now require 3 units before they can be selected, per ASCE rules. This change aims to lower confusion about them for new players.</p>
+                      <p>Added even more Forcepacks!</p>
+                      <p>Added remaining formations from Kurita manual</p>
                    </li>   
                    <li>
                   <h3>
