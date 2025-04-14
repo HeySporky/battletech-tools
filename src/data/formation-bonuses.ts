@@ -685,6 +685,55 @@ class OrderLance extends FormationBonusBase implements IFormationBonus {
     }
 }
 
+// not adding this yet as I hjaven't figured out the 'from any special ability' magic
+class Horde extends FormationBonusBase implements IFormationBonus {
+    Name: string = "Horde";
+    BonusDescription: string = "Swarm–When any Unit in this Formation is targeted, the targeted Unit’s player may switch the target to any other Unit in this Formation that is a legal target (within line of sight) and at the same range (or less) from the attacker.";
+    RequirementsDescription: string = "Must have 5 to 10 Units. All Units must be unit size 1. No Unit may have a damage value, at any range or from any special ability, greater than 2.";
+    IsValid(group: AlphaStrikeGroup): boolean {
+        var result = true;
+        if (group.members.length < 5 || group.members.length > 10) {
+            return false;
+        }
+        // all size 1
+        if (group.members.filter(x=>x.size===1).length !== group.members.length) {
+            return false;
+        }
+        result = result && (group.members.filter(x=>+x.damage.short>2).length===0)
+        result = result && (group.members.filter(x=>+x.damage.medium>2).length===0)
+        result = result && (group.members.filter(x=>+x.damage.long>2).length===0)
+        return result;
+    }
+}
+
+class BerserkerLance extends FormationBonusBase implements IFormationBonus {
+    Name: string = "Berserker Lance";
+    BonusDescription: string = "Two Units of the Formation receive the Zweihander or Swordsman Special Pilot Ability; the same ability must be assigned to both Units.";
+    RequirementsDescription: string = "As Battle Lance.";
+    IdealRole: ASMULRole = {Id:109, Name: "Brawler", Image:"", SortOrder:109};
+    IsValid(group: AlphaStrikeGroup): boolean {
+        if (this.CheckIdealRole(group, this.IdealRole.Name)){
+            return true;
+        }
+        let result =true;
+        result = result && (Math.ceil(group.members.length*.50)<=group.members.filter(x=>x.size>=3).length);
+        let brawlerSniperSkirmisherCount = this.RoleCount(group, "Brawler") + this.RoleCount(group, "Sniper")+this.RoleCount(group, "Skirmisher");
+        result = result && (brawlerSniperSkirmisherCount >=3)
+        return result;
+    }
+}
+
+class AntiMechLance extends FormationBonusBase implements IFormationBonus {
+    Name: string = "Anti-‘Mech Lance";
+    BonusDescription: string = "Enemy Units in base-to-base contact with an Anti-‘Mech Lance suffer a –1 To-Hit Modifier penalty to any weapon attacks made by that enemy Unit.";
+    RequirementsDescription: string = "All Units must be infantry.";
+    IsValid(group: AlphaStrikeGroup): boolean {
+        let result = true;
+        result = result && (group.members.filter(x => x.type === 'CI').length === group.members.length)
+        return result
+    }
+}
+
 
 export const formationBonuses: IFormationBonus[] = [
     new None(),
@@ -716,6 +765,9 @@ export const formationBonuses: IFormationBonus[] = [
     new RogueStar(),
     new StrategicCommandStar(),
     new SupportLance(),
-    new OrderLance()
+    new OrderLance(),
+    new Horde(),
+    new BerserkerLance(),
+    new AntiMechLance()
 
 ];
