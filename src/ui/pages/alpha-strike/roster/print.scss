@@ -1,165 +1,100 @@
-body {
-    header {
-        .header-message {
-            text-align: center;
-            color: #0f0;
-        }
+
+header {
+    .header-message {
+        text-align: center;
+        color: #0f0;
     }
-    .print-footer { display: none};
-    .print-cards {
-        h2 {
-            text-align: center;
-            padding: 0 5%;
-            margin: 0;
+}
+.print-footer { 
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    width: 100%;
+    p {
+        font-size: .5rem;
+        margin: 0;
+    }
+    .print-logo {
+        float: right;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+};
+.print-cards {
+    background: #ffffff;
+    width: 100%;
+    padding: 0 0.25in;
+    .print-section {
+        border-top: 1px solid black;
+        margin-top: 32px;
+        padding-top: 32px;
+        width: 100%;
+        display: block;
+        &:first-child {
+            border-top: none;
+        }
+        .section-header {
+            display: flex;
+            flex-flow: row wrap;
+            align-items: baseline;
+            justify-content: space-between;
             .units-summary {
-                float: right;
                 font-size: 1rem;
             }
         }
-        background: #ffffff;
-        width: 100%;
-        .print-section {
-            border: none !important;
-            width: 100%;
-            display: block;
-
-            // &:first-child {
-            //     padding-top: 0;
-            // }
-
-            .section-content {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                // display: flex;
-                // flex-wrap: wrap;
-                text-align: center;
-                // justify-content: center;
-                border: none !important;
-                .lance-bonus {
-                    font-size: 1rem;
-                }
-                .card {
-                    border: none !important;
-                    margin: .5rem;
-
-
-                    max-width: 3.5in;
-                    width: 3.5in;
-
-                }
+        .section-content {
+            display: flex;
+            flex-wrap: wrap;
+            .lance-bonus {
+                font-size: 14px;
             }
-            &.big-version {
-                display: block;
-                text-align: center;
-                padding-top: .25in;
-
-                .section-content {
-                    display: block;
-
-                    .card {
-                        // width: 35%;
-                        display: inline-block;
-                        max-width: 100%;
-                        // max-height: 45vh;
-                        margin: 1rem;
-                        width: 45%;
-                    }
-                }
-
-                page-break-after: always;
+            .unit-card,
+            .ability-card {
+                flex-basis: 50%;
+                padding: 5px;
+            }
+            .ability-card {
+                flex-basis: 33.333%;
+            }
+            .pilot-abilities {
+                fill: #666;
             }
         }
     }
 }
 
 @media print {
-    @page {
-        margin: 0;
-        // size: landscape;
-    }
-
     header {
-        display: none !important;
+        display: none;
     }
-    // .print-header {
-    //     display: block !important;
-    //     margin-bottom: .25in;
-    //     position: absolute;
-    //     top: .25in;
-    //     width: 100%;
-
-    // }
     .print-cards {
-        position: relative;
-        // padding: .25in;
+        padding: 0 0  .25in 0;
         .print-section {
-            // page-break-after: always;
-            break-inside: avoid;
-            .section-content {
-                // break-inside: avoid;
-                // page-break-after: always;
-
-                .lance-bonus {
-                    font-size: .9rem !important;
-                }
-                .card {
-                    break-inside: avoid;
-                    background-color: #fff !important;
-                }
-            }
-            &:last-child {
-                .section-content {
-                    page-break-after: avoid;
-                }
-            }
-            &.big-version {
-                @page {
+            border: none;
+            margin: 0;
+            padding: 0;
+            break-before: always;
+            .section-header {
+                h2 {
+                    font-size: 1rem;
                     margin: 0;
-                    size: landscape;
-                }
-                break-inside: auto;
-                .section-content {
-                    break-inside: auto;
-                    .lance-bonus {
-                        font-size: .9rem !important;
-                    }
-                    .card {
-                        break-inside: avoid;
-                        background-color: #fff !important;
-                    }
-                }
-                &:last-child {
-                    .section-content {
-                        page-break-after: avoid !important;
-                    }
                 }
             }
-
-
+            .section-content {
+                .lance-bonus {
+                    font-size: 11px;
+                    line-height: 14px;
+                }
+            }
         }
-
         .print-footer {
-            display: block !important;
-            position: fixed;
-            bottom: .25in;
-            left: 0;
-            padding: 0 .5in;
-
-            width: 100%;
-            border-top: solid 1px #000 !important;
-            p {
-                font-size: .5rem;
-                margin: 0;
-            }
-            .print-logo {
-                background: #000;
-                padding: .25rem 1rem;
-                float: right;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                //color-adjust: exact;
-            }
+            display: block;
         }
     }
+}
+
+@page {
+    margin: .25in;
 }
