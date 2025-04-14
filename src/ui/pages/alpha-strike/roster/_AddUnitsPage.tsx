@@ -8,6 +8,7 @@ import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
+import { generateUUID } from '../../../../utils/generateUUID';
 
 //TODO: Clearfix Hack for overflowing results
 /*
@@ -25,11 +26,13 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     constructor( props: IAlphaStrikeAddUnitsViewProps ) {
         super(props)
 
+
         this.state = {
             searchResults: this.props.appGlobals.appSettings.alphasStrikeCachedSearchResults,
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
             searchSort: 'Name',
+            lastSearchId: ''
         }
 
         this.updateSearchResults();
@@ -162,7 +165,12 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
     updateSearchResults = async (): Promise<void> => {
 
-      // console.log("updateSearchResults called")
+      let currentSearchId = generateUUID();
+
+      this.setState({
+        lastSearchId: currentSearchId
+      });
+
       let data: IASMULUnit[] = await getMULASSearchResults(
         this.props.appGlobals.appSettings.alphaStrikeSearchTerm,
         this.props.appGlobals.appSettings.alphaStrikeSearchRules,
@@ -170,11 +178,16 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.props.appGlobals.appSettings.alphaStrikeSearchRole,
         this.props.appGlobals.appSettings.alphaStrikeSearchEra,
         this.props.appGlobals.appSettings.alphaStrikeSearchType,
-        this.props.appGlobals.appSettings.alphaStrikeSearchFactions,//This is where Faction Search will go - Research AppSettings
+        this.props.appGlobals.appSettings.alphaStrikeSearchFactions,
         !navigator.onLine,
         false,
         this.props.appGlobals,
       );
+
+      if(this.state.lastSearchId !== currentSearchId) {
+        console.log("updateSearchResults: searchId mismatch, aborting");
+        return;
+      }
 
       data.sort((a: IASMULUnit, b: IASMULUnit): number => {
         const primarySort = this.state.searchSort;
@@ -261,7 +274,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                          type="search"
                          onChange={this.updateSearch}
                          value={this.props.appGlobals.appSettings.alphaStrikeSearchTerm}
-                         label="Search Name"
+                         label="Search Terms"
                     />
                       </div>
                       <div className="col-md-6 text-center">
@@ -706,4 +719,5 @@ interface IAlphaStrikeAddUnitsViewState {
     contextMenuSearch: number;
     contextMenuSavedBattleMechs: number;
     searchSort: 'Name' | 'BFPointValue';
+    lastSearchId: string;
 }
