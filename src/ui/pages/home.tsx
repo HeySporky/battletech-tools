@@ -104,6 +104,17 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                   <h3>
+                      <strong>April 14th, 2025</strong> - Play Mode Improvements
+                    </h3>
+                    <h4>Author - Spork</h4>
+                      <p>Patch Notes:</p>
+                      <p>Added advanced search terms. See search guide on the left hand side of this page.</p>
+                      <p>Updated print mode to improve look and feel. Added mech tokens and ability cards.</p>
+                      <p>Ability crits will now lower values of appropriate special weapon attacks. (LRM,SRM,IF,HT,ARTX,TUR,etc.)</p>
+                      <p>Formations now require 3 units before they can be selected, per ASCE rules. This change aims to lower confusion about them for new players.</p>
+                   </li>   
+                   <li>
+                  <h3>
                       <strong>March 20th, 2025</strong> - Play Mode Improvements
                     </h3>
                     <h4>Author - Spork</h4>
