@@ -39,6 +39,21 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                         <li>You may print your AS forces here (which you can do on the MUL if you like), but more importantly you can...</li>
                         <li>Play your Alpha Strike games using a live in-play virtual stack of Alpha Strike Cards. When you unit takes damage or heat, the effects of the damage affect the card live and immediately. All your to-hit rolls are updated on-the-fly.</li>
                       </ul>
+                      <br />
+                      <h3>Advanced Search Terms</h3>
+                      <ul>
+                        <li><b>a:&lt;ability&gt;</b> - Search for units with the specified ability.</li>
+                        <li><b>pv&gt;x, pv&lt;x, pv&gt;=x, pv&lt;=x, pv=x</b> - Search for units in the specified point value range. Range must be limited to 40 points to respect MUL search capabilities.</li>
+                        <li><b>short&gt;x, short&gt;=x, medium&gt;x, medium&gt;=x, long&gt;x, long&gt;=x</b> - Filter units by damage value</li>
+                        <li><b>armor&gt;x, armor&gt;=x, structure&gt;x, structure&gt;=x</b> - This will filter on armor and structure</li>
+                        <li><b>intro&gt;x, intro&gt;=x, intro&lt;x, intro&lt;=x</b> - Filter units by the in universe year they were introduced.</li>
+                      </ul>
+                      Examples:
+                      <ul>
+                        <li><i>timber wolf a:if long&gt;=3</i> - This will return all Timber Wolves with both indirect fire and a long range damage value of 3+</li>
+                        <li><i>pv&gt;=20 pv&lt;=40 a:ecm</i> - This will return all units with a point cost between 20 and 40 who have the ECM ability</li>
+                      </ul>
+                      <br />
                     </li>
                     <li>
                       <h3><Link to="classic-battletech">Classic BattleTech Tools</Link></h3>

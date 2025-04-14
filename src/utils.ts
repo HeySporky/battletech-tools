@@ -140,10 +140,6 @@ export async function getMULASSearchResults(
 
         var searchTerms = searchTerm.trim().split(" ");
 
-        // log search terms
-        console.log( searchTerms );
-        
-
         for (var i = 0; i < searchTerms.length; i++) {
             let term = searchTerms[i];
             let value;
