@@ -340,6 +340,7 @@ export class AlphaStrikeUnit {
             if( incomingMechData.BFDamageExtremeMin ) {
                 this.damage.extremeMinimal = true;
             }
+        
 
             if( incomingMechData.BFAbilities && incomingMechData.BFAbilities.trim() ) {
                 this.abilities = incomingMechData.BFAbilities.split(",");
@@ -400,7 +401,9 @@ export class AlphaStrikeUnit {
                 this.move.push( tmpMoveObj );
 
             }
+            
             this.calcCurrentValues();
+
         }
 
     }
@@ -1202,34 +1205,12 @@ export class AlphaStrikeUnit {
                 currentEngineHits++;
         }
         // Calculate Current Damage Values from Crits...
-        function updateDamage(damage: number, weaponHits: number, minimal: boolean | undefined): [number, boolean] {
-            if (minimal == false) {
-                damage = (+damage - weaponHits);
-                // If weapon damage is now 0, and there are still hits, we have hit the minimal damage threshold
-                if (damage == 0 && weaponHits > 0) {
-                    minimal = true;
-                } else if (damage < 0) {
-                    damage = 0;
-                }
-                // If we are already at minimal damage and have weapon hits, we go to 0 damage
-            } else if (minimal == true) {
-                if (weaponHits) {
-                    damage = 0;
-                    minimal = false;
-                }
-            }
-            // Catch the rest
-            else {
-                damage = 0;
-            }
-            return [damage, minimal ? true : false];
-        }
-
-        let [shortDamage, shortMinimal] = updateDamage(this.damage.short, currentWeaponHits, this.damage.shortMinimal);
-        let [mediumDamage, mediumMinimal] = updateDamage(this.damage.medium, currentWeaponHits, this.damage.mediumMinimal);
-        let [longDamage, longMinimal] = updateDamage(this.damage.long, currentWeaponHits, this.damage.longMinimal);
-        let [extremeDamage, extremeMinimal] = updateDamage(this.damage.extreme, currentWeaponHits, this.damage.extremeMinimal);
         
+        let [shortDamage, shortMinimal] = this.calculateDamage(this.damage.short, currentWeaponHits, this.damage.shortMinimal || false);
+        let [mediumDamage, mediumMinimal] = this.calculateDamage(this.damage.medium, currentWeaponHits, this.damage.mediumMinimal || false);
+        let [longDamage, longMinimal] = this.calculateDamage(this.damage.long, currentWeaponHits, this.damage.longMinimal || false);
+        let [extremeDamage, extremeMinimal] = this.calculateDamage(this.damage.extreme, currentWeaponHits, this.damage.extremeMinimal || false);
+
         this.currentDamage = {
             short: shortDamage,
             medium: mediumDamage,
@@ -1267,7 +1248,7 @@ export class AlphaStrikeUnit {
                     if (damageValue == "-") {
                         dash = true;
                     } else {
-                        [damage, minimal] = updateDamage(+damageValue, currentWeaponHits, damageValue === "0*");
+                        [damage, minimal] = this.calculateDamage(+damageValue, currentWeaponHits, damageValue === "0*");
                     }
                     return dash ? "-" : minimal ? "0*" : damage.toString();
                 }).join("/");
@@ -1576,6 +1557,29 @@ export class AlphaStrikeUnit {
             this.active = false;
 
 
+    }
+
+    private calculateDamage(damage: number, weaponHits: number, minimal: boolean | undefined): [number, boolean] {
+        if (minimal === false) {
+            damage = (+damage - weaponHits);
+            // If weapon damage is now 0, and there are still hits, we have hit the minimal damage threshold
+            if (damage == 0 && weaponHits > 0) {
+                minimal = true;
+            } else if (damage < 0) {
+                damage = 0;
+            }
+            // If we are already at minimal damage and have weapon hits, we go to 0 damage
+        } else if (minimal === true) {
+            if (weaponHits) {
+                damage = 0;
+                minimal = false;
+            }
+        }
+        // Catch the rest
+        else {
+            damage = 0;
+        }
+        return [damage, minimal ? true : false];
     }
     /**
     * Returns a boolean if the unit is a ground unit. This is used for
