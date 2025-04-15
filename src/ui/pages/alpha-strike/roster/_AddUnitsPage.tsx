@@ -34,8 +34,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             searchSort: 'Name',
             lastSearchId: ''
         }
-
-        this.updateSearchResults();
     }
 
     toggleContextMenuSearch = ( searchIndex: number ): void => {
