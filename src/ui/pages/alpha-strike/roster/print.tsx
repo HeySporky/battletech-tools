@@ -9,6 +9,7 @@ import AlphaStrikePrintUnitSVG from '../../../components/svg/alpha-strike-unit-s
 import './print.scss';
 import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
 import AlphaStrikeUnitToken from '../../../components/svg/alpha-strike-unit-token';
+import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
 
 export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps, IPrintState> {
     constructor(props: IPrintProps) {
@@ -24,10 +25,41 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
     render = (): JSX.Element => {
       // Create a running list of pilot ability cards to render on the last page.
       let forceSPAs: any[] = [];
+      let formationBonus: any[] = [];
+
+      let pages: PrintPage[] = [];
+      pages.push({
+        units: 0,
+        groups: [],
+      });
 
       if(!this.props.appGlobals.currentASForce) {
         return <></>;
       }
+
+      
+      for (let group of this.props.appGlobals.currentASForce.groups) {
+        // Find a home for this group
+        let placed = false;
+        for (let index = 0; index < pages.length; index++) {
+          // Check all the pages to see if it'll fit
+          if (pages[index].units + group.members.length + (group.members.length % 2) < 9) {
+            pages[index].units = pages[index].units + group.members.length + (group.members.length % 2);
+            pages[index].groups.push(group);
+            placed = true;
+          }
+        }
+        // If it didn't fit, make a new page
+        if (!placed) {
+          pages.push({
+            units: group.members.length,
+            groups: [group],
+          });
+        }
+        // Grab the formation bonus for later
+        formationBonus.push(group.formationBonus);
+      }
+
       return (
         <>
           <header className="topmenu">
@@ -57,72 +89,91 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
 
           </header>
           <div className="print-cards">
-          {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
-            if( group.members.length === 0) {
-              return (<></>);
-            }
-            return (
-              <React.Fragment key={groupIndex}>
-              <div className={"print-section"}>
-                <div className='section-header'>
-                  <h2>{group.getName(groupIndex + 1)}</h2>
-                  <div className="units-summary">
-                  {group.getTotalPoints()} points - {group.getTotalUnits()} units
-                  </div>
-                </div>
-
-                <div className="section-content">
-                  {group.members.map( (unit, unitIndex) => {
-                    // Add the pilot's abilities to the cards we need to print at the end.
-                    if (unit.getPilotAbilityList().length > 0) {
-                      forceSPAs.push(
-                        {
-                          abilities: unit.getPilotAbilities(),
-                          totalCost: unit.getTotalPilotAbilityPoints(),
-                          variant: unit.customName ? unit.customName : unit.variant,
-                          class: unit.class ? unit.class : unit.name.replace(unit.variant, " ").trim(),
-                        }
-                      );
-                    }
-                   
-                    return (
-
-                    <React.Fragment key={unitIndex}>
-                      <div className={"unit-card"}>
-                        <AlphaStrikePrintUnitSVG
-                          asUnit={unit}
-                          inPlay={false}
-                          forPrint={true}
-                          appGlobals={this.props.appGlobals}
-                          measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
-                        />
+            {pages.map( (page) => {
+              if( page.groups.length === 0) {
+                return (<></>);
+              }
+              return <div className={"print-section"}>
+              {page.groups.map( (group, groupIndex) => {
+                if( group.members.length === 0) {
+                  return (<></>);
+                }
+                return (
+                  <React.Fragment key={groupIndex}>
+                    <div className='section-header'>
+                      <h2>{group.getName(groupIndex + 1)}</h2>
+                      {group.formationBonus!.Name!=="None"?(
+                        <div className="lance-bonus">
+                            <strong>Bonus</strong>:&nbsp;
+                            <em>{group.formationBonus!.Name}</em>
+                        </div>
+                      ) : null}
+                      <div className="units-summary">
+                      {group.getTotalPoints()} points - {group.getTotalUnits()} units
                       </div>
-                    </React.Fragment>
-                    )
-                  })}
-                  {group.formationBonus!.Name!=="None"?(
-                    <div className="lance-bonus">
-                      <p>
-                        <strong>Bonus</strong>:&nbsp;
-                        <em>{group.formationBonus!.Name}</em> - {group.formationBonus!.BonusDescription}
-                      </p>
                     </div>
-                  ) : null}
 
-                  </div>
+                    <div className="section-content">
+                      {group.members.map( (unit, unitIndex) => {
+                        // Add the pilot's abilities to the cards we need to print at the end.
+                        if (unit.getPilotAbilityList().length > 0) {
+                          forceSPAs.push(
+                            {
+                              abilities: unit.getPilotAbilities(),
+                              totalCost: unit.getTotalPilotAbilityPoints(),
+                              variant: unit.customName ? unit.customName : unit.variant,
+                              class: unit.class ? unit.class : unit.name.replace(unit.variant, " ").trim(),
+                            }
+                          );
+                        }
+                      
+                        return (
+
+                        <React.Fragment key={unitIndex}>
+                          <div className={"unit-card"}>
+                            <AlphaStrikePrintUnitSVG
+                              asUnit={unit}
+                              inPlay={false}
+                              forPrint={true}
+                              appGlobals={this.props.appGlobals}
+                              measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
+                            />
+                          </div>
+                        </React.Fragment>
+                        )
+                      })}
+                      
+
+                      </div>
+
+                </React.Fragment>
+                )
+              })}
+              
               </div>
-
-            </React.Fragment>
-            )
-          })}
+            })}
 
           {/* Print out the SPAs for the units in this force. */}
-          {forceSPAs.length > 0 ? (
+          {forceSPAs.length > 0 || formationBonus.length > 0 ? (
           <div className="print-section">
             <div className='section-header'>
-              <h2>Special Pilot Abilities</h2>
+              <h2>Formation Bonuses and Special Pilot Abilities</h2>
             </div>
             <div className='section-content'>
+              {formationBonus.map( (bonus, bonusIndex) => {
+                if (bonus.Name !== 'None') {
+                  return <div className='ability-card' key={bonusIndex}>
+                    
+                        <div className="lance-bonus">
+                            <strong>Bonus</strong>:&nbsp;
+                            <em>{bonus.Name}</em> - {bonus.BonusDescription}
+                        </div>
+                      
+                </div>;
+                }
+                return <></>;
+                
+              })}
               {forceSPAs.map( (unit, unitIndex) => {
                 return (
                   <div className={"ability-card"} key={unitIndex}>
@@ -197,6 +248,11 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
 interface IPrintProps {
   appGlobals: IAppGlobals;
 
+}
+
+interface PrintPage {
+  units: number,
+  groups: AlphaStrikeGroup[],
 }
 
 interface IPrintState {
