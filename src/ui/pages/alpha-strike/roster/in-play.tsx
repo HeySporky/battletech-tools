@@ -226,7 +226,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                   <div className={"flex-grid flex-" + this.props.appGlobals.appSettings.alphaStrikeInPlayColumns}>
                   {group.formationBonus!.Name!=="None"?(
                     <>
-                    <div>
+                    <div className="formation-bonus">
                       <p><strong>Bonus</strong>:&nbsp;
                       <em>{group.formationBonus!.Name}</em> - {group.formationBonus!.BonusDescription}</p>
                     </div>
