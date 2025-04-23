@@ -1225,14 +1225,15 @@ export class AlphaStrikeUnit {
         this.currentAbilities = this.abilities.map((abi) => {
                 let split = abi.split(/\d/);
 
-                // If there are no numbers, it's not got damage values
+
                 let canBeCritAbilities = ['FLK', 'HT', 'IF', 'LRM', 'SRM', 'TUR(', 'TOR', 'REAR', 'AC','IATM']
+                // If there are no numbers, it's not got damage values
                 if (split.length === 1 || !canBeCritAbilities.includes(split[0].trim())) {
                     return abi;
                 }
                 let type = split[0].trim();
-
-                let values = abi.slice(type.length);
+                console.log(type)
+                let values = abi.trim().slice(type.length);
                 let turret = false;
 
                 // If the last character is a parenthesis, remove it and set turret to true
