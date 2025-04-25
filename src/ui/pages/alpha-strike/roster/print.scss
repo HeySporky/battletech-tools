@@ -49,14 +49,14 @@ header {
             flex-wrap: wrap;
             padding: 0 !important;
             &:not(.tokens) {
-                gap: 10%;
+                gap: 20%;
             }
             .lance-bonus {
                 font-size: 14px;
             }
             .unit-card,
             .ability-card {
-                flex-basis: 45%;
+                flex-basis: 40%;
                 padding: 5px;
             }
             .ability-card {
