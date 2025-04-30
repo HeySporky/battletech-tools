@@ -21,7 +21,16 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
       if(this.props.showASUnit) {
         this.props.showASUnit.setSkill( +event.currentTarget.value );
         for(let i = 0; i < this.props.appGlobals.currentASForce!.groups.length; i++){
-          this.props.appGlobals.currentASForce!.groups[i].setAvailableFormationBonuses(formationBonuses.filter(x => x.IsValid(this.props.appGlobals.currentASForce!.groups[i])));
+          this.props.appGlobals.currentASForce!.groups[
+            i
+          ].setAvailableFormationBonuses(
+            formationBonuses.filter((x) =>
+              x.IsValid(
+                this.props.appGlobals.currentASForce!.groups[i],
+                this.props.appGlobals.currentASForce!.groups
+              )
+            )
+          );
           console.log(this.props.appGlobals.currentASForce!.groups[i].availableFormationBonuses)
          }
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );

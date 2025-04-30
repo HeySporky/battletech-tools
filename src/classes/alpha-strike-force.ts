@@ -82,7 +82,14 @@ export default class AlphaStrikeForce {
                 // let newUnit = new AlphaStrikeUnit( exportData );
                 this.groups[groupIndex].members.push( mulUnit  );
                 this.groups[groupIndex].sortUnits();
-                this.groups[groupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[groupIndex])));
+                this.groups[groupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[groupIndex], this.groups)));
+
+                // Used to update nova/mechanized check
+                for(let group of this.groups){
+                    if(group.needsToCheckBonuses()){
+                        group.setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(group, this.groups)));
+                    }
+                }
             // }
         }
 
@@ -106,8 +113,13 @@ export default class AlphaStrikeForce {
 
                 this.groups[toGroupIndex].sortUnits();
                 this.groups[fromGroupIndex].sortUnits();
-                this.groups[toGroupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[toGroupIndex])));
-                this.groups[fromGroupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[fromGroupIndex])));
+                this.groups[toGroupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[toGroupIndex], this.groups)));
+                this.groups[fromGroupIndex].setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(this.groups[fromGroupIndex], this.groups)));
+                for(let group of this.groups){
+                    if(group.needsToCheckBonuses()){
+                        group.setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(group, this.groups)));
+                    }
+                }
             }
         }
     }
@@ -120,7 +132,12 @@ export default class AlphaStrikeForce {
         if( this.groups.length > asGroupIndex && this.groups[asGroupIndex]) {
             if( this.groups[asGroupIndex].members.length > asUnitIndex && this.groups[asGroupIndex].members[asUnitIndex]) {
                 this.groups[asGroupIndex].members.splice( asUnitIndex, 1);
-                this.groups[asGroupIndex].setAvailableFormationBonuses(formationBonuses.filter(x=>x.IsValid(this.groups[asGroupIndex])));
+                this.groups[asGroupIndex].setAvailableFormationBonuses(formationBonuses.filter(x=>x.IsValid(this.groups[asGroupIndex], this.groups)));
+                for(let group of this.groups){
+                    if(group.needsToCheckBonuses()){
+                        group.setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(group, this.groups)));
+                    }
+                }
             }
         }
     }

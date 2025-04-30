@@ -2,13 +2,13 @@
  * The data here is/may be copyrighted and NOT included in the GPLv3 license.
  */
 
-import { ASMULRole } from "../classes/alpha-strike-unit";
+import { AlphaStrikeUnit, ASMULRole } from "../classes/alpha-strike-unit";
 import AlphaStrikeGroup from "../classes/alpha-strike-group";
 
 export interface IFormationBonus {
     Name: string;
     IdealRole?: ASMULRole;
-    IsValid(group:AlphaStrikeGroup): boolean;
+    IsValid(group:AlphaStrikeGroup, allGroups:AlphaStrikeGroup[]): boolean;
     BonusDescription: string
     RequirementsDescription: string
 }
@@ -743,6 +743,126 @@ class AntiMechLance extends FormationBonusBase implements IFormationBonus {
     }
 }
 
+class InfantryFormationBase extends FormationBonusBase {
+    Name: string = "N/A";
+    RequirementsDescription: string =
+      "The non-infantry units in the Mechanized or Nova formation must be capable of transporting all the infantry units in the formation simultaneously. This can be from battle armor using the MEC special ability to mount units with the OMNI special ability, battle armor with XMEC mounting ‘Mech units, any infantry mounting units with enough IT# special ability, or a combination of those.";
+
+    IsValid(group: AlphaStrikeGroup, allGroups: AlphaStrikeGroup[]): boolean {
+      const isAllInfantry = (group.members.filter(x => x.isInfantry).length === group.members.length);
+      if(!isAllInfantry){
+        return false;
+      }
+
+      const getRequiredTransportSize = (unit: AlphaStrikeUnit) => {
+        // Each unity should have CAR#, return the number
+        const itNumber = unit.abilities.find(ability => ability.startsWith("CAR"));
+        return itNumber ? parseInt(itNumber.split("CAR")[1]) : 0;
+      }
+
+      const getCargoSize = (unit: AlphaStrikeUnit) => {
+        // Each unity should have CAR#, return the number
+        const carNumber = unit.abilities.find((ability) =>
+          ability.startsWith("CT")
+        );
+        const itNumber = unit.abilities.find((ability) =>
+          ability.startsWith("IT")
+        );
+        if (carNumber) {
+          return parseInt(carNumber.split("CT")[1]);
+        } else if (itNumber) {
+          return parseInt(itNumber.split("IT")[1]);
+        }
+        return 0;
+      }
+
+      const canAssignInfantryToVehicles = (
+        infantry: number[],
+        vehicles: number[]
+      ): boolean => {
+        // Sort infantry descending to place heavy ones first (optional but helpful)
+        infantry.sort((a, b) => b - a);
+
+        const remaining = [...vehicles];
+
+        function backtrack(index: number): boolean {
+          if (index === infantry.length) {
+            return true; // All infantry assigned
+          }
+
+          const weight = infantry[index];
+
+          for (let i = 0; i < remaining.length; i++) {
+            if (remaining[i] >= weight) {
+              remaining[i] -= weight;
+
+              if (backtrack(index + 1)) return true;
+
+              remaining[i] += weight; // Backtrack
+            }
+          }
+
+          return false; // Couldn't place this infantry
+        }
+
+        return backtrack(0);
+      };
+
+      const sortedInfantry = group.members.sort((a, b) => getRequiredTransportSize(b) - getRequiredTransportSize(a));
+
+      for(let transportGroup of allGroups){
+        let occupiedCarriers: AlphaStrikeUnit[] = []
+        let remainingInfantry: AlphaStrikeUnit[] = [...sortedInfantry]
+
+        // Check MEC + OMNI
+        const mecUnits = group.members.filter(unit => unit.abilities.includes("MEC"));
+        const omniUnits = transportGroup.members.filter(unit => unit.abilities.includes("OMNI"));
+
+        for(let mecUnit of mecUnits){
+          for(let unit of omniUnits.filter(x =>  occupiedCarriers.includes(x) === false)){
+              occupiedCarriers.push(unit);
+              remainingInfantry = remainingInfantry.filter(x => x.uuid !== mecUnit.uuid);
+              break;
+          }
+        }
+
+        // Check XMEC
+        const xmecUnits = group.members.filter(unit => unit.abilities.includes("XMEC"));
+        let availableCarriers = transportGroup.members.filter(unit => !occupiedCarriers.includes(unit) && unit.isGroundUnit() && !unit.isInfantry);
+        for(let xmecUnit of xmecUnits){
+          for(let unit of availableCarriers){
+              occupiedCarriers.push(unit);
+              remainingInfantry = remainingInfantry.filter(x => x.uuid !== xmecUnit.uuid);
+              availableCarriers = availableCarriers.filter(x => x.uuid !== unit.uuid);
+              break;
+          }
+        }
+
+        if(remainingInfantry.length > 0){
+          if(canAssignInfantryToVehicles(remainingInfantry.map(x => getRequiredTransportSize(x)), transportGroup.members.map(x => getCargoSize(x)))){
+            return true
+          }
+        }
+        else{
+          return true;
+        }
+
+      }
+      return false;
+  }
+}
+
+class Nova extends InfantryFormationBase implements IFormationBonus {
+    Name: string = "Nova";
+    BonusDescription: string =
+      "Mounted infantry of this formation may make weapon attacks These mounted attacks use the attacker movement modifier of the transport and have an additional +2 Target Number modifier for being mounted";
+}
+class Mechanized extends InfantryFormationBase implements IFormationBonus {
+  Name: string = "Mechanized";
+  BonusDescription: string =
+    "Transport units of the Mechanized formation may dismount the infantry units during movement. After dismounting, the transport may continue to use any remaining movement.";
+}
+
 
 export const formationBonuses: IFormationBonus[] = [
     new None(),
@@ -777,6 +897,8 @@ export const formationBonuses: IFormationBonus[] = [
     new OrderLance(),
     new Horde(),
     new BerserkerLance(),
-    new AntiMechLance()
+    new AntiMechLance(),
+    new Nova(),
+    new Mechanized()
 
 ];
