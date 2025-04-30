@@ -1,11 +1,11 @@
 import React from 'react';
-import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
+import { FaArrowCircleLeft, FaBan, FaCheckCircle, FaPrint } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { CONST_BATTLETECH_URL } from '../../../../configVars';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import AlphaStrikePilotCardSVG from '../../../components/svg/alpha-strike-pilot-card-svg';
-import AlphaStrikePrintUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
+import AlphaStrikePrintUnitSVG from '../../../components/svg/alpha-strike-print-unit';
 import './print.scss';
 import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
 import AlphaStrikeUnitToken from '../../../components/svg/alpha-strike-unit-token';
@@ -17,9 +17,16 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
 
         this.state = {
             updated: false,
+            tokens: true,
         };
 
         this.props.appGlobals.makeDocumentTitle("Printing Alpha Strike Force");
+    }
+
+    private _toggleTokens = (): void => {
+      this.setState({
+        tokens: !this.state.tokens,
+      });
     }
 
     render = (): JSX.Element => {
@@ -57,7 +64,9 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
           });
         }
         // Grab the formation bonus for later
-        formationBonus.push(group.formationBonus);
+        if (group.formationBonus?.Name !== 'None') {
+          formationBonus.push(group.formationBonus);
+        }
       }
 
       return (
@@ -72,6 +81,9 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                   />
 
                 </li>
+                <li><span title="Click here to toggle printing unit tokens" onClick={() => this._toggleTokens()} className="current" >
+                  {this.state.tokens ? (<FaCheckCircle />) : <FaBan /> }
+                  </span></li>
 
                 <li className="logo">
                     <a
@@ -161,7 +173,6 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
             </div>
             <div className='section-content'>
               {formationBonus.map( (bonus, bonusIndex) => {
-                if (bonus.Name !== 'None') {
                   return <div className='ability-card' key={bonusIndex}>
                     
                         <div className="lance-bonus">
@@ -170,8 +181,6 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                         </div>
                       
                 </div>;
-                }
-                return <></>;
                 
               })}
               {forceSPAs.map( (unit, unitIndex) => {
@@ -194,37 +203,39 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
           ) : null}
 
           {/* Print out unit tokens for each unit in the force */}
-          <div className={"print-section "}>
-            <div className='section-header'>
-              <h2>Unit Tokens</h2>
-            </div>
-            <div className="section-content tokens">
-          {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
-            if( group.members.length === 0) {
-              return (<></>);
-            }
-            return (
-              <React.Fragment key={groupIndex}>
-                  {group.members.map( (unit, unitIndex) => {
-                  
-                    return (
+          {this.state.tokens ? (
+            <div className={"print-section "}>
+              <div className='section-header'>
+                <h2>Unit Tokens</h2>
+              </div>
+              <div className="section-content tokens">
+            {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
+              if( group.members.length === 0) {
+                return (<></>);
+              }
+              return (
+                <React.Fragment key={groupIndex}>
+                    {group.members.map( (unit, unitIndex) => {
+                    
+                      return (
 
-                    <React.Fragment key={unitIndex}>
-                        <AlphaStrikeUnitToken
-                          asUnit={unit}
-                          groupName={group.getName(groupIndex + 1)}
-                          appGlobals={this.props.appGlobals}
-                        />
-                    </React.Fragment>
-                    )
-                  })}
+                      <React.Fragment key={unitIndex}>
+                          <AlphaStrikeUnitToken
+                            asUnit={unit}
+                            groupName={group.getName(groupIndex + 1)}
+                            appGlobals={this.props.appGlobals}
+                          />
+                      </React.Fragment>
+                      )
+                    })}
 
-            </React.Fragment>
-            )
-          })}
-          
+              </React.Fragment>
+              )
+            })}
+            
+              </div>
             </div>
-          </div>
+          ) : null }
 
             <footer className="print-footer">
               <div className="print-logo">
@@ -257,4 +268,5 @@ interface PrintPage {
 
 interface IPrintState {
   updated: boolean;
+  tokens: boolean;
 }
