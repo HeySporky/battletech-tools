@@ -180,9 +180,11 @@ export default class AlphaStrikeGroup {
 
         if( importObj.lastUpdated ) {
             this.lastUpdated = new Date(importObj.lastUpdated);
-		}
-		if( importObj.formationBonus ){
-			this.formationBonus = formationBonuses.find(x=>x.Name===importObj.formationBonus);
-		}
+        }
+
+        // Store the formation bonus name but don't set it yet
+        if( importObj.formationBonus ){
+            this.formationBonus = formationBonuses.find(x=>x.Name===importObj.formationBonus);
+        }
     }
 }

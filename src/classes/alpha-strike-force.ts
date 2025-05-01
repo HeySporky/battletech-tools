@@ -31,6 +31,7 @@ export default class AlphaStrikeForce {
     constructor(importObj: IASForceExport | null = null ) {
         if( importObj ) {
             this.import(importObj);
+            this.validateAllGroups();
         }
 
         if( this.groups.length === 0 ) {
@@ -191,6 +192,23 @@ export default class AlphaStrikeForce {
         return returnValue;
     }
 
+    public validateAllGroups(): void {
+        // First validate each group individually
+        for (let group of this.groups) {
+            group.setAvailableFormationBonuses(formationBonuses.filter(x => x.IsValid(group, this.groups)));
+        }
+
+        // Then revalidate all groups to ensure cross-group dependencies are met
+        for (let group of this.groups) {
+            if (group.formationBonus) {
+                // If the current formation bonus is no longer valid, reset to None
+                if (!group.availableFormationBonuses.find(x => x.Name === group.formationBonus?.Name)) {
+                    group.formationBonus = formationBonuses.find(x => x.Name === "None");
+                }
+            }
+        }
+    }
+
     public import(importObj: IASForceExport) {
         for( let group of importObj.groups ) {
             this.groups.push( new AlphaStrikeGroup( group) );
@@ -206,6 +224,5 @@ export default class AlphaStrikeForce {
         if( importObj.lastUpdated ) {
             this._lastUpdated = new Date(importObj.lastUpdated);
         }
-
     }
 }
