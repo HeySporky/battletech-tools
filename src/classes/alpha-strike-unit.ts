@@ -1232,7 +1232,6 @@ export class AlphaStrikeUnit {
                     return abi;
                 }
                 let type = split[0].trim();
-                console.log(type)
                 let values = abi.trim().slice(type.length);
                 let turret = false;
 
