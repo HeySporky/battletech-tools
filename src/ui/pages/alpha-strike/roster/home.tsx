@@ -128,7 +128,12 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         }
 
         if( newGroup.members.length > 0 ) {
-          newGroup.setAvailableFormationBonuses(formationBonuses.filter(x=>x.IsValid(newGroup)))
+          newGroup.setAvailableFormationBonuses(formationBonuses.filter(x=>x.IsValid(newGroup, currentASForce?.groups ?? [])))
+          for(let group of currentASForce?.groups ?? []){
+              if(group.needsToCheckBonuses()){
+                  group.setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(group, currentASForce?.groups ?? [])));
+              }
+          }
           currentASForce.groups.push( newGroup );
           this.props.appGlobals.saveCurrentASForce( currentASForce );
           this.setState({

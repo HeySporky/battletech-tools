@@ -37,7 +37,7 @@ export default class AlphaStrikeGroup {
 		}
 
 		this.sortUnits();
-		this.availableFormationBonuses= formationBonuses.filter(x=>x.IsValid(this));
+		this.availableFormationBonuses= formationBonuses.filter(x=>x.IsValid(this, []));
 	}
 
 	public getActiveMembers() {
@@ -65,6 +65,11 @@ export default class AlphaStrikeGroup {
 		}
 		return false;
 	}
+
+  // Currently used just for nova/mechanized check since it is dependent on other groups
+  public needsToCheckBonuses(): boolean {
+    return this.members.filter(x => x.isInfantry).length === this.members.length;
+  }
 
     public getTotalPoints(): number {
         let returnValue: number = 0;
@@ -175,9 +180,11 @@ export default class AlphaStrikeGroup {
 
         if( importObj.lastUpdated ) {
             this.lastUpdated = new Date(importObj.lastUpdated);
-		}
-		if( importObj.formationBonus ){
-			this.formationBonus = formationBonuses.find(x=>x.Name===importObj.formationBonus);
-		}
+        }
+
+        // Store the formation bonus name but don't set it yet
+        if( importObj.formationBonus ){
+            this.formationBonus = formationBonuses.find(x=>x.Name===importObj.formationBonus);
+        }
     }
 }
