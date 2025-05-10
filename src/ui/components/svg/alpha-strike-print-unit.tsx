@@ -158,7 +158,7 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
                     <path d="M -213 -1 L -174 68 H 0" fill='transparent' stroke='rgb(0,0,0)' strokeWidth={3}/>
                     <text x="-90" y="48" textAnchor="middle" className='current'><tspan>PV: </tspan>{this.props.asUnit.currentPoints}</text>
                     {this.props.asUnit.currentPoints !== this.props.asUnit.basePoints ? (
-                        <text x="-10" y="106" textAnchor="end" className='base small data-pair'><tspan>Base PV: </tspan>{this.props.asUnit.basePoints.toString().toUpperCase()}</text>
+                        <text x="-230" y="30" textAnchor="end" className='base small data-pair'><tspan>Base PV: </tspan>{this.props.asUnit.basePoints.toString().toUpperCase()}</text>
                     ) : null}
                     
                 </g>
