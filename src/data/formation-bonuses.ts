@@ -809,7 +809,10 @@ class InfantryFormationBase extends FormationBonusBase {
       };
 
       const sortedInfantry = group.members.sort((a, b) => getRequiredTransportSize(b) - getRequiredTransportSize(a));
-
+      //need atleast 3 units in the group
+      allGroups = allGroups.filter(x => x.members.length >= 3);
+      //Don't include all infantry groups
+      allGroups = allGroups.filter(x => x.members.filter(y => y.isInfantry).length !== x.members.length);
       for(let transportGroup of allGroups){
         let occupiedCarriers: AlphaStrikeUnit[] = []
         let remainingInfantry: AlphaStrikeUnit[] = [...sortedInfantry]
@@ -837,7 +840,6 @@ class InfantryFormationBase extends FormationBonusBase {
               break;
           }
         }
-
         if(remainingInfantry.length > 0){
           if(canAssignInfantryToVehicles(remainingInfantry.map(x => getRequiredTransportSize(x)), transportGroup.members.map(x => getCargoSize(x)))){
             return true
@@ -893,12 +895,12 @@ export const formationBonuses: IFormationBonus[] = [
     new PhalanxStar(),
     new RogueStar(),
     new StrategicCommandStar(),
-    new SupportLance(),
     new OrderLance(),
     new Horde(),
     new BerserkerLance(),
     new AntiMechLance(),
     new Nova(),
-    new Mechanized()
+    new Mechanized(),
+    new SupportLance()
 
 ];
