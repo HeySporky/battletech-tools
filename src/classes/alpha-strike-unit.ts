@@ -1305,6 +1305,11 @@ export class AlphaStrikeUnit {
 
             for( let moveC = 0; moveC < this.move.length; moveC++ ) {
 
+                // Vehicles with an engine hit halve their movement (round down)
+                if (this.getEngineHits() > 0) {
+                    this.move[moveC].currentMove = Math.floor(this.move[moveC].currentMove / 2);
+                }
+
                 for( let count = 0; count < vehicle11Hits; count++) {
                     let half = Math.floor( this.move[moveC].currentMove / 2 );
                     if( half < 2 ) {
@@ -1442,6 +1447,14 @@ export class AlphaStrikeUnit {
                 tmpTMM++;
             }
 
+            let typeLower = this.type.trim().toLowerCase();
+            if (typeLower === "sv" || typeLower === "cv") {
+                if (this.getEngineHits() > 0) {
+                    // Vehicles with an engine hit halve their TMM (round down)
+                    tmpTMM = Math.floor(tmpTMM / 2);
+                }
+            }
+
             // MP Hits against Move
             for( let count = 0; count < this.getMPHits(); count++ ) {
                 let tmmHit = Math.round(tmpTMM / 2);
@@ -1561,6 +1574,14 @@ export class AlphaStrikeUnit {
     }
 
     private calculateDamage(damage: number, weaponHits: number, minimal: boolean | undefined): [number, boolean] {
+        let typeLower = this.type.trim().toLowerCase();
+        if ((typeLower === "sv") || (typeLower === "cv")) {
+            if (this.getEngineHits() > 0) {
+                // Vehicles with an engine hit halve their damage (round down)
+                damage = Math.floor(damage / 2);
+            }
+        }
+
         if (minimal === false) {
             damage = (+damage - weaponHits);
             // If weapon damage is now 0, and there are still hits, we have hit the minimal damage threshold
