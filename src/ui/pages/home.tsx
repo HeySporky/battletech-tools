@@ -42,16 +42,23 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                       <br />
                       <h3>Advanced Search Terms</h3>
                       <ul>
-                        <li><b>a:&lt;ability&gt;</b> - Search for units with the specified ability.</li>
-                        <li><b>pv&gt;x, pv&lt;x, pv&gt;=x, pv&lt;=x, pv=x</b> - Search for units in the specified point value range. Range must be limited to 40 points to respect MUL search capabilities.</li>
-                        <li><b>short&gt;x, short&gt;=x, medium&gt;x, medium&gt;=x, long&gt;x, long&gt;=x</b> - Filter units by damage value</li>
-                        <li><b>armor&gt;x, armor&gt;=x, structure&gt;x, structure&gt;=x</b> - This will filter on armor and structure</li>
-                        <li><b>intro&gt;x, intro&gt;=x, intro&lt;x, intro&lt;=x</b> - Filter units by the in universe year they were introduced.</li>
+                        <li><b>a:&lt;ability&gt;</b> - Search for abilities. Use <b>,</b> for AND (a:ECM,TAG), <b>!</b> for NOT (a:!CASE)</li>
+                        <li><b>pv:30-50</b> - Point value ranges. Also supports &gt;, &lt;, &gt;=, &lt;=, = operators (e.g., pv&gt;=40)</li>
+                        <li><b>short&gt;=x, medium&gt;=x, long&gt;=x</b> - Damage filters. Now supports all comparison operators and ranges</li>
+                        <li><b>armor&gt;=x, structure&gt;=x</b> - Defensive stats. Supports ranges (armor:4-6)</li>
+                        <li><b>year:3050-3067</b> - Introduction year ranges (replaces intro syntax)</li>
+                        <li><b>mv&gt;=10, jump&gt;0</b> - Movement and jump filters</li>
+                        <li><b>dmg:3/3/2</b> - Exact damage profiles (use * for wildcards: dmg:3/*/*)</li>
+                        <li><b>defense&gt;12</b> - Combined armor+structure value</li>
                       </ul>
                       Examples:
                       <ul>
-                        <li><i>timber wolf a:if long&gt;=3</i> - This will return all Timber Wolves with both indirect fire and a long range damage value of 3+</li>
-                        <li><i>pv&gt;=20 pv&lt;=40 a:ecm</i> - This will return all units with a point cost between 20 and 40 who have the ECM ability</li>
+                        <li><i>timber wolf a:IF,ECM long&gt;=3</i> - Timber Wolves with both IF and ECM, long damage 3+</li>
+                        <li><i>pv:20-40 a:ECM,TAG</i> - Units 20-40 PV with both ECM and TAG</li>
+                        <li><i>role:Striker mv&gt;=10 jump&gt;0</i> - Fast jumping strikers</li>
+                        <li><i>defense&gt;12 short&gt;=3 mv&lt;8</i> - Slow durable brawlers</li>
+                        <li><i>tech:clan year:3050-3067 a:!CASE</i> - Clan Invasion era units without CASE</li>
+                        <li><i>dmg:3/3/* armor:4-6</i> - Units with 3/3/any damage and 4-6 armor</li>
                       </ul>
                       <br />
                     </li>
@@ -102,6 +109,23 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
               label="News"
             >
                   <ul className="news">
+                  <li>
+                  <h3>
+                      <strong>July 26th, 2025</strong> - Enhanced Alpha Strike Search
+                    </h3>
+                    <h4>Author - Spork</h4>
+                      <p>Patch Notes:</p>
+                      <p>Major improvements to the Alpha Strike unit search system:</p>
+                      <ul>
+                        <li>New range syntax: <code>pv:30-50</code>, <code>year:3050-3067</code>, <code>armor:4-6</code></li>
+                        <li>Movement filters: <code>mv&gt;=10</code>, <code>jump&gt;0</code> for finding mobile units</li>
+                        <li>Advanced ability searches: <code>a:ECM,TAG</code> (both), <code>a:!CASE</code> (without)</li>
+                        <li>Damage profile matching: <code>dmg:3/3/2</code> for exact profiles, <code>dmg:3/*/*</code> with wildcards</li>
+                        <li>Combined defense values: <code>defense&gt;12</code> for total armor + structure</li>
+                        <li>All comparison operators now support &gt;=, &lt;=, != for more precise filtering</li>
+                      </ul>
+                      <p>See the updated search guide on this page for full details and examples!</p>
+                   </li>   
                   <li>
                   <h3>
                       <strong>April 14th, 2025</strong> - Play Mode Improvements
