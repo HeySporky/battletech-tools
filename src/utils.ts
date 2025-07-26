@@ -130,11 +130,19 @@ export async function getMULASSearchResults(
         url += roleFilterURI.join();
         url += factionFilterURI.join("");
 
-        var abilitySearch = [];
-        var nameSearch = [];
+        var abilitySearch: string[] = [];
+        var abilityExclude: string[] = [];
+        var nameSearch: string[] = [];
         var minDamage = [-1, -1, -1];
+        var maxDamage = [999, 999, 999];
         var minArmorStructure = [-1, -1];
-        var introDate = [-1,10000]
+        var maxArmorStructure = [999, 999];
+        var introDate = [-1,10000];
+        var minMove = -1;
+        var maxMove = 999;
+        var minJump = -1;
+        var minDefense = -1;
+        var exactDamageProfile: { short: number; medium: number; long: number } | null = null
     
 
 
@@ -143,6 +151,190 @@ export async function getMULASSearchResults(
         for (var i = 0; i < searchTerms.length; i++) {
             let term = searchTerms[i];
             let value;
+            let match;
+            
+            // Range syntax: field:min-max
+            if (match = term.match(/^(\w+):(\d+)-(\d+)$/)) {
+                const [, field, minStr, maxStr] = match;
+                const min = parseInt(minStr);
+                const max = parseInt(maxStr);
+                
+                switch(field) {
+                    case 'pv':
+                    case 'points':
+                        minpv = min;
+                        maxpv = max;
+                        break;
+                    case 'year':
+                    case 'intro':
+                        introDate[0] = min;
+                        introDate[1] = max;
+                        break;
+                    case 'armor':
+                    case 'ar':
+                        minArmorStructure[0] = min;
+                        maxArmorStructure[0] = max;
+                        break;
+                    case 'structure':
+                    case 'st':
+                        minArmorStructure[1] = min;
+                        maxArmorStructure[1] = max;
+                        break;
+                    case 'mv':
+                    case 'move':
+                        minMove = min;
+                        maxMove = max;
+                        break;
+                }
+                continue;
+            }
+            
+            // Enhanced comparison operators: field>=value, field<=value, field!=value
+            if (match = term.match(/^(\w+)(>=|<=|!=|>|<|=)(.+)$/)) {
+                const [, field, op, valueStr] = match;
+                const val = parseInt(valueStr);
+                
+                switch(field) {
+                    case 'pv':
+                    case 'points':
+                        switch(op) {
+                            case '>': minpv = val + 1; break;
+                            case '>=': minpv = val; break;
+                            case '<': maxpv = val - 1; break;
+                            case '<=': maxpv = val; break;
+                            case '=': minpv = val; maxpv = val; break;
+                            case '!=': 
+                                // Handle != by setting ranges around the value
+                                if (val > minpv && val < maxpv) {
+                                    // This is tricky with MUL API, we'll filter locally
+                                }
+                                break;
+                        }
+                        break;
+                    case 'short':
+                    case 's':
+                        switch(op) {
+                            case '>': minDamage[0] = val + 1; break;
+                            case '>=': minDamage[0] = val; break;
+                            case '<': maxDamage[0] = val - 1; break;
+                            case '<=': maxDamage[0] = val; break;
+                            case '=': minDamage[0] = val; maxDamage[0] = val; break;
+                        }
+                        break;
+                    case 'medium':
+                    case 'm':
+                        switch(op) {
+                            case '>': minDamage[1] = val + 1; break;
+                            case '>=': minDamage[1] = val; break;
+                            case '<': maxDamage[1] = val - 1; break;
+                            case '<=': maxDamage[1] = val; break;
+                            case '=': minDamage[1] = val; maxDamage[1] = val; break;
+                        }
+                        break;
+                    case 'long':
+                    case 'l':
+                        switch(op) {
+                            case '>': minDamage[2] = val + 1; break;
+                            case '>=': minDamage[2] = val; break;
+                            case '<': maxDamage[2] = val - 1; break;
+                            case '<=': maxDamage[2] = val; break;
+                            case '=': minDamage[2] = val; maxDamage[2] = val; break;
+                        }
+                        break;
+                    case 'armor':
+                    case 'ar':
+                        switch(op) {
+                            case '>': minArmorStructure[0] = val + 1; break;
+                            case '>=': minArmorStructure[0] = val; break;
+                            case '<': maxArmorStructure[0] = val - 1; break;
+                            case '<=': maxArmorStructure[0] = val; break;
+                            case '=': minArmorStructure[0] = val; maxArmorStructure[0] = val; break;
+                        }
+                        break;
+                    case 'structure':
+                    case 'st':
+                        switch(op) {
+                            case '>': minArmorStructure[1] = val + 1; break;
+                            case '>=': minArmorStructure[1] = val; break;
+                            case '<': maxArmorStructure[1] = val - 1; break;
+                            case '<=': maxArmorStructure[1] = val; break;
+                            case '=': minArmorStructure[1] = val; maxArmorStructure[1] = val; break;
+                        }
+                        break;
+                    case 'year':
+                    case 'intro':
+                        switch(op) {
+                            case '>': introDate[0] = val + 1; break;
+                            case '>=': introDate[0] = val; break;
+                            case '<': introDate[1] = val - 1; break;
+                            case '<=': introDate[1] = val; break;
+                            case '=': introDate[0] = val; introDate[1] = val; break;
+                        }
+                        break;
+                    case 'mv':
+                    case 'move':
+                        switch(op) {
+                            case '>': minMove = val + 1; break;
+                            case '>=': minMove = val; break;
+                            case '<': maxMove = val - 1; break;
+                            case '<=': maxMove = val; break;
+                            case '=': minMove = val; maxMove = val; break;
+                        }
+                        break;
+                    case 'jump':
+                    case 'j':
+                        switch(op) {
+                            case '>': minJump = val + 1; break;
+                            case '>=': minJump = val; break;
+                            case '=': minJump = val; break;
+                        }
+                        break;
+                    case 'defense':
+                    case 'def':
+                        switch(op) {
+                            case '>': minDefense = val + 1; break;
+                            case '>=': minDefense = val; break;
+                        }
+                        break;
+                }
+                continue;
+            }
+            
+            // Enhanced ability syntax
+            if (term.startsWith("a:")) {
+                value = term.substring(2);
+                if (value.includes(",")) {
+                    // AND logic - must have all abilities
+                    const abilities = value.split(",").filter(a => a.length > 1);
+                    abilitySearch.push(...abilities);
+                } else if (value.startsWith("!")) {
+                    // NOT logic - must not have
+                    const ability = value.substring(1);
+                    if (ability.length > 1) {
+                        abilityExclude.push(ability);
+                    }
+                } else if (value.length > 1) {
+                    // Single ability
+                    abilitySearch.push(value);
+                }
+                continue;
+            }
+            
+            // Damage profile syntax: dmg:3/3/2 or dmg:3/*/*
+            if (term.startsWith("dmg:") || term.startsWith("damage:")) {
+                const dmgStr = term.substring(term.indexOf(":") + 1);
+                const parts = dmgStr.split("/");
+                if (parts.length === 3) {
+                    exactDamageProfile = {
+                        short: parts[0] === "*" ? -1 : parseInt(parts[0]),
+                        medium: parts[1] === "*" ? -1 : parseInt(parts[1]),
+                        long: parts[2] === "*" ? -1 : parseInt(parts[2])
+                    };
+                }
+                continue;
+            }
+            
+            // Legacy syntax support (backward compatibility)
             switch (true) {
                 case term.startsWith("a:"):
                     value = term.substring(2);
@@ -262,7 +454,12 @@ export async function getMULASSearchResults(
             nameSearch.join("%20").length > 2
             || overrideSearchLimitLength
             || abilitySearch.length > 0
+            || abilityExclude.length > 0
             || maxpv - minpv <= 40
+            || minMove > -1
+            || minJump > -1
+            || minDefense > -1
+            || exactDamageProfile !== null
         ) {
             await fetch(url)
             .then(async res => {
@@ -278,26 +475,95 @@ export async function getMULASSearchResults(
                     return [];
                 }
                 for (i = 0; i < returnUnits.length; i++) {
+                    let unit = returnUnits[i];
+                    let shouldRemove = false;
                     
-                    if( returnUnits[i].BFDamageShort < minDamage[0] ) {
-                        returnUnits.splice(i, 1);
-                        i--;
-                    }else if( returnUnits[i].BFDamageMedium < minDamage[1] ) {
-                        returnUnits.splice(i, 1);
-                        i--;
-                    }else if( returnUnits[i].BFDamageLong < minDamage[2] ) {
-                        returnUnits.splice(i, 1);
-                        i--;
-                    }else if( returnUnits[i].BFArmor < minArmorStructure[0] ) {
-                        returnUnits.splice(i, 1);
-                        i--;
-                    }else if( returnUnits[i].BFStructure < minArmorStructure[1] ) {
-                        returnUnits.splice(i, 1);
-                        i--;
-                    }else if( parseInt(returnUnits[i].DateIntroduced) < introDate[0] ) {
-                        returnUnits.splice(i, 1);
-                        i--;
-                    }else if( parseInt(returnUnits[i].DateIntroduced) > introDate[1] ) {
+                    // Damage range filters
+                    if( unit.BFDamageShort < minDamage[0] || unit.BFDamageShort > maxDamage[0] ) {
+                        shouldRemove = true;
+                    } else if( unit.BFDamageMedium < minDamage[1] || unit.BFDamageMedium > maxDamage[1] ) {
+                        shouldRemove = true;
+                    } else if( unit.BFDamageLong < minDamage[2] || unit.BFDamageLong > maxDamage[2] ) {
+                        shouldRemove = true;
+                    }
+                    
+                    // Armor/Structure range filters
+                    else if( unit.BFArmor < minArmorStructure[0] || unit.BFArmor > maxArmorStructure[0] ) {
+                        shouldRemove = true;
+                    } else if( unit.BFStructure < minArmorStructure[1] || unit.BFStructure > maxArmorStructure[1] ) {
+                        shouldRemove = true;
+                    }
+                    
+                    // Year range filter
+                    else if( parseInt(unit.DateIntroduced) < introDate[0] || parseInt(unit.DateIntroduced) > introDate[1] ) {
+                        shouldRemove = true;
+                    }
+                    
+                    // Movement filters
+                    else if( minMove > -1 || maxMove < 999 ) {
+                        // Parse movement string (e.g., "10"j", "8"/12"j", "10"")
+                        let moveValue = 0;
+                        if( unit.BFMove ) {
+                            const moveMatch = unit.BFMove.match(/^(\d+)"?/);
+                            if( moveMatch ) {
+                                moveValue = parseInt(moveMatch[1]);
+                            }
+                        }
+                        if( moveValue < minMove || moveValue > maxMove ) {
+                            shouldRemove = true;
+                        }
+                    }
+                    
+                    // Jump filter
+                    else if( minJump > -1 ) {
+                        let hasJump = unit.BFMove && unit.BFMove.includes("j");
+                        let jumpValue = 0;
+                        if( hasJump ) {
+                            // Extract jump value from strings like "10"j" or "8"/12"j"
+                            const jumpMatch = unit.BFMove.match(/(\d+)"?j/);
+                            if( jumpMatch ) {
+                                jumpValue = parseInt(jumpMatch[1]);
+                            }
+                        }
+                        if( jumpValue < minJump ) {
+                            shouldRemove = true;
+                        }
+                    }
+                    
+                    // Defense filter (armor + structure)
+                    else if( minDefense > -1 ) {
+                        const totalDefense = unit.BFArmor + unit.BFStructure;
+                        if( totalDefense < minDefense ) {
+                            shouldRemove = true;
+                        }
+                    }
+                    
+                    // Exact damage profile filter
+                    else if( exactDamageProfile ) {
+                        if( exactDamageProfile.short !== -1 && unit.BFDamageShort !== exactDamageProfile.short ) {
+                            shouldRemove = true;
+                        } else if( exactDamageProfile.medium !== -1 && unit.BFDamageMedium !== exactDamageProfile.medium ) {
+                            shouldRemove = true;
+                        } else if( exactDamageProfile.long !== -1 && unit.BFDamageLong !== exactDamageProfile.long ) {
+                            shouldRemove = true;
+                        }
+                    }
+                    
+                    // Enhanced ability filtering
+                    else if( abilityExclude.length > 0 ) {
+                        const unitAbilities = unit.BFAbilities ? unit.BFAbilities.toUpperCase().split(", ") : [];
+                        
+                        // Exclude abilities
+                        for( let excludeAbility of abilityExclude ) {
+                            if( unitAbilities.includes(excludeAbility.toUpperCase()) ) {
+                                shouldRemove = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // Remove unit if it failed any filter
+                    if( shouldRemove ) {
                         returnUnits.splice(i, 1);
                         i--;
                     }
