@@ -23,6 +23,8 @@ import { generateUUID } from '../../../../utils/generateUUID';
 
 export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrikeAddUnitsViewProps, IAlphaStrikeAddUnitsViewState> {
 
+    private searchTimeout: NodeJS.Timeout | null = null;
+
     constructor( props: IAlphaStrikeAddUnitsViewProps ) {
         super(props)
 
@@ -32,7 +34,15 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
             searchSort: 'Name',
-            lastSearchId: ''
+            lastSearchId: '',
+            isSearching: false
+        }
+    }
+
+    componentWillUnmount() {
+        // Clean up timeout when component unmounts
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
         }
     }
 
@@ -67,7 +77,15 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         appSettings.alphaStrikeSearchTerm = event.currentTarget.value;
         this.props.appGlobals.saveAppSettings( appSettings );
 
-        this.updateSearchResults();
+        // Clear existing timeout
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+        }
+
+        // Set a new timeout to wait for user to stop typing (500ms delay)
+        this.searchTimeout = setTimeout(() => {
+            this.updateSearchResults();
+        }, 500);
     }
 
     updateRules = ( event: React.FormEvent<HTMLSelectElement> ): void => {
@@ -166,26 +184,29 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       let currentSearchId = generateUUID();
 
       this.setState({
-        lastSearchId: currentSearchId
+        lastSearchId: currentSearchId,
+        isSearching: true
       });
 
-      let data: IASMULUnit[] = await getMULASSearchResults(
-        this.props.appGlobals.appSettings.alphaStrikeSearchTerm,
-        this.props.appGlobals.appSettings.alphaStrikeSearchRules,
-        this.props.appGlobals.appSettings.alphaStrikeSearchTech,
-        this.props.appGlobals.appSettings.alphaStrikeSearchRole,
-        this.props.appGlobals.appSettings.alphaStrikeSearchEra,
-        this.props.appGlobals.appSettings.alphaStrikeSearchType,
-        this.props.appGlobals.appSettings.alphaStrikeSearchFactions,
-        !navigator.onLine,
-        false,
-        this.props.appGlobals,
-      );
+      try {
+        let data: IASMULUnit[] = await getMULASSearchResults(
+          this.props.appGlobals.appSettings.alphaStrikeSearchTerm,
+          this.props.appGlobals.appSettings.alphaStrikeSearchRules,
+          this.props.appGlobals.appSettings.alphaStrikeSearchTech,
+          this.props.appGlobals.appSettings.alphaStrikeSearchRole,
+          this.props.appGlobals.appSettings.alphaStrikeSearchEra,
+          this.props.appGlobals.appSettings.alphaStrikeSearchType,
+          this.props.appGlobals.appSettings.alphaStrikeSearchFactions,
+          !navigator.onLine,
+          false,
+          this.props.appGlobals,
+        );
 
-      if(this.state.lastSearchId !== currentSearchId) {
-        console.log("updateSearchResults: searchId mismatch, aborting");
-        return;
-      }
+        if(this.state.lastSearchId !== currentSearchId) {
+          console.log("updateSearchResults: searchId mismatch, aborting");
+          // Don't set isSearching to false here - a newer search is running
+          return;
+        }
 
       data.sort((a: IASMULUnit, b: IASMULUnit): number => {
         const primarySort = this.state.searchSort;
@@ -208,6 +229,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       this.setState({
         searchResults: data,
         contextMenuSearch: -1,
+        isSearching: false,
       });
 
       let appSettings = this.props.appGlobals.appSettings;
@@ -215,6 +237,15 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       appSettings.alphasStrikeCachedSearchResults = data;
       this.props.appGlobals.saveAppSettings( appSettings );
 
+      } catch (error) {
+        console.error("Search failed:", error);
+        // Only turn off loading if this was the most recent search
+        if(this.state.lastSearchId === currentSearchId) {
+          this.setState({
+            isSearching: false,
+          });
+        }
+      }
     }
 
     addToGroup = (
@@ -405,7 +436,10 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                   </fieldset>
 
-                <h3 className="text-center">Search Results ({this.state.searchResults.length})</h3>
+                <h3 className="text-center">
+                  Search Results ({this.state.isSearching ? '...' : this.state.searchResults.length})
+                  {this.state.isSearching && <span className="ms-2 text-muted">(Searching...)</span>}
+                </h3>
                 <div className="search-sort-wrapper">
                     Sort:
                     <span>
@@ -451,7 +485,20 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         </tr>
                       </thead>
 
-                      {this.state.searchResults.length > 0 ? (
+                      {this.state.isSearching ? (
+                        <tbody>
+                          <tr>
+                            <td className="text-center" colSpan={7}>
+                              <div className="text-muted">
+                                <div className="spinner-border spinner-border-sm me-2" role="status">
+                                  <span className="visually-hidden">Loading...</span>
+                                </div>
+                                Searching Master Unit List...
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      ) : this.state.searchResults.length > 0 ? (
                         <>
                           {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
 
@@ -718,4 +765,5 @@ interface IAlphaStrikeAddUnitsViewState {
     contextMenuSavedBattleMechs: number;
     searchSort: 'Name' | 'BFPointValue';
     lastSearchId: string;
+    isSearching: boolean;
 }
