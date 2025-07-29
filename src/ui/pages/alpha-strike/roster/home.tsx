@@ -24,12 +24,23 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
     constructor(props: IHomeProps) {
         super(props);
 
+        // Restore collapsed favorites from localStorage
+        let collapsedFavorites: string[] = [];
+        try {
+            const saved = localStorage.getItem('collapsedFavorites');
+            if (saved) {
+                collapsedFavorites = JSON.parse(saved);
+            }
+        } catch (e) {
+            console.error('Error loading collapsed favorites:', e);
+        }
+
         this.state = {
             updated: false,
             showASUnit: null,
             editASUnit: false,
             addingUnitsModal: false,
-            collapsedFavorites: [],
+            collapsedFavorites: collapsedFavorites,
         }
 
         this.props.appGlobals.makeDocumentTitle("Alpha Strike Roster");
@@ -144,18 +155,25 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       }
     }
 
-    toggleFavoriteCollapse = (index: number): void => {
+    toggleFavoriteCollapse = (uuid: string): void => {
       const { collapsedFavorites } = this.state;
       const newCollapsed = [...collapsedFavorites];
-      const collapseIndex = newCollapsed.indexOf(index);
+      const collapseIndex = newCollapsed.indexOf(uuid);
       
       if (collapseIndex > -1) {
         newCollapsed.splice(collapseIndex, 1);
       } else {
-        newCollapsed.push(index);
+        newCollapsed.push(uuid);
       }
       
       this.setState({ collapsedFavorites: newCollapsed });
+      
+      // Save to localStorage
+      try {
+        localStorage.setItem('collapsedFavorites', JSON.stringify(newCollapsed));
+      } catch (e) {
+        console.error('Error saving collapsed favorites:', e);
+      }
     }
 
     removeFavoriteConfirm = ( asFavGroupIndex: number ): void => {
@@ -333,11 +351,11 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 >
 
 {this.props.appGlobals.favoriteASGroups.map( (asFavGroup, asFavGroupIndex) => {
-  const isCollapsed = this.state.collapsedFavorites.includes(asFavGroupIndex);
+  const isCollapsed = this.state.collapsedFavorites.includes(asFavGroup.uuid);
   return (<fieldset key={asFavGroupIndex} className="fieldset">
     <legend>
       <button
-        onClick={() => this.toggleFavoriteCollapse(asFavGroupIndex)}
+        onClick={() => this.toggleFavoriteCollapse(asFavGroup.uuid)}
         className="btn btn-link btn-sm"
         style={{ padding: 0, marginRight: '8px' }}
         title={isCollapsed ? "Expand" : "Collapse"}
@@ -493,5 +511,5 @@ interface IHomeState {
   editASUnit: boolean;
 
   addingUnitsModal: boolean;
-  collapsedFavorites: number[];
+  collapsedFavorites: string[];
 }
