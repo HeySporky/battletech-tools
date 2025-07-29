@@ -1,4 +1,4 @@
-import { FaDice, FaDownload, FaFileImport, FaPlusCircle, FaPrint, FaTrash } from "react-icons/fa";
+import { FaDice, FaDownload, FaFileImport, FaPlusCircle, FaPrint, FaTrash, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup, { IASGroupExport } from '../../../../classes/alpha-strike-group';
@@ -29,6 +29,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
             showASUnit: null,
             editASUnit: false,
             addingUnitsModal: false,
+            collapsedFavorites: [],
         }
 
         this.props.appGlobals.makeDocumentTitle("Alpha Strike Roster");
@@ -141,6 +142,20 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           })
         }
       }
+    }
+
+    toggleFavoriteCollapse = (index: number): void => {
+      const { collapsedFavorites } = this.state;
+      const newCollapsed = [...collapsedFavorites];
+      const collapseIndex = newCollapsed.indexOf(index);
+      
+      if (collapseIndex > -1) {
+        newCollapsed.splice(collapseIndex, 1);
+      } else {
+        newCollapsed.push(index);
+      }
+      
+      this.setState({ collapsedFavorites: newCollapsed });
     }
 
     removeFavoriteConfirm = ( asFavGroupIndex: number ): void => {
@@ -318,8 +333,19 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 >
 
 {this.props.appGlobals.favoriteASGroups.map( (asFavGroup, asFavGroupIndex) => {
+  const isCollapsed = this.state.collapsedFavorites.includes(asFavGroupIndex);
   return (<fieldset key={asFavGroupIndex} className="fieldset">
-    <legend>{asFavGroup.getName(0)}</legend>
+    <legend>
+      <button
+        onClick={() => this.toggleFavoriteCollapse(asFavGroupIndex)}
+        className="btn btn-link btn-sm"
+        style={{ padding: 0, marginRight: '8px' }}
+        title={isCollapsed ? "Expand" : "Collapse"}
+      >
+        {isCollapsed ? <FaChevronDown /> : <FaChevronUp />}
+      </button>
+      {asFavGroup.getName(0)}
+    </legend>
 
     <div className="pull-right">
       <a
@@ -353,6 +379,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       <strong># Units/Points</strong>: {asFavGroup.getTotalUnits()}/{asFavGroup.getTotalPoints()}
     </div>
 
+    {!isCollapsed && (
     <table className="table tighter-padding">
       <thead>
         <tr>
@@ -392,6 +419,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       )}
 
     </table>
+    )}
   </fieldset>
   )
 })}
@@ -465,4 +493,5 @@ interface IHomeState {
   editASUnit: boolean;
 
   addingUnitsModal: boolean;
+  collapsedFavorites: number[];
 }
