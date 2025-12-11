@@ -1,8 +1,4 @@
-.tokens {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: left;
-}
+
 .alpha-strike-unit-token {
     border: 1px solid black;
     box-sizing: border-box;
@@ -13,6 +9,8 @@
     text-align: center;
     position: relative;
     overflow: hidden;
+    grid-column-end: span 1;
+    order: 1000;
     > * {
         width: 50%;
         box-sizing: border-box;
@@ -61,7 +59,8 @@
     &.bm,
     &.im {
         width: 4in;
-        order: 1000;
+        grid-column-end: span 2;
+        order: 1;
         img {
             left: 30px;
             top: -14px;
@@ -71,7 +70,8 @@
     &.superheavy {
         width: 6in;
         height: 1.5in;
-        order: 2000;
+        grid-column-end: span 3;
+        order: 2;
         img {
             left: 50px;
             top: -20px;
@@ -82,7 +82,7 @@
     &.pm {
         height: 1in;
         width: 2in;
-        order: 3000;
+        order: 1000;
         img {
             left: 12px;
             top: 0;
@@ -92,6 +92,7 @@
     }
     &.ba,
     &.ci {
+        order: 1000;
         img {
             left: 12px;
             top: 10px;

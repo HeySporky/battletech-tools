@@ -5,7 +5,7 @@ header {
         color: #0f0;
     }
 }
-.print-footer { 
+.print-footer {
     display: none;
     position: fixed;
     bottom: 0;
@@ -32,6 +32,9 @@ header {
         padding-top: 32px;
         width: 100%;
         display: block;
+        z-index: 10;
+        position: relative;
+        background: #fff;
         &:first-child {
             border-top: none;
         }
@@ -44,26 +47,37 @@ header {
                 font-size: 1rem;
             }
         }
+        .lance-bonus {
+            font-size: 14px;
+        }
         .section-content {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             padding: 0 !important;
-            &:not(.tokens) {
-                gap: 20%;
-            }
-            .lance-bonus {
-                font-size: 14px;
-            }
+            gap: 14px;
             .unit-card,
             .ability-card {
-                flex-basis: 40%;
-                padding: 5px;
+                flex-basis: 32%;
             }
-            .ability-card {
-                flex-basis: 33.333%;
+            .pilot-ability {
+                font-size: 0.8rem;
+                line-height: 1.1rem;
+                margin: 8px 0;
+                .ability-name {
+                    font-weight: 800;
+                }
             }
-            .pilot-abilities {
-                fill: #666;
+        }
+        .section-content + .section-header {
+            margin-top: 2rem;
+        }
+        &.tokens  {
+            page: tokens;
+            .section-content {
+                max-width: 10in;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                grid-auto-flow: dense;
+                gap: 0;
             }
         }
     }
@@ -86,11 +100,17 @@ header {
                     margin: 0;
                 }
             }
-            .section-content {
-                .lance-bonus {
-                    font-size: 11px;
-                    line-height: 14px;
-                }
+            .section-content .pilot-ability,
+            .lance-bonus {
+                font-size: 10px;
+                line-height: 12px;
+                margin: 0;
+            }
+            .section-content .pilot-ability + .pilot-ability {
+                margin-top: 4px;
+            }
+            .section-content + .section-header {
+                margin-top: .5rem;
             }
         }
         .print-footer {
@@ -100,5 +120,10 @@ header {
 }
 
 @page {
-    margin: .25in;
+    margin: 0.25in;
+    size: landscape;
+    page-orientation: upright;
+    tokens {
+        size: 10in 7.7in;
+    }
 }

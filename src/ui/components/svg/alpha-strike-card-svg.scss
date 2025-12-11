@@ -125,31 +125,4 @@ svg.alpha-strike-card {
     .description {
         font-size: 48px;
     }
-
-    .pilot-ability {
-        display: flex;
-        flex-flow: row wrap;
-        align-items: baseline;
-        justify-content: space-between;
-        .ability-name {
-            font-size: 2.8rem;
-            font-weight: 600;
-        }
-        .ability-cost {
-            font-size: 2rem;
-            color: #666;
-        }
-        p {
-            flex-basis: 100%;
-            font-size: 2.2rem;
-            line-height: 2.6rem;
-            margin: 0;
-        }
-        &+.pilot-ability {
-            margin: 14px 0;
-            padding-top: 8px;
-            border-top: 1px solid #aaa;
-        }
-    }
-
 }
