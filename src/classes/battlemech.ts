@@ -2534,10 +2534,22 @@ export class BattleMech {
 
         let final_overheat_value = 0;
 
-
-        let weapon_heat_damage_short = Math.ceil((this._alphaStrikeForceStats.damage.short * heatDissipation) / (max_heat_output - 4));
-        let weapon_heat_damage_medium = Math.ceil((this._alphaStrikeForceStats.damage.medium * heatDissipation) / (max_heat_output - 4));
-        let weapon_heat_damage_long = Math.ceil((this._alphaStrikeForceStats.damage.long * heatDissipation) / (max_heat_output - 4));
+        // Only apply heat-limited damage calculation if the mech generates more heat than it can dissipate
+        // Otherwise the formula inflates damage instead of limiting it (fixes LRM5 bug - issue #62)
+        let weapon_heat_damage_short: number;
+        let weapon_heat_damage_medium: number;
+        let weapon_heat_damage_long: number;
+        
+        if (max_heat_output > heatDissipation + 4) {
+            weapon_heat_damage_short = Math.ceil((this._alphaStrikeForceStats.damage.short * heatDissipation) / (max_heat_output - 4));
+            weapon_heat_damage_medium = Math.ceil((this._alphaStrikeForceStats.damage.medium * heatDissipation) / (max_heat_output - 4));
+            weapon_heat_damage_long = Math.ceil((this._alphaStrikeForceStats.damage.long * heatDissipation) / (max_heat_output - 4));
+        } else {
+            // Mech can dissipate all heat - no reduction needed
+            weapon_heat_damage_short = Math.ceil(this._alphaStrikeForceStats.damage.short);
+            weapon_heat_damage_medium = Math.ceil(this._alphaStrikeForceStats.damage.medium);
+            weapon_heat_damage_long = Math.ceil(this._alphaStrikeForceStats.damage.long);
+        }
         // let weapon_heat_damage_extreme = Math.ceil((this._alphaStrikeForceStats.damage.extreme * heatDissipation) / (max_heat_output - 4));
 
 
