@@ -305,7 +305,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
 
 		cost: 1600,
 		introduced: 2470,
-		extinct: 0,
-		reintroduced: 0
+		extinct: 2840,
+		reintroduced: 3035
 	}
 ];

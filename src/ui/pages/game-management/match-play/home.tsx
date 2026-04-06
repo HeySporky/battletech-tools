@@ -1,4 +1,4 @@
-import { FaAccessibleIcon, FaDice, FaEye, FaPage4, FaTrash } from "react-icons/fa";
+import { FaDice, FaEye, FaTrash } from "react-icons/fa";
 import React from 'react';
 import { IAppGlobals } from '../../../app-router';
 import TextSection from '../../../components/text-section';

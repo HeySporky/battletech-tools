@@ -233,7 +233,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
                 <legend>{this.props.label}</legend>
 
                         <InputCheckbox
-                            label="Weight is based on a divisor of installed vehicle's tonnage"
+                            label="Damage is based on a divisor of installed vehicle's tonnage"
                             onChange={this.toggleDamageDivisor}
                             checked={this.props.editingItem.damageDivisor && this.props.editingItem.damageDivisor > 0 ? true : false }
                         />
@@ -244,15 +244,18 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
                                 min={1}
                                 onChange={this.updateDamageDivisor}
                                 value={this.props.editingItem.damageDivisor ? this.props.editingItem.damageDivisor : 0}
-                                label="Weight Divisor"
+                                label="Damage Divisor"
                                 description='Divide the weight of the installed vehicle by this number to get the damage of this weapon.'
 
                             />
                         ) : null}
 
                         {!this.props.editingItem.damageDivisor
-                         && typeof(this.props.editingItem.damage) !== "number"
-                         && typeof(this.props.editingItem.damage) !== "undefined"  ? (
+                            // These tests made it impossible to enter damage which changed with range on an
+                            // item created via the equipment editor
+                            // && typeof(this.props.editingItem.damage) !== "number"
+                            // && typeof(this.props.editingItem.damage) !== "undefined"  
+                            ? (
                             <InputCheckbox
                                 label="Damage Changes per range"
                                 onChange={this.toggleDamagePerRange}

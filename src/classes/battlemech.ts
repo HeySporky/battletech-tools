@@ -1,5 +1,5 @@
 import { battlemechLocations } from "../data/battlemech-locations";
-import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, ISplitLocation } from "../data/data-interfaces";
+import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, ISplitLocation } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { mechClanEquipmentEnergy } from "../data/mech-clan-equipment-weapons-energy";
@@ -240,7 +240,7 @@ export class BattleMech {
 
     private _mechType = mechTypeOptions[0];
     private _tech = btTechOptions[0];
-    private _era = btEraOptions[1]; // Default to Succession Wars
+    private _era = btEraOptions[5]; // Default to Succession Wars
     private _model: string = "";
     private _name: string = "";
     private _tonnage = 20;
@@ -365,6 +365,7 @@ export class BattleMech {
     private _jumpJetType = mechJumpJetTypes[0];
 
     private _walkSpeed = 0;
+    private _maxWalkSpeed = 0;
     private _runSpeed = 0;
     private _jumpSpeed = 0;
 
@@ -460,7 +461,8 @@ export class BattleMech {
         this.lastUpdated = new Date();
         this.setTonnage(20);
         this.setWalkSpeed(0);
-        this.setWalkSpeed(0);
+        this.setJumpSpeed(0);
+        this.setMaxWalkSpeed(0);
         this._equipmentList = [];
         this._sortedEquipmentList = [];
         this.setArmorWeight(0)
@@ -2806,7 +2808,7 @@ export class BattleMech {
         // Equipment
         html += "Equipment".padEnd(col1Padding + col2Padding, " " ) + "Mass\n";
         html += "" + ( "Internal Structure ( " + this._selectedInternalStructure.name + " )" ).toString().padEnd(col1Padding + col2Padding, " " ) + "" + this.getInternalStructureWeight() + "\n";
-        html += "" + this.getEngineName().padEnd(col1Padding, " " ) + "" + this.getEngineRating().toString().padEnd(col2Padding, " " ) + "" + this.getEngineWeight() + "\n";
+        html += "" + this.getEngineTypeName().padEnd(col1Padding, " " ) + "" + this.getEngineRating().toString().padEnd(col2Padding, " " ) + "" + this.getEngineWeight() + "\n";
 
         html += "Walking".padStart(col1Padding - 10, " " ) + " " + this.getWalkSpeed().toString().padStart(3, " " ) + "\n";
         html += "Running".padStart(col1Padding - 10, " " ) + " " + this.getRunSpeed().toString().padStart(3, " " ) + "\n";
@@ -3302,7 +3304,7 @@ export class BattleMech {
         }
 
         if( this._jumpSpeed > 0) {
-            this._maxMoveHeat = this._jumpSpeed;
+            this._maxMoveHeat = this._jumpSpeed >= 3 ? this._jumpSpeed : 3;
             // if( this._jumpJetType.tag === "standard" ) {
             //     // standard
             //     this._weights.push({
@@ -3766,7 +3768,7 @@ export class BattleMech {
                 ) {
                     this._addCriticalItem(
                         "engine", // item_tag
-                        this._engineType.name, // item_nickname
+                        this.getEngineName(), // item_nickname
                         3, // criticalCount
                         "ct" // location
                         // slot
@@ -3778,7 +3780,7 @@ export class BattleMech {
                         this.setEngineType( "standard" );
                         this._addCriticalItem(
                             "engine", // item_tag
-                            this._engineType.name, // item_nickname
+                            this.getEngineName(), // item_nickname
                             engineCrits.ct, // criticalCount
                             "ct" // location
                             // slot
@@ -3790,14 +3792,14 @@ export class BattleMech {
                     engineCrits &&
                     engineCrits.rt
                 ) {
-                    this._addCriticalItem( "engine", this._engineType.name, engineCrits.rt, "rt" );
+                    this._addCriticalItem( "engine", this.getEngineName(), engineCrits.rt, "rt" );
                 }
 
                 if(
                     engineCrits &&
                     engineCrits.lt
                 ) {
-                    this._addCriticalItem( "engine", this._engineType.name, engineCrits.lt, "lt" );
+                    this._addCriticalItem( "engine", this.getEngineName(), engineCrits.lt, "lt" );
                 }
 
                 // Gyro
@@ -3812,7 +3814,7 @@ export class BattleMech {
                 if( engineCrits.ct > 3) {
                     this._addCriticalItem(
                         "engine", // item_tag
-                        this._engineType.name, // item_nickname
+                        this.getEngineName(), // item_nickname
                         engineCrits.ct - 3, // criticalCount
                         "ct" // location
                     );
@@ -4017,7 +4019,6 @@ export class BattleMech {
             if( criticalTally[ item.uuid ] >= item.crits )
                 removeFromUnallocated = true;
 
-
             this._allocateCritical(
                 item.tag,
                 item.rear,
@@ -4123,6 +4124,7 @@ export class BattleMech {
                 this._no_right_arm_lower_actuator = false;
             } else {
                 this._no_right_arm_hand_actuator = true;
+                this._clearArmMeleeCriticalAllocation();
             }
 
         }
@@ -4132,6 +4134,7 @@ export class BattleMech {
                 this._no_left_arm_lower_actuator = false;
             } else {
                 this._no_left_arm_hand_actuator = true;
+                this._clearArmMeleeCriticalAllocation();
             }
 
         }
@@ -4147,6 +4150,7 @@ export class BattleMech {
             } else {
                 this._no_right_arm_lower_actuator = true;
                 this._no_right_arm_hand_actuator = true;
+                this._clearArmMeleeCriticalAllocation();
             }
         }
         if( location === "la" ) {
@@ -4156,6 +4160,7 @@ export class BattleMech {
             } else {
                 this._no_left_arm_lower_actuator = true;
                 this._no_left_arm_hand_actuator = true;
+                this._clearArmMeleeCriticalAllocation();
             }
 
         }
@@ -4466,6 +4471,17 @@ export class BattleMech {
         return this.getMoveHeat() + this.getWeaponHeat() - this.getHeatDissipation()
     }
 
+    public getMaxWalkSpeed(): number {
+        return this._maxWalkSpeed;
+    }
+
+    public setMaxWalkSpeed(
+        newMax: number,
+    ): number {
+        this._maxWalkSpeed = newMax;
+        return this._maxWalkSpeed;
+    }
+
     public getWalkSpeed(): number {
         return this._walkSpeed;
     }
@@ -4473,7 +4489,7 @@ export class BattleMech {
     public setWalkSpeed(
         walkSpeed: number,
     ) {
-        this._walkSpeed = walkSpeed
+        this._walkSpeed = walkSpeed > this._maxWalkSpeed ? this._maxWalkSpeed : walkSpeed
         this.setEngine(this._tonnage * this._walkSpeed);
 
         if( this._jumpSpeed > this._walkSpeed)
@@ -4493,7 +4509,7 @@ export class BattleMech {
     public setJumpSpeed(
         jumpSpeed: number,
     ) {
-        this._jumpSpeed = +jumpSpeed;
+        this._jumpSpeed = ( jumpSpeed > this._walkSpeed ) ? this._walkSpeed : jumpSpeed;
         this._calc();
         return this._jumpSpeed;
     }
@@ -4814,8 +4830,27 @@ export class BattleMech {
         return this._engineType;
     }
 
-    getEngineName(): string {
+    getEngineTypeName(): string {
         return this._engineType.name;
+    }
+
+    getEngineName(): string {
+        let suffix = "";
+        switch ( this._engineType.tag ) {
+            case "standard":
+                break;
+            case "xl":
+            case "clan-xl":
+                suffix = "XL";
+                break;
+            case "light":
+                suffix = "L";
+                break;
+            case "compact":
+                suffix = "C";
+        }
+                
+        return (this._engine?.name || "") + " " + String(this._engine?.rating || 0) + suffix;
     }
 
     getHeatSyncName() {
@@ -5057,7 +5092,16 @@ export class BattleMech {
         this._totalInternalStructurePoints += this._internalStructure.rightLeg;
         this._totalInternalStructurePoints += this._internalStructure.leftLeg;
 
-        this.setWalkSpeed(this._walkSpeed);
+        this.setMaxWalkSpeed(
+            Math.floor(400 / this._tonnage)
+        )
+
+        this.setWalkSpeed(
+            this._walkSpeed > this._maxWalkSpeed ?
+            this._maxWalkSpeed :
+            this._walkSpeed
+        );
+        
         this._calc();
 
         return this._tonnage;
@@ -5083,7 +5127,7 @@ export class BattleMech {
         let rv = 0;
 
 
-        rv += this._internalStructure.head;
+        rv += 9; // head
 
         rv += this._internalStructure.centerTorso * 2;
         rv += this._internalStructure.leftTorso * 4;
@@ -7155,8 +7199,33 @@ export class BattleMech {
             }
 
 
+            // Check to see if it's inner sphere case and make sure that it's going to be assigned to a torso
+            if( item && item.tag.startsWith( "case" ) && this.getTech().tag === "is" ) {
+                if ( 
+                    toLocTag !== "lt" &&
+                    toLocTag !== "ct" &&
+                    toLocTag !== "rt"
+                ) {
+                    return false;
+                }
+            }
+
+            // Check to see if it's a melee weapon, and make sure it's going into an arm with a hand actuator
+            if( item && item?.tag.startsWith( "melee" ) ) {
+                if (
+                    ( this.isQuad() ) || // Quads have no arms
+                    ( toLocTag !== "la" && toLocTag !== "ra" ) ||
+                    ( toLocTag === "la" && !this.hasHandActuator( "la" ) ) ||
+                    ( toLocTag === "ra" && !this.hasHandActuator( "ra" ) )
+                ) {
+                    return false;
+                }
+            }
+
             fromItem.loc = toLocTag;
             fromItem.slot = toIndex;
+
+
             toLocation[toIndex] = JSON.parse(JSON.stringify(fromItem));
 
             toLocation[toIndex].size = toSize;
@@ -7166,7 +7235,6 @@ export class BattleMech {
 
 
             if( removeFrom ) {
-
                 fromLocation[fromIndex] = null;
                 let nextCounter = 1;
                 let theItem = fromLocation[fromIndex + nextCounter];
@@ -7301,6 +7369,21 @@ export class BattleMech {
         return false;
     };
 
+    private _clearArmMeleeCriticalAllocation() {
+        for( let localCount = this._criticalAllocationTable.length; localCount >= 0; localCount--) {
+            let item = this._criticalAllocationTable[localCount]
+            if(
+                    item && 
+                    (item.loc === "ra" || item.loc === "la" ) &&
+                    item.tag.startsWith("melee")
+                )
+            {
+                this._criticalAllocationTable.splice(localCount, 1);
+            }
+        }
+        this._calc()
+    }
+
     private _clearArmCriticalAllocationTable() {
         for( let localCount = this._criticalAllocationTable.length; localCount >= 0; localCount--) {
             if(
@@ -7431,26 +7514,70 @@ export class BattleMech {
         return returnValue;
     }
 
+    public getAvailableInternalStructureTypes(): IInternalStructure [] {
+        let returnValue: IInternalStructure[] = [];
+
+        for( let internalStructure of mechInternalStructureTypes) {
+            internalStructure.available = this._itemIsAvailable( 
+                internalStructure.introduced, 
+                internalStructure.extinct, 
+                internalStructure.reintroduced
+            );
+
+            returnValue.push( internalStructure );
+        }
+        return returnValue;
+
+    }
+
     private _itemIsAvailable(
         introduced: number,
         extinct: number,
         reintroduced: number
     ): boolean {
-        if( introduced <= this._era.yearStart ) {
-            if( extinct > 0 && extinct <= this._era.yearEnd ) {
-                // item extinct, check to see if it was reintroduced
-                if( reintroduced > 0 && reintroduced <= this._era.yearEnd ) {
-                    return true;
-                }
-            } else {
-                if( extinct === 0 ) {
-                    return true;
-                }
-            }
+        // if( introduced <= this._era.yearStart ) {
+        //     if( extinct > 0 && extinct <= this._era.yearEnd ) {
+        //         // item extinct, check to see if it was reintroduced
+        //         if( reintroduced > 0 && reintroduced <= this._era.yearEnd ) {
+        //             return true;
+        //         }
+        //     } else {
+        //         if( extinct === 0 ) {
+        //             return true;
+        //         }
+        //     }
+        // }
+
+        // return false;
+
+        // 2026-03-22 Dvae: this was very confusing, and didn't seem to produce
+        // correct results.  For example, the hatchet was introduced in 3032 and
+        // and never went extinct, but didn't appear in the "Late Succession War"
+        // period that ran from 3020 - 3049.  But when I made a new "3025" era,
+        // it did appear.
+
+        // So I re-wrote it in a simpler fashion, with three checks for true.
+        // It makes things nice and clear, and hatchets now show up in the 
+        // 3020 - 3049 era.
+
+        // Left the og code commented out above just in case I missed something.
+
+        if( (!extinct && introduced <= this._era.yearEnd) ||  
+            // it was introduced before the end of this era, and never went
+            // extinct, or
+
+            (extinct && reintroduced && reintroduced <= this._era.yearEnd) ||
+            // it went extinct, but was reintroduced before the end of this era,
+            // or
+
+            (extinct > this._era.yearStart)
+            // it went extinct after the start of this era
+        )          
+        {
+            return true;
         }
 
         return false;
-
     }
 
     public allocateArmorClear() {
@@ -7489,20 +7616,20 @@ export class BattleMech {
             if( headArmor > 9)
                 headArmor = 9;
             if( totalArmor >= headArmor) {
-               this.setHeadArmor(headArmor);
-               totalArmor -= headArmor;
+                this.setHeadArmor(headArmor);
+                totalArmor -= headArmor;
             } else {
                 this.setHeadArmor(0);
             }
         }
 
         if( totalArmor > torsoArmor) {
-           this.setRightTorsoArmor( torsoArmor );
-           totalArmor -= torsoArmor;
+            this.setRightTorsoArmor( torsoArmor );
+            totalArmor -= torsoArmor;
         }
 
         if( totalArmor > rearArmor) {
-           this.setRightTorsoRearArmor( rearArmor );
+            this.setRightTorsoRearArmor( rearArmor );
             totalArmor -= rearArmor;
         }
 
@@ -7512,7 +7639,7 @@ export class BattleMech {
         }
         if( totalArmor > rearArmor) {
             this.setLeftTorsoRearArmor( rearArmor );
-           totalArmor -= rearArmor;
+            totalArmor -= rearArmor;
         }
 
         if( totalArmor > legArmor) {
@@ -7521,22 +7648,22 @@ export class BattleMech {
         }
 
         if( totalArmor > legArmor) {
-           this.setLeftLegArmor( legArmor );
-           totalArmor -= legArmor;
+            this.setLeftLegArmor( legArmor );
+            totalArmor -= legArmor;
         }
 
         if( totalArmor > armArmor) {
             this.setRightArmArmor( armArmor );
-           totalArmor -= armArmor;
+            totalArmor -= armArmor;
         }
         if( totalArmor > armArmor) {
-           this.setLeftArmArmor( armArmor );
-           totalArmor -= armArmor;
+            this.setLeftArmArmor( armArmor );
+            totalArmor -= armArmor;
         }
 
         if( totalArmor > rearArmor) {
-           this.setCenterTorsoRearArmor( centerTorsoArmorRear );
-           totalArmor -= rearArmor;
+            this.setCenterTorsoRearArmor( centerTorsoArmorRear );
+            totalArmor -= rearArmor;
         }
 
         this.setCenterTorsoArmor( centerTorsoArmor ); // everything else goes to center torso! :)

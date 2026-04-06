@@ -2,7 +2,6 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { btEraOptions } from '../../../../data/era-options';
-import { mechInternalStructureTypes } from '../../../../data/mech-internal-structure-types';
 import { btMechTonnages } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { btTechOptions } from '../../../../data/tech-options';
@@ -209,11 +208,24 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               value={this.props.appGlobals.currentBattleMech.getInternalStructureType()}
                               onChange={this.updateStructureType}
                             >
-                            {mechInternalStructureTypes.map( (option) => {
-                              return (
-                                <option key={option.tag} value={option.tag}>{option.name}</option>
-                              )
-                            })}
+
+                              {this.props.appGlobals.currentBattleMech.getAvailableInternalStructureTypes().map( 
+                                (iSData, iSIndex) => {
+                                  if( iSData.available ) {
+                                    return (
+                                      <option key={iSIndex} value={iSData.tag}>{iSData.name}</option>
+                                    )
+                                  } else {
+                                    if( this.props.appGlobals.currentBattleMech &&  !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
+                                      return (
+                                        <option disabled={true} key={iSIndex} value={iSData.tag}>{iSData.name}</option>
+                                      )
+                                    } else {
+                                      return <React.Fragment key={iSIndex}></React.Fragment>
+                                    }
+                                  }
+                                })}
+
                             </select>
                           </label>
 

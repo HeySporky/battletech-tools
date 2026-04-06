@@ -1078,7 +1078,7 @@ export class AlphaStrikeUnit {
             }
         }
 
-        if( typeof( this.roundEngineHits ) === "undefined"  || this.roundEngineHits. length !== this.engineHits.length ) {
+        if( typeof( this.roundEngineHits ) === "undefined"  || this.roundEngineHits.length !== this.engineHits.length ) {
             this.roundEngineHits = [];
             for( let engineHitsCount = 0; engineHitsCount < 2; engineHitsCount++) {
                 this.roundEngineHits.push( false );
@@ -1246,7 +1246,7 @@ export class AlphaStrikeUnit {
                     let damage = 0;
                     let minimal = false;
                     let dash = false;
-                    if (damageValue == "-") {
+                    if (damageValue === "-") {
                         dash = true;
                     } else {
                         [damage, minimal] = this.calculateDamage(+damageValue, currentWeaponHits, damageValue === "0*");
@@ -1585,7 +1585,7 @@ export class AlphaStrikeUnit {
         if (minimal === false) {
             damage = (+damage - weaponHits);
             // If weapon damage is now 0, and there are still hits, we have hit the minimal damage threshold
-            if (damage == 0 && weaponHits > 0) {
+            if (damage === 0 && weaponHits > 0) {
                 minimal = true;
             } else if (damage < 0) {
                 damage = 0;
@@ -1676,48 +1676,56 @@ export class AlphaStrikeUnit {
                 this.currentArmor[pointIndex] = !this.currentArmor[pointIndex];
                 this.roundArmor[pointIndex] = false;
             }
+            return []
         })
         this.roundStructure.map( (point, pointIndex) => {
             if (point) {
                 this.currentStructure[pointIndex] = !this.currentStructure[pointIndex];
                 this.roundStructure[pointIndex] = false;
             }
+            return []
         })
         this.roundEngineHits.map( (point, pointIndex) => {
             if (point) {
                 this.engineHits[pointIndex] = !this.engineHits[pointIndex];
                 this.roundEngineHits[pointIndex] = false;
             }
+            return []
         })
         this.roundFireControlHits.map( (point, pointIndex) => {
             if (point) {
                 this.fireControlHits[pointIndex] = !this.fireControlHits[pointIndex];
                 this.roundFireControlHits[pointIndex] = false;
             }
+            return []
         })
         this.roundMpControlHits.map( (point, pointIndex) => {
             if (point) {
                 this.mpControlHits[pointIndex] = !this.mpControlHits[pointIndex];
                 this.roundMpControlHits[pointIndex] = false;
             }
+            return []
         })
         this.roundWeaponHits.map( (point, pointIndex) => {
             if (point) {
                 this.weaponHits[pointIndex] = !this.weaponHits[pointIndex];
                 this.roundWeaponHits[pointIndex] = false;
             }
+            return []
         })
         this.roundVehicleMotive910.map( (point, pointIndex) => {
             if (point) {
                 this.vehicleMotive910[pointIndex] = !this.vehicleMotive910[pointIndex];
                 this.roundVehicleMotive910[pointIndex] = false;
             }
+            return []
         })
         this.roundVehicleMotive11.map( (point, pointIndex) => {
             if (point) {
                 this.vehicleMotive11[pointIndex] = !this.vehicleMotive11[pointIndex];
                 this.roundVehicleMotive11[pointIndex] = false;
             }
+            return []
         })
         if (this.roundVehicleMotive12) {
             this.vehicleMotive12 = !this.vehicleMotive12;

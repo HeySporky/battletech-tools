@@ -154,7 +154,8 @@ export async function getMULASSearchResults(
             let match;
             
             // Range syntax: field:min-max
-            if (match = term.match(/^(\w+):(\d+)-(\d+)$/)) {
+            match = term.match(/^(\w+):(\d+)-(\d+)$/)
+            if (match) {
                 const [, field, minStr, maxStr] = match;
                 const min = parseInt(minStr);
                 const max = parseInt(maxStr);
@@ -190,7 +191,8 @@ export async function getMULASSearchResults(
             }
             
             // Enhanced comparison operators: field>=value, field<=value, field!=value
-            if (match = term.match(/^(\w+)(>=|<=|!=|>|<|=)(.+)$/)) {
+            match = term.match(/^(\w+)(>=|<=|!=|>|<|=)(.+)$/)
+            if (match) {
                 const [, field, op, valueStr] = match;
                 const val = parseInt(valueStr);
                 

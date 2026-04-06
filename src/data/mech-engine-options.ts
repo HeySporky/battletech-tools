@@ -6,7 +6,7 @@ import { IEngineOption } from "./data-interfaces";
 
 export const mechEngineOptions: IEngineOption[] = [
 	{
-		name: "10",
+		name: "Omni",
 		rating: 10,
 		weight: {
 			ice: 1.0,
@@ -19,7 +19,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "15",
+		name: "GM",
 		rating: 15,
 		weight: {
 			ice: 1.0,
@@ -32,7 +32,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "20",
+		name: "Pitban",
 		rating: 20,
 		weight: {
 			ice: 1.0,
@@ -45,7 +45,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "25",
+		name: "Omni",
 		rating: 25,
 		weight: {
 			ice: 1.0,
@@ -58,7 +58,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "30",
+		name: "Nissan",
 		rating: 30,
 		weight: {
 			ice: 2.0,
@@ -71,7 +71,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "35",
+		name: "VOX",
 		rating: 35,
 		weight: {
 			ice: 2,
@@ -84,7 +84,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "40",
+		name: "GM",
 		rating: 40,
 		weight: {
 			ice: 2,
@@ -97,7 +97,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "45",
+		name: "GM",
 		rating: 45,
 		weight: {
 			ice: 2,
@@ -110,7 +110,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "50",
+		name: "DAV",
 		rating: 50,
 		weight: {
 			ice: 3,
@@ -123,7 +123,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "55",
+		name: "VOX",
 		rating: 55,
 		weight: {
 			ice: 3,
@@ -136,7 +136,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "60",
+		name: "Leenex",
 		rating: 60,
 		weight: {
 			ice: 3,
@@ -149,7 +149,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "65",
+		name: "Nissan",
 		rating: 65,
 		weight: {
 			ice: 4,
@@ -162,7 +162,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "70",
+		name: "Omni",
 		rating: 70,
 		weight: {
 			ice: 4,
@@ -175,7 +175,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "75",
+		name: "GM",
 		rating: 75,
 		weight: {
 			ice: 4,
@@ -188,7 +188,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "80",
+		name: "VOX",
 		rating: 80,
 		weight: {
 			ice: 5,
@@ -201,7 +201,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "85",
+		name: "DAV",
 		rating: 85,
 		weight: {
 			ice: 5,
@@ -214,7 +214,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "90",
+		name: "DAV",
 		rating: 90,
 		weight: {
 			ice: 6,
@@ -227,7 +227,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "95",
+		name: "Nissan",
 		rating: 95,
 		weight: {
 			ice: 6,
@@ -240,7 +240,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "100",
+		name: "Hermes",
 		rating: 100,
 		weight: {
 			ice: 6,
@@ -253,7 +253,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "105",
+		name: "DAV",
 		rating: 105,
 		weight: {
 			ice: 7,
@@ -266,7 +266,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "110",
+		name: "GM",
 		rating: 110,
 		weight: {
 			ice: 7.0,
@@ -279,7 +279,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "115",
+		name: "GM",
 		rating: 115,
 		weight: {
 			ice: 7.0,
@@ -292,7 +292,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "120",
+		name: "GM",
 		rating: 120,
 		weight: {
 			ice: 8,
@@ -305,7 +305,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "125",
+		name: "Vlar",
 		rating: 125,
 		weight: {
 			ice: 8,
@@ -318,7 +318,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "130",
+		name: "Magna",
 		rating: 130,
 		weight: {
 			ice: 9,
@@ -331,7 +331,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "135",
+		name: "Hermes",
 		rating: 135,
 		weight: {
 			ice: 9,
@@ -344,7 +344,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "140",
+		name: "Leenex",
 		rating: 140,
 		weight: {
 			ice: 10,
@@ -357,7 +357,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "145",
+		name: "Omni",
 		rating: 145,
 		weight: {
 			ice: 10,
@@ -370,7 +370,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "150",
+		name: "GM",
 		rating: 150,
 		weight: {
 			ice: 11,
@@ -383,7 +383,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "155",
+		name: "GM",
 		rating: 155,
 		weight: {
 			ice: 11,
@@ -396,7 +396,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "160",
+		name: "LTV",
 		rating: 160,
 		weight: {
 			ice: 12,
@@ -409,7 +409,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "165",
+		name: "VOX",
 		rating: 165,
 		weight: {
 			ice: 12,
@@ -422,7 +422,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "170",
+		name: "DAV",
 		rating: 170,
 		weight: {
 			ice: 12,
@@ -435,7 +435,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "175",
+		name: "Omni",
 		rating: 175,
 		weight: {
 			ice: 14,
@@ -448,7 +448,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "180",
+		name: "GM",
 		rating: 180,
 		weight: {
 			ice: 14,
@@ -461,7 +461,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "185",
+		name: "GM",
 		rating: 185,
 		weight: {
 			ice: 15,
@@ -474,7 +474,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "190",
+		name: "DAV",
 		rating: 190,
 		weight: {
 			ice: 15,
@@ -487,7 +487,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "195",
+		name: "Nissan",
 		rating: 195,
 		weight: {
 			ice: 16,
@@ -500,7 +500,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "200",
+		name: "Nissan",
 		rating: 200,
 		weight: {
 			ice: 17.0,
@@ -513,7 +513,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "205",
+		name: "Vlar",
 		rating: 205,
 		weight: {
 			ice: 17.0,
@@ -526,7 +526,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "210",
+		name: "GM",
 		rating: 210,
 		weight: {
 			ice: 18,
@@ -539,7 +539,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "215",
+		name: "Core Tek",
 		rating: 215,
 		weight: {
 			ice: 18,
@@ -552,7 +552,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "220",
+		name: "DAV",
 		rating: 220,
 		weight: {
 			ice: 20,
@@ -565,7 +565,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "225",
+		name: "VOX",
 		rating: 225,
 		weight: {
 			ice: 20,
@@ -578,7 +578,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "230",
+		name: "Leenex",
 		rating: 230,
 		weight: {
 			ice: 21,
@@ -591,7 +591,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "235",
+		name: "GM",
 		rating: 235,
 		weight: {
 			ice: 22,
@@ -604,7 +604,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "240",
+		name: "Pitban",
 		rating: 240,
 		weight: {
 			ice: 23,
@@ -617,20 +617,20 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "245",
+		name: "Magna",
 		rating: 245,
 		weight: {
 			ice: 24,
 			cell: 14.5,
-			fission: 5,
-			comp: 1,
-			standard: 0.5,
-			light: 0.5,
-			xl: 0.5
+			fission: 21,
+			comp: 18,
+			standard: 12,
+			light: 9,
+			xl: 6
 		}
 	},
 	{
-		name: "250",
+		name: "Magna",
 		rating: 250,
 		weight: {
 			ice: 25,
@@ -643,7 +643,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "255",
+		name: "Strand",
 		rating: 255,
 		weight: {
 			ice: 26,
@@ -656,7 +656,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "260",
+		name: "Magna",
 		rating: 260,
 		weight: {
 			ice: 27,
@@ -669,7 +669,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "265",
+		name: "Vlar",
 		rating: 265,
 		weight: {
 			ice: 28,
@@ -682,7 +682,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "270",
+		name: "GM",
 		rating: 270,
 		weight: {
 			ice: 29,
@@ -695,7 +695,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "275",
+		name: "Core Tek",
 		rating: 275,
 		weight: {
 			ice: 31,
@@ -708,7 +708,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "280",
+		name: "Vox",
 		rating: 280,
 		weight: {
 			ice: 32,
@@ -721,7 +721,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "285",
+		name: "Pitban",
 		rating: 285,
 		weight: {
 			ice: 33,
@@ -734,7 +734,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "290",
+		name: "Omni",
 		rating: 290,
 		weight: {
 			ice: 35,
@@ -747,7 +747,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "295",
+		name: "GM",
 		rating: 295,
 		weight: {
 			ice: 36,
@@ -760,7 +760,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "300",
+		name: "Vlar",
 		rating: 300,
 		weight: {
 			ice: 38,
@@ -773,7 +773,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "305",
+		name: "GM",
 		rating: 305,
 		weight: {
 			ice: 39,
@@ -786,7 +786,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "310",
+		name: "Magna",
 		rating: 310,
 		weight: {
 			ice: 41,
@@ -799,7 +799,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "315",
+		name: "GM",
 		rating: 315,
 		weight: {
 			ice: 43,
@@ -812,7 +812,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "320",
+		name: "Pitban",
 		rating: 320,
 		weight: {
 			ice: 45,
@@ -825,7 +825,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "325",
+		name: "VOX",
 		rating: 325,
 		weight: {
 			ice: 47,
@@ -838,7 +838,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "330",
+		name: "VOX",
 		rating: 330,
 		weight: {
 			ice: 49,
@@ -851,7 +851,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "335",
+		name: "Leenex",
 		rating: 335,
 		weight: {
 			ice: 51,
@@ -864,7 +864,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "340",
+		name: "VOX",
 		rating: 340,
 		weight: {
 			ice: 54,
@@ -877,7 +877,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "345",
+		name: "Vlar",
 		rating: 345,
 		weight: {
 			ice: 57,
@@ -890,7 +890,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "350",
+		name: "Magna",
 		rating: 350,
 		weight: {
 			ice: 59,
@@ -903,7 +903,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "355",
+		name: "LTV",
 		rating: 355,
 		weight: {
 			ice: 63,
@@ -916,7 +916,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "360",
+		name: "Hermes",
 		rating: 360,
 		weight: {
 			ice: 66,
@@ -929,7 +929,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "365",
+		name: "Hermes",
 		rating: 365,
 		weight: {
 			ice: 69,
@@ -942,7 +942,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "370",
+		name: "Magna",
 		rating: 370,
 		weight: {
 			ice: 73,
@@ -955,7 +955,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "375",
+		name: "GM",
 		rating: 375,
 		weight: {
 			ice: 77,
@@ -968,7 +968,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "380",
+		name: "GM",
 		rating: 380,
 		weight: {
 			ice: 82,
@@ -981,7 +981,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "385",
+		name: "LTV",
 		rating: 385,
 		weight: {
 			ice: 87,
@@ -994,7 +994,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "390",
+		name: "Magna",
 		rating: 390,
 		weight: {
 			ice: 92,
@@ -1007,7 +1007,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "395",
+		name: "Hermes",
 		rating: 395,
 		weight: {
 			ice: 98,
@@ -1020,7 +1020,7 @@ export const mechEngineOptions: IEngineOption[] = [
 		}
 	},
 	{
-		name: "400",
+		name: "LTV",
 		rating: 400,
 		weight: {
 			ice: 105.5,

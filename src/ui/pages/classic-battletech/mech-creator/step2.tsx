@@ -7,6 +7,7 @@ import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { makeRange } from "../../../../utils/makeRange";
 import './home.scss';
 
 export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeState> {
@@ -83,7 +84,7 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                 onChange={this.setWalkingMP}
                               >
                                 <option value={0}>-Select Walking Speed-</option>
-                                {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map( (option) => {
+                                {makeRange(1,20).map( (option) => {
                                 return (
                                   <option key={option} value={option}>{option} MP</option>
                                 )
@@ -98,7 +99,7 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                 onChange={this.setJumpingMP}
                               >
                                 <option value={0}>-Select Jumping Speed-</option>
-                                {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map( (option) => {
+                                {makeRange(1,20).map( (option) => {
                                 return (
                                   <option key={option} value={option}>{option} MP</option>
                                 )

@@ -25,7 +25,7 @@ import Error404 from "./pages/error404";
 import Home from "./pages/home";
 import SettingsRouter from "./pages/settings/_router";
 import SSWSanityCheck from "./pages/ssw-sanity-check";
-import { IAlphaStrikeMPDeploymentSet, IAlphaStrikeMPDeployment, getDeploymentById, generateScenarioDeployments } from "../data/alpha-strike-mp-deployments";
+import { IAlphaStrikeMPDeployment} from "../data/alpha-strike-mp-deployments";
 import { IAlphaStrikeMPScenario} from "../data/alpha-strike-mp-scenarios";
 import { IAlphaStrikeMPTerrain } from "../data/alpha-strike-mp-terrain";
 // import init, { AlphaStrikeUnit, add_testing, MULUnit } from "btlibs";

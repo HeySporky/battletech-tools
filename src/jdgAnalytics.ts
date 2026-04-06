@@ -1,4 +1,4 @@
-const propertyID = 1;
+// const propertyID = 1;
 
 export function callAnalytics(
     window: any,

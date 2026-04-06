@@ -72,7 +72,9 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                                 onChange={this.setHeatSinkType}
                               >
                                 <option value="single">Single</option>
-                                <option value="double">Double</option>
+                                {//Only 3025 doesn't get double heatsinks, so just hardcoding it here
+                                (this.props.appGlobals.currentBattleMech.getEra().name !== "3025") &&
+                                <option value="double">Double</option>}
 
                               </select>
                             </label>

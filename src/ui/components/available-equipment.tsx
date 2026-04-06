@@ -130,8 +130,15 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                                     >
                                         <td>{item.name}</td>
                                         <td>{item.category}</td>
-                                        <td>{item.criticals}</td>
-                                        <td>{item.weight}</td>
+                                        <td>{item.criticalsDivisor ? 
+                                                Math.ceil( ( this.props.appGlobals.currentBattleMech?.getTonnage() || 0 ) / 
+                                                item.criticalsDivisor ) : 
+                                                item.criticals}</td>
+                                        <td>{item.weightDivisor ? 
+                                                Math.ceil( ( this.props.appGlobals.currentBattleMech?.getTonnage() || 0 ) / 
+                                                item.weightDivisor ) : 
+                                                item.weight}</td>
+
                                         <td>
                                             <button
                                                 className="btn btn-primary btn-md"

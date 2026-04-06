@@ -155,7 +155,7 @@ export default class HeatTrackSVG extends React.Component<IHeatTrackSVGProps, IH
                     key={hCounter.toString() + "d"}
                         x={this.props.xLoc + 43}
                         y={this.props.yLoc + 83 + boxHeight * hCounter}
-                        textAnchor="right"
+                        textAnchor="end"
                         fontFamily="sans-serif"
                         fill={this.strokeColor}
                         style={{fontWeight: 100}}

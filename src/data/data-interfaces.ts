@@ -1,4 +1,3 @@
-import { string } from "prop-types";
 import { IClusterHit } from "../classes/battlemech";
 
 export interface IArmorType {
@@ -229,6 +228,7 @@ export interface IInternalStructure {
     introduced: number;
     extinct: number;
     reintroduced: number;
+    available?: boolean;
 }
 
 export interface IJumpJet {
