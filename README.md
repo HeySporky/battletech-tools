@@ -31,6 +31,7 @@ PWA Application using Typescript and React
 ### Current Contributors
 
 [Spork](https://github.com/HeySporky)
+[NGCFells](https://github.com/NGCFells)
 
 
 ### Previous Contributors
