@@ -212,20 +212,39 @@ export interface IInternalStructurePerTon {
     tonnage: number;
     head: number;
     centerTorso: number;
-    rlTorso: number;
-    rlArm: number;
-    rlLeg: number;
+	// Spliting the old 'rlTorso' into individual sides for clarity
+    leftTorso: number;
+	rightTorso:number;
+	// Making arms optional to fully support Quads (which lack arms entirely) as well as some Bipeds and Tripods
+	leftArm?: number;
+    rightArm?: number;
+	// Core biped legs or rear legs for Quads
+    leftLeg: number;
+	rightLeg: number;
+	// New conditional limbs to expand anatomy models dynamically
+  	centerLeg?: number;     // Used by Tripods (e.g., Hedgehog, Ares)
+  	frontLeftLeg?: number;  // Used by Quads instead of arms
+  	frontRightLeg?: number; // Used by Quads instead of arms
 }
 
 export interface IInternalStructure {
     name: string;
     tag: string;
     crits: {
-        [key: string]: number;
-    },
-    perTon: {[key: number]: IInternalStructurePerTon};
-
-    cost: number;
+        clan: number;
+		is: number;
+    };
+	cost: number;
+	
+    // Replaces the old 'perTon: Record<number, IInternalStructurePerTon>' mapping
+  	// to separate structural logic neatly by the core Mech configurations
+  	perMechType: {
+    	biped: Record<number, IInternalStructurePerTon>;
+    	quad: Record<number, IInternalStructurePerTon>;
+    	tripod: Record<number, IInternalStructurePerTon>;
+		// LAMs follow Biped structure but have unique tonnage limits (max 55 tons) and component rules
+    	lam: Record<number, IInternalStructurePerTon>;
+  	};
     introduced: number;
     extinct: number;
     reintroduced: number;
