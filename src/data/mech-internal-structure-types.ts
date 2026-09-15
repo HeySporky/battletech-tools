@@ -13,6 +13,22 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
 		},
 
 		perTon: {
+			10: {
+				tonnage: 1,
+				head: 3,
+				centerTorso: 4,
+				rlTorso: 3,
+				rlArm: 1,
+				rlLeg: 2
+			},
+			15: {
+				tonnage: 1.5,
+				head: 3,
+				centerTorso: 5,
+				rlTorso: 4,
+				rlArm: 2,
+				rlLeg: 2
+			},
 			20: {
 				tonnage: 2,
 				head: 3,
