@@ -7,6 +7,14 @@ export interface IMechTonnage {
  */
 export const btMechTonnages = [
     {
+        tons: 10,
+        type: "Ultralight",
+    },
+    {
+        tons: 15,
+        type: "Ultralight",
+    },
+    {
         tons: 20,
         type: "Light",
     },
@@ -71,7 +79,87 @@ export const btMechTonnages = [
         type: "Assault",
     },
     {
-        tons: 100,
+        tons: 105,
         type: "Assault",
     },
+    {
+        tons: 110,
+        type: "Assault",
+    },
+    {
+        tons: 115,
+        type: "Colossal",
+    },
+    {
+        tons: 120,
+        type: "Colossal",
+    },
+    {
+        tons: 125,
+        type: "Colossal",
+    },
+    {
+        tons: 130,
+        type: "Colossal",
+    },
+    {
+        tons: 135,
+        type: "Colossal",
+    },
+    {
+        tons: 140,
+        type: "Colossal",
+    },
+    {
+        tons: 145,
+        type: "Colossal",
+    },
+    {
+        tons: 150,
+        type: "Colossal",
+    },
+    {
+        tons: 155,
+        type: "Colossal",
+    },
+    {
+        tons: 160,
+        type: "Colossal",
+    },
+    {
+        tons: 165,
+        type: "Colossal",
+    },
+    {
+        tons: 170,
+        type: "Colossal",
+    },
+    {
+        tons: 175,
+        type: "Colossal",
+    },
+    {
+        tons: 180,
+        type: "Colossal",
+    },
+    {
+        tons: 105,
+        type: "Colossal",
+    },
+    {
+        tons: 185,
+        type: "Colossal",
+    },
+    {
+        tons: 190,
+        type: "Colossal",
+    },
+    {
+        tons: 195,
+        type: "Colossal",
+    },
+    {
+        tons: 200,
+        type: "Colossal",
+    } 
 ]
