@@ -10,7 +10,8 @@ export const mechJumpJetTypes: IJumpJet[] = [
 		weight_multiplier: {
 			light: 0.5,
 			medium: 1,
-			heavy: 2
+			heavy: 2,
+			superheavy: 4
 		},
 		criticals: 1,
 		costMultiplier: 200,
@@ -25,7 +26,8 @@ export const mechJumpJetTypes: IJumpJet[] = [
 		weight_multiplier: {
 			light: 1,
 			medium: 2,
-			heavy: 4
+			heavy: 4,
+			superheavy: 8
 		},
 		criticals: 2,
 		costMultiplier: 500,
