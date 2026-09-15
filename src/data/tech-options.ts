@@ -8,12 +8,22 @@ export const btTechOptions: ITechOptions[] = [
 	{
 		id: 1,
 		tag: "is",
-		name: 'Inner Sphere',
+		name: 'Inner Sphere'
 	},
 	{
 		id: 2,
 		tag: "clan",
-		name: 'Clan',
+		name: 'Clan'
+	},
+	{
+		id: 3,
+		tag: "mis",
+		name: 'Mixed - IS Base'
+	},
+	{
+		id: 4,
+		tag: "mclan",
+		name: 'Mixed - Clan Base',
 	}
 ];
 
