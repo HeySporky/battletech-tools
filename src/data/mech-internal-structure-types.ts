@@ -1,327 +1,196 @@
-import { IInternalStructure } from "./data-interfaces";
+import { IInternalStructure, IInternalStucturePerTon } from "./data-interfaces";
 
 /*
  * The data here is/may be copyrighted and NOT included in the GPLv3 license.
  */
-export const mechInternalStructureTypes: IInternalStructure[] = [
-	{
-		name: "Standard",
-		tag: "standard",
-		crits: {
-			clan: 0,
-			is: 0
-		},
 
-		perTon: {
-			10: {
-				tonnage: 1,
-				head: 3,
-				centerTorso: 4,
-				rlTorso: 3,
-				rlArm: 1,
-				rlLeg: 2
-			},
-			15: {
-				tonnage: 1.5,
-				head: 3,
-				centerTorso: 5,
-				rlTorso: 4,
-				rlArm: 2,
-				rlLeg: 2
-			},
-			20: {
-				tonnage: 2,
-				head: 3,
-				centerTorso: 6,
-				rlTorso: 5,
-				rlArm: 3,
-				rlLeg: 4
-			},
-			25: {
-				tonnage: 2.5,
-				head: 3,
-				centerTorso: 8,
-				rlTorso: 6,
-				rlArm: 4,
-				rlLeg: 6
-			},
-			30: {
-				tonnage: 3,
-				head: 3,
-				centerTorso: 10,
-				rlTorso: 7,
-				rlArm: 5,
-				rlLeg: 7
-			},
-			35: {
-				tonnage: 3.5,
-				head: 3,
-				centerTorso: 11,
-				rlTorso: 8,
-				rlArm: 6,
-				rlLeg: 8
-			},
-			40: {
-				tonnage: 4,
-				head: 3,
-				centerTorso: 12,
-				rlTorso: 10,
-				rlArm: 6,
-				rlLeg: 10
-			},
-			45: {
-				tonnage: 4.5,
-				head: 3,
-				centerTorso: 14,
-				rlTorso: 11,
-				rlArm: 7,
-				rlLeg: 11
-			},
-			50: {
-				tonnage: 5,
-				head: 3,
-				centerTorso: 16,
-				rlTorso: 12,
-				rlArm: 8,
-				rlLeg: 12
-			},
-			55: {
-				tonnage: 5.5,
-				head: 3,
-				centerTorso: 18,
-				rlTorso: 13,
-				rlArm: 9,
-				rlLeg: 13
-			},
-			60: {
-				tonnage: 6,
-				head: 3,
-				centerTorso: 20,
-				rlTorso: 14,
-				rlArm: 10,
-				rlLeg: 14
-			},
-			65: {
-				tonnage: 6.5,
-				head: 3,
-				centerTorso: 21,
-				rlTorso: 15,
-				rlArm: 10,
-				rlLeg: 15
-			},
-			70: {
-				tonnage: 7,
-				head: 3,
-				centerTorso: 22,
-				rlTorso: 15,
-				rlArm: 11,
-				rlLeg: 15
-			},
-			75: {
-				tonnage: 7.5,
-				head: 3,
-				centerTorso: 23,
-				rlTorso: 16,
-				rlArm: 12,
-				rlLeg: 16
-			},
-			80: {
-				tonnage: 8,
-				head: 3,
-				centerTorso: 25,
-				rlTorso: 17,
-				rlArm: 13,
-				rlLeg: 17
-			},
-			85: {
-				tonnage: 8.5,
-				head: 3,
-				centerTorso: 27,
-				rlTorso: 18,
-				rlArm: 14,
-				rlLeg: 18
-			},
-			90: {
-				tonnage: 9,
-				head: 3,
-				centerTorso: 29,
-				rlTorso: 19,
-				rlArm: 15,
-				rlLeg: 19
-			},
-			95: {
-				tonnage: 9.5,
-				head: 3,
-				centerTorso: 30,
-				rlTorso: 20,
-				rlArm: 16,
-				rlLeg: 20
-			},
-			100: {
-				tonnage: 10,
-				head: 3,
-				centerTorso: 31,
-				rlTorso: 21,
-				rlArm: 17,
-				rlLeg: 21
-			}
-		},
+// Defining the 10-100 ton Bipeds here.
+const baselineBipedData: Record<number, any> = {
+  //Ultralights
+  10: {head: 3, ct: 4, torso: 3, arm: 1, leg: 2},
+  15: { head: 3, ct: 5, torso: 4, arm: 2, leg: 3 },
+  // Lights
+  20: { head: 3, ct: 6, torso: 5, arm: 3, leg: 4 },
+  25: { head: 3, ct: 8, torso: 6, arm: 4, leg: 5 },
+  30: { head: 3, ct: 10, torso: 7, arm: 5, leg: 7 },
+  35: { head: 3, ct: 11, torso: 8, arm: 6, leg: 8 },
+  // Mediums
+  40: { head: 3, ct: 12, torso: 10, arm: 6, leg: 10 },
+  45: { head: 3, ct: 14, torso: 11, arm: 7, leg: 11 },
+  50: { head: 3, ct: 16, torso: 12, arm: 8, leg: 12 },
+  55: { head: 3, ct: 17, torso: 13, arm: 9, leg: 13 },
+  // Heavies
+  60: { head: 3, ct: 19, torso: 14, arm: 10, leg: 14 },
+  65: { head: 3, ct: 20, torso: 15, arm: 10, leg: 15 },
+  70: { head: 3, ct: 22, torso: 15, arm: 11, leg: 15 },
+  75: { head: 3, ct: 23, torso: 16, arm: 12, leg: 16 },
+  // Assaults
+  80: { head: 3, ct: 25, torso: 17, arm: 13, leg: 17 },
+  85: { head: 3, ct: 27, torso: 18, arm: 14, leg: 18 },
+  90: { head: 3, ct: 29, torso: 19, arm: 15, leg: 19 },
+  95: { head: 3, ct: 30, torso: 20, arm: 16, leg: 20 },
+  100: { head: 3, ct: 31, torso: 21, arm: 17, leg: 21 },
+};
+// Defining the Colossal/Superheavy Master Table (105 to 200 tons)
+const superheavyBipedData: Record<number, any> = {
+  105: { head: 4, ct: 32, torso: 22, arm: 17, leg: 22 },
+  110: { head: 4, ct: 33, torso: 23, arm: 18, leg: 23 },
+  115: { head: 4, ct: 35, torso: 24, arm: 19, leg: 24 },
+  120: { head: 4, ct: 36, torso: 25, arm: 20, leg: 25 },
+  125: { head: 4, ct: 38, torso: 26, arm: 21, leg: 26 },
+  130: { head: 4, ct: 39, torso: 27, arm: 22, leg: 27 },
+  135: { head: 4, ct: 41, torso: 28, arm: 23, leg: 28 },
+  140: { head: 4, ct: 42, torso: 29, arm: 23, leg: 29 },
+  145: { head: 4, ct: 44, torso: 30, arm: 24, leg: 30 },
+  150: { head: 4, ct: 45, torso: 32, arm: 25, leg: 32 },
+  155: { head: 4, ct: 47, torso: 32, arm: 26, leg: 32 },
+  160: { head: 4, ct: 48, torso: 34, arm: 26, leg: 34 },
+  165: { head: 4, ct: 50, torso: 35, arm: 27, leg: 35 },
+  170: { head: 4, ct: 51, torso: 36, arm: 28, leg: 36 },
+  175: { head: 4, ct: 53, torso: 37, arm: 29, leg: 37 },
+  180: { head: 4, ct: 54, torso: 38, arm: 30, leg: 38 },
+  185: { head: 4, ct: 56, torso: 39, arm: 31, leg: 39 },
+  190: { head: 4, ct: 57, torso: 40, arm: 31, leg: 40 },
+  195: { head: 4, ct: 59, torso: 41, arm: 32, leg: 41 },
+  200: { head: 4, ct: 60, torso: 42, arm: 33, leg: 42 },
+};
 
-		cost: 400,
-		introduced: 2470,
-		extinct: 0,
-		reintroduced: 0
-	},
-	{
-		name: "Endo-Steel",
-		tag: "endo-steel",
-		crits: {
-			clan: 7,
-			is: 14
-		},
+// Combine all raw weights
+const allTonnages = { ...baselineBipedData, ...superheavyBipedData };
 
-		perTon: {
-			20: {
-				tonnage: 1,
-				head: 3,
-				centerTorso: 6,
-				rlTorso: 5,
-				rlArm: 3,
-				rlLeg: 4
-			},
-			25: {
-				tonnage: 1.5,
-				head: 3,
-				centerTorso: 8,
-				rlTorso: 6,
-				rlArm: 4,
-				rlLeg: 6
-			},
-			30: {
-				tonnage: 1.5,
-				head: 3,
-				centerTorso: 10,
-				rlTorso: 7,
-				rlArm: 5,
-				rlLeg: 7
-			},
-			35: {
-				tonnage: 2,
-				head: 3,
-				centerTorso: 11,
-				rlTorso: 8,
-				rlArm: 6,
-				rlLeg: 8
-			},
-			40: {
-				tonnage: 2,
-				head: 3,
-				centerTorso: 12,
-				rlTorso: 10,
-				rlArm: 6,
-				rlLeg: 10
-			},
-			45: {
-				tonnage: 2.5,
-				head: 3,
-				centerTorso: 14,
-				rlTorso: 11,
-				rlArm: 7,
-				rlLeg: 11
-			},
-			50: {
-				tonnage: 2.5,
-				head: 3,
-				centerTorso: 16,
-				rlTorso: 12,
-				rlArm: 8,
-				rlLeg: 12
-			},
-			55: {
-				tonnage: 3,
-				head: 3,
-				centerTorso: 18,
-				rlTorso: 13,
-				rlArm: 9,
-				rlLeg: 13
-			},
-			60: {
-				tonnage: 3,
-				head: 3,
-				centerTorso: 20,
-				rlTorso: 14,
-				rlArm: 10,
-				rlLeg: 14
-			},
-			65: {
-				tonnage: 3.5,
-				head: 3,
-				centerTorso: 21,
-				rlTorso: 15,
-				rlArm: 10,
-				rlLeg: 15
-			},
-			70: {
-				tonnage: 3.5,
-				head: 3,
-				centerTorso: 22,
-				rlTorso: 15,
-				rlArm: 11,
-				rlLeg: 15
-			},
-			75: {
-				tonnage: 4,
-				head: 3,
-				centerTorso: 23,
-				rlTorso: 16,
-				rlArm: 12,
-				rlLeg: 16
-			},
-			80: {
-				tonnage: 4,
-				head: 3,
-				centerTorso: 25,
-				rlTorso: 17,
-				rlArm: 13,
-				rlLeg: 17
-			},
-			85: {
-				tonnage: 4.5,
-				head: 3,
-				centerTorso: 27,
-				rlTorso: 18,
-				rlArm: 14,
-				rlLeg: 18
-			},
-			90: {
-				tonnage: 4.5,
-				head: 3,
-				centerTorso: 29,
-				rlTorso: 19,
-				rlArm: 15,
-				rlLeg: 19
-			},
-			95: {
-				tonnage: 5,
-				head: 3,
-				centerTorso: 30,
-				rlTorso: 20,
-				rlArm: 16,
-				rlLeg: 20
-			},
-			100: {
-				tonnage: 5,
-				head: 3,
-				centerTorso: 31,
-				rlTorso: 21,
-				rlArm: 17,
-				rlLeg: 21
-			}
-		},
+// Helper function to populate variants dynamically
+function generateStructuresForType(
+  type: 'biped' | 'quad' | 'tripod' | 'lam' | 'quadvee',
+  rulesLevel: number = 2 // Defaults to Standard/Tournament Legal
+): Record<number, IInternalStructurePerTon> {
+  const result: Record<number, IInternalStructurePerTon> = {};
 
-		cost: 1600,
-		introduced: 2470,
-		extinct: 0,
-		reintroduced: 0
+  Object.keys(allTonnages).forEach((tonStr) => {
+    const ton = parseInt(tonStr);
+    const raw = allTonnages[ton];
+
+	// Standard Biped mapping
+    if (type === 'biped' || type === 'lam') {
+      result[ton] = {
+        tonnage: ton,
+        head: raw.head,
+        centerTorso: raw.ct,
+        leftTorso: raw.torso,
+        rightTorso: raw.torso,
+        leftArm: raw.arm,
+        rightArm: raw.arm,
+        leftLeg: raw.leg,
+        rightLeg: raw.leg,
+      };
 	}
+
+	// Quads and QuadVees share the exact same structural anatomy
+    if (type === 'quad' || type === 'quadvee') {
+      result[ton] = {
+        tonnage: ton,
+        head: raw.head,
+        centerTorso: raw.ct,
+        leftTorso: raw.torso,
+        rightTorso: raw.torso,
+        leftLeg: raw.leg,       // Rear Left Leg
+        rightLeg: raw.leg,      // Rear Right Leg
+        frontLeftLeg: raw.leg,  // Front Left Leg
+        frontRightLeg: raw.leg,  // Front Right Leg
+      };
+    }
+
+	// Tripod mapping (Clones leg parameter a third time to create centerLeg)
+    if (type === 'tripod') {
+      result[ton] = {
+        tonnage: ton,
+        head: raw.head,
+        centerTorso: raw.ct,
+        leftTorso: raw.torso,
+        rightTorso: raw.torso,
+        leftArm: raw.arm,
+        rightArm: raw.arm,
+        leftLeg: raw.leg,
+        rightLeg: raw.leg,
+        centerLeg: raw.leg, // Adds the third leg configuration dynamically!
+      };
+    }
+  });
+export const mechInternalStructureTypes: IInternalStructure[] = [
+  {
+    name: "Standard",
+    tag: "standard",
+    crits: { clan: 0, is: 0 },
+    cost: 400,
+    perMechType: {
+      biped: generateStructuresForType('biped'),
+      quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
+      lam: generateStructuresForType('lam'),
+      quadvee: generateStructuresForType('quadvee'),
+    }
+  },
+  {
+    name: "Endo-Steel",
+    tag: "endo-steel",
+    crits: { clan: 7, is: 14 }, // Halves structure weight
+    cost: 800,
+    perMechType: {
+      biped: generateStructuresForType('biped'),
+      quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
+      lam: generateStructuresForType('lam'),
+      quadvee: generateStructuresForType('quadvee'),
+    }
+  },
+  {
+    name: "Endo-Composite",
+    tag: "endo-composite",
+    crits: { clan: 4, is: 7 }, // Reduces structure weight by 25%
+    cost: 600,
+    perMechType: {
+      biped: generateStructuresForType('biped'),
+      quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
+      lam: generateStructuresForType('lam'),
+      quadvee: generateStructuresForType('quadvee'),
+    }
+  },
+  {
+    name: "Reinforced",
+    tag: "reinforced",
+    crits: { clan: 0, is: 0 }, // Doubles structure weight but adds hit resistance
+    cost: 1200,
+    perMechType: {
+      biped: generateStructuresForType('biped'),
+      quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
+      lam: generateStructuresForType('lam'),
+      quadvee: generateStructuresForType('quadvee'),
+    }
+  },
+  {
+    name: "Industrial",
+    tag: "industrial",
+    crits: { clan: 0, is: 0 }, // Heavily restricts armor types and critical limits
+    cost: 200,
+    perMechType: {
+      biped: generateStructuresForType('biped'),
+      quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
+      lam: generateStructuresForType('lam'),
+      quadvee: generateStructuresForType('quadvee'),
+    }
+  }
 ];
+export function validateChassisCombination(structureTag: string, mechTypeTag: string): boolean {
+  // Industrial structure cannot be paired with LAM or HyVee/QuadVee
+  if (structureTag === 'industrial' && (mechTypeTag === 'lam' || mechTypeTag === 'hyvee')) {
+    return false; // Invalid combination!
+  }
+  // Rules-enforcement: LAMs cap out strictly at 55 tons
+  if (type === 'lam' && ton > 55 && currentRulesLevel !== 5){
+    return false; // Invalid combination!
+  }
+  return true; // Legal build
+}
+}
