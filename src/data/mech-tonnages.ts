@@ -147,10 +147,6 @@ export const btMechTonnages = [
         type: "Colossal",
     },
     {
-        tons: 105,
-        type: "Colossal",
-    },
-    {
         tons: 185,
         type: "Colossal",
     },
