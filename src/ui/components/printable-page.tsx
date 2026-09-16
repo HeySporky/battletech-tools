@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { CONST_BATTLETECH_URL } from '../../configVars';
 import { IAppGlobals } from '../app-router';
 import BattleTechLogo from './battletech-logo';
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const Print = FaPrint as any;
 
 export default class PrintablePage extends React.Component<IPrintablePageProps, IPrintablePageState> {
 
@@ -27,14 +29,14 @@ export default class PrintablePage extends React.Component<IPrintablePageProps, 
               className="pull-left"
             >
               <button className="btn btn-primary">
-                <FaArrowCircleLeft />
+                <ArrowCircleLeft />
               </button>
             </Link>
             <button
               className="btn btn-primary"
               onClick={() => window.print()}
             >
-              <FaPrint /> Print
+              <Print /> Print
             </button>
           </div>
           <div className="print-bg">

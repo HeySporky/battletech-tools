@@ -11,6 +11,12 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import BattleMechTableGroup from './_tableGroup';
+const Dice = FaDice as any;
+const Print = FaPrint as any;
+const Heart = FaHeart as any;
+const Trash = FaTrash as any;
+const Download = FaDownload as any;
+const FileImport = FaFileImport as any;
 
 export default class BattleMechRosterHome extends React.Component<IHomeProps, IHomeState> {
 
@@ -182,7 +188,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go into 'Play Mode'"
                 >
-                    <FaDice />&nbsp;Play Mode
+                    <Dice />&nbsp;Play Mode
                 </Link><br />
                 <br />
               </div>
@@ -192,7 +198,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go to a printable version of this page"
                 >
-                    <FaPrint />&nbsp;Print Force
+                    <Print />&nbsp;Print Force
                 </Link><br />
                 <br />
               </div>
@@ -228,14 +234,14 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                         className="btn btn-primary btn-sm"
                         disabled={bmGroup.members.length === 0}
                       >
-                        <FaHeart />
+                        <Heart />
                       </button>
                       <button
                         onClick={() => this.removeGroup(bmGroupIndex)}
                         title="Click here to remove this group."
                         className="btn btn-danger btn-sm"
                       >
-                        <FaTrash />
+                        <Trash />
                       </button>
                     </div>
                     <div className="width-80">
@@ -316,14 +322,14 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
           )}`}
           download={"cbt-group-favorite-export-" + makeURLSlug(favGroup.getName(0)) + ".json"}
         >
-          <FaDownload />
+          <Download />
         </a>
       <button
         onClick={() => this.loadBMFavorite(favGroup)}
         title="Load this favorite group to your current force"
         className="btn-sm btn-primary btn"
       >
-        <FaFileImport />
+        <FileImport />
       </button>
 
       <button
@@ -331,7 +337,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
         title="Remove this favorite"
         className="btn-sm btn-danger btn"
       >
-        <FaTrash />
+        <Trash />
       </button>
     </div>
 

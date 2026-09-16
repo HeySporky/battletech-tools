@@ -8,6 +8,10 @@ import AlphaStrikeMPMaps from "../../../components/svg/alpha-strike-mp-maps";
 import { generateScenarioDeployments, IAlphaStrikeMPDeploymentSet } from "../../../../data/alpha-strike-mp-deployments";
 import { generateAvailableScenarios, IAlphaStrikeMPScenarioSet } from "../../../../data/alpha-strike-mp-scenarios";
 import { generateScenarioTerrains, IAlphaStrikeMPTerrainSet } from "../../../../data/alpha-strike-mp-terrain";
+const Dice = FaDice as any;
+const Eye = FaEye as any;
+const Page4 = FaPage4 as any;
+const Trash = FaTrash as any;
 
 export default class AlphaStrikeGameManagementHome extends React.Component<IAlphaStrikeGameManagementProps, iAlphaStrikeGameManagementState> {
 
@@ -154,9 +158,9 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                     </div>
                     <div className="col-md-6 text-right">
                     {this.props.appGlobals.appSettings.hideMPIntro === true ? (
-                    <button className="btn btn-primary btn-md" onClick={this.toggleIntro}><FaEye />&nbsp;Show Intro</button>
+                    <button className="btn btn-primary btn-md" onClick={this.toggleIntro}><Eye />&nbsp;Show Intro</button>
                     ) : null}
-                    <button className="btn btn-primary btn-md" onClick={this.regenerateCards}><FaDice />&nbsp;Reroll</button>
+                    <button className="btn btn-primary btn-md" onClick={this.regenerateCards}><Dice />&nbsp;Reroll</button>
  
                     </div>
                 </div>
@@ -172,7 +176,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                                             <div className="col-md-10">
                                             <h4><strong>{d.name}</strong></h4>
                                             </div>
-                                            <div className="col-md-2"><button style={{display: this.numberOfOptions < 2 ? 'none': 'block'}} className="btn btn-danger btn-sm" value={d.uuid} onClick={e => this.toggleDeployment(e)}><FaTrash />&nbsp;Ban</button></div>
+                                            <div className="col-md-2"><button style={{display: this.numberOfOptions < 2 ? 'none': 'block'}} className="btn btn-danger btn-sm" value={d.uuid} onClick={e => this.toggleDeployment(e)}><Trash />&nbsp;Ban</button></div>
                                             <p className="deployment-description">{d.description}</p>
                                             {this.gameSize === "battle" ? (
                                             <p>{d.largeedges}</p>
@@ -199,7 +203,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                                             <div className="col-md-10">
                                             <h4><strong>{s.name}</strong></h4>
                                         </div>
-                                        <div className="col-md-2"><button style={{display: this.numberOfOptions < 2 ? 'none': 'block'}} className="btn btn-danger btn-sm" value={s.uuid} onClick={e => this.toggleScenario(e)}><FaTrash />&nbsp;Ban</button></div>
+                                        <div className="col-md-2"><button style={{display: this.numberOfOptions < 2 ? 'none': 'block'}} className="btn btn-danger btn-sm" value={s.uuid} onClick={e => this.toggleScenario(e)}><Trash />&nbsp;Ban</button></div>
                                             <p className="text-left">{s.description}</p>
                                             {this.gameSize === "battle" ? (
                                             <p>Victory points to win: {s.victoryPointsLarge}</p>
@@ -222,7 +226,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                                             <div className="col-md-10">
                                             <h4><strong>{t.name}</strong></h4>
                                         </div>
-                                        <div className="col-md-2"><button style={{display: this.numberOfOptions < 2 ? 'none': 'block'}} className="btn btn-danger btn-sm" value={t.uuid} onClick={e => this.toggleTerrain(e)}><FaTrash />&nbsp;Ban</button></div>
+                                        <div className="col-md-2"><button style={{display: this.numberOfOptions < 2 ? 'none': 'block'}} className="btn btn-danger btn-sm" value={t.uuid} onClick={e => this.toggleTerrain(e)}><Trash />&nbsp;Ban</button></div>
                                             
                                         </div>
                                     </div>

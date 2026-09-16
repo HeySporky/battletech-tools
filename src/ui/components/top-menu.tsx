@@ -6,6 +6,7 @@ import { CONST_BATTLETECH_URL } from '../../configVars';
 import { IAppGlobals } from '../app-router';
 import BattleTechLogo from './battletech-logo';
 import './top-menu.scss';
+const Bars = FaBars as any;
 
 export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuState> {
 
@@ -221,7 +222,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
           <>
           <header className="topmenu">
             <ul className="main-menu">
-                <li onClick={this.toggleMobile} className="mobile-menu-button d-inline d-md-none"><FaBars /></li>
+                <li onClick={this.toggleMobile} className="mobile-menu-button d-inline d-md-none"><Bars /></li>
                 {menuStructure.map( (item, itemIndex) => {
                     return (
                         <React.Fragment key={itemIndex}>

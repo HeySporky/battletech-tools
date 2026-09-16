@@ -14,6 +14,8 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import UnallocatedEquipmentList from '../../../components/unallocated-equipment-list';
 import './home.scss';
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const ArrowCircleRight = FaArrowCircleRight as any;
 
 export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -605,9 +607,9 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
                         <div className="clear-both overflow-hidden">
                           <hr />
-                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary pull-right btn-sm">Summary <FaArrowCircleRight /></Link>
+                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary pull-right btn-sm">Summary <ArrowCircleRight /></Link>
                           <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step5`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step5`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </div>
                       </TextSection>

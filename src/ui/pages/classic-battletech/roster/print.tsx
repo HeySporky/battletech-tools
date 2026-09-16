@@ -6,6 +6,8 @@ import BattleTechLogo from '../../../components/battletech-logo';
 import './print.scss';
 import BattleMechSVG from "../../../components/svg/battlemech-svg";
 import { CONST_BATTLETECH_URL } from "../../../../configVars";
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const PrintIcon = FaPrint as any;
 
 export default class ClassicBattleTechRosterPrint extends React.Component<IPrintProps, IPrintState> {
     constructor(props: IPrintProps) {
@@ -26,8 +28,8 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         <>
           <header className="topmenu">
             <ul className="main-menu">
-                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><FaArrowCircleLeft /></Link></li>
-                <li><span title="Click here open the Print Dialog" onClick={() => window.print()} className="current" ><FaPrint /></span></li>
+                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><ArrowCircleLeft /></Link></li>
+                <li><span title="Click here open the Print Dialog" onClick={() => window.print()} className="current" ><PrintIcon /></span></li>
                 <li className="logo">
                     <a
                         href={CONST_BATTLETECH_URL}

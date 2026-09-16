@@ -1,6 +1,10 @@
 
 import { FaSquare, FaCheckCircle, FaTimesCircle, FaCheckSquare } from "react-icons/fa";
 import * as React from 'react';
+const CheckCircle = FaCheckCircle as any;
+const TimesCircle = FaTimesCircle as any;
+const CheckSquare = FaCheckSquare as any;
+const Square = FaSquare as any;
 
 export default class InputCheckbox extends React.Component<IInputCheckboxProps, IInputCheckboxState> {
 
@@ -46,17 +50,17 @@ export default class InputCheckbox extends React.Component<IInputCheckboxProps, 
 {this.props.readOnly ? (
     <div title={this.props.checked ? "Is" : "Is NOT"}>
     {this.props.checked ? (
-        <FaCheckCircle className="color-green" />
+        <CheckCircle className="color-green" />
     ) : (
-        <FaTimesCircle className="color-red" />
+        <TimesCircle className="color-red" />
     )}&nbsp;<strong>{this.props.label}</strong>
     </div>
 ) : (<>
 
                 {this.props.checked ? (
-                    <FaCheckSquare className="color-green" />
+                    <CheckSquare className="color-green" />
                 ) : (
-                    <FaSquare className="color-black" />
+                    <Square className="color-black" />
                 )}
 
                 &nbsp;<strong>{this.props.label}</strong>

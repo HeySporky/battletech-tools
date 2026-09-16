@@ -14,6 +14,11 @@ import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const CheckCircle = FaCheckCircle as any;
+const Eye = FaEye as any;
+const PlusCircle = FaPlusCircle as any;
+const TimesCircle = FaTimesCircle as any;
 
 export default class MechCreatorImports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -296,7 +301,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                       >
                           <div className="alert alert-info">
 
-                            <p>This is now working perfectly in a limited fashion! Be sure to only semi-trust the units with a <FaCheckCircle title="This import looks good to add!" className="color-green" /> beside their name</p>
+                            <p>This is now working perfectly in a limited fashion! Be sure to only semi-trust the units with a <CheckCircle title="This import looks good to add!" className="color-green" /> beside their name</p>
 
                             <p>Since we're still short on base equipment for Clans, right now only the TRO3039 is loadable. Don't worry we'll get it taken care of as this app develops. TRO 3050/3055 is the next target!</p>
 
@@ -393,9 +398,9 @@ return (
             <td>
                 {bmObj.getName()}&nbsp;
                 {perfectImport ? (
-                    <FaCheckCircle title="This import looks good to add!" className="color-green" />
+                    <CheckCircle title="This import looks good to add!" className="color-green" />
                 ) : (
-                    <FaTimesCircle title={"Not an accurate import, not recommended for adding to your force. " + problems.join("; ")} className="color-red" />
+                    <TimesCircle title={"Not an accurate import, not recommended for adding to your force. " + problems.join("; ")} className="color-red" />
                 )}
             </td>
             <td className="min-width no-wrap text-left">{bmObj.getTech().name}</td>
@@ -407,14 +412,14 @@ return (
                     className='btn btn-sm btn-primary'
                     onClick={e => this.viewUnit(e, bmObj )}
                 >
-                    <FaEye />
+                    <Eye />
                 </button>
 
                 <button
                     className='btn btn-sm btn-primary'
                     onClick={e => this.importUnit(e, bmObj )}
                 >
-                    <FaPlusCircle />
+                    <PlusCircle />
                 </button>
             </td>
         </tr>
@@ -434,7 +439,7 @@ return (
                             <hr />
 
                               <div className="text-left inline-block">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Exports</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Exports</Link>
                             </div>
                           </div>
                         </TextSection>

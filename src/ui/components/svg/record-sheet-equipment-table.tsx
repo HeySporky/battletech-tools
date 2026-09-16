@@ -119,7 +119,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                                 <text
                                     x={ 18 }
                                     y={weapAndEqpTop + 115 + eqLineHeight * eq_count }
-                                    textAnchor="left"
+                                    textAnchor="start"
                                     fontFamily="sans-serif"
                                     fill={"black"}
                                     style={{fontWeight: 500}}

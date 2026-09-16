@@ -16,6 +16,14 @@ import { CONST_FORCE_PACKS, IForcePack } from "../../../../data/force-packs-mech
 import { joinListWithEndLabel } from "../../../../utils/joinListWithEndLabel";
 import { getMULASSearchResults } from "../../../../utils";
 import { formationBonuses } from '../../../..//data/formation-bonuses';
+const Dice = FaDice as any;
+const Download = FaDownload as any;
+const FileImport = FaFileImport as any;
+const PlusCircle = FaPlusCircle as any;
+const Print = FaPrint as any;
+const Trash = FaTrash as any;
+const ChevronDown = FaChevronDown as any;
+const ChevronUp = FaChevronUp as any;
 
 export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, IHomeState> {
 
@@ -316,7 +324,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go into 'Play Mode'"
                 >
-                    <FaDice />&nbsp;Play Mode
+                    <Dice />&nbsp;Play Mode
                 </Link><br />
                 <br />
               </div>
@@ -326,7 +334,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go to a printable version of this page"
                 >
-                    <FaPrint />&nbsp;Print Force
+                    <Print />&nbsp;Print Force
                 </Link><br />
                 <br />
               </div>
@@ -360,7 +368,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         style={{ padding: 0, marginRight: '8px' }}
         title={isCollapsed ? "Expand" : "Collapse"}
       >
-        {isCollapsed ? <FaChevronDown /> : <FaChevronUp />}
+        {isCollapsed ? <ChevronDown /> : <ChevronUp />}
       </button>
       {asFavGroup.getName(0)}
     </legend>
@@ -374,14 +382,14 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
           )}`}
           download={"as-group-favorite-export-" + makeURLSlug(asFavGroup.getName(0)) + ".json"}
         >
-          <FaDownload />
+          <Download />
         </a>
       <button
         onClick={() => this.loadASFavorite(asFavGroup)}
         title="Load this favorite group to your current force"
         className="btn-sm btn-primary btn"
       >
-        <FaFileImport />
+        <FileImport />
       </button>
 
       <button
@@ -389,7 +397,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
         title="Remove this favorite"
         className="btn-sm btn-danger btn"
       >
-        <FaTrash />
+        <Trash />
       </button>
     </div>
     <div className="text-center">
@@ -457,7 +465,7 @@ label="Quickly add a ForcePack"
           className="btn btn-md btn-primary pull-left margin-right"
           onClick={(e) => this.addForcePack( e, pack)}
         >
-          <FaPlusCircle />
+          <PlusCircle />
         </button>
         {pack.name}<br />
         <div className="small-text">{joinListWithEndLabel(pack.members, "and")}</div>

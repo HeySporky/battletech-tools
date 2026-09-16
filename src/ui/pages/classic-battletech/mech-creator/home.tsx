@@ -9,6 +9,12 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+const ArrowCircleRight = FaArrowCircleRight as any;
+const File = FaFile as any;
+const FileExport = FaFileExport as any;
+const FolderOpen = FaFolderOpen as any;
+const Save = FaSave as any;
+const Trash = FaTrash as any;
 
 export default class MechCreatorHome extends React.Component<IHomeProps, IHomeState> {
     fileReader: FileReader | null = null;
@@ -166,12 +172,12 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                 onClick={this.startNew}
                                 title="Click here to clear out your current 'mech and start over."
                               >
-                                <FaFile />&nbsp;Start Over
+                                <File />&nbsp;Start Over
                               </button>
                               <Link
                                 to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step1`}
                                 className="btn btn-primary pull-right btn-sm">
-                                  Next Step <FaArrowCircleRight />
+                                  Next Step <ArrowCircleRight />
                               </Link>
                           </div>
                     </TextSection>
@@ -183,7 +189,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
     title="Click here to save a a new 'mech row"
     onClick={this.saveAsNew}
   >
-    <FaSave />&nbsp;Save as New
+    <Save />&nbsp;Save as New
   </button>}
 >
 
@@ -220,7 +226,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                   title={"Click here to load " + mech.name + " into the editor"}
                                   onClick={ (e) => this.loadSave( e, mechIndex)}
                                 >
-                                  <FaFolderOpen />
+                                  <FolderOpen />
                                 </button>
                                 <button
                                   className="btn btn-sm btn-primary"
@@ -228,7 +234,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                   title={"Click here to save the currently loadoed over " + mech.name + ". You'll be prompted for confirmation."}
                                   onClick={ (e) => this.saveOver( e, mechIndex)}
                                 >
-                                  <FaSave />
+                                  <Save />
                                 </button>
                                 <button
                                   className="btn btn-sm btn-danger"
@@ -236,7 +242,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                                   title={"Click here to delete " + mech.name + " from this list. You'll be prompted for a confirmation."}
                                   onClick={ (e) => this.deleteSave( e, mechIndex)}
                                 >
-                                  <FaTrash />
+                                  <Trash />
                                 </button>
                               </td>
                             </tr>
@@ -281,7 +287,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                               )}`}
                               download="battlmech-exports.json"
                             >
-                              <FaFileExport />&nbsp;Export
+                              <FileExport />&nbsp;Export
                             </a>
                           </th>
                         </tr>
