@@ -5,6 +5,9 @@ import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
 import { GiMissileMech } from "react-icons/gi";
 import { MdTableView } from 'react-icons/md';
+const MissileMechIcon = GiMissileMech as any;
+const TableViewIcon = MdTableView as any;
+
 
 export default class ClassicBattleTechHome extends React.Component<IClassicBattleTechHomeProps, IClassicBattleTechHomeState> {
     constructor(props: IClassicBattleTechHomeProps) {
@@ -25,12 +28,12 @@ export default class ClassicBattleTechHome extends React.Component<IClassicBattl
           >
               <div className="icon-links">
                   <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator`}>
-                    <GiMissileMech />
+                    <MissileMechIcon />
                     'Mech Creator
                   </Link>
 
                   <Link  to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}>
-                    <MdTableView />
+                    <TableViewIcon />
                     Classic BattleTech Roster
                   </Link>
               </div>

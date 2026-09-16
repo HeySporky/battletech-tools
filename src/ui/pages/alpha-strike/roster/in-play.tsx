@@ -12,6 +12,9 @@ import StandardModal from '../../../components/standard-modal';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import './in-play.scss';
 import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const Columns = FaColumns as any;
+const RefreshCcw = FiRefreshCcw as any;
 
 export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProps, IInPlayState> {
 
@@ -176,9 +179,9 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
           <header className="topmenu">
           <ul className="main-menu">
-                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><FaArrowCircleLeft /></Link></li>
+                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike-roster`}><ArrowCircleLeft /></Link></li>
 
-                <li title="Switch to showing 2+ cards per row"><span className="current" onClick={this.toggleCardMode}><FaColumns /> {this.props.appGlobals.appSettings.alphaStrikeInPlayColumns}</span></li>
+                <li title="Switch to showing 2+ cards per row"><span className="current" onClick={this.toggleCardMode}><Columns /> {this.props.appGlobals.appSettings.alphaStrikeInPlayColumns}</span></li>
 
                 <li>
                   <AlphaStrikeToggleRulerHexes
@@ -216,7 +219,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                       title={"Click here to reset the damage for this " + group.groupLabel + ". You'll be prompted for confirmation."}
                       onClick={(e) => this.resetGroup( e, group )}
                     >
-                      <FiRefreshCcw />&nbsp;Reset
+                      <RefreshCcw />&nbsp;Reset
                     </button>
                   ) : null}
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../app-router';
 import { IAlert } from '../classes/alerts';
 import SanitizedHTML from './sanitized-html';
+const TimesCircleIcon = FaTimesCircle as any;
 
 export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowAlertsState> {
 
@@ -54,7 +55,7 @@ export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowA
                                     style={{fontSize: "1.5rem"}}
                                     title={"Click here to dismiss this alert, but it'll auto-dismiss in " + alert.autoDismissSeconds + " seconds"}
                                 >
-                                    <FaTimesCircle className="icon-spin" />
+                                    <TimesCircleIcon className="icon-spin" />
                                 </span>
                                 </>
                             )
@@ -69,7 +70,7 @@ export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowA
                                                 style={{fontSize: "1.5rem"}}
                                                 title="Click here to dismiss this alert"
                                             >
-                                                <FaTimesCircle />
+                                                <TimesCircleIcon />
                                             </span>
                                         ):
                                         (

@@ -2,6 +2,8 @@ import { FaSave, FaTimesCircle } from "react-icons/fa";
 import * as React from 'react';
 import { Modal } from 'react-bootstrap';
 import InputCheckbox from './form_elements/input_checkbox';
+const SaveIcon = FaSave as any;
+const TimesCircleIcon = FaTimesCircle as any;
 
 export default class StandardModal extends React.Component<IStandardModalProps, IStandardModalState> {
 
@@ -50,7 +52,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 className={closeClass}
                 title={labelClose}
             >
-                <FaTimesCircle />
+                <TimesCircleIcon />
             </button>
 
                 </>
@@ -66,7 +68,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 disabled={this.props.saveDisabled}
             >
 
-                <FaSave />
+                <SaveIcon />
             </button>
 
                 </>
@@ -81,7 +83,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
                 disabled={this.props.saveDisabled}
             >
 
-                <FaSave />
+                <SaveIcon />
             </button>
 
                 </>

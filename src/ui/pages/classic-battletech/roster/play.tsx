@@ -1,5 +1,5 @@
 import React from 'react';
-import { CrosshairArrow, HotSurface, MagnifyingGlass } from 'react-game-icons';
+import { CrosshairArrow, HotSurface, MagnifyingGlass, MissileSwarm } from 'react-game-icons';
 import { FaArrowCircleDown, FaArrowCircleLeft, FaArrowCircleRight, FaCheckSquare, FaDice, FaGift, FaQuestionCircle, FaShoePrints, FaSquare, FaTable } from "react-icons/fa";
 import { FiRefreshCcw } from 'react-icons/fi';
 import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
@@ -25,6 +25,19 @@ import TextSection from "../../../components/text-section";
 import ToHitTable from '../../../components/to-hit-table';
 import './play.scss';
 import InPlayCriticalHitTable from './_criticalHitTable';
+const ArrowCircleDown = FaArrowCircleDown as any;
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const ArrowCircleRight = FaArrowCircleRight as any;
+const CheckSquare = FaCheckSquare as any;
+const Dice = FaDice as any;
+const Gift = FaGift as any;
+const QuestionCircle = FaQuestionCircle as any;
+const ShoePrints = FaShoePrints as any;
+const Square = FaSquare as any;
+const Table = FaTable as any;
+const BattleAxeIcon = GiBattleAxe as any;
+const MissileSwarmIcon = GiMissileSwarm as any;
+const RefreshCcw = FiRefreshCcw as any;
 
 export default class ClassicBattleTechRosterPlay extends React.Component<IPlayProps, IPlayState> {
     constructor(props: IPlayProps) {
@@ -1173,10 +1186,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         <tr>
           <th>
             <div className="small-text">
-              Roll <FaArrowCircleRight />
+              Roll <ArrowCircleRight />
             </div>
             <div className="small-text">
-              <FaArrowCircleDown /> # Shots
+              <ArrowCircleDown /> # Shots
             </div>
           </th>
           <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(2, this.state.damageClusters))}>2</button></th>
@@ -1429,7 +1442,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                       title="Click here to open the Cluster Damage Chart"
                                       onClick={(e) => this.openClusterDamageChart(e, attackGATOR, attack.damageClusters, attack.damagePerCluster, unit, attackIndex)}
                                     >
-                                      <GiMissileSwarm />
+                                      <MissileSwarmIcon />
                                     </button>
                                     </div>
                                   ) : null}
@@ -1453,7 +1466,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                     title="Click to open the Hit Location Table"
                                   >
 
-                                    <FaTable />
+                                    <Table />
                                   </button>
                                   <button
                                     className={attack.resolved ? "btn btn-phase-active btn-sm" : "btn btn-warning btn-sm"}
@@ -1461,9 +1474,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                     title="Click here to make this attack as resolved"
                                   >
                                     {attack.resolved ?
-                                    <FaCheckSquare />
+                                    <CheckSquare />
                                     :
-                                    <FaSquare /> }
+                                    <Square /> }
                                   </button>
                                   </>
                                 )}
@@ -2376,7 +2389,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   ) : null}
           <header className="topmenu">
             <ul className="main-menu">
-                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><FaArrowCircleLeft /></Link></li>
+                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><ArrowCircleLeft /></Link></li>
 
                 <li className="logo">
                     <a
@@ -2411,7 +2424,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           title="Click here to toggle the help text below"
         >
           {this.props.appGlobals.currentCBTForce.hideHelp ?
-          <FaQuestionCircle /> : <FaQuestionCircle /> }
+          <QuestionCircle /> : <QuestionCircle /> }
         </button>
       </div>
       <div>
@@ -2432,7 +2445,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onClick={(e) => this.setPhase(e, 0)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(0)}
         >
-          <FaDice />
+          <Dice />
         </button>
       </div>
       <div>
@@ -2441,7 +2454,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onClick={(e) => this.setPhase(e, 1)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(1)}
         >
-          <FaShoePrints />
+          <ShoePrints />
         </button>
       </div>
       <div>
@@ -2451,7 +2464,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           title={this.props.appGlobals.currentCBTForce.getPhaseName(2)}
 
         >
-          <GiMissileSwarm />
+          <MissileSwarm />
         </button>
       </div>
       <div>
@@ -2460,7 +2473,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onClick={(e) => this.setPhase(e, 3)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(3)}
         >
-          <GiBattleAxe />
+          <BattleAxeIcon />
         </button>
       </div>
       <div>
@@ -2478,7 +2491,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onClick={(e) => this.setPhase(e, 5)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(5)}
         >
-          <FaGift />
+          <Gift />
         </button>
       </div>
       <div className="grow-2">
@@ -2619,7 +2632,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         title={"Click here to reset the damage for this " + group.groupLabel + ". You'll be prompted for confirmation."}
                         onClick={(e) => this.resetGroup( e, group )}
                       >
-                        <FiRefreshCcw />
+                        <RefreshCcw />
                       </button>
                     ) : null}
                   </div>
@@ -2727,7 +2740,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                               onClick={(e) => this.openSetMovementDialog(unit)}
                               title={"Open the Movement Dialog for " + unit.getName()}
                             >
-                              <FaShoePrints />
+                              <ShoePrints />
                             </button>
                             </div>
                             <div className="grow">

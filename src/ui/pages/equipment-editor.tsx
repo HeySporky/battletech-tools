@@ -15,6 +15,9 @@ import EquipmentEditForm from '../components/equipment-edit-form';
 import StandardModal from '../components/standard-modal';
 import UIPage from '../components/ui-page';
 import './equipment-editor.scss';
+const Edit = FaEdit as any;
+const Plus = FaPlus as any;
+const Trash = FaTrash as any;
 
 
 export default class EquipmentEditor extends React.Component<IEquipmentEditorProps, IEquipmentEditorState> {
@@ -482,7 +485,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     className="btn btn-sm btn-primary"
                     onClick={this.addItem}
                 >
-                    <FaPlus />&nbsp;Add
+                    <Plus />&nbsp;Add
                 </button>
             </th>
         </tr>
@@ -612,12 +615,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                         className="btn btn-sm btn-primary"
                         onClick={(e) => this.editItem( e, item, itemIndex)}
                     >
-                        <FaEdit />
+                        <Edit />
                     </button>
                     <button
                         className="btn btn-sm btn-danger"
                     >
-                        <FaTrash />
+                        <Trash />
                     </button>
                 </td>
             </tr>

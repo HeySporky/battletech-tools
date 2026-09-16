@@ -25,13 +25,18 @@ export interface IEngineOption {
 	name: string;
 	rating: number;
 	weight: {
-		ice: number;
+        standard: number;
+        xl: number;
+        clan_xl: number;
+        light: number;
+        compact: number;
+        xxl: number;
+        clan_xxl: number;
+        ice: number;
 		cell: number;
 		fission: number;
-		comp: number;
-		standard: number;
-		light: number;
-		xl: number;
+        primitive: number;
+        comp?: number;		
 	}
 }
 

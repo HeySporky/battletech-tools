@@ -9,6 +9,10 @@ import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
 import { generateUUID } from '../../../../utils/generateUUID';
+const Bars = FaBars as any;
+const Eye = FaEye as any;
+const Plus = FaPlus as any;
+const Trash = FaTrash as any;
 
 //TODO: Clearfix Hack for overflowing results
 /*
@@ -416,7 +420,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                       <label htmlFor="factionFilter">
                       Add to Faction Filter?<br />
                       {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.map( (factionID) => { 
-                        return <div className="text-left"><button onClick={() => this.addFactionSelected(factionID)} className="btn-sm btn btn-primary"><FaPlus /></button>&nbsp;{getMULFactionLabels(factionID)}</div>
+                        return <div className="text-left"><button onClick={() => this.addFactionSelected(factionID)} className="btn-sm btn btn-primary"><Plus /></button>&nbsp;{getMULFactionLabels(factionID)}</div>
                       })}
                       </label>
                       ) : null}
@@ -426,7 +430,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                     <label htmlFor="factionFilter">
                       Current Faction Filter:<br />
                       {this.props.appGlobals.appSettings.alphaStrikeSearchFactions.map( (factionID) => { 
-                        return <div className="text-left"><button onClick={() => this.removeFactionSelected(factionID)} className="btn btn-sm btn-danger"><FaTrash /></button>{getMULFactionLabels(factionID)}</div>
+                        return <div className="text-left"><button onClick={() => this.removeFactionSelected(factionID)} className="btn btn-sm btn-danger"><Trash /></button>{getMULFactionLabels(factionID)}</div>
                       })}
                       </label>
                     ):null}
@@ -515,7 +519,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
           onClick={() => this.toggleContextMenuSearch(unitIndex)}
           title="Open the context menu for this unit"
         >
-          <FaBars />
+          <Bars />
         </button>
         <ul
           className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
@@ -531,7 +535,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                 }}
                 title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
               >
-                <FaPlus />&nbsp;
+                <Plus />&nbsp;
                 Add to {asGroup.getName(asGroupIndex + 1)}
               </li>
             )
@@ -549,7 +553,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         }}
         title="Add this unit to your current group"
       >
-        <FaPlus />
+        <Plus />
       </button>
   )}
 
@@ -562,7 +566,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       }}
       title="View this unit's Alpha Strike Card"
     >
-      <FaEye />
+      <Eye />
     </button>
   </td>
                                 <td>{asUnit.Name}</td>
@@ -669,31 +673,26 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
 (
 <div className="drop-down-menu-container">
-<button
-
-className="btn btn-primary btn-sm"
-onClick={() => this.toggleContextMenuSavedBattleMechs(unitIndex)}
-title="Open the context menu for this unit"
->
-<FaBars />
-</button>
-<ul
-className={this.state.contextMenuSavedBattleMechs === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
->
-{this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
-return (
-<li
-  key={asGroupIndex}
-  onClick={() => this.addToGroup(asUnit, asGroupIndex)}
-  title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
->
-  <FaPlus />&nbsp;
-  Add to {asGroup.getName(asGroupIndex + 1)}
-</li>
-)
-})}
-
-</ul>
+    <button 
+        className="btn btn-primary btn-sm" 
+        onClick={() => this.toggleContextMenuSavedBattleMechs(unitIndex)} 
+        title="Open the context menu for this unit"
+    >
+        <Bars />
+    </button>
+    <ul className={this.state.contextMenuSavedBattleMechs === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}> 
+        {this.props.appGlobals.currentASForce.groups.map((asGroup, asGroupIndex) => {
+            return (
+                <li 
+                    key={asGroupIndex} 
+                    onClick={() => this.addToGroup(asUnit, asGroupIndex)} 
+                    title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"} 
+                >
+                    <Plus />&nbsp; Add to {asGroup.getName(asGroupIndex + 1)}
+                </li>
+            )
+        })}
+    </ul>
 </div>
 ) : (
 <button
@@ -701,7 +700,7 @@ className="btn btn-primary btn-sm no-right-margin"
 onClick={() => this.addToGroup(asUnit, 0)}
 title="Add this unit to your current group"
 >
-<FaPlus />
+<Plus />
 </button>
 )}
 
@@ -710,7 +709,7 @@ className="btn btn-primary btn-sm"
 onClick={() => this.props.openViewUnit(asUnit)}
 title="View this unit's Alpha Strike Card"
 >
-<FaEye />
+<Eye />
 </button>
 </td>
                   <td title={"UUID: " + asUnit.mechCreatorUUID}>{asUnit.name}</td>

@@ -15,8 +15,8 @@ export const mechEngineTypes: IEngineType[] = [
 		},
 		costMultiplier: 5000,
 		introduced: 2300,
-		extinct: null,
-		reintroduced: null,
+		extinct: 0,
+		reintroduced: 0,
 		rating: 0
 	},
 	{
@@ -39,8 +39,8 @@ export const mechEngineTypes: IEngineType[] = [
 		},
 		costMultiplier: 20000,
 		introduced: 2827,
-		extinct: null,
-		reintroduced: null,
+		extinct: 0,
+		reintroduced: 0,
 		rating: 0
 	},
 	{
@@ -51,8 +51,8 @@ export const mechEngineTypes: IEngineType[] = [
 		},
 		costMultiplier: 15000,
 		introduced: 3062,
-		extinct: null,
-		reintroduced: null,
+		extinct: 0,
+		reintroduced: 0,
 		rating: 0
 	},
 	{
@@ -63,8 +63,8 @@ export const mechEngineTypes: IEngineType[] = [
 		},
 		costMultiplier: 10000,
 		introduced: 3068,
-		extinct: null,
-		reintroduced: null,
+		extinct: 0,
+		reintroduced: 0,
 		rating: 0
 	},
 	{
@@ -75,8 +75,8 @@ export const mechEngineTypes: IEngineType[] = [
 		},
 		costMultiplier: 100000,
 		introduced: 3055,
-		extinct: null,
-		reintroduced: null,
+		extinct: 0,
+		reintroduced: 0,
 		rating: 0
 	},
 	{
@@ -87,8 +87,8 @@ export const mechEngineTypes: IEngineType[] = [
 		},
 		costMultiplier: 100000,
 		introduced: 3055,
-		extinct: null,
-		reintroduced: null,
+		extinct: 0,
+		reintroduced: 0,
 		rating: 0
 	},
 	{
@@ -101,8 +101,8 @@ export const mechEngineTypes: IEngineType[] = [
 		},
 		costMultiplier: 1250,
 		introduced: 1950,
-		extinct: null,
-		reintroduced: null,
+		extinct: 0,
+		reintroduced: 0,
 		rating: 0
 	},
 	{
@@ -115,8 +115,8 @@ export const mechEngineTypes: IEngineType[] = [
 		},
 		costMultiplier: 3500,
 		introduced: 2025,
-		extinct: null,
-		reintroduced: null,
+		extinct: 0,
+		reintroduced: 0,
 		rating: 0
 	},
 	{
@@ -128,8 +128,8 @@ export const mechEngineTypes: IEngineType[] = [
 		},
 		costMultiplier: 3500,
 		introduced: 1950,
-		extinct: null,
-		reintroduced: null,
+		extinct: 0,
+		reintroduced: 0,
 		rating: 0
 	},
 	{

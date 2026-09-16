@@ -1833,26 +1833,36 @@ export class BattleMech {
                 case "standard": {
                     return this._engine.weight.standard;
                 }
-                case "clan-xl":
                 case "xl": {
                     return this._engine.weight.xl;
                 }
-                case "cell": {
-                    return this._engine.weight.cell;
-                }
-                case "comp": {
-                    return this._engine.weight.comp;
-                }
-                case "fission": {
-                    return this._engine.weight.fission;
-                }
-                case "ice": {
-                    return this._engine.weight.ice;
+                case "clan-xl": {
+                    return this._engine.weight.xl;
                 }
                 case "light": {
                     return this._engine.weight.light;
                 }
-
+                case "compact": {
+                    return this._engine.weight.compact;
+                }
+                case "xxl": {
+                    return this._engine.weight.xxl;
+                }
+                case "clan_xxl": {
+                    return this._engine.weight.clan_xxl;
+                }
+                case "ice": {
+                    return this._engine.weight.ice;
+                }
+                case "cell": {
+                    return this._engine.weight.cell;
+                }
+                case "fission": {
+                    return this._engine.weight.fission;
+                }
+                case "primitive": {
+                    return this._engine.weight.primitive;
+                }
             }
             return 0;
         } else {
@@ -3291,7 +3301,7 @@ export class BattleMech {
 
             this._weights.push({
                 name: this._engineType.name + " - " + this._engineType.rating,
-                weight: this.getEngineWeight()
+                weight: this.getEngineWeight()!
             });
 
             this._weights.push({

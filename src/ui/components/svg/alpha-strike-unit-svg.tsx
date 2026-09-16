@@ -451,7 +451,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     r="25"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 0 ? "rgb(0,200,0)" : this.props.inPlay && this.props.asUnit.roundHeat === 0 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></circle>
-                <text onClick={() => this._setHeat(0)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="315" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>0</text>
+                <text onClick={() => this._setHeat(0)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="315" y="368" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>0</text>
 
                 {/* 1 Heat */}
                 <rect
@@ -463,7 +463,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     height="50"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 1 ? "rgb(204, 187, 0)" : this.props.inPlay && this.props.asUnit.roundHeat === 1 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></rect>
-                <text onClick={() => this._setHeat(1)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="365" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
+                <text onClick={() => this._setHeat(1)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="365" y="368" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
 
                 {/* 2 Heat */}
                 <rect
@@ -475,7 +475,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     height="50"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 2 ? "rgb(236,87,16)" : this.props.inPlay && this.props.asUnit.roundHeat === 2 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></rect>
-                <text onClick={() => this._setHeat(2)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="415" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
+                <text onClick={() => this._setHeat(2)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="415" y="368" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
 
                 {/* 3 Heat */}
                 <rect
@@ -487,7 +487,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     height="50"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat === 3 ? "rgb(200,0,0)" : this.props.inPlay && this.props.asUnit.roundHeat === 3 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></rect>
-                <text onClick={() => this._setHeat(3)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="465" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
+                <text onClick={() => this._setHeat(3)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="465" y="368" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
 
                 {/* Shutdown Heat */}
                 <rect
@@ -507,7 +507,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     r="25"
                     fill={this.props.inPlay && this.props.asUnit && this.props.asUnit.currentHeat > 3 ? "rgb(255,10,10)" : this.props.asUnit.roundHeat > 3 ? this.roundDotColor : "rgb(102,102,102)"}
                 ></circle>
-                <text onClick={() => this._setHeat(4)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="515" y="368" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>S</text>
+                <text onClick={() => this._setHeat(4)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="515" y="368" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>S</text>
 
                 {/* End Heat Scale Box */}
 
@@ -528,36 +528,36 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {this.state.showTakeDamage ? (
                     <>
 
-                    <text x="185" y="425" textAnchor="center" fontFamily="sans-serif" fontSize="15">Click below to add damage taken</text>
+                    <text x="185" y="425" textAnchor="middle" fontFamily="sans-serif" fontSize="15">Click below to add damage taken</text>
                 <rect x="80" y="435" width="465" height="60" fill="rgb(0,0,0)" rx="30" ry="30"></rect>
                 <rect className="cursor-pointer" onClick={() => this._takeDamage(1)} x="110" y="440" width="25" height="50" fill="rgb(102,102,102)"></rect>
                 <circle className="cursor-pointer" onClick={() => this._takeDamage(1)} cx="110" cy="465" r="25" fill="rgb(102,102,102)"></circle>
-                <text className="cursor-pointer" onClick={() => this._takeDamage(1)} x="100" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(1)} x="100" y="480" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>1</text>
 
                 <rect className="cursor-pointer" onClick={() => this._takeDamage(2)} x="140" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this._takeDamage(2)} x="153" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(2)} x="153" y="480" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>2</text>
 
                 <rect className="cursor-pointer" onClick={() => this._takeDamage(3)} x="190" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this._takeDamage(3)} x="203" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(3)} x="203" y="480" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>3</text>
 
                 <rect className="cursor-pointer" onClick={() => this._takeDamage(4)} x="240" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this._takeDamage(4)} x="253" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>4</text>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(4)} x="253" y="480" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>4</text>
 
                 <rect className="cursor-pointer" onClick={() => this._takeDamage(5)} x="290" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this._takeDamage(5)} x="303" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>5</text>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(5)} x="303" y="480" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>5</text>
 
                 <rect className="cursor-pointer" onClick={() => this._takeDamage(6)} x="340" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this._takeDamage(6)} x="353" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>6</text>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(6)} x="353" y="480" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>6</text>
 
                 <rect className="cursor-pointer" onClick={() => this._takeDamage(7)} x="390" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this._takeDamage(7)} x="403" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>7</text>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(7)} x="403" y="480" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>7</text>
 
                 <rect className="cursor-pointer" onClick={() => this._takeDamage(8)} x="440" y="440" width="45" height="50" fill="rgb(102,102,102)"></rect>
-                <text className="cursor-pointer" onClick={() => this._takeDamage(8)} x="453" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>8</text>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(8)} x="453" y="480" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>8</text>
 
                 <rect className="cursor-pointer" onClick={() => this._takeDamage(9)} x="490" y="440" width="25" height="50" fill="rgb(102,102,102)"></rect>
                 <circle className="cursor-pointer" onClick={() => this._takeDamage(9)} cx="515" cy="465" r="25" fill="rgb(102,102,102)"></circle>
-                <text className="cursor-pointer" onClick={() => this._takeDamage(9)} x="503" y="480" textAnchor="left" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>9</text>
+                <text className="cursor-pointer" onClick={() => this._takeDamage(9)} x="503" y="480" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>9</text>
 
                     </>
                 ) : (
@@ -604,7 +604,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 <rect x="20" y="510" width="960" height="60" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
                 <rect x="25" y="515" width="950" height="50" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
-                <text x="30" y="540" textAnchor="left" fontFamily="sans-serif" fontSize="25">SPECIAL:&nbsp;
+                <text x="30" y="540" textAnchor="start" fontFamily="sans-serif" fontSize="25">SPECIAL:&nbsp;
                 {this._splitAbilities(this.props.asUnit.currentAbilities.join( ", ")).map( (line, lineIndex) => { 
                     if( lineIndex === 0 ) {
                         return (
@@ -646,7 +646,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {abilitiesSplit.map( (line, lineIndex) => {
                     if( lineIndex > 0 ) {
                         return (
-                            <text x="150" y="561" key={lineIndex} textAnchor="left" fontFamily="sans-serif" fontSize="25">
+                            <text x="150" y="561" key={lineIndex} textAnchor="start" fontFamily="sans-serif" fontSize="25">
                             {line.map( (word, wordIndex) => {
                                 let comma = <></>;
                                 if( line.length - 1 !== wordIndex ) {

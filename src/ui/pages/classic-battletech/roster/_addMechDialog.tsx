@@ -10,6 +10,10 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import StandardModal from '../../../components/standard-modal';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechTableGroup from './_tableGroup';
+const CheckCircle = FaCheckCircle as any;
+const Eye = FaEye as any;
+const PlusCircle = FaPlusCircle as any;
+const TimesCircle = FaTimesCircle as any;
 
 export default class BattleMechAddMechDialog extends React.Component<IBattleMechAddMechDialogProps, IBattleMechAddMechDialogState> {
 
@@ -205,14 +209,14 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
                                             className='btn btn-xs btn-primary'
                                             onClick={e => this.viewUnit(e, bmObj )}
                                         >
-                                            <FaEye />
+                                            <Eye />
                                         </button>
 
                                         <button
                                             className='btn btn-xs btn-primary'
                                             onClick={e => this.importUnit(e, bmObj )}
                                         >
-                                            <FaPlusCircle />
+                                            <PlusCircle />
                                         </button>
                                     </td>
                                 </tr>
@@ -227,7 +231,7 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
 
         <fieldset className="fieldset">
             <legend>Solaris Skunk Werks Data Import</legend>
-            <p>Sorry, only Introductory Mechs can be trusted right now. Be sure to only semi-trust the units with a <FaCheckCircle title="This import looks good to add!" className="color-green" /> beside their name</p>
+            <p>Sorry, only Introductory Mechs can be trusted right now. Be sure to only semi-trust the units with a <CheckCircle title="This import looks good to add!" className="color-green" /> beside their name</p>
 
             <div className="row">
   <div className="col">
@@ -314,9 +318,9 @@ return (
             <td>
                 {bmObj.getName()}&nbsp;
                 {perfectImport ? (
-                    <FaCheckCircle title="This import looks good to add!" className="color-green" />
+                    <CheckCircle title="This import looks good to add!" className="color-green" />
                 ) : (
-                    <FaTimesCircle title={"Not an accurate import, not recommended for adding to your force. " + problems.join("; ")} className="color-red" />
+                    <TimesCircle title={"Not an accurate import, not recommended for adding to your force. " + problems.join("; ")} className="color-red" />
                 )}
             </td>
             <td className="min-width no-wrap text-left">{bmObj.getTech().name}</td>
@@ -328,14 +332,14 @@ return (
                     className='btn btn-sm btn-primary'
                     onClick={e => this.viewUnit(e, bmObj )}
                 >
-                    <FaEye />
+                    <Eye />
                 </button>
 
                 <button
                     className='btn btn-sm btn-primary'
                     onClick={e => this.importUnit(e, bmObj )}
                 >
-                    <FaPlusCircle />
+                    <PlusCircle />
                 </button>
             </td>
         </tr>

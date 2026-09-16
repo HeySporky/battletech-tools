@@ -5,6 +5,8 @@ import { BattleMech, ICriticalSlot } from '../../../../classes/battlemech';
 import { getLocationName } from '../../../../utils';
 import { makeRange } from '../../../../utils/makeRange';
 import { IAppGlobals } from '../../../app-router';
+const CheckSquare = FaCheckSquare as any;
+const Dangerous = MdDangerous as any;
 
 export default class InPlayCriticalHitTable extends React.Component<IInPlayCriticalHitTableProps, IInPlayCriticalHitTableState> {
 
@@ -66,9 +68,9 @@ export default class InPlayCriticalHitTable extends React.Component<IInPlayCriti
                                     onClick={(e) => this.toggleCritical( this.props.location, critSlotIndex )}
                                 >
                                     {this.props.mechData.isCriticalDamaged( this.props.location, critSlotIndex  ) ? (
-                                        <MdDangerous />
+                                        <Dangerous />
                                     ) : (
-                                        <FaCheckSquare className="color-green" />
+                                        <CheckSquare className="color-green" />
                                     )}
                                     &nbsp;{lastCritName}
                                 </td>

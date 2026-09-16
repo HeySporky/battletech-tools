@@ -2,6 +2,8 @@ import * as React from 'react';
 import { FaRuler } from 'react-icons/fa';
 import { FiHexagon } from 'react-icons/fi';
 import { IAppGlobals } from '../../../app-router';
+const RulerIcon = FaRuler as any;
+const HexagonIcon = FiHexagon as any;
 
 
 export default class AlphaStrikeToggleRulerHexes extends React.Component<IAlphaStrikeToggleRulerHexesViewProps, IAlphaStrikeToggleRulerHexesViewState> {
@@ -29,9 +31,9 @@ export default class AlphaStrikeToggleRulerHexes extends React.Component<IAlphaS
                 onClick={this.toggleAlphaStrikeMeasurementsInHexes}
             >
             {this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes ? (
-                <FiHexagon />
+                <HexagonIcon />
             ) : (
-                <FaRuler />
+                <RulerIcon />
             )}
             </span>
         )

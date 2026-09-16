@@ -8,6 +8,8 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const ArrowCircleRight = FaArrowCircleRight as any;
 
 export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -158,9 +160,9 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
 
                             <div className="clear-both overflow-hidden">
                               <hr />
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step3`} className="btn btn-primary pull-right btn-sm">Next Step <FaArrowCircleRight /></Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step3`} className="btn btn-primary pull-right btn-sm">Next Step <ArrowCircleRight /></Link>
                               <div className="inline-block text-left">
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step1`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Previous Step</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step1`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                               </div>
                             </div>
                         </TextSection>
