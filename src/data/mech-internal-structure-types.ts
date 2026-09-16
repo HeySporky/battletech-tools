@@ -7,7 +7,7 @@ import { IInternalStructure, IInternalStucturePerTon } from "./data-interfaces";
 // Defining the 10-100 ton Bipeds here.
 const baselineBipedData: Record<number, any> = {
   //Ultralights
-  10: {head: 3, ct: 4, torso: 3, arm: 1, leg: 2},
+  10: { head: 3, ct: 4, torso: 3, arm: 1, leg: 2 },
   15: { head: 3, ct: 5, torso: 4, arm: 2, leg: 3 },
   // Lights
   20: { head: 3, ct: 6, torso: 5, arm: 3, leg: 4 },
@@ -31,6 +31,7 @@ const baselineBipedData: Record<number, any> = {
   95: { head: 3, ct: 30, torso: 20, arm: 16, leg: 20 },
   100: { head: 3, ct: 31, torso: 21, arm: 17, leg: 21 },
 };
+
 // Defining the Colossal/Superheavy Master Table (105 to 200 tons)
 const superheavyBipedData: Record<number, any> = {
   105: { head: 4, ct: 32, torso: 22, arm: 17, leg: 22 },
@@ -69,7 +70,7 @@ function generateStructuresForType(
     const ton = parseInt(tonStr);
     const raw = allTonnages[ton];
 
-	// Standard Biped mapping
+    // Standard Biped mapping
     if (type === 'biped' || type === 'lam') {
       result[ton] = {
         tonnage: ton,
@@ -82,9 +83,9 @@ function generateStructuresForType(
         leftLeg: raw.leg,
         rightLeg: raw.leg,
       };
-	}
+    }
 
-	// Quads and QuadVees share the exact same structural anatomy
+    // Quads and QuadVees share the exact same structural anatomy
     if (type === 'quad' || type === 'quadvee') {
       result[ton] = {
         tonnage: ton,
@@ -95,11 +96,11 @@ function generateStructuresForType(
         leftLeg: raw.leg,       // Rear Left Leg
         rightLeg: raw.leg,      // Rear Right Leg
         frontLeftLeg: raw.leg,  // Front Left Leg
-        frontRightLeg: raw.leg,  // Front Right Leg
+        frontRightLeg: raw.leg, // Front Right Leg
       };
     }
 
-	// Tripod mapping (Clones leg parameter a third time to create centerLeg)
+    // Tripod mapping (Clones leg parameter a third time to create centerLeg)
     if (type === 'tripod') {
       result[ton] = {
         tonnage: ton,
@@ -111,10 +112,14 @@ function generateStructuresForType(
         rightArm: raw.arm,
         leftLeg: raw.leg,
         rightLeg: raw.leg,
-        centerLeg: raw.leg, // Adds the third leg configuration dynamically!
+        centerLeg: raw.leg,
       };
     }
   });
+
+  return result;
+}
+
 export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Standard",
@@ -182,15 +187,20 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     }
   }
 ];
-export function validateChassisCombination(structureTag: string, mechTypeTag: string): boolean {
+
+export function validateChassisCombination(
+  structureTag: string, 
+  mechTypeTag: string, 
+  tonnage: number, 
+  rulesLevel: number = 2
+): boolean {
   // Industrial structure cannot be paired with LAM or HyVee/QuadVee
-  if (structureTag === 'industrial' && (mechTypeTag === 'lam' || mechTypeTag === 'hyvee')) {
+  if (structureTag === 'industrial' && (mechTypeTag === 'lam' || mechTypeTag === 'hyvee' || mechTypeTag === 'quadvee')) {
     return false; // Invalid combination!
   }
-  // Rules-enforcement: LAMs cap out strictly at 55 tons
-  if (type === 'lam' && ton > 55 && currentRulesLevel !== 5){
+  // Rules-enforcement: LAMs cap out strictly at 55 tons unless running homebrew rule tier 5
+  if (mechTypeTag === 'lam' && tonnage > 55 && rulesLevel !== 5){
     return false; // Invalid combination!
   }
   return true; // Legal build
-}
 }
