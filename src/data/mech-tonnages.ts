@@ -79,12 +79,16 @@ export const btMechTonnages = [
         type: "Assault",
     },
     {
-        tons: 105,
+        tons: 100,
         type: "Assault",
     },
     {
+        tons: 105,
+        type: "Colossal",
+    },
+    {
         tons: 110,
-        type: "Assault",
+        type: "Colossal",
     },
     {
         tons: 115,
@@ -140,10 +144,6 @@ export const btMechTonnages = [
     },
     {
         tons: 180,
-        type: "Colossal",
-    },
-    {
-        tons: 105,
         type: "Colossal",
     },
     {
