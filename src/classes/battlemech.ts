@@ -1897,8 +1897,38 @@ export class BattleMech {
         return this._cockpitWeight;
     }
 
-    public getInternalStructureWeight() {
-        return this._selectedInternalStructure.perTon[this.getTonnage()].tonnage;
+    public getInternalStructureWeight(): number {
+        const typeTag = this.getType(); // e.g., 'biped', 'quad', 'tripod', 'lam', 'quadvee'
+        const tonnage = this.getTonnage();
+        
+        // Ensure the chassis layout mappings exist to protect against undefined crashes
+        if (
+            this._selectedInternalStructure && 
+            this._selectedInternalStructure.perMechType &&
+            this._selectedInternalStructure.perMechType[typeTag] &&
+            this._selectedInternalStructure.perMechType[typeTag][tonnage]
+        ) {
+            // Internal structure weight in classic rules is fundamentally derived from 
+            // a multiplier against the Mech's total tonnage based on material technology.
+            // Standard = 10% (0.1), Endo-Steel = 5% (0.05), Endo-Composite = 7.5% (0.075), Reinforced = 20% (0.2)
+            
+            let multiplier = 0.1; // Default fallback to Standard internal structure (10%)
+            const structureTag = this._selectedInternalStructure.tag;
+
+            if (structureTag === "endo-steel") multiplier = 0.05;
+            if (structureTag === "endo-composite") multiplier = 0.075;
+            if (structureTag === "reinforced") multiplier = 0.2;
+            if (structureTag === "industrial") multiplier = 0.1;
+
+            // Superheavy BattleMechs (105-200 tons) double their base internal structure weight multiplier rules!
+            if (tonnage > 100) {
+                multiplier = multiplier * 2;
+            }
+
+            return tonnage * multiplier;
+        }
+
+        return tonnage * 0.1; // Baseline automatic fallback calculation
     }
 
     public getJumpJetWeight() {
@@ -1908,11 +1938,13 @@ export class BattleMech {
         } else if( this._tonnage <= 85) {
             // 60 - 85 tons
             return this._jumpSpeed * this._jumpJetType.weight_multiplier.medium;
-        } else {
-            // 90+ tons
+        } else if( this._tonnage <= 100) {
+            // 90 100 tons
             return this._jumpSpeed * this._jumpJetType.weight_multiplier.heavy;
+        } else {
+            // 105-200 tons
+            return this._jumpSpeed * this._jumpJetType.weight_multiplier.superheavy;
         }
-
     }
 
     public getASCalcHTML() {
