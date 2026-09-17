@@ -4,6 +4,7 @@ robots.txt
 node_modules/*
 npm-debug.log
 .htaccess
+.eslintcache
 
 old
 old/*
