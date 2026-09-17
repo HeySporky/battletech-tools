@@ -44,10 +44,9 @@ Reviewed `battlemech-svg.tsx`'s Biped/Quad record-sheet diagram dispatch. Findin
   Armor and Internal Structure boxes so that data (already fully tracked in `battlemech.ts` -
   `getArmorAllocation().centerLeg` / `getInternalStructure().centerLeg`) isn't silently hidden.
   This is a **stopgap, not real Tripod artwork**.
-- [ ] Commission or hand-author real Tripod-specific SVG diagrams (armor, rear armor, internal
-      structure, damage transfer, armor circles) matching the official record sheet anatomy
-      (extra front-center leg). This is a dedicated art/vector-drawing task on the same scale
-      as the existing Biped/Quad sets, not a quick data-wiring fix.
+- [ ] Finish full Tripod-specific SVG silhouettes (armor, rear armor, internal structure, and
+  damage transfer) matching the archived BattleTech Engineer reference. Interactive Center
+  Leg armor and structure pips are now wired; the remaining gap is visual silhouette art.
 
 ## Lint cleanup backlog (191 problems: 160 errors, 31 warnings)
 

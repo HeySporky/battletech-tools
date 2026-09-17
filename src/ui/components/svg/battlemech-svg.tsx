@@ -27,6 +27,7 @@ import RecordSheetGATORTable from './record-sheet-gator-table';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
 import TakeDamageButtonSVG from './take-damage-button';
 import TargetSelectSVG from './target-select-svg';
+import TripodArmorCircles from './tripod-armor-circles';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
 
@@ -732,28 +733,37 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 1215} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>CENTER TORSO (REAR) [{this.props.mechData.getArmorAllocation().centerTorsoRear }]</text>
 
-        {this.props.mechData.isTripod() ? (
-            // No dedicated Tripod diagram exists yet (see TODO.md) - Center Leg armor is
-            // surfaced here as a text readout so the value isn't silently hidden.
-            <text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 660} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>CENTER LEG [{this.props.mechData.getArmorAllocation().centerLeg ?? 0}]</text>
-        ) : null}
-
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 190} y={this.armorBoxTop + 1090} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT TORSO</text>
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 - 190} y={this.armorBoxTop + 1110} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>(REAR) [{this.props.mechData.getArmorAllocation().leftTorsoRear }]</text>
 
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190} y={this.armorBoxTop + 1090} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190} y={this.armorBoxTop + 1110} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>(REAR) [{this.props.mechData.getArmorAllocation().rightTorsoRear }]</text>
-            <BipedArmorCircles
-                armorBoxLeft={this.armorBoxLeft}
-                armorBoxWidth={this.armorBoxWidth}
-                armorBoxTop={this.armorBoxTop}
-                inPlay={this.props.inPlay}
-                mechData={this.props.mechData}
-                onChange={this.props.onChange}
-                openTakeDamageDialog={this.props.openTakeDamageDialog}
-                bgColor={bgColor}
-                currentPhase={this.props.currentPhase}
-            />
+            {this.props.mechData.isTripod() ? (
+                <TripodArmorCircles
+                    armorBoxLeft={this.armorBoxLeft}
+                    armorBoxWidth={this.armorBoxWidth}
+                    armorBoxTop={this.armorBoxTop}
+                    inPlay={this.props.inPlay}
+                    mechData={this.props.mechData}
+                    onChange={this.props.onChange}
+                    openTakeDamageDialog={this.props.openTakeDamageDialog}
+                    bgColor={bgColor}
+                    strokeColor={strokeColor}
+                    currentPhase={this.props.currentPhase}
+                />
+            ) : (
+                <BipedArmorCircles
+                    armorBoxLeft={this.armorBoxLeft}
+                    armorBoxWidth={this.armorBoxWidth}
+                    armorBoxTop={this.armorBoxTop}
+                    inPlay={this.props.inPlay}
+                    mechData={this.props.mechData}
+                    onChange={this.props.onChange}
+                    openTakeDamageDialog={this.props.openTakeDamageDialog}
+                    bgColor={bgColor}
+                    currentPhase={this.props.currentPhase}
+                />
+            )}
         </>
     ) : (
         <>
@@ -865,12 +875,6 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 400} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>CENTER</text>
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 420} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>TORSO</text>
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 440} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().centerTorso })</text>
-
-        {this.props.mechData.isTripod() ? (
-            // No dedicated Tripod diagram exists yet (see TODO.md) - Center Leg structure is
-            // surfaced here as a text readout so the value isn't silently hidden.
-            <text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 460} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>CENTER LEG [{this.props.mechData.getInternalStructure().centerLeg ?? 0}]</text>
-        ) : null}
 
         {/* Head IS */}
         {this.props.mechData.getInternalStructure().head > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 15 } yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={0} clickFunction={this.toggleISBubble}/></>) : (<></>)}
@@ -1103,6 +1107,30 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().rightLeg > 27 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 27)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 104} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={27} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 106} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 108} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
+
+        {this.props.mechData.isTripod() ? (
+            // No dedicated Tripod diagram exists yet (see TODO.md) - Center Leg structure pips
+            // are placed below the main legs so the location remains trackable in play.
+            <>
+                {Array.from({ length: this.props.mechData.getInternalStructure().centerLeg ?? 0 }, (_, index) => index).map((index) => {
+                    const col = index % 3;
+                    const row = Math.floor(index / 3);
+                    return (
+                        <DamageCircleSVG
+                            key={`cl-${index}`}
+                            isFilled={this.props.mechData.structureDamaged("cl", index)}
+                            xLoc={this.isBoxLeft + this.isBoxWidth / 2 + (col - 1) * 22}
+                            yLoc={this.isBoxTop + 480 + row * 22}
+                            radius={10}
+                            inPlay={this.props.inPlay}
+                            clickLocation="cl"
+                            clickIndex={index}
+                            clickFunction={this.toggleISBubble}
+                        />
+                    );
+                })}
+            </>
+        ) : null}
 
         {this.props.inPlay && (this.props.currentPhase === 2 ||  this.props.currentPhase === 3) ?
             <TakeDamageButtonSVG
