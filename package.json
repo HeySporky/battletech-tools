@@ -30,8 +30,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "dev": "vite",
+    "preview": "vite preview",
+    "build": "vite build",
     "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build:cra": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "deploy-dev": "gh-pages -d build",
     "deploy-prod": "gh-pages -d build -r https://github.com/heysporky/battletech-tools.git",
@@ -56,7 +59,9 @@
     ]
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
     "sass": "^1.75.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vite": "^8.3.0"
   }
 }
