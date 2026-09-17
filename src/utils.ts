@@ -2,6 +2,7 @@ import { IASMULUnit } from "./classes/alpha-strike-unit";
 import { BattleMech, IGATOR, ITargetToHit } from "./classes/battlemech";
 import { IEquipmentItem } from "./data/data-interfaces";
 import { getEquipmentCatalogs, getEquipmentListByTech } from "./data/equipment-registry";
+import { mulListItems } from "./data/mul-list-items";
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
 
@@ -17,6 +18,17 @@ export function getAllEquipmentLists(): Record<string, IEquipmentItem[]> {
     return getEquipmentCatalogs();
 }
 
+function filterMULUnitsByName(units: IASMULUnit[], normalizedSearch: string): IASMULUnit[] {
+    if (!normalizedSearch) {
+        return [...units];
+    }
+
+    return units.filter((unit) => {
+        const searchableName = `${unit.Name ?? ""} ${unit.Variant ?? ""}`.toLowerCase();
+        return searchableName.includes(normalizedSearch);
+    });
+}
+
 function getCachedMULSearchResults(
     searchTerm: string,
     appGlobals: IAppGlobals | null,
@@ -24,14 +36,13 @@ function getCachedMULSearchResults(
     const cachedUnits = appGlobals?.appSettings.alphasStrikeCachedSearchResults ?? [];
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
-    if (!normalizedSearch) {
-        return [...cachedUnits];
+    const cachedMatches = filterMULUnitsByName(cachedUnits, normalizedSearch);
+    if (cachedMatches.length > 0) {
+        return cachedMatches;
     }
 
-    return cachedUnits.filter((unit) => {
-        const searchableName = `${unit.Name ?? ""} ${unit.Variant ?? ""}`.toLowerCase();
-        return searchableName.includes(normalizedSearch);
-    });
+    // Fall back to the bundled, verified MUL snapshot if the user's own session cache has nothing.
+    return filterMULUnitsByName(mulListItems, normalizedSearch);
 }
 
 function addMULUnavailableAlert(appGlobals: IAppGlobals | null): void {
