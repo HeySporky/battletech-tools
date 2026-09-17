@@ -1,11 +1,8 @@
-export interface IMechTonnage {
-    tons: number;
-    type: string;
-}
+import { IMechTonnage } from "./data-interfaces";
 /*
  * The data here is/may be copyrighted and NOT included in the GPLv3 license.
  */
-export const btMechTonnages = [
+export const btMechTonnages: IMechTonnage[] = [
     {
         tons: 10,
         type: "Ultralight",

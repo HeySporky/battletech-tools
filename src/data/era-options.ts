@@ -20,6 +20,13 @@ export const btEraOptions: IEras[] = [
 		yearEnd: 2780
 	},
 	{
+		id: 12,
+		name: "Clan Golden Century (2801-3049)",
+		tag: "golden-century",
+		yearStart: 2801,
+		yearEnd: 3049
+	},
+	{
 		id: 3,
 		name: "Early Succcession War (2781-2900)",
 		tag: "early-sw",

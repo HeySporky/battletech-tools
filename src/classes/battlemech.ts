@@ -1,5 +1,5 @@
 import { battlemechLocations } from "../data/battlemech-locations";
-import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructurePerTon, ISplitLocation } from "../data/data-interfaces";
+import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructurePerTon, IResolvedInternalStructure, ISplitLocation } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { mechClanEquipmentEnergy } from "../data/mech-clan-equipment-weapons-energy";
@@ -279,23 +279,6 @@ export class BattleMech {
     private _omnimech: boolean = false;
     private _remainingTonnage: number = 0;
 
-    private static readonly MECH_LOCATION_MAP: Record<string, string> = {
-        hd: "head",
-        ct: "centerTorso",
-        lt: "leftTorso",
-        rt: "rightTorso",
-        la: "leftArm",
-        ra: "rightArm",
-        ll: "leftLeg",
-        rl: "rightLeg",
-        rtr: "rightTorsoRear",
-        ctr: "centerTorsoRear",
-        ltr: "leftTorsoRear",
-        cl: "centerLeg",       // Tripod support
-        fll: "frontLeftLeg",   // Quad / QuadVee support
-        frl: "frontRightLeg"   // Quad / QuadVee support
-    };
-
     // Shared factory function to dynamically initialize clean empty arrays for damage tracking
     private createZeroedDamageRecord(): IMechDamageAllocation {
         const record: Partial<IMechDamageAllocation> = {};
@@ -339,7 +322,7 @@ export class BattleMech {
         return record as IMechCriticals;
     }
     // Consolidated Property Definitions
-    private _internalStructure: IInternalStructurePerTon = this.createZeroedStructureRecord();
+    private _internalStructure: IResolvedInternalStructure = this.createZeroedStructureRecord() as IResolvedInternalStructure;
     private _armorAllocation: IArmorAllocation = this.createZeroedArmorRecord();
     private _armorBubbles: IMechDamageAllocation = this.createZeroedDamageRecord();
     private _structureBubbles: IMechDamageAllocation = this.createZeroedDamageRecord();
@@ -385,6 +368,8 @@ export class BattleMech {
     private _cbillCost = "0";
     private _cbillCostWithAmmo = "0";
     private _battleValue = 0;
+    private _defensiveBattleRating = 0;
+    private _offensiveBattleRating = 0;
     private _pilotAdjustedBattleValue = 0;
     private _alphaStrikeValue = 0;
 
@@ -586,7 +571,7 @@ export class BattleMech {
         totalInternalStructurePoints *= engineModifier;
         this._calcLogBV += `Engine Modification (${engineTag}) = ${engineModifier}x. Total IS BV: ${totalInternalStructurePoints}<br />`;
         // 1D. Gyro Points Modifier (TM p. 302)
-        const gyroType = this.getGyroType();
+        const gyroType = this.getGyro().tag;
         let gyroModifier = 0.5;
         if (gyroType === "heavy-duty") {
             gyroModifier = 1.0;
@@ -726,13 +711,9 @@ export class BattleMech {
         // if (this.hasEquipment("poly_fullerene_reactive")) {
         //     this._calcLogBV += "Detected Poly-Fullerene Reactive Armor (PFRA) Signal Dampening Fields<br />";
         // }
-        // 2C. Apply Unified Defensive Factor directly to the subtotal (TM p. 303)
-        const currentDBR = this._defensiveBattleRating;
-        const modifiedDBR = currentDBR * defensiveFactorModifier;
-        this._calcLogBV += `Final Defensive Rating Calculation = DBR Subtotal * Defensive Factor: ${modifiedDBR.toFixed(2)} = ${currentDBR.toFixed(2)} x ${defensiveFactorModifier.toFixed(2)}<br />`;
-        // Update the final class field storage
-        this._defensiveBattleRating = modifiedDBR;
-        this._calcLogBV += `<strong>Final Defensive Battle Rating</strong>: ${this._defensiveBattleRating.toFixed(2)}<br />`;let finalDefensiveBattleRating = defensiveSubtotal * defensiveFactorModifier;
+        // 2C. Apply the defensive factor to the defensive subtotal (TM p. 303)
+        let finalDefensiveBattleRating = defensiveSubtotal * defensiveFactorModifier;
+        this._calcLogBV += `Final Defensive Rating Calculation = DBR Subtotal * Defensive Factor: ${finalDefensiveBattleRating.toFixed(2)} = ${defensiveSubtotal.toFixed(2)} x ${defensiveFactorModifier.toFixed(2)}<br />`;
         // Canonical Floor Check Rule Enforced (TM p. 303: "Minimum rating threshold of 1")
         if (finalDefensiveBattleRating < 1.0) {
             finalDefensiveBattleRating = 1.0;
@@ -742,6 +723,7 @@ export class BattleMech {
         }
         // Lock down the tracking properties safely
         this._defensiveBattleRating = finalDefensiveBattleRating;
+        this._calcLogBV += `<strong>Final Defensive Battle Rating</strong>: ${this._defensiveBattleRating.toFixed(2)}<br />`;
         
                 /* *************************************************************************
          * STEP 3: CALCULATE OFFENSIVE BATTLE RATING - TechManual p. 303
@@ -2865,34 +2847,31 @@ export class BattleMech {
 
         this._sortInstalledEquipment();
         this._sortedEquipmentList = [];
+        const sortedEquipmentByKey = new Map<string, IEquipmentItem>();
 
-        for( let countEQ = 0; countEQ < this._equipmentList.length; countEQ++) {
-
-            let foundIt = false;
-
-            for( let se_count = 0; se_count < this._sortedEquipmentList.length; se_count++) {
-                if(
-                    this._equipmentList[countEQ].location === this._sortedEquipmentList[se_count].location &&
-                    this._equipmentList[countEQ].tag === this._sortedEquipmentList[se_count].tag
-                ) {
-                    this._sortedEquipmentList[se_count].count++;
-                    foundIt = true;
-                }
+        for (const equipment of this._equipmentList) {
+            const key = `${equipment.location ?? ""}|${equipment.tag}`;
+            const groupedEquipment = sortedEquipmentByKey.get(key);
+            if (groupedEquipment) {
+                groupedEquipment.count = (groupedEquipment.count ?? 0) + 1;
+            } else {
+                const equipmentCopy = JSON.parse(JSON.stringify(equipment)) as IEquipmentItem;
+                equipmentCopy.count = 1;
+                sortedEquipmentByKey.set(key, equipmentCopy);
             }
-
-            if( !foundIt) {
-                let eqItem = JSON.parse( JSON.stringify(this._equipmentList[countEQ]));
-                eqItem.count = 1;
-                this._sortedEquipmentList.push(eqItem);
-            }
-
-            let eqItemSeparate = JSON.parse( JSON.stringify(this._equipmentList[countEQ]));
-            eqItemSeparate.count = 1;
         }
+
+        this._sortedEquipmentList = Array.from(sortedEquipmentByKey.values());
 
         this._calcArmorStructureBubbles();
 
-        this._sortedEquipmentList.sort();
+        this._sortedEquipmentList.sort((a, b) => {
+            const sortOrder = a.sort.localeCompare(b.sort);
+            if (sortOrder !== 0) return sortOrder;
+            const locationOrder = (a.location ?? "").localeCompare(b.location ?? "");
+            if (locationOrder !== 0) return locationOrder;
+            return a.tag.localeCompare(b.tag);
+        });
     }
 
     private _calcArmorStructureBubbles() {
@@ -2998,20 +2977,20 @@ export class BattleMech {
     if(!this._structureBubbles.leftArm)
         this._structureBubbles.leftArm = [];
     const leftArmBubbles = this._structureBubbles.leftArm;
-    while( leftArmBubbles.length < this._internalStructure.leftArm ) {
+    while( leftArmBubbles.length < (this._internalStructure.leftArm ?? 0) ) {
         leftArmBubbles.push( true )
     }
-    if( leftArmBubbles.length > this._internalStructure.leftArm ) {
-        this._structureBubbles.leftArm = leftArmBubbles.splice( 0, this._internalStructure.leftArm)
+    if( leftArmBubbles.length > (this._internalStructure.leftArm ?? 0) ) {
+        this._structureBubbles.leftArm = leftArmBubbles.splice( 0, this._internalStructure.leftArm ?? 0)
     }
     if(!this._structureBubbles.rightArm)
         this._structureBubbles.rightArm = [];
     const rightArmBubbles = this._structureBubbles.rightArm;
-    while( rightArmBubbles.length < this._internalStructure.rightArm ) {
+    while( rightArmBubbles.length < (this._internalStructure.rightArm ?? 0) ) {
         rightArmBubbles.push( true )
     }
-    if( rightArmBubbles.length > this._internalStructure.rightArm ) {
-        this._structureBubbles.rightArm = rightArmBubbles.splice( 0, this._internalStructure.rightArm)
+    if( rightArmBubbles.length > (this._internalStructure.rightArm ?? 0) ) {
+        this._structureBubbles.rightArm = rightArmBubbles.splice( 0, this._internalStructure.rightArm ?? 0)
     }
     if(!this._structureBubbles.rightLeg)
         this._structureBubbles.rightLeg = [];
@@ -3083,6 +3062,7 @@ export class BattleMech {
         this._structureBubbles.frontLeftLeg = [];
         this._structureBubbles.frontRightLeg = [];
     }
+}
 
     private _sortCriticalAllocationTableByTagThenUUID() {
         this._criticalAllocationTable.sort(
@@ -3175,8 +3155,6 @@ export class BattleMech {
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 4);
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 5);
         }
-        const typeTag = this._mechType.tag.toLowerCase();
-
         if (typeTag === "quad" || typeTag === "quadvee") {
             // ---- QUAD / QUADVEE FRONT LEGS ----
             // Front Right Leg Actuators (replaces old arm hacks with direct location tracking keys)
@@ -3258,7 +3236,8 @@ export class BattleMech {
         const engineName = this._engineType.name;
         // FIRST ENGINE BLOCK (Slots 1-3): Seats the upper drive mechanism
         // If an engine takes 6 slots, we limit the first sequential chunk to exactly 3 slots. Currently unless I can find something canonical or homebrew somewhere
-        const initialEngineAllocation = engineCrits.ct > 3 ? 3 : engineCrits.ct;
+        const engineCriticalTorso = engineCrits.ct ?? 0;
+        const initialEngineAllocation = engineCriticalTorso > 3 ? 3 : engineCriticalTorso;
         if (initialEngineAllocation > 0) {
             this._addCriticalItem(
                 "engine", 
@@ -3275,7 +3254,7 @@ export class BattleMech {
             "ct"
         );
         // SECOND ENGINE BLOCK (Slots 7-9): Handles the trailing split block for 6-slot engines
-        const remainingEngineAllocation = engineCrits.ct - initialEngineAllocation;
+        const remainingEngineAllocation = engineCriticalTorso - initialEngineAllocation;
         if (remainingEngineAllocation > 0) {
             this._addCriticalItem(
                 "engine", 
@@ -3292,7 +3271,6 @@ export class BattleMech {
             this._addCriticalItem("engine", engineName, engineCrits.lt, "lt");
         }
 
-        const typeTag = this._mechType.tag.toLowerCase();
         // STANDARD & REAR LEGS: Track Left Leg (ll) and Right Leg (rl) structural presence. Am I standing?
         const leftLegIS = this._internalStructure.leftLeg ?? 0;
         const rightLegIS = this._internalStructure.rightLeg ?? 0;
@@ -4121,7 +4099,7 @@ export class BattleMech {
         return this._selectedInternalStructure.tag;
     }
 
-    public getInternalStructure() {
+    public getInternalStructure(): IResolvedInternalStructure {
         return this._internalStructure;
     }
 
@@ -4649,8 +4627,8 @@ export class BattleMech {
           (this._internalStructure.rightLeg * 2);
       } else if (typeTag === "quad" || typeTag === "quadvee") {
         totalMaxArmor += 
-          (this._internalStructure.frontLeftLeg * 2) + 
-          (this._internalStructure.frontRightLeg * 2) + 
+                    ((this._internalStructure.frontLeftLeg ?? 0) * 2) +
+                    ((this._internalStructure.frontRightLeg ?? 0) * 2) +
           (this._internalStructure.leftLeg * 2) + 
           (this._internalStructure.rightLeg * 2);
       } else if (typeTag === "tripod") {
@@ -4659,7 +4637,7 @@ export class BattleMech {
           ((this._internalStructure.rightArm || 0) * 2) + 
           (this._internalStructure.leftLeg * 2) + 
           (this._internalStructure.rightLeg * 2) + 
-          (this._internalStructure.centerLeg * 2);
+          ((this._internalStructure.centerLeg ?? 0) * 2);
       } else {
         // Standard catch-all anatomy fallback
         totalMaxArmor += 
@@ -4875,10 +4853,6 @@ export class BattleMech {
 
 
             return exportObject;
-    }
-
-    public getInteralStructure() {
-        return this._internalStructure;
     }
 
     public setASRole(
@@ -6451,18 +6425,26 @@ export class BattleMech {
     }
 
     private _itemIsAvailable(
-        introduced: number,
-        extinct: number,
-        reintroduced: number
+        introduced: number | null,
+        extinct: number | null,
+        reintroduced: number | null,
+        ignoreExtinction: boolean = false,
     ): boolean {
-        if( introduced <= this._era.yearStart ) {
-            if( extinct > 0 && extinct <= this._era.yearEnd ) {
+        const introductionYear = introduced ?? 0;
+        const extinctionYear = extinct ?? 0;
+        const reintroductionYear = reintroduced ?? 0;
+        const eraEnd = this._era.yearEnd ?? Number.POSITIVE_INFINITY;
+        if( introductionYear <= this._era.yearStart ) {
+            if (ignoreExtinction) {
+                return true;
+            }
+            if( extinctionYear > 0 && extinctionYear <= eraEnd ) {
                 // item extinct, check to see if it was reintroduced
-                if( reintroduced > 0 && reintroduced <= this._era.yearEnd ) {
+                if( reintroductionYear > 0 && reintroductionYear <= eraEnd ) {
                     return true;
                 }
             } else {
-                if( extinct === 0 ) {
+                if( extinctionYear === 0 ) {
                     return true;
                 }
             }
@@ -6496,9 +6478,10 @@ export class BattleMech {
         if (maximumArmor === 0 || totalArmor === 0) return;
         const percentage = totalArmor / maximumArmor;
         // Establish layout flags natively from our chassis choices
-        const hasArms = ["Biped", "LAM", "Tripod"].includes(this.chassisType);
-        const isQuadStyle = ["Quad", "QuadVee"].includes(this.chassisType);
-        const isTripod = this.chassisType === "Tripod";
+        const typeTag = this.getType().tag.toLowerCase();
+        const hasArms = typeTag === "biped" || typeTag === "lam" || typeTag === "tripod";
+        const isQuadStyle = typeTag === "quad" || typeTag === "quadvee";
+        const isTripod = typeTag === "tripod";
         // Base structural estimations using explicit, available references
         const armArmor = hasArms ? Math.floor((internalStructure.rightArm || 0) * 2 * percentage) : 0;
         const torsoArmor = Math.floor(internalStructure.rightTorso * 1.75 * percentage);
@@ -6540,7 +6523,20 @@ export class BattleMech {
             const quadLegs: Array<keyof IArmorAllocation> = ["leftLeg", "rightLeg", "frontLeftLeg", "frontRightLeg"];
             quadLegs.forEach(legKey => {
                 if (totalArmor > legArmor) {
-                    this.setArmorValue(legKey, legArmor);
+                    switch (legKey) {
+                        case "leftLeg":
+                            this.setLeftLegArmor(legArmor);
+                            break;
+                        case "rightLeg":
+                            this.setRightLegArmor(legArmor);
+                            break;
+                        case "frontLeftLeg":
+                            this.setFrontLeftLegArmor(legArmor);
+                            break;
+                        case "frontRightLeg":
+                            this.setFrontRightLegArmor(legArmor);
+                            break;
+                    }
                     totalArmor -= legArmor;
                 }
             });
@@ -6555,7 +6551,7 @@ export class BattleMech {
                 totalArmor -= legArmor;
             }
             if (isTripod && totalArmor > legArmor) {
-                this.setArmorValue("centerLeg", legArmor);
+                this.setCenterLegArmor(legArmor);
                 totalArmor -= legArmor;
             }
         }
@@ -6596,9 +6592,10 @@ export class BattleMech {
     public allocateArmorMax(): void {
         const internalStructure = this.getInternalStructure();
         // Core structural layout configs
-        const hasArms = ["Biped", "LAM", "Tripod"].includes(this.chassisType);
-        const isQuadStyle = ["Quad", "QuadVee"].includes(this.chassisType);
-        const isTripod = this.chassisType === "Tripod";
+        const typeTag = this.getType().tag.toLowerCase();
+        const hasArms = typeTag === "biped" || typeTag === "lam" || typeTag === "tripod";
+        const isQuadStyle = typeTag === "quad" || typeTag === "quadvee";
+        const isTripod = typeTag === "tripod";
         // Generate a zeroed structure record to populate safely
         const maxAllocation: IArmorAllocation = {
             head: 9, // Absolute standard max ceiling rule for Head locations
@@ -6641,29 +6638,30 @@ export class BattleMech {
     }
 
     public getMaxCenterTorsoRearArmor(): number {
-        return this.getInteralStructure().centerTorso * 2 - this.getArmorAllocation().centerTorso;
+        return this.getInternalStructure().centerTorso * 2 - this.getArmorAllocation().centerTorso;
     }
     public getMaxCenterTorsoArmor(): number {
-        return this.getInteralStructure().centerTorso * 2 - this.getArmorAllocation().centerTorsoRear;
+        return this.getInternalStructure().centerTorso * 2 - this.getArmorAllocation().centerTorsoRear;
     }
 
     public getMaxRightTorsoRearArmor(): number {
-        return this.getInteralStructure().rightTorso * 2 - this.getArmorAllocation().rightTorso;
+        return this.getInternalStructure().rightTorso * 2 - this.getArmorAllocation().rightTorso;
     }
     public getMaxRightTorsoArmor(): number {
-        return this.getInteralStructure().rightTorso * 2 - this.getArmorAllocation().rightTorsoRear;
+        return this.getInternalStructure().rightTorso * 2 - this.getArmorAllocation().rightTorsoRear;
     }
 
     public getMaxLeftTorsoRearArmor(): number {
-        return this.getInteralStructure().leftTorso * 2 - this.getArmorAllocation().leftTorso;
+        return this.getInternalStructure().leftTorso * 2 - this.getArmorAllocation().leftTorso;
     }
     public getMaxLeftTorsoArmor(): number {
-        return this.getInteralStructure().leftTorso * 2 - this.getArmorAllocation().leftTorsoRear;
+        return this.getInternalStructure().leftTorso * 2 - this.getArmorAllocation().leftTorsoRear;
     }
 
    public getAvailableEquipment(): IEquipmentItem[] {
         let returnItems: IEquipmentItem[] = [];
         const techTag = this.getTech().tag;
+        const clanAvailability = techTag === "clan" || techTag === "mclan";
 
         // Determine which equipment lists are eligible based on Tech base rules
         const includeClan = ["clan", "mclan", "mis"].includes(techTag); // We will want to watch this... 
@@ -6672,7 +6670,7 @@ export class BattleMech {
         if (includeClan) {
             for (let item of mechClanEquipmentEnergy) {
                 item.criticals = item.space.battlemech;
-                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced);
+                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced, clanAvailability);
                 returnItems.push(item);
             }
         }
@@ -6733,7 +6731,7 @@ export class BattleMech {
     }
 
     public isEquipmentDamaged(uuid: string, loc: string): boolean {
-        const targetProp = MECH_LOCATION_MAP[loc];
+        const targetProp = BattleMech.MECH_LOCATION_MAP[loc];
         if (!targetProp) return false;
 
         const critArray: any[] = (this._criticals as any)[targetProp];
@@ -6923,7 +6921,7 @@ export class BattleMech {
     }
 
     public toggleISBubble(clickLocation: string, clickIndex: number): void {
-        const targetProp = MECH_LOCATION_MAP[clickLocation];
+        const targetProp = BattleMech.MECH_LOCATION_MAP[clickLocation];
         if (!targetProp) return;
 
         const bubbleArray = (this._structureBubbles as any)[targetProp];
@@ -6933,7 +6931,7 @@ export class BattleMech {
     }
 
     public structureDamaged(clickLocation: string, clickIndex: number): boolean {
-        const targetProp = MECH_LOCATION_MAP[clickLocation];
+        const targetProp = BattleMech.MECH_LOCATION_MAP[clickLocation];
         if (!targetProp) return false;
 
         const bubbleArray = (this._structureBubbles as any)[targetProp];
@@ -6944,7 +6942,7 @@ export class BattleMech {
     }   
 
     public armorDamaged(clickLocation: string, clickIndex: number): boolean {
-        const targetProp = MECH_LOCATION_MAP[clickLocation];
+        const targetProp = BattleMech.MECH_LOCATION_MAP[clickLocation];
         if (!targetProp) {
             return false; // Safe exit for unrecognized shorthand
         }
@@ -6957,7 +6955,7 @@ export class BattleMech {
     }
 
     public toggleArmorBubble(clickLocation: string, clickIndex: number): void {
-        const targetProp = MECH_LOCATION_MAP[clickLocation];
+        const targetProp = BattleMech.MECH_LOCATION_MAP[clickLocation];
         if (!targetProp) {
             return; // Safe exit for unrecognized shorthand
         }
@@ -7599,6 +7597,7 @@ export class BattleMech {
 
     public getTotalStructure(): number {
         let rv = 0;
+        const typeTag = this._mechType.tag.toLowerCase();
 
         rv += this._internalStructure.head;
 
@@ -7606,11 +7605,19 @@ export class BattleMech {
         rv += this._internalStructure.centerTorso;
         rv += this._internalStructure.rightTorso;
 
-        rv += this._internalStructure.leftArm;
-        rv += this._internalStructure.rightArm;
-
         rv += this._internalStructure.leftLeg;
         rv += this._internalStructure.rightLeg;
+
+        if (typeTag === "quad" || typeTag === "quadvee") {
+            rv += this._internalStructure.frontLeftLeg ?? 0;
+            rv += this._internalStructure.frontRightLeg ?? 0;
+        } else {
+            rv += this._internalStructure.leftArm ?? 0;
+            rv += this._internalStructure.rightArm ?? 0;
+            if (typeTag === "tripod") {
+                rv += this._internalStructure.centerLeg ?? 0;
+            }
+        }
 
         return rv;
     }

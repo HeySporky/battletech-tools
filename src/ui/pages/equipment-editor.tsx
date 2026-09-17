@@ -604,8 +604,8 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     </div>
                 </td>
                 <td className="text-center no-wrap ">
-                    {item.introduced}-{item.extinct > 0 ? item.extinct : "current"}<br />
-                    {item.reintroduced > 0 ? (
+                    {item.introduced ?? "?"}-{item.extinct && item.extinct > 0 ? item.extinct : "current"}<br />
+                    {item.reintroduced && item.reintroduced > 0 ? (
                         <div className="small-text">Reintroduced: {item.reintroduced}</div>
                     ): null}
                 </td>

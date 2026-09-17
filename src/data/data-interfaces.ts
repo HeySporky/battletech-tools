@@ -12,9 +12,9 @@ export interface IArmorType {
 		is: number;
 	},
 	costMultiplier: number;
-	introduced: number;
-	extinct: number;
-	reintroduced: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
 	critLocs?: {
 		[key: string]: number;
     };
@@ -59,9 +59,9 @@ export interface IEngineType {
 	name: string;
     alternateName?: string;
 	costMultiplier: number;
-	introduced: number;
-	extinct: number;
-	reintroduced: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
     criticals: {
         [key: string]: ICriticalLocations;
     },
@@ -134,9 +134,9 @@ export interface IEquipmentItem {
     accuracyModifiier?: number;
     cbills: number;
     cbillsOneShot?: number;
-    introduced: number;
-    extinct: number;
-    reintroduced: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
     battleValue?: number;
     battleValueDefensive?: boolean;
     battleValueOneShot?: number;
@@ -196,9 +196,9 @@ export interface IGyro {
     weight_multiplier: number;
     criticals: number;
     costMultiplier: number;
-    introduced: number;
-    extinct: number;
-    reintroduced: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
     available?: boolean;
 }
 
@@ -210,9 +210,9 @@ export interface IHeatSync {
         [key: string]: number;
     },
     cost: number;
-    introduced: number;
-    extinct: number;
-    reintroduced: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
 }
 
 export interface IInternalStructurePerTon {
@@ -234,6 +234,27 @@ export interface IInternalStructurePerTon {
   	frontRightLeg?: number; // Used by Quads instead of arms
 }
 
+export interface IResolvedInternalStructure extends IInternalStructurePerTon {
+    leftArm: number;
+    rightArm: number;
+    centerLeg: number;
+    frontLeftLeg: number;
+    frontRightLeg: number;
+}
+
+export interface IRawMechStructure {
+    head: number;
+    ct: number;
+    torso: number;
+    arm: number;
+    leg: number;
+}
+
+export interface IMechTonnage {
+    tons: number;
+    type: string;
+}
+
 export interface IInternalStructure {
     name: string;
     tag: string;
@@ -253,9 +274,9 @@ export interface IInternalStructure {
 		// LAMs follow Biped structure but have unique tonnage limits (max 55 tons) and component rules
     	lam: Record<number, IInternalStructurePerTon>;
   	};
-    introduced: number;
-    extinct: number;
-    reintroduced: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
 }
 
 export interface IJumpJet {
@@ -269,9 +290,9 @@ export interface IJumpJet {
     },
     criticals: number;
     costMultiplier: number;
-    introduced: number;
-    extinct: number;
-    reintroduced: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
 }
 
 export interface IMechType {
@@ -291,12 +312,12 @@ export interface IEras {
     tag: string;
     name: string;
     yearStart: number;
-    yearEnd: number;
+    yearEnd: number | null;
 }
 
 export interface IRulesLevelOption {
     id: number;
-    sswid: number;
+    sswid: number | null;
     tag: string;
     name: string;
 }

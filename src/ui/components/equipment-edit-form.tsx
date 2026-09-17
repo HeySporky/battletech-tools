@@ -515,21 +515,21 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                 <InputNumeric
                     step={1}
                     onChange={this.updateIntroduced}
-                    value={this.props.editingItem.introduced}
+                    value={this.props.editingItem.introduced ?? 0}
                     label="Introduced"
                 />
 
                 <InputNumeric
                     step={1}
                     onChange={this.updateExtinct}
-                    value={this.props.editingItem.extinct}
+                    value={this.props.editingItem.extinct ?? 0}
                     label="Extinct"
                 />
 
                 <InputNumeric
                     step={1}
                     onChange={this.updateReintroduced}
-                    value={this.props.editingItem.reintroduced}
+                    value={this.props.editingItem.reintroduced ?? 0}
                     label="Reintroduced"
                 />
 

@@ -101,6 +101,16 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
             break;
           }
 
+          case "fll": {
+            currentMech.setFrontLeftLegArmor( newValue);
+            break;
+          }
+
+          case "frl": {
+            currentMech.setFrontRightLegArmor( newValue);
+            break;
+          }
+
           case "ll": {
             currentMech.setLeftLegArmor( newValue);
             break;
@@ -366,7 +376,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "la", +event.currentTarget.value)}
       title="Change this BattleMech's left arm armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().leftArm * 2).map( (armorValue) => {
+      {makeRange(0, (this.props.appGlobals.currentBattleMech.getInternalStructure().leftArm ?? 0) * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -381,7 +391,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "ra", +event.currentTarget.value)}
       title="Change this BattleMech's right arm armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().rightArm * 2).map( (armorValue) => {
+      {makeRange(0, (this.props.appGlobals.currentBattleMech.getInternalStructure().rightArm ?? 0) * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -396,7 +406,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "ll", +event.currentTarget.value)}
       title="Change this BattleMech's left leg armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().leftLeg * 2).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getInternalStructure().leftLeg * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -411,7 +421,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "rl", +event.currentTarget.value)}
       title="Change this BattleMech's right leg armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().rightLeg * 2).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getInternalStructure().rightLeg * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -547,11 +557,11 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
   <label className="armor-select-dropdown lfl">
     <div className="title">LFL</div>
     <select
-      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().leftArm}
-      onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "la", +event.currentTarget.value)}
+      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().frontLeftLeg}
+      onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "fll", +event.currentTarget.value)}
       title="Change this BattleMech's left front leg armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().leftArm * 2).map( (armorValue) => {
+      {makeRange(0, (this.props.appGlobals.currentBattleMech.getInternalStructure().frontLeftLeg ?? 0) * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -562,11 +572,11 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
   <label className="armor-select-dropdown rfl">
     <div className="title">RFL</div>
     <select
-      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().rightArm}
-      onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "ra", +event.currentTarget.value)}
+      value={this.props.appGlobals.currentBattleMech.getArmorAllocation().frontRightLeg}
+      onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "frl", +event.currentTarget.value)}
       title="Change this BattleMech's right front leg armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().rightArm * 2).map( (armorValue) => {
+      {makeRange(0, (this.props.appGlobals.currentBattleMech.getInternalStructure().frontRightLeg ?? 0) * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -581,7 +591,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "ll", +event.currentTarget.value)}
       title="Change this BattleMech's left rear leg armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().leftLeg * 2).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getInternalStructure().leftLeg * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -596,7 +606,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "rl", +event.currentTarget.value)}
       title="Change this BattleMech's right rear leg armor value"
     >
-      {makeRange(0, this.props.appGlobals.currentBattleMech.getInteralStructure().rightLeg * 2).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getInternalStructure().rightLeg * 2).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )

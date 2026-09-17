@@ -1,11 +1,11 @@
-import { IInternalStructure, IInternalStucturePerTon } from "./data-interfaces";
+import { IInternalStructure, IInternalStructurePerTon, IRawMechStructure } from "./data-interfaces";
 
 /*
  * The data here is/may be copyrighted and NOT included in the GPLv3 license.
  */
 
 // Defining the 10-100 ton Bipeds here.
-const baselineBipedData: Record<number, any> = {
+const baselineBipedData: Record<number, IRawMechStructure> = {
   //Ultralights
   10: { head: 3, ct: 4, torso: 3, arm: 1, leg: 2 },
   15: { head: 3, ct: 5, torso: 4, arm: 2, leg: 3 },
@@ -33,7 +33,7 @@ const baselineBipedData: Record<number, any> = {
 };
 
 // Defining the Colossal/Superheavy Master Table (105 to 200 tons)
-const superheavyBipedData: Record<number, any> = {
+const superheavyBipedData: Record<number, IRawMechStructure> = {
   105: { head: 4, ct: 32, torso: 22, arm: 17, leg: 22 },
   110: { head: 4, ct: 33, torso: 23, arm: 18, leg: 23 },
   115: { head: 4, ct: 35, torso: 24, arm: 19, leg: 24 },
@@ -126,6 +126,9 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     tag: "standard",
     crits: { clan: 0, is: 0 },
     cost: 400,
+    introduced: 0,
+    extinct: 0,
+    reintroduced: 0,
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
@@ -139,6 +142,9 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     tag: "endo-steel",
     crits: { clan: 7, is: 14 }, // Halves structure weight
     cost: 800,
+    introduced: 0,
+    extinct: 0,
+    reintroduced: 0,
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
@@ -152,6 +158,9 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     tag: "endo-composite",
     crits: { clan: 4, is: 7 }, // Reduces structure weight by 25%
     cost: 600,
+    introduced: 0,
+    extinct: 0,
+    reintroduced: 0,
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
@@ -165,6 +174,9 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     tag: "reinforced",
     crits: { clan: 0, is: 0 }, // Doubles structure weight but adds hit resistance
     cost: 1200,
+    introduced: 0,
+    extinct: 0,
+    reintroduced: 0,
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
@@ -178,6 +190,9 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     tag: "industrial",
     crits: { clan: 0, is: 0 }, // Heavily restricts armor types and critical limits
     cost: 200,
+    introduced: 0,
+    extinct: 0,
+    reintroduced: 0,
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
@@ -194,8 +209,8 @@ export function validateChassisCombination(
   tonnage: number, 
   rulesLevel: number = 2
 ): boolean {
-  // Industrial structure cannot be paired with LAM or HyVee/QuadVee
-  if (structureTag === 'industrial' && (mechTypeTag === 'lam' || mechTypeTag === 'hyvee' || mechTypeTag === 'quadvee')) {
+  // Industrial structure cannot be paired with LAM or QuadVee
+  if (structureTag === 'industrial' && (mechTypeTag === 'lam' || mechTypeTag === 'quadvee')) {
     return false; // Invalid combination!
   }
   // Rules-enforcement: LAMs cap out strictly at 55 tons unless running homebrew rule tier 5
