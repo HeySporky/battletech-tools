@@ -1,5 +1,3 @@
-const propertyID = 1;
-
 export function callAnalytics(
     window: any,
     appSessionID: string = "",

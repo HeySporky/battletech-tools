@@ -2,7 +2,7 @@ import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructurePerTon, IResolvedInternalStructure, ISplitLocation } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { mechClanEquipmentEnergy } from "../data/mech-clan-equipment-weapons-energy";
+import { getEquipmentListByTech } from "../data/equipment-registry";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
@@ -19,10 +19,6 @@ import { ISSWBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./alpha-strike-unit";
 import Pilot, { IPilot } from "./pilot";
 const { XMLParser } = require( "fast-xml-parser" );
-
-interface INumericalHash {
-    [index: string]: number;
-}
 
 interface IWeights {
     name: string;
@@ -3275,15 +3271,12 @@ export class BattleMech {
         const leftLegIS = this._internalStructure.leftLeg ?? 0;
         const rightLegIS = this._internalStructure.rightLeg ?? 0;
         if (leftLegIS > 0) {
-            // Determine context-aware naming labels for clarity on record sheets
-            const legLabel = (typeTag === "quad" || typeTag === "quadvee") ? "Rear Left Leg" : "Left Leg";
             this._addCriticalItem("hip", "Hip", 1, "ll", 0);
             this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "ll", 1);
             this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "ll", 2);
             this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "ll", 3);
         }
         if (rightLegIS > 0) {
-            const legLabel = (typeTag === "quad" || typeTag === "quadvee") ? "Rear Right Leg" : "Right Leg";
             this._addCriticalItem("hip", "Hip", 1, "rl", 0);
             this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "rl", 1);
             this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "rl", 2);
@@ -6668,7 +6661,7 @@ export class BattleMech {
         const includeIS = ["is", "mis", "mclan"].includes(techTag); // I may be doing these wrong
         // Process Clan items if active
         if (includeClan) {
-            for (let item of mechClanEquipmentEnergy) {
+            for (let item of getEquipmentListByTech("clan")) {
                 item.criticals = item.space.battlemech;
                 item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced, clanAvailability);
                 returnItems.push(item);
@@ -7332,18 +7325,7 @@ export class BattleMech {
     public getEquipmentList(
         equipmentListTag: string
     ): IEquipmentItem[] {
-
-        let equipmentList: IEquipmentItem[] = [];
-        if( equipmentListTag === "is" ) {
-            equipmentList = getISEquipmentList();
-
-        }
-
-        if( equipmentListTag === "clan" ) {
-            equipmentList = mechClanEquipmentEnergy;
-        }
-
-        return equipmentList;
+        return getEquipmentListByTech(equipmentListTag);
     }
 
 

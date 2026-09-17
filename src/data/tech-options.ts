@@ -27,3 +27,7 @@ export const btTechOptions: ITechOptions[] = [
 	}
 ];
 
+export function getTechOptions(): ITechOptions[] {
+    return btTechOptions;
+}
+

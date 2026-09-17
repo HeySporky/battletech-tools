@@ -1,4 +1,4 @@
-import { FaAccessibleIcon, FaDice, FaEye, FaPage4, FaTrash } from "react-icons/fa";
+import { FaDice, FaEye, FaTrash } from "react-icons/fa";
 import React from 'react';
 import { IAppGlobals } from '../../../app-router';
 import TextSection from '../../../components/text-section';
@@ -10,7 +10,6 @@ import { generateAvailableScenarios, IAlphaStrikeMPScenarioSet } from "../../../
 import { generateScenarioTerrains, IAlphaStrikeMPTerrainSet } from "../../../../data/alpha-strike-mp-terrain";
 const Dice = FaDice as any;
 const Eye = FaEye as any;
-const Page4 = FaPage4 as any;
 const Trash = FaTrash as any;
 
 export default class AlphaStrikeGameManagementHome extends React.Component<IAlphaStrikeGameManagementProps, iAlphaStrikeGameManagementState> {

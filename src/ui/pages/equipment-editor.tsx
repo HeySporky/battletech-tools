@@ -2,7 +2,10 @@ import React from 'react';
 import { MineExplosion } from "react-game-icons";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { IEquipmentItem } from "../../data/data-interfaces";
+import { mechClanEquipmentBallistic } from '../../data/mech-clan-equipment-weapons-ballistic';
 import { mechClanEquipmentEnergy } from '../../data/mech-clan-equipment-weapons-energy';
+import { mechClanEquipmentMisc } from '../../data/mech-clan-equipment-weapons-misc';
+import { mechClanEquipmentMissile } from '../../data/mech-clan-equipment-weapons-missile';
 import { mechISEquipmentBallistic } from '../../data/mech-is-equipment-weapons-ballistic';
 import { mechISEquipmentEnergy } from "../../data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from '../../data/mech-is-equipment-weapons-misc';
@@ -27,6 +30,9 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         "mech-is-equipment-weapons-missiles": mechISEquipmentMissiles,
         "mech-is-equipment-weapons-misc": mechISEquipmentMisc,
         "mech-clan-equipment-weapons-energy": mechClanEquipmentEnergy,
+        "mech-clan-equipment-weapons-ballistic": mechClanEquipmentBallistic,
+        "mech-clan-equipment-weapons-missile": mechClanEquipmentMissile,
+        "mech-clan-equipment-weapons-misc": mechClanEquipmentMisc,
     };
 
     constructor(props: IEquipmentEditorProps) {
@@ -160,6 +166,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         }
         if( fileN === "mech-clan-equipment-weapons-energy" ) {
             return "mechClanEquipmentEnergy";
+        }
+        if( fileN === "mech-clan-equipment-weapons-ballistic" ) {
+            return "mechClanEquipmentBallistic";
+        }
+        if( fileN === "mech-clan-equipment-weapons-missile" ) {
+            return "mechClanEquipmentMissile";
         }
         if( fileN === "mech-is-equipment-weapons-misc" ) {
             return "mechISEquipmentMisc";
@@ -647,4 +659,3 @@ interface IEquipmentEditorState {
     editItem: IEquipmentItem | null;
     editItemIndex: number;
 }
-

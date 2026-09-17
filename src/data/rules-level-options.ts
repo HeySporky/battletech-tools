@@ -37,4 +37,9 @@ export const btRulesLevelOptions: IRulesLevelOption[] = [
         tag: "custom",
         name: "Custom Homebrew",
     }
-]
+];
+
+export function getRulesLevelOptions(): IRulesLevelOption[] {
+    return btRulesLevelOptions;
+}
+

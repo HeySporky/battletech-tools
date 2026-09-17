@@ -3,6 +3,9 @@
   "version": "0.7.0",
   "homepage": "https://heysporky.github.io/battletech-tools",
   "private": true,
+  "engines": {
+    "node": "20.19.4"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -28,7 +31,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "deploy-dev": "gh-pages -d build",
     "deploy-prod": "gh-pages -d build -r https://github.com/jeffs-bt-tools/battletech-tools.git",
