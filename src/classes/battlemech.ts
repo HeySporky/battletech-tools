@@ -1162,7 +1162,7 @@ export class BattleMech {
             cbillDryTotal += 120 * this.getTonnage();
             actuatorTotal += 120 * this.getTonnage();
 
-            // 2A. Arm Actuator Setups (Biped, LAM, and Tripod layouts only)
+            // 2A. Arm Actuator Setups (Biped/LAM base plus Tripod extension)
             if (["biped", "lam", "tripod"].includes(this._mechType.tag.toLowerCase())) {
                 const arms = ["Right", "Left"];
                 
@@ -5265,7 +5265,7 @@ export class BattleMech {
             this._calc();
             return this._armorAllocation.frontLeftLeg ?? 0;
         }
-        // Baseline Biped, LAM, and Tripod arm allocation logic
+        // Baseline Biped/LAM arm allocation logic plus Tripod extension
         this._armorAllocation.leftArm = armorValue;
         if (this._mirrorArmorAllocations) {
             this._armorAllocation.rightArm = armorValue;
@@ -6535,7 +6535,7 @@ export class BattleMech {
                 }
             });
         } else {
-            // Standard Biped, LAM, or Tripod legs
+            // Standard Biped/LAM legs plus Tripod's additional Center Leg
             if (totalArmor > legArmor) {
                 this.setRightLegArmor(legArmor);
                 totalArmor -= legArmor;
@@ -6621,7 +6621,7 @@ export class BattleMech {
             maxAllocation.frontLeftLeg = maxLegArmor;
             maxAllocation.frontRightLeg = maxLegArmor;
         } else {
-            // Standard Biped, LAM, or Tripod structural layout elements
+            // Standard Biped/LAM structural layout plus Tripod's additional Center Leg
             maxAllocation.leftLeg = (internalStructure.leftLeg || 0) * 2;
             maxAllocation.rightLeg = (internalStructure.rightLeg || 0) * 2;
             if (isTripod) {
