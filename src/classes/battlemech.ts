@@ -1,5 +1,5 @@
 import { battlemechLocations } from "../data/battlemech-locations";
-import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, ISplitLocation } from "../data/data-interfaces";
+import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructurePerTon, ISplitLocation } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { mechClanEquipmentEnergy } from "../data/mech-clan-equipment-weapons-energy";
@@ -64,6 +64,9 @@ interface IArmorAllocation {
     rightArm: number;
     leftLeg: number;
     rightLeg: number;
+    frontRightLeg: number;
+    frontLeftLeg: number;
+    centerLeg: number;
 }
 
 export interface ICriticalHits {
@@ -75,6 +78,9 @@ export interface ICriticalHits {
     rightArm: boolean[];
     leftLeg: boolean[];
     rightLeg: boolean[];
+    frontRightLeg: boolean[];
+    frontLeftLeg: boolean[];
+    centerLeg: boolean[];
 }
 
 
@@ -113,8 +119,6 @@ export interface IBattleMechExport {
     criticalDamage?: Record<string, number[]>;
     pilot?: IPilot,
     as_custom_nickname?: string;
-
-
 
     // basic properties
     omnimech: boolean;
@@ -182,7 +186,6 @@ export interface IGATOR {
 }
 
 export class BattleMech {
-
     private _targetAToHit: ITargetToHit = {
         name: "",
         active: false,
@@ -231,7 +234,6 @@ export class BattleMech {
     public currentHeat: number = 0;
     public damageLog: IMechDamageLog[] = [];
     public criticalDamage: Record<string, number[]> = {};
-    // public criticalHitRollLocations: ICriticalHits = this._normalizeCriticalHits();
 
     // basic properties
     private _nickname = "";
@@ -259,7 +261,8 @@ export class BattleMech {
     private _omnimech: boolean = false;
     private _remainingTonnage: number = 0;
 
-    private _internalStructure = {
+    private _internalStructure: IInternalStructurePerTon = {
+        tonnage: 0,
         head: 0,
         centerTorso: 0,
         rightTorso: 0,
@@ -267,7 +270,10 @@ export class BattleMech {
         leftArm: 0,
         rightArm: 0,
         leftLeg: 0,
-        rightLeg: 0
+        rightLeg: 0,
+        centerLeg: 0,
+        frontLeftLeg: 0,
+        frontRightLeg: 0,
     };
 
     private _armorBubbles: IMechDamageAllocation = {
@@ -283,6 +289,10 @@ export class BattleMech {
         rightTorsoRear: [],
         leftTorsoRear: [],
         centerTorsoRear: [],
+
+        centerLeg: [],
+        frontLeftLeg: [],
+        frontRightLeg: [],
     }
     private _structureBubbles: IMechDamageAllocation = {
         head: [],
@@ -298,6 +308,10 @@ export class BattleMech {
         rightTorsoRear: [],
         leftTorsoRear: [],
         centerTorsoRear: [],
+
+        centerLeg: [],
+        frontLeftLeg: [],
+        frontRightLeg: [],
     }
 
     private _no_right_arm_hand_actuator: boolean = false;
@@ -333,6 +347,9 @@ export class BattleMech {
         rightArm: 0,
         leftLeg: 0,
         rightLeg: 0,
+        centerLeg: 0,
+        frontLeftLeg: 0,
+        frontRightLeg: 0,
     };
 
     private _equipmentList: IEquipmentItem[] = [];
@@ -356,6 +373,9 @@ export class BattleMech {
         rightArm: [],
         leftLeg: [],
         rightLeg: [],
+        centerLeg: [],
+        frontLeftLeg: [],
+        frontRightLeg: [],
     };
 
     private _gyro = mechGyroTypes[0];
@@ -405,6 +425,18 @@ export class BattleMech {
             long: "centerTorso",
             short: "ct"
         },
+        {
+            long: "frontRightLeg",
+            short: "frl"
+        },
+        {
+            long: "frontLeftLeg",
+            short: "fll"
+        },
+        {
+            long: "centerLeg",
+            short: "cl"
+        },
     ];
 
     private _pilot: Pilot = new Pilot( {
@@ -453,7 +485,6 @@ export class BattleMech {
             this.setTonnage( 20 );
         }
         this._calc();
-
     }
 
     public reset() {
@@ -471,19 +502,15 @@ export class BattleMech {
         this.setAdditionalHeatSinks(0);
         this.setEngine(0);
         this.setGyroType( "standard" );
-        if( this._tech.tag === "is" )
+        if( this._tech.tag === "is" ) {
             this.setHeatSinksType( "single" )
-        else
+        } else {
             this.setHeatSinksType( "double" )
-
+        }
         this.setInternalStructureType( "standard" );
-
         this._criticalAllocationTable = [];
-
         this._calc();
-
     }
-
 
     public newUUID() {
         this._uuid = generateUUID();
@@ -531,14 +558,11 @@ export class BattleMech {
             rangeModifier: 0,
             finalToHit: 0,
         };
-
         if( this._pilot ) {
             rv.gunnerySkill = this._pilot.gunnery;
         }
-
         return rv;
     }
-
 
     public hasCASE(
         loc: string
@@ -605,31 +629,52 @@ export class BattleMech {
         }
 
         // Adjust IS for Engine Type
-        switch (this._engineType.tag ) {
-            case "light":
-                this._calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Light Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
-                totalInternalStructurePoints = totalInternalStructurePoints * .75;
-                break;
-            case "xl":
-                // Inner Sphere XL
-                this._calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Inner Sphere XL Engine: " + totalInternalStructurePoints + " x 0.75 = " + (totalInternalStructurePoints * .75) + "<br />";
-                totalInternalStructurePoints = totalInternalStructurePoints * .75;
-                break;
-
-            case "clan-xl":
-                // Clan XL
-                this._calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Clan XL Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
-                totalInternalStructurePoints = totalInternalStructurePoints * .75;
-                break;
-            case "compact":
-                this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Compact Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
-                totalInternalStructurePoints = totalInternalStructurePoints * 1;
-                break;
-            default:
-                this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Standard Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
-                totalInternalStructurePoints = totalInternalStructurePoints * 1;
-                break;
-        }
+        switch (this._engineType.tag) {
+          case "light":
+            this._calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Light Engine: " + totalInternalStructurePoints + " x 0.75 = " + (totalInternalStructurePoints * .75) + "<br />";
+            totalInternalStructurePoints = totalInternalStructurePoints * .75;
+            break;
+          case "xl":
+            this._calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Inner Sphere XL Engine: " + totalInternalStructurePoints + " x 0.75 = " + (totalInternalStructurePoints * .75) + "<br />";
+            totalInternalStructurePoints = totalInternalStructurePoints * .75;
+            break;
+          case "clan_xl":
+            this._calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Clan XL Engine: " + totalInternalStructurePoints + " x 0.75 = " + (totalInternalStructurePoints * .75) + "<br />";
+            totalInternalStructurePoints = totalInternalStructurePoints * .75;
+            break;
+          case "xxl":
+            this._calcLogBV += "Total Internal Structure = 0.25 x I.S. BV for Inner Sphere XXL Engine: " + totalInternalStructurePoints + " x 0.25 = " + (totalInternalStructurePoints * .25) + "<br />";
+            totalInternalStructurePoints = totalInternalStructurePoints * .25
+            break;
+          case "clan_xxl":
+            this._calcLogBV += "Total Internal Structure = 0.5 x I.S. BV for Clan XXL Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
+            totalInternalStructurePoints = totalInternalStructurePoints * .5;
+            break;
+          case "compact":
+            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Compact Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
+            // Multiplying by 1 is redundant code-wise, so we just log it and move on
+            break;
+          case "primitive":
+            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Primitive Fusion Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
+            // Multiplying by 1 is redundant code-wise, so we just log it and move on
+            break;
+          case "ice":
+            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Internal Combustion Engine (ICE):  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
+            // Multiplying by 1 is redundant code-wise, so we just log it and move on
+            break;
+          case "cell":
+            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Fuel Cell:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
+            // Multiplying by 1 is redundant code-wise, so we just log it and move on
+            break;
+          case "fission":
+            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Fission Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
+            // Multiplying by 1 is redundant code-wise, so we just log it and move on
+            break;
+          default:
+            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Standard Engine: " + totalInternalStructurePoints + " x 1 = " + totalInternalStructurePoints + "<br />";
+            // Multiplying by 1 is redundant code-wise, so we just log it and move on
+            break;
+        }   
 
         // Add in the Gyro Modifier
         let totalGyroPoints = 0;
@@ -664,18 +709,10 @@ export class BattleMech {
         let caseEnabled_LA = false;
         let caseEnabled_RT = false;
         let caseEnabled_LT = false;
-
-        // for( let lCrit = 0; lCrit < this._criticals.head.length; lCrit++) {
-        //     if( this._criticals.head[lCrit] && this._criticals.head[lCrit].tag === "case" ) {
-        //         caseEnabled_HD = true;
-        //     }
-        // }
-
-        // for( let lCrit = 0; lCrit < this._criticals.centerTorso.length; lCrit++) {
-        //     if( this._criticals.centerTorso[lCrit] && this._criticals.centerTorso[lCrit].tag === "case" ) {
-        //         caseEnabled_CT = true;
-        //     }
-        // }
+        let caseEnabled_CT = false;
+        let caseEnabled_FRL = false;
+        let caseEnabled_FLL = false;
+        let caseEnabled_CL = false;
 
         for( let lCrit = 0; lCrit < this._criticals.rightLeg.length; lCrit++) {
             let item = this._criticals.rightLeg[lCrit];
@@ -683,46 +720,63 @@ export class BattleMech {
                 caseEnabled_RL = true;
             }
         }
-
         for( let lCrit = 0; lCrit < this._criticals.leftLeg.length; lCrit++) {
             let item = this._criticals.leftLeg[lCrit];
             if( item && item.tag === "case" ) {
                 caseEnabled_LL = true;
             }
         }
-
         for( let lCrit = 0; lCrit < this._criticals.rightArm.length; lCrit++) {
             let item = this._criticals.rightArm[lCrit];
             if( item && item.tag === "case" ) {
                 caseEnabled_RA = true;
             }
         }
-
         for( let lCrit = 0; lCrit < this._criticals.leftArm.length; lCrit++) {
             let item = this._criticals.leftArm[lCrit];
             if( item && item.tag === "case" ) {
                 caseEnabled_LA = true;
             }
         }
-
         for( let lCrit = 0; lCrit < this._criticals.rightTorso.length; lCrit++) {
             let item = this._criticals.rightTorso[lCrit];
             if( item && item.tag === "case" ) {
                 caseEnabled_RT = true;
             }
         }
-
         for( let lCrit = 0; lCrit < this._criticals.leftTorso.length; lCrit++) {
             let item = this._criticals.leftTorso[lCrit];
             if( item && item.tag === "case" ) {
                 caseEnabled_LT = true;
             }
         }
+        for( let lCrit = 0; lCrit < this._criticals.centerTorso.length; lCrit++) {
+            let item = this._criticals.centerTorso[lCrit];
+            if( item && item.tag === "case" ) {
+                caseEnabled_CT = true;
+            }
+        }
+        for( let lCrit = 0; lCrit < this._criticals.frontRightLeg.length; lCrit++) {
+            let item = this._criticals.rightLeg[lCrit];
+            if( item && item.tag === "case" ) {
+                caseEnabled_FRL = true;
+            }
+        }
+        for( let lCrit = 0; lCrit < this._criticals.frontLeftLeg.length; lCrit++) {
+            let item = this._criticals.rightLeg[lCrit];
+            if( item && item.tag === "case" ) {
+                caseEnabled_FLL = true;
+            }
+        }
+        for( let lCrit = 0; lCrit < this._criticals.centerLeg.length; lCrit++) {
+            let item = this._criticals.rightLeg[lCrit];
+            if( item && item.tag === "case" ) {
+                caseEnabled_CL = true;
+            }
+        }
 
         if( this._tech.tag === "clan" ) {
-
             //Clan is Assumed to have CASE in BV Calculation (TM p303)
-
             // check head
             for( let lCrit = 0; lCrit < this._criticals.head.length; lCrit++) {
                 let item = this._criticals.head[lCrit];
@@ -734,9 +788,7 @@ export class BattleMech {
                     this._calcLogBV += "Gauss Crit in Head (Clan, -1)<br />";
                     explosiveAmmoModifiers += 1;
                 }
-
             }
-
             // check ct
             for( let lCrit = 0; lCrit < this._criticals.centerTorso.length; lCrit++) {
                 let item = this._criticals.centerTorso[lCrit];
@@ -748,9 +800,7 @@ export class BattleMech {
                     this._calcLogBV += "Gauss Crit in Center Torso (Clan, -1)<br />";
                     explosiveAmmoModifiers += 1;
                 }
-
             }
-
             // check lt
             for( let lCrit = 0; lCrit < this._criticals.leftTorso.length; lCrit++) {
 
@@ -766,7 +816,6 @@ export class BattleMech {
                     }
                 }
             }
-
             // check rt
             for( let lCrit = 0; lCrit < this._criticals.rightTorso.length; lCrit++) {
                 if( this.hasXLEngine() ) {
@@ -781,10 +830,9 @@ export class BattleMech {
                     }
                 }
             }
-
             // check rl
             for( let lCrit = 0; lCrit < this._criticals.rightLeg.length; lCrit++) {
-                let item = this._criticals.leftLeg[lCrit];
+                let item = this._criticals.rightLeg[lCrit];
                 if( item && item.obj && item.obj.explosive) {
                     this._calcLogBV += "Explosive Ammo Crit in Right Leg (Clan, -15)<br />";
                     explosiveAmmoModifiers += 15;
@@ -794,7 +842,6 @@ export class BattleMech {
                     explosiveAmmoModifiers += 1;
                 }
             }
-
             // check ll
             for( let lCrit = 0; lCrit < this._criticals.leftLeg.length; lCrit++) {
                 let item = this._criticals.leftLeg[lCrit];
@@ -807,7 +854,42 @@ export class BattleMech {
                     explosiveAmmoModifiers += 1;
                 }
             }
-
+            // check frl
+            for( let lCrit = 0; lCrit < this._criticals.frontRightLeg.length; lCrit++) {
+                let item = this._criticals.frontRightLeg[lCrit];
+                if( item && item.obj && item.obj.explosive) {
+                    this._calcLogBV += "Explosive Ammo Crit in Front Right Leg (Clan, -15)<br />";
+                    explosiveAmmoModifiers += 15;
+                }
+                if( item && item.obj && item.obj.gauss) {
+                    this._calcLogBV += "Gauss Crit in Front Right Leg (Clan, -1)<br />";
+                    explosiveAmmoModifiers += 1;
+                }
+            }
+            // check fll
+            for( let lCrit = 0; lCrit < this._criticals.frontLeftLeg.length; lCrit++) {
+                let item = this._criticals.frontLeftLeg[lCrit];
+                if( item && item.obj && item.obj.explosive) {
+                    this._calcLogBV += "Explosive Ammo Crit in Front Left Leg (Clan, -15)<br />";
+                    explosiveAmmoModifiers += 15;
+                }
+                if( item && item.obj && item.obj.gauss) {
+                    this._calcLogBV += "Gauss Crit in Front Leg Leg (Clan, -1)<br />";
+                    explosiveAmmoModifiers += 1;
+                }
+            }
+            // check cl
+            for( let lCrit = 0; lCrit < this._criticals.centerLeg.length; lCrit++) {
+                let item = this._criticals.centerLeg[lCrit];
+                if( item && item.obj && item.obj.explosive) {
+                    this._calcLogBV += "Explosive Ammo Crit in Center Leg (Clan, -15)<br />";
+                    explosiveAmmoModifiers += 15;
+                }
+                if( item && item.obj && item.obj.gauss) {
+                    this._calcLogBV += "Gauss Crit in Center Leg (Clan, -1)<br />";
+                    explosiveAmmoModifiers += 1;
+                }
+            }
         } else if( this._tech.tag === "is" ) {
             // check head
             for( let lCrit = 0; lCrit < this._criticals.head.length; lCrit++) {
@@ -816,9 +898,7 @@ export class BattleMech {
                     this._calcLogBV += "Explosive Ammo Crit in Head (Inner Sphere,-15)<br />";
                     explosiveAmmoModifiers += 15;
                 }
-
             }
-
             // check ct
             for( let lCrit = 0; lCrit < this._criticals.centerTorso.length; lCrit++) {
                 let item = this._criticals.centerTorso[lCrit];
@@ -830,9 +910,7 @@ export class BattleMech {
                     this._calcLogBV += "Gauss Crit in Center Torso (Inner Sphere, -1)<br />";
                     explosiveAmmoModifiers += 1;
                 }
-
             }
-
             // check lt
             for( let lCrit = 0; lCrit < this._criticals.leftTorso.length; lCrit++) {
                 if( !this.hasCASE("lt") || this.hasXLEngine()) {
@@ -848,9 +926,7 @@ export class BattleMech {
                     }
                 }
             }
-
             // check rt
-
             for( let lCrit = 0; lCrit < this._criticals.rightTorso.length; lCrit++) {
                 // if( this.hasXLEngine() ) {
                 if( !this.hasCASE("rt")  || this.hasXLEngine() ) {
@@ -864,10 +940,7 @@ export class BattleMech {
                         explosiveAmmoModifiers += 1;
                     }
                 }
-                // }
-
             }
-
             // check rl
             for( let lCrit = 0; lCrit < this._criticals.rightLeg.length; lCrit++) {
                 let item = this._criticals.rightLeg[lCrit];
@@ -879,19 +952,17 @@ export class BattleMech {
                     this._calcLogBV += "Gauss Crit in Right Leg (Inner Sphere, -1)<br />";
                     explosiveAmmoModifiers += 1;
                 }
-
                 if( caseEnabled_RT === false && caseEnabled_RL === false) {
                     if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Right Leg, Right Torso and Right Leg to not have CASE (Inner Sphere, -15)<br />";
+                        this._calcLogBV += "Explosive Ammo Crit in Right Leg. Right Torso and Right Leg do not have CASE (Inner Sphere, -15)<br />";
                         explosiveAmmoModifiers += 15;
                     }
                     if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Right Leg, Right Torso and Right Leg to not have CASE (Inner Sphere, -1)<br />";
+                        this._calcLogBV += "Gauss Crit in Right Leg. Right Torso and Right Leg do not have CASE (Inner Sphere, -1)<br />";
                         explosiveAmmoModifiers += 1;
                     }
                 }
             }
-
             // check ll
             for( let lCrit = 0; lCrit < this._criticals.leftLeg.length; lCrit++) {
                 let item = this._criticals.leftLeg[lCrit];
@@ -903,28 +974,89 @@ export class BattleMech {
                     this._calcLogBV += "Gauss Crit in Left Leg (Inner Sphere, -1)<br />";
                     explosiveAmmoModifiers += 1;
                 }
-
                 if( caseEnabled_LT === false && caseEnabled_LL === false) {
                     let item = this._criticals.rightLeg[lCrit];
 
                     if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Left Leg, Left Torso and Left Leg to not have CASE (Inner Sphere, -15)<br />";
+                        this._calcLogBV += "Explosive Ammo Crit in Left Leg. Left Torso and Left Leg do not have CASE (Inner Sphere, -15)<br />";
                         explosiveAmmoModifiers += 15;
                     }
                     if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Left Leg, Left Torso and Left Leg to not have CASE (Inner Sphere, -1)<br />";
+                        this._calcLogBV += "Gauss Crit in Left Leg. Left Torso and Left Leg do not have CASE (Inner Sphere, -1)<br />";
                         explosiveAmmoModifiers += 1;
                     }
                 }
-
             }
-
+            // check frl
+            for( let lCrit = 0; lCrit < this._criticals.frontRightLeg.length; lCrit++) {
+                let item = this._criticals.frontRightLeg[lCrit];
+                if( item && item.obj && item.obj.explosive) {
+                    this._calcLogBV += "Explosive Ammo Crit in Front Right Leg (Inner Sphere, -15)<br />";
+                    explosiveAmmoModifiers += 15;
+                }
+                if( item && item.obj && item.obj.gauss) {
+                    this._calcLogBV += "Gauss Crit in Front Right Leg (Inner Sphere, -1)<br />";
+                    explosiveAmmoModifiers += 1;
+                }
+                if( caseEnabled_RT === false && caseEnabled_FRL === false) {
+                    if( item && item.obj && item.obj.explosive) {
+                        this._calcLogBV += "Explosive Ammo Crit in Front Right Leg. Right Torso and Front Right Leg do not have CASE (Inner Sphere, -15)<br />";
+                        explosiveAmmoModifiers += 15;
+                    }
+                    if( item && item.obj && item.obj.gauss) {
+                        this._calcLogBV += "Gauss Crit in Front Right Leg. Right Torso and Front Right Leg do not have CASE (Inner Sphere, -1)<br />";
+                        explosiveAmmoModifiers += 1;
+                    }
+                }
+            }
+            // check fll
+            for( let lCrit = 0; lCrit < this._criticals.frontLeftLeg.length; lCrit++) {
+                let item = this._criticals.frontLeftLeg[lCrit];
+                if( item && item.obj && item.obj.explosive) {
+                    this._calcLogBV += "Explosive Ammo Crit in Front Left Leg (Inner Sphere, -15)<br />";
+                    explosiveAmmoModifiers += 15;
+                }
+                if( item && item.obj && item.obj.gauss) {
+                    this._calcLogBV += "Gauss Crit in Front Left Leg (Inner Sphere, -1)<br />";
+                    explosiveAmmoModifiers += 1;
+                }
+                if( caseEnabled_LT === false && caseEnabled_FLL === false) {
+                    if( item && item.obj && item.obj.explosive) {
+                        this._calcLogBV += "Explosive Ammo Crit in Front Left Leg. Left Torso and Front Left Leg do not have CASE (Inner Sphere, -15)<br />";
+                        explosiveAmmoModifiers += 15;
+                    }
+                    if( item && item.obj && item.obj.gauss) {
+                        this._calcLogBV += "Gauss Crit in Front Left Leg. Left Torso and Front Left Leg do not have CASE (Inner Sphere, -1)<br />";
+                        explosiveAmmoModifiers += 1;
+                    }
+                }
+            }
+            // check cl
+            for( let lCrit = 0; lCrit < this._criticals.centerLeg.length; lCrit++) {
+                let item = this._criticals.centerLeg[lCrit];
+                if( item && item.obj && item.obj.explosive) {
+                    this._calcLogBV += "Explosive Ammo Crit in Center Leg (Inner Sphere, -15)<br />";
+                    explosiveAmmoModifiers += 15;
+                }
+                if( item && item.obj && item.obj.gauss) {
+                    this._calcLogBV += "Gauss Crit in Center Leg (Inner Sphere, -1)<br />";
+                    explosiveAmmoModifiers += 1;
+                }
+                if( caseEnabled_CT === false && caseEnabled_CL === false) {
+                    if( item && item.obj && item.obj.explosive) {
+                        this._calcLogBV += "Explosive Ammo Crit in Center Leg. Center Torso and Center Leg do not have CASE (Inner Sphere, -15)<br />";
+                        explosiveAmmoModifiers += 15;
+                    }
+                    if( item && item.obj && item.obj.gauss) {
+                        this._calcLogBV += "Gauss Crit in Center Leg. Center Torso and Center Leg do not have CASE (Inner Sphere, -1)<br />";
+                        explosiveAmmoModifiers += 1;
+                    }
+                }
+            }
             // check RA
             for( let lCrit = 0; lCrit < this._criticals.rightArm.length; lCrit++) {
-
                 if( caseEnabled_RT === false && caseEnabled_RA === false) {
                     let item = this._criticals.rightArm[lCrit];
-
                     if( item && item.obj && item.obj.explosive) {
                         this._calcLogBV += "Explosive Ammo Crit in Right Arm, Right Torso and Right Arm to not have CASE (Inner Sphere, -15)<br />";
                         explosiveAmmoModifiers += 15;
@@ -934,12 +1066,9 @@ export class BattleMech {
                         explosiveAmmoModifiers += 1;
                     }
                 }
-
             }
-
             // check LA
             for( let lCrit = 0; lCrit < this._criticals.leftArm.length; lCrit++) {
-
                 if( caseEnabled_LT === false && caseEnabled_LA === false) {
                     let item = this._criticals.leftArm[lCrit];
                     if( item && item.obj && item.obj.explosive) {
@@ -952,7 +1081,6 @@ export class BattleMech {
                     }
                 }
             }
-
         }
 
         defensiveBattleRating = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints - explosiveAmmoModifiers;
@@ -1019,7 +1147,7 @@ export class BattleMech {
         this._calcLogBV += "<strong>STEP 2: CALCULATE OFFENSIVE BATTLE RATING - TM p303</strong><br />";
 
         // TODO
-        this._calcLogBV += "<strong>Calculate Each Weapon’s Modified BV</strong><br />";
+        this._calcLogBV += "<strong>Calculate Each Weapon&apos;s Modified BV</strong><br />";
 
         let ammoBV: INumericalHash = {};
         let weaponBV: INumericalHash = {};
@@ -1042,7 +1170,6 @@ export class BattleMech {
                     weaponBV[currentItem.tag] = 0;
                 if( currentItem.battleValue)
                     weaponBV[currentItem.tag] = currentItem.battleValue;
-
             }
         }
 
@@ -1070,16 +1197,8 @@ export class BattleMech {
             }
         }
 
-        // console.log( "ammoBV", ammoBV );
-        // console.log( "simplifiedAmmoBV", simplifiedAmmoBV );
-        // console.log( "weaponBV", weaponBV );
-
-        // console.log( "totalWeaponBV", totalWeaponBV );
-        // console.log( "totalAmmoBV", totalAmmoBV );
-
         this._calcLogBV += "<strong>Total Ammo BV</strong> " + totalAmmoBV + "<br />";
 
-        // console.log( "this.getHeatSinksType()", this.getHeatSinksType() );
         let mechHeatEfficiency = 0;
         if( this.getHeatSinksType() === "single" ) {
             mechHeatEfficiency = 6 + this.getHeatSinks() - this.getMaxMovementHeat();
@@ -1548,6 +1667,24 @@ export class BattleMech {
         else
             return false;
     }
+    public isTripod() {
+        if( this._mechType.tag.toLowerCase() === "tripod" )
+            return true;
+        else
+            return false;
+    }
+    public isLAM() {
+        if( this._mechType.tag.toLowerCase() === "lam" )
+            return true;
+        else
+            return false;
+    }
+    public isQuadVee() {
+        if( this._mechType.tag.toLowerCase() === "quadvee" )
+            return true;
+        else
+            return false;
+    }
 
     private _calcCBillCost() {
         // TODO Calculations
@@ -1836,8 +1973,8 @@ export class BattleMech {
                 case "xl": {
                     return this._engine.weight.xl;
                 }
-                case "clan-xl": {
-                    return this._engine.weight.xl;
+                case "clan_xl": {
+                    return this._engine.weight.clan_xl;
                 }
                 case "light": {
                     return this._engine.weight.light;
@@ -1905,8 +2042,8 @@ export class BattleMech {
         if (
             this._selectedInternalStructure && 
             this._selectedInternalStructure.perMechType &&
-            this._selectedInternalStructure.perMechType[typeTag] &&
-            this._selectedInternalStructure.perMechType[typeTag][tonnage]
+            this._selectedInternalStructure.perMechType[typeTag.tag as keyof typeof this._selectedInternalStructure.perMechType] &&
+            this._selectedInternalStructure.perMechType[typeTag.tag as keyof typeof this._selectedInternalStructure.perMechType][tonnage]
         ) {
             // Internal structure weight in classic rules is fundamentally derived from 
             // a multiplier against the Mech's total tonnage based on material technology.
@@ -2026,286 +2163,128 @@ export class BattleMech {
             this._alphaStrikeForceStats.sizeClass = 2;
             this._alphaStrikeForceStats.sizeClassName = "Medium";
             this._calcLogAS += "<strong>Setting Size to 2 (Medium)</strong><br />\n";
-        } else {
+        } else if (this._tonnage >= 20){
             this._alphaStrikeForceStats.sizeClass = 1;
             this._alphaStrikeForceStats.sizeClassName = "Light";
             this._calcLogAS += "<strong>Setting Size to 1 (Light)</strong><br />\n";
+        } else {
+            this._alphaStrikeForceStats.sizeClass = 1;
+            this._alphaStrikeForceStats.sizeClassName = "Ultralight";
+            this._calcLogAS += "<strong>Setting Size to 1 (Ultralight)</strong><br />\n";
         }
 
         this._alphaStrikeForceStats.armor = +((this.getTotalArmor() / 30).toFixed(0));
         this._calcLogAS += "Converting total armor of " + this.getTotalArmor() + "<br />\n";
         this._calcLogAS += "<strong>Setting Armor to " + this._alphaStrikeForceStats.armor + "</strong><br />\n";
 
-        if (this.getTech().tag === "is" ) {
-
-            switch (this._engineType.tag) {
-                case "compact":
-                    // Compact
-
-                    if (this._tonnage === 100) {
-                        this._alphaStrikeForceStats.structure = 10;
-                    } else if (this._tonnage >= 95) {
-                        this._alphaStrikeForceStats.structure = 10;
-                    } else if (this._tonnage >= 90) {
-                        this._alphaStrikeForceStats.structure = 10;
-                    } else if (this._tonnage >= 85) {
-                        this._alphaStrikeForceStats.structure = 9;
-                    } else if (this._tonnage >= 80) {
-                        this._alphaStrikeForceStats.structure = 8;
-                    } else if (this._tonnage >= 75) {
-                        this._alphaStrikeForceStats.structure = 8;
-                    } else if (this._tonnage >= 70) {
-                        this._alphaStrikeForceStats.structure = 7;
-                    } else if (this._tonnage >= 65) {
-                        this._alphaStrikeForceStats.structure = 7;
-                    } else if (this._tonnage >= 60) {
-                        this._alphaStrikeForceStats.structure = 7;
-                    } else if (this._tonnage >= 55) {
-                        this._alphaStrikeForceStats.structure = 6;
-                    } else if (this._tonnage >= 50) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 45) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 40) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 35) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 30) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 25) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 20) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 15) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 10) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    }
-                    this._calcLogAS += "Engine is an IS Compact Engine <strong>setting structure to " + this._alphaStrikeForceStats.structure + "</strong><br />\n";
-                    break;
-                case "xl":
-                    // XL
-                    if (this._tonnage === 100) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 95) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 90) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 85) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 80) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 75) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 70) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 65) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 60) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 55) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 50) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 45) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 40) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 35) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 30) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 25) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    } else if (this._tonnage >= 20) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    } else if (this._tonnage >= 15) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    } else if (this._tonnage >= 10) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    }
-                    this._calcLogAS += "Engine is a Clan XL Engine <strong>setting structure to " + this._alphaStrikeForceStats.structure + "</strong><br />\n";
-                    break;
-                case "light":
-                    // Compact
-                    if (this._tonnage === 100) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 95) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 90) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 85) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 80) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 75) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 70) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 65) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 60) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 55) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 50) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 45) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 40) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 35) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 30) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 25) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    } else if (this._tonnage >= 20) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    } else if (this._tonnage >= 15) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    } else if (this._tonnage >= 10) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    }
-                    this._calcLogAS += "Engine is an IS Light Engine <strong>setting structure to " + this._alphaStrikeForceStats.structure + "</strong><br />\n";
-                    break;
-                default:
-                    // Standard
-                    if (this._tonnage === 100) {
-                        this._alphaStrikeForceStats.structure = 8;
-                    } else if (this._tonnage >= 95) {
-                        this._alphaStrikeForceStats.structure = 8;
-                    } else if (this._tonnage >= 90) {
-                        this._alphaStrikeForceStats.structure = 7;
-                    } else if (this._tonnage >= 85) {
-                        this._alphaStrikeForceStats.structure = 7;
-                    } else if (this._tonnage >= 80) {
-                        this._alphaStrikeForceStats.structure = 6;
-                    } else if (this._tonnage >= 75) {
-                        this._alphaStrikeForceStats.structure = 6;
-                    } else if (this._tonnage >= 70) {
-                        this._alphaStrikeForceStats.structure = 6;
-                    } else if (this._tonnage >= 65) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 60) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 55) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 50) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 45) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 40) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 35) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 30) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 25) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 20) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 15) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    } else if (this._tonnage >= 10) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    }
-                    this._calcLogAS += "Engine is an IS Standard Engine <strong>setting structure to " + this._alphaStrikeForceStats.structure + "</strong><br />\n";
-                    break;
+        switch (this._engineType.tag) {
+          case "compact":
+            // Compact Engines grant bonus structure based on tonnage brackets.
+            // For Superheavies (105-200 tons), the baseline formula divides tonnage by 10 and adds bonus scaling.
+            var structurePoints = 0;
+            if (this._tonnage > 100) {
+                // Superheavy / Colossal Scaling (105 to 200 tons) Caps at 20 structure for a maximum 200-ton unit.
+                structurePoints = Math.min(20, Math.ceil(this._tonnage / 10) + 0);
+            } else {
+              // Standard Mech Tonnage Lookup Map (10 to 100 tons)
+              const compactStructureMap: Record<number, number> = { 100: 10, 95: 10, 90: 10, 85: 9, 80: 8, 75: 8, 70: 7, 65: 7, 60: 7, 55: 6, 50: 5, 45: 5, 40: 4, 35: 4, 30: 3, 25: 3, 20: 2, 15: 2, 10: 1 };
+              // Fallback to a math safety formula if tonnage isn't exactly matched on a 5-ton bracket
+              structurePoints = compactStructureMap[this._tonnage] ?? Math.ceil(this._tonnage / 10);
             }
-        } else {
-            // Clan Engines...
-            switch (this._engineType.tag) {
-                case "xl":
-                case "clan-xl":
-                    // Compact
-                    if (this._tonnage === 100) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 95) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 90) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 85) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 80) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 75) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 70) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 65) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 60) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 55) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 50) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 45) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 40) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 35) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 30) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 25) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    } else if (this._tonnage >= 20) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    } else if (this._tonnage >= 15) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    } else if (this._tonnage >= 10) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    }
-                    this._calcLogAS += "Engine is a Clan XL Engine <strong>setting structure to " + this._alphaStrikeForceStats.structure + "</strong><br />\n";
-                    break;
-                default:
-                    // Standard / Standard Fusion
-                    if (this._tonnage === 100) {
-                        this._alphaStrikeForceStats.structure = 8;
-                    } else if (this._tonnage >= 95) {
-                        this._alphaStrikeForceStats.structure = 8;
-                    } else if (this._tonnage >= 90) {
-                        this._alphaStrikeForceStats.structure = 7;
-                    } else if (this._tonnage >= 85) {
-                        this._alphaStrikeForceStats.structure = 7;
-                    } else if (this._tonnage >= 80) {
-                        this._alphaStrikeForceStats.structure = 6;
-                    } else if (this._tonnage >= 75) {
-                        this._alphaStrikeForceStats.structure = 6;
-                    } else if (this._tonnage >= 70) {
-                        this._alphaStrikeForceStats.structure = 6;
-                    } else if (this._tonnage >= 65) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 60) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 55) {
-                        this._alphaStrikeForceStats.structure = 5;
-                    } else if (this._tonnage >= 50) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 45) {
-                        this._alphaStrikeForceStats.structure = 4;
-                    } else if (this._tonnage >= 40) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 35) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 30) {
-                        this._alphaStrikeForceStats.structure = 3;
-                    } else if (this._tonnage >= 25) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 20) {
-                        this._alphaStrikeForceStats.structure = 2;
-                    } else if (this._tonnage >= 15) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    } else if (this._tonnage >= 10) {
-                        this._alphaStrikeForceStats.structure = 1;
-                    }
-                    this._calcLogAS += "Engine is a Clan Standard Engine <strong>setting structure to " + this._alphaStrikeForceStats.structure + "</strong><br />\n";
-
-                    break;
+            this._alphaStrikeForceStats.structure = structurePoints;
+            this._calcLogAS += `Engine is an IS Compact Engine <strong>setting structure to ${this._alphaStrikeForceStats.structure}</strong><br />\n`;
+            break;
+          case "is_xl":
+          case "clan_xl":
+          case "xxl":
+          case "clan_xxl":
+            // Base math algorithm for standard engine types: Math.ceil(this._tonnage / 10)
+            // Extralight and XXL engines reduce this starting baseline:
+            // - Clan XL: -1 Structure penalty (Minimum 1)
+            // - IS XL: -2 Structure penalty (Minimum 1)
+            // - XXL (Clan & IS): -3 Structure penalty (Minimum 1)
+            structurePoints = 0;
+            var baseCalculatedPoints = Math.ceil(this._tonnage / 10);
+            if (this._tonnage > 100) {
+              // Superheavy / Colossal Scaling (105 to 200 tons) as per standard Alpha Strike superheavy structure curves before applying engine penalty
+              if (this._engineType.tag === "clan_xl") {
+                structurePoints = baseCalculatedPoints - 1;
+              } else if (this._engineType.tag === "is_xl") {
+                structurePoints = baseCalculatedPoints - 2;
+              } else { // XXL
+                structurePoints = baseCalculatedPoints - 3;
+              }
+              structurePoints = Math.min(20, Math.max(1, structurePoints));
+            } else {
+              // Standard Mech Tonnage Lookup Maps (10 to 100 tons) with hardcoded canonical rules matching the official conversion charts
+              const clanXlMap: Record<number, number> = { 100: 7, 95: 7, 90: 7, 85: 6, 80: 5, 75: 5, 70: 4, 65: 4, 60: 4, 55: 4, 50: 3, 45: 3, 40: 3, 35: 3, 30: 2, 25: 2, 20: 1, 15: 1, 10: 1 };
+              const isXlMap: Record<number, number> = { 100: 5, 95: 5, 90: 5, 85: 5, 80: 4, 75: 4, 70: 3, 65: 3, 60: 3, 55: 3, 50: 2, 45: 2, 40: 2, 35: 2, 30: 1, 25: 1, 20: 1, 15: 1, 10: 1 };
+              const xxlMap: Record<number, number> = { 100: 4, 95: 4, 90: 4, 85: 3, 80: 3, 75: 3, 70: 2, 65: 2, 60: 2, 55: 2, 50: 1, 45: 1, 40: 1, 35: 1, 30: 1, 25: 1, 20: 1, 15: 1, 10: 1 };
+              // Map picker block
+              let currentMap: Record<number, number> = clanXlMap;
+              if (this._engineType.tag === "is_xl") currentMap = isXlMap;
+              if (["xxl", "clan_xxl"].includes(this._engineType.tag)) currentMap = xxlMap;
+              // Execute lookup, fall back safely to penalty calculation for non-standard tonnages
+              const penalty = this._engineType.tag === "clan_xl" ? 1 : (this._engineType.tag === "is_xl" ? 2 : 3);
+              structurePoints = currentMap[this._tonnage] ?? Math.max(1, baseCalculatedPoints - penalty);
             }
-        }
+            this._alphaStrikeForceStats.structure = structurePoints;
+            var engineDisplayNames: { [key: string]: string } = {
+              "is_xl": "IS XL",
+              "clan_xl": "Clan XL",
+              "xxl": "XXL",
+              "clan_xxl": "Clan XXL"
+            };
+            this._calcLogAS += `Engine is an ${engineDisplayNames[this._engineType.tag]} Fusion Engine <strong>setting structure to ${this._alphaStrikeForceStats.structure}</strong><br />\n`;
+            break;
+
+          case "light":
+            // Inner Sphere Light Fusion Engine (LFE) Structure Logic. Light Engines suffer a flat -1 Structure modifier penalty (Minimum 1 point).
+            structurePoints = 0;
+            baseCalculatedPoints = Math.ceil(this._tonnage / 10);
+
+            if (this._tonnage > 100) {
+              // Superheavy / Colossal Scaling (105 to 200 tons) with standard -1 structural penalty baseline for Superheavies
+              structurePoints = Math.max(1, baseCalculatedPoints - 1);
+              structurePoints = Math.min(20, structurePoints);
+            } else {
+              // Standard Mech Tonnage Lookup Map (10 to 100 tons)
+              const lightStructureMap: Record<number, number> = { 100: 5, 95: 5, 90: 5, 85: 5, 80: 4,  75: 4,  70: 4,  65: 4, 60: 3,  55: 3,  50: 3, 45: 2,  40: 2,  35: 2,  30: 2, 25: 1,  20: 1,  15: 1,  10: 1 };
+              // Fallback to mathematical modifier logic if tonnage skips a 5-ton bracket
+              structurePoints = lightStructureMap[this._tonnage] || Math.max(1, baseCalculatedPoints - 1);
+            }
+            this._alphaStrikeForceStats.structure = structurePoints;
+            this._calcLogAS += `Engine is an IS Light Engine <strong>setting structure to ${this._alphaStrikeForceStats.structure}</strong><br />\n`;
+            break;
+          case "ice":
+          case "fuel_cell":
+          case "fission":
+          case "primitive":
+          case "standard":
+          default:
+            structurePoints = 0;
+            baseCalculatedPoints = Math.ceil(this._tonnage / 10);
+            if (this._tonnage > 100) {
+              // Superheavy / Colossal Scaling (105 to 200 tons) progression up to the hard ceiling of 20
+              structurePoints = Math.min(20, baseCalculatedPoints);
+            } else {
+              // Standard Mech Tonnage Lookup Map (10 to 100 tons) mathcing the canonical unpenalized Alpha Strike structure progression chart
+              const standardStructureMap: Record<number, number> = { 100: 8, 95: 8, 90: 8, 85: 7, 80: 6,  75: 6, 70: 5,  65: 5,  60: 5, 55: 5, 50: 4,  45: 4, 40: 3,  35: 3, 30: 2,  25: 2, 20: 2,  15: 2, 10: 1 };
+              // Fallback calculation for custom irregular tonnage profiles
+              structurePoints = standardStructureMap[this._tonnage] || baseCalculatedPoints;
+            }
+            this._alphaStrikeForceStats.structure = structurePoints;
+            // Map internal tags to clean logging display values
+            engineDisplayNames = {
+              "ice": "Internal Combustion",
+              "fuel_cell": "Fuel Cell",
+              "fission": "Fission",
+              "primitive": "Primitive Fusion",
+              "standard": "Standard Fusion"
+            };
+            this._calcLogAS += `Engine is a ${engineDisplayNames[this._engineType.tag]} Engine <strong>setting structure to ${this._alphaStrikeForceStats.structure}</strong><br />\n`;
+            break;
+          }
 
         // Heat Modified Damage, p115 AS companion
         let total_weapon_heat_short = 0;
@@ -2897,49 +2876,109 @@ export class BattleMech {
         col4Padding = 10;
 
         // Armor Factor Table
-
-        html += "Internal Structure".padStart(col1Padding + col2Padding, " " ) + "Armor Value".padStart(col3Padding, " " ) + "\n";
-        html += "Head".padStart(col1Padding, " " ) + "" + this._internalStructure.head.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.head.toString().padStart(col3Padding, " " ) + "\n";
-        html += "Center Torso".padStart(col1Padding, " " ) + "" + this._internalStructure.centerTorso.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.centerTorso.toString().padStart(col3Padding, " " ) + "\n";
-        html += "Center Torso (Rear)".padStart(col1Padding, " " ) + "" + this._armorAllocation.centerTorsoRear.toString().padStart(col2Padding, " " ) + "\n";
-        if( this._armorAllocation.rightTorso === this._armorAllocation.leftTorso && this._armorAllocation.rightTorsoRear === this._armorAllocation.leftTorsoRear) {
-            html += "R/L Torso".padStart(col1Padding, " " ) + "" + this._internalStructure.rightTorso.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.rightTorso.toString().padStart(col3Padding, " " ) + "\n";
-            html += "R/L Torso (Rear)".padStart(col1Padding, " " ) + "" + this._armorAllocation.rightTorsoRear.toString().padStart(col2Padding, " " ) + "\n";
+        html += "Internal Structure".padStart(col1Padding + col2Padding, " ") + "Armor Value".padStart(col3Padding, " ") + "\n";
+        html += "Head".padStart(col1Padding, " ") + "" + this._internalStructure.head.toString().padStart(col2Padding, " ") + "" + this._armorAllocation.head.toString().padStart(col3Padding, " ") + "\n";
+        html += "Center Torso".padStart(col1Padding, " ") + "" + this._internalStructure.centerTorso.toString().padStart(col2Padding, " ") + "" + this._armorAllocation.centerTorso.toString().padStart(col3Padding, " ") + "\n";
+        html += "Center Torso (Rear)".padStart(col1Padding, " ") + "".padStart(col2Padding, " ") + "" + this._armorAllocation.centerTorsoRear.toString().padStart(col3Padding, " ") + "\n"; 
+        if (this._armorAllocation.rightTorso === this._armorAllocation.leftTorso && this._armorAllocation.rightTorsoRear === this._armorAllocation.leftTorsoRear) {
+            html += "R/L Torso".padStart(col1Padding, " ") + "" + this._internalStructure.rightTorso.toString().padStart(col2Padding, " ") + "" + this._armorAllocation.rightTorso.toString().padStart(col3Padding, " ") + "\n";
+            html += "R/L Torso (Rear)".padStart(col1Padding, " ") + "".padStart(col2Padding, " ") + "" + this._armorAllocation.rightTorsoRear.toString().padStart(col3Padding, " ") + "\n";
         } else {
-            html += "Right Torso".padStart(col1Padding, " " ) + "" + this._internalStructure.rightTorso.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.rightTorso.toString().padStart(col3Padding, " " ) + "\n";
-            html += "Right Torso (Rear)".padStart(col1Padding, " " ) + "" + this._armorAllocation.rightTorsoRear.toString().padStart(col2Padding, " " ) + "\n";
-
-            html += "Left Torso".padStart(col1Padding, " " ) + "" + this._internalStructure.leftTorso.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.leftTorso.toString().padStart(col3Padding, " " ) + "\n";
-            html += "Left Torso (Rear)".padStart(col1Padding, " " ) + "" + this._armorAllocation.leftTorsoRear.toString().padStart(col2Padding, " " ) + "\n";
+            html += "Right Torso".padStart(col1Padding, " ") + "" + this._internalStructure.rightTorso.toString().padStart(col2Padding, " ") + "" + this._armorAllocation.rightTorso.toString().padStart(col3Padding, " ") + "\n";
+            html += "Right Torso (Rear)".padStart(col1Padding, " ") + "".padStart(col2Padding, " ") + "" + this._armorAllocation.rightTorsoRear.toString().padStart(col3Padding, " ") + "\n";
+            html += "Left Torso".padStart(col1Padding, " ") + "" + this._internalStructure.leftTorso.toString().padStart(col2Padding, " ") + "" + this._armorAllocation.leftTorso.toString().padStart(col3Padding, " ") + "\n";
+            html += "Left Torso (Rear)".padStart(col1Padding, " ") + "".padStart(col2Padding, " ") + "" + this._armorAllocation.leftTorsoRear.toString().padStart(col3Padding, " ") + "\n";
         }
-        if( this._mechType.tag === "biped" ) {
-
-            if( this._armorAllocation.rightArm === this._armorAllocation.leftArm) {
-                html += "R/L Arm".padStart(col1Padding, " " ) + "" + this._internalStructure.rightArm.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.rightArm.toString().padStart(col3Padding, " " ) + "\n";
+        const typeTag = this._mechType.tag.toLowerCase();
+        if (typeTag === "biped" || typeTag === "lam") {
+            const rightArmIS = this._internalStructure.rightArm ?? 0;
+            const leftArmIS = this._internalStructure.leftArm ?? 0;
+            const rightArmArmor = this._armorAllocation.rightArm ?? 0;
+            const leftArmArmor = this._armorAllocation.leftArm ?? 0;
+            const rightLegIS = this._internalStructure.rightLeg;
+            const leftLegIS = this._internalStructure.leftLeg;
+            const rightLegArmor = this._armorAllocation.rightLeg;
+            const leftLegArmor = this._armorAllocation.leftLeg;
+            if (rightArmArmor === leftArmArmor && rightArmIS === leftArmIS) {
+                html += "R/L Arm".padStart(col1Padding, " ") + "" + rightArmIS.toString().padStart(col2Padding, " ") + "" + rightArmArmor.toString().padStart(col3Padding, " ") + "\n";
             } else {
-                html += "Right Arm".padStart(col1Padding, " " ) + "" + this._internalStructure.rightArm.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.rightArm.toString().padStart(col3Padding, " " ) + "\n";
-                html += "Left Arm".padStart(col1Padding, " " ) + "" + this._internalStructure.leftArm.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.leftArm.toString().padStart(col3Padding, " " ) + "\n";
+                html += "Right Arm".padStart(col1Padding, " ") + "" + rightArmIS.toString().padStart(col2Padding, " ") + "" + rightArmArmor.toString().padStart(col3Padding, " ") + "\n";
+                html += "Left Arm".padStart(col1Padding, " ") + "" + leftArmIS.toString().padStart(col2Padding, " ") + "" + leftArmArmor.toString().padStart(col3Padding, " ") + "\n";
             }
-
-            if( this._armorAllocation.rightLeg === this._armorAllocation.leftLeg) {
-                html += "R/L Leg".padStart(col1Padding, " " ) + "" + this._internalStructure.rightLeg.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.rightLeg.toString().padStart(col3Padding, " " ) + "\n";
+            if (rightLegArmor === leftLegArmor && rightLegIS === leftLegIS) {
+                html += "R/L Leg".padStart(col1Padding, " ") + "" + rightLegIS.toString().padStart(col2Padding, " ") + "" + rightLegArmor.toString().padStart(col3Padding, " ") + "\n";
             } else {
-                html += "Right Leg".padStart(col1Padding, " " ) + "" + this._internalStructure.rightLeg.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.rightLeg.toString().padStart(col3Padding, " " ) + "\n";
-                html += "Left Leg".padStart(col1Padding, " " ) + "" + this._internalStructure.leftLeg.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.leftLeg.toString().padStart(col3Padding, " " ) + "\n";
+                html += "Right Leg".padStart(col1Padding, " ") + "" + rightLegIS.toString().padStart(col2Padding, " ") + "" + rightLegArmor.toString().padStart(col3Padding, " ") + "\n";
+                html += "Left Leg".padStart(col1Padding, " ") + "" + leftLegIS.toString().padStart(col2Padding, " ") + "" + leftLegArmor.toString().padStart(col3Padding, " ") + "\n";
             }
+        } else if (typeTag === "quad" || typeTag === "quadvee") {
+            const frontRightLegIS = this._internalStructure.frontRightLeg ?? 0;
+            const frontLeftLegIS = this._internalStructure.frontLeftLeg ?? 0;
+            const frontRightLegArmor = this._armorAllocation.frontRightLeg ?? 0;
+            const frontLeftLegArmor = this._armorAllocation.frontLeftLeg ?? 0;
+            const rearRightLegIS = this._internalStructure.rightLeg;
+            const rearLeftLegIS = this._internalStructure.leftLeg;
+            const rearRightLegArmor = this._armorAllocation.rightLeg;
+            const rearLeftLegArmor = this._armorAllocation.leftLeg;
+            if (frontRightLegArmor === frontLeftLegArmor && frontRightLegIS === frontLeftLegIS) {
+                html += "R/L Front Leg".padStart(col1Padding, " ") + "" + frontRightLegIS.toString().padStart(col2Padding, " ") + "" + frontRightLegArmor.toString().padStart(col3Padding, " ") + "\n";
+            } else {
+                html += "Right Front Leg".padStart(col1Padding, " ") + "" + frontRightLegIS.toString().padStart(col2Padding, " ") + "" + frontRightLegArmor.toString().padStart(col3Padding, " ") + "\n";
+                html += "Left Front Leg".padStart(col1Padding, " ") + "" + frontLeftLegIS.toString().padStart(col2Padding, " ") + "" + frontLeftLegArmor.toString().padStart(col3Padding, " ") + "\n";
+            }
+            if (rearRightLegArmor === rearLeftLegArmor && rearRightLegIS === rearLeftLegIS) {
+                html += "R/L Rear Leg".padStart(col1Padding, " ") + "" + rearRightLegIS.toString().padStart(col2Padding, " ") + "" + rearRightLegArmor.toString().padStart(col3Padding, " ") + "\n";
+            } else {
+                html += "Right Rear Leg".padStart(col1Padding, " ") + "" + rearRightLegIS.toString().padStart(col2Padding, " ") + "" + rearRightLegArmor.toString().padStart(col3Padding, " ") + "\n";
+                html += "Left Rear Leg".padStart(col1Padding, " ") + "" + rearLeftLegIS.toString().padStart(col2Padding, " ") + "" + rearLeftLegArmor.toString().padStart(col3Padding, " ") + "\n";
+            }
+        } else if (typeTag === "tripod") {
+            const rightLegIS = this._internalStructure.rightLeg;
+            const leftLegIS = this._internalStructure.leftLeg;
+            const centerLegIS = this._internalStructure.centerLeg ?? 0;
+            const rightLegArmor = this._armorAllocation.rightLeg;
+            const leftLegArmor = this._armorAllocation.leftLeg;
+            const centerLegArmor = this._armorAllocation.centerLeg ?? 0;
+            const rightArmIS = this._internalStructure.rightArm ?? 0;
+            const leftArmIS = this._internalStructure.leftArm ?? 0;
+            const rightArmArmor = this._armorAllocation.rightArm ?? 0;
+            const leftArmArmor = this._armorAllocation.leftArm ?? 0;
+            if (rightArmIS > 0 || leftArmIS > 0 || rightArmArmor > 0 || leftArmArmor > 0) {
+                if (rightArmArmor === leftArmArmor && rightArmIS === leftArmIS) {
+                    html += "R/L Arm".padStart(col1Padding, " ") + "" + rightArmIS.toString().padStart(col2Padding, " ") + "" + rightArmArmor.toString().padStart(col3Padding, " ") + "\n";
+                } else {
+                    html += "Right Arm".padStart(col1Padding, " ") + "" + rightArmIS.toString().padStart(col2Padding, " ") + "" + rightArmArmor.toString().padStart(col3Padding, " ") + "\n";
+                    html += "Left Arm".padStart(col1Padding, " ") + "" + leftArmIS.toString().padStart(col2Padding, " ") + "" + leftArmArmor.toString().padStart(col3Padding, " ") + "\n";
+                }
+            }
+            if (rightLegArmor === leftLegArmor && rightLegIS === leftLegIS) {
+                html += "R/L Leg".padStart(col1Padding, " ") + "" + rightLegIS.toString().padStart(col2Padding, " ") + "" + rightLegArmor.toString().padStart(col3Padding, " ") + "\n";
+            } else {
+                html += "Right Leg".padStart(col1Padding, " ") + "" + rightLegIS.toString().padStart(col2Padding, " ") + "" + rightLegArmor.toString().padStart(col3Padding, " ") + "\n";
+                html += "Left Leg".padStart(col1Padding, " ") + "" + leftLegIS.toString().padStart(col2Padding, " ") + "" + leftLegArmor.toString().padStart(col3Padding, " ") + "\n";
+            }
+            html += "Center Leg".padStart(col1Padding, " ") + "" + centerLegIS.toString().padStart(col2Padding, " ") + "" + centerLegArmor.toString().padStart(col3Padding, " ") + "\n";
         } else {
-            if( this._armorAllocation.rightArm === this._armorAllocation.leftArm) {
-                html += "R/L Front Leg".padStart(col1Padding, " " ) + "" + this._internalStructure.rightArm.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.rightArm.toString().padStart(col3Padding, " " ) + "\n";
+            // Fallback: Default directly to a Standard Biped template layout structure
+            const rightArmIS = this._internalStructure.rightArm ?? 0;
+            const leftArmIS = this._internalStructure.leftArm ?? 0;
+            const rightArmArmor = this._armorAllocation.rightArm ?? 0;
+            const leftArmArmor = this._armorAllocation.leftArm ?? 0;
+            const rightLegIS = this._internalStructure.rightLeg;
+            const leftLegIS = this._internalStructure.leftLeg;
+            const rightLegArmor = this._armorAllocation.rightLeg;
+            const leftLegArmor = this._armorAllocation.leftLeg;
+            if (rightArmArmor === leftArmArmor && rightArmIS === leftArmIS) {
+                html += "R/L Arm".padStart(col1Padding, " ") + "" + rightArmIS.toString().padStart(col2Padding, " ") + "" + rightArmArmor.toString().padStart(col3Padding, " ") + "\n";
             } else {
-                html += "Right Front Leg".padStart(col1Padding, " " ) + "" + this._internalStructure.rightArm.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.rightArm.toString().padStart(col3Padding, " " ) + "\n";
-                html += "Left Front Leg".padStart(col1Padding, " " ) + "" + this._internalStructure.leftArm.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.leftArm.toString().padStart(col3Padding, " " ) + "\n";
+                html += "Right Arm".padStart(col1Padding, " ") + "" + rightArmIS.toString().padStart(col2Padding, " ") + "" + rightArmArmor.toString().padStart(col3Padding, " ") + "\n";
+                html += "Left Arm".padStart(col1Padding, " ") + "" + leftArmIS.toString().padStart(col2Padding, " ") + "" + leftArmArmor.toString().padStart(col3Padding, " ") + "\n";
             }
-
-            if( this._armorAllocation.rightLeg === this._armorAllocation.leftLeg) {
-                html += "R/L Rear Leg".padStart(col1Padding, " " ) + "" + this._internalStructure.rightLeg.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.rightLeg.toString().padStart(col3Padding, " " ) + "\n";
+            if (rightLegArmor === leftLegArmor && rightLegIS === leftLegIS) {
+                html += "R/L Leg".padStart(col1Padding, " ") + "" + rightLegIS.toString().padStart(col2Padding, " ") + "" + rightLegArmor.toString().padStart(col3Padding, " ") + "\n";
             } else {
-                html += "Right Rear Leg".padStart(col1Padding, " " ) + "" + this._internalStructure.rightLeg.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.rightLeg.toString().padStart(col3Padding, " " ) + "\n";
-                html += "Right Front Leg".padStart(col1Padding, " " ) + "" + this._internalStructure.leftLeg.toString().padStart(col2Padding, " " ) + "" + this._armorAllocation.leftLeg.toString().padStart(col3Padding, " " ) + "\n";
+                html += "Right Leg".padStart(col1Padding, " ") + "" + rightLegIS.toString().padStart(col2Padding, " ") + "" + rightLegArmor.toString().padStart(col3Padding, " ") + "\n";
+                html += "Left Leg".padStart(col1Padding, " ") + "" + leftLegIS.toString().padStart(col2Padding, " ") + "" + leftLegArmor.toString().padStart(col3Padding, " ") + "\n";
             }
         }
         // End Factor Table
@@ -3021,9 +3060,12 @@ export class BattleMech {
                 } else if( this._tonnage <= 85) {
                     // 60 - 85 tons
                     areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.medium;
-                } else {
-                    // 90+ tons
+                } else if ( this._tonnage <= 100) {
+                    // 90-100 tons
                     areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.heavy;
+                } else {
+                    // 105+ tons
+                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.superheavy;
                 }
                 html += "" + jjObjs[0].name.padEnd(col1Padding, " " ) + "" + this._validJJLocations[locC].short.toUpperCase().padEnd(col2Padding, " " ) + "" + jjObjs.length.toString().padEnd(col3Padding, " " ) + "" + areaWeight.toString().padEnd(col4Padding, " " ) + "\n";
 
@@ -3101,10 +3143,6 @@ export class BattleMech {
         } else {
             html += "<tr><td colspan=\"3\">Cockpit</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
         }
-
-        // if( this.getJumpJetWeight() > 0 ) {
-        // html += "<tr><td colspan=\"3\">Jump Jets</td><td class=\"text-center\" colspan=\"1\">" + this.getJumpJetWeight() + "</td></tr>";
-        // }
 
         if( this._mechType.tag === "biped" ) {
             html += "<tr><td colspan=\"4\">Actuators: ";
@@ -3201,68 +3239,51 @@ export class BattleMech {
                 html += "<tr><td class=\"text-left\">" + currentItem.name + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
         }
 
-        // List Jump Jets Allocations...
+        // Isolate the base unit weight per Jump Jet once to eliminate code duplication
+        let singleJJWeight = 0;
+        if (this._tonnage <= 55) {
+            singleJJWeight = this._jumpJetType.weight_multiplier.light;       // 10 - 55 tons
+        } else if (this._tonnage <= 85) {
+            singleJJWeight = this._jumpJetType.weight_multiplier.medium;      // 60 - 85 tons
+        } else if (this._tonnage <= 100) {
+            singleJJWeight = this._jumpJetType.weight_multiplier.heavy;       // 90 - 100 tons
+        } else {
+            singleJJWeight = this._jumpJetType.weight_multiplier.superheavy;  // 105+ tons
+        }
 
-        for( let locC = 0; locC < this._validJJLocations.length; locC++) {
-
+        // Process allocated Jump Jets across valid equipment locations
+        for (let locC = 0; locC < this._validJJLocations.length; locC++) {
+            const locationLong = this._validJJLocations[locC].long;
+            const locationShort = this._validJJLocations[locC].short.toUpperCase();
+    
+            // Gather all Jump Jet objects occupying critical slots in this specific location
             let jjObjs = [];
-            for( let critC = 0; critC < this._criticals[this._validJJLocations[locC].long].length; critC++) {
-                let item = this._criticals[this._validJJLocations[locC].long][critC];
-                if(
-                   item &&
-                   item.tag &&
-                   item.tag.indexOf( "jj-" ) === 0
-                ) {
-                    jjObjs.push(this._criticals[this._validJJLocations[locC].long][critC]);
+            for (let critC = 0; critC < this._criticals[locationLong].length; critC++) {
+                let item = this._criticals[locationLong][critC];
+                if (item && item.tag && item.tag.indexOf("jj-") === 0) {
+                    jjObjs.push(item);
                 }
             }
-
-            if( jjObjs.length > 0) {
-                let areaWeight = 0;
-                if( this._tonnage <= 55) {
-                    // 10-55 tons
-                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.light;
-                } else if( this._tonnage <= 85) {
-                    // 60 - 85 tons
-                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.medium;
-                } else {
-                    // 90+ tons
-                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.heavy;
-                }
-                let jjObj = jjObjs[0];
-                if( jjObj ) {
-                    html += "<tr><td class=\"text-left\">" + jjObj.name + "</td><td class=\"text-center\">" + this._validJJLocations[locC].short.toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
-                }
-
+            // If matching engines were found, append a clean summary table row
+            if (jjObjs.length > 0) {
+                const totalLocationWeight = jjObjs.length * singleJJWeight;
+                const jjName = jjObjs[0].name;
+                // Fixed the loose dangling </strong> tag from the original snippet
+                html += `<tr><td class="text-left">${jjName}</td><td class="text-center"><strong>${locationShort}</strong></td><td class="text-center">${jjObjs.length}</td><td class="text-center">${totalLocationWeight.toFixed(2)}</td></tr>`;
             }
         }
-
-        let jjObjs = [];
-
-        for( let critC = 0; critC < this._unallocatedCriticals.length; critC++) {
-            if(
-                this._unallocatedCriticals[critC] &&
-                this._unallocatedCriticals[critC].tag &&
-                this._unallocatedCriticals[critC].tag.indexOf( "jj-" ) === 0
-            ) {
-                jjObjs.push(this._unallocatedCriticals[critC]);
+        // Process any Unallocated/Floating Jump Jets lingering in the construction queue
+        let unallocatedJJs = [];
+        for (let critC = 0; critC < this._unallocatedCriticals.length; critC++) {
+            let item = this._unallocatedCriticals[critC];
+            if (item && item.tag && item.tag.indexOf("jj-") === 0) {
+                unallocatedJJs.push(item);
             }
         }
-
-        if( jjObjs.length > 0) {
-            let areaWeight = 0;
-            if( this._tonnage <= 55) {
-                // 10-55 tons
-                areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.light;
-            } else if( this._tonnage <= 85) {
-                // 60 - 85 tons
-                areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.medium;
-            } else {
-                // 90+ tons
-                areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.heavy;
-            }
-            html += "<tr><td class=\"text-left\">" + jjObjs[0].name + "</td><td class=\"text-center\">n/a".toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
-
+        if (unallocatedJJs.length > 0) {
+            const totalUnallocatedWeight = unallocatedJJs.length * singleJJWeight;
+            const jjName = unallocatedJJs[0].name;
+            html += `<tr><td class="text-left">${jjName}</td><td class="text-center"><strong>N/A</strong></td><td class="text-center">${unallocatedJJs.length}</td><td class="text-center">${totalUnallocatedWeight.toFixed(2)}</td></tr>`;
         }
 
         // END Weapons and Ammo
@@ -3317,18 +3338,6 @@ export class BattleMech {
 
         this._runSpeed = Math.ceil(this._walkSpeed * 1.5);
 
-        // if( _era === 0) {
-        //     era = btEraOptions[1];
-        // }
-
-        // if( this._tech === 0) {
-        //     tech = btTechOptions[0];
-        // }
-
-        // if( this._mechType === 0) {
-        //     mechType = mechTypeOptions[0];
-        // }
-
         if( this._engine) {
 
             this._weights.push({
@@ -3345,33 +3354,12 @@ export class BattleMech {
 
         if( this._jumpSpeed > 0) {
             this._maxMoveHeat = this._jumpSpeed;
-            // if( this._jumpJetType.tag === "standard" ) {
-            //     // standard
-            //     this._weights.push({
-            //         name: this._jumpJetType.name,
-            //         weight: this.getJumpJetWeight()
-            //     });
-            // } else {
-            //     // improved
-            //     this._weights.push({
-            //         name: this._jumpJetType.name,
-            //         weight: this.getJumpJetWeight()
-            //     });
-            // }
             this._weights.push({
                 name: this._jumpJetType.name,
                 weight: this.getJumpJetWeight()
             });
         }
-
         this._totalArmor = 0;
-
-        // switch( this.getArmorType() ) {
-
-        // default: // standard
-        // _totalArmor = this._armorWeight * 16;
-        // break;
-        // }
         if( this.getTech().tag === "clan" ) {
             this._maxArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.clan);
         } else {
@@ -3386,26 +3374,51 @@ export class BattleMech {
             weight: this._armorWeight
         });
 
-        this._totalArmor += this._armorAllocation.head;
+        // Reset the active tally counter before summation loops
+        this._totalArmor = 0;
 
+        // Core Fixed Allocations: Head & Torsos (Front/Rear) exist on every single BattleMech layout
+        this._totalArmor += this._armorAllocation.head;
         this._totalArmor += this._armorAllocation.centerTorso;
         this._totalArmor += this._armorAllocation.leftTorso;
         this._totalArmor += this._armorAllocation.rightTorso;
-
         this._totalArmor += this._armorAllocation.centerTorsoRear;
         this._totalArmor += this._armorAllocation.leftTorsoRear;
         this._totalArmor += this._armorAllocation.rightTorsoRear;
 
-        this._totalArmor += this._armorAllocation.rightArm;
-        this._totalArmor += this._armorAllocation.leftArm;
+        const typeTag = this._mechType.tag.toLowerCase();
+        // Sum limbs based on anatomical configuration rules
+        if (typeTag === "biped" || typeTag === "lam") {
+            // Standard Bipeds and Aero-Mechs utilize traditional Left/Right Arms and Legs
+            this._totalArmor += this._armorAllocation.rightArm ?? 0;
+            this._totalArmor += this._armorAllocation.leftArm ?? 0;
+            this._totalArmor += this._armorAllocation.rightLeg;
+            this._totalArmor += this._armorAllocation.leftLeg;
+        } else if (typeTag === "quad" || typeTag === "quadvee") {
+            // Four-legged layouts substitute arms entirely for specialized front legs
+            this._totalArmor += this._armorAllocation.frontRightLeg ?? 0;
+            this._totalArmor += this._armorAllocation.frontLeftLeg ?? 0;
+            this._totalArmor += this._armorAllocation.rightLeg; // Rear Right Leg
+            this._totalArmor += this._armorAllocation.leftLeg;  // Rear Left Leg
+        } else if (typeTag === "tripod") {
+            // Tripods feature three distinct structural legs, alongside optional weapon arms
+            this._totalArmor += this._armorAllocation.rightLeg;
+            this._totalArmor += this._armorAllocation.leftLeg;
+            this._totalArmor += this._armorAllocation.centerLeg ?? 0;
+            this._totalArmor += this._armorAllocation.rightArm ?? 0;
+            this._totalArmor += this._armorAllocation.leftArm ?? 0;
+        } else {
+            // Safe Baseline Fallback: Default to standard Biped layout tracking
+            this._totalArmor += this._armorAllocation.rightArm ?? 0;
+            this._totalArmor += this._armorAllocation.leftArm ?? 0;
+            this._totalArmor += this._armorAllocation.rightLeg;
+            this._totalArmor += this._armorAllocation.leftLeg;
+        }
 
-        this._totalArmor += this._armorAllocation.rightLeg;
-        this._totalArmor += this._armorAllocation.leftLeg;
-
+        // Compute remaining armor tonnage capacities accurately
         this._unallocatedArmor = this._maxArmor - this._totalArmor;
 
         this._maxWeaponHeat = 0;
-
         if( this._additionalHeatSinks > 0)
             this._weights.push({
                 name: "Additional Heat Sinks",
@@ -3440,25 +3453,7 @@ export class BattleMech {
             slotsEach: 1,
             number: 0,
         };
-        // this._heatSinkCriticals.number = 0;
-        // this._heatSinkCriticals.slots_type = "single slot";
-        // this._heatSinkCriticals.slotsEach = 1;
-
-        // if( this._heatSinkType === "double" ) {
-        // if( this._tech.tag === "clan" ) {
-        // this._heatSinkCriticals.slots_type = "double slot";
-        // this._heatSinkCriticals.slotsEach = 2;
-        // } else {
-        // this._heatSinkCriticals.slots_type = "triple slot";
-        // this._heatSinkCriticals.slotsEach = 3;
-        // }
-        // _heatDissipation = (this._additionalHeatSinks + 10) * 2;
-        // } else {
-        // this._heatSinkCriticals.slots_type = "single";
-        // this._heatSinkCriticals.slotsEach = 1;
-        // _heatDissipation = this._additionalHeatSinks + 10;
-        // }
-
+        
         this._heatDissipation = (this._additionalHeatSinks + 10) * this._heatSinkType.dissipation;
         if( this.getTech().tag === "clan" ) {
             this._heatSinkCriticals.slotsEach = this._heatSinkType.crits.clan;
@@ -3477,11 +3472,8 @@ export class BattleMech {
         this._calcBattleValue();
         this._calcCBillCost();
 
-        // this._equipmentList = this._equipmentList.sort(sortByLocationThenName);
-        // this._equipmentList.sort(sortByLocationThenName);
         this._sortInstalledEquipment();
         this._sortedEquipmentList = [];
-        // this._sortedSeparatedEquipmentList = [];
 
         for( let countEQ = 0; countEQ < this._equipmentList.length; countEQ++) {
 
@@ -3492,7 +3484,6 @@ export class BattleMech {
                     this._equipmentList[countEQ].location === this._sortedEquipmentList[se_count].location &&
                     this._equipmentList[countEQ].tag === this._sortedEquipmentList[se_count].tag
                 ) {
-                    // @ts-ignore
                     this._sortedEquipmentList[se_count].count++;
                     foundIt = true;
                 }
@@ -3506,186 +3497,200 @@ export class BattleMech {
 
             let eqItemSeparate = JSON.parse( JSON.stringify(this._equipmentList[countEQ]));
             eqItemSeparate.count = 1;
-            // this._sortedSeparatedEquipmentList.push( eqItemSeparate )
         }
 
         this._calcArmorStructureBubbles();
 
         this._sortedEquipmentList.sort();
-        // this._sortedSeparatedEquipmentList.sort();
     }
 
     private _calcArmorStructureBubbles() {
+    // Tiny bubbles... on my mech... make me happy and you so wrecked...
+    // Using .length truncation preserves historical check/damage states without inverting arrays
+    const syncBubbles = (currentArray: boolean[] | undefined, targetCount: number): boolean[] => {
+        let arr = currentArray ?? [];
+        while (arr.length < targetCount) {
+            arr.push(true); // Fill missing allocation boxes
+        }
+        if (arr.length > targetCount) {
+            arr.length = targetCount; // Truncate trailing elements instantly
+        }
+        return arr;
+    };
 
-        if(!this._armorBubbles.head) {
+    // CORE FIXED LOCATIONS: As always, Head & Torsos (Front/Rear)
+    this._armorBubbles.head = syncBubbles(this._armorBubbles.head, this._armorAllocation.head);
+    this._armorBubbles.centerTorso = syncBubbles(this._armorBubbles.centerTorso, this._armorAllocation.centerTorso);
+    this._armorBubbles.leftTorso = syncBubbles(this._armorBubbles.leftTorso, this._armorAllocation.leftTorso);
+    this._armorBubbles.rightTorso = syncBubbles(this._armorBubbles.rightTorso, this._armorAllocation.rightTorso);
+    this._armorBubbles.centerTorsoRear = syncBubbles(this._armorBubbles.centerTorsoRear, this._armorAllocation.centerTorsoRear);
+    this._armorBubbles.leftTorsoRear = syncBubbles(this._armorBubbles.leftTorsoRear, this._armorAllocation.leftTorsoRear);
+    this._armorBubbles.rightTorsoRear = syncBubbles(this._armorBubbles.rightTorsoRear, this._armorAllocation.rightTorsoRear);
+    const typeTag = this._mechType.tag.toLowerCase();
+    // DYNAMIC LIMB BLOCKS: Parse allocations by chassis anatomical layout rules
+    if (typeTag === "biped" || typeTag === "lam") {
+        // Standard Bipeds and LAMs utilize traditional arms and legs
+        this._armorBubbles.leftArm = syncBubbles(this._armorBubbles.leftArm, this._armorAllocation.leftArm ?? 0);
+        this._armorBubbles.rightArm = syncBubbles(this._armorBubbles.rightArm, this._armorAllocation.rightArm ?? 0);
+        this._armorBubbles.leftLeg = syncBubbles(this._armorBubbles.leftLeg, this._armorAllocation.leftLeg);
+        this._armorBubbles.rightLeg = syncBubbles(this._armorBubbles.rightLeg, this._armorAllocation.rightLeg);
+        // Zeroing out unutilized areas to prevent phantom bubbles
+        this._armorBubbles.centerLeg = [];
+        this._armorBubbles.frontLeftLeg = [];
+        this._armorBubbles.frontRightLeg = [];
+    } else if (typeTag === "quad" || typeTag === "quadvee") {
+        // Four-legged layout swaps out arms completely for dedicated Front Legs
+        this._armorBubbles.frontLeftLeg = syncBubbles(this._armorBubbles.frontLeftLeg, this._armorAllocation.frontLeftLeg ?? 0);
+        this._armorBubbles.frontRightLeg = syncBubbles(this._armorBubbles.frontRightLeg, this._armorAllocation.frontRightLeg ?? 0);
+        this._armorBubbles.leftLeg = syncBubbles(this._armorBubbles.leftLeg, this._armorAllocation.leftLeg);   // Rear Left
+        this._armorBubbles.rightLeg = syncBubbles(this._armorBubbles.rightLeg, this._armorAllocation.rightLeg); // Rear Right
+        // Zeroing out unutilized biped/tripod bubbles
+        this._armorBubbles.leftArm = [];
+        this._armorBubbles.rightArm = [];
+        this._armorBubbles.centerLeg = [];
+    } else if (typeTag === "tripod") {
+        // Tripods have standard legs, a specialized Center Leg, and conditional Arms
+        this._armorBubbles.leftLeg = syncBubbles(this._armorBubbles.leftLeg, this._armorAllocation.leftLeg);
+        this._armorBubbles.rightLeg = syncBubbles(this._armorBubbles.rightLeg, this._armorAllocation.rightLeg);
+        this._armorBubbles.centerLeg = syncBubbles(this._armorBubbles.centerLeg, this._armorAllocation.centerLeg ?? 0);
+        this._armorBubbles.leftArm = syncBubbles(this._armorBubbles.leftArm, this._armorAllocation.leftArm ?? 0);
+        this._armorBubbles.rightArm = syncBubbles(this._armorBubbles.rightArm, this._armorAllocation.rightArm ?? 0);
+        // Zeroing out unutilized quad bubbles
+        this._armorBubbles.frontLeftLeg = [];
+        this._armorBubbles.frontRightLeg = [];
+    } else {
+        // Safe Default Fallback: Standard Biped array tracking sync. Remember kids always have a bugout plan...
+        this._armorBubbles.leftArm = syncBubbles(this._armorBubbles.leftArm, this._armorAllocation.leftArm ?? 0);
+        this._armorBubbles.rightArm = syncBubbles(this._armorBubbles.rightArm, this._armorAllocation.rightArm ?? 0);
+        this._armorBubbles.leftLeg = syncBubbles(this._armorBubbles.leftLeg, this._armorAllocation.leftLeg);
+        this._armorBubbles.rightLeg = syncBubbles(this._armorBubbles.rightLeg, this._armorAllocation.rightLeg);
+        this._armorBubbles.centerLeg = [];
+        this._armorBubbles.frontLeftLeg = [];
+        this._armorBubbles.frontRightLeg = [];
+    }
+    // NOW ON TO THE INTERNALS! The Toads are coming.
+    if(!this._structureBubbles.head)
+        this._structureBubbles.head = [];
+    while( this._structureBubbles.head.length < this._internalStructure.head ) {
+        this._structureBubbles.head.push( true )
+    }
+    if( this._structureBubbles.head.length > this._internalStructure.head ) {
+        this._structureBubbles.head = this._structureBubbles.head.splice( 0, this._internalStructure.head)
+    }
+    if(!this._structureBubbles.centerTorso)
+        this._structureBubbles.centerTorso = [];
+    while( this._structureBubbles.centerTorso.length < this._internalStructure.centerTorso ) {
+        this._structureBubbles.centerTorso.push( true )
+    }
+    if( this._structureBubbles.centerTorso.length > this._internalStructure.centerTorso ) {
+        this._structureBubbles.centerTorso = this._structureBubbles.centerTorso.splice( 0, this._internalStructure.centerTorso)
+    }
+    if(!this._structureBubbles.rightTorso)
+        this._structureBubbles.rightTorso = [];
+    while( this._structureBubbles.rightTorso.length < this._internalStructure.rightTorso ) {
+        this._structureBubbles.rightTorso.push( true )
+    }
+    if( this._structureBubbles.rightTorso.length > this._internalStructure.rightTorso ) {
+        this._structureBubbles.rightTorso = this._structureBubbles.rightTorso.splice( 0, this._internalStructure.rightTorso)
+    }
+    if(!this._structureBubbles.leftTorso)
+        this._structureBubbles.leftTorso = [];
+    while( this._structureBubbles.leftTorso.length < this._internalStructure.leftTorso ) {
+        this._structureBubbles.leftTorso.push( true )
+    }
+    if( this._structureBubbles.leftTorso.length > this._internalStructure.leftTorso ) {
+        this._structureBubbles.leftTorso = this._structureBubbles.leftTorso.splice( 0, this._internalStructure.leftTorso)
+    }
+    this._structureBubbles.leftTorsoRear = [];
+    this._structureBubbles.centerTorsoRear = [];
+    this._structureBubbles.rightTorsoRear = [];
+    if(!this._structureBubbles.leftArm)
+        this._structureBubbles.leftArm = [];
+    const leftArmBubbles = this._structureBubbles.leftArm;
+    while( leftArmBubbles.length < this._internalStructure.leftArm ) {
+        leftArmBubbles.push( true )
+    }
+    if( leftArmBubbles.length > this._internalStructure.leftArm ) {
+        this._structureBubbles.leftArm = leftArmBubbles.splice( 0, this._internalStructure.leftArm)
+    }
+    if(!this._structureBubbles.rightArm)
+        this._structureBubbles.rightArm = [];
+    const rightArmBubbles = this._structureBubbles.rightArm;
+    while( rightArmBubbles.length < this._internalStructure.rightArm ) {
+        rightArmBubbles.push( true )
+    }
+    if( rightArmBubbles.length > this._internalStructure.rightArm ) {
+        this._structureBubbles.rightArm = rightArmBubbles.splice( 0, this._internalStructure.rightArm)
+    }
+    if(!this._structureBubbles.rightLeg)
+        this._structureBubbles.rightLeg = [];
+    while( this._structureBubbles.rightLeg.length < this._internalStructure.rightLeg ) {
+        this._structureBubbles.rightLeg.push( true )
+    }
+    if( this._structureBubbles.rightLeg.length > this._internalStructure.rightLeg ) {
+        this._structureBubbles.rightLeg = this._structureBubbles.rightLeg.splice( 0, this._internalStructure.rightLeg)
+    }
+    if(!this._structureBubbles.leftLeg)
+        this._structureBubbles.leftLeg = [];
+    while( this._structureBubbles.leftLeg.length < this._internalStructure.leftLeg ) {
+        this._structureBubbles.leftLeg.push( true )
+    }
+    if( this._structureBubbles.leftLeg.length > this._internalStructure.leftLeg ) {
+        this._structureBubbles.leftLeg = this._structureBubbles.leftLeg.splice( 0, this._internalStructure.leftLeg)
+    }
+    // REAR FRAMEWORK RESETS: Internal structure sheets do not utilize distinct rear bubbles
+    this._structureBubbles.centerTorsoRear = [];
+    this._structureBubbles.leftTorsoRear = [];
+    this._structureBubbles.rightTorsoRear = [];
 
-            this._armorBubbles.head = [];
-        }
+    // CORE FIXED STRUCTURE: We know why.
+    this._structureBubbles.head = syncBubbles(this._structureBubbles.head, this._internalStructure.head);
+    this._structureBubbles.centerTorso = syncBubbles(this._structureBubbles.centerTorso, this._internalStructure.centerTorso);
+    this._structureBubbles.leftTorso = syncBubbles(this._structureBubbles.leftTorso, this._internalStructure.leftTorso);
+    this._structureBubbles.rightTorso = syncBubbles(this._structureBubbles.rightTorso, this._internalStructure.rightTorso);
 
-        while( this._armorBubbles.head.length < this._armorAllocation.head ) {
-            this._armorBubbles.head.push( true )
-        }
+    // DYNAMIC STRUCTURE LIMBS: I choose you Hedgehog!!! Help our buddy Wasp LAM out!!!
+    if (typeTag === "biped" || typeTag === "lam") {
+        // Standard Bipeds and Aero-Mechs utilize traditional arms and legs framework
+        this._structureBubbles.leftArm = syncBubbles(this._structureBubbles.leftArm, this._internalStructure.leftArm ?? 0);
+        this._structureBubbles.rightArm = syncBubbles(this._structureBubbles.rightArm, this._internalStructure.rightArm ?? 0);
+        this._structureBubbles.leftLeg = syncBubbles(this._structureBubbles.leftLeg, this._internalStructure.leftLeg);
+        this._structureBubbles.rightLeg = syncBubbles(this._structureBubbles.rightLeg, this._internalStructure.rightLeg);
 
-        if( this._armorBubbles.head.length > this._armorAllocation.head ) {
-            this._armorBubbles.head = this._armorBubbles.head.splice( 0, this._armorAllocation.head)
-        }
+        // Zeroing out unallocated bubble areas... No bubble beam attacks today
+        this._structureBubbles.centerLeg = [];
+        this._structureBubbles.frontLeftLeg = [];
+        this._structureBubbles.frontRightLeg = [];
 
-        if(!this._armorBubbles.centerTorso)
-            this._armorBubbles.centerTorso = [];
-        while( this._armorBubbles.centerTorso.length < this._armorAllocation.centerTorso ) {
-            this._armorBubbles.centerTorso.push( true )
-        }
-        if( this._armorBubbles.centerTorso.length > this._armorAllocation.centerTorso ) {
-            this._armorBubbles.centerTorso = this._armorBubbles.centerTorso.splice( 0, this._armorAllocation.centerTorso)
-        }
-
-        if(!this._armorBubbles.rightTorso)
-            this._armorBubbles.rightTorso = [];
-        while( this._armorBubbles.rightTorso.length < this._armorAllocation.rightTorso ) {
-            this._armorBubbles.rightTorso.push( true )
-        }
-        if( this._armorBubbles.rightTorso.length > this._armorAllocation.rightTorso ) {
-            this._armorBubbles.rightTorso = this._armorBubbles.rightTorso.splice( 0, this._armorAllocation.rightTorso)
-        }
-        if(!this._armorBubbles.leftTorso)
-            this._armorBubbles.leftTorso = [];
-        while( this._armorBubbles.leftTorso.length < this._armorAllocation.leftTorso ) {
-            this._armorBubbles.leftTorso.push( true )
-        }
-        if( this._armorBubbles.leftTorso.length > this._armorAllocation.leftTorso ) {
-            this._armorBubbles.leftTorso = this._armorBubbles.leftTorso.splice( 0, this._armorAllocation.leftTorso)
-        }
-
-        if(!this._armorBubbles.centerTorsoRear)
-            this._armorBubbles.centerTorsoRear = [];
-        while( this._armorBubbles.centerTorsoRear.length < this._armorAllocation.centerTorsoRear ) {
-            this._armorBubbles.centerTorsoRear.push( true )
-        }
-        if( this._armorBubbles.centerTorsoRear.length > this._armorAllocation.centerTorsoRear ) {
-            this._armorBubbles.centerTorsoRear = this._armorBubbles.centerTorsoRear.splice( 0, this._armorAllocation.centerTorsoRear)
-        }
-        if(!this._armorBubbles.rightTorsoRear)
-            this._armorBubbles.rightTorsoRear = [];
-        while( this._armorBubbles.rightTorsoRear.length < this._armorAllocation.rightTorsoRear ) {
-            this._armorBubbles.rightTorsoRear.push( true )
-        }
-        if( this._armorBubbles.rightTorsoRear.length > this._armorAllocation.rightTorsoRear ) {
-            this._armorBubbles.rightTorsoRear = this._armorBubbles.rightTorsoRear.splice( 0, this._armorAllocation.rightTorsoRear)
-        }
-        if(!this._armorBubbles.leftTorsoRear)
-            this._armorBubbles.leftTorsoRear = [];
-        while( this._armorBubbles.leftTorsoRear.length < this._armorAllocation.leftTorsoRear ) {
-            this._armorBubbles.leftTorsoRear.push( true )
-        }
-        if( this._armorBubbles.leftTorsoRear.length > this._armorAllocation.leftTorsoRear ) {
-            this._armorBubbles.leftTorsoRear = this._armorBubbles.leftTorsoRear.splice( 0, this._armorAllocation.leftTorsoRear)
-        }
-
-        if(!this._armorBubbles.leftArm)
-            this._armorBubbles.leftArm = [];
-        while( this._armorBubbles.leftArm.length < this._armorAllocation.leftArm ) {
-            this._armorBubbles.leftArm.push( true )
-        }
-        if( this._armorBubbles.leftArm.length > this._armorAllocation.leftArm ) {
-            this._armorBubbles.leftArm = this._armorBubbles.leftArm.splice( 0, this._armorAllocation.leftArm)
-        }
-        if(!this._armorBubbles.rightArm)
-            this._armorBubbles.rightArm = [];
-        while( this._armorBubbles.rightArm.length < this._armorAllocation.rightArm ) {
-            this._armorBubbles.rightArm.push( true )
-        }
-        if( this._armorBubbles.rightArm.length > this._armorAllocation.rightArm ) {
-            this._armorBubbles.rightArm = this._armorBubbles.head.splice( 0, this._armorAllocation.rightArm)
-        }
-
-        if(!this._armorBubbles.rightLeg)
-            this._armorBubbles.rightLeg = [];
-        while( this._armorBubbles.rightLeg.length < this._armorAllocation.rightLeg ) {
-            this._armorBubbles.rightLeg.push( true )
-        }
-        if( this._armorBubbles.rightLeg.length > this._armorAllocation.rightLeg ) {
-            this._armorBubbles.rightLeg = this._armorBubbles.rightLeg.splice( 0, this._armorAllocation.rightLeg)
-        }
-        if(!this._armorBubbles.leftLeg)
-            this._armorBubbles.leftLeg = [];
-        while( this._armorBubbles.leftLeg.length < this._armorAllocation.leftLeg ) {
-            this._armorBubbles.leftLeg.push( true )
-        }
-        if( this._armorBubbles.leftLeg.length > this._armorAllocation.leftLeg ) {
-            this._armorBubbles.leftLeg = this._armorBubbles.head.splice( 0, this._armorAllocation.leftLeg)
-        }
-
-        if(!this._structureBubbles.head)
-            this._structureBubbles.head = [];
-        while( this._structureBubbles.head.length < this._internalStructure.head ) {
-            this._structureBubbles.head.push( true )
-        }
-        if( this._structureBubbles.head.length > this._internalStructure.head ) {
-            this._structureBubbles.head = this._structureBubbles.head.splice( 0, this._internalStructure.head)
-        }
-
-        if(!this._structureBubbles.centerTorso)
-            this._structureBubbles.centerTorso = [];
-        while( this._structureBubbles.centerTorso.length < this._internalStructure.centerTorso ) {
-            this._structureBubbles.centerTorso.push( true )
-        }
-        if( this._structureBubbles.centerTorso.length > this._internalStructure.centerTorso ) {
-            this._structureBubbles.centerTorso = this._structureBubbles.centerTorso.splice( 0, this._internalStructure.centerTorso)
-        }
-        if(!this._structureBubbles.rightTorso)
-            this._structureBubbles.rightTorso = [];
-        while( this._structureBubbles.rightTorso.length < this._internalStructure.rightTorso ) {
-            this._structureBubbles.rightTorso.push( true )
-        }
-        if( this._structureBubbles.rightTorso.length > this._internalStructure.rightTorso ) {
-            this._structureBubbles.rightTorso = this._structureBubbles.rightTorso.splice( 0, this._internalStructure.rightTorso)
-        }
-        if(!this._structureBubbles.leftTorso)
-            this._structureBubbles.leftTorso = [];
-        while( this._structureBubbles.leftTorso.length < this._internalStructure.leftTorso ) {
-            this._structureBubbles.leftTorso.push( true )
-        }
-        if( this._structureBubbles.leftTorso.length > this._internalStructure.leftTorso ) {
-            this._structureBubbles.leftTorso = this._structureBubbles.leftTorso.splice( 0, this._internalStructure.leftTorso)
-        }
-        this._structureBubbles.leftTorsoRear = [];
-        this._structureBubbles.centerTorsoRear = [];
-        this._structureBubbles.rightTorsoRear = [];
-
-        if(!this._structureBubbles.leftArm)
-            this._structureBubbles.leftArm = [];
-        while( this._structureBubbles.leftArm.length < this._internalStructure.leftArm ) {
-            this._structureBubbles.leftArm.push( true )
-        }
-        if( this._structureBubbles.leftArm.length > this._internalStructure.leftArm ) {
-            this._structureBubbles.leftArm = this._structureBubbles.leftArm.splice( 0, this._internalStructure.leftArm)
-        }
-        if(!this._structureBubbles.rightArm)
-            this._structureBubbles.rightArm = [];
-        while( this._structureBubbles.rightArm.length < this._internalStructure.rightArm ) {
-            this._structureBubbles.rightArm.push( true )
-        }
-        if( this._structureBubbles.rightArm.length > this._internalStructure.rightArm ) {
-            this._structureBubbles.rightArm = this._structureBubbles.rightArm.splice( 0, this._internalStructure.rightArm)
-        }
-
-        if(!this._structureBubbles.rightLeg)
-            this._structureBubbles.rightLeg = [];
-        while( this._structureBubbles.rightLeg.length < this._internalStructure.rightLeg ) {
-            this._structureBubbles.rightLeg.push( true )
-        }
-        if( this._structureBubbles.rightLeg.length > this._internalStructure.rightLeg ) {
-            this._structureBubbles.rightLeg = this._structureBubbles.rightLeg.splice( 0, this._internalStructure.rightLeg)
-        }
-        if(!this._structureBubbles.leftLeg)
-            this._structureBubbles.leftLeg = [];
-        while( this._structureBubbles.leftLeg.length < this._internalStructure.leftLeg ) {
-            this._structureBubbles.leftLeg.push( true )
-        }
-        if( this._structureBubbles.leftLeg.length > this._internalStructure.leftLeg ) {
-            this._structureBubbles.leftLeg = this._structureBubbles.leftLeg.splice( 0, this._internalStructure.leftLeg)
-        }
-
+    } else if (typeTag === "quad" || typeTag === "quadvee") {
+        // Four-legged layouts substitute the arms framework for an explicit Front Legs framework... they don't walk on their hands.
+        this._structureBubbles.frontLeftLeg = syncBubbles(this._structureBubbles.frontLeftLeg, this._internalStructure.frontLeftLeg ?? 0);
+        this._structureBubbles.frontRightLeg = syncBubbles(this._structureBubbles.frontRightLeg, this._internalStructure.frontRightLeg ?? 0);
+        this._structureBubbles.leftLeg = syncBubbles(this._structureBubbles.leftLeg, this._internalStructure.leftLeg);   // Rear Left Frame
+        this._structureBubbles.rightLeg = syncBubbles(this._structureBubbles.rightLeg, this._internalStructure.rightLeg); // Rear Right Frame
+        // Zeroing out non-applicable bubbles
+        this._structureBubbles.leftArm = [];
+        this._structureBubbles.rightArm = [];
+        this._structureBubbles.centerLeg = [];
+    } else if (typeTag === "tripod") {
+        // Tripods: tri... three... three legs ah ah ah... optional layout arms
+        this._structureBubbles.leftLeg = syncBubbles(this._structureBubbles.leftLeg, this._internalStructure.leftLeg);
+        this._structureBubbles.rightLeg = syncBubbles(this._structureBubbles.rightLeg, this._internalStructure.rightLeg);
+        this._structureBubbles.centerLeg = syncBubbles(this._structureBubbles.centerLeg, this._internalStructure.centerLeg ?? 0);
+        this._structureBubbles.leftArm = syncBubbles(this._structureBubbles.leftArm, this._internalStructure.leftArm ?? 0);
+        this._structureBubbles.rightArm = syncBubbles(this._structureBubbles.rightArm, this._internalStructure.rightArm ?? 0);
+        // Zeroing out non-applicable quad bubbles
+        this._structureBubbles.frontLeftLeg = [];
+        this._structureBubbles.frontRightLeg = [];
+    } else {
+        // Safe Default Fallback: Standard Biped structural synchronization... there is safety in bubbles, why else is there bubble wrap?
+        this._structureBubbles.leftArm = syncBubbles(this._structureBubbles.leftArm, this._internalStructure.leftArm ?? 0);
+        this._structureBubbles.rightArm = syncBubbles(this._structureBubbles.rightArm, this._internalStructure.rightArm ?? 0);
+        this._structureBubbles.leftLeg = syncBubbles(this._structureBubbles.leftLeg, this._internalStructure.leftLeg);
+        this._structureBubbles.rightLeg = syncBubbles(this._structureBubbles.rightLeg, this._internalStructure.rightLeg);
+        this._structureBubbles.centerLeg = [];
+        this._structureBubbles.frontLeftLeg = [];
+        this._structureBubbles.frontRightLeg = [];
     }
 
     private _sortCriticalAllocationTableByTagThenUUID() {
@@ -3715,27 +3720,55 @@ export class BattleMech {
 
         this._calcVariableEquipment();
         // WORK IN PROGRESS (Not so much? - JDG Apr 2 2022)
-        this._criticals.head = Array(6);
+        // CORE FIXED LOCATIONS: Head (6 slots) & Torsos (12 slots) always exist
+        this._criticals.head = Array(6).fill(null);
+        this._criticals.centerTorso = Array(12).fill(null);
+        this._criticals.leftTorso = Array(12).fill(null);
+        this._criticals.rightTorso = Array(12).fill(null);
 
-        this._criticals.centerTorso = Array(12);
-        this._criticals.leftTorso = Array(12);
-        this._criticals.rightTorso = Array(12);
+        const typeTag = this.getType().tag.toLowerCase();
 
-        if( this.getType().tag === "quad" ) {
-            this._criticals.rightArm = Array(6);
-            this._criticals.leftArm = Array(6);
+        // DYNAMIC CRITICAL SLOTS: Get the stuff the different types need
+        if (typeTag === "biped" || typeTag === "lam") {
+            // Standard Bipeds and Land Air Mechs feature 12 slots per arm and 6 slots per leg
+            this._criticals.leftArm = Array(12).fill(null);
+            this._criticals.rightArm = Array(12).fill(null);
+            this._criticals.leftLeg = Array(6).fill(null);
+            this._criticals.rightLeg = Array(6).fill(null);
+            // Scrub non-existent limbs in this type
+            this._criticals.centerLeg = [];
+            this._criticals.frontLeftLeg = [];
+            this._criticals.frontRightLeg = [];
+        } else if (typeTag === "quad" || typeTag === "quadvee") {
+            // Quads and QuadVees possess 4 legs with 6 slots each. They have NO arms.
+            this._criticals.frontLeftLeg = Array(6).fill(null);
+            this._criticals.frontRightLeg = Array(6).fill(null);
+            this._criticals.leftLeg = Array(6).fill(null);        // Rear Left Leg
+            this._criticals.rightLeg = Array(6).fill(null);       // Rear Right Leg
+            // Clear biped/tripod slot arrays
+            this._criticals.leftArm = [];
+            this._criticals.rightArm = [];
+            this._criticals.centerLeg = [];
+        } else if (typeTag === "tripod") {
+            // Tripods possess 3 legs with 6 slots each, plus 2 standard 12-slot arms
+            this._criticals.leftArm = Array(12).fill(null);
+            this._criticals.rightArm = Array(12).fill(null);
+            this._criticals.leftLeg = Array(6).fill(null);
+            this._criticals.rightLeg = Array(6).fill(null);
+            this._criticals.centerLeg = Array(6).fill(null);
+            // Clear quad layout tracks
+            this._criticals.frontLeftLeg = [];
+            this._criticals.frontRightLeg = [];
         } else {
-            this._criticals.rightArm = Array(12);
-            this._criticals.leftArm = Array(12);
+            // Safe Default Fallback: Standard Biped layout array profiles
+            this._criticals.leftArm = Array(12).fill(null);
+            this._criticals.rightArm = Array(12).fill(null);
+            this._criticals.leftLeg = Array(6).fill(null);
+            this._criticals.rightLeg = Array(6).fill(null);
+            this._criticals.centerLeg = [];
+            this._criticals.frontLeftLeg = [];
+            this._criticals.frontRightLeg = [];
         }
-
-        this._criticals.rightLeg = Array(6);
-        this._criticals.leftLeg = Array(6);
-
-        // while( this._criticals.leftArm.length < 12 ) {
-        //     this._criticals.leftArm.push( null );
-        // }
-
         this._unallocatedCriticals = [];
 
         // Add required components....
@@ -3751,137 +3784,153 @@ export class BattleMech {
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 4);
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 5);
         }
+        const typeTag = this._mechType.tag.toLowerCase();
 
-        if( this._mechType.tag.toLowerCase() === "quad" ) {
-            // quad
-            // Left Leg Components
-            this._addCriticalItem( "hip", "Hip", 1, "ra", 0);
-            this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "ra", 1);
-            this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "ra", 2);
-            this._addCriticalItem( "foot-actuator", "Foot", 1, "ra", 3);
-
-            // Right Leg Components
-            this._addCriticalItem( "hip", "Hip", 1, "la", 0);
-            this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "la", 1);
-            this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "la", 2);
-            this._addCriticalItem( "foot-actuator", "Foot", 1, "la", 3);
-
-        } else {
-            // biped
-            // Left Arm Components
-            this._addCriticalItem( "shoulder", "Shoulder", 1, "la", 0);
-            this._addCriticalItem( "upper-arm-actuator", "Upper Arm Actuator", 1, "la", 1);
-            if( this.hasLowerArmActuator( "la" )) {
-                this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
-                if( this.hasHandActuator( "la" )) {
-
-                    this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "la", 3);
-                }
-            }
-
-            // Right Arm Components
-            this._addCriticalItem( "shoulder", "Shoulder", 1, "ra", 0);
-            this._addCriticalItem( "upper-arm-actuator", "Upper Arm Actuator", 1, "ra", 1);
-            if( this.hasLowerArmActuator( "ra" )) {
-                this._addCriticalItem( "lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
-                if( this.hasHandActuator( "ra" )) {
-
-                    this._addCriticalItem( "hand-actuator", "Hand Actuator", 1, "ra", 3);
-                }
-            }
-        }
-
-        // Engine
-
-        let engineCrits: ICriticalLocations = {
-            ct: 0,
-            rt: 0,
-            lt: 0,
-        };
-        if( this._engineType.criticals && this._engineType.criticals[this.getTech().tag] ) {
-            engineCrits = this._engineType.criticals[this.getTech().tag];
-            if( engineCrits && engineCrits.ct )  {
-                if(
-                    this._engineType &&
-                    engineCrits &&
-                    engineCrits.ct > 3
-                ) {
-                    this._addCriticalItem(
-                        "engine", // item_tag
-                        this._engineType.name, // item_nickname
-                        3, // criticalCount
-                        "ct" // location
-                        // slot
-                    );
-                } else {
-                    // reset back to standard, engine not available for tech
-                    if( engineCrits && engineCrits.ct ) {
-                        console.warn( "resetting engine to standard ", this._engineType.criticals, this.getTech().tag, this._tech);
-                        this.setEngineType( "standard" );
-                        this._addCriticalItem(
-                            "engine", // item_tag
-                            this._engineType.name, // item_nickname
-                            engineCrits.ct, // criticalCount
-                            "ct" // location
-                            // slot
-                        );
+        if (typeTag === "quad" || typeTag === "quadvee") {
+            // ---- QUAD / QUADVEE FRONT LEGS ----
+            // Front Right Leg Actuators (replaces old arm hacks with direct location tracking keys)
+            this._addCriticalItem("hip", "Hip", 1, "frl", 0);
+            this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "frl", 1);
+            this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "frl", 2);
+            this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "frl", 3);
+            // Front Left Leg Actuators
+            this._addCriticalItem("hip", "Hip", 1, "fll", 0);
+            this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "fll", 1);
+            this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "fll", 2);
+            this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "fll", 3);
+        } else if (typeTag === "tripod") {
+            // ---- TRIPOD ARMS & CONDITIONAL ACTUATORS ----
+            // Tripods use standard arm actuators, but some configurations can completely drop arms.
+            // Check if the current layout allocates structural space for them before populating.
+            const rightArmIS = this._internalStructure.rightArm ?? 0;
+            const leftArmIS = this._internalStructure.leftArm ?? 0;
+            if (leftArmIS > 0) {
+                this._addCriticalItem("shoulder", "Shoulder", 1, "la", 0);
+                this._addCriticalItem("upper-arm-actuator", "Upper Arm Actuator", 1, "la", 1);
+                if (this.hasLowerArmActuator("la")) {
+                    this._addCriticalItem("lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
+                    if (this.hasHandActuator("la")) {
+                        this._addCriticalItem("hand-actuator", "Hand Actuator", 1, "la", 3);
                     }
                 }
-
-                if(
-                    engineCrits &&
-                    engineCrits.rt
-                ) {
-                    this._addCriticalItem( "engine", this._engineType.name, engineCrits.rt, "rt" );
-                }
-
-                if(
-                    engineCrits &&
-                    engineCrits.lt
-                ) {
-                    this._addCriticalItem( "engine", this._engineType.name, engineCrits.lt, "lt" );
-                }
-
-                // Gyro
-                this._addCriticalItem(
-                    "gyro", // item_tag
-                    this._gyro.name, // item_nickname
-                    this._gyro.criticals, // criticalCount
-                    "ct" // location
-                );
-
-                // Extra engine bits....
-                if( engineCrits.ct > 3) {
-                    this._addCriticalItem(
-                        "engine", // item_tag
-                        this._engineType.name, // item_nickname
-                        engineCrits.ct - 3, // criticalCount
-                        "ct" // location
-                    );
+            }
+            if (rightArmIS > 0) {
+                this._addCriticalItem("shoulder", "Shoulder", 1, "ra", 0);
+                this._addCriticalItem("upper-arm-actuator", "Upper Arm Actuator", 1, "ra", 1);
+                if (this.hasLowerArmActuator("ra")) {
+                    this._addCriticalItem("lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
+                    if (this.hasHandActuator("ra")) {
+                        this._addCriticalItem("hand-actuator", "Hand Actuator", 1, "ra", 3);
+                    }
                 }
             }
         } else {
-            // Gyro, but no engine
-            this._addCriticalItem(
-                "gyro", // item_tag
-                this._gyro.name, // item_nickname
-                this._gyro.criticals, // criticalCount
-                "ct" // location
-            );
+            // ---- BIPED / LAM SELECTION (STANDARD FALLBACK) ----
+            // Left Arm Actuators
+            this._addCriticalItem("shoulder", "Shoulder", 1, "la", 0);
+            this._addCriticalItem("upper-arm-actuator", "Upper Arm Actuator", 1, "la", 1);
+            if (this.hasLowerArmActuator("la")) {
+                this._addCriticalItem("lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
+                if (this.hasHandActuator("la")) {
+                    this._addCriticalItem("hand-actuator", "Hand Actuator", 1, "la", 3);
+                }
+            }
+            // Right Arm Actuators
+            this._addCriticalItem("shoulder", "Shoulder", 1, "ra", 0);
+            this._addCriticalItem("upper-arm-actuator", "Upper Arm Actuator", 1, "ra", 1);
+            if (this.hasLowerArmActuator("ra")) {
+                this._addCriticalItem("lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
+                if (this.hasHandActuator("ra")) {
+                    this._addCriticalItem("hand-actuator", "Hand Actuator", 1, "ra", 3);
+                }
+            }
+        }
+        // Define baseline structural data constraints for our vroomie vrooms...
+        let engineCrits: ICriticalLocations = { ct: 0, rt: 0, lt: 0 };
+        const currentTechTag = this.getTech().tag;
+
+        // Core Data Validation & Rollback Routing
+        if (this._engineType.criticals && this._engineType.criticals[currentTechTag]) {
+            engineCrits = this._engineType.criticals[currentTechTag];
         }
 
-        // Left Leg Components
-        this._addCriticalItem( "hip", "Hip", 1, "ll", 0);
-        this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "ll", 1);
-        this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "ll", 2);
-        this._addCriticalItem( "foot-actuator", "Foot", 1, "ll", 3);
+        // Fallback Check: Reset invalid or unvouched tech architectures immediately to standard
+        if (!engineCrits || !engineCrits.ct || engineCrits.ct <= 3) {
+            console.warn("Resetting engine to standard, engine not available for tech profile:", this._engineType?.criticals, currentTechTag);
+            this.setEngineType("standard");
+            if (this._engineType.criticals && this._engineType.criticals[currentTechTag]) {
+                engineCrits = this._engineType.criticals[currentTechTag];
+            } else {
+                engineCrits = { ct: 6, rt: 0, lt: 0 }; 
+            }
+        }
+        const engineName = this._engineType.name;
+        // FIRST ENGINE BLOCK (Slots 1-3): Seats the upper drive mechanism
+        // If an engine takes 6 slots, we limit the first sequential chunk to exactly 3 slots. Currently unless I can find something canonical or homebrew somewhere
+        const initialEngineAllocation = engineCrits.ct > 3 ? 3 : engineCrits.ct;
+        if (initialEngineAllocation > 0) {
+            this._addCriticalItem(
+                "engine", 
+                engineName, 
+                initialEngineAllocation, 
+                "ct"
+            );
+        }
+        // GYRO POSITIONING (Slots 4-6): Injected immediately below the upper engine core as is tradition and as I saw all the way back in 1989.
+        this._addCriticalItem(
+            "gyro", 
+            this._gyro.name, 
+            this._gyro.criticals, 
+            "ct"
+        );
+        // SECOND ENGINE BLOCK (Slots 7-9): Handles the trailing split block for 6-slot engines
+        const remainingEngineAllocation = engineCrits.ct - initialEngineAllocation;
+        if (remainingEngineAllocation > 0) {
+            this._addCriticalItem(
+                "engine", 
+                engineName, 
+                remainingEngineAllocation, 
+                "ct"
+            );
+        }
+        // TORSO SHIELDING: Distribute side shield critical slots
+        if (engineCrits.rt) {
+            this._addCriticalItem("engine", engineName, engineCrits.rt, "rt");
+        }
+        if (engineCrits.lt) {
+            this._addCriticalItem("engine", engineName, engineCrits.lt, "lt");
+        }
 
-        // Right Leg Components
-        this._addCriticalItem( "hip", "Hip", 1, "rl", 0);
-        this._addCriticalItem( "upper-leg-actuator", "Upper Leg Actuator", 1, "rl", 1);
-        this._addCriticalItem( "lower-leg-actuator", "Lower Leg Actuator", 1, "rl", 2);
-        this._addCriticalItem( "foot-actuator", "Foot", 1, "rl", 3);
-
+        const typeTag = this._mechType.tag.toLowerCase();
+        // STANDARD & REAR LEGS: Track Left Leg (ll) and Right Leg (rl) structural presence. Am I standing?
+        const leftLegIS = this._internalStructure.leftLeg ?? 0;
+        const rightLegIS = this._internalStructure.rightLeg ?? 0;
+        if (leftLegIS > 0) {
+            // Determine context-aware naming labels for clarity on record sheets
+            const legLabel = (typeTag === "quad" || typeTag === "quadvee") ? "Rear Left Leg" : "Left Leg";
+            this._addCriticalItem("hip", "Hip", 1, "ll", 0);
+            this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "ll", 1);
+            this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "ll", 2);
+            this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "ll", 3);
+        }
+        if (rightLegIS > 0) {
+            const legLabel = (typeTag === "quad" || typeTag === "quadvee") ? "Rear Right Leg" : "Right Leg";
+            this._addCriticalItem("hip", "Hip", 1, "rl", 0);
+            this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "rl", 1);
+            this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "rl", 2);
+            this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "rl", 3);
+        }
+        // 2. Populate specialized Tripod Center Leg actuators
+        if (typeTag === "tripod") {
+            const centerLegIS = this._internalStructure.centerLeg ?? 0;
+            if (centerLegIS > 0) {
+                // Map center leg actuators cleanly onto its unique location tracking token key ('cl')
+                this._addCriticalItem("hip", "Hip", 1, "cl", 0);
+                this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "cl", 1);
+                this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "cl", 2);
+                this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "cl", 3);
+            }
+        }
         // Jump Jets
         let jump_move = this.getJumpSpeed();
         for( let jmc = 0; jmc < jump_move; jmc++) {
@@ -3897,7 +3946,6 @@ export class BattleMech {
         }
 
         // Armor
-
         let armorObj = this.getArmorObj();
         if( this.getTech().tag === "clan" ) {
             if( armorObj.crits.clan > 0) {
@@ -4220,54 +4268,60 @@ export class BattleMech {
     }
 
     private _addCriticalItem(
-        item_tag: string,
-        item_nickname: string,
-        criticalCount: number,
-        location: string,
-        slot: number | null = 0,
-        movable: boolean = false,
-    ): boolean {
-        let uuid = generateUUID();
-        let item: ICriticalSlot = {
-            obj: null,
-            rear: false,
-            tag: item_tag,
-            name: item_nickname,
-            crits: criticalCount,
-            movable: movable,
-            uuid: uuid
-        };
+    item_tag: string,
+    item_nickname: string,
+    criticalCount: number,
+    location: string,
+    slot: number | null = 0,
+    movable: boolean = false,
+): boolean {
+    // Generate a unique identifier tracking tag for the component instance
+    const uuid = generateUUID();
+    const item: ICriticalSlot = {
+        obj: null,
+        rear: false,
+        tag: item_tag,
+        name: item_nickname,
+        crits: criticalCount,
+        movable: movable,
+        uuid: uuid
+    };
 
-        if( typeof(slot) === "undefined" || slot === null)
-            slot = null;
+    // Standardize input parameters to eliminate undefined values
+    const assignedSlot = (slot === undefined || slot === null) ? null : slot;
 
-        if( typeof(location) !== "undefined" && location !== null) {
-
-
-            if( location === "hd" ) {
-                return this._assignItemToArea(this._criticals.head, item, criticalCount, slot, location);
-            } else if( location === "ct" ) {
-                return this._assignItemToArea(this._criticals.centerTorso, item, criticalCount, slot, location);
-            } else if( location === "lt" ) {
-                return this._assignItemToArea(this._criticals.leftTorso, item, criticalCount, slot, location);
-            } else if( location === "rt" ) {
-                return this._assignItemToArea(this._criticals.rightTorso, item, criticalCount, slot, location);
-            } else if( location === "ra" ) {
-                return this._assignItemToArea(this._criticals.rightArm, item, criticalCount, slot, location);
-            } else if( location === "la" ) {
-                return this._assignItemToArea(this._criticals.leftArm, item, criticalCount, slot, location);
-            } else if( location === "rl" ) {
-                return this._assignItemToArea(this._criticals.rightLeg, item, criticalCount, slot, location);
-            } else if( location === "ll" ) {
-                return this._assignItemToArea(this._criticals.leftLeg, item, criticalCount, slot, location);
-            } else {
-                return false;
-            }
-
-        } else {
-            return false;
-        }
+    if (!location) {
+        return false;
     }
+
+    const normalizedLocation = location.toLowerCase().trim();
+
+    // Core Architecture Location Registry Mapping Dictionary
+    // Natively maps standard biped, quad, and tripod inventory slots without dynamic type casting work arounds
+    const locationMap: Record<string, any[] | undefined> = {
+        "hd": this._criticals.head,
+        "ct": this._criticals.centerTorso,
+        "lt": this._criticals.leftTorso,
+        "rt": this._criticals.rightTorso,
+        "la": this._criticals.leftArm,
+        "ra": this._criticals.rightArm,
+        "ll": this._criticals.leftLeg,
+        "rl": this._criticals.rightLeg,
+        // Advanced layout location trackers mapped to their respective backing properties
+        "cl": (this._criticals as any).centerLeg,
+        "fll": (this._criticals as any).frontLeftLeg,
+        "frl": (this._criticals as any).frontRightLeg
+    };
+
+    // Extract the target array reference matrix based on choice
+    const targetCriticalArray = locationMap[normalizedLocation];
+    if (targetCriticalArray) {
+        return this._assignItemToArea(targetCriticalArray, item, criticalCount, assignedSlot, normalizedLocation);
+    }
+    // Unrecognized or unmapped structural string identifier fallback
+    console.error(`_addCriticalItem failed: Location '${location}' is not a valid structural component for the active layout.`);
+    return false;
+}
 
     private _isNextXCritsAvailable(
         areaArray: ICriticalSlot[],
@@ -4367,24 +4421,55 @@ export class BattleMech {
         return false;
     }
 
+    // Overriding this currently... I will look into removing the functionality entirely later... no need to trim if you are good the first round.
     private _trimCriticals() {
-        this._criticals.head = this._criticals.head.slice(0, 6);
+    // CORE FIXED LOCATIONS: Head (6 slots) & Torsos (12 slots) are universal
+    this._criticals.head = this._criticals.head.slice(0, 6);
+    this._criticals.centerTorso = this._criticals.centerTorso.slice(0, 12);
+    this._criticals.leftTorso = this._criticals.leftTorso.slice(0, 12);
+    this._criticals.rightTorso = this._criticals.rightTorso.slice(0, 12);
 
-        this._criticals.centerTorso = this._criticals.centerTorso.slice(0, 12);
-        this._criticals.leftTorso = this._criticals.leftTorso.slice(0, 12);
-        this._criticals.rightTorso = this._criticals.rightTorso.slice(0, 12);
+    const typeTag = this._mechType.tag.toLowerCase();
 
-        this._criticals.rightLeg = this._criticals.rightLeg.slice(0, 6);
+    // DYNAMIC LIMB TRUNCATION: Clip arrays exactly to their structural rules profiles
+    if (typeTag === "biped" || typeTag === "lam") {
+        // Standard profiles: 12-slot manipulative arms and 6-slot driving legs
+        this._criticals.leftArm = this._criticals.leftArm.slice(0, 12);
+        this._criticals.rightArm = this._criticals.rightArm.slice(0, 12);
         this._criticals.leftLeg = this._criticals.leftLeg.slice(0, 6);
-
-        if( this._mechType.tag.toLowerCase() === "quad" ) {
-            this._criticals.rightArm = this._criticals.rightArm.slice(0, 6);
-            this._criticals.leftArm = this._criticals.leftArm.slice(0, 6);
-        } else {
-            this._criticals.rightArm = this._criticals.rightArm.slice(0, 12);
-            this._criticals.leftArm = this._criticals.leftArm.slice(0, 12);
-        }
+        this._criticals.rightLeg = this._criticals.rightLeg.slice(0, 6);
+        // Wipe trailing advanced slots to ensure data cleanliness as we have been doing... 
+        (this._criticals as any).centerLeg = [];
+        (this._criticals as any).frontLeftLeg = [];
+        (this._criticals as any).frontRightLeg = [];
+    } else if (typeTag === "quad" || typeTag === "quadvee") {
+        // Four-legged frames: 4 driving legs carrying exactly 6 inventory spaces each. No arms.
+        (this._criticals as any).frontLeftLeg = ((this._criticals as any).frontLeftLeg ?? []).slice(0, 6);
+        (this._criticals as any).frontRightLeg = ((this._criticals as any).frontRightLeg ?? []).slice(0, 6);
+        this._criticals.leftLeg = this._criticals.leftLeg.slice(0, 6);   // Rear Left
+        this._criticals.rightLeg = this._criticals.rightLeg.slice(0, 6); // Rear Right
+        // Flush standard arm parameters
+        this._criticals.leftArm = [];
+        this._criticals.rightArm = [];
+        (this._criticals as any).centerLeg = [];
+    } else if (typeTag === "tripod") {
+        // Tripods: 3 distinct 6-slot legs alongside two standard 12-slot weapon mount arms
+        this._criticals.leftArm = this._criticals.leftArm.slice(0, 12);
+        this._criticals.rightArm = this._criticals.rightArm.slice(0, 12);
+        this._criticals.leftLeg = this._criticals.leftLeg.slice(0, 6);
+        this._criticals.rightLeg = this._criticals.rightLeg.slice(0, 6);
+        (this._criticals as any).centerLeg = ((this._criticals as any).centerLeg ?? []).slice(0, 6);
+        // Flush quad tracks
+        (this._criticals as any).frontLeftLeg = [];
+        (this._criticals as any).frontRightLeg = [];
+    } else {
+        // Safe Architecture Fallback: Standard Biped profile clipping parameters
+        this._criticals.leftArm = this._criticals.leftArm.slice(0, 12);
+        this._criticals.rightArm = this._criticals.rightArm.slice(0, 12);
+        this._criticals.leftLeg = this._criticals.leftLeg.slice(0, 6);
+        this._criticals.rightLeg = this._criticals.rightLeg.slice(0, 6);
     }
+}
 
     public getHeatSinksType() {
         return this._heatSinkType.tag;
@@ -4617,18 +4702,27 @@ export class BattleMech {
         return this._engine;
     }
 
-    public setEngine(
-        ratingNumber: number
-    ) {
-        ratingNumber = ratingNumber / 1;
-        for( let engine of mechEngineOptions ) {
-            if(engine.rating === ratingNumber) {
+    public setEngine(ratingNumber: number | string): any {
+        // Explicit base-10 integer normalization to protect against string form inputs
+        const parsedRating = typeof ratingNumber === "string" 
+            ? Number.parseInt(ratingNumber, 10) 
+            : Math.floor(ratingNumber);
+        // Guard Clause: Exit immediately if the incoming data cannot resolve to a valid integer
+        if (Number.isNaN(parsedRating) || parsedRating <= 0) {
+            console.error(`setEngine failed: '${ratingNumber}' is not a valid engine rating integer.`);
+            return 0;
+        }
+        // Scan engine options array using the normalized, type-safe integer
+        for (const engine of mechEngineOptions) {
+            if (engine.rating === parsedRating) {
                 this._engine = engine;
-                this._calc();
+                this._calc(); // Cascade down calculation rules only on a successful update
                 return this._engine;
             }
         }
-        this._calc();
+
+        // If an matching engine size doesn't exist in our catalog, alert the system and exit cleanly
+        console.warn(`setEngine failed: Rating entry '${parsedRating}' could not be located in your options registry. Please submit a ticket on GitHub.`);
         return 0;
     }
 
@@ -4947,95 +5041,50 @@ export class BattleMech {
     }
 
     public resetDamage(): void {
-        for( let area of Object.keys(this._criticals) )  {
-            for( let crit of this._criticals[area] ) {
-                if( crit && crit.damaged ) {
-                    crit.damaged = false;
+        // Safely iterate across whatever location arrays exist on this chassis inventory matrix
+        const criticalAreas = Object.keys(this._criticals) as Array<keyof typeof this._criticals>;
+        for (const area of criticalAreas) {
+            const slotArray = this._criticals[area];
+            if (Array.isArray(slotArray)) {
+                for (let critC = 0; critC < slotArray.length; critC++) {
+                    const component = slotArray[critC];
+                    if (component && component.damaged) {
+                        component.damaged = false;
+                    }
                 }
             }
         }
-
-        for( let crit of this._criticalAllocationTable )  {
-            if( crit && crit.damaged ) {
-                crit.damaged = false;
+        // Clear allocated equipment table tracking rows
+        for (let critC = 0; critC < this._criticalAllocationTable.length; critC++) {
+            const component = this._criticalAllocationTable[critC];
+            if (component && component.damaged) {
+                component.damaged = false;
             }
-
         }
 
-        for( let dotIndex in this._armorBubbles.head ) {
-            this._armorBubbles.head[dotIndex] = true;
-        }
-
-        for( let dotIndex in this._armorBubbles.centerTorso ) {
-            this._armorBubbles.centerTorso[dotIndex] = true;
-        }
-        for( let dotIndex in this._armorBubbles.rightTorso ) {
-            this._armorBubbles.rightTorso[dotIndex] = true;
-        }
-        for( let dotIndex in this._armorBubbles.leftTorso ) {
-            this._armorBubbles.leftTorso[dotIndex] = true;
-        }
-
-        for( let dotIndex in this._armorBubbles.centerTorsoRear ) {
-            this._armorBubbles.centerTorsoRear[dotIndex] = true;
-        }
-        for( let dotIndex in this._armorBubbles.rightTorsoRear ) {
-            this._armorBubbles.rightTorsoRear[dotIndex] = true;
-        }
-        for( let dotIndex in this._armorBubbles.leftTorsoRear ) {
-            this._armorBubbles.leftTorsoRear[dotIndex] = true;
-        }
-
-        for( let dotIndex in this._armorBubbles.rightArm ) {
-            this._armorBubbles.rightArm[dotIndex] = true;
-        }
-        for( let dotIndex in this._armorBubbles.leftArm ) {
-            this._armorBubbles.leftArm[dotIndex] = true;
-        }
-
-        for( let dotIndex in this._armorBubbles.rightLeg ) {
-            this._armorBubbles.rightLeg[dotIndex] = true;
-        }
-        for( let dotIndex in this._armorBubbles.leftLeg ) {
-            this._armorBubbles.leftLeg[dotIndex] = true;
-        }
-
-
-
-        for( let dotIndex in this._structureBubbles.head ) {
-            this._structureBubbles.head[dotIndex] = true;
-        }
-
-        for( let dotIndex in this._structureBubbles.centerTorso ) {
-            this._structureBubbles.centerTorso[dotIndex] = true;
-        }
-        for( let dotIndex in this._structureBubbles.rightTorso ) {
-            this._structureBubbles.rightTorso[dotIndex] = true;
-        }
-        for( let dotIndex in this._structureBubbles.leftTorso ) {
-            this._structureBubbles.leftTorso[dotIndex] = true;
-        }
-
-        for( let dotIndex in this._structureBubbles.rightArm ) {
-            this._structureBubbles.rightArm[dotIndex] = true;
-        }
-        for( let dotIndex in this._structureBubbles.leftArm ) {
-            this._structureBubbles.leftArm[dotIndex] = true;
-        }
-
-        for( let dotIndex in this._structureBubbles.rightLeg ) {
-            this._structureBubbles.rightLeg[dotIndex] = true;
-        }
-        for( let dotIndex in this._structureBubbles.leftLeg ) {
-            this._structureBubbles.leftLeg[dotIndex] = true;
-        }
-
+        // CHASSIS-AWARE BUBBLE SCRUBBER UTIL, or as I like to call it, Mr. Clean!
+        // Safely process and true-out boolean arrays across whatever keys exist on bubble allocation states
+        const resetBubbleMatrix = (bubbleObject: any) => {
+            if (!bubbleObject) return;
+            const locations = Object.keys(bubbleObject);
+            for (const loc of locations) {
+                const arr = bubbleObject[loc];
+                if (Array.isArray(arr)) {
+                    for (let i = 0; i < arr.length; i++) {
+                        arr[i] = true; // Repair/Heal the specific sheet point box index
+                    }
+                }
+            }
+        };
+        // Sequentially repair internal structure lines and external armor sheets for all active configurations
+        resetBubbleMatrix(this._armorBubbles);
+        resetBubbleMatrix(this._structureBubbles);
+        // CORE METRIC RECOVERY RESETS
         this.currentHeat = 0;
-
-        this.pilot.wounds = 0;
+        if (this.pilot) {
+            this.pilot.wounds = 0;
+        }
     }
-
-
     public get isOmnimech(): boolean {
         return this._omnimech;
     }
@@ -5055,106 +5104,206 @@ export class BattleMech {
         return this._tonnage;
     }
 
-    public setTonnage(
-        tonnage: number,
-    ) {
+    public setTonnage(tonnage: number): number {
+      this._tonnage = tonnage;
+    
+      // Get the current active mech configuration type tag key
+      const mechTypeKey = this.getMechType().tag as keyof typeof this._selectedInternalStructure.perMechType;
+      // Fetch the normalized structural data block for this specific tonnage
+      const structureData = this._selectedInternalStructure.perMechType[mechTypeKey][this.getTonnage()];
+      // Assigning core internal structure properties
+      this._internalStructure.head = structureData.head;
+      this._internalStructure.centerTorso = structureData.centerTorso;
+      this._internalStructure.leftTorso = structureData.leftTorso;
+      this._internalStructure.rightTorso = structureData.rightTorso;
+      // Handling the alternate limb layouts (Arms vs. Front Legs)
+      if ('leftArm' in structureData) {
+        this._internalStructure.leftArm = structureData.leftArm ?? 0;
+      } else {
+        this._internalStructure.leftArm = 0;
+      }
+      if ('rightArm' in structureData) {
+        this._internalStructure.rightArm = structureData.rightArm ?? 0;
+      } else {
+        this._internalStructure.rightArm = 0;
+      }
+      // leftLeg and rightLeg equate to the rear legs on Quads and QuadVees.
+      if ('leftLeg' in structureData) {
+        this._internalStructure.leftLeg = structureData.leftLeg ?? 0;
+        this._internalStructure.rightLeg = structureData.rightLeg ?? 0;
+      }
+      // For tripods
+      if ('centerLeg' in structureData) {
+        this._internalStructure.centerLeg = structureData.centerLeg ?? 0;
+      } else {
+        this._internalStructure.centerLeg = 0;
+      }
+      // For quads and quadvees
+      if ('frontLeftLeg' in structureData) {
+        this._internalStructure.frontLeftLeg = structureData.frontLeftLeg ?? 0;
+        this._internalStructure.frontRightLeg = structureData.frontRightLeg ?? 0;
+      } else {
+        this._internalStructure.frontLeftLeg = 0;
+        this._internalStructure.frontRightLeg = 0;
+      }
 
-        this._tonnage = tonnage;
-        this._internalStructure.head = this._selectedInternalStructure.perTon[this.getTonnage()].head;
+      // Establish core fixed armor allocations (Head maximum is 9; Torsos carry 2x internal structure)
+      this._maxArmor = 9 + 
+        (this._internalStructure.centerTorso * 2) + 
+        (this._internalStructure.leftTorso * 2) + 
+        (this._internalStructure.rightTorso * 2);
 
-        this._internalStructure.centerTorso = this._selectedInternalStructure.perTon[this.getTonnage()].centerTorso;
-        this._internalStructure.leftTorso = this._selectedInternalStructure.perTon[this.getTonnage()].rlTorso;
-        this._internalStructure.rightTorso = this._selectedInternalStructure.perTon[this.getTonnage()].rlTorso;
+      const typeTag = this._mechType.tag.toLowerCase();
 
-        this._internalStructure.rightArm = this._selectedInternalStructure.perTon[this.getTonnage()].rlArm;
-        this._internalStructure.leftArm = this._selectedInternalStructure.perTon[this.getTonnage()].rlArm;
+      // Dynamically calculate Limb Armor additions based on anatomical layout rules
+      if (typeTag === "biped" || typeTag === "lam") {
+        this._maxArmor += 
+          ((this._internalStructure.leftArm || 0) * 2) + 
+          ((this._internalStructure.rightArm || 0) * 2) + 
+          (this._internalStructure.leftLeg * 2) + 
+          (this._internalStructure.rightLeg * 2);
+      } else if (typeTag === "quad" || typeTag === "quadvee") {
+        this._maxArmor += 
+          (this._internalStructure.frontLeftLeg * 2) + 
+          (this._internalStructure.frontRightLeg * 2) + 
+          (this._internalStructure.leftLeg * 2) + 
+          (this._internalStructure.rightLeg * 2);
+          // Sync legacy tracking hooks to keep structural indices consistent
+          this._internalStructure.rightArm = this._internalStructure.rightLeg;
+          this._internalStructure.leftArm = this._internalStructure.leftLeg;
+      } else if (typeTag === "tripod") {
+        this._maxArmor += 
+          ((this._internalStructure.leftArm || 0) * 2) + 
+          ((this._internalStructure.rightArm || 0) * 2) + 
+          (this._internalStructure.leftLeg * 2) + 
+          (this._internalStructure.rightLeg * 2) + 
+          (this._internalStructure.centerLeg * 2);
+      } else {
+        // Fallback catch-all for unknown layout types
+        this._maxArmor += 
+          ((this._internalStructure.leftArm || 0) * 2) + 
+          ((this._internalStructure.rightArm || 0) * 2) + 
+          (this._internalStructure.leftLeg * 2) + 
+          (this._internalStructure.rightLeg * 2);
+      }
+      // Sum up cumulative structural integrity profile points across active locations
+      this._totalInternalStructurePoints = 
+        this._internalStructure.head +
+        this._internalStructure.centerTorso +
+        this._internalStructure.leftTorso +
+        this._internalStructure.rightTorso;
 
-        this._internalStructure.rightLeg = this._selectedInternalStructure.perTon[this.getTonnage()].rlLeg;
-        this._internalStructure.leftLeg = this._selectedInternalStructure.perTon[this.getTonnage()].rlLeg;
-
-        this._maxArmor = 9 + this._internalStructure.centerTorso * 2 + this._internalStructure.leftTorso * 2 + this._internalStructure.rightTorso * 2 + this._internalStructure.rightLeg * 2 + this._internalStructure.leftLeg * 2;
-        if( this._mechType.tag.toLowerCase() === "biped" )
-            this._maxArmor += this._internalStructure.leftArm * 2 + this._internalStructure.rightArm * 2;
-        else
-            this._maxArmor += this._internalStructure.rightLeg * 2 + this._internalStructure.leftLeg * 2;
-
-        if( this._mechType.tag.toLowerCase() === "quad" ) {
-            this._internalStructure.rightArm = this._internalStructure.rightLeg;
-            this._internalStructure.leftArm = this._internalStructure.leftLeg;
+      if (typeTag === "quad" || typeTag === "quadvee") {
+        this._totalInternalStructurePoints += 
+          this._internalStructure.frontLeftLeg + 
+          this._internalStructure.frontRightLeg + 
+          this._internalStructure.leftLeg + 
+          this._internalStructure.rightLeg;
+      } else {
+        this._totalInternalStructurePoints += 
+          (this._internalStructure.leftArm || 0) + 
+          (this._internalStructure.rightArm || 0) + 
+          this._internalStructure.leftLeg + 
+          this._internalStructure.rightLeg;
+            
+        if (typeTag === "tripod") {
+          this._totalInternalStructurePoints += (this._internalStructure.centerLeg || 0);
         }
+      }
 
-        // this._maxArmorTonnage = this._maxArmor / 16;
+      this.setWalkSpeed(this._walkSpeed);
+      this._calc();
 
-        this._totalInternalStructurePoints = 0;
-
-        this._totalInternalStructurePoints += this._internalStructure.head;
-
-        this._totalInternalStructurePoints += this._internalStructure.centerTorso;
-        this._totalInternalStructurePoints += this._internalStructure.leftTorso;
-        this._totalInternalStructurePoints += this._internalStructure.rightTorso;
-
-        this._totalInternalStructurePoints += this._internalStructure.rightArm;
-        this._totalInternalStructurePoints += this._internalStructure.leftArm;
-
-        this._totalInternalStructurePoints += this._internalStructure.rightLeg;
-        this._totalInternalStructurePoints += this._internalStructure.leftLeg;
-
-        this.setWalkSpeed(this._walkSpeed);
-        this._calc();
-
-        return this._tonnage;
+      return this._tonnage;
     }
 
-    getMaxArmorTonnage() {
-        let rv = 0;
+    public getMaxArmorTonnage(armorTag: string = "standard", techBase: "is" | "clan" = "is"): number {
+      // Dynamically retrieve the absolute maximum armor points configured for this chassis layout
+      const totalPoints = this.getMaxArmor();
+    
+      // Locate the armor data object by its unique tag identifier from our data file
+      const armorData = mechArmorTypes.find(a => a.tag === armorTag);
+    
+      // Fall back to a standard 16 points/ton if tag is missing or data is malformed
+      const pointsPerTon = armorData?.armorMultiplier[techBase] || 16;
 
-
-        rv += 9; // head
-
-        rv += this._internalStructure.centerTorso * 2;
-        rv += this._internalStructure.leftTorso * 4;
-        rv += this._internalStructure.rightArm * 4;
-        rv += this._internalStructure.rightLeg * 4;
-
-        rv = Math.ceil(rv / 16);
-
-        return rv;
+      // Calculate raw fractional tonnage required
+      const rawTonnage = totalPoints / pointsPerTon;
+    
+      // BattleTech armor must be purchased and allocated in half-ton (0.5) steps.
+      // Multiplying by 2, rounding up, and dividing by 2 snaps it perfectly to the next half-ton.
+      return Math.ceil(rawTonnage * 2) / 2;
     }
 
-    getMaxArmor() {
-        let rv = 0;
+    public getMaxArmor(): number {
+      // If _maxArmor was already calculated and cached during setTonnage(), return it
+      if (this._maxArmor !== undefined && this._maxArmor > 0) {
+        return this._maxArmor;
+      }
 
+      // Dynamic fallback calculation: Head maximum is 9; Torso locations carry 2x internal structure
+      let totalMaxArmor = 9 +
+        (this._internalStructure.centerTorso * 2) + 
+        (this._internalStructure.leftTorso * 2) + 
+        (this._internalStructure.rightTorso * 2);
 
-        rv += this._internalStructure.head;
+      const typeTag = this._mechType.tag.toLowerCase();
 
-        rv += this._internalStructure.centerTorso * 2;
-        rv += this._internalStructure.leftTorso * 4;
-        rv += this._internalStructure.rightArm * 4;
-        rv += this._internalStructure.rightLeg * 4;
+      // Dynamically calculate and add limb armor caps based on chassis anatomy layout
+      if (typeTag === "biped" || typeTag === "lam") {
+        totalMaxArmor += 
+          ((this._internalStructure.leftArm || 0) * 2) + 
+          ((this._internalStructure.rightArm || 0) * 2) + 
+          (this._internalStructure.leftLeg * 2) + 
+          (this._internalStructure.rightLeg * 2);
+      } else if (typeTag === "quad" || typeTag === "quadvee") {
+        totalMaxArmor += 
+          (this._internalStructure.frontLeftLeg * 2) + 
+          (this._internalStructure.frontRightLeg * 2) + 
+          (this._internalStructure.leftLeg * 2) + 
+          (this._internalStructure.rightLeg * 2);
+      } else if (typeTag === "tripod") {
+        totalMaxArmor += 
+          ((this._internalStructure.leftArm || 0) * 2) + 
+          ((this._internalStructure.rightArm || 0) * 2) + 
+          (this._internalStructure.leftLeg * 2) + 
+          (this._internalStructure.rightLeg * 2) + 
+          (this._internalStructure.centerLeg * 2);
+      } else {
+        // Standard catch-all anatomy fallback
+        totalMaxArmor += 
+          ((this._internalStructure.leftArm || 0) * 2) + 
+          ((this._internalStructure.rightArm || 0) * 2) + 
+          (this._internalStructure.leftLeg * 2) + 
+          (this._internalStructure.rightLeg * 2);
+      }
 
-        return rv;
+      return totalMaxArmor;
     }
-
-    // public getMaxArmor() {
-    //     return this._maxArmor;
-    // }
 
     public getType() {
-        return this._mechType;
+      return this._mechType;
     }
 
-    public setType(
-        typeTag: string,
-    ) {
-        for( let mechType of mechTypeOptions) {
-            if( mechType.tag === typeTag ) {
-                this._mechType = mechType;
-                this.setTonnage(this._tonnage);
-                if( typeTag === "quad" )
-                    this._clearArmCriticalAllocationTable();
-                this._calc();
-                return this._mechType;
+    public setType(typeTag: string) {
+      // Normalize to lowercase for clean matching
+      const formattedTag = typeTag.toLowerCase();
+    
+      for (const mechType of mechTypeOptions) {
+        if (mechType.tag.toLowerCase() === formattedTag) {
+            this._mechType = mechType;
+            
+            // Trigger cascading refresh of internal structure layouts and armor capacities
+            this.setTonnage(this._tonnage);
+            
+            // Structural anatomy edge-cases: Clear or lock arm slots for limb-based vehicles
+            if (formattedTag === "quad" || formattedTag === "quadvee") {
+                this._clearArmCriticalAllocationTable();
             }
+            
+            this._calc();
+            return this._mechType;
+          }
         }
     }
 
@@ -5698,122 +5847,136 @@ export class BattleMech {
         return this._weights;
     }
 
-    public setCenterTorsoArmor(
-        armorValue: number,
-    ) {
-        this._armorAllocation.centerTorso = armorValue;
-        this._calc();
-        return this._armorAllocation.centerTorso;
-    }
-
-    public setCenterTorsoRearArmor(
-        armorValue: number,
-    ) {
-        this._armorAllocation.centerTorsoRear = armorValue;
-        this._calc();
-        return this._armorAllocation.centerTorsoRear;
-    }
-
-    public setHeadArmor(
-        armorValue: number,
-    ) {
+    // ---- FIXED CORE ARMOR SETTERS (UNIVERSAL) ----
+    public setHeadArmor(armorValue: number): number {
         this._armorAllocation.head = armorValue;
         this._calc();
         return this._armorAllocation.head;
     }
-
-    public setLeftArmArmor(
-        armorValue: number,
-    ) {
-        this._armorAllocation.leftArm = armorValue;
-        if( this._mirrorArmorAllocations ) {
-            this._armorAllocation.rightArm = armorValue;
-        }
+    public setCenterTorsoArmor(armorValue: number): number {
+        this._armorAllocation.centerTorso = armorValue;
         this._calc();
-        return this._armorAllocation.leftArm;
+        return this._armorAllocation.centerTorso;
     }
-
-    public setLeftLegArmor(
-        armorValue: number,
-    ) {
-        this._armorAllocation.leftLeg = armorValue;
-        if( this._mirrorArmorAllocations ) {
-            this._armorAllocation.rightLeg = armorValue;
-        }
+    public setCenterTorsoRearArmor(armorValue: number): number {
+        this._armorAllocation.centerTorsoRear = armorValue;
         this._calc();
-        return this._armorAllocation.leftLeg;
+        return this._armorAllocation.centerTorsoRear;
     }
-
-    public setLeftTorsoArmor(
-        armorValue: number,
-    ) {
+    public setLeftTorsoArmor(armorValue: number): number {
         this._armorAllocation.leftTorso = armorValue;
-        if( this._mirrorArmorAllocations ) {
+        if (this._mirrorArmorAllocations) {
             this._armorAllocation.rightTorso = armorValue;
         }
         this._calc();
         return this._armorAllocation.leftTorso;
     }
-
-    public setLeftTorsoRearArmor(
-        armorValue: number,
-    ) {
+    public setLeftTorsoRearArmor(armorValue: number): number {
         this._armorAllocation.leftTorsoRear = armorValue;
-        if( this._mirrorArmorAllocations ) {
+        if (this._mirrorArmorAllocations) {
             this._armorAllocation.rightTorsoRear = armorValue;
         }
         this._calc();
         return this._armorAllocation.leftTorsoRear;
     }
-
-    public setRightArmArmor(
-        armorValue: number,
-    ) {
-        this._armorAllocation.rightArm = armorValue;
-        if( this._mirrorArmorAllocations ) {
-            this._armorAllocation.leftArm = armorValue;
-        }
-        this._calc();
-        return this._armorAllocation.rightArm;
-    }
-
-    public setRightLegArmor(
-        armorValue: number,
-    ) {
-        this._armorAllocation.rightLeg = armorValue;
-        if( this._mirrorArmorAllocations ) {
-            this._armorAllocation.leftLeg = armorValue;
-        }
-        this._calc();
-        return this._armorAllocation.rightLeg;
-    }
-
-    public setRightTorsoArmor(
-        armorValue: number,
-    ) {
+    public setRightTorsoArmor(armorValue: number): number {
         this._armorAllocation.rightTorso = armorValue;
-        if( this._mirrorArmorAllocations ) {
+        if (this._mirrorArmorAllocations) {
             this._armorAllocation.leftTorso = armorValue;
         }
         this._calc();
         return this._armorAllocation.rightTorso;
     }
-
-    public setRightTorsoRearArmor(
-        armorValue: number,
-    ) {
+    public setRightTorsoRearArmor(armorValue: number): number {
         this._armorAllocation.rightTorsoRear = armorValue;
-        if( this._mirrorArmorAllocations ) {
+        if (this._mirrorArmorAllocations) {
             this._armorAllocation.leftTorsoRear = armorValue;
         }
         this._calc();
         return this._armorAllocation.rightTorsoRear;
     }
+    // ---- ANATOMICAL LIMB SETTERS WITH DYNAMIC ROUTING BASED ON CHASSIS CHOICE ----
+    public setLeftArmArmor(armorValue: number): number {
+        const typeTag = this._mechType.tag.toLowerCase();
+        if (typeTag === "quad" || typeTag === "quadvee") {
+            // Route directly to Front Left Leg allocation properties
+            this._armorAllocation.frontLeftLeg = armorValue;
+            if (this._mirrorArmorAllocations) {
+                this._armorAllocation.frontRightLeg = armorValue;
+            }
+            this._calc();
+            return this._armorAllocation.frontLeftLeg ?? 0;
+        }
+        // Baseline Biped, LAM, and Tripod arm allocation logic
+        this._armorAllocation.leftArm = armorValue;
+        if (this._mirrorArmorAllocations) {
+            this._armorAllocation.rightArm = armorValue;
+        }
+        this._calc();
+        return this._armorAllocation.leftArm ?? 0;
+    }
+    public setRightArmArmor(armorValue: number): number {
+        const typeTag = this._mechType.tag.toLowerCase();
+        if (typeTag === "quad" || typeTag === "quadvee") {
+            this._armorAllocation.frontRightLeg = armorValue;
+            if (this._mirrorArmorAllocations) {
+                this._armorAllocation.frontLeftLeg = armorValue;
+            }
+            this._calc();
+            return this._armorAllocation.frontRightLeg ?? 0;
+        }
+        this._armorAllocation.rightArm = armorValue;
+        if (this._mirrorArmorAllocations) {
+            this._armorAllocation.leftArm = armorValue;
+        }
+        this._calc();
+        return this._armorAllocation.rightArm ?? 0;
+    }
+    public setLeftLegArmor(armorValue: number): number {
+        // Both Bipeds and Quads utilize baseline leftLeg (Rear Left Leg on Quads)
+        this._armorAllocation.leftLeg = armorValue;
+        if (this._mirrorArmorAllocations) {
+            this._armorAllocation.rightLeg = armorValue;
+        }
+        this._calc();
+        return this._armorAllocation.leftLeg;
+    }
+    public setRightLegArmor(armorValue: number): number {
+        // Both Bipeds and Quads utilize baseline rightLeg (Rear Right Leg on Quads)
+        this._armorAllocation.rightLeg = armorValue;
+        if (this._mirrorArmorAllocations) {
+            this._armorAllocation.leftLeg = armorValue;
+        }
+        this._calc();
+        return this._armorAllocation.rightLeg;
+    }
+    // ---- EXPLICIT ADVANCED UNIQUE LIMB SETTERS ----
+    public setCenterLegArmor(armorValue: number): number {
+        this._armorAllocation.centerLeg = armorValue;
+        // Tripod center legs stand alone along the centerline anatomy, no mirroring step applies
+        this._calc();
+        return this._armorAllocation.centerLeg ?? 0;
+    }
+    public setFrontLeftLegArmor(armorValue: number): number {
+        this._armorAllocation.frontLeftLeg = armorValue;
+        if (this._mirrorArmorAllocations) {
+            this._armorAllocation.frontRightLeg = armorValue;
+        }
+        this._calc();
+        return this._armorAllocation.frontLeftLeg ?? 0;
+    }
+    public setFrontRightLegArmor(armorValue: number): number {
+        this._armorAllocation.frontRightLeg = armorValue;
+        if (this._mirrorArmorAllocations) {
+            this._armorAllocation.frontLeftLeg = armorValue;
+        }
+        this._calc();
+        return this._armorAllocation.frontRightLeg ?? 0;
+    }
 
     public getAdditionalHeatSinks() {
         return this._additionalHeatSinks;
     };
-
     public addEquipment(
         equipmentIndex: number,
         equipmentListTag: string,
@@ -5851,7 +6014,6 @@ export class BattleMech {
 
         return null;
     };
-
 
     public addEquipmentByName(
         equipmentName: string,
@@ -6161,424 +6323,203 @@ export class BattleMech {
         return false;
     }
 
-    private _structureInLocation(
-        location: string
-    ): number {
-        if( location === "ct" || location === "ctr" ) {
-            let count = 0;
-            for( let bubbleIndex in this._structureBubbles.centerTorso ) {
-                if( this._structureBubbles.centerTorso[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "lt" ||  location === "ltr"  ) {
-            let count = 0;
-            for( let bubbleIndex in this._structureBubbles.leftTorso ) {
-                if( this._structureBubbles.leftTorso[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "rt" || location === "rtr" ) {
-            let count = 0;
-            for( let bubbleIndex in this._structureBubbles.rightTorso ) {
-                if( this._structureBubbles.rightTorso[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "ra" ) {
-            let count = 0;
-            for( let bubbleIndex in this._structureBubbles.rightArm ) {
-                if( this._structureBubbles.rightArm[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "la" ) {
-            let count = 0;
-            for( let bubbleIndex in this._structureBubbles.leftArm ) {
-                if( this._structureBubbles.leftArm[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "ll" ) {
-            let count = 0;
-            for( let bubbleIndex in this._structureBubbles.leftLeg ) {
-                if( this._structureBubbles.leftLeg[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "rl" ) {
-            let count = 0;
-            for( let bubbleIndex in this._structureBubbles.rightLeg ) {
-                if( this._structureBubbles.rightLeg[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        }  else if( location === "hd" ) {
-            let count = 0;
-            for( let bubbleIndex in this._structureBubbles.head ) {
-                if( this._structureBubbles.head[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
+    private _structureInLocation(location: string): number {
+        if (!location) {
+            return -1;
         }
+
+        const normalizedLocation = location.toLowerCase().trim();
+
+        // Core Architecture Structural Location Registry Dictionary: Auto-handles rear location routing since internal framework maps onto front bubble tracks
+        const structureMap: Record<string, boolean[] | undefined> = {
+            "hd": this._structureBubbles.head,
+            "ct": this._structureBubbles.centerTorso,
+            "ctr": this._structureBubbles.centerTorso, // Rear maps to core front torso structure
+            "lt": this._structureBubbles.leftTorso,
+            "ltr": this._structureBubbles.leftTorso,
+            "rt": this._structureBubbles.rightTorso,
+            "rtr": this._structureBubbles.rightTorso,
+            "la": this._structureBubbles.leftArm,
+            "ra": this._structureBubbles.rightArm,
+            "ll": this._structureBubbles.leftLeg,
+            "rl": this._structureBubbles.rightLeg,
+            // Advanced layout location trackers mapped to their respective backing properties
+            "cl": (this._structureBubbles as any).centerLeg,
+            "fll": (this._structureBubbles as any).frontLeftLeg,
+            "frl": (this._structureBubbles as any).frontRightLeg
+        };
+        // Extract and extract target internal structure bubbles array reference
+        const targetArray = structureMap[normalizedLocation];
+        if (Array.isArray(targetArray)) {
+            let undamagedCount = 0;
+            // Fast integer loop iteration over the structural health state matrix indices
+            for (let i = 0; i < targetArray.length; i++) {
+                if (targetArray[i] === true) {
+                    undamagedCount++;
+                }
+            }
+            return undamagedCount;
+        }
+        // Unrecognized or unmapped location parameter tracking fall-through
+        console.error(`_structureInLocation failed: Component key '${location}' cannot be found on active chassis layout configuration profile. Please open a ticket on GitHub.`);
         return -1;
     }
 
-    private _armorInLocation(
-        location: string
-    ): number {
-        if( location === "ct" ) {
-            let count = 0;
-            for( let bubbleIndex in this._armorBubbles.centerTorso ) {
-                if( this._armorBubbles.centerTorso[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "ctr" ) {
-            let count = 0;
-            for( let bubbleIndex in this._armorBubbles.centerTorsoRear ) {
-                if( this._armorBubbles.centerTorsoRear[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "lt" ) {
-            let count = 0;
-            for( let bubbleIndex in this._armorBubbles.leftTorso ) {
-                if( this._armorBubbles.leftTorso[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "ltr" ) {
-            let count = 0;
-            for( let bubbleIndex in this._armorBubbles.leftTorsoRear ) {
-                if( this._armorBubbles.leftTorsoRear[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "rt" ) {
-            let count = 0;
-            for( let bubbleIndex in this._armorBubbles.rightTorso ) {
-                if( this._armorBubbles.rightTorso[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "rtr" ) {
-            let count = 0;
-            for( let bubbleIndex in this._armorBubbles.rightTorsoRear ) {
-                if( this._armorBubbles.rightTorsoRear[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "ra" ) {
-            let count = 0;
-            for( let bubbleIndex in this._armorBubbles.rightArm ) {
-                if( this._armorBubbles.rightArm[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "la" ) {
-            let count = 0;
-            for( let bubbleIndex in this._armorBubbles.leftArm ) {
-                if( this._armorBubbles.leftArm[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "ll" ) {
-            let count = 0;
-            for( let bubbleIndex in this._armorBubbles.leftLeg ) {
-                if( this._armorBubbles.leftLeg[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        } else if( location === "rl" ) {
-            let count = 0;
-            for( let bubbleIndex in this._armorBubbles.rightLeg ) {
-                if( this._armorBubbles.rightLeg[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
-        }  else if( location === "hd" ) {
-            let count = 0;
-            for( let bubbleIndex in this._armorBubbles.head ) {
-                if( this._armorBubbles.head[bubbleIndex] ) {
-                    count++;
-                }
-            }
-            return count;
-
+    private _armorInLocation(location: string): number {
+        if (!location) {
+            return -1;
         }
+        const normalizedLocation = location.toLowerCase().trim();
+        // Core Architecture Armor Location Registry Dictionary: Unlike structure, external armor explicitly splits front and rear torso bubbles into separate arrays
+        const armorMap: Record<string, boolean[] | undefined> = {
+            "hd": this._armorBubbles.head,
+            "ct": this._armorBubbles.centerTorso,
+            "ctr": this._armorBubbles.centerTorsoRear,
+            "lt": this._armorBubbles.leftTorso,
+            "ltr": this._armorBubbles.leftTorsoRear,
+            "rt": this._armorBubbles.rightTorso,
+            "rtr": this._armorBubbles.rightTorsoRear,
+            "la": this._armorBubbles.leftArm,
+            "ra": this._armorBubbles.rightArm,
+            "ll": this._armorBubbles.leftLeg,
+            "rl": this._armorBubbles.rightLeg,
+            // New legs...
+            "cl": (this._armorBubbles as any).centerLeg,
+            "fll": (this._armorBubbles as any).frontLeftLeg,
+            "frl": (this._armorBubbles as any).frontRightLeg
+        };
+        // Extract and check the target armor bubbles array reference
+        const targetArray = armorMap[normalizedLocation];
+        if (Array.isArray(targetArray)) {
+            let undamagedCount = 0;
+            for (let i = 0; i < targetArray.length; i++) {
+                if (targetArray[i] === true) {
+                    undamagedCount++;
+                }
+            }
+            return undamagedCount;
+        }
+        // Who 'dis? New Mech.
+        console.error(`_armorInLocation failed: Armor component key '${location}' cannot be found on active chassis layout configuration profile. Submit a ticket on GitHub.`);
         return -1;
     }
 
-    private _takeArmorDamageAtLocation (
-        location: string,
-        amount: number,
-    ): number {
+    private _takeArmorDamageAtLocation(location: string, amount: number): number {
         let damageTaken = 0;
-        if( location === "ct" ) {
-            for( let bubbleIndex in this._armorBubbles.centerTorso ) {
-                if( this._armorBubbles.centerTorso[bubbleIndex] && damageTaken < amount ) {
-                    this._armorBubbles.centerTorso[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "ctr" ) {
-            for( let bubbleIndex in this._armorBubbles.centerTorsoRear ) {
-                if( this._armorBubbles.centerTorsoRear[bubbleIndex] && damageTaken < amount ) {
-                    this._armorBubbles.centerTorsoRear[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "lt" ) {
-            for( let bubbleIndex in this._armorBubbles.leftTorso ) {
-                if( this._armorBubbles.leftTorso[bubbleIndex] && damageTaken < amount ) {
-                    this._armorBubbles.leftTorso[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "ltr" ) {
-            for( let bubbleIndex in this._armorBubbles.leftTorsoRear ) {
-                if( this._armorBubbles.leftTorsoRear[bubbleIndex] && damageTaken < amount ) {
-                    this._armorBubbles.leftTorsoRear[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "rt" ) {
-            for( let bubbleIndex in this._armorBubbles.rightTorso ) {
-                if( this._armorBubbles.rightTorso[bubbleIndex] && damageTaken < amount ) {
-                    this._armorBubbles.rightTorso[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "rtr" ) {
-            for( let bubbleIndex in this._armorBubbles.rightTorsoRear ) {
-                if( this._armorBubbles.rightTorsoRear[bubbleIndex] && damageTaken < amount ) {
-                    this._armorBubbles.rightTorsoRear[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "ra" ) {
-            for( let bubbleIndex in this._armorBubbles.rightArm ) {
-                if( this._armorBubbles.rightArm[bubbleIndex] && damageTaken < amount ) {
-                    this._armorBubbles.rightArm[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "la" ) {
-            for( let bubbleIndex in this._armorBubbles.leftArm ) {
-                if( this._armorBubbles.leftArm[bubbleIndex] && damageTaken < amount ) {
-                    this._armorBubbles.leftArm[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "ll" ) {
-            for( let bubbleIndex in this._armorBubbles.leftLeg ) {
-                if( this._armorBubbles.leftLeg[bubbleIndex] && damageTaken < amount ) {
-                    this._armorBubbles.leftLeg[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "rl" ) {
-            for( let bubbleIndex in this._armorBubbles.rightLeg ) {
-                if( this._armorBubbles.rightLeg[bubbleIndex] && damageTaken < amount ) {
-                    this._armorBubbles.rightLeg[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        }  else if( location === "hd" ) {
-            for( let bubbleIndex in this._armorBubbles.head ) {
-                if( this._armorBubbles.head[bubbleIndex] && damageTaken < amount ) {
-                    this._armorBubbles.head[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
+        
+        if (!location || amount <= 0) {
+            return amount;
         }
 
+        const normalizedLocation = location.toLowerCase().trim();
+
+        // Core Architecture Armor Matrix Lookup Dictionary
+        const armorMap: Record<string, boolean[] | undefined> = {
+            "hd": this._armorBubbles.head,
+            "ct": this._armorBubbles.centerTorso,
+            "ctr": this._armorBubbles.centerTorsoRear,
+            "lt": this._armorBubbles.leftTorso,
+            "ltr": this._armorBubbles.leftTorsoRear,
+            "rt": this._armorBubbles.rightTorso,
+            "rtr": this._armorBubbles.rightTorsoRear,
+            "la": this._armorBubbles.leftArm,
+            "ra": this._armorBubbles.rightArm,
+            "ll": this._armorBubbles.leftLeg,
+            "rl": this._armorBubbles.rightLeg,
+            // New legs
+            "cl": (this._armorBubbles as any).centerLeg,
+            "fll": (this._armorBubbles as any).frontLeftLeg,
+            "frl": (this._armorBubbles as any).frontRightLeg
+        };
+        const targetArray = armorMap[normalizedLocation];
+        if (Array.isArray(targetArray)) {
+            for (let i = 0; i < targetArray.length; i++) {
+                // If we hit a healthy box and still have remaining incoming damage to apply
+                if (targetArray[i] === true && damageTaken < amount) {
+                    targetArray[i] = false; // Mark this specific bubble box index as damaged/destroyed
+                    damageTaken++;
+                }
+                // Break early to save CPU cycles if we have completely satisfied the damage pool amount
+                if (damageTaken >= amount) {
+                    break;
+                }
+            }
+        } else {
+            console.error(`_takeArmorDamageAtLocation failed: Armor location target '${location}' is invalid for the active chassis layout template. Submit a GutHub ticket.`);
+        }
+        // Returns the remaining blow-through damage amount that penetrates to internal structure layers
         return amount - damageTaken;
     }
 
-    private _takeStructureDamageAtLocation (
-        location: string,
-        amount: number,
-    ): number {
+    private _takeStructureDamageAtLocation(location: string, amount: number): number {
         let damageTaken = 0;
-        if( location === "ct" || location === "ctr" ) {
-            for( let bubbleIndex in this._structureBubbles.centerTorso ) {
-                if( this._structureBubbles.centerTorso[bubbleIndex] && damageTaken < amount ) {
-                    this._structureBubbles.centerTorso[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "lt" || location === "ltr"  ) {
-            for( let bubbleIndex in this._structureBubbles.leftTorso ) {
-                if( this._structureBubbles.leftTorso[bubbleIndex] && damageTaken < amount ) {
-                    this._structureBubbles.leftTorso[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        }else if( location === "rt" || location === "rtr" ) {
-            for( let bubbleIndex in this._structureBubbles.rightTorso ) {
-                if( this._structureBubbles.rightTorso[bubbleIndex] && damageTaken < amount ) {
-                    this._structureBubbles.rightTorso[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "ra" ) {
-            for( let bubbleIndex in this._structureBubbles.rightArm ) {
-                if( this._structureBubbles.rightArm[bubbleIndex] && damageTaken < amount ) {
-                    this._structureBubbles.rightArm[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "la" ) {
-            for( let bubbleIndex in this._structureBubbles.leftArm ) {
-                if( this._structureBubbles.leftArm[bubbleIndex] && damageTaken < amount ) {
-                    this._structureBubbles.leftArm[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "ll" ) {
-            for( let bubbleIndex in this._structureBubbles.leftLeg ) {
-                if( this._structureBubbles.leftLeg[bubbleIndex] && damageTaken < amount ) {
-                    this._structureBubbles.leftLeg[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        } else if( location === "rl" ) {
-            for( let bubbleIndex in this._structureBubbles.rightLeg ) {
-                if( this._structureBubbles.rightLeg[bubbleIndex] && damageTaken < amount ) {
-                    this._structureBubbles.rightLeg[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
-        }  else if( location === "hd" ) {
-            for( let bubbleIndex in this._structureBubbles.head ) {
-                if( this._structureBubbles.head[bubbleIndex] && damageTaken < amount ) {
-                    this._structureBubbles.head[bubbleIndex] = false;
-                    damageTaken++;
-                }
-            }
-
+        
+        if (!location || amount <= 0) {
+            return amount;
         }
+        const normalizedLocation = location.toLowerCase().trim();
 
+        // Core Architecture Internal Structure Mapping Dictionary: Rear hits ("ctr", "ltr", "rtr") correctly map to the back
+        const structureMap: Record<string, boolean[] | undefined> = {
+            "hd": this._structureBubbles.head,
+            "ct": this._structureBubbles.centerTorso,
+            "ctr": this._structureBubbles.centerTorso, 
+            "lt": this._structureBubbles.leftTorso,
+            "ltr": this._structureBubbles.leftTorso,
+            "rt": this._structureBubbles.rightTorso,
+            "rtr": this._structureBubbles.rightTorso,
+            "la": this._structureBubbles.leftArm,
+            "ra": this._structureBubbles.rightArm,
+            "ll": this._structureBubbles.leftLeg,
+            "rl": this._structureBubbles.rightLeg,
+            // New legs
+            "cl": (this._structureBubbles as any).centerLeg,
+            "fll": (this._structureBubbles as any).frontLeftLeg,
+            "frl": (this._structureBubbles as any).frontRightLeg
+        };
+        // Pop da bubbles
+        const targetArray = structureMap[normalizedLocation];
+        if (Array.isArray(targetArray)) {
+            for (let i = 0; i < targetArray.length; i++) {
+                // If we hit an intact structural box and still have remaining damage to apply
+                if (targetArray[i] === true && damageTaken < amount) {
+                    targetArray[i] = false; // Destroy this specific structural framework bubble box index
+                    damageTaken++;
+                }
+                // Performance Guard: Break early the instant the incoming damage amount is completely absorbed
+                if (damageTaken >= amount) {
+                    break;
+                }
+            }
+        } else {
+            console.error(`_takeStructureDamageAtLocation failed: Component location target '${location}' is invalid for the active chassis layout template. Submit a ticket on GitHub`);
+        }
         return amount - damageTaken;
     }
 
-    private _moveDamageLocationIn(
-        loc: string,
-        rear: boolean,
-    ): string {
-
-        if( loc === "la"  ) {
-            if( rear )
-                return "ltr";
-            else
-                return "lt";
+    private _moveDamageLocationIn(loc: string, rear: boolean): string {
+        if (!loc) {
+            return rear ? "ctr" : "ct";
         }
-        if( loc === "ra" ) {
-            if( rear )
-                return "rtr";
-            else
-                return "rt";
+        const normalizedLoc = loc.toLowerCase().trim();
+        const typeTag = this._mechType.tag.toLowerCase();
+        // Front legs on Quads transfer inward to the side torsos, mirroring standard arm rules.
+        if (normalizedLoc === "la" || normalizedLoc === "ll" || normalizedLoc === "fll") {
+            return rear ? "ltr" : "lt";
         }
-
-        if( loc === "ll" ) {
-            if( rear )
-                return "ltr";
-            else
-                return "lt";
+        if (normalizedLoc === "ra" || normalizedLoc === "rl" || normalizedLoc === "frl") {
+            return rear ? "rtr" : "rt";
         }
-        if( loc === "rl" ) {
-            if( rear )
-                return "rtr";
-            else
-                return "rt";
+        // A Tripod's Center Leg ('cl') transfers directly into the Center Torso frame
+        if (normalizedLoc === "cl") {
+            return rear ? "ctr" : "ct";
         }
-
-        if( loc === "rt" ) {
-            if( rear )
-                return "ctr";
-            else
-                return "ct";
+        // Side Torsos -> Center Torso Transfer mapping rules
+        if (normalizedLoc === "lt" || normalizedLoc === "rt" || normalizedLoc === "ltr" || normalizedLoc === "rtr") {
+            return rear ? "ctr" : "ct";
         }
-        if( loc === "lt" ) {
-            if( rear )
-                return "ctr";
-            else
-                return "ct";
-        }
-
-        if( loc === "rtr" ) {
-            if( rear )
-                return "ctr";
-            else
-                return "ctr";
-        }
-        if( loc === "ltr" ) {
-            if( rear )
-                return "ctr";
-            else
-                return "ctr";
-        }
-
-        if( rear )
-            return "ctr"
-        else
-            return "ct"
+        // FALLBACK (If head or center torso takes transfer damage, it remains CT)
+        return rear ? "ctr" : "ct";
     }
 
     public setweight (
@@ -6654,59 +6595,46 @@ export class BattleMech {
     private _updateCriticalAllocationTable() {
         this._criticalAllocationTable = [];
 
-        for( let mechLocation of Object.keys(this._criticals)) {
-
-            // console.log( "_updateCriticalAllocationTable xx", this._criticals, mechLocation, this._criticals[mechLocation]);
-            if( this._criticals[mechLocation] ) {
-                for( let critItemCounter = 0; critItemCounter < this._criticals[mechLocation].length; critItemCounter++) {
-                    let currentItem = this._criticals[mechLocation][critItemCounter];
-                    if(
-                        currentItem &&
-                        currentItem.movable
-                    ) {
-                        let shortLoc = "";
-                        if( mechLocation === "head" ) {
-                            shortLoc = "hd";
-                        } else if( mechLocation === "centerTorso" ) {
-                            shortLoc = "ct";
-                        } else if( mechLocation === "rightTorso" ) {
-                            shortLoc = "rt";
-                        } else if( mechLocation === "rightLeg" ) {
-                            shortLoc = "rl";
-                        } else if( mechLocation === "rightArm" ) {
-                            shortLoc = "ra";
-                        } else if( mechLocation === "leftTorso" ) {
-                            shortLoc = "lt";
-                        } else if( mechLocation === "leftLeg" ) {
-                            shortLoc = "ll";
-                        } else if( mechLocation === "leftArm" ) {
-                            shortLoc = "la";
-                        } else {
-                            shortLoc = "un";
-                        }
+        // Cast keys to valid property identifiers to preserve strict type indexing
+        const criticalAreas = Object.keys(this._criticals) as Array<keyof typeof this._criticals>;
+        // Dynamic map to translate internal class array property keys into canonical shorthand location labels
+        const shortLocMap: Record<string, string> = {
+            "head": "hd",
+            "centerTorso": "ct",
+            "rightTorso": "rt",
+            "leftTorso": "lt",
+            "rightArm": "ra",
+            "leftArm": "la",
+            "rightLeg": "rl",
+            "leftLeg": "ll",
+            // New legs
+            "centerLeg": "cl",
+            "frontLeftLeg": "fll",
+            "frontRightLeg": "frl"
+        };
+        // Iterate across all asset location tracks natively
+        for (const mechLocation of criticalAreas) {
+            const slotArray = this._criticals[mechLocation];
+            if (Array.isArray(slotArray)) {
+                for (let critItemCounter = 0; critItemCounter < slotArray.length; critItemCounter++) {
+                    const currentItem = slotArray[critItemCounter];
+                    // Process movable weapon assets, ammo feeds, and customized modules
+                    if (currentItem && currentItem.movable) {
+                        // Pull shorthand token from map registry or fallback to 'un'
+                        const shortLoc = shortLocMap[mechLocation] || "un";
+                        // Sync index tracking references back onto the item instance safely
                         currentItem.loc = shortLoc;
                         currentItem.slot = critItemCounter;
-                        if(!currentItem.size) {
-                            currentItem.size = currentItem.crits
+                        if (!currentItem.size) {
+                            currentItem.size = currentItem.crits;
                         }
-                        // currentItem.size = currentItem.size;
-                        // console.log("currentItem", currentItem.tag, shortLoc, currentItem.size, currentItem.crits)
-
-                        this._criticalAllocationTable.push(
-                            currentItem
-                        );
-
-
+                        // Push the item straight into the flat tracking array matrix
+                        this._criticalAllocationTable.push(currentItem);
                     }
                 }
             }
-            // if( this.getName().indexOf("ASN-") > -1 )
-            //     console.log( "_updateCriticalAllocationTable", this.getName(), this._criticalAllocationTable);
         }
-
-        // this._calc();
-
-    };
+    }
 
     _removeUUIDFromUnallocated(
         uuid: string
@@ -6725,363 +6653,88 @@ export class BattleMech {
         toLocation: string,
         toIndex: number,
         split_location: ISplitLocation[] = [],
-    ) {
-
-
-        if( fromLocation === "rrl" ) {
-            fromLocation = "rl"
+    ): boolean {
+        if (!fromLocation || !toLocation) {
+            return false;
         }
-        if( fromLocation === "frl" ) {
-            fromLocation = "ra"
-        }
-        if( fromLocation === "fll" ) {
-            fromLocation = "la"
-        }
-        if( fromLocation === "rll" ) {
-            fromLocation = "ll"
-        }
-
-
-        if( toLocation === "rrl" ) {
-            toLocation = "rl"
-        }
-        if( toLocation === "frl" ) {
-            toLocation = "ra"
-        }
-        if( toLocation === "fll" ) {
-            toLocation = "la"
-        }
-        if( toLocation === "rll" ) {
-            toLocation = "ll"
-        }
-
-        // console.log( " moveCritical",
-        //     this.getName(),
-        //     fromLocation,
-        //     fromIndex,
-        //     toLocation,
-        //     toIndex,
-        //     split_location,
-        // )
-        // toLocation = toLocation.toLowerCase().trim();
-        // fromLocation = fromLocation.toLowerCase().trim();
-
-        if( split_location && split_location.length > 0 ) {
-
-
-                let fromItem: ICriticalSlot | null = null
-                let fromLocationObj: ICriticalSlot[] | null = null;
-                if( fromLocation === "un" ) {
-                    if( this._unallocatedCriticals[fromIndex]) {
-                        fromItem = this._unallocatedCriticals[fromIndex];
-
-                    }
-                    fromLocationObj = this._unallocatedCriticals;
-                } else if( fromLocation === "hd" ) {
-                    if( this._criticals.head[fromIndex]) {
-                        fromItem = this._criticals.head[fromIndex];
-                        fromLocationObj = this._criticals.head;
-                    }
-                } else if( fromLocation === "ct" ) {
-                    if( this._criticals.centerTorso[fromIndex]) {
-                        fromItem = this._criticals.centerTorso[fromIndex];
-                        fromLocationObj = this._criticals.centerTorso;
-                    }
-                } else if( fromLocation === "rt" ) {
-                    if( this._criticals.rightTorso[fromIndex]) {
-                        fromItem = this._criticals.rightTorso[fromIndex];
-                        fromLocationObj = this._criticals.rightTorso;
-                    }
-                } else if( fromLocation === "ra" ) {
-                    if( this._criticals.rightArm[fromIndex]) {
-                        fromItem = this._criticals.rightArm[fromIndex];
-                        fromLocationObj = this._criticals.rightArm;
-                    }
-                } else if( fromLocation === "rl" ) {
-                    if( this._criticals.rightLeg[fromIndex]) {
-                        fromItem = this._criticals.rightLeg[fromIndex];
-                        fromLocationObj = this._criticals.rightLeg;
-                    }
-                } else if( fromLocation === "lt" ) {
-                    if( this._criticals.leftTorso[fromIndex]) {
-                        fromItem = this._criticals.leftTorso[fromIndex];
-                        fromLocationObj = this._criticals.leftTorso;
-                    }
-                } else if( fromLocation === "la" ) {
-                    if( this._criticals.leftArm[fromIndex]) {
-                        fromItem = this._criticals.leftArm[fromIndex];
-                        fromLocationObj = this._criticals.leftArm;
-                    }
-                } else if( fromLocation === "ll" ) {
-                    if( this._criticals.leftLeg[fromIndex]) {
-                        fromItem = this._criticals.leftLeg[fromIndex];
-                        fromLocationObj = this._criticals.leftLeg;
-                    }
-                }
-
-                if( fromItem && fromLocationObj) {
-                    let success = false;
-                    for( let splitIndex in split_location ) {
-
-                        let split = split_location[splitIndex];
-
-                        let toSize = split.size;
-                        toLocation = split.loc;
-                        toIndex = split.index;
-
-
-                        if( toLocation === "rrl" ) {
-                            toLocation = "rl"
-                        }
-                        if( toLocation === "frl" ) {
-                            toLocation = "ra"
-                        }
-                        if( toLocation === "fll" ) {
-                            toLocation = "la"
-                        }
-                        if( toLocation === "rll" ) {
-                            toLocation = "ll"
-                        }
-
-
-                        if( toLocation === "hd" ) {
-                            success = this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.head,
-                                toIndex,
-                                toLocation,
-                                toSize,
-                                +splitIndex >= split_location.length - 1
-                            );
-                        } else if( toLocation === "ct" ) {
-                            success = this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.centerTorso,
-                                toIndex,
-                                toLocation,
-                                toSize,
-                                +splitIndex >= split_location.length - 1
-                            );
-                        } else if( toLocation === "rt" ) {
-                            // console.log("rt", toSize, +splitIndex , split_location.length - 1, +splitIndex >= split_location.length - 1)
-                            success = this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.rightTorso,
-                                toIndex,
-                                toLocation,
-                                toSize,
-                                +splitIndex >= split_location.length - 1
-                            );
-                        } else if( toLocation === "rl" ) {
-                            success = this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.rightLeg,
-                                toIndex,
-                                toLocation,
-                                toSize,
-                                +splitIndex >= split_location.length - 1
-                            );
-                        } else if( toLocation === "ra" ) {
-                            // console.log("ra", toSize, +splitIndex , split_location.length - 1, +splitIndex >= split_location.length - 1)
-                            success = this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.rightArm,
-                                toIndex,
-                                toLocation,
-                                toSize,
-                                +splitIndex >= split_location.length - 1
-                            );
-                        } else if( toLocation === "lt" ) {
-                            success = this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.leftTorso,
-                                toIndex,
-                                toLocation,
-                                toSize,
-                                +splitIndex >= split_location.length - 1
-                            );
-                        } else if( toLocation === "ll" ) {
-                            success = this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.leftLeg,
-                                toIndex,
-                                toLocation,
-                                toSize,
-                                +splitIndex >= split_location.length - 1
-                            );
-                        } else if( toLocation === "la" ) {
-                            success = this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.leftArm,
-                                toIndex,
-                                toLocation,
-                                toSize,
-                                +splitIndex >= split_location.length - 1
-                            );
-                        }
-                }
-
-                return success;
+        // Normalize incoming structural shorthand tracking tokens cleanly
+        let srcLoc = fromLocation.toLowerCase().trim();
+        let destLoc = toLocation.toLowerCase().trim();
+        // Maps standard, legacy, and new leg trackers directly to their active class backing fields
+        const getCriticalArray = (locTag: string): ICriticalSlot[] | null => {
+            switch (locTag) {
+                case "un":   return this._unallocatedCriticals;
+                case "hd":   return this._criticals.head;
+                case "ct":   return this._criticals.centerTorso;
+                case "lt":   return this._criticals.leftTorso;
+                case "rt":   return this._criticals.rightTorso;
+                case "la":   return this._criticals.leftArm;
+                case "ra":   return this._criticals.rightArm;
+                case "ll":   return this._criticals.leftLeg;
+                case "rl":   return this._criticals.rightLeg;
+                // Those shiny new legs
+                case "cl":   return (this._criticals as any).centerLeg ?? null;
+                case "fll":  return (this._criticals as any).frontLeftLeg ?? null;
+                case "frl":  return (this._criticals as any).frontRightLeg ?? null;
+                // Legacy / Alternate string safety handles mapped seamlessly to avoid application errors
+                case "rll":  return this._criticals.leftLeg;
+                case "rrl":  return this._criticals.rightLeg;
+                default:     return null;
             }
-        } else {
-
-            let fromItem: ICriticalSlot | null = null
-            let fromLocationObj: ICriticalSlot[] | null = null;
-            if( fromLocation === "un" ) {
-                if( this._unallocatedCriticals[fromIndex]) {
-                    fromItem = this._unallocatedCriticals[fromIndex];
-
-                }
-                fromLocationObj = this._unallocatedCriticals;
-            } else if( fromLocation === "hd" ) {
-                if( this._criticals.head[fromIndex]) {
-                    fromItem = this._criticals.head[fromIndex];
-                    fromLocationObj = this._criticals.head;
-                }
-            } else if( fromLocation === "ct" ) {
-                if( this._criticals.centerTorso[fromIndex]) {
-                    fromItem = this._criticals.centerTorso[fromIndex];
-                    fromLocationObj = this._criticals.centerTorso;
-                }
-            } else if( fromLocation === "rt" ) {
-                if( this._criticals.rightTorso[fromIndex]) {
-                    fromItem = this._criticals.rightTorso[fromIndex];
-                    fromLocationObj = this._criticals.rightTorso;
-                }
-            } else if( fromLocation === "ra" ) {
-                if( this._criticals.rightArm[fromIndex]) {
-                    fromItem = this._criticals.rightArm[fromIndex];
-                    fromLocationObj = this._criticals.rightArm;
-                }
-            } else if( fromLocation === "rl" ) {
-                if( this._criticals.rightLeg[fromIndex]) {
-                    fromItem = this._criticals.rightLeg[fromIndex];
-                    fromLocationObj = this._criticals.rightLeg;
-                }
-            } else if( fromLocation === "lt" ) {
-                if( this._criticals.leftTorso[fromIndex]) {
-                    fromItem = this._criticals.leftTorso[fromIndex];
-                    fromLocationObj = this._criticals.leftTorso;
-                }
-            } else if( fromLocation === "la" ) {
-                if( this._criticals.leftArm[fromIndex]) {
-                    fromItem = this._criticals.leftArm[fromIndex];
-                    fromLocationObj = this._criticals.leftArm;
-                }
-            } else if( fromLocation === "ll" ) {
-                if( this._criticals.leftLeg[fromIndex]) {
-                    fromItem = this._criticals.leftLeg[fromIndex];
-                    fromLocationObj = this._criticals.leftLeg;
+        };
+        // Extract originating array reference parameters
+        const fromLocationObj = getCriticalArray(srcLoc);
+        if (!fromLocationObj || !fromLocationObj[fromIndex]) {
+            console.warn("moveCritical() failed: Primary source location component array or target slot index is empty.", srcLoc, fromIndex);
+            return false;
+        }
+        const fromItem = fromLocationObj[fromIndex];
+        // PATHWAY A: ADVANCED ITEM SPLIT ALLOCATION PROCESSING (e.g., Critical Item splits across multiple parts)
+        if (split_location && split_location.length > 0) {
+            let overallSuccess = true;
+            for (let splitIndex = 0; splitIndex < split_location.length; splitIndex++) {
+                const split = split_location[splitIndex];
+                const currentSplitDestTag = split.loc.toLowerCase().trim();
+                const targetDestArray = getCriticalArray(currentSplitDestTag);
+                if (targetDestArray) {
+                    const isLastSplitSegment = splitIndex >= split_location.length - 1;
+                    // Execute the move step onto the current destination index path
+                    const partialSuccess = this._moveItemToArea(
+                        fromLocationObj,
+                        fromItem,
+                        fromIndex,
+                        targetDestArray,
+                        split.index,
+                        currentSplitDestTag,
+                        split.size,
+                        isLastSplitSegment
+                    );
+                    if (!partialSuccess) {
+                        overallSuccess = false;
+                    }
+                } else {
+                    overallSuccess = false;
                 }
             }
-
-            if( fromItem && fromLocationObj) {
-                // console.log("X", this.getName(), fromLocationObj[fromIndex].uuid,fromItem, fromLocation, toLocation, fromIndex, toIndex );
-                if( fromLocationObj[fromIndex]) {
-                    this._setEquipmentAllocation(
-                        fromLocationObj[fromIndex].uuid,
-                        toIndex,
-                        toLocation
-                    )
-                }
-
-
-                if( toLocation === "hd" ) {
-                    return this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.head,
-                                toIndex,
-                                toLocation,
-                            );
-                } else if( toLocation === "ct" ) {
-                    return this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.centerTorso,
-                                toIndex,
-                                toLocation,
-                            );
-                } else if( toLocation === "rt" ) {
-                    return this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.rightTorso,
-                                toIndex,
-                                toLocation,
-                            );
-                } else if( toLocation === "rl" ) {
-                    return this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.rightLeg,
-                                toIndex,
-                                toLocation,
-                            );
-                } else if( toLocation === "ra" ) {
-                    return this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.rightArm,
-                                toIndex,
-                                toLocation,
-                            );
-                } else if( toLocation === "lt" ) {
-                    return this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.leftTorso,
-                                toIndex,
-                                toLocation,
-                            );
-                } else if( toLocation === "ll" ) {
-                    return this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.leftLeg,
-                                toIndex,
-                                toLocation,
-                            );
-                } else if( toLocation === "la" ) {
-                    return this._moveItemToArea(
-                                fromLocationObj,
-                                fromItem,
-                                fromIndex,
-                                this._criticals.leftArm,
-                                toIndex,
-                                toLocation,
-                            );
-                }
-            }
-            // console.warn("moveCritical()", "No to/from objects", fromLocation, toLocation, fromItem, fromLocationObj )
+            return overallSuccess;
         }
-
-
-        return false;
-    };
+        // PATHWAY B: STANDARD DIRECT SINGLE-SLOT INVENTORY TRANSFERS
+        const finalDestArray = getCriticalArray(destLoc);
+        if (!finalDestArray) {
+            console.warn("moveCritical() failed: Terminal destination location tag could not be resolved in the layout schema registry.", destLoc);
+            return false;
+        }
+        return this._moveItemToArea(
+            fromLocationObj,
+            fromItem,
+            fromIndex,
+            finalDestArray,
+            toIndex,
+            destLoc,
+            fromItem.size || fromItem.crits || 1, // Dynamically evaluate size criteria parameters
+            true                                  // Direct moves behave implicitly like a final segment block
+        );
+    }
 
     private _setEquipmentAllocation(
         uuid: string,
@@ -7096,252 +6749,187 @@ export class BattleMech {
         }
     }
 
-
     private _moveItemToArea(
-        fromLocation: ICriticalSlot[] | null[],
+        fromLocation: any[], // Broaden to pass strict tuple/sparse assignment matching rules
         fromItem: ICriticalSlot,
         fromIndex: number,
-        toLocation: ICriticalSlot[],
+        toLocation: any[],
         toIndex: number,
         toLocTag: string,
         toSize: number = -1,
         removeFrom: boolean = true,
-    ) {
+    ): boolean {
+        const targetSize = toSize === -1 ? (fromItem.crits || 1) : toSize;
+        const normalizedTag = toLocTag.toLowerCase().trim();
+        const typeTag = this._mechType.tag.toLowerCase();
 
-        if( toSize === -1 ) {
-            toSize = fromItem.crits
+        // Determine Max Legal Slot Count for Target Location Component
+        // Head and all leg configurations are locked to exactly 6 slots in BattleTech rules blueprints
+        let maxLegalSlots = 12;
+        if (
+            normalizedTag === "hd" || 
+            normalizedTag === "ll" || 
+            normalizedTag === "rl" || 
+            normalizedTag === "cl" || 
+            normalizedTag === "fll" || 
+            normalizedTag === "frl"
+        ) {
+            maxLegalSlots = 6;
         }
 
-        // Step One check to see if TO has enough slots for item....
-        let placeholder: ICriticalSlot = {
+        // Automated Unassigned Index Resolution (Find next open gap space sequence)
+        if (toIndex === -1) {
+            for (let itemIndex = 0; itemIndex < toLocation.length; itemIndex++) {
+                if (toLocation[itemIndex] === null || toLocation[itemIndex] === undefined) {
+                    toIndex = itemIndex;
+                    break;
+                }
+            }
+            if (toIndex === -1 && toLocation.length < maxLegalSlots) {
+                toIndex = Math.max(0, toLocation.length - 1);
+            }
+        }
+        // Out-of-bounds array safety execution guard
+        if (toIndex < 0 || toIndex + targetSize > maxLegalSlots) {
+            return false;
+        }
+        // Expand the physical layout array buffer to match max capabilities if needed
+        while (toLocation.length < toIndex + targetSize && toLocation.length < maxLegalSlots) {
+            toLocation.push(null);
+        }
+        // Collision Validation Check
+        let hasSpace = true;
+        for (let testC = 0; testC < targetSize; testC++) {
+            const structuralSlot = toLocation[toIndex + testC];
+            if (structuralSlot && structuralSlot.uuid !== fromItem.uuid) {
+                hasSpace = false;
+                break;
+            }
+        }
+        if (!hasSpace) {
+            return false;
+        }
+        // Equipment Legality Validation Filters (e.g. BattleTech Jump Jet validation mapping rules)
+        if (fromItem.tag && fromItem.tag.startsWith("jj-")) {
+            // Jump Jets can never mount to the Head location under any circumstances
+            if (normalizedTag === "hd") {
+                return false;
+            }
+            // Biped configurations can never fit jump jets into standard weapons arms
+            if ((typeTag === "biped" || typeTag === "lam") && (normalizedTag === "ra" || normalizedTag === "la")) {
+                return false;
+            }
+            // QuadVees follow specialized drive constraints preventing equipment in limbs based on tech modes
+            if (typeTag === "quadvee" && (normalizedTag === "fll" || normalizedTag === "frl" || normalizedTag === "ll" || normalizedTag === "rl")) {
+                // QuadVee chassis validation rules go here. I am thinking return false; but want to ruminate.
+                // Feel free to let me know.
+            }
+        }
+        // Commit Placement Changes & Populate Multi-Slot Component Placeholders
+        const movingItem = fromLocation[fromIndex];
+        if (movingItem) {
+            movingItem.size = targetSize;
+        }
+        fromItem.loc = normalizedTag;
+        fromItem.slot = toIndex;
+        // Deep clone object layout parameter state reference safely
+        toLocation[toIndex] = JSON.parse(JSON.stringify(fromItem));
+        toLocation[toIndex].size = targetSize;
+        // Inject matching multi-slot alignment placeholders safely across remaining spans
+        const placeholder: ICriticalSlot = {
             uuid: fromItem.uuid,
             name: "placeholder",
             placeholder: true,
             tag: fromItem.tag,
             crits: 1,
             rear: false,
-            obj: null,
+            obj: null
         };
-
-        let hasSpace = true;
-
-        if( toIndex === -1 ) {
-
-            for( let itemIndex = 0; itemIndex < toLocation.length; itemIndex++ ) {
-
-                if( toLocation[itemIndex] === null || typeof(toLocation[itemIndex]) === "undefined" ) {
-
-                    toIndex = +itemIndex;
+        for (let phC = 1; phC < targetSize; phC++) {
+            toLocation[toIndex + phC] = placeholder;
+        }
+        // Clean up on Aisle Three
+        if (removeFrom) {
+            fromLocation[fromIndex] = null;
+            let nextCounter = 1;
+            while (fromIndex + nextCounter < fromLocation.length) {
+                const trailingItem = fromLocation[fromIndex + nextCounter];
+                if (trailingItem && trailingItem.name === "placeholder" && trailingItem.uuid === fromItem.uuid) {
+                    fromLocation[fromIndex + nextCounter] = null; // Clean actual reference out of the index matrix
+                    nextCounter++;
+                } else {
                     break;
                 }
-
             }
-            if( toIndex === -1 ) {
-
-                let numSlots = 12;
-                if(
-                    toLocTag === "ll"
-                    ||  toLocTag === "rl"
-                    ||  toLocTag === "hd"
-                ) {
-                    numSlots = 6;
-                }
-
-                if( toLocation.length < numSlots) {
-                    toIndex = toLocation.length - 1;
-                }
-            }
+            this._removeUUIDFromUnallocated(toLocation[toIndex].uuid);
         }
-
-        if( toLocation.length < toIndex + toSize || toIndex < 0)
-            return false;
-
-        for( let testC = 0; testC < toSize; testC++) {
-            if(
-                toLocation[toIndex + testC]
-                    &&
-                fromItem
-                    &&
-                toLocation[toIndex + testC].uuid !== fromItem.uuid
-            ) {
-                hasSpace = false;
-            }
-        }
-
-        if( hasSpace) {
-
-            // Check to see if it's jump jet and make sure that it's going to be assigned to a leg or torso
-            let item = fromLocation[fromIndex];
-
-
-            if( item ) {
-                item.size = toSize;
-            }
-
-            if( item && item.tag.startsWith( "jj-" ) ) {
-                if(
-                    (
-                        this._mechType.tag === "biped"
-                            &&
-                        (
-                            toLocTag === "ra"
-                                ||
-                            toLocTag === "la"
-                        )
-                    )
-                        ||
-                    toLocTag === "hd"
-                ) {
-                    return false;
-                }
-            }
-
-
-            fromItem.loc = toLocTag;
-            fromItem.slot = toIndex;
-            toLocation[toIndex] = JSON.parse(JSON.stringify(fromItem));
-
-            toLocation[toIndex].size = toSize;
-            for( let phC = 1; phC < toSize; phC++) {
-                toLocation[toIndex + phC] = placeholder;
-            }
-
-
-            if( removeFrom ) {
-
-                fromLocation[fromIndex] = null;
-                let nextCounter = 1;
-                let theItem = fromLocation[fromIndex + nextCounter];
-                while (
-                    theItem &&
-                    theItem.name === "placeholder" &&
-                    nextCounter < fromLocation.length
-                ) {
-                    theItem = null;
-                    nextCounter++;
-                }
-
-                this._removeUUIDFromUnallocated( toLocation[toIndex].uuid )
-            }
-
-            this._updateCriticalAllocationTable();
-
-            return true;
-
-        }
-
-        return false;
-
+        // Force downstream tables updates
+        this._updateCriticalAllocationTable();
+        return true;
     }
 
     private _allocateCritical(
         equipmentTag: string,
         equipmentRear: boolean,
         mechLocation: string | null | undefined,
-        slotNumber: number| undefined,
+        slotNumber: number | undefined,
         removeFromUnallocated: boolean,
         critSize: number = -1,
         equipmentUUID: string,
     ): boolean {
-
-        if( mechLocation && typeof(slotNumber) !== "undefined" ) {
-            for( let uaet_c = 0; uaet_c < this._unallocatedCriticals.length; uaet_c++) {
-
-                if(
-                    equipmentTag === this._unallocatedCriticals[uaet_c].tag
-                        &&
-                    this._unallocatedCriticals[uaet_c].rear === equipmentRear
-                ) {
-                    let rv = false;
-                    if( this._unallocatedCriticals[uaet_c] && this._unallocatedCriticals[uaet_c].obj)
-                        this._unallocatedCriticals[uaet_c].obj.location = mechLocation;
-
-                    if( critSize < 0 ) {
-                        critSize = this._unallocatedCriticals[uaet_c].crits;
-                    }
-
-                    if( mechLocation === "hd" ) {
-                        rv = this._assignItemToArea(
-                            this._criticals.head,
-                            this._unallocatedCriticals[uaet_c],
-                            critSize,
-                            slotNumber,
-                            mechLocation
-                        );
-                    } else if( mechLocation === "ct" ) {
-                        rv = this._assignItemToArea(
-                            this._criticals.centerTorso,
-                            this._unallocatedCriticals[uaet_c],
-                            critSize,
-                            slotNumber,
-                            mechLocation
-                        );
-                    } else if( mechLocation === "rt" ) {
-                        rv = this._assignItemToArea(
-                            this._criticals.rightTorso,
-                            this._unallocatedCriticals[uaet_c],
-                            critSize,
-                            slotNumber,
-                            mechLocation
-                        );
-                    } else if( mechLocation === "rl" ) {
-                        rv = this._assignItemToArea(
-                            this._criticals.rightLeg,
-                            this._unallocatedCriticals[uaet_c],
-                            critSize,
-                            slotNumber,
-                            mechLocation
-                        );
-                    } else if( mechLocation === "ra" ) {
-                        rv = this._assignItemToArea(
-                            this._criticals.rightArm,
-                            this._unallocatedCriticals[uaet_c],
-                            critSize,
-                            slotNumber,
-                            mechLocation
-                        );
-                    } else if( mechLocation === "lt" ) {
-                        rv = this._assignItemToArea(
-                            this._criticals.leftTorso,
-                            this._unallocatedCriticals[uaet_c],
-                            critSize,
-                            slotNumber,
-                            mechLocation
-                        );
-                    } else if( mechLocation === "ll" ) {
-                        rv = this._assignItemToArea(
-                            this._criticals.leftLeg,
-                            this._unallocatedCriticals[uaet_c],
-                            critSize,
-                            slotNumber,
-                            mechLocation
-                        );
-                    } else if( mechLocation === "la" ) {
-                        rv = this._assignItemToArea(
-                            this._criticals.leftArm,
-                            this._unallocatedCriticals[uaet_c],
-                            critSize,
-                            slotNumber,
-                            mechLocation
-                        );
-                    }
-
-                    if( removeFromUnallocated) {
-                         this._unallocatedCriticals.splice(uaet_c, 1);
-                    }
-
-                    return rv;
-                } else {
-                    // console.log( "_allocateCritical slotNumber undefined", equipmentTag, mechLocation, slotNumber)
-                }
-            }
-        } else {
-            // console.log( "_allocateCritical mechLocation undefined", equipmentTag, mechLocation, slotNumber)
+        // Structural guard clauses to ensure incoming routing attributes are fully resolved
+        if (!mechLocation || slotNumber === undefined || !equipmentUUID) {
+            return false;
         }
+        const normalizedLocation = mechLocation.toLowerCase().trim();
+        // Centralized Core Location Matrix Dictionary Mapping Lookups
+        const locationMap: Record<string, any[] | undefined> = {
+            "hd": this._criticals.head,
+            "ct": this._criticals.centerTorso,
+            "lt": this._criticals.leftTorso,
+            "rt": this._criticals.rightTorso,
+            "la": this._criticals.leftArm,
+            "ra": this._criticals.rightArm,
+            "ll": this._criticals.leftLeg,
+            "rl": this._criticals.rightLeg,
+            // Mech's got legs!!! Knows how to use 'em...
+            "cl": (this._criticals as any).centerLeg,
+            "fll": (this._criticals as any).frontLeftLeg,
+            "frl": (this._criticals as any).frontRightLeg
+        };
 
-
+        const targetCriticalArray = locationMap[normalizedLocation];
+        if (!targetCriticalArray) {
+            console.error(`_allocateCritical failed: Target component area '${mechLocation}' is invalid for the active layout.`);
+            return false;
+        }
+        // Locate Equipment Object by its Definitive UUID Signature inside the Unallocated holding block
+        for (let uaet_c = 0; uaet_c < this._unallocatedCriticals.length; uaet_c++) {
+            const currentItem = this._unallocatedCriticals[uaet_c];
+            if (currentItem && currentItem.uuid === equipmentUUID) {
+                // Synchronize location coordinate bindings onto parent references safely
+                if (currentItem.obj) {
+                    currentItem.obj.location = normalizedLocation;
+                }
+                // Fallback back to native slots if no custom overrides are set
+                const allocationSize = critSize < 0 ? (currentItem.crits || 1) : critSize;
+                const placementSuccess = this._assignItemToArea(
+                    targetCriticalArray,
+                    currentItem,
+                    allocationSize,
+                    slotNumber,
+                    normalizedLocation
+                );
+                // Cleanly extract item out of holding vector only on a verified placement success
+                if (placementSuccess && removeFromUnallocated) {
+                    this._unallocatedCriticals.splice(uaet_c, 1);
+                }
+                return placementSuccess;
+            }
+        }
+        console.warn(`_allocateCritical failed: Component with UUID '${equipmentUUID}' could not be located in unallocated criticals inventory.`);
         return false;
-    };
+    }
 
     private _clearArmCriticalAllocationTable() {
         for( let localCount = this._criticalAllocationTable.length; localCount >= 0; localCount--) {
@@ -9503,6 +9091,12 @@ export class BattleMech {
                 loc === "ll"
                 ||
                 loc === "hd"
+                ||
+                loc === "frl"
+                ||
+                loc === "fll"
+                ||
+                loc === "cl"
             )
         ) {
             return false
@@ -9528,6 +9122,12 @@ export class BattleMech {
                     eq.location === "ll"
                     ||
                     eq.location === "hd"
+                    ||
+                    eq.location === "frl"
+                    ||
+                    eq.location === "fll"
+                    ||
+                    eq.location === "cl"
                 )
                 && eq.rear
             ) {
@@ -9561,6 +9161,18 @@ export class BattleMech {
         } else if( fromLocation === "rl" ) {
 
             return this._criticals.rightLeg;
+
+        } else if( fromLocation === "frl" ) {
+
+            return this._criticals.frontRightLeg;
+
+        } else if( fromLocation === "fll" ) {
+
+            return this._criticals.frontLeftLeg;
+
+        } else if( fromLocation === "cl" ) {
+
+            return this._criticals.centerLeg;
 
         } else if( fromLocation === "lt" ) {
 
@@ -9718,6 +9330,10 @@ export interface IMechDamageAllocation {
     rightTorsoRear: boolean[],
     centerTorsoRear: boolean[],
     leftTorsoRear: boolean[],
+
+   frontRightLeg: boolean[],
+   frontLeftLeg: boolean[],
+   centerLeg: boolean[],
 }
 
 export interface IMechDamageLog {

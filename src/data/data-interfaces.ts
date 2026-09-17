@@ -262,6 +262,7 @@ export interface IJumpJet {
         light: number;
         medium: number;
         heavy: number;
+        superheavy: number;
     },
     criticals: number;
     costMultiplier: number;
