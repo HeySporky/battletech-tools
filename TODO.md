@@ -23,6 +23,32 @@
   - [ ] Decide on a Vitest setup (or explicitly decide not to have tests) now that Jest is gone
   - [ ] Code-split the ~7.6MB main JS chunk (Vite warns on this; CRA warned on the same thing)
 
+## Chassis diagram artwork (src/ui/components/svg)
+
+Reviewed `battlemech-svg.tsx`'s Biped/Quad record-sheet diagram dispatch. Findings:
+
+- Biped and Quad each have full hand-drawn SVG diagram sets (armor, rear armor, internal
+  structure, damage transfer, armor circles) - these are original recreations of the record
+  sheet layout, not licensed art assets.
+- **Bug fixed**: the dispatch was a literal `getMechType().tag === "biped"` check, so LAM
+  (tag `lam`) was silently falling through to the Quad diagrams/labels, which is wrong - LAMs
+  are biped-anatomy (arms, two legs). Replaced with a `hasArms` boolean
+  (`!isQuad() && !isQuadVee()`) applied consistently across all 7 branch points (armor,
+  internal structure, damage transfer diagrams, and the 4 arm/leg crit-table labels).
+- **QuadVee** correctly reuses the Quad diagram set - it has the same 4-leg, no-arm anatomy as
+  Quad, so no separate art is needed there.
+- **Tripod has no dedicated diagram at all.** It's structurally closest to Biped (has arms,
+  two normal legs) but also has an extra Center Leg location that neither the Biped nor Quad
+  silhouette has a slot for. Tripod now uses the Biped diagram (via `hasArms`) as the closest
+  available approximation, plus a supplemental "CENTER LEG [n]" text readout added to both the
+  Armor and Internal Structure boxes so that data (already fully tracked in `battlemech.ts` -
+  `getArmorAllocation().centerLeg` / `getInternalStructure().centerLeg`) isn't silently hidden.
+  This is a **stopgap, not real Tripod artwork**.
+- [ ] Commission or hand-author real Tripod-specific SVG diagrams (armor, rear armor, internal
+      structure, damage transfer, armor circles) matching the official record sheet anatomy
+      (extra front-center leg). This is a dedicated art/vector-drawing task on the same scale
+      as the existing Biped/Quad sets, not a quick data-wiring fix.
+
 ## Lint cleanup backlog (191 problems: 160 errors, 31 warnings)
 
 Generated via `npm run lint` on the `vite-migration` branch. Rule breakdown:
