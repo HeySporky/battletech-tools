@@ -6,6 +6,7 @@ import { mechInternalStructureTypes } from '../../../../data/mech-internal-struc
 import { btMechTonnages } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { btTechOptions } from '../../../../data/tech-options';
+import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
@@ -68,6 +69,12 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
         currentMech.setTech( e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
+    }
+
+    updateRulesLevel = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      const appSettings = this.props.appGlobals.appSettings;
+      appSettings.mechRulesFilter = +e.currentTarget.value;
+      this.props.appGlobals.saveAppSettings(appSettings);
     }
 
     updateType = ( e: React.FormEvent<HTMLSelectElement>): void => {
@@ -148,6 +155,18 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                                 <option key={option.tag} value={option.tag}>{option.name}</option>
                               )
                             })}
+                            </select>
+                          </label>
+
+                          <label>
+                            Rules Level:
+                            <select
+                              value={this.props.appGlobals.appSettings.mechRulesFilter}
+                              onChange={this.updateRulesLevel}
+                            >
+                            {getRulesLevelOptions().map((option) => (
+                              <option key={option.id} value={option.id}>{option.name}</option>
+                            ))}
                             </select>
                           </label>
 

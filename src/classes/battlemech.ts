@@ -4657,6 +4657,8 @@ export class BattleMech {
             
             // Trigger cascading refresh of internal structure layouts and armor capacities
             this.setTonnage(this._tonnage);
+            this.allocateArmorClear();
+            this.clearCriticalAllocationTable();
             
             // Structural anatomy edge-cases: Clear or lock arm slots for limb-based vehicles
             if (formattedTag === "quad" || formattedTag === "quadvee") {

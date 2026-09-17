@@ -120,6 +120,10 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
             currentMech.setRightLegArmor( newValue);
             break;
           }
+          case "cl": {
+            currentMech.setCenterLegArmor( newValue);
+            break;
+          }
         }
 
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
@@ -257,7 +261,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                 />
                               </div>
                             </div>
-{this.props.appGlobals.currentBattleMech.getType().tag === "biped" ?
+{!this.props.appGlobals.currentBattleMech.isQuad() && !this.props.appGlobals.currentBattleMech.isQuadVee() ?
 (
   <>
   <div className="armor-location-select">
@@ -428,6 +432,21 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       })}
     </select>
   </label>
+
+  {this.props.appGlobals.currentBattleMech.isTripod() ? (
+    <label className="armor-select-dropdown center-leg">
+      <div className="title">CENTER LEG</div>
+      <select
+        value={this.props.appGlobals.currentBattleMech.getArmorAllocation().centerLeg ?? 0}
+        onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue("cl", +event.currentTarget.value)}
+        title="Change this Tripod's center leg armor value"
+      >
+        {makeRange(0, (this.props.appGlobals.currentBattleMech.getInternalStructure().centerLeg ?? 0) * 2).map((armorValue) => (
+          <option key={armorValue} value={armorValue}>{armorValue}</option>
+        ))}
+      </select>
+    </label>
+  ) : null}
 
   <BipedArmorDiagramSVG
     strokeColor="rgb(100,100,100)"
