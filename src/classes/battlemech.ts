@@ -186,6 +186,24 @@ export interface IGATOR {
 }
 
 export class BattleMech {
+    private static readonly MECH_LOCATION_MAP: Record<string, string> = {
+        // Shared location mapper for all front, rear, and advanced chassis locations
+        hd: "head",
+        ct: "centerTorso",
+        lt: "leftTorso",
+        rt: "rightTorso",
+        la: "leftArm",
+        ra: "rightArm",
+        ll: "leftLeg",         // Rear Left Leg on Quads and QuadVees
+        rl: "rightLeg",        // Rear Right Leg on Quads and QuadVees
+        rtr: "rightTorsoRear",
+        ctr: "centerTorsoRear",
+        ltr: "leftTorsoRear",
+        cl: "centerLeg",       // Added Tripod layout support
+        fll: "frontLeftLeg",   // Added Quad / QuadVee layout support
+        frl: "frontRightLeg"   // Added Quad / QuadVee layout support
+    };
+
     private _targetAToHit: ITargetToHit = {
         name: "",
         active: false,
@@ -261,129 +279,99 @@ export class BattleMech {
     private _omnimech: boolean = false;
     private _remainingTonnage: number = 0;
 
-    private _internalStructure: IInternalStructurePerTon = {
-        tonnage: 0,
-        head: 0,
-        centerTorso: 0,
-        rightTorso: 0,
-        leftTorso: 0,
-        leftArm: 0,
-        rightArm: 0,
-        leftLeg: 0,
-        rightLeg: 0,
-        centerLeg: 0,
-        frontLeftLeg: 0,
-        frontRightLeg: 0,
+    private static readonly MECH_LOCATION_MAP: Record<string, string> = {
+        hd: "head",
+        ct: "centerTorso",
+        lt: "leftTorso",
+        rt: "rightTorso",
+        la: "leftArm",
+        ra: "rightArm",
+        ll: "leftLeg",
+        rl: "rightLeg",
+        rtr: "rightTorsoRear",
+        ctr: "centerTorsoRear",
+        ltr: "leftTorsoRear",
+        cl: "centerLeg",       // Tripod support
+        fll: "frontLeftLeg",   // Quad / QuadVee support
+        frl: "frontRightLeg"   // Quad / QuadVee support
     };
 
-    private _armorBubbles: IMechDamageAllocation = {
-        head: [],
-        centerTorso: [],
-        rightTorso: [],
-        leftTorso: [],
-        leftArm: [],
-        rightArm: [],
-        leftLeg: [],
-        rightLeg: [],
-
-        rightTorsoRear: [],
-        leftTorsoRear: [],
-        centerTorsoRear: [],
-
-        centerLeg: [],
-        frontLeftLeg: [],
-        frontRightLeg: [],
+    // Shared factory function to dynamically initialize clean empty arrays for damage tracking
+    private createZeroedDamageRecord(): IMechDamageAllocation {
+        const record: Partial<IMechDamageAllocation> = {};
+        const uniqueLocations = Array.from(new Set(Object.values(BattleMech.MECH_LOCATION_MAP)));
+        uniqueLocations.forEach(loc => {
+            (record as any)[loc] = [];
+        }); 
+        return record as IMechDamageAllocation;
     }
-    private _structureBubbles: IMechDamageAllocation = {
-        head: [],
-        centerTorso: [],
-        rightTorso: [],
-        leftTorso: [],
-        leftArm: [],
-        rightArm: [],
-        leftLeg: [],
-        rightLeg: [],
-
-        // unused for IS
-        rightTorsoRear: [],
-        leftTorsoRear: [],
-        centerTorsoRear: [],
-
-        centerLeg: [],
-        frontLeftLeg: [],
-        frontRightLeg: [],
+    // Shared factory function to initialize the internal structure mapping profile cleanly
+    private createZeroedStructureRecord(): IInternalStructurePerTon {
+        const record: any = { tonnage: 0 };
+        const uniqueLocations = Array.from(new Set(Object.values(BattleMech.MECH_LOCATION_MAP)));
+        uniqueLocations.forEach(loc => {
+            // Internal structure schemas track only true anatomical components, not rear protective arcs
+            if (!loc.endsWith("Rear")) {
+                record[loc] = 0;
+            }
+        });
+        return record as IInternalStructurePerTon;
     }
+    // Shared factory function to initialize a clean, zeroed out armor allocation profile
+    private createZeroedArmorRecord(): IArmorAllocation {
+        const record: any = {};
+        const uniqueLocations = Array.from(new Set(Object.values(BattleMech.MECH_LOCATION_MAP)));
+        uniqueLocations.forEach(loc => {
+            record[loc] = 0;
+        }); 
+        return record as IArmorAllocation;
+    }
+    // Shared factory function to initialize a clean, zeroed out critical slots profile
+    private createZeroedCriticalsRecord(): IMechCriticals {
+        const record: Partial<IMechCriticals> = {};
+        const uniqueLocations = Array.from(new Set(Object.values(BattleMech.MECH_LOCATION_MAP)));
+        uniqueLocations.forEach(loc => {
+            // Critical slots are mapped to physical locations, not rear armor faces
+            if (!loc.endsWith("Rear")) {
+                (record as any)[loc] = [];
+            }
+        });
+        return record as IMechCriticals;
+    }
+    // Consolidated Property Definitions
+    private _internalStructure: IInternalStructurePerTon = this.createZeroedStructureRecord();
+    private _armorAllocation: IArmorAllocation = this.createZeroedArmorRecord();
+    private _armorBubbles: IMechDamageAllocation = this.createZeroedDamageRecord();
+    private _structureBubbles: IMechDamageAllocation = this.createZeroedDamageRecord();
+    private _criticals: IMechCriticals = this.createZeroedCriticalsRecord();
 
+    // Do we have hands and/or wrists?
     private _no_right_arm_hand_actuator: boolean = false;
     private _no_right_arm_lower_actuator: boolean = false;
-
     private _no_left_arm_hand_actuator: boolean = false;
     private _no_left_arm_lower_actuator: boolean = false;
 
     private _smallCockpit: boolean = false;
     private _cockpitWeight: number = 3;
-
     private _totalInternalStructurePoints = 0;
-
     private _maxMoveHeat: number = 2;
     private _maxWeaponHeat: number = 0;
     private _heatDissipation: number = 0;
-
     private _additionalHeatSinks: number = 0;
-
     private _armorWeight: number = 0;
     private _totalArmor: number = 0;
     private _unallocatedArmor: number = 0;
-
-    private _armorAllocation: IArmorAllocation = {
-        head: 0,
-        centerTorso: 0,
-        rightTorso: 0,
-        leftTorso: 0,
-        centerTorsoRear: 0,
-        rightTorsoRear: 0,
-        leftTorsoRear: 0,
-        leftArm: 0,
-        rightArm: 0,
-        leftLeg: 0,
-        rightLeg: 0,
-        centerLeg: 0,
-        frontLeftLeg: 0,
-        frontRightLeg: 0,
-    };
-
     private _equipmentList: IEquipmentItem[] = [];
     private _sortedEquipmentList: IEquipmentItem[] = [];
-    // private _sortedSeparatedEquipmentList: IEquipmentItem[] = [];
-
     private _criticalAllocationTable: ICriticalSlot[] = [];
-
     private _weights: IWeights[] = [];
-
     private _strictEra: boolean = true;
-
     private _unallocatedCriticals: ICriticalSlot[] = [];
-
-    private _criticals: IMechCriticals = {
-        head: [],
-        centerTorso: [],
-        rightTorso: [],
-        leftTorso: [],
-        leftArm: [],
-        rightArm: [],
-        leftLeg: [],
-        rightLeg: [],
-        centerLeg: [],
-        frontLeftLeg: [],
-        frontRightLeg: [],
-    };
-
     private _gyro = mechGyroTypes[0];
-
     private _engine: IEngineOption | null = null;
     private _engineType = mechEngineTypes[0];
     private _jumpJetType = mechJumpJetTypes[0];
-
+    // Movement Speeeds
     private _walkSpeed = 0;
     private _runSpeed = 0;
     private _jumpSpeed = 0;
@@ -392,7 +380,6 @@ export class BattleMech {
         slotsEach: 1,
         number: 0,
     };
-
     private _heatSinkType: IHeatSync = mechHeatSinkTypes[0];
 
     private _cbillCost = "0";
@@ -405,39 +392,9 @@ export class BattleMech {
     private _calcLogAS = "";
     private _calcLogCBill = "";
 
-    private _validJJLocations = [{
-            long: "leftTorso",
-            short: "lt"
-        },
-        {
-            long: "leftLeg",
-            short: "ll"
-        },
-        {
-            long: "rightLeg",
-            short: "rl"
-        },
-        {
-            long: "rightTorso",
-            short: "rt"
-        },
-        {
-            long: "centerTorso",
-            short: "ct"
-        },
-        {
-            long: "frontRightLeg",
-            short: "frl"
-        },
-        {
-            long: "frontLeftLeg",
-            short: "fll"
-        },
-        {
-            long: "centerLeg",
-            short: "cl"
-        },
-    ];
+    private _validJJLocations = Object.entries(BattleMech.MECH_LOCATION_MAP)
+    .filter(([short]) => short !== "hd" && !short.endsWith("r") && !short.endsWith("a"))
+    .map(([short, long]) => ({ long, short }));
 
     private _pilot: Pilot = new Pilot( {
         name: "",
@@ -542,7 +499,6 @@ export class BattleMech {
                 return this._mechType;
             }
         }
-
         this._mechType = mechTypeOptions[0];
         this.setTonnage( this._tonnage );
         this._calc();
@@ -577,1088 +533,508 @@ export class BattleMech {
         return false;
     }
 
-    private _calcBattleValue() {
-
+    private _calcBattleValue(): void {
         let hasCamo = false;
         let hasBasicStealth = false;
         let hasPrototypeStealth = false;
         let hasStandardStealth = false;
         let hasImprovedStealth = false;
         let hasMimetic = false;
-
         this._battleValue = 0;
         this._calcLogBV = "";
-
-        /* ***************************************************
-         *  STEP 1: CALCULATE DEFENSIVE BATTLE RATING - TM p302
-         * ************************************************ */
-        let defensiveBattleRating = 0;
+        /* *************************************************************************
+        * STEP 1: CALCULATE DEFENSIVE BATTLE RATING - TechManual p. 302
+        * *********************************************************************** */
         this._calcLogBV += "<strong>STEP 1: CALCULATE DEFENSIVE BATTLE RATING - TM p302</strong><br />";
+        // 1A. Total Armor Factor Valuation (TM p. 302)
         let totalArmorFactor = 2.5 * this.getTotalArmor();
-        this._calcLogBV += "Total Armor Factor = Armor Factor x 2.5: " + totalArmorFactor + " = 2.5 x " + this.getTotalArmor() + "<br />";
-
-        // Get Armor Rating
-        switch (this._armorType.tag) {
-            case "commercial":
-                this._calcLogBV += "Total Armor Factor = 0.5 * Total Armor Factor Modifier for Commercial Armor: " + totalArmorFactor + " x 0.5 = " + (totalArmorFactor * .5) + "<br />";
-                totalArmorFactor = totalArmorFactor * 0.5;
-                break;
-            default:
-                this._calcLogBV += "Total Armor Factor = 1.0 * Total Armor Factor Modifier for Non-Commercial Armor:  " + totalArmorFactor + " x 1 = " + (totalArmorFactor * 1) + "<br />";
-                break;
+        this._calcLogBV += `Total Armor Factor = Armor Factor x 2.5: ${totalArmorFactor} = 2.5 x ${this.getTotalArmor()}<br />`;
+        if (this._armorType.tag === "commercial") {
+            totalArmorFactor *= 0.5;
+            this._calcLogBV += `Total Armor Factor = 0.5 * Modifier for Commercial Armor: ${totalArmorFactor}<br />`;
+        } else {
+            this._calcLogBV += `Total Armor Factor = 1.0 * Modifier for Non-Commercial Armor: ${totalArmorFactor}<br />`;
         }
-
-        // Get for Internal Structure Rating
+        // 1B. Internal Structure Points Valuation (TM p. 302)
         let totalInternalStructurePoints = 1.5 * this._totalInternalStructurePoints;
-        this._calcLogBV += "Total Internal Structure Points = Internal Structure Points x 1.5: " + totalInternalStructurePoints + " = 1.5 x " + this._totalInternalStructurePoints + "<br />";
-
-        // Adjust IS for Type
-        switch (this.getInternalStructureType()) {
-            case "industrial":
-                this._calcLogBV += "Total Internal Structure BV = 0.5 x I.S. BV for Industrial Internal Structure: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
-                totalInternalStructurePoints = totalInternalStructurePoints * 0.5;
-                break;
-            case "endo-steel":
-                this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Endo-Steel Internal Structure: " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
-                totalInternalStructurePoints = totalInternalStructurePoints * 1;
-                break;
-            default:
-                this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Standard Internal Structure:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
-                totalInternalStructurePoints = totalInternalStructurePoints * 1;
-                break;
+        this._calcLogBV += `Total Internal Structure Points = IS Points x 1.5: ${totalInternalStructurePoints} = 1.5 x ${this._totalInternalStructurePoints}<br />`;
+        if (this.getInternalStructureType() === "industrial") {
+            totalInternalStructurePoints *= 0.5;
+            this._calcLogBV += `Total Internal Structure BV = 0.5 x Industrial Modifier: ${totalInternalStructurePoints}<br />`;
+        } else {
+            this._calcLogBV += `Total Internal Structure BV = 1.0 x Standard/Endo-Steel Modifier: ${totalInternalStructurePoints}<br />`;
         }
-
-        // Adjust IS for Engine Type
-        switch (this._engineType.tag) {
-          case "light":
-            this._calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Light Engine: " + totalInternalStructurePoints + " x 0.75 = " + (totalInternalStructurePoints * .75) + "<br />";
-            totalInternalStructurePoints = totalInternalStructurePoints * .75;
-            break;
-          case "xl":
-            this._calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Inner Sphere XL Engine: " + totalInternalStructurePoints + " x 0.75 = " + (totalInternalStructurePoints * .75) + "<br />";
-            totalInternalStructurePoints = totalInternalStructurePoints * .75;
-            break;
-          case "clan_xl":
-            this._calcLogBV += "Total Internal Structure = 0.75 x I.S. BV for Clan XL Engine: " + totalInternalStructurePoints + " x 0.75 = " + (totalInternalStructurePoints * .75) + "<br />";
-            totalInternalStructurePoints = totalInternalStructurePoints * .75;
-            break;
-          case "xxl":
-            this._calcLogBV += "Total Internal Structure = 0.25 x I.S. BV for Inner Sphere XXL Engine: " + totalInternalStructurePoints + " x 0.25 = " + (totalInternalStructurePoints * .25) + "<br />";
-            totalInternalStructurePoints = totalInternalStructurePoints * .25
-            break;
-          case "clan_xxl":
-            this._calcLogBV += "Total Internal Structure = 0.5 x I.S. BV for Clan XXL Engine: " + totalInternalStructurePoints + " x 0.5 = " + (totalInternalStructurePoints * .5) + "<br />";
-            totalInternalStructurePoints = totalInternalStructurePoints * .5;
-            break;
-          case "compact":
-            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Compact Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
-            // Multiplying by 1 is redundant code-wise, so we just log it and move on
-            break;
-          case "primitive":
-            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Primitive Fusion Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
-            // Multiplying by 1 is redundant code-wise, so we just log it and move on
-            break;
-          case "ice":
-            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Internal Combustion Engine (ICE):  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
-            // Multiplying by 1 is redundant code-wise, so we just log it and move on
-            break;
-          case "cell":
-            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Fuel Cell:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
-            // Multiplying by 1 is redundant code-wise, so we just log it and move on
-            break;
-          case "fission":
-            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Fission Engine:  " + totalInternalStructurePoints + " x 1 = " + (totalInternalStructurePoints * 1) + "<br />";
-            // Multiplying by 1 is redundant code-wise, so we just log it and move on
-            break;
-          default:
-            this._calcLogBV += "Total Internal Structure = 1.0 x I.S. BV for Standard Engine: " + totalInternalStructurePoints + " x 1 = " + totalInternalStructurePoints + "<br />";
-            // Multiplying by 1 is redundant code-wise, so we just log it and move on
-            break;
-        }   
-
-        // Add in the Gyro Modifier
-        let totalGyroPoints = 0;
-        switch (this.getInternalStructureType()) {
-            case "compact":
-                this._calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Compact Gyro: " + this.getTonnage() + " x 0.5 = " + (this.getTonnage() * .5) + "<br />";
-                totalGyroPoints = this.getTonnage() * 0.5;
-                break;
+        // 1C. Adjust Internal Structure for Engine Type Safety Factor (TM p. 302 / Errata)
+        const engineTag = this._engineType.tag;
+        let engineModifier = 1.0;
+        switch (engineTag) {
+            case "light":
             case "xl":
-                this._calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Extra Light Gyro: " + this.getTonnage() + " x 0.5 = " + (this.getTonnage() * .5) + "<br />";
-                totalGyroPoints = this.getTonnage() * 0.5;
+            case "clan_xl":
+                engineModifier = 0.75;
                 break;
-            case "heavy-duty":
-                this._calcLogBV += "Total Gyro BV = 1 x Tonnage for Heavy Duty Gyro: " + this.getTonnage() + " x 0.5 = " + (this.getTonnage() * .5) + "<br />";
-                totalGyroPoints = this.getTonnage() * 1;
+            case "xxl":
+                engineModifier = 0.25; // IS XXL Errata Standard
+                break;
+            case "clan_xxl":
+                engineModifier = 0.50; // Clan XXL Errata Standard
                 break;
             default:
-                this._calcLogBV += "Total Gyro BV = 0.5 x Tonnage for Standard Gyro: " + this.getTonnage() + " x 0.5 = " + (this.getTonnage() * .5) + "<br />";
-                totalGyroPoints = this.getTonnage() * 0.5;
+                engineModifier = 1.0; // Standard, Compact, Fission, ICE, Cell, Primitive
                 break;
         }
-
-        // Get Explosive Ammo Modifiers - Tech Manual p302-303
+        totalInternalStructurePoints *= engineModifier;
+        this._calcLogBV += `Engine Modification (${engineTag}) = ${engineModifier}x. Total IS BV: ${totalInternalStructurePoints}<br />`;
+        // 1D. Gyro Points Modifier (TM p. 302)
+        const gyroType = this.getGyroType();
+        let gyroModifier = 0.5;
+        if (gyroType === "heavy-duty") {
+            gyroModifier = 1.0;
+        }
+        let totalGyroPoints = this.getTonnage() * gyroModifier;
+        this._calcLogBV += `Total Gyro BV = ${gyroModifier} x Tonnage for ${gyroType} Gyro: ${totalGyroPoints} = ${gyroModifier} x ${this.getTonnage()}<br />`;
+        // 1E. Get Explosive Ammo Modifiers (TM pp. 302-303)
         let explosiveAmmoModifiers = 0;
         this._calcLogBV += "<strong>Get Explosive Ammo Modifiers (TM p302-303)</strong><br />";
-
-        // let caseEnabled_HD = false;
-        // let caseEnabled_CT = false;
-        let caseEnabled_RL = false;
-        let caseEnabled_LL = false;
-        let caseEnabled_RA = false;
-        let caseEnabled_LA = false;
-        let caseEnabled_RT = false;
-        let caseEnabled_LT = false;
-        let caseEnabled_CT = false;
-        let caseEnabled_FRL = false;
-        let caseEnabled_FLL = false;
-        let caseEnabled_CL = false;
-
-        for( let lCrit = 0; lCrit < this._criticals.rightLeg.length; lCrit++) {
-            let item = this._criticals.rightLeg[lCrit];
-            if( item && item.tag === "case" ) {
-                caseEnabled_RL = true;
+        // Build automated CASE enablement profile array cleanly using static map
+        const caseMap: Record<string, boolean> = {};
+        const validLocations = Object.keys(BattleMech.MECH_LOCATION_MAP);
+        validLocations.forEach(locShorthand => {
+            caseMap[locShorthand] = false; 
+            const longKey = BattleMech.MECH_LOCATION_MAP[locShorthand];
+            const critArray: any[] = (this._criticals as any)[longKey] || [];
+            for (let lCrit = 0; lCrit < critArray.length; lCrit++) {
+                if (critArray[lCrit] && critArray[lCrit].tag === "case") {
+                    caseMap[locShorthand] = true;
+                    break;
+                }
             }
+        });
+        // 1F. Technology-Based Critical Evaluation (Clan vs Inner Sphere Rulesets)
+        if (this._tech.tag === "clan" || this._tech.tag === "mclan") {
+            const clanVulnerableShorthands = ["hd", "ct", "ll", "rl", "cl", "fll", "frl"];
+            clanVulnerableShorthands.forEach(loc => {
+                const longKey = BattleMech.MECH_LOCATION_MAP[loc];
+                const critArray: any[] = (this._criticals as any)[longKey] || [];
+                critArray.forEach((item) => {
+                    if (item && item.obj) {
+                        if (item.obj.explosive) {
+                            this._calcLogBV += `Explosive Ammo Crit in ${longKey} (Clan, -15)<br />`;
+                            explosiveAmmoModifiers += 15;
+                        }
+                        if (item.obj.gauss) {
+                            this._calcLogBV += `Gauss Crit in ${longKey} (Clan, -1)<br />`;
+                            explosiveAmmoModifiers += 1;
+                        }
+                    }
+                });
+            });
+        } else {
+            // Inner Sphere / Mixed IS Base processing loop parameters
+            const isXLEngineActive = this.hasXLEngine();
+            const isShorthands = ["hd", "ct", "lt", "rt", "la", "ra", "ll", "rl", "cl", "fll", "frl"];
+            isShorthands.forEach(loc => {
+                const longKey = BattleMech.MECH_LOCATION_MAP[loc];
+                const critArray: any[] = (this._criticals as any)[longKey] || [];
+                if (critArray.length === 0) return; 
+                let isLocationProtected = false;
+                if (loc === "lt" || loc === "rt") {
+                    isLocationProtected = caseMap[loc] && !isXLEngineActive;
+                } else if (loc === "la" || loc === "fll" || loc === "ll") {
+                    isLocationProtected = caseMap["lt"];
+                } else if (loc === "ra" || loc === "frl" || loc === "rl") {
+                    isLocationProtected = caseMap["rt"];
+                } else if (loc === "cl") {
+                    isLocationProtected = caseMap["ct"];
+                } else {
+                    isLocationProtected = false; 
+                }
+                critArray.forEach((item) => {
+                    if (!item || !item.obj) return;
+                    if (item.obj.explosive) {
+                        if (isLocationProtected) {
+                            this._calcLogBV += `Explosive Ammo in ${longKey} protected by CASE. Penalty negated (0).<br />`;
+                        } else {
+                            this._calcLogBV += `Explosive Ammo Crit in ${longKey} (Inner Sphere, -15)<br />`;
+                            explosiveAmmoModifiers += 15;
+                        }
+                    }
+                    if (item.obj.gauss) {
+                        if (isLocationProtected) {
+                            this._calcLogBV += `Gauss Component in ${longKey} protected by CASE. Penalty negated (0).<br />`;
+                        } else {
+                            this._calcLogBV += `Gauss Crit in ${longKey} (Inner Sphere, -1)<br />`;
+                            explosiveAmmoModifiers += 1;
+                        }
+                    }
+                });
+            });
         }
-        for( let lCrit = 0; lCrit < this._criticals.leftLeg.length; lCrit++) {
-            let item = this._criticals.leftLeg[lCrit];
-            if( item && item.tag === "case" ) {
-                caseEnabled_LL = true;
-            }
+        // =====================================================================
+        // 1G. COMPILE DEFENSIVE SUBTOTAL (TM p. 303)
+        // =====================================================================
+        let defensiveSubtotal = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints - explosiveAmmoModifiers;
+        this._calcLogBV += `Defensive Subtotal (Armor + IS + Gyro - Ammo Penalties): ${defensiveSubtotal} = ${totalArmorFactor} + ${totalInternalStructurePoints} + ${totalGyroPoints} - ${explosiveAmmoModifiers}<br />`;
+        /* *************************************************************************
+         * STEP 2: CALCULATE DEFENSIVE FACTOR MODIFIER & STEALTH GEAR - TM p. 304
+         * *********************************************************************** */
+        this._calcLogBV += "<strong>STEP 2: CALCULATE DEFENSIVE FACTOR MODIFIER - TM p304</strong><br />";
+        // 2A. Gather movement metrics using native speed methods
+        const runSpeed = this.getRunSpeed();
+        const jumpSpeed = this.getJumpSpeed();
+        const runModifier = getMovementModifier(runSpeed);
+        const jumpModifier = getMovementModifier(jumpSpeed) + 1; // Jumping modifier bonus (TM p. 304)
+        // Determine the optimal Target Movement Modifier (TMM)
+        let moveModifier = Math.max(runModifier, jumpModifier);
+        this._calcLogBV += `Best Base TMM: ${moveModifier} (Run TMM: ${runModifier}, Jump TMM: ${jumpModifier})<br />`;
+        // Calculate baseline Defensive Factor Modifier
+        let defensiveFactorModifier = 1 + (moveModifier / 10);
+        if (defensiveFactorModifier < 1.0) {
+            defensiveFactorModifier = 1.0;
         }
-        for( let lCrit = 0; lCrit < this._criticals.rightArm.length; lCrit++) {
-            let item = this._criticals.rightArm[lCrit];
-            if( item && item.tag === "case" ) {
-                caseEnabled_RA = true;
-            }
-        }
-        for( let lCrit = 0; lCrit < this._criticals.leftArm.length; lCrit++) {
-            let item = this._criticals.leftArm[lCrit];
-            if( item && item.tag === "case" ) {
-                caseEnabled_LA = true;
-            }
-        }
-        for( let lCrit = 0; lCrit < this._criticals.rightTorso.length; lCrit++) {
-            let item = this._criticals.rightTorso[lCrit];
-            if( item && item.tag === "case" ) {
-                caseEnabled_RT = true;
-            }
-        }
-        for( let lCrit = 0; lCrit < this._criticals.leftTorso.length; lCrit++) {
-            let item = this._criticals.leftTorso[lCrit];
-            if( item && item.tag === "case" ) {
-                caseEnabled_LT = true;
-            }
-        }
-        for( let lCrit = 0; lCrit < this._criticals.centerTorso.length; lCrit++) {
-            let item = this._criticals.centerTorso[lCrit];
-            if( item && item.tag === "case" ) {
-                caseEnabled_CT = true;
-            }
-        }
-        for( let lCrit = 0; lCrit < this._criticals.frontRightLeg.length; lCrit++) {
-            let item = this._criticals.rightLeg[lCrit];
-            if( item && item.tag === "case" ) {
-                caseEnabled_FRL = true;
-            }
-        }
-        for( let lCrit = 0; lCrit < this._criticals.frontLeftLeg.length; lCrit++) {
-            let item = this._criticals.rightLeg[lCrit];
-            if( item && item.tag === "case" ) {
-                caseEnabled_FLL = true;
-            }
-        }
-        for( let lCrit = 0; lCrit < this._criticals.centerLeg.length; lCrit++) {
-            let item = this._criticals.rightLeg[lCrit];
-            if( item && item.tag === "case" ) {
-                caseEnabled_CL = true;
-            }
-        }
-
-        if( this._tech.tag === "clan" ) {
-            //Clan is Assumed to have CASE in BV Calculation (TM p303)
-            // check head
-            for( let lCrit = 0; lCrit < this._criticals.head.length; lCrit++) {
-                let item = this._criticals.head[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Head (Clan, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Head (Clan, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-            }
-            // check ct
-            for( let lCrit = 0; lCrit < this._criticals.centerTorso.length; lCrit++) {
-                let item = this._criticals.centerTorso[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Center Torso (Clan, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Center Torso (Clan, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-            }
-            // check lt
-            for( let lCrit = 0; lCrit < this._criticals.leftTorso.length; lCrit++) {
-
-                if( this.hasXLEngine() ) {
-                    let item = this._criticals.leftTorso[lCrit];
-                    if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Left Torso (Clan,-15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Left Torso (Clan, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
-                }
-            }
-            // check rt
-            for( let lCrit = 0; lCrit < this._criticals.rightTorso.length; lCrit++) {
-                if( this.hasXLEngine() ) {
-                    let item = this._criticals.rightTorso[lCrit];
-                    if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Right Torso (Clan,-15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Center Right (Clan, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
-                }
-            }
-            // check rl
-            for( let lCrit = 0; lCrit < this._criticals.rightLeg.length; lCrit++) {
-                let item = this._criticals.rightLeg[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Right Leg (Clan, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Right Leg (Clan, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-            }
-            // check ll
-            for( let lCrit = 0; lCrit < this._criticals.leftLeg.length; lCrit++) {
-                let item = this._criticals.leftLeg[lCrit];
-                if(  item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Left Leg (Clan, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Left Leg (Clan, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-            }
-            // check frl
-            for( let lCrit = 0; lCrit < this._criticals.frontRightLeg.length; lCrit++) {
-                let item = this._criticals.frontRightLeg[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Front Right Leg (Clan, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Front Right Leg (Clan, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-            }
-            // check fll
-            for( let lCrit = 0; lCrit < this._criticals.frontLeftLeg.length; lCrit++) {
-                let item = this._criticals.frontLeftLeg[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Front Left Leg (Clan, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Front Leg Leg (Clan, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-            }
-            // check cl
-            for( let lCrit = 0; lCrit < this._criticals.centerLeg.length; lCrit++) {
-                let item = this._criticals.centerLeg[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Center Leg (Clan, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Center Leg (Clan, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-            }
-        } else if( this._tech.tag === "is" ) {
-            // check head
-            for( let lCrit = 0; lCrit < this._criticals.head.length; lCrit++) {
-                let item = this._criticals.head[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Head (Inner Sphere,-15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-            }
-            // check ct
-            for( let lCrit = 0; lCrit < this._criticals.centerTorso.length; lCrit++) {
-                let item = this._criticals.centerTorso[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Center Torso (Inner Sphere,-15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Center Torso (Inner Sphere, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-            }
-            // check lt
-            for( let lCrit = 0; lCrit < this._criticals.leftTorso.length; lCrit++) {
-                if( !this.hasCASE("lt") || this.hasXLEngine()) {
-                    let item = this._criticals.leftTorso[lCrit];
-
-                    if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Left Torso (Inner Sphere,-15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Left Torso (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
-                }
-            }
-            // check rt
-            for( let lCrit = 0; lCrit < this._criticals.rightTorso.length; lCrit++) {
-                // if( this.hasXLEngine() ) {
-                if( !this.hasCASE("rt")  || this.hasXLEngine() ) {
-                    let item = this._criticals.rightTorso[lCrit];
-                    if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Right Torso (Inner Sphere,-15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Center Right (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
-                }
-            }
-            // check rl
-            for( let lCrit = 0; lCrit < this._criticals.rightLeg.length; lCrit++) {
-                let item = this._criticals.rightLeg[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Right Leg (Inner Sphere, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Right Leg (Inner Sphere, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-                if( caseEnabled_RT === false && caseEnabled_RL === false) {
-                    if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Right Leg. Right Torso and Right Leg do not have CASE (Inner Sphere, -15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Right Leg. Right Torso and Right Leg do not have CASE (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
-                }
-            }
-            // check ll
-            for( let lCrit = 0; lCrit < this._criticals.leftLeg.length; lCrit++) {
-                let item = this._criticals.leftLeg[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Left Leg (Inner Sphere, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Left Leg (Inner Sphere, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-                if( caseEnabled_LT === false && caseEnabled_LL === false) {
-                    let item = this._criticals.rightLeg[lCrit];
-
-                    if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Left Leg. Left Torso and Left Leg do not have CASE (Inner Sphere, -15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Left Leg. Left Torso and Left Leg do not have CASE (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
-                }
-            }
-            // check frl
-            for( let lCrit = 0; lCrit < this._criticals.frontRightLeg.length; lCrit++) {
-                let item = this._criticals.frontRightLeg[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Front Right Leg (Inner Sphere, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Front Right Leg (Inner Sphere, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-                if( caseEnabled_RT === false && caseEnabled_FRL === false) {
-                    if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Front Right Leg. Right Torso and Front Right Leg do not have CASE (Inner Sphere, -15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Front Right Leg. Right Torso and Front Right Leg do not have CASE (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
-                }
-            }
-            // check fll
-            for( let lCrit = 0; lCrit < this._criticals.frontLeftLeg.length; lCrit++) {
-                let item = this._criticals.frontLeftLeg[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Front Left Leg (Inner Sphere, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Front Left Leg (Inner Sphere, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-                if( caseEnabled_LT === false && caseEnabled_FLL === false) {
-                    if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Front Left Leg. Left Torso and Front Left Leg do not have CASE (Inner Sphere, -15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Front Left Leg. Left Torso and Front Left Leg do not have CASE (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
-                }
-            }
-            // check cl
-            for( let lCrit = 0; lCrit < this._criticals.centerLeg.length; lCrit++) {
-                let item = this._criticals.centerLeg[lCrit];
-                if( item && item.obj && item.obj.explosive) {
-                    this._calcLogBV += "Explosive Ammo Crit in Center Leg (Inner Sphere, -15)<br />";
-                    explosiveAmmoModifiers += 15;
-                }
-                if( item && item.obj && item.obj.gauss) {
-                    this._calcLogBV += "Gauss Crit in Center Leg (Inner Sphere, -1)<br />";
-                    explosiveAmmoModifiers += 1;
-                }
-                if( caseEnabled_CT === false && caseEnabled_CL === false) {
-                    if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Center Leg. Center Torso and Center Leg do not have CASE (Inner Sphere, -15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Center Leg. Center Torso and Center Leg do not have CASE (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
-                }
-            }
-            // check RA
-            for( let lCrit = 0; lCrit < this._criticals.rightArm.length; lCrit++) {
-                if( caseEnabled_RT === false && caseEnabled_RA === false) {
-                    let item = this._criticals.rightArm[lCrit];
-                    if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Right Arm, Right Torso and Right Arm to not have CASE (Inner Sphere, -15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Right Arm, Right Torso and Right Arm to not have CASE (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
-                }
-            }
-            // check LA
-            for( let lCrit = 0; lCrit < this._criticals.leftArm.length; lCrit++) {
-                if( caseEnabled_LT === false && caseEnabled_LA === false) {
-                    let item = this._criticals.leftArm[lCrit];
-                    if( item && item.obj && item.obj.explosive) {
-                        this._calcLogBV += "Explosive Ammo Crit in Left Arm, Left Torso and Left Arm to not have CASE (Inner Sphere, -15)<br />";
-                        explosiveAmmoModifiers += 15;
-                    }
-                    if( item && item.obj && item.obj.gauss) {
-                        this._calcLogBV += "Gauss Crit in Left Arm, Left Torso and Left Arm to not have CASE (Inner Sphere, -1)<br />";
-                        explosiveAmmoModifiers += 1;
-                    }
-                }
-            }
-        }
-
-        defensiveBattleRating = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints - explosiveAmmoModifiers;
-        this._calcLogBV += "Defensive battle rating = " + defensiveBattleRating + " ( " + totalArmorFactor +  + totalInternalStructurePoints + " +  " + totalGyroPoints + " -  " + explosiveAmmoModifiers + "<br />";
-
-        // Get Defensive Factor Modifier
-
-        let runSpeed = this.getRunSpeed();
-        let jumpSpeed = this.getJumpSpeed();
-        let runModifier = getMovementModifier(runSpeed);
-        let jumpModifier = getMovementModifier(jumpSpeed) + 1;
-
-        let moveModifier = 0;
-        if( jumpModifier > runModifier)
-            moveModifier = jumpModifier;
-        else
-            moveModifier = runModifier;
-
-        this._calcLogBV += "Best TMM: " + moveModifier + "<br />";
-
-        let defensiveFactorModifier = 1 + moveModifier / 10;
-        if( defensiveFactorModifier < 1)
-            defensiveFactorModifier = 1;
-
-        this._calcLogBV += "Defensive Factor (defensiveFactorModifier = 1 + TMM / 10): " + defensiveFactorModifier + " = 1 + " + moveModifier + " / 10<br />";
-
-        // TODO for equipment.... add camo, stealth, etc when it's available
-        this._calcLogBV += "<strong> Defensive Factor Modifiers for equipment</strong>.... add camo, stealth, etc when tech is available<br />";
-
-        if( hasCamo) {
+        this._calcLogBV += `Base Defensive Factor (1 + TMM / 10): ${defensiveFactorModifier.toFixed(2)} = 1 + ${moveModifier} / 10<br />`;
+        // 2B. Process Defensive Factor Modifiers for Stealth and Advanced Camouflage Systems
+        this._calcLogBV += "<strong>Defensive Factor Modifiers for Stealth / Advanced Electronic Systems</strong><br />";
+        // Standard & Advanced Systems (Tactical Operations p. 342)
+        if (hasCamo) {
             defensiveFactorModifier += 0.2;
+            this._calcLogBV += "Applied Standard Camouflage Shielding (+0.20)<br />";
         }
-
-        if( hasBasicStealth) {
+        if (hasBasicStealth || hasPrototypeStealth || hasStandardStealth) {
             defensiveFactorModifier += 0.2;
+            this._calcLogBV += "Activated Electronic/Standard Stealth Armor Matrix (+0.20)<br />";
         }
-
-        if( hasPrototypeStealth) {
-            defensiveFactorModifier += 0.2;
-        }
-
-        if( hasStandardStealth) {
-            defensiveFactorModifier += 0.2;
-        }
-
-        if( hasImprovedStealth) {
+        if (hasImprovedStealth) {
             defensiveFactorModifier += 0.3;
+            this._calcLogBV += "Activated Advanced Improved Stealth Suite (+0.30)<br />";
         }
-
-        if( hasMimetic) {
+        if (hasMimetic) {
             defensiveFactorModifier += 0.3;
+            this._calcLogBV += "Activated Active Mimetic Light Polarization Layering (+0.30)<br />";
         }
+        // -------------------------------------------------------------------------
+        // FUTURE LEVEL 5 EXPANSION APOCRYPHAL HOOKS (Commented out for baseline accuracy)
+        // -------------------------------------------------------------------------
+        // if (this.hasEquipment("null_signature")) {
+        //     defensiveFactorModifier += 0.2;
+        //     this._calcLogBV += "Activated Null Signature System (NSS) Visual Shroud (+0.20)<br />";
+        // }
+        // if (this.hasEquipment("chameleon_frame") || this.hasEquipment("clps")) {
+        //     defensiveFactorModifier += 0.2;
+        //     this._calcLogBV += "Activated Chameleon Light Polarization Shielding (CLPS) (+0.20)<br />";
+        // }
+        // if (this.hasEquipment("poly_fullerene_reactive")) {
+        //     this._calcLogBV += "Detected Poly-Fullerene Reactive Armor (PFRA) Signal Dampening Fields<br />";
+        // }
+        // 2C. Apply Unified Defensive Factor directly to the subtotal (TM p. 303)
+        const currentDBR = this._defensiveBattleRating;
+        const modifiedDBR = currentDBR * defensiveFactorModifier;
+        this._calcLogBV += `Final Defensive Rating Calculation = DBR Subtotal * Defensive Factor: ${modifiedDBR.toFixed(2)} = ${currentDBR.toFixed(2)} x ${defensiveFactorModifier.toFixed(2)}<br />`;
+        // Update the final class field storage
+        this._defensiveBattleRating = modifiedDBR;
+        this._calcLogBV += `<strong>Final Defensive Battle Rating</strong>: ${this._defensiveBattleRating.toFixed(2)}<br />`;let finalDefensiveBattleRating = defensiveSubtotal * defensiveFactorModifier;
+        // Canonical Floor Check Rule Enforced (TM p. 303: "Minimum rating threshold of 1")
+        if (finalDefensiveBattleRating < 1.0) {
+            finalDefensiveBattleRating = 1.0;
+            this._calcLogBV += "Final Defensive Battle Rating dropped below threshold. Enforcing canonical minimum floor: 1.0<br />";
+        } else {
+            this._calcLogBV += `Final Defensive Battle Rating (Subtotal x Defensive Factor): ${finalDefensiveBattleRating.toFixed(2)} = ${defensiveSubtotal.toFixed(2)} x ${defensiveFactorModifier.toFixed(2)}<br />`;
+        }
+        // Lock down the tracking properties safely
+        this._defensiveBattleRating = finalDefensiveBattleRating;
+        
+                /* *************************************************************************
+         * STEP 3: CALCULATE OFFENSIVE BATTLE RATING - TechManual p. 303
+         * *********************************************************************** */
+        this._calcLogBV += "<strong>STEP 3: CALCULATE OFFENSIVE BATTLE RATING - TM p303</strong><br />";
 
-        this._calcLogBV += "Defensive battle rating = Defensive battle rating * Target Modifier Rating : " + (defensiveBattleRating * defensiveFactorModifier).toFixed(2) + " = " + defensiveBattleRating + " x " + defensiveFactorModifier + "<br />";
-
-        defensiveBattleRating = defensiveBattleRating * defensiveFactorModifier;
-
-        this._calcLogBV += "<strong>Final defensive battle rating</strong>: " + defensiveBattleRating.toFixed(2) + "<br />";
-
-        /* ***************************************************
-         *  STEP 2: CALCULATE OFFENSIVE BATTLE RATING - TM p303
-         * ************************************************ */
-        let offensiveBattleRating = 0;
-        this._calcLogBV += "<strong>STEP 2: CALCULATE OFFENSIVE BATTLE RATING - TM p303</strong><br />";
-
-        // TODO
-        this._calcLogBV += "<strong>Calculate Each Weapon&apos;s Modified BV</strong><br />";
-
-        let ammoBV: INumericalHash = {};
-        let weaponBV: INumericalHash = {};
-
+        const ammoBV: Record<string, number> = {};
+        const weaponBV: Record<string, number> = {};
         let totalAmmoBV = 0;
 
-        // Add up all the BV Sums, put each in an array for comparison
-        for( let eqC = 0; eqC < this._equipmentList.length; eqC++) {
-            let currentItem = this._equipmentList[eqC];
-            if( currentItem.tag.indexOf( "ammo-" ) > -1) {
-                if( !ammoBV[currentItem.tag])
+        // 3A. Inventory Scan & Base Value Distribution (TM p. 303)
+        for (let eqC = 0; eqC < this._equipmentList.length; eqC++) {
+            const currentItem = this._equipmentList[eqC];
+            const baseValue = currentItem.battleValue || 0;
+
+            // Differentiate ammunition bins using absolute explicit tag boundaries
+            if (currentItem.tag.startsWith("ammo-")) {
+                if (!ammoBV[currentItem.tag]) {
                     ammoBV[currentItem.tag] = 0;
-                if( currentItem.battleValue)
-                    ammoBV[currentItem.tag] += currentItem.battleValue * currentItem.weight;
-
-                this._calcLogBV += "+ Adding " + currentItem.name + " - "  + currentItem.location + " - " + ((currentItem.battleValue ? currentItem.battleValue : 0) * currentItem.weight) + "<br />";
-
-            } else {
-                if( !weaponBV[currentItem.tag])
-                    weaponBV[currentItem.tag] = 0;
-                if( currentItem.battleValue)
-                    weaponBV[currentItem.tag] = currentItem.battleValue;
-            }
-        }
-
-        let totalWeaponBV = 0;
-        let simplifiedAmmoBV: INumericalHash = {};
-        for( let weaponKey in weaponBV) {
-            for( let ammoKey in ammoBV) {
-                if( ammoKey.indexOf(weaponKey) > -1) {
-                    if( !simplifiedAmmoBV[weaponKey])
-                        simplifiedAmmoBV[weaponKey] = 0;
-                    simplifiedAmmoBV[weaponKey] += ammoBV[ammoKey];
                 }
+                // Ammunition BV = Base Ammo Item Value x Tonnage Mass (TM p. 303)
+                const assignedAmmoValue = baseValue * currentItem.weight;
+                ammoBV[currentItem.tag] += assignedAmmoValue;
+
+                this._calcLogBV += `+ Adding Ammunition: ${currentItem.name} (${currentItem.location}) = ${assignedAmmoValue.toFixed(2)} (${baseValue} BV x ${currentItem.weight} tons)<br />`;
+            } else {
+                // Accumulate weapon totals to handle duplicate weapons correctly for the Excessive Ammo Cap
+                if (!weaponBV[currentItem.tag]) {
+                    weaponBV[currentItem.tag] = 0;
+                }
+                weaponBV[currentItem.tag] += baseValue;
             }
-            totalWeaponBV += weaponBV[weaponKey];
         }
 
-        for( let ammoKey in simplifiedAmmoBV) {
-            if( weaponBV[ammoKey]) {
-                if( simplifiedAmmoBV[ammoKey] > weaponBV[ammoKey]) {
-                    this._calcLogBV += "<strong>Excessive Ammo Rule</strong> setting " + ammoKey + " value to " + weaponBV[ammoKey] + " from " + simplifiedAmmoBV[ammoKey] + "<br />";
+        // 3B. Map and Simplify Ammunition to Parent Weapon Structures
+        const simplifiedAmmoBV: Record<string, number> = {};
+        for (const weaponKey in weaponBV) {
+            // Standard ammo tags follow the layout pattern: "ammo-weapon_tag"
+            const matchingAmmoTag = `ammo-${weaponKey}`;
+            if (ammoBV[matchingAmmoTag]) {
+                simplifiedAmmoBV[weaponKey] = ammoBV[matchingAmmoTag];
+            }
+        }
 
-                    simplifiedAmmoBV[ammoKey] = weaponBV[ammoKey];
+        // 3C. Enforce Excessive Ammunition Rule Cap (TM p. 303)
+        for (const ammoKey in simplifiedAmmoBV) {
+            if (weaponBV[ammoKey]) {
+                const totalAllowedCap = weaponBV[ammoKey];
+                if (simplifiedAmmoBV[ammoKey] > totalAllowedCap) {
+                    this._calcLogBV += `<strong>Excessive Ammunition Rule Triggered:</strong> Combined ammo BV for ${ammoKey} (${simplifiedAmmoBV[ammoKey].toFixed(2)}) exceeds weapon group total (${totalAllowedCap.toFixed(2)}). Capping value to match.<br />`;
+                    simplifiedAmmoBV[ammoKey] = totalAllowedCap;
                 }
                 totalAmmoBV += simplifiedAmmoBV[ammoKey];
             }
         }
 
-        this._calcLogBV += "<strong>Total Ammo BV</strong> " + totalAmmoBV + "<br />";
+        this._calcLogBV += `<strong>Total Capped Ammo BV:</strong> ${totalAmmoBV.toFixed(2)}<br />`;
 
-        let mechHeatEfficiency = 0;
-        if( this.getHeatSinksType() === "single" ) {
-            mechHeatEfficiency = 6 + this.getHeatSinks() - this.getMaxMovementHeat();
-            this._calcLogBV += "<strong>Heat Efficiency</strong> " + mechHeatEfficiency + " (6 + " + this.getHeatSinks() + " - " + this.getMaxMovementHeat() + " )<br />";
+        // 3D. Engine Thermal Dissipation Capacity Evaluation (TM p. 303)
+        let mechHeatEfficiency = 6; // Baseline structural buffer
+        const sinkEfficiencyMultiplier = this.getHeatSinksType() === "double" ? 2 : 1;
+        
+        // Total Heat Dissipation Capacity = 6 + Total Dissipation Points - Max Movement Heat
+        mechHeatEfficiency += (this.getHeatSinks() * sinkEfficiencyMultiplier) - this.getMaxMovementHeat();
+        
+        this._calcLogBV += `<strong>Heat Efficiency Capacity Pool:</strong> ${mechHeatEfficiency} (6 + Engine Sinks: ${this.getHeatSinks() * sinkEfficiencyMultiplier} - Movement Heat: ${this.getMaxMovementHeat()})<br />`;
+        this._calcLogBV += "<strong>Total Weapon Heat Breakdown:</strong> ";
 
-        } else if( this.getHeatSinksType() === "double" ) {
-            mechHeatEfficiency = 6 + this.getHeatSinks() * 2 - this.getMaxMovementHeat();
-            this._calcLogBV += "<strong>Heat Efficiency</strong> " + mechHeatEfficiency + " (6 + " + this.getHeatSinks() * 2 + " - " + this.getMaxMovementHeat() + " )<br />";
-        }
-
-        this._calcLogBV += "<strong>Total Weapon Heat</strong> ";
+        // 3E. Weapon Heat Multiplier Mapping (TM p. 303 / Errata updates)
         let totalWeaponHeat = 0;
+        const heatLogFragments: string[] = [];
 
+        // Sort weapon assets using prioritized combat sorting logic
+        this._equipmentList.sort((a, b) => sortByAdjustedBVThenHeat(a, b, this));
 
+        for (let eqC = 0; eqC < this._equipmentList.length; eqC++) {
+            const currentItem = this._equipmentList[eqC];
+            if (currentItem.tag.startsWith("ammo-")) continue;
 
-        this._equipmentList.sort( (a, b) => sortByAdjustedBVThenHeat( a, b, this ) );
+            let baseHeat = currentItem.heat || 0;
 
-        for( let eqC = 0; eqC < this._equipmentList.length; eqC++) {
-            let currentItem = this._equipmentList[eqC];
-
-            currentItem.bvHeat = currentItem.heat;
-
-            if( currentItem.tag.indexOf( "ammo-" ) === -1) {
-                if( !weaponBV[currentItem.tag])
-                    weaponBV[currentItem.tag] = 0;
-                if( currentItem.battleValue)
-                    weaponBV[currentItem.tag] = currentItem.battleValue;
-
-                this._calcLogBV += this._equipmentList[eqC].heat + " + ";
-
-                // TODO modify per weapon type
-                // one shot this._equipmentList[ eqC ].bvHeat = this._equipmentList[ eqC ].bvHeat / 4
-
-                if( this._equipmentList[eqC].isOneShot ) {
-                    // set above, never undefined, thanks TS
-                    //@ts-ignore
-                    this._equipmentList[ eqC ].bvHeat = this._equipmentList[ eqC ].bvHeat / 4;
-                }
-                if( this._equipmentList[eqC].isUltra ) {
-                    // set above, never undefined, thanks TS
-                    //@ts-ignore
-                    this._equipmentList[ eqC ].bvHeat = this._equipmentList[ eqC ].bvHeat * 2;
-                }
-                if( this._equipmentList[eqC].isStreak ) {
-                    // set above, never undefined, thanks TS
-                    //@ts-ignore
-                    this._equipmentList[ eqC ].bvHeat = this._equipmentList[ eqC ].bvHeat / 2;
-                }
-                if( this._equipmentList[eqC].isRotary ) {
-                    // set above, never undefined, thanks TS
-                    //@ts-ignore
-                    this._equipmentList[ eqC ].bvHeat = this._equipmentList[ eqC ].bvHeat * 6;
-                }
-
-                // set above, never undefined, thanks TS
-                //@ts-ignore
-                totalWeaponHeat += this._equipmentList[eqC].bvHeat;
-
+            // Apply specific ruleset multipliers for alternative fire modes
+            if (currentItem.isOneShot) {
+                baseHeat /= 4; // OS Heat adjustment
+            } else if (currentItem.isStreak) {
+                baseHeat /= 2; // Streak Heat adjustment
+            } else if (currentItem.isUltra) {
+                baseHeat *= 2; // Ultra RAC double fire expansion
+            } else if (currentItem.isRotary) {
+                baseHeat *= 6; // Rotary RAC multi-shot expansion
             }
+
+            currentItem.bvHeat = baseHeat;
+            totalWeaponHeat += baseHeat;
+            heatLogFragments.push(`${baseHeat}`);
         }
 
-        if( this._calcLogBV.substring(0, this._calcLogBV.length - 3) === " + " ) {
-            this._calcLogBV = this._calcLogBV.substring(0, this._calcLogBV.length - 3)
-        }
+        this._calcLogBV += heatLogFragments.length > 0 ? heatLogFragments.join(" + ") : "0";
+        this._calcLogBV += ` = ${totalWeaponHeat.toFixed(2)}<br />`;
 
-        this._calcLogBV += " = " + totalWeaponHeat;
-
-        this._calcLogBV += "<br />";
-
+        // 3F. Dynamic Weapon Arc & Thermal Efficiency Splitting Loop (TM pp. 303-304)
         let runningTotal = 0;
         let runningHeat = 0;
-        if( totalWeaponHeat >= mechHeatEfficiency) {
-            // Mech is heat inefficient, now we need to go through steps 4-7 on TM pp 303-304
+        let inHalfCost = false;
 
-            let inHalfCost = false;
+        for (let weaponC = 0; weaponC < this._equipmentList.length; weaponC++) {
+            const currentItem = this._equipmentList[weaponC];
+            if (currentItem.tag.startsWith("ammo-")) continue;
 
-            for( let weaponC = 0; weaponC < this._equipmentList.length; weaponC++) {
-                if( this._equipmentList[weaponC].tag.indexOf( "ammo-" ) === -1) {
+            const baseBV = currentItem.battleValue || 0;
+            const weaponHeat = currentItem.bvHeat || 0;
+            let finalWeaponMultiplier = 1.0;
 
-                    // set above, never undefined, thanks TS
-                    //@ts-ignore
-                    if( inHalfCost === true && this._equipmentList[weaponC].bvHeat > 0) {
-                        // half efficiency
-                        let currentItem = this._equipmentList[weaponC];
-                        if( currentItem && currentItem.rear ) {
-                            if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
+            // Resolve explicit firing arc boundaries
+            const isRearDominant = this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons();
+            const isFlexibleLimb = this.isNotOnTorsoHeadOrLegs(currentItem.location);
+            const waiveRearPenalty = isRearDominant || isFlexibleLimb;
 
-                                if( currentItem.battleValue) {
-                                    this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
-                                    runningTotal += currentItem.battleValue / 2;
-                                }
-                            } else {
-                                if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
-                                    if( currentItem.battleValue) {
-                                        this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
-                                        runningTotal += currentItem.battleValue / 2;
-                                    }
-                                } else {
-                                    if( currentItem.battleValue) {
-                                        this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
-                                        runningTotal += currentItem.battleValue / 4;
-                                    }
-                                }
-                            }
-                        } else {
-                            if( currentItem.battleValue ) {
-                                this._calcLogBV += "+ Adding Heat Inefficient Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 2 = " + (currentItem.battleValue / 2);
-                                runningTotal += currentItem.battleValue / 2;
-                            }
-                        }
-                    } else {
-                        // normal efficiency
-
-                        // console.log(  this._equipmentList[weaponC] );
-                        let currentItem = this._equipmentList[weaponC];
-                        if( currentItem.rear ) {
-                            if( currentItem.battleValue) {
-                                if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
-                                    this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue  ) + " (not halved due to less front weapons bv), heat " + currentItem.bvHeat + "<br />";
-                                    runningTotal += (currentItem.battleValue );
-                                } else {
-
-                                    this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + "), heat " + currentItem.bvHeat + "<br />";
-                                    runningTotal += (currentItem.battleValue / 2);
-
-                                }
-
-                            }
-                        } else {
-                            if( currentItem.battleValue) {
-                                // this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ") - bv " + currentItem.battleValue + ", heat " + currentItem.bvHeat;
-                                // runningTotal += currentItem.battleValue;
-                                if( this.getTotalBVFrontWeapons() >= this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
-                                    this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue  ) + ", heat " + currentItem.bvHeat + "<br />";
-                                    runningTotal += (currentItem.battleValue );
-                                } else {
-
-                                    this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + "), heat " + currentItem.bvHeat + "<br />";
-                                    runningTotal += (currentItem.battleValue / 2);
-
-                                }
-                            }
-                        }
-                    }
-
-                    // set above, never undefined, thanks TS
-                    //@ts-ignore
-                    runningHeat += this._equipmentList[weaponC].bvHeat;
-
-
-                    // set above, never undefined, thanks TS
-                    //@ts-ignore
-                    if( runningHeat >= mechHeatEfficiency && this._equipmentList[weaponC].bvHeat > 0 && inHalfCost === false) {
-                        inHalfCost = true;
-                        this._calcLogBV += " (weapon is last heat efficient, rest will be half cost)";
-                    }
-
-                    this._calcLogBV += "<br />";
-
+            if (currentItem.rear) {
+                if (waiveRearPenalty) {
+                    this._calcLogBV += `+ Adding Rear Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV} (Rear penalty waived), Heat: ${weaponHeat}<br />`;
+                } else {
+                    this._calcLogBV += `+ Adding Rear Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV} halved due to Rear Arc: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
+                    finalWeaponMultiplier *= 0.5;
+                }
+            } else {
+                if (!waiveRearPenalty && this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons()) {
+                    this._calcLogBV += `+ Adding Front Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV} halved due to Rear Dominance: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
+                    finalWeaponMultiplier *= 0.5;
+                } else {
+                    this._calcLogBV += `+ Adding Front Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV}, Heat: ${weaponHeat}<br />`;
                 }
             }
 
-        } else {
+            // Apply Heat Inefficiency Half-Cost Rules (TM p. 304)
+            if (totalWeaponHeat >= mechHeatEfficiency) {
+                if (inHalfCost && weaponHeat > 0) {
+                    finalWeaponMultiplier *= 0.5;
+                    this._calcLogBV += `  [Thermal Penalty: Halved due to running hot] -> Cumulative Item Multiplier: ${finalWeaponMultiplier}<br />`;
+                }
 
-            // Mech is heat efficient, no need to go through steps 4-7 on TM pp 303-304, just print and add up the weapons
+                runningHeat += weaponHeat;
 
-            for( let weaponC = 0; weaponC < this._equipmentList.length; weaponC++) {
-                let currentItem = this._equipmentList[weaponC];
-                if( currentItem.tag.indexOf( "ammo-" ) === -1) {
-                    if( currentItem.rear  ) {
-                        if( currentItem.battleValue ) {
-                            if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location) ) {
-                                this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue  ) + " (not halved due to less front weapons bv), heat " + currentItem.bvHeat + "<br />";
-                                runningTotal += (currentItem.battleValue );
-                            } else {
-                                this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + ")<br />";
-
-                                runningTotal += (currentItem.battleValue / 2);
-                            }
-                        }
-                    } else {
-                        if( currentItem.battleValue ) {
-                            if( this.getTotalBVFrontWeapons() >= this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
-                                this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + "<br />";
-                                runningTotal += (currentItem.battleValue );
-                            } else {
-                                this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + ")<br />";
-
-                                runningTotal += currentItem.battleValue / 2;
-
-                            }
-                        }
-                    }
+                if (!inHalfCost && runningHeat >= mechHeatEfficiency && weaponHeat > 0) {
+                    inHalfCost = true;
+                    this._calcLogBV += "  (System limit reached: This component consumes the remaining thermal efficiency pool; subsequent weapons will incur a heat penalty.)<br />";
                 }
             }
 
+            runningTotal += baseBV * finalWeaponMultiplier;
         }
 
-        totalWeaponBV = runningTotal;
-        this._calcLogBV += "<strong>Total Weapon BV</strong> " + totalWeaponBV + "<br />";
+        // 3G. Finalize Offensive Calculations & Apply TSM Tonnage Modifiers (TM p. 303)
+        const totalWeaponBV = runningTotal;
+        this._calcLogBV += `<strong>Total Weapon BV:</strong> ${totalWeaponBV.toFixed(2)}<br />`;
 
         let modifiedMechTonnage = this.getTonnage();
 
-        if( this._hasTripleStrengthMyomer) {
-            modifiedMechTonnage = modifiedMechTonnage * 1.5;
+        if (this._hasTripleStrengthMyomer) {
+            modifiedMechTonnage *= 1.5; // TSM mass multiplier (TM p. 303)
+            this._calcLogBV += `Triple-Strength Myomer (TSM) Active: Tonnage modified by 1.5x -> ${modifiedMechTonnage} tons (Base: ${this.getTonnage()})<br />`;
+        } else {
+            this._calcLogBV += `Standard Tonnage Applied: ${modifiedMechTonnage} tons<br />`;
         }
 
-        offensiveBattleRating = totalWeaponBV + totalAmmoBV + modifiedMechTonnage;
+        const baseOffensiveRating = totalWeaponBV + totalAmmoBV + modifiedMechTonnage;
 
-        let speedFactorModifier = this._getSpeedFactorModifier();
-        offensiveBattleRating = offensiveBattleRating * speedFactorModifier;
+        // 3H. Apply Speed Factor Scaling Multiplier (TM p. 304)
+        const speedFactorModifier = this._getSpeedFactorModifier();
+        const finalOffensiveBattleRating = baseOffensiveRating * speedFactorModifier;
 
-        this._calcLogBV += "<strong>Final offensive battle rating</strong>: " + offensiveBattleRating.toFixed(2) + " ( " + totalWeaponBV + " (weaponBV) + " + totalAmmoBV + " (ammoBV) + " + modifiedMechTonnage + "(mechTonnage) ) x " + speedFactorModifier + " (speed factor rating)<br />";
+        this._calcLogBV += `<strong>Final Offensive Battle Rating:</strong> ${finalOffensiveBattleRating.toFixed(2)} ` +
+            `(${totalWeaponBV.toFixed(2)} [Weapon BV] + ${totalAmmoBV.toFixed(2)} [Ammo BV] + ${modifiedMechTonnage} [Mech Tonnage]) ` +
+            `x ${speedFactorModifier.toFixed(4)} [Speed Factor Rating]<br />`;
 
-        /* ***************************************************
-         * STEP 3: CALCULATE FINAL BATTLE VALUE - TM p304
-         * ************************************************ */
+        this._offensiveBattleRating = finalOffensiveBattleRating;
 
-        this._calcLogBV += "<strong>STEP 3: CALCULATE FINAL BATTLE VALUE - TM p304</strong><br />";
-        let finalBattleValue = defensiveBattleRating + offensiveBattleRating;
-        this._calcLogBV += "finalBattleValue = defensiveBattleRating + offensiveBattleRating: " + finalBattleValue.toFixed(2) + " = " + defensiveBattleRating.toFixed(2) +  " + "  + offensiveBattleRating.toFixed(2) + "<br />";
+        /* *************************************************************************
+         * STEP 4: CALCULATE FINAL BATTLE VALUE - TechManual p. 304
+         * *********************************************************************** */
+        this._calcLogBV += "<strong>STEP 4: CALCULATE FINAL BATTLE VALUE - TM p304</strong><br />";
 
-        if( this._smallCockpit) {
-            finalBattleValue = Math.round(finalBattleValue * .95);
-            this._calcLogBV += "Small Cockpit, multiply total by .95 and round final BV: " + finalBattleValue.toFixed(2) + "<br />";
+        // Pull verified class values calculated in previous steps
+        const currentDBR = this._defensiveBattleRating;
+        const currentOBR = this._offensiveBattleRating;
+        
+        let finalBattleValue = currentDBR + currentOBR;
+        this._calcLogBV += `Unmodified Combined BV = Defensive Rating + Offensive Rating: ${finalBattleValue.toFixed(2)} = ${currentDBR.toFixed(2)} + ${currentOBR.toFixed(2)}<br />`;
+
+        // Apply cockpit sizing penalty rules (TM p. 304)
+        if (this._smallCockpit) {
+            finalBattleValue *= 0.95;
+            this._calcLogBV += `Small Cockpit Penalty Applied: Total multiplied by 0.95 -> Intermediate BV: ${finalBattleValue.toFixed(2)}<br />`;
         }
 
-        this._calcLogBV += "<strong>Final Battle Value</strong>: " + finalBattleValue.toFixed(2) + " rounded off " + Math.round(finalBattleValue) + "<br />";
-        this._battleValue = Math.round(finalBattleValue);
+        // Execute absolute rounding to whole integer values (TM p. 304)
+        const absoluteRoundedBV = Math.round(finalBattleValue);
+        this._calcLogBV += `<strong>Final Unit Battle Value:</strong> ${absoluteRoundedBV} (Rounded from ${finalBattleValue.toFixed(2)})<br />`;
+        
+        // Commit values into the master class structures
+        this._battleValue = absoluteRoundedBV;
 
+        // Trigger secondary tracking updates for personnel/skills assignment
         this._setPilotAdjustedBattleValue();
     }
 
-    private _setPilotAdjustedBattleValue() {
-        this._pilotAdjustedBattleValue = this._battleValue;
-
-        if( this._pilot.gunnery === 0 && this._pilot.piloting === 0 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 2.80;
-        } else if( this._pilot.gunnery === 1 && this._pilot.piloting === 0 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 2.56;
-        } else if( this._pilot.gunnery === 2 && this._pilot.piloting === 0 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 2.24;
-        } else if( this._pilot.gunnery === 3 && this._pilot.piloting === 0 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.92;
-        } else if( this._pilot.gunnery === 4 && this._pilot.piloting === 0 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.60;
-        } else if( this._pilot.gunnery === 5 && this._pilot.piloting === 0 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.50;
-        } else if( this._pilot.gunnery === 6 && this._pilot.piloting === 0 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.43;
-        } else if( this._pilot.gunnery === 7 && this._pilot.piloting === 0 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.36;
-        } else if( this._pilot.gunnery === 8 && this._pilot.piloting === 0 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.28;
-        } else if( this._pilot.gunnery === 0 && this._pilot.piloting === 1 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 2.63;
-        } else if( this._pilot.gunnery === 1 && this._pilot.piloting === 1 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 2.40;
-        } else if( this._pilot.gunnery === 2 && this._pilot.piloting === 1 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 2.10;
-        } else if( this._pilot.gunnery === 3 && this._pilot.piloting === 1 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.80;
-        } else if( this._pilot.gunnery === 4 && this._pilot.piloting === 1 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.50;
-        } else if( this._pilot.gunnery === 5 && this._pilot.piloting === 1 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.35;
-        } else if( this._pilot.gunnery === 6 && this._pilot.piloting === 1 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.33;
-        } else if( this._pilot.gunnery === 7 && this._pilot.piloting === 1 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.26;
-        } else if( this._pilot.gunnery === 8 && this._pilot.piloting === 1 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.19;
-        } else if( this._pilot.gunnery === 0 && this._pilot.piloting === 2 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 2.45;
-        } else if( this._pilot.gunnery === 1 && this._pilot.piloting === 2 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 2.24;
-        } else if( this._pilot.gunnery === 2 && this._pilot.piloting === 2 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.96;
-        } else if( this._pilot.gunnery === 3 && this._pilot.piloting === 2 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.68;
-        } else if( this._pilot.gunnery === 4 && this._pilot.piloting === 2 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.40;
-        } else if( this._pilot.gunnery === 5 && this._pilot.piloting === 2 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.26;
-        } else if( this._pilot.gunnery === 6 && this._pilot.piloting === 2 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.19;
-        } else if( this._pilot.gunnery === 7 && this._pilot.piloting === 2 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.16;
-        } else if( this._pilot.gunnery === 8 && this._pilot.piloting === 2 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.10;
-        } else if( this._pilot.gunnery === 0 && this._pilot.piloting === 3 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 2.28;
-        } else if( this._pilot.gunnery === 1 && this._pilot.piloting === 3 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 2.08;
-        } else if( this._pilot.gunnery === 2 && this._pilot.piloting === 3 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.82;
-        } else if( this._pilot.gunnery === 3 && this._pilot.piloting === 3 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.56;
-        } else if( this._pilot.gunnery === 4 && this._pilot.piloting === 3 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.30;
-        } else if( this._pilot.gunnery === 5 && this._pilot.piloting === 3 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.17;
-        } else if( this._pilot.gunnery === 6 && this._pilot.piloting === 3 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.11;
-        } else if( this._pilot.gunnery === 7 && this._pilot.piloting === 3 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.04;
-        } else if( this._pilot.gunnery === 8 && this._pilot.piloting === 3 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.01;
-        } else if( this._pilot.gunnery === 0 && this._pilot.piloting === 4 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 2.01;
-        } else if( this._pilot.gunnery === 1 && this._pilot.piloting === 4 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.84;
-        } else if( this._pilot.gunnery === 2 && this._pilot.piloting === 4 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.61;
-        } else if( this._pilot.gunnery === 3 && this._pilot.piloting === 4 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.38;
-        } else if( this._pilot.gunnery === 4 && this._pilot.piloting === 4 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.15;
-        } else if( this._pilot.gunnery === 5 && this._pilot.piloting === 1 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.04;
-        } else if( this._pilot.gunnery === 6 && this._pilot.piloting === 1 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.98;
-        } else if( this._pilot.gunnery === 7 && this._pilot.piloting === 4 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.92;
-        } else if( this._pilot.gunnery === 8 && this._pilot.piloting === 4 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.86;
-        } else if( this._pilot.gunnery === 0 && this._pilot.piloting === 5 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.82;
-        } else if( this._pilot.gunnery === 1 && this._pilot.piloting === 5 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.60;
-        } else if( this._pilot.gunnery === 2 && this._pilot.piloting === 5 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.40;
-        } else if( this._pilot.gunnery === 3 && this._pilot.piloting === 5 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.20;
-        } else if( this._pilot.gunnery === 4 && this._pilot.piloting === 5 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.0;
-        } else if( this._pilot.gunnery === 5 && this._pilot.piloting === 5 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.90;
-        } else if( this._pilot.gunnery === 6 && this._pilot.piloting === 5 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.85;
-        } else if( this._pilot.gunnery === 7 && this._pilot.piloting === 5 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.80;
-        } else if( this._pilot.gunnery === 8 && this._pilot.piloting === 5 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.75;
-        } else if( this._pilot.gunnery === 0 && this._pilot.piloting === 6 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.75;
-        } else if( this._pilot.gunnery === 1 && this._pilot.piloting === 6 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.58;
-        } else if( this._pilot.gunnery === 2 && this._pilot.piloting === 6 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.33;
-        } else if( this._pilot.gunnery === 3 && this._pilot.piloting === 6 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.14;
-        } else if( this._pilot.gunnery === 4 && this._pilot.piloting === 6 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.95;
-        } else if( this._pilot.gunnery === 5 && this._pilot.piloting === 6 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.86;
-        } else if( this._pilot.gunnery === 6 && this._pilot.piloting === 6 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.81;
-        } else if( this._pilot.gunnery === 7 && this._pilot.piloting === 6 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.76;
-        } else if( this._pilot.gunnery === 8 && this._pilot.piloting === 6 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.71;
-        } else if( this._pilot.gunnery === 0 && this._pilot.piloting === 7 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.67;
-        } else if( this._pilot.gunnery === 1 && this._pilot.piloting === 7 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.51;
-        } else if( this._pilot.gunnery === 2 && this._pilot.piloting === 7 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.31;
-        } else if( this._pilot.gunnery === 3 && this._pilot.piloting === 7 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.08;
-        } else if( this._pilot.gunnery === 4 && this._pilot.piloting === 7 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.90;
-        } else if( this._pilot.gunnery === 5 && this._pilot.piloting === 7 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.81;
-        } else if( this._pilot.gunnery === 6 && this._pilot.piloting === 7 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.77;
-        } else if( this._pilot.gunnery === 7 && this._pilot.piloting === 7 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.72;
-        } else if( this._pilot.gunnery === 8 && this._pilot.piloting === 7 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.68;
-        } else if( this._pilot.gunnery === 0 && this._pilot.piloting === 8 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.59;
-        } else if( this._pilot.gunnery === 1 && this._pilot.piloting === 8 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.44;
-        } else if( this._pilot.gunnery === 2 && this._pilot.piloting === 8 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.25;
-        } else if( this._pilot.gunnery === 3 && this._pilot.piloting === 8 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 1.06;
-        } else if( this._pilot.gunnery === 4 && this._pilot.piloting === 8 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.85;
-        } else if( this._pilot.gunnery === 5 && this._pilot.piloting === 8 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.77;
-        } else if( this._pilot.gunnery === 6 && this._pilot.piloting === 8 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.72;
-        } else if( this._pilot.gunnery === 7 && this._pilot.piloting === 8 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.68;
-        } else if( this._pilot.gunnery === 8 && this._pilot.piloting === 8 ) {
-            this._pilotAdjustedBattleValue = this._pilotAdjustedBattleValue * 0.64;
+    /**
+     * Applies pilot experience skill tracking multipliers to determine final deployment BV.
+     * References the canonical cross-grid lookup matrix from TechManual, p. 305.
+     */
+    private _setPilotAdjustedBattleValue(): void {
+        // Establish the explicit TechManual p. 305 lookup table matrix.
+                ///                                GUNNERY: 
+        //                                0     1     2     3     4     5     6     7     8
+        const PILOT_MULTIPLIER_MATRIX = [
+            /* Piloting 0 */           [2.80, 2.56, 2.24, 1.92, 1.60, 1.50, 1.43, 1.36, 1.28],
+            /* Piloting 1 */           [2.63, 2.40, 2.10, 1.80, 1.50, 1.35, 1.33, 1.26, 1.19],
+            /* Piloting 2 */           [2.45, 2.24, 1.96, 1.68, 1.40, 1.26, 1.19, 1.16, 1.10],
+            /* Piloting 3 */           [2.28, 2.08, 1.82, 1.56, 1.30, 1.17, 1.11, 1.04, 1.01],
+            /* Piloting 4 */           [2.01, 1.84, 1.61, 1.38, 1.15, 1.04, 0.98, 0.92, 0.86],
+            /* Piloting 5 (Base) */    [1.82, 1.60, 1.40, 1.20, 1.00, 0.90, 0.85, 0.80, 0.75]
+        ];
+        // Fetch raw pilot credentials with safe default constraints
+        const gunnery = this._pilot?.gunnery ?? 4;
+        const piloting = this._pilot?.piloting ?? 5;
+        let skillMultiplier = 1.0;
+        // Securely check array boundary limits before querying the lookup index
+        if (
+            piloting >= 0 && 
+            piloting < PILOT_MULTIPLIER_MATRIX.length && 
+            gunnery >= 0 && 
+            gunnery < PILOT_MULTIPLIER_MATRIX[piloting].length
+        ) {
+            skillMultiplier = PILOT_MULTIPLIER_MATRIX[piloting][gunnery];
+        } else {
+            // Fallback warning telemetry if an out-of-bounds custom skill rating is supplied
+            this._calcLogBV += `[Pilot Data Alert] Skill rating layout (${gunnery}/${piloting}) falls outside standard matrix boundaries. Defaulting to 1.0x baseline modifier.<br />`;
         }
-        this._pilotAdjustedBattleValue = Math.round( this._pilotAdjustedBattleValue );
+        // Calculate finalized personnel metrics and round to whole integer steps
+        const adjustedValueRaw = this._battleValue * skillMultiplier;
+        this._pilotAdjustedBattleValue = Math.round(adjustedValueRaw);
+        this._calcLogBV += `<strong>Pilot Adjusted BV:</strong> ${this._pilotAdjustedBattleValue} ` +
+            `(Base Unit BV: ${this._battleValue} x Skill Multiplier [G:${gunnery}/P:${piloting}]: ${skillMultiplier.toFixed(2)})<br />`;
     }
 
+    /**
+     * Calculates the non-linear speed scaling factor applied directly to the Offensive Battle Rating.
+     * Coordinates movement metrics natively with the canonical Speed Factor Table rules (TechManual, p. 315).
+     */
     private _getSpeedFactorModifier(): number {
-        let runSpeedAndHalfJumpSpeed = this.getRunSpeed() + this.getJumpSpeed() / 2;
+        // Core formula implementation: Mobility = Run MP + (Jump MP / 2) (TM p. 315)
+        const mobilityScore = this.getRunSpeed() + (this.getJumpSpeed() / 2);
 
-        if( runSpeedAndHalfJumpSpeed > 25) {
-            return +(1 + Math.pow(((this.getRunSpeed() + (this.getJumpSpeed() / 2) - 5) / 10), 1.2)).toFixed(2);
-        } else if( runSpeedAndHalfJumpSpeed > 24) {
-            return 3.74; // 25
-        } else if( runSpeedAndHalfJumpSpeed > 23) {
-            return 3.59; // 24
-        } else if( runSpeedAndHalfJumpSpeed > 22) {
-            return 3.44; // 23
-        } else if( runSpeedAndHalfJumpSpeed > 21) {
-            return 3.29; // 22
-        } else if( runSpeedAndHalfJumpSpeed > 20) {
-            return 3.15; // 21
-        } else if( runSpeedAndHalfJumpSpeed > 19) {
-            return 3.00; // 20
-        } else if( runSpeedAndHalfJumpSpeed > 18) {
-            return 2.86; // 19
-        } else if( runSpeedAndHalfJumpSpeed > 17) {
-            return 2.72; // 18
-        } else if( runSpeedAndHalfJumpSpeed > 16) {
-            return 2.58; // 17
-        } else if( runSpeedAndHalfJumpSpeed > 15) {
-            return 2.44; // 16
-        } else if( runSpeedAndHalfJumpSpeed > 14) {
-            return 2.30; // 15
-        } else if( runSpeedAndHalfJumpSpeed > 13) {
-            return 2.16; // 14
-        } else if( runSpeedAndHalfJumpSpeed > 12) {
-            return 2.02; // 13
-        } else if( runSpeedAndHalfJumpSpeed > 11) {
-            return 1.89; // 12
-        } else if( runSpeedAndHalfJumpSpeed > 10) {
-            return 1.76; // 11
-        } else if( runSpeedAndHalfJumpSpeed > 9) {
-            return 1.63; // 10
-        } else if( runSpeedAndHalfJumpSpeed > 8) {
-            return 1.50; // 9
-        } else if( runSpeedAndHalfJumpSpeed > 7) {
-            return 1.37; // 8
-        } else if( runSpeedAndHalfJumpSpeed > 6) {
-            return 1.24; // 7
-        } else if( runSpeedAndHalfJumpSpeed > 5) {
-            return 1.12; // 6
-        } else if( runSpeedAndHalfJumpSpeed > 4) {
-            return 1.00; // 5
-        } else if( runSpeedAndHalfJumpSpeed > 3) {
-            return 0.88; // 4
-        } else if( runSpeedAndHalfJumpSpeed > 2) {
-            return 0.77; // 3
-        } else if( runSpeedAndHalfJumpSpeed > 1) {
-            return 0.65; // 2
-        } else if( runSpeedAndHalfJumpSpeed > 0) {
-            return 0.54; // 1
-        } else {
-            return 0.44;
+        // Static lookup table replicating the explicit values from TechManual p. 315
+        // Index matches the exact mobilityScore value (Index 0 = 0 MP, Index 5 = 5 MP, etc.)
+        const SPEED_FACTOR_TABLE: number[] = [
+            0.44, // 0 MP
+            0.54, // 1 MP
+            0.65, // 2 MP
+            0.77, // 3 MP
+            0.88, // 4 MP
+            1.00, // 5 MP (Standard Baseline Engine threshold)
+            1.12, // 6 MP
+            1.24, // 7 MP
+            1.37, // 8 MP
+            1.50, // 9 MP
+            1.63, // 10 MP
+            1.76, // 11 MP
+            1.89, // 12 MP
+            2.02, // 13 MP
+            2.16, // 14 MP
+            2.30, // 15 MP
+            2.44, // 16 MP
+            2.58, // 17 MP
+            2.72, // 18 MP
+            2.86, // 19 MP
+            3.00, // 20 MP
+            3.15, // 21 MP
+            3.29, // 22 MP
+            3.44, // 23 MP
+            3.59, // 24 MP
+            3.74  // 25 MP
+        ];
+
+        // Return fixed table array lookups if within bounded limits
+        if (mobilityScore >= 0 && mobilityScore < SPEED_FACTOR_TABLE.length) {
+            return SPEED_FACTOR_TABLE[mobilityScore];
         }
+
+        // Mathematical Equation Fallback Rule for extreme/high-speed units (TM p. 315 footnote)
+        // Formula: (1 + (Mobility - 5) / 10)^1.2 rounded precisely to two decimal places
+        const highSpeedRaw = Math.pow((1 + (mobilityScore - 5) / 10), 1.2);
+        return parseFloat(highSpeedRaw.toFixed(2));
     }
 
     public isQuad() {
@@ -1800,55 +1176,70 @@ export class BattleMech {
             cbillDryTotal += 150 * this.getTonnage() ;
             actuatorTotal += 150 * this.getTonnage() ;
 
-            this._calcLogCBill += "<tr><td>Left Lower Leg Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 80 * this.getTonnage() ) + "</td></tr>\n";
-            cbillDryTotal += 80 * this.getTonnage() ;
-            actuatorTotal += 80 * this.getTonnage() ;
+            this._calcLogCBill += "<tr><td>Left Lower Leg Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" + addCommas(80 * this.getTonnage()) + "</td></tr>\n";
+            cbillDryTotal += 80 * this.getTonnage();
+            actuatorTotal += 80 * this.getTonnage();
 
-            this._calcLogCBill += "<tr><td>Left Foot Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 120 * this.getTonnage() ) + "</td></tr>\n";
-            cbillDryTotal += 120 * this.getTonnage() ;
-            actuatorTotal += 120 * this.getTonnage() ;
+            this._calcLogCBill += "<tr><td>Left Foot Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" + addCommas(120 * this.getTonnage()) + "</td></tr>\n";
+            cbillDryTotal += 120 * this.getTonnage();
+            actuatorTotal += 120 * this.getTonnage();
 
-            this._calcLogCBill += "<tr><td>Right Upper Arm Actuator<br /><span class=\"smaller-text\">100 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 100 * this.getTonnage() ) + "</td></tr>\n";
-            cbillDryTotal += 100 * this.getTonnage() ;
-            actuatorTotal += 100 * this.getTonnage() ;
+            // 2A. Arm Actuator Setups (Biped, LAM, and Tripod layouts only)
+            if (["biped", "lam", "tripod"].includes(this._mechType.tag.toLowerCase())) {
+                const arms = ["Right", "Left"];
+                
+                arms.forEach(side => {
+                    this._calcLogCBill += `<tr><td>${side} Shoulder Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(150 * this.getTonnage())}</td></tr>\n`;
+                    cbillDryTotal += 150 * this.getTonnage();
+                    actuatorTotal += 150 * this.getTonnage();
 
-            if( this._no_right_arm_lower_actuator === false ) {
-                this._calcLogCBill += "<tr><td>Right Lower Arm Actuator<br /><span class=\"smaller-text\">50 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 50 * this.getTonnage() ) + "</td></tr>\n";
-                cbillDryTotal += 50 * this.getTonnage() ;
-                actuatorTotal += 50 * this.getTonnage() ;
+                    this._calcLogCBill += `<tr><td>${side} Upper Arm Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(150 * this.getTonnage())}</td></tr>\n`;
+                    cbillDryTotal += 150 * this.getTonnage();
+                    actuatorTotal += 150 * this.getTonnage();
+
+                    // Check for structural hand/lower actuator exclusions if tracking custom options
+                    this._calcLogCBill += `<tr><td>${side} Lower Arm Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(80 * this.getTonnage())}</td></tr>\n`;
+                    cbillDryTotal += 80 * this.getTonnage();
+                    actuatorTotal += 80 * this.getTonnage();
+
+                    this._calcLogCBill += `<tr><td>${side} Hand Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(120 * this.getTonnage())}</td></tr>\n`;
+                    cbillDryTotal += 120 * this.getTonnage();
+                    actuatorTotal += 120 * this.getTonnage();
+                });
             }
 
-            if( this._no_right_arm_hand_actuator === false ) {
-                this._calcLogCBill += "<tr><td>Right Hand Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 80 * this.getTonnage() ) + "</td></tr>\n";
-                cbillDryTotal += 80 * this.getTonnage() ;
-                actuatorTotal += 80 * this.getTonnage() ;
+            // 2B. Advanced Chassis Exception: Tripod Center Leg Actuators (TM p. 278 structural adjustments)
+            if (this._mechType.tag.toLowerCase() === "tripod") {
+                this._calcLogCBill += "<tr><td>Center Rear Upper Leg Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" + addCommas(150 * this.getTonnage()) + "</td></tr>\n";
+                cbillDryTotal += 150 * this.getTonnage();
+                actuatorTotal += 150 * this.getTonnage();
+
+                this._calcLogCBill += "<tr><td>Center Rear Lower Leg Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" + addCommas(80 * this.getTonnage()) + "</td></tr>\n";
+                cbillDryTotal += 80 * this.getTonnage();
+                actuatorTotal += 80 * this.getTonnage();
+
+                this._calcLogCBill += "<tr><td>Center Rear Foot Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" + addCommas(120 * this.getTonnage()) + "</td></tr>\n";
+                cbillDryTotal += 120 * this.getTonnage();
+                actuatorTotal += 120 * this.getTonnage();
             }
-
-            this._calcLogCBill += "<tr><td>Left Upper Arm Actuator<br /><span class=\"smaller-text\">100 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 100 * this.getTonnage() ) + "</td></tr>\n";
-            cbillDryTotal += 100 * this.getTonnage() ;
-            actuatorTotal += 100 * this.getTonnage() ;
-
-            if( this._no_left_arm_lower_actuator === false ) {
-                this._calcLogCBill += "<tr><td>Left Lower Arm Actuator<br /><span class=\"smaller-text\">50 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 50 * this.getTonnage() ) + "</td></tr>\n";
-                cbillDryTotal += 50 * this.getTonnage() ;
-                actuatorTotal += 50 * this.getTonnage() ;
-            }
-
-            if( this._no_left_arm_hand_actuator === false ) {
-                this._calcLogCBill += "<tr><td>Left Hand Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 80 * this.getTonnage() ) + "</td></tr>\n";
-                cbillDryTotal += 80 * this.getTonnage() ;
-                actuatorTotal += 80 * this.getTonnage() ;
-            }
-
         }
-        this._calcLogCBill += "<tr><td colspan=\"2\" class=\"text-right\"><strong>Actuator Subtotal: " + addCommas(actuatorTotal) + "</strong></td></tr>\n";
 
-        // Engine
-        let engineName = this.getEngineType().name;
-        let engineRating  = this.getEngineRating();
-        let enginecostMultiplier = this.getEngineType().costMultiplier;
-        let engineCost =  Math.round( enginecostMultiplier * engineRating * this.getTonnage() / 75 * 100) / 100; ;
-        this._calcLogCBill += "<tr><td><strong>Engine: " + engineName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( enginecostMultiplier ) + " x Engine Rating  [" + engineRating + "] x Unit Tonnage [" + this.getTonnage() + "] / 75</span></td><td>" +  addCommas( engineCost ) + "</td></tr>\n";
+        // Close Actuator Layout Block subtotaling
+        this._calcLogCBill += "<tr><td colspan=\"2\" class=\"text-right\"><strong>Actuators Subtotal: " + addCommas(actuatorTotal) + "</strong></td></tr>\n";
+
+        // =====================================================================
+        // ENGINE C-BILL COST CALCULATION (TechManual p. 278)
+        // =====================================================================
+        const engineType = this.getEngineType();
+        const engineName = engineType.name;
+        const engineRating = this.getEngineRating();
+        const engineCostMultiplier = engineType.costMultiplier || 0;
+        // Execute canonical cost calculation and round to the nearest whole C-Bill
+        const engineCost = Math.round((engineCostMultiplier * engineRating * this.getTonnage()) / 75);
+        this._calcLogCBill += "<tr><td><strong>Engine: " + engineName + "</strong><br />" +
+            "<span class=\"smaller-text\">" + addCommas(engineCostMultiplier) + 
+            " [Multiplier] x Engine Rating [" + engineRating + "] x Unit Tonnage [" + this.getTonnage() + "] / 75</span></td>" +
+            "<td>" + addCommas(engineCost) + "</td></tr>\n";
         cbillDryTotal += engineCost;
 
         // Gyro
@@ -6950,21 +6341,8 @@ export class BattleMech {
 
     public clearCriticalAllocationTable() {
         this._criticalAllocationTable = [];
-
         this._calc();
-
     }
-
-    // setEquipmentLocation(
-    //     equipmentIndex: number,
-    //     location: string,
-    // ) {
-    //     if( this._equipmentList[equipmentIndex]) {
-    //         this._equipmentList[equipmentIndex].location = location;
-    //         return this._equipmentList[equipmentIndex];
-    //     }
-    //     return null;
-    // };
 
     public setAdditionalHeatSinks(
         newValue: number
@@ -7021,19 +6399,30 @@ export class BattleMech {
 
     public getAvailableEngines(): IEngineType[] {
         let returnValue: IEngineType[] = [];
-
-        let clanOrIS = "is";
-        if( this._tech.tag === "clan" ) {
-            clanOrIS = "clan";
+        // Map all four possible tech tags back to their baseline lookup keys
+        let lookupTag: "is" | "clan";
+        switch (this._tech.tag) {
+            case "clan":
+            case "mclan":
+                lookupTag = "clan";
+                break;
+            case "is":
+            case "mis":
+            default:
+                lookupTag = "is";
+                break;
         }
-
-        for(let engine of mechEngineTypes ) {
-            if( engine.criticals && clanOrIS in engine.criticals ) {
-                engine.available = this._itemIsAvailable( engine.introduced, engine.extinct, engine.reintroduced);
-                returnValue.push( engine );
+        for (let engine of mechEngineTypes) {
+            // Enforce strict key verification against the normalized tech base
+            if (engine.criticals && lookupTag in engine.criticals) {
+                engine.available = this._itemIsAvailable(
+                    engine.introduced, 
+                    engine.extinct, 
+                    engine.reintroduced
+                );
+                returnValue.push(engine);
             }
         }
-
         return returnValue;
     }
 
@@ -7078,9 +6467,7 @@ export class BattleMech {
                 }
             }
         }
-
         return false;
-
     }
 
     public allocateArmorClear() {
@@ -7096,97 +6483,161 @@ export class BattleMech {
             rightArm: 0,
             leftLeg: 0,
             rightLeg: 0,
+            centerLeg: 0,
+            frontLeftLeg: 0,
+            frontRightLeg: 0,
         }
     }
 
-    public allocateArmorSane() {
-
+    public allocateArmorSane(): void {
         let totalArmor = this.getTotalArmor();
-        let internalStructure = this.getInteralStructure();
-        let maximumArmor = this.getMaxArmor();
-        let percentage = totalArmor / maximumArmor;
-
-        let armArmor = Math.floor(internalStructure.rightArm * 2 * percentage);
-        let torsoArmor = Math.floor(internalStructure.rightTorso * 1.75 * percentage);
-        let legArmor = Math.floor(internalStructure.rightLeg * 2 * percentage);
-        let rearArmor = Math.floor(internalStructure.rightTorso * .25 * percentage);;
-
-        let centerTorsoArmor = Math.floor(internalStructure.centerTorso * 1.75 * percentage);
-        let centerTorsoArmorRear = Math.floor(internalStructure.centerTorso * .25 * percentage);
-
-        if( totalArmor > armArmor) {
-            let headArmor = armArmor;
-            if( headArmor > 9)
-                headArmor = 9;
-            if( totalArmor >= headArmor) {
-               this.setHeadArmor(headArmor);
-               totalArmor -= headArmor;
-            } else {
-                this.setHeadArmor(0);
-            }
+        const internalStructure = this.getInternalStructure();
+        const maximumArmor = this.getMaxArmor();
+        if (maximumArmor === 0 || totalArmor === 0) return;
+        const percentage = totalArmor / maximumArmor;
+        // Establish layout flags natively from our chassis choices
+        const hasArms = ["Biped", "LAM", "Tripod"].includes(this.chassisType);
+        const isQuadStyle = ["Quad", "QuadVee"].includes(this.chassisType);
+        const isTripod = this.chassisType === "Tripod";
+        // Base structural estimations using explicit, available references
+        const armArmor = hasArms ? Math.floor((internalStructure.rightArm || 0) * 2 * percentage) : 0;
+        const torsoArmor = Math.floor(internalStructure.rightTorso * 1.75 * percentage);
+        const rearArmor = Math.floor(internalStructure.rightTorso * 0.25 * percentage);
+        // Legs require fallback math since base reference properties change across frames
+        const referenceLegIS = internalStructure.rightLeg || internalStructure.frontRightLeg || 0;
+        const legArmor = Math.floor(referenceLegIS * 2 * percentage);
+        const centerTorsoArmor = Math.floor(internalStructure.centerTorso * 1.75 * percentage);
+        const centerTorsoArmorRear = Math.floor(internalStructure.centerTorso * 0.25 * percentage);
+        // Process allocations via structural availability checks
+        // Head Allocation (Max 9 rule enforcement)
+        let headArmor = hasArms ? armArmor : Math.floor(internalStructure.centerTorso * percentage);
+        if (headArmor > 9) headArmor = 9;
+        if (totalArmor >= headArmor) {
+            this.setHeadArmor(headArmor);
+            totalArmor -= headArmor;
+        } else {
+            this.setHeadArmor(0);
         }
-
-        if( totalArmor > torsoArmor) {
-           this.setRightTorsoArmor( torsoArmor );
-           totalArmor -= torsoArmor;
-        }
-
-        if( totalArmor > rearArmor) {
-           this.setRightTorsoRearArmor( rearArmor );
-            totalArmor -= rearArmor;
-        }
-
-        if( totalArmor > torsoArmor) {
-            this.setLeftTorsoArmor( torsoArmor );
+        // Side Torsos Front & Rear
+        if (totalArmor > torsoArmor) {
+            this.setRightTorsoArmor(torsoArmor);
             totalArmor -= torsoArmor;
         }
-        if( totalArmor > rearArmor) {
-            this.setLeftTorsoRearArmor( rearArmor );
-           totalArmor -= rearArmor;
+        if (totalArmor > rearArmor) {
+            this.setRightTorsoRearArmor(rearArmor);
+            totalArmor -= rearArmor;
         }
-
-        if( totalArmor > legArmor) {
-            this.setRightLegArmor( legArmor );
-            totalArmor -= legArmor;
+        if (totalArmor > torsoArmor) {
+            this.setLeftTorsoArmor(torsoArmor);
+            totalArmor -= torsoArmor;
         }
-
-        if( totalArmor > legArmor) {
-           this.setLeftLegArmor( legArmor );
-           totalArmor -= legArmor;
+        if (totalArmor > rearArmor) {
+            this.setLeftTorsoRearArmor(rearArmor);
+            totalArmor -= rearArmor;
         }
-
-        if( totalArmor > armArmor) {
-            this.setRightArmArmor( armArmor );
-           totalArmor -= armArmor;
+        // Dynamic Leg Allocation
+        if (isQuadStyle) {
+            const quadLegs: Array<keyof IArmorAllocation> = ["leftLeg", "rightLeg", "frontLeftLeg", "frontRightLeg"];
+            quadLegs.forEach(legKey => {
+                if (totalArmor > legArmor) {
+                    this.setArmorValue(legKey, legArmor);
+                    totalArmor -= legArmor;
+                }
+            });
+        } else {
+            // Standard Biped, LAM, or Tripod legs
+            if (totalArmor > legArmor) {
+                this.setRightLegArmor(legArmor);
+                totalArmor -= legArmor;
+            }
+            if (totalArmor > legArmor) {
+                this.setLeftLegArmor(legArmor);
+                totalArmor -= legArmor;
+            }
+            if (isTripod && totalArmor > legArmor) {
+                this.setArmorValue("centerLeg", legArmor);
+                totalArmor -= legArmor;
+            }
         }
-        if( totalArmor > armArmor) {
-           this.setLeftArmArmor( armArmor );
-           totalArmor -= armArmor;
+        // Arm Allocation (Completely skipped for Quad / QuadVee)
+        if (hasArms) {
+            if (totalArmor > armArmor) {
+                this.setRightArmArmor(armArmor);
+                totalArmor -= armArmor;
+            }
+            if (totalArmor > armArmor) {
+                this.setLeftArmArmor(armArmor);
+                totalArmor -= armArmor;
+            }
         }
-
-        if( totalArmor > rearArmor) {
-           this.setCenterTorsoRearArmor( centerTorsoArmorRear );
-           totalArmor -= rearArmor;
+        // Center Torso Rear
+        if (totalArmor > centerTorsoArmorRear) {
+            this.setCenterTorsoRearArmor(centerTorsoArmorRear);
+            totalArmor -= centerTorsoArmorRear;
+        } else {
+            this.setCenterTorsoRearArmor(0);
         }
-
-        this.setCenterTorsoArmor( centerTorsoArmor ); // everything else goes to center torso! :)
-
+        // Center Torso Front Allocation (Use calculated base, then absorb the remainder)
+        if (totalArmor >= centerTorsoArmor) {
+            this.setCenterTorsoArmor(centerTorsoArmor);
+            totalArmor -= centerTorsoArmor;
+            // Add any remaining fractional or leftover points from the pool right here
+            if (totalArmor > 0) {
+                this.setCenterTorsoArmor(centerTorsoArmor + totalArmor);
+                totalArmor = 0;
+            }
+        } else {
+            // Fallback: If pool is heavily depleted, dump whatever is left
+            this.setCenterTorsoArmor(totalArmor);
+            totalArmor = 0;
+        }
     }
 
-    public allocateArmorMax() {
-        this._armorAllocation = {
-            head: 9,
-            centerTorso: Math.ceil(this.getInteralStructure().centerTorso * 5/3),
-            rightTorso: Math.ceil(this.getInteralStructure().rightTorso * 5/3),
-            leftTorso: Math.ceil(this.getInteralStructure().leftTorso * 5/3),
-            centerTorsoRear: Math.floor(this.getInteralStructure().centerTorso * 1/3),
-            rightTorsoRear: Math.floor(this.getInteralStructure().rightTorso * 1/3),
-            leftTorsoRear: Math.floor(this.getInteralStructure().leftTorso * 1/3),
-            leftArm: this.getInteralStructure().leftArm * 2,
-            rightArm: this.getInteralStructure().rightArm * 2,
-            leftLeg: this.getInteralStructure().leftLeg * 2,
-            rightLeg: this.getInteralStructure().rightLeg * 2,
+    public allocateArmorMax(): void {
+        const internalStructure = this.getInternalStructure();
+        // Core structural layout configs
+        const hasArms = ["Biped", "LAM", "Tripod"].includes(this.chassisType);
+        const isQuadStyle = ["Quad", "QuadVee"].includes(this.chassisType);
+        const isTripod = this.chassisType === "Tripod";
+        // Generate a zeroed structure record to populate safely
+        const maxAllocation: IArmorAllocation = {
+            head: 9, // Absolute standard max ceiling rule for Head locations
+            centerTorso: Math.ceil((internalStructure.centerTorso || 0) * (5 / 3)),
+            rightTorso: Math.ceil((internalStructure.rightTorso || 0) * (5 / 3)),
+            leftTorso: Math.ceil((internalStructure.leftTorso || 0) * (5 / 3)),
+            centerTorsoRear: Math.floor((internalStructure.centerTorso || 0) * (1 / 3)),
+            rightTorsoRear: Math.floor((internalStructure.rightTorso || 0) * (1 / 3)),
+            leftTorsoRear: Math.floor((internalStructure.leftTorso || 0) * (1 / 3)),
+            leftArm: 0,
+            rightArm: 0,
+            leftLeg: 0,
+            rightLeg: 0,
+            centerLeg: 0,
+            frontLeftLeg: 0,
+            frontRightLeg: 0
+        };
+        // Conditional multi-chassis segment processing
+        if (hasArms) {
+            maxAllocation.leftArm = (internalStructure.leftArm || 0) * 2;
+            maxAllocation.rightArm = (internalStructure.rightArm || 0) * 2;
         }
+        if (isQuadStyle) {
+            // Quads allocate maximum structural health to all 4 matching legs symmetrically
+            const referenceLegIS = internalStructure.rightLeg || internalStructure.frontRightLeg || 0;
+            const maxLegArmor = referenceLegIS * 2;
+            maxAllocation.leftLeg = maxLegArmor;
+            maxAllocation.rightLeg = maxLegArmor;
+            maxAllocation.frontLeftLeg = maxLegArmor;
+            maxAllocation.frontRightLeg = maxLegArmor;
+        } else {
+            // Standard Biped, LAM, or Tripod structural layout elements
+            maxAllocation.leftLeg = (internalStructure.leftLeg || 0) * 2;
+            maxAllocation.rightLeg = (internalStructure.rightLeg || 0) * 2;
+            if (isTripod) {
+                maxAllocation.centerLeg = (internalStructure.centerLeg || 0) * 2;
+            }
+        }
+        this._armorAllocation = maxAllocation;
     }
 
     public getMaxCenterTorsoRearArmor(): number {
@@ -7210,34 +6661,37 @@ export class BattleMech {
         return this.getInteralStructure().leftTorso * 2 - this.getArmorAllocation().leftTorsoRear;
     }
 
-    public getAvailableEquipment(): IEquipmentItem[] {
+   public getAvailableEquipment(): IEquipmentItem[] {
         let returnItems: IEquipmentItem[] = [];
-        if( this.getTech().tag === "clan" ) {
-            for( let item of mechClanEquipmentEnergy ) {
+        const techTag = this.getTech().tag;
+
+        // Determine which equipment lists are eligible based on Tech base rules
+        const includeClan = ["clan", "mclan", "mis"].includes(techTag); // We will want to watch this... 
+        const includeIS = ["is", "mis", "mclan"].includes(techTag); // I may be doing these wrong
+        // Process Clan items if active
+        if (includeClan) {
+            for (let item of mechClanEquipmentEnergy) {
                 item.criticals = item.space.battlemech;
-                item.available = this._itemIsAvailable( item.introduced, item.extinct, item.reintroduced);
-                returnItems.push( item );
-            }
-        } else {
-            for( let item of getISEquipmentList() ) {
-                item.criticals = item.space.battlemech;
-                item.available = this._itemIsAvailable( item.introduced, item.extinct, item.reintroduced);
-                returnItems.push( item );
+                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced);
+                returnItems.push(item);
             }
         }
-
-        returnItems.sort( ( a, b ) => {
-            if( a.sort > b.sort ) {
-                return 1;
-            } if( a.sort < b.sort ) {
-                return -1;
-            } else {
-                return 0;
+        // Process Inner Sphere items if active
+        if (includeIS) {
+            for (let item of getISEquipmentList()) {
+                item.criticals = item.space.battlemech;
+                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced);
+                returnItems.push(item);
             }
-        })
-
+        }
+        // Sort compiled equipment strictly by the dataset sorting values
+        returnItems.sort((a, b) => {
+            if (a.sort > b.sort) return 1;
+            if (a.sort < b.sort) return -1;
+            return 0;
+        });
         return returnItems;
-    }
+    }  
 
     private _sortInstalledEquipment() {
         this._equipmentList.sort( ( a, b ) => {
@@ -7256,7 +6710,7 @@ export class BattleMech {
     }
 
     public toggleHeatBubble( clickLocation: string, clickIndex: number ): void {
-        // TODO
+        // TODO ~~Any ideas on what this is supposed to be? RHS? https://www.sarna.net/wiki/Radical_Heat_Sink_System
         console.log( "TODO mechOject toggleHeatBubble", clickLocation, clickIndex);
     }
 
@@ -7278,182 +6732,28 @@ export class BattleMech {
         return rv;
     }
 
-    public isEquipmentDamaged(
-        uuid: string,
-        loc: string,
-    ): boolean {
+    public isEquipmentDamaged(uuid: string, loc: string): boolean {
+        const targetProp = MECH_LOCATION_MAP[loc];
+        if (!targetProp) return false;
 
-        if( loc === "hd" ) {
+        const critArray: any[] = (this._criticals as any)[targetProp];
+        if (!critArray) return false;
 
-            for( let critIndex in this._criticals.head ) {
-
-
-                if(
-                    this._criticals.head[critIndex]
-                    &&
-                    this._criticals.head[critIndex].uuid === uuid
-                    &&
-                    this.isCriticalDamaged( loc, +critIndex )
-                ) {
-
-                    return true;
-                }
+        for (let critIndex = 0; critIndex < critArray.length; critIndex++) {
+            const component = critArray[critIndex];
+            if (
+                component &&
+                component.uuid === uuid &&
+                this.isCriticalDamaged(loc, critIndex)
+            ) {
+                return true;
             }
-
         }
-        if( loc === "ct" ) {
-
-            for( let critIndex in this._criticals.centerTorso ) {
-
-
-                if(
-                    this._criticals.centerTorso[critIndex]
-                    &&
-                    this._criticals.centerTorso[critIndex].uuid === uuid
-                    &&
-                    this.isCriticalDamaged( loc, +critIndex )
-                ) {
-
-                    return true;
-                }
-            }
-
-        }
-        if( loc === "lt" ) {
-
-            for( let critIndex in this._criticals.leftTorso ) {
-
-
-                if(
-                    this._criticals.leftTorso[critIndex]
-                    &&
-                    this._criticals.leftTorso[critIndex].uuid === uuid
-                    &&
-                    this.isCriticalDamaged( loc, +critIndex )
-                ) {
-
-                    return true;
-                }
-            }
-
-        }
-        if( loc === "rt" ) {
-
-            for( let critIndex in this._criticals.rightTorso ) {
-
-                if(
-                    this._criticals.rightTorso[critIndex]
-                    &&
-                    this._criticals.rightTorso[critIndex].uuid === uuid
-                    &&
-                    this.isCriticalDamaged( loc, +critIndex )
-                ) {
-
-                    return true;
-                }
-            }
-
-        }
-
-        if( loc === "la"  ) {
-
-            for( let critIndex in this._criticals.leftArm ) {
-
-                if(
-                    this._criticals.leftArm[critIndex]
-                    &&
-                    this._criticals.leftArm[critIndex].uuid === uuid
-                    &&
-                    this.isCriticalDamaged( loc, +critIndex )
-                ) {
-                    return true;
-                }
-            }
-
-        }
-        if( loc === "ra" ) {
-
-            for( let critIndex in this._criticals.rightArm ) {
-
-                if(
-                    this._criticals.rightArm[critIndex]
-                    &&
-                    this._criticals.rightArm[critIndex].uuid === uuid
-                    &&
-                    this.isCriticalDamaged( loc, +critIndex )
-                ) {
-
-                    return true;
-                }
-            }
-
-        }
-
-
-        if( loc === "rt" ) {
-
-            for( let critIndex in this._criticals.rightTorso ) {
-
-
-                if(
-                    this._criticals.rightTorso[critIndex]
-                    &&
-                    this._criticals.rightTorso[critIndex].uuid === uuid
-                    &&
-                    this.isCriticalDamaged( loc, +critIndex )
-                ) {
-
-                    return true;
-                }
-            }
-
-        }
-
-        if( loc === "ll" ) {
-
-            for( let critIndex in this._criticals.leftLeg ) {
-
-                if(
-                    this._criticals.leftLeg[critIndex]
-                    &&
-                    this._criticals.leftLeg[critIndex].uuid === uuid
-                    &&
-                    this.isCriticalDamaged( loc, +critIndex )
-                ) {
-
-                    return true;
-                }
-            }
-
-        }
-        if( loc === "rl" ) {
-
-
-            for( let critIndex in this._criticals.rightLeg ) {
-
-                if(
-                    this._criticals.rightLeg[critIndex]
-                    &&
-                    this._criticals.rightLeg[critIndex].uuid === uuid
-                    &&
-                    this.isCriticalDamaged( loc, +critIndex )
-                ) {
-
-                    return true;
-                }
-            }
-
-        }
-
-
-
         return false;
-
     }
 
     public engineHits(): number {
         let rv = 0;
-
 
         let lastName = "";
         for( let critIndex in this._criticals.centerTorso ) {
@@ -7622,173 +6922,48 @@ export class BattleMech {
         return rv;
     }
 
-    public toggleISBubble( clickLocation: string, clickIndex: number ): void {
-        switch( clickLocation ) {
-            case "hd": {
-                this._structureBubbles.head[clickIndex] = !this._structureBubbles.head[clickIndex];
-                break;
-            }
+    public toggleISBubble(clickLocation: string, clickIndex: number): void {
+        const targetProp = MECH_LOCATION_MAP[clickLocation];
+        if (!targetProp) return;
 
-            case "rt": {
-                this._structureBubbles.rightTorso[clickIndex] = !this._structureBubbles.rightTorso[clickIndex];
-                break;
-            }
-            case "ct": {
-                this._structureBubbles.centerTorso[clickIndex] = !this._structureBubbles.centerTorso[clickIndex];
-                break;
-            }
-            case "lt": {
-                this._structureBubbles.leftTorso[clickIndex] = !this._structureBubbles.leftTorso[clickIndex];
-                break;
-            }
-
-            case "ra": {
-                this._structureBubbles.rightArm[clickIndex] = !this._structureBubbles.rightArm[clickIndex];
-                break;
-            }
-            case "la": {
-                this._structureBubbles.leftArm[clickIndex] = !this._structureBubbles.leftArm[clickIndex];
-                break;
-            }
-
-            case "rl": {
-                this._structureBubbles.rightLeg[clickIndex] = !this._structureBubbles.rightLeg[clickIndex];
-                break;
-            }
-            case "ll": {
-                this._structureBubbles.leftLeg[clickIndex] = !this._structureBubbles.leftLeg[clickIndex];
-                break;
-            }
+        const bubbleArray = (this._structureBubbles as any)[targetProp];
+        if (bubbleArray && bubbleArray[clickIndex] !== undefined) {
+            bubbleArray[clickIndex] = !bubbleArray[clickIndex];
         }
     }
 
-    public structureDamaged( clickLocation: string, clickIndex: number ): boolean {
-        switch( clickLocation ) {
-            case "hd": {
-                return !this._structureBubbles.head[clickIndex];
-            }
+    public structureDamaged(clickLocation: string, clickIndex: number): boolean {
+        const targetProp = MECH_LOCATION_MAP[clickLocation];
+        if (!targetProp) return false;
 
-            case "rt": {
-                return !this._structureBubbles.rightTorso[clickIndex];
-            }
-            case "ct": {
-                return !this._structureBubbles.centerTorso[clickIndex];
-            }
-            case "lt": {
-                return !this._structureBubbles.leftTorso[clickIndex];
-            }
+        const bubbleArray = (this._structureBubbles as any)[targetProp];
+        if (bubbleArray && bubbleArray[clickIndex] !== undefined) {
+            return !bubbleArray[clickIndex];
+        }
+        return false;
+    }   
 
-            case "ra": {
-                return !this._structureBubbles.rightArm[clickIndex];
-            }
-            case "la": {
-                return !this._structureBubbles.leftArm[clickIndex];
-            }
-
-            case "rl": {
-                return !this._structureBubbles.rightLeg[clickIndex];
-            }
-            case "ll": {
-                return !this._structureBubbles.leftLeg[clickIndex];
-            }
-
+    public armorDamaged(clickLocation: string, clickIndex: number): boolean {
+        const targetProp = MECH_LOCATION_MAP[clickLocation];
+        if (!targetProp) {
+            return false; // Safe exit for unrecognized shorthand
+        }
+        const bubbleArray = (this._armorBubbles as any)[targetProp];
+        
+        if (bubbleArray && bubbleArray[clickIndex] !== undefined) {
+            return !bubbleArray[clickIndex];
         }
         return false;
     }
 
-    public armorDamaged( clickLocation: string, clickIndex: number ): boolean {
-        switch( clickLocation ) {
-            case "hd": {
-                return !this._armorBubbles.head[clickIndex];
-            }
-
-            case "rt": {
-                return !this._armorBubbles.rightTorso[clickIndex];
-            }
-            case "ct": {
-                return !this._armorBubbles.centerTorso[clickIndex];
-            }
-            case "lt": {
-                return !this._armorBubbles.leftTorso[clickIndex];
-            }
-
-            case "ra": {
-                return !this._armorBubbles.rightArm[clickIndex];
-            }
-            case "la": {
-                return !this._armorBubbles.leftArm[clickIndex];
-            }
-
-            case "rl": {
-                return !this._armorBubbles.rightLeg[clickIndex];
-            }
-            case "ll": {
-                return !this._armorBubbles.leftLeg[clickIndex];
-            }
-
-            case "rtr": {
-                return !this._armorBubbles.rightTorsoRear[clickIndex];
-            }
-            case "ctr": {
-                return !this._armorBubbles.centerTorsoRear[clickIndex];
-            }
-            case "ltr": {
-                return !this._armorBubbles.leftTorsoRear[clickIndex];
-            }
+    public toggleArmorBubble(clickLocation: string, clickIndex: number): void {
+        const targetProp = MECH_LOCATION_MAP[clickLocation];
+        if (!targetProp) {
+            return; // Safe exit for unrecognized shorthand
         }
-        return false;
-    }
-
-    public toggleArmorBubble( clickLocation: string, clickIndex: number ): void {
-        switch( clickLocation ) {
-            case "hd": {
-                this._armorBubbles.head[clickIndex] = !this._armorBubbles.head[clickIndex];
-                break;
-            }
-
-            case "rt": {
-                this._armorBubbles.rightTorso[clickIndex] = !this._armorBubbles.rightTorso[clickIndex];
-                break;
-            }
-            case "ct": {
-                this._armorBubbles.centerTorso[clickIndex] = !this._armorBubbles.centerTorso[clickIndex];
-                break;
-            }
-            case "lt": {
-                this._armorBubbles.leftTorso[clickIndex] = !this._armorBubbles.leftTorso[clickIndex];
-                break;
-            }
-
-            case "ra": {
-                this._armorBubbles.rightArm[clickIndex] = !this._armorBubbles.rightArm[clickIndex];
-                break;
-            }
-            case "la": {
-                this._armorBubbles.leftArm[clickIndex] = !this._armorBubbles.leftArm[clickIndex];
-                break;
-            }
-
-            case "rl": {
-                this._armorBubbles.rightLeg[clickIndex] = !this._armorBubbles.rightLeg[clickIndex];
-                break;
-            }
-            case "ll": {
-                this._armorBubbles.leftLeg[clickIndex] = !this._armorBubbles.leftLeg[clickIndex];
-                break;
-            }
-
-            case "rtr": {
-                this._armorBubbles.rightTorsoRear[clickIndex] = !this._armorBubbles.rightTorsoRear[clickIndex];
-                break;
-            }
-            case "ctr": {
-                this._armorBubbles.centerTorsoRear[clickIndex] = !this._armorBubbles.centerTorsoRear[clickIndex];
-                break;
-            }
-            case "ltr": {
-                this._armorBubbles.leftTorsoRear[clickIndex] = !this._armorBubbles.leftTorsoRear[clickIndex];
-                break;
-            }
+        const bubbleArray = (this._armorBubbles as any)[targetProp];
+        if (bubbleArray && bubbleArray[clickIndex] !== undefined) {
+            bubbleArray[clickIndex] = !bubbleArray[clickIndex];
         }
     }
 

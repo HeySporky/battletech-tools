@@ -49,6 +49,9 @@ export interface ICriticalLocations {
 	la?: number,
 	lt?: number,
 	ll?: number,
+    cl?: number,
+    fll?: number,
+    frl?: number,
 }
 
 export interface IEngineType {
@@ -206,7 +209,6 @@ export interface IHeatSync {
     crits: {
         [key: string]: number;
     },
-
     cost: number;
     introduced: number;
     extinct: number;
@@ -246,6 +248,7 @@ export interface IInternalStructure {
   	perMechType: {
     	biped: Record<number, IInternalStructurePerTon>;
     	quad: Record<number, IInternalStructurePerTon>;
+        quadvee: Record<number, IInternalStructurePerTon>;
     	tripod: Record<number, IInternalStructurePerTon>;
 		// LAMs follow Biped structure but have unique tonnage limits (max 55 tons) and component rules
     	lam: Record<number, IInternalStructurePerTon>;

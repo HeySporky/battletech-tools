@@ -26,7 +26,7 @@ export const mechTypeOptions: IMechType[] = [
 	},
 	{
 		id: 5,
-		tag: "hyvee",
-		name:  "HyVee",
+		tag: "quadvee",
+		name:  "QuadVee",
 	}
 ];
