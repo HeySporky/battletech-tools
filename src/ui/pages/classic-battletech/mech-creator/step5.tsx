@@ -42,6 +42,9 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
           undefined,
           undefined,
           undefined,
+          undefined,
+          undefined,
+          this.props.appGlobals.appSettings.mechRulesFilter === 5,
         );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
@@ -122,7 +125,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                   <div>
                       <AvailableEquipment
                         appGlobals={this.props.appGlobals}
-                        equipment={this.props.appGlobals.currentBattleMech.getAvailableEquipment()}
+                        equipment={this.props.appGlobals.currentBattleMech.getAvailableEquipment(this.props.appGlobals.appSettings.mechRulesFilter === 5)}
                         addFunction={this.addEquipment}
                         hideUnavailable={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
                       />

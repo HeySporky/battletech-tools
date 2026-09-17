@@ -5437,6 +5437,7 @@ export class BattleMech {
         split_location: ISplitLocation[] | undefined,
         currentAmmo: number = -1,
         selectedAmmoBinUUID: string = "",
+        includeCustom: boolean = false,
     ): IEquipmentItem | null {
         if( !uuid ) {
             uuid = generateUUID()
@@ -5446,7 +5447,7 @@ export class BattleMech {
             equipmentListTag = this._tech.tag;
         }
 
-        let equipmentList = this.getEquipmentList( equipmentListTag );
+        let equipmentList = this.getEquipmentList(equipmentListTag, includeCustom);
 
         for( let item of equipmentList ) {
             if( equipmentTag === item.tag) {
@@ -6651,7 +6652,7 @@ export class BattleMech {
         return this.getInternalStructure().leftTorso * 2 - this.getArmorAllocation().leftTorsoRear;
     }
 
-   public getAvailableEquipment(): IEquipmentItem[] {
+    public getAvailableEquipment(includeCustom: boolean = false): IEquipmentItem[] {
         let returnItems: IEquipmentItem[] = [];
         const techTag = this.getTech().tag;
         const clanAvailability = techTag === "clan" || techTag === "mclan";
@@ -6661,7 +6662,7 @@ export class BattleMech {
         const includeIS = ["is", "mis", "mclan"].includes(techTag); // I may be doing these wrong
         // Process Clan items if active
         if (includeClan) {
-            for (let item of getEquipmentListByTech("clan")) {
+            for (let item of getEquipmentListByTech("clan", includeCustom && !includeIS)) {
                 item.criticals = item.space.battlemech;
                 item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced, clanAvailability);
                 returnItems.push(item);
@@ -6669,7 +6670,7 @@ export class BattleMech {
         }
         // Process Inner Sphere items if active
         if (includeIS) {
-            for (let item of getEquipmentListByTech("is")) {
+            for (let item of getEquipmentListByTech("is", includeCustom)) {
                 item.criticals = item.space.battlemech;
                 item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced);
                 returnItems.push(item);
@@ -7323,9 +7324,10 @@ export class BattleMech {
     }
 
     public getEquipmentList(
-        equipmentListTag: string
+        equipmentListTag: string,
+        includeCustom: boolean = false,
     ): IEquipmentItem[] {
-        return getEquipmentListByTech(equipmentListTag);
+        return getEquipmentListByTech(equipmentListTag, includeCustom);
     }
 
 

@@ -7,11 +7,15 @@ import { mechClanEquipmentBallistic } from "./mech-clan-equipment-weapons-ballis
 import { mechClanEquipmentEnergy } from "./mech-clan-equipment-weapons-energy";
 import { mechClanEquipmentMisc } from "./mech-clan-equipment-weapons-misc";
 import { mechClanEquipmentMissile } from "./mech-clan-equipment-weapons-missile";
+import { mechCustomEquipmentBallistic } from "./mech-custom-equipment-weapons-ballistic";
+import { mechCustomEquipmentEnergy } from "./mech-custom-equipment-weapons-energy";
+import { mechCustomEquipmentMisc } from "./mech-custom-equipment-weapons-misc";
+import { mechCustomEquipmentMissile } from "./mech-custom-equipment-weapons-missile";
 
 export interface IEquipmentCatalogDefinition {
     id: string;
     exportName: string;
-    techBase: "is" | "clan";
+    techBase: "is" | "clan" | "custom";
     category: "ballistic" | "energy" | "missile" | "misc";
     equipment: IEquipmentItem[];
 }
@@ -25,13 +29,17 @@ const equipmentCatalogDefinitions: IEquipmentCatalogDefinition[] = [
     { id: "mech-clan-equipment-weapons-energy", exportName: "mechClanEquipmentEnergy", techBase: "clan", category: "energy", equipment: mechClanEquipmentEnergy },
     { id: "mech-clan-equipment-weapons-missile", exportName: "mechClanEquipmentMissile", techBase: "clan", category: "missile", equipment: mechClanEquipmentMissile },
     { id: "mech-clan-equipment-weapons-misc", exportName: "mechClanEquipmentMisc", techBase: "clan", category: "misc", equipment: mechClanEquipmentMisc },
+    { id: "mech-custom-equipment-weapons-ballistic", exportName: "mechCustomEquipmentBallistic", techBase: "custom", category: "ballistic", equipment: mechCustomEquipmentBallistic },
+    { id: "mech-custom-equipment-weapons-energy", exportName: "mechCustomEquipmentEnergy", techBase: "custom", category: "energy", equipment: mechCustomEquipmentEnergy },
+    { id: "mech-custom-equipment-weapons-missile", exportName: "mechCustomEquipmentMissile", techBase: "custom", category: "missile", equipment: mechCustomEquipmentMissile },
+    { id: "mech-custom-equipment-weapons-misc", exportName: "mechCustomEquipmentMisc", techBase: "custom", category: "misc", equipment: mechCustomEquipmentMisc },
 ];
 
 function cloneEquipment(items: IEquipmentItem[]): IEquipmentItem[] {
     return JSON.parse(JSON.stringify(items)) as IEquipmentItem[];
 }
 
-function getCatalogByTech(techBase: "is" | "clan"): IEquipmentItem[] {
+function getCatalogByTech(techBase: "is" | "clan" | "custom"): IEquipmentItem[] {
     return equipmentCatalogDefinitions
         .filter((catalog) => catalog.techBase === techBase)
         .flatMap((catalog) => catalog.equipment);
@@ -59,18 +67,19 @@ export function getEquipmentCatalogs(): Record<string, IEquipmentItem[]> {
     };
 }
 
-export function getEquipmentListByTech(techTag: string): IEquipmentItem[] {
+export function getEquipmentListByTech(techTag: string, includeCustom: boolean = false): IEquipmentItem[] {
     const normalizedTech = techTag.toLowerCase();
+    const customEquipment = includeCustom ? getCatalogByTech("custom") : [];
 
     switch (normalizedTech) {
         case "clan":
-            return cloneEquipment(getCatalogByTech("clan"));
+            return cloneEquipment([...getCatalogByTech("clan"), ...customEquipment]);
         case "mis":
-            return cloneEquipment([...getCatalogByTech("is"), ...getCatalogByTech("clan")]);
+            return cloneEquipment([...getCatalogByTech("is"), ...getCatalogByTech("clan"), ...customEquipment]);
         case "mclan":
-            return cloneEquipment([...getCatalogByTech("clan"), ...getCatalogByTech("is")]);
+            return cloneEquipment([...getCatalogByTech("clan"), ...getCatalogByTech("is"), ...customEquipment]);
         case "is":
         default:
-            return cloneEquipment(getCatalogByTech("is"));
+            return cloneEquipment([...getCatalogByTech("is"), ...customEquipment]);
     }
 }

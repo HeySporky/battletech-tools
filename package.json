@@ -34,7 +34,7 @@
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "deploy-dev": "gh-pages -d build",
-    "deploy-prod": "gh-pages -d build -r https://github.com/jeffs-bt-tools/battletech-tools.git",
+    "deploy-prod": "gh-pages -d build -r https://github.com/heysporky/battletech-tools.git",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

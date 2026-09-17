@@ -177,6 +177,7 @@ export interface IEquipmentItem {
     rear?: boolean;
     criticals?: number;
     available?: boolean;
+    rulesLevel?: number;
 }
 
 export interface ICriticalSpace {
