@@ -2,14 +2,7 @@ import React from 'react';
 import { MineExplosion } from "react-game-icons";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { IEquipmentItem } from "../../data/data-interfaces";
-import { mechClanEquipmentBallistic } from '../../data/mech-clan-equipment-weapons-ballistic';
-import { mechClanEquipmentEnergy } from '../../data/mech-clan-equipment-weapons-energy';
-import { mechClanEquipmentMisc } from '../../data/mech-clan-equipment-weapons-misc';
-import { mechClanEquipmentMissile } from '../../data/mech-clan-equipment-weapons-missile';
-import { mechISEquipmentBallistic } from '../../data/mech-is-equipment-weapons-ballistic';
-import { mechISEquipmentEnergy } from "../../data/mech-is-equipment-weapons-energy";
-import { mechISEquipmentMisc } from '../../data/mech-is-equipment-weapons-misc';
-import { mechISEquipmentMissiles } from '../../data/mech-is-equipment-weapons-missiles';
+import { getEquipmentCatalogById, getEquipmentCatalogDefinitions, getEquipmentCatalogExportName } from '../../data/equipment-registry';
 import { getAeroRangeLabel, sortEquipment } from '../../utils';
 import { addCommas } from "../../utils/addCommas";
 import { exportCleanJSON } from "../../utils/exportCleanJSON";
@@ -24,16 +17,7 @@ const Trash = FaTrash as any;
 
 
 export default class EquipmentEditor extends React.Component<IEquipmentEditorProps, IEquipmentEditorState> {
-    fileDataList: Record<string, IEquipmentItem[]> = {
-        "mech-is-equipment-weapons-ballistic": mechISEquipmentBallistic,
-        "mech-is-equipment-weapons-energy": mechISEquipmentEnergy,
-        "mech-is-equipment-weapons-missiles": mechISEquipmentMissiles,
-        "mech-is-equipment-weapons-misc": mechISEquipmentMisc,
-        "mech-clan-equipment-weapons-energy": mechClanEquipmentEnergy,
-        "mech-clan-equipment-weapons-ballistic": mechClanEquipmentBallistic,
-        "mech-clan-equipment-weapons-missile": mechClanEquipmentMissile,
-        "mech-clan-equipment-weapons-misc": mechClanEquipmentMisc,
-    };
+    fileDataList = getEquipmentCatalogDefinitions();
 
     constructor(props: IEquipmentEditorProps) {
         super(props);
@@ -42,14 +26,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
         let currentListData: IEquipmentItem[] = [];
 
-        if( !currentList || currentList.trim() ) {
+        if( !currentList || !currentList.trim() ) {
             currentList = "mech-is-equipment-weapons-ballistic"
         }
-        if( !this.fileDataList[currentList] ) {
-            currentListData = JSON.parse(JSON.stringify(this.fileDataList["mech-is-equipment-weapons-ballistic"]))
-        } else {
-            currentListData = JSON.parse(JSON.stringify(this.fileDataList[currentList]))
-        }
+        currentListData = getEquipmentCatalogById(currentList)
+            ?? getEquipmentCatalogById("mech-is-equipment-weapons-ballistic")
+            ?? [];
 
         for(let item of currentListData) {
             if( typeof(item.heatAero) === "undefined") {
@@ -98,7 +80,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        if( this.fileDataList[e.currentTarget.value ]) {
+        if( getEquipmentCatalogById(e.currentTarget.value) ) {
 
             if( this.state.isDirty ) {
                 this.props.appGlobals.openConfirmDialog(
@@ -109,7 +91,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     () => {
                         let currentListData: IEquipmentItem[] = [];
 
-                        currentListData = JSON.parse(JSON.stringify(this.fileDataList[e.currentTarget.value]))
+                        currentListData = getEquipmentCatalogById(e.currentTarget.value) ?? [];
 
                         for(let item of currentListData) {
                             if( typeof(item.heatAero) === "undefined") {
@@ -131,7 +113,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             } else {
                 let currentListData: IEquipmentItem[] = [];
 
-                currentListData = JSON.parse(JSON.stringify(this.fileDataList[e.currentTarget.value]))
+                currentListData = getEquipmentCatalogById(e.currentTarget.value) ?? [];
 
                 for(let item of currentListData) {
                     if( typeof(item.heatAero) === "undefined") {
@@ -155,33 +137,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
     }
 
     _getFileVariable = ( fileN: string): string  => {
-        if( fileN === "mech-is-equipment-weapons-ballistic" ) {
-            return "mechISEquipmentBallistic";
-        }
-        if( fileN === "mech-is-equipment-weapons-energy" ) {
-            return "mechISEquipmentEnergy";
-        }
-        if( fileN === "mech-is-equipment-weapons-missiles" ) {
-            return "mechISEquipmentMissiles";
-        }
-        if( fileN === "mech-clan-equipment-weapons-energy" ) {
-            return "mechClanEquipmentEnergy";
-        }
-        if( fileN === "mech-clan-equipment-weapons-ballistic" ) {
-            return "mechClanEquipmentBallistic";
-        }
-        if( fileN === "mech-clan-equipment-weapons-missile" ) {
-            return "mechClanEquipmentMissile";
-        }
-        if( fileN === "mech-is-equipment-weapons-misc" ) {
-            return "mechISEquipmentMisc";
-        }
-
-        if( fileN === "mech-clan-equipment-weapons-misc" ) {
-            return "mechClanEquipmentMisc";
-        }
-
-        return "unknown;"
+        return getEquipmentCatalogExportName(fileN) ?? "unknown";
     }
 
     _makeJSONText = (): string => {
@@ -453,9 +409,9 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         onChange={this.selectList}
         className="inline-block width-auto"
     >
-        {Object.keys(this.fileDataList).map( (fileName, fileIndex) => {
+        {this.fileDataList.map( (catalog, fileIndex) => {
             return (
-                <option key={fileIndex} value={fileName}>{fileName}.ts</option>
+                <option key={fileIndex} value={catalog.id}>{catalog.id}.ts</option>
             )
         })}
     </select>

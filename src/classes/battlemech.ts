@@ -11,7 +11,7 @@ import { mechInternalStructureTypes } from "../data/mech-internal-structure-type
 import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
 import { mechTypeOptions } from "../data/mech-type-options";
 import { btTechOptions } from "../data/tech-options";
-import { getHexDistanceFromModifier, getISEquipmentList, getMovementModifier } from "../utils";
+import { getHexDistanceFromModifier, getMovementModifier } from "../utils";
 import { addCommas } from "../utils/addCommas";
 import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
 import { generateUUID } from "../utils/generateUUID";
@@ -6669,7 +6669,7 @@ export class BattleMech {
         }
         // Process Inner Sphere items if active
         if (includeIS) {
-            for (let item of getISEquipmentList()) {
+            for (let item of getEquipmentListByTech("is")) {
                 item.criticals = item.space.battlemech;
                 item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced);
                 returnItems.push(item);

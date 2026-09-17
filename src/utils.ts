@@ -17,6 +17,43 @@ export function getAllEquipmentLists(): Record<string, IEquipmentItem[]> {
     return getEquipmentCatalogs();
 }
 
+function getCachedMULSearchResults(
+    searchTerm: string,
+    appGlobals: IAppGlobals | null,
+): IASMULUnit[] {
+    const cachedUnits = appGlobals?.appSettings.alphasStrikeCachedSearchResults ?? [];
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+
+    if (!normalizedSearch) {
+        return [...cachedUnits];
+    }
+
+    return cachedUnits.filter((unit) => {
+        const searchableName = `${unit.Name ?? ""} ${unit.Variant ?? ""}`.toLowerCase();
+        return searchableName.includes(normalizedSearch);
+    });
+}
+
+function addMULUnavailableAlert(appGlobals: IAppGlobals | null): void {
+    if (!appGlobals) {
+        return;
+    }
+
+    appGlobals.siteAlerts.addAlert(
+        "warning",
+        "",
+        "The Master Unit List live search is unavailable. Showing matching results from this device's saved search cache.",
+        "warning",
+        true,
+        null,
+        10,
+        "",
+        "",
+        "",
+        "MULDOWN"
+    );
+}
+
 export async function getMULASSearchResults(
     searchTerm: string,
     mechRules: string,
@@ -382,6 +419,9 @@ export async function getMULASSearchResults(
                 || exactDamageProfile !== null
             ) {
                 const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`MUL search request failed with HTTP ${response.status}`);
+                }
                 const returnData = await response.json();
 
                 if( !returnData ) {
@@ -459,24 +499,13 @@ export async function getMULASSearchResults(
             }
         } catch (err) {
             console.error('MUL Fetch Error: ', err);
-            if( appGlobals ) {
-                appGlobals.siteAlerts.addAlert(
-                    "danger",
-                    "",
-                    "Cannot reach the Master Unit List! You're either offline or the MUL is down :(",
-                    "danger",
-                    true,
-                    null,
-                    10,
-                    "",
-                    "",
-                    "",
-                    "MULDOWN"
-                );
-            }
+            addMULUnavailableAlert(appGlobals);
+            return getCachedMULSearchResults(searchTerm, appGlobals);
         }
     } else {
         console.warn("Navigator is offline!");
+        addMULUnavailableAlert(appGlobals);
+        return getCachedMULSearchResults(searchTerm, appGlobals);
     }
 
     return returnUnits;
