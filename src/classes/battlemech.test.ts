@@ -48,3 +48,16 @@ describe("BattleMech engine availability by era", () => {
         expect((mech as any)._itemIsAvailable(2300, 2500, 3070, true)).toBe(true);
     });
 });
+
+describe("BattleMech TRO anatomy", () => {
+    it("renders Tripod legs instead of Quad front and rear legs", () => {
+        const mech = new BattleMech();
+        mech.setType("tripod");
+
+        const troHtml = mech.makeTROHTML();
+
+        expect(troHtml).toContain("Center Leg");
+        expect(troHtml).not.toContain("Front Leg");
+        expect(troHtml).not.toContain("Rear Leg");
+    });
+});

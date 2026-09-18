@@ -8,7 +8,8 @@ tool. Items are ordered by dependency, not by product marketing priority.
 
 - [x] Step 1: Fix unit-type display in the right TRO-style block.
   - [x] Tripod is displayed as a Quad. The shared TRO HTML renderer now uses
-    the Tripod anatomy and includes the center leg.
+    the Tripod anatomy and includes the center leg; a regression test verifies
+    that Tripods render Center Leg without Quad front/rear leg labels.
   - [x] LAM is displayed as a Quad. The shared TRO HTML renderer now uses the
     Biped/LAM anatomy.
   - [x] Add the requested Rules Level selector so custom equipment can be
@@ -19,9 +20,9 @@ tool. Items are ordered by dependency, not by product marketing priority.
   technology ignores Inner Sphere extinction dates because retained Clan
   technology may remain available even when obsolete.
 - [ ] Step 4: Fix armor allocation displays in the middle block.
-  - Tripod is displayed as a Quad; determine whether the Tripod SVG needs to be
-    updated for this view.
-  - LAM should be displayed as a Biped but is displayed as a Quad.
+  - [x] Tripod was rendered with the Biped diagram; Step 4 now uses the
+    dedicated Tripod armor diagram with the center leg.
+  - [x] LAM uses the Biped branch and remains displayed with Biped anatomy.
 - [ ] Step 5: Add a way to identify which equipment catalog is available:
   Inner Sphere, Clan, or Custom.
 - [ ] Step 6: Fix equipment allocation locations and critical slots.
@@ -41,6 +42,8 @@ tool. Items are ordered by dependency, not by product marketing priority.
     instead renders Quad information. Each step calls the shared
     `makeTROHTML()` renderer; its previous binary Biped-versus-Quad branch was
     replaced with Biped/LAM, Tripod, and Quad/QuadVee anatomy branches.
+    If Quad labels still appear after this fix, the running page is using stale
+    build output or a saved record whose `mechType` is not `tripod`.
 
 ## Architecture Direction
 

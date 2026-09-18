@@ -9,6 +9,7 @@ import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../../components/sanitized-html';
 import BipedArmorDiagramSVG from '../../../components/svg/biped-armor-diagram';
 import QuadArmorDiagramSVG from '../../../components/svg/quad-armor-diagram-svg';
+import TripodDiagramSVG from '../../../components/svg/tripod-diagram-svg';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
@@ -448,9 +449,16 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     </label>
   ) : null}
 
-  <BipedArmorDiagramSVG
-    strokeColor="rgb(100,100,100)"
-  />
+  {this.props.appGlobals.currentBattleMech.isTripod() ? (
+    <TripodDiagramSVG
+      kind="armor"
+      strokeColor="rgb(100,100,100)"
+    />
+  ) : (
+    <BipedArmorDiagramSVG
+      strokeColor="rgb(100,100,100)"
+    />
+  )}
   <div className="armor-breakdown">
     <strong>Maximum Armor</strong>: {this.props.appGlobals.currentBattleMech.getMaxArmor()}<br />
     <strong>Total Armor</strong>: {this.props.appGlobals.currentBattleMech.getTotalArmor()}<br />
