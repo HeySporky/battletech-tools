@@ -77,6 +77,10 @@ body {
       margin: 0 auto;
       display: block;
     }
+
+    &.mech-creator-link > svg {
+      color: #d62828;
+    }
   }
 
 }

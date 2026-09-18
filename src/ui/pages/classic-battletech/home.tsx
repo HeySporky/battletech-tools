@@ -27,7 +27,7 @@ export default class ClassicBattleTechHome extends React.Component<IClassicBattl
             label="Classic BattleTech"
           >
               <div className="icon-links">
-                  <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator`}>
+                  <Link className="mech-creator-link" to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator`}>
                     <MissileMechIcon />
                     'Mech Creator
                   </Link>
