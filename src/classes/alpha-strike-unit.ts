@@ -1226,7 +1226,7 @@ export class AlphaStrikeUnit {
                 let split = abi.split(/\d/);
 
 
-                let canBeCritAbilities = ['FLK', 'HT', 'IF', 'LRM', 'SRM', 'TUR(', 'TOR', 'REAR', 'AC','IATM']
+                let canBeCritAbilities = ['FLK', 'HT', 'IF', 'LRM', 'MSL', 'SRM', 'TUR(', 'TOR', 'REAR', 'AC','IATM']
                 // If there are no numbers, it's not got damage values
                 if (split.length === 1 || !canBeCritAbilities.includes(split[0].trim())) {
                     return abi;

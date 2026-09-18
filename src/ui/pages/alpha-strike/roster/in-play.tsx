@@ -152,7 +152,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
   show={true}
   onClose={this.closePilotAbility}
 >
-  <div className='text-center'><em>Pilot Special Ability</em> - <span title="Alpha Strike Commander's Edition">p{this.state.showPilotAbility.asce_page}</span></div>
+  <div className='text-center'><em>Pilot Special Ability</em> - <span title={this.state.showPilotAbility.source.book}>{this.state.showPilotAbility.source.book} p{this.state.showPilotAbility.source.page}</span></div>
   {this.state.showPilotAbility.summary.map( (line, lineIndex) => {
     return (
       <p key={lineIndex}>{line}</p>
@@ -167,7 +167,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
   show={true}
   onClose={this.closeSpecialAbility}
 >
-  <div className='text-center'><em>{getSpecialAbilityTypeName(this.state.showSpecialAbility.type)}</em> - <span title="Alpha Strike Commander's Edition">p{this.state.showSpecialAbility.asce_page}</span></div>
+  <div className='text-center'><em>{getSpecialAbilityTypeName(this.state.showSpecialAbility.type)}</em> - <span title={this.state.showSpecialAbility.source.book}>{this.state.showSpecialAbility.source.book} p{this.state.showSpecialAbility.source.page}</span></div>
 
   {this.state.showSpecialAbility.summary.map( (line, lineIndex) => {
     return (
