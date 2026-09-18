@@ -18,7 +18,9 @@ tool. Items are ordered by dependency, not by product marketing priority.
   field. Availability now checks overlap with the selected era, including
   introductions and Inner Sphere reintroductions during that era. Clan
   technology ignores Inner Sphere extinction dates because retained Clan
-  technology may remain available even when obsolete.
+  technology may remain available even when obsolete. A regression test covers
+  a 20-ton Inner Sphere Star League mech and verifies Standard, XL, ICE, Fuel
+  Cell, and Fission are all available.
 - [ ] Step 4: Fix armor allocation displays in the middle block.
   - [x] Tripod was rendered with the Biped diagram; Step 4 now uses the
     dedicated Tripod armor diagram with the center leg.

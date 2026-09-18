@@ -2,6 +2,19 @@ import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
 
 describe("BattleMech engine availability by era", () => {
+    it("shows the expected Inner Sphere engines for a Star League mech", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setTonnage(20);
+        mech.setEra("star-league");
+
+        const availableEngineTags = mech.getAvailableEngines()
+            .filter(engine => engine.available)
+            .map(engine => engine.tag);
+
+        expect(availableEngineTags).toEqual(["standard", "xl", "ice", "cell", "fission"]);
+    });
+
     it("includes engines introduced during the selected era", () => {
         const mech = new BattleMech();
         mech.setEra("star-league");
