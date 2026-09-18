@@ -1,4 +1,5 @@
 import React from "react";
+import packageJson from "../../package.json";
 import { Modal } from 'react-bootstrap';
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force";
@@ -29,9 +30,6 @@ import { IAlphaStrikeMPDeployment, IAlphaStrikeMPDeploymentSet } from "../data/a
 import { IAlphaStrikeMPScenario } from "../data/alpha-strike-mp-scenarios";
 import { IAlphaStrikeMPTerrain } from "../data/alpha-strike-mp-terrain";
 // import init, { AlphaStrikeUnit, add_testing, MULUnit } from "btlibs";
-let pjson = require('../../package.json');
-
-
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
     constructor(props: IAppRouterProps) {
@@ -426,7 +424,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         callAnalytics(
             window,
             appGlobals.sessionUUID,
-            pjson.version,
+            packageJson.version,
         );
 
         if( subTitle ) {

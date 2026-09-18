@@ -16,9 +16,9 @@ import { addCommas } from "../utils/addCommas";
 import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
 import { generateUUID } from "../utils/generateUUID";
 import { ISSWBasicInfo } from "../utils/getSSWXMLBasicInfo";
+import { XMLParser } from "fast-xml-parser";
 import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./alpha-strike-unit";
 import Pilot, { IPilot } from "./pilot";
-const { XMLParser } = require( "fast-xml-parser" );
 
 interface IWeights {
     name: string;
@@ -438,7 +438,6 @@ export class BattleMech {
         this.setASRole( "" )
         this.setMechType( "biped" );
         this.setAdditionalHeatSinks(0);
-        this.setEngine(0);
         this.setGyroType( "standard" );
         if( this._tech.tag === "is" ) {
             this.setHeatSinksType( "single" )
@@ -973,6 +972,10 @@ export class BattleMech {
         // Core formula implementation: Mobility = Run MP + (Jump MP / 2) (TM p. 315)
         const mobilityScore = this.getRunSpeed() + (this.getJumpSpeed() / 2);
 
+        if (!Number.isFinite(mobilityScore)) {
+            return 0.44;
+        }
+
         // Static lookup table replicating the explicit values from TechManual p. 315
         // Index matches the exact mobilityScore value (Index 0 = 0 MP, Index 5 = 5 MP, etc.)
         const SPEED_FACTOR_TABLE: number[] = [
@@ -1004,15 +1007,19 @@ export class BattleMech {
             3.74  // 25 MP
         ];
 
-        // Return fixed table array lookups if within bounded limits
+        // Interpolate fractional mobility scores, such as Run 0 + Jump 1 / 2.
         if (mobilityScore >= 0 && mobilityScore < SPEED_FACTOR_TABLE.length) {
-            return SPEED_FACTOR_TABLE[mobilityScore];
+            const lowerIndex = Math.floor(mobilityScore);
+            const upperIndex = Math.ceil(mobilityScore);
+            const interpolation = mobilityScore - lowerIndex;
+            return SPEED_FACTOR_TABLE[lowerIndex] +
+                (SPEED_FACTOR_TABLE[upperIndex] - SPEED_FACTOR_TABLE[lowerIndex]) * interpolation;
         }
 
         // Mathematical Equation Fallback Rule for extreme/high-speed units (TM p. 315 footnote)
         // Formula: (1 + (Mobility - 5) / 10)^1.2 rounded precisely to two decimal places
         const highSpeedRaw = Math.pow((1 + (mobilityScore - 5) / 10), 1.2);
-        return parseFloat(highSpeedRaw.toFixed(2));
+        return Number.isFinite(highSpeedRaw) ? parseFloat(highSpeedRaw.toFixed(2)) : 0.44;
     }
 
     public isQuad() {
@@ -3962,7 +3969,9 @@ export class BattleMech {
         walkSpeed: number,
     ) {
         this._walkSpeed = walkSpeed
-        this.setEngine(this._tonnage * this._walkSpeed);
+        if (this._walkSpeed > 0) {
+            this.setEngine(this._tonnage * this._walkSpeed);
+        }
 
         if( this._jumpSpeed > this._walkSpeed)
             this.setJumpSpeed(this._walkSpeed);

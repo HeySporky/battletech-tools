@@ -2,6 +2,7 @@ import React from 'react';
 import { BattleMech } from '../../../classes/battlemech';
 import BipedArmorCircles from './biped-armor-circles';
 import DamageCircleSVG from './damage-circle-svg';
+import { TRIPOD_CENTER_LEG_BUBBLES } from './tripod-diagram-svg';
 
 /*
 * Tripod shares Biped's head/torso/arm/leg armor layout, plus a unique Center Leg
@@ -29,15 +30,13 @@ export default class TripodArmorCircles extends React.Component<ITripodArmorCirc
             <>
                 <BipedArmorCircles {...this.props} />
 
-                {Array.from({ length: centerLegArmor }, (_, index) => index).map((index) => {
-                    const col = index % 3;
-                    const row = Math.floor(index / 3);
+                {TRIPOD_CENTER_LEG_BUBBLES.slice(0, centerLegArmor).map((position, index) => {
                     return (
                         <DamageCircleSVG
                             key={index}
                             isFilled={this.props.mechData.armorDamaged("cl", index)}
-                            xLoc={centerX + (col - 1) * 25}
-                            yLoc={centerLegTop + row * 25}
+                            xLoc={centerX + position.x}
+                            yLoc={centerLegTop + position.y}
                             radius={13}
                             inPlay={this.props.inPlay}
                             clickLocation="cl"

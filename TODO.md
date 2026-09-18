@@ -19,7 +19,8 @@
   - [x] Clean up env type files
   - [x] Fix `vite preview` base-path bug
   - [x] Verify build output and SPA fallback
-  - [ ] Full manual/browser route-by-route smoke test
+  - [x] Route-by-route SPA smoke test completed against the Vite dev server
+  - [x] Chromium workflow test completed for all creator steps and Biped, Quad, Tripod, LAM, and QuadVee chassis types
   - [ ] Decide on a Vitest setup (or explicitly decide not to have tests)
   - [ ] Code-split the large main JS chunk
 
@@ -28,7 +29,7 @@
 - [x] Route LAMs through the Biped anatomy diagrams.
 - [x] Keep QuadVee on the Quad anatomy diagrams.
 - [x] Track and display Tripod center-leg armor and structure interactively.
-- [ ] Integrate the supplied Tripod-specific SVG layout into the interactive record sheet, including armor, rear armor, internal structure, and damage-transfer views.
+- [x] Integrate the supplied Tripod-specific SVG layout into the interactive record sheet as broken-apart region arrays for armor, rear armor, internal structure, and damage transfer. Shared center-leg bubble coordinates drive both armor and structure overlays.
 
 ## Lint cleanup
 
