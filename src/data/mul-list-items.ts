@@ -2898,3 +2898,5 @@ const curatedMulListItems: IASMULUnit[] = [
         FormatedTonnage: "400"
     },
 ];
+
+export const mulListItems = curatedMulListItems;
