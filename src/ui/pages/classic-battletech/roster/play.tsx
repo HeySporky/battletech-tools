@@ -980,7 +980,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         setMovementDialog: currentBM,
         setMovementMode: currentBM ? currentBM.currentMovementMode : "",
         setMovementNumber: currentBM ? currentBM.currentToHitMovementModifier : 0,
-        setMovementCanJump: currentBM && currentBM.getJumpSpeed() > 0 ? true : false,
+        setMovementCanJump: currentBM && currentBM.getJumpSpeed() > 0 && currentBM.canUseJumpJetsInCurrentMode() ? true : false,
         setTargetDialog: null,
         takeDamageDialog: null,
       })
@@ -1589,6 +1589,24 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
     <div className="flex">
       <div className="text-center">
+      {this.state.setMovementDialog.isLAM() || this.state.setMovementDialog.isQuadVee() ? (
+        <>
+          <div className="small-text">Transformation Mode</div>
+          {this.state.setMovementDialog.isLAM() ? (
+            <>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("mech")}>Mech</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "airmech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("airmech")}>AirMech</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "aerospace" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("aerospace")}>Aerospace</button>
+            </>
+          ) : (
+            <>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("mech")}>Mech</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "vehicle" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("vehicle")}>Vehicle</button>
+            </>
+          )}
+          {this.state.setMovementDialog.isQuadVee() ? <div className="small-text">Motive: {this.state.setMovementDialog.getQuadVeeMotive()} Vehicle Cruise MP: {this.state.setMovementDialog.getQuadVeeVehicleCruiseMP()}</div> : null}
+        </>
+      ) : null}
       <button
         className={this.state.setMovementMode === "" ? "btn btn-primary" : "btn"}
         onClick={(e) => this.setMovementMode(e, "")}

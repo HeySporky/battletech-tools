@@ -140,6 +140,8 @@ export interface IBattleMechExport {
     lastUpdated: Date;
     location?: string;
     mechType: string;
+    quadVeeMotive?: "tracked" | "wheeled";
+    transformationMode?: "mech" | "airmech" | "aerospace" | "vehicle";
     mirrorArmorAllocations: boolean;
     model: string;
     name: string;
@@ -255,6 +257,8 @@ export class BattleMech {
     private _uuid: string = generateUUID();
 
     private _mechType = mechTypeOptions[0];
+    private _quadVeeMotive: "tracked" | "wheeled" = "tracked";
+    private _transformationMode: "mech" | "airmech" | "aerospace" | "vehicle" = "mech";
     private _tech = btTechOptions[0];
     private _era = btEraOptions[1]; // Default to Succession Wars
     private _model: string = "";
@@ -1400,8 +1404,9 @@ export class BattleMech {
     }
 
     public getGyroWeight() {
+        const tripodSuperheavyMultiplier = this._mechType.tag.toLowerCase() === "tripod" && this._tonnage > 100 ? 2 : 1;
         if( this._engine ) {
-            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier);
+            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * tripodSuperheavyMultiplier);
         } else {
             return 0;
         }
@@ -2698,6 +2703,16 @@ export class BattleMech {
         }
         const typeTag = this._mechType.tag.toLowerCase();
 
+        if (typeTag === "lam") {
+            this._jumpJetType = mechJumpJetTypes[0];
+            this._gyro = mechGyroTypes.find(gyro => gyro.tag === "standard") ?? mechGyroTypes[0];
+            this._jumpSpeed = Math.min(3, Math.max(1, this._jumpSpeed));
+        }
+        if (typeTag === "quadvee") {
+            this._armorType = mechArmorTypes.find(armor => armor.tag === "standard") ?? mechArmorTypes[0];
+            this._selectedInternalStructure = mechInternalStructureTypes.find(structure => structure.tag === "standard") ?? mechInternalStructureTypes[0];
+        }
+
         this._maxMoveHeat = 2;
         this._heatDissipation = 0;
 
@@ -2708,7 +2723,13 @@ export class BattleMech {
             weight: this.getInternalStructureWeight()
         });
 
-        if( this._smallCockpit) {
+        if (typeTag === "quadvee" || typeTag === "tripod") {
+            this._cockpitWeight = this._tonnage > 100 && typeTag === "tripod" ? 6 : 4;
+            this._weights.push({
+                name: typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit",
+                weight: this.getCockpitWeight()
+            });
+        } else if( this._smallCockpit) {
             this._cockpitWeight = 2;
             this._weights.push({
                 name: "Small Cockpit",
@@ -2719,6 +2740,13 @@ export class BattleMech {
             this._weights.push({
                 name: "Cockpit",
                 weight: this.getCockpitWeight()
+            });
+        }
+
+        if (typeTag === "quadvee") {
+            this._weights.push({
+                name: "QuadVee Conversion / Motive Package",
+                weight: this._tonnage * 0.1
             });
         }
 
@@ -3123,11 +3151,13 @@ export class BattleMech {
             this._criticals.frontLeftLeg = [];
             this._criticals.frontRightLeg = [];
         } else if (typeTag === "quad" || typeTag === "quadvee") {
-            // Quads and QuadVees possess 4 legs with 6 slots each. They have NO arms.
-            this._criticals.frontLeftLeg = Array(6).fill(null);
-            this._criticals.frontRightLeg = Array(6).fill(null);
-            this._criticals.leftLeg = Array(6).fill(null);        // Rear Left Leg
-            this._criticals.rightLeg = Array(6).fill(null);       // Rear Right Leg
+            // QuadVees reserve both available critical slots in each leg for
+            // conversion and motive systems; ordinary Quads have six slots.
+            const legSlots = typeTag === "quadvee" ? 2 : 6;
+            this._criticals.frontLeftLeg = Array(legSlots).fill(null);
+            this._criticals.frontRightLeg = Array(legSlots).fill(null);
+            this._criticals.leftLeg = Array(legSlots).fill(null);  // Rear Left Leg
+            this._criticals.rightLeg = Array(legSlots).fill(null); // Rear Right Leg
             // Clear biped/tripod slot arrays
             this._criticals.leftArm = [];
             this._criticals.rightArm = [];
@@ -3158,27 +3188,46 @@ export class BattleMech {
         if( this._smallCockpit) {
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
-            this._addCriticalItem( "cockpit", "Cockpit", 1, "hd", 2);
+            this._addCriticalItem(
+                typeTag === "quadvee" || typeTag === "tripod" ? "multi-pilot-cockpit" : "cockpit",
+                typeTag === "quadvee" ? "QuadVee Dual Cockpit" : typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "Cockpit",
+                1,
+                "hd",
+                2
+            );
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 3);
         } else {
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
-            this._addCriticalItem( "cockpit", "Cockpit", 1, "hd", 2);
+            this._addCriticalItem(
+                typeTag === "quadvee" || typeTag === "tripod" ? "multi-pilot-cockpit" : "cockpit",
+                typeTag === "quadvee" ? "QuadVee Dual Cockpit" : typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "Cockpit",
+                1,
+                "hd",
+                2
+            );
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 4);
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 5);
+        }
+        if (typeTag === "lam") {
+            this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "hd", 3);
         }
         if (typeTag === "quad" || typeTag === "quadvee") {
             // ---- QUAD / QUADVEE FRONT LEGS ----
             // Front Right Leg Actuators (replaces old arm hacks with direct location tracking keys)
-            this._addCriticalItem("hip", "Hip", 1, "frl", 0);
-            this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "frl", 1);
-            this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "frl", 2);
-            this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "frl", 3);
-            // Front Left Leg Actuators
-            this._addCriticalItem("hip", "Hip", 1, "fll", 0);
-            this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "fll", 1);
-            this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "fll", 2);
-            this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "fll", 3);
+            if (typeTag === "quad") {
+                this._addCriticalItem("hip", "Hip", 1, "frl", 0);
+                this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "frl", 1);
+                this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "frl", 2);
+                this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "frl", 3);
+                this._addCriticalItem("hip", "Hip", 1, "fll", 0);
+                this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "fll", 1);
+                this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "fll", 2);
+                this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "fll", 3);
+            } else {
+                this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "frl");
+                this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "fll");
+            }
         } else if (typeTag === "tripod") {
             // ---- TRIPOD ARMS & CONDITIONAL ACTUATORS ----
             // Tripods use standard arm actuators, but some configurations can completely drop arms.
@@ -3282,21 +3331,35 @@ export class BattleMech {
         if (engineCrits.lt) {
             this._addCriticalItem("engine", engineName, engineCrits.lt, "lt");
         }
+        if (typeTag === "quadvee" || typeTag === "tripod") {
+            this._addCriticalItem("multi-pilot-cockpit", typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit", typeTag === "tripod" && this._tonnage > 100 ? 2 : 1, "ct");
+        }
+        if (typeTag === "lam") {
+            this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "lt");
+            this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "rt");
+            this._addCriticalItem("lam-landing-gear", "LAM Landing Gear", 1, "ct");
+            this._addCriticalItem("lam-landing-gear", "LAM Landing Gear", 1, "lt");
+            this._addCriticalItem("lam-landing-gear", "LAM Landing Gear", 1, "rt");
+        }
 
         // STANDARD & REAR LEGS: Track Left Leg (ll) and Right Leg (rl) structural presence. Am I standing?
         const leftLegIS = this._internalStructure.leftLeg ?? 0;
         const rightLegIS = this._internalStructure.rightLeg ?? 0;
-        if (leftLegIS > 0) {
+        if (leftLegIS > 0 && typeTag !== "quadvee") {
             this._addCriticalItem("hip", "Hip", 1, "ll", 0);
             this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "ll", 1);
             this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "ll", 2);
             this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "ll", 3);
         }
-        if (rightLegIS > 0) {
+        if (rightLegIS > 0 && typeTag !== "quadvee") {
             this._addCriticalItem("hip", "Hip", 1, "rl", 0);
             this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "rl", 1);
             this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "rl", 2);
             this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "rl", 3);
+        }
+        if (typeTag === "quadvee") {
+            this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "rl");
+            this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "ll");
         }
         // 2. Populate specialized Tripod Center Leg actuators
         if (typeTag === "tripod") {
@@ -3971,7 +4034,20 @@ export class BattleMech {
     }
 
     public getWalkSpeed(): number {
-        return this._walkSpeed;
+        return this.getEffectiveWalkSpeed();
+    }
+
+    public getEffectiveWalkSpeed(): number {
+        if (this.isQuadVee() && this._transformationMode === "vehicle") {
+            return this.getQuadVeeVehicleCruiseMP();
+        }
+
+        const legLocations = this.isQuad() || this.isQuadVee()
+            ? ["ll", "rl", "fll", "frl"]
+            : ["ll", "rl"];
+        const destroyedLegCount = legLocations.filter(location => this._structureInLocation(location) <= 0).length;
+        const destroyedLegs = this.isTripod() ? Math.max(0, destroyedLegCount - 1) : destroyedLegCount;
+        return Math.max(0, Math.floor(this._walkSpeed * Math.max(0, 1 - destroyedLegs * 0.25)));
     }
 
     public setWalkSpeed(
@@ -3989,7 +4065,7 @@ export class BattleMech {
     }
 
     public getRunSpeed() {
-        return this._runSpeed;
+        return Math.ceil(this.getEffectiveWalkSpeed() * 1.5);
     }
 
     public getJumpSpeed() {
@@ -3999,7 +4075,10 @@ export class BattleMech {
     public setJumpSpeed(
         jumpSpeed: number,
     ) {
-        this._jumpSpeed = +jumpSpeed;
+        const requestedSpeed = Math.max(0, +jumpSpeed);
+        this._jumpSpeed = this.isLAM()
+            ? Math.min(3, Math.max(1, requestedSpeed))
+            : requestedSpeed;
         this._calc();
         return this._jumpSpeed;
     }
@@ -4017,6 +4096,9 @@ export class BattleMech {
     }
 
     public setArmorType(armorTag: string) {
+        if (this.isQuadVee() && armorTag !== "standard") {
+            return this._armorType;
+        }
         for( let aCount = 0; aCount < mechArmorTypes.length; aCount++) {
             if( mechArmorTypes[aCount].tag === armorTag) {
                 this._armorType = mechArmorTypes[aCount];
@@ -4110,12 +4192,19 @@ export class BattleMech {
     }
 
     public getInternalStructure(): IResolvedInternalStructure {
+        if (this.isQuad() || this.isQuadVee()) {
+            this._internalStructure.leftArm = this._internalStructure.frontLeftLeg;
+            this._internalStructure.rightArm = this._internalStructure.frontRightLeg;
+        }
         return this._internalStructure;
     }
 
     public setInternalStructureType(
         isTag: string,
     ) {
+        if (this.isQuadVee() && isTag !== "standard") {
+            return this._selectedInternalStructure;
+        }
         for( let is of mechInternalStructureTypes) {
             if( isTag === is.tag) {
                 this._selectedInternalStructure = is;
@@ -4313,6 +4402,9 @@ export class BattleMech {
     setGyroType(
         gyroType: string,
     ) {
+        if (this.isLAM()) {
+            gyroType = "standard";
+        }
         for( let gyro of mechGyroTypes) {
             if( gyroType.toLowerCase() === gyro.tag) {
                 this._gyro = gyro;
@@ -4377,6 +4469,10 @@ export class BattleMech {
     }
 
     public toggleOmni() {
+        if (this.isTripod()) {
+            this._omnimech = false;
+            return;
+        }
         this._omnimech = !this._omnimech;
     }
 
@@ -4664,6 +4760,95 @@ export class BattleMech {
       return this._mechType;
     }
 
+        public getQuadVeeMotive(): "tracked" | "wheeled" {
+            return this._quadVeeMotive;
+        }
+
+        public getQuadVeeVehicleCruiseMP(): number {
+            if (!this.isQuadVee()) {
+                return 0;
+            }
+            if (this.hasMotiveSystemDamage()) {
+                return 0;
+            }
+            return this._walkSpeed + (this._quadVeeMotive === "wheeled" ? 1 : 0);
+        }
+
+        public getTransformationMode(): "mech" | "airmech" | "aerospace" | "vehicle" {
+            return this._transformationMode;
+        }
+
+        public setTransformationMode(mode: string): "mech" | "airmech" | "aerospace" | "vehicle" {
+            const requestedMode = mode.toLowerCase();
+            const allowedModes = this.isLAM()
+                ? ["mech", "airmech", "aerospace"]
+                : this.isQuadVee()
+                        ? ["mech", "vehicle"]
+                        : ["mech"];
+
+            this._transformationMode = (allowedModes.includes(requestedMode) ? requestedMode : "mech") as typeof this._transformationMode;
+            return this._transformationMode;
+        }
+
+        public canUseJumpJetsInCurrentMode(): boolean {
+            if (this.isQuadVee()) {
+                return this._transformationMode === "mech";
+            }
+            return this.isLAM() && ["mech", "airmech", "aerospace"].includes(this._transformationMode);
+        }
+
+        public canUsePhysicalAttacksInCurrentMode(): boolean {
+            return !this.isLAM() || this._transformationMode === "mech";
+        }
+
+        public hasFullTorsoTwist(): boolean {
+            return this.isTripod() || this.isQuadVee();
+        }
+
+        public getPilotingSkillModifier(): number {
+            return this.isTripod() ? -1 : 0;
+        }
+
+        public ignoresSecondaryTargetModifier(): boolean {
+            return this.isTripod();
+        }
+
+        public getAttackerMovementModifier(): number {
+            return this.isLAM() && this._transformationMode === "airmech" ? 3 : 0;
+        }
+
+        public canUseHullDownRules(): boolean {
+            return this.isQuadVee() && this._transformationMode === "vehicle";
+        }
+
+        public getOperationalHeightLevels(): number {
+            if (this.isQuadVee() && this._transformationMode === "vehicle") {
+                return 1;
+            }
+            return 2;
+        }
+
+        public canOperateAfterGyroFailure(): boolean {
+            return this.isQuadVee() && this._transformationMode === "vehicle";
+        }
+
+        public hasMotiveSystemDamage(): boolean {
+            if (!this.isQuadVee() || this._transformationMode !== "vehicle") {
+                return false;
+            }
+            return ["fll", "frl", "ll", "rl"].some(location =>
+                (this._criticals as any)[BattleMech.MECH_LOCATION_MAP[location]]?.some((item: ICriticalSlot | null) =>
+                    item?.tag === "quadvee-conversion" && item.damaged
+                )
+            );
+        }
+
+        public setQuadVeeMotive(motive: string): "tracked" | "wheeled" {
+            this._quadVeeMotive = motive.toLowerCase() === "wheeled" ? "wheeled" : "tracked";
+            this._calc();
+            return this._quadVeeMotive;
+        }
+
     public setType(typeTag: string) {
       // Normalize to lowercase for clean matching
       const formattedTag = typeTag.toLowerCase();
@@ -4671,6 +4856,13 @@ export class BattleMech {
       for (const mechType of mechTypeOptions) {
         if (mechType.tag.toLowerCase() === formattedTag) {
             this._mechType = mechType;
+            if (formattedTag === "tripod") {
+                this._omnimech = false;
+            }
+            if (formattedTag !== "quadvee") {
+                this._quadVeeMotive = "tracked";
+            }
+            this._transformationMode = "mech";
             
             // Trigger cascading refresh of internal structure layouts and armor capacities
             this.setTonnage(this._tonnage);
@@ -4790,6 +4982,8 @@ export class BattleMech {
             jumpSpeed: this._jumpSpeed,
             lastUpdated: this.lastUpdated,
             mechType: this._mechType.tag,
+            quadVeeMotive: this._quadVeeMotive,
+            transformationMode: this._transformationMode,
             mirrorArmorAllocations: this._mirrorArmorAllocations,
             nickname: this._nickname,
             strictEra: this._strictEra,
@@ -5022,6 +5216,12 @@ export class BattleMech {
             // console.log( "importObject.mechType", importObject.mechType );
             if( importObject.mechType)
                 this.setMechType(importObject.mechType);
+            if (importObject.quadVeeMotive) {
+                this.setQuadVeeMotive(importObject.quadVeeMotive);
+            }
+            if (importObject.transformationMode) {
+                this.setTransformationMode(importObject.transformationMode);
+            }
 
             this.setTonnage(importObject.tonnage);
 
@@ -5594,7 +5794,7 @@ export class BattleMech {
             ];
             return this._returnRandomString(damageSnarks);
         }
-        if( this.gyroHits() > 2 ) {
+        if( this.gyroHits() > 2 && !this.canOperateAfterGyroFailure() ) {
             let damageSnarks: string[] = [
                 "Oh man my mech can't keep it's liqueur!",
                 "'mech drunk, can't stand",
@@ -6152,6 +6352,9 @@ export class BattleMech {
         ) {
             maxLegalSlots = 6;
         }
+        if (typeTag === "quadvee" && ["ll", "rl", "fll", "frl"].includes(normalizedTag)) {
+            maxLegalSlots = 2;
+        }
 
         // Automated Unassigned Index Resolution (Find next open gap space sequence)
         if (toIndex === -1) {
@@ -6183,6 +6386,9 @@ export class BattleMech {
             }
         }
         if (!hasSpace) {
+            return false;
+        }
+        if (this.isLAM() && fromItem.obj && !this._isEquipmentAllowedForChassis(fromItem.obj as IEquipmentItem)) {
             return false;
         }
         // Equipment Legality Validation Filters (e.g. BattleTech Jump Jet validation mapping rules)
@@ -6459,6 +6665,32 @@ export class BattleMech {
             (reintroductionYear > 0 && reintroductionYear <= eraEnd);
     }
 
+    private _isEquipmentAllowedForChassis(item: IEquipmentItem): boolean {
+        if (!this.isLAM() && !this.isTripod()) {
+            return true;
+        }
+
+        const tag = item.tag.toLowerCase();
+        const name = item.name.toLowerCase();
+        return !(
+            tag.includes("gauss-rifle-heavy") ||
+            tag.includes("plasma-rifle") ||
+            tag.includes("mml") ||
+            tag.includes("rotary") ||
+            tag.includes("artemis") ||
+            tag.includes("hatchet") ||
+            tag.includes("sword") ||
+            tag.includes("claw") ||
+            tag.includes("mace") ||
+            name.includes("heavy gauss") ||
+            name.includes("plasma rifle") ||
+            name.includes("hatchet") ||
+            name.includes("sword") ||
+            name.includes("claw") ||
+            name.includes("mace")
+        );
+    }
+
     public allocateArmorClear() {
         this._armorAllocation = {
             head: 0,
@@ -6676,16 +6908,18 @@ export class BattleMech {
         // Process Clan items if active
         if (includeClan) {
             for (let item of getEquipmentListByTech("clan", includeCustom && !includeIS)) {
+                item.catalog = item.category === "Custom Equipment" ? "custom" : "clan";
                 item.criticals = item.space.battlemech;
-                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced, clanAvailability);
+                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced, clanAvailability) && this._isEquipmentAllowedForChassis(item);
                 returnItems.push(item);
             }
         }
         // Process Inner Sphere items if active
         if (includeIS) {
             for (let item of getEquipmentListByTech("is", includeCustom)) {
+                item.catalog = item.category === "Custom Equipment" ? "custom" : "is";
                 item.criticals = item.space.battlemech;
-                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced);
+                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced) && this._isEquipmentAllowedForChassis(item);
                 returnItems.push(item);
             }
         }
@@ -6697,6 +6931,14 @@ export class BattleMech {
         });
         return returnItems;
     }  
+
+    public getAvailableEquipmentByCatalog(
+        catalog: "all" | "is" | "clan" | "custom",
+        includeCustom: boolean = false,
+    ): IEquipmentItem[] {
+        const equipment = this.getAvailableEquipment(includeCustom);
+        return catalog === "all" ? equipment : equipment.filter(item => item.catalog === catalog);
+    }
 
     private _sortInstalledEquipment() {
         this._equipmentList.sort( ( a, b ) => {
@@ -6928,6 +7170,10 @@ export class BattleMech {
     }
 
     public toggleISBubble(clickLocation: string, clickIndex: number): void {
+        if (this.isQuad() || this.isQuadVee()) {
+            if (clickLocation === "la") clickLocation = "fll";
+            if (clickLocation === "ra") clickLocation = "frl";
+        }
         const targetProp = BattleMech.MECH_LOCATION_MAP[clickLocation];
         if (!targetProp) return;
 
@@ -6938,6 +7184,10 @@ export class BattleMech {
     }
 
     public structureDamaged(clickLocation: string, clickIndex: number): boolean {
+        if (this.isQuad() || this.isQuadVee()) {
+            if (clickLocation === "la") clickLocation = "fll";
+            if (clickLocation === "ra") clickLocation = "frl";
+        }
         const targetProp = BattleMech.MECH_LOCATION_MAP[clickLocation];
         if (!targetProp) return false;
 

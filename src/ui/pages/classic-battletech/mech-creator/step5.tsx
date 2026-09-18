@@ -24,6 +24,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
         this.state = {
             updated: false,
             showAddDialog: false,
+          equipmentCatalog: "all",
         }
 
         this.props.appGlobals.makeDocumentTitle("Step 5 | 'Mech Creator");
@@ -125,7 +126,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                   <div>
                       <AvailableEquipment
                         appGlobals={this.props.appGlobals}
-                        equipment={this.props.appGlobals.currentBattleMech.getAvailableEquipment(this.props.appGlobals.appSettings.mechRulesFilter === 5)}
+                        equipment={this.props.appGlobals.currentBattleMech.getAvailableEquipmentByCatalog(this.state.equipmentCatalog, this.props.appGlobals.appSettings.mechRulesFilter === 5)}
                         addFunction={this.addEquipment}
                         hideUnavailable={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
                       />
@@ -159,6 +160,19 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                           </button>
 
                           <h3 className="text-center">Installed Equipment</h3>
+
+                          <label>
+                            Equipment Catalog:
+                            <select
+                              value={this.state.equipmentCatalog}
+                              onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setState({ equipmentCatalog: event.currentTarget.value as IHomeState["equipmentCatalog"] })}
+                            >
+                              <option value="all">All Available</option>
+                              <option value="is">Inner Sphere</option>
+                              <option value="clan">Clan</option>
+                              <option value="custom">Custom</option>
+                            </select>
+                          </label>
 
                           {this.props.appGlobals.currentBattleMech.getInstalledEquipment().length > 0 ? (
 
@@ -277,5 +291,6 @@ interface IHomeProps {
 interface IHomeState {
     updated: boolean;
     showAddDialog: boolean;
+  equipmentCatalog: "all" | "is" | "clan" | "custom";
 
 }

@@ -49,10 +49,12 @@ const tripodTransferLinks = [
 
 interface ITripodDiagramSVGProps {
     kind: TripodDiagramKind;
+    className?: string;
     xLoc?: number;
     yLoc?: number;
     width?: number;
     height?: number;
+    preserveAspectRatio?: string;
     bgColor?: string;
     strokeColor?: string;
 }
@@ -62,10 +64,12 @@ const internalFill = "rgba(85, 255, 85, 0.12)";
 
 export default function TripodDiagramSVG({
     kind,
+    className,
     xLoc = 0,
     yLoc = 0,
     width = 700,
     height = 420,
+    preserveAspectRatio,
     bgColor = "transparent",
     strokeColor = "rgb(0,0,0)",
 }: ITripodDiagramSVGProps): JSX.Element {
@@ -75,7 +79,7 @@ export default function TripodDiagramSVG({
     const title = kind === "armor" ? "TRIPOD ARMOR" : kind === "internal" ? "TRIPOD INTERNAL STRUCTURE" : kind === "rear" ? "TRIPOD REAR ARMOR" : "TRIPOD DAMAGE TRANSFER";
 
     return (
-        <svg x={xLoc} y={yLoc} width={width} height={height} viewBox="0 0 800 650" role="img" aria-label={title}>
+        <svg className={className} x={xLoc} y={yLoc} width={width} height={height} viewBox="0 0 800 650" preserveAspectRatio={preserveAspectRatio} role="img" aria-label={title}>
             <rect x="0" y="0" width="800" height="650" fill={bgColor} opacity="0" />
             <text x="400" y="35" textAnchor="middle" fill={strokeColor} fontSize="22" fontWeight="bold">{title}</text>
             {isRear ? (

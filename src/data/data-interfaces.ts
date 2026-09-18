@@ -97,6 +97,7 @@ export interface ISplitLocation {
     size: number;
 }
 export interface IEquipmentItem {
+    catalog?: "is" | "clan" | "custom";
     split_location?: ISplitLocation[];
     isRotary?: boolean;
     isStreak?: boolean;

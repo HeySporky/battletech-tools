@@ -419,6 +419,21 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     </select>
   </label>
 
+  {this.props.appGlobals.currentBattleMech.isTripod() ? (
+    <label className="armor-select-dropdown center-leg">
+      <div className="title">CENTER LEG</div>
+      <select
+        value={this.props.appGlobals.currentBattleMech.getArmorAllocation().centerLeg ?? 0}
+        onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue("cl", +event.currentTarget.value)}
+        title="Change this Tripod's center leg armor value"
+      >
+        {makeRange(0, (this.props.appGlobals.currentBattleMech.getInternalStructure().centerLeg ?? 0) * 2).map((armorValue) => (
+          <option key={armorValue} value={armorValue}>{armorValue}</option>
+        ))}
+      </select>
+    </label>
+  ) : null}
+
   <label className="armor-select-dropdown rl">
     <div className="title">RL</div>
     <select
@@ -435,23 +450,10 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
   </label>
 
   {this.props.appGlobals.currentBattleMech.isTripod() ? (
-    <label className="armor-select-dropdown center-leg">
-      <div className="title">CENTER LEG</div>
-      <select
-        value={this.props.appGlobals.currentBattleMech.getArmorAllocation().centerLeg ?? 0}
-        onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue("cl", +event.currentTarget.value)}
-        title="Change this Tripod's center leg armor value"
-      >
-        {makeRange(0, (this.props.appGlobals.currentBattleMech.getInternalStructure().centerLeg ?? 0) * 2).map((armorValue) => (
-          <option key={armorValue} value={armorValue}>{armorValue}</option>
-        ))}
-      </select>
-    </label>
-  ) : null}
-
-  {this.props.appGlobals.currentBattleMech.isTripod() ? (
     <TripodDiagramSVG
       kind="armor"
+      className="tripod-armor-diagram"
+      preserveAspectRatio="none"
       strokeColor="rgb(100,100,100)"
     />
   ) : (

@@ -21,12 +21,17 @@ tool. Items are ordered by dependency, not by product marketing priority.
   technology may remain available even when obsolete. A regression test covers
   a 20-ton Inner Sphere Star League mech and verifies Standard, XL, ICE, Fuel
   Cell, and Fission are all available.
-- [ ] Step 4: Fix armor allocation displays in the middle block.
+- [x] Step 4: Fix armor allocation displays in the middle block.
   - [x] Tripod was rendered with the Biped diagram; Step 4 now uses the
-    dedicated Tripod armor diagram with the center leg.
+    dedicated Tripod armor diagram with the center leg. The Center Leg
+    selector is positioned between LL and RL, and the Tripod SVG fills its
+    layout box without vertical letterboxing.
   - [x] LAM uses the Biped branch and remains displayed with Biped anatomy.
-- [ ] Step 5: Add a way to identify which equipment catalog is available:
-  Inner Sphere, Clan, or Custom.
+  - [x] Tripod cockpit and center-leg rules are now represented by the shared
+    model; Tripods retain their dedicated armor/internal layouts.
+- [x] Step 5: Add an Equipment Catalog selector for All Available, Inner
+  Sphere, Clan, and Custom equipment. Catalog provenance is attached by the
+  shared BattleMech availability query.
 - [ ] Step 6: Fix equipment allocation locations and critical slots.
   - [x] Tripod displays its Center Leg section and critical slots in Step 6.
   - [x] Quad and QuadVee front-leg headers now use their actual front-leg
@@ -35,10 +40,51 @@ tool. Items are ordered by dependency, not by product marketing priority.
     matches its anatomy.
   - LAM has the correct base display but is missing critical allocations for
     landing gear, conversion equipment, and other LAM-specific equipment;
-    add the required LAM systems to the equipment/rules data.
-  - QuadVee is displayed as a Biped instead of a Quad and is missing its
-    conversion equipment and other required criticals; add the required
-    QuadVee systems to the equipment/rules data.
+    [x] the model now pre-fills the six mandated avionics/landing-gear slots
+    and filters prohibited equipment.
+  - [x] QuadVee uses Quad anatomy and all four legs reserve their two
+    conversion/motive slots; fixed dual-cockpit criticals are also modeled.
+  - [x] Add the QuadVee Tracked/Wheeled chassis selection and persist it in
+    BattleMech records for later motive-system rules.
+
+### LAM/QuadVee Rules Progress
+
+- [x] LAM jump capability is constrained to 1-3 MP, with Standard Jump Jets
+  and a Standard Gyro enforced by the model.
+- [x] LAM avionics and landing gear occupy the six mandated critical slots.
+- [x] LAM-prohibited equipment is filtered and blocked from allocation.
+- [x] QuadVee legs reserve two critical slots each for conversion/motive gear.
+- [x] Add QuadVee's fixed 10% conversion/motive tonnage and 4-ton dual cockpit
+  accounting.
+- [x] Add the QuadVee dual-cockpit Head/Center Torso critical placement.
+- [x] Add the shared Tracked versus Wheeled QuadVee Cruise MP calculation;
+  Wheeled vehicle mode receives +1 Cruise MP and Tracked does not.
+- [x] Add validated transformation-mode state and persistence. LAMs support
+  Mech/AirMech/Aerospace; QuadVees support Mech/Vehicle; ordinary BattleMechs
+  remain Mech-only.
+- [x] Add shared mode capability queries for jump-jet use, physical attacks,
+  operational height, and QuadVee motive behavior.
+- [x] Connect the motive calculation to transformed Vehicle-mode movement and
+  motive-damage resolution in roster/play combat; damaged QuadVee conversion
+  gear now reduces Vehicle-mode Cruise MP to 0.
+- [x] Combat movement dialog now exposes LAM/QuadVee transformation modes and
+  prevents QuadVee Vehicle mode from selecting Jump.
+- [x] Correct Quad/QuadVee combat-sheet front-leg IS labels.
+- [x] Effective movement now applies a 25% penalty per destroyed leg while
+  preserving QuadVee Vehicle-mode motive movement.
+- [x] Tripod cockpit, superheavy gyro scaling, no-Omni restriction, prohibited
+  physical weapon filter, and one-leg stability behavior are model-enforced.
+- [x] Add model-level QuadVee Vehicle-mode gyro redundancy and motive-damage
+  queries for combat-play resolution.
+- [x] Refactor the generated Quad combat SVG front-leg damage path: the shared
+  model now exposes front-leg structure data through the legacy diagram fields
+  and remaps generated `la`/`ra` clicks to `fll`/`frl`.
+- [x] Add model-level LAM/QuadVee transformed-mode gameplay capabilities:
+  mode-specific physical attacks, AirMech attacker modifier, vehicle height,
+  hull-down eligibility, jump restrictions, gyro redundancy, and motive damage.
+- [x] Add model-level Tripod combat capabilities: 360-degree torso twist,
+  -1 PSR modifier, secondary-target modifier exemption, one-leg stability,
+  multi-pilot cockpit, and superheavy gyro scaling.
 - [x] Trace the shared three-block construction-step layout. Every step page
   has step-selection controls in the left block, user inputs in the middle
   block, and a TRO-style display of the current input in the right block.

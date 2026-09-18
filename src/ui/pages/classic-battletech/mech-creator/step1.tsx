@@ -85,6 +85,14 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    updateQuadVeeMotive = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setQuadVeeMotive(e.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech(currentMech);
+      }
+    }
+
     updateTonnage = ( e: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -183,6 +191,19 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             })}
                             </select>
                           </label>
+
+                          {this.props.appGlobals.currentBattleMech.isQuadVee() ? (
+                            <label>
+                              QuadVee Motive:
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getQuadVeeMotive()}
+                                onChange={this.updateQuadVeeMotive}
+                              >
+                                <option value="tracked">Tracked</option>
+                                <option value="wheeled">Wheeled</option>
+                              </select>
+                            </label>
+                          ) : null}
 
                           <InputCheckbox
                             label="Is an Omnimech"
