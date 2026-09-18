@@ -8,7 +8,7 @@ const Square = FaSquare as any;
 
 export default class InputCheckbox extends React.Component<IInputCheckboxProps, IInputCheckboxState> {
 
-    onChange = ( event: React.FormEvent<HTMLInputElement>): void => {
+    onChange = ( _event: React.FormEvent<HTMLInputElement>): void => {
         if(!this.props.readOnly) {
             let returnEvent = {
                 currentTarget: {

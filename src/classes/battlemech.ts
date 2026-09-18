@@ -2265,7 +2265,6 @@ export class BattleMech {
             html += "Left Torso".padStart(col1Padding, " ") + "" + this._internalStructure.leftTorso.toString().padStart(col2Padding, " ") + "" + this._armorAllocation.leftTorso.toString().padStart(col3Padding, " ") + "\n";
             html += "Left Torso (Rear)".padStart(col1Padding, " ") + "".padStart(col2Padding, " ") + "" + this._armorAllocation.leftTorsoRear.toString().padStart(col3Padding, " ") + "\n";
         }
-        const typeTag = this._mechType.tag.toLowerCase();
         if (typeTag === "biped" || typeTag === "lam") {
             const rightArmIS = this._internalStructure.rightArm ?? 0;
             const leftArmIS = this._internalStructure.leftArm ?? 0;
@@ -2762,7 +2761,6 @@ export class BattleMech {
         this._totalArmor += this._armorAllocation.leftTorsoRear;
         this._totalArmor += this._armorAllocation.rightTorsoRear;
 
-        const typeTag = this._mechType.tag.toLowerCase();
         // Sum limbs based on anatomical configuration rules
         if (typeTag === "biped" || typeTag === "lam") {
             // Standard Bipeds and Aero-Mechs utilize traditional Left/Right Arms and Legs
@@ -4891,7 +4889,7 @@ export class BattleMech {
             } else {
                 return false
             }
-        } catch (err) {
+        } catch {
             return false;
         }
     }
@@ -5265,7 +5263,6 @@ export class BattleMech {
     }
     // ---- ANATOMICAL LIMB SETTERS WITH DYNAMIC ROUTING BASED ON CHASSIS CHOICE ----
     public setLeftArmArmor(armorValue: number): number {
-        const typeTag = this._mechType.tag.toLowerCase();
         if (typeTag === "quad" || typeTag === "quadvee") {
             // Route directly to Front Left Leg allocation properties
             this._armorAllocation.frontLeftLeg = armorValue;
@@ -5871,7 +5868,6 @@ export class BattleMech {
             return rear ? "ctr" : "ct";
         }
         const normalizedLoc = loc.toLowerCase().trim();
-        const typeTag = this._mechType.tag.toLowerCase();
         // Front legs on Quads transfer inward to the side torsos, mirroring standard arm rules.
         if (normalizedLoc === "la" || normalizedLoc === "ll" || normalizedLoc === "fll") {
             return rear ? "ltr" : "lt";
@@ -6969,7 +6965,7 @@ export class BattleMech {
         }
     }
 
-    public heatSinkIsFilled( hsIndex: number): boolean {
+    public heatSinkIsFilled( _hsIndex: number): boolean {
         // TODO
         return false;
     }

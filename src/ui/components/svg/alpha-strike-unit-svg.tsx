@@ -875,9 +875,9 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 {this.props.inPlay && this.props.asUnit.hasRoundStaged() ? (
                     <g transform='translate(435, 584)'>
-                        <rect x="0" y="0" width="130" height="40" rx="5" ry="5" onClick={(e) => this._ApplyRound()} fill={this.roundDotColor} stroke={this.roundStrokeColor} strokeWidth={3}></rect>
+                        <rect x="0" y="0" width="130" height="40" rx="5" ry="5" onClick={() => this._ApplyRound()} fill={this.roundDotColor} stroke={this.roundStrokeColor} strokeWidth={3}></rect>
                         <text x="65" y="30" 
-                            onClick={(e) => this._ApplyRound()}
+                            onClick={() => this._ApplyRound()}
                             className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                             fontFamily="sans-serif" 
                             fontSize="30"

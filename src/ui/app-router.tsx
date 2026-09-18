@@ -17,7 +17,7 @@ import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
 import Error404 from "./pages/error404";
-import { IAlphaStrikeMPDeployment, IAlphaStrikeMPDeploymentSet } from "../data/alpha-strike-mp-deployments";
+import { IAlphaStrikeMPDeployment } from "../data/alpha-strike-mp-deployments";
 import { IAlphaStrikeMPScenario } from "../data/alpha-strike-mp-scenarios";
 import { IAlphaStrikeMPTerrain } from "../data/alpha-strike-mp-terrain";
 // import init, { AlphaStrikeUnit, add_testing, MULUnit } from "btlibs";
@@ -105,12 +105,12 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         }
 
-        window.addEventListener('offline', (event) => {
+        window.addEventListener('offline', () => {
             this.setState({
                 updated: true,
             })
         });
-        window.addEventListener('online', (event) => {
+        window.addEventListener('online', () => {
             this.setState({
                 updated: true,
             })

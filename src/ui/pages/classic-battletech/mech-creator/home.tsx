@@ -29,7 +29,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
         this.props.appGlobals.makeDocumentTitle("'Mech Creator");
     }
 
-    handleFileRead = (e: any) => {
+    handleFileRead = (_e: any) => {
       if( this.fileReader ) {
         let content = this.fileReader.result;
 

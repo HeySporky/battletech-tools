@@ -65,7 +65,7 @@ export default class InPlayCriticalHitTable extends React.Component<IInPlayCriti
                                 </td>
                                 <td
                                     className={this.props.mechData.isCriticalDamaged( this.props.location, critSlotIndex  ) ? "color-brighter-red cursor-pointer font-weight-700" : "cursor-pointer"}
-                                    onClick={(e) => this.toggleCritical( this.props.location, critSlotIndex )}
+                                    onClick={() => this.toggleCritical( this.props.location, critSlotIndex )}
                                 >
                                     {this.props.mechData.isCriticalDamaged( this.props.location, critSlotIndex  ) ? (
                                         <Dangerous />

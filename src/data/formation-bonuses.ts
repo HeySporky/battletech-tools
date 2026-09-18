@@ -30,7 +30,7 @@ class FormationBonusBase {
 }
 class None extends FormationBonusBase implements IFormationBonus {
     Name: string="None";
-    IsValid(group: AlphaStrikeGroup): boolean {
+    IsValid(_group: AlphaStrikeGroup): boolean {
         return true;
     }
     BonusDescription: string="None";

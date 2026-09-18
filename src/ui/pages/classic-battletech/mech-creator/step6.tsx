@@ -460,13 +460,13 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       <h4 className="text-center">Left Arm</h4>
                                       <InputCheckbox
                                         checked={this.props.appGlobals.currentBattleMech.hasLowerArmActuator("la")}
-                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleLowerArmActuator("la") }
+                                        onChange={() => this.toggleLowerArmActuator("la") }
                                         label="Lower Arm Actuator"
                                       />
 
                                       <InputCheckbox
                                         checked={this.props.appGlobals.currentBattleMech.hasHandActuator("la")}
-                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleHandActuator("la") }
+                                        onChange={() => this.toggleHandActuator("la") }
                                         label="Hand Actuator"
                                       />
 
@@ -564,13 +564,13 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       <h4 className="text-center">Right Arm</h4>
                                       <InputCheckbox
                                         checked={this.props.appGlobals.currentBattleMech.hasLowerArmActuator("ra")}
-                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleLowerArmActuator("ra") }
+                                        onChange={() => this.toggleLowerArmActuator("ra") }
                                         label="Lower Arm Actuator"
                                       />
 
                                       <InputCheckbox
                                         checked={this.props.appGlobals.currentBattleMech.hasHandActuator("ra")}
-                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleHandActuator("ra") }
+                                        onChange={() => this.toggleHandActuator("ra") }
                                         label="Hand Actuator"
                                       />
                                       </>

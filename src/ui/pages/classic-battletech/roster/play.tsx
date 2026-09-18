@@ -2729,7 +2729,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             <div className="grow">
                             <button
                               className={this.props.appGlobals.currentCBTForce?.phase === 1 ? unit.currentMovementMode === "n" ? "btn btn-sm btn-phase-active full-width no-bottom-margin" : "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width no-bottom-margin"}
-                              onClick={(e) => this.openSetMovementDialog(unit)}
+                              onClick={() => this.openSetMovementDialog(unit)}
                               title={"Open the Movement Dialog for " + unit.getName()}
                             >
                               <ShoePrints />
@@ -2738,7 +2738,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             <div className="grow">
                               <button
                                 className={this.props.appGlobals.currentCBTForce?.phase === 2 ? "btn btn-sm btn-phase-active full-width no-bottom-margin" : "btn btn-sm btn-secondary full-width no-bottom-margin"}
-                                onClick={(e) => this.openSetTargetDialog(unit)}
+                                onClick={() => this.openSetTargetDialog(unit)}
                                 title={"Open the Target Dialog for " + unit.getName()}
                               >
                                 <CrosshairArrow />

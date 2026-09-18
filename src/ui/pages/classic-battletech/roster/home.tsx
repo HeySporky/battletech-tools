@@ -138,7 +138,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
       }
     }
 
-    handleFileRead = (e: any) => {
+    handleFileRead = (_e: any) => {
       if( this.fileReader ) {
         let content = this.fileReader.result;
 

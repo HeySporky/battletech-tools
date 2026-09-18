@@ -124,7 +124,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
       }
     }
 
-    handleFileRead = (e: any) => {
+    handleFileRead = (_e: any) => {
       if( this.fileReader ) {
         let content = this.fileReader.result;
 

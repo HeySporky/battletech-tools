@@ -34,7 +34,7 @@
 ## Lint cleanup
 
 - [x] Close all ESLint errors. `npm run lint` exits with 0 errors.
-- [ ] Remove the remaining 33 `@typescript-eslint/no-unused-vars` warnings.
+- [x] Remove the remaining `@typescript-eslint/no-unused-vars` warnings.
 - [x] Scope the root lint run away from the nested `battletech-tools` scaffold.
 - [x] Replace legacy `@ts-ignore` directives with checked `@ts-expect-error` directives.
 - [x] Preserve intentional legacy compatibility patterns in the flat ESLint configuration.

@@ -62,7 +62,7 @@ const allTonnages = { ...baselineBipedData, ...superheavyBipedData };
 // Helper function to populate variants dynamically
 function generateStructuresForType(
   type: 'biped' | 'quad' | 'tripod' | 'lam' | 'quadvee',
-  rulesLevel: number = 2 // Defaults to Standard/Tournament Legal
+  _rulesLevel: number = 2 // Defaults to Standard/Tournament Legal
 ): Record<number, IInternalStructurePerTon> {
   const result: Record<number, IInternalStructurePerTon> = {};
 

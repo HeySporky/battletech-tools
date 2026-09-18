@@ -1,4 +1,3 @@
-import { string } from "prop-types";
 import { IClusterHit } from "../classes/battlemech";
 
 export interface IArmorType {

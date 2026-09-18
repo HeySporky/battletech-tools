@@ -125,7 +125,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                                     style={{fontWeight: 500}}
                                     fontSize={20}
                                     className="cursor-pointer"
-                                    onClick={(e) => this.viewGATOR(targetGATOR)}
+                                    onClick={() => this.viewGATOR(targetGATOR)}
                                 >
                                     {targetGATOR.finalToHit > 0 ? (
                                         <>

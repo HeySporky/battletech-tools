@@ -3,14 +3,14 @@ import { makeRange } from '../../../utils/makeRange';
 
 export default class InputNumeric extends React.Component<IInputNumericProps, IInputNumericState> {
 
-    onSelectFocus = (event: React.FormEvent<HTMLSelectElement>) => {
+    onSelectFocus = (_event: React.FormEvent<HTMLSelectElement>) => {
         if( this.props.onFocus ) {
             // no idea if this will work or not
             // @ts-expect-error Legacy compatibility type mismatch            this.props.onFocus( event as React.FormEvent<HTMLInputElement>  )
         }
     }
 
-    onSelectBlur = (event: React.FormEvent<HTMLSelectElement>) => {
+    onSelectBlur = (_event: React.FormEvent<HTMLSelectElement>) => {
         if( this.props.onBlur ) {
             // no idea if this will work or not
             // @ts-expect-error Legacy compatibility type mismatch            this.props.onBlur( event as React.FormEvent<HTMLInputElement>  )
