@@ -21,7 +21,7 @@
   - [x] Verify build output and SPA fallback
   - [x] Route-by-route SPA smoke test completed against the Vite dev server
   - [x] Chromium workflow test completed for all creator steps and Biped, Quad, Tripod, LAM, and QuadVee chassis types
-  - [ ] Decide on a Vitest setup (or explicitly decide not to have tests)
+  - [x] Set up Vitest for Node-based rules and data tests; Playwright remains the browser workflow runner
   - [ ] Code-split the large main JS chunk
 
 ## Chassis diagram artwork

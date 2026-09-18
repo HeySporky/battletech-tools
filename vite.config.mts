@@ -1,5 +1,5 @@
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 
 // Matches the CRA "homepage" field behavior: no path prefix in dev, "/battletech-tools" in production builds.
 const PRODUCTION_BASE = "/battletech-tools/";
@@ -23,6 +23,10 @@ export default defineConfig(({ command, mode }) => {
         },
         server: {
             port: 3000,
+        },
+        test: {
+            environment: "node",
+            include: ["src/**/*.test.ts"],
         },
     };
 });

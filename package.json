@@ -26,6 +26,8 @@
     "preview": "vite preview",
     "build": "vite build",
     "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "deploy-dev": "gh-pages -d build",
     "deploy-prod": "gh-pages -d build -r https://github.com/heysporky/battletech-tools.git"
   },
@@ -53,6 +55,7 @@
     "playwright": "^1.63.0",
     "sass": "^1.75.0",
     "typescript": "^6.0.3",
-    "vite": "^8.3.0"
+    "vite": "^8.3.0",
+    "vitest": "^5.0.1"
   }
 }
