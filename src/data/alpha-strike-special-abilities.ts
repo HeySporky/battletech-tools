@@ -1,6 +1,6 @@
 export enum ESpecialAbilityType {
     Standard = 1,
-    Optional = 1,
+    Optional = 2,
 }
 export function getSpecialAbilityTypeName( type: ESpecialAbilityType ): string {
     switch( type ) {
@@ -79,8 +79,12 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
     },
     {
         tag: "BHJ",
-        name: "BattleMech Harjel",
-        summary: ["A ’Mech protected by HarJel ignores the additional “hull breach” critical hit checks required for being attacked while underwater or in a vacuum. All other causes for critical hit rolls still apply as normal."],
+        name: "BattleMech HarJel",
+        summary: [
+            "A ’Mech protected by HarJel ignores the additional critical hit chance incurred by suffering damage while operating underwater or in a vacuum. Critical hit chances from normal structure damage (and other sources) still apply.",
+            "Improved versions of the hull-sealing technology appeared in the mid-thirty-second century. In addition to providing the same hull breach resistance of standard HarJel, units protected by HarJel II or HarJel III will recover armor points lost to damage as long as they begin the End Phase with at least 1 point of armor remaining. The amount of armor recovered at this point is 1 point for units that have the BHJ2 special, or 2 points for units with the BHJ3 special.",
+            "The maximum armor points a unit may recover with BattleMech HarJel II or III may never exceed the unit’s original armor value. BHJ2 and BHJ3 special abilities will not recover structure points or critical damage, and these abilities will cease to function entirely if the unit is reduced to 0 armor points before its End Phase."
+        ],
         asce_page: 77,
         type: ESpecialAbilityType.Standard,
     },
@@ -528,7 +532,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
     },
     {
         tag: "ABA",
-        name: "Anti-Penatrative Abalation Armor",
+        name: "Anti-Penetrative Abalation Armor",
         summary: [
             "A unit protected by anti-penetrative ablation armor—often simply called ablative armor—is resistant to specialty munitions designed to pierce most other armor types. A unit with this special ignores attacks by taser weapons (MTAS# and BTAS# specials), and negates the bonus critical hit check made for attacks that use armor-penetrating ammunition and tandem-charge missile munitions (see p. 143)."
         ],
@@ -551,17 +555,6 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
             "A specialty armor developed to counter projectile weapons and missiles, ballistic-reinforced armor reduces all damage delivered by attackers that make use of the AC, IATM, IF, LRM, or SRM specials, by half (rounding up). This reduction is applied whether the attack is delivered using the unit’s normal damage values, or by just the listed special abilities.",
             "Thus, if a unit with normal attack values of 5/4/2 and an AC2/2/0 special delivers a successful normal attack against a unit with the BRA special at Short range, the attack will be reduced by 3 points (half the damage value at Short range, rounded up), dropping the normal total of 5 points to 2. If the same unit makes a special AC weapon attack against a unit with the BRA special at Medium range, the attack will be reduced by 1 point (half the AC special ability’s Medium range), dropping the AC total of 2 points to 1.",
             "Though similar to reactive armor in many ways, ballistic- reinforced armor will not reduce damage from attacks made using the ART, BOMB, MSL, or FLK specials."
-        ],
-        asce_page: 83,
-        type: ESpecialAbilityType.Optional,
-    },
-    {
-        tag: "BHJ",
-        name: "BattleMech HarJel",
-        summary: [
-            "A ’Mech protected by HarJel ignores the additional critical hit chance incurred by suffering damage while operating underwater or in a vacuum. Critical hit chances from normal structure damage (and other sources) still apply.",
-            "Improved versions of the hull-sealing technology appeared in the mid-thirty-second century. In addition to providing the same hull breach resistance of standard HarJel, units protected by HarJel II or HarJel III will recover armor points lost to damage as long as they begin the End Phase with at least 1 point of armor remaining. The amount of armor recovered at this point is 1 point for units that have the BHJ2 special, or 2 points for units with the BHJ3 special.",
-            "The maximum armor points a unit may recover with BattleMech HarJel II or III may never exceed the unit’s original armor value. BHJ2 and BHJ3 special abilities will not recover structure points or critical damage, and these abilities will cease to function entirely if the unit is reduced to 0 armor points before its End Phase."
         ],
         asce_page: 83,
         type: ESpecialAbilityType.Optional,
@@ -898,7 +891,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
     },
     {
         tag: "UCS",
-        name: "Magnetic Clamp System",
+        name: "Ultra Magnetic Clamp System",
         summary: [
             "ProtoMechs with magnetic clamps may ride on a BattleMech as if they were a battle armor infantry unit with the XMEC special (see p . 78) . No more than 2 ProtoMechs with the MCS special (or 1 with the UCS special) may ride on a single transporting ’Mech at the same time .",
             "When transporting ProtoMechs via the MCS or UCS special, the transport ’Mech will lose 2 inches of Move, per ProtoMech, so long as the ProtoMechs remain attached to it ."
