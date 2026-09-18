@@ -28,8 +28,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "deploy-dev": "gh-pages -d build",
-    "deploy-prod": "gh-pages -d build -r https://github.com/heysporky/battletech-tools.git"
+    "deploy-dev": "gh-pages -d build --dotfiles",
+    "deploy-prod": "gh-pages -d build --dotfiles -r https://github.com/heysporky/battletech-tools.git"
   },
   "browserslist": {
     "production": [
