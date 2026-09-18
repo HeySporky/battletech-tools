@@ -76,3 +76,25 @@ export default defineConfig([
 ])
 
 ```
+
+## Development Setup
+
+This repository uses Node.js, npm, React, TypeScript, and Vite. Run the commands below from the repository root (`/workspaces/battletech-tools`):
+
+```bash
+npm install
+npm run dev
+```
+
+The development server runs on `http://localhost:3000`.
+
+Available checks and production commands:
+
+```bash
+npm run lint
+npm test
+npm run build
+npm run preview
+```
+
+The production build is written to `build/`. The Vite configuration uses `/` for local development and `/battletech-tools/` for production builds deployed to GitHub Pages.
