@@ -1,4 +1,5 @@
 import { IASMULUnit } from "../classes/alpha-strike-unit";
+import detailedUnits from "../../units_detailed.json";
 
 /*
 * The data here is definitely copyrighted and NOT included in the GPLv3 license.
@@ -9,7 +10,7 @@ import { IASMULUnit } from "../classes/alpha-strike-unit";
 * captures were excluded rather than backfilled with guessed values.
 */
 
-export const mulListItems: IASMULUnit[] = [
+const curatedMulListItems: IASMULUnit[] = [
     {
         Id: 6245,
         Name: "Anat APC (Standard)",
@@ -2302,4 +2303,79 @@ export const mulListItems: IASMULUnit[] = [
         BFPointValue: 15,
         BFAbilities: "EE,IT5,SRCH,TUR(0*/-/-)"
     }
-]
+];
+
+interface IDetailedMULUnit {
+    Id: number;
+    Title: string;
+    Fields: Record<string, string>;
+}
+
+function parseMULNumber(value: string | undefined): number | null {
+    if (!value || value === "NA") {
+        return null;
+    }
+
+    const numberValue = Number(value.replaceAll(",", ""));
+    return Number.isFinite(numberValue) ? numberValue : null;
+}
+
+function parseEraStart(era: string | undefined): number | null {
+    const match = era?.match(/\((\d{4})\s*-/);
+    return match ? Number(match[1]) : null;
+}
+
+const curatedMULIds = new Set(curatedMulListItems.map((unit) => unit.Id));
+const catalogMULListItems = Object.values(detailedUnits as Record<string, IDetailedMULUnit>)
+    .filter((unit) => !curatedMULIds.has(unit.Id))
+    .map((unit) => {
+        const fields = unit.Fields;
+
+        return {
+            Id: unit.Id,
+            Name: unit.Title,
+            GroupName: null,
+            Class: unit.Title,
+            Variant: null,
+            FormatedTonnage: fields.Tonnage ?? null,
+            Tonnage: parseMULNumber(fields.Tonnage),
+            Technology: { Id: null, Image: null, Name: fields.Technology ?? "Unknown", SortOrder: null },
+            Type: { Id: null, Image: null, Name: fields["Unit Type"] ?? "Unknown", SortOrder: null },
+            Role: { Id: null, Image: null, Name: fields["Unit Role"] ?? "Unknown", SortOrder: null },
+            Rules: fields["Rules Level"] ?? null,
+            Skill: null,
+            BattleValue: parseMULNumber(fields["Battle Value"]),
+            Cost: parseMULNumber(fields.Cost),
+            DateIntroduced: fields["Date Introduced"] ?? null,
+            Release: null,
+            EraIcon: null,
+            EraId: null,
+            EraStart: parseEraStart(fields.Era),
+            TRO: null,
+            TROId: null,
+            RS: null,
+            RSId: null,
+            ImageUrl: null,
+            IsFeatured: null,
+            IsPublished: null,
+            BFType: null,
+            BFSize: null,
+            BFMove: null,
+            BFTMM: null,
+            BFArmor: null,
+            BFStructure: null,
+            BFThreshold: null,
+            BFDamageShort: null,
+            BFDamageMedium: null,
+            BFDamageLong: null,
+            BFDamageExtreme: null,
+            BFOverheat: null,
+            BFPointValue: null,
+            BFAbilities: null,
+        } as unknown as IASMULUnit;
+    });
+
+export const mulListItems: IASMULUnit[] = [
+    ...curatedMulListItems,
+    ...catalogMULListItems,
+];
