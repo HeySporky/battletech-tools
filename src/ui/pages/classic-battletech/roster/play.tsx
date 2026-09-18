@@ -1150,14 +1150,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       mechData={selectedMech}
       inPlay={true}
       bgColor={selectedMech.isWrecked() ? "#666" : ""}
-      //@ts-ignore
-      openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
-      //@ts-ignore
-      openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
-      //@ts-ignore
-      openTakeDamageDialog={() => this.openTakeDamageDialog(selectedMech)}
-      //@ts-ignore
-      openSetMovementDialog={() => this.openSetMovementDialog(selectedMech)}
+      // @ts-expect-error Legacy compatibility type mismatch      openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
+      // @ts-expect-error Legacy compatibility type mismatch      openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
+      // @ts-expect-error Legacy compatibility type mismatch      openTakeDamageDialog={() => this.openTakeDamageDialog(selectedMech)}
+      // @ts-expect-error Legacy compatibility type mismatch      openSetMovementDialog={() => this.openSetMovementDialog(selectedMech)}
       onChange={this.onChange}
       viewGATOR={this.viewGATOR}
       currentPhase={this.props.appGlobals.currentCBTForce.phase}
@@ -1243,7 +1239,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               </thead>
               {this.state.damagePerClusterUnit.equipmentList[this.state.damagePerClusterEQIndex].damageClusterHits ? (
                 <>
-                 {//@ts-ignore
+                 {// @ts-expect-error Legacy compatibility type mismatch
                  this.state.damagePerClusterUnit.equipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.map( (hit, hitIndex) => {
                   return (
                   <tbody key={hitIndex}>
@@ -1255,7 +1251,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                   </tbody>
                   )
                 })}
-                {//@ts-ignore
+                {// @ts-expect-error Legacy compatibility type mismatch
                  this.state.damagePerClusterUnit.equipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.length === 0 ? (
                   <tbody>
                     <tr>
@@ -1265,7 +1261,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     </tr>
                   </tbody>
                 ): null}
-                {//@ts-ignore
+                {// @ts-expect-error Legacy compatibility type mismatch
                  this.state.damagePerClusterUnit.equipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.length >= this.state.damageRolledClusters ? (
                   <tfoot>
                     <tr>
@@ -1281,7 +1277,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             </table>
           </div>
           <div className="col-md-6">
-                {//@ts-ignore
+                {// @ts-expect-error Legacy compatibility type mismatch
                  this.state.damagePerClusterUnit.equipmentList[this.state.damagePerClusterEQIndex].damageClusterHits.length < this.state.damageRolledClusters ? (
                   <div>
             <ToHitTable
@@ -2590,14 +2586,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 mechData={selectedMech}
                 inPlay={true}
                 bgColor={selectedMech.isWrecked() ? "#666" : ""}
-                //@ts-ignore
-                openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
-                //@ts-ignore
-                openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
-                //@ts-ignore
-                openTakeDamageDialog={() => this.openTakeDamageDialog(selectedMech)}
-                //@ts-ignore
-                openSetMovementDialog={() => this.openSetMovementDialog(selectedMech)}
+                // @ts-expect-error Legacy compatibility type mismatch                openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
+                // @ts-expect-error Legacy compatibility type mismatch                openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
+                // @ts-expect-error Legacy compatibility type mismatch                openTakeDamageDialog={() => this.openTakeDamageDialog(selectedMech)}
+                // @ts-expect-error Legacy compatibility type mismatch                openSetMovementDialog={() => this.openSetMovementDialog(selectedMech)}
                 onChange={this.onChange}
                 viewGATOR={this.viewGATOR}
                 currentPhase={this.props.appGlobals.currentCBTForce.phase}

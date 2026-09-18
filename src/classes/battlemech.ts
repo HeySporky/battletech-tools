@@ -1167,20 +1167,20 @@ export class BattleMech {
                 const arms = ["Right", "Left"];
                 
                 arms.forEach(side => {
-                    this._calcLogCBill += `<tr><td>${side} Shoulder Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(150 * this.getTonnage())}</td></tr>\n`;
+                    this._calcLogCBill += `<tr><td>${side} Shoulder Actuator<br /><span class="smaller-text">150 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(150 * this.getTonnage())}</td></tr>\n`;
                     cbillDryTotal += 150 * this.getTonnage();
                     actuatorTotal += 150 * this.getTonnage();
 
-                    this._calcLogCBill += `<tr><td>${side} Upper Arm Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(150 * this.getTonnage())}</td></tr>\n`;
+                    this._calcLogCBill += `<tr><td>${side} Upper Arm Actuator<br /><span class="smaller-text">150 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(150 * this.getTonnage())}</td></tr>\n`;
                     cbillDryTotal += 150 * this.getTonnage();
                     actuatorTotal += 150 * this.getTonnage();
 
                     // Check for structural hand/lower actuator exclusions if tracking custom options
-                    this._calcLogCBill += `<tr><td>${side} Lower Arm Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(80 * this.getTonnage())}</td></tr>\n`;
+                    this._calcLogCBill += `<tr><td>${side} Lower Arm Actuator<br /><span class="smaller-text">80 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(80 * this.getTonnage())}</td></tr>\n`;
                     cbillDryTotal += 80 * this.getTonnage();
                     actuatorTotal += 80 * this.getTonnage();
 
-                    this._calcLogCBill += `<tr><td>${side} Hand Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(120 * this.getTonnage())}</td></tr>\n`;
+                    this._calcLogCBill += `<tr><td>${side} Hand Actuator<br /><span class="smaller-text">120 x Unit Tonnage [${this.getTonnage()}]</span></td><td>${addCommas(120 * this.getTonnage())}</td></tr>\n`;
                     cbillDryTotal += 120 * this.getTonnage();
                     actuatorTotal += 120 * this.getTonnage();
                 });
@@ -3414,8 +3414,7 @@ export class BattleMech {
 
 
             this._unallocatedCriticals.push({
-                //@ts-ignore
-                uuid: this._equipmentList[elc].uuid ? this._equipmentList[elc].uuid : "undefined?",
+                // @ts-expect-error Legacy compatibility type mismatch                uuid: this._equipmentList[elc].uuid ? this._equipmentList[elc].uuid : "undefined?",
                 name: this._equipmentList[elc].name + rearTag,
                 tag: this._equipmentList[elc].tag,
                 // loc: this._equipmentList[elc].location,
@@ -4803,9 +4802,9 @@ export class BattleMech {
                 exportObject.equipment.push({
                     tag: this._equipmentList[countEQ].tag,
                     loc: this._equipmentList[countEQ].location,
-                    //@ts-ignore - yet another TS failure
+                    // @ts-expect-error - yet another TS failure
                     allocationIndex: typeof(this._equipmentList[countEQ].allocationIndex) !== "undefined" ? this._equipmentList[countEQ].allocationIndex : -1,
-                    //@ts-ignore - yet another TS failure
+                    // @ts-expect-error - yet another TS failure
                     allocationLocation: typeof(this._equipmentList[countEQ].allocationLocation) !== "undefined" ? this._equipmentList[countEQ].allocationLocation : "",
                     rear: this._equipmentList[countEQ].rear,
                     uuid: this._equipmentList[countEQ].uuid,
@@ -4817,9 +4816,9 @@ export class BattleMech {
                 exportObject.equipment.push({
                     tag: this._equipmentList[countEQ].tag,
                     loc: this._equipmentList[countEQ].location,
-                    //@ts-ignore - yet another TS failure
+                    // @ts-expect-error - yet another TS failure
                     allocationIndex: typeof(this._equipmentList[countEQ].allocationIndex) !== "undefined" ? this._equipmentList[countEQ].allocationIndex : -1,
-                    //@ts-ignore - yet another TS failure
+                    // @ts-expect-error - yet another TS failure
                     allocationLocation: typeof(this._equipmentList[countEQ].allocationLocation) !== "undefined" ? this._equipmentList[countEQ].allocationLocation : "",
                     rear: this._equipmentList[countEQ].rear,
                     weight: this._equipmentList[countEQ].weight,

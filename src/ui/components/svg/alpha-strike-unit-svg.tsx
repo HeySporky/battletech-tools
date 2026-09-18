@@ -619,7 +619,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                     let ability = this.props.asUnit.getSpecialAbility(word);
                                     if( ability !== null ) {
                                         return (
-                                            //@ts-ignore
+                                            // @ts-expect-error Legacy compatibility type mismatch
                                             <React.Fragment key={wordIndex}><a onClick={(e) => this.props.showSpecialAbility(e, ability)} title={"Click here to view the description for " + word} href="/">{word}</a>{comma}</React.Fragment>
                                         )
                                     } else {
@@ -656,7 +656,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                     let ability = this.props.asUnit.getSpecialAbility(word);
                                     if( ability ) {
                                         return (
-                                            //@ts-ignore
+                                            // @ts-expect-error Legacy compatibility type mismatch
                                             <React.Fragment key={wordIndex}><a onClick={(e) => this.props.showSpecialAbility(e, ability)} title={"Click here to view the description for " + word} href="/">{word}</a>{comma}</React.Fragment>
                                         )
                                     } else {

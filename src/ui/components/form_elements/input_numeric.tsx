@@ -6,16 +6,14 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
     onSelectFocus = (event: React.FormEvent<HTMLSelectElement>) => {
         if( this.props.onFocus ) {
             // no idea if this will work or not
-            //@ts-ignore
-            this.props.onFocus( event as React.FormEvent<HTMLInputElement>  )
+            // @ts-expect-error Legacy compatibility type mismatch            this.props.onFocus( event as React.FormEvent<HTMLInputElement>  )
         }
     }
 
     onSelectBlur = (event: React.FormEvent<HTMLSelectElement>) => {
         if( this.props.onBlur ) {
             // no idea if this will work or not
-            //@ts-ignore
-            this.props.onBlur( event as React.FormEvent<HTMLInputElement>  )
+            // @ts-expect-error Legacy compatibility type mismatch            this.props.onBlur( event as React.FormEvent<HTMLInputElement>  )
         }
     }
 
@@ -32,8 +30,7 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
     onSelectChange = ( event: React.FormEvent<HTMLSelectElement>) => {
         if( this.props.onChange ) {
             // we only ever really use event.currentTarget.value - ignoring ts problems
-            //@ts-ignore
-            this.props.onChange( event as React.FormEvent<HTMLInputElement> )
+            // @ts-expect-error Legacy compatibility type mismatch            this.props.onChange( event as React.FormEvent<HTMLInputElement> )
         }
         if( this.props.setValue )
             this.props.setValue( +event.currentTarget.value )

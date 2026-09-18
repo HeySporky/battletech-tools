@@ -700,8 +700,7 @@ export function getTargetToHitFromWeapon(
         && typeof( equipmentList[index].target ) !== "undefined"
         && equipmentList[index].target
     ) {
-        //@ts-ignore
-        let targetLetter: string = equipmentList[index].target;
+        // @ts-expect-error Legacy compatibility type mismatch        let targetLetter: string = equipmentList[index].target;
 
         if( target === null && mech ) {
             target = mech.getTarget( targetLetter );
@@ -746,10 +745,8 @@ export function getTargetToHitFromWeapon(
                 &&
                 equipmentList[index].accuracyModifier !== 0
             ) {
-                //@ts-ignore
-                gator.finalToHit += equipmentList[index].accuracyModifier;
-                //@ts-ignore
-                gator.otherModifiers = equipmentList[index].accuracyModifier;
+                // @ts-expect-error Legacy compatibility type mismatch                gator.finalToHit += equipmentList[index].accuracyModifier;
+                // @ts-expect-error Legacy compatibility type mismatch                gator.otherModifiers = equipmentList[index].accuracyModifier;
 
                 otherModifiersExplanation.push( "Weapon Accuracy Modifier" );
             }
@@ -774,11 +771,11 @@ export function getTargetToHitFromWeapon(
                 if(
                     equipmentList[index].range.min
                     &&
-                    //@ts-ignore
+                    // @ts-expect-error Legacy compatibility type mismatch
                     equipmentList[index].range.min > 0
                 ) {
                     let minRange: number = 0;
-                    //@ts-ignore
+                    // @ts-expect-error Legacy compatibility type mismatch
                     minRange = equipmentList[index].range.min;
 
                     if( target.range < minRange ) {

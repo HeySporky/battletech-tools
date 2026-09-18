@@ -10,6 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+build
+coverage
 *.local
 
 # Editor directories and files
@@ -22,3 +24,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local development workspaces are never part of the synchronized source.
+*_DEV/

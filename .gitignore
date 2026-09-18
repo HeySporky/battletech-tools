@@ -13,9 +13,10 @@ old*
 boneyard
 boneyard/*
 
-build/*
-build*
-build
+build/
+dist/
+dist-ssr/
+coverage/
 
 work/*
 work*
@@ -25,7 +26,6 @@ work
 /cli-tools
 
 .DS_Store
-package-lock.json
 .gitlab-ci.yml
 
 /SSW-Master
@@ -35,3 +35,11 @@ package-lock.json
 
 .vscode
 .vscode/*
+
+# Local environment files; keep shareable .env.example files trackable.
+.env
+.env.*
+!.env.example
+
+# Local development workspaces are never part of the synchronized source.
+*_DEV/

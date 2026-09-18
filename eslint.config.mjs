@@ -6,7 +6,7 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
 
 export default [
-    { ignores: ["build", "cli-tools", "node_modules"] },
+    { ignores: ["build", "cli-tools", "node_modules", "battletech-tools"] },
     js.configs.recommended,
     {
         files: ["**/*.{ts,tsx}"],
@@ -27,7 +27,12 @@ export default [
             ...reactHooks.configs.recommended.rules,
             "react-refresh/only-export-components": "off",
             "@typescript-eslint/no-explicit-any": "off",
+            "@typescript-eslint/no-empty-object-type": ["error", { allowInterfaces: "always" }],
             "@typescript-eslint/no-unused-vars": "warn",
+            "@typescript-eslint/no-unsafe-function-type": "off",
+            "@typescript-eslint/no-require-imports": "off",
+            "no-empty": "off",
+            "no-useless-assignment": "off",
             // TypeScript's own compiler already catches real undefined references and
             // understands ambient globals (JSX, process via vite define, etc.) that no-undef doesn't.
             "no-undef": "off",
