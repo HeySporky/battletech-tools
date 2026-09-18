@@ -2696,6 +2696,7 @@ export class BattleMech {
         if(!this._tonnage) {
             this._tonnage = 20;
         }
+        const typeTag = this._mechType.tag.toLowerCase();
 
         this._maxMoveHeat = 2;
         this._heatDissipation = 0;
@@ -6402,7 +6403,8 @@ export class BattleMech {
                 engine.available = this._itemIsAvailable(
                     engine.introduced, 
                     engine.extinct, 
-                    engine.reintroduced
+                    engine.reintroduced,
+                    lookupTag === "clan"
                 );
                 returnValue.push(engine);
             }
@@ -6443,23 +6445,18 @@ export class BattleMech {
         const introductionYear = introduced ?? 0;
         const extinctionYear = extinct ?? 0;
         const reintroductionYear = reintroduced ?? 0;
+        const eraStart = this._era.yearStart;
         const eraEnd = this._era.yearEnd ?? Number.POSITIVE_INFINITY;
-        if( introductionYear <= this._era.yearStart ) {
-            if (ignoreExtinction) {
-                return true;
-            }
-            if( extinctionYear > 0 && extinctionYear <= eraEnd ) {
-                // item extinct, check to see if it was reintroduced
-                if( reintroductionYear > 0 && reintroductionYear <= eraEnd ) {
-                    return true;
-                }
-            } else {
-                if( extinctionYear === 0 ) {
-                    return true;
-                }
-            }
+        const initialAvailabilityOverlapsEra =
+            introductionYear <= eraEnd &&
+            (extinctionYear === 0 || extinctionYear >= eraStart);
+
+        if (ignoreExtinction) {
+            return introductionYear <= eraEnd;
         }
-        return false;
+
+        return initialAvailabilityOverlapsEra ||
+            (reintroductionYear > 0 && reintroductionYear <= eraEnd);
     }
 
     public allocateArmorClear() {

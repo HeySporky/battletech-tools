@@ -13,9 +13,11 @@ tool. Items are ordered by dependency, not by product marketing priority.
     Biped/LAM anatomy.
   - [x] Add the requested Rules Level selector so custom equipment can be
     enabled. The selector is present in Step 1 and updates the app settings.
-- [ ] Step 2: Verify engine availability by era in the Select Engine Type
-  field. Engine introduction, extinction, and reintroduction dates do not
-  always produce the expected options.
+- [x] Step 2: Verify engine availability by era in the Select Engine Type
+  field. Availability now checks overlap with the selected era, including
+  introductions and Inner Sphere reintroductions during that era. Clan
+  technology ignores Inner Sphere extinction dates because retained Clan
+  technology may remain available even when obsolete.
 - [ ] Step 4: Fix armor allocation displays in the middle block.
   - Tripod is displayed as a Quad; determine whether the Tripod SVG needs to be
     updated for this view.
