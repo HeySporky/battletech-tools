@@ -22,7 +22,7 @@
   - [x] Route-by-route SPA smoke test completed against the Vite dev server
   - [x] Chromium workflow test completed for all creator steps and Biped, Quad, Tripod, LAM, and QuadVee chassis types
   - [x] Set up Vitest for Node-based rules and data tests; Playwright remains the browser workflow runner
-  - [ ] Code-split the large main JS chunk
+  - [x] Code-split route families and top-level pages; the main JS chunk is now about 2.65 MB instead of 7.7 MB
 
 ## Chassis diagram artwork
 

@@ -16,20 +16,21 @@ import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
-import About from "./pages/about";
-import AlphaStrikeRouter from "./pages/alpha-strike/_router";
-import ClassicBattleTechRouter from "./pages/classic-battletech/_router";
-import GameManagementRouter from "./pages/game-management/_router";
-import DevelopmentStatus from "./pages/development-status";
-import EquipmentEditor from "./pages/equipment-editor";
 import Error404 from "./pages/error404";
-import Home from "./pages/home";
-import SettingsRouter from "./pages/settings/_router";
-import SSWSanityCheck from "./pages/ssw-sanity-check";
 import { IAlphaStrikeMPDeployment, IAlphaStrikeMPDeploymentSet } from "../data/alpha-strike-mp-deployments";
 import { IAlphaStrikeMPScenario } from "../data/alpha-strike-mp-scenarios";
 import { IAlphaStrikeMPTerrain } from "../data/alpha-strike-mp-terrain";
 // import init, { AlphaStrikeUnit, add_testing, MULUnit } from "btlibs";
+const About = React.lazy(() => import("./pages/about"));
+const AlphaStrikeRouter = React.lazy(() => import("./pages/alpha-strike/_router"));
+const ClassicBattleTechRouter = React.lazy(() => import("./pages/classic-battletech/_router"));
+const DevelopmentStatus = React.lazy(() => import("./pages/development-status"));
+const EquipmentEditor = React.lazy(() => import("./pages/equipment-editor"));
+const GameManagementRouter = React.lazy(() => import("./pages/game-management/_router"));
+const Home = React.lazy(() => import("./pages/home"));
+const SettingsRouter = React.lazy(() => import("./pages/settings/_router"));
+const SSWSanityCheck = React.lazy(() => import("./pages/ssw-sanity-check"));
+
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
     constructor(props: IAppRouterProps) {
@@ -526,6 +527,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             </Modal>
             <Router>
 
+            <React.Suspense fallback={<div className="p-3">Loading...</div>}>
             <Routes>
                 <Route path={`${process.env.PUBLIC_URL}/`} element={
                     <Home
@@ -595,6 +597,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 }/>
 
             </Routes>
+            </React.Suspense>
             </Router>
             </>
         );
