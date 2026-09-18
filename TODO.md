@@ -4,6 +4,42 @@ This roadmap describes the work required to grow Jeff's BattleTech Tools from a
 BattleMech creator into a broader BattleTech construction and record-management
 tool. Items are ordered by dependency, not by product marketing priority.
 
+## Bug Hunt: BattleMech Construction Steps
+
+- [x] Step 1: Fix unit-type display in the right TRO-style block.
+  - [x] Tripod is displayed as a Quad. The shared TRO HTML renderer now uses
+    the Tripod anatomy and includes the center leg.
+  - [x] LAM is displayed as a Quad. The shared TRO HTML renderer now uses the
+    Biped/LAM anatomy.
+  - [x] Add the requested Rules Level selector so custom equipment can be
+    enabled. The selector is present in Step 1 and updates the app settings.
+- [ ] Step 2: Verify engine availability by era in the Select Engine Type
+  field. Engine introduction, extinction, and reintroduction dates do not
+  always produce the expected options.
+- [ ] Step 4: Fix armor allocation displays in the middle block.
+  - Tripod is displayed as a Quad; determine whether the Tripod SVG needs to be
+    updated for this view.
+  - LAM should be displayed as a Biped but is displayed as a Quad.
+- [ ] Step 5: Add a way to identify which equipment catalog is available:
+  Inner Sphere, Clan, or Custom.
+- [ ] Step 6: Fix equipment allocation locations and critical slots.
+  - Tripod does not display its center leg, so its critical slots cannot be
+    allocated.
+  - Quad displays Left Front Leg and Right Front Leg headers without the
+    critical slots needed to allocate equipment there.
+  - Tripod is displayed as a Biped.
+  - LAM has the correct base display but is missing critical allocations for
+    landing gear, conversion equipment, and other LAM-specific equipment.
+  - QuadVee is displayed as a Biped instead of a Quad and is missing its
+    conversion equipment and other required criticals.
+- [x] Trace the shared three-block construction-step layout. Every step page
+  has step-selection controls in the left block, user inputs in the middle
+  block, and a TRO-style display of the current input in the right block.
+  - [x] Determine why the right block does not show the Tripod center leg and
+    instead renders Quad information. Each step calls the shared
+    `makeTROHTML()` renderer; its previous binary Biped-versus-Quad branch was
+    replaced with Biped/LAM, Tripod, and Quad/QuadVee anatomy branches.
+
 ## Architecture Direction
 
 - [ ] Define a versioned canonical record schema shared by all unit domains.

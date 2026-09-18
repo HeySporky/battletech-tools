@@ -2484,6 +2484,7 @@ export class BattleMech {
     public makeTROHTML() {
 
         let html = "<table class=\"mech-tro\">";
+        const typeTag = this._mechType.tag.toLowerCase();
 
         // Header Info
         html += "<tr><td colspan=\"4\">Type: " + this.getName() + "</td></tr>";
@@ -2519,7 +2520,7 @@ export class BattleMech {
             html += "<tr><td colspan=\"3\">Cockpit</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
         }
 
-        if( this._mechType.tag === "biped" ) {
+        if( typeTag === "biped" || typeTag === "lam" || typeTag === "tripod" ) {
             html += "<tr><td colspan=\"4\">Actuators: ";
             let actuator_html = "";
 
@@ -2558,7 +2559,7 @@ export class BattleMech {
             html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Torso</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.leftTorso + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftTorso + "</td><td>&nbsp;</td></tr>";
             html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Torso (Rear)</td><td class=\"text-center\" colspan=\"1\">&nbsp;</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftTorsoRear + "</td><td>&nbsp;</td></tr>";
         }
-        if( this._mechType.tag === "biped" ) {
+        if( typeTag === "biped" || typeTag === "lam" || typeTag === "tripod" ) {
 
             if( this._armorAllocation.rightArm === this._armorAllocation.leftArm) {
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">R/L Arm</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
@@ -2573,20 +2574,29 @@ export class BattleMech {
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">Right Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
             }
-        } else {
-            if( this._armorAllocation.rightArm === this._armorAllocation.leftArm) {
-                html += "<tr><td  class=\"text-right\"colspan=\"1\">R/L Front Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
+            if( typeTag === "tripod" ) {
+                html += "<tr><td  class=\"text-right\"colspan=\"1\">Center Leg</td><td class=\"text-center\" colspan=\"1\">" + (this._internalStructure.centerLeg ?? 0) + "</td><td class=\"text-center\" colspan=\"1\">" + (this._armorAllocation.centerLeg ?? 0) + "</td><td>&nbsp;</td></tr>";
+            }
+        } else if( typeTag === "quad" || typeTag === "quadvee" ) {
+            const frontRightLegIS = this._internalStructure.frontRightLeg ?? 0;
+            const frontLeftLegIS = this._internalStructure.frontLeftLeg ?? 0;
+            const frontRightLegArmor = this._armorAllocation.frontRightLeg ?? 0;
+            const frontLeftLegArmor = this._armorAllocation.frontLeftLeg ?? 0;
+            if( frontRightLegArmor === frontLeftLegArmor && frontRightLegIS === frontLeftLegIS ) {
+                html += "<tr><td  class=\"text-right\"colspan=\"1\">R/L Front Leg</td><td class=\"text-center\" colspan=\"1\">" + frontRightLegIS + "</td><td class=\"text-center\" colspan=\"1\">" + frontRightLegArmor + "</td><td>&nbsp;</td></tr>";
             } else {
-                html += "<tr><td  class=\"text-right\"colspan=\"1\">Right Front Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
-                html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Front Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.leftArm + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftArm + "</td><td>&nbsp;</td></tr>";
+                html += "<tr><td  class=\"text-right\"colspan=\"1\">Right Front Leg</td><td class=\"text-center\" colspan=\"1\">" + frontRightLegIS + "</td><td class=\"text-center\" colspan=\"1\">" + frontRightLegArmor + "</td><td>&nbsp;</td></tr>";
+                html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Front Leg</td><td class=\"text-center\" colspan=\"1\">" + frontLeftLegIS + "</td><td class=\"text-center\" colspan=\"1\">" + frontLeftLegArmor + "</td><td>&nbsp;</td></tr>";
             }
 
-            if( this._armorAllocation.rightLeg === this._armorAllocation.leftLeg) {
+            if( this._armorAllocation.rightLeg === this._armorAllocation.leftLeg ) {
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">R/L Rear Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
             } else {
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">Right Rear Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
-                html += "<tr><td  class=\"text-right\"colspan=\"1\">R/L Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
+                html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Rear Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
             }
+        } else {
+            html += "<tr><td colspan=\"4\">Unsupported 'Mech type: " + this._mechType.name + "</td></tr>";
         }
         // End Factor Table
         html += "</table>";
