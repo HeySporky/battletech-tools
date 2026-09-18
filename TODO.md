@@ -26,15 +26,17 @@ tool. Items are ordered by dependency, not by product marketing priority.
 - [ ] Step 5: Add a way to identify which equipment catalog is available:
   Inner Sphere, Clan, or Custom.
 - [ ] Step 6: Fix equipment allocation locations and critical slots.
-  - Tripod does not display its center leg, so its critical slots cannot be
-    allocated.
-  - Quad displays Left Front Leg and Right Front Leg headers without the
-    critical slots needed to allocate equipment there.
-  - Tripod is displayed as a Biped.
+  - [x] Tripod displays its Center Leg section and critical slots in Step 6.
+  - [x] Quad and QuadVee front-leg headers now use their actual front-leg
+    critical arrays, so equipment can be allocated there.
+  - [x] Tripod uses the Biped-style arm/leg layout plus its Center Leg, which
+    matches its anatomy.
   - LAM has the correct base display but is missing critical allocations for
-    landing gear, conversion equipment, and other LAM-specific equipment.
+    landing gear, conversion equipment, and other LAM-specific equipment;
+    add the required LAM systems to the equipment/rules data.
   - QuadVee is displayed as a Biped instead of a Quad and is missing its
-    conversion equipment and other required criticals.
+    conversion equipment and other required criticals; add the required
+    QuadVee systems to the equipment/rules data.
 - [x] Trace the shared three-block construction-step layout. Every step page
   has step-selection controls in the left block, user inputs in the middle
   block, and a TRO-style display of the current input in the right block.

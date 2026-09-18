@@ -475,8 +475,10 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
                                       mech={this.props.appGlobals.currentBattleMech}
-                                      crits={this.props.appGlobals.currentBattleMech.criticals.leftArm}
-                                      sectionAbbr="la"
+                                      crits={this.props.appGlobals.currentBattleMech.isQuad() || this.props.appGlobals.currentBattleMech.isQuadVee()
+                                        ? this.props.appGlobals.currentBattleMech.criticals.frontLeftLeg
+                                        : this.props.appGlobals.currentBattleMech.criticals.leftArm}
+                                      sectionAbbr={this.props.appGlobals.currentBattleMech.isQuad() || this.props.appGlobals.currentBattleMech.isQuadVee() ? "fll" : "la"}
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
                                       currentSelectedLocation={this.state.selectedItemLocation}
@@ -577,8 +579,10 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                     )}
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
-                                      crits={this.props.appGlobals.currentBattleMech.criticals.rightArm}
-                                      sectionAbbr="ra"
+                                      crits={this.props.appGlobals.currentBattleMech.isQuad() || this.props.appGlobals.currentBattleMech.isQuadVee()
+                                        ? this.props.appGlobals.currentBattleMech.criticals.frontRightLeg
+                                        : this.props.appGlobals.currentBattleMech.criticals.rightArm}
+                                      sectionAbbr={this.props.appGlobals.currentBattleMech.isQuad() || this.props.appGlobals.currentBattleMech.isQuadVee() ? "frl" : "ra"}
                                       mech={this.props.appGlobals.currentBattleMech}
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
