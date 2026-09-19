@@ -6,6 +6,7 @@ npm-debug.log
 .htaccess
 .eslintcache
 
+
 old
 old/*
 old*
@@ -43,3 +44,9 @@ work
 
 # Local development workspaces are never part of the synchronized source.
 *_DEV/
+
+# Ollama AI engine rules and helpers
+.clinerules
+as_lookup_results.jsonl
+batch_as_lookup.py
+ollama*
