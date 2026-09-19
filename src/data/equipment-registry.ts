@@ -3,10 +3,12 @@ import { mechISEquipmentBallistic } from "./mech-is-equipment-weapons-ballistic"
 import { mechISEquipmentEnergy } from "./mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./mech-is-equipment-weapons-misc";
 import { mechISEquipmentMissiles } from "./mech-is-equipment-weapons-missiles";
+import { mechISEquipmentArtillery } from "./mech-is-equipment-weapons-artillery";
 import { mechClanEquipmentBallistic } from "./mech-clan-equipment-weapons-ballistic";
 import { mechClanEquipmentEnergy } from "./mech-clan-equipment-weapons-energy";
 import { mechClanEquipmentMisc } from "./mech-clan-equipment-weapons-misc";
 import { mechClanEquipmentMissile } from "./mech-clan-equipment-weapons-missile";
+import { mechClanEquipmentArtillery } from "./mech-clan-equipment-weapons-artillery";
 import { mechCustomEquipmentBallistic } from "./mech-custom-equipment-weapons-ballistic";
 import { mechCustomEquipmentEnergy } from "./mech-custom-equipment-weapons-energy";
 import { mechCustomEquipmentMisc } from "./mech-custom-equipment-weapons-misc";
@@ -16,7 +18,7 @@ export interface IEquipmentCatalogDefinition {
     id: string;
     exportName: string;
     techBase: "is" | "clan" | "custom";
-    category: "ballistic" | "energy" | "missile" | "misc";
+    category: "ballistic" | "energy" | "missile" | "misc" | "artillery";
     equipment: IEquipmentItem[];
 }
 
@@ -25,10 +27,12 @@ const equipmentCatalogDefinitions: IEquipmentCatalogDefinition[] = [
     { id: "mech-is-equipment-weapons-energy", exportName: "mechISEquipmentEnergy", techBase: "is", category: "energy", equipment: mechISEquipmentEnergy },
     { id: "mech-is-equipment-weapons-missiles", exportName: "mechISEquipmentMissiles", techBase: "is", category: "missile", equipment: mechISEquipmentMissiles },
     { id: "mech-is-equipment-weapons-misc", exportName: "mechISEquipmentMisc", techBase: "is", category: "misc", equipment: mechISEquipmentMisc },
+    { id: "mech-is-equipment-weapons-artillery", exportName: "mechISEquipmentArtillery", techBase: "is", category: "artillery", equipment: mechISEquipmentArtillery },
     { id: "mech-clan-equipment-weapons-ballistic", exportName: "mechClanEquipmentBallistic", techBase: "clan", category: "ballistic", equipment: mechClanEquipmentBallistic },
     { id: "mech-clan-equipment-weapons-energy", exportName: "mechClanEquipmentEnergy", techBase: "clan", category: "energy", equipment: mechClanEquipmentEnergy },
     { id: "mech-clan-equipment-weapons-missile", exportName: "mechClanEquipmentMissile", techBase: "clan", category: "missile", equipment: mechClanEquipmentMissile },
     { id: "mech-clan-equipment-weapons-misc", exportName: "mechClanEquipmentMisc", techBase: "clan", category: "misc", equipment: mechClanEquipmentMisc },
+    { id: "mech-clan-equipment-weapons-artillery", exportName: "mechClanEquipmentArtillery", techBase: "clan", category: "artillery", equipment: mechClanEquipmentArtillery },
     { id: "mech-custom-equipment-weapons-ballistic", exportName: "mechCustomEquipmentBallistic", techBase: "custom", category: "ballistic", equipment: mechCustomEquipmentBallistic },
     { id: "mech-custom-equipment-weapons-energy", exportName: "mechCustomEquipmentEnergy", techBase: "custom", category: "energy", equipment: mechCustomEquipmentEnergy },
     { id: "mech-custom-equipment-weapons-missile", exportName: "mechCustomEquipmentMissile", techBase: "custom", category: "missile", equipment: mechCustomEquipmentMissile },
