@@ -97,7 +97,8 @@ export interface ISplitLocation {
     size: number;
 }
 export interface IEquipmentItem {
-    catalog?: "is" | "clan" | "custom";
+    catalog?: "is" | "clan" | "custom" | "universal";
+    metadata?: IEquipmentMetadata;
     split_location?: ISplitLocation[];
     isRotary?: boolean;
     isStreak?: boolean;
@@ -178,6 +179,30 @@ export interface IEquipmentItem {
     criticals?: number;
     available?: boolean;
     rulesLevel?: number;
+}
+
+export interface IEquipmentMetadata {
+    domains?: EquipmentDomain[];
+    techBase?: "is" | "clan" | "mixed" | "custom";
+    rulesLevel?: number;
+    source?: IEquipmentSource;
+    ammunitionTags?: string[];
+}
+
+export type EquipmentDomain =
+    | "battlemech"
+    | "vehicle"
+    | "aerospace"
+    | "dropship"
+    | "warship"
+    | "infantry";
+
+export interface IEquipmentSource {
+    book: string;
+    page: number;
+    sourceFile?: string;
+    sourceFormat?: string;
+    warnings?: string[];
 }
 
 export interface ICriticalSpace {

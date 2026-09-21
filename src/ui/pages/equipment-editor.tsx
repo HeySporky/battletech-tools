@@ -187,6 +187,8 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             return "Miscellaneous Equipment"
         } else if( this.state.currentList.toLocaleLowerCase().indexOf("-missiles") > -1) {
             return "Missile Weapons"
+        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-artillery") > -1) {
+            return "Artillery Weapons"
         }
 
         return "????";
