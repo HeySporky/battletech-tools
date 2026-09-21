@@ -198,11 +198,31 @@ tool. Items are ordered by dependency, not by product marketing priority.
 
 ## Phase 2: Conventional Vehicles
 
-- [ ] Define the vehicle domain model and vehicle location/damage schema.
-- [ ] Build the vehicle construction editor and record sheet.
-- [ ] Implement vehicle categories:
+- [x] Define the vehicle domain model and vehicle location/damage schema.
+  (`src/classes/vehicle.ts`, `src/data/vehicle-motive-types.ts` - reuses the
+  BattleMech engine/armor/heat sink/equipment catalogs. Internal Structure
+  Table (1 pt/10 tons/location incl. turret) and armor caps (2x structure)
+  are implemented; per-motive-type engine efficiency modifiers still TODO.)
+- [x] Build the vehicle construction editor and record sheet.
+  (`src/ui/pages/classic-battletech/vehicle-creator/` has Step 1 Chassis,
+  Step 2 Armor Allocation, Step 3 Equipment Selection, Step 4 Equipment
+  Placement, a weights/Alpha Strike summary page, and a printable record
+  sheet (`record-sheet.tsx` + `svg/tracked-vehicle-diagram-svg.tsx`), all
+  wired into routing and save/load. The diagram is a hand-built schematic
+  (no internet access was available to source official record sheet
+  artwork) - front/left/right/rear/turret boxes with structure/armor pip
+  bubbles reusing the shared `DamageCircleSVG` component. Not yet
+  interactive/damage-trackable in Play mode like the 'Mech roster.)
+- [x] Wire the Tracked category end to end: a "Your Saved Vehicles" roster on
+  the vehicle-creator home page (New/Save As New/Load/Save Over/Delete),
+  matching the 'Mech creator's list management, plus `vehicleSaves`/
+  `saveVehicleSaves` in `app-router.tsx`/`dataSaves.ts` and inclusion in
+  `IFullBackup`/`restoreFullBackup`. Tracked vehicles can now be built,
+  saved, reloaded, and printed end to end.
+- [ ] Implement remaining vehicle categories (construction math is generic
+  across motive types already; each needs its own record-sheet diagram and
+  category-specific rule verification):
   - Hover.
-  - Tracked.
   - Wheeled.
   - VTOL.
   - WiGE.

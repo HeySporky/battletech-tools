@@ -7,9 +7,10 @@ import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group"
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { BattleMechForce, ICBTForceExport } from "../classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
+import Vehicle, { IVehicleExport } from "../classes/vehicle";
 import { CONST_SITE_TITLE } from '../configVars';
 import { sswMechs } from "../data/ssw/sswMechs";
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getFavoriteASGroups, getFavoriteCBTGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentVehicle, getFavoriteASGroups, getFavoriteCBTGroups, getVehicleSaves, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentVehicle, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils/generateUUID";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
@@ -81,6 +82,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             battleMechSaves: [],
             favoriteCBTGroups: [],
             currentCBTForce: null,
+            currentVehicle: null,
+            saveCurrentVehicle: this.saveCurrentVehicle,
+
+            vehicleSaves: [],
+            saveVehicleSaves: this.saveVehicleSaves,
 
             saveCurrentASForce: this.saveCurrentASForce,
             saveFavoriteASGroups: this.saveFavoriteASGroups,
@@ -167,6 +173,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             currentBattleMech.importJSON( lsBMImport);
         }
 
+        let lsVehicleImport = await getCurrentVehicle(appSettings);
+        let currentVehicle = new Vehicle( lsVehicleImport || "" );
+
+        let vehicleSaves: IVehicleExport[] = await getVehicleSaves(appSettings);
+
         let battleMechSaves: IBattleMechExport[] = await getBattleMechSaves(appSettings);
         let asImportFavorites: IASGroupExport[] = await getFavoriteASGroups(appSettings);
 
@@ -230,6 +241,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         appGlobals.favoriteCBTGroups = bmImportedFavorites;
         appGlobals.currentCBTForce = currentCBTForce;
+        appGlobals.currentVehicle = currentVehicle;
+        appGlobals.vehicleSaves = vehicleSaves;
 
 
         // console.log("initial appGlobals loaded")
@@ -277,6 +290,18 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         });
     }
 
+    saveVehicleSaves = ( newValue: IVehicleExport[] ): void => {
+
+        let appGlobals = this.state.appGlobals;
+        appGlobals.vehicleSaves = newValue;
+
+        saveVehicleSaves( appGlobals.appSettings, appGlobals.vehicleSaves )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
+    }
+
     saveAppSettings = ( appSettings: AppSettings ): void => {
         let appGlobals = this.state.appGlobals;
         appGlobals.appSettings = appSettings;
@@ -305,6 +330,18 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         mech.lastUpdated = new Date();
 
         saveCurrentBattleMech( appGlobals.appSettings, mech.exportJSON() );
+    }
+
+    saveCurrentVehicle = ( vehicle: Vehicle ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentVehicle = vehicle;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        vehicle.lastUpdated = new Date();
+
+        saveCurrentVehicle( appGlobals.appSettings, vehicle.exportJSON() );
     }
 
     saveCurrentASForce = ( asForce: AlphaStrikeForce ): void => {
@@ -653,6 +690,10 @@ export interface IAppGlobals {
 
     currentBattleMech: BattleMech | null;
     saveCurrentBattleMech( mech: BattleMech | null ): void;
+    currentVehicle: Vehicle | null;
+    saveCurrentVehicle( vehicle: Vehicle | null ): void;
+    vehicleSaves: IVehicleExport[];
+    saveVehicleSaves( newValue: IVehicleExport[] ): void;
     saveAppSettings( appSettings: AppSettings ): void;
 
     battleMechSaves: IBattleMechExport[];

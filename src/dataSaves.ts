@@ -3,6 +3,7 @@ import AlphaStrikeGroup, { IASGroupExport } from "./classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "./classes/battlemech";
 import { BattleMechForce, ICBTForceExport } from "./classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport } from "./classes/battlemech-group";
+import Vehicle, { IVehicleExport } from "./classes/vehicle";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
 // import {Storage} from 'session-storage-sync';
@@ -34,6 +35,9 @@ export interface IFullBackup {
     currentCBTForce: ICBTForceExport | null;
 
     currentVBattleMech: string | null;
+
+    vehicleSaves: IVehicleExport[];
+    currentVehicle: string | null;
 }
 
 export async function getFullBackup(
@@ -47,6 +51,8 @@ export async function getFullBackup(
         favoriteCBTGroups: await getFavoriteCBTGroups(appSettings),
         currentCBTForce: await getCurrentCBTForce(appSettings),
         currentVBattleMech: await getCurrentBattleMech(appSettings),
+        vehicleSaves: await getVehicleSaves(appSettings),
+        currentVehicle: await getCurrentVehicle(appSettings),
     }
 
     return JSON.stringify( rv );
@@ -218,11 +224,56 @@ export function restoreFullBackup(
         }
     }
 
+    if( io.vehicleSaves ) {
+        for( let item of io.vehicleSaves ) {
+            let foundItem: IVehicleExport | null = null;
+            let itemName = "(nameless)";
+            if( item.name ) {
+                itemName = item.name;
+            }
+            for( let existingItemIndex in appGlobals.vehicleSaves ) {
+
+                if( appGlobals.vehicleSaves[existingItemIndex].uuid === item.uuid ) {
+                    foundItem = appGlobals.vehicleSaves[existingItemIndex];
+
+                    let existingName = "(nameless)";
+
+                    if( appGlobals.vehicleSaves[existingItemIndex].name ) {
+                        existingName = appGlobals.vehicleSaves[existingItemIndex].name;
+                    }
+
+                    restoreMessages.push({
+                        severity: "replace",
+                        message: "Replace Saved Vehicle '" + existingName + "' with '" + itemName + "'",
+                    });
+
+                    if( performActions ) {
+                        appGlobals.vehicleSaves[existingItemIndex] = item;
+                    }
+
+                }
+            }
+
+            if( !foundItem ) {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Vehicles: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.vehicleSaves.push( item )
+                }
+            }
+        }
+    }
+
     if( overWriteCurrentBattlemech && performActions ) {
         if( io.currentVBattleMech ) {
             let bmObj = new BattleMech();
             bmObj.importJSON(io.currentVBattleMech);
             appGlobals.currentBattleMech = bmObj;
+        }
+        if( io.currentVehicle ) {
+            appGlobals.currentVehicle = new Vehicle(io.currentVehicle);
         }
     }
 
@@ -240,6 +291,9 @@ export function restoreFullBackup(
         if( appGlobals.currentCBTForce )
             appGlobals.saveCurrentCBTForce( appGlobals.currentCBTForce );
         appGlobals.saveBattleMechSaves( appGlobals.battleMechSaves );
+        appGlobals.saveVehicleSaves( appGlobals.vehicleSaves );
+        if( appGlobals.currentVehicle )
+            appGlobals.saveCurrentVehicle( appGlobals.currentVehicle );
         // let appSettingsObj = new AppSettings(io.appSettings);
         // appGlobals.saveAppSettings( appSettingsObj );
     }
@@ -304,6 +358,37 @@ export async function getBattleMechSaves(
     let rv: IBattleMechExport[] = [];
 
     let rawData = await getData(appSettings, "battleMechSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        if(!rv ) {
+            rv = [];
+        }
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveVehicleSaves(
+    appSettings: AppSettings,
+    newValue: IVehicleExport[]
+) {
+    for( let itemIndex in newValue ) {
+        newValue[itemIndex].lastUpdated = new Date();
+    }
+    saveData(appSettings, "vehicleSaves", JSON.stringify(newValue) );
+}
+
+export async function getVehicleSaves(
+    appSettings: AppSettings,
+): Promise<IVehicleExport[]> {
+    let rv: IVehicleExport[] = [];
+
+    let rawData = await getData(appSettings, "vehicleSaves" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );
@@ -393,6 +478,24 @@ export async function getCurrentBattleMech(
     return await getData(
         appSettings,
         "currentBattleMech"
+    );
+
+}
+
+export function saveCurrentVehicle(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentVehicle", newValue );
+}
+
+export async function getCurrentVehicle(
+    appSettings: AppSettings,
+): Promise<string | null> {
+
+    return await getData(
+        appSettings,
+        "currentVehicle"
     );
 
 }

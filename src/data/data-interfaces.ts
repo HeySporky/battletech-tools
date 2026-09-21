@@ -347,3 +347,30 @@ export interface IRulesLevelOption {
     tag: string;
     name: string;
 }
+
+// Combat Vehicle domain (Phase 2) - shared with BattleMech via the same engine/armor/heat sink/equipment catalogs.
+export interface IVehicleMotiveType {
+    id: number;
+    tag: string;
+    name: string;
+    minTonnage: number;
+    standardMaxTonnage: number;
+    superheavyMaxTonnage: number;
+}
+
+export interface IVehicleArmorAllocation {
+    front: number;
+    left: number;
+    right: number;
+    rear: number;
+    turret: number;
+}
+
+export interface IVehicleStructureAllocation {
+    front: number;
+    left: number;
+    right: number;
+    rear: number;
+    turret: number;
+}
+

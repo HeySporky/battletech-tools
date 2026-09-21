@@ -5,6 +5,7 @@ import Error404 from "../error404";
 import ClassicBattleTechHome from './home';
 import MechCreatorRouter from './mech-creator/_router';
 import BattleMechRosterRouter from './roster/_router';
+import VehicleCreatorRouter from './vehicle-creator/_router';
 
 export default class ClassicBattleTechRouter extends React.Component<IClassicBattleTechRouterProps, IClassicBattleTechRouterState> {
 
@@ -20,6 +21,12 @@ export default class ClassicBattleTechRouter extends React.Component<IClassicBat
 
                 <Route path={`mech-creator/*`} element={
                     <MechCreatorRouter
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`vehicle-creator/*`} element={
+                    <VehicleCreatorRouter
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
