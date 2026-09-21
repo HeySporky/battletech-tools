@@ -1404,9 +1404,10 @@ export class BattleMech {
     }
 
     public getGyroWeight() {
-        const tripodSuperheavyMultiplier = this._mechType.tag.toLowerCase() === "tripod" && this._tonnage > 100 ? 2 : 1;
+        // Superheavy Mechs (>100 tons) of any chassis type require a doubled-weight Superheavy Gyro.
+        const superheavyGyroMultiplier = this._tonnage > 100 ? 2 : 1;
         if( this._engine ) {
-            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * tripodSuperheavyMultiplier);
+            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * superheavyGyroMultiplier);
         } else {
             return 0;
         }
@@ -2729,6 +2730,13 @@ export class BattleMech {
                 name: typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit",
                 weight: this.getCockpitWeight()
             });
+        } else if (this._tonnage > 100) {
+            // Superheavy Bipeds/Quads require a two-pilot Superheavy Cockpit, same as any other Superheavy chassis.
+            this._cockpitWeight = 4;
+            this._weights.push({
+                name: "Superheavy Cockpit",
+                weight: this.getCockpitWeight()
+            });
         } else if( this._smallCockpit) {
             this._cockpitWeight = 2;
             this._weights.push({
@@ -3185,12 +3193,16 @@ export class BattleMech {
         this._unallocatedCriticals = [];
 
         // Add required components....
+        // Superheavy Bipeds/Quads (>100 tons) mount a two-pilot Superheavy Cockpit, same as Tripods/QuadVees.
+        const isSuperheavyCockpit = (typeTag === "biped" || typeTag === "quad" || typeTag === "lam") && this._tonnage > 100;
+        const cockpitTag = typeTag === "quadvee" || typeTag === "tripod" || isSuperheavyCockpit ? "multi-pilot-cockpit" : "cockpit";
+        const cockpitName = typeTag === "quadvee" ? "QuadVee Dual Cockpit" : typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : isSuperheavyCockpit ? "Superheavy Cockpit" : "Cockpit";
         if( this._smallCockpit) {
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
             this._addCriticalItem(
-                typeTag === "quadvee" || typeTag === "tripod" ? "multi-pilot-cockpit" : "cockpit",
-                typeTag === "quadvee" ? "QuadVee Dual Cockpit" : typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "Cockpit",
+                cockpitTag,
+                cockpitName,
                 1,
                 "hd",
                 2
@@ -3200,8 +3212,8 @@ export class BattleMech {
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
             this._addCriticalItem(
-                typeTag === "quadvee" || typeTag === "tripod" ? "multi-pilot-cockpit" : "cockpit",
-                typeTag === "quadvee" ? "QuadVee Dual Cockpit" : typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "Cockpit",
+                cockpitTag,
+                cockpitName,
                 1,
                 "hd",
                 2
@@ -3333,6 +3345,8 @@ export class BattleMech {
         }
         if (typeTag === "quadvee" || typeTag === "tripod") {
             this._addCriticalItem("multi-pilot-cockpit", typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit", typeTag === "tripod" && this._tonnage > 100 ? 2 : 1, "ct");
+        } else if (isSuperheavyCockpit) {
+            this._addCriticalItem("multi-pilot-cockpit", "Superheavy Cockpit", 1, "ct");
         }
         if (typeTag === "lam") {
             this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "lt");

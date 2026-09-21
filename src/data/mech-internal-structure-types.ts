@@ -1,4 +1,5 @@
 import { IInternalStructure, IInternalStructurePerTon, IRawMechStructure } from "./data-interfaces";
+import { getTonnageBoundsForMechType } from "./mech-tonnages";
 
 /*
  * The data here is/may be copyrighted and NOT included in the GPLv3 license.
@@ -213,8 +214,9 @@ export function validateChassisCombination(
   if (structureTag === 'industrial' && (mechTypeTag === 'lam' || mechTypeTag === 'quadvee')) {
     return false; // Invalid combination!
   }
-  // Rules-enforcement: LAMs cap out strictly at 55 tons unless running homebrew rule tier 5
-  if (mechTypeTag === 'lam' && tonnage > 55 && rulesLevel !== 5){
+  // Rules-enforcement: tonnage must fall within the chassis type's legal range for the rules level in play
+  const { min, max } = getTonnageBoundsForMechType(mechTypeTag, rulesLevel);
+  if (tonnage < min || tonnage > max) {
     return false; // Invalid combination!
   }
   return true; // Legal build

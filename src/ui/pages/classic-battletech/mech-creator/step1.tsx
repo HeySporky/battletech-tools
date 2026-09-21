@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { btEraOptions } from '../../../../data/era-options';
 import { mechInternalStructureTypes } from '../../../../data/mech-internal-structure-types';
-import { btMechTonnages } from '../../../../data/mech-tonnages';
+import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { btTechOptions } from '../../../../data/tech-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
@@ -75,13 +75,31 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       const appSettings = this.props.appGlobals.appSettings;
       appSettings.mechRulesFilter = +e.currentTarget.value;
       this.props.appGlobals.saveAppSettings(appSettings);
+
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        this.clampTonnageToChassisRules(currentMech, appSettings.mechRulesFilter);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
     }
 
     updateType = ( e: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setType( e.currentTarget.value);
+        this.clampTonnageToChassisRules(currentMech, this.props.appGlobals.appSettings.mechRulesFilter);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    // Keeps the mech's tonnage within the legal range for its chassis type and rules level.
+    clampTonnageToChassisRules = ( currentMech: NonNullable<IAppGlobals["currentBattleMech"]>, rulesLevel: number): void => {
+      const { min, max } = getTonnageBoundsForMechType( currentMech.getType().tag, rulesLevel );
+      const tonnage = currentMech.getTonnage();
+      if( tonnage < min ) {
+        currentMech.setTonnage( min );
+      } else if( tonnage > max ) {
+        currentMech.setTonnage( max );
       }
     }
 
@@ -237,7 +255,10 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               value={this.props.appGlobals.currentBattleMech.getTonnage()}
                               onChange={this.updateTonnage}
                             >
-                            {btMechTonnages.map( (option) => {
+                            {getAvailableTonnagesForMechType(
+                              this.props.appGlobals.currentBattleMech.getType().tag,
+                              this.props.appGlobals.appSettings.mechRulesFilter
+                            ).map( (option) => {
                               return (
                                 <option key={option.tons} value={option.tons}>{option.tons} ({option.type})</option>
                               )
