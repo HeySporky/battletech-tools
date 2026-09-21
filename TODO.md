@@ -122,6 +122,65 @@ tool. Items are ordered by dependency, not by product marketing priority.
 
 ## Phase 1: Canonical Equipment
 
+### Current Status
+
+- [x] Versioned canonical BattleMech record envelope and legacy migration
+  helpers are implemented and tested.
+- [x] Universal catalog support is implemented. An item is universal only
+  when Inner Sphere and Clan records have identical name, weight, BattleMech
+  slots, damage, and range values.
+- [x] Source inventory auditor, local Astech staging worker, and fail-closed
+  Ollama guardrails are implemented. Model output cannot write catalog files.
+- [x] MegaMek IS/Clan subtree inventory is available as a secondary identity
+  and tech-base cross-check. Java weapon class bodies are intentionally not
+  treated as authoritative numeric catalog data.
+- [x] Alpha Strike lookup staging is available for definite catalog candidates;
+  source-backed results remain review-only until their complete mappings are
+  independently verified.
+- [x] Catalog structural completeness and duplicate-tag tests are implemented.
+- [ ] Canonical catalog population is still in progress. Scraped profiles that
+  are incomplete, apocryphal, domain-specific, conflicting, or unverified
+  remain in review staging and are not promoted automatically.
+
+### Alpha Strike Workbook Review Handoff
+
+- [x] Workbook review Blocks 1-12 are classified and the approved records have
+  been promoted into literal owning catalogs. The Block 12 promotion includes
+  Clan HAG 20/30/40, Clan ProtoMech AC/2/4/8, Clan RAC/UAC variants, and the
+  universal/Clan Nail Gun cleanup.
+- [ ] Review and classify the remaining workbook rows in
+  `tools/alpha-strike-workbook-review-blocks.md`, then promote only after
+  source and tech-base decisions are recorded there.
+  - [ ] Block 13, rows 121-130: Ultra AC/5/10/20 (C), Improved AC/2/5/10/20,
+    Improved Gauss Rifle, and Prototype LB 2-X/5-X Autocannons.
+  - [ ] Block 14, rows 131-140: Prototype LB 20-X, Prototype UAC/2/10/20,
+    Chemical Lasers, and ER Pulse Lasers.
+  - [ ] Block 15, rows 141-150: Vehicle Flamer (C), Improved Heavy Lasers,
+    Prototype ER Lasers, Improved Lasers/Pulse Laser, Improved PPC, and
+    Enhanced PPC.
+  - [ ] Blocks 16-17, rows 151-170: ER PPC (C), ATM variants, Clan LRM
+    Artemis IV/V variants, Clan 'Mech Mortars, and Clan SRM Artemis IV/V
+    variants.
+  - [ ] Block 18, rows 171-180: remaining Clan SRM variants, Clan Streak
+    LRMs, ProtoMech Streak LRM, Fusillade Launcher, and Improved LRM 5.
+  - [ ] Block 19, rows 181-190: Improved LRM 5/10/15/20 with standard and
+    Artemis IV profiles, plus Improved SRM 2/4.
+  - [ ] Block 20, rows 191-199: Improved SRM 4/6, Prototype Streak SRMs, and
+    Improved ATM 3/6/9/12.
+- [ ] For each block, use the source rows in
+  `tools/alpha-strike-workbook-data.json` and record `IS`, `Clan`,
+  `Universal`, or `Both (Stats Differ)` in the review ledger before editing
+  `src/data/mech-is-equipment-weapons-*.ts`,
+  `src/data/mech-clan-equipment-weapons-*.ts`, or
+  `src/data/mech-universal-equipment.ts`.
+- [ ] Resolve remaining provisional/source gaps separately from classification:
+  physical weights and slots absent from workbook rows, Clan alternate-ammo
+  variants, specialized torpedo `-T` ammunition, and numeric TOR profiles.
+- [ ] Keep the literal-object rule: do not add generated supplemental imports;
+  promote approved records directly into their owning catalog files.
+- [ ] Last validated catalog baseline: `npm test` passes 40 tests,
+  `npm run lint` passes, and `git diff --check` passes after Block 12.
+
 - [ ] Inventory all current equipment lists against the current rulebooks and
   identify missing, duplicate, renamed, and obsolete entries.
 - [ ] Populate complete canon equipment catalogs before adding every unit domain.
@@ -130,9 +189,12 @@ tool. Items are ordered by dependency, not by product marketing priority.
     engines, gyros, heat sinks, cockpits, movement systems, and support gear.
   - Equipment shared by Mechs, vehicles, aerospace, DropShips, WarShips, and
     infantry should be represented once with domain legality metadata.
-- [ ] Add equipment metadata: domain legality, tech base, rules level, era,
-  weight/cost rules, critical-slot rules, ammunition compatibility, and sources.
-- [ ] Add catalog completeness tests and duplicate-tag/name tests.
+- [x] Add the domain-neutral equipment metadata contract for domain legality,
+  tech base, rules level, source attribution, and ammunition compatibility.
+  Legacy records remain incrementally migratable into this optional metadata.
+- [x] Add catalog completeness tests and duplicate-tag/name tests.
+
+## Phase 1b: Wire in construction mechanics and rules for Colossal Mechs
 
 ## Phase 2: Conventional Vehicles
 
@@ -220,9 +282,10 @@ tool. Items are ordered by dependency, not by product marketing priority.
 
 ## Immediate Next Steps
 
-- [ ] Create the canonical schema/interfaces and version migration helpers.
-- [ ] Add a domain-neutral equipment catalog metadata model.
-- [ ] Write the equipment inventory/completeness report and close catalog gaps.
+- [x] Create the canonical schema/interfaces and version migration helpers.
+- [x] Add a domain-neutral equipment catalog metadata model.
+- [x] Write the equipment inventory/completeness report. Canon population gaps
+  remain explicitly listed there for source verification and promotion.
 - [ ] Extract BattleMech construction logic behind the first domain interface
   without changing existing BattleMech behavior.
 - [ ] Prototype one vehicle category end to end, recommended order: tracked,

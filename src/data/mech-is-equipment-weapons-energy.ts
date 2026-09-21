@@ -476,6 +476,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         heatAero: 0
     },
     {
+        isAmmo: false,
         name: "Binary Laser Cannon",
         tag: "blazer",
         sort: "Laser, binary",
@@ -526,6 +527,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         heatAero: 16
     },
     {
+        isAmmo: false,
         name: "Bombast Laser",
         tag: "bombast-laser",
         sort: "laser, bombast",
@@ -576,6 +578,58 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         heatAero: 12
     },
     {
+        isAmmo: false,
+        name: "Centurion Weapon System",
+        tag: "cws",
+        sort: "system, centurion weapon",
+        category: "Energy Weapons",
+        damage: 0,
+        damageAero: 0,
+        accuracyModifier: 0,
+        cbills: 1000000,
+        introduced: 2762,
+        extinct: 2770,
+        reintroduced: 0,
+        battleValue: 190,
+        heat: 4,
+        weight: 5,
+        range: {
+            min: 0,
+            short: 6,
+            medium: 12,
+            long: 18
+        },
+        space: {
+            battlemech: 2,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 2,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        ammoPerTon: 0,
+        minAmmoTons: 0,
+        explosive: false,
+        weaponType: [
+            "DE"
+        ],
+        techRating: "e",
+        book: "IO",
+        page: 85,
+        alphaStrike: {
+            heat: 1,
+            rangeShort: 0.14,
+            rangeMedium: 0.14,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: false,
+            notes: ["EE"]
+        },
+        heatAero: 4
+    },
+    {
+        isAmmo: false,
         name: "ER Flamer",
         tag: "er-flamer",
         category: "Energy Weapons",
@@ -629,6 +683,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         heatAero: 4
     },
     {
+        isAmmo: false,
         name: "ER Large Laser",
         tag: "er-large-laser",
         sort: "laser, er, 2, large",
@@ -680,6 +735,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "l"
     },
     {
+        isAmmo: false,
         name: "ER Medium Laser",
         tag: "er-medium-laser",
         sort: "laser, er, 1, medium",
@@ -731,6 +787,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "m"
     },
     {
+        isAmmo: false,
         name: "ER PPC",
         tag: "er-ppc",
         sort: "ppc, er",
@@ -782,6 +839,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "l"
     },
     {
+        isAmmo: false,
         name: "ER Small Laser",
         tag: "er-small-laser",
         sort: "laser, er, 0, small",
@@ -833,6 +891,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "s"
     },
     {
+        isAmmo: false,
         name: "Heavy Flamer",
         tag: "heavy-flamer",
         category: "Energy Weapons",
@@ -886,6 +945,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         heatAero: 5
     },
     {
+        isAmmo: false,
         name: "Heavy PPC",
         tag: "heavy-ppc",
         sort: "ppc, 2, heavy",
@@ -937,6 +997,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "m"
     },
     {
+        isAmmo: false,
         name: "Large Laser",
         tag: "large-laser",
         sort: "laser, 2, large",
@@ -988,6 +1049,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "m"
     },
     {
+        isAmmo: false,
         name: "Large Pulse Laser",
         tag: "large-pulse-laser",
         sort: "laser, pulse, 2, large",
@@ -1037,6 +1099,58 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         },
         heatAero: 10,
         rangeAero: "m"
+    },
+    {
+        isAmmo: false,
+        name: "Large Re-Engineered Laser",
+        tag: "large-re-engineered-laser",
+        sort: "laser, large, re-engineered, 5, is",
+        category: "Energy Weapons",
+        damage: 9,
+        damageAero: 9,
+        accuracyModifier: -1, // Captures official errata tracking bonus
+        cbills: 250000,
+        introduced: 3130, // Deployed during early Dark Age timeline
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 161,
+        heat: 9,
+        weight: 8,
+        range: {
+            min: 0,
+            short: 5,
+            medium: 10,
+            long: 15
+        },
+        space: {
+            battlemech: 5,
+            protomech: -1, // Exceeds ProtoMech weight and slot caps
+            combatVehicle: 1,
+            supportVehicle: 5,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        ammoPerTon: 0,
+        minAmmoTons: 0,
+        explosive: false,
+        weaponType: [
+            "RE" // Re-Engineered tracking indicator flag
+        ],
+        techRating: "f", // Post-3065 experimental Inner Sphere rating bracket
+        book: "FM:3145",
+        page: 243,
+        alphaStrike: {
+            heat: 9,
+            rangeShort: 0.9,
+            rangeMedium: 0.9,
+            rangeLong: 0.9,
+            rangeExtreme: 0,
+            tc: true,
+            notes: []
+        },
+        heatAero: 9,
+        rangeAero: "l"
     },
     {
         name: "Large Variable-Speed Pulse Laser",
@@ -1147,6 +1261,58 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             notes: []
         },
         heatAero: 10
+    },
+    {
+        isAmmo: false,
+        name: "Laser AMS",
+        tag: "is-laser-ams",
+        sort: "equipment, ams, laser, is, 1",
+        category: "Energy Weapons", // Placed under energy weapon rules architecture
+        damage: 0,
+        damageAero: 0,
+        accuracyModifier: 0,
+        cbills: 150000,
+        introduced: 3079, // Standardized production timeline
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 45,
+        heat: 5,
+        weight: 1.5,
+        range: {
+            min: 0,
+            short: 0,
+            medium: 0,
+            long: 0
+        },
+        space: {
+            battlemech: 1,
+            protomech: 1, // Valid: Sits exactly on the 1.5-ton boundary ceiling
+            combatVehicle: 1,
+            supportVehicle: 1,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        ammoPerTon: 0,
+        minAmmoTons: 0,
+        explosive: false,
+        weaponType: [
+            "AMS"
+        ],
+        techRating: "e",
+        book: "TM",
+        page: 202,
+        alphaStrike: {
+            heat: 5,
+            rangeShort: 0,
+            rangeMedium: 0,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: false,
+            notes: ["AMS"] // Registers the standard Alpha Strike tracking modifier
+        },
+        heatAero: 5,
+        rangeAero: "s" // Standard point-defense ceiling profile mapping
     },
     {
         name: "Light PPC",
@@ -1302,6 +1468,59 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "s"
     },
     {
+        isAmmo: false,
+        name: "Medium Re-Engineered Laser",
+        tag: "medium-re-engineered-laser",
+        sort: "laser, medium, re-engineered, is, 2",
+        category: "Energy Weapons",
+        damage: 6,
+        damageAero: 6,
+        accuracyModifier: -1, // Retains official errata tracking bonus
+        cbills: 100000,
+        introduced: 3130, // Deployed alongside large variant during Dark Age
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 65,
+        heat: 6,
+        weight: 2.5,
+        range: {
+            min: 0,
+            short: 3,
+            medium: 6,
+            long: 9
+        },
+        space: {
+            battlemech: 2,
+            protomech: -1, // Fails 1.5-ton and 1-slot ProtoMech constraint checks
+            combatVehicle: 1,
+            supportVehicle: 2,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        ammoPerTon: 0,
+        minAmmoTons: 0,
+        explosive: false,
+        weaponType: [
+            "RE"
+        ],
+        techRating: "f",
+        book: "IO",
+        page: 83,
+        alphaStrike: {
+            heat: 6,
+            rangeShort: 0.63,
+            rangeMedium: 0.63,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: true,
+            notes: []
+        },
+        heatAero: 6,
+        rangeAero: "m"
+    },
+    {
+        isAmmo: false,
         name: "Medium Variable-Speed Pulse Laser",
         tag: "medium-vspl",
         sort: "laser, vspl, 1, medium",
@@ -1359,9 +1578,11 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 7
+        heatAero: 7,
+        rangeAero: "m"
     },
     {
+        isAmmo: false,
         name: "Medium X-Pulse Laser",
         tag: "medium-x-pulse-laser",
         sort: "laser, x-pulse, 1, medium",
@@ -1409,9 +1630,11 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 6
+        heatAero: 6,
+        rangeAero: "m"
     },
     {
+        isAmmo: false,
         name: "Plasma Rifle",
         tag: "plasma-rifle",
         sort: "plasmarifle",
@@ -1466,6 +1689,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "m"
     },
     {
+        isAmmo: false,
         name: "Small Laser",
         sort: "laser, 0, small",
         tag: "small-laser",
@@ -1517,6 +1741,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "s"
     },
     {
+        isAmmo: false,
         name: "Small Pulse Laser",
         tag: "small-pulse-laser",
         sort: "laser, pulse, 0, small",
@@ -1571,6 +1796,59 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "s"
     },
     {
+        isAmmo: false,
+        name: "Small Re-Engineered Laser",
+        tag: "small-re-engineered-laser",
+        sort: "laser, small, re-engineered, 1",
+        category: "Energy Weapons",
+        damage: 4,
+        damageAero: 4,
+        accuracyModifier: -1, // Retains official errata tracking bonus
+        cbills: 25000,
+        introduced: 3130, // Deployed alongside its larger siblings
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 14,
+        heat: 4,
+        weight: 1.5,
+        range: {
+            min: 0,
+            short: 1,
+            medium: 2,
+            long: 3
+        },
+        space: {
+            battlemech: 1,
+            protomech: 1, // Valid: Sits exactly on the 1.5-ton/1-slot maximum limit
+            combatVehicle: 1,
+            supportVehicle: 1,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        ammoPerTon: 0,
+        minAmmoTons: 0,
+        explosive: false,
+        weaponType: [
+            "RE"
+        ],
+        techRating: "f",
+        book: "IO",
+        page: 83,
+        alphaStrike: {
+            heat: 4,
+            rangeShort: 0.4,
+            rangeMedium: 0,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: true,
+            notes: []
+        },
+        heatAero: 4,
+        rangeAero: "s"
+    },
+    {
+        isAmmo: false,
         name: "Small Variable-Speed Pulse Laser",
         tag: "small-vspl",
         sort: "laser, vspl, 0, small",
@@ -1628,12 +1906,14 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             tc: true,
             notes: []
         },
-        heatAero: 3
+        heatAero: 3,
+        rangeAero: "s"
     },
     {
+        isAmmo: false,
         name: "Small X-Pulse Laser",
         tag: "small-x-pulse-laser",
-        sort: "laser, x-pulse, 0, small",
+        sort: "laser, x-pulse, 1, small",
         category: "Energy Weapons",
         damage: 3,
         damageAero: 3,
@@ -1680,13 +1960,15 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             notes: [
                 "Point Defense"
             ]
-        },
-        heatAero: 3
+            },
+        heatAero: 3,
+        rangeAero: "s"
     },
     {
+        isAmmo: false,
         name: "Snub-Nose PPC",
         tag: "snub-nose-ppc",
-        sort: "ppc, snub-nose",
+        sort: "ppc, snub-nose, 2",
         category: "Energy Weapons",
         damage: {
             short: 10,
@@ -1720,7 +2002,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             dropShip: 1
         },
         ammoPerTon: 0,
-        minAmmoTons: 1,
+        minAmmoTons: 0,
         explosive: false,
         weaponType: [
             "DE"
@@ -1731,7 +2013,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         alphaStrike: {
             heat: 10,
             rangeShort: 1,
-            rangeMedium: 0.65,
+            rangeMedium: 0.8,
             rangeLong: 0,
             rangeExtreme: 0,
             tc: true,
@@ -1741,10 +2023,11 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "m"
     },
     {
+        isAmmo: false,
         name: "Flamer",
         tag: "standard-flamer",
         category: "Energy Weapons",
-        sort: "flamer",
+        sort: "flamer, 1",
         damage: 2,
         damageAero: 2,
         accuracyModifier: 0,
@@ -1796,9 +2079,10 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "s"
     },
     {
+        isAmmo: false,
         name: "PPC",
         tag: "standard-ppc",
-        sort: "ppc, 1, standard",
+        sort: "ppc, 3, standard",
         category: "Energy Weapons",
         damage: 10,
         damageAero: 10,
@@ -1847,6 +2131,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "m"
     },
     {
+        isAmmo: false,
         name: "Vehicle Flamer",
         tag: "vehicle-flamer",
         category: "Energy Weapons",
@@ -1900,5 +2185,15 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         },
         heatAero: 3,
         rangeAero: "s"
-    }
+    },
+    { name: "Primitive Prototype Large Laser", tag: "primitive-prototype-large-laser", sort: "primitive prototype large laser", category: "Energy Weapons", damage: 8, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 8, accuracyModifier: 0, cbills: 100000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 123, heat: 12, heatAero: 12, weight: 5, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 12, rangeShort: 0.8, rangeMedium: 0.8, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
+    { name: "Primitive Prototype Medium Laser", tag: "primitive-prototype-medium-laser", sort: "primitive prototype medium laser", category: "Energy Weapons", damage: 5, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 5, accuracyModifier: 0, cbills: 20000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 46, heat: 5, heatAero: 5, weight: 1, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 5, rangeShort: 0.5, rangeMedium: 0.5, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
+    { name: "Primitive Prototype Small Laser", tag: "primitive-prototype-small-laser", sort: "primitive prototype small laser", category: "Energy Weapons", damage: 3, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 3, accuracyModifier: 0, cbills: 10000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 18, heat: 2, heatAero: 2, weight: 0.5, range: { min: 0, short: 2, medium: 4, long: 6 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 2, rangeShort: 0.3, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
+    { name: "Primitive Prototype PPC", tag: "primitive-prototype-ppc", sort: "primitive prototype ppc", category: "Energy Weapons", damage: 10, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 10, accuracyModifier: 0, cbills: 140000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 176, heat: 15, heatAero: 15, weight: 7, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 15, rangeShort: 0.75, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
+    { name: "Light PPC w/ Capacitor", tag: "light-ppc-capacitor", sort: "ppc, light, capacitor, 0 weapon", category: "Energy Weapons", damage: 5, notes: "PPC capacitor effects are integrated into Alpha Strike damage; capacitor is a separate tabletop record entry.", damageAero: 5, accuracyModifier: 0, cbills: 0, introduced: 0, extinct: 0, reintroduced: 0, battleValue: 88, heat: 5, heatAero: 5, weight: 5, range: { min: 0, short: 6, medium: 12, long: 18 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO", page: 0, alphaStrike: { heat: 5, rangeShort: 0.375, rangeMedium: 0.5, rangeLong: 0.5, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
+    { name: "PPC w/ Capacitor", tag: "ppc-capacitor", sort: "ppc, standard, capacitor, 0 weapon", category: "Energy Weapons", damage: 10, notes: "PPC capacitor effects are integrated into Alpha Strike damage; capacitor is a separate tabletop record entry.", damageAero: 10, accuracyModifier: 0, cbills: 0, introduced: 0, extinct: 0, reintroduced: 0, battleValue: 176, heat: 10, heatAero: 10, weight: 7, range: { min: 3, short: 6, medium: 12, long: 18 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO", page: 0, alphaStrike: { heat: 10, rangeShort: 0.563, rangeMedium: 0.75, rangeLong: 0.75, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
+    { name: "Heavy PPC w/ Capacitor", tag: "heavy-ppc-capacitor", sort: "ppc, heavy, capacitor, 0 weapon", category: "Energy Weapons", damage: 15, notes: "PPC capacitor effects are integrated into Alpha Strike damage; capacitor is a separate tabletop record entry.", damageAero: 15, accuracyModifier: 0, cbills: 0, introduced: 0, extinct: 0, reintroduced: 0, battleValue: 229, heat: 15, heatAero: 15, weight: 10, range: { min: 3, short: 6, medium: 12, long: 18 }, space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO", page: 0, alphaStrike: { heat: 15, rangeShort: 0.75, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
+    { name: "ER PPC w/ Capacitor", tag: "er-ppc-capacitor", sort: "ppc, er, capacitor, 0 weapon", category: "Energy Weapons", damage: 10, notes: "PPC capacitor effects are integrated into Alpha Strike damage; capacitor is a separate tabletop record entry.", damageAero: 10, accuracyModifier: 0, cbills: 0, introduced: 0, extinct: 0, reintroduced: 0, battleValue: 229, heat: 15, heatAero: 15, weight: 7, range: { min: 0, short: 7, medium: 14, long: 21 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO", page: 0, alphaStrike: { heat: 15, rangeShort: 0.75, rangeMedium: 0.75, rangeLong: 0.75, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
+    { name: "Snub-Nose PPC w/ Capacitor", tag: "snub-nose-ppc-capacitor", sort: "ppc, snub-nose, capacitor, 0 weapon", category: "Energy Weapons", damage: 10, notes: "PPC capacitor effects are integrated into Alpha Strike damage; capacitor is a separate tabletop record entry.", damageAero: 10, accuracyModifier: 0, cbills: 0, introduced: 0, extinct: 0, reintroduced: 0, battleValue: 229, heat: 10, heatAero: 10, weight: 6, range: { min: 0, short: 9, medium: 18, long: 27 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO", page: 0, alphaStrike: { heat: 10, rangeShort: 0.75, rangeMedium: 0.5, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
+    { name: "RISC Hyper Laser", tag: "risc-hyper-laser", sort: "laser, risc, hyper", category: "Energy Weapons", damage: 20, notes: "RISC experimental Inner Sphere weapon; workbook conversion provisional.", damageAero: 20, accuracyModifier: 0, cbills: 1000000, introduced: 3130, extinct: 0, reintroduced: 0, battleValue: 0, heat: 24, heatAero: 24, weight: 10, range: { min: 0, short: 7, medium: 14, long: 21 }, space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "f", book: "IO", page: 0, alphaStrike: { heat: 24, rangeShort: 2, rangeMedium: 2, rangeLong: 2, rangeExtreme: 2, tc: true, notes: ["Provisional workbook conversion"] }, catalog: "is" }
 ]

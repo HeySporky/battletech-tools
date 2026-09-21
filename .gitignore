@@ -50,3 +50,4 @@ work
 as_lookup_results.jsonl
 batch_as_lookup.py
 ollama*
+cline_custom_modes.json

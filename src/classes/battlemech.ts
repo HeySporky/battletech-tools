@@ -16,6 +16,12 @@ import { addCommas } from "../utils/addCommas";
 import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
 import { generateUUID } from "../utils/generateUUID";
 import { ISSWBasicInfo } from "../utils/getSSWXMLBasicInfo";
+import {
+    ICanonicalBattleMechRecord,
+    ICanonicalSourceMetadata,
+    parseBattleMechRecordJSON,
+    toCanonicalBattleMechRecord,
+} from "../data/canonical-record";
 import { XMLParser } from "fast-xml-parser";
 import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./alpha-strike-unit";
 import Pilot, { IPilot } from "./pilot";
@@ -4886,6 +4892,13 @@ export class BattleMech {
         return JSON.stringify( this.export(noInPlayVariables) )
     }
 
+    public exportCanonical(
+        noInPlayVariables: boolean = false,
+        source?: ICanonicalSourceMetadata,
+    ): ICanonicalBattleMechRecord {
+        return toCanonicalBattleMechRecord(this.export(noInPlayVariables), source);
+    }
+
     public getTargetSummaryText(
         target: string
     ): string {
@@ -5084,16 +5097,10 @@ export class BattleMech {
     importJSON(
         jsonString: string,
     ) {
-        // let importObject: IBattleMechExport | null = null;
         let importObject: IBattleMechExport | null = null;
         try {
-            importObject = JSON.parse(jsonString);
-
-            if( importObject ) {
-                return this.import( importObject );
-            } else {
-                return false
-            }
+            importObject = parseBattleMechRecordJSON(jsonString);
+            return this.import( importObject );
         } catch {
             return false;
         }
@@ -6908,7 +6915,7 @@ export class BattleMech {
         // Process Clan items if active
         if (includeClan) {
             for (let item of getEquipmentListByTech("clan", includeCustom && !includeIS)) {
-                item.catalog = item.category === "Custom Equipment" ? "custom" : "clan";
+                item.catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : "clan");
                 item.criticals = item.space.battlemech;
                 item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced, clanAvailability) && this._isEquipmentAllowedForChassis(item);
                 returnItems.push(item);
@@ -6917,7 +6924,7 @@ export class BattleMech {
         // Process Inner Sphere items if active
         if (includeIS) {
             for (let item of getEquipmentListByTech("is", includeCustom)) {
-                item.catalog = item.category === "Custom Equipment" ? "custom" : "is";
+                item.catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : "is");
                 item.criticals = item.space.battlemech;
                 item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced) && this._isEquipmentAllowedForChassis(item);
                 returnItems.push(item);

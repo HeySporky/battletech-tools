@@ -13,13 +13,27 @@ import { mechCustomEquipmentBallistic } from "./mech-custom-equipment-weapons-ba
 import { mechCustomEquipmentEnergy } from "./mech-custom-equipment-weapons-energy";
 import { mechCustomEquipmentMisc } from "./mech-custom-equipment-weapons-misc";
 import { mechCustomEquipmentMissile } from "./mech-custom-equipment-weapons-missile";
+import { isUniversalEquipment, mechUniversalEquipment } from "./mech-universal-equipment";
+
+export type EquipmentCatalog = "is" | "clan" | "custom" | "universal";
 
 export interface IEquipmentCatalogDefinition {
     id: string;
     exportName: string;
-    techBase: "is" | "clan" | "custom";
+    techBase: EquipmentCatalog;
     category: "ballistic" | "energy" | "missile" | "misc" | "artillery";
     equipment: IEquipmentItem[];
+}
+
+export interface IEquipmentCatalogSummary {
+    catalogId: string;
+    techBase: EquipmentCatalog;
+    category: IEquipmentCatalogDefinition["category"];
+    itemCount: number;
+    ammoCount: number;
+    weaponCount: number;
+    duplicateTags: string[];
+    missingSourceCount: number;
 }
 
 const equipmentCatalogDefinitions: IEquipmentCatalogDefinition[] = [
@@ -37,16 +51,18 @@ const equipmentCatalogDefinitions: IEquipmentCatalogDefinition[] = [
     { id: "mech-custom-equipment-weapons-energy", exportName: "mechCustomEquipmentEnergy", techBase: "custom", category: "energy", equipment: mechCustomEquipmentEnergy },
     { id: "mech-custom-equipment-weapons-missile", exportName: "mechCustomEquipmentMissile", techBase: "custom", category: "missile", equipment: mechCustomEquipmentMissile },
     { id: "mech-custom-equipment-weapons-misc", exportName: "mechCustomEquipmentMisc", techBase: "custom", category: "misc", equipment: mechCustomEquipmentMisc },
+    { id: "mech-universal-equipment", exportName: "mechUniversalEquipment", techBase: "universal", category: "artillery", equipment: mechUniversalEquipment },
 ];
 
 function cloneEquipment(items: IEquipmentItem[]): IEquipmentItem[] {
     return JSON.parse(JSON.stringify(items)) as IEquipmentItem[];
 }
 
-function getCatalogByTech(techBase: "is" | "clan" | "custom"): IEquipmentItem[] {
+function getCatalogByTech(techBase: EquipmentCatalog): IEquipmentItem[] {
     return equipmentCatalogDefinitions
         .filter((catalog) => catalog.techBase === techBase)
-        .flatMap((catalog) => catalog.equipment);
+        .flatMap((catalog) => catalog.equipment)
+        .filter((item) => techBase === "universal" || !isUniversalEquipment(item));
 }
 
 export function getEquipmentCatalogDefinitions(): IEquipmentCatalogDefinition[] {
@@ -62,28 +78,52 @@ export function getEquipmentCatalogExportName(catalogId: string): string | null 
     return equipmentCatalogDefinitions.find((catalog) => catalog.id === catalogId)?.exportName ?? null;
 }
 
+export function getEquipmentCatalogSummaries(): IEquipmentCatalogSummary[] {
+    return equipmentCatalogDefinitions.map((definition) => {
+        const tagCounts = new Map<string, number>();
+        for (const item of definition.equipment) {
+            tagCounts.set(item.tag, (tagCounts.get(item.tag) ?? 0) + 1);
+        }
+
+        return {
+            catalogId: definition.id,
+            techBase: definition.techBase,
+            category: definition.category,
+            itemCount: definition.equipment.length,
+            ammoCount: definition.equipment.filter(item => item.isAmmo).length,
+            weaponCount: definition.equipment.filter(item => !item.isAmmo && !item.isEquipment).length,
+            duplicateTags: Array.from(tagCounts.entries())
+                .filter(([, count]) => count > 1)
+                .map(([tag]) => tag),
+            missingSourceCount: definition.equipment.filter(item => !item.book || item.page < 0).length
+        };
+    });
+}
+
 export function getEquipmentCatalogs(): Record<string, IEquipmentItem[]> {
     return {
         is: getEquipmentListByTech("is"),
         clan: getEquipmentListByTech("clan"),
         mis: getEquipmentListByTech("mis"),
         mclan: getEquipmentListByTech("mclan"),
+        universal: cloneEquipment(getCatalogByTech("universal")),
     };
 }
 
 export function getEquipmentListByTech(techTag: string, includeCustom: boolean = false): IEquipmentItem[] {
     const normalizedTech = techTag.toLowerCase();
+    const universalEquipment = getCatalogByTech("universal");
     const customEquipment = includeCustom ? getCatalogByTech("custom") : [];
 
     switch (normalizedTech) {
         case "clan":
-            return cloneEquipment([...getCatalogByTech("clan"), ...customEquipment]);
+            return cloneEquipment([...universalEquipment, ...getCatalogByTech("clan"), ...customEquipment]);
         case "mis":
-            return cloneEquipment([...getCatalogByTech("is"), ...getCatalogByTech("clan"), ...customEquipment]);
+            return cloneEquipment([...universalEquipment, ...getCatalogByTech("is"), ...getCatalogByTech("clan"), ...customEquipment]);
         case "mclan":
-            return cloneEquipment([...getCatalogByTech("clan"), ...getCatalogByTech("is"), ...customEquipment]);
+            return cloneEquipment([...universalEquipment, ...getCatalogByTech("clan"), ...getCatalogByTech("is"), ...customEquipment]);
         case "is":
         default:
-            return cloneEquipment([...getCatalogByTech("is"), ...customEquipment]);
+            return cloneEquipment([...universalEquipment, ...getCatalogByTech("is"), ...customEquipment]);
     }
 }
