@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../../app-router';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
-import { GiMissileMech } from "react-icons/gi";
+import { GiMissileMech, GiTank } from "react-icons/gi";
 import { MdTableView } from 'react-icons/md';
-import { FaTruckMonster } from "react-icons/fa";
 const MissileMechIcon = GiMissileMech as any;
 const TableViewIcon = MdTableView as any;
-const VehicleIcon = FaTruckMonster as any;
+const VehicleIcon = GiTank as any;
 
 
 export default class ClassicBattleTechHome extends React.Component<IClassicBattleTechHomeProps, IClassicBattleTechHomeState> {
