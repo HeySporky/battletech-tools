@@ -1,0 +1,379 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ed51-7e83-8da4-6f4ad37c6f18
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Carrack Transport
+</Name>
+
+<Model>
+(Clan)
+</Model>
+
+<mul id:>
+3898
+</mul id:>
+
+<year>
+2950
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+dockingcollar
+dockingcollar
+1stclassquarters:250.0:0:-1::-1:0
+crewquarters:854.0:0:-1::-1:0
+smallcraftbay:2.0:2:5::-1:0
+smallcraftbay:2.0:2:6::-1:0
+cargobay:68902.5:1:7::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+373
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+5000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+10
+8
+8
+9
+6
+6
+</armor>
+
+<Nose Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:166
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1488
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:200
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1588
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:200
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1588
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:200
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1488
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:200
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1488
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:200
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1488
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:167
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1488
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:167
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1488
+</Right Broadsides Equipment>
+
+<structural_integrity>
+15
+</structural_integrity>
+
+<capabilities>
+<p>The original Star League Carrack's technical specifications remain poorly documented compared to its Clan-era descendants, though the vessel's general arrangement carried forward with only minor changes into the later variants. The Clan military transport displaces three hundred thousand tons and mounts a mixed battery of capital and anti-fighter weaponry distributed across all firing arcs. Naval autocannons in heavy and medium calibers form the backbone of the broadside armament, supplemented by naval lasers for sustained engagement at range. An extensive point-defense network of anti-missile systems, large pulse lasers, and extended-range lasers provides considerable protection against fighter and missile attacks. The hull incorporates HarJel sealant technology for improved damage control, and a mobile HPG grants independent interstellar communications capability.</p><p>The Carrack's compact Kearny-Fuchida drive supports a respectable thrust profile for its displacement, and two docking collars allow convoy escort operations alongside DropShip-borne cargo. Four small craft bays and a single ninety-eight-meter gravity deck round out the vessel's operational facilities. Standard armor protection remains modest for a vessel of this tonnage, reflecting the design's emphasis on internal volume over combat survivability.</p><p>The merchant variant trades all naval weaponry for standard-scale defensive armament and reduces armor to minimal levels, freeing tonnage that pushes cargo capacity to nearly one hundred thousand tons. A Star of Marine Elementals provides anti-boarding defense, compensating partially for the reduced weapon fit. The merchant Carrack sacrifices the ability to engage other WarShips but becomes one of the most capacious armed transports available to the Clans.</p>
+</capabilities>
+
+<overview>
+<p>The Carrack Transport was designed by Mitchell Vehicles of Graham IV as an armed transport for the Terran Hegemony, entering service in the early twenty-seventh century. Conceived as a more economical alternative to the Sylvester-class merchant WarShip, the Carrack filled a critical need for a vessel capable of independent operation along Periphery shipping lanes where dedicated naval escorts were impractical or unavailable. The design balanced meaningful defensive armament with substantial cargo capacity, producing a hull well suited to both military logistics and commercial convoy operations.</p><p>Mitchell Vehicles delivered a vessel that prioritized reliability and practical utility over raw combat power. The Carrack's generous internal volume, combined with adequate defensive weaponry and a compact drive system, gave fleet planners a transport that could operate with minimal escort requirements in all but the most dangerous space.</p>
+</overview>
+
+<deployment>
+<p>The Clan military Carrack entered service around 2950 and rapidly became one of the most common transport WarShips in the Clan fleet structure. Diamond Shark and Nova Cat maintained the largest fleets, frequently employing their Carracks in Deep Periphery and Occupation Zone trading operations where the vessel's combination of cargo capacity and defensive armament proved ideal. Clan Ice Hellion operated the CIH Maker as part of its expeditionary naval assets, while Clan Hell's Horses maintained the Golden Clydesdale in its transport fleet. Clan Ghost Bear put its Carrack fleet to dramatic use during the wholesale relocation of its entire civilian population to the Inner Sphere Occupation Zone, a massive logistics undertaking that highlighted the class's enormous transport capacity. The vessels typically deployed with mixed small craft complements of aerospace fighters and shuttlecraft, with exact loadouts varying by mission profile.</p>
+</deployment>
+
+<history>
+<p>The Carrack program originated in the early twenty-seventh century as the Terran Hegemony sought an armed transport capable of independent operation along potentially hostile Periphery shipping lanes. The Sylvester-class merchant WarShip had demonstrated the value of combining cargo capacity with defensive armament, but its cost and complexity limited production numbers. The Hegemony commissioned a more economical design, and Mitchell Vehicles of Graham IV secured the production contract, delivering the first hulls around 2603.</p><p>The class served reliably throughout the Star League era with both the SLDF and the Great House navies that maintained their own transport fleets. Carracks operated as armed escorts, supply carriers, and general-purpose logistics vessels along the major trade routes and Periphery approaches. The First Succession War placed enormous strain on surviving naval assets, and the desperate shortage of aerospace platforms led at least one Great House to convert several Carracks into improvised fighter carriers. The devastation of the early Succession Wars eliminated most examples from Inner Sphere service, though an undetermined number accompanied General Kerensky's Exodus fleet, preserving the design beyond the borders of the collapsing Star League.</p><p>Around 2950, Clans Nova Cat and Diamond Shark jointly developed a modernized military transport based on the original hull. ComStar analysts who later examined these vessels noted that the overall layout remained largely consistent with the Star League design, though the Clan variant incorporated modern damage control systems and independent communications equipment. The Clan Carrack lacked the advanced armor and drive enhancements that characterized many Clan capital ship refits, reflecting its utilitarian transport role rather than any combat ambition. The military variant found widespread adoption across the Clan toumans, with nearly every Clan eventually operating examples for ground force transport, supply operations, and deep-space logistics.</p><p>In 2985, Diamond Shark and Nova Cat collaborated on a merchant variant that stripped all capital weaponry and reduced protective plating to maximize cargo volume. The conversion addressed a practical need within Clan society: providing the merchant castes with capable transport vessels while respecting the political constraint against placing capital-grade armament in non-warrior hands. The merchant Carrack proved commercially valuable enough that surplus examples changed hands between Clans, and at least one transaction saw loaded merchant Carracks exchanged for combat WarShips, a clear indicator of the type's commercial value.</p><p>The Carrack's continued presence across centuries of service and multiple political upheavals reflects the soundness of its original design concept. The class remains in active operation well into the thirty-second century, with variants serving under Clan, ComStar, and successor state flags alike.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Standard
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<notes>
+Cargo 2 tons overweight. Removed it to make it legal.
+</notes>
+
+<use>
+Merchant Transport
+</use>
+
+<length>
+830 m
+</length>
+
+<source>
+TR:3067
+</source>
+
+<tonnage>
+300000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+98
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+167
+</crew>
+
+<officers>
+25
+</officers>
+
+<gunners>
+32
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+4
+</life_boat>
+
+<escape_pod>
+4
+</escape_pod>
+

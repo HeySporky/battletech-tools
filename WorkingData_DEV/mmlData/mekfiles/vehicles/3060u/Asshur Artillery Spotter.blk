@@ -1,0 +1,160 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e4b8-70a2-ad5c-a22d0ce8d69f
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Asshur Artillery Spotter
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+133
+</mul id:>
+
+<year>
+2893
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+13
+11
+11
+9
+13
+</armor>
+
+<Body Equipment>
+Clan Streak SRM 6 Ammo
+CLCASE
+</Body Equipment>
+
+<Front Equipment>
+CLTAG
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLERMediumLaser
+CLERMediumLaser
+CLStreakSRM6
+</Turret Equipment>
+
+<capabilities>
+<p>The Artillery Spotter's primary contribution to a combined arms formation is not its direct weapons fire but its Target Acquisition Gear system, which designates targets for Arrow IV artillery missiles and similar guided munitions. The ICD Type 4 TAG unit is mounted fixed-forward in the vehicle rather than in the turret. Early attempts to mount the system in the turret created interference with the traverse mechanism, degrading both TAG performance and the vehicle's ability to defend itself. Relocating the designator to a fixed hull mount resolved the interference problem at the cost of a limited designation arc, requiring the crew to orient the vehicle toward the target rather than relying on turret traverse. The Asshur's speed and agility largely compensate for this constraint.</p><p>Direct defensive armament consists of two Series 2b extended-range medium lasers and a Pattern J6 Streak-6 SRM launcher, all turret-mounted. The Streak system is particularly effective for a platform of this type, as its guaranteed-hit characteristic ensures that the limited supply of fifteen missile volleys is not wasted on ineffective shots. The extended-range lasers allow accurate fire out to 450 meters, enabling the crew to engage threats while maintaining the standoff distance needed for effective target designation.</p><p>Ferro-fibrous armor provides moderate protection suited to a platform intended to operate behind the forward edge of battle. The Consolidated electronics suite is carried over from the base chassis, prioritizing reliable communications (essential for effective spotting coordination) over enhanced targeting performance.</p>
+</capabilities>
+
+<overview>
+<p>The Asshur Artillery Spotter is a dedicated fire support coordination platform developed from the original Asshur Fast Reconnaissance Vehicle. When the lighter Shamash entered service and made the Asshur's reconnaissance mission redundant, Clan Blood Spirit technicians devised a modification that replaced the hull-mounted machine guns with a Target Acquisition Gear system, converting the vehicle into a capable artillery coordination asset. Entering service in 2893, the Artillery Spotter retained all the speed and mobility of the base chassis while gaining a specialization that gave it a permanent battlefield role long after its original function was superseded. The modification proved so successful that it was adopted across multiple Clans and became the dominant Asshur production standard, eventually reaching both the Clan Homeworlds and the Inner Sphere during Clan operations in the thirty-first century.</p>
+</overview>
+
+<deployment>
+<p>The Artillery Spotter serves as a combined arms coordination asset across Clan formations equipped with Arrow IV artillery support. Clan Blood Spirit, Burrock, Coyote, Ice Hellion, Snow Raven, and later Ghost Bear and Sea Fox forces all operated the variant, with production maintained at facilities on Albion, Tamaron, Hector, Lum, York, and Trondheim across different eras. Ghost Bear and Steel Viper toumans deployed the variant in the Inner Sphere during the Clan Invasion, with Steel Viper forces particularly employing Asshurs on Graus in 3054 to coordinate Arrow IV strikes against mercenary raiders to lethal effect. Ghost Bear production at the Trondheim facility extended availability into the former Free Rasalhague Republic, while Homeworld facilities continued supplying Clans remaining in Clan space through the Civil War and beyond.</p>
+</deployment>
+
+<history>
+<p>The Artillery Spotter variant emerged as a practical solution to a specific problem in Clan Blood Spirit's force structure. When Blood Spirit scientists completed the Shamash reconnaissance vehicle, its lighter design and equivalent sensor capability made the original Asshur Fast Reconnaissance Vehicle redundant in the scouting role. Rather than retire serviceable hulls (a course that would have wasted significant resources during the challenging Homeworld period) Blood Spirit technicians identified the platform's remaining strengths and reoriented it toward a complementary mission.</p><p>The central challenge was integrating a Target Acquisition Gear system into a hull not designed around it. Early attempts to mount the TAG in the turret alongside the existing laser armament created problems with the traverse mechanism, with the system's alignment requirements conflicting with free rotation. The solution was a fixed-forward hull mount, accepting a limited designation arc in exchange for reliable operation. Field experience quickly demonstrated that the Asshur's speed compensated effectively for this limitation, as crews could reorient the vehicle to bring the TAG to bear without meaningful exposure to return fire.</p><p>The Artillery Spotter entered service in 2893, with York's production facilities among the first to incorporate the modification. The conversion proved so capable in combined arms operations (particularly coordinating Arrow IV artillery assets) that other Clans with Asshur production access adopted the configuration as well. Albion, Tamaron, Hector, and Lum facilities all transitioned to Artillery Spotter production over subsequent decades, making it the dominant variant across the Homeworld production network. The base reconnaissance configuration was effectively supplanted in new production, though existing hulls continued in secondary service.</p><p>During the Clan Invasion, the Artillery Spotter accompanied Clan forces into the Inner Sphere. Ghost Bear and Steel Viper elements deployed the vehicle in several engagements, most especially during the 3054 raid on Graus, where Steel Viper forces encountered the mercenary company Armstrong's Archers. Operating under contract to the Federated Commonwealth, the Archers staged a raid against the Thirty-eighth Phalanx 250 kilometers north of New Paris. The Inner Sphere commander, unaware that one of the vehicles in the Star's formation was an Asshur spotter, concentrated on engaging the two BattleMechs and disregarded the vehicle elements as a lower priority threat. The Asshur's crew used this oversight to designate targets for Arrow IV artillery missiles continuously throughout the engagement, guiding strikes from a pair of tanks located several kilometers from the battlefield. No mercenaries survived.</p><p>Ghost Bear established a new production line at the New York Vehicle Y2 Facility on Trondheim following the Clan's occupation of the former Free Rasalhague Republic, bringing Asshur Artillery Spotter production into the Inner Sphere proper. This facility operated under successive Clan Sea Fox stewardship from the later Civil War period onward, sustaining production into the Dark Age and ilClan eras. The Homeworld facilities continued operating under their respective Clan owners, with Hector passing through Ice Hellion, Goliath Scorpion, and Cloud Cobra hands across the Jihad and Dark Age periods.</p>
+</history>
+
+<manufacturer>
+Albion Armor Works Beta|Beta Plant 1T|Hector MotorWorks Facility Gamma|Industrial Complex Raven Epsilon|New York Vehicle Y2 Facility|York Vehicle Y2 Facility
+</manufacturer>
+
+<primaryFactory>
+Albion (Junction City)|Tamaron|Hector|Lum|Trondheim|York
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Consolidated
+TARGETING:Consolidated
+</systemManufacturers>
+
+<systemModels>
+ENGINE:Fusion 95
+ARMOR:Compound JX2 Ferro-Fibrous
+COMMUNICATIONS:Consolidated Type 2M
+TARGETING:Consolidated Type V TTS
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+

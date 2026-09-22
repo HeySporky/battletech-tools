@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ce88-7741-a255-3191b3d82fdb
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Helepolis
+model:HEP-4H
+mul id:1463
+
+Config:Biped
+techbase:Inner Sphere
+era:3074
+source:TR:3075
+published:RS:3075u-AW
+rules level:3
+role:Missile Boat
+
+quirk:stable
+quirk:reinforced_legs
+
+mass:75
+engine:300 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:21
+RT armor:21
+CT armor:31
+HD armor:9
+LL armor:25
+RL armor:25
+RTL armor:10
+RTR armor:10
+RTC armor:12
+
+Weapons:6
+ER Large Laser, Left Arm
+Sniper, Right Torso
+LRM 5, Left Torso
+LRM 5, Left Torso
+SRM 6, Center Torso
+Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERLargeLaser
+ISERLargeLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+LRM 5
+LRM 5
+IS Ammo LRM-5
+IS Ammo SRM-6
+ISSniperAmmo
+ISSniperAmmo
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+ISSniper
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 6
+SRM 6
+
+Head:
+Life Support
+Sensors
+Cockpit
+Medium Laser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Helepolis was introduced in 2460 by Mitchell Vehicles for the Terran Hegemony, designed as one of the first BattleMechs built around a dedicated artillery system rather than a conventional multi-role combat profile. Named after an ancient siege engine, the seventy-five-ton design emerged during an era when the Hegemony's strategic thinking shifted from offensive expansion to defensive consolidation, a philosophy that would culminate in Director-General Deborah Cameron's "Strategy of Aggressive Peacemaking" and the eventual creation of the Star League. The growing emphasis on defensive weapons systems inspired Mitchell Vehicles to design the first BattleMech-based artillery platform, though the slow and lumbering creation was met with considerable skepticism when unveiled.</p><p>Built around a powerful Sniper-class artillery piece, the Helepolis epitomized the Hegemony's industrial capacity to produce highly specialized combat vehicles alongside standard line 'Mechs, filling a narrow but important niche as a mobile siege engine.</p>
+
+capabilities:<p>The Helepolis sacrifices speed and flexibility to serve as a mobile artillery platform built around an Armstrong Industries Sniper Artillery Piece. The seventy-five-ton 'Mech's VOX 225 fusion engine provides a maximum speed of only fifty-four kilometers per hour, making it one of the slower heavy designs in service. Thirteen tons of Armorscale armor with CASE provides respectable protection for a unit intended to operate behind the front lines, while protecting the ammunition stores from catastrophic detonation.</p><p>The Sniper artillery piece delivers accurate long-range fire effective against fortifications and static positions, with a secondary weapons suite including a Nova large laser and Coventry Starfire LRM-10 for medium-range engagements, and a Thunderstroke SRM-6 and Starflash medium laser for close defense. The design's reinforced leg actuators absorb the significant recoil generated when firing the main gun, though the 'Mech must come to a complete stop before each salvo.</p><p>This vulnerability to counter-battery fire means Helepolis crews quickly learned to relocate after firing, and the Hegemony Armed Forces invariably assigned infantry and armor screens to protect their artillery batteries from direct assault.</p>
+
+deployment:<p>Produced by the Vining Engineering and Salvage Team on Solaris VII beginning in 3074, this comprehensive upgrade rebuilt the Helepolis on an endo steel frame and replaced the standard fusion engine with a 300-rated light fusion engine, boosting top speed to sixty-four kilometers per hour. The ER large laser was retained from the HEP-3H, but space constraints necessitated splitting the LRM-10 into two LRM-5 launchers. The increased mobility dramatically improved the design's survivability against counter-battery fire, addressing the most significant tactical weakness of earlier models. VEST's upgraded Helepolis has remained in continuous production and saw successful combat with mercenary forces during the late Jihad and into the Dark Age.</p>
+
+history:<p>The Helepolis entered service with the Terran Hegemony Armed Forces in 2460, during an era when the Hegemony was transitioning from offensive expansion to defensive consolidation. The HAF initially deployed the design in experimental formations, developing doctrine for the novel concept of 'Mech-mounted artillery. After some experimentation, the HAF chose to deploy the Helepolis in a defensive role, with batteries of four 'Mechs often being permanently assigned to strategic strong points.</p><p>The design saw notable service during the September Revolt of 2549, when Director-General Ian Cameron deployed batteries of the Helepolis to contain rebel elements that had seized Geneva on Terra. The artillery 'Mechs proved effective at pinning down the insurgents while the Camerons' Household Guard surrounded and contained the rebels, allowing the new Director-General to secure control over the rest of the HAF. This engagement demonstrated the Helepolis's value in siege operations, though it also highlighted the design's limitations against mobile threats.</p><p>The mobility required by the newly formed Star League Defense Force during campaigns in the Periphery kept the Helepolis relegated to rear-area duties such as securing supply centers and static anti-aircraft defense. When deployed against mobile Periphery forces at Meadowvale, the artillery 'Mech proved ineffective against rapidly moving Canopian raiders, and the damage inflicted by the raid stalled Star League operations against the Magistracy of Canopus for six months.</p><p>Like many specialized designs, the Helepolis did not survive the Succession Wars. The destruction of the Graham IV production facility in 2775 ended manufacture of the design, and the technological regression of the early Succession Wars ensured that the specialized artillery 'Mech would not be replicated for centuries.</p><p>The design resurfaced during the Jihad era through two separate efforts. Ceres Metals Industries established a retrotech production line on Ward, producing the original HEP-1H from 3075 to 3080. More significantly, the surviving members of the Vining Engineering and Salvage Team established a facility on Solaris VII after the Word of Blake's departure, producing upgraded HEP-4H variants that addressed the original design's most critical weakness by nearly doubling its top speed. VEST's Helepolis 'Mechs saw combat with Thor's Hammers mercenary command on Zanderij, where batteries provided devastating fire support against Jade Falcon forces on Iota, pinning elements of Iota Galaxy under constant artillery bombardment and preventing their breakout from their landing zone.</p>
+
+manufacturer:Vining Engineering and Salvage Teams
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Unknown (Endo Steel)
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:300 Light
+systemmanufacturer:ARMOR:Armorscale
+systemmode:ARMOR:Armorscale with CASE
+systemmanufacturer:COMMUNICATIONS:Exeter
+systemmode:COMMUNICATIONS:Longscan 100
+systemmanufacturer:TARGETING:Tacticon
+systemmode:TARGETING:Tracer 150b

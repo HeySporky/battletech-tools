@@ -1,0 +1,387 @@
+{
+  "filename": "Cavalry_CLV-3ry.hmp",
+  "size": 1948,
+  "header_hex": "56 35 2e 30 30 01 00 08 03 00 00 00 00 00 00 01",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 8,
+      "length": 1,
+      "text": "\b"
+    },
+    {
+      "type": "len_string",
+      "start": 8,
+      "end": 13,
+      "length": 3,
+      "text": "\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 14,
+      "end": 272,
+      "length": 256,
+      "text": "\u0000F\u0000\u0007\u0000Cavalry\u0007\u0000CLV-3ry\u00ea\u000b\u0002\u0000:\u00ee\u000e\u0001%\u000b\u0000`5E\u0000\u00a0&E\u0000\u0000$B\u0000\u0000\u00c0A\u0000\u0000PA\u0010\u0000MH 5 4 5 4 24 5J\u0001\u0000\u0000\u0000\u0001\u0000^\u0001\u0001\u0000\u0005\u0000\u0005\u0000\u000f\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0000\u0000\u001e\u0000\u0000\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0000\u0000\u001e\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000!\u0000\u0000\u0000\b\u0000\b\u0000\u000b\u0000\u0000\u0000\b\u0000\u0001\u00006\u0000\u0004\u0000\u0000\u0000\u0000\u0000\u000b\u0000Ra series 1\u0001\u00004\u0000\u0004\u0000\u0000\u0000\u0000\u0000\r\u0000Horus Model 1\u0001\u00006\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u000b\u0000Ra series 1\u0001\u00004\u0000\u0001\u0000\u0000\u0000\u0000\u0000\r\u0000Horus Model 1\u0001\u0000S\u0000\u0005\u00002\u0000\u0000\u0000\t\u0000("
+    },
+    {
+      "type": "ascii",
+      "start": 272,
+      "end": 280,
+      "text": "Unknown)"
+    },
+    {
+      "type": "len_string",
+      "start": 280,
+      "end": 283,
+      "length": 1,
+      "text": "S"
+    },
+    {
+      "type": "len_string",
+      "start": 283,
+      "end": 797,
+      "length": 512,
+      "text": "\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000S\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00004\u0000\u0007\u0000\u0000\u0000\u0000\u0000\r\u0000Horus Model 1\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u00006\u0000\u0000\u00006\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u00e3\u0001\u0019\bS\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u00006\u0000\u0000\u00006\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000S\u0000\u0000\u0000\u00e3\u0001\u0019\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u00004\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000S\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u00f6\u00ff\u00d9\u0000\u0097\u0000This design evolved from the old Warhammer chassis.  A need "
+    },
+    {
+      "type": "ascii",
+      "start": 797,
+      "end": 888,
+      "text": "was discovered for a mobile platform for heavy firepower.  The Cavalry mech was the answer."
+    },
+    {
+      "type": "len_string",
+      "start": 888,
+      "end": 1128,
+      "length": 238,
+      "text": "The Cavalry with its jumpjets, and firepower is often used as a raider mech.  The SRMs can run low but htis is ofset by the mediun lasers on the mech.  This mech can often be found runing in company with medium lances due to its mobility."
+    },
+    {
+      "type": "ascii",
+      "start": 1128,
+      "end": 1129,
+      "text": "R"
+    },
+    {
+      "type": "byte",
+      "offset": 1129,
+      "hex": "01"
+    },
+    {
+      "type": "ascii",
+      "start": 1130,
+      "end": 1468,
+      "text": "The first prototypes were used in raids in Smoke Jaguar and Ghost Bear Occupation Zones during the lull in the Clans Invasion.  The unit performed well, often enabling the older mechs a chance to escape under a barrage of fire.  The Streak SRMs proved devastating against the lighter clan mechs that tended to indulge in strafing attacks."
+    },
+    {
+      "type": "len_string",
+      "start": 1468,
+      "end": 1678,
+      "length": 208,
+      "text": "One varient drops an SRM4 for a C3 slave, and either ECM or Probe electronics and a medium laser.  Most other varients follow this theme.  A master C3 version drops 2 SRMs and 1 ton SRM ammo for the computer."
+    },
+    {
+      "type": "len_string",
+      "start": 1678,
+      "end": 1681,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 1681,
+      "end": 1682,
+      "text": "M"
+    },
+    {
+      "type": "byte",
+      "offset": 1682,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1683,
+      "end": 1760,
+      "text": "This unit is exclusively deployed with the Circus or Homestead March units.  "
+    },
+    {
+      "type": "len_string",
+      "start": 1760,
+      "end": 1763,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1763,
+      "end": 1766,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 1766,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1767,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1768,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1769,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1770,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1771,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1772,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1773,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1774,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1775,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1776,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1777,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1778,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1779,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1780,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1781,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1782,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1783,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1784,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1785,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1786,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1787,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1788,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1789,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1790,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1791,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1792,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1793,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1794,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1795,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1796,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1797,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1798,
+      "end": 1808,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 1808,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1809,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1810,
+      "end": 1819,
+      "length": 7,
+      "text": "Ironman"
+    },
+    {
+      "type": "len_string",
+      "start": 1819,
+      "end": 1838,
+      "length": 17,
+      "text": "Home / KCEI (IMM)"
+    },
+    {
+      "type": "ascii",
+      "start": 1838,
+      "end": 1839,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 1839,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1840,
+      "end": 1850,
+      "text": "Faisal mk2"
+    },
+    {
+      "type": "len_string",
+      "start": 1850,
+      "end": 1872,
+      "length": 20,
+      "text": "Armorscale with CASE"
+    },
+    {
+      "type": "ascii",
+      "start": 1872,
+      "end": 1873,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 1873,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1874,
+      "end": 1884,
+      "text": "Anvil Lite"
+    },
+    {
+      "type": "len_string",
+      "start": 1884,
+      "end": 1912,
+      "length": 26,
+      "text": "Achernar Electronics HID-8"
+    },
+    {
+      "type": "len_string",
+      "start": 1912,
+      "end": 1935,
+      "length": 21,
+      "text": "Thorndyke Lockover II"
+    },
+    {
+      "type": "len_string",
+      "start": 1935,
+      "end": 1948,
+      "length": 11,
+      "text": "Longstepper"
+    }
+  ]
+}

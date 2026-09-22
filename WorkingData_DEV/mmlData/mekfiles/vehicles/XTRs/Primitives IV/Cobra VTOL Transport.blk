@@ -1,0 +1,191 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec43-77c3-9837-427bd3b5f580
+</UUID>
+
+<UnitType>
+SupportVTOL
+</UnitType>
+
+<Name>
+Cobra VTOL Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7189
+</mul id:>
+
+<year>
+2317
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+vtol_rotor_dual
+obsolete:2470
+non_standard
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+troopspace:9.0
+</transporters>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+10
+8
+8
+6
+2
+</armor>
+
+<Body Equipment>
+Advanced Fire Control
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+Machine Gun
+</Right Equipment>
+
+<Left Equipment>
+Machine Gun
+</Left Equipment>
+
+<Rear Equipment>
+Machine Gun
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Cobra VTOL Transport uses an internal combustion engine driving a tilt-rotor assembly for propulsion, achieving a cruise speed of approximately 130 kilometers per hour. While this performance lagged behind faster VTOL designs of the period, the Cobra's strength lay in its carrying capacity rather than raw speed. The spacious internal hold accommodates nine tons of cargo and is fitted with three access doors, right, left, and rear, allowing rapid loading and offloading in the field. The cargo bay accepts interchangeable kit packages, allowing units to reconfigure the vehicle for troop transport, medical evacuation, reconnaissance, airborne command post, or VIP duties without dedicated maintenance facilities.</p><p>The vehicle also supports a slung load beneath the airframe, extending its utility to delivery of light artillery pieces, small vehicles, or supplemental bulk cargo alongside its internal carry. For self-defense, four machine guns cover multiple arcs and are supported by an advanced fire control system to improve crew targeting effectiveness under operational conditions. BAR-6 composite armor provides adequate protection for a transport operating in contested airspace, though the Cobra relies primarily on speed and escort for survivability in active combat environments. A three-person crew handles flight, vehicle operations, and gunnery during missions.</p>
+</capabilities>
+
+<overview>
+<p>The Cobra VTOL Transport traces its origins to the formative years of the Terran Hegemony's military organization, commissioned from Pacific-Euro Consolidated Aerospace Systems on Terra in 2317. The design emerged from Director-General James McKenna's sweeping initiative to replace the fragmented procurement practices of the Alliance Global Militia with a standardized, purpose-built military equipment base. McKenna's vision demanded a light transport capable of operating across the full range of Hegemony operations, from battlefield resupply runs to rear-area logistics, and the tilt-rotor Cobra answered that specification with a design that proved both practical and adaptable. Capable of delivering troops, supplies, and light vehicles to contested forward positions and evacuating casualties on the return, the Cobra defined Hegemony military transport operations for most of the twenty-fourth century and established the tilt-rotor transport template that would echo through centuries of successor designs.</p>
+</overview>
+
+<deployment>
+<p>The original production model of the Cobra VTOL Transport, entering service with the Hegemony Armed Forces in 2317. Built around the standard tilt-rotor airframe with an internal combustion power plant, the baseline configuration carries nine tons of cargo across three configurable hold sections and supports a slung load for heavier deliveries. Field conversion kits were developed in parallel with the original design, allowing individual vehicles to serve in a range of support roles without dedicated workshop support. The standard Cobra was produced in quantity and issued across all branches of Hegemony forces, with large numbers eventually demilitarized and sold to civilian operators following decommissioning.</p>
+</deployment>
+
+<history>
+<p>The Cobra VTOL Transport's development came at a defining moment in Terran Hegemony history. Director-General James McKenna's rise to power inaugurated a new era of military standardization across what had been the loosely organized Alliance Global Militia. Prior to McKenna's reforms, equipment procurement had been inconsistent at best, with contracts regularly awarded for designs already rejected by the military hierarchy. The Cobra was among the earliest products of the new mandate requiring uniform standards, with Pacific-Euro Consolidated Aerospace Systems receiving the production contract and beginning manufacture in 2317.</p><p>The design proved an immediate success and remained the standard Hegemony VTOL transport for most of the twenty-fourth century. Field conversion kits developed in parallel with the original model allowed individual Cobras to be rapidly reconfigured for medical evacuation, airborne command posts, VIP transport, and reconnaissance missions without factory support. The design's adaptability encouraged a continuous stream of specialized configurations, and hundreds of examples entered service across all branches of Hegemony forces. Many decommissioned Cobras eventually found their way into civilian hands, serving government agencies, commercial operators, and the civilian aftermarket as workhorses for nearly every conceivable transport purpose.</p><p>By the latter decades of the twenty-fourth century, advancing aerospace technology and the introduction of more capable designs had begun displacing the original Cobra in front-line service. The final military production orders, fulfilled in 2489, incorporated a fusion power plant that improved performance margins and extended the design's useful service life before the original line was discontinued entirely. The Cobra VTOL Transport did not survive to witness the founding of the Star League, but its influence persisted in Hegemony operational records and engineering documentation that directly informed Aldis Industries' development of the Star League-era Cobra Transport VTOL. The tilt-rotor transport concept the Cobra pioneered would prove remarkably enduring, with echoes of its basic design philosophy visible in transport VTOLs produced centuries later across the Inner Sphere.</p>
+</history>
+
+<manufacturer>
+Pacific-Euro Consolidated Aerospace Systems
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:ICE
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Primitives IV
+</source>
+
+<published>
+XTR:Primitives IV
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+
+<fuel>
+0.5
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

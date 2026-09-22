@@ -1,0 +1,157 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e50c-7d3f-b557-c6eb15e5063a
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Heavy Tracked APC
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+1453
+</mul id:>
+
+<year>
+2470
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+troopspace:6.0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<armor>
+20
+13
+13
+10
+</armor>
+
+<Body Equipment>
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Heavy Tracked APC carries six tons of infantry -- sufficient for two full platoons of standard foot infantry or one platoon of motorized or jump troops -- on a robust tracked chassis that can negotiate virtually any terrain. An internal combustion engine propels the twenty-ton vehicle to a maximum speed of approximately eighty-six kilometers per hour, making it the slowest of the three Heavy APC configurations but the most reliable in rough terrain. Two front-mounted machine guns provide anti-infantry defense.</p><p>Fifty-six points of standard armor provide the same level of protection as the hover and wheeled heavy variants, concentrated on the front and flanks with reduced rear coverage around the assault ramp. The tracked drive system's all-terrain capability makes this variant the preferred transport for operations in rough, forested, or mountainous terrain where hover vehicles cannot operate and wheeled vehicles struggle. The lack of a turret restricts machine gun fire to the forward arc.</p>
+</capabilities>
+
+<overview>
+<p>The Heavy APC is a twenty-ton combat transport designed to address the fundamental limitation of the standard Armored Personnel Carrier -- its ability to carry only a single infantry squad. By doubling the chassis weight, the Heavy APC provides six tons of infantry carrying capacity, sufficient for two full platoons of standard infantry or one platoon of motorized or jump troops. Produced in the same three motive configurations as its lighter counterpart, the Heavy APC offers substantially improved armor protection alongside its increased transport capacity, making it the largest dedicated personnel carrier in common service across the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Heavy Tracked APC is the preferred heavy transport for formations operating in rough terrain, where its tracked drive system provides reliable mobility that hover and wheeled vehicles cannot match. The Draconis Combine and Free Worlds League field particularly large numbers, favoring the tracked variant's all-terrain capability for operations across their varied and often undeveloped frontier worlds.</p>
+</deployment>
+
+<history>
+<p>The Heavy APC was developed in the twenty-fifth century as a direct response to the standard APC's limited carrying capacity. Military planners recognized that a single squad per vehicle was insufficient for rapid infantry deployment, particularly in combined-arms formations where infantry needed to arrive in strength alongside heavier units. The twenty-ton design entered service around 2470, predating the modern standard APC by several decades, and quickly became the preferred transport for mobile forces with large infantry contingents.</p><p>The Federated Commonwealth's Regimental Combat Teams made the Heavy APC a centerpiece of their combined-arms doctrine, fielding large numbers of all three motive types to rapidly deploy infantry in support of BattleMech and armor formations. Other Inner Sphere powers adopted the design in varying numbers, with the Free Worlds League and Draconis Combine favoring the tracked variant for its all-terrain capability, while the Lyran Commonwealth preferred the wheeled model for operations along its extensive road networks.</p><p>During the Jihad, the Word of Blake developed a specialized wheeled variant incorporating an extralight engine and heavy ferro-fibrous armor, significantly improving protection and speed while retaining full troop capacity. The Scout Tank conversion of the hover chassis, replacing the infantry compartment entirely with sensors and a light autocannon, demonstrated the platform's versatility beyond its original transport role. Like the standard APC, the Heavy APC's simplicity and reliability have kept it in continuous production and service for over six centuries.</p>
+</history>
+
+<manufacturer>
+Quikscell Company|Quikscell Company|Majesty Metals & Manufacturing|Amaris Armored Vehicles|Quikscell Company|Quikscell Company|Maxwell Planetary Defense Consortium|Quikscell Company|Quikscell Company|Hellespont Industrials|Aldis Industries
+</manufacturer>
+
+<primaryFactory>
+Ares|Broken Wheel|Canopus IV|Erdvynn|Kalidasa|Layover|Maxwell|Oliver|Richvale|Sian|Terra
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+ENGINE:ICE
+ARMOR:Standard
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

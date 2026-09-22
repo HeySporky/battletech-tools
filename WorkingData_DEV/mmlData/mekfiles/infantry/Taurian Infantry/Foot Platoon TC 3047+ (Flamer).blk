@@ -1,0 +1,89 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-c06c-7d7d-873a-07e1ab51ec32
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Platoon (Taurian 3047+)
+</Name>
+
+<Model>
+(Flamer)
+</Model>
+
+<mul id:>
+9281
+</mul id:>
+
+<year>
+3047
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Taurian Concordat/Calderon Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Every Concordat world maintains infantry formations as the first line of planetary defense, drawn from a population whose fierce independence and hatred of foreign aggression run deep. Foot platoons form the garrison backbone of the TDF's infantry arm, cheap to equip and maintain on worlds where the Concordat's limited resources must stretch across dozens of systems. Since infantry regiments rarely rotate offworld, many battalions train as specialists in local terrain, and anti-BattleMech training is standard for all formations at battalion strength or greater.</p><p>Support troops carry man-portable flamers that project streams of burning chemicals over several hundred square meters, providing devastating area-effect capability against infantry and structures at the cost of short range and the vulnerability of the operator's fuel tank.</p>
+</overview>
+
+<source>
+TW,TM
+</source>
+
+<squad_size>
+10
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+Flamer (Man-Portable)
+</Secondary>
+

@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d3af-704e-8207-b79a38078556
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hound
+model:HD-2F
+mul id:6563
+
+Config:Biped
+techbase:Inner Sphere
+era:3098
+source:TR:3145:Merc,TR:DA
+published:RS:DA
+rules level:2
+role:Sniper
+
+weaponquirk:accurate:LT:0:ISLBXAC10
+
+mass:70
+engine:280 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:15 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:10
+RTR armor:10
+RTC armor:13
+
+Weapons:5
+SRM 4, Left Arm
+Light PPC, Right Arm
+Light PPC, Right Arm
+LB 10-X AC, Left Torso
+Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+SRM 4
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Light PPC
+Light PPC
+Light PPC
+Light PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X AC Ammo
+IS LB 10-X Cluster Ammo
+IS Ammo SRM-4
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hound is a seventy-ton heavy BattleMech introduced in 3098 by Coalition Armory Inc. on the Periphery world of Filtvelt. Designed to fill a fire support role comparable to the venerable Warhammer, the Hound was built around a philosophy of simplicity and reliability, using proven components that were widely available and easy to maintain. Representing a landmark achievement for the Filtvelt Coalition, the Hound marked a significant step forward in the Coalition's domestic military production capability.</p><p>The straightforward design of the Hound endeared it not only to its pilots but to logistics personnel across the Coalition and beyond. Its dependability and ease of repair made it attractive to mercenary commands and small nations operating on tight budgets, and production has continued steadily at Coalition Armory for nearly half a century.</p>
+
+capabilities:<p>The Hound mounts a diverse arsenal centered on a Mydron Excel LB 10-X autocannon carried in a shoulder mount reminiscent of the Shadow Hawk. Fed by two tons of ammunition, the autocannon can deliver solid slugs to crack armor or switch to cluster munitions to maximize the chance of damaging exposed internal systems. A pair of Johnston Lite light particle projection cannons in the right arm provide long-range fire support, matching the reach of a standard PPC at half the damage output. This combination ensures the Hound can engage effectively at extended ranges even after exhausting its autocannon ammunition.</p><p>At closer ranges, a Holly SRM-4 launcher backed by a ton of reloads and a ChisComp 39 medium laser give the Hound additional punch against opponents that close the distance. The design benefits significantly from its use of a standard GM 280 fusion engine, which provides a respectable top speed of sixty-four kilometers per hour while granting the Hound exceptional survivability. Unlike XL engine-equipped designs, the loss of a side torso will not cripple the Hound, allowing damaged machines to continue fighting or withdraw under their own power. Fifteen single heat sinks manage the modest thermal load of its mixed weapon systems. The tradeoff for this reliability is a lack of jump capability and a conservative top speed for its weight class, limiting tactical flexibility in broken terrain.</p>
+
+deployment:<p>No factory variants of the Hound have been produced as of the mid-thirty-second century. The baseline HD-2F remains the sole production model, reflecting the Filtvelt Coalition's pragmatic approach to military procurement. Coalition Armory has focused on maintaining steady production of the proven design rather than diverting resources to develop specialized variants, a strategy well-suited to the Coalition's limited industrial base and the Hound's versatile combat profile.</p>
+
+history:<p>The Hound emerged from a critical inflection point in the Filtvelt Coalition's military development. When the Coalition seceded from the Federated Suns in 3072, its armed forces were desperately short of modern equipment, relying on aging RetroTech designs and cast-off machines from better-equipped formations. Coalition Armory Inc. on Filtvelt initially produced RetroTech BattleMechs as the only viable option, but by the late 3090s, improvements to the Coalition's industrial base allowed the company to begin manufacturing designs using Succession Wars-era components and select newer technologies. The Hound was the first to move beyond RetroTech construction, resulting in a simple, effective heavy 'Mech that dramatically improved the combat capability of the Filtvelt Citizen's Militia.</p><p>The Hound quickly earned its reputation as a "shredder" in engagements against the pirate bands that plagued the Coalition's borders. In 3101, one of its first major tests came on the world of Broken Wheel, where elements of the Second Filtvelt Citizens Militia engaged the Border Lords, a pirate band that had fled the Calderon Protectorate seeking easier prey in Coalition space. A company of Hounds, supported by Pegasus hovertanks and locally produced Light Thunderbolt Carriers, fought the pirates through tight urban streets where the heavy 'Mechs' durability and firepower proved decisive. The Hounds set up firing lanes and ambushes that systematically dismantled the pirate force, and the Border Lords fled the world having lost half their 'Mechs.</p><p>The Hound also proved effective in offensive operations. In 3117, when pirates from the Pirates Haven rampaged through Carvajal, the local militia was overwhelmed. The mercenary Green Machine, the closest available reinforcement from the Calderon Protectorate, responded with a force that included Hounds providing heavy fire support. The Hounds championed the assault into the capital city, weathering punishing fire from pirate DropShips while driving the raiders from residential areas. In the final engagement on the plains outside the capital, concentrated autocannon fire from the Hounds demolished the pirate DropShips' engines and weapons, trapping the raiders and ending the threat.</p><p>By the mid-thirty-second century, the Hound had become a cornerstone of the Filtvelt Coalition's military, serving with distinction in every brigade of the Citizen's Militia. Its popularity with mercenary commands operating along the Periphery border ensured a steady export market, and Coalition Armory's continued production kept the design available in quantity. The combination of rugged construction, straightforward maintenance requirements, and punishing firepower has kept the Hound rolling off the assembly lines for decades, earning it a reputation as a dependable workhorse in a dangerous region of space.</p>
+
+manufacturer:Coalition Armory Inc.
+
+primaryfactory:Filtvelt
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Crucis-H
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:280
+systemmanufacturer:ARMOR:Valiant
+systemmode:ARMOR:Chainmail
+systemmanufacturer:COMMUNICATIONS:Pickering
+systemmode:COMMUNICATIONS:Communications Mark III
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:HiRez

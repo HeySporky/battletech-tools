@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb84-7391-9229-28fc3cc437ef
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Prairie Schooner Module
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7335
+</mul id:>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:21.5:2:1::-1:0
+</transporters>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<engine_type>
+8
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+22
+15
+15
+12
+</armor>
+
+<Body Equipment>
+SV Chassis Mod [Tractor]
+SV Chassis Mod [Trailer]
+ISOffRoadChassis
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Prairie Schooner Module uses a trailer chassis with off-road suspension and wide-profile tires that match the tractor's cross-country capability. The module has no independent propulsion, relying entirely on the tractor for movement. This simplicity makes it inexpensive to maintain and straightforward to repair in the field with basic tooling.</p><p>Each standard module carries 22.5 tons of cargo in a main bay with two side access doors, one on the left and one on the right. This slightly larger capacity compared to the tractor's own bay, combined with the ability to chain three modules together, allows a fully loaded Prairie Schooner train to move well over 80 tons of goods in a single run. The standard configuration is a warm hold suited to general dry freight, though operators routinely specify refrigerated, liquid, passenger, or livestock configurations at the time of purchase.</p><p>Two and a half tons of light composite armor protect the module against the minor hazards of frontier operations. As with the tractor, the module carries no weapons from the factory. Customers on hostile worlds occasionally add turret blisters with light anti-infantry or area suppression weapons. The module's main operational limitation is its complete dependence on the tractor, as a disconnected module has no ability to reposition and becomes a fixed, vulnerable point.</p>
+</capabilities>
+
+<overview>
+<p>The Prairie Schooner Module is the standardized trailer component of the Johnston Industries Prairie Schooner Land Train system, designed to be towed by the Prairie Schooner tractor. Introduced alongside the tractor in 3058, each thirty-ton module connects to the tractor or to other modules in train sequences of up to three units. Modules are available in multiple configurations, including standard cargo, refrigerated, liquid container, passenger transport, and livestock variants. The Module's passive, interchangeable design is the foundation of the land train system's commercial versatility, multiplying hauling capacity without proportionally increasing operating costs beyond the investment in the tractor itself.</p>
+</overview>
+
+<deployment>
+<p>Prairie Schooner Modules operate wherever the tractor is found, predominantly on frontier and underdeveloped worlds throughout the Capellan March and beyond. Standard cargo modules are the most common configuration in day-to-day use. Refrigerated and liquid variants are especially prevalent on agricultural worlds where perishable goods supply chains are critical to local economies.</p><p>Passenger modules serve colony transit and evacuation roles across isolated communities. In military logistics applications, modules carry ammunition, medical supplies, and general freight in rear-area support columns. On particularly hostile worlds, operators mount light weapons on module chassis for wildlife deterrence.</p>
+</deployment>
+
+<history>
+<p>The Prairie Schooner Module was developed simultaneously with the tractor as the essential companion component of Johnston Industries' land train concept. The design team prioritized interchangeability from the outset, ensuring each trailer would connect to any tractor and link in sequence with other modules without compatibility problems. This standardization was a deliberate commercial decision, intended to encourage operators to expand their fleets incrementally rather than commit to a single large purchase.</p><p>Production began at New Syrtis in 3058 alongside the tractor. The range of available configurations accelerated adoption across different markets. Refrigerated modules opened supply chain opportunities in the frontier food production sector, while passenger variants provided rural communities with a long-haul transport option that fixed-route vehicles could not deliver cost-effectively. Liquid cargo modules found ready buyers in fuel distribution and water transport roles on worlds with limited pipeline infrastructure.</p><p>Module production followed the same disruption pattern as the tractor when the New Syrtis facility was damaged during the Jihad. Johnston's upgraded Benet III plant began producing modules alongside tractors during the recovery period. The module's simpler construction allowed Benet III to reach full module output relatively quickly, helping stabilize supply to operators during the years when the New Syrtis line was offline.</p><p>The variety of module types contributed to the Prairie Schooner system's long-term commercial durability. Some configurations were adapted for humanitarian logistics work during the Republic of the Sphere era, with large accessible cargo bays converted for medical supply distribution and emergency response roles. The module's unarmored cargo spaces could be reconfigured quickly with minimal tooling, a practical advantage in crisis situations where civilian equipment was pressed into aid distribution.</p>
+</history>
+
+<manufacturer>
+Johnston Industries
+</manufacturer>
+
+<primaryFactory>
+New Syrtis
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Johnston Industries
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr,TP:Irian
+</source>
+
+<published>
+TR:VAr,TP:Irian
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

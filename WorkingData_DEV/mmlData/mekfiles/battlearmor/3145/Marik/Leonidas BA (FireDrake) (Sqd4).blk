@@ -1,0 +1,158 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a675-74c5-b5e7-cc441d3839b5
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Leonidas Battle Armor
+</Name>
+
+<Model>
+(FireDrake)(Sqd4)
+</Model>
+
+<mul id:>
+6478
+</mul id:>
+
+<year>
+3096
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+32
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+ISBAFireDrakeNeedler:RA
+BAAPMount:RA
+InfantryAssaultRifle:APM:RA
+BAHeavyBattleClaw:LA
+BAISAngelECMSuite:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Firedrake configuration equips a Firedrake Support Needler with thirty rounds of ammunition in the modular weapon slot. The needler fires clusters of flechettes effective against infantry and lightly armored targets, providing suppressive capability in counterinsurgency and urban patrol scenarios. Standard Stealth armor and the Angel ECM Suite enable troopers to approach engagement zones undetected, while the Heavy Battle Claw on the left arm allows for close-quarters work against structures and light vehicles.</p><p>Ground movement is limited to approximately thirty-two kilometers per hour with no jump capability, restricting the suit to terrain where stealth and cover can offset its modest speed. The needler's ammunition supply is more limited than some alternative loadouts, requiring troopers to exercise fire discipline during extended operations. The anti-personnel weapon mount adds secondary firepower against unarmored threats at close range.</p>
+</capabilities>
+
+<overview>
+<p>The Leonidas is a medium Inner Sphere battle armor suit produced by Etna Foundries on Oriente for the Duchy of Oriente's armed forces. Introduced in 3096, the design filled a gap in the Duchy's reconnaissance and infiltration capabilities caused by dwindling stocks of the Achileus stealth suit. The Leonidas prioritizes concealment and electronic warfare over raw speed or firepower, making it well suited for ambush operations, artillery spotting, and counterinsurgency patrol. A modular weapon mount allows rapid reconfiguration across multiple mission roles, from direct engagement to battlefield surveillance. The suit earned a strong reputation for tactical flexibility among operators across multiple factions.</p>
+</overview>
+
+<deployment>
+<p>The Firedrake configuration saw widespread use among Free Worlds League four-trooper squads assigned to counterinsurgency and internal security missions. The needler's effectiveness against lightly armored targets made it a preferred loadout for squads tasked with suppressing guerrilla activity in contested provinces. Mercenary commands and Capellan Confederation units that purchased the Leonidas through export channels often specified this configuration for urban security contracts.</p>
+</deployment>
+
+<history>
+<p>Etna Foundries on Oriente developed the Leonidas around the turn of the thirty-second century to address a critical shortage of Achileus stealth suits within the Duchy of Oriente's military. The older design had grown scarce, and Oriente's commanders needed a replacement capable of filling the same infiltration and reconnaissance roles while offering greater flexibility through modular weapon configurations.</p><p>Early operational successes drew attention from buyers across the Inner Sphere and nearby Periphery states. The Free Worlds League Military became the primary operator, with decades of exports reaching the Capellan Confederation, the Magistracy of Canopus, the Marian Hegemony, and various mercenary commands. When the League reformed, production shifted largely toward equipping Oriente's fellow provinces, though export contracts continued. Commanders typically reserved the Leonidas for more experienced and better-trained infantry soldiers.</p><p>Combat experience highlighted both the suit's strengths and limitations. During the Fourth Battle of Tamarind in 3142, a volunteer platoon used the suits to infiltrate the capital city of Zanzibar and destroy a Lyran command post in a devastating surprise assault. Native guerrillas helped the troopers evade patrols and locate the target, and the entire operation concluded before Lyran BattleMechs could respond effectively. By contrast, a Capellan infiltration force on Styk in 3133 was tracked and intercepted by Republic militia, which destroyed the entire platoon after denying the troopers the element of surprise.</p>
+</history>
+
+<manufacturer>
+Etna Foundries
+</manufacturer>
+
+<primaryFactory>
+Oriente
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:FWL,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+6
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

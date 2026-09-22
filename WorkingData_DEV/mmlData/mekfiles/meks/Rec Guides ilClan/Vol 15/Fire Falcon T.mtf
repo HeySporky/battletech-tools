@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d8f0-74c2-b219-827540e249d1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Fire Falcon
+model:T
+mul id:8179
+
+Config:Biped OmniMek
+techbase:Clan
+era:3142
+source:RG15
+published:RG15
+rules level:2
+role:Striker
+
+quirk:imp_sensors
+
+mass:25
+engine:200 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:8
+walk mp:8
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:6
+RA armor:6
+LT armor:9
+RT armor:9
+CT armor:10
+HD armor:9
+LL armor:10
+RL armor:10
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:7
+Medium Pulse Laser, Left Arm
+Improved Heavy Medium Laser, Right Arm
+Improved Heavy Medium Laser, Right Arm
+Improved Heavy Small Laser, Right Arm
+Improved Heavy Small Laser, Right Arm
+Streak SRM 4, Left Torso
+SRM 4 (I-OS), Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLMediumPulseLaser (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLImprovedMediumHeavyLaser (OMNIPOD)
+CLImprovedMediumHeavyLaser (OMNIPOD)
+CLImprovedMediumHeavyLaser (OMNIPOD)
+CLImprovedMediumHeavyLaser (OMNIPOD)
+CLImprovedSmallHeavyLaser (OMNIPOD)
+CLImprovedSmallHeavyLaser (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLStreakSRM4 (OMNIPOD)
+CLSRM4 (IOS) (OMNIPOD)
+Clan Streak SRM 4 Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLTargeting Computer (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Supercharger (OMNIPOD)
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Fire Falcon first appeared in the Touman of Clan Jade Falcon in the early 3050s as a purpose-built replacement for the aging Mist Lynx. Designed to address the shortcomings of its predecessor, the Fire Falcon trades the Mist Lynx's jump capability for superior speed, heavier frontal armor, and substantially greater pod space. Weighing twenty-five tons, this light OmniMech was produced at the Ironhold Alpha Complex on the Jade Falcon capital world and later at the Olivetti Weapons plant on Sudeten in the Occupation Zone. The design's emphasis on pod flexibility over fixed weaponry allows it to fill an unusually broad range of roles for a chassis of its size, from reconnaissance and fire support to anti-infantry operations and target designation.</p><p>Despite its clear advantages over the Mist Lynx, the Fire Falcon was initially deployed with notable caution by the Jade Falcons, seeing limited frontline use even as its performance in testing consistently exceeded expectations. Only after sustained field success did the design gain widespread acceptance across multiple Clans.</p>
+
+capabilities:<p>The Fire Falcon's chassis is built around a JF 200 XL engine that propels the twenty-five-ton OmniMech to a top speed of 129 kilometers per hour, making it one of the swiftest designs in its weight class. A JF 3 Light Endo-Steel internal structure and four tons of Compound JF Ferro-Fibrous armor maximize weight savings, dedicating nearly forty percent of the design's total tonnage to pod space. This ten-ton allocation provides remarkable configuration flexibility for a light 'Mech, enabling loadouts ranging from devastating close-range brawler packages to precision long-range sniper fits.</p><p>The Primary configuration exemplifies this versatility with a balanced mix of weapons suited for short to medium range engagements. Twin Streak SRM-4 launchers provide efficient missile fire, while a medium pulse laser and paired ER medium lasers deliver consistent energy damage. Two ER small lasers round out the armament for point-blank exchanges. Ten double heat sinks manage the thermal load adequately, though aggressive alpha strikes can push the design's cooling capacity.</p><p>The Fire Falcon's principal weakness is its complete lack of jump jets, which limits its ability to exploit terrain advantages that lighter scouts typically rely upon. Its armor protection, while superior to the Mist Lynx, remains thin by any objective measure, making the design reliant on its exceptional speed to avoid concentrated fire.</p>
+
+deployment:<p>Alternate Configuration T serves as a modern Tiburon Khanate refresh of the Fire Falcon's capabilities, incorporating improved heavy medium lasers and improved heavy small lasers in the right arm alongside a medium pulse laser in the left arm, all guided by a targeting computer. A Streak SRM-4 launcher and an Improved One-Shot SRM-4 in the left torso provide supplementary missile firepower. A supercharger enables burst speed capability, allowing pilots to sprint into engagement range, deliver concentrated damage, and withdraw before opponents can effectively respond.</p>
+
+history:<p>The Fire Falcon's operational history is inextricably tied to Clan Jade Falcon's ambitions during and after the Clan Invasion. Entering production in 3052, the design was fielded exclusively by the Jade Falcons during its initial years. Unlike contemporary OmniMechs such as the Night Gyr and Turkina, which were embraced with enthusiasm across multiple Clusters, the Fire Falcon was deployed almost tentatively, as though the Clan leadership wished to evaluate the chassis thoroughly before committing to widespread adoption.</p><p>The Olivetti Weapons facility on Sudeten played a dual role in the Fire Falcon's history. While the vast majority of production remained centered on Ironhold, the Sudeten plant served as a test-bed for manufacturing refinements. After a two-year upgrade program to support more sophisticated OmniMech production, Olivetti began producing short runs of Fire Falcons before transitioning the assembly line to the heavier Black Lanner and Turkina chassis. The Second Falcon Jaegers received a Star of these Sudeten-produced Fire Falcons for intensive field testing, which they passed with distinction.</p><p>The early 3060s marked a turning point for the design's proliferation. As the Fire Falcon proved itself superior to the Mist Lynx in numerous engagements, other Clans began acquiring the chassis, with Clan Fire Mandrill becoming a particularly notable operator. Fire Falcons deployed alongside Black Lanners in frontline Galaxies became a common sight, steadily replacing the Mist Lynx in first-line formations while pushing the older design into second-line and garrison roles.</p><p>During the Jade Falcon Incursion of 3058, Fire Falcons saw significant combat on Coventry and Koniz, where their speed proved invaluable for rapid redeployment and Elemental transport coordination. The Wars of Reaving brought catastrophe to the design's production base when Clan Steel Viper sacked Ironhold in November 3069 as part of their campaign to expel the Jade Falcons from the Clan Homeworlds. The destruction of the Ironhold Alpha Complex eliminated the Fire Falcon's primary production facility, causing the design to fade from use among Homeworld-based Clans. Production continued at the Sudeten facility, ensuring the Fire Falcon's survival in the Inner Sphere Occupation Zones even as its presence in the Homeworlds diminished sharply.</p>
+
+manufacturer:Ironhold Alpha Complex|Olivetti Weapons
+
+primaryfactory:Ironhold|Sudeten
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:JF
+systemmode:CHASSIS:3 Light Endo-Steel
+systemmanufacturer:ENGINE:JF
+systemmode:ENGINE:200 XL
+systemmanufacturer:ARMOR:Compound JF
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:JF
+systemmode:COMMUNICATIONS:Integrated
+systemmanufacturer:TARGETING:Series JFVIII
+systemmode:TARGETING:KITT

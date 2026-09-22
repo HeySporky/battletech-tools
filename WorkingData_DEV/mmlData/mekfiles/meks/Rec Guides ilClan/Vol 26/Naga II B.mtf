@@ -1,0 +1,207 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-db07-7bc8-bec9-7ff386fbcfa1
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Naga II
+model:B
+mul id:9324
+
+Config:Biped OmniMek
+techbase:Clan
+era:2866
+source:RG26
+published:RG26
+rules level:2
+role:Missile Boat
+
+quirk:ext_twist
+quirk:bad_rep_clan
+weaponquirk:stable_weapon:LA:2:CLLRM20
+weaponquirk:stable_weapon:LA:6:CLLRM20
+weaponquirk:stable_weapon:RA:2:CLLRM20
+weaponquirk:stable_weapon:RA:6:CLLRM20
+weaponquirk:stable_weapon:LT:2:CLAntiMissileSystem
+weaponquirk:stable_weapon:RT:2:CLNarcBeacon
+
+mass:80
+engine:400 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:12 Clan Double
+base chassis heat sinks:12
+walk mp:5
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:14
+RA armor:14
+LT armor:15
+RT armor:15
+CT armor:17
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:9
+RTR armor:9
+RTC armor:10
+
+Weapons:6
+LRM 20, Left Arm
+LRM 20, Left Arm
+LRM 20, Right Arm
+LRM 20, Right Arm
+Anti-Missile System, Left Torso
+Narc, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLAntiMissileSystem (OMNIPOD)
+CLAMS Ammo (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Narc-capable (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Narc-capable (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Narc-capable (OMNIPOD)
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLNarcBeacon (OMNIPOD)
+ISNarc Pods (OMNIPOD)
+ISNarc Pods (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Narc-capable (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Narc-capable (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Narc-capable (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Naga II is an 80-ton Clan assault OmniMech that serves as a return to the original Woodsman concept, stripped of the specialized Arrow IV artillery systems that defined its predecessor. Introduced as a refit of existing Naga chassis dating from the period after the Battle of Tukayyid, the Naga II emerged from Clan Wolf's desire to reclaim the flexible direct-fire platform that the Woodsman had originally been. Using refined OmniMech technology developed over decades, the rebuilt Naga IIs serve much the same role as Hellbringers, deploying overwhelming firepower to compensate for their characteristically light armor.</p><p>Manufactured as field refits from existing Naga frames rather than new production, the Naga II has always carried a stigma of desperation, deployed only when more refined equipment was unavailable. The full mobilization of the Wolf Empire's touman brought many Naga IIs back from storage, where they have once again demonstrated their raw combat potential despite their origins as stopgap measures.</p>
+
+capabilities:<p>The Naga II retains the same Type BMH-7 endo steel chassis and 400-rated XL fusion engine as the original Naga, maintaining the impressive 86 kph top speed that serves as the design's primary survival mechanism. With only nine tons of Forged Type 34 standard armor, the Naga II cannot endure sustained exchanges of fire, particularly in the combined-arms warfare that has dominated the Inner Sphere for the past century. The design instead relies on speed and devastating alpha strikes to overwhelm opponents before they can effectively return fire.</p><p>Without the fixed Arrow IV systems consuming internal volume, the Naga II mounts an impressive 31.5 tons of pod space, allowing configurations to mount truly formidable weapons arrays. The Primary configuration exemplifies this philosophy, mounting a Ultra AC/10 and LB 10-X autocannon in opposite arms alongside an LRM-20 rack for long-range fire support. This overwhelming firepower makes the Naga II well-suited to duel-style combat where its raw damage output can decide engagements quickly, though its poor armor makes it weak in the prolonged combined-arms warfare common to Inner Sphere operations.</p><p>Despite its flaws, the Naga II remains a flexible and stable weapons platform with copious pod space. Though it never saw full deployment in the twenty-ninth century, the failed Woodsman prototype's theoretical configurations were influential in shaping the configurations of many other OmniMechs that followed.</p>
+
+deployment:<p>Alternate Configuration B returns to the Naga II's artillery roots, mounting a pair of LRM-20 launchers in each arm with three tons of ammunition per side. A NARC missile beacon in the right torso enhances missile guidance for the entire Star, while an anti-missile system in the left torso provides defense against retaliatory missile fire. This configuration transforms the Naga II into a formidable missile boat reminiscent of the original Naga's fire support role, though delivering its ordnance through conventional rather than artillery systems.</p>
+
+history:<p>The Naga II is a resurrected relic of the Clans' early struggles in developing OmniMech technology. Clan Wolf's first OmniMech was the Woodsman, which existed in two distinct development paths that blazed parallel trails. One path led to the iconic Timber Wolf and Gargoyle, purpose-built replacements that improved upon the Woodsman's core concept. The other path produced the Naga, created when the first production run of the Woodsman proved a technical failure and the flawed chassis were salvaged by mounting fixed Arrow IV artillery systems. An increased understanding of OmniMech technology later allowed for a return to the original Woodsman specifications, producing the Naga II, though these patched OmniMechs always carried the stigma of their desperate origins.</p><p>In the initial years after Operation Revival, Clan Wolf held the largest stock of Nagas and used some for Naga II conversions to bolster their garrison clusters. A critical failure to protect a newly established repair facility from destruction in 3055 did little to improve the image of obsolescence. Pirates from Star's End, in collusion with members of Clan Jade Falcon's Merchant Caste eager to eliminate potential competitors, struck objectives on Icar with a reinforced lance of BattleMechs. The Second Wolf Cavalry responded by combat dropping a Star of Naga II Bs on top of the raiders. Surprise and immense firepower initially halted the attackers, but the over-eager second-line pilots were fighting at close ranges where their lack of training and poor armor proved fatal. The pirates were downed so quickly and caused so little damage that they managed to salvage and withdraw before the rest of the Cluster arrived.</p><p>The Exiled Wolves also fielded many Nagas and performed at least one Naga II factory conversion during the fall of Arc-Royal. Though the 'Mech's firepower served its pilot well, it proved that the design was a relic of doctrines long past. The Naga II's overwhelming weaponry serves it well in duel-style combat, but its poor armor leaves it vulnerable in the combined-arms warfare that has characterized Inner Sphere conflicts. Facing these realities, some observers suggest that the original Naga may be a greater asset than the Naga II can ever be, its artillery systems providing value that raw firepower cannot replicate.</p><p>With the full mobilization of the Wolf Empire's touman, the Naga II has returned from the pages of history. The conversion of Naga frames to Naga II standard continues when artillery capabilities are deemed less critical than direct-fire support, ensuring that this unusual OmniMech remains in service for the foreseeable future.</p>
+
+manufacturer:Refit - Factory
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Niles Industriplex Epsilon
+systemmode:CHASSIS:Type BMH-7 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Fusion 400 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Forged Type 34 Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Type G3, Mk. XII
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Version Kappa-III TTS

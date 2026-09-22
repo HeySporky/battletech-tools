@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c239-79f6-bf0d-8e88e2891d02
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hussar
+model:HSR-300-D
+mul id:1587
+
+Config:Biped
+techbase:Inner Sphere
+era:3035
+source:TR:3039,TR:SW
+published:RS:SW
+rules level:1
+role:Scout
+
+quirk:rugged_1
+quirk:directional_torso_mount:CT
+quirk:imp_com
+
+mass:30
+engine:270 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:9
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:2
+RA armor:2
+LT armor:3
+RT armor:3
+CT armor:4
+HD armor:3
+LL armor:2
+RL armor:2
+RTL armor:1
+RTR armor:1
+RTC armor:1
+
+Weapons:1
+Large Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Large Laser
+Large Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hussar was introduced in 2620 by Newhart Industries as a light reconnaissance BattleMech for the Star League Defense Force. Originally conceived as an infantry support platform, the thirty-ton design's extraordinary speed naturally lent itself to a scouting role, eventually replacing the majority of light scout vehicles in SLDF formations. Its advanced communications and electronic warfare suite made the Hussar invaluable for deep reconnaissance behind enemy lines.</p><p>The SLDF maintained tight control over Newhart's production, and very few Hussars reached the Great Houses through anything other than salvage or deliberate "shipping errors." The loss of its sole factory during the Amaris Civil War and the subsequent Exodus left the design all but extinct in the Inner Sphere for nearly three centuries, lending surviving examples an almost mythical reputation among reconnaissance specialists.</p>
+
+capabilities:<p>The Hussar mounts a single Newhart extended-range large laser in a unique turreted center torso mount, providing stand-off engagement capability well beyond the reach of most light 'Mech weaponry. While limiting the design's offensive output, this single weapon philosophy reflects the Hussar's core doctrine: the MechWarrior's primary advantage is speed, not firepower. At over 150 kilometers per hour, the Hussar can dictate engagement ranges and disengage from unfavorable fights before heavier opponents can bring weapons to bear.</p><p>The design's most significant weakness is its armor protection, barely a ton and a half of Lexington Limited High Grade ferro-fibrous plating, making it among the least-protected 'Mechs ever fielded. Even a Locust carries more armor. This extreme vulnerability means that any hit to the legs can cripple the design instantly, and concentrated fire from any source is likely fatal.</p><p>Where the Hussar truly excels is in its electronic warfare suite. The Field Ranger Sightseer communications system can jam enemy signals and tap into hostile communications up to thirty-five kilometers distant. A well-placed lance of Hussars can completely disrupt an enemy's command network while reporting detailed intelligence on movements and dispositions. These capabilities made the Hussar the standard by which all SLDF reconnaissance platforms were measured.</p>
+
+deployment:<p>This variant is a deliberate downgrade of the original Hussar, provided to the Draconis Combine by ComStar in 3035 as part of Operation ROSEBUD, the secret re-arming arrangement with Kanrei Theodore Kurita. The extended-range large laser was replaced with a standard Defiance B3L large laser, double heat sinks gave way to single models, and the advanced ferro-fibrous armor was swapped for standard Riese Reliable plating at a negligible cost to protection. Perhaps most critically, the sophisticated Ranger electronics were replaced with a Garret T10B communications system and Dynatec 990 targeting system, stripping the design of its premier reconnaissance capability. Without the extended-range laser's stand-off advantage, Combine pilots were forced into closer engagements where the Hussar's paper-thin armor proved consistently fatal.</p>
+
+history:<p>Newhart Industries designed the Hussar on New Earth within the Terran Hegemony, where the SLDF could maintain close oversight of the advanced technology flowing through its production lines. From 2620 through the Star League era, the Hussar became the most widely used scout 'Mech in SLDF formations, with the Fifty-first Hussar Regiment's operations on Wotan in 2630 demonstrating the design's effectiveness in deep-penetration reconnaissance. A Royal variant, the HSR-200-Db, entered exclusive SLDF service in 2735, mounting enhanced electronics and substantially improved armor protection.</p><p>The Amaris Civil War proved catastrophic for the Hussar's future. Newhart's factory on New Earth was destroyed in 2776, eliminating the sole production source. When Kerensky's Exodus stripped the Inner Sphere of most SLDF formations, the few remaining Hussars were forced to soldier on with degraded components as their advanced technology became lostech. By the end of the Third Succession War, only a quarter of surviving Hussars still carried their original Ranger-brand electronics systems.</p><p>The Hussar's revival began through ComStar. In 3035, as part of Operation ROSEBUD, ComStar supplied stripped-down HSR-300-D variants to the Draconis Combine as part of a secret re-arming deal with Kanrei Theodore Kurita. These downgraded machines lacked the extended-range laser and advanced electronics that defined the original, and Combine pilots found them inadequate, particularly during the War of 3039, where Hussar losses were severe.</p><p>ComStar's own Com Guards retained original-specification Hussars, and prior to the Battle of Tukayyid in 3052, the design was among those selected for "Clanbuster" upgrades, producing the HSR-400-D variant. Following the ComStar Schism, the organization sold production rights to Coventry Metal Works, which also acquired the HSR-400-D design being developed by Bonn Mekarmorwerks on Terra. CMW began producing both the 200-D and 400-D series on Coventry from 3055, primarily for the AFFC and later the Lyran Alliance Armed Forces.</p><p>The FedCom Civil War saw Hussars deployed predominantly among Loyalist units, though the design suffered excessively high pilot mortality as many Lyran MechWarriors (trained in heavier designs) attempted stand-up fights rather than exploiting the Hussar's speed advantage. Tactical doctrine eventually adapted, with LAAF commanders adopting older SLDF raiding techniques of dropping Hussar lances behind enemy lines to disrupt supply and communications networks.</p><p>The Word of Blake's assault on Coventry in 3068 ended Lyran production, and the Blakists subsequently produced new variants from the captured CMW facility, including the heavily armored HSR-900-D and HSR-950-D. Bonn Mekarmorwerks on Terra had separately produced the HSR-500-D for Word of Blake militia forces beginning in 3060. After Coventry was liberated in 3074, the Hussar production lines were shuttered in favor of more popular designs, effectively ending new production of the venerable scout 'Mech.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Benztrov
+systemmode:CHASSIS:40
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:270
+systemmanufacturer:ARMOR:Riese
+systemmode:ARMOR:Reliable
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T10B
+systemmanufacturer:TARGETING:Dynatec
+systemmode:TARGETING:990

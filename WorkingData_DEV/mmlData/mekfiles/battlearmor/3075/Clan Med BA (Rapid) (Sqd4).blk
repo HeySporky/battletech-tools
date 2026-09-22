@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a3a0-763c-a600-844554719d4c
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Clan Medium Battle Armor
+</Name>
+
+<Model>
+(Rabid)(Sqd4)
+</Model>
+
+<mul id:>
+3957
+</mul id:>
+
+<year>
+3067
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+CLBASRM2 (OS):Body
+CLBASRM2 (OS):LA
+CLBAFlamer:RA
+BAJumpBooster:Body
+BASearchlight:LA
+BABasicManipulator:LA
+BABasicManipulator:RA
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Rabid mounts a fixed heavy flamer in its right arm and carries a pair of one-shot SRM-2 launchers on the shoulders, providing close-range firepower suited to aggressive assault operations. A built-in searchlight aids operations in low-visibility conditions. The suit uses basic manipulators that allow troopers to ride OmniMechs and execute anti-BattleMech swarming attacks. HarJel self-sealing technology provides protection against hull breaches.</p><p>At one thousand kilograms, the suit sacrifices some armor protection compared to the standard Elemental in exchange for its jump booster system, which propels troopers up to one hundred twenty meters per bound. Ground speed remains slow at twelve kilometers per hour, making the suit reliant on its jump capability and OmniMech transport to maintain tactical mobility. The absence of an anti-personnel weapon mount limits its effectiveness against unarmored infantry.</p>
+</capabilities>
+
+<overview>
+<p>The Clan Medium Battle Armor is a Clan-technology medium-weight suit developed by Clan Nova Cat’s Scientist Caste after the Clan’s relocation to the Inner Sphere. Designed as an improvement over the standard Elemental, the suit incorporates enhanced jump mobility at the cost of reduced protection, filling a gap for a more agile powered infantry platform. Its distinctive samurai-influenced styling reflects the Clan’s growing cultural ties to its Draconis Combine hosts. The design’s adaptable chassis proved attractive to multiple Clans, each fielding specialized configurations suited to their own tactical doctrines and operational needs.</p>
+</overview>
+
+<deployment>
+<p>Inner Sphere organizations that acquired the suit through Diamond Shark trade networks or Nova Cat cooperation deployed it in standard four-trooper squads. Draconis Combine infantry units working alongside Nova Cat forces were among the earliest Inner Sphere adopters, integrating the suits into their existing squad-level organizational structure alongside conventional infantry and BattleMech formations.</p>
+</deployment>
+
+<history>
+<p>Following Clan Nova Cat’s Abjuration from the Clan Homeworlds, the Clan found itself in desperate need of replacement equipment lost during the forced relocation to the Inner Sphere. Khan Santin West, himself an Elemental, took particular interest in rebuilding his battle armor forces. With newer designs emerging from Clan space and the Inner Sphere alike, West charged his Scientist Caste with developing a suit that could hold its own against them.</p><p>Working from the basic Elemental chassis, Nova Cat scientists drew inspiration from the Gray Death Legion’s Scout battle armor to dramatically enhance the suit’s mobility. The resulting design emphasized agility over raw protection, with reworked armament to complement its enhanced movement capabilities. The Draconis Combine provided the Nova Cats with new homeworlds and subsidized construction of a dedicated production facility on Irece, strengthening the partnership between the Clan and its hosts.</p><p>Development suffered a setback in 3062 when hostilities erupted between Clan Ghost Bear and House Kurita, drawing Nova Cat resources away from the project. The few operational prototypes performed well against Ghost Bear forces, and full-scale production began in 3067. Cat Elementals quickly nicknamed the new suit the “Rabid,” and it soon replaced the standard Elemental as the primary battle armor throughout the Nova Cat Touman. Only senior Elemental commanders retained the older suit to reduce equipment losses.</p><p>Clan Diamond Shark, by then established on several Inner Sphere worlds, recognized commercial opportunity in the design. Offering discounted weapons and supplies in exchange for blueprints and schematics, Shark merchants established production lines on Twycross, Trondheim, and Itabaiana. They traded the suit to Clan Ghost Bear and Clan Wolf, both of whom developed specialized configurations tailored to their respective doctrines. Reports that the design was also being marketed to Inner Sphere buyers and Clan Wolf (In Exile) allegedly sparked a confrontation between the Sharks and the Clan Council that escalated near Strana Mechty. Despite this controversy, production continued to expand, with additional manufacturing facilities coming online in subsequent years to meet growing demand across multiple Clans.</p>
+</history>
+
+<manufacturer>
+Barcella Battle Armor Facility|Clan Diamond Shark IndustriPlex-C|Mualang Battle Armor Facility|Trellshire Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+Irece|Itabaiana|Mualang|Twycross
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+9
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

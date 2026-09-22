@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa24-7a16-b3d1-fd65e5148d2f
+</UUID>
+
+<UnitType>
+ConvFighter
+</UnitType>
+
+<Name>
+Mechbuster
+</Name>
+
+<Model>
+(Mary)
+</Model>
+
+<mul id:>
+2152
+</mul id:>
+
+<year>
+3071
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+480
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+19
+9
+9
+11
+</armor>
+
+<Nose Equipment>
+ISLightGaussRifle
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Light Gauss Ammo
+IS Light Gauss Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>What ultimately led to the end of the original production run were the natural limitations of any turbine-powered conventional fighter. Thin armor plus limited fuel and ammunition forced Mekbusters to return to airstrips frequently for rearming and refueling. Even with other support craft to protect it and supply aerial refueling, the Mekbuster only has enough ammunition for under a minute of continuous firing before running dry. Without VSTOL capability, it also requires a dedicated airstrip to land and take off, precluding any ability to wage a guerrilla campaign. If the enemy captures the airstrip, Mekbusters must be abandoned if no other base of operations can be procured quickly.</p><p>As a strike craft and interceptor, however, the Mekbuster proved excellent. Its sole weapon, a Zeus 75 Class-20 Autocannon, provides the potential to destroy several BattleMeks before it needs to retire from the field. A squadron of Mekbusters can turn the tide in a ground battle in the time it takes to run their autocannons dry. The design also incorporates an advanced bomb targeting system which allows external ordnance to be targeted with ease.</p>
+</capabilities>
+
+<overview>
+<p>A hastily designed conventional fighter produced as a stopgap for dwindling aerospace fighters, the Mekbuster was manufactured by Gorton, Kingsley and Thorpe Enterprises on Rasalhague and performed admirably despite its short initial production run. Thousands were churned out until Wakazashi was able to re-tool their lines for more effective aerospace designs right before the outbreak of the Fourth Succession War. With the formation of the Free Rasalhague Republic and the destruction inflicted during the Ronin Wars, the Draconis Combine gifted the design and all rights to the fledgling state, allowing it to produce a cheap and effective fighter to defend its systems from any possible Lyran aggression, and production restarted.</p>
+</overview>
+
+<deployment>
+<p>The Mary is a straightforward field refit of the standard Mekbuster built around a simple weapon swap. The devastating but short-ranged Zeus 75 Class-20 Autocannon has been replaced by a Light Gauss Rifle fed by two tons of ammunition, trading raw close-range firepower for significantly greater reach and more shots per sortie. The fuel tank has also been expanded to carry three tons of fuel, extending the fighter's operational endurance and addressing one of the base design's most persistent limitations. Together these modifications transform the Mekbuster from a close-range striker into a more sustainable standoff platform capable of longer patrols and extended engagements at range.</p>
+</deployment>
+
+<history>
+<p>The Lyran Commonwealth once attempted a daring raid using a squadron of Mekbusters in Combine livery and a company of BattleMeks on Kirchbach in 3025. The plan was to launch the fighters from an in-flight DropShip and race to destroy a command bunker housing several prominent ISF figures. The BattleMek company would then combat drop to capture a nearby airstrip where the fighters would be recovered. The raid started poorly when four of the six Mekbusters launched into a flock of migratory birds, wrecking their turbines. The remaining two successfully destroyed the bunker and killed most of the targets. Low on fuel, the fighters had to land on the airstrip while it was still in the defenders' hands. Amazingly, Combine-style flight suits and paintjobs convinced airstrip personnel the Mekbusters were reinforcements, and the fighters were resupplied and sent off. The Mekbusters helped destroy the militia, recover the downed pilots, and secure the landing strip before escaping to Lyran space.</p><p>Several variant configurations were attempted in an effort to lengthen the Mekbuster's loiter time. The Laser variant removes the autocannon for a trio of medium lasers and ancillary equipment plus additional fuel. The SRM variant uses four SRM 6 packs along with extra armor and fuel. Neither of these has the devastating one-shot, one-kill capability of the original autocannon configuration. A newer upgrade replaces the Zeus-75 with an LB 20-X autocannon, and the ability to fire solid or cluster shells adds to the Mekbuster's utility, though the single ammunition bin forces the pilot to choose their shell type wisely before takeoff.</p>
+</history>
+
+<manufacturer>
+Gorton, Kingsley, and Thorpe Enterprises|Mujika Aerospace Technologies|Wakazashi Enterprises|Wingman Enterprises, Ltd.
+</manufacturer>
+
+<primaryFactory>
+Rasalhague|St. Ives|Chatham|Pinard
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Shinobi
+ENGINE:Shinobi
+ARMOR:Buster
+COMMUNICATIONS:Duoteck
+TARGETING:RCA
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:III Standard
+ENGINE:250 Turbine
+ARMOR:Standard
+COMMUNICATIONS:5
+</systemModels>
+
+<published>
+RS:UF
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6f6-7261-910b-0623b673f70f
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Phoenix Hawk LAM Mk I
+model:PHX-HK1R
+mul id:4825
+
+Config:LAM
+techbase:Inner Sphere
+era:2695
+source:TR:3085
+published:RS:3085u-CE
+rules level:3
+role:Striker
+
+
+mass:50
+engine:250 Fusion Engine
+structure:IS Standard
+myomer:Standard
+lam:Standard
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:19
+RT armor:19
+CT armor:23
+HD armor:8
+LL armor:15
+RL armor:15
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:4
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+Medium Laser, Left Torso
+Snub-Nose PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Landing Gear
+Avionics
+Jump Jet
+Jump Jet
+Medium Laser
+BeagleActiveProbe
+BeagleActiveProbe
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Landing Gear
+Avionics
+Jump Jet
+Jump Jet
+ISSNPPC
+ISSNPPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Landing Gear
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+Avionics
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Allied Aerospace began development of the Phoenix Hawk LAM Mk I the same year LexaTech Industries' tri-mode Stinger LAM demonstrated the viability of Land-Air 'Mech technology to SLDF evaluators. Six years of development (the first two spent on advanced computer modeling) produced a design that incorporated multiple improvements over the failed Shadow Hawk LAM. The Mk I passed all SLDF functional specification tests, earning high marks for firepower and heat management, and entered service in 2701.</p><p>Allied Aerospace sold the Mk I and its successor to the SLDF throughout the Amaris Crisis, and offered the design to all Successor States following the Exodus. The destruction of Allied's Pollux factory during the First Succession War ended production permanently. Phoenix Hawk LAMs continued in service for over two hundred years with progressively downgraded equipment, and at least one example (Chassis 013) sits preserved in the Wings over Donegal museum.</p>
+
+capabilities:<p>The Phoenix Hawk LAM Mk I utilizes an Allied 250 engine to achieve 86 kilometers per hour in 'Mech mode, comparable to most medium BattleMechs of its era. The Blankenburg 30 ER large laser provides striking power at ranges exceeding 500 meters, while four Maxim medium lasers deliver considerable short-range firepower. Twelve double heat sinks maintain a comfortable thermal curve, allowing full weapon salvos even while jumping.</p><p>The foremost innovation was the AirMech mode, featuring a relaxed static stability design that made the airframe slightly unstable in aerospace and AirMech configurations, a deliberate trade-off that provided increased atmospheric dogfighting performance. AirMech conversion completed in under ten seconds, with competent pilots able to maneuver and fire during transition. Directional exhaust venting enabled WiGE-like maneuverability with hover capability, reaching approximately 250 kilometers per hour in flight.</p><p>In full fighter mode, the asymmetrical weapon disposition (Blankenburg plus one laser on the right wing, three lasers on the left) created an exploitable imbalance. Standard thrust of 2.5 Gs with a maximum of 4 Gs proved poorly matched against equal-weight dedicated fighters, though sufficient for evading heavier pursuit craft. Limited fuel capacity discouraged full exploitation of aerospace performance.</p>
+
+deployment:<p>This variant Royal variant removed one left-torso medium laser and exchanged the Blankenburg ER large laser for an experimental snub-nose PPC. While reducing engagement range, the snub-nose PPC's focusing aperture more than compensated with devastating close-range firepower. Two heat sinks were traded for a Beagle active probe and an additional half-ton of armor, transforming the platform into a deadly accurate scout that was frequently targeted by enemy headhunter units. This variant was developed for the SLDF Royal Divisions in 2692.</p>
+
+history:<p>The Phoenix Hawk LAM Mk I entered SLDF service in 2701, nineteen years after the disastrous Shadow Hawk LAM evaluation that nearly killed the Land-Air 'Mech concept entirely. Allied Aerospace's patient development approach produced a significantly more reliable platform, and the Mk I earned considerable distribution throughout the SLDF. Striker Regiments always featured at least one reconnaissance company of LAMs, and in approximately half those regiments, the recon company comprised entirely of Mk I airframes.</p><p>The Mk I played a notable role during the early trials of the Terran Space Defense System, where a LAM reconnaissance company provided critical intelligence on Caspar drone fighter capabilities. The team evaded drone pursuit and breached a landing bay, forcing SDS engineers to spend two years reprogramming the Caspar system to account for LAM tactical profiles.</p><p>Production ended with the destruction of Allied Aerospace's Pollux facility in 2799 during the First Succession War. Surviving Mk I airframes continued operational service for centuries afterward, though progressive equipment downgrading reduced their capabilities significantly. The rarity of replacement parts made every surviving LAM an irreplaceable asset, with units nursing their airframes through careful maintenance and limited deployment to preserve operational readiness.</p>
+
+manufacturer:Allied Aerospace
+
+primaryfactory:Pollux
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Allied Aerospace
+systemmode:CHASSIS:Dort 85 LAM Prototype
+systemmanufacturer:ENGINE:Allied
+systemmode:ENGINE:250
+systemmanufacturer:ARMOR:Maximillian
+systemmode:ARMOR:100
+systemmanufacturer:JUMP_JET:Allied AVRTech
+systemmode:JUMP_JET:Model A
+systemmanufacturer:COMMUNICATIONS:Hartford
+systemmode:COMMUNICATIONS:Baseband 3
+systemmanufacturer:TARGETING:Hartford-Allied
+systemmode:TARGETING:Trakit 8 V

@@ -1,0 +1,377 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ee86-74a3-93f1-9d0b3c7bf06a
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Faslane Yardship
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5802
+</mul id:>
+
+<year>
+2882
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:2.0:1:1::-1:0
+dockingcollar
+dockingcollar
+1stclassquarters:250.0:0:-1::-1:0
+2ndclassquarters:630.0:0:-1::-1:0
+navalrepairunpressurized:2000000.0:1:6:f0
+crewquarters:1190.0:0:-1::-1:0
+cargobay:128610.0:1:8::-1:0
+</transporters>
+
+<SafeThrust>
+2
+</SafeThrust>
+
+<heatsinks>
+817
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+2500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+13
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+16
+12
+12
+8
+9
+9
+</armor>
+
+<Nose Equipment>
+(B) Naval PPC (Medium)
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:100
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval PPC (Medium)
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:100
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval PPC (Medium)
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:100
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval PPC (Medium)
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:100
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval PPC (Medium)
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:100
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval PPC (Medium)
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:100
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval PPC (Medium)
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:166
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval PPC (Medium)
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:166
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+</Right Broadsides Equipment>
+
+<structural_integrity>
+30
+</structural_integrity>
+
+<capabilities>
+<p>Despite displacing 550,000 tons, the Faslane stretched to an extraordinary 1,810 meters in length, dwarfing most dedicated combat WarShips of comparable tonnage. This elongated profile reflected the vessel's primary feature: an unpressurized repair bay capable of docking and servicing vessels weighing up to 2,000,000 tons. The entire forward section comprised this portable drydock, making the Faslane critical for maintaining fleet readiness at forward anchorages far from established shipyard facilities. Over 136,000 tons of additional cargo space provided storage for spare parts, raw materials, and replacement components.</p><p>Defensive armament was substantial for a support vessel. Eight Medium Naval PPCs formed the capital weapons backbone, distributed across all firing arcs, supplemented by naval autocannons covering the nose, broadside, and aft positions. Anti-fighter defense relied on extensive batteries of ER Large Lasers and Artemis IV-guided LRM launchers positioned throughout the vessel. One hundred tons of ferro-aluminum armor offered protection against collisions and light raiders, though this was insufficient to withstand sustained engagement with dedicated combat WarShips. A compact Kearny-Fuchida drive provided interstellar mobility, and a mobile HPG enabled independent communications without reliance on the fixed network. Two DropShip docking collars, two small craft bays, and a pair of 110-meter grav decks supported long-duration operations for a crew of 132 personnel and up to 100 passengers. Safe thrust of two gravities with a maximum of three was consistent with the vessel's rear-echelon support role.</p>
+</capabilities>
+
+<overview>
+<p>The Faslane-class yardship was developed by ComStar as a mobile repair facility capable of servicing the largest capital vessels in existence. Constructed at O'Neil Yards' Titan complex in the Sol system beginning in the late twenty-ninth century, these enormous vessels were designed to provide forward-deployed maintenance capability for ComStar's hidden naval force without reliance on permanent shipyard infrastructure. Drawing on proven Star League-era design principles, the Faslane ranked among the largest WarShips constructed during the Succession Wars period, though its mission was logistical rather than combative. Defensive armament sufficient to ward off raiders and light combatants allowed the vessel to operate independently in exposed anchorages and remote deep space facilities. The class earned a quiet but essential reputation within the Com Guard fleet structure, enabling ComStar to sustain naval readiness across widely scattered holding stations throughout the Inner Sphere and Deep Periphery.</p>
+</overview>
+
+<deployment>
+<p>ComStar distributed its six Faslane-class vessels across the Com Guard fleet structure. The CSV Dover and CSV Portsmouth were assigned to the First Fleet at Luyten 68-28, while the CSV Plymouth and CSV Dun Laoghaire served with the Second Fleet at Ross 248. The CSV Glamorgan and CSV Rosslare were detached to the Deep Periphery station at Columbus in support of Explorer Corps operations.</p><p>The December 3068 Blakist attack on Columbus proved devastating. Word of Blake WarShips systematically destroyed every vessel and installation at the station, confirmed by a 3076 investigation that found no human activity had occurred at the site since the assault. The CSV Portsmouth and CSV Rosslare were both confirmed lost. The fate of the CSV Glamorgan, also assigned to Columbus, remains contradictory between surviving records. One additional vessel was lost elsewhere during the Jihad, though which and the circumstances of its destruction remain unclear.</p><p>Three Faslanes survived to be transferred to the Republic of the Sphere. Renamed the RoSS Iustitia, RoSS Harmonia, and RoSS Necessitas, they served as repair tenders at the Titan Yards in the Sol system. The Iustitia was lost to an industrial accident in 3117, prompting the Republic to decommission and mothball the Harmonia and Necessitas in storage orbits around Phoebe, a moon of Saturn. Following Clan Wolf's seizure of Terra in November 3151, ilKhan Alaric Ward claimed both mothballed vessels as isorla, rechristening the Harmonia as the Varkhana and the Necessitas as the Medeina.</p>
+</deployment>
+
+<history>
+<p>ComStar's hidden naval force presented a unique logistical challenge throughout the Succession Wars. The organization maintained dozens of aging Star League-era WarShips in secret anchorages scattered across the Inner Sphere and Deep Periphery, but lacked the permanent shipyard infrastructure necessary to service these capital vessels without revealing their existence to the Great Houses. ComStar's Titan Yards complex at Terra possessed the Blessed Order's two recovered Newgrange-class yardship hulks, both badly damaged and deemed beyond salvage. Rather than attempt to restore the massive Star League originals, ComStar's engineers used the Newgrange design as the foundation for a smaller, purpose-built mobile repair vessel that could operate independently from any fixed facility.</p><p>O'Neil Yards' Titan complex received the construction contract, and between 2882 and 2949, six Faslane-class hulls were laid down. Each was named after a port city of the British Isles and Ireland, a quiet nod to the maritime traditions that informed the class designation. Construction proceeded under absolute secrecy, with ComStar concealing the entire program from the Successor States and, later, from Clan intelligence networks. The extended timeline reflected both the complexity of building vessels of this scale and the constraints of a single shipyard working covertly alongside its other commitments. Originally conceived to support both the Explorer Corps and the Com Guard fleet, the completed vessels were distributed across ComStar's naval structure: two assigned to each of the fleet's primary holding stations and two detached to support deep space exploration operations in the Periphery.</p><p>The Faslanes proved indispensable to ComStar's naval strategy for well over a century. Their enormous repair bays allowed the Com Guard to service damaged WarShips at forward anchorages rather than risk detection by transiting them back to fixed yards in the Inner Sphere. This forward-deployed repair capability enabled ComStar to maintain operational readiness across its dispersed fleet without compromising the secrecy upon which the organization's military posture depended. ComStar treated these vessels as irreplaceable strategic assets, investing considerable resources in concealment measures and operational security to protect them from pirates, hostile reconnaissance, and intelligence penetration.</p><p>The Word of Blake schism and subsequent Jihad proved catastrophic for the class. When the Blakists seized control of Terra and its orbital infrastructure, they inherited detailed knowledge of ComStar's naval dispositions, including the locations and operational patterns of the Faslane fleet. Blakist forces systematically targeted Com Guard fleet concentrations during the opening years of the conflict, and the yardships, as high-value non-combatant assets with limited defensive capability, were particularly vulnerable. At least two vessels were confirmed destroyed during a December 3068 assault on a Deep Periphery fleet facility, and a third was lost elsewhere during the broader conflict. By the cessation of hostilities, only half the original production run remained in existence. An earlier assertion by ComStar intelligence that all six had been destroyed was later corrected when three surviving hulls were accounted for.</p><p>The surviving Faslanes were transferred to the Republic of the Sphere following the liberation of Terra. The Republic stationed them in the Sol system to support repair operations at the war-damaged Titan Yards, renaming each vessel in keeping with Republic naval conventions. Continued attrition reduced the class further when one vessel was lost to an accident in 3117, prompting the decommissioning and mothballing of the final two. When Clan Wolf seized Terra in 3151, the mothballed vessels were claimed as isorla and returned to active service, marking the beginning of a new chapter for the class under Clan stewardship.</p>
+</history>
+
+<manufacturer>
+O'Neil Yards - Titan Yards
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Ferro-Aluminum
+JUMP_JET:Compact KF Drive
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Yardship
+</use>
+
+<length>
+1810 m
+</length>
+
+<height>
+920 m Sail
+</height>
+
+<source>
+IE:ISP3
+</source>
+
+<tonnage>
+550000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+110
+110
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+205
+</crew>
+
+<officers>
+33
+</officers>
+
+<gunners>
+30
+</gunners>
+
+<passengers>
+90
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+10
+</life_boat>
+
+<escape_pod>
+10
+</escape_pod>
+

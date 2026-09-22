@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dc36-76a8-9b32-8bf8b3e1f5a4
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Vixen
+clanname:Incubus
+model:9
+mul id:7544
+
+Config:Biped
+techbase:Mixed (Clan Chassis)
+era:3150
+source:RG07,RGv1
+published:RG07,RGv1
+rules level:3
+role:Striker
+
+weaponquirk:jettison_capable:RA:4:CLERLargePulseLaser
+
+mass:30
+engine:270 XXL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:10 Clan Double
+walk mp:9
+jump mp:0
+
+armor:Reflective(Clan)
+LA armor:10
+RA armor:10
+LT armor:10
+RT armor:10
+CT armor:14
+HD armor:9
+LL armor:14
+RL armor:14
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:6
+ER Large Pulse Laser, Right Arm
+ER Medium Pulse Laser, Left Torso
+AP Gauss Rifle, Left Torso
+AP Gauss Rifle, Left Torso
+ER Medium Pulse Laser, Right Torso
+AP Gauss Rifle, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERLargePulseLaser
+CLERLargePulseLaser
+CLERLargePulseLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERMediumPulseLaser
+CLERMediumPulseLaser
+CLAPGaussRifle
+CLAPGaussRifle
+Clan Endo Steel
+Clan Endo Steel
+Clan Reflective
+Clan Reflective
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERMediumPulseLaser
+CLERMediumPulseLaser
+CLAPGaussRifle
+CLAPGaussRifle Ammo
+Clan Endo Steel
+Clan Endo Steel
+Clan Reflective
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Incubus, designated the Vixen by Inner Sphere intelligence analysts, is a thirty-ton Clan light BattleMech first produced in 2954 during the Golden Century. Originally a Clan Jade Falcon garrison design, the Incubus was purpose-built for the ritualized single combat Trials that are a cornerstone of Clan warrior culture. Its combination of speed, firepower, and easily adjustable weapon systems made it ideal for duels between MechWarriors and augmented Elementals, where individual weapons could be powered down to balance the engagement.</p><p>Despite its origins as a dueling platform, the Incubus proved capable enough to earn a place in second-line combat formations across multiple Clans. Its relatively high cost for a garrison 'Mech initially puzzled Spheroid observers, who did not yet understand the central role of Trials in Clan society. Production spread to numerous Clan holdings over the centuries, making the Incubus one of the most widely distributed second-line light 'Mechs in Clan space.</p>
+
+capabilities:<p>The Incubus achieves remarkable performance for its weight class through its use of a 270-rated XL engine, endo steel frame, and five and a half tons of ferro-fibrous armor. This combination gives the thirty-ton design a top speed of 151 kilometers per hour, making it one of the fastest light 'Mechs in any Clan touman. The generous armor protection provides surprising survivability for a design of this tonnage, giving pilots confidence in both Trials and garrison engagements.</p><p>The standard armament centers on a large pulse laser mounted in a semi-modular "rifle" configuration in the right arm, a design feature reminiscent of classic Inner Sphere designs like the Wolverine and BattleMaster. This placement allows rapid field replacement of the primary weapon, and several variants exploit this modularity to mount different armament packages. Supporting fire comes from a pair of ER medium lasers and four machine guns distributed across the side torsos, providing effective anti-infantry capability alongside solid medium-range firepower.</p><p>The extensive all-energy secondary armament and ten double heat sinks are well suited to the controlled environment of Clan Trials, where pilots routinely fight with reduced weapon loads. In sustained battlefield engagements, however, the design can generate problematic heat levels if all weapons are fired continuously, a trade-off most pilots accept given the 'Mech's intended role.</p>
+
+deployment:<p>Incorporating advanced technology from the 3150 era, this variant employs an XXL engine to accommodate upgraded weaponry. An ER large pulse laser replaces the standard large pulse laser in the right arm, while the torso mounts carry ER medium pulse lasers and AP Gauss rifles with one ton of ammunition. The combination of cutting-edge pulse technology and anti-personnel weapons makes this a formidable variant, albeit at the cost of the fragile XXL engine.</p>
+
+history:<p>The Incubus emerged during the Golden Century as a Clan Jade Falcon design intended specifically for the ritualized Trials that permeate Clan society. First produced in 2954, the design quickly spread beyond its originators as other Clans recognized its value as both a dueling platform and a capable garrison 'Mech. Clan Steel Viper established production at New Kent Armorworks on New Kent, while Clan Ice Hellion began manufacturing at the Hector MechWorks Facility Beta. Clan Coyote operated a line at Complex H-4 on Homer, and Clan Burrock produced the design at the Albion MMA Complex on Albion before their Absorption by Clan Star Adder.</p><p>The Incubus first came to Inner Sphere attention during the Clan Invasion of 3049, when intelligence analysts sighted it among Jade Falcon garrison forces and assigned the reporting name "Vixen." Its purpose baffled Spheroid observers until the importance of Trials in Clan culture became better understood. The design served throughout the Invasion era in garrison and second-line roles across multiple Clans, its widespread availability making it a common sight in rear-area formations.</p><p>The Wars of Reaving dramatically reshaped the Incubus's production sphere. Clan Steel Viper's Annihilation ended production at New Kent. The Burrock Absorption had earlier transferred the Albion facility to Clan Star Adder, though production there also eventually ceased. Clan Ice Hellion's destruction saw their Hector facility pass through Clan Goliath Scorpion and eventually to Clan Coyote control. Tokasha MechWorks Alpha, which had produced the design under Clan Ghost Bear ownership, passed to Clan Hell's Horses and then to Clan Sea Fox successor interests.</p><p>Clan Hell's Horses played a key role in the Incubus's evolution. Inspired by Clan Diamond Shark's "Phoenix" renovation program, the Horses developed a thoroughly updated version following their recapture of Tokasha MechWorks Alpha, incorporating newer weapons technology while maintaining the design's core dueling purpose. Clan Ice Hellion copied this redesign to create their own variant, examples of which fell into Cloud Cobra and Star Adder hands following the Hellions' ill-fated trade mission to the Tanis system.</p><p>In the post-Jihad and Dark Age eras, Clan Sea Fox emerged as a major producer through their CSF Titanic Mobile Production Facility, introducing several new variants and selling the design widely. Clan Coyote continued production on Homer into the early Republic era, though the facility's long-term status remains uncertain. The Incubus remains a valued second-line design well into the ilClan era, its enduring popularity a reflection of the soundness of its original design philosophy.</p>
+
+manufacturer:Manufacturing Plant SFF-TW2/CSF Titanic Mobile Production Facility
+
+primaryfactory:Sea Fox Factory Ship
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Model MH-26 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Unknown XXL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Compound H17 Ferro-Fibrous with CASE
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

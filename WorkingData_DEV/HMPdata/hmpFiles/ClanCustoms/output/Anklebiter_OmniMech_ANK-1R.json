@@ -1,0 +1,372 @@
+{
+  "filename": "Anklebiter_OmniMech_ANK-1R.hmp",
+  "size": 1443,
+  "header_hex": "56 35 2e 30 30 01 00 08 05 ff ff ff 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 8,
+      "length": 1,
+      "text": "\b"
+    },
+    {
+      "type": "byte",
+      "offset": 8,
+      "hex": "05"
+    },
+    {
+      "type": "byte",
+      "offset": 9,
+      "hex": "ff"
+    },
+    {
+      "type": "byte",
+      "offset": 10,
+      "hex": "ff"
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 268,
+      "length": 255,
+      "text": "\u0000\u0000\u0000\u0000\u001e\u0000\u0013\u0000Anklebiter OmniMech\u0006\u0000ANK-1R\u00f6\u000b\u0003\u0000\u00aa\u009c\u008c\u0001G\u0005\u0000@BD\u0000@BD\u0000\u0000\u00c0A\u0000\u0000pA\u0000\u0000\u0000@\u0014\u0000ML 3 1 3 2 \u0097111 omni\u0001\u0000\n\u0000\u0001\u0000J\u0001\u0002\u0000\u000b\u0000\u0000\u0000\n\u0000\u0001\u0000\u0001\u0000\u0000\u0000\n\u0000\u0000\u0000\u0001\u0000\n\u0000\u0000\u0000\u0001\u0000\u000e\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0004\u0000\u0004\u0000\u0005\u0000\u0002\u0000\u0004\u0000\u0002\u00004\u0000\u0005\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00007\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0002\u00004\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000;\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 268,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 269,
+      "end": 1039,
+      "length": 768,
+      "text": "\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0013\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u00007\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0014\u0000\u0000\u00004\u0000\u0000\u0000\u0013\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u00004\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u001b\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000;\u0000\u0000\u0000;\u0000\u0000\u0000\u00f6\u00ffi\u0000\u00a4\u0001Ever gotten really annoyed at those little dogs that like to latch on to your ankles and nip at them?  Well, an unnamed clan mech designer though of after hearing about them.  He designed the Anklebiter, and it has proved an annoyance ever since.\r\n\r\nThis design devotes most of its 30 tons to Speed and Armor, making sure the armor is full, and the speed is outrageous.  All variants car"
+    },
+    {
+      "type": "ascii",
+      "start": 1039,
+      "end": 1072,
+      "text": "ry MASC and a targeting computer."
+    },
+    {
+      "type": "len_string",
+      "start": 1072,
+      "end": 1293,
+      "length": 219,
+      "text": "The Prime model carries 4 ER Medium Lasers as it's weapondry of choice, along with a MultitracII targeting system to make sure they hit true. A Flamer is on as a secondary weapon in case infantry tries to get brave.\r\n\r\n"
+    },
+    {
+      "type": "len_string",
+      "start": 1293,
+      "end": 1296,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1296,
+      "end": 1299,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1299,
+      "end": 1302,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1302,
+      "end": 1305,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1305,
+      "end": 1308,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1308,
+      "end": 1311,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 1311,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1312,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1313,
+      "end": 1314,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 1314,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1315,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1316,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1317,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1318,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1319,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1320,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1321,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1322,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1323,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1324,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1325,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1326,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1327,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1328,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1329,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1330,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1331,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1332,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1333,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1334,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1335,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1336,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1337,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1338,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1339,
+      "end": 1344,
+      "length": 3,
+      "text": "\u0000\u0000\b"
+    },
+    {
+      "type": "byte",
+      "offset": 1344,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1345,
+      "end": 1353,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 1353,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1354,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1355,
+      "end": 1356,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1356,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1357,
+      "end": 1367,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1367,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1368,
+      "end": 1378,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1378,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1379,
+      "end": 1389,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1389,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1390,
+      "end": 1400,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1400,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1401,
+      "end": 1411,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1411,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1412,
+      "end": 1422,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1422,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1423,
+      "end": 1433,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1433,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1434,
+      "end": 1443,
+      "text": "(Unknown)"
+    }
+  ]
+}

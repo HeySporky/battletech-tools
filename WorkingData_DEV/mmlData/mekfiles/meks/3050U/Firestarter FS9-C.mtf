@@ -1,0 +1,208 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c4a2-7f14-b2e9-8251ec83d5b9
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Firestarter
+model:FS9-C
+mul id:1111
+
+Config:Biped
+techbase:Inner Sphere
+era:3064
+source:TR:3050,TR:3050U
+published:RS:3050Uu-I
+rules level:2
+role:Striker
+
+quirk:ubiquitous_clan
+quirk:ubiquitous_is
+weaponquirk:exposed_linkage:LA:3:Flamer
+weaponquirk:exposed_linkage:RA:3:Flamer
+
+mass:35
+engine:210 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:6
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:8
+RA armor:8
+LT armor:11
+RT armor:11
+CT armor:15
+HD armor:9
+LL armor:10
+RL armor:10
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:10
+Flamer, Left Arm
+Medium Laser, Left Arm
+Flamer, Right Arm
+Medium Laser, Right Arm
+Rocket Launcher 10, Left Torso
+Rocket Launcher 10, Left Torso
+Rocket Launcher 15, Right Torso
+Rocket Launcher 15, Right Torso
+Rocket Launcher 10, Center Torso
+Rocket Launcher 10, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Flamer
+Medium Laser
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Flamer
+Medium Laser
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+RL10
+RL10
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+RL15
+RL15
+RL15
+RL15
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+RL10
+RL10
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Firestarter was originally designed by Argile Technologies of Skye in 2550 as a specialized incendiary assault platform. The definitive FS9-H variant debuted in 2703 and quickly became the standard against which all incendiary 'Mechs were measured, with nearly three thousand units seeing active service by the onset of the Amaris Civil War in 2776. The design's popularity ensured continued production through the Succession Wars, with Argile maintaining manufacturing until the catastrophic destruction of their plant and headquarters during the Third Succession War. Coventry Metal Works assumed full production in 2895 when Argile declined to rebuild their facilities.</p><p>The Firestarter's specialized role as an indirect assault unit, combined with its robust parts availability, has made it a staple of reconnaissance and garrison forces across the Inner Sphere for centuries.</p>
+
+capabilities:<p>The Firestarter was rarely attached to front-line lances, instead being assigned at the company or regimental level where commanders could deploy it to support attack groups or scout wooded terrain. While capable of threatening other light 'Mechs, the design's specified loadout of four Purity L-Series flamers, two Deprus RF machine guns, and two Magna Mk II medium lasers can do little against the formidable armor and weaponry of medium and heavy opponents.</p><p>The ability to set fires made the FS9 invaluable as a supporting 'Mech, as skillfully placed blazes could rout enemy forces, break lines, and corner 'Mechs, not to mention threaten even the biggest tanks with a fiery demise. An entire series of tactics was developed around creating and spreading wildfires, with Firestarter pilots particularly fond of setting dense woods afire while enemy 'Mechs advance through them, or igniting buildings sheltering enemy units.</p><p>Protected by five and a half tons of Livingston Ceramics armor and capable of jumping 180 meters with its six Luxor Load Lifters jump jets, the Firestarter could also create fire and smoke to cover a retreat and hamper pursuit. The design also works well as a scout, its speed and maneuverability providing decent field protection while clearing wooded areas that enemies might use for ambushes.</p>
+
+deployment:<p>Developed by Coventry Metal Works for the Periphery market beginning in 3064, this variant upgrades to ferro-fibrous armor and replaces the standard armament with two flamers, two medium lasers, two RL-15s, and four RL-10s, providing incredible one-shot firepower against heavier opponents. The overwhelming number of standard Firestarters already available in the near Periphery led to commercial failure of this rocket-heavy variant.</p>
+
+history:<p>Since Firestarters were common in all 'Mech forces before the Succession Wars, none of the five Successor States suffered a shortage of these 'Mechs in the early conflicts. In the earliest days of the First Succession War, the Second Lyran Guard was assigned to garrison the planet of Port Moseby, a vitally important trade center. In August 2789, House Kurita's Second Arkab Legion attacked, landing elements near the capital city despite aerospace fighter opposition. The invaders advanced through heavily wooded country toward the capital, and defending Firestarters were sent to intercept.</p><p>An intense drought had left the forests tinder-dry, and the Firestarters quickly ringed the Kurita forces in flames. While the enemy 'Mechs struggled through the burning forest, the defenders brought their forces to the edge of the fire, engaging each 'Mech as it stumbled from the inferno. The Kurita forces were forced to retreat, having suffered significant losses. This engagement enhanced the prestige of the Firestarter and demonstrated the design's ability to transform entire battlefields into wastelands, prompting commanders to experiment with various deployment methods including dedicated incendiary lances.</p><p>Firestarters were also primarily responsible for scorched-earth missions carried out in the early days of the Succession Wars. On the modern battlefield, however, that tactic is extremely rare, used only when long-term victory is impossible or when a target is too valuable to fall into enemy hands. After the Fourth Succession War, many Firestarters were incorporated into light and even medium 'Mech lances to replace more costly units that had been destroyed or taken out of action.</p><p>The Federated Commonwealth unveiled the FS9-S in 3049, featuring recovered lostech to enhance scouting capabilities. This evolution continued with Luthien Armor Works' development of an OmniMech conversion, while both Coventry Metal Works and Defiance Industries have manufactured variants through the Dark Age era, ensuring the Firestarter's continued relevance on battlefields across the Inner Sphere.</p>
+
+manufacturer:Gift of the Magi, Inc.
+
+primaryfactory:Baltazar III
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Argile
+systemmode:CHASSIS:H/09
+systemmanufacturer:ENGINE:Omni
+systemmode:ENGINE:210
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Luxor
+systemmode:JUMP_JET:Load Lifters
+systemmanufacturer:COMMUNICATIONS:Cyclops
+systemmode:COMMUNICATIONS:14
+systemmanufacturer:TARGETING:Tansech
+systemmode:TARGETING:C30-97

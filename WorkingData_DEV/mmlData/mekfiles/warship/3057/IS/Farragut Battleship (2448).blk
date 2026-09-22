@@ -1,0 +1,390 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ecea-704d-80f1-8db923f84113
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Farragut Battleship
+</Name>
+
+<Model>
+(2448)
+</Model>
+
+<mul id:>
+4156
+</mul id:>
+
+<year>
+2448
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:10.0:2:1::-1:0
+asfbay:12.0:2:2::-1:0
+asfbay:12.0:2:3::-1:0
+asfbay:12.0:2:4::-1:0
+cargobay:183415.0:2:5::-1:0
+dockingcollar
+dockingcollar
+1stclassquarters:810.0:0:-1::-1:0
+crewquarters:2639.0:0:-1::-1:0
+steeragequarters:750.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+4130
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+3482
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+11
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+200
+250
+250
+143
+250
+250
+</armor>
+
+<Nose Equipment>
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:40
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:40
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:20
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:20
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:30
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:20
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:30
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:20
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:20
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:20
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:30
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:20
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:30
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:20
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:30
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:30
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:20
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:30
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Right Broadsides Equipment>
+
+<structural_integrity>
+95
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 1,680,000 tons, the Farragut was the largest battleship of its era and the first WarShip ever designed to mount the Heavy Naval Gauss Rifle, a weapon system that had never before been fitted to a capital vessel. Eighteen of these massive weapons formed the vessel's primary armament, distributed across all firing arcs to ensure comprehensive coverage in any engagement geometry. Fourteen NAC/40 naval autocannons provided devastating close-range striking power, while twenty-two Killer Whale capital missile launchers delivered long-range saturation fire capability. Fifteen Heavy Naval PPCs rounded out the capital weapons suite, with forty large lasers arrayed around the hull for anti-fighter defense.</p><p>The vessel's hull was engineered to be the strongest and most stress-resistant ever constructed, mounting over 1,600 tons of ferro-carbide armor protection. Three bays accommodated thirty-six aerospace fighters, with an additional bay housing ten small craft, providing a substantial screening force for fleet operations. Two docking collars supported attached DropShip operations, while over 183,000 tons of cargo capacity enabled extended independent deployments far from supply lines. A crew complement of 730 personnel, including 150 marines, staffed the vessel's systems and provided boarding capability. The Farragut achieved a safe thrust of three gravities with a maximum of five, performance that was remarkably agile for a vessel of such enormous displacement, though the immense cost of construction and operation ultimately proved the class's most significant limitation.</p>
+</capabilities>
+
+<overview>
+<p>The Farragut-class battleship represented the zenith of Terran Hegemony capital WarShip design during the mid-twenty-fifth century, conceived as the definitive replacement for the aging Dreadnought and Monsoon classes that had formed the backbone of the Hegemony's battle fleet for decades. Krester Ship Construction of Terra laid down these massive vessels under a directive from Director-General Richard Cameron, who recognized that the Hegemony's battleship force required comprehensive modernization to maintain supremacy over the growing House navies. Named in honor of Admiral Isaac Farragut, hero of the Battle of Lyons, the class earned an immediate reputation as the most formidable battleship of its generation. Its sheer destructive potential and resilient construction made the Farragut the ultimate expression of Hegemony naval power during a period of escalating interstellar competition.</p>
+</overview>
+
+<deployment>
+<p>The WoBS Righteous Justice served as the flagship of Precentor Naval Gregory Zwick's fleet during the Word of Blake's defense of the Sol system. Recovered from a decommissioned hulk and restored to operational capability in secret, the vessel was the most powerful capital ship in the Blakist order of battle. During the climactic naval engagement of Operation SCOUR in 3078, the Righteous Justice destroyed the Com Guards flagship CSV Invisible Truth, a Cameron-class battlecruiser, in one of the most significant vessel-to-vessel engagements of the entire Jihad. The ancient battleship was itself destroyed during the liberation of Terra, lost alongside roughly a dozen other Blakist WarShips in what became the largest naval battle of the conflict.</p>
+</deployment>
+
+<history>
+<p>Director-General Richard Cameron initiated the Farragut program in 2430, driven by his professional assessment that the Hegemony's battleship force had grown dangerously obsolescent. The sole requirement for the new design was uncompromising: it must be a true battleship, more than capable of defeating anything the House navies could field. Cameron died before seeing his vision realized, but the first Farragut launched from Krester Ship Construction's Terran yards in 2448, immediately establishing itself as the most powerful WarShip in human space.</p><p>The class proved its worth across decades of service, participating in numerous engagements where its unprecedented firepower and resilient hull validated the design philosophy. The Farragut could operate equally well as an independent raider or as the flagship of a battle fleet, a versatility that made it the preferred command vessel for senior Hegemony naval officers. However, the enormous cost of constructing and maintaining these vessels placed severe strain on the Hegemony's naval budget, and production ceased in 2500 after a relatively modest number of keels had been laid down.</p><p>The Farragut's dominance waned not through any deficiency in the design itself but through shifts in the Star League's strategic doctrine. The hull design served as the foundation for the McKenna-class battleship, which incorporated lessons learned from the Farragut and benefited from advances in naval technology. The McKenna gradually rendered the older class surplus to requirements, and the remaining Farraguts were progressively withdrawn from active service as newer vessels entered the fleet. On December 20, 2766, the last Farragut officially in Hegemony service was decommissioned and dismantled, closing a three-century chapter in the history of capital WarShip design.</p><p>No other confirmed operational Farragut-class vessels have been documented in the historical record beyond a single hull recovered by the Word of Blake. Restored in secret from the vast naval reserves that had accumulated under ComStar's stewardship, the vessel was pressed into Blakist service during the Jihad and destroyed during the liberation of Terra in 3078, bringing the class's extraordinary legacy to a definitive conclusion.</p>
+</history>
+
+<manufacturer>
+Krester Ship Construction
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Krester Ship Construction
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Ferro-Carbide
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Battleship
+</use>
+
+<length>
+1405 m
+</length>
+
+<height>
+1700 m Sail
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+1680000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+45
+150
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+580
+</crew>
+
+<officers>
+81
+</officers>
+
+<gunners>
+76
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+150
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+50
+</life_boat>
+
+<escape_pod>
+75
+</escape_pod>
+

@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ccf8-7975-b88b-1833d5c20b2c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Bloodhound
+model:B1-HND
+mul id:3838
+
+Config:Biped
+techbase:Inner Sphere
+era:3064
+source:TR:3067
+published:RS:3067u
+rules level:2
+role:Striker
+
+quirk:imp_sensors
+quirk:pro_actuator
+
+mass:45
+engine:315 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:7
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:14
+RA armor:14
+LT armor:16
+RT armor:16
+CT armor:20
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:5
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Small Laser, Right Arm
+Streak SRM 6, Right Torso
+ER Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+ISERSmallLaser
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISStreakSRM6
+ISStreakSRM6
+IS Streak SRM 6 Ammo
+ISCASE
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+BeagleActiveProbe
+BeagleActiveProbe
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISERMediumLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Bloodhound is a forty-five-ton counter-insurgency BattleMech that entered service with the Free Worlds League Military in 3064. Manufactured by Earthwerks Incorporated at their Keystone facility, the design was conceived specifically to hunt guerrilla forces and respond to asymmetric threats along the League's volatile border regions.</p><p>Built on a modified Phoenix Hawk chassis, the Bloodhound serves as a purpose-built solution to an asymmetric threat rather than a general-purpose combat platform. Its emphasis on speed, detection capability, and targeted firepower against lighter opponents has made it a valued asset in border security and counter-insurgency operations throughout the Free Worlds League and its successor states.</p>
+
+capabilities:<p>The Bloodhound's design philosophy centers on speed, detection, and targeted firepower against lighter opponents. Powered by a Hermes 315 XL engine, the chassis achieves a top speed of nearly 119 kilometers per hour, enabling it to run down insurgent forces and light 'Mechs with ease. Nine and a half tons of Durallex Light armor provides respectable protection for a medium 'Mech of its tonnage, while CASE safeguards the MechWarrior against catastrophic ammunition explosions. The inclusion of a Beagle Active Probe makes the Bloodhound exceptionally effective at locating concealed units, fulfilling the design's namesake tracking role.</p><p>The primary armament consists of three Diverse Optics extended-range medium lasers spread across the torso and arms, maximizing the effective firing arc, supported by a torso-mounted Guided Technologies Streak SRM-6 launcher that ensures every missile finds its mark. A single Diverse Optics extended-range small laser rounds out the weapons array. Fourteen double heat sinks manage the thermal load efficiently. While this loadout makes the Bloodhound superb in its intended counter-insurgency and infantry support roles, it leaves the 'Mech noticeably undergunned when confronting heavier front-line opponents, a deliberate trade-off accepted in favor of speed and detection capability.</p>
+
+deployment:<p>This variant is the original production model, entering service in 3064 as a purpose-built counter-insurgency platform. Its combination of a Beagle Active Probe, extended-range laser armament, and a Streak SRM-6 launcher provides an effective detection-and-engagement package against guerrilla forces and concealed units. The design's high speed allows it to pursue lighter opponents that might otherwise evade heavier 'Mechs, though its armament limits its effectiveness in stand-up engagements against dedicated combat platforms.</p>
+
+history:<p>The Bloodhound emerged from the political tensions of the early 3060s. The Capellan Confederation's Xin Sheng movement, fueled by Sun-Tzu Liao's ascension to First Lord of the reborn Star League and the successful reconquest of the St. Ives Compact, alarmed the Free Worlds League's military establishment. Captain-General Thomas Marik, wary of his resurgent neighbor and former ally, initiated a comprehensive border reinforcement program that included commissioning new designs tailored to counter Capellan guerrilla tactics.</p><p>Earthwerks Incorporated's Keystone facility proved an ideal production partner. The factory was already undergoing extensive retooling, phasing out older designs and refurbishing production lines to accommodate newer technology. The Bloodhound's development proceeded rapidly, with the first production units rolling off the line in 3064. The Phoenix Hawk PXH-3M line at Keystone was suspended to make room for the new design, though it was briefly revived in 3067 for a short production run using the updated Phoenix chassis.</p><p>Throughout the Civil War era, virtually all Bloodhound production was directed to FWLM units stationed along the Capellan border, the Chaos March frontier, and the League's border with the Lyran Alliance's Freedom Theater. Military advisors to the Captain-General had identified these regions as the most likely theaters for the guerrilla-style engagements the Bloodhound was designed to counter.</p><p>The Jihad disrupted the Bloodhound's orderly deployment pattern. As the Word of Blake's assault reshaped the political arena of the Inner Sphere, the design's production and distribution shifted beyond the League's direct control. The Keystone facility continued operating through the Jihad and into the early Republic era under changing political circumstances, producing the updated B3-HND variant beginning in 3081 to address evolving battlefield requirements against battle armor and infantry threats.</p><p>The Bloodhound's production run ultimately came to an end when Clan Wolf seized control of the former Free Worlds League territories encompassing Keystone. The Wolves discontinued the Bloodhound line in favor of the Phantom OmniMech, ending nearly seven decades of continuous production at the facility.</p>
+
+manufacturer:Earthwerks-FWL, Inc.
+
+primaryfactory:Keystone
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Earthwerks
+systemmode:CHASSIS:PXH IV Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:315 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Light with CASE
+systemmanufacturer:COMMUNICATIONS:Neil
+systemmode:COMMUNICATIONS:7000
+systemmanufacturer:TARGETING:Octagon
+systemmode:TARGETING:Tartrac System E with Beagle Active Probe

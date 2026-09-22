@@ -1,0 +1,116 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a0c5-736f-813c-d9223a37826f
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Assault Air Defense Missile Emplacement
+</Name>
+
+<Model>
+(3075) (Fusion)
+</Model>
+
+<year>
+3075
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+150
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+ISArrowIV(ST)
+ISArrowIV(ST)
+ISERLargeLaser(ST)
+Searchlight(ST)
+ISArrowIVAir-Defense Arrow (ADA) MissilesAmmo
+ISArrowIVAir-Defense Arrow (ADA) MissilesAmmo
+ISArrowIVAir-Defense Arrow (ADA) MissilesAmmo
+ISArrowIVAir-Defense Arrow (ADA) MissilesAmmo
+ISArrowIVAir-Defense Arrow (ADA) MissilesAmmo
+ISArrowIVAir-Defense Arrow (ADA) MissilesAmmo
+ISArrowIVAir-Defense Arrow (ADA) MissilesAmmo
+ISArrowIVAir-Defense Arrow (ADA) MissilesAmmo
+ISArrowIVAir-Defense Arrow (ADA) MissilesAmmo
+ISArrowIVAir-Defense Arrow (ADA) MissilesAmmo
+FUSION PowerGenerator:SIZE:16.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The fusion-powered Assault Air Defense Missile Emplacement represents the absolute pinnacle of fixed air defense capability, combining the Arrow IV system and ER Large Laser with integral fusion power and assault-weight armor. Every aspect of this design is optimized to create an air defense position that cannot be neutralized short of physical destruction, and the assault-weight construction makes that destruction extraordinarily difficult to achieve.</p><p>Fusion power ensures that the Arrow IV guidance systems and ER Large Laser remain operational regardless of infrastructure status, while assault armor guarantees the position endures the concentrated suppression fire that enemy aerospace forces will direct at it. The Arrow IV's guided warheads threaten targets at extreme range, and the ER Large Laser provides indefinite direct-fire capability after missile stocks are expended. For installations where air superiority denial is critical, this variant provides unmatched capability, protection, and independence in a single position.</p>
+</capabilities>
+
+<overview>
+<p>The Air Defense Missile Emplacement provides the most advanced anti-aerospace capability available in fixed defensive installations, mounting the Arrow IV missile artillery system alongside an ER Large Laser for direct engagement. The Arrow IV system can deliver guided warheads at extreme range with exceptional accuracy, capable of engaging aerospace targets at distances far beyond conventional weapons. The ER Large Laser provides a secondary direct-fire capability for targets within visual range.</p><p>These emplacements represent the pinnacle of ground-based air defense technology, combining the long reach and guided precision of Arrow IV missiles with the unlimited ammunition of an advanced energy weapon. Positioned at strategic installations, they create no-fly zones that extend for kilometers, forcing enemy aerospace forces to either accept extreme risk or abandon their approach entirely. The dual-weapon configuration ensures that targets escaping the Arrow IV engagement zone still face the ER Large Laser's direct fire.</p>
+</overview>
+
+<history>
+<p>The Jihad brought the Word of Blake's fanatical forces crashing against the Inner Sphere in a campaign of unprecedented destruction, and nowhere was the fighting more intense than on Terra itself. The Blakists had inherited the ancient Castle Brian fortifications that ComStar had maintained beneath Terra's surface, and they reactivated these ancient defenses with devastating effect. The coalition forces that eventually liberated Terra discovered that the Word of Blake had enhanced the castles' air defense systems extensively, mounting Arrow IV batteries in hardened positions to create overlapping engagement zones that made aerial approach suicidal.</p><p>The lesson was clear: advanced missile defense systems in fixed emplacements could deny airspace over an entire region. The Arrow IV's ability to deliver guided warheads at artillery ranges, combined with modern fire control and sensor networks, transformed ground-based air defense from a reactive measure into a proactive area-denial capability. The integration of ER Large Lasers provided a secondary engagement layer that required no ammunition, ensuring that even after missile stocks were depleted, the position could continue to threaten low-flying targets. Post-Jihad fortification design incorporated these lessons, establishing Arrow IV air defense emplacements as a standard component of any installation defense plan capable of supporting their construction.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+4
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+150
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

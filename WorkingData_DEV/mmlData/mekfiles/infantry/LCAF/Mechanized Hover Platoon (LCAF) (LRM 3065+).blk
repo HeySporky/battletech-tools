@@ -1,0 +1,85 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bdcc-7c76-a5d3-ef4dbd7e5240
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Hover Platoon (LCAF)
+</Name>
+
+<Model>
+(LRM 3065+)
+</Model>
+
+<year>
+3065
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Skirmisher
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<Troopers Equipment>
+Lyran Alliance/Lyran Commonwealth (3060+) Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Reforms begun under Alessandro Steiner and reinforced by Federated Suns influence have integrated Lyran infantry into combined-arms operations more effectively than at any point in the Commonwealth's history. Mechanized hover platoons ride into battle aboard hovercraft that provide both speed and the ability to cross water and rough terrain without slowing, making them effective rapid-reaction forces. Armed with assault rifles and infantry-portable long-range missile launchers, these platoons can engage armored targets at distances well beyond normal infantry weapon range, providing indirect fire support to the formation.</p>
+</overview>
+
+<notes>
+Intro date based oninfantry LRM common production date
+</notes>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Rifle (TK Assault)
+</Primary>
+
+<Secondary>
+InfantryLRM
+</Secondary>
+

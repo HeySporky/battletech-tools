@@ -1,0 +1,220 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e145-7d87-ba5e-7c26cefe10c7
+</UUID>
+
+<UnitType>
+SmallCraft
+</UnitType>
+
+<Name>
+Ares Assault Craft
+</Name>
+
+<Model>
+Mark VII
+</Model>
+
+<mul id:>
+3727
+</mul id:>
+
+<year>
+2824
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:31.0:1:1::-1:0
+crewquarters:0.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:10.0:0:-1::-1:0
+steeragequarters:20.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+800
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+116
+35
+35
+46
+</armor>
+
+<Nose Equipment>
+Small Laser
+Small Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+Medium Laser
+Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+Medium Laser
+Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+6
+</structural_integrity>
+
+<capabilities>
+<p>The Mk.III Assault Craft substantially upgrades both propulsion and protection over the base Ares design. Its more powerful primitive fusion engine nearly doubles the maximum thrust of the Mk.I, allowing the craft to pursue and intercept enemy fighters rather than simply defend. Heavier armor and additional heat sinks reflect the shift to a direct combat role.</p><p>The Mark VII carries six medium lasers across the nose, wings, and aft positions, supplemented by two nose-mounted small lasers. A Fusion 200 engine provides safe thrust 4 and maximum thrust 6. Thirteen tons of standard armor protect the hull, with nose concentration. A 31-ton cargo bay is retained alongside the weapons systems. The Mark VII's VTOL hover capability allows it to land in rough terrain without prepared strips, an advantage over conventional aerodyne designs that require prepared surfaces. The design's reliance on short-range energy weapons makes it most effective in close engagements, and it performs poorly against opponents who can maintain standoff range.</p><p>The Mark VII-C substitutes Clan medium pulse lasers for IS medium lasers and fits Clan double heat sinks, improving thermal efficiency while retaining the same combat silhouette. Clan standard armor runs one ton lighter than the IS version but provides superior protection values.</p>
+</capabilities>
+
+<overview>
+<p>The Ares Assault Craft represents the combat-hardened branch of the Ares small craft lineage, tracing its origins to the primitive Mk.III of 2451 and evolving into the Mark VII, one of the most widely produced military landing craft in the Inner Sphere. Developed by IncStar Dynamics as a dedicated fighter-engagement variant, the Mk.III prioritized combat capability while retaining limited cargo capacity. Its heavier engine and upgraded armor set a template that later designers refined during the Succession Wars into the standard-technology Mark VII, produced at multiple factories and fielded by every major Inner Sphere power. The Clan adaptation, designated the Mark VII-C, brought advanced Clan technology to the same proven airframe, completing the long evolution from a primitive Age of War design into a craft that would serve in front-line roles across the entire Inner Sphere and Clan space well into the ilClan era.</p>
+</overview>
+
+<deployment>
+<p>The Mark VII is the most widely distributed military landing craft in the Inner Sphere, found in service with every major faction and most minor ones across the Succession Wars, Clan Invasion, and beyond. Its combination of cargo capacity, effective self-defense armament, and VTOL hover capability make it the default choice for orbit-to-surface armor and infantry delivery. Inner Sphere forces typically deploy it in flights of two to four craft, with mixed loads of armor and mechanized infantry assigned to specific ground objectives. The design's adaptability has produced numerous formal and informal modifications over its centuries of service. Its continued production at multiple factories across every major faction ensures it will remain in service for generations to come.</p>
+</deployment>
+
+<history>
+<p>IncStar Dynamics introduced the Mk.III Assault Craft in 2451 as the third branch of the original Ares family, joining the Mk.I long-range landing craft and the Mk.II close attack landing craft on the same base hull. Where the Mk.I carried cargo and the Mk.II provided escort suppression, the Mk.III was built for direct fighter engagement. Its more powerful engine gave it the thrust to pursue and intercept, and reinforced armor allowed it to absorb damage that would have disabled the other marks. All three designs operated together in HAF landing wings through the Age of War and into the Star League period, each branch complementing the others on contested planetary approaches.</p><p>The fall of the Star League and the Succession Wars stripped away the manufacturing base that supported the original Ares family. IncStar Dynamics dissolved during the First Succession War, having already dropped the Ares name as the collapse of the Ares Conventions made the designation politically awkward. By 2824, a simplified but robust successor emerged: the Mark VII, the standard-technology heir to the Mk.I long-range landing craft branch. Produced at factories across the Successor States and the Taurian Concordat, the Mark VII carried the landing craft lineage forward while the close attack branch of the Mk.II was absorbed into broader doctrine and the assault craft branch of the Mk.III lay dormant.</p><p>The Mark VII-C emerged in 2841 with Clan technology. Clan Ghost Bear produced it at their Tseng Facility in orbit around Alshain, and Clan Jade Falcon added production at the Falcon's Roost Orbital Assembly Plant on Sudeten in 3074. Both the IS Mark VII and the Clan Mark VII-C share the introduction year of 2841 despite the decades of isolation between the two civilizations, leading historians to conclude that both designs evolved independently from a shared earlier ancestor rather than one copying the other.</p><p>The assault craft branch of the family did not stay dormant permanently. Universal Air maintained the original Ares design archives through the Succession Wars and the Clan Invasion era. After merging with Federated Boeing, the company restarted Ares attack craft production in 3066 and introduced the Mark IX in 3077, completing the revival of the third branch and reuniting all three lines of the original Ares family under active production for the first time since the Star League era.</p>
+</history>
+
+<manufacturer>
+Andurien AeroTech (A Division of Free Worlds Defense Industries)|Andurien AeroTech (A Division of Free Worlds Defense Industries)|Earthwerks Ltd.|Federated-Boeing Interstellar - Port Simon Shipyards|Hinsdale Elec|Shipil Company|Taurus Territorial Industries|Taurus Territorial Industries
+</manufacturer>
+
+<primaryFactory>
+Lopez|Westover|Ares|Galax|Dover|Skye|Samantha|Taurus
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion 200
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r,TR:3085
+</source>
+
+<published>
+RS:Aero2
+</published>
+
+<tonnage>
+150.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+5
+</crew>
+
+<officers>
+1
+</officers>
+
+<gunners>
+2
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c132-7b50-8185-6c71d3679008
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Rifleman
+model:RFL-3K 'Cool Head'
+
+Config:Biped
+techbase:Inner Sphere
+era:2770
+source:TR:3025C
+rules level:1
+role:Sniper
+
+quirk:searchlight
+quirk:ubiquitous_clan
+quirk:anti_air
+quirk:ubiquitous_is
+quirk:imp_com
+
+mass:60
+engine:240 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:16 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:15
+RA armor:15
+LT armor:15
+RT armor:15
+CT armor:22
+HD armor:6
+LL armor:12
+RL armor:12
+RTL armor:2
+RTR armor:2
+RTC armor:4
+
+Weapons:5
+Large Laser, Left Arm
+Large Laser, Left Arm
+Large Laser, Right Arm
+Large Laser, Right Arm
+SRM 4, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 4
+IS Ammo SRM-4
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Rifleman traces its origins to 2505, when Kallon Industries submitted the FALCON GRAY proposal to the Hegemony Armed Forces as one of the earliest dedicated BattleMech designs. The original fifty-ton platform relied purely on energy weapons and dispensed with hand actuators to achieve an unparalleled field of fire for its era. The design served adequately through the Reunification War before an improved variant in 2556 transformed the chassis into the definitive anti-aircraft platform, establishing the Rifleman's legendary reputation for centuries to come.</p><p>When Kallon unveiled the heavier sixty-ton model in 2770, the Star League embraced the design enthusiastically, and the Rifleman's continued production through the collapse of the Star League, the Succession Wars, and into the modern era speaks to its enduring value. Fielded by every Successor State military and widely available to mercenary commands and Periphery nations, the Rifleman remains one of the most recognizable heavy BattleMech silhouettes in the Inner Sphere.</p>
+
+capabilities:<p>The Rifleman excels in its intended role as a fire-support and anti-aircraft platform, built around its exceptional Garret D2j targeting and tracking system. This advanced electronics suite enables pilots to maintain accurate locks on fast-moving aerial targets with remarkable precision. The standard RFL-3N configuration pairs two Magna Mk. III Large Lasers with two Imperator-A medium autocannons in distinctive swiveling arm mounts, supplemented by torso-mounted Magna Mk. II medium lasers for close defense. The over-and-under arm-mounted weapon arrangement became the configuration's signature feature, allowing pilots the option of alternating weapons fire to cool down while maintaining an offensive posture.</p><p>These advantages come at significant cost. The Rifleman carries only seven and a half tons of armor, leaving it dangerously vulnerable when forced into direct combat with similarly-massed opponents. Its ten heat sinks prove grossly inadequate for sustained fire, though this matters less in the anti-aircraft role where targets require intermittent engagement between passes. The single twenty-round ammunition magazine provides sufficient firepower for sharp engagements but runs dry quickly in prolonged battles. The lack of hand and lower-arm actuators further hampers close combat performance, and the distinctive wing-shaped Garret T11-A communications antenna tends to draw enemy fire. Perhaps most particularly, the design's ability to flip its arms over the shoulders allows engagement of targets behind the 'Mech, presenting a nasty surprise for enemies attempting flanking maneuvers through what appears to be a significant blind spot.</p>
+
+deployment:<p>House Kurita's RFL-3K variant, nicknamed the 'Cool Head' by its pilots, took an unusual approach to solving the Rifleman's chronic heat problems. Engineers removed the autocannons entirely, mounting four large lasers (two per arm) in their place and adding a center-torso SRM-4 launcher for close defense. The all-energy primary armament eliminated ammunition dependency while the short-range missiles provided a nasty surprise for opponents who closed to point-blank range. Draconis Combine MechWarriors appreciated the simplified logistics, though the design's thermal management remained challenging despite the nickname's optimistic implications.</p>
+
+history:<p>House Davion fielded the largest concentration of Riflemen throughout the Succession Wars, deploying them extensively against House Kurita. Colonel Hezekiah Walden's defense of Polis spaceport on New Rhodes III during the First Succession War demonstrated the chassis's value when his 'Mechs on the overlooking heights devastated advancing Kurita forces with accurate sustained fire, marking the turning point of the entire campaign. The Third Battle of Harrow's Sun in 3020 saw Riflemen employed in their classic anti-aircraft role, keeping Kurita fighters at respectable distance while Davion forces besieged Mura.</p><p>One of the strangest incidents involving a Rifleman took place on Nestor in 3013. The Green Guard planetary defense unit was ordered to escort a shipment of locally-made Star League-era brandy across the dusty Rafsh Plains to Janos Marik's private reserve. The escort Riflemen had been field-modified to mount quad-autocannons, but carried only enough ammunition to fire each barrel once. When Cranston Snord's Irregulars overran the convoy, the Rifleman refits proved impotent after discharging their single volley. Snord's troops were astounded to find the convoy loaded with ammunition of exactly the type the escorts lacked, and Cranston popped open a bottle to toast Janos Marik's logistics directorate.</p><p>Combat losses increasingly forced Riflemen into front-line roles for which they were never designed, exposing their armor and heat management deficiencies. The recovery of the Helm Memory Core enabled manufacturers to address these shortcomings, with Kallon's Thermopolis facility entering full production of House Marik's RFL-5M variant featuring XL engines, double heat sinks, and Ultra autocannons. Plans for the RFL-5D, substituting ER PPCs for the autocannons, were obtained by a well-placed Federated Commonwealth adept on Twycross and distributed to Trellshire, Talon, and Red Devil facilities.</p><p>During the fighting at Devil's Bath on Tukayyid, Steel Viper forces attempted a headhunter strike against Precentor Felicity Lucha; her security detachment of Riflemen piloted by the Hare brothers coordinated their defense expertly, trading fire while managing heat until Com Guard relief arrived. Against the Jade Falcons, RFL-5CS variants deployed in reinforced positions at Robyn's Crossing and Plough Bridge provided murderous fire that kept Falcon fighters at bay even after the bridges were blown. The Falcons eventually overran these positions by specifically targeting the 'Mechs' vulnerable arms, while Wolf headhunter Elementals proved particularly effective at neutralizing isolated Riflemen that lacked close-range escorts.</p><p>The FedCom Civil War sparked renewed production when Kallon's Talon facility brought the experimental RFL-8D to full production after the 7th FedCom RCT blockaded JagerMech manufacturing. Both Loyalist and Allied forces fielded the improved design, with post-war production routed to Avalon Hussar and Crucis Lancer regiments. When Pandora and Twycross were overrun, the Federated Commonwealth converted Talon to Project Phoenix models in 3063, while Thermopolis adapted for Vicore refits serving the Free Worlds League and Word of Blake as command unit protection. Kirklin extensively refit older -3Cs during the Jihad, maximizing new autocannon munitions, though plans for the RFL-3Cr fell through when the Federated Suns began widespread disarmament after the conflict.</p><p>The young Republic of the Sphere developed a standardized refit package designated the RFL-7X, salvaging equipment from battlefields where Coalition troops had faced the Word of Blake. Kallon's Nanking facility continued producing the classic RFL-3N alongside the upgraded -5D throughout the Jihad and beyond, partnering with Oriente Weapon Works to introduce the RFL-7N2 for modern battlefields. A strong counterattack on New Avalon in 3146 by the Second Robinson Rangers broke through a Sword of Light blocking force, exposing the route to Avalon City. Wolf's Dragoons Gamma Regiment intercepted the Rangers in the Dalban Mountains, where Dragoon Rifleman pickets filled the night sky with flak and laser fire, downing desperate Robinson pilots before they could reach their target zone. The Rifleman continues serving throughout the Inner Sphere, its distinctive silhouette as recognizable in the ilClan era as it was during the Age of War.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Kallon
+systemmode:CHASSIS:Type IV
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:240
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:Royalstar
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T11-A
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:D2j

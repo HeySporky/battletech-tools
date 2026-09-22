@@ -1,0 +1,164 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a589-7e81-97c4-19fec73919ee
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Fa Shih Battle Armor
+</Name>
+
+<Model>
+(Support) [Plasma](Sqd4)
+</Model>
+
+<mul id:>
+1013
+</mul id:>
+
+<year>
+3074
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+30
+</armor_type>
+
+<armor_tech>
+11
+</armor_tech>
+
+<Squad Equipment>
+ISBAPlasmaRifle:RA
+BA-Magnetic Clamp:Body
+BABasicManipulator:LA
+BABasicManipulator:RA
+IS BA Advanced:Body
+IS BA Advanced:LA
+IS BA Advanced:RA
+IS BA Advanced:Body
+IS BA Advanced:LA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The support variant of the Fa Shih removes all mine-laying equipment and switches to lighter advanced armor in exchange for mounting a heavier primary weapon system. This trade sacrifices the suit's signature area-denial capability and reduces overall protection, but the weight savings allow it to carry weapons previously too heavy for the chassis. The plasma configuration mounts a man-portable plasma rifle, a weapon that combines solid damage potential with the ability to generate significant heat buildup in targeted BattleMechs and vehicles. Against heat-sensitive opponents, concentrated plasma fire from multiple troopers can force emergency shutdowns or ammunition cook-offs. Jump capability and magnetic clamps are retained, maintaining the suit's tactical mobility.</p>
+</capabilities>
+
+<overview>
+<p>The Fa Shih, or "Master of Methods," was the Capellan Confederation's first indigenous battle armor design. Developed by Ceres Metals with assistance from the Word of Blake, the medium suit entered service in 3062 as an adaptation of the Inner Sphere Standard. Distinguished by its mine-laying capability and ability to ride conventional vehicles into battle, the Fa Shih filled a defensive and area-denial role that complemented the Confederation's long tradition of mine warfare. The design earned a strong reputation among Capellan armed forces and continued serving long after more advanced suits became available.</p>
+</overview>
+
+<deployment>
+<p>Plasma-equipped support squads served as anti-vehicle specialists within CCAF four-trooper formations. The plasma rifle's ability to generate heat buildup in targeted machines made these squads particularly effective when operating against BattleMechs in conjunction with conventional Capellan armor and infantry.</p>
+</deployment>
+
+<history>
+<p>The Capellan Confederation lagged behind other Great Houses in developing battle armor. While rival states fielded their own suits, the Confederation ambitiously planned three concurrent designs beginning in April 3056. Lacking practical experience with powered armor technology, Capellan engineers quickly discovered the scope exceeded their abilities and consolidated efforts on a single design adapted from the Inner Sphere Standard. Even this reduced program stalled for years until Word of Blake technical advisors helped solve persistent life support and environmental containment failures. Final testing began in 3060, with completed prototypes available by June 3061 and full-scale production at Ceres Metals and Hellespont Industrials starting in March 3062.</p><p>The Fa Shih earned a strong reputation within the CCAF. Warrior House battalions each received at least a platoon of suits, and the design became closely identified with Capellan infantry combat teams. Even after the more advanced Trinity series entered service, the Fa Shih remained a battlefield staple. During the Jihad, encounters with Clan forces along the Confederation's borders provided access to Clan technology. Ceres Metals used captured Clan myomer boosters to produce an experimental refit in 3078, though the limited supply of Clan components prevented mass production. A dedicated support variant entered production in 3074, expanding the suit's role beyond mine warfare.</p>
+</history>
+
+<manufacturer>
+Ceres Metals|Hellespont Industrials
+</manufacturer>
+
+<primaryFactory>
+Capella|Sian
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-ONN
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+7
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

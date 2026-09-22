@@ -1,0 +1,187 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec6e-7bb0-8a34-4b08f83b9763
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Barouche Military Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3793
+</mul id:>
+
+<year>
+3078
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+cargobay:24.5:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+49
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+15
+10
+10
+10
+10
+12
+16
+</armor>
+
+<Body Equipment>
+IS Light Machine Gun Ammo - Half
+IS Ammo LRM-5
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+LRM 5
+Light Machine Gun
+Light Machine Gun
+</Turret Equipment>
+
+<barrating>
+8
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Barouche is built around its 24.5-ton rear-access cargo bay, which represents the vehicle's central purpose and primary operational contribution. The design's mobility is provided by a fusion engine delivering a flank speed of approximately 118 km/h, giving the vehicle a meaningful speed advantage over conventional wheeled transports and allowing it to outpace many threats it might encounter during supply runs. This speed is its most reliable defensive asset.</p><p>Protection comes in the form of four tons of commercial BAR 8 armor. Coverage is reasonable against small arms and incidental fire, particularly in the reinforced turret, but the commercial-grade protection means the Barouche cannot absorb the kind of punishment a dedicated combat vehicle would shrug off. Against opponents with serious anti-armor weapons, the crew is expected to rely on speed rather than armor.</p><p>The offensive suite is concentrated in a single turret mounting an LRM-5 launcher and a pair of light machine guns, tied into an Advanced Fire Control system for military-grade accuracy despite the vehicle's non-military classification. The LRM rack provides standoff deterrence against opportunistic attackers, while the machine guns handle unarmored infantry at close range. The fusion powerplant eliminates fuel logistics constraints but makes the Barouche significantly more expensive than comparable ICE-powered designs, and this cost premium is the vehicle's most frequently cited disadvantage. Very small or poorly funded units often cannot absorb it.</p>
+</capabilities>
+
+<overview>
+<p>The Barouche Military Transport is an 80-ton hover support vehicle produced by Peloran Motors of Marlette beginning in 3078. Occupying an unusual niche between unarmored civilian cargo carriers and dedicated military combat vehicles, the design qualifies under Federated Suns regulations as an armed support vehicle rather than a frontline military unit. Named after an ancient style of French carriage, the Barouche blends civilian manufacturing techniques with a modest defensive armament to produce a vehicle capable of protecting vital supply convoys without the prohibitive procurement costs of true military armor.</p><p>The result is a practical compromise for garrison commanders and logistics officers who need something more resilient than an unarmored flatbed but cannot justify the expense of dedicated combat transport assets. The design attracted buyers well beyond the Federated Suns, earning a solid reputation as a reliable and cost-effective solution to the persistent challenge of keeping frontline forces supplied through active combat zones.</p>
+</overview>
+
+<deployment>
+<p>The Barouche fills a rear-area logistics and cargo transport role in garrison and support formations across multiple factions. Its combination of speed and defensive armament makes it best suited for supply convoy operations, depot resupply runs, and camp-to-front transport assignments in low-to-medium-threat environments. The turret armament functions primarily as a deterrent against raiders and opportunistic light infantry rather than enabling direct engagement with military opponents. Larger commands that can absorb the vehicle's procurement cost find it a reliable and durable solution for sustained logistics operations in contested territory. Smaller units frequently balk at the price and opt for cheaper ICE-powered alternatives, accepting the logistical tradeoffs that come with them.</p>
+</deployment>
+
+<history>
+<p>Peloran Motors traces its roots to the early thirtieth century as a small civilian vehicle manufacturer based on Marlette. Operating in the Federated Suns' crowded domestic market, the company produced only two products of any particular note during its independent years before being absorbed by the industrial conglomerate Interconnectedness Unlimited in 2998. IU investment transformed the company's fortunes, funding a new research and development department and an aggressive marketing campaign that elevated Peloran to a position among the so-called "Big Fifteen" domestic Federated Suns vehicle manufacturers. By the early thirty-first century, Peloran operated more than a dozen economy vehicle lines serving civilian customers across the Crucis March.</p><p>The Jihad disrupted that growth. Shipping disruptions collapsed civilian demand, forcing Peloran to pivot toward military contracts to sustain its operations. Under head designer Dulce Magdalen, development of the Barouche began in 3078, producing a vehicle conceived to meet the growing need for armored logistics assets without requiring military-specification construction. Peloran marketed the design aggressively across factional lines. Beyond its native Federated Suns customer base, the Barouche found buyers in the nearby Terran Protectorate, the Lyran Alliance, and even the Draconis Combine. Mercenary commands acquired Barouches to supplement their own limited support rosters, and reports indicated interest from Clan Diamond Shark, likely for resale to other Clan customers seeking affordable supply assets.</p><p>Peloran simultaneously ran a second wartime production line manufacturing a RetroTech version of the Commando BattleMech, giving the company two products serving the military market simultaneously. That Commando line ceased operations by 3079 as the pressing wartime demand that had driven its creation eased with the Jihad's end.</p>
+</history>
+
+<manufacturer>
+Peloran Motors
+</manufacturer>
+
+<primaryFactory>
+Marlette
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:RetroTech
+</source>
+
+<published>
+XTR:RetroTech
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

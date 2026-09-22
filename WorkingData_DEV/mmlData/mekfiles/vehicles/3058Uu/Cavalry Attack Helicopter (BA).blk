@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-08-04
+<UUID>
+019fcea6-f109-7920-b9d5-287f7e4b7c3e
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Cavalry Attack Helicopter
+</Name>
+
+<Model>
+(BA)
+</Model>
+
+<mul id:>
+9465
+</mul id:>
+
+<year>
+3063
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+10
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+26
+20
+20
+12
+2
+</armor>
+
+<Body Equipment>
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+Medium Laser
+Medium Laser
+Medium Laser
+Machine Gun
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The base Cavalry combines a Harpoon SRM-6 rack with three Holly SRM-2 launchers, delivering a dozen short-range missile tubes from a fast-moving airframe. Cruising at 108 kph with a flank speed of 162 kph, pilots strike from concealed positions or attack from the rear before breaking off before the enemy can respond effectively. This tactic is particularly effective against armored vehicles and tanks, the helicopter's primary targets. The Michaelson 110 internal combustion engine provides reliable performance, while StarSlab/3 armor applied to the nose section allows the Cavalry to absorb hits from weapons as powerful as a Clan PPC or Gauss rifle and remain airborne. Garret Supremesound and Garret D2j electronics handle communications and targeting duties across most production variants.</p><p>The design's primary limitation is ammunition supply. With no backup weapons, crews must exercise strict fire discipline, as exhausting the missile bays leaves the helicopter defenseless in extended engagements. Like all VTOLs, the rotor system is a critical vulnerability, though Michaelson reinforced it as heavily as the weight budget permitted.</p><p>Later variants significantly expanded the design's capabilities. The infantry support model replaces the internal combustion engine with a fusion powerplant and trades missile armament for medium lasers, machine guns, and a troop bay sized for a full infantry platoon. Advanced Cal-Boeing configurations add vehicular stealth armor and VTOL jet boosters for covert insertion operations, while an experimental prototype incorporated a Guardian ECM suite and chin-mounted Magshot Gauss rifles.</p>
+</capabilities>
+
+<overview>
+<p>The Cavalry Attack Helicopter is a 25-ton VTOL assault craft developed by Michaelson Heavy Industries and first produced at Ruchbah in 3054. Designed as a rapid relief and assault platform, the helicopter was intended for hit-and-run operations against armored targets, and it quickly became one of the most capable strike helicopters in the AFFC inventory within its first decade of service. Early production runs were acquired primarily by AFFC units and noble houses of the Draconis March and Sarna March, while a substantial portion reached mercenary operators concentrated in the Chaos March. The Cavalry's sturdy airframe proved adaptable enough to support multiple specialized variants across its production life. Cal-Boeing of Dorwinion at Belladonna later developed advanced stealth-equipped configurations for Federated Suns intelligence and rapid-deployment operations. Licensed production spread further during the Dark Age, with Kallon Weapon Industries and Yan Manufacturing extending the design's reach across multiple successor states.</p>
+</overview>
+
+<deployment>
+<p>Replacing the internal combustion engine with a fusion powerplant, the infantry variant trades missile armament for three medium lasers, machine guns, and a troop bay sized for a full foot platoon. Introduced in 3063 to address demand for a combined-arms delivery platform with organic fire support, this configuration filled a role distinct from the standard tank-buster. It found wide service in rapid-deployment formations requiring a helicopter capable of delivering infantry and then suppressing enemy positions. Kallon Weapon Industries began producing this variant during the early Republic era, initially under Duchy of Graham-Marik oversight before transitioning to Marik-Stewart Commonwealth and eventually Free Worlds League control.</p>
+</deployment>
+
+<history>
+<p>Michaelson Heavy Industries introduced the Cavalry in 3054 as part of a new line of rapid assault VTOLs designed for the post-Clan Invasion battlefield. Early production was acquired primarily by AFFC units and noble houses of the Draconis March and Sarna March for personal guard allocations. A substantial mercenary market developed quickly, concentrated among the many small commands operating across the Chaos March, most working for FedCom-loyal factions. The helicopter's hunter-killer reputation was established through these early deployments, where its speed and firepower made it effective against the armored threats that proliferated through the conflict-saturated region.</p><p>The FedCom Civil War brought the Cavalry to wider attention. On Talon, the Seventh FedCom RCT fought at great cost through mountain valleys to prevent the Twenty-Second Avalon Hussars from reaching orbit and reinforcing Loyalist defenses on New Avalon. The Cavalry's speed and firepower proved decisive in breaking through armored positions that conventional ground forces struggled to force. That performance cemented the helicopter's reputation across both sides of the conflict and accelerated demand among regular military and mercenary operators alike.</p><p>Control of Ruchbah passed through several occupiers during the Jihad, including a period under Word of Blake administration that disrupted established supply chains. After the Jihad, the facility operated under Republic of the Sphere oversight before transitioning through independent control and eventually into Capellan Confederation hands across the Dark Age.</p><p>Cal-Boeing of Dorwinion pursued a separate development path at Belladonna, producing the experimental CADENCE RAIN prototype in 3075 as a covert battle armor delivery platform. Severe limitations in vehicular stealth armor supply restricted production to a handful of airframes, and the death of the program director during a test flight set development back nearly two years. The experience gained fed directly into the more capable Infiltrator, which entered full production in 3085 and became a priority asset for Federated Suns intelligence operations. Michaelson's declining financial position drove licensing arrangements in the same period, bringing Kallon Weapon Industries and Yan Manufacturing into the production network and extending the Cavalry's operational reach across the Dark Age Inner Sphere.</p>
+</history>
+
+<manufacturer>
+Michaelson Heavy Industries|Kallon Weapon Industries
+</manufacturer>
+
+<primaryFactory>
+Ruchbah|Loyalty
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Garret
+TARGETING:Garret
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:110 Fusion
+ARMOR:Unknown
+COMMUNICATIONS:Supremesound
+TARGETING:D2j
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-I
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+
+

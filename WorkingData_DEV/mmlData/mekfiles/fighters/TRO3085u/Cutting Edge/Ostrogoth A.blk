@@ -1,0 +1,186 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-af79-7dd1-bcf7-719edf487ab7
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Ostrogoth
+</Name>
+
+<Model>
+A
+</Model>
+
+<mul id:>
+2360
+</mul id:>
+
+<year>
+3078
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+19
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<omnipodheatsinks>
+9
+</omnipodheatsinks>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+77
+61
+61
+41
+</armor>
+
+<Nose Equipment>
+CLERPPC:OMNI
+CLERPPC:OMNI
+CLActiveProbe:OMNI
+CLTargeting Computer:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLStreakSRM6:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLStreakSRM6:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+CLERMediumLaser:OMNI
+CLECMSuite:OMNI
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+Clan Streak SRM 6 Ammo:OMNI
+Clan Streak SRM 6 Ammo:OMNI
+CLCASE
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Ostrogoth's GM 375 extralight fusion engine delivers a Safe Thrust 7 and Maximum Thrust 11 performance profile more typical of a medium OmniFighter, despite the design's 75-ton mass. The engine's extralight configuration carries elevated maintenance costs, a trade-off the Dominion accepted in exchange for the pod space it enables. Brunin Heavy Ferro-Aluminum armor covers the airframe with 240 points of protection, providing a level of survivability closer to a true heavy fighter than the medium-weight performance envelope might suggest. Ten base double heat sinks form the standard cooling capacity, and most configurations draw additional heat sinks from their pod space allocation to manage the heat loads of energy-heavy loadouts.</p><p>The Prime configuration demonstrates the flexibility the pod space affords. A nose-mounted ER PPC and two Artemis IV-enhanced LRM-15 launchers handle long-range engagements, while a bank of six ER medium lasers delivers saturation fire at close range, with a seventh laser facing aft to discourage pursuit. A targeting computer enhances accuracy across the energy weapons, and a Guardian ECM suite degrades opponents' targeting systems. While the Ostrogoth carries less pod space than the medium designs it was meant to replace, its superior armor and comparable thrust profile make it competitive in sustained engagements where lighter fighters cannot absorb the same punishment.</p>
+</capabilities>
+
+<overview>
+<p>The Ostrogoth is a 75-ton Clan heavy OmniFighter introduced by the Ghost Bear Dominion in 3078, produced at the Tseng Facility on Alshain. Designed as a direct response to mounting fighter losses during the Jihad, the Ghost Bears sought an OmniFighter that could match the agility of a medium design while carrying the armor protection of a heavier frame. The resulting aircraft exceeded the originally intended weight class, but the Dominion accepted it without hesitation, drawing on its established experience building and maintaining heavy OmniFighters. With 35 tons of configurable pod space and a reliable production base on Alshain, the Ostrogoth gave Ghost Bear aviators a versatile platform well-suited to the varied demands of late Jihad air combat.</p>
+</overview>
+
+<deployment>
+<p>The A configuration trades the Prime's missile suite for a concentrated energy loadout geared toward close engagement. Two ER PPCs serve as the primary long-range weapons, while two wing-mounted Streak SRM-6 launchers with one ton of ammunition each provide accurate close-range firepower and a single aft ER medium laser discourages tail pursuit. An active probe extends sensor range and an ECM suite provides electronic screening. A targeting computer enhances weapon accuracy, and nine additional double heat sinks manage the dual PPC heat load. The A suits pilots who prefer to close rapidly and press the engagement at short range, where the Streak launchers' lock-on requirement guarantees efficient ammunition expenditure.</p>
+</deployment>
+
+<history>
+<p>By the mid-3070s the Ghost Bear Dominion's aerospace arm was under severe strain. Heavy Jihad-era combat had taken a disproportionate toll on the Dominion's medium fighter contingent. Dependence on the aging Visigoth and the harder-to-source Jagatai had left many Stars understrength, and the lower-cost Ammon proved only a partial solution, as its performance shortfalls drove pilot casualty rates to levels the Dominion considered unacceptable. The Ghost Bears concluded that a new OmniFighter built at their own Inner Sphere manufacturing base on Alshain was the only reliable path to rebuilding their aerospace capability.</p><p>The engineering team had originally targeted a medium-weight design, but priorities around maintaining the necessary thrust profile and protecting increasingly hard-to-replace pilots pushed the mass upward. The resulting design crossed into heavy territory, but the Ghost Bears were confident in their ability to build and sustain heavy OmniFighters and approved it accordingly. The Tseng Facility on Alshain completed the first production units in 3078.</p><p>Those first Ostrogoths went directly to units staged for the Protectorate campaign. Deployed in medium Stars alongside older and slower Jengiz fighters, Ostrogoth pilots exploited the contrast in performance profiles, using their superior maneuverability to catch Blakist fighters attempting to outrun the slower designs. Blakist aviators expecting to outpace a Jengiz found themselves instead engaged by a heavy fighter matching their speed, a combination that overwhelmed the best Inner Sphere units the Word of Blake could field in the Protectorate theater.</p><p>After the Jihad, outside analysts questioned whether the cost of the Ostrogoth's large engine and supporting logistics was justified for its role when post-war militaries were reducing in size. The Dominion rejected these assessments, citing the design's proven war record and the operational economies of concentrating high capability in a single unit rather than maintaining several less capable fighters. Production continued at Alshain into the 3080s and the facility passed to the Rasalhague Dominion, which introduced a fourth alternate configuration around 3100 incorporating Dark Age-era electronics improvements.</p>
+</history>
+
+<manufacturer>
+Tseng Facility
+</manufacturer>
+
+<primaryFactory>
+Alshain
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Ursa Major
+ENGINE:GM
+ARMOR:Brunin
+COMMUNICATIONS:Vox
+TARGETING:Hunter
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Type VI
+ENGINE:375 XL
+ARMOR:Heavy Ferro-Aluminum
+COMMUNICATIONS:91
+TARGETING:62B
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

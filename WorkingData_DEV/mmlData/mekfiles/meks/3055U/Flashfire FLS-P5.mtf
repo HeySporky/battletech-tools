@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c795-72dc-8422-51c2144b3d04
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Flashfire
+model:FLS-P5
+mul id:1122
+
+Config:Biped
+techbase:Inner Sphere
+era:3067
+source:TR:3055U
+published:RS:3055Uu
+rules level:4
+role:Striker
+
+weaponquirk:mod_weapons:LA:8:IS Fluid Gun
+weaponquirk:mod_weapons:RA:7:IS Fluid Gun
+
+mass:30
+engine:180 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:8
+RA armor:8
+LT armor:10
+RT armor:10
+CT armor:12
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:7
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+Fluid Gun, Left Arm
+SRM 6, Right Arm
+ER Small Laser, Right Arm
+ER Small Laser, Right Arm
+Fluid Gun, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERSmallLaser
+ISERSmallLaser
+IS Fluid Gun
+IS Fluid Gun
+ISFluidGun Ammo
+Spikes
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+SRM 6
+SRM 6
+ISERSmallLaser
+ISERSmallLaser
+IS Fluid Gun
+IS Fluid Gun
+ISFluidGun Ammo
+IS Ammo SRM-6
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Flashfire is a thirty-ton light BattleMech designed by Omnitech Industries specifically for the Solaris VII arena circuit. Introduced in 3054, the design was conceived to fill a niche in the Class One weight bracket, offering a close-quarters combatant with respectable speed and surprisingly varied offensive capabilities for its tonnage. Among the smallest purpose-built arena 'Mechs of the post-Clan Invasion era, the Flashfire earned a reputation for punching well above its weight class in close-range engagements.</p><p>Though its initial novelty eventually faded as newer arena designs emerged, the introduction of advanced weapons technologies designed specifically for gladiatorial combat ensured the Flashfire's continued presence on Solaris VII well into the Civil War era.</p>
+
+capabilities:<p>The Flashfire's design philosophy centers on close-range aggression and tactical unpredictability. Built on an Omnitech FF-X endo steel frame and powered by a GM 180 XL engine, the chassis achieves a top speed of ninety-seven kilometers per hour while preserving enough tonnage for a diverse weapons suite. The latest production model, the FLS-P5, mounts a pair of Omnitech Firehose fluid guns as its primary armament, weapons whose varied ammunition payloads (ranging from oil slicks and fire-retardant foam to corrosive compounds) make the Flashfire extraordinarily difficult to predict in the arena. Four Diverse Optics extended-range small lasers provide reliable energy backup, while a Holly SRM-6 launcher delivers additional punch at short range.</p><p>The addition of Rawlings 52 jump jets gives the Flashfire exceptional maneuverability for a light design, allowing pilots to vault behind opponents to target vulnerable rear armor. Omnitech installed the fluid guns using Mercury-style semi-modular mounts inspired by Clan OmniMech technology, enabling technicians to rapidly swap hoses and fluid tanks between engagements. Reinforced spikes on the left arm add a melee dimension to the design. The Flashfire's principal weakness lies in its dependence on the XL engine, which leaves it critically vulnerable to torso damage, a significant liability in the close-quarters fighting the design encourages.</p>
+
+deployment:<p>This variant is a comprehensive redesign of the Flashfire, entering production in 3067 as Omnitech's answer to a new generation of arena-specific weapons systems. Rather than iterating on the original flamer and pulse laser loadout, Omnitech engineers opted for a complete weapons swap, replacing the arm-mounted energy clusters with Omnitech Firehose fluid guns and Diverse Optics extended-range small lasers. The fluid guns exploit Mercury-style semi-modular mounting technology, allowing rapid reconfiguration between engagements, a capability that gives pilots enormous tactical flexibility. A single SRM-6 provides conventional missile support, while reinforced spikes on the left arm and integrated Rawlings 52 jump jets round out the design. The FLS-P5 made a dramatic arena debut at Hartford Gardens, where its combination of corrosive fluid attacks and oil slick deployments left lasting scars on the arena walls and surrounding landscape.</p>
+
+history:<p>The Flashfire emerged from Omnitech Industries' design bureau on Solaris VII in the early 3050s, a period when the Clan Invasion had dramatically reshaped Inner Sphere military priorities but had done little to diminish public appetite for gladiatorial combat. Omnitech, a small Solaris-based firm previously known for the successful Koto light 'Mech and the ill-fated Colossus assault design, sought to capitalize on the Class One arena bracket with a purpose-built combatant that emphasized close-range firepower over the speed-focused designs that dominated the weight class.</p><p>The FLS-P2 entered production in 3054 and enjoyed immediate commercial success, becoming a regular fixture in Class One arena matches across Solaris City. The design's combination of flamers, pulse lasers, and short-range missiles offered an appealing blend of offensive options that proved popular with both arena pilots and spectators. However, this initial enthusiasm proved difficult to sustain. The flood of new 'Mech designs that followed in the wake of the Clan Invasion (many incorporating recovered Star League and even Clan technology) quickly overshadowed the Flashfire, and sales declined steadily over the following decade.</p><p>Omnitech's fortunes shifted with the development of newer weapons systems designed specifically for arena combat. The introduction of fluid gun technology gave Omnitech the opportunity to reimagine the Flashfire from the ground up, resulting in the FLS-P5 variant that entered production in 3067. The redesign incorporated lessons learned from nearly fifteen years of arena feedback, addressing the original's lack of jump capability while adding the tactical unpredictability of fluid-based weapons. Omnitech's production facility on Solaris VII operated under Lyran Alliance sovereignty throughout the Flashfire's primary production period, though the planet's unique status as a gaming world meant that the design saw use by pilots from virtually every faction represented in the arenas.</p><p>The Flashfire's arena-centric design philosophy limited its adoption by conventional military forces, though individual examples have appeared in mercenary commands and militia units where its unconventional weapons loadout provides a psychological edge against opponents unfamiliar with fluid gun tactics. The transition of Solaris VII to Clan Wolf control during the Dark Age further complicated the Flashfire's production outlook, and it remains uncertain whether the design will see continued manufacture under its new overlords.</p>
+
+manufacturer:Omnitech Industries
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Omnitech
+systemmode:CHASSIS:FF-X Endo Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:180 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Tensile-4 w/ Spikes
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:52
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T15B
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:500S

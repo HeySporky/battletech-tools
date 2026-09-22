@@ -1,0 +1,164 @@
+generator:Mordel.Net Code Release 2.26.21 on 8-Sep-2026
+chassis:Locust-X
+model:LCT-1Vb X
+source:Custom Mordel.Net Units
+
+Config:Biped
+TechBase:Inner Sphere
+Era:3080
+Rules Level:3
+
+Mass:20
+Engine:180 Light Engine(IS)
+Structure:IS Endo Steel
+Myomer:Standard
+
+Heat Sinks:10 Double
+Walk MP:9
+Jump MP:0
+
+Armor:Heavy Ferro-Fibrous (IS)
+LA Armor:6
+RA Armor:6
+LT Armor:8
+RT Armor:8
+CT Armor:10
+HD Armor:9
+LL Armor:8
+RL Armor:8
+RTL Armor:2
+RTR Armor:2
+RTC Armor:2
+
+Weapons:3
+Small X-Pulse Laser, Head
+Medium X-Pulse Laser, Right Arm
+Medium X-Pulse Laser, Left Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISMediumXPulseLaser
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISMediumXPulseLaser
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+Endo Steel
+Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+Endo Steel
+Endo Steel
+Endo Steel
+Endo Steel
+Endo Steel
+Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+Endo Steel
+Endo Steel
+Endo Steel
+Endo Steel
+Endo Steel
+Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISSmallXPulseLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Leg:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+

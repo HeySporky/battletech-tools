@@ -1,0 +1,174 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad33-7c69-b687-c6db0aa03ad9
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Sai
+</Name>
+
+<Model>
+S-3
+</Model>
+
+<mul id:>
+2771
+</mul id:>
+
+<year>
+3045
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+8
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+14
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+40
+30
+30
+20
+</armor>
+
+<Nose Equipment>
+Large Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+Medium Laser
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Medium Laser
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Sai's combat profile centers on a nose-mounted large laser providing a reach advantage over short-range opponents, complemented by a pair of medium lasers in each wing that deliver substantial close-range firepower. Fourteen double heat sinks give the fighter excellent thermal management, allowing it to sustain continuous weapons fire without meaningful heat buildup. Seven and a half tons of standard armor affords protection comparable to its Sparrowhawk rival, making the Sai durable enough for sustained engagements.</p><p>The Shinobi 240 power plant delivers a maximum thrust of twelve, keeping the Sai competitive with peer designs in speed. Its principal weakness is turning performance, which falls roughly twenty percent below the most agile light fighters of its era, limiting effectiveness in close maneuvering engagements. Five tons of fuel also restricts endurance on extended patrols or deep interdiction missions. The traditional aerodynamic profile, a deliberate departure from the Sholagar's more exotic planform, improves atmospheric handling and makes the Sai considerably more intuitive for transitioning pilots to master.</p>
+</capabilities>
+
+<overview>
+<p>The Sai is a light aerospace fighter developed for the Draconis Combine in the early 3030s, conceived as a replacement for the aging and ill-reputed Sholagar. When that fighter's troubled service record damaged Mangon Aeronautics' standing among Kuritan pilots, the company set out to design a more capable successor. The financial strain of developing a completely new airframe proved more than Mangon could sustain, however, and Wakazashi Enterprises absorbed the company in 3045, inheriting the partially developed project. Recognizing the design's potential, Wakazashi pushed it into limited production at their Schuyler facility, fielding thirty examples for evaluation by the Draconis Combine High Command. Designed to combine the best qualities of the Sparrowhawk and the Seydlitz, the Sai established itself as a credible light fighter for the Combine and served as the foundation for a series of increasingly capable variants continuing in service through the modern era.</p>
+</overview>
+
+<deployment>
+<p>The thirty S-3 prototypes served exclusively with the Draconis Combine Military Service, deployed on raids against Federated Commonwealth space during the late Succession Wars. These engagements validated the Sai concept against contemporary Davion and Steiner fighter designs. The S-3 effectively gave way to the S-4X on the production line before Schuyler could build meaningful numbers, leaving the original variant as a limited-run design found in small numbers with frontline Combine units that participated in the field evaluation program.</p>
+</deployment>
+
+<history>
+<p>The Sai's origins trace to the early 3030s, when the Draconis Combine High Command pressed Mangon Aeronautics to develop a replacement for the Sholagar, a light fighter whose troubled service record had become an embarrassment to Kuritan aerospace forces. Mangon's engineers produced a promising concept, but the cost of developing a completely new airframe proved difficult for the smaller company to sustain. Declining revenues in other product lines compounded the financial pressure, and by 3045 Wakazashi Enterprises had absorbed the company, discovering the Sai project in an advanced but incomplete state.</p><p>Wakazashi accelerated development and produced thirty prototypes for field evaluation by the Combine High Command. These aircraft were deployed on raids against House Davion, where the Sai faced the Sparrowhawk and the Seydlitz in actual combat. Promising performance results convinced Wakazashi to begin retooling the Schuyler facility in 3048 to accommodate full production incorporating recovered Star League technology, yielding the S-4X prototype, the first fighter of the thirty-first century to mount an extralight fusion engine.</p><p>The retooling was barely underway when the Clan Invasion reached the Combine. Clan Smoke Jaguar captured the Schuyler facility in June 3050, seizing the production line and the S-4X technical data. Jaguar technicians upgraded the airframe with Clan weapons and equipment, producing the S-4C for deployment to second-line clusters. As Schuyler remained under occupation, Wakazashi engineers at Chatham began developing an OmniFighter conversion in parallel, fielding the first S-40 prototypes in 3056. These early OmniFighters were acknowledged as flawed but served as a morale-boosting demonstration of continued Combine aerospace development during a difficult period.</p><p>Operation Bulldog's third wave landed on Schuyler on 10 August 3059. The Smoke Jaguars withdrew three days later, leaving the facility intact but the Clan production methods inaccessible to Combine engineers. Unable to reproduce the S-4C directly, Wakazashi redesigned the aircraft using Inner Sphere components, fielding the S-4 in 3061 as a close approximation of the Clan-tech variant. Further development produced the S-7 in 3065 and the S-8 in 3069, cementing the Sai as one of the Combine's most consistently evolved light fighter platforms.</p>
+</history>
+
+<manufacturer>
+Wakazashi Enterprises
+</manufacturer>
+
+<primaryFactory>
+Schuyler
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Wakazashi
+ENGINE:Shinobi
+ARMOR:Shinobi
+JUMP_JET:N/A
+COMMUNICATIONS:Neil
+TARGETING:Chichester
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Wakazashi I
+ENGINE:240
+ARMOR:Standard
+JUMP_JET:N/A
+COMMUNICATIONS:4000
+TARGETING:ASR-26
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

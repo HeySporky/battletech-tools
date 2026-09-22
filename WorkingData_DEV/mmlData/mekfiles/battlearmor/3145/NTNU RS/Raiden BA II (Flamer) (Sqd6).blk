@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a706-75ae-ae14-2d4332aac824
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Raiden II Battle Armor
+</Name>
+
+<Model>
+[Flamer](Sqd6)
+</Model>
+
+<mul id:>
+9149
+</mul id:>
+
+<year>
+3123
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+37
+</armor_type>
+
+<armor_tech>
+5
+</armor_tech>
+
+<Squad Equipment>
+CLBAFlamer:LA
+BABattleClaw:RA
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):LA
+IS BA Laser Reflective (Reflec/Glazed):RA
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):RA
+IS BA Laser Reflective (Reflec/Glazed):LA
+IS BA Laser Reflective (Reflec/Glazed):Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Raiden II's flamer configuration carries a battle armor-scale flamer as its primary weapon, paired with the anti-personnel weapon mount that distinguishes the Raiden II from its predecessor. The suit's most significant upgrade is its reflective armor, which disperses energy weapon impacts more effectively than the original Raiden's polymer-bonded standard plating. Against laser-heavy opponents this protection gives Raiden II troopers a meaningful survivability advantage, though the reflective coating offers reduced protection against ballistic and explosive weapons compared to conventional armor of equivalent weight. Jump jets maintain the ninety-meter leap capability inherited from the original Raiden, and the left-arm battle claw retains full anti-BattleMech attack and OmniMech transport functionality. The flamer's area-effect fire combined with the anti-personnel mount makes this configuration effective for clearing infantry positions, particularly in environments where energy weapons are the primary threat.</p>
+</capabilities>
+
+<overview>
+<p>The Raiden II is a Dark Age-era upgrade of the Draconis Combine's long-serving Raiden battle armor. Produced by New Samarkand Metals, the suit features upgraded armor protection and an additional weapon mount, addressing limitations identified through decades of operational experience with the original design. The upgrade retains the Raiden's proven jump capability and battle claw, maintaining compatibility with established DCMS infantry doctrine. Introduced around 3123, the Raiden II gave Combine armored infantry improved survivability without requiring a complete redesign of the familiar Raiden platform.</p>
+</overview>
+
+<deployment>
+<p>Six-trooper formations of flamer-equipped Raiden II suits saw limited deployment with mercenary commands and allied contingents operating under DCMS contracts during the Dark Age. The larger formation size compensated for the reflective armor's reduced ballistic protection by concentrating more flamers per engagement, overwhelming defenders through volume of fire.</p>
+</deployment>
+
+<history>
+<p>The Raiden II emerged from the Draconis Combine's growing embrace of reflective armor technology during the early thirty-second century. The Kishi battle armor had demonstrated the value of reflective plating against energy-heavy opponents, and DCMS procurement officers quickly authorized a similar upgrade for the long-serving Raiden chassis. New Samarkand Metals received the contract, producing an updated suit that replaced the standard polymer-bonded armor with reflective plating while adding an anti-personnel weapon mount absent from the original design. The Raiden II entered production around 3123 and saw deployment with frontline DCMS formations during the turbulent Dark Age period. While not a radical redesign, the upgrade ensured that Combine battle armor infantry retained an edge against energy-weapon-equipped opponents, extending the Raiden platform's service life well beyond what its original designers likely envisioned.</p>
+</history>
+
+<manufacturer>
+New Samarkand Metals
+</manufacturer>
+
+<primaryFactory>
+New Samarkand
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<published>
+RS:3145-NTNU
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+9
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

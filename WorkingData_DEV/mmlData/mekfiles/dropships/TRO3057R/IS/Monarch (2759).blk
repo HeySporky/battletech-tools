@@ -1,0 +1,207 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab31-7a45-85cc-cfb087de725b
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Monarch
+</Name>
+
+<Model>
+(2759)
+</Model>
+
+<mul id:>
+4654
+</mul id:>
+
+<year>
+2759
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+crewquarters:238.0:0:-1::-1:0
+2ndclassquarters:1400.0:0:-1::-1:0
+1stclassquarters:720.0:0:-1::-1:0
+cargobay:1119.0:1:4::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+76
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+3336
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+50
+40
+40
+30
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Side Equipment>
+</Left Side Equipment>
+
+<Right Side Equipment>
+</Right Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+6
+</structural_integrity>
+
+<capabilities>
+<p>The Monarch accommodates 266 passengers across two decks situated between the command section and cargo holds, with each deck containing 133 staterooms. The lower passenger deck hosts a number of shops, a pair of saunas, a recreation area, and a single 150-seat dining area. The upper deck features two 100-seat dining areas, two large lounges, a casino, and a vidtape theater. Luxury staterooms include separate living rooms and bedrooms with beverage cabinets, holovid units, and comfortable wooden furniture, while standard rooms provide a single living and sleeping area with a fold-out sofa bed, small holovid unit, and compact table.</p><p>The Marly 750 transit drive maintains 1g of thrust during normal operations, providing passengers with standard gravity, while the rear maneuvering drive engages only during evasive or atmospheric flight. Regulator systems prohibit maneuvers exceeding 2g unless expressly overridden. The bridge is a large cockpit-style control area with an adjacent security monitoring panel capable of observing nearly every location aboard, including controls for interior bulkheads, life support adjustment, and emergency tranquilizing gas distribution. The vessel carries 1,119 tons of cargo and is crewed by 306 personnel. Seventy-six single heat sinks manage the drive's thermal output. The Monarch mounts no weapons and carries only 160 points of armor.</p>
+</capabilities>
+
+<overview>
+<p>The Monarch is one of the few DropShips expressly designed to carry passengers. Introduced in 2759 during the height of the Star League era, this 5,000-ton Aerodyne serves as a civilian passenger liner capable of transporting 266 passengers in relative comfort between populated worlds. Its fuselage acts as an aerodynamic lifting body, giving the vessel a distinctive profile among DropShip classes.</p><p>Lightly armored and completely unarmed, the Monarch is wholly unsuitable for military operations. The design has survived the Succession Wars largely due to its inoffensive nature and its operators' practice of restricting routes to heavily populated and well-defended regions of space where combat is unlikely.</p>
+</overview>
+
+<deployment>
+<p>Monarchs perform scheduled passenger flights between well-populated worlds across the Inner Sphere, rarely venturing outside heavily trafficked and well-defended regions. The vessel serves civilian passengers, diplomats, corporate travelers, and occasionally military personnel traveling without equipment. Mercenary commands have chartered Monarchs for troop transport between safe rear-area locations when dedicated military transports are unavailable.</p>
+</deployment>
+
+<history>
+<p>The Monarch was introduced in 2759, one of many civilian vessel designs produced during the prosperity of the late Star League era. While numerous passenger liners existed during that golden age, the Monarch proved to be the most enduring, surviving the collapse of the Star League and the devastation of the Succession Wars when more sophisticated competitors were lost to combat, neglect, or cannibalization for military parts.</p><p>The vessel's weak superstructure does not lend itself to being armored or armed, which paradoxically contributed to its survival. Without military value, Monarchs were rarely targeted during the Succession Wars. A number of mercenary units have hired Monarchs to transport troops between safe locations when dedicated military transports were unavailable, though such use remains the exception rather than the rule. Multiple manufacturers including Brigadier Corporation, Galileo Instruments, and New Syrtis Shipyards have produced the class, ensuring a steady supply of replacement hulls and spare parts across the Inner Sphere.</p>
+</history>
+
+<manufacturer>
+Brigadier Corporation|Galileo Instruments|Lockheed/CBM Corp.|Yare Industries Inc. - Yare Shipyards
+</manufacturer>
+
+<primaryFactory>
+Gibson|Schuyler|Tharkad|New Syrtis
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Marly 750
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+5000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+34
+</crew>
+
+<officers>
+6
+</officers>
+
+<gunners>
+0
+</gunners>
+
+<passengers>
+266
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+15
+</life_boat>
+
+<escape_pod>
+15
+</escape_pod>
+

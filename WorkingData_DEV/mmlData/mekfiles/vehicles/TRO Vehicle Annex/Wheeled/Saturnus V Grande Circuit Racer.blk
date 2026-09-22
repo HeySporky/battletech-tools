@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb87-7c93-89bf-8b7de4a95ca8
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Saturnus V Grande Circuit Racer
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4978
+</mul id:>
+
+<year>
+3062
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+ejectionseats:1.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+13
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+2
+1
+1
+2
+</armor>
+
+<Body Equipment>
+UltraLightChassisMod
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Saturnus V is powered by a Sprague &amp; Charles 950 gas turbine engine, an internal combustion powerplant that propels the 1,500-kilogram vehicle to speeds approaching 230 kilometers per hour on straightaway course sections. The design employs an ultra-light chassis modification to minimize weight, dedicating the bulk of its mass budget to the powerful engine assembly. A fuel capacity supporting 887 kilometers of range on alcohol fuel allows the vehicle to complete extended race stages without refueling stops.</p><p>Despite being an unarmed civilian vehicle, the Saturnus V incorporates safety features rarely seen outside military applications. Vehicles competing in professional circuit racing are required to carry an ejector system as a mandatory safety precaution, along with reinforced body panels and crash structures. The ejection seats integrate the same sensor circuitry and bio-monitoring suites found in Earthwerks BattleMech cockpits, providing race officials with real-time driver health telemetry. Protection is provided by BAR 6 rated armor, a relatively heavy grade for a civilian vehicle that reflects the extreme speeds and treacherous terrain encountered during competition. The single-seat configuration sacrifices all cargo capacity in favor of performance.</p>
+</capabilities>
+
+<overview>
+<p>The Saturnus V Grande Circuit Racer is a high-performance wheeled racing vehicle that has come to dominate organized motorsport across the Inner Sphere. Introduced in 3062 by an unidentified manufacturer, the small wheeled support vehicle quickly established itself as the premier platform in professional circuit racing. The Saturnus V earned particular renown through its association with the Grande Circuit Challenge Series, an annual competition held on New Earth within the Wolf and Bear Occupation Zones. Compact, fast, and purpose-built for competition, the design represents the pinnacle of civilian racing technology available to professional teams and well-funded amateur drivers across the known Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Saturnus V serves exclusively as a professional and amateur racing platform. Competition on New Earth represents the highest tier of motorsport in the region, though amateur-class Saturnus V racers appear on tracks throughout the Inner Sphere wherever high-performance wheeled racing draws an audience. The vehicle has no military or civilian transport application.</p>
+</deployment>
+
+<history>
+<p>The Saturnus V entered the racing world in 3062 and rapidly proved itself against established competitors. Within a few short years, the design became the vehicle of choice among top-tier professional drivers, with Saturnus V models carrying the winners of eight consecutive Grande Circuit Challenge Series events. The Grande Circuit itself is one of the most prestigious and demanding racing competitions in the known Sphere, held annually on New Earth. The grueling three-thousand-kilometer course tests both machine and driver to their absolute limits, with the benchmark performance set by Rhiannon Powers' record-breaking run in 3064 that completed the circuit in sixteen hours and twenty minutes.</p><p>The vehicle competes in a crowded market of high-end racing platforms, including the Avanti Starfire, the Hughes-McCandless Streak, and the Scion-Nissaki Hyperion. Despite the quality of these rivals, the Saturnus V's sustained success in organized competition established it as the benchmark against which all other racing vehicles are judged. This success also helped stimulate the broader civilian high-performance vehicle market, with growing public interest in motorsport contributing to demand that eventually led manufacturers like Durandel-British to introduce more affordable alternatives for enthusiasts unable to afford professional-tier machinery.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Sprague & Charles
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:N/A
+TARGETING:N/A
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:950 Gas Turbine
+ARMOR:Unknown (BAR 6)
+JUMP_JET:N/A
+COMMUNICATIONS:N/A
+TARGETING:N/A
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+1.5
+</tonnage>
+
+<fuel>
+0.108
+</fuel>
+
+<fuelType>
+ALCOHOL
+</fuelType>
+

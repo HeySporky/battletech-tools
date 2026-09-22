@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dfeb-7d84-b29f-bad51c05b025
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Bellerophon
+model:BEL-1X
+mul id:3817
+
+Config:Biped
+techbase:Inner Sphere
+era:2442
+source:XTR:Primitives III
+published:XTR:Primitives III
+rules level:4
+role:Brawler
+
+quirk:cowl
+quirk:unbalanced
+quirk:obsolete:2456
+quirk:prototype
+weaponquirk:em_interference:RA:3:Large Laser
+weaponquirk:em_interference:RA:5:Large Laser
+
+mass:60
+engine:290 Fusion Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Primitive Cockpit
+gyro:Standard Gyro
+
+heat sinks:14 Single
+walk mp:4
+jump mp:0
+
+armor:Primitive(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:12
+RT armor:12
+CT armor:20
+HD armor:8
+LL armor:14
+RL armor:14
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:3
+SRM 4, Left Arm
+Large Laser, Right Arm
+Large Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+SRM 4
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+IS Ammo SRM-4
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Bellerophon holds the distinction of being the second BattleMech ever developed, prototyped in 2442 by Witten Industries on Hesperus II just three years after the Mackie's debut. Conceived as a lighter, faster companion to the hundred-ton Mackie, the sixty-ton design was intended to complement the heavier machine in combined-arms operations for the Terran Hegemony Armed Forces. Witten Industries had gained experience through its partnership with Skobel MechWorks of Terra on the original Mackie project and sought to apply those lessons to an independent BattleMech program. The Hegemony Armed Forces ultimately rejected the design, and it remained little more than a historical footnote for over six centuries.</p>
+
+capabilities:<p>The Bellerophon's armament centers on a pair of Large Lasers mounted in the right arm, supplemented by a single SRM-4 launcher in the left arm with a single ton of ammunition. This weapon arrangement provides reasonable offensive capability for its era, with the lasers delivering punishing fire at medium range while the missile rack adds close-range punch. However, the concentration of the design's primary firepower in a single limb creates severe balance problems. The asymmetric weapon placement amplifies stability issues inherited from the early Mackie prototype, making the Bellerophon notoriously difficult to keep upright during maneuvers or sustained combat.</p><p>The fourteen heat sinks prove inadequate for the weapons suite, as simultaneous firing of both Large Lasers generates dangerous heat spikes that force pilots to stagger their fire or risk shutdown. The 290-rated Primitive engine delivers a top speed of sixty kilometers per hour, which was considered exceptional for the era and gave the Bellerophon a meaningful mobility advantage over the slower Mackie. The hull carries 11.5 tons of Primitive Armor, providing approximately sixty percent of the Mackie's protection. While this trade-off for increased speed was considered acceptable by the designers, the combination of inadequate heat management, persistent balance issues, and the limitations of primitive-era technology ultimately rendered the design unacceptable to the Hegemony Armed Forces.</p>
+
+deployment:<p>This variant represents the sole configuration of the Bellerophon, produced as a Primitive-technology prototype in 2442. Only four operational prototypes were constructed before the Hegemony Armed Forces rejected the design. A protective cowl provides modest additional head protection, though the combination of primitive-era systems and the fundamental balance flaws that plagued the design from inception made the Bellerophon a challenging machine to operate even by the standards of its era. The BEL-1X saw an unexpected second life during the Jihad when Omnitech Industries and Innovative Design Concepts on Solaris VII produced small numbers of the retrotech design between 3073 and 3079 for mercenary buyers desperate for any functional BattleMech hardware.</p>
+
+history:<p>The Bellerophon's origins trace directly to the dawn of BattleMech technology. Witten Industries of Hesperus II had collaborated with Skobel MechWorks of Terra on the groundbreaking Mackie project, gaining invaluable first-hand experience with the new weapons technology. When the five major contractors involved in Mackie production found themselves competing for future Hegemony contracts, Witten moved quickly to develop its own independent design. Work began shortly after the first Mackie prototypes took their initial steps, with Witten's engineers drawing heavily on the technology and engineering data from that program.</p><p>Internally dubbed "the baby," the Bellerophon was conceived as a sixty-ton companion to the hundred-ton Mackie, trading raw firepower and armor for speed and tactical flexibility. The design philosophy was sound: a faster heavy 'Mech capable of flanking and supporting the slower Mackie in combined operations. However, the engineering execution fell short. The early Mackie prototype suffered from significant balance and stability problems that were only resolved through extensive gyroscope upgrades and mass redistribution. The Bellerophon inherited these fundamental flaws, and its smaller frame and uneven weapon layout amplified them rather than mitigating them. Despite repeated efforts, Witten's engineers could not fully solve the stability problem without a complete ground-up redesign.</p><p>After constructing at least four operational prototypes, Witten submitted the Bellerophon for evaluation by the Hegemony Armed Forces. The HAF ultimately rejected the design, and the program was cancelled. The final disposition of the four prototypes remains unknown. By 2456, the design was officially classified as obsolete, overtaken by newer BattleMech designs that benefited from the rapid technological advances of the early Age of War.</p><p>The Bellerophon languished in obscurity for over six centuries until the chaos of the Jihad created unexpected demand for any available BattleMech production. On Solaris VII, the local boutique manufacturing industry had been devastated by the Word of Blake's occupation of the Game World. Omnitech Industries and Innovative Design Concepts managed to salvage enough manufacturing capability to begin assembling retrotech BattleMechs from available blueprints, including the Bellerophon. Production began in 3073 and continued until approximately 3079, with the handful of completed machines sold to mercenary commands willing to accept any functional hardware regardless of its vintage or limitations.</p>
+
+manufacturer:Witten Industries|Omnitech Industries/Innovative Design Concepts
+
+primaryfactory:Hesperus II|Solaris VII
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:290 Primitive
+systemmanufacturer:ARMOR:Maximillian
+systemmode:ARMOR:Primitive Armor
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

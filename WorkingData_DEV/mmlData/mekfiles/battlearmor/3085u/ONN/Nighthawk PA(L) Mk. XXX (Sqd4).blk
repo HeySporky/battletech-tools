@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a5ad-7029-8b83-5a72efdd2273
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Nighthawk PA(L)
+</Name>
+
+<Model>
+Mk. XXX(Sqd4)
+</Model>
+
+<mul id:>
+4720
+</mul id:>
+
+<year>
+2744
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+32
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+BAArmoredGlove:LA
+BAArmoredGlove:RA
+Laser Rifle (Mauser 960):APM:RA
+IS BA Stealth (Standard):Body
+IS BA Stealth (Standard):Body
+IS BA Stealth (Standard):RA
+IS BA Stealth (Standard):LA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Mk. XXX is a mobility-focused evolution of the Nighthawk platform. While retaining the Standard Stealth armor and ninety-meter jump capability common to the Nighthawk family, the Mk. XXX features a significantly improved ground speed of thirty kilometers per hour, roughly three times the pace of the Mk. XXI. This enhanced overland mobility makes the suit more effective for extended patrol routes and rapid ground-level repositioning between jump points, allowing troopers to cover greater distances without consuming jump jet fuel reserves.</p><p>Like other Nighthawk variants, the suit carries no integral weapons, depending on armored gloves and standard infantry arms for any combat requirement. The Mk. XXX remains just as vulnerable to heavy weapons as its siblings, filling a useful niche for missions where sustained ground movement takes priority over the stop-and-leap pattern typical of jump-equipped power armor.</p>
+</capabilities>
+
+<overview>
+<p>The Nighthawk Mk. XXI PA(L) is the progenitor of modern battle armor, developed by the Terran Hegemony from commercial exoskeleton technology through one of the most challenging military engineering programs of the Star League era. Commissioned in 2720, the Nighthawk was designed as a light power armor suit for reconnaissance and covert operations. The suit entered service exclusively with the SLDF Special Forces Command, where it equipped elite special operations teams whose very existence remained classified. Classified as Power Armor (Light), the Nighthawk provided its operators with capabilities far beyond conventional infantry while maintaining the stealth profile necessary for behind-the-lines work, establishing the conceptual foundation for every battle armor design that followed.</p>
+</overview>
+
+<deployment>
+<p>The Mk. XXX's enhanced ground speed makes four-trooper squads particularly effective for wide-area scouting missions where rapid overland movement is critical. Inner Sphere commands that have acquired these rare suits typically assign them to reconnaissance squads operating ahead of main force elements, leveraging the thirty kilometer per hour ground speed to cover far more territory than standard Nighthawk teams.</p>
+</deployment>
+
+<history>
+<p>The Nighthawk program grew from First Star League efforts to militarize commercial exoskeletons that had been in civilian use since the early space age. First Lord Jonathan Cameron's Terran Hegemony funded an ambitious development effort, though the technology proved stubbornly difficult to adapt for combat. Fifteen years of engineering work and twenty failed prototypes preceded the breakthrough that produced the Mk. XXI in 2718. After two years of field testing, the suit entered full production at Krupp Armament Works on Terra and was issued to the Special Forces Command in 2720.</p><p>The SLDF deployed Nighthawks exclusively through its Special Armed Services, the covert operators known as the Blackhearts. The deployment was never publicly acknowledged, and the suit's existence remained classified throughout its Star League service life. The men and women of the SAS operated with such skill that the other Star League Member States heard only vague rumors of some advanced sneak suit. Rumors persist that the Thirteenth Royal Infantry Division, stationed deep in the Draconis Combine, was among the first formations to field-test the Nighthawk, conducting secret exercises against another Royal infantry division somewhere in the Draconis Rift. Plans for a combat-oriented variant, the Mk. XXII, were drawn up for distribution to SLDF Royal Divisions. A working prototype reached completion in 2749, but the Amaris Coup and the collapse of the Star League prevented that version from entering standard production.</p><p>When the Succession Wars erupted, both variants were thought lost. The Nighthawk research, however, accompanied the SLDF on the Exodus, becoming the seed from which the Clans would eventually develop true battle armor. On Terra, Jerome Blake's newly formed ComStar uncovered a small number of surviving suits and used them to equip commando units following the creation of the Com Guards. ComStar lacked the manufacturing capability to produce replacements, and attempts to reverse-engineer the design yielded only the inferior Tornado PA(L).</p><p>The Gray Death Legion recovered several Nighthawk suits on Karbala during the later Succession Wars. Most were turned over to the New Avalon Institute of Science for study, providing Davion engineers with critical data on power armor technology. New production finally resumed in 3065 when the Word of Blake, working in conjunction with the Free Worlds League, overcame the technical challenges and restarted manufacturing on Terra and Gibson. ComStar responded by establishing a production facility on Tukayyid, sharing output with the Second Star League and deploying Mk. XXIs to several Fury Teams. That factory operated for barely two years before the Word of Blake destroyed it in 3067.</p><p>During the Jihad, the Word of Blake supplied Nighthawk suits to Protectorate Militia infantry units, using the light power armor to bolster garrison forces while reserving heavier battle armor designs for frontline formations. ComStar, crippled by the loss of Tukayyid and the casualties suffered during Case White, took years to restart production at Arc-Royal MechWorks. Even after the facility came online, output remained limited, with priority going to personnel engaged in covert operations.</p><p>The Niops Association provided an unexpected additional source beginning around 3071, when engineers discovered Star League-era production records in their archives. Niops Project Workshop III began manufacturing both the Mk. XXI and the Mk. XXII, primarily to defend against belligerent Periphery neighbors. The decision proved wise when the Marian Hegemony's VI Legio Ripariensis raided Niops V that same year. The legionnaires were completely unprepared for power-armored infantry, and the Nighthawk-equipped defenders routed the invaders. Small numbers of captured Nighthawks from Word of Blake stockpiles have since appeared on the open arms market, finding buyers among mercenary commands, private security firms, and militia forces willing to acquire any available battle armor technology.</p>
+</history>
+
+<manufacturer>
+Krupp Armament Works
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3085u-ONN
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

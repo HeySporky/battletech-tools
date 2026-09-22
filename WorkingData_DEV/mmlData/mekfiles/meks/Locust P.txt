@@ -1,0 +1,76 @@
+                 BattleMech Technical Readout
+
+Name/Model:         Locust P
+Designer:           Legacy Wing
+Source(s):          Custom Mordel.Net Units
+Technology:         Inner Sphere (Mixed)
+Technology Rating:  F
+Tonnage:            20
+Role:               Striker
+Configuration:      Biped BattleMech
+Era/Year:           Dark Age / 3150
+Rules (Current):    Advanced
+Rules (Era):        Advanced
+Rules (Year):       Advanced
+Total Cost:         7,299,200 C-Bills
+Battle Value:       877
+
+Chassis:              Endo Steel
+Power Plant:          160 XXL
+Walking Speed:        86.4 kph  
+Maximum Speed:        129.6 kph 
+Jump Jets:            Standard
+    Jump Capacity:    240 meters
+Armor:                Standard
+Armament:             
+    1 ER Medium Laser (C)
+    1 Improved Heavy Medium Laser (C)
+Manufacturer:         Unknown
+    Primary Factory:  Unknown
+Communications:       Unknown with ECM Suite
+Targeting & Tracking: Unknown
+
+================================================================================================
+Equipment                                                              Mass                     
+------------------------------------------------------------------------------------------------
+Internal Structure:                         Endo Steel                 1.00                     
+Engine:                                      160 XXL                   2.00                     
+    Walking MP:                                 8                                               
+    Running MP:                                 12                                              
+    Jumping MP:                                 8                                               
+Heat Sinks (Double):                         10 [20]                   0.00                     
+Gyro:                                        Standard                  2.00                     
+Cockpit:                                     Standard                  3.00                     
+Armor Factor:                                   64                     4.00                     
+    Type:                                    Standard                                           
+
+                                    Internal         Armor     
+                                    Structure        Value     
+    Head:                               3              8       
+    Center Torso:                       6              8       
+    Center Torso (rear):                               2       
+    R/L Torso:                          5              8       
+    R/L Torso (rear):                                  2       
+    R/L Arm:                            3              6       
+    R/L Leg:                            4              7       
+
+================================================================================================
+Weapons and Ammo                                       Location          Critical      Mass     
+------------------------------------------------------------------------------------------------
+ECM Suite (C)                                             H                 1          1.00     
+Improved Heavy Medium Laser (C)                           CT                2          1.00     
+3 Jump Jets                                               RT                3          1.50     
+3 Jump Jets                                               LT                3          1.50     
+ER Medium Laser (C)                                       RA                1          1.00     
+TAG                                                       LA                1          1.00     
+Jump Jet                                                  RL                1          0.50     
+Jump Jet                                                  LL                1          0.50     
+
+================================================================================================
+Alpha Strike Statistics
+------------------------------------------------------------------------------------------------
+Point Value (PV): 25
+TP: BM,  SZ: 1,  TMM: 3,  MV: 16"j
+Damage: (S) 2 / (M) 2 / (L) 0,  OV: 0
+Armor (A): 2,  Structure (S): 1
+Specials: ECM, TAG

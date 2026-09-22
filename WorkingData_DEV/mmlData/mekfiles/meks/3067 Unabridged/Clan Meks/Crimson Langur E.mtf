@@ -1,0 +1,207 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cdb5-73e5-bfad-1149e08b0c2f
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Crimson Langur
+model:E
+mul id:5677
+
+Config:Biped OmniMek
+techbase:Clan
+era:3068
+source:TR:3067
+published:RS:3067u
+rules level:2
+role:Striker
+
+quirk:easy_maintain
+quirk:pro_actuator
+quirk:imp_com
+
+mass:50
+engine:350 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:11 Clan Double
+base chassis heat sinks:10
+walk mp:7
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:16
+RA armor:16
+LT armor:18
+RT armor:18
+CT armor:23
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:11
+Medium Pulse Laser, Left Torso
+Medium Pulse Laser, Left Torso
+Medium Pulse Laser, Left Torso
+ER Small Laser, Left Torso
+ER Small Laser, Left Torso
+ER Small Laser, Left Torso
+Streak SRM 4, Right Torso
+Streak SRM 4, Right Torso
+ER Small Laser, Right Torso
+ER Small Laser, Right Torso
+ER Small Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLMediumPulseLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+CLERSmallLaser (OMNIPOD)
+CLERSmallLaser (OMNIPOD)
+CLERSmallLaser (OMNIPOD)
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLStreakSRM4 (OMNIPOD)
+CLStreakSRM4 (OMNIPOD)
+CLERSmallLaser (OMNIPOD)
+CLERSmallLaser (OMNIPOD)
+CLERSmallLaser (OMNIPOD)
+Clan Streak SRM 4 Ammo (OMNIPOD)
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Crimson Langur is a 50-ton Clan OmniMech jointly developed by Clan Blood Spirit and Kindraa Mick-Kreese of Clan Fire Mandrill, entering production in 3065. Following the Blood Spirits' devastating losses during their interference in the Absorption conflict between Clan Burrock and Clan Star Adder, the Blood Spirit Khan initiated several new military programs to rebuild the Clan's shattered forces. With the Spirits' chronically limited resources, the Clan approached the strongly Crusader-aligned Kindraa Mick-Kreese to share development costs. The resulting period of co-development and co-production yielded a capable medium OmniMech named to honor the unprecedented cooperation between the two Clans. Produced at the York Y2 Facility on York and at the Kindraa Mick-Kreese Primary Production Facility on Atreus, the Crimson Langur stands as a rare example of inter-Clan industrial collaboration during an era of increasing isolationism among the Homeworld Clans.</p>
+
+capabilities:<p>The Crimson Langur is remarkably fast for a 50-ton OmniMech, achieving a top speed of nearly 120 kilometers per hour through the use of a 350-rated extralight fusion engine. Weight savings from an endo steel chassis frame allow the design to carry ten and a half tons of standard armor (the maximum the chassis can support) ensuring exceptional survivability for its weight class. This emphasis on speed and protection comes at a cost, however, as the Crimson Langur offers only fifteen tons of pod space for modular equipment, forcing MechWarriors to make difficult choices about offensive capability. A Full Head Ejection System provides an additional measure of crew survivability, reflecting the Blood Spirits' acute need to preserve their limited warrior cadre.</p><p>The limited pod space demands that each configuration carefully balance firepower against mobility and electronic warfare capability. Most configurations leverage the Crimson Langur's exceptional speed to dictate engagement range, pairing energy-heavy weapons suites with jump jets to maintain positional superiority. The chassis supports both long-range fire support and close-quarters brawling loadouts, though the tight tonnage constraints mean that no single configuration can excel at both simultaneously.</p>
+
+deployment:<p>Alternate Configuration E sacrifices all jump capability to maximize close-range firepower. Six extended-range small lasers, three medium pulse lasers, and a pair of Streak SRM-4 launchers create an overwhelming barrage at short distances. An additional double heat sink helps manage the considerable thermal load generated by this weapons suite. The E configuration is designed for aggressive close-quarters engagements where its massed short-range weaponry can be brought to bear before opponents can exploit the design's reduced mobility.</p>
+
+history:<p>The Crimson Langur emerged from one of the most turbulent periods in Home Clan politics. When Clan Star Adder moved to absorb Clan Burrock in the late 3050s, the Blood Spirits intervened in an ill-fated attempt to claim some of Burrock's assets for themselves. The resulting conflict left the Spirits badly bloodied, and the Star Adders escalated their raids against Blood Spirit holdings, threatening even the security of York itself. Desperate to rebuild, the Blood Spirit Khan launched several military modernization programs, including the development of new OmniMechs.</p><p>The partnership with Kindraa Mick-Kreese proved mutually beneficial. The Fire Mandrill Kindraa gained access to Blood Spirit manufacturing infrastructure while the Spirits received the engineering expertise and raw materials they lacked. Production began simultaneously at the York Y2 Facility and at Kindraa Mick-Kreese's primary facility on Atreus, ensuring neither Clan held exclusive control over the design.</p><p>Since entering service in 3065, the Crimson Langur rapidly proliferated through Blood Spirit and Fire Mandrill forces. By 3067, every Cluster within Kindraa Mick-Kreese and every Galaxy of the Blood Spirits fielded the design. The Crimson Langur's spread beyond these two Clans proved more surprising, the Blood Spirit Khan formed a Cloud Cobra ilChi post and presented the unit with a Star of Crimson Langurs, a diplomatic overture that shocked many observers given the Cloud Cobra's close dealings with the Star Adders. Crimson Langurs were also spotted in the Fourth Scorpion Uhlans of Clan Goliath Scorpion, though whether these were obtained through trade, trial, or isorla remains unclear.</p><p>The design's association with the ill-fated Blood Spirits and Fire Mandrills lent it a certain poignancy following the Wars of Reaving. Both Clans were ultimately destroyed during that devastating conflict, and surviving Crimson Langurs became prized trophies among the victorious Home Clans. Some evidence suggests production may have briefly continued at a facility on Haven before the Spirits' final destruction, though details remain scarce. The Crimson Langur stands as proof of what the smaller Home Clans could achieve through cooperation, even as the broader political currents of Clan society ultimately consumed them.</p>
+
+manufacturer:York Y2 Facility|Kindraa Mick-Kreese Primary Production Facility|Unknown
+
+primaryfactory:York|Atreus (Clan)|Haven (Colleen)
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:York
+systemmode:CHASSIS:York XT
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:350 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Beta J77
+systemmanufacturer:COMMUNICATIONS:York
+systemmode:COMMUNICATIONS:York Y2-Com
+systemmanufacturer:TARGETING:York
+systemmode:TARGETING:York Y5-T&T5

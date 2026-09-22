@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e956-7fc1-94c1-1ba6bceee067
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Garuda Heavy VTOL
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4202
+</mul id:>
+
+<year>
+3084
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<quirks>
+non_standard
+searchlight
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+30
+25
+25
+22
+2
+20
+</armor>
+
+<Body Equipment>
+ISVTOLJetBooster
+CLECMSuite
+Clan Streak LRM 15 Ammo
+</Body Equipment>
+
+<Front Equipment>
+CLStreakLRM15
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<Turret Equipment>
+CLERLargeLaser
+CLTAG
+</Turret Equipment>
+
+<capabilities>
+<p>The Garuda's primary weapon is a Series 7N Extended Range Large Laser, mounted on a chin turret that allows it to track targets across a wide arc without requiring the VTOL to orient directly at an opponent. This arrangement is particularly valuable during high-speed lateral passes, where most VTOLs must slow or stop to engage. The laser's extended range allows the Garuda to open fire at distances where enemy countermeasures are less effective.</p><p>A Type XV-S Streak LRM 15 launcher provides substantial secondary firepower. The system operates on the same principle as Streak short-range missiles, withholding fire until it can guarantee all missiles will strike their target. Although this limits the launcher to eight rounds of ammunition, the reliability of each salvo makes the system more efficient than a comparable standard LRM arrangement.</p><p>A jet booster enables bursts of speed approaching 130 kilometers per hour, a significant capability for a craft carrying this level of armament and protection. Six and a half tons of ferro-fibrous armor places the Garuda among the best-protected VTOLs in active service. An ECM suite degrades enemy sensor-based targeting, and an integrated TAG designator provides artillery spotting capability. These features make the Garuda useful beyond the escort role, though its emphasis on raw combat performance leaves less margin for error than more conservative designs.</p>
+</capabilities>
+
+<overview>
+<p>Clan Hell's Horses observed with growing interest how Inner Sphere and Clan forces were shifting to VTOLs for battle armor transport. Designs like the Karnov and Cavalry variants offered terrain flexibility that ground transports could not match, but those craft were underarmored and undergunned when left to operate without dedicated escorts. The Horses wanted a VTOL capable of serving as both escort and fire support platform, not merely a cargo carrier. Following negotiations with the Wolves-in-Exile that included an exchange of engineering data, Csesztreg Industriplex Beta began producing the Garuda Heavy VTOL in 3084. The exiled Wolves established a parallel production line at Arc-Royal shortly after. The Garuda was designed to suppress hostile positions while battle armor transports are most vulnerable, and to provide close air support once Elementals have deployed.</p>
+</overview>
+
+<deployment>
+<p>The Garuda serves with Clan Hell's Horses and the Wolves-in-Exile as a dedicated escort and fire support asset for VTOL battle armor insertion operations. In the primary doctrinal role, Garudas suppress and soften landing zones while transport VTOLs deliver their Elementals, then swing back to provide close air support after battle armor deploys. The jet booster makes the timing of this sequence practical, allowing the Garuda to protect transports during the vulnerable unloading phase and remain available for follow-on support.</p><p>A secondary role uses the Garuda at extended range to provide suppressive fire from the battlefield periphery. Crews assigned to this approach strongly prefer the direct engagement role, and commanders have generally accommodated this preference despite the associated risk. The Garuda is occasionally employed as a general fire support asset independent of battle armor transports, where its combination of speed and armor proves effective, but the primary doctrinal mission remains escort and close air support for Elemental insertion operations.</p>
+</deployment>
+
+<history>
+<p>The Garuda entered production in 3084, the product of a collaboration between Clan Hell's Horses and the Wolves-in-Exile during a period when both Clans were consolidating their Inner Sphere positions following the Jihad. The engineering exchange that produced the design reflected the pragmatic working relationships that had developed between Crusader and Warden factions through years of shared occupation zone experience, relationships that would have been unthinkable a generation earlier.</p><p>Production began at Csesztreg Industriplex Beta, a facility that had passed through multiple political owners across the Succession Wars and Clan Invasion eras. By the time the Garuda program launched, Clan Hell's Horses had established firm control of Csesztreg and were investing in its industrial base. The Arc-Royal production line at WC Site 4 gave the Wolves-in-Exile both an independent supply line and a stake in the design's continued development, ensuring the Garuda would remain available to both partners regardless of the political relationship between them.</p><p>In service, the Garuda developed a reputation as a platform that crews consistently flew more aggressively than doctrine recommended. The preferred approach of making direct passes against targets rather than providing support from the battlefield edge has resulted in elevated casualty rates for Garuda crews, but the combat performance data from those engagements proved difficult for commanders to argue against. The distinctive silhouette of a Garuda alongside VTOL transports became a recognizable indicator of incoming Elemental deployment in both Hell's Horses and Wolves-in-Exile tactical operations.</p><p>Both production lines remained active through the Dark Age and into the ilClan era, with the design continuing to serve its original purpose alongside successive generations of VTOL transport variants.</p>
+</history>
+
+<manufacturer>
+Csesztreg Industriplex Beta|WC Site 4
+</manufacturer>
+
+<primaryFactory>
+Csesztreg|Arc-Royal
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Hunter
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Compound VM22
+COMMUNICATIONS:K9 CommSys with ECM Suite
+TARGETING:(2) Dedicated TTS with TAG
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<published>
+RS:Proto
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

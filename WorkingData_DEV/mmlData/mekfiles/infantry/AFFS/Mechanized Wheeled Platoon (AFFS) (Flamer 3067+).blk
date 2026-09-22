@@ -1,0 +1,89 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b727-7c8f-97af-0cd396a254c3
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Wheeled Platoon (AFFS)
+</Name>
+
+<Model>
+(Flamer 3067+)
+</Model>
+
+<year>
+3067
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<Troopers Equipment>
+Fed Suns Infantry Kit (3067+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Federated Suns infantry benefit from one of the strongest industrial bases in the Inner Sphere, with AFFS quartermasters able to supply platoons with standardized equipment and ammunition from a logistics network that few rival states can match. Mechanized wheeled platoons ride wheeled transports that offer good speed on roads and developed terrain, making them well-suited to garrison duty on worlds with established infrastructure where rapid response matters more than cross-country capability. Carrying man-portable flamers that project streams of burning accelerant, these platoons are equipped for area denial and anti-infantry work, able to clear defensive positions and flush enemies from fortified structures.</p>
+</overview>
+
+<notes>
+Intro date based on production date of AFFS 3067+ advanced infantry kit.  Federated Long Rifle is the classic long arm of the AFFS.
+</notes>
+
+<squad_size>
+6
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Rifle (Federated Long)
+</Primary>
+
+<Secondary>
+Flamer (Man-Portable)
+</Secondary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

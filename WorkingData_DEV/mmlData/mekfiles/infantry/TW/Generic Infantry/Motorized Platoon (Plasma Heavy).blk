@@ -1,0 +1,89 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bff8-7358-8a7c-d3cf773a674d
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Motorized Platoon
+</Name>
+
+<Model>
+(Plasma Heavy)
+</Model>
+
+<year>
+3065
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Ballistic Plate, Standard
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Heavy plasma motorized platoons supplement standard assault rifles with man-portable plasma rifles that project superheated matter at targets. The plasma weapons combine the thermal effects of flamers with the penetrative capability of energy weapons, threatening both infantry and light armored targets. Mounted on light vehicles for rapid repositioning, these platoons deliver firepower well above what standard motorized infantry can bring to bear, though the plasma rifles are heavy and generate significant heat during sustained use.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+Plasma Rifle (Man-Portable)
+</Secondary>
+
+<armordivisor>
+2.0
+</armordivisor>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

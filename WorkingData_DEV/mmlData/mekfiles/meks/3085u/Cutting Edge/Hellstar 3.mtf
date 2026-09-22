@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cfae-775a-a7fa-9e3b47d5716b
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Hellstar
+model:3
+mul id:1480
+
+Config:Biped
+techbase:Clan
+era:3079
+source:TR:3085,TR:J
+published:RS:J
+rules level:2
+role:Brawler
+
+quirk:exp_actuator
+quirk:barrel_fists_la
+quirk:barrel_fists_ra
+
+mass:95
+engine:380 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:28 Clan Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:32
+RA armor:32
+LT armor:30
+RT armor:30
+CT armor:45
+HD armor:9
+LL armor:40
+RL armor:40
+RTL armor:10
+RTR armor:10
+RTC armor:15
+
+Weapons:6
+ER Large Laser, Left Arm
+ER Large Laser, Right Arm
+ER Large Laser, Left Torso
+ER Large Laser, Right Torso
+Medium Pulse Laser, Center Torso
+Medium Pulse Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERLargeLaser
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+Clan Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERLargeLaser
+CLActiveProbe
+Clan Endo Steel
+Clan Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLMediumPulseLaser
+CLMediumPulseLaser
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLECMSuite
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Following the success of the Cygnus, the Hellstar emerged from the joint production efforts of Clan Wolf-in-Exile and Clan Hell's Horses as another collaborative assault BattleMech, first appearing in 3079 during the closing stages of the Jihad. Drawing inspiration from the Annihilator and the venerable Awesome, the Hellstar was designed as a sustained-fire platform built for extended campaigns rather than the quick, decisive engagements favored by most Clan doctrines. While sharing a large number of components with the Cygnus, the design stands as a ground-up effort tailored specifically for its all-energy arsenal. The Wolves-in-Exile and Hell's Horses maintained exclusive production of the ninety-five-ton design, making the Hellstar one of the more tightly controlled assault platforms of its era.</p>
+
+capabilities:<p>The Hellstar is built around a devastating all-energy armament of four Ripper Series A1 Extended-Range Particle Projector Cannons, mounted in reinforced housings in the arms and torsos. This weapons battery gives the ninety-five-ton 'Mech the capability to destroy or cripple anything less than another assault BattleMech with a single salvo. An unprecedented thirty double heat sinks allow the Hellstar to maintain this punishing rate of fire indefinitely without heat buildup, a remarkable engineering achievement that sets it apart from most energy-heavy designs.</p><p>The Type MA-58 Endo Steel chassis and GM 380 XL engine provide a top speed of sixty-four kilometers per hour, impressive mobility for an assault 'Mech of its tonnage. Maximum defense is provided by over eighteen tons of Royal-7 Standard armor, the most protection the chassis can carry. The design deliberately sacrifices secondary weaponry and close-range versatility for sustained long-range firepower and endurance, making the Hellstar an ideal platform for extended campaigns.</p><p>The large reinforced weapon housings have drawn speculation regarding their true purpose. Some analysts suggest they were designed to obscure the 'Mech's weaponry until it fires, though Jihad-era BattleROM footage has also shown Wolf-in-Exile MechWarriors using the arm mounts as improvised clubs against downed opponents, suggesting a possible turning point in Clan attitudes toward physical combat.</p>
+
+deployment:<p>Also developed during the Jihad, this variant replaces the four ER PPCs with Series 7Ja ER Large Lasers and retains the Targeting Computer, transforming the Hellstar into a highly mobile long-range sniper platform. What the design loses in raw damage output it gains in effective range and precision. Two Kolibri Omega Series Medium Pulse Lasers provide close-range backup firepower from the center torso. The reduced heat generation allows a reduction to twenty-eight double heat sinks while still enabling heat-neutral operation, and the freed tonnage supports an active probe and ECM suite, reflecting hard-won lessons from exposure to the electronic warfare tactics employed by the Word of Blake and Inner Sphere during the Jihad.</p>
+
+history:<p>The Hellstar emerged from the collaborative industrial partnership between Clan Wolf-in-Exile and Clan Hell's Horses that had already produced the Cygnus. First appearing in 3079 during the closing stages of the Jihad, the design represented both Clans' ongoing adaptation to the realities of extended Inner Sphere warfare. Republic Armed Forces analysts initially questioned why the designers chose to create a fixed-configuration BattleMech rather than simply modifying the Cygnus into an all-energy variant, but given the extensive changes required, building a new design from the ground up proved more practical.</p><p>Production was established at two facilities: WC Site 1 on Arc-Royal under the Wolves-in-Exile, and the Csesztreg Industriplex Alpha on Csesztreg under Clan Hell's Horses. The Hellstar appeared equally in the Toumans of both Clans, with all production dedicated to replenishing their forces damaged during the Jihad. The Republic of the Sphere managed to salvage a few badly-damaged examples from Jihad battlefields, and polite overtures made through the Lyran Commonwealth regarding the possibility of acquiring additional units were firmly rebuffed.</p><p>The appearance of both variants alongside the base model during the Jihad suggested the Exiles and Horses were conducting an extended field test program even while engaged in active combat operations. More significantly, the Hellstar's design philosophy and particularly the documented use of its reinforced arm housings as improvised melee weapons suggested a broader shift in Clan tactical thinking. Combined with reports of Clan Jade Falcon testing dedicated melee weapons during the same period, the Hellstar represented a wider trend of Clan forces adapting to the unconventional tactics employed by the Word of Blake and Inner Sphere militaries.</p><p>Through the Republic Era and into the Dark Age, the Hellstar remained in continuous production at both Arc-Royal and Csesztreg. Ownership of the Csesztreg facility transitioned fully to Clan Hell's Horses following the Jihad, while WC Site 1 on Arc-Royal continued under joint Lyran and Wolf-in-Exile control. Both Clans maintained the design as one of their premier assault platforms, valued for its sustained firepower and reliability in extended operations.</p>
+
+manufacturer:WC Site 1|Csesztreg Industriplex Alpha
+
+primaryfactory:Arc-Royal|Csesztreg
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type MA-58 Endo Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:380 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Royal-7 Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:CH6 Series Integrated
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Hunter (7a) Dedicated TTS

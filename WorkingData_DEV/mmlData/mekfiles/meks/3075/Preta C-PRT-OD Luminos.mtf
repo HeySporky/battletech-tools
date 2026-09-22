@@ -1,0 +1,205 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf0a-7809-92db-ea1e5ae8032f
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Preta
+model:C-PRT-OD Luminos
+mul id:2577
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3069
+source:TR:3075,TR:J
+published:RS:J
+rules level:2
+role:Striker
+
+quirk:bad_rep_is
+quirk:exp_actuator
+quirk:bad_rep_clan
+quirk:imp_sensors
+quirk:imp_com
+
+mass:45
+engine:270 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 IS Double
+base chassis heat sinks:10
+walk mp:6
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:13
+RA armor:13
+LT armor:16
+RT armor:16
+CT armor:20
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:5
+Medium Pulse Laser, Left Torso
+Small Pulse Laser, Left Torso
+Medium Pulse Laser, Right Torso
+Small Pulse Laser, Right Torso
+Snub-Nose PPC, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+ISMediumPulseLaser (OMNIPOD)
+ISSmallPulseLaser (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+ISMediumPulseLaser (OMNIPOD)
+ISSmallPulseLaser (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISC3iUnit
+ISC3iUnit
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISSNPPC (OMNIPOD)
+ISSNPPC (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Preta is the medium-weight entry in the Word of Blake's Celestial series, a forty-five-ton OmniMech designed to serve as a fast raider and deep-penetration striker for the elite Manei Domini. Named after the "hungry ghosts" of Hindu and Buddhist mythology, the design reflects the pseudo-religious naming conventions applied across the entire Celestial family. Gibson Federated BattleMechs and Martinson Armaments produced the design from 3069. Bridging the gap between the lighter Malak and the heavier fire support designs, the Preta provides the speed needed for independent operations with enough firepower and protection to survive extended engagements far from friendly support.</p>
+
+capabilities:<p>Built on a Celestial Series PR1E endo steel chassis, the Preta mounts a GM 270 light fusion engine that propels it to a respectable ninety-seven kilometers per hour, making it the second-fastest Celestial after the Malak. Nine tons of Durallex Divine Protector standard armor provide solid protection for its weight class, while a small cockpit and fixed C3i computer maintain the series' signature Manei Domini integration. The use of standard armor rather than ferro-fibrous variants simplifies field repairs, a practical consideration given the Preta's role as a forward raider. Fifteen tons of pod space give the Preta considerable loadout flexibility for a forty-five-ton frame.</p><p>The Invictus configuration combines a snub-nose PPC with a light PPC for a potent medium-range punch, supplemented by a retractable blade and anti-missile system. An additional double heat sink manages the thermal load. Across its configurations, the Preta favors mixed energy and ballistic loadouts that emphasize close to medium engagement ranges, consistent with its intended raider role. Several variants incorporate jump jets that grant significant mobility advantages in broken terrain, and the design's speed and firepower make it a dangerous opponent in running engagements.</p>
+
+deployment:<p>The Luminos configuration is a dedicated close-range knife fighter. Six jump jets provide a maximum leaping distance of one hundred eighty meters, allowing the Preta to close distance rapidly over difficult terrain. A snub-nose PPC deals increasing damage at shorter ranges, while paired medium pulse lasers and small pulse lasers deliver highly accurate fire against both armored and soft targets. The configuration excels at ambush tactics and urban warfare where the jump jets negate obstacles.</p>
+
+history:<p>The Preta became the preferred chassis for the Opacus Venatori, the Word of Blake's covert operations arm. While the lighter Malak offered more speed and the heavier Celestials brought greater firepower, the Preta struck the balance that deep-penetration operatives required: fast enough to evade pursuit, tough enough to survive unexpected contact, and well-armed enough to complete a mission without support. Opacus Venatori operatives typically worked alone or in pairs, conducting assassination, sabotage, and intelligence-gathering missions deep behind enemy lines. The Preta's fifteen tons of pod space allowed each operative to tailor their loadout precisely to the mission profile, and the Opacus Venatori invested heavily in developing custom configurations for their most experienced agents.</p><p>The cybernetic interfaces built into the Preta's small cockpit were critical to its covert operations role. Manei Domini pilots with enhanced neural implants could process C3i targeting data, threat warnings, and electronic warfare feeds simultaneously, a cognitive load that would overwhelm an unaugmented MechWarrior. This fusion of human augmentation and machine capability made Opacus Venatori Pretas exceptionally dangerous opponents, capable of reacting to threats with inhuman speed and coordinating with distant friendly units through encrypted C3i links that conventional electronic warfare could not reliably jam. The small cockpit's reduced volume was not a limitation for Manei Domini pilots, whose cybernetic modifications often replaced the biological systems that standard cockpit ergonomics were designed to accommodate.</p><p>Demi-Precentor Kendali Morris of the Opacus Venatori exemplified the Preta's covert mission profile. Her heavily customized configuration mounted improved jump jets capable of extraordinary 240-meter leaps, combined with TAG designator equipment and PPC capacitor technology. This loadout reflected missions where the operative might designate targets for artillery or aerospace strikes while maintaining the ability to fight independently if discovered. The Exanimus variant further expanded the operational envelope, equipping the chassis with underwater maneuvering units and specialized armaments for subaquatic operations, demonstrating the breadth of environments the Word of Blake expected its medium striker to operate in.</p><p>In conventional combat, the Forty-first Shadow Division also deployed Pretas extensively. Phantom Demi-Precentor Tau Shannadah piloted a Preta as her personal machine, using speed and C3i coordination to identify weak points in enemy formations before committing to devastating close-range attacks. The Preta's mythology-inspired name proved grimly appropriate, as its pilots often operated with the same insatiable aggression the hungry ghosts of legend were said to possess. Coalition forces noted that Preta pilots rarely broke off engagements voluntarily, pressing attacks until either the target was destroyed or their own machine was rendered inoperable.</p><p>Reports of Preta sightings in the post-Jihad era are typically associated with Opacus Venatori remnant activity. The design's suitability for covert operations made it a natural choice for operatives who went to ground after the fall of Terra, and intelligence services have linked several unexplained incidents in the 3080s and 3090s to Preta-equipped cells conducting reconnaissance or sabotage missions. The Preta's speed and covert suitability make it the Celestial most likely to appear without warning, and remnant operatives have reportedly used the design to conduct targeted assassinations as late as the early 3100s.</p>
+
+manufacturer:Gibson Federated BattleMechs|Martinson Armaments
+
+primaryfactory:Gibson|Terra
+
+fluffdate:2026-02-21 20:14:52
+
+systemmanufacturer:CHASSIS:Celestial Series
+systemmode:CHASSIS:PR1E [Endo Steel]
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:270 Light Fusion
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Divine Protector
+systemmanufacturer:COMMUNICATIONS:Master's Voice
+systemmode:COMMUNICATIONS:Cel-Alpha with C3i Computer
+systemmanufacturer:TARGETING:Master's Sight
+systemmode:TARGETING:1-Omega

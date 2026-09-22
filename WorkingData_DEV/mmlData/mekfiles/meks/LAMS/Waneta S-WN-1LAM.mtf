@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d706-7cf1-bc0a-39e5439ea1b6
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Waneta
+model:S-WN-1LAM
+mul id:5379
+
+Config:LAM
+techbase:Mixed (IS Chassis)
+era:3078
+source:JFR
+rules level:3
+role:None
+
+quirk:non_standard
+
+mass:55
+engine:220 Fusion Engine(IS)
+structure:IS Standard
+myomer:Standard
+lam:Standard
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:13
+RA armor:13
+LT armor:15
+RT armor:15
+CT armor:15
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:10
+RTR armor:10
+RTC armor:12
+
+Weapons:4
+ER Large Laser, Right Arm
+ER Small Laser, Right Arm
+LRM 15, Left Torso
+LRM 15, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERLargeLaser
+CLERSmallLaser
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Landing Gear
+Avionics
+CLLRM15
+CLLRM15
+Clan Ammo LRM-15
+Jump Jet
+Jump Jet
+Bomb Bay
+Bomb Bay
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Landing Gear
+Avionics
+CLLRM15
+CLLRM15
+Clan Ammo LRM-15
+Jump Jet
+Jump Jet
+Bomb Bay
+Bomb Bay
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Landing Gear
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Avionics
+Sensors
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Waneta was the heaviest of the three Spectral Land-Air 'Mechs developed by the Word of Blake, tying the long-lost Shadow Hawk LAM as the largest LAM ever designed at fifty-five tons. Introduced in 3078, the Waneta was produced by Master's Wings Aerospace and Bannock-Braigh Aerospace for the Word of Blake Militia. Named after shapeshifting spirits from the mythology of ancient AmerIndian cultures on Terra, the Waneta represented the Blakists' most ambitious attempt to revive LAM technology for the modern battlefield. Despite boasting greater combat potential than its lighter stablemates, the Pwwka and Yurei, the design was produced in extremely limited numbers and became extinct by 3081 following the destruction of both manufacturing sites during the final days of the Jihad.</p>
+
+capabilities:<p>The Waneta's designers prioritized firepower and aerial agility over endurance, producing a capable but short-legged combatant. The primary armament centers on a Clan ER large laser and a pair of Clan LRM 15 launchers, providing substantial long-range striking power supplemented by a single Clan ER small laser for close defense. The source of this Clan-grade weaponry, whether salvage, black market acquisition, or indigenous Blakist production, was never confirmed before the design's extinction.</p><p>Built on the Spectral-L Series WN2L chassis, the Waneta mounts a DAV 220 fusion engine for a top ground speed of sixty-four kilometers per hour. Twelve Chilton 950 Improved Jump Jets provide enhanced mobility in both AirMech and fighter modes, boosting atmospheric performance beyond what standard jump jets could deliver. This improved aerial agility came at significant cost, as the weight of the Improved Jump Jets precluded larger fuel tanks, bomb bays, or additional weapons. With only a single ton of fuel and eight rounds per LRM launcher, the Waneta suffered from poor battlefield endurance.</p><p>Nine tons of Durallex Divine Protector armor provide reasonable protection for a medium-weight LAM. Like all Spectral LAMs, the Waneta pairs a small cockpit with VDNI to offset the reduced pilot workspace, and mounts standard double heat sinks to manage its thermal load.</p>
+
+deployment:<p>This bomber variant was identified from combat footage of the Principality of Regulus campaign against Circinus, the last stronghold of the Word of Blake leadership. The Improved Jump Jets of the standard configuration were replaced with standard models, freeing tonnage for internal bomb bays capable of carrying specialized ordnance. The trade-off resulted in noticeably slower acceleration in hybrid and fighter modes compared to the standard Waneta. Fielded exclusively during the defense of Circinus, these Waneta carried special ordnance against Regulan assault forces. None are known to have survived the engagement, and the variant's full technical specifications remain incomplete, reconstructed primarily from limited intelligence footage.</p>
+
+history:<p>The Waneta emerged during the final desperate years of the Jihad as part of the Word of Blake's Spectral LAM program, an ambitious effort to resurrect Land-Air 'Mech technology that had been considered extinct since the Succession Wars. The appearance of the Spectral LAMs on the battlefield in 3075 and 3076 shocked both the allied coalition and the Principality of Regulus, as conventional wisdom had long held that LAMs were relics of the Star League era incapable of modern production.</p><p>Production of the Waneta began around 3078, making it the last of the three Spectral LAMs to enter service, following the lighter Pwwka and Yurei. The Waneta was the only Spectral type produced at both Gibson and Terra, a distinction that reflected the Blakists' confidence in the design's potential. While the engineering achievement of creating three entirely new LAM designs was remarkable, the fundamental limitations of LAM technology proved impossible to overcome. Even with Clan weaponry and VDNI pilot interfaces, the Waneta remained a BattleMech attempting to serve as an aerospace fighter, mastering neither domain.</p><p>The Waneta saw combat primarily against forces from the Principality of Regulus and the Duchy of Oriente during operations along the Word of Blake Protectorate's periphery. In the final days of the Jihad, Waneta LAMs were among the defenders of the Blakist stronghold on Circinus, the last refuge of the Word's leadership. A bomber variant carrying special ordnance was identified from combat footage of the Regulan campaign against Circinus, though none of these modified Waneta survived the assault.</p><p>The design's factories met their end alongside the Word of Blake itself. On Gibson, the Regulan nuclear bombardment of 3079 annihilated the Master's Wings Aerospace facility, erasing all trace of Waneta production. On Terra, fierce fighting around the Bannock-Braigh Aerospace complex during the Liberation of Terra, combined with suspected sabotage by Blakist holdouts, left nothing for the allied forces to salvage. With no factories, no spare parts supply, and the fall of the Word of Blake in 3081, the Waneta joined its Spectral stablemates as an extinct design. The Land-Air 'Mech once again passed from the battlefield into the pages of history.</p>
+
+manufacturer:Bannock-Braigh Aerospace|Master's Wings Aerospace (Brigadier Corporation)
+
+primaryfactory:Terra|Gibson
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Spectral-L Series WN2L
+systemmanufacturer:ENGINE:DAV
+systemmode:ENGINE:220
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Divine Protector
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Master's Voice
+systemmode:COMMUNICATIONS:Cel-Beta
+systemmanufacturer:TARGETING:Master's Sight
+systemmode:TARGETING:1-Omega

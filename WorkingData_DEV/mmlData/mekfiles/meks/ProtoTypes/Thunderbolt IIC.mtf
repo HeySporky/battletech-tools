@@ -1,0 +1,206 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d78a-7a85-8572-a6735c598875
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Thunderbolt IIC
+model:
+mul id:5239
+
+Config:Biped
+techbase:Clan
+era:3085
+source:TR:Proto
+published:RS:Proto
+rules level:4
+role:Brawler
+
+quirk:difficult_maintain
+quirk:pro_actuator
+weaponquirk:mod_weapons:LA:4:CLImprovedHeavyLargeLaser
+weaponquirk:mod_weapons:RA:4:CLImprovedHeavyLargeLaser
+weaponquirk:mod_weapons:LT:4:CLERMediumLaser
+weaponquirk:mod_weapons:LT:5:CLERMediumLaser
+weaponquirk:mod_weapons:LT:6:CLERMediumLaser
+weaponquirk:mod_weapons:RT:4:CLStreakLRM15
+
+mass:70
+engine:350 XL (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:17 Clan Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:22
+RA armor:22
+LT armor:24
+RT armor:24
+CT armor:33
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:6
+RTR armor:6
+RTC armor:10
+
+Weapons:6
+Improved Heavy Large Laser, Left Arm
+Improved Heavy Large Laser, Right Arm
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+Streak LRM 15, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLImprovedHeavyLargeLaser
+CLImprovedHeavyLargeLaser
+CLImprovedHeavyLargeLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLImprovedHeavyLargeLaser
+CLImprovedHeavyLargeLaser
+CLImprovedHeavyLargeLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLStreakLRM15
+CLStreakLRM15
+CLStreakLRM15
+Clan Streak LRM 15 Ammo
+Clan Streak LRM 15 Ammo
+CLCASEII
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Thunderbolt IIC is a seventy-ton second-line heavy BattleMech developed in 3085 for Clan Jade Falcon. Following the Jihad, the Falcons found that their Inner Sphere manufacturing holdings were producing surplus components for their Hellbringer and Summoner OmniMech lines faster than those designs consumed them. Rather than curtail production, Falcon leadership directed Olivetti Weaponry on Sudeten to develop an entirely new ’Mech to absorb the excess. Engineers reworked the venerable Thunderbolt chassis that had been built on Sudeten for centuries, reinforcing it to seventy tons and integrating Clan-grade weaponry and systems.</p><p>Fitted with then-experimental advanced technology, the Thunderbolt IIC required its MechWarriors to maintain detailed performance logs for ongoing evaluation. Despite this administrative burden and its assignment to second-line formations, the design offered formidable firepower that belied its garrison role.</p>
+
+capabilities:<p>The Thunderbolt IIC’s engineers took the standard TDR chassis and reinforced it to support seventy tons of equipment, producing a design that observers have likened to a hybrid offspring of the original Thunderbolt and the Summoner. The communications and targeting systems are shared with the Summoner, the ejection seat derives from the Hellbringer, and the life support system originates from the Turkina. The Redline 350 XL engine, the same powerplant that propels the Summoner, drives the chassis to eighty-six kilometers per hour, making it one of the faster heavy ’Mechs in any Clan touman.</p><p>The primary armament consists of two Series XVI-a Improved Heavy Large Lasers, one mounted in each arm. These weapons deliver tremendous damage at medium to short ranges, though firing both simultaneously will quickly overtax the seventeen double heat sinks. A Type XV-S Streak LRM-15 launcher provides efficient long-range firepower, its ammunition protected by advanced CASE II. Three Series 7Ja extended-range medium lasers serve as secondary weapons, allowing the MechWarrior to scatter damage while the chassis cools. The 13.5 tons of Forging Omni H24 armor provide solid protection, though the design’s reliance on an XL engine means that torso damage poses a critical vulnerability.</p>
+
+deployment:<p>The standard Thunderbolt IIC configuration centers its firepower around two Series XVI-a Improved Heavy Large Lasers, one mounted in each arm. These experimental weapons deliver tremendous damage but generate substantial heat, and firing both simultaneously will quickly overwhelm the seventeen double heat sinks. A Type XV-S Streak LRM-15 launcher provides efficient long-range firepower, its two tons of ammunition protected by advanced CASE II. Three Series 7Ja extended-range medium lasers serve as secondary weapons, allowing the MechWarrior to distribute damage while the chassis cools. Despite the prestigious Thunderbolt lineage, the IIC is assigned exclusively to second-line formations, and its MechWarriors are required to maintain detailed performance logs documenting the behavior of its advanced weapons systems.</p>
+
+history:<p>The Thunderbolt IIC emerged from Clan Jade Falcon’s struggle to adapt centuries of Clan industrial practice to the realities of their Inner Sphere occupation zone. Having held Sudeten and its Olivetti Weaponry facilities since the initial Clan Invasion, the Falcons had hundreds of years of Thunderbolt manufacturing infrastructure at their disposal. When surplus Hellbringer and Summoner components began outpacing demand, Falcon leadership chose to channel that excess into a new second-line design rather than reduce production rates.</p><p>Despite the prestigious lineage of the Thunderbolt name, the IIC was assigned exclusively to second-line formations. All MechWarriors piloting the design were required to keep meticulous logs documenting the performance of its then-experimental weapons systems, particularly the Improved Heavy Large Lasers. This ongoing evaluation reflected the Falcons’ cautious approach to fielding advanced technology outside of frontline units. The Thunderbolt IIC 2, introduced in 3088, represented the Falcons’ attempt to address durability concerns by trading speed for a standard engine, jump jets, and a heavy-duty gyro. This variant was deployed along the Falcon-Wolf border, awaiting a live-fire trial run that would determine the platform’s future within the touman.</p>
+
+manufacturer:Olivetti Weaponry
+
+primaryfactory:Sudeten
+
+fluffdate:2026-02-10 14:00:04
+
+systemmanufacturer:CHASSIS:Olivetti
+systemmode:CHASSIS:TDR-II
+systemmanufacturer:ENGINE:Redline
+systemmode:ENGINE:350 XL
+systemmanufacturer:ARMOR:Forging Omni
+systemmode:ARMOR:H24 with CASE II
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Model J-D 067
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Hawkeye 58

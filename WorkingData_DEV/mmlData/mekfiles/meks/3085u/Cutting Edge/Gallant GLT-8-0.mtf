@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cfa0-7ec1-8a44-608535001cbe
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Gallant
+model:GLT-8-0
+mul id:1174
+
+Config:Biped
+techbase:Inner Sphere
+era:3078
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:4
+role:Missile Boat
+
+weaponquirk:stable_weapon:RA:10:ISMediumXPulseLaser
+weaponquirk:stable_weapon:RA:11:ISMediumXPulseLaser
+
+mass:70
+engine:210 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:3
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:28
+HD armor:9
+LL armor:29
+RL armor:29
+RTL armor:10
+RTR armor:10
+RTC armor:13
+
+Weapons:6
+Thunderbolt 10, Left Arm
+Thunderbolt 10, Right Arm
+Medium X-Pulse Laser, Right Arm
+Medium X-Pulse Laser, Right Arm
+Medium X-Pulse Laser, Left Torso
+Medium X-Pulse Laser, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Thunderbolt 10
+Thunderbolt 10
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Thunderbolt 10
+Thunderbolt 10
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Improved Jump Jet
+Improved Jump Jet
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Improved Jump Jet
+Improved Jump Jet
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+ISCASE
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Gallant is a seventy-ton heavy BattleMech that emerged from the chaos of the Word of Blake's defense of Terra during the final stages of the Jihad. First appearing in 3078, the design originated as one of many hastily assembled prototypes that the increasingly desperate Blakists rushed into production at Skobel MechWorks' Moscow facility. When Coalition forces captured the Skobel facility, they discovered the Gallant's detailed design specifications and a partially operational assembly line. Recognizing the chassis's potential as a broken-terrain cavalry platform, Republic engineers chose to fully develop the design rather than re-tool the factory for a different model. The Gallant subsequently entered full production for the Republic of the Sphere, the Lyran Commonwealth, and the Federated Suns, establishing itself as a signature post-Jihad heavy design.</p>
+
+capabilities:<p>The Gallant was conceived as a cavalry platform optimized for broken terrain, sacrificing straight-line speed for exceptional mobility through mountainous and urban environments. Built around a GTEM 210 XL engine that limits its top speed to just fifty-four kilometers per hour, the design compensates with five Waterly Heavy Lifter improved jump jets that allow it to clear obstacles and reposition across difficult ground with unusual agility for a heavy 'Mech. Thirteen tons of Pribak 9000 standard armor provide solid protection, while fourteen double heat sinks grant considerable staying power during extended engagements.</p><p>The production model mounts a pair of Tronel XIII large pulse lasers in the right arm, providing devastating and highly accurate firepower accessible even to inexperienced MechWarriors. A Skobel Drotnik MRM-20 launcher and Hovertec Streak SRM-2 rack in the side torsos offer flexible engagement options against both armored and soft targets, while a head-mounted Zippo flamer rounds out the anti-infantry capability. The design's low ground speed for its weight class remains its most significant drawback, requiring pilots to use terrain and jump capability to compensate for the inability to disengage quickly on open ground.</p>
+
+deployment:<p>Developed by Federated Suns engineers as an experimental reworking of the Gallant's original pre-production weapons concept, this variant replaces the large pulse lasers with a pair of Thunderbolt 10 launchers, exchanging pinpoint accuracy for raw guided-missile firepower. The secondary weapons suite is entirely overhauled, mounting four medium X-pulse lasers in place of the MRM, Streak SRM, and flamer systems. CASE protection safeguards the Thunderbolt ammunition stores. While classified as experimental technology, this variant represents an attempt to explore the Gallant's potential as a more missile-centric fire support platform rather than the close-range brawler role of the standard production model.</p>
+
+history:<p>The Gallant's origins trace directly to the Word of Blake's desperate defense of Terra during the closing stages of the Jihad. As Stone's Coalition forces closed in on the Blakist stronghold, the Word of Blake resorted to rushing incomplete and untested BattleMech designs into production at every available facility. Skobel MechWorks' ancient production complex in Moscow became one such site, churning out prototype Gallants alongside other hastily assembled machines. These emergency-production 'Mechs frequently lacked critical components such as engine shielding and ejection systems, making them nearly as dangerous to their own MechWarriors as to the enemy.</p><p>When Coalition forces overran the Moscow facility, most of these ad hoc designs were rightly discarded as unfit for continued service. The Gallant, however, showed sufficient promise to warrant further development. Coalition technical teams found detailed plans and a partially operational assembly line, and with BattleMechs in desperately short supply throughout the Inner Sphere, the decision was made to refine the design into a proper production model rather than starting from scratch with a new chassis.</p><p>Following the establishment of the Republic of the Sphere, the Gallant became one of the new state's signature post-Jihad designs, manufactured at the refurbished Skobel MechWorks facility on Terra. In a calculated diplomatic gesture, the Republic shared the Gallant's design specifications with both the Federated Suns and Lyran Commonwealth, partly as thanks for the worlds those nations ceded to form the Republic and partly to strengthen ties with its most powerful neighbors. StarCorps Industries subsequently established production lines on Crofton and Loburg, providing the Gallant to the Armed Forces of the Federated Suns and the Lyran Commonwealth Armed Forces respectively.</p><p>The Federated Suns adopted the design as a replacement for their Heavy Guards regiments, while the Lyran Commonwealth integrated it into their Lyran Guards formations. Both nations made the Gallant available for general purchase, enabling the design to spread rapidly into broader Inner Sphere service. The Federated Suns also pursued experimental modifications, producing the GLT-8-0 variant with its missile-centric weapons array at the Crofton facility.</p><p>By the Dark Age, the Gallant had evolved into the GLT-10-0, trading the original's extralight engine for a more survivable light engine and incorporating advanced sensor equipment suited to the urban conflicts that increasingly characterized the era. This variant entered production around 3130, reflecting both the technological shifts of the period and the continued demand for the Gallant's particular combination of heavy firepower and jump-capable mobility across rough terrain.</p>
+
+manufacturer:StarCorps Industries
+
+primaryfactory:Crofton
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Skobel
+systemmode:CHASSIS:250-RB
+systemmanufacturer:ENGINE:GTEM
+systemmode:ENGINE:210 XL
+systemmanufacturer:ARMOR:Pribak
+systemmode:ARMOR:9000
+systemmanufacturer:JUMP_JET:Waterly
+systemmode:JUMP_JET:Heavy Lifters
+systemmanufacturer:COMMUNICATIONS:Skobel
+systemmode:COMMUNICATIONS:Wave VI Comm
+systemmanufacturer:TARGETING:Falcon
+systemmode:TARGETING:15 Watcher

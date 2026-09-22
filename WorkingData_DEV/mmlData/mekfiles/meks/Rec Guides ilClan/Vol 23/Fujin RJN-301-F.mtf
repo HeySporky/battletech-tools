@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-da99-7d97-bc4f-231f9c4e9267
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Fujin
+model:RJN-301-F
+mul id:8414
+
+Config:Biped
+techbase:Inner Sphere
+era:3139
+source:RG23
+published:RG23
+rules level:3
+role:Striker
+
+quirk:ext_twist
+quirk:no_arms
+weaponquirk:direct_torso_mount:RT:3:ISERPPC
+
+mass:50
+engine:300 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:6
+
+armor:Ballistic-Reinforced(Inner Sphere)
+LA armor:14
+RA armor:14
+LT armor:15
+RT armor:15
+CT armor:20
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:6
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+Streak SRM 6, Left Torso
+ER PPC, Right Torso
+SRM 2 (I-OS), Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISStreakSRM6
+ISStreakSRM6
+IS Streak SRM 6 Ammo
+ISCASEII
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ballistic-Reinforced
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERPPC
+ISERPPC
+ISERPPC
+ISSRM2IOS
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ballistic-Reinforced
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Fujin represents the Draconis Combine's rebranding and modernization of the Raijin lineage following the seizure of Independence Weaponry's facilities on Quentin from the Republic of the Sphere. Despite the design's complicated pedigree as a former ComStar and Word of Blake platform, the Combine embraced the chassis and retooled it specifically to counter Federated Suns forces along the contested border. Entering production around 3139, the Fujin was offered for both Draconis Combine Mustered Soldiery use and for export to allied organizations, with Wolf's Dragoons among the notable customers.</p><p>The renaming paid homage to the Japanese mythological wind god paired with Raijin's thunder deity, marking a deliberate cultural connection to the design's heritage while establishing a distinct identity under Combine stewardship.</p>
+
+capabilities:<p>Built on an adapted version of the Tessen's TSN Light endo steel frame, the Fujin retains the Vlar 300 XL engine and Rawlings 60 jump jets that have characterized the Raijin lineage throughout its history, maintaining the same impressive speed and agility profile. The most significant defensive improvement is the adoption of Durallex ballistic-reinforced armor with CASE II, providing substantially enhanced protection against the autocannon and missile weaponry favored by Armed Forces of the Federated Suns formations, a deliberate design choice reflecting the Combine's primary adversary.</p><p>The offensive suite centers on a Lord's Light 2 ER PPC for long-range engagement, supported by three Victory 23E ER medium lasers for effective medium-range firepower. A Guided Technologies Streak SRM-6 provides efficient close-range punch, while an innovative Guided Technologies Improved One-Shot SRM-2 adds a single devastating close-range salvo. Communications are handled by a Garret T-22 system paired with a Garret D2j targeting and tracking system, replacing the older Exeter Longscan and Garret T12A combination used by earlier Raijin models. The Fujin excels at close-range engagements where its ballistic-reinforced armor provides the greatest advantage against Davion-pattern weapon loadouts.</p>
+
+deployment:<p>The sole Fujin production model represents the Draconis Combine's complete rework of the Raijin platform following the seizure of Quentin. Retaining the RJN-301-B's endo steel frame, the Fujin wraps itself in Durallex ballistic-reinforced armor with CASE II specifically designed to resist autocannon and missile impacts common to Federated Suns engagement profiles. The weapons loadout pairs a Lord's Light ER PPC with three Victory 23E ER medium lasers and a Guided Technologies Streak SRM-6 for sustained close-range firepower, supplemented by an improved one-shot SRM-2 for an initial devastating salvo. The Fujin has been offered for both DCMS use and export, finding customers among Wolf's Dragoons and other allied organizations.</p>
+
+history:<p>The Fujin's history is inextricably linked to the broader Raijin lineage and the complex ownership changes that characterized Independence Weaponry's Quentin facility. After secretly producing RJN-301-B models for Malcolm Buhl's Blessed Order in the 3120s, Independence Weaponry found itself under new management when the Draconis Combine seized Quentin from the Republic of the Sphere.</p><p>Rather than shuttering the line, the Combine recognized the potential of the chassis and commissioned a thorough redesign optimized for combat against their traditional Federated Suns rivals. Independence adapted and improved the older Tessen's endo steel frame, developed a new weapons array, and wrapped the design in ballistic-reinforced armor specifically chosen to counter Davion weapon preferences.</p><p>The rebranded Fujin entered Draconis Combine Mustered Soldiery service and was also made available for export, with Wolf's Dragoons among the customers. Combat during the late Dark Age and into the ilClan era demonstrated the design's effectiveness in border engagements, proving that the venerable Raijin platform still had much to offer when properly modernized and adapted to contemporary threats.</p>
+
+manufacturer:Independence Weaponry
+
+primaryfactory:Quentin
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:TSN
+systemmode:CHASSIS:Light Endo Steel
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Ballistic-Reinforced with CASE II
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:60
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T-22
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:D2j (I)

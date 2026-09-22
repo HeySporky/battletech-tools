@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c7e7-7f97-a52a-57762c332a38
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hollander
+model:BZK-F3
+mul id:1536
+
+Config:Biped
+techbase:Inner Sphere
+era:3054
+source:TR:3055U,TR:CI
+published:RS:CI
+rules level:2
+role:Sniper
+
+quirk:unbalanced
+quirk:reinforced_legs
+weaponquirk:stable_weapon:RT:2:ISGaussRifle
+
+mass:35
+engine:175 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:8
+RT armor:8
+CT armor:10
+HD armor:8
+LL armor:8
+RL armor:8
+RTL armor:3
+RTR armor:3
+RTC armor:3
+
+Weapons:1
+Gauss Rifle, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Gauss Ammo
+IS Gauss Ammo
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hollander was introduced in 3054, born from Coventry Metal Works' response to a Federated Commonwealth commission seeking a light 'Mech capable of matching Clan firepower at range. The AFFC had evaluated numerous designs featuring PPCs and LRM systems, but Coventry's unorthodox proposal to mount a full-sized Gauss rifle on a thirty-five-ton chassis won the contract. Though the resulting design required significant compromises in armor, speed, and secondary armament, the Hollander delivered on its promise of providing Inner Sphere commanders with a light hunter-killer capable of destroying enemy light 'Mechs with a single devastating shot at extreme range. Cheap to produce and effective in its specialized role, the Hollander saw widespread adoption across Lyran and FedCom-employed units, with prominent mercenary commands also receiving shipments. The design's success spawned several variant lines attempting to address its inherent limitations while preserving its core philosophy.</p>
+
+capabilities:<p>Essentially a walking cannon, the Hollander's design is as extreme as it is straightforward. The entire chassis and structure were developed expressly to carry a single Poland Main Model A Gauss rifle, with every other consideration subordinated to that goal. Coventry engineers employed an endo-steel internal structure and ferro-fibrous armor to maximize weight savings, though even these advanced materials forced painful compromises elsewhere. The seven-ton Omni 175 standard engine limits the 'Mech to a top speed of just eighty-six kilometers per hour (comparable to a Clan heavy 'Mech) while only four tons of Lexington Limited ferro-fibrous armor leave the design dangerously vulnerable to return fire.</p><p>The Hollander carries no secondary weapons whatsoever, and its two tons of Gauss ammunition provide only sixteen shots before the MechWarrior is left completely defenseless. These limitations are accepted because the design excels at its intended role: delivering crippling long-range fire from the battlefield's edge. Heavily reinforced legs fitted with recoil compensators and support hydraulics allow the 'Mech to fire accurately even at a full run. So long as ammunition holds out and the pilot maintains standoff distance, the Hollander poses a genuine threat to targets well above its weight class.</p>
+
+deployment:<p>The base model Hollander represents the original production design, built around the Poland Main Model A Gauss rifle as its sole weapon system. Entering service in 3054, this variant proved effective in its intended role as a long-range sniper despite persistent criticisms of its thin armor and complete lack of backup weaponry. The Seventeenth Skye Rangers and the First Kearny Highlanders of the Northwind Highlanders were among the first units to field the design, deploying them against Clan Jade Falcon on Barcelona and Mogyorod respectively.</p>
+
+history:<p>The Hollander emerged from the crucible of the Clan Invasion, with Coventry Metal Works receiving the AFFC contract in the early 3050s to produce a light 'Mech capable of matching Clan firepower at range. The design drew direct inspiration from the Kit Fox OmniMech's Gauss-armed configuration, and Coventry's engineers sought to replicate that capability on an affordable Inner Sphere chassis. Production began in 3054 at Coventry Metal Works on the Lyran world of Coventry.</p><p>The first production runs went directly to frontline units facing Clan Jade Falcon, with the Seventeenth Skye Rangers deploying them on Barcelona and the First Kearny Highlanders fielding them on Mogyorod. The design proved effective enough that shipments quickly expanded to additional Lyran, FedCom, and mercenary commands throughout the Clan Invasion era. Despite its battlefield success, the Hollander's severe limitations drove continuous development, with the BZK-G1 appearing in 3056 offering improved versatility.</p><p>The Lyran Alliance's eventual frustration with the design's shortcomings led to the commission of the Blitzkrieg as a more capable successor, though the Hollander's low cost ensured its continued service with garrison and second-line units. The Jihad devastated Coventry's production capacity, with the factory falling under contested Lyran control and active Hollander production ceasing.</p><p>The design found renewed relevance in the Dark Age when field technicians began converting older Hollanders to the BZK-G2 configuration, inspired by General Motors' Hollander III program on Kathil. These refits extended the venerable chassis' service life well into the thirty-second century, ensuring that the Hollander's distinctive silhouette remained a presence on battlefields across the Inner Sphere.</p>
+
+manufacturer:Coventry Metal Works
+
+primaryfactory:Coventry
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Coventry
+systemmode:CHASSIS:BZK-III
+systemmanufacturer:ENGINE:Omni
+systemmode:ENGINE:175
+systemmanufacturer:ARMOR:Lexington Ltd.
+systemmode:ARMOR:High Grade Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Muse 54-58K
+systemmanufacturer:TARGETING:Cyclops
+systemmode:TARGETING:9

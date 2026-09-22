@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c894-7fdb-ad1b-a355812cf276
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Prometheus
+model:
+mul id:4871
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3053
+source:Unbound
+published:RS:3055Uu
+rules level:4
+role:Sniper
+
+quirk:prototype
+quirk:non_standard
+
+mass:75
+engine:375 XL Engine(IS)
+structure:Clan Endo Steel
+myomer:Standard
+cockpit:Torso-Mounted Cockpit
+gyro:Standard Gyro
+
+heat sinks:13 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:17
+RA armor:17
+LT armor:25
+RT armor:25
+CT armor:35
+HD armor:8
+LL armor:28
+RL armor:28
+RTL armor:7
+RTR armor:7
+RTC armor:9
+
+Weapons:13
+Large Pulse Laser, Left Arm
+Medium Pulse Laser, Left Arm
+ER PPC, Right Arm
+LRM 15, Left Torso
+SRM 6, Left Torso
+Machine Gun, Left Torso
+Machine Gun, Left Torso
+Machine Gun, Left Torso
+LRM 15, Right Torso
+SRM 6, Right Torso
+Machine Gun, Right Torso
+Machine Gun, Right Torso
+Machine Gun, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLERPPC
+CLERPPC
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Life Support
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLLRM15
+CLLRM15
+CLSRM6
+CLMG
+CLMG
+CLMG
+Clan Ammo LRM-15
+Clan Ammo SRM-6
+
+Right Torso:
+Life Support
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLLRM15
+CLLRM15
+CLSRM6
+CLMG
+CLMG
+CLMG
+Clan Ammo LRM-15
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Cockpit
+Sensors
+
+Head:
+Sensors
+Sensors
+Clan Machine Gun Ammo - Half
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Prometheus was a one-of-a-kind seventy-five-ton heavy BattleMech assembled in 3053 at the New Avalon Institute of Science's classified Dark Mirage research facility on Hyde. Conceived as a technology demonstrator rather than a combat platform, the Prometheus was built entirely from salvaged Clan OmniMech components recovered during the early years of the Clan Invasion. Engineers at Dark Mirage pieced together structural elements and weapon systems from multiple captured Clan chassis into a functional if ungainly FrankenMech, providing invaluable hands-on experience with Clan engineering principles and serving as one of the earliest efforts to understand the technology gap facing the Inner Sphere.</p>
+
+capabilities:<p>The Prometheus carries a formidable all-Clan weapons array hardwired into its patchwork frame. A Clan ER PPC serves as the primary long-range weapon, delivering punishing damage well beyond the reach of comparable Inner Sphere models. A Clan Large Pulse Laser provides accurate medium-range firepower, supplemented by a Clan Medium Pulse Laser for close engagements. Twin Clan LRM-15 launchers offer sustained indirect fire capability, while a pair of Clan SRM-6 racks deliver devastating short-range salvos. Six Clan Machine Guns round out the arsenal for anti-infantry work.</p><p>Beneath the weapons, the chassis employs a Clan Endo Steel internal structure and a Clan 375-rated XL engine, giving the heavy design a respectable top speed of eighty kilometers per hour. Clan ferro-fibrous armor provides solid protection for its tonnage. However, the makeshift construction carries severe penalties. The 'Mech lacks the structural integrity of purpose-built designs, and even minor armor breaches can disable or impair weapons function due to the improvised integration of salvaged components. The torso-mounted cockpit housing a Direct Neural Interface offers unparalleled pilot responsiveness at the cost of severe physiological risk, though the impure signal caused by the patchwork frame ironically serves as a buffer against the interface's most dangerous psychological effects. Limited ammunition stores and the absence of standardized replacement parts further restrict the design's operational endurance.</p>
+
+deployment:<p>The Prometheus exists as a unique prototype with no factory variants or replicas. The sole completed unit mounts an all-Clan weapons loadout spanning every effective range band, from long-range particle projection and missile fire to close-quarters lasers and anti-personnel machine guns. This comprehensive armament, combined with the Direct Neural Interface's enhanced pilot responsiveness, gives the Prometheus firepower and control far exceeding what its improvised construction would suggest. The design's greatest operational limitation is sustainability: without standardized components or a compatible supply chain, every repair requires custom fabrication or further Clan salvage, making prolonged deployment impractical without extraordinary logistical support.</p>
+
+history:<p>The Prometheus emerged from a period of frantic technological investigation following the Clan Invasion of 3049. As Armed Forces of the Federated Commonwealth troops began to score victories against Clan forces, every piece of recovered Clan technology was rushed to NAIS facilities for study. While the bulk of this salvage went to direct reverse-engineering programs, the Dark Mirage facility on Hyde received sufficient components to attempt something ambitious, assembling a functional BattleMech entirely from captured Clan parts. The result was a Succession Wars-style FrankenMech that combined elements from four different OmniMech designs into a single walking laboratory.</p><p>The Prometheus fulfilled its research mandate admirably, advancing AFFC understanding of Clan construction techniques, weapons integration, and engine technology. However, it would have remained an obscure footnote in military research had Professor Burke Kale not seen an opportunity. Kale had been developing the Direct Neural Interface (a system that replaced the standard neurohelmet with a direct brain-to-'Mech connection) and needed a testbed. He secretly modified the Prometheus with a torso-mounted cockpit compatible with his DNI system and, growing increasingly paranoid about institutional interference, fled with the 'Mech to Solaris VII.</p><p>On the Game World, the Prometheus became a sensation. Clan-technology weapons were still an extraordinary rarity in the arenas of the mid-3050s, and the DNI gave Kale reflexes and accuracy that no conventional neurohelmet could match. Despite having no formal MechWarrior training, Kale compiled an impressive record of victories that drew considerable attention. Yet these successes masked fundamental problems. The 'Mech consumed enormous maintenance resources, its non-standard parts made repairs a constant struggle, and the patchwork construction degraded the DNI signal, a flaw Kale found intolerable but which actually protected him from the full psychological effects of the neural link.</p><p>Dissatisfied with what he perceived as the Prometheus's limitations on his connection to the machine, Kale eventually moved on to construct the Epimetheus, an eighty-ton design built from the ground up to maximize the DNI experience. The Prometheus itself was never replicated or placed into any form of production, remaining a singular artifact of the desperate early years of the Clan Invasion when the Inner Sphere was willing to try anything to close the technology gap.</p>
+
+manufacturer:NAIS Dark Mirage Facility
+
+primaryfactory:Hyde
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

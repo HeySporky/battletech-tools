@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-de75-7d34-9af0-17be7634b5b7
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Thresher
+model:(Edward)
+mul id:3197
+
+Config:Biped
+techbase:Mixed (Clan Chassis)
+era:3058
+source:JTP:Luthien
+published:JTP:Luthien
+rules level:4
+role:Skirmisher
+
+quirk:imp_target_med
+
+mass:60
+engine:300 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:12 Clan Double
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:14
+RA armor:14
+LT armor:17
+RT armor:17
+CT armor:22
+HD armor:9
+LL armor:21
+RL armor:21
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:5
+ER Medium Laser, Left Arm
+MRM 20, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Left Torso
+Ultra AC/10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERMediumLaser
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+MRM 20
+MRM 20
+MRM 20
+ISERMediumLaser
+IS MRM 20 Ammo
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLERMediumLaser
+CLMASC
+CLMASC
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+Clan Ultra AC/10 Ammo
+Clan Ultra AC/10 Ammo
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Thresher is a 60-ton heavy BattleMech born from a joint development effort between Clan Diamond Shark and Clan Hell's Horses during the Golden Century. First produced in 2849, the design was intended as a versatile garrison 'Mech capable of anti-infantry and anti-vehicle work while maintaining enough hitting power to engage heavier opponents at medium ranges. Built at the Diamond Shark facility on Strato Domingo, the Thresher holds the distinction of serving as the developmental ancestor of Clan Jade Falcon's renowned Summoner OmniMech. Though unremarkable by Clan standards, the Thresher has seen widespread distribution among second-line Clan forces for centuries, evidence of its reliability if not its brilliance.</p>
+
+capabilities:<p>Weighing in at 60 tons, the Thresher is a modest heavy 'Mech by Clan standards, featuring only average mobility, armor, and firepower despite the extensive use of sophisticated Clan equipment. Its expensive construction employs a 300-rated extralight engine and a DSHM Endo 2.4 endo steel skeleton to save weight, while nine and a half tons of Forging ZK10 standard armor provides adequate but unimpressive protection.</p><p>The primary weapon is a Type DL Ultra Autocannon/10, a capable medium-range weapon that yet fails to give the 'Mech a credible long-range threat. Two Series 14a medium pulse lasers and a Series 2h extended-range medium laser provide accurate close-range firepower, while a pair of Mk. 22 Type III SRM-6 launchers can exploit holes opened by the other weapons. MASC allows the Thresher to achieve burst speeds of up to 108 kilometers per hour, and five Grandthrust Mk. 3 jump jets provide a 150-meter jump capability that makes the design surprisingly mobile for its weight class. Thirteen double heat sinks keep the 'Mech cool under most combat conditions, though sustained firing of all weapons will generate excess heat.</p>
+
+deployment:<p>This variant is a captured Thresher modified with Inner Sphere technologies by an officer of the Fortieth Dieron Regulars. The torso-mounted Clan weapons remain intact, preserving the SRM-6 launchers and extended-range medium laser, but the arm-mounted medium pulse lasers are replaced with Inner Sphere standard extended-range medium lasers. An MRM-20 launcher with a single ton of ammunition provides additional close-range firepower in place of the original Clan armament. Though the refit sacrifices some of the original's precision, the use of more readily available Inner Sphere components ensures easier maintenance far from Clan supply chains. The removal of one double heat sink accommodates the new weapons without altering the 'Mech's structural layout.</p>
+
+history:<p>The Thresher's origins remained a mystery to Inner Sphere intelligence agencies for years after first contact with the Clans. The design's unusual nature as an obviously committee-designed garrison 'Mech drew attention, but its inability to excel in any particular area led some experts to dismiss it entirely. Only later data, uncovered after intelligence from the Clan homeworlds learned of the long-range Thresher 2 variant among Clan Hell's Horses, revealed the full picture.</p><p>Manufacturing commonality between the Thresher, the Thresher 2, and the lighter Corvis confirmed a shared Diamond Shark heritage and revealed that the Thresher served as the baseline for Clan Jade Falcon's development of the Summoner OmniMech. The Thresher was, in fact, inspired in much the same way as the Ryoken was by the older Corvis, tying together several lines of Clan 'Mech development.</p><p>The Diamond Sharks themselves gradually moved away from the design over the centuries following its introduction, selling many of their Threshers to other Clans to make room for newer second-line chassis. By the late thirty-first century, the majority of operational Threshers were concentrated among the Blood Spirits, Fire Mandrills, and Hell's Horses, Clans operating primarily in the homeworlds where second-line garrison designs remained in high demand.</p><p>The design saw renewed attention during the Wars of Reaving when inter-Clan conflicts in the homeworlds intensified. On Eden, Hell's Horses warriors engaged in a series of Trials against both Jade Falcon and Wolf forces, driven by deep-rooted grudges against the invading Clans. These challenges ceased abruptly in late 3068, and when Clan Coyote forces arrived over Eden in late 3069, they engaged elements of the Horses' enclave and issued a batchall for half of the Horses' holdings. The resulting clash saw Clan Coyote capture numerous warriors and their 'Mechs, including Thresher 2 variants. Jade Falcon observers later questioned the sincerity of the Horses' resistance during this engagement, noting a suspicious lack of enthusiasm from the defeated warriors.</p><p>Ownership of the Strato Domingo production facility passed from Clan Diamond Shark to Clan Star Adder during the Jihad era, though the factory's ultimate fate during the Wars of Reaving and subsequent Dark Age period remains uncertain, with ownership records becoming unclear from the late Republic era onward.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:DSHM Endo 2.4
+systemmanufacturer:ENGINE:JF
+systemmode:ENGINE:300 Extralight
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:ZK10 Standard
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Grandthrust Mk. 3
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:CrossBand System 20
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Dtrac Suite 1

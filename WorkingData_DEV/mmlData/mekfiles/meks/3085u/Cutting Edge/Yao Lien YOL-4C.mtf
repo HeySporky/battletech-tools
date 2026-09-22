@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d04a-7b93-b16e-3a1f86b4b0ef
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Yao Lien
+model:YOL-4C
+mul id:3609
+
+Config:Biped
+techbase:Inner Sphere
+era:3086
+source:TR:3085,TR:3085S
+published:RS:3085u-CE
+rules level:2
+role:Striker
+
+quirk:non_standard
+
+mass:55
+engine:275 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:7
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:18
+RA armor:18
+LT armor:20
+RT armor:20
+CT armor:28
+HD armor:9
+LL armor:23
+RL armor:23
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:2
+Snub-Nose PPC, Right Arm
+Snub-Nose PPC, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISSNPPC
+ISSNPPC
+ISSNPPC
+ISSNPPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+ISC3SlaveUnit
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISGuardianECMSuite
+ISGuardianECMSuite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Yao Lien is a fifty-five-ton medium BattleMech produced by the Capellan Confederation, descended from the Word of Blake's Eidolon through one of the most audacious acts of wartime industrial espionage in Jihad-era history. Produced by Ceres Metals Industries on Capella since 3086, the Yao Lien was one of the first new BattleMech designs fielded by the Confederation in the post-Jihad era. While still built on a Celestial series-derived chassis, the Yao Lien stands as a deliberate effort to integrate captured Blakist technology into the CCAF's existing force structure, filling a role as a mobile broken terrain and urban combat spotter.</p>
+
+capabilities:<p>The Yao Lien retains the Eidolon's core design philosophy as a broken terrain and urban combat spotter, compensating for a relatively modest top speed of eighty-six kilometers per hour with seven improved jump jets providing an impressive two-hundred-ten-meter jump capability. This makes the design exceptionally mobile in the cluttered urban and rough terrain environments it was built to operate in. Ten tons of Durallex medium ferro-fibrous armor offers solid protection for a medium 'Mech, while ten double heat sinks manage the thermal demands of its primary armament with reasonable efficiency.</p><p>The Yao Lien's sole offensive weapons are a pair of Ceres Arms Thrasher snub-nose PPCs mounted in the right arm, a configuration inherited from the Eidolon's original design. While this loadout lacks variety, the snub-nose PPCs provide effective firepower at close and medium ranges where the 'Mech typically operates. The Celestial Prototype chassis has proven fundamentally incompatible with alternative weapon configurations, with all development attempts leading to fire control or frame stress failures that have kept the design locked to its original armament.</p><p>The most significant modification from the original Eidolon is the replacement of the Word of Blake's improved C3 computer with a Guardian ECM suite and standard C3 slave unit. This conversion integrates the Yao Lien into Capellan C3 networks while providing electronic warfare protection against enemy targeting systems, continuing the design's intended role as a spotter and flanker using jump mobility in broken terrain to great effect.</p>
+
+deployment:<p>This variant is the sole production variant of the Yao Lien, replacing the Eidolon's improved C3 computer with a Guardian ECM suite and standard C3 slave to integrate the design into Capellan Confederation C3 networks. Locally manufactured Ceres Arms Thrasher snub-nose PPCs replace the original Donal models, and the communications and targeting systems have been similarly replaced with Capellan-produced CeresCom and C-Apple equivalents. Despite these electronics changes, the variant is mechanically identical to its Word of Blake predecessor, retaining the same Celestial Prototype chassis, ferro-fibrous armor, and improved jump jet configuration.</p>
+
+history:<p>The Yao Lien's history begins with the Capellan Confederation's opportunistic seizure of the Martinson Armaments facility on Liberty during the final stages of the Jihad. When Free Worlds Task Force II landed on Liberty, the CCAF recognized the strategic value of the hidden Blakist production facility and moved quickly to secure it. Warrior House Imarra and supporting forces clashed violently with Free Worlds League Home Guard units before seizing the island outpost of Quantico in a daring hot drop, forcing a ceasefire and later mediation of the planet's ownership.</p><p>Capellan intelligence had discovered the small factory's existence at some point during the Jihad itself. During the extended ceasefire with Coalition forces, operatives successfully dismantled the facility and transported it to Capella. With full production plans, critical construction equipment, and enough salvaged components to begin initial assembly, the Confederation was turning out Yao Liens in limited numbers within months of Terra's liberation, initially using captured Blakist parts before transitioning to locally manufactured subcomponents.</p><p>With Ceres Arms beginning full production by 3086, the Yao Lien saw moderate deployment across the CCAF. The Warrior Houses in particular expressed strong interest in the design, with at least two future production models reportedly earmarked for each of the surviving Houses. Despite this enthusiasm, the Yao Lien remained an unusual design by Capellan standards, and its Celestial-derived chassis architecture continued to present logistical challenges for technicians accustomed to standard Capellan hardware.</p><p>The development team at Ceres Metals Industries has reportedly explored expanding the design's weapons loadout, but the Celestial Prototype chassis has proven resistant to modification. All alternative weapon configurations have resulted in fire control or frame stress failures, ensuring the Yao Lien remains tied to its original armament for the foreseeable future.</p>
+
+manufacturer:Ceres Metals Industries
+
+primaryfactory:Capella
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Celestial Prototype BD1Y
+systemmanufacturer:ENGINE:Ceres Motors
+systemmode:ENGINE:275
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Medium Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Chilton
+systemmode:JUMP_JET:950 Improved Jump Jets
+systemmanufacturer:COMMUNICATIONS:CeresCom
+systemmode:COMMUNICATIONS:Model 21Rs with ECM and C3
+systemmanufacturer:TARGETING:C-Apple
+systemmode:TARGETING:Churchill

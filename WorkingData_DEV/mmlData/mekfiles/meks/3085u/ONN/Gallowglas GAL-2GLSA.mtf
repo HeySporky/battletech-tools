@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d0c3-7730-9ba1-c77ef4a2007b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Gallowglas
+model:GAL-2GLSA
+mul id:1184
+
+Config:Biped
+techbase:Inner Sphere
+era:3069
+source:TR:3085,TR:CI
+published:RS:3085u-ONN
+rules level:2
+role:Brawler
+
+quirk:good_rep_1
+
+mass:70
+engine:280 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:4
+jump mp:3
+
+armor:Standard(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:23
+RT armor:23
+CT armor:30
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:7
+RTR armor:7
+RTC armor:9
+
+Weapons:5
+Medium Pulse Laser, Left Arm
+Heavy PPC, Right Arm
+Light PPC, Right Arm
+Large Laser, Right Torso
+Large Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMediumPulseLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Light PPC
+Light PPC
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+ISCASE
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Gallowglas was introduced in 3054 as a proprietary design from Blackwell Heavy Industries, built on Outreach to meet the combat needs of Wolf's Dragoons against the Clan threat. A seventy-ton heavy BattleMech, the Gallowglas was designed to deliver punishing energy firepower at all engagement ranges while retaining enough mobility to avoid being pinned down by heavier opponents. Though initially produced exclusively for the Dragoons, Blackwell eventually released a variant for open market sales, making the design available to select buyers throughout the Inner Sphere.</p><p>The Gallowglas earned a reputation for reliability and versatility, with its weight-efficient construction allowing Blackwell to pack considerable firepower and protection into the chassis. Though production was tied to Blackwell's Outreach facility, the design proved durable enough to remain in scattered service long after new manufacturing ended.</p>
+
+capabilities:<p>Built on a GLKWL-52gls endo steel chassis, the Gallowglas saves critical weight that is reinvested into its weapons payload and armor protection. The VOX 280 fusion engine provides a cruising speed of 43 kph, modest for a heavy design, but three Geotec 300 jump jets compensate by granting ninety meters of jump capability, giving the Gallowglas tactical flexibility uncommon in its weight class. Twelve tons of Valiant Lamellor armor provide solid protection against sustained fire.</p><p>The weapons array is built entirely around energy systems, eliminating ammunition dependency. A Tiegart Magnum extended-range PPC serves as the primary weapon, delivering devastating fire at extreme range. Two Sunglow large lasers provide substantial intermediate-range firepower, while a pair of Magna Quasar medium pulse lasers and a Magna Starglow small laser handle close engagements with improved accuracy. Eighteen double heat sinks manage the considerable thermal output, though sustained fire with all weapons will still stress the cooling system.</p><p>The Dalban Micronics communications suite and Dalban HiRez II targeting system are designed for easy integration with C³ networks, reflecting the Dragoons' emphasis on coordinated fire and tactical data-sharing across their formations.</p>
+
+deployment:<p>A Jihad-era field expedient refit of the GAL-2GLS, this variant emerged in 3069 as the destruction of Blackwell's Outreach facilities forced technicians to improvise with available components. The Gauss rifle is replaced with a heavy PPC and a light PPC, providing a dual-PPC engagement capability at extended range. Additional double heat sinks are installed to manage the increased thermal load, but they prove insufficient to cool the design when all weapons fire simultaneously. The resulting heat management challenges require disciplined fire discipline from pilots, though the variant remains effective when weapons are cycled rather than fired in full salvos.</p>
+
+history:<p>Blackwell Heavy Industries developed the Gallowglas in the early 3050s as a direct response to the technological gap exposed by the Clan Invasion. Wolf's Dragoons, having long relied on their dwindling stockpiles of Clan-origin equipment, needed new designs that could stand against frontline Clan OmniMechs using Inner Sphere production methods. Blackwell's engineers on Outreach answered with a design that married aggressive energy weaponry to solid armor and mobility.</p><p>The Gallowglas first saw combat in the mid-3050s with Dragoon line units. A Clan-technology variant was produced exclusively for the Dragoons, incorporating a larger engine and Clan-specification weapons that set it apart from the version sold on the open market. The open market Gallowglas, though lacking the proprietary Clan technology of the Dragoons' model, yet proved a welcome addition to Inner Sphere arsenals hungry for designs capable of engaging Clan opponents.</p><p>Prior to 3057, examples of the Gallowglas also found their way into the ranks of the Northwind Highlanders. As the Dragoons expanded production, older Gallowglases were transferred from frontline units to Beta and Epsilon Regiments to replace losses, while newer variants entered service with the three operational regiments.</p><p>In the wake of Beta Regiment's defeat on Epsilon Eridani during the Civil War, General Maeve Wolf ordered a comprehensive re-evaluation of the Dragoons' combat doctrine. Blackwell responded with two new variants in the mid-3060s, the GAL-3GLS and GAL-4GLS, incorporating light engine technology, extended-range weaponry, and improved fire control systems. An electronic warfare variant, the GAL-4GLSA, was introduced immediately prior to the Word of Blake attack on Outreach in 3067 that destroyed the Blackwell factories.</p><p>The destruction of the Outreach production facility during the Jihad ended new Gallowglas manufacturing. The world passed through Word of Blake control and later came under the Republic of the Sphere, but the Blackwell plant was never rebuilt to its former capacity. Field refits, such as the GAL-2GLSA which replaced the Gauss rifle with heavy and light PPCs, emerged during the Jihad as surviving Gallowglases required maintenance with whatever components were available. By the ilClan era, the Gallowglas remained in scattered service across multiple successor states, a reflection of the design's durability, though new production had long since ceased.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Blackwell
+systemmode:CHASSIS:GLKWL-52gls
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:280
+systemmanufacturer:ARMOR:Valiant
+systemmode:ARMOR:Lamellor
+systemmanufacturer:JUMP_JET:Geotec
+systemmode:JUMP_JET:300
+systemmanufacturer:COMMUNICATIONS:Dalban
+systemmode:COMMUNICATIONS:Micronics
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:HiRez II

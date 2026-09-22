@@ -1,0 +1,180 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ae66-7ee9-842e-a08b545dd1d6
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Vandal
+</Name>
+
+<Model>
+E
+</Model>
+
+<mul id:>
+5336
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Interceptor
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+14
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+240
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+29
+20
+20
+17
+</armor>
+
+<Nose Equipment>
+CLActiveProbe:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLERMicroLaser:OMNI
+CLERMicroLaser:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLERMicroLaser:OMNI
+CLERMicroLaser:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+RemoteSensorDispenser:OMNI
+RemoteSensorDispenser:OMNI
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Vandal's defining characteristic is its exceptional thrust-to-weight ratio, which makes it among the most agile fighters in the Clan inventory. Its 360 XL engine provides the acceleration needed to disengage from heavier interceptors that cannot match its pace. The Tokasha Foundry Series 9 ferro-aluminum armor offers adequate protection for a craft of its weight, though pilots who linger in a defensive engagement against dedicated combat fighters do so at considerable risk. The primary configuration mounts an active probe in place of heavier offensive weapons, making the craft an effective sensor platform when operating as the eyes of a Trinary or Cluster. An additional ton of fuel in this configuration gives it superior mission endurance compared to the alternate configurations. The pair of nose-mounted small lasers provides minimal self-defense capability, though aggressive pilots have been known to use them against soft ground targets during reconnaissance passes.</p><p>The Vandal's OmniFighter pod system allows rapid reconfiguration between its roles. The tradeoff in each alternate configuration is straightforward: sensor equipment gives way to weapons as the mission emphasis shifts from reconnaissance to attack. None of the configurations are optimized for stand-up dogfighting against comparable Clan fighters; the Vandal's strengths lie in speed, endurance, and surprise rather than raw firepower.</p>
+</capabilities>
+
+<overview>
+<p>The Vandal is a thirty-ton Clan OmniFighter developed in 2941 by Clan Ice Hellion, conceived from the outset as a high-speed scout and pursuit craft rather than a front-line combatant. Its exceptional agility distinguishes it from heavier fighters of comparable cost, though its limited weapons payload means most Clan commanders assign it to reconnaissance and rear-echelon screening duties rather than direct combat. Every Clan maintains Vandals for fast scouting work, and the design has spread widely through salvage and Trials since its introduction. The years following the Great Refusal gave the craft renewed relevance, particularly among the home Clans, who recognized it as an economical platform for power projection. Clan Hell's Horses became its most committed later-era patron, investing in new production capacity to sustain the type through the Dark Age.</p>
+</overview>
+
+<deployment>
+<p>The E configuration stands as a Civil War-era update to the Vandal's capabilities, introduced as operational experience with the design accumulated across multiple Clans. It is deployed alongside the older configurations in mixed flights, typically assigned to pilots and units that have demonstrated effective use of the Vandal's strengths. By the time the E entered service, the craft's freeborn stigma had begun to erode sufficiently that assignment to Vandal units was no longer considered a punishment posting in the more forward-thinking Clans.</p>
+</deployment>
+
+<history>
+<p>Clan Ice Hellion developed the Vandal in 2941 at the Yoma Aerospace Plant on Babylon, in the Kerensky Cluster. The Ice Hellions' preference for swift, aggressive raiding tactics made a fast light fighter a natural fit for their doctrine, and the design spread to other Clans through Trials and the normal exchange of genetic and technical resources. Within a generation, the Vandal had found a place in virtually every Clan touman, typically filling the scouting and screening roles that larger fighters could not perform as economically.</p><p>The Vandal's reputation as a freeborn fighter's craft developed early in its service history. Clan commanders discovered that the threat of assignment to Vandal duty was sufficient to keep undisciplined freeborn pilots in line, and this association suppressed tactical innovation with the design for decades. Few Bloodnamed warriors cared to be seen developing doctrine for what their peers regarded as a punishment posting. This cultural stigma meant the Vandal rarely received the doctrinal attention or logistical priority that designs of its quality deserved.</p><p>The Clan Invasion brought Vandals to the Inner Sphere, where they found employment in reconnaissance and pursuit roles that complemented the heavier OmniFighters dominating Clan aerospace assets. Their ability to outrun Inner Sphere conventional fighters gave them genuine tactical value, and several Clans quietly expanded their Vandal inventories without public acknowledgment. The years following the Great Refusal accelerated this reassessment as the home Clans began competing more aggressively for resources and prestige within the Kerensky Cluster.</p><p>Clan Hell's Horses emerged as the most vocal advocate for the Vandal's combat capabilities, incorporating the craft into fast-attack operations and forward screening duties that leveraged its speed advantages. The Wars of Reaving and the collapse of Clan Ice Hellion transferred the Babylon production facility to Cloud Cobra control, which continued production through the Dark Age. Clan Hell's Horses subsequently established a second production line at the Csesztreg Industriplex Delta, coming online during the Dark Age to supply their expanding toumans independently. By the ilClan era, the Vandal had largely shed its freeborn stigma and earned genuine respect as a capable scout and pursuit platform.</p>
+</history>
+
+<manufacturer>
+Yoma Aerospace Plant|Csesztreg Industriplex Delta
+</manufacturer>
+
+<primaryFactory>
+Babylon (Corsen)|Csesztreg
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Tokasha MechWorks
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Pattern 67
+ENGINE:360 XL
+ARMOR:Series 9
+JUMP_JET:N/A
+COMMUNICATIONS:SL Interlink 5
+TARGETING:Gatekeeper Model 5
+</systemModels>
+
+<source>
+TR:3055U
+</source>
+
+<published>
+RS:3055Uu
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

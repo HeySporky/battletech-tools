@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d56d-7b87-b234-73e865a5abc3
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Uraeus
+model:UAE-7R
+mul id:6677
+
+Config:Biped
+techbase:Inner Sphere
+era:3135
+source:TR:3145:RotS,TR:3145
+published:RS:3145
+rules level:3
+role:Brawler
+
+quirk:bad_rep_clan
+
+mass:75
+engine:300 Fusion Engine
+structure:IS Endo Steel
+myomer:Triple-Strength
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:24
+RA armor:24
+LT armor:23
+RT armor:23
+CT armor:33
+HD armor:9
+LL armor:29
+RL armor:29
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:3
+Ultra AC/10, Right Arm
+Bombast Laser, Left Torso
+Streak SRM 4, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMediumVibroblade
+ISMediumVibroblade
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Left Torso:
+Bombast Laser (T)
+Bombast Laser (T)
+Bombast Laser (T)
+ISShoulderTurret (ARMORED)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+
+Right Torso:
+ISStreakSRM4
+IS Streak SRM 4 Ammo
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+ISCASEII
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Light Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Uraeus is a seventy-five-ton BattleMech developed in secret by the Blessed Order, a ComStar splinter faction led by Malcolm Buhl, as part of an effort to reconstitute the Com Guards during the Dark Age. In 3128, Blessed Order operatives infiltrated a Republic of the Sphere data depot on Terra and stole advanced Word of Blake technical data, using captured Celestial OmniMech schematics as the foundation for two new designs. The Uraeus and its lighter companion, the Kheper, were commissioned through the New Earth Trading Company, a corporate front that ComStar had operated since the early Succession Wars, with production lines concealed among NETC's extensive civilian manufacturing operations. Introduced around 3135, the Uraeus was designed as a devastating close-assault platform capable of serving in heavy and cavalry formations. Following the destruction of the reconstituted Com Guards on Epsilon Eridani, the Republic Armed Forces seized the design and its production facilities, pressing the Uraeus into service to help rebuild its shattered military.</p>
+
+capabilities:<p>The Uraeus was engineered to dominate close-quarters engagements, and every aspect of its design reflects this mission. Built around an NETC Omicron Endo Steel chassis and a Vlar 300 fusion engine, the 'Mech cruises at 43 kilometers per hour, a respectable but unremarkable speed for a seventy-five-ton design. What transforms the Uraeus into a genuine close-range threat is its Triple Strength Myomer, which boosts top speed to 86 kilometers per hour once heat levels rise, turning it from a lumbering heavy into a surprisingly swift brawler.</p><p>The primary armament centers on a Mydron Excel Class 10 Ultra Autocannon and an OMI StarBurn Bombast Laser mounted in a shoulder turret on the left torso, providing 360-degree fire arcs that are difficult for opponents to avoid. A Hovertec Streak SRM 4 launcher delivers reliable short-range missile support, while a medium Vibroblade becomes devastatingly effective once the TSM activates. Thirteen tons of Wall Type 8 light ferro-fibrous armor protected by CASE II give the Uraeus the durability to survive the close engagements it actively seeks. The combination of heat-activated speed, a turret-mounted energy weapon, and enhanced melee capability makes the Uraeus a formidable brawler.</p>
+
+deployment:<p>The UAE-7R is the sole production variant of the Uraeus, purpose-built for close-assault operations. The 'Mech carries a Mydron Excel Class 10 Ultra Autocannon as its primary ranged weapon, capable of delivering punishing salvos at medium range to soften targets before closing. An OMI StarBurn Bombast Laser mounted in a shoulder turret on the left torso provides omnidirectional energy fire, allowing the MechWarrior to engage threats from any angle regardless of facing. A Hovertec Streak SRM 4 launcher adds short-range missile support, while a medium Vibroblade gives the Uraeus a devastating melee option that becomes increasingly lethal as the 'Mech's heat rises and activates its Triple Strength Myomer. Three tons of autocannon and missile ammunition stored in the right torso are protected by CASE II, mitigating the risk of catastrophic ammunition explosions during the close-range engagements the design was built to dominate.</p>
+
+history:<p>The Uraeus traces its origins to the chaos of the Dark Age, when the collapse of the HPG network in 3132 fragmented the Republic of the Sphere and left its military struggling to maintain order. In the aftermath of Gray Monday, the Blessed Order, a ComStar splinter faction led by Malcolm Buhl, saw an opportunity to resurrect the Com Guards as a credible military force. In 3128, Blessed Order agents infiltrated a Republic data depot on Terra and stole classified Word of Blake technical data, including detailed schematics for the Manei Domini's Celestial series OmniMechs. Using this stolen data as a foundation, the Blessed Order's engineers developed the Uraeus and its companion design, the Kheper, commissioning the New Earth Trading Company to produce both 'Mechs in secret.</p><p>NETC had served as a ComStar corporate front since the early Succession Wars, operating extensive civilian manufacturing lines on New Earth. The Blessed Order exploited this longstanding cover to hide military production among NETC's legitimate operations, an arrangement made possible by the sheer volume of manufacturing activity on New Earth. The Uraeus first appeared publicly in the ranks of the reconstituted First Division on Luyten 68-28, where it was deployed against Republic of the Sphere forces hunting the rogue Com Guards. The design proved effective in combat, but could not save the Com Guards from their ultimate destruction on Epsilon Eridani.</p><p>Following the defeat of the Com Guard remnants, the Republic Armed Forces captured the Uraeus production facilities on New Earth and quickly nationalized the design. Despite initial reluctance stemming from its ComStar origins, the Uraeus was adopted by the Hastati Sentinels, Triarii Protectors, and Stone's Brigade, where the RAF redesignated it as a heavy raiding 'Mech. Its ability to conduct destabilizing raids outside Fortress Republic, combined with sufficient speed to extract from dangerous situations, made it a valuable if grudgingly accepted asset.</p><p>The Republic's use of the Uraeus extended through the final years of the Dark Age, with the design seeing combat on worlds including Zurich. There, Uraeus 'Mechs were instrumental in defeating a last-minute Capellan ambush during a raid on outpost installations, demonstrating the design's close-assault capabilities against organized opposition. The 'Mech's combination of turret-mounted weaponry, Triple Strength Myomer-enhanced speed, and Vibroblade proved particularly effective in the chaotic, close-range fighting that characterized many Dark Age engagements.</p><p>With the fall of the Republic and the rise of the ilClan era, the NETC production facility on New Earth fell under Clan Jade Falcon control. The Uraeus's future production remains uncertain under its new masters, though the design's proven effectiveness in close-quarters combat suggests it will likely see continued service in some capacity.</p>
+
+manufacturer:New Earth Trading Company
+
+primaryfactory:New Earth
+
+fluffdate:2026-02-23 17:46:42
+
+systemmanufacturer:CHASSIS:NETC
+systemmode:CHASSIS:Omicron Endo Steel
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Wall Type
+systemmode:ARMOR:8 Light Ferro-Fibrous with CASE II
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Marshal 635
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Scope 4520

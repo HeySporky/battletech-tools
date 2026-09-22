@@ -1,0 +1,127 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a0cd-7cf4-b810-a9129dd05b8e
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Assault Bombard Gun Emplacement
+</Name>
+
+<Model>
+(3050) (Fusion)
+</Model>
+
+<year>
+3050
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+150
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+ISThumper(ST)
+IS Mech Mortar-8(ST)
+IS Mech Mortar-8(ST)
+IS Mech Mortar-8(ST)
+ISThumperAmmo
+ISThumperAmmo
+ISThumperAmmo
+ISThumperAmmo
+ISThumperAmmo
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+IS Ammo SC Mortar-8
+Searchlight(ST)
+FUSION PowerGenerator:SIZE:16.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The fusion-powered Assault Bombard Gun Emplacement pairs the Thumper and Mech Mortar-8 with integral power generation and assault-weight armor, creating the most capable and resilient indirect-fire position available. The Thumper provides artillery-grade fire support while the mortar handles area suppression, all from a self-sufficient position built to survive the most concentrated counter-battery fire.</p><p>Fusion independence means this formidable bombardment position operates without any external support, and assault armor ensures it continues operating through everything the enemy throws at it. The dual indirect-fire weapons cover a comprehensive range of bombardment missions, from pinpoint Thumper strikes to sustained mortar suppression. For critical defensive sectors where indirect fire must be maintained at all costs, this variant combines the firepower to be effective with the protection and independence to guarantee continuous operation.</p>
+</capabilities>
+
+<overview>
+<p>The Bombard Gun Emplacement provides fixed defensive positions with indirect-fire artillery capability through Mech Mortar and Thumper systems. Unlike the lighter LRM-based missile emplacements, bombard positions deliver area-effect ordnance that saturates target zones with explosive fragmentation, making them effective against dispersed infantry formations, light vehicle concentrations, and fortified positions that direct-fire weapons struggle to engage.</p><p>Bombard emplacements serve a distinct tactical role within defensive architectures, providing the suppressive and area denial fire that complements the precision of direct-fire positions. Their ability to lob explosive ordnance over obstacles and into dead ground that attackers might use for cover makes them an essential component of comprehensive defensive planning. The psychological impact of sustained mortar fire on attacking infantry should not be underestimated, as few experiences are more demoralizing than constant bombardment with no visible source to engage.</p>
+</overview>
+
+<history>
+<p>The late Succession Wars saw a gradual rebuilding of military capability across the Inner Sphere, as the Successor States slowly recovered industrial capacity that had been lost during the devastating conflicts of the previous centuries. Fortification design reflected this recovery, as new weapon systems became available for mounting in fixed positions. The Mech Mortar and Thumper artillery piece represented a return to indirect-fire capability that had been largely abandoned during the worst years of technological decline.</p><p>During the darkest periods of the Succession Wars, garrison forces had been reduced to improvised defenses built from salvage and desperation. As the recovery progressed, military planners could once again afford to think about specialized defensive positions rather than simple weapon-behind-wall arrangements. The bombard emplacement emerged from this renewed sophistication, providing garrison forces with organic artillery support that did not require the mobile artillery pieces that were always in short supply. Fixed mortar and artillery positions could be pre-registered on likely approach routes, turning known terrain into killing zones that could be activated the moment an enemy force entered the engagement area.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+4
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+150
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

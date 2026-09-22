@@ -1,0 +1,270 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab11-7e15-a114-2ed109a25e6c
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Hannibal
+</Name>
+
+<Model>
+(3055)
+</Model>
+
+<mul id:>
+4263
+</mul id:>
+
+<year>
+3055
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+heavyvehiclebay:12.0:2:1::-1:0
+infantrybay:4.0:1:2:Foot:-1:0
+cargobay:1004.5:1:3::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:70.0:0:-1::-1:0
+crewquarters:231.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+79
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+2850
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+220
+170
+170
+160
+</armor>
+
+<Nose Equipment>
+(B) Autocannon/10
+Autocannon/5
+Autocannon/5
+IS Ammo AC/10:10
+IS Ammo AC/5:40
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) ISERPPC
+ISERPPC
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:15
+ISArtemisIV
+(B) ISNarcBeacon
+ISNarc Pods:12
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISGaussRifle
+IS Gauss Ammo:16
+(B) ISERLargeLaser
+Medium Laser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+(B) ISLargePulseLaser
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:15
+ISArtemisIV
+(R) (B) Large Laser
+(R) Medium Laser
+(R) (B) SRM 4
+(R) IS Ammo SRM-4 Artemis-capable:25
+(R) ISArtemisIV
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISGaussRifle
+IS Gauss Ammo:16
+(B) ISERLargeLaser
+Medium Laser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+(B) ISLargePulseLaser
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:15
+ISArtemisIV
+(R) (B) Large Laser
+(R) Medium Laser
+(R) (B) SRM 4
+(R) IS Ammo SRM-4 Artemis-capable:25
+(R) ISArtemisIV
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Autocannon/10
+IS Ammo AC/10:10
+(B) ISERLargeLaser
+Large Laser
+Medium Laser
+Medium Laser
+(B) ISERPPC
+(B) SRM 4
+IS Ammo SRM-4 Artemis-capable:25
+ISArtemisIV
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+12
+</structural_integrity>
+
+<capabilities>
+<p>The Hannibal's two tank bays are located near the nose, each with its own door and ramp. Though cramped compared to other DropShips, the entire complement of twelve heavy vehicles can disembark within five minutes, giving the Hannibal one of the fastest vehicle deployment rates of any transport. Three bunkrooms directly aft of the vehicle bays accommodate tank crews and technical personnel, with each room serving a lance's crew and support staff. Sixteen infantry bunkrooms toward the aft house one squad each, with each platoon sharing bathroom and mess facilities. A large briefing facility on deck three contains a sophisticated holographic projection unit and advanced communications systems.</p><p>The nose mounts an AC/10, two AC/5s, an Artemis IV-enhanced LRM-20, an ER large laser, three medium lasers, two ER PPCs, an Artemis-enhanced SRM-6, and a Narc missile beacon. Each wing carries a Gauss rifle, an ER large laser, a medium laser, an Artemis-enhanced LRM-20, a large pulse laser, an Artemis-enhanced SRM-6, a large laser, a medium laser, and an Artemis-enhanced SRM-4. The aft mounts an AC/10, an ER large laser, a large laser, two medium lasers, an ER PPC, and an Artemis-enhanced SRM-4. Seventy-nine double heat sinks manage the thermal load from this substantial arsenal.</p>
+</capabilities>
+
+<overview>
+<p>The Hannibal class DropShip is a combined-arms transport designed and built for the Free Worlds League military. First sighted in 3055, this 4,900-ton Aerodyne carries a reinforced company of infantry and a company of armored vehicles, making it one of the more capable combined-arms transports of its era. The vessel features sophisticated communications equipment and generous armor protection for a transport of its role.</p><p>Military analysts have identified the Hannibal as a potential replacement for the venerable Intruder class, though its limited fuel supply restricts its utility for extended independent operations. The design reflects a clear emphasis on rapid deployment capability and tactical coordination over sustained endurance.</p>
+</overview>
+
+<deployment>
+<p>The Hannibal serves exclusively with the Free Worlds League Military, where it provides rapid combined-arms deployment capability to FWLM formations. The design's sophisticated communications suite makes it particularly well suited for coordinating ground operations, and its fast vehicle deployment rate has proven valuable in contested landing zones where speed of disembarkation is critical to survival.</p>
+</deployment>
+
+<history>
+<p>The Hannibal was developed at the Deller, Bingham, and Fouts shipyards at Atreus for the Free Worlds League Military. The first vessels were delivered in 3055, with four Hannibals completed during the initial production year. The design incorporated the latest communications technology, reportedly provided through cooperation with the Word of Blake, representing a considerable investment in command and control capability that suggested the Marik military had significant plans for the craft.</p><p>The Hannibal's well-armed and generously armored design led many analysts to believe it was intended to eventually replace the aging Intruder class combined-arms transport in Free Worlds League service. However, the Hannibal's limited fuel supply precluded its use on the extended independent operations for which the Intruder had long been valued, limiting the newer design to operations within established supply chains. The Free Worlds League continued to invest in the Hannibal program, with production at Atreus providing a steady stream of new vessels to the FWLM's growing combined-arms formations.</p>
+</history>
+
+<manufacturer>
+Deller, Bingham, and Fouts
+</manufacturer>
+
+<primaryFactory>
+Atreus (FWL)
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+4900.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+248
+</crew>
+
+<officers>
+7
+</officers>
+
+<gunners>
+7
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+6
+</life_boat>
+
+<escape_pod>
+6
+</escape_pod>
+

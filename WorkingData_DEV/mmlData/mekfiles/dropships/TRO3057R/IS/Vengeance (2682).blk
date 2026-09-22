@@ -1,0 +1,247 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab66-742d-b2f9-f92a0f64b896
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Vengeance
+</Name>
+
+<Model>
+(2682)
+</Model>
+
+<mul id:>
+5342
+</mul id:>
+
+<year>
+2682
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:3.0:1:1::-1:0
+asfbay:20.0:4:3::-1:0
+asfbay:20.0:3:4::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+crewquarters:70.0:0:-1::-1:0
+cargobay:218.5:0:7::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+148
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+17100
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+140
+150
+150
+180
+</armor>
+
+<Nose Equipment>
+(B) Large Laser
+Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Large Laser
+Medium Laser
+Medium Laser
+(R) (B) Autocannon/5
+(R) IS Ammo AC/5:20
+(R) (B) PPC
+(R) (B) LRM 20
+(R) LRM 20
+(R) IS Ammo LRM-20:36
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Large Laser
+Medium Laser
+Medium Laser
+(R) (B) Autocannon/5
+(R) IS Ammo AC/5:20
+(R) (B) PPC
+(R) (B) LRM 20
+(R) LRM 20
+(R) IS Ammo LRM-20:36
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) LRM 10
+IS Ammo LRM-10:12
+(B) Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+11
+</structural_integrity>
+
+<capabilities>
+<p>The Vengeance mounts armament distributed across all arcs, though its weapons serve primarily as self-defense rather than primary offensive firepower. The nose concentrates a large laser with two medium lasers, while each wing forward arc mirrors this configuration. The heavier armament sits in the wing rear arcs, with each side mounting a PPC, two LRM-20 racks, an AC/5, a large laser, and four medium lasers. The aft arc carries an AC/5, an LRM-10, and two medium lasers. One hundred forty-eight single heat sinks manage the thermal load from this considerable arsenal.</p><p>The vessel's true combat power lies in its forty aerospace fighter bays, organized into two twenty-fighter wings with separate launch and recovery facilities. Three small craft bays provide utility transport and search-and-rescue capability. The Warrior-ATP drive system provides 2g safe thrust despite the vessel's 11,400-ton mass. The flat, boxy hull design that accommodates the fighter bays prevents atmospheric operations, confining the Vengeance to space-based deployments. The crew of one hundred seventeen includes six dedicated gunners, though the ship's own weapons remain secondary to its role as a fighter platform.</p>
+</capabilities>
+
+<overview>
+<p>The Vengeance class is the largest dedicated aerospace fighter carrier in common use among the Successor States. Introduced in 2682 during the height of the Star League, this 11,400-ton Aerodyne was designed to serve as a mobile fighter base capable of deploying up to forty aerospace fighters in support of fleet operations. Manufactured by Kallon Industries, Salvatore Incorporated, and Tomori Trans Industrial, the Vengeance earned a reputation as a critical strategic asset wherever it deployed.</p><p>Its distinctive flat, boxy hull spreads across forty-seven relatively compact decks rather than the large open cargo spaces found on most DropShips. Despite its Aerodyne classification, the broad profile prevents atmospheric operations, limiting the vessel to space-based deployments. This restriction has never diminished its value, as the fighter wings it commands can project power across an entire star system, making the Vengeance one of the most sought-after carrier designs in the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The original Vengeance served as the backbone of Star League Defense Force carrier operations from its introduction in 2682. Following the League's collapse, all five Successor States scrambled to secure Vengeance carriers, recognizing the decisive advantage a forty-fighter wing could provide in system-defense and offensive operations. The Federated Suns and Lyran Commonwealth maintained the largest Vengeance fleets during the Succession Wars, leveraging their greater industrial capacity to keep aging carriers operational. These vessels typically anchored defensive positions at critical jump points or served as the centerpiece of offensive task forces during major campaigns.</p>
+</deployment>
+
+<history>
+<p>The Vengeance class fighter carrier entered service in 2682, during the final decades of the Star League. Designed to serve as a dedicated mobile fighter base, the Vengeance could deploy an entire aerospace fighter regiment from a single vessel. Three manufacturers produced the design: Kallon Industries, Salvatore Incorporated, and Tomori Trans Industrial, ensuring widespread distribution across the Star League Defense Force and member state navies.</p><p>The Succession Wars devastated Vengeance fleets across the Inner Sphere. As a high-priority target, the carrier attracted concentrated attacks that its relatively thin armor struggled to withstand. The loss of advanced manufacturing capability during the wars forced all three production lines to simplify components, and replacement vessels could not keep pace with attrition. By the end of the Third Succession War, functioning Vengeance carriers had become prized strategic assets, with some Successor States resorting to cannibalization of damaged hulls to keep their remaining carriers operational.</p><p>The recovery of Star League-era technology following the Helm Memory Core's rediscovery enabled significant upgrades to the Vengeance design. The 3056 refit introduced upgraded energy weapons, an advanced ballistic weapon in the nose, and enhanced missile tracking systems across all batteries. These improvements addressed the original design's chief weakness in engagement range while freeing tonnage for additional cargo capacity and maintaining the vessel's core identity as a fighter platform.</p><p>The Jihad-era arms race prompted the Magistracy of Canopus to develop a Vengeance Pocket WarShip conversion. This radical redesign halved the fighter complement, replacing bays with sub-capital weaponry, expanded missile armament, defensive countermeasures, and infantry quarters for boarding operations. The prototype, designated the Danai Centrella in honor of the Magistrix, demonstrated the viability of converting existing carrier hulls into sub-capital combatants. The production DC variant refined this concept, optimizing the weapons layout and reducing crew requirements through increased automation.</p><p>The Vengeance continues to serve in naval forces across the Inner Sphere and Periphery. Its enduring value lies not in its own armament but in the devastating power of the fighter wing it deploys, making the Vengeance a force multiplier that remains relevant from the Star League through the Dark Age.</p>
+</history>
+
+<manufacturer>
+Kallon Weapon Industries|Salvatore Inc.|Tomori Trans Industrial
+</manufacturer>
+
+<primaryFactory>
+Loyalty|Layover|Chatham
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Warrior-ATP
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+11400.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+108
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+6
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+5
+</escape_pod>
+

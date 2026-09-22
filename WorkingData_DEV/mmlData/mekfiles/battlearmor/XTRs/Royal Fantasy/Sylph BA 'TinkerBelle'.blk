@@ -1,0 +1,157 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a9c7-74ff-a5ab-8c489dd63322
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Sylph Battle Armor
+</Name>
+
+<Model>
+'TinkerBelle'(Sqd4)
+</Model>
+
+<mul id:>
+8384
+</mul id:>
+
+<year>
+3060
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+BABasicManipulator:LA
+BABasicManipulator:RA
+CLBAERMicroLaser:RA
+CLBASRM5OS:Body
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAVTOL
+</slotless_equipment>
+
+<capabilities>
+<p>The TinkerBelle is a custom weight-upgraded rebuild that increases the base Sylph chassis to medium weight class, adding substantial armor protection and heavier armament without sacrificing airborne mobility or anti-BattleMech capability. HarJel technology and improved life support systems keep the pilot combat-ready even when the suit's integrity is compromised. Lighter-weight Clan armor, upgraded by roughly sixty percent over the standard Sylph, enables the suit to absorb hits from most energy weapons and light autocannon while closing to swarm range. An extended-range micro laser replaces the original's micro pulse laser, and a five-tube short-range missile launcher replaces the bomb rack, giving each trooper a meaningful punch against medium BattleMechs. The increased mass comes at the cost of ground mobility, but the VTOL system compensates by maintaining the suit's aerial agility and approach vectors.</p>
+</capabilities>
+
+<overview>
+<p>The Sylph is a light Clan battle armor suit developed by Clan Cloud Cobra as the first fully airborne infantry design in known space. Fielded in 3060, the suit was conceived to extend the Cloud Cobras' aerospace dominance into the battle armor domain, giving their touman an infantry capability no other Clan possessed. The Sylph's VTOL-capable propulsion system allows sustained flight at speeds exceeding fifty kilometers per hour, though this mobility comes at the cost of reduced armor protection and a limited weapon payload. The design earned its operators a level of respect typically reserved for fighter pilots within Clan Cloud Cobra's warrior caste.</p>
+</overview>
+
+<deployment>
+<p>Jillian Robertson's Team Neverland fielded the TinkerBelle in a four-trooper squad on Solaris VII, debuting in the Black Hills Urban Combat Zone in 3144. Robertson's squad employed deliberately erratic aerial maneuvers designed to mimic mythical faeries, using the unpredictable flight patterns to distract opponents while closing to missile range. The configuration's improved armor and SRM capability allowed the squad to threaten medium BattleMechs in arena combat, winning bouts at venues including the Scrapyard, the Black Hills UCZ, and the Crankshaft.</p>
+</deployment>
+
+<history>
+<p>Clan Cloud Cobra began development of the Sylph as part of a broader effort to extend their aerospace doctrine into the infantry domain. Khan Din Steiner ordered the program, but the Cloud Cobra scientist caste drove much of the early work out of religious conviction, viewing the creation of an airborne warrior as a spiritual imperative tied to their air-elemental faith. The name itself was drawn from mythological spirits of the air.</p><p>Progress proved difficult. Integrating a functional VTOL propulsion system into a battle armor chassis was something no Clan had accomplished before, and the Cloud Cobra scientists encountered persistent problems with the jump pack and thruster assembly. Several test pilots were killed during the secretive development phase. The scientists pushed through these setbacks, though the final production model achieved only limited flight capabilities rather than the full sustained flight originally envisioned.</p><p>The Sylph entered service in 3060 and quickly became a fixture within the Cloud Cobra touman. The Clan had invested heavily in the program even before production began, graduating sibkos of mixed Elemental and fighter pilot bloodlines specifically to operate the suit. Pilots who completed the demanding training regimen earned respect comparable to aerospace fighter pilots. Many Sylph operators now hail from sibkos employing a mix of Elemental and pilot genes, an interesting indicator of the Cloud Cobras' assessment of the technology's potential.</p><p>Adoption beyond the Cloud Cobras came slowly. Clan Snow Raven and Clan Diamond Shark each secured small numbers through Trials of Possession, limiting their use to trial deployments. Clan Star Adder proved more enthusiastic, integrating Sylphs into their Alpha and Beta Galaxies with reports of Tau Provisional Galaxy fielding them as well. The Blood Spirits attempted to acquire the design for years, but the Cloud Cobras refused every request.</p><p>The Snow Ravens eventually developed their own branch of Sylph technology. During the Jihad, CSR Battle Armor Facility Alpha on Ramora produced the experimental XR variant, which traded the VTOL system for myomer boosters and a ground-speed focus. This led to the production Enhanced Sylph, a refined ground-mobile design optimized for anti-infantry operations and urban combat in the Outworlds Alliance. The Sylph's VTOL technology also influenced other programs, with Snow Raven scientists adapting its propulsion concepts into the Extended Jump Jet system for ProtoMechs.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Royal Fantasy
+</source>
+
+<published>
+XTR:Royal Fantasy
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+5
+</jumpingMP>
+
+<armor>
+8
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

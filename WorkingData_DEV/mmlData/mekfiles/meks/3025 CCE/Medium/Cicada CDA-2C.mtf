@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c162-7e8a-8ae3-0e7a9af15266
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Cicada
+model:CDA-2C
+
+Config:Biped
+techbase:Inner Sphere
+era:2740
+source:TR:3025C
+rules level:1
+role:Scout
+
+quirk:no_arms
+
+mass:40
+engine:320 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:8
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:3
+RA armor:3
+LT armor:6
+RT armor:6
+CT armor:10
+HD armor:8
+LL armor:5
+RL armor:5
+RTL armor:2
+RTR armor:2
+RTC armor:6
+
+Weapons:3
+Flamer, Left Torso
+Flamer, Right Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Flamer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Flamer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Cicada was introduced in 2740 by HartfordCo Industries, a small firm on Bryant whose previous manufacturing experience had been confined to communications and targeting systems. Designed as a supplement or replacement for the popular Locust scout 'Mech, the Cicada was built to compete directly with Bergan Industries' design by matching its speed while doubling its mass, allowing for improved weaponry and an edge in physical combat while keeping costs manageable.</p><p>The Star League found sufficient merit in the design to award HartfordCo a limited contract, using the Cicada to replace Locusts lost in fighting along border regions. Though the original factory on Bryant was destroyed during the Succession Wars, stockpiled Cicadas found their way into all five Successor State armies. Production was eventually revived by Free Worlds Defense Industries on Gibson, saving the design from extinction.</p>
+
+capabilities:<p>The Cicada's prime assets are its speed and freedom from ammunition concerns. A massive Pitban 320 engine, comprising more than half the 'Mech's total mass, propels the forty-ton chassis to speeds approaching 130 kilometers per hour. The standard armament of two medium lasers and one small laser provides sufficient firepower to engage lighter 'Mechs while eliminating logistical dependencies. The lasers are embedded in the armored torso behind the heaviest protection, though this placement creates limited firing arcs that an opponent can exploit by maneuvering behind the 'Mech.</p><p>The Cicada's four tons of armor matches that of the much lighter Locust, with the bulk concentrated in the torso. The vestigial arm assemblies and legs carry only minimal protection, making speed the design's primary defense. A well-documented flaw in the original HartfordCo heat sinks caused them to wear out and operate at only sixty percent capacity after extended use, leading to dangerous overheating in combat. While most surviving Cicadas have had their heat sinks replaced with reliable modular units, some examples with defective sinks remained in service until the Free Worlds League Military ordered a comprehensive upgrade program in 3029.</p>
+
+deployment:<p>The rarer of the two experimental variants from the 2840 production run, this variant stands as a more dedicated anti-infantry configuration than its 2B cousin. This variant mounts two Hotseat flamers paired with a single medium laser in the center torso, providing devastating effectiveness against unarmored infantry formations. Far less common than the 2B, surviving examples of the 2C are primarily found in House Liao's training academies alongside their flamer-equipped siblings, where both variants serve as instructional platforms for cadets.</p>
+
+history:<p>HartfordCo Industries entered the BattleMech market in 2740 amid rising tensions throughout the Inner Sphere. The firm, already known for producing the Von Luckner heavy tank and various electronics packages, sought to challenge Bergan Industries' dominance in the light reconnaissance 'Mech market. The Star League's acceptance of the Cicada, though limited in scope, validated the design and established its reputation as a capable scout platform.</p><p>The fall of the Star League and destruction of HartfordCo's Bryant facility during the Succession Wars scattered existing Cicadas across the Inner Sphere. Bryant's central location made it a target for raids by all five Successor States, ensuring the design's widespread distribution. The 'Mech earned a positive reputation in service to the Successor Lords, though this sometimes led to expectations exceeding the design's actual capabilities. By the end of the Fourth Succession War, dwindling numbers threatened the Cicada with extinction.</p><p>The discovery of the Helm Memory Core allowed Free Worlds Defense Industries to resurrect production on Gibson, providing the Free Worlds League Military with desperately needed reconnaissance assets following losses in the Andurien conflict. The design proved an excellent platform for recovered lostech, leading to upgraded variants mounting extended-range weapons and improved electronics. Following the ComStar Schism and Word of Blake's relocation to Gibson, Blakist forces became major Cicada users, eventually rivaling the FWLM in numbers deployed.</p><p>The Jihad's devastation of Gibson seemed to doom the Cicada once more, but Andurien AeroTech's decision to split from the Blakist-tainted FWDI led to the establishment of Westover BattleMechs. This new subsidiary refurbished an abandoned FWDI facility on Westover, resuming Cicada production and introducing modern variants incorporating variable-speed pulse technology and re-engineered lasers for the reunified Free Worlds League's forces.</p>
+
+manufacturer:HartfordCo Industries
+
+primaryfactory:Bryant
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:HartfordCo
+systemmode:CHASSIS:Hartford 300
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:Pitban 320
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Star Slab/3
+systemmanufacturer:COMMUNICATIONS:HartfordCo
+systemmode:COMMUNICATIONS:Hartford J15 B
+systemmanufacturer:TARGETING:HartfordCo
+systemmode:TARGETING:Hartford S1000

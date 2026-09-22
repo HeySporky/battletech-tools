@@ -1,0 +1,85 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b8fc-77b8-8b5d-c3649e787937
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Wheeled Platoon (CCAF)
+</Name>
+
+<Model>
+(SRM 3055+)
+</Model>
+
+<year>
+3055
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<Troopers Equipment>
+Capellan Confederation Armor Kit (3050)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Capellan infantry serve where BattleMechs and armor cannot be spared, which in the resource-constrained CCAF means nearly everywhere. The Xin Sheng movement revitalized the infantry arm alongside every other facet of the Capellan Confederation Armed Forces, giving foot soldiers better equipment and renewed purpose. Mechanized wheeled platoons balance speed and infantry presence, using armored wheeled transports to move troops quickly along the Confederation's road networks. They sacrifice the cross-country capability of tracked vehicles for faster transit between defensive positions. Heavy weapons sections carry man-portable short-range missile launchers that give the platoon an anti-armor punch well beyond what personal weapons can deliver, though the launchers are heavy and ammunition is limited.</p>
+</overview>
+
+<notes>
+Intro date based on prototype date of Ceres Striker Carbine rifle. Ceres Striker Carbine is standard CCAF long arm.
+</notes>
+
+<squad_size>
+6
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Rifle (Striker Carbine)
+</Primary>
+
+<Secondary>
+InfantryHeavySRM
+</Secondary>
+

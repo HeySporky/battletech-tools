@@ -1,0 +1,86 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bdbe-7183-a148-b742fb7f58dc
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Jump Platoon (LCAF)
+</Name>
+
+<Model>
+(LRM 3065+)
+</Model>
+
+<year>
+3065
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<Troopers Equipment>
+AntiMekGear
+Lyran Alliance/Lyran Commonwealth (3060+) Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The LCAF fields conventional infantry that benefit from the Commonwealth's deep industrial base, equipping even garrison formations with reliable, well-maintained weapons and transport. Jump infantry use thruster backpacks to leap across obstacles and reposition rapidly on the battlefield, trading platoon size for the tactical mobility to seize or defend terrain that foot troops cannot reach quickly. Armed with assault rifles and infantry-portable long-range missile launchers, these platoons can engage armored targets at distances well beyond normal infantry weapon range, providing indirect fire support to the formation.</p>
+</overview>
+
+<notes>
+Intro date based oninfantry LRM common production date
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Rifle (TK Assault)
+</Primary>
+
+<Secondary>
+InfantryLRM
+</Secondary>
+

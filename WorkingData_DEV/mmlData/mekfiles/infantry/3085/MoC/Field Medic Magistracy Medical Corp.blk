@@ -1,0 +1,85 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b663-77d7-8a85-e53956bb25be
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Field Medic
+</Name>
+
+<Model>
+Magistracy Medical Corp
+</Model>
+
+<mul id:>
+1062
+</mul id:>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Magistracy of Canopus Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Magistracy Medical Corps is the one area where the Canopian military is unambiguously superior to its Inner Sphere counterparts. Operating under the belief that every warrior is worth saving, the MMC maintains a ratio of roughly one medical specialist for every seven fighting troops, compared to one in twenty or worse in most other armed forces. Field Medic squads drawn from the MMC deploy as seven-person paramedic teams armed with Federated Long rifles for self-defense, though their primary mission is battlefield casualty recovery rather than direct combat. Equipped with advanced trauma gear, these medics can stabilize wounded soldiers and return them to fighting condition far faster than evacuation to a field hospital would allow. Properly utilized, a single medic squad attached to a frontline formation can change the flow of a battle by keeping soldiers in the fight who would otherwise be lost to their units for days or weeks. The MMC's generous funding and long tradition of medical excellence reflect the Magistracy's pragmatic recognition that replacing trained soldiers is far more expensive than saving them.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+1
+</squadn>
+
+<Primary>
+Rifle (Federated Long)
+</Primary>
+

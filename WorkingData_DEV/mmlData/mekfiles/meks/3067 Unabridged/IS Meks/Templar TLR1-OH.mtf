@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ce07-7eae-a597-6e90505c671e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Templar
+model:TLR1-OH
+mul id:5711
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3080
+source:TR:J
+published:RS:3067u
+rules level:3
+role:Brawler
+
+quirk:easy_maintain
+
+mass:85
+engine:340 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:13 IS Double
+base chassis heat sinks:13
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:28
+RA armor:28
+LT armor:26
+RT armor:26
+CT armor:44
+HD armor:9
+LL armor:36
+RL armor:36
+RTL armor:10
+RTR armor:10
+RTC armor:10
+
+Weapons:5
+MRM 30, Left Arm
+MRM 30, Right Arm
+ER Flamer, Right Arm
+Light PPC, Left Torso
+Light PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+MRM 30 (OMNIPOD)
+MRM 30 (OMNIPOD)
+MRM 30 (OMNIPOD)
+MRM 30 (OMNIPOD)
+MRM 30 (OMNIPOD)
+ISApollo (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+MRM 30 (OMNIPOD)
+MRM 30 (OMNIPOD)
+MRM 30 (OMNIPOD)
+MRM 30 (OMNIPOD)
+MRM 30 (OMNIPOD)
+ISApollo (OMNIPOD)
+ER Flamer (OMNIPOD)
+IS Endo Steel
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+Light PPC (OMNIPOD)
+Light PPC (OMNIPOD)
+ISTargeting Computer (OMNIPOD)
+ISTargeting Computer (OMNIPOD)
+ISC3SlaveUnit (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Light PPC (OMNIPOD)
+Light PPC (OMNIPOD)
+IS MRM 30 Ammo (OMNIPOD)
+IS MRM 30 Ammo (OMNIPOD)
+IS MRM 30 Ammo (OMNIPOD)
+IS MRM 30 Ammo (OMNIPOD)
+ISCASE
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Templar was the first unique Federated Suns OmniMech, an eighty-five ton assault design produced by Kallon Industries and introduced in 3062. Commissioned to address the Federated Suns' lack of an indigenous OmniMech design, the Templar was intended to replace aging designs like the Awesome and Victor in frontline units.</p><p>Built around proven off-the-shelf components to reduce costs and speed development, the design offered a generous forty tons of pod space for mission-specific configurations, establishing itself as a powerful and versatile command platform for AFFS assault formations. Though production was eventually disrupted, the Templar proved durable enough to remain in active service well beyond its original production run.</p>
+
+capabilities:<p>The Templar is built on a lightweight Kallon Type XIX Endo Steel chassis and powered by a KalTek 340 Extralight engine, achieving a respectable top speed of sixty-four kilometers per hour for its weight class. Sixteen and a half tons of Starshield A armor provide excellent protection, while CASE in the right torso mitigates ammunition explosion risks. Thirteen fixed double heat sinks manage the baseline thermal load, leaving the full forty tons of pod space available for weapons and equipment.</p><p>The primary configuration emphasizes multi-range engagement capability. A Gauss rifle provides devastating long-range firepower, while a large pulse laser, medium pulse laser, and two extended-range medium lasers deliver punishing damage at closer distances. A Streak SRM-4 launcher exploits armor breaches, and an advanced targeting computer links the Gauss rifle and all lasers for enhanced accuracy. This combination makes the Prime an effective battlefield command platform capable of engaging threats at virtually any range.</p><p>The Templar's primary vulnerability lies in its reliance on an Extralight engine, which leaves it susceptible to destruction from torso penetration. However, the design philosophy accepted this trade-off to maximize the available pod space, giving field commanders exceptional flexibility in tailoring the 'Mech to specific mission requirements.</p>
+
+deployment:<p>Alternate Configuration H combines missile and energy firepower with networking capability, carrying an MRM-30 launcher with Apollo Fire Control System in each arm for devastating medium-range salvos. A pair of Light PPCs and an ER Flamer round out the weapons suite, with a targeting computer enhancing energy weapon accuracy. A C3 slave unit provides data-sharing capability, and four jump jets grant the mobility to maintain effective engagement ranges.</p>
+
+history:<p>The Templar's origins trace directly to the political tensions within the Federated Commonwealth following the Great Refusal in 3060. While both Archon-Prince Victor Steiner-Davion and his sister Archon Katrina dismissed calls for OmniMech development on economic grounds, Field Marshal Duke George Hasek of the Capellan March took matters into his own hands. Hasek directly commissioned Kallon Industries on Talon, a moon of Wernke, to develop the design, backing the project with his own considerable personal fortune. The resulting 'Mech entered production in 3062, just as the FedCom Civil War was erupting.</p><p>With House Hasek as the driving force behind its creation, the Templar's initial distribution was heavily weighted toward Capellan March formations. The first units off Kallon's production lines were routed to the Syrtis Fusiliers, with subsequent production runs reaching units such as the Federated Suns Armored Cavalry and the Davion Assault Guards. Throughout the Civil War, Hasek's loyalists ensured these powerful OmniMechs were directed exclusively to units opposing Archon Katrina, especially excluding Loyalist commands from receiving any. The Twenty-Second Avalon Hussars received several during their defense of Talon, though this alone proved insufficient to secure victory.</p><p>The Word of Blake Jihad dealt a catastrophic blow to the Templar program when the Kallon Industries factory on Talon was vaporized, halting all production. The design's intended rise as a flagship AFFS assault 'Mech was set back by decades. General Motors, having obtained access to the Templar's design data through Operation MUSE RED, eventually established production on New Valencia, though they chose to develop a modernized successor rather than restart the original line.</p><p>During the Republic era, the Republic Institute of Strategic Combat developed the experimental ORISC configuration, fitting stored Templar chassis with RISC Repeating TSEMP weapons and other volatile experimental technology. The Republic of the Sphere and its wartime Exarch deployed these in false-flag operations under AFFS colors against the Capellan Confederation and Draconis Combine. When Julian Davion visited Terra in 3146, nearly all stored ORISC equipment packages were included in supplies provided to the AFFS, where they saw continued use until every piece of the experimental gear was destroyed through combat, wear, or self-detonation by the end of the 3140s.</p><p>Despite the loss of its original production line, surviving Templars remained in AFFS service throughout the Dark Age and into the ilClan era, valued for their durability, flexibility, and the Easy to Maintain quirk that kept aging chassis operational far beyond their expected service life. The Blessed Order's revived First Division also operated a modified configuration, the BLO variant, incorporating improved C3 networking to coordinate their reformed ComStar forces.</p>
+
+manufacturer:Kallon Weapon Industries|General Motors
+
+primaryfactory:Talon (Wernke)|New Valencia
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Kallon
+systemmode:CHASSIS:Type XIX Endo Steel
+systemmanufacturer:ENGINE:KalTek
+systemmode:ENGINE:340 Extralight
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:A with CASE
+systemmanufacturer:COMMUNICATIONS:Newberg
+systemmode:COMMUNICATIONS:Telescan 17
+systemmanufacturer:TARGETING:Spar
+systemmode:TARGETING:3C MegaTrak

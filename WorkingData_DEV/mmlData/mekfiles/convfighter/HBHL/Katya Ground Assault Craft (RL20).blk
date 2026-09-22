@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa16-7e25-b3c4-c9e992d8c603
+</UUID>
+
+<UnitType>
+ConvFighter
+</UnitType>
+
+<Name>
+Katya Ground Assault Craft
+</Name>
+
+<Model>
+C-905(RL20)
+</Model>
+
+<mul id:>
+4438
+</mul id:>
+
+<year>
+3067
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+320
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+10
+5
+5
+4
+</armor>
+
+<Nose Equipment>
+Light Machine Gun
+Light Machine Gun
+RL10
+RL10
+</Nose Equipment>
+
+<Left Wing Equipment>
+RL20
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+RL20
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Light Machine Gun Ammo - Half
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Katya shares many components with the Guardian by deliberate design. Despite the Guardian's weaknesses, a large logistical network already existed to support the Mujika airframe, and Ceres exploited this by ensuring parts commonality. At thirty tons, the Katya matches the Guardian in speed but vastly exceeds it in first-strike firepower. A Rawlings air turbine powers the craft, while the limited armor, frame, and electronics mirror the Guardian's specifications, with software upgrades bringing existing Guardian simulators in line with the Katya's performance characteristics.</p><p>Ceres engineers designed the Katya as a single-pass ground-strike fighter. Centuries of Succession Wars data proved that lightly armored aircraft lingering over battlefields tend to be destroyed, so the Katya was built with only two tons of fuel--short legs that discourage loitering. Four bundles of Cr-15 rockets beneath the wings deliver a tremendous volley normally directed at a single target during a strafing run. A dual-mount light machine gun bundle in the nose provides defensive firepower, useful for deterring enemy sappers and strafing soft targets around Capellan airfields.</p>
+</capabilities>
+
+<overview>
+<p>The reintegration of the St. Ives Commonality returned aerospace manufacturer Mujika Aerospace to the Capellan Confederation. Mujika had long produced the Guardian fighter-bomber but was on the brink of selling the molds and manufactories for the airframe in 3063 as unprofitable. When representatives from Ceres Metals approached Mujika with a request to license the Guardian's airframe components, Mujika sold an inexpensive license agreement and began dismantling its own production lines. Ceres had little interest in the Guardian itself--only in its components. In 3064, the first new airframe took flight at an air show on Capella, displaying the Katya ground assault craft, a strike fighter designed for defensive missions against invading armies.</p>
+</overview>
+
+<deployment>
+<p>Ceres began standard production at Tikonov and Capella. Tikonov's lines fulfill the Strategios' evaluation program, while Capella's output is marketed to the Confederation's Trinity allies and affiliated mercenary commands. The Concordat and Magistracy have expressed guarded interest, though both realms deploy competing home-grown aircraft. Within the Confederation, an entire wing was dispatched to Liao for evaluation by the Hell's Black Aces, and evaluation squadrons have been distributed to every Home Guard unit in Confederation space.</p>
+</deployment>
+
+<history>
+<p>The Strategios immediately recognized the logistical value of a fighter built on the Guardian's component base and ordered several hundred airframes for distribution across the Confederation in test packets. The Ministry of the Military's standing orders regarding the Katya were to "break in the aircraft, including breaking the aircraft" to test its hardiness--and the design stood up to the punishment admirably.</p><p>The Capella Home Guard began testing alternate configurations: the C-905 mounts two Cr-20 pods in place of the standard four Cr-15s for heavier single-target strikes, while the C-906 carries eight Cr-10s for wider area saturation. Though the design team believed the Cr-15 offered the best compromise of firepower and flexibility, the Home Guard continued shaking out both variants in field exercises. Ceres Metals' third-quarter financial report mentioned preliminary design work on a dedicated long-range strike fighter variant, suggesting that the Katya platform had further room for development well beyond its original ground-attack role.</p>
+</history>
+
+<systemManufacturers>
+CHASSIS:Mujika Aerospace
+ENGINE:Rawlings
+ARMOR:Mujika
+COMMUNICATIONS:Duoteck
+TARGETING:Radcom
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Type 4.1
+ENGINE:210 Air Turbine
+ARMOR:AeroShell Light
+COMMUNICATIONS:20
+TARGETING:T5
+</systemModels>
+
+<source>
+HB:HL
+</source>
+
+<published>
+HB:HL
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

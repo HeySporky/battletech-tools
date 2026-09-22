@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c9e5-7f8f-9130-dd360f541c29
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Excalibur
+model:EXC-B2
+mul id:998
+
+Config:Biped
+techbase:Inner Sphere
+era:2620
+source:TR:3058U,TR:SW
+published:RS:SW,RSFP:SLDF3
+rules level:2
+role:Skirmisher
+
+quirk:vestigial_hands_la
+quirk:vestigial_hands_ra
+
+mass:70
+engine:350 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:11 Single
+walk mp:5
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:13
+RA armor:13
+LT armor:14
+RT armor:14
+CT armor:16
+HD armor:9
+LL armor:13
+RL armor:13
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:3
+Gauss Rifle, Right Arm
+LRM 20, Left Torso
+Anti-Missile System, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 20
+LRM 20
+LRM 20
+LRM 20
+LRM 20
+ISArtemisIV
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+ISCASE
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Gauss Ammo
+IS Gauss Ammo
+ISCASE
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAntiMissileSystem
+ISAMS Ammo
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Excalibur is a seventy-ton heavy BattleMech introduced in 2620 by Yankee Weapons Systems for the Star League Defense Force. Designed to deliver devastating long-range firepower while maintaining impressive mobility for its weight class, the Excalibur earned its name from the distinctive appearance of its right arm, which gave the 'Mech the silhouette of a medieval knight bearing a sword. The design served with distinction during the Star League era, though its light armor protection drew persistent criticism from field commanders.</p><p>The Excalibur was rare in the Inner Sphere for centuries following the fall of the Star League, with most surviving examples departing with General Kerensky's Exodus fleet. The chassis experienced a notable revival in 3058 when Yankee Weapons Systems reopened production on New Earth, making the design available for purchase for the first time in centuries.</p>
+
+capabilities:<p>The Excalibur is built around a Ford 350 XL engine that propels the seventy-ton frame to an impressive top speed of 86.4 kilometers per hour, making it one of the fastest 'Mechs in its weight class. This speed is central to its combat doctrine, as the design carries only seven and a half tons of Pribak 9000 armor, a deliberate trade-off that has drawn consistent criticism since the chassis first entered service. CASE protection in both side torsos provides a measure of survivability against ammunition detonation, though the thin armor remains a significant vulnerability in sustained engagements.</p><p>The Excalibur's primary weapon is a Grizzard Model 200 Gauss rifle mounted in the right arm, capable of delivering devastating hits at ranges exceeding six hundred meters. An Ingrid Systems LRM-20 with Artemis IV fire control provides supplementary long-range firepower with enhanced accuracy. A McArthur anti-missile system rounds out the defensive package, offering some protection against incoming missile salvos. The design's philosophy emphasizes hit-and-run tactics, using its speed to maintain optimal engagement ranges and withdraw before enemies can close to exploit its armor deficiency. Yankee Weapons counters persistent criticism of the thin armor by pointing out that close combat was never the Excalibur's intended role.</p>
+
+deployment:<p>The definitive production model of the Excalibur, this variant incorporates CASE protection in both side torsos to address the ammunition vulnerability identified in the B1 prototype. First entering SLDF service in 2620, this variant served as the backbone of Excalibur deployments throughout the Star League era and the Reunification War. The Com Guards maintained a small number of cached B2 models through the Succession Wars, and production resumed on New Earth in 3058 under Yankee Weapons Systems, providing the Lyran Commonwealth Armed Forces with a steady supply of newly manufactured units until the Jihad disrupted operations.</p>
+
+history:<p>The Excalibur's origins trace to the early twenty-seventh century, when Yankee Weapons Systems developed the design for the Star League Defense Force. The original EXC-B1 prototype served as the basis for the production EXC-B2 that entered service in 2620. The 'Mech proved its worth during Operation Smother and throughout the Second Hidden War, demonstrating the effectiveness of its long-range engagement doctrine. During the Amaris Civil War, Excalibur pilots earned the derisive nickname "Streakers" from their consistent reliance on hit-and-run tactics and refusal to engage in stand-up fights, a reflection of the design's acknowledged armor limitations rather than any failing in its combat effectiveness.</p><p>When General Kerensky led the Exodus from the Inner Sphere, the bulk of surviving Excaliburs went with him, particularly those serving with the 328th Royal BattleMech Division. The handful that remained were cached by ComStar, emerging centuries later in the hands of the Com Guards. A small number also found their way to the eccentric mercenary command Snord's Irregulars, and its successor unit Rhonda's Irregulars, who fielded the rare 'Mechs alongside other Star League-era relics. Clan Wolf's possession of Excaliburs from the Exodus fleet led to the development of the Early Clan refit during the Golden Century, producing some of the coolest-running heavy 'Mechs in Clan space.</p><p>The Excalibur's fortunes changed dramatically in 3058 when Yankee Weapons Systems opened a new production facility on New Earth. Although the company was headquartered on Terra, the New Earth plant operated within Lyran space and began supplying the Lyran Commonwealth Armed Forces with newly manufactured Excaliburs. This arrangement endured until the Word of Blake Jihad disrupted production across the Inner Sphere. The New Earth facility fell under Word of Blake control before being likely destroyed during Operation SCOUR, when the campaign to liberate the planet proved particularly devastating.</p><p>The Jihad era saw the Excalibur adapted by multiple factions for different doctrines. Skobel MechWorks on Terra produced the radical EXC-D1 for the Word of Blake Militia, while Independence Weaponry on Quentin developed the EXC-CS for ComStar and the Draconis Combine Mustered Soldiery. In the post-Jihad era, Skobel restored limited production of the Royal-specification EXC-B2b for the Republic Armed Forces. The Republic Institute of Strategic Combat's partnership with Skobel later produced an experimental prototype incorporating cutting-edge stealth and cooling technologies, though this design was lost during the Battle of Terra in 3151.</p>
+
+manufacturer:Yankee Weapons Systems|Yankee Weapons Systems
+
+primaryfactory:Terra|New Earth
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Corbine
+systemmode:CHASSIS:1
+systemmanufacturer:ENGINE:Ford
+systemmode:ENGINE:350 XL
+systemmanufacturer:ARMOR:Pribak
+systemmode:ARMOR:9000 with CASE
+systemmanufacturer:COMMUNICATIONS:Faulk
+systemmode:COMMUNICATIONS:203 Comset
+systemmanufacturer:TARGETING:KBC
+systemmode:TARGETING:Starsight Model QTA1

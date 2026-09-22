@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-db66-7bb6-af1b-0e0320fb5d8f
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hellhound II-P
+clanname:Hellcat-P
+model:
+mul id:9430
+
+Config:Biped
+techbase:Clan
+era:3065
+source:RG30
+published:RG30
+rules level:2
+role:Skirmisher
+
+quirk:ext_twist
+quirk:difficult_maintain
+
+mass:50
+engine:250 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:14 Clan Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:14
+RA armor:14
+LT armor:19
+RT armor:19
+CT armor:23
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:4
+ER Large Laser, Left Arm
+LB 10-X AC, Right Arm
+SRM 6, Left Torso
+ER Large Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLERLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLLBXAC10
+CLLBXAC10
+CLLBXAC10
+CLLBXAC10
+CLLBXAC10
+Clan LB 10-X AC Ammo
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLSRM6
+Clan Ammo SRM-6
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERLargeLaser
+Clan LB 10-X Cluster Ammo
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hellhound II-P, known to the Inner Sphere as the Hellcat-P, represents the original prototype configuration of the Hellcat design as developed by Clan Jade Falcon in 3065. While the modernized Hellcat would later achieve broader production and recognition, the prototype variant was the first to see combat and established the design's fundamental combat characteristics.</p><p>The Hellcat-P differs from its successor primarily in its power plant, mounting a smaller 250-rated extra-light engine that reduces the design's top speed to 86.4 kilometers per hour. This limitation, a consequence of prototype-era engine availability, relegated the Hellcat-P to secondary roles once the improved production model entered service. Despite its reduced performance, the prototype variant has continued to see limited deployment in solahma and garrison formations where its formidable firepower remains relevant even if its mobility does not meet frontline standards.</p>
+
+capabilities:<p>The Hellcat-P shares nearly identical armament and protection with its modernized counterpart, mounting the same combination of an LB 10-X autocannon, twin extended-range large lasers, and an SRM-6 rack on the same endo steel and ferro-fibrous chassis. Where the two designs diverge is in the power plant, the Hellcat-P mounts a 250-rated extra-light engine rather than the production model's 300-rated extra-extra-light design, resulting in a significant reduction in top speed from 97.2 kilometers per hour to 86.4 kilometers per hour.</p><p>This reduced speed fundamentally alters the design's tactical profile, transforming the Hellcat-P from an aggressive pursuit combatant into a more deliberate fire support platform. While the weapons suite remains fully capable of engaging targets at all ranges, the reduced mobility limits the pilot's ability to dictate engagement terms or disengage from unfavorable encounters. The use of an XL engine rather than the XXL variant does, however, provide marginally improved survivability against torso damage, a small consolation that some garrison commanders have learned to appreciate.</p><p>In all other respects, the Hellcat-P performs identically to the standard Hellcat, with the same armor coverage, ammunition capacity, and electronics suite providing capable if unspectacular performance in the defensive and garrison roles to which the prototype has been consigned.</p>
+
+deployment:<p>The original prototype Hellcat configuration, designated Hellhound II-P by Inner Sphere intelligence, entered service in 3065 as Clan Jade Falcon technicians worked to transform the acquired Nova Cat Conjurer 6 design into a viable production platform. The prototype mounts a 250-rated extra-light engine rather than the more advanced 300-rated extra-extra-light design of the production model, resulting in a significant reduction in top speed to approximately 80 kilometers per hour. This slower speed reflects the engineering realities of the prototype phase, when the Falcon engineers had not yet secured access to the more advanced power plant technology. All other aspects of the design (armament, armor, and electronic systems) remain identical to the production Hellcat, including the LB 10-X autocannon, twin extended-range large lasers, and SRM-6 launcher. Relegated primarily to solahma and garrison formations after the production Hellcat entered full manufacturing, the Hellcat-P still continues to serve in roles where its reduced speed is less of a tactical liability, providing useful combat capability for second-line forces that might otherwise lack modern equipment.</p>
+
+history:<p>The Hellcat-P was the first variant of the Hellcat design to enter service, constructed by Clan Jade Falcon technicians in 3065 as they worked to transform the Nova Cat Conjurer 6 into a viable combat platform. The prototype designation reflects the design's origin as a proof-of-concept, built with the engine technology available at the time rather than the more advanced power plant that Falcon engineers envisioned for the production model.</p><p>The Hellcat-P reportedly saw its first combat on New Exford, where it demonstrated the fundamental soundness of the reworked Conjurer chassis despite its speed limitations. The prototype's performance validated the Falcon technicians' design approach and provided the operational data needed to justify continued development toward the improved production model with its superior XXL engine.</p><p>Once the modernized Hellcat entered production with its 300-rated XXL engine, the prototype variants were rapidly relegated to secondary roles. Solahma units (garrison formations composed of aging or disgraced warriors) received the bulk of the remaining Hellcat-P inventory, where the design's formidable weapons suite still provided useful firepower even as its reduced mobility limited tactical flexibility. Some demand for the prototype variant persists among cost-conscious buyers, though discerning customers consistently prefer the improved production model when given the choice.</p>
+
+manufacturer:Kinetic Dynamics / Trellshire Heavy Industries
+
+primaryfactory:Graus
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Puma
+systemmode:CHASSIS:Puma Type Medium Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:250 XL
+systemmanufacturer:ARMOR:Alpha Plate
+systemmode:ARMOR:Alpha Plate Special Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:JNE
+systemmode:COMMUNICATIONS:JNE II Integrated
+systemmanufacturer:TARGETING:Build 4 CAT
+systemmode:TARGETING:Build 4 CAT Advanced TTS

@@ -1,0 +1,81 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bf7b-75ac-8f0c-35395e9e17f5
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Clan Mechanized Tracked Point
+</Name>
+
+<Model>
+(Rifle)
+</Model>
+
+<mul id:>
+627
+</mul id:>
+
+<year>
+2815
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<Troopers Equipment>
+Clan Armor Kit (All)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Clan mechanized tracked Points move five warriors in tracked APCs for all-terrain mechanized operations. Tracked vehicles handle the widest range of ground conditions, making these Points the most reliable mechanized infantry for garrison duty on worlds with varied or hostile terrain. Clan commanders assign tracked Points to sectors where wheeled or hover transport would struggle, and the armored carriers provide meaningful protection during transit. These formations anchor defensive positions and provide the mobile reserve that lighter Clan infantry elements lack.</p>
+</overview>
+
+<source>
+TW,TO:AUE
+</source>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+5
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+

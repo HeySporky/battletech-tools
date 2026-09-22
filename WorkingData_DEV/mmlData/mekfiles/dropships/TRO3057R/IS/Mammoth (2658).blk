@@ -1,0 +1,237 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab2b-7efe-952b-8c7bc8c305a8
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Mammoth
+</Name>
+
+<Model>
+(2658)
+</Model>
+
+<mul id:>
+4575
+</mul id:>
+
+<year>
+2658
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+smallcraftbay:4.0:4:1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:60.0:0:-1::-1:0
+crewquarters:203.0:0:-1::-1:0
+cargobay:7563.0:1:5::-1:0
+cargobay:7563.0:1:6::-1:0
+cargobay:7563.0:1:7::-1:0
+cargobay:7563.0:1:8::-1:0
+cargobay:7563.0:1:9::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+262
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+4200
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+80
+60
+60
+52
+</armor>
+
+<Nose Equipment>
+(B) ISERLargeLaser
+</Nose Equipment>
+
+<Left Side Equipment>
+(R) (B) ISERLargeLaser
+(R) Medium Laser
+(R) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(R) (B) ISERLargeLaser
+(R) Medium Laser
+(R) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Small Laser
+Small Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+20
+</structural_integrity>
+
+<capabilities>
+<p>The original Mammoth features five massive cargo decks, each holding slightly more than 7,000 tons of goods for a combined capacity approaching 38,000 tons. Two 300-ton cargo lifts link all five decks, enabling efficient redistribution of cargo throughout the vessel. The lowest deck contains a pair of enormous doors for planetary loading and unloading operations, while the second deck mounts four airlocks for orbital cargo transfer. Four small craft bays provide auxiliary transport and shuttle capability for the vessel's crew and cargo operations.</p><p>The Mammoth's most distinctive feature is its drive system. Rather than a single central engine, four separate Bally Tech Super X40 drive units are mounted externally on the hull, each connected via explosive bolts. These engine modules can be jettisoned or shut down in an emergency, though they must be ejected in pairs to avoid catastrophic thrust imbalance. Each drive pod contains a small internal control room for independent operation, though without attitude control or navigation systems, standalone use is impractical. This configuration frees additional internal volume for cargo at the expense of ironically cramped crew quarters, with thirty double-occupancy rooms for most of the crew and eight single rooms for senior officers. The vessel carries 21.5 tons of standard armor and 262 single heat sinks to support its defensive weapons.</p>
+</capabilities>
+
+<overview>
+<p>The Mammoth class is the largest DropShip capable of landing on a planet, serving as the backbone of bulk cargo transportation across the Inner Sphere since its introduction in 2658. Designed by Krester's Ship Construction as a massive spheroid freighter, the Mammoth dwarfs most other cargo carriers at 52,000 tons, hauling nearly 38,000 tons of goods across five enormous cargo decks. Few vessels of this scale are independently owned, with most belonging to large megacorporations or Successor State governments. Several states have modified Mammoths to serve as diatomic-hydrogen fuel tankers, while others act as fleet refueling vessels for extended operations.</p><p>The high operating and maintenance costs associated with a vessel of this immense size restrict the Mammoth's use to major trade routes between well-developed worlds, making it an uncommon but unmistakable sight wherever interstellar commerce flows at scale.</p>
+</overview>
+
+<deployment>
+<p>The original Mammoth entered service with the Star League's largest commercial shipping concerns and military logistics commands, plying the major trade routes between the most prosperous worlds of the Inner Sphere. The Star League Defense Force operated a significant fleet for strategic supply operations, while several Successor States employed modified versions as diatomic-hydrogen fuel tankers to support extended fleet operations far from established refueling infrastructure. The vessel's enormous size restricted its use to only the wealthiest operators, ensuring that the sight of a Mammoth in orbit signaled the presence of serious commercial or military investment.</p>
+</deployment>
+
+<history>
+<p>Krester's Ship Construction introduced the Mammoth class in 2658 during the height of the Star League era, when expanding interstellar commerce demanded bulk cargo carriers of unprecedented capacity. The design proved immediately successful, with its massive cargo capacity and innovative drive system attracting contracts from the largest trading concerns and military logistics commands in the Inner Sphere. The original design was eventually sold to foreign customers, ensuring that production continued at multiple facilities even after Krester's Ship Construction itself ceased operations.</p><p>When the Star League collapsed, the Mammoth's sophisticated engineering became both a blessing and a curse. The vessel's sheer cargo capacity remained irreplaceable for bulk transport operations, but the complexity of its quad-engine drive system and advanced components made maintenance increasingly difficult as the Succession Wars eroded the Inner Sphere's technological base. Spare parts grew scarce, and operators frequently cannibalized damaged vessels to keep others flying, steadily reducing the total number in service throughout the First and Second Succession Wars.</p><p>By the late Succession Wars era, the surviving Mammoth fleet had stabilized as manufacturers adapted production methods to work within available technological capabilities. A revised model introduced around 2808 incorporated adjustments to accommodate the declining industrial base while preserving the vessel's essential cargo capacity. Production was maintained at facilities operated by Federated-Boeing Interstellar, Kathil Shipworks, Tengo Aerospace, and others across the Inner Sphere, ensuring that the Mammoth remained available to those organizations wealthy enough to operate one.</p><p>Throughout all eras, the Mammoth's role has remained consistent: moving massive quantities of goods between major trade worlds. Modified variants serving as fuel tankers have proved equally valuable, providing critical refueling capability for military fleets operating far from established supply lines. The vessel's enduring presence on every major trade route across the Inner Sphere stands as evidence of the soundness of its original design.</p>
+</history>
+
+<manufacturer>
+Deller, Bingham, and Fouts|Krester Ship Construction|Krester Ship Construction|Krester Ship Construction|Krester Ship Construction|Tengo Aerospace
+</manufacturer>
+
+<primaryFactory>
+Atreus (FWL)|Terra|Terra Firma|Thorin|Yorii|Sarna
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Bally Tech Super X40
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Cargo Carrier
+</use>
+
+<length>
+277 m
+</length>
+
+<width>
+277 m
+</width>
+
+<height>
+170.6 m
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+52000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+55
+</crew>
+
+<officers>
+6
+</officers>
+
+<gunners>
+2
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+6
+</escape_pod>
+

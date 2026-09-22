@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e961-7989-ba12-f537db5b008e
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Kalki Cruise Missile Launcher
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4416
+</mul id:>
+
+<year>
+3079
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+20
+16
+16
+16
+16
+16
+12
+</armor>
+
+<Body Equipment>
+ISMagshotGR Ammo
+ISCruiseMissile50Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISCruiseMissile50
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISMagshotGR
+ISMagshotGR
+</Turret Equipment>
+
+<capabilities>
+<p>The production Kalki mounts a single Excelsior I Cruise Missile/50 launcher as its primary weapon, capable of delivering devastating area bombardment at extreme range. Each missile weighs roughly as much as a light BattleMech, and the vehicle carries only a single reload. This severe ammunition limitation means the Kalki must be externally resupplied after every second shot, requiring dedicated logistics support that complicates field deployment. A Locom 300 fuel cell powerplant keeps costs manageable but limits the vehicle to a crawling top speed, effectively excluding it from mobile formations.</p><p>Seven tons of StarSlab/7 armor provides reasonable protection, though the vehicle's massive 150-ton hull means coverage is spread thin across all facings. Two Federated-Barrett Magshot Gauss Rifles offer minimal self-defense against infantry or light vehicles. The JoLex Systems communications suite and StratSight v.9 targeting system provide the precision needed for cruise missile delivery. The Kalki's principal strengths lie in the sheer destructive power and morale impact of its payload, while its slow speed, limited ammunition, and thin relative armor represent significant tactical vulnerabilities that require careful mission planning and dedicated escort forces.</p>
+</capabilities>
+
+<overview>
+<p>The Kalki Cruise Missile Launcher is a superheavy tracked vehicle designed by Kallon Industries to deploy cruise missile artillery from a mobile ground platform. Named for the Hindu deity, the 150-ton Kalki represents one of the very few successful attempts to field these massive weapons outside of DropShip or fixed installations. Cruise missiles are enormous unguided artillery weapons derived from Arrow IV technology, capable of devastating area bombardment at extreme range. The sheer destructive power and psychological impact of these weapons prompted intense competition among Federated Suns defense contractors when the AFFS revived research into the technology in the 3060s. Kallon Industries was the first company to field a working prototype, and the production model entered service in 3079 after a complete redesign of the original experimental concept.</p>
+</overview>
+
+<deployment>
+<p>The production Kalki operates exclusively within the Armed Forces of the Federated Suns, manufactured at the Kallon Industries facility on Kirklin. The AFFS High Command has restricted the vehicle to premier combat formations since accepting delivery in 3079, denying repeated requests from mercenary commands. Commanders who receive the Kalki often struggle with its operational limitations, frequently waiting for the perfect moment to deploy its devastating payload rather than acting on available opportunities.</p>
+</deployment>
+
+<history>
+<p>Cruise missile technology had been abandoned for centuries before the Armed Forces of the Federated Suns revived research in 3065. These weapons deliver devastating area destruction and profound psychological impact on enemy formations, but their sheer size, with individual missiles weighing as much as a Commando BattleMech, made integration into conventional ground vehicles an enormous engineering challenge.</p><p>Kallon Industries began the original Kalki project in 3068 using a modified SturmFeur chassis, but the experimental prototype suffered from critical engineering failures and was shelved in the early 3070s. By the late 3070s, Kallon restarted the program with a completely redesigned 150-ton vehicle that shared components with the SturmFeur but featured a purpose-built chassis and a fuel cell powerplant. The AFFS accepted delivery in 3079 and has since maintained exclusive control over the weapon system. Mercenary commands, particularly the Illician Lancers and Vegan Rangers, have repeatedly requested access, but the AFFS High Command has tightly restricted deployment to its premier formations.</p>
+</history>
+
+<manufacturer>
+Kallon Industries
+</manufacturer>
+
+<primaryFactory>
+Kirklin
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Locom
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:JoLex Systems
+TARGETING:StratSight
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:300 Fuel Cell
+ARMOR:StarSlab/7
+COMMUNICATIONS:Unknown
+TARGETING:v.9
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<published>
+RS:Proto
+</published>
+
+<tonnage>
+150.0
+</tonnage>
+

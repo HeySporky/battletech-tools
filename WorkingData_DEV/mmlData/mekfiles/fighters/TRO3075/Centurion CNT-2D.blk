@@ -1,0 +1,172 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aef9-70eb-a580-f695bceeb231
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Centurion
+</Name>
+
+<Model>
+CNT-2D
+</Model>
+
+<mul id:>
+3926
+</mul id:>
+
+<year>
+2837
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Interceptor
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+10
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+240
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+32
+18
+18
+20
+</armor>
+
+<Nose Equipment>
+Medium Laser
+SRM 6
+</Nose Equipment>
+
+<Left Wing Equipment>
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo SRM-6
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Centurion's design philosophy emphasizes endurance and simplicity over sophisticated electronics or heavy ordnance. Three Maxell medium lasers provide its entire offensive capability, with one mounted in the nose and one under each wing. This all-energy armament eliminates ammunition dependency, allowing the fighter to remain on station for extended patrols and strafing runs without concern for supply lines. Seven and a half tons of Rander Special armor, rated to BattleMech-grade specifications, give the Centurion impressive survivability for its weight class.</p><p>A Pitban 240 fusion engine drives the Lockheed/CBM 120 airframe, providing adequate thrust for both interception and ground-support duties. The Lockheed/CBM Comset86b communications system and Rander TA2 targeting and tracking system offer reliable if unremarkable performance, consistent with the design's role as a workhorse rather than a technological showcase. Ten single heat sinks manage the thermal load from the laser array. While the Centurion lacks the advanced electronics and redundant systems found on later designs, its straightforward engineering makes it easy to maintain and repair under field conditions.</p>
+</capabilities>
+
+<overview>
+<p>The Centurion is the first domestically produced aerospace fighter developed by the Federated Suns, debuting from Jalastar Aerospace on Panpour in 2473. Inspired by the Terran Hegemony's advances in fighter technology, Federated Suns planners prioritized speed and survivability over raw firepower when designing this thirty-ton light fighter. Intended to outmaneuver anything it could not outgun, the Centurion proved equally capable in space and atmospheric operations, earning immediate favor with the Armed Forces of the Federated Suns. Though long overshadowed by more modern designs, the fighter's simple construction and rugged frame ensured centuries of continuous service. Licensed production eventually expanded to the Lyran Commonwealth and the Deep Periphery, giving the Centurion a geographic reach that few light fighters of its vintage can match.</p>
+</overview>
+
+<deployment>
+<p>The CNT-2D is a short-range interceptor prototype that saw only limited production. This variant adds a six-tube short-range missile rack at the cost of reduced armor coverage and diminished fuel reserves. Intended to give the Centurion a more aggressive close-combat punch, the 2D trades the baseline model's operational endurance for burst damage potential. The small production run limited the variant's overall impact on the fighter's service record.</p>
+</deployment>
+
+<history>
+<p>The Centurion entered service during the early days of the Federated Suns aerospace program, when armed JumpShips and shuttles still represented the primary means of space combat. The Federated Suns developed the fighter as an answer to the Terran Hegemony's growing aerospace advantage, launching a crash program that produced the primitive CNT-1A prototype in 2430. This initial version utilized bulky cockpit systems, an inefficient engine, and inferior armor, but proved the concept sound. Jalastar Aerospace refined the design into the production CNT-1D in 2473, incorporating modern components that dramatically improved performance.</p><p>The Centurion served as the premier Federated Suns light fighter until the nation began acquiring Sparrowhawk production lines toward the end of the Star League era. The more advanced Sparrowhawk's superior electronics and damage tolerance quickly displaced the Centurion from frontline service, relegating it to local militia forces. With the Federated Suns government's permission, Jalastar traded the Centurion's specifications to Lockheed/CBM Corporation in exchange for those of the Sabre, and the Panpour production line was permanently closed in 3000.</p><p>Lockheed/CBM modernized the fighter's airframe and communications systems, continuing production on Donegal within the Lyran Commonwealth. The design also found a second life in the Deep Periphery, where Bordello Military Goods on Antwerp began manufacturing the CNT-1D for the Hanseatic League's security forces. Following the Hanseatic Crusade and the Scorpion Empire's absorption of the League in 3141, production continued under new management. During the Jihad, Lockheed/CBM developed the upgraded CNT-3S variant as a dedicated ground-support platform, though initial output was disrupted when Blakist forces seized the Donegal facility. Production resumed following liberation of the system, with shipments directed to Lyran forces and Stone's anti-Blakist coalition.</p>
+</history>
+
+<manufacturer>
+Jalastar Aerospace
+</manufacturer>
+
+<primaryFactory>
+Panpour
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Lockheed/CBM
+ENGINE:Pitban
+ARMOR:Rander
+COMMUNICATIONS:Lockheed/CBM
+TARGETING:Rander
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:120
+ENGINE:240
+ARMOR:Special
+COMMUNICATIONS:Comset86b
+TARGETING:TA2
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

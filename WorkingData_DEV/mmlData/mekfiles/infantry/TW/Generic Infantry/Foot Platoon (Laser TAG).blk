@@ -1,0 +1,85 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bfd6-7b76-a958-7a6a163b1e71
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Platoon
+</Name>
+
+<Model>
+(Laser TAG)
+</Model>
+
+<year>
+3055
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Flak, Standard
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>TAG spotter platoons carry Target Acquisition Gear alongside laser rifles, designating targets with a laser for guided munitions delivered by artillery, aerospace, or missile-equipped units. The TAG operators replace standard support weapon troops, trading direct firepower for the ability to call in precision strikes that extend the platoon's effective reach far beyond its organic weapons. Laser rifles give the remaining troops reliable personal arms while the TAG teams focus on target designation.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Laser Rifle (Marx XX)
+</Primary>
+
+<Secondary>
+InfantryTAG
+</Secondary>
+
+<specialization>
+1024
+</specialization>
+

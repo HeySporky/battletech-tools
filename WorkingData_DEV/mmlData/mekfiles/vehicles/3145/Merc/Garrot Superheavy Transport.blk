@@ -1,0 +1,175 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e80d-741d-9df4-785ddd6e44e4
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Garrot Superheavy Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6539
+</mul id:>
+
+<year>
+3100
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+easy_maintain
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+troopspace:1.0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+3
+</armor_tech_level>
+
+<armor>
+30
+20
+20
+14
+2
+18
+</armor>
+
+<Body Equipment>
+IS Light Machine Gun Ammo - Half
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<Turret Equipment>
+Light Machine Gun
+Light Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>The Garrot's primary value lies in its four lift-hoists, which allow it to externally carry up to sixty tons of cargo in sling loads, giving planetary militia formations a capable heavy-lift platform without the expense of dedicated military DropShip assets. Six and a half tons of Bulldog Lite Plate armor provides adequate protection against small arms fire and light shrapnel, consistent with a vehicle designed to operate behind the front lines rather than in direct contact with the enemy.</p><p>The EcoBust 10 ICE powerplant keeps production and maintenance costs low, though it limits top speed to 86 kilometers per hour, making the Garrot dangerously slow against any determined air threat or effective air defense network. A pair of Bulldog Light Machine Guns provides token self-defense capability against infantry and light vehicles, but these weapons were clearly an afterthought in the design. The Garrot can also carry a full infantry squad in a cramped interior compartment, adding limited troop transport utility to its logistics role. Its fundamental weakness is a near-total inability to defend itself against enemy aircraft, as its large frame and modest speed make it an easy target for anything heavier than small arms.</p>
+</capabilities>
+
+<overview>
+<p>The Garrot Superheavy Transport is a military conversion of Bulldog Enterprises' workhorse SkyStar Freight Helicopter, developed to meet a growing Republic of the Sphere demand for dedicated logistics support craft. Introduced in 3100 by Bulldog Enterprises on Proserpina, the Garrot shed the SkyStar's civilian cargo configuration in favor of military lift hardware and a minimal defensive armament. For over three decades it served as the backbone of Republic and planetary militia quartermaster operations, providing reliable rear-area resupply capability at a price that cash-strapped militia formations could afford. The widespread collapse of Republic authority scattered Garrots across dozens of factions and successor states, while the ubiquitous civilian SkyStar ensured that field-modified examples remained commonplace well into the ilClan era. Its simplicity and easy maintenance have kept it operationally relevant far beyond its original service life.</p>
+</overview>
+
+<deployment>
+<p>The Garrot serves as a rear-area logistics vehicle, operating from established supply depots to shuttle cargo, fuel, and ammunition to forward-deployed forces. Its combination of significant lift capacity and integral infantry transport has led unit commanders to employ it in near-combat applications well beyond pure resupply. Garrison and planetary militia formations throughout former Republic space rely heavily on the type, and its parts commonality with the civilian SkyStar simplifies maintenance in regions with limited military supply infrastructure.</p><p>Field commanders have discovered that the Garrot's lift capacity can be applied to improvised tasks, including rapid repositioning of artillery pieces and the movement of bulky equipment in terrain that would stop conventional ground transport. However, any commander deploying Garrots in contested airspace must account for their near-total vulnerability to opposing air assets. Operations in the Capellan invasion of Pleione in 3134 demonstrated the hazard clearly, when a militia flight of Garrots assigned to an unconventional mission was intercepted and destroyed by Capellan conventional fighters. The Garrot is most effective when friendly air superiority is assured or when operating in areas where enemy air threats are negligible.</p>
+</deployment>
+
+<history>
+<p>The Garrot emerged from a straightforward military requirement. The Republic of the Sphere, having adopted a deliberate policy of reduced standing forces and distributed planetary defense, found its militias chronically short of dedicated logistics support craft. Bulldog Enterprises, already producing the commercially successful SkyStar Freight Helicopter on Proserpina, proposed a military adaptation of the existing airframe. The Garrot differed from the SkyStar primarily in its reinforced lift-hoist assembly, military communications and targeting fit, and the addition of minimal defensive armament. Full production began in 3100, and the design spread rapidly through Republic formations over the following decade.</p><p>For over three decades the Garrot was considered one of the more successful procurement decisions of the early Republic era, quietly sustaining operations that more glamorous combat units depended on. Bulldog Enterprises expanded output to meet ongoing militia resupply contracts, and by the 3130s the type was present in virtually every planetary defense force within Republic space. Sales to foreign states and mercenaries were deliberately unrestricted, given the vehicle's limited combat potential, which further extended its reach beyond Republic borders.</p><p>The HPG network collapse and the subsequent fracturing of Republic authority proved disastrous for Garrot fleet integrity. As political control crumbled, large numbers of Garrots passed into the hands of splinter factions, successor state formations reoccupying former Republic worlds, and mercenary units. The widespread presence of the civilian SkyStar on dozens of worlds further complicated any attempt to track the type, as field conversions became increasingly common. Parts commonality between the Garrot and SkyStar made cross-maintenance routine, and the distinction between a military Garrot and a pressed SkyStar was frequently academic by the mid-Dark Age.</p><p>Proserpina itself reverted to Draconis Combine control during the Dark Age period, with Bulldog Enterprises continuing production under Combine oversight. The factory's output shifted toward fulfilling Combine logistics requirements, though the Garrot's open sales history and parts availability meant the type continued to see use across a broad spectrum of factions throughout the Dark Age and into the ilClan era.</p>
+</history>
+
+<manufacturer>
+Bulldog Enterprises
+</manufacturer>
+
+<primaryFactory>
+Proserpina
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Bulldog Enterprises
+ENGINE:Bulldog Enterprises
+ARMOR:Bulldog Enterprises
+COMMUNICATIONS:O/P
+TARGETING:O/P
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:EcoBust 10 ICE
+ARMOR:Lite Plate
+COMMUNICATIONS:R Janxiir
+TARGETING:100 Basic
+</systemModels>
+
+<source>
+TR:3145:Merc,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

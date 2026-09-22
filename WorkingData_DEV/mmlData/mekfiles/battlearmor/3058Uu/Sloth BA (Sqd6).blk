@@ -1,0 +1,154 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a344-77c0-a71a-25b31cb00aec
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Sloth Battle Armor
+</Name>
+
+<Model>
+(Sqd6)
+</Model>
+
+<mul id:>
+8950
+</mul id:>
+
+<year>
+3050
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+ISBASmallLaser:Body
+ISBASmallLaser:Body
+BAMineLauncher:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The Sloth mounts a pair of small lasers in fixed forward positions, providing reliable firepower across a ninety-degree firing arc. A pop-up mine launcher supplements the energy weapons, delivering explosive force comparable to a pair of short-range missiles at extremely close range. The suit carries 250 kilograms of standard armor, sufficient to absorb a direct medium laser hit while keeping the trooper alive.</p><p>The quadruped chassis offers a low profile that makes the Sloth harder to target than humanoid suits, and the four-legged base provides an exceptionally stable firing platform. These advantages come at a significant cost: the Sloth lacks any manipulators or battle claws, preventing troopers from carrying objects, grappling onto OmniMech handholds, or performing swarming attacks against BattleMechs. The suit is piloted more like a small vehicle than worn like traditional battle armor, a trade-off that grants stability at the expense of versatility.</p>
+</capabilities>
+
+<overview>
+<p>The Sloth was one of the first battle armor designs developed natively by the Inner Sphere. A team at the New Avalon Institute of Science, drawing on captured Clan technology, produced a heavy quadruped suit intended to serve as a mobile weapons platform capable of engaging enemy battle armor directly. Unlike the humanoid designs that would follow, the Sloth adopted a four-legged configuration more commonly associated with combat vehicles than powered infantry. Introduced in 3050 alongside its lighter companion, the Infiltrator, the Sloth earned a mixed reputation among field commanders. Its firepower and protection drew praise, but the unconventional design and its inherent limitations left many formations seeking alternatives as newer suits entered production.</p>
+</overview>
+
+<deployment>
+<p>ComStar and later the Word of Blake organized acquired Sloth suits into six-trooper Level I formations. The Com Guards integrated small numbers during the Clan Invasion era, employing them as static defensive positions where the quad chassis's stability and firepower compensated for its lack of mobility. Word of Blake Militia units inherited these formations and continued deploying them through the early Jihad.</p>
+</deployment>
+
+<history>
+<p>The Sloth was developed at the New Avalon Institute of Science by a predominantly Lyran design team. The program began after the 1st Somerset Strikers captured Clan Elemental data during a raid in the early stages of Operation REVIVAL. The Federated Commonwealth launched parallel development efforts, producing the lightweight Infiltrator scout suit alongside the heavier Sloth.</p><p>NAIS designers diverged from the Elemental's humanoid configuration, opting for a quadruped chassis that shared more in common with miniaturized combat vehicles than conventional battle armor. This approach simplified myomer integration and eliminated bipedal balance challenges, accelerating both development and pilot training.</p><p>The prototype underwent live-fire testing on Waldorff V, where a surprise Clan Jade Falcon attack produced the first recorded instance of an Inner Sphere battle armor trooper destroying an enemy BattleMech in combat. The Commonwealth approved the Sloth for full production in 3050.</p><p>Limited numbers deployed throughout the Federated Commonwealth, but the Federated Suns' high command never embraced the design. Production shifted to Lyran factories, and after the Lyran Alliance seceded in 3057, TharHes Industries continued building Sloths in limited quantities until the Fenrir replaced it around 3060. Surviving suits persisted in service with various formations, including mercenary commands. Later refits during the Jihad and Dark Age eras extended the chassis into specialized roles.</p>
+</history>
+
+<manufacturer>
+NAIS|TharHes Industries
+</manufacturer>
+
+<primaryFactory>
+New Avalon|Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<chassis>
+quad
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+5
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

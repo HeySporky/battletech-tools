@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e79b-7c73-82a1-fd0cf68ccc4c
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Aesir Medium AA Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6249
+</mul id:>
+
+<year>
+3097
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<quirks>
+anti_air
+</quirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+37
+36
+36
+37
+36
+</armor>
+
+<Body Equipment>
+Clan LB 2-X Cluster Ammo
+Clan LB 2-X Cluster Ammo
+CLArmoredMotiveSystem
+CLCASE
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLLBXAC2
+CLLBXAC2
+CLLBXAC2
+CLLBXAC2
+</Turret Equipment>
+
+<capabilities>
+<p>Too slow to participate in offensive operations or respond to rapidly developing threats, the Aesir instead excels as a static or semi-mobile air defense platform. A quartet of turret-mounted Type Sierra LB 2-X Autocannons provides long-range flak coverage capable of saturating a wide portion of airspace, with cluster munitions offering particular effectiveness against fast-moving aerospace targets. Two tons of ammunition supply adequate endurance for extended engagements without requiring frequent resupply.</p><p>Protection is substantial for a vehicle of its weight class, with nine and a half tons of Forging OTR20d ferro-fibrous armor supplemented by CASE to contain ammunition explosions and an Armored Motive System to protect the wheeled drive train from crippling mobility kills. The Omni 145 fusion engine provides only modest speed at fifty-four kilometers per hour, reinforcing the Aesir's role as a positional defender rather than a mobile combatant. The TRTTS Mark V AirTracker targeting and tracking system, though aging by current standards, remains effective at acquiring and tracking airborne contacts ranging from VTOLs to DropShips. A Build 1685 Tacticom communications suite rounds out the electronics package.</p>
+</capabilities>
+
+<overview>
+<p>Clan Wolf developed the Aesir medium anti-aircraft vehicle in the mid 3090s to address a growing need for dedicated air defense assets across their Inner Sphere occupation zone. Designed to bolster second-line garrison forces against airborne raiding threats, the Aesir serves as a slow but dependable mobile gun emplacement, typically deployed in full Stars to protect critical fixed installations. With the vehicle entering production at both Gienah Automotive and the W-7 Facilities on Weingarten, Clan Wolf ensured sufficient volume to distribute the platform across their garrison clusters. The design's straightforward construction and ammunition efficiency make it well suited to the defensive posture demanded of occupation zone units, where engagements are more likely to involve deterring fast-moving attackers than pursuing them.</p>
+</overview>
+
+<deployment>
+<p>The standard Aesir serves as the primary anti-aircraft platform in Clan Wolf and Wolf Empire garrison formations, where full Stars are typically assigned to defend installations, supply depots, and command centers against airborne raids. Its distribution expanded following the Exiled Wolves' acquisition of the production plans in 3101 and Clan Sea Fox's subsequent sale of vehicles to the Republic of the Sphere. The design's straightforward maintenance requirements and ammunition efficiency make it a preferred choice for second-line units that must sustain defensive operations with limited logistical support.</p>
+</deployment>
+
+<history>
+<p>The Aesir entered production in approximately 3097 at both the W-7 Facilities on Weingarten and Gienah Automotive on Gienah, providing Clan Wolf's garrison clusters with a purpose-built counter to the airborne raids that had increasingly threatened their occupation zone holdings. The design quickly drew attention from Clan Wolf-in-Exile, who staged a successful Trial of Possession for the Aesir's production plans and several completed vehicles on La Grave in 3101. Through subsequent dealings with Clan Sea Fox, the vehicle also found its way into Republic of the Sphere forces, broadening its distribution beyond purely Clan Wolf formations.</p><p>The Aesir's limitations were starkly exposed during a battle on Addicks in 3135, when the Wyld's Jokers regiment of Bannson's Raiders faced a battery of Spirit Cat Aesirs defending the outskirts of the spaceport city Neo Carthagia. While the Aesirs initially disrupted the Jokers' fighter wing from damaging the spaceport, the raiders exploited the vehicles' poor ground speed and weak anti-surface firepower by shifting their main force away from the defended zone and sending fast vehicles to sweep the positions. Most of the Aesirs were captured, and once the guns fell silent, a precisely timed aerospace strike drove off the remaining garrison units.</p><p>The vehicle proved far more effective in the defense of Sargasso in 3142, when the Jade Falcon Ninth Talon Cluster struck the world. A pair of Vandal fighters located the planetary command center on mountainous Sagres Island, but a Star of Aesirs attached to the Second Wolf Guards Cluster destroyed one Vandal and crippled the other before they could guide in follow-up strikes. Star Commander Kerrison directed the defenders across the island's rugged terrain, overlapping their fields of fire to devastate incoming Falcon fighters before repositioning to avoid being pinned down. The stalemate held until additional Ninth Talon fighters, freed by the collapse of resistance elsewhere on Sargasso, overwhelmed the defenders. A heavily damaged Falcon fighter broke through the screen and struck the command center directly, critically wounding Kerrison. Without his coordination the defense collapsed, leading to the surrender of the command post.</p><p>Production on Weingarten shifted hands when Clan Hell's Horses absorbed the world, with the W-7 Facilities ceasing base model production and instead tooling up for a Hell's Horses variant. Meanwhile, the Gienah facility passed to the Wolf Empire when Clan Wolf relocated rimward of the Lyran Commonwealth, ensuring continued production of the standard Aesir under the new political entity.</p>
+</history>
+
+<manufacturer>
+Gienah Automotive|W-7 Facilities
+</manufacturer>
+
+<primaryFactory>
+Gienah|Weingarten
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Omni
+ARMOR:Forging
+COMMUNICATIONS:Tacticom
+TARGETING:TRTTS
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:145
+ARMOR:OTR20d
+COMMUNICATIONS:Build 1685
+TARGETING:Mark V AirTracker
+</systemModels>
+
+<source>
+TR:3145:C,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+55.0
+</tonnage>
+

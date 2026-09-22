@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dc97-78b0-af98-7c11fb49c24e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Valkyrie
+model:VLK-QD
+mul id:3373
+
+Config:Biped
+techbase:Inner Sphere
+era:3049
+source:RG09,RGv1
+published:RSFP:Wave 1,RG09,RGv1
+rules level:2
+role:Missile Boat
+
+quirk:easy_maintain
+quirk:imp_com
+
+mass:30
+engine:150 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:12
+RT armor:12
+CT armor:16
+HD armor:9
+LL armor:14
+RL armor:14
+RTL armor:2
+RTR armor:2
+RTC armor:4
+
+Weapons:2
+Medium Pulse Laser, Right Arm
+LRM 10, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISMediumPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+LRM 10
+LRM 10
+ISArtemisIV
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Heat Sink
+Heat Sink
+IS Ammo LRM-10 Artemis-capable
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Valkyrie was originally planned for use by the Star League Defense Force, but production did not begin until 2787 due to legal disputes with Harvard Company, Inc., who claimed the design was a copy of the Wasp LAM. This delay meant the light BattleMech entered service after the fall of the Star League, during the First Succession War. Because all Corean Enterprises facilities producing the Valkyrie were located within Federated Suns space, the design became exclusive property of House Davion for centuries.</p><p>The Valkyrie filled a unique niche as a light fire-support 'Mech, replacing the lighter Wasp and Stinger designs in crack combat regiments. Its combination of long-range missile firepower and heavier armor earned it a fearsome reputation among enemy MechWarriors, who learned that once a Valkyrie attacks, "it stays with you until either you drop or it does."</p>
+
+capabilities:<p>The Valkyrie carries a Devastator Series-07 LRM-10 launcher as its primary weapon, an unusual choice for a light 'Mech that gives it striking power unmatched by most designs in its weight class. Though limited to only twelve reloads, roughly two minutes of continuous fire, the missile system allows Valkyrie pilots to engage targets at ranges where most light 'Mechs cannot respond effectively. A Sutel IX medium laser mounted in the right arm provides close-range backup, allowing the 'Mech to finish off targets softened by missile fire.</p><p>Eleven single heat sinks allow the Valkyrie to maintain a high rate of fire while jumping frequently without risking overheating. Five jump jets propel the 'Mech up to 150 meters at a time, compensating for its relatively modest top speed of 86.4 kilometers per hour. Six tons of armor, twice that carried by either the Wasp or Stinger, enables the Valkyrie to absorb punishment that would cripple lighter scouts.</p><p>This design philosophy sacrifices raw speed for staying power, making the Valkyrie most effective as a lance support element rather than a solo skirmisher. The flat potential damage curve means the 'Mech is equally dangerous at extended range or close quarters, and experienced pilots are often assigned to Valkyries in recognition of their value on the battlefield.</p>
+
+deployment:<p>Introduced in 3049 following the recovery of the Helm Memory Core, this variant serves as a careful optimization of the original design. The chassis was reengineered using Corean Model 101AA endo steel construction, and the armor was upgraded to ferro-fibrous with CASE protection for the ammunition bay. The medium laser was replaced with a Sutel Precision Line medium pulse laser for improved accuracy, while an Artemis IV fire control system was added to enhance the LRM-10's effectiveness. Despite the bulky endo steel structure precluding double heat sinks, this variant became an outstanding product of the lostech recovery era and remains a prized possession among MechWarriors who pilot it.</p>
+
+history:<p>Production of the Valkyrie began in 2787 at Corean Enterprises' automated facility on New Avalon, one of the few surviving fully-automated BattleMech factories from the Star League era. Despite the technological decline of the Succession Wars, the facility maintained a steady output of 130 units annually, reaching nearly 200 during the desperate fighting of the First Succession War. The design quickly became the standard light 'Mech of the Armed Forces of the Federated Suns, with every regiment and nearly every battalion fielding at least one Valkyrie.</p><p>Archon Katrina Steiner helped Defiance Industries strike a licensing deal with Corean during the alliance between their realms, expanding production to Hesperus II. However, the Fourth Succession War brought a significant setback when the Draconis Combine captured Marduk, home of Norse BattleMech Works and supplier of the Valkyrie's jump jets. Corean eventually resolved the shortage by switching to HildCo Interplanetary's Model 12 jump jets.</p><p>Following the formation of the Federated Commonwealth, the Valkyrie was selected as a standard light 'Mech for the unified military, and the discovery of the Helm Memory Core allowed NAIS to restore the New Avalon facility to its full Star League production capacity. The upgraded VLK-QD entered service in 3049, incorporating endo steel construction and improved electronics.</p><p>The FedCom Civil War devastated Davion light 'Mech forces, and Valkyrie production halted when HildCo ceased supplying jump jets after the St. Ives Compact fell to the Capellan Confederation. Vicore Industries provided a solution through secretly negotiated manufacturing rights for HildCo jump jets, leading to new production facilities on Demeter and upgraded variants reaching frontline units by July 3067. The Word of Blake occupation of New Avalon severely damaged the automated factory, which remained offline for more than a decade.</p><p>By the thirty-second century, the Valkyrie had spread throughout the Inner Sphere through battle losses and expanded licensing. Clan Wolf's capture of Stewart in 3134 led to the development of a mixed-technology Clan variant for solahma forces after a successful Trial of Possession against Clan Sea Fox on the moon of Clyde. The design remains emblematic of the Federated Suns, where Valkyries have protected critical commanders, including Regent Erik Sandoval-Groell during the fall of Palmyra in 3144, and turned the tide in desperate defensive actions across centuries of warfare.</p>
+
+manufacturer:Corean Enterprises|Defiance Industries
+
+primaryfactory:New Avalon|Hesperus II
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Corean
+systemmode:CHASSIS:Model 101AA Endo Steel
+systemmanufacturer:ENGINE:Omni
+systemmode:ENGINE:150
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Fibrous with CASE
+systemmanufacturer:JUMP_JET:HildCo Interplanetary
+systemmode:JUMP_JET:Model 12
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Lynx-shur
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Sync Tracker (39-42071) with Artemis IV

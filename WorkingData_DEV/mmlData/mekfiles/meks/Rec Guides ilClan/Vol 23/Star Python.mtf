@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dab5-7032-acd7-1d2e8018c646
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Star Python
+model:
+mul id:8413
+
+Config:Biped
+techbase:Clan
+era:3150
+source:RG23,RGv1
+published:RG23,RGv1
+rules level:3
+role:Scout
+
+
+mass:25
+engine:175 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:7
+jump mp:4
+
+armor:Reflective(Clan)
+LA armor:6
+RA armor:6
+LT armor:8
+RT armor:8
+CT armor:10
+HD armor:8
+LL armor:10
+RL armor:10
+RTL armor:2
+RTR armor:2
+RTC armor:2
+
+Weapons:6
+Improved Heavy Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Micro Laser, Left Arm
+Improved Heavy Medium Laser, Right Arm
+ER Micro Laser, Right Arm
+Anti-Missile System, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLImprovedMediumHeavyLaser
+CLImprovedMediumHeavyLaser
+CLERMediumLaser
+CLERMicroLaser
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLImprovedMediumHeavyLaser
+CLImprovedMediumHeavyLaser
+CLERMicroLaser
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+Jump Jet
+CLAntiMissileSystem
+CLAMS Ammo
+Clan Endo Steel
+Clan Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+Jump Jet
+Clan Endo Steel
+Clan Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+Clan Reflective
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Star Python is a fully Clan-tech derivative of the Nexus lineage, developed by the Scorpion Empire from recovered Word of Blake blueprints. In 3152, Imperial BattleMechs on Braunschweig began full-scale production of a 25-ton light 'Mech designed as a pack-hunting platform, named after an indigenous reptile on the planet Holdout known for its speed, powerful jaws, and relentless pursuit of prey.</p><p>That the Scorpion Empire would embrace a design whose lineage traces through the Word of Blake's Nexus and ComStar's Com Guards all the way back to the Rim Worlds Republic's despised Jackrabbit speaks to a profound pragmatism born of necessity. Decades of isolation and the looming threat of Homeworld Clan aggression have stripped away many traditional Clan stigmas within the Empire, and the Star Python's adoption into the Imperio Militar del Escorpion reflects this cultural shift.</p>
+
+capabilities:<p>The Star Python poses little individual threat to enemies of greater size or respectable armor, and the Scorpion Empire accordingly deploys the 'Mech in groups to compensate. Organized into Trinary-sized hunting packs trained in wolf-pack swarming tactics, the combined might of many Star Pythons delivers through synergy what each lacks individually. The design doubles as a fast scout, combining excellent speed with limited jump capability to fulfill reconnaissance roles between engagements.</p><p>Powered by the rugged Antwerp 175 standard fusion engine, the Star Python achieves a top speed of 118 kilometers per hour (comparable to the original Nexus) while four Rawlings 55 jump jets provide 120 meters of jumping capability. The weapons suite centers on two Series 33b Sting improved heavy medium lasers that deliver devastating close-range damage, supported by a Series 2d extended-range medium laser for engagements at longer distances. Two Scorpling Coherent extended-range micro lasers and a CGS-AMA anti-missile system round out the loadout. Four and a half tons of Compound Rho reflective armor provides excellent protection against energy weapons, a wise choice given the Clan Homeworld opponents the design was built to face.</p><p>Built on an Imperial 1a endo-steel chassis, the Star Python benefits from the same weight-saving structural philosophy that made the original Skobel frame so adaptable across centuries of redesigns. Ten double heat sinks manage the all-energy arsenal effectively, giving the design greater staying power than many modern light 'Mechs.</p>
+
+deployment:<p>No factory variants of the Star Python are currently produced. The design entered service with the Imperio Militar del Escorpión in 3152 as a single standardized configuration, with the Scorpion Empire focusing on volume production and tactical doctrine development rather than variant proliferation. Clan Sea Fox intelligence reports indicate the Empire has organized Star Pythons into dedicated Trinaries employing coordinated swarming tactics designed to overwhelm heavier opponents through numbers and concentrated firepower.</p>
+
+history:<p>The Star Python's origins lie in the chaos following the Scorpion Empire's wars of conquest in the Deep Periphery. When Clan Goliath Scorpion transitioned from the Escorpión Imperio to the Scorpion Empire, the new state found itself critically short of BattleMech production capacity. A number of Blakist Nexus II 'Mechs recovered from Waypoint 531 were pressed into service despite their Inner Sphere origins, a decision that would have been unthinkable for most Clans but reflected the Scorpion Empire's growing pragmatism under external pressure.</p><p>The path to full-scale production began with the conquest of the Hanseatic League worlds. On Braunschweig, Scorpion Empire forces discovered damaged Word of Blake archives containing Nexus blueprints. After successful data recovery efforts, Imperial BattleMechs undertook development of a fully Clan-tech version, incorporating advanced weapons systems and reflective armor optimized against the energy-heavy loadouts common among Clan opponents. The resulting Star Python entered production in 3152.</p><p>Early combat data remains limited, as the Star Python is a very recent addition to the Scorpion Touman. Clan Sea Fox intelligence, gathered through several battleROMs obtained through various channels, documents Star Python deployments in anti-piracy operations on Kinbrace in 3150 and encounters with pirate bands on Norfolk in the Coreward Confederacy. In both engagements, the Star Python's pack-hunting tactics proved effective against disorganized opposition, though its performance against peer-level Clan opponents remains untested.</p><p>The Star Python's development represents the final chapter (so far) of a design lineage stretching back nearly four centuries to Skobel MechWorks' original Jackrabbit prototype on Terra. From the Rim Worlds Republic's ill-fated infantry support 'Mech, through ComStar's Nexus recon striker and the Word of Blake's upgraded Nexus II, the fundamental engineering of the original Skobel chassis has proven remarkably adaptable. That a Clan-derived state in the Deep Periphery would carry this legacy forward highlights both the soundness of the underlying design and the degree to which traditional boundaries in the BattleTech universe continue to erode.</p>
+
+manufacturer:Imperial BattleMechs
+
+primaryfactory:Braunschweig
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Imperial
+systemmode:CHASSIS:1a Endo
+systemmanufacturer:ENGINE:Antwerp
+systemmode:ENGINE:175
+systemmanufacturer:ARMOR:Compound Rho
+systemmode:ARMOR:Special Reflective
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:55
+systemmanufacturer:COMMUNICATIONS:CGS
+systemmode:COMMUNICATIONS:Comm-1a
+systemmanufacturer:TARGETING:CGS
+systemmode:TARGETING:TTS-VIIa

@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d4d9-748a-a5ff-bb1f8364c25d
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Devastator
+model:DVS-10
+mul id:7984
+
+Config:Biped
+techbase:Inner Sphere
+era:3142
+source:TR:3150
+published:RS:3150
+rules level:3
+role:Juggernaut
+
+quirk:searchlight
+quirk:hyper_actuator
+
+mass:100
+engine:400 XL Engine
+structure:IS Endo-Composite
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Compact Gyro
+
+heat sinks:18 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:34
+RA armor:34
+LT armor:30
+RT armor:30
+CT armor:47
+HD armor:9
+LL armor:40
+RL armor:40
+RTL armor:10
+RTR armor:10
+RTC armor:11
+
+Weapons:4
+Large Re-engineered Laser, Left Arm
+Large Re-engineered Laser, Right Arm
+Medium Re-engineered Laser, Center Torso
+Medium Re-engineered Laser, Center Torso
+
+Left Arm:
+Shoulder (ARMORED)
+Upper Arm Actuator
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+IS Endo-Composite
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder (ARMORED)
+Upper Arm Actuator
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+IS Endo-Composite
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMASC
+ISMASC
+ISMASC
+ISMASC
+ISMASC
+IS Endo-Composite
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Supercharger (ARMORED)
+IS Endo-Composite
+IS Endo-Composite
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro (ARMORED)
+Gyro (ARMORED)
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Re-engineered Laser
+Medium Re-engineered Laser
+Medium Re-engineered Laser
+Medium Re-engineered Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip (ARMORED)
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo-Composite
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip (ARMORED)
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo-Composite
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Devastator was designed by General Aleksandr Kerensky himself to correct perceived flaws in the prototype Titan assault 'Mech. Development halted abruptly when Stefan Amaris seized control of the Terran Hegemony, and resources were redirected to the war effort. The design team remained so dedicated that when Kerensky launched the invasion of Terra, they delivered six prototypes at their own expense for evaluation. None of the Devastator's combat records from that conflict survived, leaving the design lost to the Inner Sphere for over two centuries.</p><p>In 3023, Federated Suns troops discovered the original blueprints in a Star League-era facility on Hoff, sparking a decades-long effort to resurrect the design. A low-tech version entered limited production in the mid-3030s, but it was not until 3048 that Norse-Storm BattleMechs produced a fully realized version incorporating the intended Star League technologies. The Devastator has since earned a fearsome reputation as one of the most devastating long-range assault platforms in service, with production eventually expanding to multiple manufacturers across the Federated Suns and Lyran state.</p>
+
+capabilities:<p>Designed for long-range dominance to compensate for its slow speed, the Devastator mounts two Poland Main Model A Gauss rifles as its primary armament, supplemented by a pair of Donal particle projection cannons in the torsos. This combination delivers punishing firepower at extended ranges, allowing the Devastator to engage and destroy targets well before they can close to effective distance. Conventional wisdom would dictate placing the main guns in the more protected torso locations, but Norse-Storm deliberately mounted the Gauss rifles in the arms. Should a lucky hit cause a rifle to explode, the resulting detonation would not threaten the vulnerable extra-light engine housed in the torso, extending the 'Mech's life expectancy in sustained combat.</p><p>Four Intek medium lasers provide close-range defense, with one rear-mounted in the center torso to discourage infantry from approaching the 'Mech's blind spot. The Devastator's heat management is among its most impressive features. Fourteen double heat sinks allow the pilot to move at maximum speed while firing all primary weapons without concern for overheating. Even when doused in inferno gel or suffering multiple engine hits, the pilot need only marginally reduce fire to maintain operational temperatures. Eighteen and a half tons of Durallex Heavy armor provide excellent protection, though the extra-light engine remains a critical vulnerability should torso armor be breached.</p>
+
+deployment:<p>This variant is a production adaptation of the experimental MUSE EARTH project, developed by Corean Enterprises to bring a more practical version of that radical prototype to the battlefield. Retaining the four hundred-rated engine (downgraded from the original's XXL to a more reliable XL) along with the MASC and Supercharger combination, this variant abandoned the MUSE EARTH's heavy PPCs entirely in favor of a suite of re-engineered lasers designed to penetrate advanced armor types. Two large re-engineered lasers in the arms provide primary firepower while two medium re-engineered lasers in the center torso offer close-range coverage. Despite its impressive technology, this variant proved profoundly unpopular throughout the AFFS. MechWarriors despised assignments to the hundred-ton specialist, finding it invariably outranged and outgunned by longer-ranged 'Mechs when attempting to fight outside its narrow niche.</p>
+
+history:<p>The Devastator's origins trace to the final years of the Star League, when General Aleksandr Kerensky personally drafted specifications for a new hundred-ton assault 'Mech to address shortcomings he perceived in the prototype Titan. When Stefan Amaris seized the Terran Hegemony, development stalled as resources were consumed by the war effort. The design team persevered, however, and when Kerensky launched the invasion of Terra in 2777, they delivered six prototypes funded from their own pockets. Only one engagement is recorded in surviving documents, a battle on the Alberta plains where the prototypes acquitted themselves well, but no comprehensive combat records survived the fall of the Star League.</p><p>The Devastator remained lost to the Inner Sphere for over two centuries until 3023, when Federated Suns troops uncovered the original blueprints in a Star League facility on Hoff. Initial attempts to reproduce the design proved impossible given the degraded state of Inner Sphere technology. The NAIS constructed a low-tech prototype in 3033, resulting in the downgraded DVS-1D that entered moderate production a few years later. This stopgap variant served until 3048, when Norse-Storm BattleMechs on Loxley began producing the fully realized DVS-2 incorporating the intended Star League technologies. The design was distributed primarily to elite Federated Commonwealth units during the early years of production.</p><p>The Devastator saw extensive service during the Clan Invasion and subsequent conflicts, its long-range firepower proving particularly effective against Clan opponents. Many commanders adopted it as a personal bodyguard 'Mech, using batteries of PPCs and Gauss rifles to deter headhunter teams. When the Lyran Alliance seceded in 3057, Archon Katherine stopped all Devastator shipments to the Federated Suns until 3061, when deliveries resumed to loyalist units. The design saw heavy combat throughout the FedCom Civil War, with Norse-Storm's Loxley facility untouched during the fighting and maintaining maximum output to meet the Archon's demands.</p><p>In the immediate aftermath of the Civil War, Archon Peter Steiner-Davion placed a massive order for BattleMechs from Norse-Storm. Unlike the Thunder Hawk, the Devastator was cleared for export, and the Armed Forces of the Federated Suns purchased significant numbers to replace assault 'Mechs lost in the fighting. During the Jihad, Norse-Storm became one of the most critical BattleMech industries in the Lyran Alliance, as many competing factories fell under Word of Blake occupation. Corean Enterprises on Augusta later joined production, eventually developing the DVS-10 and DVS-11 variants for Dark Age and ilClan-era service.</p><p>Separately from the Inner Sphere's rediscovery, Clan technicians hand-built several Devastators before Operation Klondike using the best available technology. These Early Clan variants were later overhauled with enhanced weapons systems. In a notable legal episode, General Motors attempted to claim ownership of the Devastator design and extract royalties from Norse-Storm. Both Lyran and Federated courts ruled the design had entered the public domain, clearing the way for its widespread production across multiple manufacturers.</p>
+
+manufacturer:Corean Enterprises
+
+primaryfactory:Augusta
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Unknown (Endo Steel)
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:400 XL
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

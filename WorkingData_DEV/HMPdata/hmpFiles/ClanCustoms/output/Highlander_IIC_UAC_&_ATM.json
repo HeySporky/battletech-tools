@@ -1,0 +1,381 @@
+{
+  "filename": "Highlander_IIC_UAC_&_ATM.hmp",
+  "size": 4068,
+  "header_hex": "56 35 2e 30 30 04 00 08 03 ff ff 5f 00 00 00 01",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0003\u00ff\u00ff"
+    },
+    {
+      "type": "ascii",
+      "start": 11,
+      "end": 12,
+      "text": "_"
+    },
+    {
+      "type": "byte",
+      "offset": 12,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 14,
+      "end": 272,
+      "length": 256,
+      "text": "\u0000Z\u0000\u000e\u0000Highlander IIC\t\u0000UAC & ATM\u00f4\u000b\u0002\u0000\u00b4q\u0098\u0000\u00e8\t\u0000\u00a0lE\u0000\u00a0lE\u0000\u00000B\u0000\u0000\bB\u0000\u0000\u00a0@\u0010\u0000MA 7 710 7 3\u0097 3J\u0001\u0000\u0000\u0000\u0001\u0000\u000e\u0001\u0000\u0000\u0003\u0000\u0003\u0000\u0011\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u001e\u0000\u0000\u0000\u0000\u0000\u0019\u0000\u0000\u0000\u0000\u0000&\u0000\u0000\u0000\u0000\u0000\u001e\u0000\u0000\u0000\u0000\u0000\u0019\u0000\u0000\u0000\u0000\u0000&\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000&\u0000\u0000\u0000\r\u0000\r\u0000\u0014\u0000\u0000\u0000\u0004\u0000\u0001\u0000I\u0000\u0004\u0000(\u0000\u0004\u0000\t\u0000(Unknown)\u0002\u0000\u00fc\u0000\u0001\u0000(\u0000\u0001\u0000\t\u0000(Unknown)\u0001\u0000\u00ff\u0000\u0005\u0000\n\u0000\u0005\u0000\t\u0000(Unknown)\u0003\u0000=\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u000f\u0000Series PPS-VIII\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 272,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 273,
+      "end": 1299,
+      "length": 1024,
+      "text": "\u0000\u0000\u0000\u00fc\u0000\u0000\u0000\u00fc\u0000\u0000\u0000\u00fc\u0000\u0000\u0000\u00fc\u0000\u0000\u0000\u008c\u0002\u0014\b\u008c\u0002\u0014\b\n\u0000\u0000\u0000\n\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000I\u0000\u0000\u0000I\u0000\u0000\u0000I\u0000\u0000\u0000I\u0000\u0000\u0000\u00d9\u0001\n\b\u00d9\u0001\n\b\u00d9\u0001\n\b\u00d9\u0001\n\b\u0014\u0000\u0000\u0000\u00ff\u0000\u0000\u0000\u00ff\u0000\u0000\u0000\u00ff\u0000\u0000\u0000\u00ff\u0000\u0000\u0000\u00ff\u0000\u0000\u0000\u008f\u0002\u0005\b\u008f\u0002\u0005\b\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0014\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u00f6\u00ff\u0010\u0001\u0019\u0003    One of the most successful designs of the Star League era, thousands of Highlanders traveled away from the Inner Sphere with Aleksandr Kerensky and the Exodus Fleet.  Though a large percentage of those were mothballed in Brian Caches, many later served in the toumans of the nascent Clans.  As each Clan grew, they took more equipment from the caches to fill their expanding ranks, including the venerable Highlander.\r\n    The Highlander initially served as the mobile-assault backbone of many Clan militaries.  Even after the emergence of new Clan designs, cornerstone BattleMechs like the Highlander continued to serve faithfully.  Now new H"
+    },
+    {
+      "type": "ascii",
+      "start": 1299,
+      "end": 1445,
+      "text": "ighlanders have been produced in more than a century, however, though an occasional few are upgraded from those left in the oldest Brian Caches.\r\n"
+    },
+    {
+      "type": "len_string",
+      "start": 1445,
+      "end": 2984,
+      "length": 1537,
+      "text": "     Despite its IIC designation, little has changed in the Highlander design since the original 'Mech's introduction in2592.  As Clan technology advanced, newer and lighter equipment replaced outmoded components.  As a result, though the IIC version retains the same basic configuration, the Highlander's firepower has significantly improved.  The 'Mechs damage potential has almost doubled, and its weapons systems carry sufficient ammunition for nearly four minutes of constant fire.\r\n    The shakedown trials of the first few Highlander IICs made it clear that minor changes were required.  The second short-range missile system in the left arm meant running another ammunition feed mechanism through the arm and into the torso.  During heavy combat, missiles would frequently jam in the feed mechanism, which was routed awkwardly around the LRM launcher.  Though the pilot could generally dislodge the missiles by moving his 'Mech, this tactic did not always work.  In one instance of failure, the ordnance exploded with catastrophic effects.  Clan engineers eventually solved the problem by relocating the LRM in the right torso and moving the three medium pulse lasers into the left.\r\n    Almost 1,500 Highlander IICs have been either upgraded or newly constructed in the two hundred years since the design overhaul.  Though many of those units have been destroyed or scrapped over the years, several hundred still serve in the toumans of the remaining fifteen Clans.  Few Clan refits enjoy the popularity of this rugged design.\r\n"
+    },
+    {
+      "type": "len_string",
+      "start": 2984,
+      "end": 2987,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2987,
+      "end": 2990,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2990,
+      "end": 2993,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2993,
+      "end": 3741,
+      "length": 746,
+      "text": "    Though every Clan fields this 'Mech in second-line Galaxies, Clan Star Adder deploys the most, largely due to the recent absorption of Clan Burrock and its forces.  Some Highlanders serve as command 'Mechs in a few Adder front-line units, notably the Fifth Assault and 73rd Cavaliers Clusters.\r\n    Clans Blood Spirit and Wolf also field a significant number of Highlanders, mostly to recoup the heavy losses each Clan recently incurred.  Clan Blood Spirit salvaged several from the battlefields of the Absorption War, while Clan Wolf opened one of their last remaining Brian Caches to recommission several Stars' worth.  Recent information also indicates that Wolf's Dragoons had several Highlanders when they traveled to the Inner Sphere.\r\n"
+    },
+    {
+      "type": "ascii",
+      "start": 3741,
+      "end": 3742,
+      "text": "m"
+    },
+    {
+      "type": "byte",
+      "offset": 3742,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3743,
+      "end": 3852,
+      "text": "Source:  Technical Readout 3060 and Record Sheets 3060\r\n\r\n\r\nEntered in by Glenn Fogle\r\nVerified by Dave Welch"
+    },
+    {
+      "type": "len_string",
+      "start": 3852,
+      "end": 3855,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 3855,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3856,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3857,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3858,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3859,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3860,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3861,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3862,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3863,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3864,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3865,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3866,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3867,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3868,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3869,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3870,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3871,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3872,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3873,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3874,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3875,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3876,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3877,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3878,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3879,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3880,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3881,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3882,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3883,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3884,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3885,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3886,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3887,
+      "end": 3897,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 3897,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3898,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3899,
+      "end": 3932,
+      "length": 31,
+      "text": "Arcadia BattleMech Plant CM-T15"
+    },
+    {
+      "type": "ascii",
+      "start": 3932,
+      "end": 3933,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3933,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3934,
+      "end": 3944,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3944,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3945,
+      "end": 3954,
+      "text": "(Unknown)"
+    },
+    {
+      "type": "len_string",
+      "start": 3954,
+      "end": 3982,
+      "length": 26,
+      "text": "Arcadia Compound Delta VII"
+    },
+    {
+      "type": "len_string",
+      "start": 3982,
+      "end": 3998,
+      "length": 14,
+      "text": "SL-XT Modified"
+    },
+    {
+      "type": "len_string",
+      "start": 3998,
+      "end": 4019,
+      "length": 19,
+      "text": "C-XII Series B4 GDS"
+    },
+    {
+      "type": "ascii",
+      "start": 4019,
+      "end": 4020,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 4020,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 4021,
+      "end": 4054,
+      "text": "C-12 Mk. III with Artemis IV FCS\r"
+    },
+    {
+      "type": "byte",
+      "offset": 4054,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 4055,
+      "end": 4068,
+      "text": "Prentiss-IIIA"
+    }
+  ]
+}

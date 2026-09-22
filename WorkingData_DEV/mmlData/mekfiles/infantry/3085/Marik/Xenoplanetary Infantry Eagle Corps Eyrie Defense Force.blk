@@ -1,0 +1,101 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b65a-7a6e-a45c-059f7647a184
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Xenoplanetary Infantry
+</Name>
+
+<Model>
+Eagle Corps Eyrie Defense Force
+</Model>
+
+<mul id:>
+3608
+</mul id:>
+
+<year>
+2600
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Spacesuit, Combat
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Eyrie Defense Force guards the most sensitive intelligence facility in Free Worlds League space: the Eagle Corps headquarters, a hidden bunker beneath a dead volcano on Wendigo, the airless moon of Atreus. The Eagle Corps served as SAFE's special-forces branch, and its protectors are drawn from highly skilled, xenoplanetary-trained soldiers who spend most of their time sealed inside space suits. Operating in standard platoons of twenty-eight, the EDF carries gyroslug rifles paired with ER support lasers, giving each platoon a 360-meter engagement envelope and enough concentrated firepower to give pause to even BattleMech pilots. This firepower comes at a cost. The weight of their armament prohibits anti-BattleMech operations entirely, and the troops must devote significant effort to redeployment between positions rather than engaging on the move. After the dissolution of the Free Worlds League, the Marik-Stewart Commonwealth retained the Eyrie and its defenders, though SAFE itself splintered into competing factions across the successor states.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Gyroslug Rifle
+</Primary>
+
+<Secondary>
+Support Laser (ER, IS)
+</Secondary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+
+<spacesuit>
+true
+</spacesuit>
+

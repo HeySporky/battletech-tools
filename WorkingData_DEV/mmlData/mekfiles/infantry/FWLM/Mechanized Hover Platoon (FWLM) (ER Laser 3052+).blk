@@ -1,0 +1,81 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bca1-7a9c-af55-482ec6420ac9
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Hover Platoon (FWLM)
+</Name>
+
+<Model>
+(ER Laser 3052+)
+</Model>
+
+<year>
+3052
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<Troopers Equipment>
+Free Worlds League Infantry Kit (3035+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Free Worlds League's fractious politics have always made centralized BattleMech procurement difficult, pushing the FWLM toward heavy investment in conventional infantry to fill the gaps. Hover-mechanized platoons are the fastest infantry transport in FWLM service, carrying troops across water and open terrain at speeds that outpace any ground vehicle. Their vulnerability to ambush in confined terrain is offset by the tactical flexibility they offer on League worlds with extensive coastlines or open plains. Carrying extended-range laser rifles that push engagement distances well beyond standard models, these platoons can engage targets at ranges where conventional ballistic infantry cannot effectively respond.</p>
+</overview>
+
+<notes>
+Intro date based on Starfire ER Laser Rifle production date
+</notes>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<Primary>
+Laser Rifle (ER [Sunbeam Starfire])
+</Primary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

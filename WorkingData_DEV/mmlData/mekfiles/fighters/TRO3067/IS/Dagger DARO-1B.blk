@@ -1,0 +1,182 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ae8e-77c7-b596-40004674b240
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Dagger
+</Name>
+
+<Model>
+DARO-1B
+</Model>
+
+<mul id:>
+4041
+</mul id:>
+
+<year>
+3062
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+76
+62
+62
+50
+</armor>
+
+<Nose Equipment>
+ISLBXAC10:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISERSmallLaser:OMNI
+ISERSmallLaser:OMNI
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS LB 10-X Cluster Ammo:OMNI
+IS LB 10-X Cluster Ammo:OMNI
+</Fuselage Equipment>
+
+<capabilities>
+<p>Built around a Johnston Rapier Mk. VII airframe, the Dagger mounts a GM SuperFusion 225 XL engine that provides good speed and maneuverability for its weight class. Fourteen tons of Kallon AeroWeave ferro-aluminum armor give the fighter heavy protection relative to other light OmniFighters, allowing it to absorb punishment that would cripple less well-armored designs. The combination of the extralight engine and ferro-aluminum armor frees up eighteen tons of pod space for weapons and equipment, giving commanders considerable flexibility in tailoring loadouts to specific mission profiles.</p><p>The Dagger's base chassis mounts ten double heat sinks, a common trade-off among OmniFighters that prioritize pod space over thermal management. While adequate for energy-light configurations, this baseline heat dissipation can strain pilots running high-energy loadouts at full output. Communications are handled by a ChatterComm 224 system, with targeting provided by an RCA Instatrac Mk. XIX tracking suite. Both systems have proven reliable across the fighter's various configurations, providing consistent sensor performance regardless of the weapons package installed.</p>
+</capabilities>
+
+<overview>
+<p>The Dagger is a forty-five-ton light OmniFighter designed by Johnston Industries for the Armed Forces of the Federated Commonwealth. Commissioned in the late 3050s as the AFFC's first domestically produced OmniFighter, the design emerged from a broader effort to modernize the Commonwealth's aging aerospace forces following years of devastating losses. Johnston Industries, a major Federated Suns defense contractor headquartered on Addicks with additional facilities on New Syrtis, leveraged decades of aerospace manufacturing experience to bring OmniPod technology to a fighter airframe. Entering service in 3062, the Dagger offered fleet commanders unprecedented flexibility to rapidly reconfigure weapons loadouts between sorties. Despite its relatively modest tonnage, the fighter quickly earned a reputation as a dependable and versatile platform, becoming a valued asset across the Federated Suns' aero wings.</p>
+</overview>
+
+<deployment>
+<p>The Bravo configuration represents the most unusual Dagger loadout. An LB 10-X autocannon in the nose can fire both standard and cluster munitions, the latter proving frighteningly effective at crippling fighters in vacuum through lucky hits against canopies or engines. Paired extended-range medium lasers in each wing provide flanking firepower, while an aft-mounted extended-range small laser discourages pursuit. Two tons of autocannon reloads allow the pilot to switch between ammunition types as the tactical situation demands, making this variant particularly effective in extra-atmospheric interception roles.</p>
+</deployment>
+
+<history>
+<p>By the end of the 3050s, the Clan Invasion and Operation Guerrero had decimated the AFFC's aero corps. After nearly a decade of prioritizing BattleMech procurement, the Commonwealth's fighter wings had withered to a shadow of their former strength. The catalyst for change came in 3057, when a disastrous encounter between the First Kestrel Grenadiers and the mercenary Hell's Black Aces over Zurich ended with the Grenadiers losing half their fighters to the mercenaries' more modern designs. The defeat rallied enough support in the High Command to authorize a rapid modernization program encompassing both upgraded existing units and entirely new fighter designs.</p><p>Johnston Industries responded with what was then a radical proposal, an OmniFighter capable of swapping weapons configurations between missions. The concept proved more challenging than anticipated, and Johnston delivered four prototype Daggers to the AFFC two years behind schedule. Despite the delay, the Department of the Navy was sufficiently impressed by the fighter's performance to immediately place orders that would carry Johnston into the next decade. Carrying heavy armor protection and capable of great speed and maneuverability, the Dagger validated the OmniFighter concept for the Federated Commonwealth.</p><p>The Dagger saw its baptism of fire during the FedCom Civil War, where it was primarily assigned to the Syrtis Fusiliers and other Capellan March units that rejected Archon Katherine Steiner-Davion's authority. The fighter found its way into aero wings that fought on nearly every world within the Federated Suns. Following the civil war, Johnston's factories on Addicks and New Syrtis continued production to meet sustained demand. The Jihad brought mixed fortunes to both facilities. The Addicks plant fell under Word of Blake control during the occupation, while the New Syrtis facility survived the initial Capellan counterattack thanks to the efforts of the Fourth Donegal Guards and Johnston's own security forces, only to be devastated by subsequent Taurian nuclear strikes that left the production lines a radiation-contaminated wasteland. Johnston expanded operations on Benet III to compensate for the lost capacity, and the New Syrtis lines eventually resumed Dagger production in the late Republic era.</p>
+</history>
+
+<manufacturer>
+Johnston Industries|Johnston Industries
+</manufacturer>
+
+<primaryFactory>
+Addicks|New Syrtis
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Johnston
+ENGINE:GM
+ARMOR:Kallon
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:RCA
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Rapier Mk. VII
+ENGINE:SuperFusion 225 XL
+ARMOR:AeroWeave Ferro-Aluminum
+JUMP_JET:N/A
+COMMUNICATIONS:ChatterComm 224
+TARGETING:Instatrac Mk. XIX
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

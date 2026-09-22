@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e10d-7774-b527-22e96de709f7
+</UUID>
+
+<UnitType>
+ProtoMek
+</UnitType>
+
+<Name>
+Gorgon
+</Name>
+
+<Model>
+6
+</Model>
+
+<mul id:>
+8033
+</mul id:>
+
+<year>
+3130
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Biped
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<interface_cockpit>
+false
+</interface_cockpit>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+42
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+4
+12
+4
+4
+7
+3
+</armor>
+
+<Body Equipment>
+CLMyomerBooster
+CLAPGaussRifle Ammo (12)
+EIInterface
+</Body Equipment>
+
+<Head Equipment>
+</Head Equipment>
+
+<Torso Equipment>
+ISAngelECMSuite
+</Torso Equipment>
+
+<Right Arm Equipment>
+</Right Arm Equipment>
+
+<Left Arm Equipment>
+</Left Arm Equipment>
+
+<Legs Equipment>
+</Legs Equipment>
+
+<Main Gun Equipment>
+CLAPGaussRifle
+</Main Gun Equipment>
+
+<capabilities>
+<p>The Gorgon defining feature is its LRM-10 launcher, a weapon system that would be respectable on a medium BattleMek and is extraordinary on an eight-ton ProtoMek. The ten-missile salvo can deliver withering fire at ranges exceeding six hundred meters, allowing the Gorgon to engage targets that cannot effectively return fire against the small ProtoMek profile at that distance. An ER Micro Laser in the main gun mount provides minimal close-range backup. The fifty-rated fusion engine delivers forty-three kilometers per hour cruising speed with no jump capability, adequate for keeping pace with heavier formations but insufficient for rapid repositioning.</p><p>The Gorgon most critical vulnerability is ammunition dependency. The LRM-10 carries only twelve salvos of ammunition, exhausting in less than three minutes of sustained fire. Once the missiles are depleted, the Gorgon is reduced to its ER Micro Laser, a weapon so small that it poses no meaningful threat to anything larger than conventional infantry. Thirty-four points of armor provide decent protection, but the Gorgon lack of speed or jump capability means it cannot easily disengage when its ammunition runs dry. Prudent commanders maintain strict fire discipline in Gorgon Points, parceling out salvos to extend engagement time and planning withdrawal routes before the first missile is launched.</p>
+</capabilities>
+
+<overview>
+<p>The Gorgon is an eight-ton first-generation ProtoMek developed by Clan Smoke Jaguar as a heavy fire support platform within the original ProtoMek program on Huntress. Anchoring the heavier end of the ProtoMek weight spectrum alongside the nine-ton Minotaur, the Gorgon is built around a ten-tube LRM launcher that gives it bombardment capability unprecedented for a unit of its size. The LRM-10 is so large relative to the ProtoMek chassis that Jaguar scientists developed the main gun mount specifically to accommodate it, creating a hand-supported weapon system anchored to the torso that became standard on several subsequent ProtoMek designs. The Gorgon served as the long-range anchor of mixed ProtoMek formations, delivering indirect fire support that could suppress or destroy targets well beyond the engagement range of lighter designs.</p>
+</overview>
+
+<deployment>
+<p>The Gorgon 6 is a specialized electronic warfare platform mounting an Angel ECM Suite alongside an AP Gauss Rifle and Myomer Booster system. The Angel ECM provides superior electronic countermeasures that degrade enemy targeting and communications across a wide area, while the Myomer Booster allows rapid repositioning to maintain optimal ECM coverage. Cruising speed is increased to fifty-four kilometers per hour. Thirty-four points of armor match the base model. The Gorgon 6 is the most technologically advanced variant, designed to operate as an electronic warfare node within mixed ProtoMek and BattleMek formations.</p>
+</deployment>
+
+<history>
+<p>The Gorgon was designed to give ProtoMek formations organic long-range fire support, a capability that the lighter designs in the Smoke Jaguar program could not provide. Jaguar scientists recognized that ProtoMek Points operating without indirect fire support would be forced to close with enemies at ranges where the small machines thin armor became a critical liability. The Gorgon LRM-10 allowed a mixed Point to engage targets at distance, softening them before the lighter ProtoMeks closed to deliver finishing blows. The development of the main gun mount to accommodate the oversized launcher was a significant engineering achievement that influenced all subsequent heavy ProtoMek designs.</p><p>At the Battle of Huntress in 3060, Gorgon Points proved devastating against Task Force Serpent forces in several engagements. Operating from concealed positions in the Huntress highlands, Gorgon ProtoMeks delivered LRM fire into Inner Sphere formations that struggled to locate the small launchers at long range. The combination of ProtoMek-sized targets and BattleMek-scale missile fire created tactical problems that Serpent commanders had never trained to address, and several advances were stalled by Gorgon bombardment until the ProtoMeks exhausted their ammunition.</p><p>Following the Jaguar Annihilation, the Gorgon attracted particular interest from Clan Snow Raven, which established a production line at the Snow Raven Industrial Complex Alpha on Dante. The Ravens valued the Gorgon long-range fire support capability for defending their scattered naval installations against ground assault. Clan Goliath Scorpion maintained production at the Abysmal Manufacturing Complex on Huntress, while several other Clans acquired limited production capability.</p><p>Variant development has explored alternatives to the ammunition-dependent LRM configuration. The Gorgon 2 mounts a Medium Pulse Laser with four jump jets, converting the design from fire support to mobile direct combat. The Gorgon 3 carries dual SRM-4 launchers with an upgraded engine for close-range saturation fire. The Gorgon 4 combines an AP Gauss Rifle with an SRM-6 and jump jets for a versatile multi-role configuration. The Gorgon 5 mounts a Streak LRM-5 and Magnetic Clamp System, while the Gorgon 6 carries an AP Gauss Rifle, Angel ECM Suite, and Myomer Booster for electronic warfare operations.</p><p>The Wars of Reaving disrupted Gorgon production at several facilities, but the design broad manufacturing base ensured continuity. The Gorgon remains a critical component of Homeworld Clan ProtoMek formations, its long-range fire support capability proving difficult to replicate in lighter designs. Newer variants have expanded the chassis into roles far beyond its original fire support mandate, demonstrating the fundamental soundness of the eight-ton platform.</p>
+</history>
+
+<manufacturer>
+Snow Raven Industrial Complex Alpha
+</manufacturer>
+
+<primaryFactory>
+Dante
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+ENGINE:50 Fusion
+</systemModels>
+
+<source>
+TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+8.0
+</tonnage>
+

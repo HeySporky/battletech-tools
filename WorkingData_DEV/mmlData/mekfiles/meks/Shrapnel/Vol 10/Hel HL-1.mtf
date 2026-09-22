@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dca2-75af-bf94-ba0b31203fc5
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hel
+model:HL-1
+mul id:8250
+
+Config:Biped
+techbase:Inner Sphere
+era:3092
+source:Shrap10,RG18
+published:RG18,ShrapRS
+rules level:2
+role:Skirmisher
+
+
+mass:50
+engine:250 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:15
+RA armor:15
+LT armor:18
+RT armor:18
+CT armor:23
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:5
+RTR armor:5
+RTC armor:8
+
+Weapons:4
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+Heavy PPC, Right Arm
+Streak SRM 6, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISStreakSRM6
+ISStreakSRM6
+IS Streak SRM 6 Ammo
+ISCASEII
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hel was introduced in 3092 by Nashan Diversified, a longtime IndustrialMech manufacturer seeking to break into the BattleMech market. Designed as a fifty-ton medium skirmisher, the Hel filled the same ambush and interdiction roles as the venerable Wolverine and Enfield. Built at Nashan's Furillo production facility, the design offered impressive firepower for its weight class through an aggressive combination of energy and missile weapons on a fast, well-armored chassis.</p><p>Despite a capable design, the Hel faced immediate market challenges. The Lyran Commonwealth Armed Forces rejected the 'Mech, and Nashan managed only limited sales to mercenary commands and two provincial governments within the former Free Worlds League. When a key component supplier ceased providing critical parts, Nashan was forced to halt production entirely. Unable to continue manufacturing, Nashan sold the design specifications to Kallon Weapon Industries, who would go on to redesign the chassis as the Eris.</p>
+
+capabilities:<p>The Hel was built to operate in lance formations for ambush and interdiction missions, filling the same strategic and tactical roles as the Wolverine and Enfield. Its right-arm-mounted Defiance 980 heavy particle projection cannon provided devastating mid-range firepower, capable of crippling lighter 'Mechs in a single volley. The Defiance Sting-3 Streak SRM-6 launcher offered reliable close-range punch, with its guided missiles ensuring ammunition efficiency against fast-moving targets. A pair of BlazeFire Longshot extended-range medium lasers in the left arm rounded out the weapons loadout, providing the Hel with effective combined-arms capability at multiple engagement ranges.</p><p>The Hermes 250 XL engine provided excellent speed for a fifty-ton chassis, allowing MechWarriors to dictate engagement terms and disengage when outmatched. HildCo Model 13 jump jets enhanced battlefield mobility, enabling the 'Mech to exploit rough terrain for ambush positions and escape routes. Ten tons of Nashan HD armor with CASE II protection offered solid defensive coverage, though the extralight engine remained a vulnerability, loss of either side torso would disable the 'Mech entirely, a significant risk for a design intended to operate in close proximity to enemy forces.</p>
+
+deployment:<p>The base model Hel was manufactured by Nashan Diversified at their Furillo facility beginning in 3092. Though the Lyran Commonwealth Armed Forces rejected the design, it found buyers among mercenary commands and provincial governments within the former Free Worlds League. The HL-1 represents the original production configuration, pairing a heavy particle cannon with guided missiles and medium lasers for effective multi-range engagement capability. Production ceased before 3110 after supply chain disruptions, and Nashan subsequently sold the design rights to Kallon Weapon Industries.</p>
+
+history:<p>The Hel saw its first combat during a Wolf's Dragoons raid into the Duchy of Tamarind-Abbey in 3094. The Dragoons' Black Cats battalion struck the world of Kosciusko, intending to destroy a regional training center. When aerospace defenses forced one of the Cats' Union-C-class DropShips to land over a hundred kilometers from the main force, the embarked 'Mechs (including three Hels) deployed to block advancing Duchy forces intent on capturing the grounded vessel. The three Hels demonstrated the design's ambush potential by concealing themselves behind a series of boulders while a second Star drew enemy attention. When the Duchy column rushed past, the Hels rose from concealment and destroyed two 'Mechs with concentrated heavy PPC fire before using their jump jets to escape over the lip of the arroyo, buying the Dragoons enough time to repair their DropShip.</p><p>The Hel continued to see service during the Clan Wolf invasion along the Lyran Commonwealth border. On Colfax, the mercenary company Cox's Cattle Prods (equipped with eight BattleMechs, four of them Hels) found themselves the sole 'Mech garrison when Wolf Guards attacked. Refusing a batchall from a Nova of Wolf Guards, the Cattle Prods retreated into the hills to wage a guerrilla campaign. The Hels proved particularly effective in sustained operations, as their standard armor and readily available missile ammunition allowed them to remain operational for months without significant resupply. The four Hels ultimately became the last Cattle Prod assets to be run to ground, even managing to destroy a Wolf Blood Reaper before being eliminated.</p><p>Beyond its origins in the former Free Worlds League, the Hel found wider distribution across the Inner Sphere. Warriors in House Davion's Syrtis Fusiliers operated the design along the Capellan border, demonstrating the 'Mech's effectiveness in border skirmishing well beyond the markets Nashan had originally targeted. Though production was ultimately short-lived, the Hel's legacy endured through its successor, the Eris, which Kallon Weapon Industries developed from the original Nashan specifications.</p>
+
+manufacturer:Nashan Diversified
+
+primaryfactory:Furillo
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:N&D
+systemmode:CHASSIS:HLBM Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:250 XL
+systemmanufacturer:ARMOR:Nashan
+systemmode:ARMOR:HD with CASE II
+systemmanufacturer:JUMP_JET:HildCo
+systemmode:JUMP_JET:Model 13
+systemmanufacturer:COMMUNICATIONS:Nashan
+systemmode:COMMUNICATIONS:Comm-i U-284
+systemmanufacturer:TARGETING:Nashan
+systemmode:TARGETING:Trac V-102

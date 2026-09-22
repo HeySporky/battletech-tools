@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d2ea-78b1-8343-337387be4dd9
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Thor II
+clanname:Grand Summoner
+model:B
+mul id:6283
+
+Config:Biped OmniMek
+techbase:Clan
+era:3093
+source:TR:3145:C,TR:DA
+published:RS:DA
+rules level:2
+role:Missile Boat
+
+quirk:imp_com
+
+mass:70
+engine:350 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:14 Clan Double
+base chassis heat sinks:14
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:20
+RA armor:20
+LT armor:22
+RT armor:22
+CT armor:31
+HD armor:9
+LL armor:23
+RL armor:23
+RTL armor:7
+RTR armor:7
+RTC armor:8
+
+Weapons:8
+LRM 15, Left Arm
+LRM 15, Right Arm
+ATM 9, Left Torso
+ATM 6, Left Torso
+LRM 5, Left Torso
+ER Small Laser, Right Torso
+LRM 5, Right Torso
+ER Small Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLLRM15 (OMNIPOD)
+CLLRM15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLLRM15 (OMNIPOD)
+CLLRM15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLATM9 (OMNIPOD)
+CLATM9 (OMNIPOD)
+CLATM9 (OMNIPOD)
+CLATM9 (OMNIPOD)
+CLATM6 (OMNIPOD)
+CLATM6 (OMNIPOD)
+CLATM6 (OMNIPOD)
+CLLRM5 (OMNIPOD)
+Clan Ammo ATM-6 (OMNIPOD)
+Clan Ammo ATM-6 (OMNIPOD)
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLERSmallLaser (OMNIPOD)
+CLLRM5 (OMNIPOD)
+Clan Ammo LRM-5 (OMNIPOD)
+Clan Ammo ATM-9 (OMNIPOD)
+Clan Ammo ATM-9 ER (OMNIPOD)
+Clan Ammo ATM-9 HE (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERSmallLaser (OMNIPOD)
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Grand Summoner is a seventy-ton Clan OmniMech introduced in 3093 by Clan Jade Falcon as a direct replacement for the venerable Summoner. Produced by the Eagle Craft Group at their facility on Erewhon, the Grand Summoner was designed to address the aging Summoner's limitations while preserving the proven mobility and firepower balance that had made its predecessor a mainstay of Clan heavy cavalry formations for over two centuries. The design quickly spread beyond its Jade Falcon origins through inter-Clan trade, finding particular favor among the Inner Sphere Clans' warrior castes. Known to Inner Sphere intelligence services by the reporting name Thor II, the Grand Summoner has established itself as a reliable and versatile frontline OmniMech favored by junior grade officers for independent operations.</p>
+
+capabilities:<p>The Grand Summoner retains the same Magna 350 XL engine as its predecessor, maintaining the same top speed of eighty-six kilometers per hour that made the original Summoner effective in fast-moving engagements. The critical improvement lies in the adoption of an Olivetti T4 Endo Steel internal structure combined with the conversion of the Summoner's fixed jump jets to pod-mounted equipment, freeing thirty and a half tons of pod space compared to the original's twenty-two and a half. Compound Beta ferro-fibrous armor provides marginally better protection than the original Summoner, adding half a ton of additional coverage across the design.</p><p>The Grand Summoner's Model J-D 067 communications system is a standout feature that has elevated the design beyond a simple heavy cavalry platform. Capable of supporting three times the number of simultaneous connections compared to competing systems such as the Alpha-com, the 067 can also cut through standard ECM interference when operating at maximum power, making the Grand Summoner a natural command platform despite not being originally intended for that role. The Hawkeye 58 targeting and tracking system, while highly accurate, requires recalibration whenever the OmniMech's pod configuration is changed, briefly leaving the 'Mech unable to employ its weapons during the process.</p>
+
+deployment:<p>Alternate Configuration B transforms the Grand Summoner into a dedicated missile bombardment platform, mounting an impressive array of launchers that can saturate a target area with ordnance. The primary weapons are a pair of arm-mounted LRM-15 launchers with three tons of ammunition each, supplemented by an ATM-9 and ATM-6 in the left torso with five total tons of reloads. Each side torso also carries an LRM-5 and an ER small laser for point defense. The ATM launchers give the B configuration tactical flexibility that pure LRM boats lack, allowing it to switch between standard, extended-range, and high-explosive munitions depending on engagement distance. This configuration sacrifices all jump capability in favor of maximum missile firepower and ammunition endurance.</p>
+
+history:<p>The Grand Summoner emerged from Clan Jade Falcon's recognition that the Summoner, while still serviceable, was showing its age after more than two centuries of continuous production. The Eagle Craft Group's Erewhon facility began production in 3093, and the Jade Falcons treated the new design as a symbol of Clan pride from its very first chassis. The inaugural Grand Summoner, bearing serial number JF000-01A, was mounted on a ceremonial dais at the Erewhon factory complex gate rather than being deployed to a frontline unit. Each year, the Jade Falcon Khan selects one Cluster to be honored for distinguished service, and JF000-01A is repainted in that Cluster's parade colors. The Third Falcon Talon Cluster holds the distinction of being selected five times, more than any other formation.</p><p>The design's proliferation beyond Clan Jade Falcon came through the inter-Clan trade networks that characterized the post-Jihad era. Other Inner Sphere Clans readily adopted the Grand Summoner, recognizing its advantages over the original Summoner design. Though the largest concentrations of Grand Summoners remained within the Jade Falcon touman, the design became a common sight in the formations of allied and rival Clans alike.</p><p>One of the Grand Summoner's most celebrated engagements occurred on Feltre in 3097, when Clan Wolf Star Colonel Jess Calvert challenged Clan Diamond Shark's Swimmer Khanate to a Trial of Possession for the entire Beta Aimag. Aggressive bidding reduced each side's forces to a single Cluster. The Diamond Sharks selected the Swordtooth Canyons as the trial grounds, a labyrinth of ravines, dead ends, and heavy electromagnetic interference that degraded communications and tracking systems. The fighting quickly devolved into small-unit actions where the Grand Summoner's superior communications suite proved decisive, allowing Diamond Shark Stars to maintain coordination while Wolf forces struggled with disrupted signals. The Diamond Sharks' victory in this trial cemented the Grand Summoner's reputation as a design that could turn difficult terrain from a liability into an advantage.</p>
+
+manufacturer:Eagle Craft Group
+
+primaryfactory:Erewhon
+
+fluffdate:2026-02-10 14:00:04
+
+systemmanufacturer:CHASSIS:Olivetti
+systemmode:CHASSIS:T4 Endo Steel
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:350 XL
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:Beta Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Model J-D 067
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Hawkeye 58

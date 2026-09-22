@@ -1,0 +1,191 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd44-76d5-914c-9e6488568d01
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Grotesque (Mongrel)
+model:Prime
+
+Config:Biped OmniMek
+techbase:Clan
+era:3040
+source:Shrap19
+published:ShrapRS
+rules level:2
+role:Skirmisher
+
+
+mass:80
+engine:400 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:13 Clan Double
+base chassis heat sinks:10
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:26
+RA armor:26
+LT armor:26
+RT armor:26
+CT armor:35
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:8
+RTR armor:8
+RTC armor:12
+
+Weapons:4
+ER PPC, Left Arm
+SRM 4, Left Arm
+Gauss Rifle, Right Arm
+ER Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLSRM4 (OMNIPOD)
+Clan Ammo SRM-4 (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Clan Gauss Ammo (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERMediumLaser (OMNIPOD)
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Grotesque is an eighty-ton Clan Diamond Shark assault OmniMech, born from an ambitious experiment in design commonality during the Clan Invasion era. Diamond Shark scientists attempted to combine proven subassemblies from two existing assault platforms into a single superior chassis, producing a refined prototype that showed genuine engineering promise. Despite favorable test results, the design was ultimately deemed insufficiently advantageous over existing production OmniMechs and never achieved widespread manufacture. Only a handful of prototypes were constructed before the project was shelved. The Inner Sphere reporting name "Mongrel" was assigned by intelligence analysts, a designation whose broader consequences for Clan naming conventions would prove more significant than the Grotesque's limited battlefield career.</p>
+
+capabilities:<p>The Grotesque pairs a Gargoyle-derived torso with Warhawk leg assemblies, supported by endo steel internal structure and powered by a 400-rated extralight fusion engine that drives the eighty-ton design to a respectable 86 km/h. The heavier Warhawk legs provide enhanced stability and lower-body protection compared to the Gargoyle's own running gear, though the design shares the Gargoyle's reliance on an extralight engine, making torso breaches potentially catastrophic. Twelve and a half tons of ferro-fibrous armor provide solid protection for an assault-weight OmniMech, though this falls short of the heaviest frontline designs and leaves pilots vulnerable in sustained engagements against dedicated assault platforms.</p><p>The Prime configuration emphasizes accurate long-range firepower through a pairing of a Gauss rifle and an ER PPC, both linked through a targeting computer that significantly improves accuracy at extreme range. This combination delivers devastating alpha strikes while the Gauss rifle generates no heat, easing thermal management. Close-range defense comes from an SRM-4 rack and a center-torso ER medium laser, providing options when enemies close inside optimal engagement distance. The configuration's reliance on only two primary weapons means that losing either arm drastically reduces offensive output, a significant drawback for a design expected to hold the line in prolonged engagements. Thirteen double heat sinks manage the thermal load across all configurations.</p>
+
+deployment:<p>This variant configuration represents the only known factory loadout for the Grotesque, reinforcing the design's limited production run. With the chassis classified as an abortive development, Grotesque sightings in the field have been exceedingly rare, limited to scattered Diamond Shark second-line formations and the occasional salvaged example appearing in Clan trade circuits. The few operational units are believed to serve in garrison or training roles rather than frontline assignments.</p>
+
+history:<p>The Grotesque emerged from Clan Diamond Shark's tradition of innovative engineering and commercial pragmatism. During the Clan Invasion era, Diamond Shark scientists explored the concept of design commonality, testing whether combining proven subassemblies from existing assault OmniMechs could yield a superior hybrid. The Gargoyle's torso, well-regarded for its pod space and weapon mounting options, was paired with the Warhawk's robust leg structure to create what the designers hoped would offer the best of both platforms.</p><p>The experiment produced a functional prototype that was more than a haphazard amalgamation. The Grotesque performed comparably to the Gargoyle in field testing, with the Warhawk legs providing measurably improved stability and lower-body protection. However, the design ultimately failed to demonstrate sufficient advantages over either parent chassis to justify the logistical complications of a third assault OmniMech sharing components with two existing production lines. Clan society's system of Trials for technology meant that any component worth having would be fiercely defended by its originating Clan, making cross-design integration politically fraught even within a single Clan.</p><p>The Grotesque's most lasting impact proved to be linguistic rather than military. Inner Sphere intelligence analysts assigned it the reporting name "Mongrel," a designation that created immediate confusion with Diamond Shark's existing Mongrel OmniMech. With the Clan's growing commercial ambitions driving them toward Inner Sphere markets, Diamond Shark astutely recognized the naming conflict would hamper sales and rebranded their successful Mongrel as the Grendel, adopting the Inner Sphere code name that ComStar troops had given it at Tukayyid. The Grotesque itself saw only extremely limited deployment and remained a curiosity in Diamond Shark records, notable more for its contribution to OmniMech naming conventions than for any battlefield achievements.</p><p>The design also contributed to significant confusion in early editions of the Armed Forces of the Federated Commonwealth's BattleMech Recognition Field Guide. The Grotesque's composite appearance, combining recognizable elements of two well-known assault OmniMechs, made it genuinely difficult for field analysts to classify, and its "Mongrel" reporting name was one of several designations that complicated the warbook's reliability during the chaotic early years of the Clan Invasion.</p>
+
+manufacturer:Clan Diamond Shark
+
+primaryfactory:Unknown
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

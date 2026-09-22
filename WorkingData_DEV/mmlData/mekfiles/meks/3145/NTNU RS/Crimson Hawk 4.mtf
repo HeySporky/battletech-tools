@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d3fd-7e3e-9b40-3d3ff5aba04b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Crimson Hawk
+model:4
+mul id:6944
+
+Config:Biped
+techbase:Clan
+era:3099
+source:TR:3145
+published:RS:3145-NTNU,RS:3145
+rules level:2
+role:Striker
+
+quirk:pro_actuator
+
+mass:25
+engine:125 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:5
+jump mp:3
+
+armor:Ferro-Fibrous(Clan)
+LA armor:8
+RA armor:8
+LT armor:9
+RT armor:9
+CT armor:11
+HD armor:9
+LL armor:11
+RL armor:11
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:4
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+Heavy Flamer, Right Arm
+ER Large Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLERMediumLaser
+CLERMediumLaser
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLHeavyFlamer
+CL Heavy Flamer Ammo
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+CLERLargeLaser
+CLTargeting Computer
+CLTargeting Computer
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Crimson Hawk is a twenty-five-ton Clan light BattleMech originally conceived by Clan Blood Spirit scientists on York around 3069, during the darkest period of their Clan's slow decline under Star Adder blockade. A Diamond Shark merchant commander discovered the partially completed prototype and won it through a Trial of Possession, transferring the design and its technical team to the Diamond Shark facility on Itabaiana by 3070. Under Diamond Shark stewardship, the light 'Mech was refined into a production model emphasizing firepower and armor protection over raw speed, filling a niche as a light striker suited for difficult terrain and swarm tactics.</p>
+
+capabilities:<p>The Crimson Hawk is a 'Mech built on contradictions and deliberate deception. Its primary armament consists of two Clan extended-range large lasers, but the weapons are intentionally mismatched models, a design choice that reflects Diamond Shark cunning rather than Blood Spirit engineering. The Series 7J laser is mounted atop the torso on a distinctive hinge mount reminiscent of the venerable Shadow Hawk's "stow and go" autocannon, complete with an oversized cooling sleeve. The Series 7K in the right arm, by contrast, has been stripped to its essential mountings so that it visually resembles the much smaller Series 3K extended-range medium laser.</p><p>This deliberate confusion serves a tactical purpose: the mounting plates and connections can accommodate a Series 3K, allowing mission-specific weapon swaps that keep opponents guessing about the 'Mech's true capabilities. Built on the York II XT chassis with a 125-rated York XL engine, the Crimson Hawk achieves a respectable top speed of 86 kph while five Clan Series Type I Light jump jets provide 150 meters of jumping distance. The Compound 6A ferro-fibrous armor provides excellent protection for a twenty-five-ton design, though the commitment to heavy energy weaponry leaves the 'Mech reliant entirely on its power plant for sustained combat operations.</p>
+
+deployment:<p>The Crimson Hawk 4 is a Dark Age-era production variant manufactured at both Trellshire Heavy Industries on Twycross and Manufacturing Plant DSF-IT1 on Itabaiana beginning around 3099. This variant retains a single extended-range large laser in the right torso, paired with an advanced targeting computer that dramatically improves accuracy. The left arm carries twin extended-range medium lasers for supplementary firepower, while a heavy flamer in the right arm provides anti-infantry and anti-battle armor capability. The jump jet complement is reduced to three, limiting the 'Mech's jumping distance to 90 meters, a trade-off the designers clearly deemed acceptable given the variant's emphasis on precision gunnery over maneuverability.</p>
+
+history:<p>The Crimson Hawk's history is inseparable from the tragic decline of Clan Blood Spirit. By the late 3060s, the Star Adders had established a slow, methodical blockade of the Blood Spirits on York, constricting their resources and morale while deliberately avoiding a full Annihilation, the Spirits served as a convenient crucible for Adder warriors seeking combat experience. It was during this period that Blood Spirit scientists quietly began work on the Crimson Hawk, though chronic shortages plagued the project from inception.</p><p>The design's fate changed dramatically in 3069 when a Diamond Shark merchant commander spotted the partially assembled prototype in an obscure hangar on York. The resulting Trial of Possession was fought in the Morgrave Swamplands by a Spirit Binary; the Sharks won decisively, with only two Spirit defenders surviving. The victorious Sharks transferred the entire design team and prototype to their facility on Itabaiana, where production development continued in secrecy through 3070.</p><p>By 3073, Draconis Combine intelligence agents observed Diamond Shark merchants loading Crimson Hawks aboard eight Overlord-C DropShips, which subsequently disappeared aboard the WarShip Titanic. The significance of this shipment became clear only later, when a Ghost Bear Watch intercept revealed that the Titanic had run the Star Adder blockade and escorted several DropShips to the surface of York before being destroyed, split in half by a large WarShip suspected to be the Adder vessel Sovereign Right or Absolute Truth. In 3074, an Overlord-C carrying ten Crimson Hawks as cargo was shot down over York, sparking a salvage battle between the Star Adder Tenth Armored Cavalry Cluster and the Blood Spirit Fifty-fifth Red Vanguard Cluster. Diamond Shark merchant caste records suggest that at the insistence of influential traders, over a Cluster's worth of Crimson Hawks was ultimately shipped to the beleaguered Blood Spirits, even as that Clan's extinction drew nearer.</p><p>The Crimson Hawk quickly attracted interest beyond its original patrons. Jade Falcon merchants eagerly acquired examples, likely driven by the severe internal conflicts devastating the Falcon Touman within their Occupation Zone during the Jihad. Clan Wolf-in-Exile opened negotiations with the Diamond Sharks for both the design and possible production rights, eventually establishing refit capabilities on Arc-Royal. A separate Clan Wolf refit program operated from facilities on Weingarten. As the Diamond Sharks (later renamed Clan Sea Fox) expanded their commercial network through the Dark Age and into the ilClan era, the Crimson Hawk remained in steady production at both the Itabaiana plant and Trellshire Heavy Industries on Twycross, ensuring continued availability across the Inner Sphere and Clan markets alike.</p>
+
+manufacturer:Trellshire Heavy Industries|Manufacturing Plant DSF-IT1
+
+primaryfactory:Twycross|Itabaiana
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:York II XT
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:125 York XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Compound 6A
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Clan Series Type I Light
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Able-Seven Sensor Suite
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Multi-Spread 9

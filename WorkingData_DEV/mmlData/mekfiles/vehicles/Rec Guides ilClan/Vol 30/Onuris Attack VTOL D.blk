@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e9f0-76c2-81e7-da784e6aa2b9
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Onuris Attack VTOL
+</Name>
+
+<Model>
+D
+</Model>
+
+<mul id:>
+9421
+</mul id:>
+
+<year>
+3147
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+3
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+31
+20
+20
+15
+2
+</armor>
+
+<Body Equipment>
+ISVTOLJetBooster
+CLMediumChemLaserAmmo:OMNI
+CLMediumChemLaserAmmo:OMNI
+CLMediumChemLaserAmmo:OMNI
+</Body Equipment>
+
+<Front Equipment>
+CLMediumChemicalLaser:OMNI
+CLMediumChemicalLaser:OMNI
+CLMediumChemicalLaser:OMNI
+CLMediumChemicalLaser:OMNI
+CLMediumChemicalLaser:OMNI
+CLImprovedMediumHeavyLaser:OMNI
+CLImprovedMediumHeavyLaser:OMNI
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Onuris retains the Anhur's Fusion 100 XL engine, providing a cruising speed of 86 kilometers per hour. All configurations mount a VTOL jet booster that pushes the maximum speed to 172 kilometers per hour, delivering the burst acceleration needed for hit-and-run tactics and rapid battlefield disengagement. This combination of sustained cruise performance and sprint capability makes the Onuris exceptionally difficult to pin down.</p><p>The armor package was upgraded from the Anhur's ferro-fibrous plating to Gamma Special Reflective armor, providing improved protection against energy weapons. Overall coverage was increased to better suit a vehicle expected to operate in contested airspace rather than behind the front lines. The dual rotor arrangement provides stable flight characteristics but remains the design's most significant vulnerability, as with all VTOLs.</p><p>Fourteen tons of pod space freed by removing the Anhur's cargo bay accommodate loadouts ranging from plasma cannons and missile racks to autocannons and laser arrays. Standard configurations cover roles from close-range striker to long-range sniper to dedicated missile platform, giving formation commanders considerable tactical flexibility from a single airframe. User-developed configurations that proved themselves in combat were eventually added to the standard production catalog. Despite this versatility, the Onuris is still a 30-ton VTOL and cannot absorb sustained fire from dedicated anti-air assets.</p>
+</capabilities>
+
+<overview>
+<p>The Onuris Attack VTOL entered production in 3145 at Manufacturing Plant SFF-NG3 on Ingersoll, a Clan Sea Fox facility operating within Capellan Confederation space. Conceived during the post-Blackout rearmament, the design emerged from widespread recognition that combat vehicles had proven their worth in the conflicts sweeping the Inner Sphere. Sea Fox merchants and warriors saw an opportunity to create a more capable combat platform from the proven Anhur Transport chassis, converting its generous cargo bay into flexible pod space. The result was a versatile OmniVehicle capable of filling roles that previously required multiple dedicated airframes. The Onuris quickly drew interest from buyers across the Sphere, and its combination of speed, adaptability, and Clan-grade equipment made it a popular addition to combined-arms formations seeking reliable aerial fire support.</p>
+</overview>
+
+<deployment>
+<p>Configuration D emphasizes energy weapons, mounting two Improved Heavy Medium Lasers and five Medium Chemical Lasers with three tons of chemical laser ammunition. Four additional heat sinks manage the increased thermal load. This variant was derived from the Red Kite fighter design produced in the Free Worlds League, and its laser-heavy loadout reduces dependence on ammunition resupply. The combination of accurate improved lasers and sustained chemical laser fire provides consistent damage output across extended engagements.</p>
+</deployment>
+
+<history>
+<p>The Onuris saw its first combat deployment during Task Force Navarre's assault on the Capellan Confederation. Typical deployments organized a Star with two Points each of Prime and A configurations alongside a Point of B configuration, providing overlapping fields of fire that were difficult for defenders to counter. During strikes on Pleione, the Capellan Home Guard commander's decision to disregard the approaching Sea Fox force proved costly. The speed of the Onurises allowed them to bypass most Home Guard positions while Sea Fox transports dropped off Elementals to raid stockpiles and destroy key objectives. A Star of Onurises provided overwatch, easily dispatching scouts and quick response forces. When the time came to withdraw, the upgraded armor allowed the VTOLs to absorb covering fire while their speed ensured extraction before heavier Home Guard elements could respond.</p><p>A Star of Onurises later acquired by Clan Wolf equipped an experimental Nova in the Ninth Wolf Cavalry. The Wolf Onurises played a key role in the Cluster that drove the battered Tenth Principes into the Consecrated Desert on Shiloh. Various configurations were employed, but two Points of E variants outperformed the rest of the Star. These Onurises used their jet boosters to run down Republic scouts, crippled them with pulse laser fire, and then destroyed the immobilized vehicles with ATM barrages. Their superior range allowed them to avoid return fire from slower Republic formations until the Republic forces regrouped in strength, compelling the Wolf VTOLs to fall back.</p><p>During a Trial of Possession on Satalice, a Point of Onurises helped a Trinary of Clan Hell's Horses' Thirty-Ninth Mechanized Assault Cluster secure a Binary of freshly built Kodiaks. Operating as guardians alongside Anhurs carrying Elementals, the Onurises surprised security forces that had expected only lightly armed transports. The Horses' VTOLs and Elementals carved through smaller, slower opposing units, destroying triple their tonnage before better-armored reinforcements arrived. By that point the main body of the Trinary had already defeated its counterparts, and the remaining Horses made short work of the last defenders.</p>
+</history>
+
+<manufacturer>
+Manufacturing Plant SFF-NG3
+</manufacturer>
+
+<primaryFactory>
+Ingersoll
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion 100 XL
+ARMOR:Gamma Special Reflective
+COMMUNICATIONS:Khan-series (Type 2)
+TARGETING:Mark 12 IHADS
+</systemModels>
+
+<source>
+RG30
+</source>
+
+<published>
+RG30
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

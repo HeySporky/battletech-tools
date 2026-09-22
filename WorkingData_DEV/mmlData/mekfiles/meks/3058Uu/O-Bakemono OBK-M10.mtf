@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ca9f-7c01-b29d-25511689fcda
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:O-Bakemono
+model:OBK-M10
+mul id:2310
+
+Config:Biped
+techbase:Inner Sphere
+era:3058
+source:TR:3058U,TR:CI
+published:RS:CI
+rules level:3
+role:Missile Boat
+
+quirk:no_arms
+weaponquirk:mod_weapons:LT:3:ISArrowIV
+weaponquirk:mod_weapons:RT:3:ISArrowIV
+weaponquirk:mod_weapons:CT:10:Medium Laser
+weaponquirk:mod_weapons:CT:11:Medium Laser
+weaponquirk:mod_weapons:HD:3:Small Laser
+
+mass:80
+engine:320 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:26
+RA armor:26
+LT armor:25
+RT armor:25
+CT armor:37
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:9
+RTR armor:9
+RTC armor:10
+
+Weapons:5
+Arrow IV, Left Torso
+Arrow IV, Right Torso
+Medium Laser, Center Torso
+Medium Laser, Center Torso
+Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIVAmmo
+ISArrowIVHomingAmmo
+ISArrowIVHomingAmmo
+ISCASE
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIV
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVHomingAmmo
+ISCASE
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Medium Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+Small Laser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The O-Bakemono is an eighty-ton assault BattleMech developed in 3057 by Luthien Armor Works as part of an ambitious program to reverse-engineer captured Clan OmniMech technology. Named after the Japanese term for "great goblin," the design is directly based on the Clan Wolf Naga mobile artillery platform. LAW's engineers sought to replicate the devastating dual Arrow IV artillery capability of their Clan counterpart, creating what many consider the ideal fire-support BattleMech for the Draconis Combine Mustered Soldiery.</p><p>While the Inner Sphere version necessarily made compromises compared to the original Clan design, the O-Bakemono delivers an impressive long-range artillery punch that few contemporary designs can match. Produced exclusively at Luthien Armor Works' facilities on Luthien, the design's specialized role and the scarcity of Arrow IV munitions have always confined its deployment to larger, more elite DCMS commands.</p>
+
+capabilities:<p>Though LAW managed to implement the dual Shigunga Arrow IV launching system that defines the Naga, significant concessions were required to achieve this within Inner Sphere technological limitations. The O-Bakemono actually mounts five additional tons of StarSlab/3 armor compared to its Clan ancestor and carries a slightly expanded secondary weapons array, including two Diverse Optics Type 20 medium lasers and a ChisComp 32 small laser for close-range defense. These gains come at the cost of reduced heat dissipation capacity and a notable reduction in top speed, reinforcing the persistent technological gap between the Inner Sphere and the Clans despite decades of reverse-engineering efforts.</p><p>The twin Arrow IV systems provide the O-Bakemono with an effective engagement range of up to three kilometers, allowing the 'Mech to remain well behind the front lines while delivering devastating artillery barrages onto targets designated by friendly spotters. The Hermes 320 XL engine provides a respectable top speed of 64 kph for an eighty-ton chassis, granting sufficient mobility to reposition between fire missions. CASE protection in the side torsos mitigates the risk posed by the large ammunition stores. However, the near-total reliance on Arrow IV systems and their specialized munitions creates significant logistical demands, and the limited secondary armament leaves the design acutely vulnerable should hostile forces close to direct combat range.</p>
+
+deployment:<p>The base model mounts twin Shigunga Arrow IV artillery systems supported by a pair of Diverse Optics medium lasers and a ChisComp small laser for self-defense. Fourteen tons of StarSlab armor with CASE protection and a Hermes 320 XL engine provide adequate survivability and mobility for the artillery role. While the Arrow IV's three-kilometer engagement range keeps the 'Mech safely behind the front lines, the expensive and scarce nature of Arrow IV munitions limits this configuration to well-supplied elite formations within the DCMS.</p>
+
+history:<p>The O-Bakemono was born from the technological windfall of the Clan Invasion. Following the critical Battle of Wolcott in 3049, which provided the Draconis Combine with pristine examples of Clan military technology, Luthien Armor Works was tasked with reverse-engineering captured OmniMech systems. While LAW successfully produced several OmniMech designs at their Guthry Island facility, the O-Bakemono represented a different approach, a dedicated Inner Sphere BattleMech designed to replicate a specific Clan capability rather than the OmniMech concept itself.</p><p>In an unusual move for the Draconis Combine (reminiscent of programs by other Great Houses such as House Steiner's initial deployment of the Wolfhound with the Kell Hounds) the O-Bakemono first saw operational deployment with Camacho's Caballeros, a mercenary unit. Chandrasekhar Kurita reportedly secured a prototype, with or without his cousin the Coordinator's direct consent, and handed it to the Caballeros for field testing on Towne in 3057. The design's effectiveness was quickly validated during these trials, and reports of its capabilities soon filtered back to the DCMS high command.</p><p>The O-Bakemono's artillery-focused loadout and the chronic scarcity of Arrow IV ammunition prevented it from achieving widespread deployment across the DCMS. Instead, it was concentrated in larger, more elite commands where its specialized fire support capabilities could be properly integrated into combined-arms formations. During the campaigns against Clan Smoke Jaguar, O-Bakemono units provided devastating long-range support, with their dual Arrow IV systems proving particularly effective when coordinated with forward spotters operating in the Assault Company's Support Lance formations.</p><p>The Jihad devastated Luthien Armor Works' production facilities when the main factory complex was destroyed by nuclear detonation in 3068, a catastrophe engineered by Black Dragon agents. With production of the original OBK-M10 halted indefinitely, Combine field technicians developed the M11 and M12 field-salvage variants to keep surviving chassis operational using more readily available components. These improvised modifications traded the design's signature artillery capability for cheaper, more maintainable medium-range missile systems, ensuring the O-Bakemono remained a viable combat asset even as its original production line lay in ruins. The proliferation of these field refits during and after the Jihad speaks to both the durability of the underlying chassis and the ingenuity of Combine technicians working under desperate conditions.</p>
+
+manufacturer:Luthien Armor Works
+
+primaryfactory:Luthien
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Class 92b
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:320 XL
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:StarSlab/3 with CASE
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:Security Plus
+systemmanufacturer:TARGETING:Matabushi
+systemmode:TARGETING:Sentinel

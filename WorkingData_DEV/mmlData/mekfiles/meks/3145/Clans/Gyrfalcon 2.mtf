@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d2d6-72f4-92f2-150485802612
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Gyrfalcon
+model:2
+mul id:6267
+
+Config:Biped
+techbase:Clan
+era:3112
+source:TR:3145:C,TR:DA
+published:RS:DA
+rules level:3
+role:Skirmisher
+
+quirk:distracting
+quirk:reinforced_legs
+
+mass:55
+engine:275 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:13 Laser
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Clan)
+LA armor:15
+RA armor:15
+LT armor:16
+RT armor:16
+CT armor:21
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:4
+ER Large Laser, Left Arm
+LB 2-X AC, Left Arm
+ER Large Laser, Right Arm
+LB 2-X AC, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLERLargeLaser
+CLLBXAC2
+CLLBXAC2
+CLLBXAC2
+Clan LB 2-X AC Ammo
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLERLargeLaser
+CLLBXAC2
+CLLBXAC2
+CLLBXAC2
+Clan LB 2-X Cluster Ammo
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLPartialWing
+CLPartialWing
+CLPartialWing
+Laser Heat Sink
+Laser Heat Sink
+Jump Jet
+Jump Jet
+CLMASC
+CLMASC
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLPartialWing
+CLPartialWing
+CLPartialWing
+Laser Heat Sink
+Laser Heat Sink
+Jump Jet
+Jump Jet
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Gyrfalcon was introduced in 3112 by Olivetti Weaponry on Sudeten as part of a Clan Jade Falcon initiative to revitalize the Clan's touman. A 55-ton medium BattleMech built for speed and firepower, the Gyrfalcon fills the role of a fast striker and pursuit unit, capable of maintaining offensive pressure at range while using its mobility to control engagements.</p><p>Drawing inspiration from the Jade Falcon's namesake raptor, the design features a distinctive raptor-like silhouette with protruding head, double-jointed legs, digitigrade feet, and large stylized wings that embody the Clan's aggressive identity. Beyond its battlefield role, the Gyrfalcon was conceived as a cultural symbol intended to inspire a new generation of Jade Falcon warriors and reinforce pride in the Clan's heritage.</p>
+
+capabilities:<p>The Gyrfalcon is a workhorse medium BattleMech built around a 275-rated XL engine that propels the 55-ton design to a top speed of 86.4 km/h, with MASC providing bursts up to 108 km/h when needed. A partial wing augments its five jump jets, extending the effective jump distance beyond the standard 150 meters and providing enhanced maneuverability in rough terrain. A light active probe mounted in the head allows MechWarriors to detect hidden units, giving the Gyrfalcon an edge in reconnaissance-heavy engagements.</p><p>The standard armament consists of two Series 6b extended-range large lasers paired with two Type OVR-V LB 2-X autocannons, a combination that favors sustained long-range harassment. This weapons mix allows the Gyrfalcon to keep opponents at arm's length while its reflective armor helps mitigate return laser fire. The design philosophy sacrifices close-range punch for standoff capability, relying on speed and range to dictate the terms of engagement.</p><p>Engineers reinforced the Gyrfalcon's legs to withstand the stresses of Death from Above attacks, reflecting a broader shift in Jade Falcon doctrine toward embracing physical combat tactics. While the light autocannons limit its raw damage output, the design's combination of mobility, range, and sensor capability makes it effective as both a screening element and a pursuit hunter.</p>
+
+deployment:<p>Introduced alongside the standard model in 3112, this heat-efficient variant replaces the reflective armor with more commonly available ferro-fibrous plating, trading energy weapon resistance for broader availability of replacement materials. The light active probe is removed and two additional laser heat sinks are added, bringing the total to thirteen. These modifications allow sustained fire for longer engagements without overheating, making the Gyrfalcon 2 a popular choice among MechWarriors who favor aggressive, prolonged tactics over the standard model's specialized protection.</p>
+
+history:<p>The Gyrfalcon emerged from a key moment in Clan Jade Falcon history. Following the success of Olivetti Weaponry's Eyrie in 3087, many expected a quick follow-up, but the Jade Falcons waited twenty-five years before unveiling the Gyrfalcon as a heavier companion. Olivetti had never planned to design a BattleMech following in the Eyrie's footsteps; rather, a Clan Council initiative at the turn of the thirty-second century sought to revitalize the flagging touman during Devlin Stone's peace. The Gyrfalcon was the first tangible result of that program, intended alongside the Eyrie to inspire the next generation of Jade Falcon warriors with a design that embodied Clan pride, patriotism, and martial culture.</p><p>The initiative proved a resounding success. Warriors of all stripes embraced the Gyrfalcon not only for its battlefield prowess but for its fierce, raptor-like appearance that proclaimed Jade Falcon identity to all potential challengers. The design's early combat debut came in 3113 on Chateau, where the Second Falcon Dragoons challenged the Hell's Horses' Thirtieth Mechanized Strike Cluster in a Trial of Possession for a Star of the Horses' signature Balius quad OmniMechs.</p><p>The Dragoons' bid consisted entirely of a Star of Gyrfalcons against a defending Star of Balius, pitting both Clans' totem 'Mechs against one another. Using the Avion Hills to their advantage, the Gyrfalcons kept the heavier Horse 'Mechs at long range until the final minutes, then closed the gap with devastating Death from Above attacks that crushed two Balius outright. The remaining Horses fought briefly before requesting hegira. Rather than claim the defeated Balius as isorla, the Dragoons' commander ordered their public destruction, leaving no salvageable components and sending a clear message about Jade Falcon resolve.</p><p>Production at Olivetti Weaponry's Sudeten facility has continued steadily since the design's introduction, with multiple variants developed to suit different tactical preferences and doctrinal needs. The Gyrfalcon's popularity within the Jade Falcon touman grew further as the Clan's military campaigns intensified during the Dark Age, with the design seeing extensive service throughout the Falcon's aggressive expansion into the Republic of the Sphere. While geared toward fire support, its speed and strong legs allowed MechWarriors to engage in close combat when desired, making it well-rounded enough that even more moderate commanders favored it.</p><p>The fall of much of the Jade Falcon state following the ilClan Trial on Terra in 3151 has not ended Gyrfalcon production. The Olivetti facility on Sudeten continues to operate, and the design remains a symbol of Jade Falcon identity for the remnant forces centered on that world.</p>
+
+manufacturer:Olivetti Weaponry
+
+primaryfactory:Sudeten
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Olivetti
+systemmode:CHASSIS:Stage 3 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:275 Fusion XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Ferro-Fibrous)
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Clan Standard Type A1 with Partial Wing
+systemmanufacturer:COMMUNICATIONS:Raptor
+systemmode:COMMUNICATIONS:X-T Type iii
+systemmanufacturer:TARGETING:Goshawk
+systemmode:TARGETING:E-Series

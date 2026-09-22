@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cfba-7d51-ae7b-cb07cacc9d64
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Kuma
+model:2
+mul id:1847
+
+Config:Biped
+techbase:Clan
+era:3083
+source:TR:3085
+published:RS:3085u-CE
+rules level:2
+role:Skirmisher
+
+quirk:hard_pilot
+weaponquirk:accurate:LA:3:CLPlasmaCannon
+
+mass:60
+engine:360 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:11 Clan Double
+walk mp:6
+jump mp:6
+
+armor:Ferro-Fibrous(Clan)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:4
+Plasma Cannon, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ATM 9, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLPlasmaCannon
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser
+CLERMediumLaser
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+CLATM9
+CLATM9
+CLATM9
+CLATM9
+CLPlasmaCannonAmmo
+CLPlasmaCannonAmmo
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Clan Ammo ATM-9 HE
+Clan Ammo ATM-9
+Clan Ammo ATM-9
+Clan Ammo ATM-9 ER
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Kuma (Japanese for "bear") is a sixty-ton heavy BattleMech introduced in 3082 by Alshain BattleWorx for the Ghost Bear Dominion. Conceived as a symbol of unity between Clan Ghost Bear warriors and former KungsArme soldiers of the Free Rasalhague Republic, the Kuma emerged from an unprecedented collaborative design effort commissioned by the Ghost Bear Khans during a period of increasing friction between the Dominion's Clan and Sphere-born populations.</p><p>The resulting cavalry design represented a deliberate departure from typical Clan preferences for heavy-hitting OmniMechs, instead prioritizing extreme speed and armor protection over raw firepower. Serving as a heavy cornerstone for light Stars, the Kuma carved out a niche as a fast scout and cavalry raider in the post-Jihad Dominion touman, earning both admiration and the occasional derisive nickname of "Charger IIC."</p>
+
+capabilities:<p>The Kuma may be the most mobile heavy BattleMech ever produced. Its enormous 360 Type II extralight fusion engine (a powerplant more typical of lighter designs like the Fenris or Pouncer) propels the sixty-ton chassis to nearly one hundred kilometers per hour on the ground. Clan Series Type 4 Heavy Improved Jump Jets provide an extraordinary two-hundred-forty-meter jump capability, matching the light Spider and surpassing many medium ’Mechs in tactical agility. Ten and a half tons of Arcadia Compound Delta VII ferro-fibrous armor offer solid if not exceptional protection for the weight class, while eleven double heat sinks struggle to manage the thermal load of simultaneous weapons fire and jump jet use.</p><p>This impressive mobility comes at a significant cost in firepower. The Kuma’s armament consists of a single Series 4D-2 heavy large laser in the left arm supported by two Series 2f extended-range medium lasers in the right arm. While this all-energy loadout grants complete independence from supply lines and eliminates ammunition explosion risks, the overall firepower is roughly comparable to a Succession Wars-era medium ’Mech. The design also exhibits a steep heat curve when combining weapons fire with its jump jets, though the ability to quickly break contact when overheating partially mitigates this concern. Commanders value the Kuma not for its hitting power but for its ability to dictate the terms of engagement through superior speed and positioning.</p>
+
+deployment:<p>Developed in 3083, the Kuma 2 trades some of the base model’s extraordinary mobility for significantly improved combat versatility. Standard jump jets replace the heavier improved variants, reducing jump capability to one hundred eighty meters but freeing tonnage for substantially upgraded armament. A plasma cannon replaces the heavy large laser, and a nine-tube advanced tactical missile launcher with four tons of ammunition provides flexible engagement options at multiple range brackets. This loadout delivers far greater hitting power and tactical variety than the original design, though it introduces an ammunition dependency that the base model’s designers specifically sought to avoid. Many commanders consider the Kuma 2 the more practical combat variant of the chassis.</p>
+
+history:<p>The Kuma’s origins trace to the political complexities that followed the formation of the Ghost Bear Dominion. When Clan Ghost Bear absorbed the Free Rasalhague Republic, integrating the former KungsArmé military into the Clan’s warrior caste proved deeply challenging. Trueborn warriors (and even many freeborn Clan warriors) viewed Sphere-born soldiers with suspicion and open disdain, while KungsArmé veterans chafed at Clan customs and social hierarchies. Recognizing that this division threatened the Dominion’s stability, the Khans commissioned both groups to jointly develop a new BattleMech, reasoning that shared creative purpose might build bridges where edicts could not.</p><p>The collaborative design process began several years prior to the Jihad but was interrupted by the conflict. Prototypes were fielded during the closing years of the war, but the design did not see actual combat during the Jihad itself. Full-scale production at Alshain BattleWorx (by that time a subsidiary of Bergan Industries) commenced in 3082, after hostilities had concluded. The facility on Alshain had survived the Jihad relatively intact, making it a natural choice for the Dominion’s newest production line.</p><p>Production initially fell under Clan Ghost Bear ownership during the early Republic era, transitioning to the Rasalhague Dominion as the political entity continued to evolve. The Kuma served as a tangible symbol of the Dominion’s unique dual heritage, assigned to both trueborn and freeborn warriors without distinction. Its deployment has been measured but steady, with the design finding its primary niche as a fast heavy anchor for light reconnaissance Stars. While some warriors initially dismissed the Kuma’s light armament, operational experience demonstrated the tactical value of a heavy chassis that could keep pace with light ’Mechs.</p><p>The introduction of the Kuma 2 in 3083 and the experimental Kuma 3 in 3085 expanded the platform’s capabilities and tested its mechanical limits. The Kuma 4, introduced in 3141, incorporated HarJel II self-repair systems acquired through trade with Clan Sea Fox, demonstrating the Rasalhague Dominion’s continued commitment to developing the design and its willingness to leverage inter-Clan commerce for technological advancement. The Kuma remains a distinctive and recognizable element of the Dominion’s touman well into the Dark Age.</p>
+
+manufacturer:Bergan Industries - Alshain BattleWorx
+
+primaryfactory:Alshain
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Clan Series Heavy KMX
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:360 Type II XL
+systemmanufacturer:ARMOR:Arcadia
+systemmode:ARMOR:Compound Delta VII Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:GBX-2 Amalgamated
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac Version 8

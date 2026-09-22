@@ -1,0 +1,802 @@
+{
+  "filename": "Raven IIC GB.hmp",
+  "size": 969,
+  "header_hex": "56 35 2e 30 30 04 00 08 03 50 20 08 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0003P "
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 21,
+      "length": 8,
+      "text": "\u0000\u0000\u0000\u0000#\u0000\u0005\u0000"
+    },
+    {
+      "type": "ascii",
+      "start": 21,
+      "end": 26,
+      "text": "Raven"
+    },
+    {
+      "type": "len_string",
+      "start": 26,
+      "end": 34,
+      "length": 6,
+      "text": "IIC GB"
+    },
+    {
+      "type": "byte",
+      "offset": 34,
+      "hex": "f4"
+    },
+    {
+      "type": "len_string",
+      "start": 35,
+      "end": 560,
+      "length": 523,
+      "text": "\u0000\u00c2qb\u0000\t\u0005\u0000\u00c0\u007fD\u0000\u0000`D\u0000\u0000\u00b8A\u0000\u0000@A\u0000\u0000\u0080?\u001d\u0000ML 3 2 4 3 \u0097\u0097 6 ecm, tag, prb\u0001\u0000\u0000\u0000\u0001\u0000\u00d2\u0000\u0001\u0000\u0006\u0000\u0000\u0000\u000b\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0004\u0000\u0004\u0000\u0005\u0000\u0002\u0000\b\u0000\u0002\u00004\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000Y\u0000\u0001\u0000\f\u0000\u0002\u0000\t\u0000(Unknown)\u0001\u0000T\u0000\u0005\u0000\u000f\u0000\u0002\u0000\t\u0000(Unknown)\u0001\u0000Z\u0000\u0005\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000X\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000W\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00007\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000@\u0000\u0007\u0000\u0018\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000Y\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000X\u0000\u0000\u0000\u00e9\u0001\u0006\b\u00e9\u0001\u0006\b\u00e4\u0001\u000f\b\u00d0\u0001\u0018\b\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000T\u0000\u0000\u0000T\u0000\u0000\u0000Z\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 560,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 561,
+      "end": 562,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 562,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 563,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 564,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 565,
+      "end": 566,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 566,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 567,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 568,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 569,
+      "end": 592,
+      "length": 21,
+      "text": "\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 592,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 593,
+      "end": 603,
+      "length": 8,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 603,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 604,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 605,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 606,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 607,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 608,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 609,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 610,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 611,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 612,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 613,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 614,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 615,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 616,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 617,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 618,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 619,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 620,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 621,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 622,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 623,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 624,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 625,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 626,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 627,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 628,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 629,
+      "end": 643,
+      "length": 12,
+      "text": "\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000@\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 643,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 644,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 645,
+      "end": 646,
+      "text": "\r"
+    },
+    {
+      "type": "byte",
+      "offset": 646,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 647,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 648,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 649,
+      "end": 663,
+      "length": 12,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 663,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 664,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 665,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 666,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 667,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 668,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 669,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 670,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 671,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 672,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 673,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 674,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 675,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 676,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 677,
+      "end": 694,
+      "length": 15,
+      "text": "\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010"
+    },
+    {
+      "type": "byte",
+      "offset": 694,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 695,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 696,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 697,
+      "end": 715,
+      "length": 16,
+      "text": "\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 715,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 716,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 717,
+      "end": 718,
+      "text": "W"
+    },
+    {
+      "type": "byte",
+      "offset": 718,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 719,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 720,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 721,
+      "end": 722,
+      "text": "7"
+    },
+    {
+      "type": "byte",
+      "offset": 722,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 723,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 724,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 725,
+      "hex": "f6"
+    },
+    {
+      "type": "byte",
+      "offset": 726,
+      "hex": "ff"
+    },
+    {
+      "type": "ascii",
+      "start": 727,
+      "end": 728,
+      "text": "j"
+    },
+    {
+      "type": "byte",
+      "offset": 728,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 729,
+      "end": 730,
+      "text": "U"
+    },
+    {
+      "type": "byte",
+      "offset": 730,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 731,
+      "end": 816,
+      "text": "A Clan Ghost Bear refit of captured inner sphere Raven's , for their 2rd line units ."
+    },
+    {
+      "type": "len_string",
+      "start": 816,
+      "end": 819,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 819,
+      "end": 822,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 822,
+      "end": 825,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 825,
+      "end": 828,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 828,
+      "end": 831,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 831,
+      "end": 834,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 834,
+      "end": 837,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 837,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 838,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 839,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 840,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 841,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 842,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 843,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 844,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 845,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 846,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 847,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 848,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 849,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 850,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 851,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 852,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 853,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 854,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 855,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 856,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 857,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 858,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 859,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 860,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 861,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 862,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 863,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 864,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 865,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 866,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 867,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 868,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 869,
+      "end": 879,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 879,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 880,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 881,
+      "end": 882,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 882,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 883,
+      "end": 893,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 893,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 894,
+      "end": 904,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 904,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 905,
+      "end": 915,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 915,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 916,
+      "end": 926,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 926,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 927,
+      "end": 937,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 937,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 938,
+      "end": 948,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 948,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 949,
+      "end": 959,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 959,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 960,
+      "end": 969,
+      "text": "(Unknown)"
+    }
+  ]
+}

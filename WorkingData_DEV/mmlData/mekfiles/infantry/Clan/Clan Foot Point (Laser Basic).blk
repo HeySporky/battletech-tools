@@ -1,0 +1,85 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bb18-73b3-959e-89de232010aa
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Clan Foot Point
+</Name>
+
+<Model>
+(Laser Basic)
+</Model>
+
+<mul id:>
+9592
+</mul id:>
+
+<year>
+2807
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Most Clan infantry are solahma warriors at the end of their careers or who have failed their Trials, assigned to duties the warrior caste considers beneath notice. Foot Points are the most basic infantry formation, deployed on foot without transport. Slow and vulnerable in open terrain, they are best suited to garrison duty, facility security, and defensive positions where their lack of mobility is less of a liability. Equipped with laser rifles that offer superior range and armor penetration compared to ballistic weapons, these Points field one of the most effective personal arms available to conventional infantry, though the weapons are significantly more expensive and require warriors to carry additional power packs.</p>
+</overview>
+
+<notes>
+Intro date is earlier than MUL to match General Clan faction intro date. Uses Generic Infantry kit due to much later intro date of standard Clan kit.
+</notes>
+
+<source>
+TW,TM
+</source>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+5
+</squadn>
+
+<Primary>
+Laser Rifle
+</Primary>
+

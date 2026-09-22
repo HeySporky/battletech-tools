@@ -1,0 +1,176 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e0f2-7b8a-84c9-94986c36534b
+</UUID>
+
+<UnitType>
+ProtoMek
+</UnitType>
+
+<Name>
+Erinyes
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4131
+</mul id:>
+
+<year>
+3062
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Biped
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<jumpingMP>
+4
+</jumpingMP>
+
+<interface_cockpit>
+false
+</interface_cockpit>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+42
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+2
+4
+1
+1
+2
+</armor>
+
+<Body Equipment>
+Clan Ammo SRM-1 (5)
+ProtoMechJumpJet
+ProtoMechJumpJet
+ProtoMechJumpJet
+ProtoMechJumpJet
+EIInterface
+</Body Equipment>
+
+<Head Equipment>
+</Head Equipment>
+
+<Torso Equipment>
+CLSRM1
+</Torso Equipment>
+
+<Right Arm Equipment>
+</Right Arm Equipment>
+
+<Left Arm Equipment>
+</Left Arm Equipment>
+
+<Legs Equipment>
+</Legs Equipment>
+
+<capabilities>
+<p>Built along similar lines to the Smoke Jaguar Harpy, the Erinyes is barely more than a slightly upgraded battlesuit in practical terms. The base configuration mounts a single SRM-1 launcher in the torso with five rounds of ammunition and four jump jets providing one hundred twenty meters of leaping distance. This gives the Erinyes better terrain mobility than most two-ton designs, though the single missile tube provides woefully inadequate firepower for anything beyond guard duty and riot control. Ten points of armor offer minimal protection against battlefield weapons.</p><p>The Erinyes' primary tactical value lies in its jump capability and small profile rather than raw combat power. Operating in Stars or larger formations, Erinyes pilots can use their jump jets to stage ambushes from heavy terrain, concentrating their fire on single targets before fading back into cover along paths too restrictive for pursuing BattleMeks. This hit-and-fade approach proved remarkably effective during the Hellion Incursion, where Falcon Erinyes Points used heavy woodlands and canyon terrain to savage overextended Hellion patrols. However, the design's limited ammunition supply and fragile armor make prolonged engagements untenable.</p>
+</capabilities>
+
+<overview>
+<p>The Erinyes is a two-ton second-generation ProtoMek designed by Clan Jade Falcon after obtaining Smoke Jaguar scientific records following the Jaguar Annihilation. Conceived as a proof-of-concept effort to validate the Falcons' ability to independently produce ProtoMek technology, the Erinyes was a deliberately conservative design that hewed closely to the parameters established by the first-generation Harpy. Khan Marthe Pryde terminated the program in 3064 after lackluster performance in test raids against the Lyran Alliance, but the design resurfaced nearly a decade later under mysterious circumstances during devastating attacks on Falcon worlds by unknown forces wielding upgraded Erinyes variants.</p>
+</overview>
+
+<deployment>
+<p>The base Erinyes mounts a single SRM-1 launcher in the torso fed by five rounds of ammunition, backed by four body-mounted jump jets providing one hundred twenty meters of leaping distance. This armament is adequate only for guard duty and anti-infantry suppression, as the single missile tube cannot generate enough damage to meaningfully threaten armored targets. Ten points of armor provide marginal protection. The Erinyes' primary strength lies in its jump capability, allowing Points to exploit broken terrain for ambush tactics. First produced at CJF Factory Zone 5 on Erewhon, the design was initially distributed to Periphery border garrisons after the program's official cancellation in 3064.</p>
+</deployment>
+
+<history>
+<p>The Erinyes traces its origins to the Jade Falcon Scientist Caste's earliest efforts to replicate ProtoMek technology acquired from the deceased Smoke Jaguars' records. The design was one of the first ProtoMeks developed outside the original Jaguar program, representing the Falcons' initial foray into a weapon system they had previously shown little interest in. When test raids against Lyran Alliance border worlds in the early 3060s proved disappointing, an unimpressed Khan Marthe Pryde shut down the program, and the existing Erinyes were redistributed to several Periphery border worlds along with their pilots.</p><p>The reshuffling that followed, with many front-line units being pulled to the Lyran border after the second Incursion, saw many coreward Falcon worlds garrisoned primarily by solahma units and ProtoMek forces. This left the Falcons ill-prepared when Clan Ice Hellion launched their whirlwind assault along the Falcon's Periphery border in the late 3060s. On Bone Norman, the Hellion 200th Attack Cluster was nearly destroyed thanks to creative ambush tactics by the Falcon Eleventh Provisional Garrison Cluster, whose Trinaries had been partially replaced with Erinyes Points. Star Colonel Vikkers Helmar used the planet's restrictive terrain to devastating effect, sending Erinyes formations to navigate heavy woodlands around the Hellion command post and snipe returning patrols. Working in Stars, the ProtoMeks concentrated their fire on single targets, often crippling them within a few salvos before fading into underbrush along paths too narrow for pursuing BattleMeks.</p><p>Despite the official program cancellation, dark rumors persisted in the Periphery that the Falcon Scientist Caste had continued the project at a secret location. These rumors took on alarming substance after devastating attacks on Somerset and Winfield in mid-3072 by an unknown force fielding large numbers of light ProtoMeks, including newly upgraded Erinyes variants. Falcon Watch reports intercepted by Lyran Loki agents revealed the Falcons were in major confusion over the identity and allegiance of their attackers. Popular conjecture among Clan experts attributed the ProtoMeks to the Dark Caste, though the Falcons remained tight-lipped regarding these mysterious incursions across their Occupation Zone between 3072 and 3074.</p><p>The attacks also raised troubling questions about the provenance of the newer Erinyes variants detected during this period. The upgraded models sported different engine configurations, weapon loadouts, and armor distributions that suggested ongoing development well beyond what the original Falcon program had achieved before its cancellation. Whether these represented continued secret Falcon development, Dark Caste innovation, or something else entirely remains one of the unresolved mysteries of the Jihad era in the Falcon Occupation Zone.</p>
+</history>
+
+<manufacturer>
+CJF Factory Zone 5
+</manufacturer>
+
+<primaryFactory>
+Erewhon
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Teslan
+ENGINE:Unknown
+ARMOR:PermaPlate
+JUMP_JET:MicroTan
+COMMUNICATIONS:PMT-429
+TARGETING:Ribaldi
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Perricote
+ENGINE:12 Fusion
+ARMOR:Standard
+JUMP_JET:Streaks
+TARGETING:402 TTS
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+2.0
+</tonnage>
+

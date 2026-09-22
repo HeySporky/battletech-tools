@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e32a-736b-b45c-b203f70d4fd1
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Von Luckner Heavy Tank
+</Name>
+
+<Model>
+VNL-K65N
+</Model>
+
+<mul id:>
+3452
+</mul id:>
+
+<year>
+2612
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<quirks>
+difficult_maintain
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+41
+30
+30
+30
+45
+</armor>
+
+<Body Equipment>
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Machine Gun Ammo - Half
+IS Ammo LRM-10
+IS Ammo SRM-6
+IS Ammo SRM-4
+</Body Equipment>
+
+<Front Equipment>
+Flamer
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+LRM 10
+</Rear Equipment>
+
+<Turret Equipment>
+SRM 6
+SRM 6
+Autocannon/20
+Machine Gun
+SRM 4
+</Turret Equipment>
+
+<capabilities>
+<p>The heart of the Von Luckner is its VOX 225 fusion engine, which provides virtually unlimited operational range and frees the tank from the fuel dependencies that limit conventional armored vehicles. The primary weapon is an Armstrong Autocannon/20 mounted in a full-rotation turret, capable of stripping more than a ton of armor from a BattleMech in a single salvo. Twin Holly SRM-6 launchers and a Dannel SRM-4 complement the main gun for devastating close-range fire, while a hull-mounted Holly LRM-10 at the tank's rear provides long-range and indirect fire support. That rear placement was a deliberate design choice, intended to suppress pursuing forces while the Von Luckner covers friendly withdrawals.</p><p>Anti-infantry capability comes from a Ramsey Machine Gun mounted on the turret's front face and a Firestorm Flamer in the vehicle's forward section. The Ramsey has a well-documented tendency to jam under sustained fire, making the Firestorm a reliable fallback in close engagements. StarSlab/4 armor provides protection approaching that of heavy BattleMechs.</p><p>The Von Luckner's critical weakness is its heavy ammunition dependency. Expending its autocannon shells and missile loads reduces the tank to its flamer and machine gun alone. Internal ammunition storage is also vulnerable to catastrophic secondary detonation following a hull breach, making the design particularly dangerous to its own crew in a losing engagement. Command crews must balance the vehicle's overwhelming offensive output against these logistical and survivability concerns.</p>
+</capabilities>
+
+<overview>
+<p>HartfordCo Industries of Bryant first introduced the Von Luckner Heavy Tank in 2612, following the conclusion of the Reunification War, as the armored equivalent of a BattleMech without legs. Named in honor of Count Felix von Luckner, a celebrated Terran naval raider of the twentieth century, the design represented an ambitious commitment to fusion power at a time when most military vehicles relied on conventional propulsion. This decision gave the tank virtually unlimited operational range, freeing it from the fuel logistics that constrained conventional armored formations.</p><p>Combining the raw firepower of a heavy BattleMech with the durability of a dedicated armored platform, the Von Luckner was built for close-range engagements and sustained defensive operations across both the Terran Hegemony's core worlds and the newly annexed Periphery territories. Despite the loss of its original factories and five centuries of conflict, the design has proven remarkably resilient, with new variants continuing to emerge well into the ilClan era.</p>
+</overview>
+
+<deployment>
+<p>The primary production configuration of the Von Luckner from its 2612 introduction through the decline of the Succession Wars, the K65N was the most widely distributed variant. HartfordCo supplied it to SLDF forces from both the Bryant and Pardeau facilities, with the latter expanding during the late Star League period to meet growing demand. After Bryant's destruction in 2840 ended production, surviving K65Ns were pressed into increasingly prolonged service across the Great House militaries. By 3039, concentrated primarily in the forces of Houses Davion, Steiner, Kurita, and Marik, the remaining examples were jealously maintained as assets whose replacement was simply not possible.</p>
+</deployment>
+
+<history>
+<p>HartfordCo Industries completed development of the Von Luckner at their Bryant facility and introduced the initial production model in 2612, following the pacification campaigns of the Reunification War. The Terran Hegemony saw the design as a heavy armored complement to its BattleMech forces, a platform that could match 'Mechs in destructive output while offering superior crew protection and endurance. Deployment spread rapidly across Hegemony defensive lines and into newly annexed Periphery garrisons, where the fusion-powered range proved decisive in extended patrol and interdiction operations.</p><p>At the height of the Star League, HartfordCo operated from two facilities: the primary plant on Bryant and an expanding installation on Pardeau under Lyran Commonwealth oversight. The Pardeau facility was still growing in 2765, positioned to exceed SLDF demand and supply member state militaries with excess production. The SLDF's elite Royal Divisions received a 2761 upgrade equipped with dual LB 10-X Autocannons, Streak SRM launchers, and advanced fire control. A second Star League-era variant introduced ferro-fibrous armor and additional missile systems for formations that prioritized protection alongside firepower.</p><p>The Second Succession War brought catastrophic loss. Bryant's Storm Inhibitors, the vast atmospheric processors essential to the planet's habitability, were destroyed by 2840. Without them, the planetary environment deteriorated beyond the factory complex's ability to operate, ending primary production. The Pardeau plant had already fallen silent, its world depopulated during the Third Succession War. With both facilities gone, surviving Von Luckners grew increasingly rare. Fusion reactors and advanced subsystems were stripped from operational vehicles and transplanted into BattleMechs, an ironic reversal of the design's founding philosophy. By the early thirty-first century, only the militaries of Houses Davion, Steiner, Kurita, and Marik still fielded Von Luckners in meaningful numbers.</p><p>The Federated Suns responded to declining stocks with the VNL-K100 around 3002, stripping the missile complement to fit a second Armstrong Autocannon/20 in the turret for concentrated close-range punch. The Draconis Combine took a different approach with the VNL-K70 around 3008, downgrading the main gun to an AC/10 but adding a PPC for greater independence from expendable ammunition. Both variants reflected institutional determination to preserve the design despite its scarcity.</p><p>The Jihad brought an unexpected revival. The Word of Blake quietly reconstructed the ruined Bryant facility and used it to produce the VNL-K65W, drawing on the Royal design lineage and incorporating Blakist technology. After the Jihad, the Republic Armed Forces covertly assumed control of the restored plant and continued production, distributing the K65W across several House militaries. Simultaneously, in Republic space, yakuza syndicates operating across Prefectures I through III began fielding the VNL-X71, a heavily armored experimental refit adapted from captured VNL-K70 hulls. Republic intelligence identified these vehicles on Altais, where their hardened protection made them extremely difficult targets for conventional forces, though the true production source remained unknown.</p><p>DCMS investment in the Von Luckner deepened through the FedCom Civil War with the VNL-K75N, a modernization featuring an Ultra AC/20 and MRM launchers. The Sapphire Metals plant on Shimonita, closely tied to the Aoimaru-gumi yakuza network affiliated with the Semeiyoshi-rengo organization that allied with the Combine during the War of 3039, became the new heart of Von Luckner development. After the Republic held Shimonita through the Jihad and early Dark Age period, the DCMS recaptured the system in the 3130s and Sapphire Metals reopened the production line. The resulting VNL-K85N entered service with hardened armor and a modern weapon suite suited to close-quarters urban assault. At Clovis during Operation Perceval in 3147, outnumbered DCMS forces equipped with K85Ns blunted a Federated Suns advance, exploiting terrain to deliver concentrated fire against superior numbers. A companion development, the VNL-K90, adopted a Gauss rifle and longer-range armament, though full production commitment from the DCMS has not followed.</p><p>Through the collapse of the Terran Hegemony, the destruction of both original factories, five centuries of warfare, and the rise of successor states the Von Luckner's designers never imagined, this tank has proven itself one of the most enduring armored designs in Inner Sphere history.</p>
+</history>
+
+<manufacturer>
+HartfordCo Industries|HartfordCo Industries
+</manufacturer>
+
+<primaryFactory>
+Bryant|Pardeau
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:VOX
+ARMOR:HartfordCo Industries
+COMMUNICATIONS:O/P
+TARGETING:O/P
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:225
+ARMOR:StarSlab/4
+COMMUNICATIONS:300
+TARGETING:GRNDSTAT 50A
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u,RSFP:Battlefield
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

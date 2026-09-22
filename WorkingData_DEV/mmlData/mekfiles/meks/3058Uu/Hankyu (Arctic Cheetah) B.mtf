@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ca3c-73b2-bb5a-8ecd261939ff
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hankyu
+clanname:Arctic Cheetah
+model:B
+mul id:1379
+
+Config:Biped OmniMek
+techbase:Clan
+era:3037
+source:TR:CI
+published:RSFP:Wave 2
+rules level:2
+role:Striker
+
+quirk:pro_actuator
+
+mass:30
+engine:240 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:9
+walk mp:8
+jump mp:6
+
+armor:Ferro-Fibrous(Clan)
+LA armor:7
+RA armor:7
+LT armor:8
+RT armor:8
+CT armor:8
+HD armor:9
+LL armor:8
+RL armor:8
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:4
+ER Medium Laser, Left Arm
+Medium Pulse Laser, Left Arm
+LB 2-X AC, Right Arm
+Flamer, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLLBXAC2 (OMNIPOD)
+CLLBXAC2 (OMNIPOD)
+CLLBXAC2 (OMNIPOD)
+CLFlamer (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan LB 2-X AC Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Arctic Cheetah was originally designed by Clan Ice Hellion in 3037 as a replacement for the aging Mist Lynx OmniMech. Manufactured at a plant on Foster, the design was captured by Clan Smoke Jaguar mere months after full-scale production had begun, enabling the Jaguars to field a light OmniMech superior to the Mist Lynx in virtually every measurable category. First encountered by Inner Sphere forces during the Battle of Luthien in 3052, the design received the reporting name "Hankyu" (meaning "Short Bow") for its characteristic long-range missile armament. Despite its origins with the Ice Hellions, the Arctic Cheetah has been produced by multiple Clans across several worlds, including Foster, Brim, New Kent, and Coudoux. The thirty-ton scout OmniMech has demonstrated remarkable longevity, continuing to serve in frontline formations well into the thirty-second century.</p>
+
+capabilities:<p>The Arctic Cheetah takes full advantage of Clan weight-saving technologies available during the late 3030s, incorporating an endo steel internal structure, an extra-light fusion engine, and four tons of ferro-fibrous armor. These material choices allow the thirty-ton chassis to achieve a top speed of 129 kilometers per hour while retaining jump capability out to 180 meters, providing exceptional tactical mobility for a 'Mech of its class. The base chassis reserves nine and a half tons of pod space for mission-specific equipment, a generous allocation that has enabled a wide variety of configurations over the design's long service life.</p><p>The most commonly encountered configuration pairs twin LRM-5 launchers with a pair of extended-range medium lasers, allowing the Arctic Cheetah to engage targets at range before closing to finish them with direct-fire weapons. The addition of an active probe, electronic countermeasures suite, and target acquisition gear in the Prime configuration makes it an exceptionally capable scout platform. Nearly every configuration mounts a modular flamer for anti-infantry operations, reflecting Clan doctrine regarding light 'Mech employment against conventional forces.</p>
+
+deployment:<p>Favored by patient MechWarriors, particularly within Clan Nova Cat, Alternate Configuration B mounts an LB 2-X autocannon for engaging opponents with cluster munitions at extreme range. A medium pulse laser and extended-range medium laser provide supplementary firepower, while the standard flamer handles anti-infantry duties. This configuration excels at sustained harassment, wearing down opponents from a distance while conserving the Arctic Cheetah's limited armor protection.</p>
+
+history:<p>The Arctic Cheetah's history is intertwined with the turbulent politics of the Clans. Designed by Clan Ice Hellion scientists to replace the aging Mist Lynx, the design entered production on Foster in 3037. Clan Smoke Jaguar's capture of Foster MechWorks Facility Beta that same year gave the Jaguars access to a light OmniMech that quickly proved its worth, and by the time the Smoke Jaguars dropped on Tukayyid, most of their light 'Mech Stars contained at least one Arctic Cheetah.</p><p>The Ice Hellions eventually recovered the Foster facility, but by then most of their MechWarriors had come to prefer the Hellion OmniMech, limiting the Arctic Cheetah's role within its creator Clan. Clan Steel Viper and Clan Nova Cat both adopted the design in significant numbers, while Clan Diamond Shark's embrace of the Arctic Cheetah ensured the design would outlast its original creators. Nova Cat production at the Mualang Alpha facility on Coudoux supplemented existing output until that Clan's annihilation during the Draconis Combine Civil War.</p><p>Following the Nova Cat destruction, Clan Sea Fox negotiated with the Draconis Combine to maintain operations at the Coudoux facility, receiving a portion of the factory's output in exchange for technical assistance. By the mid-thirty-second century, the Arctic Cheetah had been fielded by three absorbed or annihilated Clans, yet the design continued to see widespread service. During the DCMS assault on Irece in 3142, Arctic Cheetahs were employed against Clan Nova Cat remnants, a pointed irony given the Clan's long association with the design. Newer configurations inspired by Inner Sphere designs such as the Gyrfalcon and Rifleman have continued to improve the OmniMech's reputation and expand its tactical flexibility across multiple adopting factions.</p>
+
+manufacturer:Foster MechWorks Facility Beta|Brim Ironworks|Novy Minsky Armaments Plant|Mualang Alpha
+
+primaryfactory:Foster|Brim|New Kent|Coudoux
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Hellion
+systemmode:CHASSIS:Light Endo Steel V3
+systemmanufacturer:ENGINE:Warrior
+systemmode:ENGINE:240 XL
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:Beta Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Foster
+systemmode:JUMP_JET:Ocelot Mrk. VIII
+systemmanufacturer:COMMUNICATIONS:HCFA
+systemmode:COMMUNICATIONS:3001 5.7
+systemmanufacturer:TARGETING:HCFA
+systemmode:TARGETING:3005 4.3

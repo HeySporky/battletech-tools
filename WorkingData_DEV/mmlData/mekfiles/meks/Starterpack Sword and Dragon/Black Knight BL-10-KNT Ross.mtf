@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd6a-7e83-988e-4cd21205f52c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Black Knight
+model:BL-10-KNT (Ross)
+mul id:355
+
+Config:Biped
+techbase:Inner Sphere
+era:3055
+source:SB:S&D
+published:SB:S&D
+rules level:2
+role:Brawler
+
+quirk:command_mech
+
+mass:75
+engine:300 Fusion Engine
+structure:IS Standard
+myomer:Triple-Strength
+
+heat sinks:15 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:24
+RA armor:24
+LT armor:25
+RT armor:25
+CT armor:36
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:7
+ER Small Laser, Left Arm
+ER PPC, Right Arm
+Medium Pulse Laser, Right Arm
+Medium Pulse Laser, Left Torso
+ER Medium Laser, Left Torso
+Medium Pulse Laser, Right Torso
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+ISERSmallLaser
+IS Ferro-Fibrous
+Triple Strength Myomer
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+ISMediumPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+Triple Strength Myomer
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMediumPulseLaser
+ISERMediumLaser
+ISTargeting Computer
+ISTargeting Computer
+ISTargeting Computer
+ISTargeting Computer
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+Triple Strength Myomer
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMediumPulseLaser
+ISERMediumLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+Triple Strength Myomer
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Triple Strength Myomer
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Triple Strength Myomer
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Black Knight was introduced in 2578 by Kong Interstellar Corporation as both a front-line combatant and a company- and battalion-level command BattleMech for the Star League Defense Force. Equipped with an advanced communications suite capable of coordinating an entire company of 'Mechs, linking command frequencies across a regiment, and connecting with orbital support satellites, the Black Knight quickly established itself as one of the premier heavy BattleMechs of the Star League era. Built with heavy armor and an all-energy weapons array, the design earned a fearsome reputation that endured across centuries of warfare.</p><p>Though the Succession Wars drastically reduced the Black Knight's numbers, the design survived through ComStar stockpiles, field modifications, and the determination of its operators. Production eventually resumed in the 3060s through Robinson Standard BattleWorks and Kong Interstellar's rebuilt facilities, and a succession of increasingly advanced variants has kept the Black Knight relevant on the modern battlefield.</p>
+
+capabilities:<p>The Black Knight is an all-energy-weapon platform anchored by a Magna Hellstar II PPC, supported by two large lasers, four medium lasers, and a small laser integrated directly into its Beagle Active Probe. This sensor-weapon linkage allows the scanner to piggyback low-power laser pulses through interfering objects, providing detailed analysis of nearby targets that few other designs can match. Thirteen tons of Valiant Lamellor armor on a Technicron endo steel frame delivers exceptional survivability for a seventy-five-ton chassis, while the standard Vlar 300 engine provides a reliable top speed of sixty-four kilometers per hour without the fragility of an extralight powerplant.</p><p>The design's primary weakness has always been heat management. Despite mounting twenty single heat sinks, the sheer volume of energy weapons generates heat faster than the cooling system can dissipate it during sustained engagements. MechWarriors must exercise strict fire discipline, selecting weapon groups appropriate to the engagement range rather than attempting full alpha strikes. The original Black Knight's reputation in the Third Heavy Assault Regiment was that of a 'Mech which had to be literally dismembered to stop, and in one-on-one engagements between equally skilled pilots, conventional wisdom holds that the Black Knight will always triumph.</p>
+
+deployment:<p>A progressive upgrade of the McKinnon family Black Knight, the BL-10-KNT evolved through continuous technological improvement from its origins as a Star League-era machine. By the FedCom Civil War, the right arm and torso weaponry had been upgraded to extended-range models, while the triple-strength myomers and hatchet from the earlier configuration were retained. Production-grade ferro-fibrous armor and double heat sinks replaced the earlier prototypes, and the large lasers were downgraded to medium pulse lasers to free weight for a targeting computer and an ER small laser, creating a precision-oriented brawler optimized for close-range engagements.</p>
+
+history:<p>The Black Knight debuted during the Reunification War in 2578 when Kong Interstellar Corporation's Third Heavy Assault Regiment (the Pythons) fielded the new design against the Taurian Concordat on Ridgebrook. Company commanders quickly discovered that the sophisticated electronics package made the Black Knight an outstanding command platform, and following its successful combat debut, the SLDF's First Corps and eventually the entire Defense Force adopted the design. By the height of the Star League, the Black Knight was a ubiquitous presence in SLDF formations, with Royal regiments fielding the advanced BL-6b-KNT variant equipped with double heat sinks and upgraded weaponry.</p><p>The collapse of the Star League and the devastation of the First Succession War proved catastrophic for Black Knight production. Kong Interstellar's orbital factories above Connaught were destroyed in 2802, and while the company managed to restart production in 2809 with the downgraded BL-7-KNT (replacing the endo steel chassis and advanced electronics with cruder but manufacturable alternatives) a Capellan Confederation raid permanently destroyed the line in 2820. Kong was reduced to producing spare parts and performing maintenance work, and the Black Knight's numbers slowly dwindled across the Inner Sphere as attrition and jury-rigged repairs took their toll.</p><p>During the Succession Wars, the remaining Black Knights were concentrated primarily in the Federated Suns and Free Worlds League, while the Capellan Confederation possessed none. ComStar maintained stockpiles of Star League-era machines, which proved invaluable when the Com Guards adopted the Black Knight as a command unit for Level II and Level III formations. Curiously, the handful of Black Knights provided to the Draconis Combine through Operation ROSEBUD was apparently the result of a clerical error. The Clans also maintained the design, though by the time of the Clan Invasion it had been relegated to solahma units.</p><p>The Battle of Tukayyid in 3052 marked the Black Knight's dramatic return to prominence. ComStar engineers developed the BL-9-KNT Clanbuster refit specifically for the engagement, equipping it with an XL engine, upgraded weapons, and a distinctive sword-like hatchet designed to exploit the Clans' disdain for physical combat. These machines proved remarkably effective in the close-quarters fighting of the Racice River Delta against Clan Smoke Jaguar and at Devil's Bath against the Steel Vipers, where the improved short-range firepower and melee capability caught Clan warriors off guard.</p><p>Robinson Standard BattleWorks secured a manufacturing license from Kong Interstellar in 3063, producing the technologically advanced BL-12-KNT with extended-range weapons and a targeting computer. Two years later, Kong itself rebuilt its Connaught plant and resumed Black Knight production. Through the Jihad and into the Dark Age, RSB released a succession of increasingly sophisticated BLK-NT variants incorporating Clan-specification weaponry, endo-composite structures, and advanced electronic warfare suites. When the Republic of the Sphere collapsed, Kong received the BLK-NT plans through a reciprocal licensing agreement with RSB and developed its own variant, the BL-18-KNT, updating the classic design with Clan weapons and a targeting computer. The Black Knight has thus endured across nearly six centuries of continuous service, a reflection of the fundamental soundness of Kong Interstellar's original design.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Technicron
+systemmode:CHASSIS:1L Endo Steel
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

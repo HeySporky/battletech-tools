@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d105-78df-86f2-a19ca3c29fbe
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Starslayer
+model:STY-3Dr
+mul id:3051
+
+Config:Biped
+techbase:Inner Sphere
+era:3075
+source:TR:3085,TR:CI
+published:RS:3085u-ONN,RSFP:McCarron
+rules level:2
+role:Sniper
+
+quirk:rugged_1
+
+mass:50
+engine:250 Fusion Engine
+structure:IS Endo Steel
+myomer:Triple-Strength
+
+heat sinks:12 IS Double
+walk mp:5
+jump mp:5
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:19
+RT armor:19
+CT armor:26
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:4
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+Heavy PPC, Right Torso
+Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISGuardianECMSuite
+ISGuardianECMSuite
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+Jump Jet
+Medium Laser
+Medium Laser
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+Jump Jet
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+IS Light Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Medium Laser (R)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Starslayer was designed by Blue Shot Weapons on Loxley as a replacement for the venerable Crab, after Cosara Weaponries proved unable to meet Star League Defense Force production demands for medium BattleMechs. Blue Shot's innovative design won the SLDF contract in 2765, but persistent technical issues with the FireScan targeting and tracking system delayed full production until 2772, by which time the Amaris Civil War had already engulfed the Inner Sphere.</p><p>Political tensions between General Kerensky and Archon Robert Steiner II allowed Blue Shot to favor Lyran Commonwealth shipments over SLDF deliveries, making the Starslayer a predominantly Lyran design from its earliest days. Production of the original STY-2C ceased during the technological decline of the early Succession Wars, but Blue Shot resumed manufacturing in 3056 with the upgraded STY-3C. The Starslayer has since become a mainstay of the Lyran military as an efficient medium raider.</p>
+
+capabilities:<p>The Clan Invasion era Starslayer is built on a lightweight Thor-4 Endo Steel chassis powered by a Magna 250 fusion engine, giving the fifty-ton design a respectable top speed of 86 kph. Five Odin's Own Model 34z jump jets provide a jump capability of 150 meters, allowing the Starslayer to operate in terrain that would stymie heavier or less mobile designs. This combination of speed and agility makes it superior to the Crab it was designed to replace, particularly in the raiding role where the ability to traverse broken ground quickly is essential.</p><p>The primary armament consists of two Blaze Fire Systems large lasers capable of engaging targets at extended range, supported by two Defiance B3M medium lasers, a Defiance B4M small laser, and a TharHes 4 Pack SRM-4 launcher for close-range engagements. This predominantly energy-based loadout allows the Starslayer to remain in the field nearly indefinitely with minimal logistical support. Nine and a half tons of Norse-34 ferro-fibrous armor with CASE provide solid protection for its weight class, though the design sacrifices some survivability compared to heavier competitors. Blue Shot saved production costs by utilizing standard internal structure and fusion engines alongside double heat sinks, allowing for greater firepower without excessive heat buildup.</p>
+
+deployment:<p>Developed during the Jihad in 3075, this radical redesign centers on a heavy PPC as its primary weapon system. A Guardian ECM suite disrupts enemy C3 networks and electronic warfare systems, enhancing the Starslayer's effectiveness as a raider operating behind enemy lines. The most unusual feature is the incorporation of triple strength myomer, which converts the heat generated by the heavy PPC into an asset by dramatically increasing the 'Mech's physical striking power at close range. Light ferro-fibrous armor replaces the standard ferro-fibrous of earlier models, maintaining adequate protection while accommodating the additional equipment.</p>
+
+history:<p>The Starslayer's origins lie in the Star League Defense Force's growing frustration with Cosara Weaponries, manufacturer of the CRB-27 Crab. By 2750, fewer than one thousand Crabs had been deployed despite promises of increased production, and by 2763 the SLDF's patience had run out entirely. A request was sent to several weapons manufacturers for a replacement design, and Blue Shot Weapons' innovative proposal won the contract in 2765. However, the Starslayer would prove nearly as troubled in its early production as the Crab had been in meeting quotas, with persistent FireScan targeting system malfunctions delaying meaningful output until 2772.</p><p>The Amaris Civil War shaped the Starslayer's identity as a Lyran design. When the SLDF began operations to retake the Terran Hegemony worlds from Amaris in 2772, Blue Shot used shipping delays and claims of outdated delivery information to divert production away from the SLDF and toward the Lyran Commonwealth. Archon Robert Steiner II may have encouraged these delays, as Blue Shot experienced no such difficulties delivering Starslayers to Lyran units engaged in pacifying former Rim Worlds Republic territory. After the Civil War ended, the SLDF activated penalty clauses and began receiving regular shipments in 2781, but by then the Starslayer was firmly established as a Lyran mainstay.</p><p>The early Succession Wars proved devastating for the design. Blue Shot's factory on Loxley was destroyed in 2928, and the technological decline of the era made repair and replacement of the advanced FireScan system and ferro-fibrous armor increasingly difficult. The original STY-2C gradually disappeared from active service as attrition took its toll, though several convenient Lyran storehouses preserved examples that were recovered by House troops after the Exodus.</p><p>The discovery of the Helm Memory Core and the shock of the Clan Invasion spurred Blue Shot to resume Starslayer production in 3056 with the vastly improved STY-3C. The new model addressed every shortcoming of the original, incorporating an endo steel chassis, improved weapons from established suppliers, and updated FireScan computing modules that finally resolved the targeting system's chronic issues with laser weaponry. The Starslayer quickly became popular across multiple theaters, with units in the LAAF, mercenary commands operating in the Periphery and Chaos March, and even the Magistracy of Canopus placing regular orders for the STY-3C.</p><p>The design continued to evolve through the Jihad and into the Dark Age, with the STY-3Dr introducing electronic warfare capability and triple strength myomer, and the STY-4C achieving unprecedented firepower through Clan-grade weaponry. The Starslayer's role in Task Force Kingbreaker on Buena during the ilClan era demonstrated the design's continued relevance, as upgraded models executed precision strikes against the Third Collective Guards at Fort Buena, disabling equipment without inflicting casualties on troops the LCAF regarded as misguided fellow Lyran citizens.</p>
+
+manufacturer:Blue Shot Weapons|Field Refit
+
+primaryfactory:Loxley|Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Thor
+systemmode:CHASSIS:Thor-4 Endo Steel
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:Magna 250
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Light Ferro-Fibrous)
+systemmanufacturer:JUMP_JET:Odin's Own
+systemmode:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Tek
+systemmode:COMMUNICATIONS:Tek BattleCom
+systemmanufacturer:TARGETING:FireScan
+systemmode:TARGETING:FireScan with IndirecTrack

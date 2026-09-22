@@ -1,0 +1,392 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ecc8-758e-9937-c72fe6612e17
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Avatar Heavy Cruiser
+</Name>
+
+<Model>
+(2531)
+</Model>
+
+<mul id:>
+3764
+</mul id:>
+
+<year>
+2531
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:12.0:4:1::-1:0
+asfbay:12.0:4:2::-1:0
+cargobay:58685.0:1:3::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+steeragequarters:125.0:0:-1::-1:0
+1stclassquarters:550.0:0:-1::-1:0
+crewquarters:1764.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+2399
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+11250
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+103
+93
+93
+83
+93
+93
+</armor>
+
+<Nose Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:80
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:50
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:80
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:50
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:80
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:80
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:50
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:80
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:50
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:60
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:50
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:60
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:50
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+</Right Broadsides Equipment>
+
+<structural_integrity>
+85
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 830,000 tons, the Avatar outweighed its Aegis-class predecessor by some 85,000 tons, a mass increase dedicated primarily to heavier armor protection and a more formidable weapons suite. The class mounted 1,259 tons of standard capital armor, and its broadside combined naval autocannons, heavy naval particle projector cannons, naval lasers, and Killer Whale missile launchers into a balanced and devastating arrangement. Supplementary conventional missile systems with advanced fire control provided point defense capability against smaller combatants.</p><p>The Avatar addressed a key shortcoming of the Aegis by installing large attitude thrusters, significantly improving the vessel's agility despite its greater mass. With a safe thrust of three gravities and a maximum burst of five, the Avatar proved faster and more responsive than the cruiser it replaced. Two fighter bays accommodated twenty-four aerospace fighters, while six docking collars supported a substantial DropShip contingent. A single cavernous cargo bay exceeding sixty thousand tons, combined with two grav decks and accommodations for a crew of three hundred and eighty, made the vessel well-suited for extended independent operations.</p><p>The Avatar's defining technical distinction was its lithium-fusion battery system, making it the first capital WarShip to mount the technology. Introduced just two years after the system's initial development, however, the Avatar suffered from persistent electrical faults throughout both critical and non-critical systems. The problem was never resolved, and the recurring failures ultimately contributed to the class's retirement from frontline service.</p>
+</capabilities>
+
+<overview>
+<p>The Avatar-class heavy cruiser was designed by Daussault-Shimmon Enterprises at their New Earth facility as a direct successor to the aging Aegis-class heavy cruiser. Commissioned by the Terran Hegemony in 2531, the Avatar combined enhanced protection and superior agility within a substantially larger hull than its predecessor, earning a reputation as one of the more powerful heavy cruisers of its era. The design drew both praise and criticism for incorporating key systems that were still in their developmental infancy at the time of commissioning. Supporters within the Hegemony fleet lauded the vessel's combat power and generous operational capacity, while detractors pointed to the reliability concerns that accompanied its untested technology. This balance of raw capability and engineering compromise defined the Avatar from its very first deployments.</p>
+</overview>
+
+<deployment>
+<p>Vessels of the Avatar class served primarily in Terran Hegemony fleet formations, where they proved valuable assets for screening and escort duties within larger naval task forces. In squadron deployments, the Avatar typically operated alongside lighter escorts, anchoring patrol and convoy protection missions along the Hegemony's extensive border regions. The class proved well-suited for deep-patrol assignments far from major fleet bases, where its self-sufficiency and generous accommodations allowed extended independent operations without regular resupply.</p><p>When operating as part of larger fleet formations, Avatar-class vessels most commonly filled the role of a heavy screening element, providing fire support and fighter cover for the fleet's principal capital assets. The class saw service across the full breadth of Hegemony space, from coreward frontier patrols to the heavily trafficked lanes between Terra and the major member-state capitals.</p>
+</deployment>
+
+<history>
+<p>The Avatar-class heavy cruiser entered service with the Terran Hegemony in 2531, constructed by Daussault-Shimmon Enterprises at their New Earth shipyard. Designed as a direct replacement for the aging Aegis-class, the Avatar introduced a larger hull with improved protection and agility, along with untested systems that represented a significant engineering gamble. The class quickly became a fixture of the Hegemony fleet, though recurring reliability concerns cast a long shadow over an otherwise sound design.</p><p>Production continued at the New Earth yard throughout the Star League era, with the Avatar serving in fleet formations across Hegemony space. Despite the vessel's combat capabilities, the class could not escape the reputation earned by its recurring engineering difficulties, and by the early twenty-eighth century the Star League Naval Command had already begun seeking a replacement. The Luxor-class heavy cruiser filled that role, and many Avatars were accordingly transferred to reserve formations or reassigned as training vessels, their spacious accommodations and forgiving handling characteristics proving well-suited to the instructional role. The class had served as a frontline combatant for nearly two centuries, a respectable career despite its engineering shortcomings.</p><p>The Amaris Coup in December 2766 caught three Avatar-class vessels undergoing refitting at the orbiting Ian Cameron Shipyards above Terra, and these fell into the hands of Amaris loyalists. By the war's end, only six Avatars remained operational, five in SLDF service and a single Rim Worlds Republic vessel captured at Nusakan in 2773. General Kerensky elected to include all six in the Exodus fleet, valuing their substantial transport and docking capacity for the long journey into the Deep Periphery.</p><p>Upon arrival at the Pentagon Worlds, the six surviving Avatars were mothballed in naval caches, their combat value deemed insufficient to justify the maintenance burden of keeping them operational. The New Earth shipyard that had constructed the class was destroyed in 2789 during the First Succession War, ending any possibility of further production. For over two centuries the mothballed vessels sat dormant in their caches, relics of an earlier age of naval warfare.</p><p>In 3024, the Clans began an ambitious modernization program, selecting the six Avatar hulls for comprehensive upgrade to a new configuration designated the Liberator class. The conversion addressed the original engineering deficiencies while incorporating Clan-specification weapons and technology. All six vessels were ultimately reactivated under the Liberator designation, granting them a second career that would extend well into the thirty-second century under various Clan banners.</p>
+</history>
+
+<manufacturer>
+Daussault-Shimmon Enterprises
+</manufacturer>
+
+<primaryFactory>
+New Earth
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Cruiser
+</use>
+
+<length>
+855 m
+</length>
+
+<height>
+1250 m Sail
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+830000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+185
+145
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+355
+</crew>
+
+<officers>
+55
+</officers>
+
+<gunners>
+91
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+25
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+60
+</life_boat>
+
+<escape_pod>
+40
+</escape_pod>
+

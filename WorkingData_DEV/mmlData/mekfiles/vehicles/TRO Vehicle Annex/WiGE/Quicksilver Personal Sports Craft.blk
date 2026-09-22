@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb9c-75b7-8d26-ea4f6b8e6c81
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Quicksilver Personal Sports Craft
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4889
+</mul id:>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+WiGE
+</motion_type>
+
+<transporters>
+cargobay:0.019:1:1::-1:0
+standardseats:1.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+12
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+45
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+1
+1
+1
+1
+</armor>
+
+<Body Equipment>
+AmphibiousChassis
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+4
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Quicksilver masses 4,500 kilograms, noticeably heavier than the Coanda, and is powered by an internal combustion engine tuned for higher top-end performance. Its flank speed exceeds the Coanda's, providing the raw pace advantage Lockheed/CBM intended. The defining trade-off is fuel capacity, which is insufficient to complete the roughly two-thousand-kilometer championship course without at least one refueling stop. This creates a strategic vulnerability where pit crew performance is as decisive as the craft's mechanical advantage. The Quicksilver carries BAR 4-rated armor in slightly less quantity than the Coanda. An amphibious chassis modification is standard, permitting operation across water and marginal coastal terrain. No weapons are fitted, and the craft accommodates a single crew member with no passenger provision.</p>
+</capabilities>
+
+<overview>
+<p>The Quicksilver Personal Sports Craft is Lockheed/CBM Corporation's purpose-built Wing-in-Ground-Effect racing vehicle, introduced around 3058 in direct competition with Skye Pleasure Craft's Coanda on the Inner Sphere racing circuit. Designed from the outset to outperform its rival on the Skye Water Racing Championship circuit, the Quicksilver represented Lockheed/CBM's bid for the commercial prestige and sponsorship revenue that championship success carried. Larger and faster than the Coanda, it takes an aggressive design approach that prioritizes peak speed over endurance, making it a high-performance craft that demands precise handling and race team coordination to convert its mechanical advantage into victories.</p>
+</overview>
+
+<deployment>
+<p>The Quicksilver is manufactured by Lockheed/CBM Corporation at a facility whose planetary location is not publicly confirmed, and is marketed to competitive racing teams and private buyers across the Inner Sphere. Lockheed/CBM's promotional partnership with former holovid personality Ricardo Hunt extended the design's commercial visibility well beyond the Skye championship circuit itself. Like the Coanda, the Quicksilver has no meaningful military application and operates exclusively in the civilian recreational and competition market. Its higher price point relative to the Coanda reflects the greater mass of the design and Lockheed/CBM's positioning of the Quicksilver as a premium performance offering.</p>
+</deployment>
+
+<history>
+<p>Lockheed/CBM Corporation announced development of the Quicksilver following the Coanda's debut success on the Skye championship circuit. Recognizing the commercial and publicity value the championship had attracted, Lockheed/CBM committed to a clean-sheet WiGE racing design with a clear objective: outrun the Coanda. The Quicksilver entered competition around 3058 and made an immediate impression. Carrying insufficient fuel for the full course, the design's first championship appearance saw its pilot build a commanding lead over the field, only to lose the decisive advantage during mandatory refueling stops. The near-victory demonstrated the Quicksilver's raw speed while exposing the pit operations vulnerability that would need to be addressed before the craft could claim the championship it was designed to win.</p><p>The 3058 result galvanized Lockheed/CBM's racing operation. The corporation's pit crew trained relentlessly through the four-year interval between championships, reducing the refueling process to a choreographed sequence of practiced movements. Their preparation paid off at the 3062 championship, when Judith Church piloted the Quicksilver to victory, ending the Coanda's run of championship titles and validating Lockheed/CBM's investment in the program.</p><p>Lockheed/CBM expanded the Quicksilver's commercial profile through an endorsement arrangement with Ricardo Hunt, a well-known figure from the popular Immortal Warrior holovid series who had taken to WiGE racing. Hunt's involvement provided Lockheed/CBM with both a credible racing ambassador and a media personality capable of extending the Quicksilver's name recognition beyond the core racing audience. The combination of championship results and celebrity promotion positioned the Quicksilver as the premier WiGE racing platform available for private purchase during the 3060s, even as Skye Pleasure Craft prepared its Coanda II response.</p>
+</history>
+
+<manufacturer>
+Lockheed/CBM Corporation
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:N/A
+TARGETING:N/A
+</systemManufacturers>
+
+<systemModels>
+ENGINE:ICE
+ARMOR:Unknown
+COMMUNICATIONS:N/A
+TARGETING:N/A
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+4.5
+</tonnage>
+
+<fuel>
+0.36
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

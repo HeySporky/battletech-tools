@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df4f-7ab1-8681-de052846e54a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:OmniMarauder
+model:MAD-BR-OA
+mul id:8111
+
+Config:Biped OmniMek
+techbase:Mixed (IS Chassis)
+era:3135
+source:XTR:Caveat
+published:XTR:Caveat
+rules level:3
+role:Juggernaut
+
+quirk:low_profile
+quirk:command_mech
+quirk:directional_torso_mount:RT
+quirk:hyper_actuator
+
+mass:75
+engine:300 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Compact Gyro
+
+heat sinks:12 IS Double
+base chassis heat sinks:12
+walk mp:4
+jump mp:0
+
+armor:Ferro-Lamellor(Clan)
+LA armor:24
+RA armor:24
+LT armor:24
+RT armor:24
+CT armor:35
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:8
+RTR armor:8
+RTC armor:11
+
+Weapons:4
+Plasma Rifle, Left Arm
+Plasma Rifle, Right Arm
+Light TAG, Left Torso
+Heavy Gauss Rifle, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISPlasmaRifle (OMNIPOD)
+ISPlasmaRifle (OMNIPOD)
+ISPlasmaRifleAmmo (OMNIPOD)
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISPlasmaRifle (OMNIPOD)
+ISPlasmaRifle (OMNIPOD)
+ISPlasmaRifleAmmo (OMNIPOD)
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISHeavyGauss Ammo (OMNIPOD)
+ISHeavyGauss Ammo (OMNIPOD)
+CLLightTAG (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISHeavyGaussRifle (OMNIPOD)
+ISHeavyGaussRifle (OMNIPOD)
+ISHeavyGaussRifle (OMNIPOD)
+ISHeavyGaussRifle (OMNIPOD)
+ISHeavyGaussRifle (OMNIPOD)
+ISHeavyGaussRifle (OMNIPOD)
+ISHeavyGaussRifle (OMNIPOD)
+ISHeavyGaussRifle (OMNIPOD)
+CLCASEII (OMNIPOD)
+Clan Ferro-Lamellor
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISHeavyGaussRifle (OMNIPOD)
+ISHeavyGaussRifle (OMNIPOD)
+ISHeavyGaussRifle (OMNIPOD)
+CLCASEII (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Lamellor
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The OmniMarauder was born from a 3135 General Motors feasibility study conducted at their Kathil facility, exploring the future potential of the iconic Marauder chassis. Rather than simply upgrading the existing design, the project took the radical step of reimagining the venerable heavy 'Mech as a mixed-technology OmniMech, incorporating extensive Clan-grade components into an Inner Sphere frame. The design effort drew upon outside expertise from Bander BattleMechs, reflecting the collaborative nature of the ambitious undertaking.</p><p>The resulting prototype demonstrated remarkable capability but at a prohibitive cost, ensuring the design remained an individual prototype rather than entering mass production. The OmniMarauder serves primarily as a technology demonstrator for what the Marauder platform could become when freed from the constraints of production economics.</p>
+
+capabilities:<p>The OmniMarauder's fixed chassis stands as a masterwork of mixed-technology engineering. Built around a Clan-grade endo steel internal structure and powered by a Clan 300-rated extralight engine, the design achieves a respectable cruising speed of sixty-four kilometers per hour while leaving an impressive thirty-five and a half tons available for pod-mounted weaponry and equipment. Clan-manufactured double heat sinks provide efficient thermal management across all configurations. An Inner Sphere compact gyro further maximizes available space, a clever design choice that opens additional room in the torso sections for heavy armament. Sixteen and a half tons of ferro-lamellor armor provide exceptional protection, with the advanced armor's ability to reduce the impact of incoming fire giving the OmniMarauder survivability well beyond what standard armor of equivalent weight could offer.</p><p>The Primary configuration pays homage to the classic Marauder layout, mounting a Clan-grade extended-range PPC and extended-range medium laser in each arm alongside a devastating Hyper-Assault Gauss Rifle 30 in the right torso. This combination of precision energy weapons and massive ballistic firepower gives the OmniMarauder tremendous damage potential at virtually all combat ranges. CASE II protects the MechWarrior from ammunition detonation, while five additional Clan double heat sinks supplement the chassis-mounted sinks to manage the considerable thermal load. The design's inherent quirks further enhance its battlefield presence, with a narrow and low-profile silhouette making it a difficult target, hyper-extending actuators providing superior firing arcs, and command-grade electronics supporting its role as a formation leader.</p><p>The OmniMarauder's greatest weakness is its near-total dependence on Clan-sourced components for every major structural system. This creates severe supply chain vulnerabilities that would make sustained frontline operations impractical, as battlefield damage to the chassis, engine, or armor would require Clan-manufactured replacements that cannot be sourced through standard Inner Sphere logistics networks.</p>
+
+deployment:<p>Alternate Configuration A was designed to demonstrate the OmniMarauder's flexibility by building its loadout around Inner Sphere weapons technologies that the Clans had not yet replicated. Each arm carries a plasma rifle with a ton of ammunition, weapons whose ability to generate crippling heat buildup in enemy 'Mechs remains unique to Inner Sphere arsenals. The centerpiece of the configuration is a massive Heavy Gauss Rifle split between the right and center torsos, delivering tremendous single-shot damage at long range. Clan CASE II in both torso locations shields the MechWarrior from the catastrophic consequences of the Heavy Gauss Rifle's volatile ammunition, while a Clan Light TAG provides target designation capability for supporting artillery or semi-guided munitions. This configuration trades the sustained firepower of the Prime for devastating alpha-strike potential.</p>
+
+history:<p>The OmniMarauder emerged from a period of significant investment in advanced 'Mech technology at General Motors' Kathil production complex. By the mid-thirty-second century, Kathil had become a center for cutting-edge beam weapon research, and the conventional Marauder had been firmly reestablished as a cornerstone of the Armed Forces of the Federated Suns' heavy 'Mech formations. Against this backdrop, GM leadership authorized a forward-looking feasibility study to determine whether the Marauder platform could be evolved into something truly revolutionary.</p><p>The decision to bring in an outside engineer from Bander BattleMechs proved critical. The resulting design philosophy embraced Clan technology wholesale, prioritizing maximum capability over production economics to establish the upper boundary of what the Marauder lineage could achieve. The approach was deliberately extravagant, treating cost as no object in pursuit of a proof of concept.</p><p>The prototype's completion validated the concept technically but exposed the fundamental challenge of its economics. The sheer volume of Clan-sourced components, likely procured through Clan Sea Fox trading networks, drove per-unit costs to levels that made fleet procurement entirely impractical. The supply chain vulnerabilities inherent in relying on foreign-manufactured structural systems would also be unacceptable for a frontline combat asset in sustained operations.</p><p>Despite never entering production, the OmniMarauder served its intended purpose as a feasibility study. The lessons learned from its development informed subsequent Marauder upgrade programs and contributed to General Motors' growing expertise in mixed-technology integration. The prototype itself remains proof of the enduring adaptability of the Marauder design, demonstrating that even after five centuries of service, the chassis continued to offer room for radical reinvention.</p>
+
+manufacturer:General Motors
+
+primaryfactory:Kathil
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Endo Steel (Clan)
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:300 XL (Clan)
+systemmanufacturer:ARMOR:Gravastar
+systemmode:ARMOR:Ferro-Lamellor
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

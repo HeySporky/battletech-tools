@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cd20-78a1-9a96-c3f56e2e5ff1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Gurkha
+model:GUR-4G
+mul id:4254
+
+Config:Biped
+techbase:Inner Sphere
+era:3065
+source:TR:3067,TR:J
+published:RS:J
+rules level:2
+role:Striker
+
+quirk:bad_rep_is
+quirk:exp_actuator
+quirk:bad_rep_clan
+
+mass:35
+engine:245 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:7
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:11
+RT armor:11
+CT armor:15
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:5
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+Large Pulse Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERSmallLaser
+ISERSmallLaser
+ISERSmallLaser
+ISERSmallLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Sword
+Sword
+Sword
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISLargePulseLaser
+ISLargePulseLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISC3iUnit
+ISC3iUnit
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Gurkha is a thirty-five-ton light BattleMech developed by the Word of Blake on Terra in the early 3060s. Designed as a fast networked striker built around close-quarters combat, the Gurkha entered full production in early 3063 at the Krupp Armament Works in Germany. Named after the famed Terran commandos known for their loyalty and blade work, the design filled a need for an aggressive light platform in the expanding Word of Blake Militia.</p><p>The Gurkha quickly became popular among Blakist light 'Mech pilots who favored close-quarters engagements. Its combination of networking capability and physical combat potential gave the Militia a distinctive tactical asset during the Civil War and Jihad eras, though production ceased following the Coalition's liberation of Terra.</p>
+
+capabilities:<p>Built on a lightweight Krupp 255 endo steel chassis and powered by a Magna 245 XL engine, the Gurkha achieves a top speed of nearly 119 kilometers per hour, exceptional for a design carrying seven and a half tons of Krupp 155 armor. This combination of speed and protection makes the Gurkha remarkably difficult to bring down for its weight class, though the absence of jump jets limits its maneuverability in rough or urban terrain.</p><p>The Gurkha's primary tactical value stems from its Exeter Longscan 500 communications system integrated with a C3i computer. Operating within a six-unit network, the 'Mech can close with enemy targets and provide precise targeting data to its heavier lancemates, enabling the entire formation to fire with devastating accuracy. A Fusigon Longtooth ER PPC provides surprisingly potent long-range firepower for a light 'Mech, while four Diverse Optics extended-range small lasers and a broadsword deliver punishing damage at close quarters.</p><p>The design's principal weakness is that opponents who recognize the C3i threat will prioritize Gurkhas for immediate elimination. The exposed actuators in the 'Mech's arms represent an additional vulnerability, and the lack of jump jets can leave a Gurkha stranded when terrain restricts its ground speed advantage.</p>
+
+deployment:<p>Developed as a field modification around 3065, this variant replaces the ER PPC with a Tronel large pulse laser. The swap trades the base model's long-range striking power for significantly improved accuracy at closer ranges, a trade-off many pilots found acceptable given the Gurkha's design emphasis on closing with the enemy to employ its sword and provide C3i targeting data. The modification proved straightforward enough that front-line technicians could perform the conversion without factory support, leading to its widespread adoption across Blakist Militia formations.</p>
+
+history:<p>The Gurkha's origins trace to the Word of Blake's consolidation of Terran military industry following ComStar's schism. The Krupp Armament Works in Germany had already begun producing Raijins for the Blakist Militia, but idle assembly capacity prompted calls for additional designs. The Gurkha was selected from several competing proposals in 3061 and entered production by early 3063, filling a need for a networked light striker in the expanding Word of Blake Militia.</p><p>During the FedCom Civil War, Gurkhas were deployed alongside Vanquishers to form the core of C3i-linked combat networks. This pairing proved highly effective, with the fast-moving Gurkhas providing forward targeting data while heavier 'Mechs delivered concentrated fire on designated targets. The sword (adopted as a symbol of pride and fanaticism within the Militia) became closely associated with the Word of Blake's martial identity, appearing on unit insignia and dress uniforms.</p><p>The onset of the Jihad in 3067 saw continued and expanded Gurkha production at the Krupp facility. New variants incorporating advanced weaponry entered service as the conflict intensified, reflecting the Word of Blake's access to cutting-edge Terran military technology. Gurkhas served in Blakist formations across multiple theaters, their C3i networks making them force multipliers in combined-arms engagements even as Coalition forces increasingly learned to target the networked light 'Mechs early in any engagement.</p><p>The fall of Terra to the allied Coalition brought an end to Gurkha production. The Krupp Armament Works survived the fighting largely intact, but the victorious Republic of the Sphere deactivated the production lines. No subsequent faction has resumed manufacture of the design, leaving surviving Gurkhas as an increasingly rare sight on battlefields of the Dark Age and ilClan eras, maintained only through salvage and cannibalization of existing stocks.</p>
+
+manufacturer:Krupp Armaments Works
+
+primaryfactory:Terra
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Krupp
+systemmode:CHASSIS:255 Endo Steel
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:245 XL
+systemmanufacturer:ARMOR:Krupp
+systemmode:ARMOR:155
+systemmanufacturer:COMMUNICATIONS:Exeter
+systemmode:COMMUNICATIONS:Longscan 500 with C3i Computer
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:T97C

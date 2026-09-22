@@ -1,0 +1,176 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e3da-7164-98b2-e8724bdcb2ed
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Bandit Hovercraft
+</Name>
+
+<Model>
+H
+</Model>
+
+<mul id:>
+237
+</mul id:>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Skirmisher
+</role>
+
+<weaponQuirks>
+mod_weapons:TU:0:ISERMediumLaser
+mod_weapons:TU:1:SRM 2
+</weaponQuirks>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+troopspace:4.0
+troopspace:4.0:omni
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+42
+40
+40
+32
+22
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-2
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISERMediumLaser:OMNI
+SRM 2:OMNI
+</Turret Equipment>
+
+<capabilities>
+<p>The Bandit's VOX 215 fusion engine provides a cruising speed of ninety-seven kilometers per hour and a flank speed of one hundred fifty-one, giving the vehicle outstanding strategic and tactical mobility consistent with Wolf's Dragoons' doctrinal emphasis on rapid maneuver. ProTech 5 composite armor affords adequate protection for a vehicle of its weight, though crew survivability depends heavily on exploiting the hovercraft's speed to limit time spent absorbing sustained fire. With seven tons of available pod space, the Bandit can be reconfigured between missions to meet shifting battlefield requirements, a capability that distinguishes it from conventional combat vehicles of comparable tonnage.</p><p>The Bandit's OmniVehicle architecture is its greatest tactical asset, allowing field commanders to concentrate close-range firepower for one engagement, then switch to extended-range configurations for the next without requiring depot-level maintenance. Like most hovercraft, however, the design is restricted to relatively flat and open terrain and is particularly vulnerable to mobility kills that strand it under fire, making careful terrain selection essential to effective employment. The seven-plus standard configurations span from direct fire support to anti-infantry and indirect missile roles, ensuring the Bandit can contribute meaningfully across the full spectrum of Dragoon combined-arms operations.</p>
+</capabilities>
+
+<overview>
+<p>The Bandit is a fifty-ton medium OmniVehicle hovercraft developed by the Blackwell Corporation for Wolf's Dragoons in the early thirty-first century. One of the first OmniVehicle designs deployed in the Inner Sphere alongside the Badger APC, the Bandit draws from a Golden Century Clan design as its conceptual template, resulting in a highly capable and reconfigurable combat platform. Blackwell Corporation, then a modest manufacturer of actuator parts and 'Mech components based on Outreach, built the Bandit as part of an exclusive contract alongside two other Dragoon vehicle types. With seven or more standard configurations available, the Bandit provides Wolf's Dragoons with a fast, adaptable fire support and direct combat platform suited to the wide variety of tactical environments a premier mercenary force must navigate. A second production line at New Valencia extended the design's availability into Federated Suns service.</p>
+</overview>
+
+<deployment>
+<p>A Civil War-era heavy direct fire configuration capable of delivering concentrated energy fire at extended ranges, the H variant provides a significant anti-'Mech capability within an otherwise vehicle-focused formation. Its deployment is typically reserved for high-priority engagements where reliable heavy damage output justifies the vehicle's heat management demands.</p>
+</deployment>
+
+<history>
+<p>Shortly after Wolf's Dragoons established their presence in the Inner Sphere, they contracted with Blackwell Corporation, then a small manufacturer of actuator parts and 'Mech components on Outreach, to exclusively produce three vehicles for the command: the Kestrel VTOL transport, the Badger APC, and the Bandit hovercraft. The Dragoons provided not only finished technical plans for all three designs but also significant financial assistance and engineering expertise, dramatically expanding Blackwell's operational capacity in the process. The first Bandit rolled off the line in March 3008, little more than a year after the Dragoons first made contact with the company, a pace that reflected both Blackwell's eagerness and the straightforward adaptation of the existing Clan design to Inner Sphere manufacturing standards.</p><p>Sales remained exclusive to the Dragoons for most of the early production run, though the growing number of Bandits observed in the ranks of other mercenary units within the AMC suggested the restriction had eventually been relaxed. A second Blackwell facility at New Valencia, operating under Federated Suns jurisdiction, extended production capacity and brought the design into closer proximity with Davion supply chains. That facility remained active through the Clan Invasion and Civil War eras before ceasing production during the Jihad period, likely as a consequence of the broader collapse of Blackwell Corporation's corporate structure following losses at its primary Outreach operations.</p><p>The Outreach facility, meanwhile, came under increasingly close identification with Wolf's Dragoons as that unit's influence over the mercenary hub solidified during the Clan Invasion era. Word of Blake's seizure of Outreach during the Jihad effectively ended regular production from that site, placing the facility under hostile control and cutting off Dragoon resupply of their signature vehicle. The destruction of Blackwell Corporation during the Dragoons' subsequent Civil War and the Jihad years left the Bandit dependent on surviving units' stocks and any remaining New Valencia output. Surviving examples remain in mercenary service into the later eras, valued for their speed and flexibility long after factory production had ceased.</p>
+</history>
+
+<manufacturer>
+Blackwell Corporation|Blackwell Corporation
+</manufacturer>
+
+<primaryFactory>
+New Valencia|Outreach
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:VOX
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Dalban
+TARGETING:Garret
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:215 Fusion
+ARMOR:ProTech 5
+JUMP_JET:N/A
+COMMUNICATIONS:StarLink II
+TARGETING:E5a
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-I
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+
+<baseChassisTurretWeight>
+1.0
+</baseChassisTurretWeight>
+

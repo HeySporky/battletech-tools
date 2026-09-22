@@ -1,0 +1,222 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e13d-7290-8455-dc5cdb63f42f
+</UUID>
+
+<UnitType>
+SmallCraft
+</UnitType>
+
+<Name>
+Tigress Close Patrol Craft
+</Name>
+
+<Model>
+TIG-15
+</Model>
+
+<mul id:>
+5247
+</mul id:>
+
+<year>
+2790
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+1stclassquarters:0.0:0:-1::-1:0
+crewquarters:7.0:0:-1::-1:0
+steeragequarters:0.0:0:-1::-1:0
+2ndclassquarters:21.0:0:-1::-1:0
+cargobay:7.0:1:5::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+20
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+1200
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+64
+57
+57
+46
+</armor>
+
+<Nose Equipment>
+LRM 15
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Ammo LRM-15
+PPC
+</Nose Equipment>
+
+<Left Side Equipment>
+Medium Laser
+Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+Medium Laser
+Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+6
+</structural_integrity>
+
+<capabilities>
+<p>The Tigress is built around a nose-mounted PPC and a fifteen-tube Long Range Missile launcher, giving it effective firepower at both energy and ballistic ranges without the complexity of more varied weapon combinations. The LRM rack carries thirty-two salvos, sufficient for an extended patrol without resupply. For close-range engagements, four medium lasers split between the two wing sections provide respectable short-range firepower, though the Tigress is not optimized for brawling against heavier craft at close quarters.</p><p>The craft's fusion engine gives it maximum thrust of 3g, adequate for intercept work in the constrained geometry of system patrol operations. Fifteen tons of fuel support patrols of just over eight days at continuous thrust, a practical endurance for asteroid field and jump point picket duties. A seven-ton cargo bay allows the Tigress to carry limited stores for extended independent operations. The design is solid rather than exceptional, reflecting the Concordat's preference for maintainability and cost of ownership over peak performance. The Tigress's primary vulnerability is the absence of any aft-arc weaponry, leaving it exposed to threats that successfully close behind the craft's forward firing arc.</p>
+</capabilities>
+
+<overview>
+<p>The Tigress Close Patrol Craft was developed by Vandenberg Mechanized Industries shortly after the fall of the Star League, entering service in 2790 as a dedicated system defense platform for the Taurian Concordat. Originally conceived as a DropShip and WarShip escort in the mold of earlier Star League designs, shifting strategic priorities redirected the Tigress toward local patrol duties as the Concordat focused on defending the densely fortified Hyades Cluster against Successor State aggression. The craft's modest size, self-sufficient fuel supply for patrols of up to a week, and manageable crew requirements made it an ideal platform for operations in the asteroid fields and approach corridors of the Cluster. Neither the fastest nor the most heavily armed craft of its type, the Tigress trades raw performance for the reliability, endurance, and affordability that a Periphery power requires from a frontline patrol asset.</p>
+</overview>
+
+<deployment>
+<p>The Tigress Close Patrol Craft serves almost exclusively with the Taurian Concordat Aerospace Forces, assigned primarily to defensive patrol duties in the Hyades Cluster. Craft are typically deployed in small groups covering asteroid belts, jump point approaches, and inner system corridors of inhabited worlds. The seven-ton cargo bay allows Tigress patrols to carry limited supplies for extended independent operations, reducing resupply frequency in the Concordat's resource-constrained Periphery environment. A small number of Tigress craft have reached the hands of Periphery operators and independent actors over the centuries, though the design's Taurian-specific support infrastructure has limited its spread beyond Concordat space.</p>
+</deployment>
+
+<history>
+<p>Vandenberg Mechanized Industries began designing the Tigress as the Aquarius and Lyonesse were disappearing from production. The escort small craft role those designs had built was contracting across the Inner Sphere, absorbed by heavier aerospace fighters and newer DropShip classes. Vandenberg's designers looked at that contraction and reached a different conclusion than the major powers had. For the Taurian Concordat, with its densely fortified Hyades Cluster and its permanent concern about Federated Suns aggression, the need for affordable, self-sufficient patrol craft had not diminished. It had grown. The Tigress, introduced in 2790, carried that lineage forward into the Periphery while the Inner Sphere abandoned it.</p><p>The original design intent was closer to the Aquarius than what the Tigress became. Vandenberg planned a DropShip and WarShip escort operating in the Star League tradition. Shifting strategic priorities during development redirected the craft toward system patrol duties, covering the asteroid fields and approach corridors of the Hyades Cluster rather than riding alongside capital ships. The PPC and LRM armament suited this role well, engaging threats at range before they could threaten defended installations or passing convoys. For nearly three centuries the Tigress served that function with little change, operated by minimal crews on week-long patrols through some of the most heavily mined and monitored space in the Periphery.</p><p>The design earned wider recognition during the Jihad. In 3076, Taurian gunships participated in a nuclear strike raid on the New Syrtis Shipyards, a suicidal deployment that crippled the facility and underscored both the Concordat's willingness to commit its patrol craft offensively and the depth of political tensions that had been building with the Federated Suns. Vandenberg continued production through the Dark Age and into the ilClan era, making the Tigress one of the longest-lived small craft designs of the Periphery, an unbroken line of service that outlasted the Inner Sphere powers that had abandoned the escort role entirely.</p>
+</history>
+
+<manufacturer>
+Vandenberg Mechanized Industries
+</manufacturer>
+
+<primaryFactory>
+New Vandenberg
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+HB:MPS
+</source>
+
+<published>
+HB:MPS
+</published>
+
+<tonnage>
+150.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+4
+</crew>
+
+<officers>
+1
+</officers>
+
+<gunners>
+1
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ccac-73ee-bbca-4e2c0d0869ad
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Thunder Stallion
+model:2 'Fire Stallion'
+mul id:3225
+
+Config:Quad
+techbase:Clan
+era:2877
+source:TR:3060
+published:RS:3060u
+rules level:2
+role:Missile Boat
+
+quirk:cramped_cockpit
+
+mass:85
+engine:255 Fusion (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:16 Clan Double
+walk mp:3
+jump mp:0
+
+armor:Standard(Clan)
+FLL armor:36
+FRL armor:36
+LT armor:20
+RT armor:20
+CT armor:34
+HD armor:9
+RLL armor:36
+RRL armor:36
+RTL armor:16
+RTR armor:16
+RTC armor:20
+
+Weapons:6
+LRM 15, Left Torso
+LRM 15, Left Torso
+LRM 15, Right Torso
+LRM 15, Right Torso
+Large Pulse Laser, Right Torso
+Large Pulse Laser, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLLRM15
+CLLRM15
+CLLRM15
+CLLRM15
+Clan Ammo LRM-15
+Clan Ammo LRM-15
+Clan Ammo LRM-15
+Clan Ammo LRM-15
+Clan Ammo LRM-15
+Clan Ammo LRM-15
+Clan Ammo LRM-15
+Clan Ammo LRM-15
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLLRM15
+CLLRM15
+CLLRM15
+CLLRM15
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Thunder Stallion was conceived by Clan Hell's Horses around 2850 as a totem 'Mech, drawing inspiration from earlier totem designs like the Mandrill and Fire Scorpion. After observing the poor combat performance of those aesthetics-driven designs, the Horses' engineers progressively stripped away the equine styling until only the 'Mech's rear legs retained any visual connection to its original inspiration. The result was an 85-ton quad assault 'Mech built to embody the Horses' combined-arms doctrine, providing heavy fire support to infantry and Elemental formations.</p><p>The Thunder Stallion's ground speed was deliberately matched to the pace of dismounted Elemental battle armor, ensuring the 'Mech could maintain formation with the units it was designed to support. Produced at Kirin MechWorks I on the Clan Homeworlds, the design became a staple of Hell's Horses Galaxies, with MechWarriors grudgingly accepting their support role despite the stigma such assignments carried in other Clans.</p>
+
+capabilities:<p>Designed as a support platform, the Thunder Stallion mounts four Type XV LRM-15 launchers, two paired in each side torso, with eight tons of ammunition providing nearly three minutes of sustained fire. Working in concert with spotter units, the Thunder Stallion can saturate enemy positions and installations from behind cover, making it an exceptionally effective indirect fire platform.</p><p>The 'Mech's secondary weapon, a Type Mu LB-20X autocannon, provides devastating close-range firepower against armor or infantry, typically carrying a ton each of cluster and standard rounds. The arrangement of the autocannon ammunition, however, represents the design's most significant vulnerability. With internal space at a premium in the quad configuration, the ammunition feeds run through the head and central torso. A breach of either location while ammunition remains could prove fatal to both 'Mech and MechWarrior.</p><p>The Thunder Stallion's seventeen and a half tons of Forged Type HH32 armor with CASE mitigate this risk considerably, but many pilots refuse to fully reload the autocannon, preferring to fight without their heaviest weapon rather than pilot what some have derisively called a "quad coffin." A standard 255-rated fusion engine keeps the design simple, durable, and inexpensive, though limited to a top speed of 54 kph. Fourteen double heat sinks manage the thermal load efficiently.</p>
+
+deployment:<p>Introduced in 2877 and commonly known as the "Fire Stallion," this variant addresses the ammunition dependency that defines the base design. The LB-20X autocannon and its attendant ammunition stores are removed entirely, replaced by a pair of large pulse lasers that provide reliable close-range firepower without the catastrophic ammunition explosion risk that plagues the original. Two additional double heat sinks manage the increased thermal load from the energy weapons. The Fire Stallion trades raw destructive potential for operational sustainability, making it particularly popular among MechWarriors who value survivability over maximum firepower.</p>
+
+history:<p>The Thunder Stallion's origins trace to the Clan Homeworlds around 2850, when Clan Hell's Horses set out to create a totem 'Mech honoring their namesake. Earlier totem designs, including the Mandrill produced by Clan Fire Mandrill and the Fire Scorpion built by Clan Goliath Scorpion, had proven disappointing in combat, prioritizing aesthetics over battlefield effectiveness. Learning from these failures, the Horses' engineers at Kirin MechWorks I on the planet Kirin progressively refined the design until combat performance took clear precedence over symbolic styling.</p><p>The Thunder Stallion quickly became integral to the Hell's Horses' military identity. Unlike most Clans, the Horses placed exceptional value on infantry and conventional forces, and the Thunder Stallion was purpose-built to operate alongside these formations. Its combination of sustained indirect fire capability and a pace matched to Elemental battle armor made it an ideal combined-arms platform. The design saw continuous service throughout the Golden Century and into the Political Century, deployed exclusively within Hell's Horses Galaxies. By 2877, the Fire Stallion variant had joined the production lines at Kirin, addressing the ammunition vulnerability that remained a persistent concern among pilots.</p><p>The Jihad era brought significant upheaval to the Thunder Stallion's production history. As Clan Hell's Horses migrated to the Inner Sphere occupation zone, they initially established a transitional refit facility designated HH-Beta on Nouveaux Paris, which began producing the new Thunder Stallion 3 variant around 3068. This facility operated through the Jihad before being abandoned approximately 3076. The Horses subsequently consolidated refit operations at Csesztreg Industriplex Alpha, where a dedicated Thunder Stallion 3 line began operations around 3082 and continued through the ilClan era.</p><p>The original Kirin MechWorks I facility experienced a tumultuous ownership history following the Horses' departure from the Homeworlds. Control passed to Clan Coyote during the Jihad and then to Clan Star Lion during the early Republic period, with subsequent ownership becoming uncertain as the Wars of Reaving reshaped Clan Homeworld politics. Whether the facility remains operational is unknown.</p><p>The Thunder Stallion 4 emerged under unusual circumstances in 3138, when Arc-Royal MechWorks rebuilt a captured chassis into a front-line combat platform designated the "Avenging Annie." By 3140, reports indicated Clan Hell's Horses was working to duplicate this variant at their Csesztreg facilities. The MUPL confirms that Czesztreg Industriplex Alpha entered production of the Thunder Stallion 4 during the ilClan era, validating those reports and bringing the design full circle from its Clan Homeworld origins to Inner Sphere production.</p>
+
+manufacturer:Kirin MechWorks I
+
+primaryfactory:Kirin (Surface)
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type QMA Standard (Quad)
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Fusion 255 Standard
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Forged Type HH32 with CASE
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:CH3V Series Integrated
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Version Kappa-III TTS

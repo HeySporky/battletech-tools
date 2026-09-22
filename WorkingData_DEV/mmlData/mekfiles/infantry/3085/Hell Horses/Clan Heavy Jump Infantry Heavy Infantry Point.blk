@@ -1,0 +1,93 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b64a-77ec-9413-5476b7e2f53c
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Clan Heavy Jump Infantry
+</Name>
+
+<Model>
+Heavy Infantry Point
+</Model>
+
+<mul id:>
+609
+</mul id:>
+
+<year>
+3015
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<Troopers Equipment>
+Clan Armor Kit (All)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Elementals who lose their battle armor face a more honorable future in conventional infantry service than most solahma warriors, because their existing training transfers directly to the heaviest infantry roles available. The Heavy Infantry Points of the Ninety-first Mechanized Assault, Epsilon Galaxy, field warriors fitted with jump packs and body armor who carry Mauser IIC assault systems alongside Bearhunter autocannons. This combination gives them firepower comparable to light combat vehicles without restricting their mobility, allowing them to operate alongside Elementals and BattleMechs in combined-arms engagements. The Bearhunter autocannon is the key to this capability, boosting the Point's anti-personnel and light vehicle firepower well beyond what laser-armed infantry can achieve. This style of heavy jump infantry is popular across Clan Hell's Horses and is limited only by the number of dispossessed Elementals available to fill the ranks.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+Laser Rifle (Mauser IIC IAS)
+</Primary>
+
+<Secondary>
+Autocannon (Bearhunter Superheavy)
+</Secondary>
+

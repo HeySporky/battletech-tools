@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a185-783a-a706-48217ac1f149
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Achileus Light Battle Armor
+</Name>
+
+<Model>
+[Flamer](Sqd4)
+</Model>
+
+<mul id:>
+8
+</mul id:>
+
+<year>
+3057
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+33
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+CLBAFlamer:RA
+BAAPMount:LA
+InfantryAssaultRifle:APM:LA
+BABasicManipulator:LA
+BABasicManipulator:RA
+IS BA Stealth (Improved):Body
+IS BA Stealth (Improved):RA
+IS BA Stealth (Improved):Body
+IS BA Stealth (Improved):Body
+IS BA Stealth (Improved):Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Achileus mounts a modular weapon system on the right arm, fitted with a flamer in this configuration. The flamer excels at clearing entrenched infantry and flushing targets from enclosed spaces, making it well-suited to the suit's scouting and infiltration role. A secondary anti-personnel weapon mount on the left arm, typically loaded with a submachine gun, provides additional close-range firepower. Both arms terminate in basic manipulators slaved to the operator's hands, granting unusual dexterity for a battle armor suit at the cost of reduced melee protection. Integral jump jets allow 90-meter leaps, while 360 kilograms of improved stealth armor provides modest ballistic protection and comprehensive sensor shielding. The suit's light weight and low profile allow it to evade detection by most active probes, though its thin armor leaves operators vulnerable if discovered.</p>
+</capabilities>
+
+<overview>
+<p>The Achileus is a light battle armor suit developed jointly by the Free Worlds League and the Word of Blake. Designed as a mass-produced alternative to custom-manufacture stealth suits, the Achileus combined offensive armament with electronic stealth capability in a package suitable for large-scale deployment. Entering service in 3057, the suit filled a critical gap in both the FWLM and Word of Blake Militia force structures, providing infantry formations with a jump-capable scout platform that could evade electronic detection. Production was handled by facilities on Irian and Gibson within the Free Worlds League.</p>
+</overview>
+
+<deployment>
+<p>Free Worlds League Military units organized Achileus troopers into standard four-trooper squads, integrating them into existing infantry platoon structures. The flamer-equipped configuration saw frequent assignment to special forces and reconnaissance companies, where squads operated alongside conventional infantry to clear buildings and fortified positions during urban operations. FWLM commanders valued the squad's ability to combine stealth approach with close-range thermal weapons.</p>
+</deployment>
+
+<history>
+<p>Development of the Achileus began in October 3054 as a collaborative effort between Free Worlds League and Word of Blake research teams. The project used the Blakist Tornado PA(L) suit as its foundation, seeking to transform the specialized sneak suit into a more capable combat platform. Early prototypes produced in May 3055 struggled to balance armor protection, weaponry, and stealth performance. A breakthrough came when Word of Blake ROM allegedly acquired proprietary armor composite data from Defiance Industries and the New Avalon Institute of Science, enabling the team to meet FWLM protection standards without sacrificing stealth capability.</p><p>Production began at Irian BattleMechs Unlimited on Irian, with Free Worlds Defence Industries on Gibson later establishing a second line dedicated to Word of Blake variants. Defiance Industries protested the apparent theft of intellectual property before the Second Star League's Economic Council, but the FedCom Civil War and the League's eventual collapse left the matter unresolved. Both the FWLM and Word of Blake Militia fielded the Achileus extensively during the Jihad. The suit also saw adoption by other Inner Sphere powers in later decades as production continued at Irian facilities under new ownership, and a third manufacturing line on Washburn further expanded availability.</p>
+</history>
+
+<manufacturer>
+Free Worlds Defence Industries|Irian BattleMechs Unlimited|Irian BattleMechs Unlimited
+</manufacturer>
+
+<primaryFactory>
+Gibson|Irian|Washburn
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-C
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+6
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+1
+</weightclass>
+

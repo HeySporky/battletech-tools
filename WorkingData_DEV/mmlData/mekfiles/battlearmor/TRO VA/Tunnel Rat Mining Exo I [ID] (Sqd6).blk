@@ -1,0 +1,155 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a8ea-77f9-bec4-bbb2a653c592
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Tunnel Rat I Mining Exoskeleton
+</Name>
+
+<Model>
+[Industrial Drill](Sqd6)
+</Model>
+
+<mul id:>
+9183
+</mul id:>
+
+<year>
+3055
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+-1
+</armor_tech>
+
+<Squad Equipment>
+BAExtendedLifeSupport:Body
+BASearchlight:Body
+BABasicManipulator:LA
+BAIndustrialDrill:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The Industrial Drill configuration mounts a heavy-duty mining drill on one arm and a basic manipulator on the other, giving operators the primary cutting tool needed for tunnel face work and vein extraction. The drill can bore through most commercial-grade rock, while the manipulator handles loose material and tool management. At four hundred kilograms, the suit carries a single point of standard armor and a body-mounted searchlight. Like the Armored Glove variant, this configuration operates at walking pace with no jump capability. Communications gear and a basic life support package support extended shifts underground, though the suit offers only minimal protection against cave-ins.</p>
+</capabilities>
+
+<overview>
+<p>The Tunnel Rat mining exoskeleton is a civilian-grade suit designed by General Motors for underground mining operations. Introduced in 3055 as part of GM's renewed push into the mining equipment market, the Tunnel Rat gave individual miners a pressurized, armored frame capable of withstanding the hazards of subterranean work. Modular plug-in ports in both arms allowed operators to swap between specialized tools as job requirements changed. The suit earned a reputation for rugged dependability in confined, hazardous environments. The Tunnel Rat II incorporated a more dependable power source and improved electronics, though it remained otherwise identical to the original in both capability and configuration.</p>
+</overview>
+
+<deployment>
+<p>The Industrial Drill configuration saw the heaviest day-to-day use in commercial mining operations. Operators wearing this configuration worked tunnel faces and extraction points, boring through rock with the mounted drill while using the off-hand manipulator to clear debris and manage tools.</p>
+</deployment>
+
+<history>
+<p>General Motors had been a major supplier of mining exoskeletons during the Star League era, but the Succession Wars destroyed the technological base needed to produce such equipment. GM's exoskeleton lines shut down entirely, and the knowledge to rebuild them was lost for centuries. The recovery of the Helm Memory Core in the early thirty-first century changed everything. As power armor technology became accessible again, GM moved quickly to reclaim its position in the civilian mining market.</p><p>The Mole series of mining exoskeletons debuted in 3052, but it was the Tunnel Rat in 3055 that established GM as the dominant provider of dedicated underground mining suits. Produced at GM's Kathil facility, the Tunnel Rat filled a critical gap in the mining industry. Strip mining and shaft sinking relied on heavy machinery, but individual miners still worked smaller veins by hand with explosives and hand-held tools. The Tunnel Rat allowed a single operator to work longer, dig faster, and survive accidents that would kill an unprotected miner. Both models saw wide distribution throughout the Inner Sphere, primarily in harsh environments run by larger mining corporations. The suits remained among the most costly equipment available to mining concerns, keeping them out of reach for many smaller operations.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Kathil
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+1
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

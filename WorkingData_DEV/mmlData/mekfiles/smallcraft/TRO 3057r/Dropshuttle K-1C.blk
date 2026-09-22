@@ -1,0 +1,220 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e14a-71f7-92b1-875d39086921
+</UUID>
+
+<UnitType>
+SmallCraft
+</UnitType>
+
+<Name>
+DropShuttle
+</Name>
+
+<Model>
+K-1C
+</Model>
+
+<mul id:>
+4101
+</mul id:>
+
+<year>
+2914
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+1stclassquarters:10.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:21.0:0:-1::-1:0
+cargobay:46.5:1:4::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+2400
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+182
+83
+83
+106
+</armor>
+
+<Nose Equipment>
+CLMediumPulseLaser
+CLMediumPulseLaser
+</Nose Equipment>
+
+<Left Side Equipment>
+CLMediumPulseLaser
+</Left Side Equipment>
+
+<Right Side Equipment>
+CLMediumPulseLaser
+</Right Side Equipment>
+
+<Aft Equipment>
+CLMediumPulseLaser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+6
+</structural_integrity>
+
+<capabilities>
+<p>The K-1 is built around a Pratt &amp; Whitney 400 fusion engine, providing a safe thrust of 4 and a maximum of 6, adequate for standard orbital operations and short transit runs. The spheroid hull carries 21 tons of standard armor distributed with a deliberate emphasis on the nose, where protection is more than twice as thick as on the flanks or aft. This arrangement reflects the craft's typical approach orientation and the expectation that threats will most often come from ahead. Heat management is handled by ten single heat sinks, which are sufficient for the limited weapons array the K-1 mounts.</p><p>For defense, the K-1 carries a light but practical armament: an LRM-5 launcher and a medium laser covering the nose, a medium laser on each broadside, and a medium laser paired with a small laser pointing aft. This provides coverage across all facings without dedicating the craft to a combat role it was never intended to fill. The LRM-5 gives the crew some standoff capability, though ammunition is limited to 48 rounds. Range and endurance rather than firepower define the K-1's design philosophy.</p><p>The crew compartment accommodates a single officer and three enlisted ratings, and Sarna sources note the cockpit is particularly cramped, with only three seats. Six passengers travel in steerage, and the cargo bay holds sixteen and a half tons, modest compared to full DropShips but well suited to the supply runs and personnel transfers the K-1 was built to handle. The docking collar, unusual for a Small Craft, allows the K-1 to ride a JumpShip hardpoint between systems, though the economics of reserving a hardpoint for a 200-ton vessel grew increasingly difficult to justify as JumpShips became scarce after the Star League's fall.</p>
+</capabilities>
+
+<overview>
+<p>The K-1 DropShuttle is a 200-ton spheroid Small Craft developed by Earthwerks Incorporated and introduced in 2536, during the height of Star League prosperity when JumpShip passage was routine and inexpensive. The K-1 holds the distinction of being the smallest space vehicle equipped with a docking collar, allowing it to attach to a JumpShip hardpoint in the manner of a conventional DropShip despite its Small Craft classification. Designed to carry modest cargo and a handful of passengers on short interstellar hops, the K-1 filled the niche between the purely atmospheric shuttle and the full-sized DropShip. Earthwerks licensed the design broadly during the Star League era, and production lines appeared across nearly every major member state. The Clans preserved both the design and its original operational doctrine well into the ilClan era.</p>
+</overview>
+
+<deployment>
+<p>The K-1C is the Clan version of the venerable DropShuttle, retaining the spheroid hull and general layout of the Inner Sphere original while incorporating five Clan-specification medium pulse lasers in place of the standard laser and LRM array, and substantially heavier armor coverage. Unlike the Inner Sphere variant, the K-1C continues to be used as originally intended, attached to JumpShip hardpoints and operated as an interstellar short-hop transport within Clan toumans. Both Clan Jade Falcon and Clan Ghost Bear operated dedicated production lines for the K-1C to supply front-line clusters and logistics elements. The design's availability in the Inner Sphere has increased since the Jihad as Clan technology has spread through border regions and former Clan Occupation Zones.</p>
+</deployment>
+
+<history>
+<p>The K-1 DropShuttle traces its origins to Earthwerks Incorporated's production lines on Terra, where the design entered service in 2536. At that time, JumpShip access was routine and the cost of interstellar passage remained within reach of civilian travelers and small commercial concerns. Earthwerks recognized a market for a small, economical craft capable of attaching directly to a JumpShip hardpoint while remaining small enough to manage without a dedicated DropShip berth. The resulting design was licensed broadly, with manufacturers across the Terran Hegemony, Capellan Confederation, Federated Suns, Free Worlds League, Lyran Commonwealth, and Draconis Combine all running production lines at various points during the Star League era.</p><p>The collapse of the Star League and the devastation of the Succession Wars reshaped the K-1's role fundamentally. With JumpShips becoming scarce and interstellar passage increasingly expensive, the economics of booking an entire hardpoint for a 200-ton Small Craft no longer made sense for most operators. The K-1 drifted into the general long-range shuttle role, competing on cargo and passenger capacity with vessels like the KR-61. The craft remained viable in this reduced capacity thanks to its widespread manufacture and the ready availability of spare parts. Most operators found that while the K-1 could no longer justify its unique docking collar feature economically, the vessel itself remained practical and cost-effective for in-system work.</p><p>The Clans, who preserved many Star League technologies and operational doctrines, continued operating the K-1 in its original role. Clan technicians introduced the K-1C variant in 2914, upgrading the weapons and armor to Clan specifications while retaining the fundamental design. Clan Jade Falcon restarted dedicated K-1C production at their Falcon's Roost Orbital Assembly Plant on Sudeten in 3074, and Clan Ghost Bear maintained a production line at the Tseng Facility on Alshain, later passing to the Rasalhague Dominion. In the Inner Sphere, Vandenberg Mechanized Industries on Illiushin kept the Taurian Concordat supplied throughout the entire period from Star League to ilClan, and the United Outworlders Corporation on Ramora, later operating under Raven Alliance control, resumed production in the Dark Age. The Draconis Combine, Capellan Confederation, and Free Worlds League all sustained their own production lines, ensuring the K-1 remained in active service more than six centuries after its introduction.</p>
+</history>
+
+<manufacturer>
+Falcon's Roost Orbital Assembly Plant|Tseng Facility|Unknown
+</manufacturer>
+
+<primaryFactory>
+Sudeten|Alshain|Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<published>
+RS:Aero2
+</published>
+
+<tonnage>
+200.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+4
+</crew>
+
+<officers>
+1
+</officers>
+
+<gunners>
+1
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

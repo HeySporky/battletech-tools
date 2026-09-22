@@ -1,0 +1,1 @@
+{"mappings":"AAAA,iBAAiB;IAAG,oBAAoB,CAAC,wDAAO,CAAC;AACjD","sources":["packages/react-aria/intl/previewtrigger/zh-TW.json"],"sourcesContent":["{\n  \"longPressMessage\": \"長按以開啟預覽\"\n}\n"],"names":[],"version":3,"file":"zh-TW.cjs.map"}

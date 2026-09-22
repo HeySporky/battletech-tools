@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cc84-7dcd-97ce-5764f2f83404
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Sirocco
+model:SRC-6C
+mul id:2953
+
+Config:Quad
+techbase:Inner Sphere
+era:3070
+source:TR:3060
+published:RS:3060u
+rules level:2
+role:Skirmisher
+
+quirk:difficult_maintain
+quirk:directional_torso_mount_360:LT RT CT
+
+mass:95
+engine:285 Fusion Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 IS Double
+walk mp:3
+jump mp:5
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+FLL armor:40
+FRL armor:40
+LT armor:30
+RT armor:30
+CT armor:45
+HD armor:9
+RLL armor:40
+RRL armor:40
+RTL armor:10
+RTR armor:10
+RTC armor:15
+
+Weapons:6
+ER Large Laser, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+Light Gauss Rifle, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+IS Light Gauss Ammo
+IS Light Gauss Ammo
+ISC3SlaveUnit
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISGuardianECMSuite
+ISGuardianECMSuite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>In the late 3040s, Corean Enterprises MacAdams-Suharno of the Free Worlds League revisited the four-legged BattleMech concept, seeking to build on the success of their Tarantula light scout. With the aging Goliath increasingly obsolescent, Corean saw an opportunity to produce a modern quad assault design capable of anchoring heavy formations. The result was the Sirocco, a 95-ton assault 'Mech that entered field testing in early 3059 and reached full production by 3060. Unlike most quad designs of the era, the Sirocco was built from the ground up as a heavy fire support platform, eschewing the scout and skirmisher roles typically associated with four-legged chassis. The Sirocco earned a favorable reputation among Free Worlds League assault formations, though its temperamental quad chassis has proven notoriously difficult to maintain in the field.</p>
+
+capabilities:<p>The Sirocco's primary armament centers on twin Imperator Automatic Ultra-10 autocannons, providing devastating long-range firepower with the ability to fire at double the normal rate. Large ammunition bins housed in the rear legs ensure sustained engagements, though the risk of catastrophic ammunition detonation remains a concern. Six Diverse Optics extended-range medium lasers, including two rear-mounted units, give the Sirocco formidable close-range coverage from any angle, supplemented by a Diverse Optics medium pulse laser for accurate fire against fast-moving targets. Capellan-produced Ma Mien anti-personnel pods deter infantry attacks against the 'Mech's legs, a persistent vulnerability for quad designs.</p><p>Built on the robust Corean IX quad chassis, the Sirocco mounts a Pitban 285 fusion engine that produces a modest top speed of 54 km/h. While this makes the design one of the slower assault 'Mechs in service, it carries nearly twenty tons of Starshield armor, giving it exceptional durability for sustained engagements. A Corean TransBand-J9 communications system integrated with a Guardian ECM suite provides electronic warfare capability, disrupting enemy targeting systems and network coordination. The unique stability of the quad configuration allows the Sirocco to mount more armor than comparably-weighted bipedal designs, though the Directional Torso Mount limits weapon arcs and the design has proven notoriously difficult to maintain in the field.</p>
+
+deployment:<p>Developed during the Jihad, this variant serves as a radical departure from the original Sirocco concept. A small cockpit frees internal space at the expense of pilot comfort, allowing the installation of five Chilton 950 improved jump jets that grant the Sirocco the ability to leap up to one hundred and fifty meters, making it the most mobile 95-ton 'Mech of its era. The heavy Ultra autocannons give way to a single Imperator light Gauss rifle and a Diverse Optics ER large laser, trading firepower for weight savings. Starshield II light ferro-fibrous armor replaces the standard plating, maintaining protection levels while saving additional tonnage. The Guardian ECM suite is relocated to the head, and a C3 slave unit is integrated into the communications package, allowing the Sirocco to share targeting data within a networked lance. This variant was classified as a refit, with at least one example emerging from modifications performed on Atreus during the Blakist occupation.</p>
+
+history:<p>The Sirocco emerged from Corean Enterprises' Stewart facility during the waning years of the Clan Invasion era, a period of rapid technological advancement across the Inner Sphere. Executives at Corean recognized that the survival of their new design depended on securing military contracts quickly, and they devised an arrangement with the Free Worlds League Military to sell the first production run at a significantly reduced cost. The condition was that these initial Siroccos would be assigned to a premier unit, and the first machines off the line were shipped to the Second Knights of the Inner Sphere.</p><p>The Sirocco quickly established a favorable reputation among Free Worlds League assault formations during the early 3060s. Its combination of heavy firepower and thick armor made it a reliable anchor for defensive positions, while the Guardian ECM suite proved invaluable in disrupting Clan targeting networks. Sales of the Tarantula had already demonstrated Corean's ability to market quad designs successfully, and the Sirocco's positive reception confirmed the company's strategy of challenging the anti-quad prejudice that had persisted since the Succession Wars.</p><p>The Jihad brought devastation to Stewart, with Word of Blake forces seizing the world and its industrial assets. The Corean facility suffered approximately sixty percent damage during the fighting, and by 3079 the plant was operating at only sixty-five percent capacity, with both the Sirocco and Tarantula production lines lying inactive. During this period, at least one Sirocco belonging to the decimated Second Knights was reportedly modified on Atreus, suggesting that surviving examples continued to see service even as new production halted.</p><p>In the post-Jihad era, Stewart passed through several hands. The Republic of the Sphere administered the world during the early Dark Age, followed by a period of independence before Clan Wolf claimed the planet. Despite these political transitions, the Sirocco production line did not resume active manufacturing. The design persists in limited numbers across former Free Worlds League successor states, valued by units that can maintain the temperamental quad chassis. Stewart itself was retaken by the reconstituted Free Worlds League in 3152, raising the possibility of eventual production resumption at the original Corean facility.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Corean
+systemmode:CHASSIS:IX (quad)
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:285
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:II Light Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Chilton
+systemmode:JUMP_JET:950 Improved
+systemmanufacturer:COMMUNICATIONS:Corean
+systemmode:COMMUNICATIONS:TransBand-J9 with Guardian ECM Suite and C3 slave
+systemmanufacturer:TARGETING:Corean
+systemmode:TARGETING:B-Tech

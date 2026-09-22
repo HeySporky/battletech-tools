@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c3dd-70db-8d59-309dcbb4e4ff
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Charger
+model:CGR-3K
+mul id:565
+
+Config:Biped
+techbase:Inner Sphere
+era:3049
+source:TR:3050,TR:3050U
+published:RS:3050Uu-I
+rules level:2
+role:Skirmisher
+
+quirk:bad_rep_is
+quirk:easy_maintain
+quirk:barrel_fists_la
+
+mass:80
+engine:400 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:12 IS Double
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:15
+RA armor:15
+LT armor:24
+RT armor:24
+CT armor:27
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:7
+RTR armor:7
+RTC armor:7
+
+Weapons:5
+Medium Pulse Laser, Left Arm
+Medium Pulse Laser, Right Arm
+Medium Pulse Laser, Left Torso
+LRM 20, Right Torso
+Medium Pulse Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISMediumPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMediumPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMediumPulseLaser
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+ISCASE
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 20
+LRM 20
+LRM 20
+LRM 20
+LRM 20
+ISArtemisIV
+ISMediumPulseLaser
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Conceived by Wells Technologies on Luthien as an ultra-heavy reconnaissance platform for the Star League Defense Force, the eighty-ton Charger is one of the most maligned BattleMech designs in history. First produced in 2665, the original model could outrun most medium 'Mechs yet mounted only a handful of small lasers, armament that would have been considered inadequate on a 'Mech one-quarter its size. Intended to penetrate defended areas at high speed and withdraw before heavier opponents could engage, the Charger's concept failed to survive contact with reality, and the SLDF quickly sidelined it from frontline service. Despite this ignominious beginning, the Charger eventually found redemption through successive redesigns, proving that even the most flawed chassis can become viable with the right technology and engineering vision.</p>
+
+capabilities:<p>The original Charger’s design philosophy (speed and armor over firepower) produced an assault ’Mech whose five small lasers were laughable even to MechWarrior cadets, while its solid Durallex Heavy armor could absorb direct hits from autocannon fire. The massive LTV 400 engine consumed over half the chassis’s mass, leaving virtually nothing for weapons. MechWarriors quickly discovered that the Charger’s only real offensive option was physical combat, using its eighty-ton mass and considerable speed to charge lighter opponents. Against Wasps, Stingers, and ’Mechs whose primary armament had already been destroyed, the Charger was effective; against anything else, it was a liability.</p><p>The recovery of Star League technology in the late 3040s finally gave LAW the tools to address the Charger’s fundamental weakness. The CGR-3K replaced the small lasers with four medium pulse lasers and an Artemis IV-enhanced LRM-20, while an XL engine and jump jets gave the design unprecedented tactical flexibility for its weight class. The spacious internal layout (originally a consequence of the oversized engine) proved remarkably adaptable to successive generations of weapons technology, producing variants ranging from urban brawlers to Clan-specification scouts. The same roomy chassis that spawned the Hatamoto-Chi family has ensured the Charger’s continued relevance well into the thirty-second century.</p>
+
+deployment:<p>The design that finally redeemed the Charger, this variant debuted in 3049 as LAW unveiled a complete reworking of the chassis using recovered Star League technology. An Alshain Class 92 chassis, Hermes 400 XL engine, New Samarkand Royal ferro-fibrous armor, and Lexington Ltd. jump jets gave the design unprecedented capability, while four Victory Heartbeat medium pulse lasers and an Artemis IV-enhanced Shigunga LRM-20 provided real offensive firepower. Boran Meta-Cygnus Plus communications and Delta Track targeting systems replaced the original electronics suite. Production was established at LAW on Luthien and later at Sapphire Metals on Shimonita. The Luthien plant was destroyed in 3069, but this variant remained in widespread service with planetary militia and training cadres across the Combine.</p>
+
+history:<p>Wells Technologies built the Charger in 2665, combining heavy Durallex armor with Magna light lasers in a design intended as a high-speed reconnaissance element for the SLDF. The concept (an assault-weight scout that could absorb punishment while gathering intelligence) failed to account for MechWarriors’ natural inclination to engage the enemy, and the Charger’s popgun armament left pilots defenseless when combat proved unavoidable. The Star League withdrew the design from active service, and Wells Technologies found itself wallowing in unsold inventory. Ironically, the fall of the Star League and the First Succession War saved the company from bankruptcy, as the Draconis Combine’s desperate need for ’Mechs led to bulk purchases of the company’s entire overstock.</p><p>Most Chargers found their way into DCMS forces, though battlefield salvage eventually distributed the design across every Great House military. Lyran forces adopted the Charger as a heavy reconnaissance element for assault companies, embracing it more warmly than other Houses. When the ISF uncovered Wells Technologies’ covert attempts to sell Chargers to the Lyran Commonwealth in violation of export restrictions, Luthien Armor Works executed an emergency buyout of the company. Wells Technologies closed its doors in 3027, and CGR-1A1 production ceased entirely by 3030.</p><p>The Charger’s defining moment came not from any battlefield triumph but from the Hatamoto-Chi program. When ComStar gifted the Draconis Combine with Star League-era BattleMechs in the 3030s, LAW engineers used reverse-engineered Thug technology to transform the despised Charger chassis into the formidable Hatamoto-Chi, an assault ’Mech that would become one of the DCMS’s most iconic designs. The experience gained with lost technology during the crash Hatamoto program led LAW to rework the Charger itself. The CGR-3K debuted in 3049 with ferro-fibrous armor, pulse lasers, and jump jets, earning widespread acceptance from DCMS MechWarriors who had long scorned the design. By 3068, every regular DCMS unit contained at least one post-3050 Charger variant.</p><p>The Sapphire Sunset yakuza clan on Shimonita purchased and upgraded a small LAW complex (renamed Sapphire Metals) and began producing CGR-3Ks, CGR-SA5s, and the newer CGR-KMZ design. When the Raven Alliance absorbed the Outworlds Alliance, Raveena Electronics on Ramora (holder of a production license dating back to a LAW legal error) eventually transitioned from Inner Sphere Charger variants to the Clan-specification Charger C, replacing all previous IS-tech production by 3093.</p>
+
+manufacturer:Luthien Armor Works|Sapphire Metals (ex LAW plant)
+
+primaryfactory:Luthien|Shimonita
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Class 92
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:400 XL
+systemmanufacturer:ARMOR:New Samarkand
+systemmode:ARMOR:Royal Ferro-Fibrous with CASE
+systemmanufacturer:JUMP_JET:Lexington Ltd.
+systemmode:JUMP_JET:Lifters
+systemmanufacturer:COMMUNICATIONS:Boran
+systemmode:COMMUNICATIONS:Meta-Cygnus Plus
+systemmanufacturer:TARGETING:Delta Track
+systemmode:TARGETING:with Artemis IV FCS

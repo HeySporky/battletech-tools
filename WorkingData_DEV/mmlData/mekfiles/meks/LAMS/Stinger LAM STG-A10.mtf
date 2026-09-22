@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d703-71b1-97fd-69a67d5f9f4b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Stinger LAM
+model:STG-A10
+mul id:5138
+
+Config:LAM
+techbase:Inner Sphere
+era:2927
+source:TR:3085
+published:RS:3085u-CE
+rules level:3
+role:Scout
+
+
+mass:30
+engine:180 Fusion Engine
+structure:IS Standard
+myomer:Standard
+lam:Standard
+
+heat sinks:11 Single
+walk mp:6
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:9
+RT armor:9
+CT armor:12
+HD armor:9
+LL armor:10
+RL armor:10
+RTL armor:3
+RTR armor:3
+RTC armor:3
+
+Weapons:5
+Small Laser, Left Arm
+Small Laser, Left Arm
+Small Laser, Right Arm
+Small Laser, Right Arm
+Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Small Laser
+Small Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Small Laser
+Small Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Landing Gear
+Avionics
+Heat Sink
+Heat Sink
+Heat Sink
+Jump Jet
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Landing Gear
+Avionics
+Heat Sink
+Jump Jet
+Jump Jet
+Jump Jet
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Landing Gear
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Avionics
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>In 2680, the Star League military requested designers to develop BattleMechs capable of flight as well as ground combat. The first Land-Air 'Mech off the drawing board, the Shadow Hawk LAM, proved so fatally flawed that the concept was nearly abandoned. LexaTech Industries persevered, reworking the conversion equipment to create the first viable LAM based on the venerable Stinger chassis in 2688. The technological leap was extraordinary, comparable to following the primitive Mackie immediately with the advanced Pillager.</p><p>The Stinger LAM's tri-modal conversion system allowed transformation between standard BattleMech, AirMech, and aerospace fighter configurations. Though never produced in large numbers due to complexity and cost, the design proved highly sought after for specialized operations, particularly on minor planetary bodies such as asteroids and comets. Production continued at LexaTech's Irece facility until Clan Nova Cat's forces destroyed the factory in 3050, viewing Land-Air 'Mechs as an abomination and effectively ending LAM production in the Inner Sphere.</p>
+
+capabilities:<p>The Stinger LAM gained ten tons over its parent chassis, putting the additional mass to excellent use. Ground speed and jump capability matched the standard Stinger at 97 kilometers per hour and 180 meters respectively, while armor protection increased significantly. The GM 180 fusion engine powered the GM ATO 100 jet system in AirMech mode, enabling high-speed atmospheric flight, while full aerospace fighter configuration achieved even greater velocities.</p><p>The weapons payload varied by variant but consistently improved upon the original Stinger's armament. The Mark I Royal version featured pulse lasers and double heat sinks, while the more common A5 mounted three medium lasers with single heat sinks. All variants benefited from the AirMech mode's exceptional maneuverability, allowing pilots to engage from unexpected angles or rapidly disengage from superior forces.</p><p>The primary weakness remained the light armor and vulnerable conversion systems. Superior firepower could easily damage internal components, potentially preventing transformation during emergencies. The conversion process itself exposed critical systems, making the transition between modes a calculated risk. A hit during transformation could leave the LAM stuck in a half-converted state, rendering it helpless against further attack.</p>
+
+deployment:<p>Found primarily in the Draconis Combine, the A10 variant modified the A5's armament by replacing arm-mounted medium lasers with paired small lasers on each wing. A head-mounted Magna medium laser provided primary firepower. This configuration proved somewhat difficult to manage in flight but offered improved protection for both pilot and vital systems. The variant's concentration in Kurita service reflected the Combine's control of LexaTech facilities throughout the Succession Wars.</p>
+
+history:<p>The Stinger LAM received its baptism of fire early in 2690 when intelligence reached Hegemony command of a nuclear weapons facility in Terra's Oort cloud. Fearing Periphery secessionist terrorism, the SLDF scrambled Stinger LAMs alongside the newly introduced Wasp LAMs. With Stingers providing aerospace superiority, the Wasp LAMs crippled the facility with Arrow IV missiles. Every LAM returned unscathed, validating the concept spectacularly.</p><p>Following the Star League's collapse, LexaTech's facilities fell under Draconis Combine control, making House Kurita the primary operator of Stinger LAMs. However, planetary garrisons throughout the Federated Suns and Lyran Commonwealth also maintained small numbers. The unique capability to launch from DropShips as fighters, land, and convert to BattleMechs made LAMs highly desirable for raiding and commando operations.</p><p>At the Battle for Hanser's Ford on Proserpina in 2840, Draconis forces employed two full lances of LAMs, primarily Stingers, in defensive actions. The LAMs flew through enemy positions and landed behind Davion lines, converting to 'Mech mode for ground attacks. House Davion diverted front-line units including Deneb Light Cavalry elements to hunt the raiders, only to watch them convert and fly away when cornered. These tactics tied down Davion forces for days, altering multiple engagements' outcomes.</p><p>House Steiner demonstrated similar capabilities during the 2955 raid on Shiloh. At Randersville, pinned Arcturan Guards forces sent Stinger LAMs in fighter mode over enemy lines to the city center. Converting to 'Mech mode, they located and secured a vital supply cache, then transformed to AirMech mode and blasted through Marik positions. Despite heavy losses, the retrieved supplies justified the sacrifice.</p><p>By 3020, Hanse Davion recalled all Federated Suns LAMs for reorganization at Fulker Military Academy, training for close support and deep raiding missions. Similar reorganizations occurred in the Draconis Combine. The Clan Invasion's destruction of the Irece factory in 3050 ended any possibility of LAM revival, leaving surviving units as irreplaceable relics of a lost technological era.</p>
+
+manufacturer:LexaTech Industries
+
+primaryfactory:Irece
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:LexaTech
+systemmode:CHASSIS:300
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:180
+systemmanufacturer:ARMOR:Riese
+systemmode:ARMOR:100
+systemmanufacturer:JUMP_JET:GM
+systemmode:JUMP_JET:ATO 100
+systemmanufacturer:COMMUNICATIONS:O/P
+systemmode:COMMUNICATIONS:900
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:LAMTRACK 50

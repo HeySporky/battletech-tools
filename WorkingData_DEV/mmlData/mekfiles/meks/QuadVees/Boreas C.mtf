@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d79a-7478-afea-cb43f6668018
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Boreas
+model:C
+mul id:7354
+
+Config:QuadVee OmniMek
+techbase:Clan
+era:3132
+source:XTR:RotS 2,TR:3150
+published:XTR:RotS 2,TR:3150
+rules level:3
+role:Skirmisher
+
+
+mass:60
+engine:240 Fusion (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+motive:Track
+cockpit:QuadVee Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 Laser
+base chassis heat sinks:9
+walk mp:4
+jump mp:0
+
+armor:Standard(Clan)
+FLL armor:21
+FRL armor:21
+LT armor:21
+RT armor:21
+CT armor:26
+HD armor:8
+RLL armor:21
+RRL armor:21
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:3
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+ATM 12, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Conversion Gear
+Tracks
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Conversion Gear
+Tracks
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Laser Heat Sink
+Laser Heat Sink
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+CLATM12 (OMNIPOD)
+CLATM12 (OMNIPOD)
+CLATM12 (OMNIPOD)
+CLATM12 (OMNIPOD)
+CLATM12 (OMNIPOD)
+Clan Ammo ATM-12 (OMNIPOD)
+Clan Ammo ATM-12 (OMNIPOD)
+Clan Ammo ATM-12 (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Cockpit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Conversion Gear
+Tracks
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Conversion Gear
+Tracks
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Boreas is a 60-ton experimental OmniQuadVee developed by Clan Hell's Horses circa 3132 at the Csesztreg Industriplex Alpha Annex on Csesztreg. Named for the Greek god of the north wind, the Boreas was the first QuadVee ever constructed, serving as the prototype that launched an entirely new class of hybrid combat unit. The brainchild of Technician Factor Matthew, whose earlier work on 'Mech-vehicle hybrid concepts had received mixed reviews, the Boreas established the foundational design principles shared by all subsequent QuadVees: tracked conversion capability, a rotating turret-torso, and a dual-pilot cockpit.</p><p>Built as a heavy OmniMech chassis with modular pod space, the Boreas was intended to explore the widest possible range of weapons configurations during the concept's developmental phase. Despite skepticism from the warrior caste and outright derision from rival Clans, the Boreas proved viable enough to warrant continued investment, leading directly to the production QuadVees fielded from 3136 onward.</p>
+
+capabilities:<p>The Boreas utilizes a standard 240-rated fusion engine to achieve speeds of up to 64 kilometers per hour in either its tracked vehicle or quadrupedal 'Mech form. As an OmniQuadVee, the chassis provides twelve tons of pod space, a deliberate design decision that allowed engineers to test diverse weapons configurations during the concept's early development. The rotating turret-torso grants all mounted weapons a full 360-degree firing arc, while the dual cockpit separates piloting and gunnery duties between two crew members.</p><p>In its Prime configuration, the Boreas mounts an extended-range PPC for long-range engagement, supplemented by a medium pulse laser and a Streak SRM-6 launcher for close-range defense. This balanced loadout reflects the design's role as a testbed rather than a specialized combatant. The chassis relies on standard internal structure and 11.5 tons of armor, providing less protection than typical Clan heavy 'Mechs of its era. This compromise was necessitated by the considerable weight consumed by conversion equipment and the dual cockpit system. Should the gyro be destroyed in combat, the Boreas can convert to vehicular mode to maintain mobility, and likewise can shift to 'Mech form if its tracks are disabled.</p>
+
+deployment:<p>Alternate Configuration C adopts a generalist approach, mounting an ATM-12 launcher with three tons of ammunition alongside a pair of extended-range medium lasers. The ATM system's ability to switch between long-range, standard, and high-explosive munitions gives this configuration unusual tactical flexibility, allowing a single Boreas to adapt its engagement profile to changing battlefield conditions without requiring reconfiguration.</p>
+
+history:<p>The Boreas emerged circa 3132 as the first tangible result of Technician Factor Matthew's QuadVee program, a project that sought to create a hybrid combat unit combining the resilience of a BattleMech with the tactical flexibility of a combat vehicle. The concept drew inevitable comparisons to the Land-Air 'Mech, which had similarly attempted to blur the lines between unit types and ultimately failed to gain lasting traction. The warrior caste's skepticism was understandable, yet the Boreas survived where other experimental programs might have been cancelled.</p><p>Initial testing revealed both promise and problems. The dual cockpit arrangement, which placed a MechWarrior and a vehicle gunner in shared command of the same machine, proved awkward for warriors accustomed to the individual mastery prized by Clan culture. The conversion system itself worked reliably, however, and the Boreas's ability to shrug off gyro damage by switching to vehicle mode represented a genuine tactical innovation that no conventional 'Mech could replicate.</p><p>The Boreas's OmniMech modularity allowed extensive weapons testing that informed the development of the fixed-configuration production QuadVees introduced in 3136. Reports suggest that at least three other QuadVee models were being developed concurrently with the Boreas, with the supervising engineer hedging against the possibility that any single design might fail. This parallel development strategy ultimately paid off, producing the Arion, Cyllaros, and Harpagos in rapid succession.</p><p>The Boreas saw continued limited deployment alongside production models, with at least one unit lost as isorla during Operation NOYAN in 3147 when the Seventy-first Mechanized Cavalry was forced to retreat from Leskovik after a failed assault against the Eighteenth Falcon Regulars. The Jade Falcons' curiosity about the captured QuadVee may yet influence future development beyond the Hell's Horses.</p>
+
+manufacturer:Csesztreg Industriplex Alpha Annex
+
+primaryfactory:Csesztreg
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:240 Standard Fusion
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Standard)
+systemmanufacturer:COMMUNICATIONS:CH2 Series
+systemmode:COMMUNICATIONS:Integrated
+systemmanufacturer:TARGETING:Version
+systemmode:TARGETING:Gamma-V TTS

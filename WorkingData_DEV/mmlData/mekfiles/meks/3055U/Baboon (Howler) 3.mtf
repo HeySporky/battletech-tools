@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c746-7f60-837f-36eb2a164156
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Baboon
+clanname:Howler
+model:3 'Devil'
+mul id:191
+
+Config:Biped
+techbase:Clan
+era:3066
+source:TR:3055U
+published:RS:3055Uu
+rules level:2
+role:Striker
+
+quirk:ext_twist
+quirk:low_profile
+quirk:searchlight
+
+mass:20
+engine:120 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:6
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:5
+RA armor:5
+LT armor:7
+RT armor:7
+CT armor:8
+HD armor:7
+LL armor:6
+RL armor:6
+RTL armor:2
+RTR armor:2
+RTC armor:2
+
+Weapons:1
+ER PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLERPPC
+CLERPPC
+CLTargeting Computer
+CLTargeting Computer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLMASC
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Howler, known to Inner Sphere observers as the Baboon, is a 20-ton Clan light BattleMech designed as a totem 'Mech for Clan Fire Mandrill around 2871. Conceived during the Golden Century as a fast, missile-capable reconnaissance and fire support platform, the design embodied the Mandrill philosophy of flexibility and aggression in a compact frame. The Howler uses its considerable speed to outpace most opponents while delivering sustained missile fire well beyond what most designs in its weight class can manage.</p><p>Though originally a Fire Mandrill creation, the design found its greatest success far beyond its creators' enclaves, becoming a ubiquitous presence in Clan second-line formations across multiple Clans. Successive variants produced over several centuries have kept the design relevant from the Golden Century through the ilClan era, proof of the soundness of the original concept.</p>
+
+capabilities:<p>Despite its diminutive size and somewhat ungainly simian appearance, the Howler is a surprisingly agile combatant. Its squat profile makes it a difficult target to acquire at range, while a hyperextendable torso grants exceptional lateral firing arcs that few light 'Mechs can match. The standard configuration mounts three LRM-5 launchers fed by three tons of ammunition, providing sustained fire support capability well beyond what most designs in its weight class can deliver. A Firebox 140 standard fusion engine propels the Howler to speeds approaching 120 kilometers per hour, making it a credible scout and screening asset.</p><p>The design's reliance on a standard engine rather than an extralight model gives the Howler a surprising degree of durability for a light 'Mech, allowing it to absorb torso damage that would cripple XL-equipped designs. Three tons of Compound H17 ferro-fibrous armor provide reasonable protection for a 20-ton chassis. A built-in searchlight and the design's overall ease of operation have made it a popular training platform, particularly at the Jade Falcon School of Conflict on Blackjack, where its adjacency to the CJF Factory Zone 5 production facility ensures a steady supply of replacement parts.</p>
+
+deployment:<p>Inspired by the 30-ton Devil BattleMech that Clan Snow Raven had developed from early captured Howlers, Snow Raven scientists created this variant by refitting captured Howler 2 chassis with a Clan-specification extended-range PPC paired with a targeting computer. The resulting configuration transforms the fire support platform into a dedicated sniper, capable of delivering precise long-range strikes before using its MASC-enhanced speed to reposition. The refit was initially performed aboard the Eden Rose, a Potemkin-class WarShip stationed at Dante, before transitioning to surface-based production at the Snow Raven Industrial Complex Alpha around 3076.</p>
+
+history:<p>The Howler was conceived in the late twenty-ninth century by Clan Fire Mandrill scientists seeking to create a totem 'Mech that embodied their Clan's combative nature in a light reconnaissance platform. Production began around 2871 at what would later be designated the Marshall Epsilon Complex on the Fire Mandrill-held continent of Contock. The design proved effective enough that a rival Kindraa subsequently established a second production line at the Kindraa Matilda-Carroll Main Production Facility on Marshall's Molten continent, ensuring steady output across competing Mandrill factions.</p><p>The Howler's fortunes shifted dramatically in 2875 when Clan Jade Falcon seized the Epsilon Complex factory. The Falcons quickly integrated the design into their second-line forces, and the 'Mech became a tangible symbol of their dominance over the disputed facility. Marshall's proximity to Steel Viper and Snow Raven enclaves meant those Clans also adopted the Howler, further spreading the design beyond its Mandrill origins. Production eventually expanded to the Falcon Occupation Zone, with a new facility established at CJF Factory Zone 5 on Blackjack.</p><p>Clan Steel Viper's scientists produced the most significant reimagining of the chassis after the Falcons expelled the Vipers from the Inner Sphere. The resulting Howler 2, manufactured at the Novy Minsky Armaments Plant on New Kent, replaced the original missile battery with advanced tactical missile systems. Deployed in second-line units including the Zeta and Rho Galaxies, the updated design proved particularly effective in anti-aircraft roles supporting Starmate formations. Clan Snow Raven subsequently captured several Howler 2s and refitted them as dedicated snipers, creating the Howler 3 variant nicknamed the Devil, a name drawn from the 30-ton Devil BattleMech the Ravens had previously developed from early captured Howlers.</p><p>The design saw continued action well into the thirty-second century. A notable engagement occurred at Pondicherry in 3150, when a Star of Howlers from a Snow Raven garrison force intercepted a First Amphigean Light Assault Group intelligence-gathering company, demonstrating the design's continued viability in combined-arms operations alongside ProtoMech and aerospace assets. On Blackjack, Howlers played a prominent role in defending the Jade Falcon School of Conflict during a pirate raid in April 3147, with sibko students piloting trainer variants against the invaders in a display of the Mongol Doctrine tactics being instilled by Malvina Hazen's reformed training programs.</p>
+
+manufacturer:Refit - Eden Rose [Potemkin Class]/Facility 12-D|Refit - Snow Raven Industrial Complex Alpha
+
+primaryfactory:Dante|Dante
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Type-A
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:General Systems
+systemmode:ENGINE:120 XL
+systemmanufacturer:ARMOR:Type 2
+systemmode:ARMOR:Ferro Fibrous w/CASE
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

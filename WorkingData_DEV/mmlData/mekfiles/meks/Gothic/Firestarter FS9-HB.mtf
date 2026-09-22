@@ -1,0 +1,183 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6af-79c4-b932-39242b853db6
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Firestarter
+model:FS9-HB
+
+Config:Biped
+techbase:Inner Sphere
+era:3151
+source:Gothic
+published:RS:Gothic
+rules level:5
+role:Scout
+
+quirk:ubiquitous_clan
+quirk:ubiquitous_is
+weaponquirk:exposed_linkage:LA:5:Flamer
+weaponquirk:exposed_linkage:RA:5:Flamer
+
+mass:35
+engine:210 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:11 Single
+walk mp:6
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:11
+RT armor:11
+CT armor:13
+HD armor:9
+LL armor:8
+RL armor:8
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:6
+Light Blazer, Left Arm
+Flamer, Left Arm
+Light Blazer, Right Arm
+Flamer, Right Arm
+Flamer, Center Torso
+Flamer, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Light Blazer
+Light Blazer
+Flamer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Light Blazer
+Light Blazer
+Flamer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Flamer
+Flamer (R)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The FS9-HB is a low-cost attempt to make the Firestarter more effective against battlefield Abominations. It replaces the machine guns and standard medium lasers of the FS9-H with a pair of light blazers while retaining all fusion-charged flamers. The result offers extra punch at medium range but runs significantly hotter, even with lasers tuned to dazzle mode. The lack of ammunition means this variant is more likely to shut down than explode when overheated.</p>
+
+capabilities:<p>Retains the Firestarter's signature speed and jump mobility, making it ideal for hit-and-run harassment. The blazers extend effective engagement range beyond flamer distance, allowing pilots to soften targets before closing. Heat accumulation is the primary tactical concern, as sustained fire will force shutdowns. Experienced pilots cycle between dazzle mode and full power shots to maintain pressure without cooking themselves.</p>
+
+fluffdate:2026-03-12 17:00:46
+

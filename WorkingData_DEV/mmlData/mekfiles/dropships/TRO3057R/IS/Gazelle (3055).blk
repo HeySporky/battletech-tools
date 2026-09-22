@@ -1,0 +1,233 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab09-725f-bf90-c932aaef405a
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Gazelle
+</Name>
+
+<Model>
+(3055)
+</Model>
+
+<mul id:>
+4205
+</mul id:>
+
+<year>
+3055
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+heavyvehiclebay:12.0:1:1::-1:0
+lightvehiclebay:3.0:1:2::-1:0
+cargobay:347.0:0:3::-1:0
+1stclassquarters:20.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:56.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+45
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+4160
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+144
+120
+120
+120
+</armor>
+
+<Nose Equipment>
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:24
+ISArtemisIV
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISERPPC
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:15
+ISArtemisIV
+(B) Medium Laser
+Medium Laser
+Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISERPPC
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:15
+ISArtemisIV
+(B) Medium Laser
+Medium Laser
+Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+8
+</structural_integrity>
+
+<capabilities>
+<p>The upgraded (3055) variant is a comprehensive modernization weighing 3,400 tons, an increase of five hundred tons over the original. The vehicle capacity is split between twelve heavy vehicle bays in the nose and three light vehicle bays further aft, significantly reducing the deployment bottleneck that plagued earlier models. Three hundred forty-seven tons of cargo capacity restores much of the operational endurance lost in the heavy vehicle conversion.</p><p>The weapons array received targeted upgrades using recovered Star League technology. Standard PPCs and large lasers were replaced with extended-range variants, including the Defiance 1001 ER PPC, while the LRM batteries received Artemis IV fire control systems for improved missile accuracy. Standard medium lasers were upgraded to pulse models for enhanced close-range accuracy. Forty-five double heat sinks replaced the original seventy singles, providing superior thermal management with reduced mass. Armor protection was slightly increased to 504 points. The overall effect is a markedly more capable vessel that addresses the most critical shortcomings of the Succession Wars-era configuration.</p>
+</capabilities>
+
+<overview>
+<p>The Gazelle class armor transport is one of the smaller military vehicle carriers in service with the Successor State armies. First launched in 2531, this 2,900-ton Aerodyne was designed to deliver a full company of armored fighting vehicles to the battlefield, providing the ground armor component for combined-arms planetary assault formations. The Gazelle typically operates alongside infantry transports and fighter carriers, forming the core vehicle delivery element of conventional landing operations.</p><p>The design has been extensively modified over its long service life, evolving from a light vehicle transport into a heavy armor carrier capable of deploying main battle tanks. These modifications came at the cost of crew comfort and endurance, a trade-off that has made the Gazelle one of the most cramped DropShips in regular military service. The vessel's single-ramp deployment system has earned it a reputation for slow unloading times, and experienced crews have long viewed assignments of green units with apprehension, as inexperienced vehicle operators have historically been responsible for a disproportionate number of Gazelle losses on the ground.</p>
+</overview>
+
+<deployment>
+<p>Produced by New Syrtis Shipyards beginning in 3055, the upgraded Gazelle was adopted primarily by the Armed Forces of the Federated Commonwealth, which became the major buyer of the new variant. Several upgraded Gazelles saw their first combat deployment during operations to suppress unrest in the Skye March, where initial reports confirmed that the modernized weapons array significantly improved the vessel's defensive capability. The split vehicle bay configuration proved particularly valuable in fast-paced operations where rapid deployment was critical, reducing ground vulnerability compared to the older single-bay design.</p>
+</deployment>
+
+<history>
+<p>The Gazelle class armor transport entered production in 2531, making it one of the older DropShip designs still in active service. Originally designed to carry a company of light tanks, the Gazelle served the Star League Defense Force as a dedicated vehicle transport throughout the Age of War and Reunification War periods. Production was established at multiple facilities, with Deller-Bingham-Fouts and Federated-Boeing Interstellar among the early manufacturers, ensuring wide distribution across the Star League member states.</p><p>The Succession Wars forced a fundamental transformation of the Gazelle's design. As the lighter combat vehicles of the Star League era gave way to heavier and more heavily armored tanks, the Gazelle's original vehicle bays proved inadequate. Engineers enlarged the nose cargo hold to accommodate these heavier vehicles, but the modifications required reducing crew quarters and cargo capacity. The resulting cramped conditions became a defining characteristic of the post-refit Gazelle, limiting the design's usefulness on extended deployments.</p><p>The enlarged vehicle bay introduced a deployment bottleneck that plagued the design throughout the Succession Wars. Fifteen heavy tanks packed into a sixty-meter by eighteen-meter bay accessed through a single nose ramp meant that unloading was painfully slow. Many Gazelles were destroyed on the ground while their vehicles were still deploying, particularly when embarked units were inexperienced. Veteran vehicle crews developed elaborate loading sequences to minimize ground time, knowledge that was jealously guarded and passed down through units that regularly operated from Gazelle transports.</p><p>In 3055, New Syrtis Shipyards unveiled a substantially upgraded version of the Gazelle. Weighing in at 3,400 tons, the new model addressed many of the original's deficiencies. The vehicle capacity was split between a primary heavy vehicle bay and a secondary light vehicle section, reducing the deployment bottleneck that had cost so many vessels. The weapons array received modern upgrades including extended-range energy weapons and improved missile guidance systems. The Federated Commonwealth became the primary buyer of this new variant, and upgraded Gazelles deployed during operations in the Skye March demonstrated markedly improved fire-projection capability. Despite the enhancements, the Gazelle remained a support transport rather than a combat vessel, and commanders who employed it within its intended role continued to find it a reliable workhorse.</p>
+</history>
+
+<manufacturer>
+Deller, Bingham, and Fouts|Yare Industries Inc. - Yare Shipyards
+</manufacturer>
+
+<primaryFactory>
+Atreus (FWL)|New Syrtis
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Star League V95
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+2900.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+121
+</crew>
+
+<officers>
+2
+</officers>
+
+<gunners>
+3
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+4
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

@@ -1,0 +1,154 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ea83-7cc4-a3f5-2676b3f88282
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Wheeled Scout
+</Name>
+
+<Model>
+(Camera)
+</Model>
+
+<mul id:>
+7819
+</mul id:>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+22
+15
+15
+12
+</armor>
+
+<Body Equipment>
+ISReconCamera
+</Body Equipment>
+
+<Front Equipment>
+Medium Laser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The standard Wheeled Scout carries a single medium laser as its primary armament, powered by dedicated heat sinks and power amplifiers that allow an ICE-equipped vehicle to fire an energy weapon without a fusion reactor. The gunner operates the laser through a remote sighting system from inside the vehicle rather than manning an exposed weapon mount, improving crew survivability during engagements. A modest half ton of cargo space provides flexibility for carrying relief supplies, a third crew member for rotation on long patrols, or specialized mission equipment.</p><p>The 120-rated ICE engine drives the vehicle to a reliable cross-country speed, providing adequate performance on most terrain types. Standard armor offers greater protection than the commercial grades found on the Prime Mover, though the Wheeled Scout remains lightly armored by any military standard and cannot absorb sustained direct fire. Its most significant limitation is operational endurance, as ICE power requires fuel logistics that fusion-powered competitors avoid. The low unit cost, widespread parts availability, and minimal maintenance burden allow even underfunded garrison units to keep multiple vehicles operational simultaneously. The Wheeled Scout cannot outrun hovercraft or dedicated fast movers, making route selection and concealment critical when operating against a mobile enemy with air assets.</p>
+</capabilities>
+
+<overview>
+<p>The Wheeled Scout is a category designation applied to a class of light wheeled reconnaissance platforms sharing common operational characteristics rather than a single manufactured design. First codified in military inventories around 2444, these small, fast, lightly armed vehicles fill the reconnaissance role at low cost for garrison forces, militia units, and irregular operators who cannot afford dedicated hover or fusion-powered scout assets. Like the related Prime Mover, the Wheeled Scout emerged from multiple civilian manufacturing traditions, with military operators adopting and lightly arming commercially produced survey and cross-country vehicles rather than procuring purpose-built reconnaissance platforms. The most common configuration features three axles, six wheels, a two-person crew, and a remotely operated medium laser. ICE power makes the Wheeled Scout inexpensive to produce and easy to maintain, though its endurance depends on access to conventional fuel supplies. These vehicles serve as the primary reconnaissance asset for planetary garrison forces across the Inner Sphere and Periphery.</p>
+</overview>
+
+<deployment>
+<p>This variant trades the standard cargo space for a dedicated Recon Camera, making it the preferred choice for detailed terrain mapping and post-engagement damage assessment. Units tasked with battle damage assessment, pre-operation terrain scouting, or documenting enemy infrastructure typically deploy this configuration, where photographic evidence is more tactically valuable than a half ton of general-purpose cargo. The camera system produces visual records that can be transmitted to command elements or stored for later analysis, giving commanders ground-truth confirmation of intelligence that electronic sensors may not resolve clearly.</p>
+</deployment>
+
+<history>
+<p>Wheeled reconnaissance vehicles have accompanied military forces in the Inner Sphere since before the founding of the Terran Alliance's interstellar program. The Wheeled Scout designation first appeared in standardized military records around 2444, codifying what had previously been an informal classification applied to commercially produced survey and cross-country vehicles adapted for military reconnaissance. The design's roots lie in civilian exploration and geological survey platforms built tough for cross-country operation, converted to military use through the addition of weapons mounts, tactical communications equipment, and basic armor upgrades.</p><p>During the Star League era, Wheeled Scouts were assigned to garrison and militia formations throughout the member states, providing basic reconnaissance coverage at a cost that allowed more expensive assets to be reserved for front-line units. Because the design relied on ICE power, it was not subject to the engine-stripping that degraded many fusion-powered vehicles during the Succession Wars, and Wheeled Scout fleets survived the early wars relatively intact compared to more technologically sophisticated reconnaissance platforms. This survivability reinforced the design's reputation for reliability under austere conditions.</p><p>Through the Succession Wars and subsequent eras, Wheeled Scouts remained in continuous production at dozens of small manufacturers and commercial vehicle producers throughout the Inner Sphere and along the Periphery border. They proved especially valuable on worlds without the budget for more sophisticated sensor platforms, filling the reconnaissance role with nothing more than crew skill and a single medium laser. After Gray Monday and the collapse of the HPG network, Wheeled Scouts experienced renewed importance as intelligence networks failed and ground-level reconnaissance became essential. During the Dragon's Fury assault on Dieron in September 3132, Wheeled Scout crews served as advance reconnaissance elements, providing ground truth in an environment where electronic intelligence had become unreliable. The engagement demonstrated that even in the Dark Age era, cheap, simple reconnaissance vehicles remain relevant on any battlefield where information advantage matters.</p>
+</history>
+
+<manufacturer>
+Various
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:120 ICE
+ARMOR:Standard
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:I
+</source>
+
+<published>
+TR:I
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

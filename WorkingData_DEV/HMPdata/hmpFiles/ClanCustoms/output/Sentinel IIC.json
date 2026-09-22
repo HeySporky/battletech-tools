@@ -1,0 +1,444 @@
+{
+  "filename": "Sentinel IIC.hmp",
+  "size": 5702,
+  "header_hex": "56 35 2e 30 30 04 00 08 03 ff ff 3f 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0003\u00ff\u00ff"
+    },
+    {
+      "type": "ascii",
+      "start": 11,
+      "end": 12,
+      "text": "?"
+    },
+    {
+      "type": "byte",
+      "offset": 12,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 14,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 15,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 16,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 17,
+      "end": 18,
+      "text": "("
+    },
+    {
+      "type": "byte",
+      "offset": 18,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 19,
+      "end": 29,
+      "length": 8,
+      "text": "Sentinel"
+    },
+    {
+      "type": "len_string",
+      "start": 29,
+      "end": 34,
+      "length": 3,
+      "text": "IIC"
+    },
+    {
+      "type": "byte",
+      "offset": 34,
+      "hex": "be"
+    },
+    {
+      "type": "ascii",
+      "start": 35,
+      "end": 36,
+      "text": "\n"
+    },
+    {
+      "type": "len_string",
+      "start": 36,
+      "end": 40,
+      "length": 2,
+      "text": "\u0000&"
+    },
+    {
+      "type": "ascii",
+      "start": 40,
+      "end": 41,
+      "text": "9"
+    },
+    {
+      "type": "byte",
+      "offset": 41,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 42,
+      "end": 1019,
+      "length": 975,
+      "text": "\u0000\u0080<D\u0000\u00003D\u0000\u0000\u0080A\u0000\u0000 A\u0000\u0000@@\u0010\u0000MM 3 3 3 2 1\u0097 6 \u0001\u0000\u0000\u0000\u0000\u0000\u00f0\u0000\u0000\u0000\u0006\u0000\u0000\u0000\n\u0000\u0001\u0000\u0001\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0005\u0000\u0005\u0000\u0006\u0000\u0000\u0000\u0003\u0000\u0001\u0000H\u0000\u0001\u0000\u0014\u0000\u0002\u0000\u0003\u0000KWI\u0001\u00004\u0000\u0005\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000R\u0000\u0005\u00002\u0000\u0000\u0000\b\u0000Defiance\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000H\u0000\u0000\u0000H\u0000\u0000\u0000H\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00d8\u0001\u0014\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00004\u0000\u0000\u0000R\u0000\u0000\u0000\u00e2\u00012\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0015\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u00e2\u00ff\u0089\u0000L\u0005    The STN-3L Sentinel is a medium BattleMech, though its 40-ton mass puts it at the low end of its class. Designed to provide battalion-level BattleMech support for infantry and light-armor units, the 'Mech has good maneuverability, long-range hitting power, and an advanced communications system. Equipped with the powerful VidCom-17 and Targa-7 long-range targeting and tracking system, the Sentinel is ideal "
+    },
+    {
+      "type": "ascii",
+      "start": 1019,
+      "end": 1962,
+      "text": "for use in patrols or as a mobile observation post. The 'Mech also carries a StarLink/Benicia Model AS829G communications system. Capable of simultaneous operation on multiple frequencies, this system not only allows the Sentinel to monitor closely and to command units operating under it, but also keeps the 'Mech in close contact with rear-area artillery units, calling for fire when needed.\r\n    Defiance Industries first produced the Sentinel in 2651 for use by House Steiner's private army. The 'Mech appeared one year after the Star League Council had passed an amendment allowing the Council Lords to double their personal household forces. Originally intended for infantry support, the 'Mech soon moved on to the role of guarding military installations and major land holdings of the Steiner family. By the early 28th Century, the design was also in use by the Star League Defense Forces as well as the Davion and Marik private armies."
+    },
+    {
+      "type": "byte",
+      "offset": 1962,
+      "hex": "b2"
+    },
+    {
+      "type": "ascii",
+      "start": 1963,
+      "end": 5470,
+      "text": "\r    The STN-3L's 40-ton frame is powered by the 11.5 ton, Pitban 240 fusion engine, giving the 'Mech a walking speed of 65.4 kph and a top running speed of 97.1 kph. Shortly after the 'Mech's original deployment, concern arose over the choice of the Pitban 240 because of rumors about shielding problems with the Pitban 240s that Defiance Industries was producing under license. After a number of Sentinels were pulled from the field because of chronic over-heating, an investigation took place. This investigation found that the heat circulation system was at fault, rather than the engine shielding. The faulty components were replaced in most existing 'Mechs and all later production versions.\r\n    The Sentinel is well-equipped for combat, carrying a single KWI-5 Ultra Autocannon, a single Defiance Streak-2 SRM Launcher, and a single Defiance B-1A Small Laser. Kawabata Weapons Inc. produced the AC/5 Ultra especially for Defiance Industries. The weapon gives the 'Mech good long-range fire capability, with an effective range exceeding that of LRMs and standard AC/5s. Another special feature of this weapon is its ability to fire rounds at double the rate of a standard AC/5. Though this autocannon fire is not as accurate as would be a pair of standard AC/5s, the Ultra does give an equivalent volume of fire.\r\n    Unfortunately, besides generating much heat and burning through ammunition supplies quickly, the extremely high rate of fire has caused some other major problems, particularly on the early STN-3Ls. When fired at its maximum rate, the weapon vibrates violently, causing the internal circuitry in the BattleMech's weapon arm to fail. This often causes a total loss of control of the arm, effectively rendering the AC/5 useless and cutting the Sentinel's combat capabilities almost in half. Though repairs for this problem are simple, the problem keeps the 'Mech out of combat for half an hour or more during repairs.\r\n    The current STN-3L has been modified to reduce the chance of disturbances to circuitry. Even these modifications have not solved the problem totally, with an estimated 3 percent chance that the problem will occur whenever the AC/5 Ultra fires at its maximum rate.\r\n    The Sentinel was not designed to engage in close combat, relying instead on its AC/5 Ultra to hold off enemy units at long range, but it can defend itself if an enemy gets close. Tucked away inside the Sentinel's right torso is its Defiance Streak-2 SRM Launcher, linked to a Targa-7 fire control system. This short-range missile system is designed to guarantee a hit against any target onto which the pilot can get a lock. A special feature of this system prevents the weapon from firing at a target when there is no lock-on. This saves ammunition by preventing shots that would miss anyway. Unlike a standard SRM, whose shotgun effect may result in some misses and some hits, the Streak SRM hits with all its missiles. This gives the unit the effective average firepower of the heavier and more wasteful SRM-4 system, but with considerably less variation in damage effects.\r\n    When designed, the Sentinel was equipped with a Defiance A-1 small laser instead of the B-1A model of current designs. However, the original A-1 small laser was prone to problems after extended field operations, and so the more rugged B-1A was substituted.  In 2678, all Sentinels were refitted with the single Defiance B-1A small laser, which is mounted in the right torso, just below the Streak-2 SRM launcher."
+    },
+    {
+      "type": "len_string",
+      "start": 5470,
+      "end": 5473,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 5473,
+      "end": 5476,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 5476,
+      "end": 5479,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 5479,
+      "end": 5482,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 5482,
+      "end": 5483,
+      "text": "'"
+    },
+    {
+      "type": "byte",
+      "offset": 5483,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 5484,
+      "end": 5523,
+      "text": "Design by Chris Mc Intosh (Duke Royal)."
+    },
+    {
+      "type": "len_string",
+      "start": 5523,
+      "end": 5526,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 5526,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5527,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5528,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5529,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5530,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5531,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5532,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5533,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5534,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5535,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5536,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5537,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5538,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5539,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5540,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5541,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5542,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5543,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5544,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5545,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5546,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5547,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5548,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5549,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5550,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5551,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5552,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5553,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5554,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5555,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5556,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5557,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 5558,
+      "end": 5568,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 5568,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 5569,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 5570,
+      "end": 5591,
+      "length": 19,
+      "text": "Defiance Industries"
+    },
+    {
+      "type": "ascii",
+      "start": 5591,
+      "end": 5592,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 5592,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 5593,
+      "end": 5602,
+      "text": "(Unknown)"
+    },
+    {
+      "type": "len_string",
+      "start": 5602,
+      "end": 5610,
+      "length": 6,
+      "text": "Pitban"
+    },
+    {
+      "type": "len_string",
+      "start": 5610,
+      "end": 5628,
+      "length": 16,
+      "text": "Valiant Lamellor"
+    },
+    {
+      "type": "ascii",
+      "start": 5628,
+      "end": 5629,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 5629,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 5630,
+      "end": 5639,
+      "text": "Defiant V"
+    },
+    {
+      "type": "len_string",
+      "start": 5639,
+      "end": 5670,
+      "length": 29,
+      "text": "StarLink/Benicia Model AS829G"
+    },
+    {
+      "type": "len_string",
+      "start": 5670,
+      "end": 5691,
+      "length": 19,
+      "text": "Targa-7, Vid-Com-17"
+    },
+    {
+      "type": "ascii",
+      "start": 5691,
+      "end": 5692,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 5692,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 5693,
+      "end": 5702,
+      "text": "(Unknown)"
+    }
+  ]
+}

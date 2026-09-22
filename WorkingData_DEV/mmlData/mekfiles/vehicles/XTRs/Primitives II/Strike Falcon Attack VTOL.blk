@@ -1,0 +1,189 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec30-7a43-8727-98b32f4c02d5
+</UUID>
+
+<UnitType>
+SupportVTOL
+</UnitType>
+
+<Name>
+Strike Falcon Attack VTOL
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5585
+</mul id:>
+
+<year>
+2371
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<quirks>
+easy_pilot
+obsolete:2510
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+troopspace:6.0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+48
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+10
+8
+8
+5
+2
+</armor>
+
+<Body Equipment>
+Advanced Fire Control
+IS Ammo SRM-4
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+SRM 4
+SRM 4
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+Machine Gun
+</Right Equipment>
+
+<Left Equipment>
+Machine Gun
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<barrating>
+7
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Strike Falcon is a 30-ton medium VTOL built around an internal combustion engine, delivering a cruise speed of approximately 119 km/h and a flank speed of 186 km/h. Its primary offensive systems are a pair of SRM 4 launchers mounted in the nose, providing effective short-range fire against armored targets. Three machine guns, positioned in the chin and on both flanks, offer broad-arc anti-infantry suppression. An Advanced Fire Control system improves crew accuracy, partially compensating for the vehicle's relatively modest armament compared to heavier dedicated gunships.</p><p>The aircraft's most operationally significant feature is its large troop bay, designed to carry one fully equipped heavy infantry platoon, or two light platoons in cramped conditions, through three access doors on the right, left, and rear. The wings serve a secondary aerodynamic function, contributing significant lift in forward flight and extending the operational radius to well over 1,500 kilometers. BAR 7 armor provides adequate protection against small arms and light weapons common to the period, but leaves the vehicle dangerously exposed to any concentrated anti-armor fire. The Easy to Pilot design quirk made the Strike Falcon accessible to a broad pool of trained crews, an important advantage when qualified rotary-wing pilots were in short supply across the Confederation's expanding military.</p>
+</capabilities>
+
+<overview>
+<p>The Strike Falcon Attack VTOL was developed by Grand Union Battle Works on Tikonov, entering service in 2371 as the Capellan Confederation's answer to the aging OT-22 Bird of Prey rotary-wing platform. Designed to fill a demanding dual role, the Strike Falcon combined heavy infantry transport capacity with substantial fire support capability, making it one of the more versatile VTOL designs of the Age of War. Its introduction was enthusiastically received by Capellan commanders, who found its combination of speed, range, and cargo capacity well suited to the mobile warfare of the era.</p><p>The design's reputation spread quickly beyond Capellan borders, and multiple powers attempted to replicate its performance with varying degrees of success. Despite its eventual obsolescence, the Strike Falcon remained in frontline service for over a century before giving way to lighter, faster, and better-protected successors.</p>
+</overview>
+
+<deployment>
+<p>The Strike Falcon served across Capellan Confederation ground forces as an assault transport and fire support asset throughout the Age of War. Commanders typically deployed pairs or flights of three to insert a company-sized infantry element, with the aircraft transitioning to suppression and covering fire after troops cleared the landing zone. The design saw action along multiple contested borders, operating in coordination with ground mechanized units to exploit breakthrough opportunities and secure objectives ahead of slower-moving armor.</p><p>As the design aged into the mid-twenty-fourth century, Strike Falcons increasingly appeared in reserve and militia formations, replaced in frontline roles by more capable platforms. Following the 2510 obsolescence declaration, units transferred to civilian operators retained their transport capacity but were stripped of weapons and combat sensors.</p>
+</deployment>
+
+<history>
+<p>The helicopter's place on the battlefield was never seriously in doubt during the Age of War. When the Capellan Confederation coalesced from a collection of smaller states in 2367, Tikonov contributed not just territory but a robust defense industrial base centered on Grand Union Battle Works. The OT-22 Bird of Prey had been the backbone of Tikonov's rotary-wing forces, but it was approaching the end of its service life. Grand Union Battle Works received the commission to develop a capable successor that could meet the Confederation's demands for combined-arms flexibility.</p><p>The Strike Falcon entered service in 2371 and quickly earned a strong operational reputation in Capellan formations. Its ability to insert infantry directly into contested areas, then remain on station to provide immediate fire support, made it a preferred tool for battalion and regiment commanders throughout the Age of War. Few opponents could take one down with a single hit in its heyday, and the design's durability drew attention across the Inner Sphere. Several rival powers and independent manufacturers produced copies or near-copies of the Strike Falcon during the mid-twenty-fourth century, though results were mixed.</p><p>The aircraft's shortcomings grew more pronounced as the era progressed. Advances in weapons and armor technology increasingly outpaced the Strike Falcon's protection levels, and newer platforms offered better performance across every mission parameter. By 2510, Grand Union Battle Works officially declared the design obsolete. Surviving airframes were stripped of their combat systems and transitioned to civilian cargo and passenger roles, where some remained in operation for decades after military retirement.</p><p>The Grand Union Battle Works facility on Tikonov continued operating through subsequent centuries under shifting ownership. Tikonov's contested position in Inner Sphere politics brought the world through Capellan Confederation, Tikonov Free Republic, and Federated Commonwealth control during the Succession Wars and Clan Invasion eras, before returning to Capellan hands during the Civil War period. The planet later passed through independent administration, Republic of the Sphere stewardship, a brief Federated Suns interval, and ultimately back to the Confederation during the ilClan era. The factory itself, long since repurposed from Strike Falcon production, reflects that turbulent history of planetary control.</p>
+</history>
+
+<manufacturer>
+Grand Union Battle Works
+</manufacturer>
+
+<primaryFactory>
+Tikonov
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:ICE
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Primitives II
+</source>
+
+<published>
+XTR:Primitives II
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+
+<fuel>
+1.0
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

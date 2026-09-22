@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a875-71b9-8a41-ba2b0cb76b7a
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Groundhog Exoskeleton
+</Name>
+
+<Model>
+CEX-205 [Industrial Drill](Sqd6)
+</Model>
+
+<mul id:>
+9174
+</mul id:>
+
+<year>
+3062
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+imp_com
+</quirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+-1
+</armor_tech>
+
+<Squad Equipment>
+BASearchlight:Body
+BAIndustrialDrill:LA
+BAIndustrialDrill:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The Industrial Drill configuration mounts paired drilling assemblies on the Groundhog's modular adaptors, providing operators with the tools needed for excavation, fortification construction, and demolition work. The drills can bore through reinforced materials at speeds far exceeding manual methods, making this configuration particularly valuable for combat engineering tasks such as preparing defensive positions, cutting through obstacles, and creating improvised access points.</p><p>The standard four-hundred-kilogram chassis carries one hundred kilograms of armor and moves at thirty kilometers per hour without jump capability. The integrated searchlight and mission equipment bay support extended field operations. While the drilling assemblies are not designed as weapons, they pose an obvious threat in close quarters. The Industrial Drill configuration cannot conduct standard anti-BattleMech attacks or employ infantry weapons, however, limiting the operator's options if threatened directly. Groundhogs equipped with this loadout typically work alongside combat-configured suits that can provide security during engineering operations.</p>
+</capabilities>
+
+<overview>
+<p>The CEX-205 Groundhog is a combat engineering exoskeleton produced by Blue Shot Weapons on Solaris VII. Introduced in 3062, the Groundhog was designed as a field-ready engineering platform capable of supporting military and mercenary operations through a modular manipulator system that allows rapid reconfiguration for different tasks. The suit's interchangeable tool mounts accept a wide range of equipment, from armored gloves suitable for light combat duties to specialized industrial tools for heavy labor, mine clearance, and salvage work. An integrated searchlight and onboard mission equipment storage further extend the Groundhog's operational utility. Heavily armored for an exoskeleton, the Groundhog earned a reputation as one of the first truly battlefield-ready engineering exoskeletons available on the open market.</p>
+</overview>
+
+<deployment>
+<p>Word of Blake engineering formations organized Industrial Drill Groundhogs into six-trooper Level Is for fortification and infrastructure projects. During the occupation of Solaris VII, Blakist engineers used these formations to construct defensive positions throughout the arena districts and to clear debris from battle-damaged areas of Solaris City.</p>
+</deployment>
+
+<history>
+<p>Blue Shot Weapons had long served a niche market on Solaris VII, producing industrial exo-suits primarily sold to arena management companies for routine maintenance and emergency MechWarrior extractions. The CEX-205 Groundhog, introduced in 3062, marked a deliberate shift in the company's ambitions. Drawing on advances in Inner Sphere battle armor technology, Blue Shot designed the Groundhog as their first truly field-ready combat engineering exoskeleton, offering military and mercenary units a rugged, modular platform far beyond their earlier commercial-grade offerings.</p><p>Blue Shot marketed the full line of manipulator configurations in paired sets, emphasizing the suit's adaptability for diverse field operations. Arena operators on Solaris VII also adopted the Groundhog for "tunnel rat" operations during the FedCom Civil War, using the suit's improved communications equipment and searchlight for underground engagements.</p><p>The Word of Blake invasion of Solaris VII in 3068 dealt a severe blow to Blue Shot Weapons. The company's production facilities suffered catastrophic damage during the fighting, with capacity reportedly falling below ten percent. By 3071, the damage proved insurmountable, and the Groundhog was officially discontinued. Persistent rumors of a jump-capable variant designated the CEX-250 Leapfrog had circulated for some time, but with the Blue Shot plant in ruins, the design never reached production.</p>
+</history>
+
+<manufacturer>
+Blue Shot Weapons
+</manufacturer>
+
+<primaryFactory>
+Solaris VII
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<exoskeleton>
+true
+</exoskeleton>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

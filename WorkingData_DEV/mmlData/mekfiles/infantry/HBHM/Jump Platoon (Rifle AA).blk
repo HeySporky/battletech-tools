@@ -1,0 +1,77 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bd1e-7ce9-a8c3-a7b55caae0f0
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Jump Platoon
+</Name>
+
+<Model>
+(Rifle AA)
+</Model>
+
+<year>
+3067
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Jump
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Free Worlds League Military fields anti-aircraft infantry across its provincial forces, with each military district responsible for equipping and training its own platoons to counter the persistent threat of low-altitude aerospace strikes. Given the League's decentralized command structure, the quality and readiness of these formations varies by province, but the combination of auto rifles and Mk2 Portable AA missile launchers follows a common FWLM doctrinal template. These platoons give provincial garrisons a credible deterrent against strafing runs and VTOL incursions without depending on dedicated anti-air vehicles that many League districts cannot afford to maintain. For provinces along contested borders, where aerospace raids are a constant concern, integrating portable AA capability into standard infantry platoons is a practical concession to the reality that centralized air defense assets are rarely available when and where they are needed most.</p>
+</overview>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+AA Weapon (Mk. 2, Man-Portable)
+</Secondary>
+

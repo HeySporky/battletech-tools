@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d58e-7dcd-aa43-70da06ebc541
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Ursa
+model:URA-2A
+mul id:6627
+
+Config:Quad
+techbase:Inner Sphere
+era:3122
+source:TR:3145:LC,TR:DA
+published:RS:DA
+rules level:3
+role:Skirmisher
+
+quirk:stable
+weaponquirk:exposed_linkage:RT:3:ISRotaryAC2
+
+mass:65
+engine:325 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:13 IS Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Inner Sphere)
+FLL armor:23
+FRL armor:23
+LT armor:23
+RT armor:23
+CT armor:29
+HD armor:9
+RLL armor:23
+RRL armor:23
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:6
+ER PPC, Left Torso
+Medium X-Pulse Laser, Left Torso
+Medium X-Pulse Laser, Left Torso
+Rotary AC/2, Right Torso
+Medium X-Pulse Laser, Right Torso
+Medium X-Pulse Laser, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERPPC
+ISERPPC
+ISERPPC
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+ISMASC
+ISMASC
+ISMASC
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISRotaryAC2
+ISRotaryAC2
+ISRotaryAC2
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+ISRotaryAC2 Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Ursa is a sixty-five-ton quadrupedal BattleMech introduced in 3122 by TharHes Industries on Tharkad. Designed as a versatile heavy reconnaissance and escort platform for the Lyran Commonwealth Armed Forces, the Ursa fills a unique niche among quad designs with its combination of speed, firepower, and exceptional stability. The design was conceived to operate along the volatile Jade Falcon border, where its X-pulse laser armament gives Inner Sphere forces near-parity with Clan energy weapons. TharHes engineers built the Ursa around a revolutionary gyroscope system that provides unmatched stability for a quadrupedal chassis, earning the 'Mech the nickname "the Rhino" among MechWarriors for its ability to deliver devastating charges at full speed without losing control. Often deployed alongside the Scourge in complementary pairs, the Ursa has proven especially popular with mercenary commands who value its jack-of-all-trades combat flexibility.</p>
+
+capabilities:<p>The Ursa's standout feature is its remarkable gyroscope, which provides stability that surprises even experienced quad 'Mech pilots. Combined with a VOX 325 XL engine and MASC system, the Ursa can reach speeds exceeding 108 kilometers per hour, making it one of the fastest heavy 'Mechs on the battlefield. The chassis mounts twelve and a half tons of Durallex Medium armor, providing solid protection and enabling the Ursa to survive full-speed collisions without the pilot losing control, a capability that has become a signature tactic.</p><p>The weapons suite is designed for engagement at multiple ranges. A Defiance 1001 extended-range particle projection cannon handles long-range fire, while a Thor 40mm rotary autocannon covers middle distances with rapid bursts. Four Martell-X medium X-pulse lasers provide devastating close-range firepower and were specifically chosen because their performance closely matches Clan energy weapons. This layered armament allows the Ursa to maintain effective fire throughout an approach, transitioning seamlessly from sniping to brawling. The lack of jump jets limits the design's tactical flexibility in rough terrain, but its raw speed and MASC-enhanced mobility more than compensate in open engagements.</p>
+
+deployment:<p>The base production model mounts the full complement of Inner Sphere weaponry that defines the Ursa's combat identity. The four Martell-X medium X-pulse lasers were specifically selected for their ability to match Clan medium laser performance at close range, while the Thor 40mm rotary autocannon and Defiance 1001 ER PPC provide effective fire at middle and long ranges respectively. MASC augments the VOX 325 XL engine to push the 'Mech past 108 kilometers per hour in short bursts, enabling the aggressive charging tactics that earned the Ursa its "Rhino" nickname. This variant has been in continuous production at TharHes Industries on Tharkad since 3122 and remains the most widely fielded model.</p>
+
+history:<p>The Ursa entered production at TharHes Industries' Tharkad facility in 3122, joining the Lyran Commonwealth's ongoing effort to modernize its forces along the Clan Jade Falcon border. The design was part of a broader wave of new 'Mechs intended to give Lyran troops weapons capable of matching Clan technology without relying on expensive salvage or limited Clan imports. Its quad configuration was a deliberate choice, offering a stable weapons platform that could keep pace with medium 'Mechs while delivering heavy firepower.</p><p>The Ursa saw its first significant combat during a series of skirmishes with Clan Jade Falcon near Yeguas in 3127. Elements of the Fourth Donegal Guards raided the Falcon-held world of Morges, clashing with the Twelfth Falcon Regulars. During the engagement, an Ursa from the Guards' reconnaissance company demonstrated the design's survivability under extreme conditions, using its MASC-enhanced speed and unconventional charging tactics to draw fire and extract friendly scouts from a collapsing position. The 'Mech absorbed punishing fire from Clan OmniMechs and Elementals while weaving through forested terrain, ultimately returning to its DropShip despite catastrophic damage. This engagement cemented the Ursa's reputation for toughness and validated its design philosophy of combining speed with resilience.</p><p>By the mid-3140s, the Ursa had become a common sight not only in Lyran front-line units but also among mercenary formations operating in the former Lyran-Falcon border regions. The Fourth Donegal Guards continued to field the design prominently, deploying Ursas during a raid on Chukchi III in 3144 where they clashed with elements of the Forty-first Wolf Guard Battle Cluster. Though the raid ultimately failed, the Ursas proved effective in the reconnaissance role, using their speed to probe enemy positions before heavier units engaged.</p><p>TharHes Industries maintained steady production throughout the Dark Age, and the Ursa's relatively straightforward construction using readily available Lyran-sourced components ensured a reliable supply chain. The introduction of the Clan-tech URA-2C variant in 3125 expanded the design's appeal, and both variants continued to see service into the ilClan era. The Ursa's combination of speed, stability, and overlapping weapons coverage has ensured its continued relevance as a versatile heavy platform in an era of rapidly evolving battlefield technology.</p>
+
+manufacturer:TharHes Industries
+
+primaryfactory:Tharkad
+
+fluffdate:2026-02-23 17:46:42
+
+systemmanufacturer:CHASSIS:TharHes
+systemmode:CHASSIS:URA Quad Endo Steel
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:325 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Medium
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Melpomene HM-33
+systemmanufacturer:TARGETING:TharHes
+systemmode:TARGETING:Ares-9

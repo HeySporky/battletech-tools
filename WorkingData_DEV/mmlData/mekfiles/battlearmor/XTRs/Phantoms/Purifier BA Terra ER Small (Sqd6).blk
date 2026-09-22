@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a97e-7d60-be62-23ae54df6de8
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Purifier Battle Armor Terra
+</Name>
+
+<Model>
+[ERSL](Sqd6)
+</Model>
+
+<mul id:>
+9074
+</mul id:>
+
+<year>
+3075
+</year>
+
+<type>
+Mixed (IS Chassis) Advanced
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+bad_rep_is
+difficult_maintain
+</quirks>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Squad Equipment>
+BABattleClaw:RA
+CLBAERSmallLaser:LA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The ERSL configuration equips the Purifier Terra's modular weapon mount with a Clan-grade extended-range small laser, offering greater effective range and damage potential than its Inner Sphere equivalent on the standard Purifier Adaptive. The suit's heavy conventional armor provides significantly more protection than the mimetic system of the original design, allowing troopers to absorb weapons fire that would destroy the standard variant. This durability comes at the cost of the camouflage capability, forcing operators to rely on conventional infantry tactics rather than stealth-based approaches. The suit retains jump capability for repositioning and mounts a battle claw for anti-BattleMech operations. The energy weapon requires no ammunition, making the ERSL loadout well-suited for sustained operations where resupply is uncertain.</p>
+</capabilities>
+
+<overview>
+<p>The Purifier Terra is an experimental hybrid refit of the standard Purifier Adaptive, developed by TerraSec special operations forces on Terra. First appearing around 3075, the design trades the original suit's stealth systems for substantially increased protection using advanced materials sourced through uncertain channels. Produced in limited quantities under secretive circumstances, the Purifier Terra was difficult to maintain and earned a poor reputation among field technicians. Despite these drawbacks, the suit offered a considerably more durable alternative to the standard Purifier for operators who prioritized survivability over concealment.</p>
+</overview>
+
+<deployment>
+<p>TerraSec special operations units organized Purifier Terra troopers into six-member Level I formations consistent with Word of Blake military doctrine. The ERSL configuration provided these teams with reliable energy firepower for the clandestine operations and internal security missions that defined TerraSec's mandate during the final years of the Jihad.</p>
+</deployment>
+
+<history>
+<p>The Purifier Terra traces its lineage to a series of battle armor variants developed under Word of Blake governance of Terra during the Jihad. A provincial governor in the Thaliand district commissioned a simplified version of the Purifier Adaptive for local paramilitary forces, stripping the mimetic armor system in favor of conventional protection that was easier to produce and maintain. This "Purifier Police" design saw widespread use controlling displaced civilian populations in the aftermath of nuclear strikes on North American cities, and was produced in quantity at the Krupp Armament Works.</p><p>Coalition forces later discovered a more advanced variant in the hands of elite TerraSec special operations units. These suits featured armor of a quality comparable to Clan manufacturing standards, though their origins remained murky. Only a handful of battle-ravaged copies were recovered, and investigations into Terran industrial facilities capable of producing such materials were shut down by Devlin Stone. Whether the advanced armor came from captured Clan stockpiles or clandestine local production was never conclusively determined, though evidence from the Tornado G17 program suggested Terra-based manufacturing of advanced-grade materials. The Republic Armed Forces continued to produce and field the Purifier Terra after the liberation.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Phantoms
+</source>
+
+<published>
+XTR:Phantoms
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+10
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

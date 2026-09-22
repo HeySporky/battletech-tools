@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ceef-72ee-84ae-426a5c3bd18e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Ostscout
+model:OTT-7Jb
+mul id:2367
+
+Config:Biped
+techbase:Inner Sphere
+era:2600
+source:TR:3075
+published:RS:3075u-AW,RSFP:MERCS
+rules level:2
+role:Scout
+
+quirk:low_profile
+quirk:rugged_1
+quirk:imp_sensors
+quirk:imp_com
+
+mass:35
+engine:280 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:8
+jump mp:8
+
+armor:Standard(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:9
+RT armor:9
+CT armor:12
+HD armor:6
+LL armor:8
+RL armor:8
+RTL armor:2
+RTR armor:2
+RTC armor:4
+
+Weapons:1
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+Jump Jet
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+Jump Jet
+BeagleActiveProbe
+BeagleActiveProbe
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Ostscout was designed for one purpose: scouting. Introduced in 2600 by Ostmann Industries, this 35-ton light 'Mech was built entirely around gathering intelligence and escaping danger. Its exceptional speed and maneuverability allow it to avoid trouble easily, though its minimal armament means it can only engage the lightest opponents with any hope of success. Enhanced sensor arrays and a high-resolution targeting and tracking system supply the Ostscout with a constant stream of data about its surroundings, while powerful narrow-band communications equipment allows it to report from deep inside enemy territory.</p><p>As demand for the design grew beyond Ostmann's production capacity, the company licensed Kong Interstellar Corporation to begin manufacturing in 2700, following a similar arrangement previously established for the Ostsol. The Ostscout became so valuable during the Succession Wars that commanders hoarded them like treasures, deploying them only for the most critical reconnaissance missions.</p>
+
+capabilities:<p>The Ostscout's primary feature is pure speed. Its VOX 280 fusion engine, typically mounted on designs twice its size, propels the 'Mech to a maximum speed of 129.6 kilometers per hour. Combined with a 240-meter jump capability provided by eight Ostmann Sct-A jump jets, only the Spider can match its maneuverability. This agility serves as the 'Mech's true protection, as the four-and-a-half tons of Durallex Light armor offers only modest defense against concentrated fire.</p><p>The Ostscout's combat capability is severely limited by design. A single Tronel II medium laser represents its entire offensive armament, mounted only after test pilots aggressively protested the original weaponless configuration. Ten heat sinks easily manage this minimal heat load, allowing the 'Mech to jump and fire simultaneously without overheating.</p><p>The true centerpiece of the design is its advanced sensor suite. The arm-mounted sensor arrays were installed outside the main chassis to avoid magnetohydrodynamic interference, with the 'Mech using its actuator systems to aim them. During maximum-intensity scanning, the Ostscout must move slowly while waving its arrays in seemingly random patterns, making it briefly vulnerable. However, if the first enemy salvo fails to cripple it, the 'Mech will almost certainly escape.</p>
+
+deployment:<p>Developed concurrently with the standard model for SLDF Royal units, the 7Jb incorporates an endo-steel internal structure to free up sufficient mass for a Beagle active probe. This enhancement significantly improves the 'Mech's ability to detect hidden units and concealed positions, making it even more effective in its primary reconnaissance role. The variant remained exclusive to Royal formations until the fall of the Star League scattered surviving examples across the Successor States.</p>
+
+history:<p>Ostmann Industries built and sold the Ostscout starting in 2600 to fulfill many armies' need for a swift reconnaissance 'Mech. When demand outstripped their production capacity, rather than sacrifice their popular Ostroc line, Ostmann licensed Kong Interstellar to begin production in 2700. Kong continued building Ostscouts for a century until the destruction of their factory on Connaught in 2802 at the outset of the Succession Wars. Deprived of replacements, commanders began hoarding their Ostscouts, parceling them out only for special missions, and most pilots would not even attempt to engage enemy 'Mechs given the irreplaceable nature of the advanced sensor systems.</p><p>The Ostscout's battle history reads as a series of daring missions deep behind enemy lines. During the Rebellion of 3010, Janos Marik used Ostscouts extensively to gather information on rebel movements and strengths. In early September 3021, four Ostscouts were dropped over New Ivaarsen by Draconis Combine DropShips to scout landing sites for a Kurita invasion force, spending five weeks evading Davion patrols while accumulating critical intelligence. The most famous exploit came in 3024 during the "Thousand Kilometer Chase," when a Capellan Ostscout pilot evaded Smithson's Chinese Bandits for ten hours, accumulating enough intelligence to enable a successful Confederation counter-attack.</p><p>ComStar also utilized the Ostscout, and following the Clan Invasion and ComStar Schism, developed a new variant maintaining the original's capabilities while improving offensive and defensive profiles. Debuting successfully in 3064, nearly half of all Com Guard Ostscouts were upgraded within three years. However, it was soon discovered that both the Lyran Alliance and Word of Blake were fielding identical variants. The intelligence leak was traced to Dag Kesselring, former Precentor of the Sixty-sixth Division, who had passed information to both the Lyrans and Blakists.</p><p>Following the Jihad, the newborn Republic of the Sphere maintained production of upgraded Ostscout models from former Word of Blake factories on Terra, selling them to the Federated Suns and Lyran Commonwealth. During the Dark Age era, Kong Interstellar reestablished production and formed an alliance with Clan Sea Fox to produce variants incorporating stealth technology and Clan weaponry, while Robinson Standard BattleWorks began manufacturing models highly prized by the Draconis Combine.</p>
+
+manufacturer:Kong Interstellar Corporation|Ostmann Industries
+
+primaryfactory:Connaught|Terra
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Kell
+systemmode:CHASSIS:S Endo Steel
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:280
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Light
+systemmanufacturer:JUMP_JET:Ostmann
+systemmode:JUMP_JET:Sct-A
+systemmanufacturer:COMMUNICATIONS:Barret
+systemmode:COMMUNICATIONS:4000
+systemmanufacturer:TARGETING:TRSS
+systemmode:TARGETING:2L3 with Beagle Active Probe

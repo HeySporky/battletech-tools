@@ -1,0 +1,177 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e893-7273-9dc7-8243c2f8d7a5
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+DI Schmitt Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6602
+</mul id:>
+
+<year>
+3115
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<quirks>
+trailer_hitch
+anti_air
+</quirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+45
+31
+31
+20
+25
+</armor>
+
+<Body Equipment>
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Machine Gun Ammo - Half
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+</Body Equipment>
+
+<Front Equipment>
+Flamer
+Flamer
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISRotaryAC5
+ISRotaryAC5
+LRM 15
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Machine Gun
+Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>The DI Schmitt's defining characteristic is its TharHes Mars 9.4 targeting and tracking system, purportedly reverse engineered from the venerable Garret D2j. Once a gunner or commander designates a primary target, the Mars system takes autonomous control of the turret, automatically rotating and elevating to maintain optimal firing solutions. This capability is particularly valuable against fast-moving aerospace threats, where manual tracking would be inadequate. All battlefield communications are routed through the TharHes Muse 65-128K system, ensuring crews receive timely threat data across the engagement area.</p><p>The primary offensive armament consists of two Mydron Tornado Rotary Autocannon/5s, capable of sustained high-volume fire effective against both ground and aerial targets. A TharHes Reacher LRM-15 rack extends engagement range for saturation fire against massed formations or distant aerial contacts. Four Diverse Optics Type 18 Medium Lasers provide reliable close-range firepower without ammunition dependency, supplemented by two ScatterGun-Light Machine Guns for anti-infantry work. Two Purity L-Series Flamers round out the loadout for close-quarters deterrence. The combination produces a broadly capable weapons suite, though the DI Schmitt lacks a dedicated long-range anti-armor weapon, leaving it vulnerable to heavily armored opponents at distance.</p><p>A DAV 220 XL Fusion engine propels the vehicle to a cruising speed of thirty-two kilometers per hour and a top speed of fifty-four, reasonable for its weight class. StarSlab/6 Ferro-Fibrous armor delivers strong protection for an eighty-ton wheeled platform, though the wheeled drive system imposes meaningful limitations in broken, muddy, or heavily forested terrain, making urban and developed-world environments far preferable for sustained operations.</p>
+</capabilities>
+
+<overview>
+<p>The DI Schmitt Tank is an eighty-ton wheeled combat vehicle produced by Defiance Industries at their Hesperus II complex, introduced in 3115 to address gaps in Lyran Commonwealth armored doctrine as the state rebuilt following the Jihad. Drawing on centuries of accumulated industrial expertise at Hesperus II, Defiance Industries engineered the DI Schmitt to pair a multi-role weapons loadout with an advanced automatic targeting system that substantially elevates the vehicle's effectiveness. Although the design performs competently in direct combat against opposing armored units, crews and commanders quickly identified its greatest value as an air defense platform, where its targeting technology gives it a decisive edge over simpler conventional tanks. The design's continued relevance in the nineteenth battle for Hesperus II in 3145, more than three decades after its introduction, confirmed its standing as one of the more capable medium-heavy wheeled vehicles in Lyran Commonwealth service.</p>
+</overview>
+
+<deployment>
+<p>The standard DI Schmitt serves throughout the Lyran Commonwealth Armed Forces in both armored combat lances and dedicated air defense assignments. On industrialized worlds with developed road networks, the design's wheeled mobility is an asset rather than a liability, allowing rapid repositioning between defended sites and vehicle parks. Most LCAF commanders assign DI Schmitts to overwatch positions covering aerospace approach corridors and landing zones, relying on the TharHes Mars targeting system to maximize engagement effectiveness against aerial threats. The vehicle also sees use in combined-arms formations alongside conventional armor where its mixed weapons loadout provides useful flexibility in engagements against both vehicle and infantry threats.</p>
+</deployment>
+
+<history>
+<p>The DI Schmitt entered production at Defiance Industries' Hesperus II complex in 3115, developed to fill a gap in Lyran armored doctrine as the Commonwealth rebuilt its ground forces following the widespread destruction of the Jihad. Defiance Industries drew directly on the technical infrastructure and engineering talent concentrated at Hesperus II, producing a design intended to serve both as a front-line battle tank and as a capable air defense vehicle. Operational experience rapidly confirmed the latter role as the DI Schmitt's primary calling, and most Lyran Commonwealth Armed Forces armored formations integrated it into air defense assignments accordingly.</p><p>Through the early Dark Age period the design saw steady deployment across Lyran garrison commands and planetary defense forces, particularly on industrially significant worlds where protecting manufacturing infrastructure from aerospace attack was a standing priority. Hesperus II's own garrison kept substantial numbers of DI Schmitts in service, the design becoming closely associated with the planet's defense network and its role as the Lyran Commonwealth's most critical BattleMech production center.</p><p>The nineteenth battle for Hesperus II in January 3145 provided the DI Schmitt its most severe test. Archon Trillian Steiner had deliberately stripped the world of major defensive forces as part of a strategic ruse to draw Clan Wolf into fighting the Jade Falcons. Only the Hesperus Militia, Third Royal Guards, Eridani Light Horse, and several small mercenary commands remained to resist a simultaneous Jade Falcon and Hell's Horses invasion. DI Schmitt units participated in several engagements during the defense, including actions at Calipe Pass in the Myoo Mountains where militia forces confronted Clan battlesuit infantry and BattleMech forces advancing through difficult terrain. The defenders fought at severe disadvantage throughout the campaign, suffering heavy losses before the Clan forces were ultimately defeated. By the engagement's end the entire attacking Trinary had been destroyed, though at the cost of most of the defending units. The battle's outcome confirmed that the DI Schmitt, despite its age, remained an effective and relevant platform when employed in its intended role.</p>
+</history>
+
+<manufacturer>
+Defiance Industries
+</manufacturer>
+
+<primaryFactory>
+Hesperus II
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:DAV
+ARMOR:Brooks, Inc.
+JUMP_JET:N/A
+COMMUNICATIONS:TharHes
+TARGETING:TharHes
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:220 XL
+ARMOR:StarSlab/6 Ferro-Fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:Muse 65-128K
+TARGETING:Mars 9.4
+</systemModels>
+
+<source>
+TR:3145:LC,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

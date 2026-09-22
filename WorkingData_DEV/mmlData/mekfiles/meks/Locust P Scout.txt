@@ -1,0 +1,71 @@
+                 BattleMech Technical Readout
+
+Name/Model:         Locust P Scout
+Designer:           Quinn Roberts
+Source(s):          Custom Mordel.Net Units
+Technology:         Inner Sphere
+Technology Rating:  E
+Tonnage:            25
+Role:               Striker
+Configuration:      Biped BattleMech
+Era/Year:           Jihad / 3080
+Rules (Current):    Standard
+Rules (Era):        Standard
+Rules (Year):       Standard
+Total Cost:         3,426,042 C-Bills
+Battle Value:       831
+
+Chassis:              Endo Steel
+Power Plant:          200 XL
+Walking Speed:        86.4 kph  
+Maximum Speed:        129.6 kph 
+Jump Jets:            None
+    Jump Capacity:    None
+Armor:                Ferro-Fibrous
+Armament:             
+    4 Medium Pulse Lasers
+Manufacturer:         Unknown
+    Primary Factory:  Unknown
+Communications:       Unknown
+Targeting & Tracking: Unknown with Advanced Targeting Computer
+
+================================================================================================
+Equipment                                                              Mass                     
+------------------------------------------------------------------------------------------------
+Internal Structure:                         Endo Steel                 1.50                     
+Engine:                                       200 XL                   4.50                     
+    Walking MP:                                 8                                               
+    Running MP:                                 12                                              
+    Jumping MP:                                 0                                               
+Heat Sinks (Double):                         10 [20]                   0.00                     
+Gyro:                                        Standard                  2.00                     
+Cockpit:                                      Small                    2.00                     
+Armor Factor:                                   89                     5.00                     
+    Type:                                 Ferro-Fibrous                                         
+
+                                    Internal         Armor     
+                                    Structure        Value     
+    Head:                               3              9       
+    Center Torso:                       8             13       
+    Center Torso (rear):                               3       
+    R/L Torso:                          6             10       
+    R/L Torso (rear):                                  2       
+    R/L Arm:                            4              8       
+    R/L Leg:                            6             12       
+
+================================================================================================
+Weapons and Ammo                                       Location          Critical      Mass     
+------------------------------------------------------------------------------------------------
+2 Medium Pulse Lasers                                     H                 2          4.00     
+Targeting Computer                                        CT                2          2.00     
+Medium Pulse Laser                                        RA                1          2.00     
+Medium Pulse Laser                                        LA                1          2.00     
+
+================================================================================================
+Alpha Strike Statistics
+------------------------------------------------------------------------------------------------
+Point Value (PV): 30
+TP: BM,  SZ: 1,  TMM: 3,  MV: 16"
+Damage: (S) 3 / (M) 3 / (L) 0,  OV: 0
+Armor (A): 3,  Structure (S): 1
+Specials: ENE

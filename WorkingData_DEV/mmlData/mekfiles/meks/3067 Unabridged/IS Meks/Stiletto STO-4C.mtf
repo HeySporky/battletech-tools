@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ce00-7bb6-ba8d-36018af3cdf1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Stiletto
+model:STO-4C
+mul id:5666
+
+Config:Biped
+techbase:Inner Sphere
+era:3076
+source:TR:J
+published:RS:3067u
+rules level:2
+role:Striker
+
+quirk:difficult_eject
+quirk:multi_trac
+
+mass:35
+engine:280 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:8
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:12
+RT armor:12
+CT armor:16
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:3
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+MML 5, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISERMediumLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISMML5
+ISMML5
+ISMML5
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+IS Ammo MML-5 LRM
+IS Ammo MML-5 LRM
+IS Ammo MML-5 SRM
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Stiletto is a thirty-five ton light BattleMech introduced in 3061 by Coventry Metal Works. Born from the aftermath of the Battle of Coventry in 3058, the design was developed by reverse-engineering salvaged Clan Jade Falcon Fire Falcon OmniMechs. Coventry's engineers deliberately chose not to implement OmniMech technology, instead producing a conventional design that closely mimics the Fire Falcon's visual profile and speed, making it nearly indistinguishable from its Clan counterpart at a distance. While the Stiletto never achieved widespread popularity within the Lyran Alliance's arsenal, it filled a critical niche as a fast scout with electronic warfare capabilities, earning a reputation as a capable reconnaissance platform within the units that received it.</p>
+
+capabilities:<p>The Stiletto achieves the Fire Falcon's impressive top speed of 129 kilometers per hour through a VOX 280 light engine, which provides greater survivability than the extra-light engines found on comparable designs. A MatherTech 750 endo steel chassis and six tons of Lexington Ltd. High Grade ferro-fibrous armor give the 'Mech solid protection for its weight class, while CASE protects the MechWarrior from catastrophic ammunition explosions.</p><p>The original STO-4A configuration emphasizes missile combat, mounting two Coventry TH4 Streak SRM-2 launchers for close engagements and a single Coventry LRM-5 for indirect fire support. This loadout drew criticism for its heavy ammunition dependence, as the 'Mech carries only one ton each of LRM and Streak ammunition, leaving the pilot defenseless once supplies are exhausted. A Guardian ECM suite provides valuable electronic warfare protection, allowing the Stiletto to disrupt enemy targeting networks and advanced sensor systems.</p><p>Despite its limitations, the Stiletto's combination of speed, sensors, and electronic countermeasures makes it an effective reconnaissance platform. The light engine's reduced critical vulnerability compared to XL designs means the 'Mech can absorb side torso hits that would cripple many competitors, giving pilots greater confidence in running engagements.</p>
+
+deployment:<p>Developed in 3076 during the Jihad, this variant seeks a middle ground between the original missile configuration and the all-energy STO-4B. The standard weapon systems are replaced with a pair of ER medium lasers and a multi-missile launcher capable of firing both long-range and short-range ammunition from a single system. Additional armor rounds out the tonnage, providing improved protection over earlier models.</p>
+
+history:<p>The Stiletto's origins trace to the Battle of Coventry in 3058, when Clan Jade Falcon forces swept through the Lyran Alliance world before being driven off by a combined Inner Sphere task force. The battle left the Lyran military with substantial quantities of Clan salvage, including several Fire Falcon OmniMechs. Coventry Metal Works, already experienced with advanced BattleMech production, undertook the ambitious task of reverse-engineering the Fire Falcon's performance characteristics using Inner Sphere technology, joining a broader trend of Clan-inspired designs that included the Black Hawk-KU and the Rakshasa.</p><p>Prototypes of the Stiletto entered service in 3061, with most early production units shipped to pro-Victor units for field testing. The First Davion Guards received several machines and employed them against Clan Smoke Jaguar during the final campaigns of the era. Limited production began that same year, with full-scale manufacturing following in 3062.</p><p>The Stiletto's service during the FedCom Civil War defined its reputation for decades. The design saw action in most major battles of the conflict, including the fighting on Tharkad and New Avalon. However, the noble ruler of Coventry refused to deliver Stilettos to any unit supporting Archon Katherine Steiner-Davion, ensuring the 'Mech served almost exclusively with loyalist armies. This politically charged deployment left the Stiletto virtually shunned by all forces in the Armed Forces of the Federated Suns and even many within the Lyran Alliance Armed Forces, earning it a lasting stigma that hampered broader adoption.</p><p>Production continued through the Jihad under contested Lyran control, with Coventry Metal Works developing the STO-4C variant in 3076 to modernize the aging platform. The experimental STO-6X prototype followed in 3078, representing a complete redesign with BattleMech turrets, a supercharger, and a Bloodhound active probe. This experimental work bore fruit in 3083 when the STO-6S production model entered service. The 6S was deliberately deployed first to the First Royal Guards in an effort to rehabilitate the Stiletto's tarnished reputation among LCAF MechWarriors. The strategy proved moderately successful, with the First Skye Jaegers and Fourth Donegal Guards subsequently adopting the upgraded design.</p>
+
+manufacturer:Coventry Metal Works
+
+primaryfactory:Coventry
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:MatherTech
+systemmode:CHASSIS:750
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:280 Light
+systemmanufacturer:ARMOR:Lexington Ltd.
+systemmode:ARMOR:High Grade Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Cyclops
+systemmode:COMMUNICATIONS:14 with Guardian ECM Suite
+systemmanufacturer:TARGETING:Cyclops
+systemmode:TARGETING:Beagle

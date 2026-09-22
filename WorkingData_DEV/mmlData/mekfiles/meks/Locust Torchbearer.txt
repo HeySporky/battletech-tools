@@ -1,0 +1,74 @@
+                 BattleMech Technical Readout
+
+Name/Model:         Locust Torchbearer
+Designer:           Bowtiez
+Source(s):          Custom Mordel.Net Units
+Technology:         Clan
+Technology Rating:  F
+Tonnage:            25
+Configuration:      Biped BattleMech
+Era/Year:           Clan Invasion / 3061
+Rules (Current):    Standard
+Rules (Era):        Unavailable
+Rules (Year):       Unavailable
+Total Cost:         4,180,521 C-Bills
+Battle Value:       1,014
+
+Chassis:              Endo Steel
+Power Plant:          250 XL
+Walking Speed:        108 kph   
+Maximum Speed:        162 kph   
+Jump Jets:            None
+    Jump Capacity:    None
+Armor:                Ferro-Fibrous
+Armament:             
+    1 Anti-Missile System
+    7 ER Small Lasers
+    6 Flamers
+Manufacturer:         Unknown
+    Primary Factory:  Unknown
+Communications:       Unknown
+Targeting & Tracking: Unknown
+
+================================================================================================
+Equipment                                                              Mass                     
+------------------------------------------------------------------------------------------------
+Internal Structure:                         Endo Steel                 1.50                     
+Engine:                                       250 XL                   6.50                     
+    Walking MP:                                 10                                              
+    Running MP:                                 15                                              
+    Jumping MP:                                 0                                               
+Heat Sinks (Double):                         10 [20]                   0.00                     
+Gyro:                                        Standard                  3.00                     
+Cockpit:                                      Small                    2.00                     
+Armor Factor:                                   89                     5.00                     
+    Type:                                 Ferro-Fibrous                                         
+
+                                    Internal         Armor     
+                                    Structure        Value     
+    Head:                               3              9       
+    Center Torso:                       8             13       
+    Center Torso (rear):                               3       
+    R/L Torso:                          6             10       
+    R/L Torso (rear):                                  2       
+    R/L Arm:                            4              8       
+    R/L Leg:                            6             12       
+
+================================================================================================
+Weapons and Ammo                                       Location          Critical      Mass     
+------------------------------------------------------------------------------------------------
+Anti-Missile System                                       H                 1          0.50     
+ER Small Laser                                            CT                1          0.50     
+3 ER Small Lasers                                         RT                3          1.50     
+3 ER Small Lasers                                         LT                3          1.50     
+3 Flamers                                                 RA                3          1.50     
+3 Flamers                                                 LA                3          1.50     
+
+================================================================================================
+Alpha Strike Statistics
+------------------------------------------------------------------------------------------------
+Point Value (PV): 40
+TP: BM,  SZ: 1,  TMM: 4,  MV: 20"
+Damage: (S) 4 / (M) 3 / (L) 0,  OV: 1
+Armor (A): 3,  Structure (S): 1
+Specials: AMS, ENE, HT2/-/-

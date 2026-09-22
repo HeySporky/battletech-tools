@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e543-7b99-9dd7-a4a8c92e180d
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Pinto Attack VTOL
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+2532
+</mul id:>
+
+<year>
+3055
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+troopspace:1.0
+</transporters>
+
+<cruiseMP>
+10
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+3
+</armor_tech_level>
+
+<armor>
+20
+18
+18
+13
+2
+</armor>
+
+<Body Equipment>
+IS Ammo LRM-5 Artemis-capable
+</Body Equipment>
+
+<Front Equipment>
+Medium Laser
+Medium Laser
+Medium Laser
+LRM 5
+ISArtemisIV
+BeagleActiveProbe
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Pinto is driven by a Robinson 160 Fuse-Pak fusion power plant, reaching a cruising speed of 108 kph and a maximum of 162 kph, giving it strong tactical mobility over most terrain. Offensive systems consist of three Blankenburg Technologies medium lasers mounted in a chin turret immediately forward of the cockpit, combined with a belly-mounted Magna Longbow-5 LRM launcher equipped with an Artemis IV fire control system. The chin lasers deliver reliable close-range firepower, while the Artemis-enhanced LRM-5 allows the Pinto to engage from standoff distance without exposing itself to short-range return fire. Krupp Draco-100 ferro-fibrous armor provides solid protection for a craft of its mass class.</p><p>A one-ton cargo hold positioned behind the cockpit accommodates small infantry squads or supplemental electronics, expanding mission flexibility without major modifications. The Pinto's rotor assembly disassembles in under five minutes, allowing stowage in standard vehicle or cargo bays rather than requiring dedicated aerospace facilities, a meaningful operational advantage when deploying from DropShips or forward staging areas not equipped for conventional VTOLs.</p><p>These strengths come with trade-offs. The LRM-5 carries limited ammunition for extended engagements, and the combined heat load of sustained laser and missile fire can strain thermal management during prolonged combat. The Pinto's light frame also means that concentrated fire from heavier opponents can neutralize it quickly, demanding careful use of terrain and speed to survive in contested airspace.</p>
+</capabilities>
+
+<overview>
+<p>The Pinto Attack VTOL represents Krupp Armament Works' effort to provide ComStar's Com Guard and Explorer Corps with a swift, well-armed rotary-wing combat platform. Entering service in 3055 from Krupp's facility at Bochum, Terra, the design was conceived as a dedicated assault craft capable of delivering consistent firepower while exploiting the speed and terrain masking available to VTOL operations. The Pinto earned a strong reputation for versatility and resilience, pairing solid close-range punch with standoff missile capability. Its compact profile and disassembling rotor system made it exceptionally easy to transport, giving commanders an offensive asset that could be staged from conventional cargo bays rather than dedicated aerospace facilities. Subsequent events tied the Pinto's production history to the broader struggle for control of Terra, complicating its supply chain and operational legacy across the latter half of the thirty-first century.</p>
+</overview>
+
+<deployment>
+<p>The base Pinto serves with ComStar's Com Guard and Explorer Corps. Several Com Guard divisions maintain Pinto contingents, with the 388th Division (White Banshees) and 82nd Division (Web Cutters) among the most prominent users, employing the craft in close air support and rapid-response roles. The Explorer Corps makes broad use of the design, leveraging its dual capability as gunship and light transport on expeditions where compact logistics and cargo-bay stowage are operational priorities. Its modest support footprint makes it a recurring choice for Com Guard and Explorer Corps detachments operating well beyond conventional maintenance infrastructure.</p>
+</deployment>
+
+<history>
+<p>Krupp Armament Works established production of the Pinto at their Bochum facility on Terra in 3055, delivering the type initially to the Com Guard and Explorer Corps. The Com Guard integrated Pintos into multiple divisions, using the craft in both gunship and light transport roles across a range of operational environments. The platform proved popular, and production continued steadily through the late 3050s, with the Explorer Corps in particular taking advantage of the design's logistical flexibility for long-range expeditionary operations.</p><p>The Blakist seizure of Terra in 3058, executed during Operation Odysseus, disrupted Pinto operations significantly. Com Guard formations stationed on Terra suffered heavy losses during the fighting. The 201st Division, which had deployed Pintos on Terra, was effectively destroyed in the campaign, and airframes that could not be evacuated were captured or lost. With the Bochum facility now under Word of Blake control, production continued, but output was redirected to Blakist formations rather than the Com Guard.</p><p>Under Blakist administration, Krupp's facility continued manufacturing Pintos for Word of Blake use. Intelligence assessments in the early 3060s confirmed that Blakist forces were operating Pintos obtained through this redirected production. By 3070, Blakist engineers had developed a modified variant suited to Jihad-era operational requirements. The Word of Blake Fourth Division, Blake's Boldest, was among the formations confirmed operating Blakist Pintos during this period. Following the Jihad and the establishment of the Republic of the Sphere, the Bochum facility passed into Republic hands, though production was not restarted. Surviving Pintos persisted as legacy equipment with dwindling support and diminishing spare-parts availability.</p>
+</history>
+
+<manufacturer>
+Krupp Armament Works
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Robinson
+ARMOR:Krupp
+COMMUNICATIONS:Marshall
+TARGETING:GPT
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:160 Fuse-Pak
+ARMOR:Draco-100
+COMMUNICATIONS:Long-Talk
+TARGETING:Multi-Track
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

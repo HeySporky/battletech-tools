@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a336-7696-942c-7edf4b0d203a
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Salamander Battle Armor
+</Name>
+
+<Model>
+(Laser)(Sqd6)
+</Model>
+
+<mul id:>
+8947
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+35
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+CLBAFlamer:RA
+CLBAERMicroLaser:LA
+CLBASRM1OS:Body
+BABattleClawMagnets:LA
+BABattleClawMagnets:RA
+Clan BA Fire Resistant:Body
+Clan BA Fire Resistant:LA
+Clan BA Fire Resistant:RA
+Clan BA Fire Resistant:RA
+Clan BA Fire Resistant:LA
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The laser configuration replaces the left arm's flamer with an ER Micro Laser, retaining the right arm's flamer and the shoulder-mounted Inferno SRM launcher. This trade gives the suit a more precise ranged engagement option while maintaining significant incendiary capability. The ER Micro Laser provides effective firepower at greater range than the flamer it replaces, making the configuration better suited for open terrain where closing distance exposes troopers to sustained fire. All other systems remain unchanged from the standard loadout: battle claws, magnetic foot claws for swarming attacks, jump jets with ninety-meter leap capability, and fire-resistant armor. The reduced reliance on proximity-dependent weapons gives this variant slightly greater endurance in prolonged engagements.</p>
+</capabilities>
+
+<overview>
+<p>The Salamander is a Clan medium battle armor suit developed by Kindraa Faraday-Tanaga of Clan Fire Mandrill. Entering production in 3058, the design revived and modernized an earlier specialist suit that had been phased out in favor of the Elemental. The Salamander's emphasis on fire-based weaponry honors its creators' totem animal and gives the suit a fearsome reputation in close-quarters combat. Jump-capable and equipped with specialized climbing claws, the Salamander excels at anti-BattleMech swarming attacks despite carrying relatively light armor for its weight class. The suit has been widely adopted across Clan militaries, with several Clans producing their own tailored configurations.</p>
+</overview>
+
+<deployment>
+<p>ComStar and Word of Blake Level I formations fielding the laser configuration valued its extended engagement range for shipboard security and facility defense. Six-trooper units provided overlapping fields of fire well suited to corridor and checkpoint defense, roles where the configuration's precision offset the reduced thermal output compared to the standard loadout.</p>
+</deployment>
+
+<history>
+<p>The Salamander traces its lineage to a pre-Elemental specialist design intended for urban warfare against conventional infantry. That original suit fell from favor as battlesuits supplanted the troops they were meant to fight, and few Clan warriors mourned its retirement given the perceived dishonor of anti-infantry duty. The design languished until scientists of Clan Fire Mandrill's Kindraa Faraday-Tanaga drew inspiration from Clan Hell's Horses' Gnome program. Seeking a second-generation battlesuit honoring their Clan's fiery totem, the Kindraa selected the dormant Salamander as their foundation. Chronic infighting within Faraday-Tanaga and persistent engineering challenges delayed development, but the modernized suit cleared field testing and entered production in 3058.</p><p>Battlefield effectiveness quickly overcame any lingering stigma. Within a decade, nearly every Clan had incorporated the Salamander into their toumans. Clan Wolf developed a variant favoring directed energy weapons that spread to Clans Goliath Scorpion and Snow Raven, while Clan Jade Falcon produced a configuration optimized for anti-personnel work in the late 3060s. Production expanded from the Fire Mandrill homeworld of Shadow to Clan Wolf facilities on Tranquil and Clan Jade Falcon's Olivetti Weaponry plant on Sudeten.</p>
+</history>
+
+<manufacturer>
+W-7 Facilities|WC Site OZ-2
+</manufacturer>
+
+<primaryFactory>
+Tranquil|Tamar
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+7
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

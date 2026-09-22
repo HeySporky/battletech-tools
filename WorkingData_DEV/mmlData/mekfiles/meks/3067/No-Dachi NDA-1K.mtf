@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cd58-7a0b-947b-894c927ecd8c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:No-Dachi
+model:NDA-1K
+mul id:4730
+
+Config:Biped
+techbase:Inner Sphere
+era:3058
+source:TR:3067,TR:CI
+published:RS:CI
+rules level:2
+role:Brawler
+
+quirk:hyper_actuator
+
+mass:70
+engine:350 XL Engine
+structure:IS Endo Steel
+myomer:Triple-Strength
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:22
+RT armor:22
+CT armor:29
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:6
+ER PPC, Left Arm
+SRM 2, Left Arm
+MRM 20, Left Torso
+MRM 20, Right Torso
+SRM 4, Center Torso
+Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+SRM 2
+IS Ammo SRM-2
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Sword
+Sword
+Sword
+Sword
+Sword
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+MRM 20
+MRM 20
+MRM 20
+IS MRM 20 Ammo
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+MRM 20
+MRM 20
+MRM 20
+IS MRM 20 Ammo
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 4
+IS Ammo SRM-4
+
+Head:
+Life Support
+Sensors
+Cockpit
+Medium Laser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The No-Dachi is a seventy-ton heavy BattleMech introduced in 3058 by the Cosby BattleMech Research Firm on Vega as the Draconis Combine's answer to the growing proliferation of melee-equipped BattleMechs fielded by the Federated Commonwealth. Named for the legendary oversized Japanese sword, the No-Dachi was designed to pair devastating close-combat capability with respectable ranged firepower. The samurai culture deeply ingrained in Combine MechWarriors made them resistant to the hatchets favored by Commonwealth designs, and the No-Dachi's sword offered a more elegant melee weapon befitting the Combine's warrior traditions. The design quickly became a fixture of frontline DCMS formations and remains in production well into the ilClan era.</p>
+
+capabilities:<p>The No-Dachi is built around its seven-meter katana-style sword, a weapon made truly devastating by the 'Mech's Triple Strength Myomer system. When running hot, the myomers dramatically increase the No-Dachi's striking power and boost its speed from 86 to 97 kilometers per hour, making it a fearsome opponent in close quarters. This heat dependency shapes the entire combat philosophy of the design, as pilots must carefully manage their thermal output to maximize myomer performance.</p><p>At range, the Lord's Light 2 extended-range PPC provides the primary long-range striking power, capable of softening targets as the No-Dachi closes the distance. The dual Shigunga MRM-20 racks deliver devastating medium-range barrages, though their inherent inaccuracy stands in stark contrast to the precision of the katana. A Guided Technologies SRM-2, Telos-4 SRM-4, and Diverse Optics medium laser round out the close-range arsenal, providing supplementary firepower and crucial heat generation to activate the myomers.</p><p>Riding on a Magna 350 XL engine, the No-Dachi achieves respectable speed for a seventy-ton design, though the extra-light engine's vulnerability to side torso hits serves as a significant weakness. Starshield A armor provides adequate protection, but pilots must be mindful that sustained exchanges of fire can expose the design's limitations before it reaches melee range.</p>
+
+deployment:<p>The base model carries the No-Dachi's signature loadout of a seven-meter katana paired with an extended-range PPC, dual MRM-20 racks, an SRM-2, SRM-4, and medium laser. The Triple Strength Myomer system rewards aggressive heat management, boosting both striking power and speed when the 'Mech runs hot. This combination of ranged suppression and devastating melee capability established the template for all subsequent No-Dachi variants.</p>
+
+history:<p>The No-Dachi's development traces back to the mid-3050s, when the Cosby Myomer Research Firm (then primarily a myomer component supplier) partnered with the Eleventh Legion of Vega to develop a new close-combat BattleMech. The Legion, known for its technical expertise and its famous former commander Theodore Kurita, provided Cosby with advanced technologies and research support. In exchange, Cosby agreed to allocate half of all No-Dachi production to the Legion's ranks.</p><p>The design entered service in 3058 and quickly became synonymous with the Legion of Vega. Through special arrangement with Cosby, the bulk of No-Dachis were assigned to the Eleventh Legion, though several battalions' worth were distributed to other front-line DCMS units by the time of the FedCom Civil War. The design's association with the Legion proved a double-edged sword; Sword of Light regiments and other prestigious formations largely avoided the No-Dachi, preferring to lobby for a melee-capable 'Mech untainted by the Legion's reputation.</p><p>When the Word of Blake launched its invasion of Vega during the Jihad, the Draconis Combine ordered Cosby to relocate its production facilities deeper into the Combine. The company moved to Kajikazawa in the Benjamin Military District, an impressive logistical feat accomplished during wartime. By 3079, production lines were running at capacity, though a shortage of shipping infrastructure on the formerly backwater world initially hampered distribution. The bulk of output during this period went to the Second Benjamin Regulars tasked with defending Kajikazawa and the company's facilities.</p><p>The relocation proved fortuitous, as the Kajikazawa facility received significant government funding to develop experimental technologies, ultimately producing the NDA-3X prototype. The No-Dachi's prominence continued into the Dark Age, with senior DCMS commanders continuing to favor the design for frontline service. The Kajikazawa facility remained active through the ilClan era, producing updated variants including the NDA-3S Lyran export model, ensuring the No-Dachi's continued service across multiple factions and eras.</p>
+
+manufacturer:Cosby BattleMech and Myomer Research Firm
+
+primaryfactory:Vega
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Foundation
+systemmode:CHASSIS:CMRFa7
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:350 XL
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:A
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T11-A
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:D5j

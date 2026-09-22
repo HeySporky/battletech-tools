@@ -1,0 +1,80 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bf11-7c67-87d0-25d371f0474f
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mob
+</Name>
+
+<Model>
+(Medium)
+</Model>
+
+<year>
+2400
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>A medium-sized mob numbers enough armed civilians to pose a genuine security problem for garrison forces. Equipped with improvised firearms and incendiary grenades, these crowds can overwhelm a checkpoint, storm a supply depot, or blockade a major road. They still lack military discipline and will break under concentrated fire, but their numbers make them harder to disperse without escalation. Medium mobs often form around organized agitators or local leaders who can channel collective anger into directed action, even if that direction is crude. Garrison troops dealing with a medium mob face an unpleasant choice between measured response and the risk of a situation spiraling beyond control.</p>
+</overview>
+
+<source>
+Apocryphal
+</source>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+Rifle (Makeshift)
+</Primary>
+
+<Secondary>
+InfantryMiniGrenadeInferno
+</Secondary>
+

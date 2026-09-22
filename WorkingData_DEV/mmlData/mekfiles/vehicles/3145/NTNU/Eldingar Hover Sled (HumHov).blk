@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e82f-75e4-acc5-96db389b1e66
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Eldingar Hover Sled
+</Name>
+
+<Model>
+'HumHov'
+</Model>
+
+<mul id:>
+6758
+</mul id:>
+
+<year>
+3103
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+troopspace:5.0
+</transporters>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+38
+28
+28
+18
+22
+</armor>
+
+<Body Equipment>
+ISAngelECMSuite
+CLTargeting Computer
+Clan LB 2-X AC Ammo
+Clan LB 2-X Cluster Ammo
+</Body Equipment>
+
+<Front Equipment>
+CLMediumPulseLaser
+CLMediumPulseLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLLBXAC2
+</Turret Equipment>
+
+<capabilities>
+<p>Powered by a Type 215 XL fusion engine, the Eldingar reaches a top speed of 151 kilometers per hour, giving it the agility to engage and disengage quickly against raiders and light forces. Its turret mounts a CC-9 Series ATM-9 launcher backed by three Pattern J2 Streak SRM-2 launchers, allowing the crew to engage targets at extended range with advanced tactical missiles and then add close-range punch as distances shrink. Four tons of ATM ammunition and one ton of Streak reloads provide adequate endurance for extended patrols. The open sled design incorporates a five-ton infantry transport bay, enabling rapid deployment of battle armor support to contested zones.</p><p>A Consolidated BMR 6 communications system with integrated ECM suite provides electronic warfare capability, an uncommon feature in Clan arsenals that proves invaluable for disrupting the advanced targeting and C3 networks that proliferated after the Jihad. Standard doctrine calls for Eldingar crews to concentrate on disrupting enemy electronics, using terrain for cover while the ECM degrades incoming fire solutions. Seven and a half tons of Compound 2110 ferro-fibrous armor provides reasonable protection for a hovercraft of this weight class, though crews must still rely on speed and maneuver to survive sustained engagements.</p>
+</capabilities>
+
+<overview>
+<p>The Eldingar Hover Sled is a fifty-ton Clan-tech hovercraft designed by Gorton, Kingsley and Thorpe Enterprises on Rasalhague in 3081. Commissioned by Clan Ghost Bear to bolster second-line formations in the aftermath of the Jihad, the Eldingar fills a garrison and rapid reaction role within the Ghost Bear Dominion. The vehicle combines respectable speed with missile firepower, an infantry transport bay, and electronic warfare capability, making it a versatile asset for territorial defense. Its name derives from the Icelandic word for lightning, chosen by the local Rasalhague design team. The Eldingar has since become a common sight across Dominion worlds and, following the Second Combine-Dominion War, found customers beyond the Dominion's borders in a modified export configuration.</p>
+</overview>
+
+<deployment>
+<p>Rebranded as the "high mobility multi-purpose hover vehicle" for broader market appeal after the Second Combine-Dominion War, the HumHov variant replaces all missile systems with a pair of medium pulse lasers and an LB 2-X autocannon functioning as a light flak cannon. All weapons are linked to a targeting computer for improved accuracy. An Angel ECM suite is retained for electronic warfare. This configuration shifts the Eldingar from a missile-centric design to an energy and ballistic platform better suited to customers who may lack access to Clan missile ammunition supply chains, and the removal of ammunition dependency significantly reduces the risk of catastrophic magazine detonation.</p>
+</deployment>
+
+<history>
+<p>The Eldingar emerged from the desperate defensive needs of the Ghost Bear Dominion in the post-Jihad era. The symbiotic nation formed by Clan Ghost Bear and the Free Rasalhague Republic had expended over half the Ghost Bear Touman in the single-minded drive to eradicate the Blakists, leaving its borders dangerously exposed. Compounding this vulnerability, the Ghost Bears lacked complete confidence in their Inner Sphere citizens, uncertain how far they could rely on native populations for defense. GKT Enterprises on Rasalhague received the design contract and built the vehicle locally, naming it for lightning in their native Icelandic. Ghost Bear leadership, expecting the Eldingar to be crewed primarily by freeborn warriors and native auxiliaries, saw no reason to change the name when the design was completed.</p><p>This expectation created a sharp divide in how the vehicle was perceived across the Dominion. When distributed to Clan forces, the Eldingar was considered a vehicle for mediocre armor crews, assigned primarily to rear-echelon duties supporting BattleMechs and battle armor. Among Free Rasalhague Republic formations within the Dominion, however, it was regarded as an advanced machine reserved for commanders and the best available crews. This dichotomy gave the Eldingar an unusual reputation that led to more than a few drunken brawls between crews of different backgrounds. Raiders who had previously encountered Eldingars crewed by less experienced Clan personnel sometimes dangerously misjudged the vehicle when facing Rasalhague militia formations.</p><p>Dominion forces exploited this underestimation during a pirate incursion on Porthos. Two companies of BattleMechs with an attached armor battalion landed and split their forces across the Sienne Valley. Rasalhague militia engaged the northern raiders while Clan forces guarded the southern approach. Six Eldingars were among the first to hit the invaders, destroying three vehicles and a BattleMech in the initial exchange. When the Eldingars came around to re-engage, the commander dispatched Ghost Bear Eldingars to delay the southern attack while the militia crews pressed the northern prong. Despite the less effective crews in the north initially pulling back, boxing the invaders in allowed the combined Dominion forces to destroy the northern group and drive the remaining raiders offworld.</p><p>Following the Second Combine-Dominion War, the Eldingar was offered for open sale beyond the Dominion's borders, reaching new markets in a rebranded export configuration.</p>
+</history>
+
+<manufacturer>
+Gorton, Kingsley & Thorpe Enterprises
+</manufacturer>
+
+<primaryFactory>
+Rasalhague
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Type 215 XL
+ARMOR:Compound 2110 Ferro Fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:Consolidated BMR 6 with Angel ECM
+TARGETING:TRTTS Mark II
+</systemModels>
+
+<source>
+TR:3145
+</source>
+
+<published>
+RS:3145-NTNU,RS:3145
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d5a1-7b70-9644-324c3724f229
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Kodiak II
+model:3
+mul id:8067
+
+Config:Biped
+techbase:Mixed (Clan Chassis)
+era:3146
+source:TR:3150
+published:RS:3150
+rules level:3
+role:Juggernaut
+
+quirk:distracting
+quirk:command_mech
+
+mass:100
+engine:400 XXL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:17 Clan Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:33
+RA armor:33
+LT armor:32
+RT armor:32
+CT armor:46
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:10
+RTR armor:10
+RTC armor:15
+
+Weapons:3
+MRM 40, Left Arm
+MRM 40, Right Arm
+LB 20-X AC, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+ISApollo
+Clan Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+ISApollo
+Clan Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+IS MRM 40 Ammo
+IS MRM 40 Ammo
+IS MRM 40 Ammo
+IS MRM 40 Ammo
+Clan LB 20-X Cluster Ammo
+CLCASEII
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLLBXAC20
+CLLBXAC20
+CLLBXAC20
+CLLBXAC20
+CLLBXAC20
+CLLBXAC20
+CLLBXAC20
+CLLBXAC20
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLLBXAC20
+Clan LB 20-X AC Ammo
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Kodiak II is a hundred-ton assault BattleMech developed by the Ghost Bear Dominion, based upon the fourth variant of the original Kodiak. Entering production in 3095 at the Alshain Weapons facility, the Kodiak II was engineered to serve dual roles as both a powerful frontline assault 'Mech and a dedicated command platform. Where the original Kodiak excelled as a close-combat brawler, the Kodiak II reoriented the design toward long-range missile warfare and sophisticated command capabilities, reflecting the evolving needs of the Rasalhague Dominion's military doctrine.</p><p>The enhanced Garret L20 communications system features twelve extra multifunction displays and simultaneous audio and video channels, providing commanding officers with unparalleled battlefield awareness while remaining in the thick of combat. The design quickly became a favored mount for Star Colonels and other senior officers within the Ghost Bear touman, its combination of firepower, survivability, and command functionality proving ideal for leaders who direct Trinary-level and larger formations from the front lines.</p>
+
+capabilities:<p>The Kodiak II retains the hundred-ton mass and 400-rated extra-light engine of its predecessor, maintaining the same impressive sixty-four kilometer per hour top speed on an Alshain LXL Endo Steel chassis. The design fundamentally reoriented its combat philosophy from close-range brawling to long-range missile engagement. The primary armament consists of paired Type XX "Great Bow" LRM-20 launchers mounted in each arm, supplemented by a Type X "Short Bow" LRM-10 in the left torso, all guided by Artemis IV fire control systems for improved accuracy. A Clan Mk. XVII extended-range PPC in the right torso provides direct-fire long-range support.</p><p>For close-range defense, eight Series 1 extended-range small lasers are distributed across both arms, and all energy weapons feed through an integrated targeting computer for enhanced accuracy. The Kodiak II carries nineteen tons of Forging AD56 standard armor, providing robust protection. However, the RCA Instatrac targeting system has exhibited documented malfunctions when running near capacity, including false-positive missile lock readings and occasional failure-to-fire incidents. Alshain Weapons issued a service bulletin in 3105 to address these deficiencies, though a significant number of Kodiak IIs in the field have not received the update.</p>
+
+deployment:<p>The most radical departure from the base Kodiak II, this variant focuses on overwhelming mid-to-short-range firepower and especially incorporates Inner Sphere weaponry, an unusual choice for a Dominion design. Each arm mounts a massive MRM-40 launcher with Apollo fire control system, delivering devastating salvos at medium engagement ranges. An LB 20-X autocannon spread between the right and center torso provides close-range lethality with both cluster and slug ammunition options. Like its predecessor, this variant employs the fragile XXL engine, and four tons of MRM ammunition are protected by CASE II in the left torso. The use of Inner Sphere missile technology has been linked to experiments within Omega Galaxy, where hybrid weapons configurations have been observed in an effort to surprise opponents accustomed to standard Clan armaments.</p>
+
+history:<p>The Kodiak II emerged in 3095 as the Rasalhague Dominion sought to modernize its assault 'Mech roster while preserving the legacy of the original Kodiak. Based specifically on the Kodiak 4 variant's weapons philosophy of combining long-range missile capability with close-range hitting power, the new design shifted the primary emphasis from pure close-combat brawling to long-range engagement and battlefield command. Produced at the Alshain Weapons facility (the same Alshain complex where the original Kodiak had been built for decades) the Kodiak II benefited from established manufacturing infrastructure and deep institutional knowledge of the chassis.</p><p>The design quickly proved its worth in combat. During a border skirmish on Jabuka in 3140, elements of Clan Jade Falcon's Fifty-third Battle Cluster engaged the Second Bear Regulars. The Kodiak II's sophisticated command capabilities proved essential as the engagement devolved into a running battle through rugged terrain surrounding Squaw Bay. When Jade Falcon artillery found its mark and engulfed the command Star, the Kodiak II weathered the bombardment better than its companions. Despite losing two 'Mechs to artillery fire during the approach, the surviving Star reached firing range and drove off the Falcon forces within minutes.</p><p>The Kodiak II 2 appeared in the early thirty-second century, introducing HarJel III self-repair technology and Streak LRM launchers at the cost of the more resilient XL engine. More recently, Kodiak IIs operating with Omega Galaxy have been observed with experimental hybrid loadouts incorporating Inner Sphere MRM launchers and Apollo fire control systems, marking an unusual willingness to adopt non-Clan weapons technology. The Kodiak II continues to serve as the preferred command assault platform of the Rasalhague Dominion, maintaining the proud lineage of the Ghost Bear's iconic totem design while adapting to the demands of a new era of warfare.</p>
+
+manufacturer:Bergan Industries - Alshain Weapons(formerly GK&T owned)
+
+primaryfactory:Alshain
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:LXL Endo Steel
+systemmanufacturer:ENGINE:Defiance
+systemmode:ENGINE:400 XXL
+systemmanufacturer:ARMOR:Alshain Weapons
+systemmode:ARMOR:Forging AD56 Standard
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:L20
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac Mark IX

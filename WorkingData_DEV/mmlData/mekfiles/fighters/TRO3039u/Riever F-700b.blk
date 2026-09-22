@@ -1,0 +1,185 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad32-75b6-a299-eeb34ab6d977
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Riever
+</Name>
+
+<Model>
+F-700b
+</Model>
+
+<mul id:>
+2692
+</mul id:>
+
+<year>
+3068
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+19
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+100
+73
+73
+49
+</armor>
+
+<Nose Equipment>
+ISUltraAC20
+LRM 10
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISStreakSRM6
+ISStreakSRM6
+ISStreakSRM6
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISStreakSRM6
+ISStreakSRM6
+ISStreakSRM6
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ultra AC/20 Ammo
+IS Ultra AC/20 Ammo
+IS Ultra AC/20 Ammo
+IS Ultra AC/20 Ammo
+IS Ammo LRM-10
+IS Ammo LRM-10
+IS Streak SRM 6 Ammo
+IS Streak SRM 6 Ammo
+IS Streak SRM 6 Ammo
+IS Streak SRM 6 Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Riever's primary offensive weapon is an Imperator Zeta-a Class 20 Autocannon, an aerospace-modified cannon capable of catastrophic damage at close range. The weapon's critical limitation is its ten-round ammunition supply, which makes every burst a calculated commitment. Four Beta-6 SRM launchers provide supporting firepower, effective against fighters of all weight classes and useful for saturating DropShip point defenses at close range. A Gamma-10 LRM launcher completes the armament, providing limited long-range harassment that forces opponents to close distance before they are ready to engage.</p><p>The Riese 710 armor is the Riever's most celebrated feature, giving the fighter resilience to absorb punishment that would destroy lighter craft. The Pitban 300a engine provides adequate thrust but does not make the Riever quick or agile, and the fighter's atmospheric handling is notoriously poor. Early production models suffered catastrophic wing loading failures under combat stress, a problem corrected by relocating the heavy autocannon from the wing mounting to a more stable position in the fuselage center, which reduced both structural stress and wing loading to tolerable levels. The design's generous heat sink count provides reasonable thermal management despite the weapons load, and the Lassitor-3QZ communications suite paired with the IMB SYS 3740 targeting system gives pilots reliable battlefield awareness without elaborate electronic frills.</p>
+</capabilities>
+
+<overview>
+<p>Born of necessity during the First Succession War, the F-100 Riever was Captain-General Thaddeus Marik's answer to the Free Worlds League's dwindling aerospace capabilities. Unlike the sophisticated Star League-era designs it would fight alongside, the Riever was conceived from the outset as something the League's battered industrial base could actually build and maintain. Andurien AeroTech, a division of Free Worlds Defense Industries, delivered a design that traded elegance for durability, prioritizing heavy armor and ease of repair over raw performance. The result was a craft that technicians came to appreciate even as pilots learned to respect its limitations. The Riever became the backbone of Free Worlds League aerospace operations against enemy fighter formations and DropShips, a role it filled credibly for over two centuries despite never being mistaken for a sophisticated machine.</p>
+</overview>
+
+<deployment>
+<p>The F-700b entered service during the FedCom Civil War period, produced at Andurien and Westover under Free Worlds League oversight. A separate Word of Blake production contract at the Altair facility added a Jihad-era supply of the variant, though that line ceased operations when League forces reclaimed the world post-Jihad. The Andurien plant resumed production under Duchy of Andurien control and built the variant continuously through the Dark Age and into the ilClan era. The Westover facility's output was interrupted during the Jihad but eventually resumed under independent ownership, then passed through Rim Commonality hands before returning to League control. The F-700b's upgraded armor and enhanced weapons suite made it the preferred Riever for front-line combat assignments throughout the thirty-second century.</p>
+</deployment>
+
+<history>
+<p>Introduced in 2815, the Riever entered service with the Free Worlds League Military during the final decades of the First Succession War. Production began at Andurien AeroTech's facility on Andurien, a world that had been Capellan Confederation territory before falling to FWL forces during the Succession Wars, with a second line at Westover quickly following. Early combat deployments revealed serious structural weaknesses in the soaring wing design, and wing loading failures under sustained maneuvering loads appeared at Phecda III, where House Steiner defenders turned what should have been an air superiority demonstration into an embarrassment as structural failures removed fighters from the engagement.</p><p>The Riever redeemed itself at Graham IV in 2820, where League forces scrambled the type against a rebellious garrison backed by rebel aerospace assets. The engagement became a close-range brawl that validated the Riever's armor, with League fighters absorbing heavy fire and pressing attacks long after lighter craft would have withdrawn. The experience solidified the type's identity as a heavily armored brawler, and the Lloyd Marik-Stanley Aerospace School subsequently developed dedicated pilot courses for operating within its preferred combat envelope.</p><p>The Riever's characteristic wing silhouette created a persistent friendly-fire hazard throughout the Succession Wars, as inexperienced Marik pilots and DropShip crews repeatedly misidentified inbound Rievers in low-visibility conditions. The Lyran Commonwealth exploited this vulnerability in the 3030s with a deliberate intelligence campaign that spread the false designation "F-500 Schnitter" through captured documents, sowing confusion about the type's proper designation in FWL tactical intelligence circles for years.</p><p>The F-100b variant, contracted to Kurita Combine Munitions Corporation and produced at Altair for the Draconis Combine, earned the nickname "widowmaker" among Combine pilots. It sacrificed the Riever's heavy armor for marginal autocannon firepower gains, a trade most combat veterans considered poor. The Altair facility fell under Word of Blake control during the Jihad, ending Combine production of the type.</p><p>The Clan Invasion prompted Andurien AeroTech to develop the F-700 series, updating the aging platform with improved thrust capability and modern heat management technology. Both the F-700 and F-700a variants found broad adoption across FWL, Star League, and Word of Blake forces, while the F-700b's armor and weapons upgrades became the preferred front-line configuration through the Civil War period and beyond. The Andurien facility survived the Jihad under League and later Duchy of Andurien ownership, continuing production well into the Dark Age, while the Westover line experienced more turbulent ownership changes before returning to League hands in the ilClan era.</p>
+</history>
+
+<manufacturer>
+Andurien AeroTech (A Division of Free Worlds Defense Industries)|Andurien AeroTech (A Division of Free Worlds Defense Industries)|Andurien AeroTech (A Division of Free Worlds Defense Industries)|Kurita Combine Munitions Corporation
+</manufacturer>
+
+<primaryFactory>
+Andurien|Lopez|Westover|Altair
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Interstar
+ENGINE:Pitban
+ARMOR:Riese
+COMMUNICATIONS:Lassitor
+TARGETING:IMB
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Heavy
+ENGINE:300XL
+ARMOR:Unknown
+COMMUNICATIONS:3QZ
+TARGETING:SYS 3740
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+100.0
+</tonnage>
+

@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd6c-76de-a2f6-4c883f11af35
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Cataphract
+model:CTF-3X (Sara)
+mul id:472
+
+Config:Biped
+techbase:Inner Sphere
+era:3062
+source:SB:S&D
+published:SB:S&D
+rules level:2
+role:Brawler
+
+quirk:pro_actuator
+
+mass:70
+engine:280 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:29
+RL armor:29
+RTL armor:10
+RTR armor:10
+RTC armor:14
+
+Weapons:5
+Streak SRM 4, Left Arm
+ER Large Laser, Right Arm
+ER Medium Laser, Left Torso
+ER Medium Laser, Right Torso
+Rotary AC/5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISStreakSRM4
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERLargeLaser
+ISERLargeLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERMediumLaser
+IS Streak SRM 4 Ammo
+ISCASE
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Torso:
+ISERMediumLaser
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISCASE
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Cataphract is a seventy-ton heavy BattleMech introduced in 3025 by the Capellan Confederation, representing one of the first entirely new designs produced during the Succession Wars. Designed by Earthwerks Incorporated on Tikonov, the Cataphract was born from desperation, assembled from components adapted from existing designs including the Marauder, Shadow Hawk, and Phoenix Hawk. Nicknamed a "FrankenMech" for its ungainly appearance, the design nonetheless proved functional and capable of sustained production with the Confederation's limited industrial capacity.</p><p>What should have been one of House Liao's proudest achievements instead became a symbol of humiliation when the Tikonov factories fell to House Davion during the Fourth Succession War in 3029. Both successor states subsequently developed the chassis in divergent directions, with the Federated Commonwealth pursuing ballistic-focused upgrades while the Capellans emphasized energy weapons and electronic warfare capabilities from their replacement facility on Grand Base.</p>
+
+capabilities:<p>The original CTF-1X Cataphract carries a CeresArms Smasher PPC as its primary long-range weapon, complemented by a SarLon MaxiCannon autocannon/10 that provides reliable medium-range firepower. Four CeresArms medium lasers distributed across the torso and arms deliver substantial close-range punch, giving the design effective engagement options at multiple range brackets. Powered by a standard VOX 280 fusion engine, the Cataphract moves at a maximum speed of sixty-four kilometers per hour, adequate for its intended role as a frontline combatant but unremarkable among heavy 'Mechs.</p><p>The Cataphract's design philosophy prioritizes manufacturability over elegance. The mixed heritage of its components means replacement parts can be sourced from multiple production lines, a critical advantage for the resource-starved Confederation. Thirteen tons of Kallon Royalstar armor provide respectable protection for its weight class, though the design lacks jump jets, limiting its tactical flexibility in rough terrain. Heat management requires discipline from the pilot, as sustained fire from the full weapons suite can overwhelm the fourteen heat sinks.</p><p>Despite these compromises, the Cataphract delivers a reliable combination of firepower and durability that has kept it in frontline service across multiple centuries and successor states, a sign of the soundness of the original engineering despite its cobbled-together origins.</p>
+
+deployment:<p>This extensively modified Cataphract stands as a full technological upgrade of an inherited CTF-2X airframe. The standard large laser was replaced with a production-grade ER large laser, joined by two ER medium lasers in the torso. The SRM-4 gave way to an ammunition-efficient Streak SRM-4, while the original autocannon/10 was replaced with a devastating rotary AC/5 fed by three tons of ammunition. Ferro-fibrous armor reduced weight while maintaining protection, and CASE in each torso improved survivability against ammunition explosions. The complete conversion to double heat sinks rounded out a thorough modernization that transformed the aging chassis into a formidable FedCom Civil War-era combatant.</p>
+
+history:<p>The Cataphract's origins lie in the final years of the Third Succession War, when the Capellan Confederation found itself desperately short of heavy BattleMechs. The loss of the Carver V factories to the Free Worlds League in 2953 stripped the nation of vital heavy and assault 'Mech production capacity. Earthwerks Incorporated on Tikonov began Cataphract production in 3025, assembling the design from available components in a feat of pragmatic engineering. The left arm was originally a right arm from a Shadow Hawk, the legs and torso drew from the Marauder, and Phoenix Hawk components rounded out the design. The result was far from aesthetically pleasing, but it was both functional and (critically) something the Confederation could actually build.</p><p>The Cataphract had barely entered limited service when the Fourth Succession War erupted, and the fall of Tikonov to the Seventh Crucis Lancers in 3029 transferred the entire production line to the Federated Suns. The conquering Davion forces embraced the captured design, though production quality suffered due to deliberate sabotage by workers still loyal to the Confederation. Many commands that participated in Operation Rat rebuilt using captured equipment, and the Cataphract became a common sight in the Crucis Lancers. The appearance of a distinctly Capellan BattleMech in Davion service caused considerable confusion among Kurita troops during fighting on the Draconis frontier in 3039.</p><p>Chancellor Romano Liao directed the establishment of a replacement Cataphract production facility on Grand Base, with the line operational by 3032 in time to deploy units against the Andurien invaders. When the St. Ives Compact broke away from the Confederation, a number of prototype Cataphracts fell under the control of the St. Ives Lancers, further dispersing the design across the Inner Sphere.</p><p>The Clan Invasion of 3049 drove both nations to upgrade the design aggressively. The Federated Commonwealth developed the CTF-3D at Tikonov, mounting an extra-light engine and advanced autocannons to create a more versatile platform. Despite the improvements, the 3D saw only marginal deployment with the AFFC and was eventually relegated to the Crucis March Militia. The Capellans, having stolen the 3D's plans, produced their own variant at Grand Base, the CTF-3L, which constituted a remarkable twenty-five percent of all newly acquired Capellan heavy 'Mechs during the 3050s.</p><p>The Xin Sheng movement and the recapture of Tikonov brought renewed Capellan investment in the design. Sun Tzu Liao ordered the 3D line retooled for the stealth-armored CTF-4L, intended for the growing number of Shadow Lances within the CCAF, though sabotage of the engine production line delayed full production until 3070. During the Jihad, Johnston Industries on New Syrtis leveraged battlefield salvage to produce the CTF-5D, while factory ownership across Tikonov changed hands multiple times as the Word of Blake, Republic of the Sphere, and eventually the Federated Suns and Capellan Confederation each claimed the world.</p><p>The Cataphract continued to evolve into the Dark Age and ilClan eras. The CTF-5L incorporated reflective armor and shared components with the newly redesigned Thunderbolt, while its jump-capable CTF-5LL variant proved a potent skirmisher. More than a century after its inauspicious debut as a FrankenMech cobbled together from spare parts, the Cataphract remained a mainstay of Capellan and former Federated Suns arsenals alike.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-10 17:11:42
+
+systemmanufacturer:CHASSIS:Earthwerks
+systemmode:CHASSIS:CTF
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:280
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:CommuTech
+systemmode:COMMUNICATIONS:Multi-Channel 10
+systemmanufacturer:TARGETING:BlazeFire
+systemmode:TARGETING:Sightlock

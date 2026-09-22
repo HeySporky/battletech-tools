@@ -1,0 +1,120 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a16e-7f90-9ddc-7ffb4600fe66
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Medium Missile Gun Emplacement
+</Name>
+
+<Model>
+(3039) (Fusion)
+</Model>
+
+<year>
+3039
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+60
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+LRM 5(ST)
+ISArtemisIV(ST)
+LRM 5(ST)
+ISArtemisIV(ST)
+LRM 5(ST)
+ISArtemisIV(ST)
+LRM 5(ST)
+ISArtemisIV(ST)
+Machine Gun(ST)
+Machine Gun(ST)
+Searchlight(ST)
+IS Ammo MG - Full
+IS Ammo LRM-5 Artemis-capable
+IS Ammo LRM-5 Artemis-capable
+IS Ammo LRM-5 Artemis-capable
+IS Ammo LRM-5 Artemis-capable
+IS Ammo LRM-5 Artemis-capable
+IS Ammo LRM-5 Artemis-capable
+FUSION PowerGenerator:SIZE:10.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The fusion-powered advanced Medium Missile Gun Emplacement combines Artemis IV enhanced LRM 5 capability with complete power independence and medium armor. The Artemis IV system delivers improved accuracy from a self-sufficient platform that can be positioned anywhere terrain and tactics dictate. This variant represents the optimal medium-weight missile emplacement for positions where both precision and independence are valued.</p><p>The fusion plant powers all systems including the Artemis IV fire control without external dependency, while medium armor provides adequate protection for positions operating behind screening forces. The machine gun guards against infantry assault. Commanders deploying this variant gain a precision indirect fire asset that requires only ammunition resupply to maintain continuous operations, making it particularly suited for extended defensive campaigns on isolated worlds.</p>
+</capabilities>
+
+<overview>
+<p>The Missile Gun Emplacement provides fixed defensive positions with long-range indirect fire capability through standardized Long Range Missile systems. These emplacements serve a fundamentally different tactical role than their direct-fire counterparts, engaging targets at extreme ranges and behind cover without requiring line of sight when paired with forward observers or sensor networks. Their ability to saturate an area with explosive warheads makes them effective against both armored and soft targets.</p><p>Missile emplacements form a critical layer in comprehensive defensive architectures, providing the volume of fire needed to disrupt attacking formations before they can close with direct-fire positions. The combination of LRM batteries with machine gun close defense creates positions that contribute to the battle at every phase, from long-range harassment through final protective fires against infantry assault.</p>
+</overview>
+
+<history>
+<p>The inclusion of missile emplacements within Castle Brian defensive doctrine reflected the Star League Defense Force's understanding that successful fortification required layered defense in depth. The great Castles Brian were not single structures but sprawling complexes covering dozens of square kilometers, and the open ground between defensive rings needed to be covered by weapons that could reach beyond direct line of sight. Long Range Missile batteries filled this role, raining ordnance on approaching forces as they navigated the killing fields between successive defensive lines.</p><p>Castle Brian doctrine called for missile emplacements to be positioned in defilade where possible, protected by terrain features and covered by direct-fire positions that could engage anyone attempting to assault the missile sites directly. Forward observers in hardened bunkers or expendable sensor drones provided targeting data, allowing the missile crews to engage targets they could not see. This combination of indirect fire and protected positioning made missile emplacements among the most difficult components of a Castle Brian to neutralize, as attackers could not simply close range and overwhelm them with superior direct firepower.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+2
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+90
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

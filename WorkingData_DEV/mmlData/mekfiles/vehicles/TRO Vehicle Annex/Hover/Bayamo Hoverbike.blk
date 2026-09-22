@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ea89-74fd-bbf9-2c328cd2bafd
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Bayamo Hoverbike
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3810
+</mul id:>
+
+<year>
+3030
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+cargobay:0.068:1:1::-1:0
+pillionseats:2.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+12
+</cruiseMP>
+
+<engine_type>
+11
+</engine_type>
+
+<armor_type>
+43
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+1
+1
+1
+1
+</armor>
+
+<Body Equipment>
+BicycleChassisMod
+</Body Equipment>
+
+<Front Equipment>
+HHSearchlight
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+2
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>Weighing only 600 kilograms, the Bayamo is among the lightest hover vehicles in production in the Inner Sphere. Its electric battery drive generates a cruise speed well above most civilian ground vehicles and a top speed approaching 180 kilometers per hour, making it genuinely quick for its class. The trade-off for that performance is almost no protection, with barely enough structural armor to withstand a minor collision, let alone weapons fire. The vehicle carries no armament whatsoever.</p><p>The Bayamo uses a Bicycle Chassis Modification, configuring the hull for a single rider with a rear pillion crew seat and a pillion passenger seat, accommodating a total of two additional occupants behind the pilot. A handheld searchlight is mounted at the front of the vehicle, one of the few practical accessories included in the standard configuration. Standard cargo capacity is 68 kilograms, enough for personal gear or modest supplies. The battery provides a range of approximately 509 kilometers before recharging is required, which is adequate for personal and recreational use but limits extended independent operation. Despite its off-road hover capability, the design is optimized for use on well-maintained roads and urban environments rather than genuine wilderness terrain.</p>
+</capabilities>
+
+<overview>
+<p>The Bayamo Hoverbike is a lightweight civilian hovercraft produced by GM/Rowell Sport Vehicles on El Dorado in the Federated Suns. Introduced in 3030, it was designed as a niche luxury item aimed at affluent young consumers on well-developed Federated Suns worlds, offering a fast and stylish personal transport loosely inspired by military hover platforms of the Succession Wars era. Where military hover vehicles emphasize armor and durability, the Bayamo strips those qualities away in favor of a featherweight chassis and an electric battery drive, prioritizing speed and style over any pretense of combat capability. Rowell Sport Vehicles, a subsidiary of General Motors, positioned the design through aggressive marketing and leveraged its parent company's corporate reach to transform the Bayamo into a sought-after status symbol across the Crucis March.</p>
+</overview>
+
+<deployment>
+<p>The Bayamo is found almost exclusively in civilian hands on prosperous Federated Suns worlds, particularly in the Crucis March, where Rowell's marketing campaigns made it a recognizable symbol of youth culture and discretionary wealth. It sees use as personal transportation and recreational transport, though its off-road hover capability is rarely exercised by the majority of its owners. Law enforcement and paramilitary organizations have little use for a vehicle with no protection and no weapons mounts, keeping the Bayamo strictly in the civilian market. It is occasionally encountered on other Inner Sphere worlds but has never achieved the same penetration outside the Federated Suns.</p>
+</deployment>
+
+<history>
+<p>When GM subsidiary Rowell Sport Vehicles began development on the Bayamo in the late 3020s, they identified a specific opportunity in the post-Fourth Succession War recovery period. The gradual economic improvement following that conflict left a growing middle class on Federated Suns core worlds with disposable income and an appetite for consumer goods that had been scarce throughout decades of warfare. Rowell's engineers studied existing military hover platforms and stripped away everything that made them expensive to produce, arriving at a design that could be manufactured at a price accessible to upwardly mobile young consumers on developed worlds.</p><p>The key to the Bayamo's commercial success was not its engineering, but its marketing. Rowell Sport Vehicles negotiated product placement deals with several popular HoloVid production companies, embedding the Bayamo in entertainment programming aimed at teenage audiences across the Crucis March. Within a few years of its 3030 introduction, the vehicle had become strongly aspirational in that market, and sales figures reflected it. Millions of units moved in the first four decades of production, the vast majority to customers who never used the vehicle's hover capability in any meaningful off-road application.</p><p>Attempts to expand the Bayamo into Lyran markets proved far less successful. The Lyran consumer base was less receptive to the design's positioning, and efforts to secure export contracts to other Inner Sphere states during the Second Star League period produced little return. Rowell Sport Vehicles eventually accepted that the Bayamo's market was concentrated in the Federated Suns, and directed its commercial efforts accordingly. The restyled Bayamo '59 model refreshed the line and maintained domestic sales momentum, but the vehicle never became the Inner Sphere-wide product Rowell had originally envisioned. By the Jihad era, the design remained in production and popular in its home market, but had failed to make significant commercial inroads beyond Federated Suns borders.</p>
+</history>
+
+<manufacturer>
+GM/Rowell Sports Vehicles
+</manufacturer>
+
+<primaryFactory>
+El Dorado
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:N/A
+TARGETING:N/A
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:N/A
+TARGETING:N/A
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+0.6
+</tonnage>
+
+<fuel>
+0.068
+</fuel>
+

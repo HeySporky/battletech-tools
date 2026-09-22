@@ -1,0 +1,81 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b7ae-72aa-bbdf-884fc8061e2f
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Beast Infantry (Orca)
+</Name>
+
+<Model>
+(Laser Rifle)
+</Model>
+
+<year>
+2300
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Beast:Orca
+</motion_type>
+
+<Troopers Equipment>
+Environment Suit, Hostile
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The orca, or killer whale, represents one of the most unusual beast-mounted infantry concepts employed in the BattleTech universe. Trained orcas carry riders and equipment through aquatic environments, providing a submersible infantry platform that no conventional vehicle can easily replicate at comparable cost. Orca-mounted infantry operate in coastal waters, rivers, and open ocean, conducting amphibious raids, underwater reconnaissance, and maritime interdiction missions. The animals' intelligence and natural hunting instincts make them responsive to trained handlers, though maintaining orca-mounted formations requires access to suitable aquatic habitats and specialized veterinary support. These units are extremely rare and geographically limited to worlds with extensive water features, but where they do operate, they exploit an environment that most military planners neglect entirely.</p>
+</overview>
+
+<squad_size>
+2
+</squad_size>
+
+<squadn>
+5
+</squadn>
+
+<Primary>
+Laser Rifle
+</Primary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+
+<spacesuit>
+true
+</spacesuit>
+
+<specialization>
+4096
+</specialization>
+

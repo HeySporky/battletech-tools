@@ -1,0 +1,182 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eaf1-7d35-86c5-5791aa3d7f1b
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Gienah-Durapaq Elite Land Train
+</Name>
+
+<Model>
+(Tractor) Series 3
+</Model>
+
+<mul id:>
+4211
+</mul id:>
+
+<year>
+2899
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+2ndclassquarters:7.0:1:-1::-1:0
+2ndclassquarters:7.0:1:-1::-1:0
+2ndclassquarters:7.0:1:-1::-1:0
+2ndclassquarters:7.0:1:-1::-1:0
+cargobay:2.0:1:5::-1:0
+</transporters>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+32
+25
+25
+25
+25
+25
+</armor>
+
+<Body Equipment>
+SV Chassis Mod [Tractor]
+Paramedic Equipment
+Paramedic Equipment
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+Paramedic Equipment
+Paramedic Equipment
+Lift Hoist/Arresting Hoist
+</Rear Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Elite Series 3 tractor is built around a tractor chassis modification enabling it to pull multiple trailer modules across difficult terrain. The 200-ton vehicle is powered by a fusion engine, providing effectively unlimited operational range compared to conventional fuel-burning alternatives. Cruise speed is modest at 30 km/h, with a maximum of 50 km/h. These figures reflect a design philosophy that prioritizes sustained long-haul capacity and durability over transit speed. The trade-off is significant: the Elite Series 3 is not a rapid-response transport, and any mission requiring time-sensitive delivery across hostile terrain will quickly expose its limitations.</p><p>The tractor's crew complement of three enlisted personnel operates and maintains the vehicle. Crew quarters for four and a four-person medical bay are built into the cab, supporting the extended overland journeys these vehicles routinely undertake. A three-ton integrated lift hoist handles loading and securing cargo into the trailer modules. Six tons of BAR 6 commercial armor provides basic protection against wilderness hazards and minor criminal threats. The tractor carries no weapons, a deliberate choice that keeps the design focused on cargo capacity but leaves it dependent on escorts in any environment where organized threats are likely.</p>
+</capabilities>
+
+<overview>
+<p>The Gienah-DuraPaq Elite Series 3 is a heavy tracked land train tractor produced through a joint venture between Lyran Commonwealth-based Gienah Automotive and Free Worlds League foodstuffs manufacturer DuraPaq Solutions. First produced in 2899, the Elite Series 3 was designed to address a fundamental logistical challenge on colony worlds and undeveloped planets: the need to move large quantities of cargo across vast distances where roads, railways, and waterways do not exist. Capable of hauling a convoy of tracked trailer modules, the tractor became one of the most commercially successful civilian ground transport platforms in the Inner Sphere, achieving market dominance that competitors from House Davion and House Kurita have found difficult to challenge. Its reputation for sustained reliability in harsh operating conditions cemented the design's position for over a century after its introduction.</p>
+</overview>
+
+<deployment>
+<p>The Elite Series 3 tractor operates across a wide range of civilian freight routes, primarily on colony worlds and underdeveloped planets where conventional transportation infrastructure is absent or impractical. Configured with crew quarters and a medical bay as standard, it serves long-haul overland missions spanning hundreds of kilometers between frontier settlements. The design is marketed and sold across both Lyran and League space, and is found in smaller numbers throughout the wider Inner Sphere. Dozens of derivative configurations exist across multiple worlds and regional manufacturers, though the Gienah-DuraPaq lines on Gienah remain the recognized standard for quality and reliability.</p>
+</deployment>
+
+<history>
+<p>The Elite Series 3's origins trace to a corporate negotiation conducted against a backdrop of interstellar war. Gienah Automotive had long maintained trade relationships across the border with Free Worlds League customers, an unusual arrangement for a Lyran company. In 2864, as the leaders of the five Great Houses met on New Earth for peace talks at the close of the Second Succession War, DuraPaq Solutions CEO Earl Jarv Kefalczyk approached Gienah Automotive's Duke Solia Zdenekova with a proposal to combine DuraPaq's packaging and logistics expertise with Gienah's manufacturing capability.</p><p>Negotiations continued through the opening years of the Third Succession War, slowed but not ended by renewed fighting. By the late twenty-ninth century, the two companies had established Gienah-DuraPaq as a joint operation on Gienah, and the first Elite Series 3 land trains entered production in 2899. The design supplied colony worlds across both realms, filling a transport gap that neither House's military logistics network was equipped to address commercially.</p><p>The Elite Series 3 quickly established dominance over rival designs. The Davion-produced O'Keefre Model II and Kurita's Isesaki Roku Royal both competed for similar markets, but the Gienah-DuraPaq product's consistent quality and its unique cross-border availability gave it a reach neither competitor could match. By 3067, Gienah Automotive had expanded to three factories on Gienah, and the land train line remained central to its civilian production portfolio. A September 3048 raid by the Third Free Worlds Legionnaires and Second Fusiliers of Oriente on Gienah resulted in the theft of vehicles and schematics from the Combat Vehicles factory, though the Gienah-DuraPaq civilian production campus continued normal operations.</p><p>The Jihad era brought additional pressure to the company. Gienah Automotive attempted a post-Jihad stock offering to fund re-entry into the defense market, but the sale fell short of its targets, and the company remained focused on civilian production into the Dark Age. By the time Clan Wolf Empire asserted control over Gienah, the joint venture that had bridged two rival Great Houses for over a century found itself operating under a wholly different political authority.</p>
+</history>
+
+<manufacturer>
+Gienah-DuraPaq
+</manufacturer>
+
+<primaryFactory>
+Gienah
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Gienah Automotive
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+200.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

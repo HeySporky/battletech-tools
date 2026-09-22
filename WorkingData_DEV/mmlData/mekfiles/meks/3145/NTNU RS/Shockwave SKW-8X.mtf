@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d493-7085-bc0b-cbd10e489f19
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Shockwave
+model:SKW-8X
+mul id:6902
+
+Config:Biped
+techbase:Inner Sphere
+era:3134
+source:TR:3145
+published:RS:3145-NTNU,RS:3145
+rules level:3
+role:Brawler
+
+quirk:battle_fists_la
+quirk:battle_fists_ra
+quirk:easy_maintain
+
+mass:50
+engine:250 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:15
+RA armor:15
+LT armor:17
+RT armor:17
+CT armor:22
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:2
+Thumper Cannon, Left Torso
+Ultra AC/10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISThumperCannon
+ISThumperCannon
+ISThumperCannon
+ISThumperCannon
+ISThumperCannon
+ISThumperCannon
+ISThumperCannon
+ISThumperCannonAmmo
+ISCASE
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Shockwave is a fifty-ton medium BattleMech introduced in 3082 by Earthwerks-FWL, Incorporated on the world of Keystone. Developed for the Marik-Stewart Commonwealth as the first post-Jihad design intended for international export, the Shockwave was purpose-built for front-line medium combat, emphasizing respectable speed, heavy armor protection, and a potent weapons package.</p><p>Its reliance on standard armor and commonly available weapons made it easy to maintain on nearly any battlefield, a quality that drove brisk sales across the Inner Sphere and brought much-needed capital into the Commonwealth. The Shockwave quickly earned a reputation as a straightforward and dependable combat platform, attracting buyers from nearly every major Inner Sphere nation.</p>
+
+capabilities:<p>The Shockwave is designed for one purpose: combat. At the heart of the design lies the Hermes 250 extralight engine, a reliable power plant that enables the fifty-ton chassis to attain a top speed well suited to modern battlefield tactics. An impressive ten tons of Starshield armor is draped over the lightweight Corean-II Deluxe endo steel frame, making the Shockwave capable of absorbing considerable punishment while remaining combat effective. This combination of speed and durability serves as the basis for a capable front-line medium BattleMech.</p><p>The weapons package is designed for a battle, not a campaign. The ammunition-dependent Imperator Rotary autocannon/5 gives the Shockwave an impressive primary weapon, while the Zeus long-range missile system coupled with the improved Corean B-Tech targeting and tracking system grants the Shockwave effective reach at extended distances. The Martell extended-range large laser augments both long-range and short-range engagements, and eleven double heat sinks keep the design running cool under sustained fire.</p><p>The principal weakness of the Shockwave lies in its heavy reliance on ammunition. Should the rotary autocannon and missile supplies run dry, the MechWarrior is left with only a single laser to defend the machine, a vulnerability that demands careful supply chain management during prolonged operations.</p>
+
+deployment:<p>Based on the SKW-6H and fielded in 3134, this variant is the most radical departure from the original Shockwave concept. It retains the ultra-class autocannon/10 of its predecessor but removes both the LRM-10 launcher and the extended-range large laser. In their place, engineers mounted a Thumper Artillery Cannon with a single ton of ammunition, giving the Shockwave a battlefield support capability entirely absent from earlier variants. The X suffix denotes the experimental nature of this configuration, and its artillery capability makes it a unique asset in combined-arms formations where indirect fire support from a mobile medium platform is valued.</p>
+
+history:<p>The Jihad left countless worlds battered and broken across the Inner Sphere. While the Word of Blake caused unprecedented havoc during their campaign, their aggressive program of BattleMech production and development drastically heightened the technology base and production capabilities of factories under their occupation. Many of these facilities were sabotaged during the Word of Blake's retreat, but the net effect of the Blakist occupation was to spread technological advances across international borders. What might have taken years or decades to accomplish through diplomacy and negotiation, the Word of Blake achieved through terror and aggression.</p><p>In the Free Worlds League, the Jihad not only wrought havoc but also splintered a once-proud nation into fragments. When worlds formerly part of the Free Worlds League emerged from the shadow of Blakist occupation, they were forced to rebuild on their own. For the burgeoning Marik-Stewart Commonwealth and the world of Keystone, the reconstruction effort centered on the Earthwerks-FWL facility. Once a robust and capable factory, the facility was revamped by the Word of Blake and then heavily damaged during the liberation of Keystone.</p><p>With few other viable exports, the leaders of Keystone turned to BattleMech production as a method of acquiring the monies necessary to rebuild their shattered cities. In addition to previously successful designs such as the Bloodhound, the Earthwerks factory contained suitable development facilities to create entirely new designs. The first of these post-Jihad designs to be produced for international export was the Shockwave.</p><p>Sales of the Shockwave have been brisk since its introduction. Every major Inner Sphere nation except the Lyran Commonwealth ordered the design and deployed it within their ranks by the end of the Republic era. A portion of Shockwave production was set aside every year to bolster the defenses of the Marik-Stewart Commonwealth itself, while the Capellan Confederation and the Republic of the Sphere became the largest importers. Both nations were aggressively expanding and reforming their military structures, and the willingness of Earthwerks to sell to anyone who would meet their price made the Shockwave easy to acquire.</p><p>The fall of the Republic of the Sphere and the rise of Clan Wolf's empire dramatically altered the Shockwave's manufacturing history. Keystone came under Clan Wolf control during the Dark Age, shifting the factory's ownership and production priorities. Despite this transition, the design continued to see widespread service across the Inner Sphere, a sign of the large numbers already distributed among numerous militaries. Increasing orders for new Shockwaves indicate that commanders around the Inner Sphere view the 'Mech as a capable design, and it is only a matter of time before Shockwaves face off against one another on the battlefield.</p>
+
+manufacturer:Earthwerks-FWL, Inc.
+
+primaryfactory:Keystone
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Corean
+systemmode:CHASSIS:Corean-II Deluxe Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:250 XL
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:Starshield
+systemmanufacturer:COMMUNICATIONS:Corean
+systemmode:COMMUNICATIONS:Transband-J9
+systemmanufacturer:TARGETING:Corean
+systemmode:TARGETING:Corean B-Tech

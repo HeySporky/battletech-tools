@@ -1,0 +1,158 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e344-7d15-86bc-f00e512d6864
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Chaparral Missile Artillery Tank
+</Name>
+
+<Model>
+(MG)
+</Model>
+
+<mul id:>
+556
+</mul id:>
+
+<year>
+3062
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+16
+18
+18
+36
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-4
+IS Machine Gun Ammo - Half
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVAmmo
+</Body Equipment>
+
+<Front Equipment>
+ISArrowIV
+</Front Equipment>
+
+<Right Equipment>
+Medium Laser
+</Right Equipment>
+
+<Left Equipment>
+Medium Laser
+</Left Equipment>
+
+<Rear Equipment>
+SRM 4
+Machine Gun
+</Rear Equipment>
+
+<capabilities>
+<p>At the heart of the Chaparral is its pair of AIL Arrow IV launchers, mounted in a distinctive retractable pod assembly that elevates for firing and retracts flush with the hull during transit. This configuration allows the fifty-ton vehicle to maintain a low silhouette when on the move, reducing its exposure to direct-fire weapons. Because the Arrow IV has a shorter effective range than competing artillery systems such as the Long Tom, Thumper, and Sniper, the Chaparral must approach its targets more closely than most artillery commanders prefer, making speed and survivability critical to its operational doctrine. The Nissan 200 engine provides a cruising speed of forty-three kilometers per hour and a flank speed of sixty-four, sufficient to outpace most pursuit in terrain that favors a mobile artillery unit.</p><p>Two Sapphire medium lasers are mounted along the primary hull flanks with enough traverse to cover the sides and rear, while a Shrike SRM-6 rack provides additional close-defense capability. The Chaparral's most significant tactical limitation is its lack of cellular ammunition storage equipment, which discourages crews from carrying the Inferno munitions that would otherwise substantially increase anti-infantry effectiveness. In practice, the Chaparral typically carries homing Arrow IV rounds and operates alongside TAG-equipped scouts, enabling precision strikes against designated targets at extended ranges. Doctrine calls for immediate repositioning after each fire mission rather than holding a static firing position, and the design is not intended to absorb direct fire in an engagement.</p>
+</capabilities>
+
+<overview>
+<p>The Chaparral Missile Artillery Tank entered service in 2611 as the Star League Defense Force's premier mobile artillery platform, built around the Arrow IV surface-to-surface missile system. Designed by Grumman Industries of Terra to meet an SLDF requirement for a fast, survivable artillery unit capable of providing responsive tactical fire support to frontline infantry and light armored formations, the Chaparral pioneered a retractable launcher pod that allowed the vehicle to maintain a low combat profile during movement and elevate its weapons through a full 180-degree arc of fire when engaging targets. As the lighter, more agile partner to the heavier Padilla Heavy Artillery Tank, the Chaparral was designed to operate in combined-arms formations where speed and terrain exploitation could substitute for heavier armor protection. Its long absence from Inner Sphere battlefields following the Succession Wars gave the design near-legendary status before its reintroduction in the thirty-first century.</p>
+</overview>
+
+<deployment>
+<p>The (MG) field modification replaces the Shrike SRM-6 rack with an anti-infantry machine gun, primarily encountered in units anticipating sustained infantry opposition in urban or jungle environments. The conversion sacrifices some anti-vehicle close-defense capability for improved performance against unarmored targets in confined spaces. Found primarily in planetary garrison and militia formations rather than front-line assault units, and in mercenary companies operating in insurgency or security roles.</p>
+</deployment>
+
+<history>
+<p>The Chaparral emerged from a Star League Army procurement program of the early twenty-seventh century that sought a fast, conventional artillery vehicle capable of using the Arrow IV system to provide responsive fire support to frontline infantry and light armored formations. Competition among weapons manufacturers was intense, as the requirement demanded sufficient armor to survive near the front lines alongside the speed to reposition before counter-battery fire could land. In 2609, Grumman Industries of Terra secured the contract with their fifty-ton design, which mounted the Arrow IV system in a novel pod assembly capable of retracting into the low-slung hull for a minimal profile. The first production Chaparrals rolled off the assembly lines in 2611.</p><p>Almost from the beginning, the Chaparral was paired in both doctrine and practice with the Padilla Heavy Artillery Tank, introduced to SLDF service in 2620. Designed by Leopard Armor of Terra, the Padilla carried a single Arrow IV launcher at twice the Chaparral's weight, trading the lighter vehicle's speed for heavier protection and greater durability under sustained fire. In combined-arms formations, Chaparrals would advance alongside TAG-equipped BattleMechs to forward firing positions, delivering precision homing strikes before repositioning, while Padillas provided sustained indirect fire from better-protected rear positions. Together they constituted the SLDF's most effective mobile artillery system of the mid-twenty-seventh century, and the design's role as the fast, agile half of that team defined how Chaparral crews trained and operated for decades.</p><p>The Amaris Civil War proved catastrophic for both designs. Fighting on Terra during Operation Liberation devastated Grumman Industries' production facility along with Leopard Armor's Padilla lines. The Great Exodus that followed stripped the Inner Sphere of the technical expertise needed to maintain or produce Arrow IV systems, and throughout the Succession Wars, existing Chaparrals were steadily consumed by combat. Without the ability to manufacture replacements, the design effectively ceased to be a meaningful part of any Successor State military by the Second Succession War. ComStar inherited responsibility for the Terra production site and preserved the manufacturing capability while the Inner Sphere forgot the design existed.</p><p>The reintroduction came through Precentor Martial Anastasius Focht's decision to open Terra to Inner Sphere trade and technology transfer in 3053. Grumman Industries restarted Chaparral production using recovered pre-Exodus manufacturing records, and demand from the major Successor States was immediate. The Word of Blake's seizure of Terra during the Jihad brought the facility under Blakist control, but production engineers introduced the upgraded (CASE) variant in 3071, incorporating ferro-fibrous armor and cellular ammunition storage equipment to improve crew survivability, followed by the (ERML) variant in 3074 with extended-range self-defense lasers. By the Dark Age, the Chaparral had found its way into virtually every major military in the Inner Sphere, its combination of mobility and Arrow IV firepower as relevant as it had been in the Star League era.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Nissan
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:TransComm
+TARGETING:TransComm
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:200
+ARMOR:StarSlab/1
+COMMUNICATIONS:12
+TARGETING:WDS40A
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

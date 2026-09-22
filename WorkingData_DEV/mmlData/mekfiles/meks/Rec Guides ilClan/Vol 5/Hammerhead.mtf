@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dbdc-7cee-9838-59d7ec4309f2
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Hammerhead
+model:
+mul id:7511
+
+Config:Biped
+techbase:Clan
+era:3146
+source:RG05
+published:RG05,RSFP:SLDF3
+rules level:3
+role:Skirmisher
+
+quirk:battle_fists_la
+quirk:battle_fists_ra
+
+mass:45
+engine:270 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:6
+jump mp:0
+
+armor:Hardened(Clan)
+LA armor:12
+RA armor:12
+LT armor:13
+RT armor:13
+CT armor:20
+HD armor:9
+LL armor:15
+RL armor:15
+RTL armor:3
+RTR armor:3
+RTC armor:5
+
+Weapons:3
+Streak SRM 6, Left Torso
+Large Pulse Laser, Right Torso
+ER Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLLargePulseLaser
+CLLargePulseLaser
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERMediumLaser
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISAES
+ISAES
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISAES
+ISAES
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hammerhead is a 45-ton medium Clan BattleMech introduced in 3146 by Clan Sea Fox. Designed as an aggressive shock trooper, the Hammerhead represents an unconventional approach to Clan medium 'Mech design, trading the speed and firepower typical of its weight class for exceptional resilience. Loosely resembling its aquatic namesake, the 'Mech quickly became a signature element of the Sea Fox touman and achieved strong export sales across multiple Clans. Its emphasis on pilot survivability over raw lethality made it particularly valued for training formations and garrison assignments, cementing its place as one of the most commercially successful Clan designs of the ilClan era.</p>
+
+capabilities:<p>The Hammerhead was conceived around an unconventional philosophy for Clan warfare: keeping inexperienced MechWarriors alive long enough to learn from their mistakes. Its defining characteristic is fifteen tons of Double-Forged ZX20 hardened armor, granting protection equivalent to many assault-class 'Mechs despite its medium weight classification. This exceptional protection is complemented by leg-mounted actuator enhancement systems that counteract the hardened armor's inherent clumsiness, making the 'Mech remarkably difficult to knock down. Built on an SFAM endo steel skeleton and powered by a Firebox 270 XL engine, the Hammerhead achieves a respectable top speed of 86.4 km/h, though the weight of its hardened plating limits its effective running speed compared to similarly sized designs.</p><p>The armament is deliberately modest. A Series 44h large pulse laser serves as the primary weapon, offering accurate fire at medium ranges, while a Series 2b extended-range medium laser and a Type VI Streak SRM-6 provide additional close-range punch. This loadout reflects the Hammerhead's intended role as a brawler rather than a stand-off combatant. The design trades overwhelming firepower for the ability to absorb tremendous punishment, wading through enemy formations and engaging heavier opponents at ranges where its toughness matters most. The 'Mech's Battlefist-equipped arms further enhance its effectiveness in close combat, though pilots must be mindful that the hardened armor's weight penalty leaves the Hammerhead vulnerable to faster opponents that can dictate engagement range.</p>
+
+deployment:<p>The standard Hammerhead configuration is the most widely produced variant and serves as the backbone of Clan Sea Fox's shock formations. Typically deployed in Stars alongside faster designs that can herd opponents into the Hammerhead's preferred close-range engagement envelope, the base configuration excels when used as the leading element in breakthrough operations. Its combination of heavy armor and stable firing platform makes it particularly effective in urban environments and confined terrain where enemies cannot easily disengage.</p>
+
+history:<p>Produced at Manufacturing Plant SFF-IT1 on Itabaiana, the Hammerhead became a signature design for Clan Sea Fox with remarkable speed after its introduction in the mid-thirty-second century. Unusual in both appearance and philosophy among Clan designs, the 'Mech found immediate acceptance within the Sea Fox touman, where its durability and forgiving handling characteristics aligned well with the Clan's pragmatic approach to warfare. Clan Sea Fox offered the Hammerhead for export to all interested Clan buyers, and demand proved substantial. As Clans Jade Falcon and Wolf encountered opposing Hammerheads on battlefields across the Inner Sphere, both factions placed increasingly heavy orders of their own, feeding an escalating arms race in the years leading up to the ilClan conflict. Clan Ghost Bear developed a particular affinity for the design, admiring its resilience and unyielding nature.</p><p>Ghost Bear forces deployed numerous Hammerheads along their border with the Draconis Combine, where the 'Mech's ability to absorb punishment proved well-suited to defensive operations. During the Ghost Bear seizure of Lambrecht in 3150, elements of the Third An Ting Legion were brought from their posting on Ascella to reclaim the planet. A combat drop atop the Fifth Bear Guards was intended to scatter the defenders, but Ghost Bear forces held firm. A Star of Hammerheads and Ursuses withstood a charge from an entire company of An Ting BattleMechs, refusing to fall back and pinning the Kuritans in place until reinforcements could flank them.</p><p>The Hammerhead's influence extended beyond Clan Sea Fox's own production lines. Clan Wolf's development of the hundred-ton Amarok assault 'Mech drew direct inspiration from the Hammerhead's hulking arm design and hardened armor philosophy. The resemblance was close enough that Clan Sea Fox waged a series of Trials over what they considered design element theft, though the Wolves ultimately prevailed in these contests. Tensions between the two Clans over intellectual property did not prevent continued Hammerhead sales, however, as Clan Sea Fox proved willing to accept commerce even from rivals.</p><p>Clan Sea Fox also leveraged the Hammerhead's popularity to expand its commercial reach beyond Clan space. On Corey, Capellan authorities repeatedly rebuffed the Skate Khanate's attempts to establish trade relations, culminating in a confrontation in 3149 when Capellan aerospace fighters opened fire on a pair of Sea Fox Mule DropShips. The resulting batchall saw Hammerheads spearhead the assault on Capellan fortifications, tearing through defensive positions and pushing into the enemy's rear while heavier Stars exploited the breach. The engagement ended with Clan Sea Fox claiming the spaceport and surrounding facilities. The only persistent complaint regarding the design has been reports of occasional software glitches in exported models, which Sea Fox engineers attribute to conflicting software requirements from their diverse customer base.</p>
+
+manufacturer:Manufacturing Plant SSF-IT1
+
+primaryfactory:Itabaiana
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:SFAM
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:Firebox
+systemmode:ENGINE:270 XL
+systemmanufacturer:ARMOR:Double-Forged
+systemmode:ARMOR:ZX20 Hardened
+systemmanufacturer:COMMUNICATIONS:Comset
+systemmode:COMMUNICATIONS:1
+systemmanufacturer:TARGETING:Dtrac
+systemmode:TARGETING:Suite 4

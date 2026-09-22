@@ -1,0 +1,193 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c15b-7f50-acd3-4b7d307d4f94
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Assassin
+model:ASN-SB
+
+Config:Biped
+techbase:Inner Sphere
+era:3021
+source:TR:3025C
+rules level:1
+role:Scout
+
+quirk:cramped_cockpit
+quirk:easy_maintain
+quirk:poor_life_support
+quirk:non_standard
+
+mass:40
+engine:280 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:7
+jump mp:7
+
+armor:Standard(Inner Sphere)
+LA armor:8
+RA armor:8
+LT armor:10
+RT armor:10
+CT armor:12
+HD armor:8
+LL armor:12
+RL armor:12
+RTL armor:2
+RTR armor:2
+RTC armor:4
+
+Weapons:3
+Medium Laser, Right Arm
+Medium Laser, Left Torso
+LRM 5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+LRM 5
+IS Ammo LRM-5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Assassin was introduced in 2676 as the product of corporate ambition rather than military necessity. Maltex Corporation successfully lobbied the Star League to purchase the design as a replacement for the lighter Wasp and Stinger reconnaissance 'Mechs, achieving this through over-hyped performance statistics, fudged budget approximations, and political maneuvering. Despite this inauspicious origin, the forty-ton Assassin proved itself a capable light 'Mech hunter with impressive speed and jumping capability, and its modular design and ease of maintenance allowed it to persist through centuries of warfare long after Maltex's own fortunes had faded. Hellespont 'Mech Works revived the chassis in the late Jihad era, ensuring the Assassin remains a common sight in Capellan and Periphery forces.</p>
+
+capabilities:<p>The Assassin combines respectable mobility with adequate firepower for its intended role as a reconnaissance platform and light 'Mech hunter. Its VOX 280 fusion engine propels the forty-ton chassis to speeds of 118 kilometers per hour, while seven Lox Lift Series 1 jump jets provide an impressive 210-meter jumping distance that allows pilots to exploit terrain advantages against heavier opponents.</p><p>The weapons suite centers on a Holly-5 LRM-5 launcher for long-range harassment, supplemented by a Holly-2 SRM-2 rack and arm-mounted Martell medium laser for close engagements. This combination provides flexibility across engagement ranges, though the design's limited ammunition capacity of just seventy-four total rounds restricts extended operations without resupply. The SRM launcher's ammunition feed system is also prone to jamming in high-heat situations, a persistent concern that has led many operators to adopt conservative firing disciplines during sustained engagements.</p><p>The Assassin's most significant weakness lies in its cockpit design. Maltex's cost-cutting measures produced one of the most cramped cockpits in the Inner Sphere, limiting pilot endurance to half that of comparable designs and causing many veterans to develop chronic back problems. Despite numerous redesign attempts over four centuries, this fundamental flaw has never been adequately addressed in standard production models.</p>
+
+deployment:<p>Developed by the highly skilled technicians of the Hat-in-the-Ring Battalion, a longtime Davion-allied mercenary unit, this variant serves as a practical field modification that became routine within that organization. The conversion drops the problematic SRM-2 launcher and its ammunition in favor of an additional medium laser and approximately one ton of extra armor concentrated on the legs. This modification addresses two of the original design's weaknesses simultaneously, eliminating the ammunition-dependent and jam-prone short-range missile system while improving survivability against the leg attacks common in light 'Mech engagements. The simplicity of the conversion allowed it to spread beyond the Hat-in-the-Ring Battalion to other units with capable technical support.</p>
+
+history:<p>The Assassin's troubled history began when Maltex Corporation secured Star League Defense Force contracts through aggressive lobbying rather than superior design. Only several hundred units were produced before quality control investigations slowed production to a crawl, and the design was quietly shuffled to Periphery garrisons and militia markets. The primary manufacturing facility on Errai was destroyed in 2835 during the Second Succession War, further limiting the chassis's availability.</p><p>House Marik became the Assassin's most enthusiastic user during the Third Succession War. The 'Mech's impressive performance during the Battle of Rochelle in 2980, where it excelled in muddy conditions that hampered heavier designs, led to widespread adoption in Free Worlds League garrison forces. Marik commanders frequently assigned Assassins to rear-area raiding parties, where their speed and jump capability proved invaluable for hit-and-run operations.</p><p>The Capellan Confederation exhausted its Assassin inventory by 3025, and spare parts shortages plagued operators across the Inner Sphere. By 3058, most surviving Assassins had been phased out of frontline service, with the remaining examples typically serving as family heirlooms passed down through MechWarrior dynasties, often sporting extensive field modifications.</p><p>The Assassin's fortunes reversed dramatically in late 3067 when Hellespont 'Mech Works acquired the design from Maltex Corporation. Distracted by Jihad-era chaos, tax evasion charges, and suspected Word of Blake connections, Maltex readily surrendered control. Hellespont began producing upgraded variants for the Capellan Confederation Armed Forces, Taurian Defense Force, and Magistracy Armed Forces, using the chassis as an economical means to rebuild shattered formations. The design's shared components with the Raven II further simplified logistics for Capellan operators.</p><p>Defiance Industries' attempt to produce the ASN-30 variant for Lyran forces during the FedCom Civil War proved largely unsuccessful, with the radical redesign failing to win acceptance. However, Hellespont's more conservative upgrades have ensured the Assassin remains a common sight in Capellan and Periphery forces well into the thirty-second century.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

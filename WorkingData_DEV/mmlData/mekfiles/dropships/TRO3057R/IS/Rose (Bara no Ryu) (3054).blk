@@ -1,0 +1,259 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab48-7bd1-85ff-86febdd888f7
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Rose (Bara no Ryu)
+</Name>
+
+<Model>
+(3054)
+</Model>
+
+<mul id:>
+4938
+</mul id:>
+
+<year>
+3054
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+smallcraftbay:4.0:4:1::-1:0
+infantrybay:1.0:1:2:Foot:-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:80.0:0:-1::-1:0
+crewquarters:280.0:0:-1::-1:0
+cargobay:9969.0:3:6::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+168
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+1800
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+150
+120
+120
+105
+</armor>
+
+<Nose Equipment>
+(B) ISGaussRifle
+IS Gauss Ammo:16
+(B) ISERLargeLaser
+Medium Laser
+(B) LRM 15
+IS Ammo LRM-15 Artemis-capable:16
+ISArtemisIV
+(B) ISERPPC
+ISERPPC
+(B) ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISERLargeLaser
+Medium Laser
+(B) ISLargePulseLaser
+ISMediumPulseLaser
+(R) (B) Medium Laser
+(R) (B) LRM 15
+(R) IS Ammo LRM-15 Artemis-capable:16
+(R) ISArtemisIV
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISERLargeLaser
+Medium Laser
+(B) ISLargePulseLaser
+ISMediumPulseLaser
+(R) (B) Medium Laser
+(R) (B) LRM 15
+(R) IS Ammo LRM-15 Artemis-capable:16
+(R) ISArtemisIV
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Medium Laser
+(B) LRM 15
+IS Ammo LRM-15 Artemis-capable:16
+ISArtemisIV
+(B) ISERPPC
+(B) ISMediumPulseLaser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+10
+</structural_integrity>
+
+<capabilities>
+<p>The Rose conceals a formidable military arsenal beneath its merchant vessel exterior. The nose mounts a Gauss rifle, an ER large laser, two ER PPCs, a large pulse laser, two medium pulse lasers, a standard medium laser, and an Artemis IV-equipped LRM-15. Each broadside carries an ER large laser, a large pulse laser, a medium pulse laser, two standard medium lasers, and an Artemis IV-equipped LRM-15. The aft arc mounts an ER PPC, a medium pulse laser, a standard medium laser, and an Artemis IV-equipped LRM-15. One hundred sixty-eight single heat sinks manage the thermal load.</p><p>The vessel's primary function is cargo transport, with nearly 10,000 tons of cargo capacity for foodstuffs, construction materials, and military equipment. Quarters for one infantry platoon are provided in spartan but comfortable accommodations. Four small craft bays support fighter operations. However, the Rose is deliberately lightly armored to maintain its merchant disguise, carrying only 32 tons of protection. Captains are trained to rely on the vessel's superior maneuverability at safe thrust 4g to escape contact, reserving its weapons for desperate situations where flight is not an option.</p>
+</capabilities>
+
+<overview>
+<p>The Bara no Ryu, or Rose as it is more commonly known, is a sophisticated military transport disguised as a civilian merchantman. Developed for the Draconis Combine Mustered Soldiery, this 16,000-ton spheroid vessel was designed to appear as an innocuous cargo hauler while concealing advanced military hardware beneath its harmless exterior. First entering service in 3054, the Rose's deceptive appearance has proven a decisive tactical advantage, allowing it to operate in sensitive areas without drawing unwanted attention. The design's resemblance to common merchant vessels such as the Mule makes it virtually indistinguishable from legitimate commercial traffic until its concealed weapons are brought to bear on unsuspecting adversaries.</p>
+</overview>
+
+<deployment>
+<p>All nine original Rose class vessels serve exclusively within the DCMS, primarily as covert supply ships for the Explorer Corps. These vessels transport equipment, personnel, and supplies to facilities in the Periphery, disguising their military cargo as routine commercial shipments. The Rose's merchant appearance allows it to operate in sensitive regions without attracting the suspicion that a conventional military transport would invite.</p>
+</deployment>
+
+<history>
+<p>The Rose was developed by the DCMS as a covert military transport to support the ComStar Explorer Corps' search for the Clan Homeworlds during the mid-3050s, operations largely staged from the world of Wolcott. All nine initial Rose class vessels were purchased by the DCMS, with outbound cargo first shipped to Wolcott through conventional logistics channels where it was hidden in the massive volume of routine military traffic. Equipment was then secretly loaded onto Rose class vessels at the new Anson facility. Returning vessels carried out similar deceptions, unloading military cargo at the facility and collecting innocuous raw materials that could be sold on the open market as produce from new mining colonies.</p><p>The Rose's combat capability was dramatically demonstrated when a Clan Broadsword class vessel encountered a Rose and its JumpShip at the uninhabited system LM-52 9366 in the Draconis Drift. The Rose was transporting BattleMechs when the Clan vessel initiated contact and, believing it had found a mere merchant, announced its intention to send a boarding party. When the unsuspecting Clan vessel maneuvered to dock, the Rose unleashed its concealed nose-bay weapons at close range. The first volley destroyed the Broadsword's BattleMech bay door, causing a catastrophic atmosphere breach that sent the Clan vessel spinning out of control. The Rose's four small craft swiftly dispatched the crippled ship.</p>
+</history>
+
+<manufacturer>
+BBP Industries
+</manufacturer>
+
+<primaryFactory>
+Luthien
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:unknown
+ENGINE:Unknown
+ARMOR:unknown
+COMMUNICATIONS:unknown
+TARGETING:unknown
+</systemModels>
+
+<use>
+Cargo Carrier
+</use>
+
+<length>
+120 meters
+</length>
+
+<width>
+117 meters
+</width>
+
+<height>
+137 meters
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+16000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+96
+</crew>
+
+<officers>
+8
+</officers>
+
+<gunners>
+5
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+6
+</escape_pod>
+

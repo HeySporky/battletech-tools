@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c124-734c-a41a-b8f747506413
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Archer
+model:ARC-2L
+
+Config:Biped
+techbase:Inner Sphere
+era:2803
+source:TR:3025C
+rules level:1
+role:Missile Boat
+
+quirk:battle_fists_la
+quirk:battle_fists_ra
+quirk:stable
+quirk:command_mech
+quirk:ubiquitous_is
+
+mass:70
+engine:280 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:24
+RT armor:24
+CT armor:33
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:6
+RTR armor:6
+RTC armor:10
+
+Weapons:8
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+LRM 15, Left Torso
+Flamer, Left Torso
+LRM 15, Right Torso
+Flamer, Right Torso
+Medium Laser, Center Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Jump Jet
+LRM 15
+LRM 15
+LRM 15
+Flamer
+IS Ammo LRM-15
+IS Ammo LRM-15
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+LRM 15
+LRM 15
+LRM 15
+Flamer
+IS Ammo LRM-15
+IS Ammo LRM-15
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser (R)
+Medium Laser (R)
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>First produced in 2474 by Earthwerks Incorporated for the Terran Hegemony, the Archer is a seventy-ton heavy fire support BattleMech that has earned a reputation as one of the most iconic and widely fielded designs in the Inner Sphere. Prototyped as the ARC-1A in 2458, the refined ARC-2R quickly proved itself as a premier missile platform and close-range brawler, its distinctive low-slung torso, massive fists, and missile-bay coverings instantly recognizable on any battlefield. Manufactured across multiple factory worlds and fielded by every major military power, the Archer remains a cornerstone of heavy 'Mech doctrine from the Age of War through the ilClan era.</p>
+
+capabilities:<p>The core of the Archer's firepower rests in a pair of massive Doombud LRM-20 launchers supplied with four tons of ammunition, providing approximately two minutes of continuous fire. The missiles' inaccuracy at short range necessitated the addition of four Diverse Optics Type 18 medium lasers as secondary armament, with one mounted in each arm and two positioned on a centrally located turret above the cockpit. This turret placement grants the rear-firing lasers a clear field of fire against targets behind the 'Mech, a feature that has proven valuable against flanking light 'Mechs and battle armor. The Archer's oversized battlefists further enhance its close-combat capability and allow it to easily pilfer supplies during raids.</p><p>Thirteen tons of Maximillian 100 armor provide excellent protection for the Archer's weight class, with the torso armor belt positioned above the cockpit to shield the gyro and engine from direct fire. This arrangement places the cockpit beneath the central torso, giving MechWarriors a unique and low battlefield perspective. However, the Archer suffers from a poor heat management system, with only ten single heat sinks struggling to dissipate the waste heat generated when both LRM launchers and lasers fire simultaneously. The design's ubiquity also works against it, as most enemy pilots are intimately familiar with the Archer's capabilities and know precisely how to exploit its weaknesses.</p>
+
+deployment:<p>House Liao's answer to the Archer question added a dimension of mobility absent from other Succession Wars variants. The ARC-2L reduced its missile launcher size slightly to accommodate jump jets, giving the normally ground-bound Archer the ability to navigate rough terrain and reposition tactically. Two flamers rounded out the modifications, providing the Capellan variant with anti-infantry capability and a psychological weapon useful in the raiding operations that Liao forces frequently conducted along their borders. The combination of jump capability and flamers made this variant particularly effective in the close-terrain fighting common to the Capellan March.</p>
+
+history:<p>The Archer's development began when Earthwerks Incorporated of Terra assembled a design team combining former HAF MechWarriors, field technicians, general officer consultants, and company engineers under Supervising Engineer Linn Tommi. The resulting squabbles between theoretical and practical approaches delayed the project, but the ARC-1A prototype that emerged in 2458 earned praise for its reliability and ease of maintenance. The Hegemony Armed Forces made it their standard fire-support BattleMech, assigning whole lances to most battalions. The ARC-1A served faithfully for over a decade and a half before technological advances allowed Earthwerks to produce the more efficient ARC-2R model, which debuted in 2474 and quickly became the definitive variant.</p><p>Production expanded rapidly as the Star League's formation and the Reunification War drove demand, forcing Earthwerks to sub-contract production to multiple manufacturers. By the time of the Star League's collapse, Earthwerks on Calloway VI, Defiance Industries on Hesperus II, Gorton Kingsley and Thorpe Enterprises on Satalice, Vandenberg Mechanized Industries on New Vandenberg, Bowie Industries on Carlisle, and LexaTech Industries on Irece all maintained active production lines. The Succession Wars destroyed vast numbers of Archers, but the breadth of its manufacturing base ensured a steady supply throughout the conflicts.</p><p>The recovery of the Helm Memory Core in 3028 breathed new life into the Archer program. Earthwerks introduced the ARC-4M on Calloway VI in 3049, incorporating recovered Star League technology for improved accuracy and structural efficiency, and many observers considered it the post-Succession Wars benchmark model. The Free Rasalhague Republic fielded the ARC-5R from the GKT plant on Satalice, while Defiance Industries on Hesperus II produced the ARC-5S for the Federated Commonwealth. Wolf's Dragoons built their own ARC-5W through Bowie Industries on Alarion and later through Blackwell Corporation on Outreach. By the Clan Invasion, only Vandenberg Mechanized Industries continued building original ARC-2R models for the Taurian Concordat.</p><p>The Jihad era saw further diversification as Earthwerks Ltd. on Calloway VI produced the ARC-8M for the Word of Blake Militia, while Bowie Industries developed the ARC-6S and later the improved ARC-7S from their surviving Carlisle plant. The Taurians fielded the rocket-launcher-equipped ARC-6W from Vandenberg, and the Capellan Confederation received the stealth-armored ARC-7L from Earthwerks on Grand Base. Bowie Industries, Earthwerks, and LexaTech Industries on Hun Ho all manufactured the ARC-9M during the late Jihad. The Republic of the Sphere invested heavily in the Archer following its founding, with Earthwerks on Terra producing the mixed-technology ARC-7C and deploying Archers to every active unit by the 3120s.</p><p>Scarcely an engagement of note has gone by in the last seven hundred years without an Archer present. From the Succession Wars through the Clan Invasion, the Jihad, and into the Dark Age, the Archer has served with distinction in every major military and countless mercenary commands. The ARC-4M remained in steady production on Calloway VI for nearly a century before being succeeded by the ARC-4M2, evidence of its near-perfect design. Clan second-line units refit captured Archers with modern weaponry, and Wolf's Dragoons introduced their own ClanTech variant based on their legendary commander's personal modifications. The Archer's combination of reliability, firepower, and adaptability ensures it will remain a battlefield fixture for centuries to come.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Earthwerks
+systemmode:CHASSIS:Archer
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:VOX 280
+systemmanufacturer:ARMOR:Maximillian
+systemmode:ARMOR:Maximillian 100
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Neil
+systemmode:COMMUNICATIONS:9000
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac Mark XII

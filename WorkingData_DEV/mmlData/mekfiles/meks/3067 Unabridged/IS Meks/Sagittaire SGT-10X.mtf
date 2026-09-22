@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cdfc-71f6-84b0-5244f92d0bde
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Sagittaire
+model:SGT-10X
+mul id:5718
+
+Config:Biped
+techbase:Inner Sphere
+era:3084
+source:TR:J
+published:RS:3067u
+rules level:2
+role:Brawler
+
+quirk:difficult_maintain
+quirk:weak_head_1
+quirk:imp_target_short
+
+mass:95
+engine:285 Light Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:18 IS Double
+walk mp:3
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:31
+RA armor:31
+LT armor:30
+RT armor:30
+CT armor:44
+HD armor:9
+LL armor:39
+RL armor:39
+RTL armor:10
+RTR armor:10
+RTC armor:15
+
+Weapons:6
+Light PPC, Left Arm
+Light PPC, Right Arm
+Medium VSP Laser, Left Torso
+Medium VSP Laser, Left Torso
+Medium VSP Laser, Right Torso
+Medium VSP Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Light PPC
+Light PPC
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Light PPC
+Light PPC
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Improved Jump Jet
+Improved Jump Jet
+ISMediumVSPLaser
+ISMediumVSPLaser
+ISMediumVSPLaser
+ISMediumVSPLaser
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Improved Jump Jet
+Improved Jump Jet
+ISMediumVSPLaser
+ISMediumVSPLaser
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISMediumVSPLaser
+ISMediumVSPLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Sagittaire is a ninety-five-ton assault BattleMech designed by Robinson Standard BattleWorks for close-quarters and urban combat. Production began in mid-3063 during the FedCom Civil War, when MechWarriors across the Federated Commonwealth demanded machines capable of devastating short-range firepower in city fighting and close engagements. Robinson's semi-isolationist policies initially limited distribution beyond the Draconis March, but the escalating conflict quickly drove wider demand.</p><p>The design is one of the few ninety-five-ton assault 'Mechs to combine massive energy firepower with jump capability, a combination that has earned it a fearsome reputation on battlefields from the Civil War through the ilClan era.</p>
+
+capabilities:<p>The Sagittaire centers its combat philosophy around devastating short-range energy firepower enhanced by advanced targeting systems. A Pitban 285 XL engine drives the 'Mech to a top speed of 54 kph, while three HildCo LFT 9-X jump jets grant ninety meters of jumping capability, a remarkable feature for a chassis of this tonnage. The psychological impact of such a heavy machine flying through the air has proven as devastating as the weapons it carries. Eighteen tons of Starshield Special Heavy armor provides excellent protection, though the extralight engine remains the design's primary vulnerability.</p><p>The weapon suite is built entirely around pulse laser technology linked to a Federated Stalker targeting computer. A single Defiance 1001 extended-range PPC provides long-range striking power, but the Sagittaire truly excels at close quarters. Twin Magna 900P large pulse lasers serve as the primary armament, supported by five Magna 600P medium pulse lasers, two of which cover the rear arc, and a single Magna 200P small pulse laser.</p><p>Seventeen double heat sinks manage the considerable heat load, though sustained fire from all weapons will overwhelm cooling capacity. The targeting computer enhances every weapon's accuracy, making the pulse laser suite particularly lethal in the close-range engagements the design was built to dominate.</p>
+
+deployment:<p>A post-Jihad redesign introduced in 3084, this variant stands as a significant philosophical shift from the original Sagittaire concept. A light fusion engine replaces the extralight model, dramatically improving survivability at the cost of some internal space. The entire weapon suite is rebuilt around four medium variable-speed pulse lasers and two light PPCs, while five improved jump jets extend the jumping range to an impressive 150 meters. Eighteen double heat sinks manage the reduced heat load. This limited production variant replaced Ostsol manufacturing at Robinson Standard BattleWorks during the 3090s, trading the raw close-range devastation of the original for enhanced durability and exceptional mobility.</p>
+
+history:<p>The Sagittaire's history is inseparable from the turbulent politics of the Draconis March and the Sandoval family's ambitions. Robinson Standard BattleWorks began production in mid-3063, and Duke James Sandoval quickly deployed the new assault 'Mech against House Kurita as he committed heavy resources to seizing Combine border worlds. The Sagittaire proved instrumental during the assault on Proserpina, where a lance of the design engaged and destroyed an entire company of the Ninth Benjamin Regulars in a series of brutal close-quarters duels that demonstrated the 'Mech's devastating effectiveness in exactly the kind of fighting it was designed for.</p><p>The design's combat performance drew immediate attention from the Draconis Combine, which made concerted efforts to capture or salvage Sagittaires during House Kurita's counter-offensives. As Katherine Steiner-Davion tightened her control over the Draconis March, Duke Sandoval redirected Sagittaire production to loyalist forces. This arrangement proved short-lived when Tancred Sandoval deposed his father and shifted the entire production line to support forces loyal to Victor Steiner-Davion. The battle for the continental capital of Flensburg on New Avalon illustrated the Sagittaire's proliferation across both sides of the conflict, with allied and loyalist companies each fielding lances of the design during bitter urban fighting.</p><p>The Jihad devastated Robinson Standard BattleWorks, halting Sagittaire production by 3079. The factory slowly rebuilt during the early Republic era, eventually introducing the redesigned SGT-10X variant as a limited production run in the 3080s, replacing Ostsol production at the facility by the 3090s. The SGT-14D followed during the Dark Age as Robinson Standard continued to evolve the design with increasingly advanced technology.</p><p>Robinson's capture by the Draconis Combine during the mid-3140s placed the production facilities under Kuritan control, with the DCMS commissioning new variants for its own forces. Task Force Eruptio's liberation of Robinson in 3149 returned the factory to Federated Suns control, but Kuritan occupation forces had stripped unique technology from the assembly lines and shipped it to the Imperial Institute of Technology for analysis. Robinson Standard BattleWorks adapted by incorporating Clan-grade components from their Black Knight production facilities, producing the SGT-14R to bolster the AFFS rebuilding effort. Every new Sagittaire now flows to Draconis March commands engaged in frontier operations along the Combine border.</p>
+
+manufacturer:Robinson Standard BattleWorks
+
+primaryfactory:Robinson
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Skuel
+systemmode:CHASSIS:Heavy TRQ
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:285 Light
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:Special Heavy
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Sony
+systemmode:COMMUNICATIONS:MSF-31
+systemmanufacturer:TARGETING:Federated Stalker
+systemmode:TARGETING:Unknown

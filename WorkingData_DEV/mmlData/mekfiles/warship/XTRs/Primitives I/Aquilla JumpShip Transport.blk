@@ -1,0 +1,260 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eee6-7843-8845-0ca0c5be443f
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Aquilla Transport JumpShip
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3713
+</mul id:>
+
+<year>
+2148
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+obsolete:2577
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:8.0:4:1::-1:0
+dropshuttlebay:2.0:1:2::0:0
+1stclassquarters:120.0:0:-1::-1:0
+crewquarters:385.0:0:-1::-1:0
+2ndclassquarters:210.0:0:-1::-1:0
+cargobay:10175.0:1:7::-1:0
+cargobay:10175.5:1:6::-1:0
+</transporters>
+
+<SafeThrust>
+1
+</SafeThrust>
+
+<heatsinks>
+154
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+12500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+40
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+3
+2
+2
+2
+2
+2
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Front Side Equipment>
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+</Right Front Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+</Right Broadsides Equipment>
+
+<structural_integrity>
+10
+</structural_integrity>
+
+<capabilities>
+<p>Displacing one hundred thousand tons, the Aquilla mounted a primitive Kearny-Fuchida drive limited to a maximum jump range of fifteen light-years, roughly three-quarters the distance achievable by later standardized drive systems. The vessel lacked a solar sail, instead relying entirely on onboard fuel reserves to recharge the drive between transits, a process that significantly extended turnaround times compared to later designs. Station-keeping thrust was modest, with safe acceleration limited to a single gravity and emergency thrust reaching only twice that figure, reflecting the design's fundamental emphasis on cargo capacity over maneuverability.</p><p>Unable to receive modern DropShips, the Aquilla instead carried a complement of eight small craft that served as the sole means of transferring cargo and passengers between the vessel and planetary surfaces. Two cavernous cargo holds provided over thirty-six thousand tons of combined capacity, making the class an effective bulk transport despite its technological limitations. Defensive armament consisted of autocannon and machine gun batteries distributed across multiple firing arcs, sufficient to discourage opportunistic raiders but wholly inadequate against dedicated WarShips. Eighty tons of primitive armor provided only modest protection, reinforcing the Aquilla's civilian transport origins rather than any pretension to military capability.</p>
+</capabilities>
+
+<overview>
+<p>The Aquilla-class transport JumpShip was designed by Boeing Interstellar at its Lunar Orbit facility, entering service in 2148 as one of humanity's earliest purpose-built interstellar transport vessels. Commissioned during the initial wave of colonization beyond the Sol system, the Aquilla was a pioneering effort in starship design, conceived to support sustained settlement operations across the growing web of human-inhabited worlds.</p><p>The class predated many technologies that would later become standard across all jump-capable vessels, emerging in an era when interstellar travel itself remained a relatively new and unrefined capability. Despite its primitive systems by later standards, the Aquilla proved a capable and reliable platform during the critical early decades of humanity's expansion beyond Terra, earning a solid reputation as a workhorse of the colonization era.</p>
+</overview>
+
+<deployment>
+<p>Two Aquilla-class vessels are recorded by name in the historical record: the TAS Charger and the TAS Philadelphia, both operating under the Terran Alliance flag during the design's early service period. Little specific operational detail survives regarding either vessel, though their designations confirm the Aquilla's integral role within the Alliance's nascent interstellar transport fleet during the initial decades of human expansion beyond Sol. Both vessels likely served as dedicated logistics platforms, ferrying colonists and materiel to newly established settlements under Terran Alliance authority before the political fragmentation that eventually dissolved Alliance control over its distant colonies.</p>
+</deployment>
+
+<history>
+<p>Boeing Interstellar laid down the first Aquilla-class keels at its Lunar Orbit shipyard in the mid-twenty-second century, with the class entering service in 2148 during the earliest phase of humanity's expansion beyond the Sol system. The design arrived at a decisive moment in human history, as the development of practical interstellar jump drive technology had opened the stars to colonization, yet the infrastructure required to support sustained settlement operations remained in its infancy. The Aquilla filled a critical niche as a dedicated transport platform, capable of ferrying colonists, equipment, and supplies to newly established worlds across an expanding sphere of human habitation.</p><p>The class played a significant role in the great Periphery migrations of the twenty-third and twenty-fourth centuries. Converted Aquillas formed part of the flotilla that carried Samantha Calderon and her followers to the worlds that would become the Taurian Concordat, a sign of the design's durability and adaptability even decades after its initial introduction. The Magistracy of Canopus similarly found continued value in the class, acquiring and navalizing surplus examples that served as auxiliary combatants during the Reunification War, their expansive cargo bays repurposed to support resistance operations against Star League military expansion into the Periphery.</p><p>The Aquilla's primitive systems became increasingly significant drawbacks as interstellar commerce and military logistics matured. The development of standardized docking collar technology rendered the class economically obsolete, as newer JumpShip designs capable of rapid cargo exchange proved vastly more efficient for both civilian and military applications. Production at Boeing Interstellar's facility wound down as demand shifted decisively toward more capable platforms, and surviving Aquillas were gradually retired from frontline transport duties across the Inner Sphere.</p><p>During the Outer Reaches Rebellion, at least one vessel of the class gained notoriety when it deployed space mines in the Ryde system, destroying several Terran Alliance JumpShips in an engagement that demonstrated how even an obsolescent transport could be repurposed as an effective instrument of asymmetric warfare. This incident highlighted the Aquilla's adaptability and the desperate ingenuity of Periphery forces operating with limited resources against a technologically superior opponent. By the dawn of the Age of War, the class had largely passed from active service, its role assumed by successive generations of increasingly capable transport vessels. The Aquilla occupied an honored place in the annals of interstellar travel as one of the foundational starship designs that carried humanity beyond the confines of its home system.</p>
+</history>
+
+<manufacturer>
+Boeing Interstellar
+</manufacturer>
+
+<primaryFactory>
+Lunar Orbit
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Transport
+</use>
+
+<length>
+305 m
+</length>
+
+<width>
+53 m
+</width>
+
+<height>
+45 m
+</height>
+
+<source>
+XTR:Primitives I
+</source>
+
+<published>
+XTR:Primitives I
+</published>
+
+<tonnage>
+100000.0
+</tonnage>
+
+<kf_core>
+4
+</kf_core>
+
+<jump_range>
+15
+</jump_range>
+
+<sail>
+0
+</sail>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+107
+</crew>
+
+<officers>
+12
+</officers>
+
+<gunners>
+2
+</gunners>
+
+<passengers>
+30
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+20
+</escape_pod>
+

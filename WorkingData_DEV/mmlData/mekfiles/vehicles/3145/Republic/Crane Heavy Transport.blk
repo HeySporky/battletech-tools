@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e85c-741f-b90c-aeb1465e88b0
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Crane Heavy Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6655
+</mul id:>
+
+<year>
+3130
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<quirks>
+vtol_rotor_dual
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+troopspace:8.0
+</transporters>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+30
+30
+30
+20
+2
+</armor>
+
+<Body Equipment>
+SponsonTurret
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+Machine Gun(ST)
+Machine Gun(ST)
+</Right Equipment>
+
+<Left Equipment>
+Machine Gun(ST)
+Machine Gun(ST)
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>A Hermes 100 Fusion power plant drives the Crane to a cruising speed of 86 kilometers per hour with a maximum of 129, giving it performance suitable for both rapid insertion and sustained logistics runs across a theater of operations. The hull mounts StarSlab/3 armor in substantial quantity, providing protection considerably greater than most VTOL transports of comparable weight can achieve. This durability is central to the design philosophy: the Crane is built to operate in contested airspace and to survive incidental fire during troop deliveries rather than relying entirely on escort assets.</p><p>Combat armament consists of four Scattergun Machine Guns, a deliberately modest package suited to suppressing infantry and deterring light vehicles. The loadout offers no meaningful defense against dedicated gunships or armored opponents, and crews operating in high-threat environments depend on fighter or attack helicopter escorts for protection against serious threats. The Crane's genuine tactical value lies in its cargo capacity and operational flexibility. Airmobile formations use a single Crane to deliver infantry in the opening phase of an operation and then return with ammunition, medical supplies, or replacement personnel, reducing the need for dedicated resupply aircraft. The Garret T10-B communications system and Garret E2b targeting suite provide reliable electronics matched to the vehicle's transport mission profile. When pressed into a direct combat role the design is exposed, and experienced crews know to prioritize evasion and terrain masking over engagement.</p>
+</capabilities>
+
+<overview>
+<p>The Crane Heavy Transport entered service in 3130, barely two years before the HPG Blackout transformed the political theater of the Inner Sphere. Michaelson Heavy Industries designed the vehicle for broad commercial appeal, anticipating growing demand for reliable VTOL-mobile logistics in an era of expanding airmobile doctrine. That calculation proved accurate almost immediately. Procurement inquiries arrived from every major Successor State, and many planetary governments placed independent orders alongside their respective national militaries. The combination of genuine cargo and troop lift capacity with armor protection well above what most dedicated transport platforms offer set the Crane apart in a crowded market. By the time the Blackout disrupted conventional communications and supply chains, the Crane was already embedded in logistics networks across dozens of worlds, positioned to serve whatever factions emerged from the resulting chaos.</p>
+</overview>
+
+<deployment>
+<p>The Crane's wide distribution and commercial availability make it a practical choice for nearly any armed force operating in the Dark Age period. Airmobile formations across the Inner Sphere prize it as a combined insertion and logistics platform, relying on a single vehicle type to deliver infantry in the opening phase of an operation before returning with resupply rather than committing dedicated cargo aircraft. Planetary militia forces, private security contractors, and commercial freight operators have adopted the type in comparable numbers. The vehicle's unremarkable profile on civilian flight lines is an operational asset in its own right, allowing intelligence elements to pre-position Cranes on contested worlds without attracting immediate scrutiny. Many vehicles assigned to monitoring missions were deliberately left behind when those missions concluded, absorbed into occupying forces or transferred to local civilian organizations rather than risk exposing their provenance through an extraction attempt.</p>
+</deployment>
+
+<history>
+<p>Michaelson Heavy Industries began production of the Crane at their June facility in 3130, with plants on Ruchbah and Terra added shortly thereafter to meet anticipated cross-faction demand. The timing proved consequential. When the Gray Monday HPG Blackout in 3132 fractured Republic of the Sphere communications and triggered the collapse of prefecture governance across much of the Inner Sphere, the Crane was already in service across dozens of worlds. Its straightforward logistics role made it useful to almost any faction: occupation forces employed it for troop movement, relief organizations requisitioned it for humanitarian aid, and intelligence services valued its unremarkable appearance on crowded flight lines.</p><p>In 3139, a Periphery pirate raid on the Federated Suns world of Basantapur destroyed a major hydroelectric facility and left tens of thousands of civilians without power. A relief contingent assembled rapidly from nearby assets, with more than a dozen Cranes flying around-the-clock shifts delivering food, water, medical supplies, and security personnel to affected communities. The operation ran for weeks and demonstrated the practical utility of positioning heavy transport VTOLs on worlds with accessible production infrastructure, a lesson that informed Republic logistics planning throughout the occupation period.</p><p>Republic of the Sphere intelligence operations during the turbulent 3140s employed Cranes in a more morally ambiguous capacity. On Milton, following its absorption by the Wolf Empire, RAF assets coordinated with locally embedded Cranes for a covert strike against a Watch facility being rebuilt from a Succession Wars-era bunker. Two Cranes delivered assault teams who successfully destroyed the installation, and captured Clan battle armor was left at the site as a deliberate intelligence plant implicating the Free Worlds League Military. The misdirection briefly complicated Wolf-League relations and typified the quiet, indirect work the Crane performed for Republic intelligence elements throughout the occupation period. The design's greatest strategic asset proved to be exactly what its designers had intended from the outset: it looked like a transport, because it was one.</p>
+</history>
+
+<manufacturer>
+Michaelson Heavy Industries|Michaelson Heavy Industries|Michaelson Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+June|Ruchbah|Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Hermes
+ARMOR:Brooks, Inc.
+JUMP_JET:N/A
+COMMUNICATIONS:Garret
+TARGETING:Garret
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:100 Fusion
+ARMOR:StarSlab/3
+JUMP_JET:N/A
+COMMUNICATIONS:T10-B
+TARGETING:E2b
+</systemModels>
+
+<source>
+TR:3145:RotS,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

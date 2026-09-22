@@ -1,0 +1,376 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ecf6-78b4-9f64-860430144d2c
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Kimagure Pursuit Cruiser
+</Name>
+
+<Model>
+(2582)
+</Model>
+
+<mul id:>
+4442
+</mul id:>
+
+<year>
+2582
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:12.0:6:1::-1:0
+cargobay:8968.0:5:2::-1:0
+dockingcollar
+dockingcollar
+steeragequarters:150.0:0:-1::-1:0
+1stclassquarters:500.0:0:-1::-1:0
+crewquarters:1575.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+2500
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+12750
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+11
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+180
+150
+150
+120
+139
+139
+</armor>
+
+<Nose Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Medium)
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+(B) ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:50
+IS LB 10-X AC Ammo:40
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+(B) ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:50
+IS LB 10-X AC Ammo:40
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:40
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:50
+IS LB 10-X AC Ammo:40
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:50
+IS LB 10-X AC Ammo:40
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Medium)
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Medium)
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Right Broadsides Equipment>
+
+<structural_integrity>
+70
+</structural_integrity>
+
+<capabilities>
+<p>At 780,000 tons, the Kimagure was one of the fastest cruiser-weight WarShips ever fielded by the Star League, capable of sustaining five thrust points safely with a maximum of eight, giving it acceleration comparable to many corvettes. A lithium-fusion battery system allowed rapid successive jumps, enhancing the vessel's strategic mobility. The class carried over a thousand tons of ferro-carbide armor, providing impressive protection for a vessel of its speed, while 2,500 double heat sinks managed the tremendous thermal output of its predominantly energy-based armament. The primary weapons suite centered on banks of heavy and medium naval particle projection cannons distributed across nearly every firing arc, with the nose mounting four of each type for devastating approach salvos. Broadside bays each carried eight heavy and four medium naval PPCs, giving the vessel tremendous sustained engagement firepower. Twenty-four LB 10-X autocannons in the fore and aft quarter arcs provided flexible short-range defense, while small pulse lasers throughout the vessel served as point defense against fighters and missiles. The vessel's greatest tactical vulnerability lay in its heat management when engaged from multiple directions simultaneously, as each broadside bay alone required nearly half the ship's total heat dissipation capacity, meaning a surrounded Kimagure could not effectively bring all weapons to bear. The class accommodated fifty officers, one hundred and fifty-five enlisted crew, seventy gunners, and twenty-four bay personnel, with thirty marines aboard for boarding operations. Four-person bunkrooms for enlisted crew reflected reasonable attention to habitability, and two grav decks provided comfortable living conditions during extended deployments.</p>
+</capabilities>
+
+<overview>
+<p>The Kimagure-class pursuit cruiser was designed by Krester Ship Construction on Terra as a proof of concept demonstrating that a cruiser-weight WarShip could achieve corvette-like speed and agility while carrying substantially heavier armament and armor. The design so impressed the Star League Defense Force naval command that they placed significant orders for the class, establishing Krester as a capable builder of fast capital vessels. The name Kimagure, meaning capricious in Japanese, reflected the vessel's unpredictable nature in combat, where its exceptional speed allowed commanders to choose engagements on favorable terms and withdraw before an enemy could concentrate forces against it. The class's distinctive forward prow, extending prominently below the main hull, gave it an immediately recognizable silhouette that earned the vessel the lasting nickname hatchetface among its crews, a designation carried with quiet pride throughout its long service life.</p>
+</overview>
+
+<deployment>
+<p>The Kimagure-class served primarily as fast pursuit and interdiction vessels within the SLDF navy, a role for which their exceptional acceleration made them ideally suited. Fleet commanders routinely assigned Kimagures to hunt down raiders, escort high-value convoys through contested space, and serve as the fast screening wing of larger battle groups. The class excelled at choosing when and where to engage, using its speed advantage to dictate the terms of battle and withdraw before heavier enemy forces could close to effective range. During extended patrol deployments, the vessel's two gravity decks and reasonable crew accommodations helped maintain operational readiness across long cruises.</p>
+</deployment>
+
+<history>
+<p>The Kimagure program began in the mid-twenty-sixth century when the Star League Defense Force identified a tactical gap in its naval order of battle for a fast, heavily-armed pursuit vessel. Krester Ship Construction on Terra, then a relatively unproven shipyard, submitted a bold proposal for a cruiser-weight WarShip capable of corvette-like speed while maintaining the firepower and protection expected of a much larger vessel. The SLDF was sufficiently impressed with the initial design that they ordered a dozen hulls, the first entering service in 2582. Krester's successful execution of the Kimagure program established the firm's reputation and directly led to their being awarded the prestigious contract for the Texas-class battleship in 2618, a vessel that would share several design philosophies with its smaller predecessor.</p><p>Throughout its service life, the Kimagure proved itself an effective combat platform, though it was not without significant weaknesses. Commanders who allowed their vessels to be flanked or surrounded found that tactical limitations could quickly turn engagements against them, a lesson learned at the cost of several hulls during the Periphery campaigns. The class's speed and firepower made it a valuable screening asset in larger fleet formations, but isolated Kimagures operating without support proved far more vulnerable than their impressive armament suggested. Despite these concerns, the class remained a valued component of SLDF fleet operations throughout the Star League era, with its fast pursuit capability filling a role that few other cruiser-weight vessels could match.</p><p>The Amaris Civil War devastated the Kimagure fleet. Of the twelve vessels originally constructed, only five survived the fighting. One hull undergoing experimental weapons modification was scuttled at the Titan Yards rather than risk capture by Rim Worlds Republic forces. All five surviving vessels departed the Inner Sphere with General Aleksandr Kerensky during the Exodus, passing into Clan service where the class continued to serve for centuries. In the mid-thirty-first century, Clan Snow Raven selected two of the surviving hulls for conversion into the Conqueror-class battlecruiser and carrier, conceived as escort vessels for the massive Leviathan-class battleships. At least one additional hull was reactivated by the Society and ultimately fell into the hands of the Bandit Caste associated with the remnants of Clan Burrock.</p>
+</history>
+
+<manufacturer>
+Krester Ship Construction
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Krester Ship Construction
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Ferro-Carbide
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+780000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+85
+65
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+299
+</crew>
+
+<officers>
+50
+</officers>
+
+<gunners>
+70
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+30
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+20
+</life_boat>
+
+<escape_pod>
+20
+</escape_pod>
+

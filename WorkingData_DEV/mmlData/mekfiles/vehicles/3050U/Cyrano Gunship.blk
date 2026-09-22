@@ -1,0 +1,156 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e34e-75e1-8e26-501f3268d2c7
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Cyrano Gunship
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+787
+</mul id:>
+
+<year>
+2622
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<cruiseMP>
+12
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+3
+</armor_tech_level>
+
+<armor>
+5
+4
+4
+2
+2
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+Large Laser
+BeagleActiveProbe
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Cyrano's DAV 220 fusion engine drives the thirty-ton airframe to a cruising speed of 130 kph and a flank speed near 200 kph, placing it among the fastest vehicles in its weight class. This velocity supports rapid repositioning, extended patrol endurance, and disengagement from threats that outgun it. Primary armament is a nose-mounted Fuersturm-C large laser fired by either pilot or navigator/cargo master, a configuration that provides fire capability even in the event of crew casualties.</p><p>The Sky Tracer WL targeting and tracking system, integrated with a Beagle Active Probe, gives the Cyrano substantial battlefield intelligence value beyond its direct combat contribution. The probe retains up to thirty minutes of footage for replay, enabling fire information officers to conduct detailed post-engagement analysis. Garret M250 communications equipment supports squadron coordination and ground force liaison.</p><p>Paulina DL ferro-fibrous armor provides protection somewhat better than standard plate for equivalent weight, but the total coverage remains thin for a vehicle regularly committed to escort and combat patrol missions. Pilots routinely cite the armor as the Cyrano's most significant tactical weakness, and experienced crews have learned to use the design's exceptional speed to compensate, avoiding situations where sustained fire can accumulate. Long fuel endurance and self-conforming pilot seats reduce crew fatigue on extended operations.</p>
+</capabilities>
+
+<overview>
+<p>The Cyrano Gunship is a thirty-ton VTOL combat vehicle developed by Paulina Weapons of the Taurian Concordat in 2622. Conceived as a light escort gunship to accompany heavier strike aircraft, the Cyrano attracted immediate attention from the Star League Defense Force following its introduction, and the SLDF became the design's primary customer. Combining genuine speed, extended endurance, and a sophisticated targeting suite, the Cyrano represented a capable blend of intelligence-gathering and fire support in a single airframe. While pilots universally criticized its thin armor protection, maintenance crews prized its reliable systems and low servicing requirements. By the Golden Age of the Star League, virtually every army and division maintained at least three squadrons, cementing the Cyrano's position as a standard escort and patrol platform. Production disruptions in the third millennium interrupted the line for generations before a factory rebuilding in 3071 restored the design to active availability.</p>
+</overview>
+
+<deployment>
+<p>During the Golden Age of the Star League, the Cyrano was a near-universal presence in SLDF escort and patrol formations, with most armies and divisions maintaining three or more full squadrons. Low maintenance requirements made it popular with logistics planners, while the Beagle Active Probe's footage replay capability drove demand for the design as a training and intelligence platform. Pilots accepted the thin armor as a professional inconvenience, relying on speed to minimize exposure rather than seeking sustained engagements.</p><p>Following the 3071 factory rebuilding, the Taurian Concordat's conventional infantry and armored divisions have become the Cyrano's primary operators, with the Protectorate Militia using it heavily as an escort and transport support vehicle. Persistent demand for the design exceeds available production, and units are rarely present in the numbers commanders prefer. The ML and Plasma variants address specific operational requirements, with the ML model serving open-market customers and the Plasma variant equipping TDF strike force escort elements.</p>
+</deployment>
+
+<history>
+<p>The Cyrano traces its origins to the economic opportunities created in the Taurian Concordat following the Reunification War. Paulina Weapons, originally a Tigress-based small-arms manufacturer, expanded operations after the Star League encouraged Periphery industry development as part of post-war reconstruction. The company established a substantial production complex near New Vandenberg's capital, employing over two thousand workers and helping revitalize the planet's war-damaged economy within two years. The SLDF became an immediate and enthusiastic customer when the Cyrano entered service in 2622, purchasing the gunship for escort and patrol duty across virtually every formation in the military.</p><p>Paulina engineers developed enhanced variants through the Star League era, including the Royal variant by 2721 for elite SLDF formations, and the experimental Fury variant beginning in 2754. Only six Fury prototypes were built for the SLDF's elite Fury Teams. All six were committed to combat on Terra during the liberation from Amaris's forces, tasked with a strike against a Reagan space defense facility. Active defenses destroyed the Fury Teams' infantry in the initial approach, forcing a conventional assault that cost all six Cyranos as well. None of the Fury prototypes survived the campaign.</p><p>The New Vandenberg production line operated through the Star League era until disruption ended production around 2840. For generations, popular history attributed the plant's destruction to a FedSuns-financed pirate force. Evidence emerging during the Jihad pointed instead to ComStar's Operation Holy Shroud, a revelation the Word of Blake leveraged politically in their offer to rebuild the facility at no cost to the Taurian people. The Word completed reconstruction, and new Cyranos lifted from the New Vandenberg line in late 3071. The Taurian Concordat is expected to assume full ownership of the facility in the coming decade.</p>
+</history>
+
+<manufacturer>
+Paulina Weapons|Paulina Weapons
+</manufacturer>
+
+<primaryFactory>
+New Vandenberg|Tigress
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Paulina Weapons
+JUMP_JET:N/A
+COMMUNICATIONS:Garret
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:DAV 220
+ARMOR:Paulina DL Ferro-Fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:Garret M250
+TARGETING:Sky Tracer WL
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

@@ -1,0 +1,227 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab05-75cf-910e-e31499fd11ff
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Fury
+</Name>
+
+<Model>
+(3056)
+</Model>
+
+<mul id:>
+4192
+</mul id:>
+
+<year>
+3056
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+lightvehiclebay:8.0:1:1::-1:0
+infantrybay:4.0:1:2:Foot:-1:0
+cargobay:504.5:1:3::-1:0
+1stclassquarters:20.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:42.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+76
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+5600
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+142
+120
+120
+110
+</armor>
+
+<Nose Equipment>
+(B) Medium Laser
+Medium Laser
+(B) ISERPPC
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:18
+ISArtemisIV
+(B) Medium Laser
+Medium Laser
+Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:18
+ISArtemisIV
+(B) Medium Laser
+Medium Laser
+Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Medium Laser
+(B) Autocannon/10
+IS Ammo AC/10:20
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+7
+</structural_integrity>
+
+<capabilities>
+<p>The redesigned (3056) variant retains the Hyperdyne 211 drive system and the same basic hull configuration but incorporates significant weapons modernization using recovered Star League technology. The standard PPC has been replaced with an extended-range model, and both LRM-15 launchers now feature Artemis IV fire control systems for improved missile accuracy. The small lasers have been removed entirely, replaced by two additional medium lasers that provide better damage output at more useful engagement ranges. Seventy-six single heat sinks manage the slightly increased thermal demands of the upgraded weapons suite.</p><p>The most significant non-weapons improvement is a factory-installed steel-cable winch system integrated into the cargo bay, capable of lifting vehicles weighing up to fifty tons. This directly addresses the steep cargo ramp that has been the Fury's most persistent design flaw, dramatically reducing vehicle loading and unloading times. The infantry accommodations and vehicle bay layout remain largely unchanged, still carrying four platoons and eight light vehicles with 504.5 tons of cargo capacity. The overall improvement in firepower and operational efficiency, while modest, substantially increases the Fury's survivability during contested landings.</p>
+</capabilities>
+
+<overview>
+<p>The Fury class DropShip is one of the smallest military transports operated by the armies of the Successor States. First launched in 2638, this 1,900-ton Aerodyne was designed to deliver infantry and light vehicles into combat zones quickly and efficiently. The Fury's compact hull accommodates four full infantry platoons alongside a company of eight light combat vehicles, making it ideally suited to combined-arms operations requiring rapid ground force insertion.</p><p>Despite its enduring utility as a troop carrier, the Fury has always been limited by a relatively light weapons array that leaves it vulnerable when operating without escort. Standard tactical doctrine calls for Fury groups to deploy in conjunction with better-armed DropShips, and the design has traditionally served in the second echelon of planetary assault formations. This reliance on escort has paradoxically extended the Fury's operational lifespan, as commanders who respect the vessel's limitations have consistently achieved lower attrition rates than those who push the design beyond its intended role.</p>
+</overview>
+
+<deployment>
+<p>The upgraded Fury was produced by the Brigadier Corporation on Gibson and initially distributed to Free Worlds League units stationed along the volatile Marik-Davion border. Several of the first production run were assigned to the Third Free Worlds League Guards on Zion, where rising tensions made combat deployment likely in the near term. The Free Worlds League Military was the primary recipient of the new production model, though export sales to other Successor States were anticipated. Despite the weapons improvements, tactical doctrine continued to emphasize combined operations with heavier escort vessels rather than independent deployment.</p>
+</deployment>
+
+<history>
+<p>The Fury class troop carrier entered service in 2638 as a purpose-built infantry and light vehicle transport for Star League-era combined-arms formations. The Brigadier Corporation, one of the Free Worlds League's most prominent aerospace manufacturers, produced the Fury at their facilities on Gibson. The design filled a critical niche in the Star League Defense Force's order of battle, providing a dedicated light transport that could operate alongside armor carriers like the Gazelle and fighter escorts such as the Leopard CV.</p><p>During the Succession Wars, the Fury's relatively simple construction and modest technological requirements allowed it to remain in production long after more sophisticated designs became impossible to maintain. However, the vessel's light armament increasingly became a liability as battlefield conditions grew more desperate. Commanders often pressed Fury groups into planetary assault roles for which they were never intended, using them in place of larger transports like the Condor and Triumph that were considered too valuable to risk. These misapplied deployments contributed to steady attrition throughout the era.</p><p>A common field modification emerged during the later Succession Wars to address the Fury's notoriously steep cargo bay ramp, which made vehicle deployment slow and hazardous. Vehicle crews rigged improvised winch systems to assist with loading and unloading on inclined terrain, a modification that proved so popular it would later be incorporated into the official redesign. Three-ship Fury groups became a standard tactical element, typically operating twenty to fifty thousand kilometers behind a main assault formation where they could combine defensive fire against attackers while remaining close enough to support the landing force.</p><p>In 3056, the Brigadier Corporation completed a comprehensive redesign of the Fury incorporating recovered Star League-era technology. The upgraded model featured modernized weaponry and a factory-installed steel-cable winch system capable of lifting vehicles up to fifty tons, finally addressing the ramp issue that had plagued crews for centuries. The Free Worlds League was the first to receive the new production model, with several vessels assigned to garrison units along the Marik-Davion border. Despite the improvements, the Fury remained a support vessel at heart, and the Brigadier Corporation continued to market it as a complement to heavier assault DropShips rather than an independent combat platform.</p>
+</history>
+
+<manufacturer>
+Brigadier Corporation|Diamond Garter Shipyards (a Division of Alliance Aerospace Group)
+</manufacturer>
+
+<primaryFactory>
+Gibson|Canopus IV
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Hyperdyne 211
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+1900.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+160
+</crew>
+
+<officers>
+2
+</officers>
+
+<gunners>
+3
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+8
+</escape_pod>
+

@@ -1,0 +1,313 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ecd4-7730-a9f0-fc7308c561c7
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Cameron Battlecruiser
+</Name>
+
+<Model>
+(2688)
+</Model>
+
+<mul id:>
+3890
+</mul id:>
+
+<year>
+2688
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:2.0:2:1::-1:0
+asfbay:16.0:4:2::-1:0
+cargobay:187395.5:1:3::-1:0
+dockingcollar
+dockingcollar
+1stclassquarters:480.0:0:-1::-1:0
+crewquarters:1673.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+2
+</SafeThrust>
+
+<heatsinks>
+2430
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+2500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+11
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+120
+128
+128
+118
+128
+128
+</armor>
+
+<Nose Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:8
+Ammo AR10 White Shark:6
+Ammo AR10 Barracuda:6
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:8
+Ammo AR10 White Shark:6
+Ammo AR10 Barracuda:6
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:25
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:25
+(B) Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:8
+Ammo AR10 White Shark:6
+Ammo AR10 Barracuda:6
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:25
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:25
+(B) Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:8
+Ammo AR10 White Shark:6
+Ammo AR10 Barracuda:6
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:25
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:25
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:25
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:25
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+</Right Broadsides Equipment>
+
+<structural_integrity>
+80
+</structural_integrity>
+
+<capabilities>
+<p>The Cameron displaced 860,000 tons across an 839-meter hull, mounting a weapons suite that rivaled dedicated battleships of its era. Ten Heavy Naval PPCs formed the backbone of the energy battery, distributed across nose, forward, and aft arcs to provide devastating firepower in virtually every engagement envelope. Eight AR-10 capital missile launchers delivered flexible ordnance with Killer Whale, White Shark, and Barracuda loadouts, while sixteen NAC/25 naval autocannons anchored the broadside and aft quarter batteries. Naval lasers of varying caliber filled the remaining arcs. The vessel sustained two-gravity acceleration with a three-gravity emergency burst, and 2,430 double heat sinks managed the immense thermal load.</p><p>Ferro-carbide armor protection totaled 877 tons, a figure that concerned fleet officers who considered it insufficient for a vessel mounting such aggressive armament. The Cameron carried bays for sixteen fighters, two small craft, and two DropShip docking collars, with a crew complement of approximately 329 personnel. Twin gravity decks and substantial cargo capacity suited the vessel for extended independent operations. The critical design weakness was a power distribution system that could not sustain weapons, drives, and life support at full output simultaneously, forcing commanders to carefully manage system loads during combat.</p><p>The Clan refit corrected the power distribution flaw, added a lithium-fusion battery for rapid successive jumps, and expanded fighter capacity from sixteen to twenty bays. Armor protection decreased to 779.5 tons in the Clan configuration, but the corrected power systems allowed the full weapons suite to operate without compromise.</p>
+</capabilities>
+
+<overview>
+<p>The Cameron-class battlecruiser was designed and constructed by Daussault-Shimmon Enterprises at their New Earth shipyards for the Star League Defense Force. Commissioned in the late twenty-seventh century, the Cameron was conceived as a premier capital combatant capable of projecting overwhelming firepower across multiple engagement arcs. The class was envisioned as a cornerstone of Star League naval task forces, combining heavy armament with the mobility expected of a battlecruiser-weight hull.</p><p>The Cameron carried a troubled reputation among SLDF fleet officers, however, owing to a critical power distribution flaw that prevented the vessel from operating all systems at full capacity simultaneously. This deficiency overshadowed the design's considerable combat potential and defined the class throughout its Star League service life. Despite this compromised reputation, the Cameron proved a remarkably durable design, with vessels remaining in active naval service across more than five centuries under Star League, Clan, and Inner Sphere forces.</p>
+</overview>
+
+<deployment>
+<p>The SLS Saint Joan became the vessel that exposed the Cameron's fatal design flaw. Operating on escort duty approximately six years after the class entered service, the Saint Joan encountered Periphery privateers and suffered a catastrophic power system failure. Forced onto auxiliary power, the crew faced an impossible choice between maintaining weapons capability and sustaining life support. Neither could be adequately powered. The vessel was destroyed with the loss of all hands, and the incident triggered the SLDF investigation that revealed Daussault-Shimmon's concealment of the power distribution defect and led directly to the appropriation of the company's shipyards.</p><p>ComStar later operated the CSV Invisible Truth as part of its hidden naval reserve. The vessel was lost during the Jihad in combat against Word of Blake forces.</p>
+</deployment>
+
+<history>
+<p>Daussault-Shimmon Enterprises of New Earth secured the construction contract for the Cameron class, a program born from the Star League Navy's ambitious late-era fleet modernization efforts. Approximately forty hulls were ordered, each intended to deliver capital-grade firepower on a battlecruiser hull at a cost of over nine billion C-bills per vessel. The ambition exceeded the execution. Daussault-Shimmon delivered vessels roughly 50,000 tons overweight, and the power distribution system proved incapable of sustaining all shipboard systems at full capacity simultaneously. Rather than disclose the defect, the company concealed the flaw from the SLDF.</p><p>The deception unraveled when one vessel, operating on escort duty, suffered a power failure during an engagement with Periphery privateers and was lost with all hands. The subsequent SLDF investigation uncovered Daussault-Shimmon's systematic cover-up, and the Star League government appropriated the company's shipyards as punishment. The scandal ended the Cameron's career as a frontline combatant. Surviving vessels were relegated to transport and escort duties where the power limitations posed less risk, an inglorious reassignment for what had been envisioned as the navy's premier battlecruiser.</p><p>The class continued to serve through the final decades of the Star League despite its tarnished reputation. Cameron-class vessels suffered losses during the Amaris Civil War and the Liberation of Terra, and the Succession Wars further reduced their numbers through attrition and the loss of the technical expertise needed to maintain such complex capital vessels. A number of Camerons accompanied General Kerensky's Exodus fleet into the Deep Periphery, where Clan technicians eventually identified and corrected the power distribution flaw. The Clan refit program transformed the Cameron from a compromised transport back into the formidable capital combatant its designers had originally intended.</p><p>Multiple Clans operated Cameron-class battlecruisers through the thirty-first and thirty-second centuries, with vessels serving in both the Homeworlds and the Inner Sphere. ComStar also maintained at least one Cameron in its hidden naval reserve. The class saw action during the Wars of Reaving, the Jihad, and engagements throughout the ilClan era, demonstrating that the underlying design had always been sound once its power systems were properly implemented.</p>
+</history>
+
+<manufacturer>
+Daussault-Shimmon Enterprises
+</manufacturer>
+
+<primaryFactory>
+New Earth
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Creighton
+ENGINE:Cassion
+ARMOR:Ajax
+JUMP_JET:Unknown
+COMMUNICATIONS:ViaComm
+TARGETING:Johnson
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:M-4
+ENGINE:Vasser
+ARMOR:7PK300 Ferro-Carbide
+JUMP_JET:KF King VI-a
+COMMUNICATIONS:1011
+TARGETING:Data Master 6000
+</systemModels>
+
+<use>
+Battlecruiser
+</use>
+
+<length>
+839 m
+</length>
+
+<height>
+1450 m Sail
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+860000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+75
+75
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+329
+</crew>
+
+<officers>
+48
+</officers>
+
+<gunners>
+46
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+20
+</life_boat>
+
+<escape_pod>
+30
+</escape_pod>
+

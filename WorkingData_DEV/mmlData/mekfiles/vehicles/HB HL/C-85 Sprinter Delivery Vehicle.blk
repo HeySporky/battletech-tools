@@ -1,0 +1,175 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e904-79eb-b552-460ed6242c3c
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+C-85 Sprinter Delivery Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3931
+</mul id:>
+
+<year>
+3067
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:0.81:1:1::-1:0
+standardseats:1.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+11
+</cruiseMP>
+
+<engine_type>
+11
+</engine_type>
+
+<armor_type>
+45
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+2
+2
+2
+2
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+4
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Ceres-85 is a 2.5-ton wheeled support vehicle built around speed, operational range, and cargo efficiency within city environments. Its electric drive system propels the vehicle at speeds exceeding one hundred kilometers per hour while producing minimal noise - an important consideration when operating in residential and commercial districts where quiet surroundings are expected. The long-endurance battery system extends the vehicle's operational radius to over five hundred kilometers on a single charge, well in excess of the two hundred and fifty kilometer range minimum specified by the courier firms consulted during development.</p><p>The pre-shelved cargo bay accommodates over eight hundred kilograms of documents and small packages, organized for efficient loading and rapid retrieval. The electric drivetrain reduces maintenance demands significantly compared to combustion-powered alternatives, addressing the courier industry's consistent preference for vehicles that minimize downtime and require fewer specialist technicians. Compact dimensions allow the vehicle to operate effectively on congested city thoroughfares. The Ceres-85 carries no weapons, defensive armor systems, or military-grade electronics, relying instead on unobtrusiveness and speed to ensure cargo integrity during urban deliveries.</p>
+</capabilities>
+
+<overview>
+<p>The Ceres-85 Delivery Vehicle, informally known as the Sprinter, is a civilian courier and package transport platform manufactured by Ceres Motors on Capella. Designed to serve the needs of urban courier operations in the Capellan Confederation, it fills a narrow commercial niche by pairing high speed with minimal maintenance demands and substantial range. Ceres Motors developed the vehicle following direct consultation with established courier firms operating on Capella, building the design around their consistently stated requirements rather than adapting existing civilian platforms. The vehicle debuted in 3067 and earned strong commercial reception almost immediately, generating over two hundred orders within its first six months on the market. Constructed from locally processed materials, the Ceres-85 carries the "Made on Capella" distinction, a mark of provenance that holds growing commercial and cultural significance across the Confederation in the wake of Xin Sheng.</p>
+</overview>
+
+<deployment>
+<p>The base C-85A model is configured as a general document and small-package transport vehicle, serving the House of Scions and corporate clients on Capella requiring reliable, discreet courier services across urban environments. Its open pre-shelved cargo bay allows flexible loading and is well suited to high-volume document runs between government offices and the corporate headquarters of the Capellan Commonality Bank and similar institutions. A second model, the C-85B, is offered specifically to the Capella Commonality Bank and corporate clients requiring enhanced cargo security; it replaces the open bay with locked individual cubicles that limit access to authorized personnel. Both models operate primarily within Capella's urban centers, and Ceres Metals is pursuing a broader marketing campaign to introduce the design to other heavily urbanized worlds in the Confederation.</p>
+</deployment>
+
+<history>
+<p>The Ceres-85's origins lie in a structured market research initiative by Ceres Motors, which interviewed several of Capella's highest-rated courier firms before beginning design work. Each firm requested the same combination of qualities: unassuming vehicles with few maintenance needs, speeds sufficient for urban delivery circuits, and a range of at least two hundred and fifty kilometers. Competition among delivery services on Capella was fierce, and the courier firms' feedback reflected years of operational experience with vehicles that fell short in one category or another. Ceres Motors took all of those requirements into consideration during development, prioritizing electric propulsion for its low noise profile and long range, and sizing the cargo bay around the document and small-package loads typical of institutional courier contracts.</p><p>The resulting vehicle debuted at the opening of the 3067 session of the House of Scions, a deliberate choice that placed the Ceres-85 before representatives of the government bodies and corporate entities it was intended to serve, including the Capella Commonality Bank. Reception was immediate and commercially significant. More than two hundred units were ordered within the first six months of availability, a volume that more than offset the relatively modest development and tooling investment Ceres Motors had made. The debut also confirmed the vehicle's value to Ceres Metals' leadership, prompting the company to begin developing a marketing proposal aimed at other highly urbanized worlds elsewhere in the Confederation. The vehicle's use of locally processed materials reinforced its commercial appeal within Capellan markets, where the Xin Sheng cultural movement had elevated the value of domestically produced goods.</p>
+</history>
+
+<manufacturer>
+Ceres Motors
+</manufacturer>
+
+<primaryFactory>
+Capella
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Ceres Motors
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:N/A
+TARGETING:N/A
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Electric Drive
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:N/A
+TARGETING:N/A
+</systemModels>
+
+<notes>
+Overweight by 75 kg. The official unit does not account for crew seating.
+</notes>
+
+<source>
+HB:HL
+</source>
+
+<published>
+HB:HL
+</published>
+
+<tonnage>
+2.5
+</tonnage>
+
+<fuel>
+0.244
+</fuel>
+

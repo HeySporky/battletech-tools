@@ -1,0 +1,157 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a3a5-7137-8c16-d2918adcb97d
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Clan Medium Battle Armor
+</Name>
+
+<Model>
+(Laser) 'Volk' (Sqd4)
+</Model>
+
+<mul id:>
+3955
+</mul id:>
+
+<year>
+3071
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+BAJumpBooster:Body
+BASearchlight:LA
+BABasicManipulator:RA
+BAHeavyBattleClaw:LA
+CLBAERMicroLaser:RA
+CLBASRM3 (OS):Body
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Volk replaces the standard configuration’s flamer with an ER micro laser, trading raw close-range output for improved accuracy at longer engagement distances. The dual one-shot SRM-2 launchers give way to a single one-shot SRM-3, consolidating missile firepower into a single more powerful salvo. A heavy battle claw mounted in the left arm provides formidable melee capability, making the Volk particularly effective in anti-BattleMech swarming attacks.</p><p>This configuration was developed specifically for fast flanking units, where the combination of ranged energy fire and a powerful close-combat weapon complements aggressive maneuver tactics. The Volk retains the base chassis’s jump booster system, HarJel protection, and standard searchlight. Like all configurations, ground speed remains limited, and troopers rely on jump mobility and OmniMech transport to close with targets.</p>
+</capabilities>
+
+<overview>
+<p>The Clan Medium Battle Armor is a Clan-technology medium-weight suit developed by Clan Nova Cat’s Scientist Caste after the Clan’s relocation to the Inner Sphere. Designed as an improvement over the standard Elemental, the suit incorporates enhanced jump mobility at the cost of reduced protection, filling a gap for a more agile powered infantry platform. Its distinctive samurai-influenced styling reflects the Clan’s growing cultural ties to its Draconis Combine hosts. The design’s adaptable chassis proved attractive to multiple Clans, each fielding specialized configurations suited to their own tactical doctrines and operational needs.</p>
+</overview>
+
+<deployment>
+<p>Inner Sphere units that obtained the Volk through trade or salvage organized it into four-trooper squads. The configuration’s emphasis on flanking tactics translated well to Inner Sphere combined-arms doctrine, where squad-sized battle armor elements operated alongside BattleMech lances and conventional infantry platoons in coordinated maneuver operations.</p>
+</deployment>
+
+<history>
+<p>Following Clan Nova Cat’s Abjuration from the Clan Homeworlds, the Clan found itself in desperate need of replacement equipment lost during the forced relocation to the Inner Sphere. Khan Santin West, himself an Elemental, took particular interest in rebuilding his battle armor forces. With newer designs emerging from Clan space and the Inner Sphere alike, West charged his Scientist Caste with developing a suit that could hold its own against them.</p><p>Working from the basic Elemental chassis, Nova Cat scientists drew inspiration from the Gray Death Legion’s Scout battle armor to dramatically enhance the suit’s mobility. The resulting design emphasized agility over raw protection, with reworked armament to complement its enhanced movement capabilities. The Draconis Combine provided the Nova Cats with new homeworlds and subsidized construction of a dedicated production facility on Irece, strengthening the partnership between the Clan and its hosts.</p><p>Development suffered a setback in 3062 when hostilities erupted between Clan Ghost Bear and House Kurita, drawing Nova Cat resources away from the project. The few operational prototypes performed well against Ghost Bear forces, and full-scale production began in 3067. Cat Elementals quickly nicknamed the new suit the “Rabid,” and it soon replaced the standard Elemental as the primary battle armor throughout the Nova Cat Touman. Only senior Elemental commanders retained the older suit to reduce equipment losses.</p><p>Clan Diamond Shark, by then established on several Inner Sphere worlds, recognized commercial opportunity in the design. Offering discounted weapons and supplies in exchange for blueprints and schematics, Shark merchants established production lines on Twycross, Trondheim, and Itabaiana. They traded the suit to Clan Ghost Bear and Clan Wolf, both of whom developed specialized configurations tailored to their respective doctrines. Reports that the design was also being marketed to Inner Sphere buyers and Clan Wolf (In Exile) allegedly sparked a confrontation between the Sharks and the Clan Council that escalated near Strana Mechty. Despite this controversy, production continued to expand, with additional manufacturing facilities coming online in subsequent years to meet growing demand across multiple Clans.</p>
+</history>
+
+<manufacturer>
+Trellshire Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+Twycross
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+9
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

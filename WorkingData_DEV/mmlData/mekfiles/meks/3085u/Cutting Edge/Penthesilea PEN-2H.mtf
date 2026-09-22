@@ -1,0 +1,206 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cff5-7072-ac6c-6704ef667ef3
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Penthesilea
+model:PEN-2H
+mul id:2470
+
+Config:Biped
+techbase:Inner Sphere
+era:3083
+source:TR:3085
+published:RS:3085u-CE
+rules level:2
+role:Brawler
+
+quirk:rugged_1
+weaponquirk:stable_weapon:CT:9:ISERMediumLaser
+weaponquirk:stable_weapon:CT:10:ISERMediumLaser
+weaponquirk:stable_weapon:CT:11:ISERMediumLaser
+
+mass:75
+engine:300 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Compact Gyro
+
+heat sinks:13 IS Double
+walk mp:4
+jump mp:3
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:23
+RA armor:23
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:10
+RTR armor:10
+RTC armor:10
+
+Weapons:6
+ER PPC, Left Arm
+Light PPC, Left Arm
+LB 10-X AC, Right Arm
+ER Medium Laser, Center Torso
+ER Medium Laser, Center Torso
+ER Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+Light PPC
+Light PPC
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X AC Ammo
+IS LB 10-X Cluster Ammo
+IS Endo Steel
+IS Ferro-Fibrous
+
+Left Torso:
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Penthesilea is a seventy-five-ton heavy BattleMech completed in early 3083, the heaviest design ever produced by the Magistracy of Canopus. Designed by Majesty Metals and Manufacturing at their Dunianshire facility, the 'Mech was named after an Amazon queen of Greek mythology who fought to protect Troy. Intended to serve as a heavy fire support platform capable of engaging at multiple range brackets, the Penthesilea filled a critical gap in the Magistracy Armed Forces' roster. The design has proven a reliable heavy combatant across the Periphery, earning a solid reputation among both Magistracy formations and allied states who have received export models.</p>
+
+capabilities:<p>The Penthesilea balances offensive and defensive capabilities through careful engineering trade-offs. A complex Dynastic 75-P endo steel frame and twelve tons of Maximillian 42F ferro-fibrous armor provide a solid protective foundation, while a compact gyro paired with a standard Vlar 300 fusion engine enhances pilot survivability, a longstanding Magistracy Armed Forces tradition. The design's sixty-four kilometer per hour top speed is modest for a heavy 'Mech, but three Nike Doublejet 9s jump jets providing ninety meters of jump capability offer valuable tactical repositioning.</p><p>The weapons array enables the Penthesilea to function as both sniper and brawler. A Majesty Metals Royal Flush extended-range PPC and Deuce light PPC deliver effective long-range harassment, while an Imperator Code Red LB-10X autocannon offers versatility through selectable solid slugs for armor penetration or cluster munitions for exploiting breaches. Three Diverse Optics Type II extended-range medium lasers round out the close-range arsenal. The primary drawback is heat management, thirteen double heat sinks struggle to dissipate the full weapons suite's output, demanding careful fire discipline from MechWarriors. CASE protection in the right torso mitigates the risk posed by the autocannon's ammunition bay.</p>
+
+deployment:<p>The base production model, this variant entered service in 3083 as the Magistracy's first indigenous heavy fire support design. Combining an extended-range PPC and light PPC for long-range engagement with an LB-10X autocannon offering tactical flexibility through selectable ammunition types, the design excels at forcing opponents into unfavorable closing engagements. Three ER medium lasers provide credible short-range firepower when enemies manage to close the distance. The inclusion of jump jets, unusual for a fire support design of this weight, allows pilots to rapidly reposition to optimal firing positions, giving this variant an unexpected tactical edge over more conventional heavy fire support platforms.</p>
+
+history:<p>The Penthesilea emerged from political tensions surrounding Magistracy of Canopus weapons manufacturing in the early post-Jihad period. With the vast majority of military production concentrated on Detroit (a world under tenuous Magistracy control) pressure mounted from two directions. Reactionaries were wary of relying on a politically vulnerable manufacturing base, while Majesty Metals and Manufacturing sought to expand production and profit from the advanced technology that had helped transform the Magistracy Armed Forces. The end of the Jihad brought a fragile peace that allowed the Magestrix to authorize the project, gaining political capital while strengthening the realm's industrial base on Dunianshire.</p><p>The first Penthesilea units rolled off the Dunianshire assembly line in 3083 and were sold to the mercenary command Zeus' Thunderbolts for field testing. Despite the unit's conspicuously reflective paint scheme making them impossible to miss, combat testing validated the design as an effective fire support platform. The jump jets, initially questioned by some critics, proved their worth by enabling rapid repositioning to optimal sniping positions and traversal of otherwise impassable terrain.</p><p>Once full production commenced, approximately half the output was assigned to elite Magistracy formations including the Royal Guard and the Chasseurs á Cheval regiments. Machines replaced by the new Penthesilea in both units were transferred to the Chasseurs. The remaining production was earmarked for export to allied Periphery nations and loyal mercenary commands. The Taurian Concordat became the first foreign customer approved for shipments, with Protector Boris Tharn rushing the new 'Mechs to Concordat units stationed in Federated Suns space to form the backbone of TDF fire support lances in the Pleiades region.</p><p>By the Late Republic era, the Penthesilea continued to evolve. A new variant was spotted with Canopian Lancers deployed on Pleione, Second Try, and Yunnah, supporting Capellan Confederation Mortis formations. This experimental redesign, incorporating actuator enhancement systems and a bombast laser, demonstrated the continued investment by Majesty Metals in expanding the Penthesilea's capabilities, even as the resulting design drew criticism for lacking a coherent tactical purpose.</p>
+
+manufacturer:Majesty Metals and Manufacturing
+
+primaryfactory:Dunianshire
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Dynastic
+systemmode:CHASSIS:75-P Endo Steel
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Maximillian
+systemmode:ARMOR:42F Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Nike
+systemmode:JUMP_JET:Doublejet 9s
+systemmanufacturer:COMMUNICATIONS:FoxxCom
+systemmode:COMMUNICATIONS:75
+systemmanufacturer:TARGETING:FoxxFire
+systemmode:TARGETING:190

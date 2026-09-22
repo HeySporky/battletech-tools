@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d641-74b3-b6a9-bf672fcc825a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Havoc
+model:HVC-P7
+
+Config:Biped
+techbase:Inner Sphere
+era:3112
+published:RSFP:SLDF3
+rules level:2
+role:Striker
+
+quirk:imp_target_short
+
+mass:35
+engine:280 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:8
+jump mp:8
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:13
+RT armor:13
+CT armor:16
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:3
+RTR armor:3
+RTC armor:5
+
+Weapons:6
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+SRM 2 (I-OS), Left Torso
+SRM 2 (I-OS), Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+ISSRM2IOS
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+IS Endo Steel
+IS Light Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+ISSRM2IOS
+ISTargeting Computer
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Light Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Havoc is a thirty-five-ton light BattleMech designed by Adam Tech Industries and manufactured at their facility on Abadan in the former Free Worlds League. Entering production around 3112, the design was inspired by the venerable JR7-K Jenner and aimed to improve upon many of that proven striker's shortcomings. Adam Tech, a start-up firm that converted a small industrial component manufacturing center into full 'Mech production, marketed the Havoc exclusively to light BattleMech pilots with the slogan "In any battle, you only pilot one 'Mech." This tagline earned the design its widely recognized nickname, "the One." The Havoc proved an immediate commercial success on the Dark Age market, appealing to MechWarriors who demanded quality and survivability from their light chassis.</p>
+
+capabilities:<p>Built on an X-H54 Endo Steel frame and powered by a Hermes 280 XL engine, the Havoc achieves a top speed of one hundred twenty-nine kilometers per hour, placing it among the fastest designs in its weight class. Five Chilton 360 jump jets provide a leap distance of one hundred fifty meters, granting excellent repositioning capability in broken terrain. Jolassa 328 Ferro-Fibrous armor with CASE II protection delivers a level of survivability rarely seen on a light 'Mech, approaching the protection of many medium-weight designs and allowing the Havoc to absorb punishment that would cripple most of its peers.</p><p>The primary armament consists of four Diverse Optics Extended-Range Medium Lasers paired with a Hovertec Quad SRM-4 launcher fed by two tons of ammunition, enabling specialty munitions loadouts as the tactical situation demands. The heart of the design is its Octagon Tartrac System E targeting and tracking suite, widely considered the finest short-range fire control package available at the time of introduction. The Tartrac carries over three thousand target profiles in its stock database and is field-upgradable. In trials, the Octagon distinguished between similar target silhouettes faster than any competing system tested, drawing favorable comparisons to the Garret D2j. This exceptional fire control allows the Havoc to maximize weapons accuracy during high-speed engagements, though aggressive pilots may find the heat burden challenging when firing all weapons simultaneously.</p>
+
+deployment:<p>A dedicated reconnaissance variant, this variant retains the four Diverse Optics Extended-Range Medium Lasers of the base model but replaces the SRM-4 launcher with a pair of One-Shot SRM-2 racks for emergency close defense. The freed tonnage accommodates a Bloodhound Active Probe for enhanced electronic detection and a Targeting Computer to improve weapons accuracy. The removal of CASE II and one double heat sink, combined with a switch from standard Ferro-Fibrous to Light Ferro-Fibrous armor plate, creates enough weight savings to mount three additional jump jets, extending the Havoc's leap capability to two hundred forty meters. This significantly enhanced mobility and advanced sensor suite transform the design into an exceptionally capable scout platform that can locate and designate targets for heavier lancemates while remaining extremely difficult to pin down.</p>
+
+history:<p>Adam Tech Industries established itself on Abadan by purchasing and expanding a small industrial component manufacturing center into a full BattleMech production facility. The Havoc was the company's first design, entering production during the early years of the thirty-second century when the Republic of the Sphere still held sovereignty over Abadan. Unlike many Dark Age manufacturers that cut corners to rush products to an equipment-starved market, Adam Tech prioritized build quality and component reliability, selecting widely available materials and proven subsystems that ensured ease of maintenance and broad parts availability.</p><p>As political boundaries shifted during the tumultuous Dark Age, Abadan's sovereignty changed hands multiple times. The Republic of the Sphere's contraction saw the world briefly classified as independent before the reformed Free Worlds League reasserted control. Through each transition, Adam Tech maintained production, and the Havoc found its way into the hands of multiple factions operating in the former League territories.</p><p>The Marik-Stewart Commonwealth deployed Havocs in the defense of Concord during skirmishes with the Lyran Commonwealth in early 3135. In one notable engagement, a pair of Havocs squared off against a Wolfhound and two Mjolnirs in the densely forested Western Wilderness region. During fifteen minutes of heated combat, the Havocs disabled both Mjolnirs and sent the Wolfhound running, demonstrating the design's potency against heavier opposition. When one Havoc took a hit to its ammunition magazine, the CASE II system prevented the destruction of the 'Mech while keeping it combat-ready, validating Adam Tech's emphasis on pilot survivability.</p><p>The Havoc also participated in an unlikely engagement on Lyons alongside mercenary forces from Zelandia Unbound, where the design's exceptional speed proved decisive in a running pursuit against heavier 'Mechs. The Havoc's ability to execute high-speed attack runs and use its jump jets to evade return fire from even assault-weight opponents cemented its reputation as a premier light striker. Production has continued on Abadan into the ilClan era under restored Free Worlds League governance, with Adam Tech expanding its product line to include the GBT-1G Gambit as a complementary long-range design.</p>
+
+manufacturer:Adam Tech Industries
+
+primaryfactory:Abadan
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:X-H54 Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:280 XL
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:JUMP_JET:Chilton
+systemmode:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Datacom
+systemmode:COMMUNICATIONS:70
+systemmanufacturer:TARGETING:Octagon
+systemmode:TARGETING:Tartrac System E

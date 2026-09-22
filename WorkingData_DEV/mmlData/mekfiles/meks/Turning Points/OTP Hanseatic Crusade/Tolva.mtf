@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-de97-79b5-bd7e-2d6812f12b58
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Tolva
+model:
+mul id:7882
+
+Config:Quad
+techbase:Clan
+era:3145
+source:OTP:HC
+published:OTP:HC
+rules level:3
+role:Skirmisher
+
+
+mass:40
+engine:200 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:18 Single
+walk mp:5
+jump mp:5
+
+armor:Standard(Clan)
+FLL armor:20
+FRL armor:20
+LT armor:15
+RT armor:15
+CT armor:18
+HD armor:9
+RLL armor:20
+RRL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:3
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+CLERMediumLaser (T)
+CLERMediumLaser (T)
+CLERMediumLaser (T)
+ISQuadTurret
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLTargeting Computer
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Tolva is a forty-ton medium quad BattleMech developed by Quixote Industries for the Escorpión Imperio in 3101. Based on the Araña MilitiaMech that had served the Imperio's garrison forces since 3087, the Tolva stands as a significant upgrade from its IndustrialMech predecessor, replacing civilian-grade equipment with full military-specification components. Designed to provide the Imperio's expanding military with a capable medium combatant produced entirely within its own borders, the Tolva leverages Clan technology married to locally manufactured components. The quadrupedal design retains the stability advantages of its predecessor while adding genuine battlefield capability, and the design has earned a solid reputation as a reliable workhorse across the Imperio's far-flung garrisons.</p>
+
+capabilities:<p>The Tolva builds on the Araña's proven quadrupedal chassis but replaces its industrial-grade components with true BattleMech equipment. A 200-rated fusion engine drives the forty-ton design to speeds of eighty-six kilometers per hour, matching its MilitiaMech ancestor. Five jump jets provide a one hundred fifty meter jump capability, a significant tactical improvement that the Araña lacked entirely. This added mobility allows the Tolva to exploit terrain in ways that a non-jumping quad design cannot, giving it a decisive edge in the rough terrain common across Deep Periphery worlds.</p><p>Where the Araña mounted heavy industrial armor, the Tolva carries nine and a half tons of standard BattleMech-grade protection, offering substantially better resistance to battlefield weapons. The primary armament consists of three Clan-specification extended-range medium lasers mounted in a turret on the right torso, giving the design a wide firing arc without requiring the chassis to reorient. A targeting computer enhances the accuracy of these weapons, allowing MechWarriors to make each shot count. Eighteen heat sinks manage the thermal load effectively, permitting sustained fire while maneuvering. The all-energy armament ensures the Tolva never faces ammunition dependency in extended operations.</p><p>The Tolva's principal weakness is its modest firepower for a forty-ton chassis. Three medium-class lasers leave it outgunned by most medium BattleMechs of comparable tonnage, and the lack of any long-range weaponry forces pilots to close to effective range before engaging. The quadrupedal layout, while stable, also prevents the mounting of arm-based weapons, limiting hardpoint flexibility. These compromises reflect the design's origins as an upgraded MilitiaMech rather than a purpose-built frontline combatant.</p>
+
+deployment:<p>The Tolva serves as the standard medium BattleMech for the Escorpión Imperio's garrison and second-line formations, with no factory variants produced as of 3141. The base configuration's all-energy loadout and low maintenance requirements make it particularly well suited to the long supply lines and limited logistical infrastructure of Deep Periphery postings. Garrison commanders typically deploy Tolvas in pairs or lances alongside heavier Clan OmniMechs, where the quad 'Mech's jump-capable mobility and turret-mounted weapons allow it to anchor defensive positions or pursue lighter raiders across broken terrain.</p>
+
+history:<p>The Tolva's origins trace to the broader industrial development program undertaken by Clan Goliath Scorpion after establishing the Escorpión Imperio in 3080. Having conquered the nations of Nueva Castile and the Umayyad Caliphate, the Scorpions faced the challenge of integrating millions of former citizens into their Clan caste system while simultaneously rebuilding their diminished touman. Quixote Industries, established across multiple former Castilian and Umayyad worlds, became the cornerstone of this effort, initially producing MilitiaMechs like the Araña and Reptar to arm the Imperio's freeborn garrison forces.</p><p>By the early thirty-second century, the Imperio's industrial base had matured sufficiently to produce true BattleMechs incorporating Clan technology. The Tolva, entering production in 3101 on both Asturias and Granada, represented a natural evolution of the Araña design. Rather than develop an entirely new platform, Quixote's engineers upgraded the proven quadrupedal chassis with military-grade armor, added jump capability, and refined the fire control system with a targeting computer. This pragmatic approach minimized development risk while delivering a genuine frontline combatant from factories that had previously only produced civilian-grade machines.</p><p>The Tolva's baptism of fire came during the Hanseatic Crusade of 3140. When Khan Magon Scott launched the Imperio's six-Galaxy invasion of the Hanseatic League, Tolvas served throughout the campaign in their grinding war against the Hanseatic Defense Force. The fifteen-month conflict saw heavy fighting across nearly thirty worlds before the League finally fell and its territory was absorbed into the newly proclaimed Scorpion Empire in 3141.</p><p>Following the Crusade, production continued under the Scorpion Empire's authority. The Tolva remains a fixture of the Empire's second-line and garrison forces, with particularly heavy concentrations in Hellion, Omega, and Grunt Galaxies. The design's reliability, simple logistics chain, and low maintenance requirements make it well-suited to the Empire's vast territorial commitments across the Deep Periphery, where supply lines are long and access to advanced Clan OmniMech components is limited.</p>
+
+manufacturer:Quiyote Industries|Quiyote Industries
+
+primaryfactory:Asturias|Granada
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Quixote Industries
+systemmode:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Quixote Industries
+systemmode:ENGINE:Unknown 200
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown Standard
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

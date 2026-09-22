@@ -1,0 +1,50 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid: "019f5efd-5a93-78c3-b4f2-dd83804af175"
+linkedUnitId: "019f583e-e2c6-7b99-a188-ba0759db128e"
+chassis: "Maxim Heavy Hover Transport"
+model: ""
+assetType: "Vehicle"
+cardTitle: "Maxim"
+cardSubtitle: "Hover Transport"
+year: 2689
+techBase: "IS"
+source: "BattleTech: Mercenaries"
+role: "STRIKER"
+movement:
+  mp: 8
+  mode: "HOVER"
+tmm: 3
+range:
+- 3
+- 6
+- 9
+skill:
+  standard: 6
+  veteran: 5
+damage:
+  perHit: 5
+  hits: 4
+destroyCheck: 7
+threshold: 5
+cost:
+  standard: 23
+  veteran: 27
+specials:
+- "APC1"
+- "IF2"

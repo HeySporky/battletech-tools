@@ -1,0 +1,187 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ae19-78fc-abcd-bd25a38cb543
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Jengiz
+</Name>
+
+<Model>
+Prime
+</Model>
+
+<mul id:>
+1685
+</mul id:>
+
+<year>
+3032
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+20
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+320
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+85
+63
+63
+48
+</armor>
+
+<Nose Equipment>
+CLLBXAC10:OMNI
+CLERPPC:OMNI
+CLMediumPulseLaser:OMNI
+CLERSmallLaser:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLLargePulseLaser:OMNI
+CLMediumPulseLaser:OMNI
+CLSRM6:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLLargePulseLaser:OMNI
+CLMediumPulseLaser:OMNI
+CLSRM6:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+CLMediumPulseLaser:OMNI
+CLECMSuite:OMNI
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+Clan LB 10-X Cluster Ammo:OMNI
+Clan Ammo SRM-6:OMNI
+Clan Ammo SRM-6:OMNI
+CLCASE
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Jengiz earns its fearsome reputation through a combination of base chassis features that persist across all configurations. Thirteen and a half tons of Bruin Heavy ferro-aluminum armor provide protection comparable to many assault BattleMechs, and twenty double heat sinks on the base chassis deliver exceptional thermal dissipation capacity before a single weapon pod is loaded. With forty-three and a half tons of available pod space, the Jengiz can mount weapons suites competitive with designs considerably heavier than its eighty-ton airframe. A permanently integrated ECM suite degrades enemy fire-control computers in both atmospheric and space combat, complicating targeting solutions for any opponent attempting to coordinate fire against it.</p><p>Poor atmospheric maneuverability is the design's primary limitation, restricting its combat effectiveness in high-density atmospheric engagements where agility determines survival. In near-space and orbital environments, however, the Jengiz excels, where the ability to absorb punishment and deliver sustained firepower outweighs the value of raw speed. The primary configuration demonstrates this philosophy with a mixed loadout of a cluster-capable autocannon, ER PPC, large and medium pulse lasers, and short-range missile launchers, capable of engaging targets across all combat ranges while the ECM suite complicates enemy targeting solutions. Subsequent configurations leverage the design's enormous pod capacity to deliver specialized armament packages ranging from long-range Gauss and missile combinations to close-range ballistic and Streak missile loadouts that can strip the armor from even the most heavily protected targets.</p>
+</capabilities>
+
+<overview>
+<p>The Jengiz is one of the heaviest and most capable OmniFighters in Clan service, developed in 3032 by Clan Ghost Bear as a dedicated near-space combat platform. Where most fighters balance firepower against maneuverability, the Jengiz inverts this philosophy, sacrificing atmospheric agility for an extraordinary combination of armor and weapons capacity. The design attracted immediate and widespread interest across all Clans, but only Clan Wolf succeeded in the Trials of Possession required to secure the design through legitimate means. All other Clans that field the Jengiz have done so through battlefield capture, earning it a gradual but steady presence across Clan aerospace inventories far beyond its original Ghost Bear origins.</p>
+</overview>
+
+<deployment>
+<p>The Prime configuration serves as the Jengiz's general-purpose combat loadout, combining a cluster-capable autocannon, ER PPC, large and medium pulse lasers, and short-range missile launchers for coverage across all engagement ranges. The permanently integrated ECM suite provides additional utility against coordinated enemy attacks. Ghost Bear and Clan Wolf aerospace Stars deploy the Prime as their baseline heavy fighter for near-space patrols, orbital defense duties, and escort operations where varied threat profiles demand tactical flexibility.</p>
+</deployment>
+
+<history>
+<p>Bear's Den began producing the Jengiz at its Strana Mechty facility in 3032, fulfilling a Ghost Bear requirement for a heavy near-space superiority fighter that combined the tactical flexibility of OmniPod technology with the raw destructive potential to dominate orbital engagements. The design's capability generated immediate demand across Clan space, with multiple Clans initiating Trials of Possession almost as soon as field reports reached the Grand Council. Only Clan Wolf possessed the combination of warrior skill and negotiating leverage to win the design through legitimate means, securing the Jengiz through hard-fought Trials that underscored Ghost Bear's determination to limit access to their most capable aerospace asset. Clans unable to win formal Trials began accumulating captured examples from Wolf and Ghost Bear engagements, seeding the type across aerospace inventories that would otherwise never have fielded it.</p><p>The Clan Invasion of the Inner Sphere altered the Jengiz's production and distribution calculus considerably. As Ghost Bear aerospace units pressed deep into the Rasalhague Occupation Zone, the Strana Mechty production line continued supplying front-line warriors, but the logistical demands of sustaining an occupation force thousands of light years from the homeworlds created pressure to establish nearer supply sources. Ghost Bear's distinctive migration pattern, gradually relocating its entire population and touman to the Occupation Zone, eventually produced a second Jengiz production requirement in the Inner Sphere. The Tseng Facility on Alshain was brought online during the Civil War era to manufacture Jengiz airframes closer to the front, reducing Ghost Bear's dependence on homeworld supply chains and providing a more responsive production base for the rapidly evolving Dominion. Production at Strana Mechty continued under Ghost Bear ownership throughout the Invasion and Civil War periods, eventually transferring to Clan Stone Lion during the Wars of Reaving as that conflict consumed the homeworlds and reshaped their political theater.</p><p>The Alshain line proved its value during the Jihad, when Ghost Bear's aerospace forces played a significant role in the coalition campaign against the Word of Blake Protectorate. Jengiz fighters were paired with more maneuverable designs from the Ghost Bear touman, using their heavy armor and sustained firepower to anchor engagements while faster wingmates handled the flanking work that the Jengiz's atmospheric performance could not. The Tseng Facility transitioned to Rasalhague Dominion control as Ghost Bear completed its political transformation in the post-Jihad era, continuing to supply the Dominion's aerospace forces through the Dark Age under its new national designation. The Wolf Armor Works facility on Eden, maintained by Clan Wolf throughout the Civil War and Jihad periods, provided a third production source that supplemented Wolf aerospace requirements before disappearing from available records as the Wars of Reaving disrupted homeworld manufacturing infrastructure.</p><p>New configurations continued to emerge throughout the design's service life. The E configuration, introduced during the Jihad, reflected growing Clan awareness of the electronic warfare threat posed by the Blakists and created a specialist variant focused on disrupting enemy command and control. The experimental X configuration tested rotary autocannon and next-generation electronics that informed later Ghost Bear aerospace design work. The Dark Age F configuration, combining a Long Tom cannon with heavy ultraclass ballistics under a targeting computer, reflected the Rasalhague Dominion's preference for maximizing alpha-strike damage potential in an era defined by shorter, more decisive engagements.</p>
+</history>
+
+<manufacturer>
+Bear's Den|Tseng Facility|Wolf Armor Works
+</manufacturer>
+
+<primaryFactory>
+Strana Mechty (Bear Enclave)|Alshain|Eden (Abaddon)
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Ursa Major Type III
+ENGINE:240 XL
+ARMOR:Bruin Heavy Ferro-Aluminum
+COMMUNICATIONS:Vox 91
+TARGETING:Hunter 62B
+</systemModels>
+
+<source>
+TR:3055U
+</source>
+
+<published>
+RS:3055Uu
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

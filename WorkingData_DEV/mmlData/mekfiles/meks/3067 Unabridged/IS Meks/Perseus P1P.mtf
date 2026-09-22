@@ -1,0 +1,205 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cdf3-72cd-9729-c14e12a112bf
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Perseus
+model:P1P
+mul id:5698
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3078
+source:TR:J
+published:RS:3067u
+rules level:2
+role:Brawler
+
+quirk:easy_maintain
+quirk:anti_air
+
+mass:75
+engine:300 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:12 IS Double
+base chassis heat sinks:12
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:21
+RA armor:21
+LT armor:24
+RT armor:24
+CT armor:36
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:8
+RTR armor:8
+RTC armor:9
+
+Weapons:10
+ER Small Laser, Left Leg
+ER Small Laser, Left Leg
+ER Small Laser, Right Leg
+ER Small Laser, Right Leg
+MRM 20, Left Arm
+PPC, Left Arm
+Medium Laser, Left Arm
+Rotary AC/5, Right Arm
+Streak SRM 4, Center Torso
+TAG, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+MRM 20 (OMNIPOD)
+MRM 20 (OMNIPOD)
+MRM 20 (OMNIPOD)
+PPC (OMNIPOD)
+PPC (OMNIPOD)
+PPC (OMNIPOD)
+Medium Laser (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISRotaryAC5 (OMNIPOD)
+ISRotaryAC5 (OMNIPOD)
+ISRotaryAC5 (OMNIPOD)
+ISRotaryAC5 (OMNIPOD)
+ISRotaryAC5 (OMNIPOD)
+ISRotaryAC5 (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS MRM 20 Ammo (OMNIPOD)
+IS MRM 20 Ammo (OMNIPOD)
+ISGuardianECMSuite (OMNIPOD)
+ISGuardianECMSuite (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+ISCASE (OMNIPOD)
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISRotaryAC5 Ammo (OMNIPOD)
+ISRotaryAC5 Ammo (OMNIPOD)
+ISRotaryAC5 Ammo (OMNIPOD)
+IS Streak SRM 4 Ammo (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+ISCASE (OMNIPOD)
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISStreakSRM4 (OMNIPOD)
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISTAG (OMNIPOD)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISERSmallLaser (OMNIPOD)
+ISERSmallLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISERSmallLaser (OMNIPOD)
+ISERSmallLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Perseus was born from the League Central Coordination Committee's program to develop OmniMechs indigenous to the Free Worlds League. Introduced in 3058, the P1 Perseus was the only design from this initiative to enter FWLM service in significant numbers. Built by Kali Yama Weapons Industries on Kalidasa (the same facility responsible for Orion production since the fall of the Star League) the seventy-five-ton OmniMech shares many components with the venerable Orion. This similarity prompted FWLM technicians to nickname it the "Omni-Orion," and deployment largely followed the Orion's footprint, replacing older machines on a one-for-one basis in front-line formations.</p><p>Despite their visual resemblance and shared Valiant Lamellor armor, the Perseus incorporates a redesigned Kali Yama Endo Steel skeleton and a Hermes 300 XL engine in place of the Orion's Vlar 300 standard fusion plant. The cockpit's more centralized placement further distinguishes the OmniMech, marking it as a purpose-built modular warfare platform rather than a simple upgrade.</p>
+
+capabilities:<p>The Perseus provides nearly forty tons of pod space, a substantial capacity for a seventy-five-ton chassis. A Hermes 300 XL engine drives the OmniMech at sixty-four kilometers per hour, while fourteen tons of Valiant Lamellor armor provide heavy protection. The design lacks jump capability, trading vertical mobility for maximum pod space and firepower.</p><p>While capable on paper, the Perseus has earned a somewhat lackluster reputation compared to contemporaries like the Templar or Hauptmann. This is largely due to its small weapon bays, which limit the hardware each location can carry. Only the arms accommodate the FWLM's heaviest weapons such as Gauss rifles or Ultra-class autocannons, and installing them requires removing the hand and lower-arm actuators. Several configurations mount weaponry in the legs as a result. More critically, the small bays constrain the number of double heat sinks that can be fitted, pushing most configurations toward ballistic and missile systems rather than energy-heavy loadouts.</p><p>The Prime configuration carries an Ultra AC/10 paired with an Artemis IV-enhanced LRM-20, supplemented by an SRM-4 with Artemis IV, a medium pulse laser, four ER medium lasers in the legs, and a head-mounted ER small laser. CASE in both torsos protects against ammunition explosions, making the Prime a well-balanced combatant that mirrors the Orion's proven multi-range philosophy.</p>
+
+deployment:<p>The P configuration emerged during the Jihad, pairing a Rotary AC/5 capable of extremely high rates of fire with an MRM-20 launcher for saturation bombardment at medium range. A standard PPC anchors the loadout with reliable long-range direct fire, while a Streak SRM-4 provides efficient close-range missile support that only fires when a solid lock is achieved. Each leg mounts a small laser for point-blank defense. A Guardian ECM suite disrupts enemy targeting networks, and a head-mounted TAG system allows the Perseus P to designate targets for friendly artillery assets. This combination of high-volume ballistic fire, electronic warfare capability, and artillery designation makes the P configuration a versatile asset for the chaotic Jihad-era battlefield.</p>
+
+history:<p>The Perseus emerged from the Free Worlds League's recognition during the Clan Invasion that its military lacked the flexible, reconfigurable 'Mechs that were becoming increasingly important on the modern battlefield. The LCCC authorized several parallel OmniMech development programs, but most proved too ambitious or too expensive. Only Kali Yama Weapons Industries' P1 Perseus, leveraging the proven Orion chassis as its foundation, successfully transitioned from prototype to full production. Kali Yama's decades of Orion manufacturing experience on Kalidasa gave the company a significant advantage, engineers intimately familiar with the Orion's seventy-five-ton frame could adapt that knowledge to the Perseus's redesigned endo steel skeleton and XL engine without starting from scratch.</p><p>The Perseus quickly became a mainstay of Marik front-line units during the Civil War era, helped in part by a massive FWLM training program to build a corps of OmniMech-qualified engineering staff. Early logistical problems with the supply of pod-configured weapons dogged the design's initial deployments, but these issues were progressively resolved as Kali Yama expanded its production infrastructure on Kalidasa. By the early 3060s, Perseus-equipped formations could reliably tailor their loadouts to meet specific operational challenges, and the shared component base with the Orion simplified supply chains for mixed formations fielding both designs.</p><p>The Word of Blake's seizure of Free Worlds League territory during the Jihad brought Kalidasa under Blakist control, disrupting production of both the Perseus and the Orion lines at the Kali Yama facility. The Perseus saw service on both sides of the conflict, with FWLM loyalist units fielding pre-war stocks against Blakist formations equipped with newly manufactured machines. New configurations developed during this period reflected the Word of Blake's tactical preferences and the increasingly desperate nature of the fighting.</p><p>Following the Jihad, the Kalidasa facility passed through the Republic of the Sphere's jurisdiction before the collapse of the HPG network and the onset of the Dark Age disrupted centralized control. The factory was listed as independent during the early Dark Age before Clan Wolf's expanding conquests brought Kalidasa under their control, the same campaign that saw the Wolf production lines converted to build the Orion C. While the Orion's simpler conventional design proved easier to adapt to Clan specifications, the Perseus's OmniMech architecture apparently did not see similar conversion, and active production appears to have ceased after the Jihad. Surviving machines remain in service across the former Free Worlds League and successor states, their rugged Orion-derived engineering ensuring continued operational viability well beyond Kali Yama's last production run.</p>
+
+manufacturer:Kali Yama Weapons Industries Inc.
+
+primaryfactory:Kalidasa
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Kali Yama
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Valiant
+systemmode:ARMOR:Lamellor
+systemmanufacturer:COMMUNICATIONS:Irian
+systemmode:COMMUNICATIONS:Orator-5K
+systemmanufacturer:TARGETING:Wasat
+systemmode:TARGETING:Aggressor Type 5 with OmniLink

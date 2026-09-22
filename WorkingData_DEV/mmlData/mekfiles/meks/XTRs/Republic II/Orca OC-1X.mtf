@@ -1,0 +1,206 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-e040-7c11-8f89-8364acfad8cc
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Orca
+model:OC-1X
+mul id:7356
+
+Config:Biped
+techbase:Inner Sphere
+era:3103
+source:XTR:RotS 2
+published:XTR:RotS 2
+rules level:4
+role:Sniper
+
+quirk:hard_pilot
+quirk:distracting
+quirk:obsolete:3105
+quirk:prototype
+quirk:poor_performance
+
+mass:200
+engine:400 XL Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Superheavy Gyro
+
+heat sinks:19 IS Double
+walk mp:2
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:61
+RA armor:61
+LT armor:61
+RT armor:61
+CT armor:90
+HD armor:12
+LL armor:80
+RL armor:80
+RTL armor:20
+RTR armor:20
+RTC armor:30
+
+Weapons:8
+Gauss Rifle, Left Arm
+ER Large Laser, Left Arm
+Sniper Cannon, Right Arm
+LRM 20, Left Torso
+ER PPC, Left Torso
+ER PPC, Right Torso
+SRM 6, Center Torso
+Small X-Pulse Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISERLargeLaser
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISSniperCannon
+ISSniperCannon
+ISSniperCannon
+ISSniperCannon
+ISSniperCannon
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+LRM 20
+LRM 20
+LRM 20
+ISERPPC
+ISERPPC
+IS Ammo LRM-20|IS Ammo LRM-20
+IS Ammo LRM-20
+IS Ammo SRM-6|IS Ammo SRM-6
+IS Gauss Ammo|IS Gauss Ammo
+ISCASEII
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERPPC
+ISERPPC
+ISSniperCannonAmmo|ISSniperCannonAmmo
+ISSniperCannonAmmo
+ISCASEII
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+SRM 6
+ISSmallXPulseLaser
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISGuardianECMSuite
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Orca is a 200-ton superheavy BattleMech prototype developed in secret by the Republic of the Sphere on Terra around 3091. Representing the Republic's first attempt to push BattleMech construction beyond established weight limits, the Orca was assembled by hand at a partially restored superheavy manufacturing facility originally used by the Word of Blake. When its existence was finally confirmed through a data dump from Sheratan, the Orca was revealed as likely the largest BattleMech ever constructed. The program was ultimately suspended around 3105, with the design never achieving operational status, though the data it generated proved invaluable for subsequent superheavy development programs.</p>
+
+capabilities:<p>The Orca's most defining characteristic is its staggering mass. At 200 tons, the design required a conventional reinforced internal structure weighing forty tons, as much as an entire Republic Armed Forces Targe assault 'Mech. Without access to endo steel production, designers were forced to work with standard materials, imposing enormous weight penalties from the outset. A 400-rated extra-light engine provides minimal mobility, moving the Orca at a walking speed of just over thirty-two kilometers per hour. This glacial pace, combined with the overwhelming mass, made the 'Mech exceptionally difficult to control, with even momentary lapses in pilot concentration risking costly damage.</p><p>The Orca carries a diverse arsenal headlined by a Sniper Artillery Cannon, enabling it to function as a mobile artillery platform. Twin extended-range particle projector cannons and an extended-range large laser provide heavy direct-fire capability at range, while a Gauss rifle adds long-range ballistic punch. An LRM-20 launcher and SRM-6 round out the missile armament, with a small X-pulse laser providing point defense. Thirty-six tons of standard armor with CASE II protection offer substantial coverage across the superheavy frame, and nineteen double heat sinks manage the considerable thermal load. Despite this impressive firepower, the design's haphazard construction and severe control difficulties demonstrated that superheavy 'Mech engineering demands far more than simply scaling up existing technology.</p>
+
+deployment:<p>This variant is the sole configuration of the Orca ever produced, serving as an experimental testbed rather than a combat-ready platform. Built to validate the concept of superheavy BattleMech construction for the Republic Armed Forces, the prototype explored the feasibility of fielding a chassis of unprecedented mass rather than refining a finalized combat design. Despite its failure to achieve operational status, data generated by this variant program proved invaluable, with lessons learned contributing directly to the Republic's later development of the Poseidon, its first production superheavy BattleMech.</p>
+
+history:<p>The Orca program traces its origins to approximately 3091, when a Republic of the Sphere technical advisor within the Department of Research and Development oversaw the partial restoration of a superheavy 'Mech manufacturing facility on Terra. The facility had been severely damaged during Operation SCOUR in the closing stages of the Jihad. The Word of Blake's Skobel MechWorks had previously produced the 150-ton Omega superheavy 'Mech at this location, but the orbital plant containing the Omega's structural molds was destroyed during the battle for Terra. Without access to those specialized molds, designers were forced to employ conventional materials for the Orca's skeleton, imposing enormous weight penalties that would define the program's limitations. With enough infrastructure restored to permit experimentation, several Orca test chassis were painstakingly assembled by hand using components sourced through an elaborate network of shell companies operating under fictitious product names.</p><p>Security surrounding the program was brutally enforced. At least one civilian who inadvertently documented a live-fire test was detained for five years before release. When reports of the Orca surfaced on 1 April 3103, the convenient timing led most observers to dismiss the claims as an elaborate prank timed to coincide with the historical Day of Fools. More ardent conspiracy theorists proclaimed the design as evidence of Clan Wolverine's return. The Sheratan data dump ultimately confirmed the Orca's existence, but also revealed the program's significant shortcomings and the extraordinary lengths taken to preserve its secrecy.</p><p>The prototype's control systems proved inadequate for managing a chassis of such unprecedented mass, and the haphazard construction methods introduced additional flaws that compounded the inherent challenges of superheavy engineering. All prototypes were ultimately mothballed at classified locations and the project was reportedly suspended around 3105. The program's lead technical advisor subsequently departed Republic space, reportedly settling in a hidden location beyond the Fortress Republic's walls.</p><p>Despite the Orca's failure to achieve operational status, the program generated critical data on superheavy BattleMech construction. These lessons proved instrumental in the Republic's later development of the Poseidon, which successfully addressed many of the Orca's shortcomings through tripodal locomotion, purpose-built structural engineering, and a multi-person cockpit to manage the workload that had overwhelmed the Orca's single pilot.</p>
+
+manufacturer:Krupp Armament Works
+
+primaryfactory:Terra
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Skobel MechWorks
+systemmode:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:400 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Standard w/ CASE II
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:"GarbleTalker X" with Guardian ECM Suite
+systemmanufacturer:TARGETING:Unknown

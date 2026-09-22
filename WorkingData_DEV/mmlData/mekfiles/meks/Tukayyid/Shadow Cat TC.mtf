@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-de43-7518-8646-c45e96b2bd94
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Shadow Cat
+model:TC
+mul id:7590
+
+Config:Biped OmniMek
+techbase:Clan
+era:3050
+source:BoT
+published:BoT
+rules level:2
+role:Scout
+
+quirk:low_profile
+
+mass:45
+engine:270 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:10
+walk mp:6
+jump mp:6
+
+armor:Ferro-Fibrous(Clan)
+LA armor:10
+RA armor:10
+LT armor:18
+RT armor:18
+CT armor:20
+HD armor:8
+LL armor:18
+RL armor:18
+RTL armor:4
+RTR armor:4
+RTC armor:6
+
+Weapons:4
+Small Pulse Laser, Left Arm
+LB 10-X AC, Right Arm
+SRM 4, Left Torso
+Small Pulse Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLSmallPulseLaser (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLLBXAC10 (OMNIPOD)
+CLLBXAC10 (OMNIPOD)
+CLLBXAC10 (OMNIPOD)
+CLLBXAC10 (OMNIPOD)
+CLLBXAC10 (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+CLSRM4 (OMNIPOD)
+Clan Ammo SRM-4 (OMNIPOD)
+CLActiveProbe (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+CLSmallPulseLaser (OMNIPOD)
+Clan LB 10-X AC Ammo (OMNIPOD)
+Clan LB 10-X Cluster Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLMASC
+CLMASC
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Shadow Cat is a medium-weight Clan OmniMech developed by Clan Nova Cat at the beginning of the thirty-first century as a direct replacement for the Ice Ferret. Designed during preparations for Operation Revival, the Shadow Cat was intended to provide greater firepower and flexibility than its predecessor while maintaining comparable mobility. The design proved so successful that it quickly spread beyond the Nova Cats to become a staple of multiple Clan toumans, seeing adoption by Clans Cloud Cobra, Diamond Shark, Fire Mandrill, Smoke Jaguar, Steel Viper, and Wolf.</p><p>Originally produced by Clan Nova Cat, the Shadow Cat has remained in continuous production for over a century, with multiple manufacturers ensuring a steady supply across both Clan and Inner Sphere markets. The design holds the unusual distinction of being one of few Clan Invasion-era OmniMechs to lack a separate Inner Sphere reporting name.</p>
+
+capabilities:<p>The Shadow Cat achieves its versatility through aggressive use of weight-saving technologies. A Type 79-45 endo steel internal structure and RFUM 270 XL extralight engine provide the structural foundation, while seven tons of Compound H17 ferro-fibrous armor delivers respectable protection for its mass. These technologies free up seventeen tons of pod space, significantly more than the Ice Ferret it replaced, allowing commanders tremendous flexibility in configuring the design for specific mission profiles.</p><p>Fixed jump jets grant a 180-meter jump capability, providing excellent tactical mobility across varied terrain. The inclusion of myomer accelerator signal circuitry enables burst speeds approaching 130 kilometers per hour, making the Shadow Cat one of the fastest medium OmniMechs in service. This combination of jumping ability and straight-line speed makes the design exceptionally difficult to pin down in combat.</p><p>The Prime configuration epitomizes the Shadow Cat's philosophy of punching above its weight class. An arm-mounted Gauss rifle delivers devastating long-range firepower capable of threatening much heavier opponents, while paired ER medium lasers provide backup at closer ranges. An active probe rounds out the electronics suite, enabling the Prime to serve effectively in a scouting role while retaining significant combat punch.</p>
+
+deployment:<p>A Tukayyid Configuration developed in the years following the Battle of Tukayyid, this loadout was not widely recognized as an official alternate configuration until the 3060s. The TC mounts an LB 10-X autocannon that can fire both standard slugs and cluster rounds, providing tactical flexibility against both armored and dispersed targets. An SRM-4 offers additional close-range punch, while paired small pulse lasers and an active probe complete the package. The Steel Vipers and Nova Cats were among the primary users, finding unexpected success against ComStar infantry formations and light vehicle forces. During the Truce years, Inner Sphere neighbors dealing with combined-arms raids adopted the Shadow Cat TC, employing it with deadly efficiency.</p>
+
+history:<p>The Shadow Cat first tasted combat against Inner Sphere forces during the Battle of Luthien in 3052, where Clan Smoke Jaguar forces deployed the design alongside other frontline Clan 'Mechs. The design subsequently saw action during the Battle of Tukayyid, where its speed and firepower made it a valuable asset in the fast-moving engagements that characterized the campaign. The lack of any captured specimens prior to Tukayyid meant ComStar had no opportunity to assign the 'Mech a separate reporting name, resulting in both sides referring to it by its original Clan designation.</p><p>Following the Great Refusal and the fracturing of the Clan political environment, production of the Shadow Cat in the Homeworlds gradually declined. The design's strong association with the exiled Clan Nova Cat likely contributed to its eventual phase-out from Homeworld production lines during the Wars of Reaving. The Barcella factory on Barcella changed hands multiple times, passing from Clan Nova Cat to Clan Diamond Shark during the Civil War era and later to Clan Coyote during the Jihad, though active production had largely ceased by that point.</p><p>In the Inner Sphere, the design thrived. Clan Nova Cat's Barcella Beta facility on Irece maintained active production through the Jihad and into the early Dark Age, supporting the Clan's integration with the Draconis Combine. Following the Nova Cat Annihilation, the Draconis Combine continued operating the Irece facility at reduced capacity. The Shadow Cat gained a new lease on life when Clan Protectorate Arms on Asellus Australis began production in the late Dark Age era, initially under independent operation before the Free Worlds League reasserted control.</p><p>Clan Sea Fox merchants have distributed Shadow Cats widely, ensuring the design remains common among Clan and Inner Sphere militaries alike. The Shadow Cat's enduring popularity, spanning over a century of continuous service, is a sign of the fundamental soundness of its design philosophy.</p>
+
+manufacturer:Barcella Beta|Clan Protectorate Arms|Barcella Beta
+
+primaryfactory:Barcella|Asellus Australis|Irece
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Type 79-45
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:RFUM
+systemmode:ENGINE:270 XL
+systemmanufacturer:ARMOR:Compound H17
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Model KY
+systemmode:JUMP_JET:Boosters
+systemmanufacturer:COMMUNICATIONS:JNE
+systemmode:COMMUNICATIONS:Integrated
+systemmanufacturer:TARGETING:Build 2 CAT
+systemmode:TARGETING:TTS

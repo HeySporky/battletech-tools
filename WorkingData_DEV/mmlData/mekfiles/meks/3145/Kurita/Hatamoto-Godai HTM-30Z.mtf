@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d348-7657-8304-0f1bb0f926e5
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hatamoto-Godai
+model:HTM-30Z
+mul id:6419
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3140
+source:TR:3145:DC,TR:3150
+published:RS:3150
+rules level:3
+role:Juggernaut
+
+quirk:fast_reload
+quirk:poor_work
+
+mass:80
+engine:240 Fusion Engine(IS)
+structure:IS Standard
+myomer:Standard
+cockpit:Command Console
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+walk mp:3
+jump mp:0
+
+armor:Ballistic-Reinforced(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:24
+RT armor:24
+CT armor:33
+HD armor:9
+LL armor:25
+RL armor:25
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:6
+Extended LRM 15, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+C3 Boosted System (Master), Left Torso
+C3 Boosted System (Master), Right Torso
+Laser AMS, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+IS Ammo Extended LRM-15
+IS Ammo Extended LRM-15
+IS Ammo Extended LRM-15
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser
+CLERMediumLaser
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+
+Left Torso:
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+ISGuardianECMSuite
+ISGuardianECMSuite
+-Empty-
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+CLLaserAntiMissileSystem
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit (ARMORED)
+Cockpit (ARMORED)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Born from the Draconis Combine’s desperate need to convert technological windfalls into lasting military advantage, the Hatamoto-Chi is one of the most successful BattleMech redesigns in Inner Sphere history. When Kanrei Theodore Kurita received ComStar’s gift of Star League-era BattleMechs prior to the War of 3039, he ordered Luthien Armor Works to reverse-engineer the advanced Thug and adapt its weaponry to the existing Charger production line. Rather than building an entirely new chassis from scratch, LAW engineers grafted the Thug’s devastating twin-PPC armament and SRM racks onto the Charger’s robust frame, cutting manufacturing time in half and greatly accelerating the DCMS’s reconstruction after the Fourth Succession War. The resulting eighty-ton assault ’Mech became a symbol of the Dragon’s resurgence, and the Charger chassis’s spacious torso cavities and easily reconfigurable arm assemblies spawned an entire family of variants, from the standard Hatamoto-Chi to the specialized Hatamoto-Hi, Kaze, Ku, Mizo, Suna, Godai, and the amphibious Hatamoto-Kaeru.</p>
+
+capabilities:<p>Despite being a crude duplication of a design produced centuries earlier, the Hatamoto-Chi’s pair of particle projection cannons backed by torso-mounted SRM-6 racks makes it a lethal combatant at any range. The Mitchell Argon armor surrounding the Earthwerks VOL chassis provides excellent protection, and the design’s modular construction (inherited from the Charger) makes battlefield repairs remarkably straightforward. Technicians regularly rebuilt destroyed Hatamoto-Chi to full combat capability within days, a feat that repeatedly confounded opposing intelligence services who could not determine whether they were facing new production or rebuilt machines.</p><p>The principal weakness of the original HTM-26T was its limited heat dissipation. Only seventeen heat sinks cooled the design, leaving a Hatamoto-Chi running dangerously warm when firing both PPCs on the move, a consequence of retaining the Charger’s conventional chassis rather than the Thug’s original endo steel frame. The HTM-27T production model addressed this deficiency once the Combine could mass-produce endo steel, freeing weight for additional ammunition and CASE protection. Later variants incorporated double heat sinks, extended-range weaponry, C3 networking, and even underwater maneuvering units, demonstrating the chassis’s extraordinary adaptability.</p>
+
+deployment:<p>The Hatamoto-Godai, produced by Maltex Corporation on Unity, is a rarity in mainline Combine regiments. Packed with electronics including dual C3 suites, it serves as a line commander’s BattleMech capable of coordinating a full company. While its dual lasers and extended missile rack make it woefully underpowered compared to other Hatamoto variants, its command-and-control capability makes it invaluable to officers who prioritize battlefield coordination over personal firepower. Ballistic-reinforced armor ensures the command platform survives long enough to fulfill its coordination role.</p>
+
+history:<p>The Hatamoto-Chi’s origins trace to the political maneuvering of the future Coordinator Theodore Kurita. When ComStar provided the Combine with hundreds of SLDF BattleMechs, Theodore looked beyond the immediate military advantage to the long-term technological potential. Several Thugs (“accidentally” left with Star League technology by negligent ComStar technicians) were secretly shipped to Luthien Armor Works for reverse engineering. LAW engineers elected to base the new design on their existing Charger line, and to throw MIIO off the trail, the design was released under the cover of a fictitious “Maltex Corporation,” leading to an erroneous listing of the primary factory as Errai.</p><p>Prototype HTM-26Ts were field-tested during the War of 3039, where their appearance confused Allied battle computers that mistook them for standard Chargers. Post-war feedback sessions between MechWarriors and LAW observers produced heated exchanges over the design’s limited SRM ammunition, the pilots complained of running dry in combat, while engineers noted that the empty ammunition bays had actually prevented several machines from being destroyed by internal explosions. The debate ended with the HTM-27T, which incorporated endo steel construction, additional ammunition, and CASE protection.</p><p>Production expanded rapidly through the 3040s. LAW sold the design and the expensive Al Na’ir endo steel facility to Yori ’Mech Works, using the proceeds to upgrade their own production lines. Independence Weaponry on Quentin added a second production source, and the Hatamoto-Chi became one of the standard low-end assault ’Mechs of the DCMS, with nearly every battalion containing at least one variant. The HTM-28T from Independence Weaponry’s Quentin lines represented a complete redesign with jump jets, double heat sinks, and extended-range PPCs.</p><p>Maltex Corporation (which had started as a cover identity) eventually became a real manufacturer on Unity, producing the Hatamoto-Suna with innovative ballistic-reinforced armor, the electronics-heavy Hatamoto-Godai command variant, and the amphibious Hatamoto-Kaeru. The Hatamoto series has remained one of the DCMS’s most iconic BattleMech families through the ilClan era, with Maltex’s HTM-30T incorporating heavy PPCs and the latest armor technology.</p>
+
+manufacturer:Maltex Corporation
+
+primaryfactory:Unity
+
+fluffdate:2026-02-10 14:00:04
+
+systemmanufacturer:CHASSIS:Earthwerks
+systemmode:CHASSIS:VOL
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:240
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Ballistic-Reinforced
+systemmanufacturer:COMMUNICATIONS:Colmax
+systemmode:COMMUNICATIONS:90
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:D2j

@@ -1,0 +1,174 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb6e-745b-9387-8e136d828309
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Burro II Super Heavy Cargo Truck
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4382
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:12.5:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+50
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+25
+20
+20
+13
+</armor>
+
+<Body Equipment>
+Environmental Sealing
+Armored Chassis
+ISOffRoadChassis
+</Body Equipment>
+
+<Front Equipment>
+Searchlight
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+9
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Burro II is powered by a fusion engine providing a cruise speed of 32 km/h and a flank speed of 54 km/h; modest for its size but appropriate for the heavy support role it fills. The wheeled medium chassis incorporates armored, environmental sealing, and off-road chassis modifications, with each wheel driven by an independent motor. This distributed drive system maintains mobility even when individual wheels sustain damage, offering a degree of battlefield survivability unusual for a non-combat vehicle. The primary cargo area holds 12.5 metric tons of standard payload, loaded and unloaded through a single rear door. A half-ton mounted searchlight provides forward illumination for night operations.</p><p>BAR 9 armor protection (78 total points with 25 on the front face) stands as a dramatic upgrade over lighter utility vehicle standards, capable of resisting most small arms fire and many battlefield fragmentation hazards. Environmental sealing makes the Burro II viable in atmospheres hostile to unprotected equipment, and the independent wheel motors provide the terrain-crossing performance that has earned it a growing reputation among operators familiar with the limitations of conventional wheeled designs on contested or heavily damaged terrain.</p>
+</capabilities>
+
+<overview>
+<p>The Iveco Burro II Super Heavy Cargo Truck is a fifty-ton military-grade support vehicle developed by Iveco and introduced in 3064. Far heavier than its predecessor, the Burro II was designed for independent cross-country operations in austere environments where conventional wheeled vehicles would fail. Its individually motorized wheels and large-frame suspension allow it to traverse jagged and unstable terrain with consistent speed and minimal loss of payload capacity. Environmental sealing extends its operational envelope to hostile atmospheres and near-vacuum conditions, and Iveco has indicated plans to develop fully submersible and vacuum-rated variants. Entering service in the turmoil of the FedCom Civil War era, the Burro II quickly attracted attention from Chaos March militias, planetary defense formations, and mercenary units seeking a capable heavy logistics platform that could keep pace with operations across the most challenging terrain the Inner Sphere offers.</p>
+</overview>
+
+<deployment>
+<p>The Burro II serves with Chaos March militias, mercenary formations, and organized military logistics elements requiring heavy cargo transport in austere environments. Its environmental sealing qualifies it for deployment on worlds with hostile atmospheres or reduced atmospheric pressure, and its terrain-crossing performance makes it effective in areas where lighter vehicles struggle. The design's growing reputation has attracted procurement interest from military formations well beyond its original Chaos March customer base, particularly among units operating in theaters with limited infrastructure and challenging terrain.</p>
+</deployment>
+
+<history>
+<p>Iveco developed the Burro II during the late Clan Invasion era, responding to operational experience that identified a persistent gap between light utility vehicles and dedicated heavy transport platforms. The design was introduced in 3064 and began appearing with Chaos March militia formations shortly afterward. Its timing placed initial production within one of the most politically unstable regions of the Inner Sphere, and disruptions to supply chains during the FedCom Civil War complicated early distribution efforts.</p><p>Despite these obstacles, the Burro II rapidly demonstrated its value. Several mercenary units acquired early production vehicles, and reports indicate that the entire 3066 production run was purchased by mercenary formations - a commercial milestone that confirmed the design's appeal beyond its original militia customer base. The independently motorized wheel system drew particular attention from operators who had dealt with the vulnerability of conventional drive trains in heavily cratered or geologically unstable terrain. On worlds like Caph, where the jagged wastelands presented consistent challenges to conventional logistics vehicles, the Burro II maintained operational tempos that lighter alternatives could not match.</p><p>Encouraged by this reception, Iveco began establishing production facilities outside the Chaos March, contracting with factories in nearby Free Worlds League and Capellan Confederation territory to supply a broadening customer base. Plans for underwater and near-vacuum variants suggest Iveco views the Burro II as a long-term platform rather than a single-generation design, positioning it for continued relevance as Inner Sphere militaries seek logistics vehicles capable of operating in the full range of environments they may encounter.</p>
+</history>
+
+<manufacturer>
+Iveco
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:N/A
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion
+ARMOR:Unknown (BAR 9)
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:N/A
+</systemModels>
+
+<source>
+TR:VAr,DTP:Liao
+</source>
+
+<published>
+TR:VAr,DTP:Liao
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

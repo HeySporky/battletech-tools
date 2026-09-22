@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cfc2-75b7-b670-612eba792a32
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Mjolnir
+model:MLR-B2
+mul id:2194
+
+Config:Biped
+techbase:Inner Sphere
+era:3077
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:3
+role:Scout
+
+quirk:easy_maintain
+weaponquirk:accurate:LA:4:Mace
+
+mass:25
+engine:150 Fusion Engine
+structure:IS Standard
+myomer:Triple-Strength
+
+heat sinks:10 Single
+walk mp:6
+jump mp:6
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:7
+RA armor:7
+LT armor:10
+RT armor:10
+CT armor:11
+HD armor:8
+LL armor:10
+RL armor:10
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:2
+ER Small Laser, Right Arm
+ER Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Mace
+Mace
+Mace
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERSmallLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Jump Jet
+Jump Jet
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Jump Jet
+Jump Jet
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Mjolnir is a 25-ton light BattleMech that entered production in 3077 at Arc-Royal MechWorks. Developed during the post-Jihad reconstruction period, the design was conceived as both a replacement for Lyran combat losses and an export product to generate revenue for the Commonwealth's shattered industrial sector. Drawing heavily on existing Commando and Wolfhound components to minimize development time and cost, the Mjolnir quickly earned a reputation as a surprisingly dangerous close-combat platform that punches well above its weight class. Its affordable price tag and straightforward maintenance requirements have made it a common sight among garrison forces, mercenary commands, and periphery militias across the Inner Sphere.</p>
+
+capabilities:<p>The Mjolnir's design team prioritized available components and simplicity of construction, resulting in a surprisingly effective melee combatant. The 'Mech's centerpiece is its left-hand mace, fashioned after the Norse thunder god's hammer and married to Triple Strength Myomer. When operating in the correct heat range, the TSM allows the Mjolnir to deliver blows capable of crippling even assault-class opponents, while also boosting the 'Mech's ground speed beyond its standard ninety-seven kilometers per hour.</p><p>Ranged firepower is deliberately modest, consisting of a torso-mounted RAMTech 1500Z extended-range medium laser and a right-arm Diverse Optics extended-range small laser. These energy weapons keep the Mjolnir independent of ammunition supply lines while generating heat to activate the TSM. Ferro-fibrous armor from Paulina provides maximum protection for the weight, and Luxor 2/Q jump jets grant a hundred-eighty-meter jump capability to help close with targets.</p><p>The deliberate use of a standard fusion engine and single heat sinks keeps production costs low and the 'Mech relatively easy to maintain in the field. However, the limited ranged armament leaves the Mjolnir vulnerable during the approach phase, and opponents who maintain distance can exploit the 'Mech's inability to project meaningful firepower beyond close quarters. Pilots must rely on terrain, jump capability, and tactical positioning to survive long enough to bring the mace to bear.</p>
+
+deployment:<p>This variant is the standard production model of the Mjolnir and the most widely fielded variant. Its combination of affordable construction and straightforward maintenance requirements has made it a common sight among garrison forces and mercenary commands operating on tight budgets. The energy-only weapons loadout suits extended independent operations where resupply may be uncertain, and the design sees particularly heavy use among periphery states and smaller commands that value reliability over sophistication.</p>
+
+history:<p>The Mjolnir emerged during one of the most difficult periods in Lyran industrial history. The Jihad had ravaged the Commonwealth's manufacturing sector, and the reconstruction of facilities that had made the Lyrans an economic powerhouse became a primary national objective. Arc-Royal MechWorks, having survived the conflict with its facilities largely intact, became a focal point for recovery efforts. Bitter debates over resource allocation were settled by a compromise that dedicated part of the factory to rebuilding LAAF forces while simultaneously developing a new exportable design.</p><p>Initial production went chiefly to Lyran Guards and Lyran Regulars regiments to help replace extensive combat losses. The fledgling Republic of the Sphere also requested a number of Mjolnirs under agreements made during the Coalition effort to liberate Terra from the Word of Blake, assigning them to Stone's Liberators and the Principes Guards.</p><p>Since the design was not considered vital to national defense, subsequent production runs were sold to the Federated Suns and the general mercenary market. This export-oriented approach proved successful in generating revenue for Lyran reconstruction, validating the original compromise that brought the design into existence. The Mjolnir's low production cost and ease of maintenance made it particularly attractive to smaller commands and periphery states rebuilding their own forces in the post-Jihad era.</p>
+
+manufacturer:Arc-Royal MechWorks
+
+primaryfactory:Arc-Royal
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Arc-Royal
+systemmode:CHASSIS:AR-7m
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:150
+systemmanufacturer:ARMOR:Paulina
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Luxor
+systemmode:JUMP_JET:2/Q
+systemmanufacturer:COMMUNICATIONS:O/P
+systemmode:COMMUNICATIONS:COM-22/H47
+systemmanufacturer:TARGETING:Digital Scanlok
+systemmode:TARGETING:347

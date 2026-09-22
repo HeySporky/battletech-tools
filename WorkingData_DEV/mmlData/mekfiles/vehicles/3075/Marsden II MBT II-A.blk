@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e60d-7583-8f41-5ef02344eb0d
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Marsden MBT
+</Name>
+
+<Model>
+II-A
+</Model>
+
+<mul id:>
+2086
+</mul id:>
+
+<year>
+2482
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+52
+52
+52
+51
+41
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo AC/10
+IS Ammo AC/10
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+SRM 6
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+Autocannon/10
+</Turret Equipment>
+
+<capabilities>
+<p>The Marsden I centered its firepower on a single heavy autocannon mounted in a full turret, paired with a short-range missile launcher embedded in the forward glacis and a machine gun for anti-infantry protection. Deep ammunition reserves for the SRM launcher allowed sustained engagement, and a few salvos could shatter armor and cripple motive systems, allowing the autocannon to direct depleted-uranium rounds into damaged hull sections. The AA Battleplate armor provided respectable protection for its era, though the design could not match the most heavily armored tanks of its day, and a top speed of 54 kph left it vulnerable to faster opponents.</p><p>The Marsden II addressed most of these shortcomings. Switching to an ICE powerplant freed interior space for heavier armament, pairing twin SRM launchers with an upgraded autocannon and dual machine guns for strong anti-armor and anti-infantry capability. BattleMech-grade Diamondplate armor significantly improved survivability over the original design. The forward-mounted missile launchers and turret autocannon created overlapping fire zones that made the Marsden II difficult to approach from any angle. The trade-off was a top speed matching its predecessor rather than improving on it, and the relentless advance of military technology eventually made even this capable vehicle obsolete in major-power service.</p>
+</capabilities>
+
+<overview>
+<p>The Marsden family of main battle tanks traces its origins to Arcturan Arms of Arcturus, representing nearly two centuries of armored vehicle development beginning in the late twenty-fourth century. The Marsden I debuted in 2396 as a well-balanced fighting platform and served as the Lyran Commonwealth's primary line combatant for close to seven decades. Though not the fastest, most heavily armored, or best-armed tank of its day, its straightforward design and robust construction made it a reliable fixture in planetary militia forces across the Commonwealth. Arcturan Arms replaced it with the Marsden II in 2463, a lighter and more capable successor that incorporated BattleMech-grade armor and advanced manufacturing techniques developed from Terran Hegemony programs. The Marsden II spawned a series of variants that remained in production well into the Dark Age era, cementing the family as one of the longest-lived armored vehicle lineages in the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The II-A emerged in 2482 as the most capable Marsden configuration of the Age of War period, trading one machine gun and one SRM launcher for an upgraded Strongarm AC/10 that significantly improved anti-armor penetration. Arcturan Arms produced both the standard II and the II-A in parallel, with the latter finding particular favor in units assigned to tank-hunting roles. The improved autocannon gave LCAF formations equipped with the II-A a meaningful edge against contemporary light and medium armor, though it sacrificed some anti-infantry capability in the process. Like the standard II, the II-A remained in service in declining numbers long after production ended in 2545.</p>
+</deployment>
+
+<history>
+<p>The Marsden I entered service with the Lyran Commonwealth Armed Forces in 2396, shortly before the start of the Age of War. Arcturan Arms designed it as a workhorse platform suited to the full spectrum of planetary garrison and line combat duties that Commonwealth commanders required. For nearly seven decades the design filled this role, deploying in mixed formations alongside early BattleMechs across the realm's contested border worlds. As the Age of War ground on and technology advanced, the Marsden I's limitations became apparent, but its rugged reliability kept it in front-line service well past the point where comparable designs had been retired.</p><p>The tank's last significant deployment came during the Reunification War, when Lyran contingents contributed vehicles to the Star League's campaign against the Periphery states. The Tamar Tigers used large numbers of Marsden Is for convoy escort and perimeter security, freeing more capable vehicles for offensive operations. These aging tanks proved no match for the modern BattleMechs of Archon Viola Steiner's command elements during the Day of Rage in 2492. Of the 117 soldiers who fell to their own leader that day, many were Marsden I crewmen. The debacle confirmed the design's obsolescence, and surviving examples were decommissioned following the war's conclusion.</p><p>Arcturan Arms had introduced the Marsden II in 2463, overlapping with the late service life of the original. The company developed it using plans obtained from the Terran Hegemony, incorporating BattleMech-grade construction techniques that produced a lighter but more capable vehicle. The first Marsden IIs used primitive armor grades and were phased out quickly in favor of the mainstream model introduced in 2473. The II-A variant followed in 2482, upgrading the secondary autocannon to a more powerful weapon that significantly improved anti-armor capability. Both models saw wide service in the LCAF through the remainder of the Age of War and into the early Succession Wars.</p><p>Production at the Arcturus facility continued until 2545, when MacEnroe Motors of Donegal acquired Arcturan Arms and chose to discontinue the Marsden line in favor of the ultimately unsuccessful Marsden III. The decision proved catastrophic, leading to the collapse of MacEnroe Motors itself in 2551 and the permanent loss of the Arcturus production capability. Surviving Marsden IIs lingered in planetary militia and security force arsenals across the Inner Sphere for centuries, their robust construction outlasting both the company that built them and the era that spawned them. The Jihad era brought new life to the design, with Arcturan Arms reactivating facilities on Arcturus and establishing new production lines on Buena and Halfway to produce an updated configuration for a new generation of conflicts.</p>
+</history>
+
+<manufacturer>
+Arcturan Arms
+</manufacturer>
+
+<primaryFactory>
+Arcturus
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Arcturan Arms
+ENGINE:OmniDiesel
+ARMOR:Arcturan Arms
+COMMUNICATIONS:Arc-Signal
+TARGETING:Land Shark
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:180 ICE
+ARMOR:AA-50 Diamondplate
+COMMUNICATIONS:750
+TARGETING:Scanner 15
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

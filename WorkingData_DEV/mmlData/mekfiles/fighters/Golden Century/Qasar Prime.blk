@@ -1,0 +1,193 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-acb2-7497-9094-6105dd72d0bf
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Qasar
+</Name>
+
+<Model>
+Prime
+</Model>
+
+<mul id:>
+4883
+</mul id:>
+
+<year>
+2905
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<quirks>
+atmo_flyer
+easy_pilot
+weak_undercarriage
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+20
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+51
+46
+46
+41
+</armor>
+
+<Nose Equipment>
+CLUltraAC20:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLERMediumLaser:OMNI
+CLERMediumLaser:OMNI
+CLERMediumLaser:OMNI
+CLERMediumLaser:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLERMediumLaser:OMNI
+CLERMediumLaser:OMNI
+CLERMediumLaser:OMNI
+CLERMediumLaser:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+Clan Ultra AC/20 Ammo:OMNI
+Clan Ultra AC/20 Ammo:OMNI
+Clan Ultra AC/20 Ammo:OMNI
+Clan Ultra AC/20 Ammo:OMNI
+CLCASE
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Qasar's performance rests on a fundamental design decision: pack the available tonnage into engine and pod space and accept the consequences. The 400 Model SF-3 XL power plant delivers thrust far above what most craft of this size can manage, giving the Qasar speed and agility comparable to fighters thirty tons lighter. Combined with 26 tons of pod space carried in the Starborn 1.1 chassis, this produces a fighter capable of outgunning and outmaneuvering nearly any contemporary in one-on-one combat. The NC-TelCom Mk X communications suite and Big Cat Mk XXI targeting system round out the fixed equipment, providing reliable sensor and fire control capabilities.</p><p>The price for this performance is paid in armor and fuel. The Omega Heavy Stellarguard armor provides 184 points of protection, modest for an 80-ton craft, and fuel reserves are thin enough that sustained patrol operations push the fighter's range limits. In a turning fight, nothing could get behind the Qasar - but in a war of attrition those deficiencies proved decisive. Clan warriors accepted these trade-offs as a worthwhile bargain for decades, right up until a better option appeared.</p>
+</capabilities>
+
+<overview>
+<p>The Qasar is an 80-ton Clan OmniFighter introduced by Clan Nova Cat in 2905, built around an aggressive dueling philosophy that prioritized speed and weapons payload over defensive resilience. Produced at Barcella, it was the Nova Cats' first original aerospace fighter design and quickly defined their early aerial doctrine. The Qasar combined thrust normally associated with fighters far below its tonnage with a weapons-carrying capacity that gave it an undeniable edge in one-on-one engagements, and its reputation spread quickly across the Clans. For decades it flew in aerospace Stars from multiple factions, its design compromises accepted as the price of exceptional combat performance.</p>
+</overview>
+
+<deployment>
+<p>The base configuration introduced with the original design, the Prime carries a weapons load emphasizing long-range Clan energy weapons and missiles to exploit the Qasar's superior thrust in opening engagements. Nova Cat aerospace warriors preferred it for Trials of Position and honor duels where speed could be used to dictate engagement range. The Prime served as the reference configuration throughout the Qasar's active service life with Clan Nova Cat and formed the basis from which later variants were developed.</p>
+</deployment>
+
+<history>
+<p>The Qasar entered service with Clan Nova Cat in 2905 as an expression of the Nova Cat dueling tradition, giving their aerospace warriors a platform that could dominate personal combat challenges while providing meaningful front-line capability. Performance in early Trials established it as something worth coveting, and as other Clans encountered it in ritual combat they sought access to the design. For decades the Qasar served in aerospace Stars across the homeworlds, its deficiencies overshadowed by its performance advantages.</p><p>That reputation began to collapse when Clan Jade Falcon introduced the Visigoth in 2948. The new fighter was simply better in every practical respect, and as Visigoths spread through Clan aerospace forces even the Nova Cats could no longer justify the Qasar's weaknesses. Production fell off and the design retreated to secondary and training roles before fading from front-line service entirely.</p><p>Centuries later, Khan Jacali Nostra's effort to rebuild the Nova Cat Touman in the 3130s brought the Qasar back. Technicians at Irece had access to the original plans, and with limited options for rebuilding their aerospace arm the Nova Cats restored production. When the revolt came in 3141, Qasar pilots found themselves facing Draconis Combine garrison forces equipped with Slayers and Rievers, aging designs the Qasar outclassed easily. Even a Suzaku required careful handling; only the relatively rare Koroshiya could reliably defeat a Qasar. For a time the skies above Irece belonged to the Nova Cats.</p><p>The Combine adapted. Rather than accept turning engagements where the Qasar excelled, Combine forces used coordinated attacks, heavy armor, and numerical pressure to grind down the fighters their opponents fielded. By the end of 3142, Combine troops occupied the Delta Refit Center on Irece and Clan Nova Cat was gone. The captured facility and its hulls did not sit idle; in Draconis Combine hands the design was transformed rather than discarded, continuing in a new form that finally answered the question its armor and fuel reserves had always posed.</p>
+</history>
+
+<manufacturer>
+Barcella First Factory|LAW Irece Delta Refit Center
+</manufacturer>
+
+<primaryFactory>
+Barcella|Irece
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Starborn 1.1
+ENGINE:400 Model SF-3 XL
+ARMOR:Omega Heavy Stellarguard
+JUMP_JET:N/A
+COMMUNICATIONS:NC-TelCom Mk X
+TARGETING:Big Cat Mk XXI TTS
+</systemModels>
+
+<source>
+TR:GC
+</source>
+
+<published>
+TR:GC
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

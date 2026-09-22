@@ -1,0 +1,188 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e649-77d4-ab78-f95b76a11762
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Büffel Engineering Support Vehicle VII
+</Name>
+
+<Model>
+(Cargo)
+</Model>
+
+<mul id:>
+5475
+</mul id:>
+
+<year>
+2451
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+cargobay:3.5:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+48
+</armor_type>
+
+<armor_tech_rating>
+2
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+20
+20
+20
+24
+14
+</armor>
+
+<Body Equipment>
+IS Ammo MG - Full
+Armored Chassis
+SV Chassis Mod [Tractor]
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+Bulldozer
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+ISMineSweeper
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+Machine Gun
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+</Turret Equipment>
+
+<barrating>
+7
+</barrating>
+
+<structural_tech_rating>
+2
+</structural_tech_rating>
+
+<engine_tech_rating>
+2
+</engine_tech_rating>
+
+<capabilities>
+<p>The Büffel VII is a seventy-ton tracked vehicle powered by a diesel internal combustion engine, a deliberate design choice that prioritizes mechanical simplicity and ease of field maintenance over the performance characteristics of fusion alternatives. Its cruising and flanking speeds are modest by military standards, reflecting the engineering doctrine that a recovery and obstacle-clearance platform requires endurance and durability rather than maneuverability. Hull plating provides substantial protection across all facets of the vehicle, with the heaviest reinforcement concentrated at the rear where the minesweeping apparatus is mounted and where the vehicle presents its profile during sweeping operations.</p><p>The vehicle's engineering toolkit defines its operational role. Twin high-capacity lift hoists mounted in the turret can recover most disabled combat vehicles when used in conjunction with the built-in trailer connectors, making the Büffel VII a primary extraction asset for formations operating in contested terrain. A reinforced bulldozer blade at the front enables rapid clearance of rubble, collapsed structures, and other battlefield obstacles. The rear-mounted minesweeper apparatus locates and neutralizes mines and unexploded ordnance, though the system requires the vehicle to operate in reverse during deployment, a deliberate concession that keeps the most heavily armored hull section facing any incoming threats during sweeping work.</p><p>For self-defense, three machine guns split between the turret and front hull provide suppressive fire against infantry, supplemented by rear-mounted vehicle grenade launchers. A modest internal cargo bay accommodates critical supplies or repair components for supported units.</p>
+</capabilities>
+
+<overview>
+<p>The Büffel VII Engineering Support Vehicle represents one of the oldest combat-support designs still in active service anywhere in the Inner Sphere, tracing its lineage to a pre-spaceflight era when humanity first developed equipment capable of clearing battlefields and recovering disabled war machines. Introduced in 2407 by Arcturan Arms on Arcturus, the vehicle was designed to operate in the most hazardous forward areas of any conflict, extracting disabled vehicles, clearing minefields, and removing rubble obstructions that could impede military operations. The Lyran Commonwealth Armed Forces adopted it as a standard engineering support asset, and the design proved durable enough to outlast the company that built it, the state that originally commissioned it, and most of the combat equipment it was designed to support. By the thirty-first century, examples of the Büffel VII served in planetary militias, mercenary units, and foreign militaries across the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Cargo configuration removes the rear vehicle grenade launchers in exchange for an additional ton of internal storage capacity, raising total cargo to approximately 3.5 tons. This field modification is most common in support echelons operating in secured rear areas where the threat of direct infantry contact is low and the additional logistics space provides greater operational value than the sacrificed self-defense capability. Engineering units conducting sustained operations frequently adopt this configuration to maximize the repair materials, fuel, and consumables they can carry forward to supported elements.</p>
+</deployment>
+
+<history>
+<p>The Büffel VII entered Lyran Commonwealth service in 2407, produced at Arcturan Arms' facility on Arcturus to address a persistent need for a purpose-built heavy engineering vehicle capable of working under fire. The design was adopted broadly across the Lyran Commonwealth Armed Forces and spread simultaneously into civilian and industrial sectors, where its ability to clear difficult terrain and recover heavy equipment found natural application well beyond the battlefield. The Büffel VII became a fixture across Lyran military formations at every level, from the elite Guards regiments to the smallest planetary garrison commands.</p><p>The early 2540s brought a change in ownership when MacEnroe Motors acquired Arcturan Arms and assumed control of the Arcturus production line. Under MacEnroe's management, the facility introduced the Reverse Büffel variant, which swapped the positions of the minesweeper and bulldozer systems to allow mine-clearance operations at normal forward travel speed. Production at Arcturus ceased around 2551, and for the next five centuries the Büffel VII survived primarily through the vast numbers already in service. As examples passed between units, factions, and generations throughout the Succession Wars, many were operated under local designations while retaining the original specifications, and the common aftermarket practice of removing the rear grenade launchers in favor of additional cargo space further diversified the population in service.</p><p>The Büffel VII's longevity rested heavily on its diesel powerplant. An internal combustion engine required none of the specialized maintenance infrastructure that fusion-powered vehicles demanded, making the design practical for formations with limited technical resources. By the time of the Jihad, Büffel VIIs that had been in continuous service for a century or more were not unusual, maintained through locally fabricated replacement components. The design's broad presence in mercenary commands and foreign militaries reflected not only the scale of original production but the ease with which surviving units could be kept operational without specialized support.</p><p>Production resumed around 3074 when the Arcturus facility began manufacturing new Büffel VIIs under an unknown operator, coinciding with the simultaneous introduction of the related Büffel VIII series at Halfway. This renewed production reflected continued demand for battlefield engineering support across the contested frontiers of the late thirty-first century.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown (ICE)
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+70.0
+</tonnage>
+
+<fuel>
+0.5
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

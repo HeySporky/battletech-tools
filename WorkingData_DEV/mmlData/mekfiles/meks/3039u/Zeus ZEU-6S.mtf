@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c341-7309-b4f3-7ade380944e9
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Zeus
+model:ZEU-6S
+mul id:3642
+
+Config:Biped
+techbase:Inner Sphere
+era:2898
+source:TR:3039,TR:SW
+published:RSFP:Wave 2
+rules level:1
+role:Sniper
+
+quirk:easy_maintain
+quirk:barrel_fists_ra
+
+mass:80
+engine:320 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:17 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:18
+RT armor:18
+CT armor:26
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:5
+AC/5, Left Arm
+LRM 15, Right Arm
+Large Laser, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+LRM 15
+LRM 15
+LRM 15
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Large Laser
+Large Laser
+Medium Laser (R)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+IS Ammo LRM-15
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Medium Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Zeus is an eighty-ton assault BattleMech first built by Defiance Industries on Hesperus II for the Lyran Commonwealth in 2787, just as the First Succession War began. Built at the request of Lyran Commonwealth Armed Forces commanders for a new light-assault 'Mech designed to engage the enemy at long range and perform hit-and-run attacks, the Zeus filled a critical gap in the Lyran arsenal. The design quickly became the pride of the LCAF, serving as the quintessential Lyran assault platform for over three centuries. Defiance Industries' exclusive production at Hesperus II ensured a steady supply, though it also made the design's availability dependent on the security of that single vital world. The Zeus earned a reputation for rugged dependability and versatile combat performance that few assault designs of any era have matched.</p>
+
+capabilities:<p>The Zeus is fast enough to keep up with most heavy 'Mechs, and with a sturdy frame, eleven and a half tons of standard armor and a versatile weapons array, is equally capable of defeating them. Its use of reliable, low-maintenance and easily modified systems at a time when most 'Mechs were built with cutting-edge technology also proved fortuitous, allowing the Zeus to be produced long after those advanced components had become Lostech.</p><p>The standard Zeus carries a mix of ballistic, missile, and energy weapons covering all engagement ranges. A primary weapon in the left arm provides long-range striking power, backed by a missile launcher in the right arm for sustained indirect or direct fire support. A large laser in the left torso handles intermediate engagements, while paired medium lasers address close-range threats and rear-arc defense. This combination ensures the Zeus remains dangerous at any distance, though pilots must manage heat carefully during sustained engagements. The design's eighty-ton chassis achieves a maximum speed of sixty-four kilometers per hour, unusually fast for an assault platform and a deliberate choice by Defiance's engineers to support the hit-and-run doctrine Lyran commanders envisioned.</p>
+
+deployment:<p>This variant mounted a Defiance Type J Autocannon/5 in the left arm as its primary weapon, backed up by a Coventry Star Fire LRM-15 in the right arm for engaging enemies at long ranges. The missile launcher's placement, set around and back from a central core, was a unique way to protect the weapon while allowing the Zeus to use that arm as a bludgeon in hand-to-hand combat; the complicated arrangement also made the launcher prone to failure without regular maintenance. Both were fed by a ton of ammunition each, a source of concern among some pilots who preferred more shots from the LRM-15, though others noted by the point it ran dry the armor was probably compromised and an empty missile bin was less likely to explode. The Thunderbolt A5M Large Laser, mounted in the left torso and used to engage enemies at intermediate ranges, was also a unique challenge for Defiance. Whereas a typical barrel-type large laser wouldn't fit in the compact space, the company used their rare knowledge of fiber optics to design a smaller though no less effective weapon. Finally two Defiance B3M medium lasers, one mounted in the center torso and one in the left facing rearwards, were used for close-in work. This combination of weaponry made the Zeus a 'Mech that was deadly at any range.</p>
+
+history:<p>Three years before its release, the first two prototypes of the Zeus would have their first "test run" when they were forced to repel an attack on the Hesperus II factory by the Draconis Combine Mustered Soldiery. As the enemy pushed through Lyran lines, the two 'Mechs were summoned to aid, and through sheer novelty and long-range firepower, the Kuritans were forced to pause. This enabled more reinforcements to push back DCMS forces. While these prototypes were effective in repelling the attack, they were considerably more advanced than the commercial model and armed with a PPC, which proved unpredictable and unreliable during the combat. Inadequate shielding caused wild magnetic interactions between the weapon and the Zeus' engine, which was later revealed to be the source of this behavior. To guarantee that the Zeus arrived at the front lines as soon as possible, the complex energy weapon was replaced with a basic autocannon. The 'Mech initially appeared in substantial numbers after the 15th Lyran Guards regained the planet Sakhalin, and the Zeus had a long and storied history within the Commonwealth during the Succession Wars, becoming a well-respected assault 'Mech. Engineers were able to put a PPC on the Zeus again after the end of the Third Succession War, with the resulting ZEU-6T variant being the standard during the Fourth Succession War and later the War of 3039. The design was also well received by mercenary units, particularly the Zeta Battalion of Wolf's Dragoons.</p><p>During the formation of the Federated Commonwealth, the Zeus would meet opposition from some former AFFS troops, whose "Davion pride" barred them from using the 'Mech despite its superiority to many of their own machines. Similarly, as the FedCom military began to take on a Davion character, many Lyran commanders insisted that their pride and joy was too vital to give up, and so urged Defiance Industries to build new models that included freshly recovered Star League Lostech. With the introduction of the ZEU-9S Zeus, production of the earlier variations would be halted, and samples of this hallmark Lyran 'Mech would be distributed throughout the Commonwealth as a symbol of the new partnership. However, at the time of the FedCom Civil War, the majority of Zeus 'Mechs were in Lyran hands, with many of those assigned to Davion units relegated to rear-guard duty or sold to mercenaries. The LAAF and, following their takeover of Hesperus II in 3070, the Word of Blake Militia would continue to receive new variations.</p>
+
+manufacturer:Luneburg Vehicle Corporation|Defiance Industries
+
+primaryfactory:Braunschweig|Hesperus II
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Chariot Type III
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:320
+systemmanufacturer:ARMOR:Valiant
+systemmode:ARMOR:Lamellor
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Calliope ZE-2
+systemmanufacturer:TARGETING:TharHes
+systemmode:TARGETING:Ares-7

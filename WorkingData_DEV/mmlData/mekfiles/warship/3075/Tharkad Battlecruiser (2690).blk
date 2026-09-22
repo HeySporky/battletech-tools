@@ -1,0 +1,407 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-edef-70da-b182-3fafc03a3181
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Tharkad Battlecruiser
+</Name>
+
+<Model>
+(2690)
+</Model>
+
+<mul id:>
+5219
+</mul id:>
+
+<year>
+2690
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:36.0:6:1::-1:0
+smallcraftbay:8.0:2:2::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+cargobay:53914.5:1:9::-1:0
+1stclassquarters:620.0:0:-1::-1:0
+crewquarters:2100.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+7000
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+9880
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+11
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+145
+140
+140
+131
+140
+140
+</armor>
+
+<Nose Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:46
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:60
+(B) Large Laser
+Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:46
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:40
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:46
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:40
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:30
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:30
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+LRM 20
+LRM 10
+LRM 10
+LRM 10
+IS Ammo LRM-20:120
+IS Ammo LRM-10:60
+(B) Large Laser
+Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:30
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+LRM 20
+LRM 10
+LRM 10
+LRM 10
+IS Ammo LRM-20:120
+IS Ammo LRM-10:60
+(B) Large Laser
+Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:40
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:46
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+LRM 10
+LRM 10
+LRM 10
+LRM 10
+LRM 10
+LRM 10
+IS Ammo LRM-20:60
+IS Ammo LRM-10:120
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:40
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:46
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+LRM 10
+LRM 10
+LRM 10
+LRM 10
+LRM 10
+LRM 10
+IS Ammo LRM-20:60
+IS Ammo LRM-10:120
+</Right Broadsides Equipment>
+
+<structural_integrity>
+80
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 900,000 tons across 975 meters of hull, the Tharkad carries a diverse and formidable weapons suite across all arcs. The nose mounts three NL55 naval lasers, three Medium Naval PPCs, two NAC/25 naval autocannons, six Killer Whale capital missile launchers, and a screen of conventional lasers. Each forward quarter adds three more Medium NPPCs and two NAC/25s alongside two Heavy Naval Gauss Rifles, a rare and devastating weapon system. The broadsides carry four NL55 naval lasers, three Heavy Naval PPCs, and a mix of NAC/35 and NAC/30 naval autocannons supplemented by extensive LRM batteries. The aft quarters mount NL35 naval lasers, Medium NPPCs, NAC/20s, and additional LRM and conventional laser batteries, while the direct aft arc carries four NL45 naval lasers, two Heavy NPPCs, and two NAC/20s. Seven thousand single heat sinks manage the vessel's enormous thermal output. Ferro-carbide armor provides robust protection across nearly 984 tons of plating. Six docking collars, two gravity decks, and bays for thirty-six fighters and eight small craft round out the vessel's capabilities. The Word of Blake refit added a lithium-fusion battery for rapid successive jumps, reducing cargo capacity from approximately 53,900 to 45,000 tons to accommodate the new system.</p>
+</capabilities>
+
+<overview>
+<p>The Tharkad-class battlecruiser was the Lyran Commonwealth's most ambitious indigenous WarShip program, designed at Bolson-Tamar Shipyards beginning in 2685 to reduce Lyran dependence on Hegemony-built hulls. When the first-of-class LCS Tharkad slipped its moors at Tamar in 2690, the vessel proved capable of outrunning and outgunning every common fleet cruiser in known space, a performance profile surpassed only by the far larger Texas and McKenna-class battleships. Classified as a battlecruiser, the design combined the firepower of a much heavier vessel with the speed to dictate engagements on its own terms, making it the most powerful combatant in the Lyran fleet. The class earned a fearsome reputation as the cornerstone of Commonwealth naval power and one of the most capable WarShip designs produced outside the Terran Hegemony.</p>
+</overview>
+
+<deployment>
+<p>The First Succession War claimed several Tharkad-class vessels in rapid succession. At the Battle of Skondia in February 2787, the LCS Impregnable served as the flagship for a fifty-WarShip Lyran force that engaged forty-five Draconis Combine vessels in a four-week engagement that reduced the Lyran fleet to one-third strength. The Impregnable was crippled battling a pair of Narukami-class destroyers while the LCS Indomitable fought alongside. Two months later, the LCS Coventry led a retaliatory task force to Dieron commanding two Commonwealth II cruisers, an Aegis heavy cruiser, and two Mako corvettes, but sustained fatal damage and her crew was ordered to abandon ship. The vessel was declared missing in action, presumed destroyed. The LCS Ineffable and LCS Chaffee fought together at the Battle of Kalidasa in April 2819 during Operation SPIDERWEB; the Ineffable was lost engaging two Soyal-class heavy cruisers while the Chaffee survived badly damaged to support the two-month ground campaign.</p><p>The LCS Invincible, last of the class, gained unique status as the final major WarShip of the Lyran Commonwealth after the First Succession War ended. Damaged in fighting over Moore during the Second Succession War, the vessel was reduced to an orbital museum above Tharkad by approximately 2850, its repair costs deemed unfeasible. When House Kurita launched a massive assault against Hesperus II in 2853, repeated LCAF attempts to reinforce the besieged world ended in failure. A member of the ruling Triumvirate proposed a desperate alternative: restore the Invincible to active service and break the stalemate. Crewing the vessel proved problematic, as the spacers experienced in handling such a WarShip were graying retirees. Veterans were recalled and spent weeks training alongside younger crew drawn from naval academies and active vessels.</p><p>The Invincible arrived at Hesperus on 25 October, scattering the startled Combine fleet and destroying two WarShips on arrival. Driving at flank speed toward the planet, the battlecruiser drew the remaining Combine naval forces away from the Lyran relief force, which was able to begin landing troops as the last defenses crumbled. The Invincible then provided orbital fire support against Kuritan ground forces approaching the factory complex, the last such bombardment the Inner Sphere would witness for nearly two centuries. Over the following three weeks, the battlecruiser destroyed the last four WarShips remaining in the Combine's navy before the Combine commander ordered a withdrawal. The triumphant victory was marred by tragedy: the Invincible and her entire crew vanished in a misjump on the return voyage to Tharkad. Her name was added to the Commonwealth's List of Honored Missing, read aloud by the Archon on both Veteran's Day and the anniversary of the Commonwealth's founding.</p>
+</deployment>
+
+<history>
+<p>The Tharkad-class battlecruiser originated from the Lyran Commonwealth's desire to build a capital WarShip free of Hegemony supply chains. Design work began at Bolson-Tamar Shipyards in 2685, and the first-of-class LCS Tharkad entered service at the Tamar orbital yards in 2690. The new battlecruiser could outrun and outgun every common fleet cruiser in known space, a capability gap so alarming that it triggered a naval arms race and spurred development of the Black Lion class as a direct counter. Bolson Shipyards, the parent company, also operated yards at New Kyoto producing the Mako corvette, making the firm one of the Commonwealth's most important naval contractors.</p><p>Twenty-eight keels were laid down before the Draconis Combine destroyed the Tamar shipyards in late 2790, ending production permanently. By 2765, eleven Tharkads remained in active LCAF service, each forming the heart of a patrol squadron or static defense fleet. The standard escort pattern paired each Tharkad with one or more Commonwealth-class light cruisers and Mako corvettes for screening and reconnaissance, giving the battlecruiser a layered defensive screen that maximized its heavy firepower. Static fleets anchored by Tharkads guarded the capital at Tharkad and each state capital, while patrol squadrons ranged across the Commonwealth's borders with the Combine and Free Worlds League.</p><p>The Succession Wars consumed the class at an appalling rate. The First Succession War alone claimed multiple vessels in devastating fleet actions at Skondia, Dieron, and other systems, reducing Lyran naval strength to a fraction of its pre-war levels. The destruction of the Tamar yards meant every loss was irreplaceable, and the Commonwealth lacked the institutional knowledge and industrial capacity to construct new capital WarShips. The fleet that had once projected Lyran power across an entire nation was burning away in a conflict that consumed warships faster than any faction could replace them. The Second Succession War inflicted further attrition during strategic offensives like Operation SPIDERWEB, and combat damage over Moore left the last surviving vessel barely functional. By the mid-twenty-ninth century, the sole remaining Tharkad had been reduced to an orbital museum above the Commonwealth capital, its repair costs deemed unfeasible.</p><p>The vessel's dramatic reactivation for combat in 2853, when the Draconis Combine threatened Hesperus II, produced the last orbital bombardment the Inner Sphere would see for nearly two centuries. The battlecruiser's disappearance on its return jump, and its crew's addition to the Commonwealth's List of Honored Missing, secured the class a permanent place in Lyran naval legend. The vessel's story inspired ballads, holovid productions, and live theatrical adaptations that kept its memory alive across the Commonwealth for generations.</p><p>Centuries later, the Word of Blake recovered the lost vessel at a hidden shipyard facility in the Odessa system, a secret installation originally constructed by the SLDF and inherited by ComStar. How the battlecruiser traveled from its misjump point to that remote base, and when it arrived, remained an unsolved mystery. The Word refurbished the vessel with advanced jump technology and deployed it over Tharkad in December 3067, where its reappearance sparked devastation. Recaptured by Lyran forces in a costly boarding action in January 3072, the battlecruiser served in the coalition assault on Terra in 3078 before suffering irreparable jump core damage. With no shipyard capable of building replacements and the vessel itself beyond meaningful repair, the Tharkad class passed from active service after nearly four centuries of Lyran naval history.</p>
+</history>
+
+<manufacturer>
+Bolson-Tamar Shipyards
+</manufacturer>
+
+<primaryFactory>
+Tamar
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Bolson-Tamar Shipyards
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Tharkad
+ENGINE:Unknown
+ARMOR:Ferro-Carbide
+JUMP_JET:Standard
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Battlecruiser
+</use>
+
+<length>
+975 m
+</length>
+
+<height>
+1490m Sail
+</height>
+
+<source>
+TR:3075
+</source>
+
+<tonnage>
+900000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+95
+95
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+474
+</crew>
+
+<officers>
+62
+</officers>
+
+<gunners>
+87
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+35
+</life_boat>
+
+<escape_pod>
+30
+</escape_pod>
+

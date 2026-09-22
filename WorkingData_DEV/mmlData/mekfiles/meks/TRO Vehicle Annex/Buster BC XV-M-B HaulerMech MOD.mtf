@@ -1,0 +1,193 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ddcb-7593-84d2-678607356555
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Buster
+model:BC XV-M-B HaulerMech MOD
+mul id:454
+
+Config:Biped
+techbase:Inner Sphere
+era:2801
+source:His:OK
+published:RS:VA
+rules level:2
+role:Sniper
+
+
+mass:50
+engine:150 ICE Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:3
+jump mp:0
+
+armor:Commercial(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:10
+RT armor:10
+CT armor:11
+HD armor:9
+LL armor:10
+RL armor:10
+RTL armor:4
+RTR armor:4
+RTC armor:8
+
+Weapons:1
+PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Cargo:SIZE:2.0
+Cargo:SIZE:2.0
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+PPC
+PPC
+PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Buster is a fifty-ton IndustrialMech created by the Bluth Corporation in 2615 to serve as a heavy-duty HaulerMech for mining operations and DropPort cargo handling. Equipped with dual lift hoists and generous internal cargo capacity, the Buster quickly became the dominant cargo-handling platform across the Terran Hegemony, with multiple factories producing hundreds of machines each month.</p><p>Despite corporate upheaval that destroyed Bluth Corporation as an interstellar entity in the late twenty-eighth century, the Buster endured in production and widespread service, becoming one of the most popular IndustrialMech-MODs in history thanks to a spacious chassis that readily accommodates military-grade weaponry. An upgraded model introduced in 3060 incorporated modernized components, ensuring the design remained competitive well into the thirty-second century.</p>
+
+capabilities:<p>The Buster is built around a rugged Bluth-50S industrial chassis powered by a GM 150 ICE engine, providing a maximum speed of fifty-four kilometers per hour. While slow by any combat standard, this powerplant proved exceptionally reliable for sustained cargo operations in harsh industrial environments. The BC XXI variant adds industrial triple-strength myomer and a track system, enhancing both raw lifting power and maneuverability in confined spaces. Caterpillar CommerWeave commercial armor provides basic protection against industrial hazards, though it offers negligible resistance to military-grade weapons.</p><p>In its civilian configuration, the Buster mounts a lift hoist in each arm and distributes eleven tons of cargo bay space across both side torsos and the center torso. The spacious chassis that makes the Buster an effective cargo hauler also makes it one of the most adaptable platforms for field conversion, with ample internal volume to mount noticeable 'Mech-grade weaponry ranging from autocannons and missile racks to particle projector cannons and even Gauss rifles.</p><p>When converted to a MOD configuration, the Buster trades its cargo equipment for weaponry and an advanced fire control system. Armor is generally upgraded in quantity only (still commercial grade) providing only marginal additional protection. The industrial triple-strength myomer fitted to XXI-based conversions grants surprisingly powerful physical attacks, making modified Busters dangerous in close quarters and useful force multipliers for militia and irregular forces who lack proper BattleMechs.</p>
+
+deployment:<p>An alternative Pentagon Worlds conversion contemporary with the XV-M, the BC XV-M-B replaces the Buster's cargo equipment with a single particle projector cannon mounted in the right torso, completely filling the former cargo bay space. Ten heat sinks are required to manage the PPC's considerable thermal output on an ICE-powered chassis. This variant removes the lift hoists but retains a two-ton cargo bay in the left torso, suggesting these machines may have served dual roles, providing fire support while still hauling limited supplies. The PPC provides greater effective range than the XV-M's autocannon loadout, though the lack of secondary weapons leaves the machine vulnerable if its primary weapon is disabled.</p>
+
+history:<p>The Buster's story begins in 2615 when Bluth Corporation introduced the design to serve the Terran Hegemony's booming mining and freight industries. The HaulerMech's combination of lifting capacity, internal cargo space, and track-mounted mobility made it an immediate success, and by the mid-twenty-eighth century Bluth operated multiple production facilities across Hegemony space. The corporation's aggressive monopoly on spare parts and service contracts generated enormous profits but also considerable resentment among its customer base.</p><p>The arrival of the Powerman in the late twenty-eighth century shattered Bluth's dominance. Sitwell Corporation, founded by a disgruntled former Bluth employee, produced a lighter, faster, and more reliable HaulerMech that rapidly displaced the Buster from its market-leading position. Bluth Corporation responded with a lawsuit alleging industrial espionage and trade secret theft, but the legal proceedings (which dragged through the fall of the Star League and into the First Succession War) ultimately exposed widespread corporate malfeasance. Criminal indictments against Bluth's leadership destroyed the company as an interstellar entity, though the Terran production facility survived under ComStar stewardship.</p><p>During the chaos following the fall of the Star League, weaponized Busters appeared on the Pentagon Worlds as desperate factions armed whatever industrial machines they could find. These early modifications (most commonly mounting a medium autocannon with long-range missiles, or a particle cannon with copious heat sinks) represented the first generation of Buster MODs and proved effective force multipliers for militia and pirates alike. Similar conversions occurred throughout the Succession Wars wherever replacement BattleMechs were unavailable.</p><p>The Word of Blake's seizure of Terra brought the surviving Bluth Corporation facility under Protectorate control. The Blobists introduced the updated BC XXI model and developed purpose-built MilitiaMech conversions for their Protectorate Militia forces, with the most serious upgrade mounting an LB-X autocannon with vastly upgraded armor protection. Coalition forces salvaging Protectorate equipment after the Jihad even recovered a single specimen fitted with a Gauss rifle, though this appears to have been a unique modification rather than a standard production conversion.</p><p>Under the Republic of the Sphere, the Buster experienced a remarkable resurgence. Bluth Corporation's continued production on Terra, combined with the design's widespread availability on secondary markets, ensured that Busters could be found on worlds across the Prefectures. The Blackout and subsequent collapse of interstellar order drove a new wave of field modifications, as spaceport workers, militia forces, splinter factions, and even pirate bands armed their Busters with whatever weapons were available. By the ilClan era, modified Busters had become a common sight in irregular formations across the Inner Sphere.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Bluth
+systemmode:CHASSIS:50S
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:150 ICE
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Heavy Industrial
+systemmanufacturer:COMMUNICATIONS:Doering
+systemmode:COMMUNICATIONS:Hi-Def Mk II
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:911

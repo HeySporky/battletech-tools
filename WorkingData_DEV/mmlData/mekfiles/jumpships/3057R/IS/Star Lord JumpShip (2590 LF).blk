@@ -1,0 +1,219 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-c0f5-7267-aac0-d6ba0331cd46
+</UUID>
+
+<UnitType>
+Jumpship
+</UnitType>
+
+<Name>
+Star Lord JumpShip
+</Name>
+
+<Model>
+(2590) (LF)
+</Model>
+
+<mul id:>
+5125
+</mul id:>
+
+<year>
+2529
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:4.0:2:1::-1:0
+cargobay:420.0:1:2::-1:0
+1stclassquarters:50.0:0:-1::-1:0
+crewquarters:175.0:0:-1::-1:0
+steeragequarters:250.0:0:-1::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+130
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+250
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+6
+6
+6
+4
+5
+5
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Front Side Equipment>
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+</Right Front Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>The Starlord-class has six docking collars on distinct cargo sections along its hull. These feature a specialized system of high-strength electromagnetic grapples and cables that can "reel in" approaching vessels of 10,000 tons or less to assist in docking, while guiding larger ones. The six cargo bays are each accessible via their own cargo airlock. The design can house four small craft (shuttles or space buses) in pressurized, zero-G recovery bays with full repair facilities for up to two craft at a time. While featuring a massive Kearny-Fuchida drive, it is limited by a small fusion plant that requires at least 48 hours for a full charge. Due to the slow-charging nature of the power plant, the class however maintains a remarkably low jump failure rate. The Starlord-class utilizes a standard jump sail for recharging, though roughly 25% of the fleet suffers from degraded deployment systems that double the unfurling time. The vessel is renowned for having 30 crew members in high-end, single-occupancy rooms featuring private washrooms and automated food-processing. These accommodations are widely seen as among the finest to be found in the Inner Sphere, making the Star Lord a sought out vessel to serve on. This capacity is further expanded with 50 additional rooms to provide relief for cramped DropShip crews or extra space for junior crew members. An expansive grav deck of 110 meters diameter sees to the crews health. This version of the Star Lord-class features a Lithium-Fusion Battery, allowing the vessel exceptional strategic utility.</p>
+</capabilities>
+
+<overview>
+<p>At 274.000 tons the Star Lord is the second-largest class of JumpShip ever constructed, serving as a massive interstellar transport primarily used by the Successor States, elite mercenary commands, and major megacorporations. While it is renowned for its luxury crew accommodations and high carrying capacity, the vessel is notoriously expensive to maintain and suffers from slow drive-charging and aging sail-deployment mechanisms. Despite these drawbacks, it remains a prestigious asset, particularly within the Free Worlds League.</p>
+</overview>
+
+<history>
+<p>Due to the class its sizeable maintenance costs and small remaining production, there are few Star Lords still in the Inner Sphere. The vessel is a favorite of the Free Worlds League, due to which an estimated 40 percent of all Star Lords are now to be found within that realm. House Mariks production of the design is counted at a rate of two per year, with about one per year being produced in the Draconis Combine. At least one Star Lord is known to possess an L-F Battery. Given to Elected Prince Haakon Magnusson by the NAIS, the Norseman carried the Prince from system to system as he attempted to escape the Clan onslaught destroying his realm.</p>
+</history>
+
+<manufacturer>
+Midway Shipyards, SelaSys Incorporated, Stellar Trek, Universal Air, Federated-Boeing Interstellar
+</manufacturer>
+
+<systemManufacturers>
+ENGINE:Universal Air
+</systemManufacturers>
+
+<systemModels>
+ENGINE:KF Mark VIII a-1
+</systemModels>
+
+<use>
+Military, Rescue
+</use>
+
+<length>
+660m
+</length>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+274000.0
+</tonnage>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+110
+</grav_decks>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+50
+</crew>
+
+<officers>
+5
+</officers>
+
+<gunners>
+0
+</gunners>
+
+<passengers>
+50
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+10
+</life_boat>
+
+<escape_pod>
+6
+</escape_pod>
+

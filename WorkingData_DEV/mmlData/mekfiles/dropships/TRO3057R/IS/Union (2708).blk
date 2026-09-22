@@ -1,0 +1,264 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab5c-7073-a660-42b791224616
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Union
+</Name>
+
+<Model>
+(2708)
+</Model>
+
+<mul id:>
+5323
+</mul id:>
+
+<year>
+2708
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+mekbay:4.0:2:-1::-1:0
+mekbay:8.0:2:-1::-1:0
+asfbay:2.0:2:3::-1:0
+cargobay:74.5:2:4::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:77.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+90
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+6450
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+180
+180
+180
+104
+</armor>
+
+<Nose Equipment>
+(B) PPC
+(B) Autocannon/5
+Autocannon/5
+IS Ammo AC/5:20
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20:24
+(B) Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) PPC
+(B) Autocannon/5
+Autocannon/5
+IS Ammo AC/5:40
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20:24
+(B) Large Laser
+Medium Laser
+Medium Laser
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) PPC
+(B) Autocannon/5
+Autocannon/5
+IS Ammo AC/5:40
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20:24
+(B) Large Laser
+Medium Laser
+Medium Laser
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Large Laser
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+11
+</structural_integrity>
+
+<capabilities>
+<p>The original Union contains a number of design features not found on any other vessel of comparable size. Its Mek facility divides into three areas: drop chutes below the two Mek bays can deploy a lance while the craft is in space or atmosphere, the lower bay holds a lance of four Meks with access to the two fighter bays, and the upper bay accommodates two full lances of eight Meks along a large circular walkway fifty meters in diameter. A trio of heavy cranes mounted in the upper bay ceiling enables extensive field repairs and can service the lower bay through a massive deck hatch.</p><p>The Star League V250 drive system provides a safe thrust of 1.5 gravities, and the hull carries 37.5 tons of standard armor with 644 points of protection across all arcs. The weapons array distributes PPCs, autocannons, large lasers, LRM racks, and medium lasers across all firing arcs to ensure no approach vector goes undefended. Ninety single heat sinks manage the thermal load from this considerable armament. The original crew facilities feature double-occupancy quarters and spacious recreation areas that would be considered luxurious by Succession Wars standards, along with a Tactical Operations Room sufficient to coordinate lance-sized elements in company or larger operations.</p>
+</capabilities>
+
+<overview>
+<p>The Union class DropShip is regarded as the yardstick against which all other military transports are measured. First launched in 2708, this 3,600-ton spheroid design has served as the standard company-level BattleMek carrier for over three centuries, capable of delivering twelve Meks and two aerospace fighters into the hottest landing zone. Produced in enormous numbers by shipyards across the Inner Sphere, the Union weathered the technological collapse of the Succession Wars far better than the larger and more complex transports it was often paired with, and has been in continuous production since its inception.</p><p>Smaller and more numerous than vessels like the Overlord or Colossus, the Union's combination of adequate capacity, proven reliability, and relative ease of manufacture has made it the most widely deployed military DropShip in the Inner Sphere. Its distinctive spheroid silhouette is recognized by soldiers and civilians alike on virtually every inhabited world, an enduring symbol of military power projection from the Periphery to the Clan homeworlds.</p>
+</overview>
+
+<deployment>
+<p>The original Union entered service with the Star League Defense Force in 2708 and was adopted by virtually every major military power following the fall of the Star League. Its combination of Mek carrying capacity, fighter support, and adequate defensive armament made it the standard regimental transport for over three centuries. Every Great House operated significant numbers, and the design became so closely associated with certain Mek companies during the Succession Wars that specific Unions were often considered permanent fixtures of their assigned units, perfectly suited for the low-intensity raiding warfare common to that era. Production was maintained at facilities on New Earth, Galax, Alarion, Ares, and numerous other worlds, ensuring a steady supply of new hulls and replacement parts even during the darkest periods of the Succession Wars.</p>
+</deployment>
+
+<history>
+<p>The Union class entered service in 2708 during the Star League era, designed by Boeing Interstellar to provide a standardized company-level Mek transport for the Star League Defense Force. The original vessels featured comparatively luxurious crew facilities including double-occupancy quarters and spacious recreation areas, reflecting the standards of the era. The design proved immediately successful and was adopted across the SLDF, with multiple manufacturers licensed to meet demand.</p><p>The Succession Wars that followed the Star League's collapse tested the Union's durability to its limits. As technological capabilities declined, a series of hydraulic and electrical malfunctions on later production vessels led designers to replace the original crew amenities with communal bunkrooms and multipurpose areas. These modifications also degraded the air circulation system, giving the Union and its larger cousin the Overlord a distinctive stale atmospheric taint that became notorious among their crews. Despite these compromises, the Union's fundamental soundness ensured it remained in production throughout the Succession Wars, though shortages of drive system replacement parts during the Third Succession War nearly ended the class's dominance.</p><p>The Clan Invasion of 3049 brought renewed urgency to modernization efforts. In July 3055, Federated-Boeing Interstellar launched a comprehensive refit featuring significantly upgraded weapons and a return to Star League-era crew facilities with double-occupancy cabins and improved air filtration. A terrorist incident at the Galax shipyards curtailed initial production, but the upgraded model eventually entered widespread service. The Clans independently developed the Union C, scaling the hull up to 4,700 tons with improved thrust and Clan-grade weapons to carry fifteen Meks in the Clan Trinary structure.</p><p>The Word of Blake Jihad spawned the most radical Union variant yet when the Blakists developed the Pocket WarShip conversion, mounting capital-grade missile launchers on a hull that appeared outwardly identical to the standard Union. These vessels attracted infamy during the Jihad for their shock appearances in engagements where defenders expected nothing more than a conventional transport. Meanwhile, the Shipil Company on Skye produced the Union-X, a 3,700-ton expansion that traded Mek capacity for additional fighter and battle armor bays to support the evolving combined-arms doctrine of the post-Clan Invasion era. The Union remains the most produced and widely distributed military DropShip in the Inner Sphere, with no sign of its dominance waning.</p>
+</history>
+
+<manufacturer>
+Boeing Interstellar|Bowie Industries - Port Sydney|Di Tron Heavy Industries|Earthwerks Ltd.|Federated-Boeing Interstellar - Port Simon Shipyards|Irian Technologies - Irian Naval Systems of Clipperton|Matabushi, Inc|Taurus Territorial Industries|Vandenberg Mechanized Industries
+</manufacturer>
+
+<primaryFactory>
+New Earth|Alarion|Terra|Ares|Galax|Clipperton|Avon|Sterope|Illiushin
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Star League V250
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+'Mech/ASF carrier
+</use>
+
+<length>
+81.5 meters
+</length>
+
+<width>
+81.5 meters
+</width>
+
+<height>
+78 meters
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<published>
+RS:HPP1,RSFP:Battlefield
+</published>
+
+<tonnage>
+3600.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+42
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+6
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+7
+</escape_pod>
+

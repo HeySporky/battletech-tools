@@ -1,0 +1,188 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dfa8-78c1-bc2e-793c9ea1a580
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Schwerer Gustav
+model:
+mul id:2828
+
+Config:Biped FrankenMek
+techbase:Mixed (IS Chassis)
+era:3073
+source:XTR:Mercs
+published:XTR:Mercs
+rules level:4
+role:Missile Boat
+
+
+mass:100
+engine:400 XL Engine(IS)
+structure:Hybrid
+LA structure:IS Endo Steel:65
+RA structure:IS Endo Steel:65
+LT structure:Standard:100
+RT structure:IS Endo Steel:70
+CT structure:Standard:100
+HD structure:Standard:100
+LL structure:Standard:100
+RL structure:Standard:100
+myomer:Standard
+cockpit:Command Console
+gyro:Compact Gyro
+clancaseoptedoutlocs:RT
+
+heat sinks:15 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:21
+RT armor:24
+CT armor:25
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:9
+RTR armor:6
+RTC armor:10
+
+Weapons:3
+Binary Laser (Blazer) Cannon, Left Arm
+Rotary AC/5, Right Arm
+Thumper Cannon, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Binary Laser (Blazer) Cannon
+Binary Laser (Blazer) Cannon
+Binary Laser (Blazer) Cannon
+Binary Laser (Blazer) Cannon
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLRotaryAC5
+CLRotaryAC5
+CLRotaryAC5
+CLRotaryAC5
+CLRotaryAC5
+CLRotaryAC5
+CLRotaryAC5
+CLRotaryAC5
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISThumperCannon
+ISThumperCannon
+ISThumperCannon
+ISThumperCannon
+ISThumperCannon
+ISThumperCannon
+ISThumperCannon
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLRotaryAC5 Ammo
+CLRotaryAC5 Ammo
+CLRotaryAC5 Ammo
+ISThumperCannonAmmo
+ISThumperCannonAmmo
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Cockpit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+manufacturer:Tooth of Ymir Mercenary Regiment
+
+primaryfactory:Field Center Bravo-613, Arc-Royal
+
+fluffdate:2026-06-01 21:10:33
+

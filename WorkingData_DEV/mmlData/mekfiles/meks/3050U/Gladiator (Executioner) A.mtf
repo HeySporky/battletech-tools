@@ -1,0 +1,206 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c4c6-7da7-aa84-d24dfb8e994d
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Gladiator
+clanname:Executioner
+model:A
+mul id:1203
+
+Config:Biped OmniMek
+techbase:Clan
+era:3001
+source:TR:3050,TR:CI
+published:RSFP:Wave 1
+rules level:2
+role:Skirmisher
+
+quirk:distracting
+
+mass:95
+engine:380 XL (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:19 Clan Double
+base chassis heat sinks:15
+walk mp:4
+jump mp:4
+
+armor:Ferro-Fibrous(Clan)
+LA armor:32
+RA armor:32
+LT armor:20
+RT armor:20
+CT armor:37
+HD armor:9
+LL armor:40
+RL armor:40
+RTL armor:10
+RTR armor:10
+RTC armor:9
+
+Weapons:9
+Large Pulse Laser, Left Arm
+Large Pulse Laser, Left Arm
+Large Pulse Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+Machine Gun, Right Torso
+Machine Gun, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+Clan Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+Clan Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLMASC
+CLMASC
+CLMASC
+CLMASC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLMG (OMNIPOD)
+CLMG (OMNIPOD)
+Clan Machine Gun Ammo - Full (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Executioner, designated Gladiator by Inner Sphere forces, is a ninety-five-ton assault OmniMech introduced in 3001 by Clan Ghost Bear. The design originated from schematics acquired through a Trial against Clan Burrock, whose earlier Executioner-B had served the Clans since the Golden Century. Ghost Bear scientists initially attempted to merge the Burrock design with the Kodiak platform to create an OmniMech totem, but structural incompatibilities between the two concepts forced the projects apart. The Executioner emerged as a dedicated assault OmniMech emphasizing speed and mobility over raw firepower, while the Kodiak became a rugged second-line BattleMech.</p><p>Despite fielding less weaponry than competing assault designs, the Executioner earned a fearsome reputation for its ability to keep pace with 'Mechs twenty to thirty tons lighter. Ghost Bear remains the only Clan to produce the design in significant numbers, though every Clan eventually acquired examples through Trials of Possession, ensuring the Executioner's presence across the entire Clan military establishment.</p>
+
+capabilities:<p>The Executioner's defining characteristic is its extraordinary mobility for an assault-class platform. A massive Heavy Force 380 XL engine drives the chassis to sixty-four kilometers per hour, while a MASC system provides bursts of speed exceeding eighty-six kilometers per hour. Four fixed Pryzhok WM 10 jump jets grant the ability to clear one hundred twenty meters of terrain, giving the Executioner agility that belies its ninety-five-ton frame. This emphasis on speed comes at a cost, however, as the engine and mobility systems consume tonnage that might otherwise be devoted to armament, leaving only twenty-six and a half tons of pod space available for weapons and equipment.</p><p>Thirteen and a half tons of Arcadia Compound Delta VII ferro-fibrous armor provides adequate protection, though the coverage falls below average for the weight class. The Prime configuration exploits the chassis's mobility by mounting a Gauss rifle for long-range precision strikes alongside dual extended-range large lasers, with a pair of machine guns for anti-infantry work. This loadout favors open-field engagements where the Executioner can dictate range, though the design becomes vulnerable when cornered or facing opponents capable of matching its speed.</p><p>The spacious and reliable chassis supports an unusually diverse range of configurations, from energy-heavy brawlers to missile-heavy fire support platforms. While the Executioner carries less raw firepower than the lighter Warhawk, its superior mobility and jump capability make it a highly prized command OmniMech, with multiple Clans leveraging demand for the design as political currency.</p>
+
+deployment:<p>Alternate Configuration A shifts the Executioner's focus to close-range combat, replacing the Gauss rifle with three large pulse lasers whose enhanced accuracy compensates for movement during jump-assisted engagements. Four extended-range medium lasers and the Prime's machine guns provide supporting fire, while three additional double heat sinks partially offset the considerable thermal burden of the all-energy loadout. This configuration transforms the Executioner into an aggressive brawler that leverages the chassis's jump capability to close rapidly on opponents, though heat management remains a concern during sustained exchanges.</p>
+
+history:<p>The Executioner's origins trace to Clan Ghost Bear's acquisition of Clan Burrock's assault OmniMech schematics through a Trial sometime after the Ghost Bears began developing OmniMech technology in 2873. The ambitious initial plan called for merging the Burrock design with the planned Kodiak platform, creating a totem OmniMech embodying the Ghost Bear spirit. Over twenty prototype trials failed to integrate the MASC system with the hybrid chassis, and Ghost Bear scientists ultimately proposed splitting the effort into two separate platforms. The Clan Council approved, and the first Executioner rolled off the Arcadian production line within three years, entering service in 3001.</p><p>Ghost Bear warriors quickly proved the Executioner's worth on the Trial grounds, dominating early Trials of Possession. Clan Smoke Jaguar eventually claimed a Star's worth of the design, and over time every Clan gained access to at least a few examples. The Burrocks and Smoke Jaguars showed the greatest aptitude for developing new configurations, though Ghost Bear remained the sole large-scale producer. Production was centered at the Arcadia BattleMech Plant CM-T02 and later expanded to Alshain BattleWorx following the Clan Invasion, with the Albion Armor Works Alpha facility on Albion also contributing to the production run.</p><p>The Battle of Tukayyid in 3052 saw the development of the TC temporary configuration, an energy-focused variant born from ilKhan Ulric Kerensky's push for logistics-minded OmniMech loadouts. Clan Wolf deployed Executioner TCs as fast-response units harassing Com Guard supply lines, while Clan Ghost Bear's Alpha Galaxy used them as shock troopers during the fighting at Spanac and Luk. The TC proved so effective that it became a permanent standard configuration rather than a battlefield expedient, eventually influencing the development of the standardized F configuration.</p><p>Following the Wars of Reaving, the Home Clans withdrew the Executioner from service, possibly due to its strong association with the Spheroid Clans. Production still survived the Word of Blake Jihad intact, and the design remained a mainstay of the Rasalhague Dominion touman throughout the Dark Age. During the Second Combine-Dominion War, Ghost Bear Executioners led the assault on the Nova Cat capital of Irece, with Beta Galaxy's charge breaking through the Barcella-LAW manufacturing plant defenses. In the defense of Lambrecht in 3150, Fifth Bear Guards Executioners rallied after a surprise Draconis Combine combat drop to push the Third An Ting Legion from Middle Park and corner them among Castle Brian ruins on Brattanois.</p>
+
+manufacturer:Bergan Industries - Alshain BattleWorx|Albion Armor Works Alpha|Arcadia BattleMech Plant CM-T02
+
+primaryfactory:Alshain|Albion|Arcadia
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Clan Series Assault SXE
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:380 Heavy Force XL
+systemmanufacturer:ARMOR:Arcadia
+systemmode:ARMOR:Arcadia Compound Delta VII Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Pryzhok WM 10
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Dash-2 Optima
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Hakkøn-Morris LAP

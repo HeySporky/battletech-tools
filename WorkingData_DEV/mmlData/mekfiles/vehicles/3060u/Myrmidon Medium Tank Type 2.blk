@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e538-763c-8806-2e79b9828239
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Myrmidon Medium Tank
+</Name>
+
+<Model>
+Type 2
+</Model>
+
+<mul id:>
+2246
+</mul id:>
+
+<year>
+3075
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+4
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+35
+27
+27
+24
+35
+</armor>
+
+<Body Equipment>
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+ISVehicularMineDispenser
+ISVehicularMineDispenser
+ISVehicularMineDispenser
+</Right Equipment>
+
+<Left Equipment>
+ISVehicularMineDispenser
+ISVehicularMineDispenser
+ISVehicularMineDispenser
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISPlasmaRifle
+</Turret Equipment>
+
+<capabilities>
+<p>The Myrmidon is a 40-ton tracked medium tank built around a Nissan 200 fusion engine, yielding a road speed of 86 km/h and a cross-country pace of 54 km/h. That performance falls short of hover alternatives and lighter wheeled designs, but the tracked suspension delivers reliable mobility across a wide range of terrain conditions. The Myrmidon carries no jump capability.</p><p>Firepower centers on a single turret-mounted Parti-Kill Heavy Cannon, a particle projection cannon providing long-range striking power equivalent to the primary armament of many medium BattleMechs. A SureShot Mk VI SRM-6 rounds out the turret, adding close-range punch against infantry and lightly armored targets. The combined loadout allows engagement at multiple ranges, though the SRM system carries limited ammunition for sustained operations.</p><p>Protection comes from an ArcShield Maxi II standard armor suite. Coverage is adequate for a medium design but leaves the Myrmidon vulnerable to concentrated fire from heavier opponents. The fusion engine eliminates the catastrophic ammunition explosion risk present in combustion-powered vehicles, a selling point for smaller militaries with limited maintenance facilities. The reduced crew requirement compared to older medium tanks eases manpower demands, though it limits situational awareness during sustained combat.</p>
+</capabilities>
+
+<overview>
+<p>The Myrmidon Medium Tank entered production in 3060 as a New Earth Trading Company initiative to meet rising demand for affordable tracked firepower in an increasingly unstable Inner Sphere. Taking its name from legendary Greek warriors, the tank was designed from the outset as an accessible alternative to heavier, costlier BattleMech units. Drawing on the proven Manticore platform as a conceptual baseline but built around a more economical power plant, the Myrmidon delivers long-range firepower competitive with lighter BattleMechs at a fraction of the acquisition cost.</p><p>NETC marketed the design primarily to smaller state militias and independent commands unable to maintain full BattleMech forces, making the Myrmidon a fixture of Chaos March and periphery battlefields from the Civil War era into the thirty-second century.</p>
+</overview>
+
+<deployment>
+<p>The Type 2 is a Capellan Confederation field modification emerging from the Jihad. It replaces the particle projection cannon with a plasma rifle backed by three tons of ammunition, trades the SRM-6 for mine launchers on each sponson and the turret face, and substitutes a light fusion engine to accommodate the additional system weight. The result is a vehicle optimized for area denial and anti-infantry operations rather than direct-fire engagement. Distribution has been limited to Capellan state forces, and the configuration has not been formally adopted by any other faction.</p>
+</deployment>
+
+<history>
+<p>NETC developed the Myrmidon in the late 3050s in direct response to rising demand for affordable combined-arms firepower in the Chaos March and across the broader Inner Sphere. The collapse of the Federated Commonwealth and the ongoing Clan threat had left dozens of smaller worlds and independent commands scrambling for military equipment they could afford and maintain. NETC's engineers reviewed the successful Manticore chassis and chose to produce a lighter, less expensive alternative rather than compete in the heavier tank market. The decision to accept a more modest power plant was explicitly commercial, not tactical.</p><p>Initial production at New Earth supplied primarily the Lyran Alliance, which was fortifying its Clan invasion corridor in the late 3050s and early 3060s. A portion of NETC output went to independent militaries throughout the Chaos March, where the Myrmidon quickly earned a solid reputation in low-intensity conflicts against Capellan-backed guerrilla forces. The practical economics of the design attracted consistent mercenary interest, and NETC established a steady export market through the Civil War period.</p><p>Jalastar Aerospace, a Federated Suns manufacturer best known for its Manticore production on Panpour, entered a licensing agreement with NETC during this period to produce the standard Myrmidon for AFFS contracts. The arrangement complicated Jalastar's internal sales priorities, given the Myrmidon's overlap with their Manticore line. Jalastar's engineers would later leverage their familiarity with the design to develop a substantially modified anti-infantry variant.</p><p>The Jihad proved catastrophic for original Myrmidon production. Word of Blake forces assaulted New Earth in the mid-3070s, and the fighting effectively destroyed NETC's manufacturing capacity on the planet. With the original production line gone, the Maxwell Planetary Defense Consortium approached NETC in the mid-3080s about acquiring a production license. NETC accepted the arrangement, and Maxwell began producing the Myrmidon at their facility on Maxwell around 3088, securing the design's continued availability into the Republic era and beyond.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Light 200
+ARMOR:ArcShield Maxi II
+COMMUNICATIONS:O/P R Janxiir
+TARGETING:TargiTrack 717
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

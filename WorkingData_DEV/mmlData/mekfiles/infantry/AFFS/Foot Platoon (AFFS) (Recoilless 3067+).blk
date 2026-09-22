@@ -1,0 +1,89 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b6f3-79ba-8bee-43e22e98b500
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Platoon (AFFS)
+</Name>
+
+<Model>
+(Recoilless 3067+)
+</Model>
+
+<year>
+3067
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Fed Suns Infantry Kit (3067+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Federated Suns infantry benefit from one of the strongest industrial bases in the Inner Sphere, with AFFS quartermasters able to supply platoons with standardized equipment and ammunition from a logistics network that few rival states can match. Foot infantry remain the backbone of AFFS planetary garrisons, cheap enough to deploy in numbers across the Federated Suns' vast territory and reliable enough to hold ground that BattleMech forces cannot permanently occupy. Carrying medium recoilless rifles that fire shaped-charge warheads, these platoons field crew-served weapons heavy enough to threaten armored vehicles at ranges beyond what personal arms can achieve.</p>
+</overview>
+
+<notes>
+Intro date based on production date of AFFS 3067+ advanced infantry kit.  Federated Long Rifle is the classic long arm of the AFFS.
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Rifle (Federated Long)
+</Primary>
+
+<Secondary>
+InfantryMRR
+</Secondary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

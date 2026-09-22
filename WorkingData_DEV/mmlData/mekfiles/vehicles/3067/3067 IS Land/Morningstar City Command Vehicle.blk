@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e598-7261-b1c0-9ce6311e818e
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Morningstar City Command Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4671
+</mul id:>
+
+<year>
+3065
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Skirmisher
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+43
+29
+29
+19
+24
+</armor>
+
+<Body Equipment>
+IS Ammo AC/10
+IS Ammo AC/10
+IS Ammo MG - Full
+ISTargeting Computer
+ISC3MasterUnit
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+Machine Gun
+</Right Equipment>
+
+<Left Equipment>
+Machine Gun
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Autocannon/10
+</Turret Equipment>
+
+<capabilities>
+<p>The Morningstar is powered by a VOX 280 XL fusion engine, giving the 60-ton vehicle a respectable cruising speed for its class. Nine tons of Durallex Standard armor provides solid protection, particularly suited to the urban environments where the CCV was designed to operate. The vehicle is not intended for extended independent campaigns, carrying limited ammunition, but its cargo bay can be configured to transport a squad of battle armor troops or a standard infantry platoon, adding tactical flexibility to its command role.</p><p>Primary armament is a Mydron Excel Autocannon 10, which delivers consistent firepower against armored targets at moderate range while the vehicle maintains its command posture. Three Slingshot Machine Guns provide close-range point defense against infantry and light vehicles in densely built-up areas. The Morningstar is not engineered for extended independent action, and a lone Morningstar stripped of its network is a comparatively modest threat.</p><p>The Overlook J11 communications system integrates a C³ master computer, the central reason for the vehicle's existence. This system allows the Morningstar to coordinate a full Command/Control/Communications net, linking BattleMechs and subordinate vehicles through shared targeting data across an entire command company. The Brightstar 17 Mk. II targeting system is shared with the Minion, a deliberate design choice ensuring full compatibility across the combined-arms team. Without its C³ net, the Morningstar loses much of its battlefield value and becomes dependent on its autocannon and point defense weapons alone.</p>
+</capabilities>
+
+<overview>
+<p>The Morningstar City Command Vehicle is a 60-ton wheeled combat vehicle representing the second major joint venture between General Motors of Kathil and Ceres Metals Industries of Tikonov. Designed from inception as a city command vehicle (CCV) capable of coordinating combined-arms maneuvers in the absence of BattleMechs, it serves as the command hub and companion unit to the lighter Minion hover tank.</p><p>The C³ master computer at the heart of the Morningstar's design defines its battlefield purpose, making it the nerve center of any urban formation it joins. The partnership between General Motors and Ceres Metals that produced both the Morningstar and the Minion was unlikely to survive the political upheavals of the FedCom Civil War, and the Morningstar stands as the final product of that collaboration.</p>
+</overview>
+
+<deployment>
+<p>The base Morningstar, armed with the Mydron Excel Autocannon 10 and three Slingshot Machine Guns, is the original production configuration. Produced at Kathil, Tikonov, and Warlock, it serves broadly in both Federated Suns and Capellan Confederation formations. The Company Command variant has largely superseded it in dedicated command roles where full C³ master computer integration is required, but the base Morningstar remains in service wherever that level of network infrastructure is unavailable or operationally unnecessary.</p>
+</deployment>
+
+<history>
+<p>The Morningstar was developed in the final stages of design at General Motors' Kathil plant, conceived as a city command vehicle to lead urban defensive operations. Its development ran parallel to that of the Minion, with both designs emerging from the same joint venture. While the Minion provided front-line combat capability, the Morningstar supplied command authority, and the two were intended from the outset to operate as an integrated pair. The second joint effort between General Motors and Ceres Metals Industries, the Morningstar reflected a deepening cooperation between the two manufacturers in the years before the FedCom Civil War made that collaboration untenable.</p><p>The FedCom Civil War validated the city command vehicle concept under live-fire conditions. Morningstars led urban assaults across multiple contested worlds, coordinating mixed lances of tanks and infantry to seize smaller cities and production sites while BattleMechs contested the major capitals. The Federated Suns fielded most of the extant Morningstars during the civil war period, deploying them extensively on Kathil and Tikonov. House Liao expressed significant interest in acquiring the design, and Capellan intelligence obtained enough production data from Tikonov to support eventual independent production at the Warlock facility. When Capellan forces retook Tikonov, the production line was redirected to supply Confederation formations.</p><p>During the Jihad, the Tikonov facility briefly operated under independent management before passing to Republic of the Sphere control. The Kathil line remained continuously under Federated Suns ownership, maintaining a reliable supply of Morningstars into the Dark Age period. Both the Federated Suns and the Capellan Confederation separately pursued upgraded designs featuring dual C³ master computers, reflecting the high value both states placed on the command vehicle concept. The Word of Blake also adapted the Morningstar platform into a specialized mobile communications hub during the Jihad, producing limited numbers at Tikonov for their own operational requirements.</p>
+</history>
+
+<manufacturer>
+General Motors|Ceres Metals Industries|Ceres Metals Industries
+</manufacturer>
+
+<primaryFactory>
+Kathil|Tikonov|Warlock
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:VOX
+ARMOR:Durallex
+COMMUNICATIONS:Overlook
+TARGETING:Brightstar
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:280 XL
+ARMOR:Standard
+COMMUNICATIONS:J11
+TARGETING:17 Mk. II
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

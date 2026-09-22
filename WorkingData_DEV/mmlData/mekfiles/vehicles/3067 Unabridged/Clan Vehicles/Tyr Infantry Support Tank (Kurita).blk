@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e5ad-7b7c-bb57-2e124dadd895
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Tyr Infantry Support Tank
+</Name>
+
+<Model>
+(Kurita)
+</Model>
+
+<mul id:>
+5730
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+21
+21
+21
+21
+20
+</armor>
+
+<Body Equipment>
+IS Ammo MML-7 LRM
+IS Ammo MML-7 SRM
+IS Light Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISMML7
+ISMML7
+Light Machine Gun
+Light Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>The Tyr's armament centers on a turret-mounted Type 22g extended range large laser, providing accurate firepower at distances that allow the vehicle to suppress hostile armor and BattleMechs while its infantry cargo deploys. Two Pattern J4 Streak-4 SRM launchers complement the main gun with reliable short-range tracking capability, their lock-requiring nature conserving ammunition and improving hit probability against fast-moving targets. Together these weapons give the Tyr the punch to keep hostile armor, infantry, and even BattleMechs at bay long enough to deliver its cargo.</p><p>A forty-five-ton hover platform driven by a Type 170 fusion engine, the Tyr reaches a cruising speed of nearly 100 kilometers per hour, among the fastest vehicles capable of carrying a full Point of battle-armored infantry. Forging MHC07 armor provides protection sufficient to withstand a direct hit from a Gauss rifle, a meaningful baseline for a vehicle operating in the second rank of combined-arms formations. The design's principal limitation is its dependence on combined-arms cooperation: the Tyr lacks the protection and sustained firepower to serve as a frontline combatant, and crews committed to unsupported engagements against concentrated armor face serious risk. The vehicle performs best when kept within the envelope of supporting fire from Clan OmniMechs or other dedicated combat vehicles.</p>
+</capabilities>
+
+<overview>
+<p>The Tyr Infantry Support Tank was introduced in 3063 by Joint Equipment Systems of Alshain, representing one of the first collaborative production ventures between Ghost Bear Clan industry and Inner Sphere manufacturing traditions within the Ghost Bear Dominion. Developed as part of Khan Bjorn Jorgensson's initiative to rebuild Rasalhagian industrial capacity, the Tyr was conceived as both a practical military vehicle and a symbolic investment in the Dominion's civilian workforce. Designed to transport and support conventional infantry in the fast-moving combined-arms formations favored by Ghost Bear doctrine, it outperformed comparable Inner Sphere designs of its era. Its introduction gave Joint Equipment Systems a prestige product that demonstrated the viability of Clan and Inner Sphere industrial cooperation, and the Tyr quickly became one of the defining ground vehicles of Ghost Bear military forces.</p>
+</overview>
+
+<deployment>
+<p>Produced as an export variant at Joint Equipment Systems on Alshain beginning in 3070, the Tyr (Kurita) was supplied to Draconis Combine conventional forces during the Jihad period. Its appearance in Combine service reflects the Ghost Bear Dominion's willingness to supply military hardware across what had historically been a hostile border, likely facilitated by the extraordinary pressures of the Word of Blake Jihad. Distribution within Combine forces was limited, and the type did not become a standard DCMS equipment item.</p>
+</deployment>
+
+<history>
+<p>The Tyr's origins lie in the Ghost Bears' effort to integrate the Rasalhagian population they encountered after relocating from the Clan Homeworlds to the Inner Sphere. Khan Bjorn Jorgensson, recognizing that a resentful and marginalized population would undermine long-term Dominion stability, redirected substantial Ghost Bear resources toward rebuilding Rasalhagian industrial infrastructure rather than simply transplanting Clan facilities onto occupied worlds. This policy extended to supporting Inner Sphere manufacturers like Joint Equipment Systems, a firm regarded across the Inner Sphere as a producer of poor-quality conventional vehicles during its years under Draconis Combine oversight. Given access to Clan resources, technology, and engineering support, JES rebuilt its manufacturing base and production standards into a capable supplier of modern military hardware.</p><p>The Tyr, introduced in 3063, was the flagship product of that transformation. The design was explicitly built to be manufactured by Inner Sphere workers using a blend of Clan and Inner Sphere components, and to serve alongside Clan warriors in mixed formations. That combination of origin stories, one part Clan investment and one part Rasalhagian industrial revival, gave the vehicle a significance beyond its tactical role. The Ghost Bears treated the Tyr as evidence that their approach to governance could produce real military capability, and it entered service at a time when the broader Rasalhagian population was watching closely to see whether Clan rule would deliver on its stated promises.</p><p>In combat the Tyr proved its worth rapidly. Ghost Bear doctrine treated conventional infantry as a genuine force multiplier rather than a secondary concern, and the Claws of the Ghost Galaxy, assigned primary responsibility for protecting Rasalhagian population centers, operated Tyrs extensively in their intended role. The design's speed and firepower allowed Ghost Bear infantry to contest terrain that would have been inaccessible to slower transports, and after-action reports from the Dominion's border conflicts consistently credited the Tyr with improving infantry survivability in contested insertions. The vehicle's reputation carried through the Jihad era and into the early Republic period, when Rasalhague Dominion forces continued to operate it as a core element of their combined-arms doctrine.</p>
+</history>
+
+<manufacturer>
+Joint Equipment Systems
+</manufacturer>
+
+<primaryFactory>
+Alshain
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Forging
+COMMUNICATIONS:Neil
+TARGETING:RCA
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Type 170
+ARMOR:MHC07
+COMMUNICATIONS:500
+TARGETING:Econotrac
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

@@ -1,0 +1,444 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-edb3-742b-ab1b-53fe9165368a
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Eagle Frigate
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4112
+</mul id:>
+
+<year>
+3059
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:6.0:2:1::-1:0
+cargobay:29133.0:1:3::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:900.0:0:-1::-1:0
+crewquarters:3150.0:0:-1::-1:0
+cargobay:34894.0:1:9::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+2592
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+2500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+39
+36
+36
+33
+33
+33
+</armor>
+
+<Nose Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:25
+(B) Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:75
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:13
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:13
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:25
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:12
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:12
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Right Broadsides Equipment>
+
+<structural_integrity>
+45
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 620,000 tons, the Eagle mounted a formidable layered weapons suite designed to engage threats across multiple ranges simultaneously. A single nose-mounted heavy naval Gauss cannon served as the vessel's most devastating anti-ship weapon, capable of crippling a DropShip with a single well-placed shot, though its effectiveness was limited by considerable power requirements and a restricted forward firing arc. Sixteen naval autocannons, split between NAC/20s and NAC/35s, provided the primary broadside firepower across all arcs, supplemented by more than a dozen naval lasers ranging from NL55s to NL35s. An extensive point-defense network of pulse lasers and thirty-two anti-missile systems formed successive defensive layers against incoming fighters and missiles.</p><p>Safe thrust of four gravities and a maximum of six gave the Eagle exceptional acceleration for a vessel of its displacement, allowing it to keep pace with the fast-moving threats most likely to endanger its carrier charge. Six fighter bays and four DropShip docking collars provided organic force projection capability, while a complement of 530 officers, enlisted personnel, and gunners operated the vessel's combat systems. A mobile HPG installation gave each Eagle independent interstellar communication capability, a significant tactical advantage for a screening vessel operating at the periphery of a carrier formation. Though the frigate lacked advanced armor composites, mounting only standard plating, its generous cargo capacity allowed experienced crews to stockpile ammunition and consumables for extended escort patrols.</p>
+</capabilities>
+
+<overview>
+<p>The Eagle-class frigate was designed and constructed by Illium Naval Engineering as a dedicated escort vessel for the Thera-class super-carriers that anchored the Free Worlds League Navy's ambitious late thirty-first century fleet expansion. Commissioned from the Illium Yard at Ionus beginning in 3059, the Eagle was purpose-built from the keel up to provide carrier battle groups with comprehensive anti-WarShip and anti-fighter defensive coverage that the massive carriers themselves could not provide independently. Combining heavy capital weaponry with an extensive point-defense network aboard a fast and agile hull, the class earned a strong reputation among Free Worlds League naval commanders as one of the most capable purpose-built escort frigates fielded by any Inner Sphere navy during the closing decades of the thirty-first century, filling a vital gap in the League's carrier doctrine.</p>
+</overview>
+
+<deployment>
+<p>The FWLS Lancelot and FWLS Galahad served together as escorts for the first Thera-class carrier, FWLS Santorini. In August 3070, both Eagles joined the Agamemnon-class FWLS Menelaus in an ambush at Shiloh, destroying the Word of Blake vessels WoBS Xanthos and WoBS Impetuous. The Lancelot ultimately became the last surviving Eagle, remaining operational through the Dark Age and serving as flagship for Nikol Marik's assault on Regulus in 3148. The FWLS Tristram and FWLS Bedevere escorted the second Thera carrier FWLS Sardis, while the FWLS Gawain and FWLS Mordred served with the FWLS Corinth. Both the Tristram and Mordred were suborned by the Word of Blake during the Jihad. The Mordred participated in the devastating Battle of Atreus in October 3068 and later fought at New Avalon in 3072 before both suborned Eagles were destroyed at the Battle of Dieron in 3077 by allied coalition naval forces.</p>
+</deployment>
+
+<history>
+<p>The Eagle program emerged from the Free Worlds League Navy's ambitious fleet modernization effort of the late 3050s, which centered on the construction of the massive Thera-class super-carriers at the Illium Naval Yard on Ionus. Recognizing that these enormous carriers would require dedicated screening vessels to protect them from hostile WarShips and fighter strikes, Illium Naval Engineering designed the Eagle as a purpose-built defensive platform optimized for the carrier escort role. The class entered production in 3059, with vessels completed in pairs and each set of two Eagles permanently assigned to a single Thera carrier. All ten frigates received names drawn from Arthurian legend, reflecting their intended role as loyal defenders of the League's most powerful capital vessels.</p><p>By 3067, nine Eagles were operational across five carrier battle groups. The Lancelot and Galahad served with the Santorini, the Tristram and Bedevere with the Sardis, the Gawain and Mordred with the Corinth, the Bors and Kay with the Delphi, and the Leodegrance was the first of a pair intended for the Attica, with her sister Percival still undergoing final acceptance trials. In 3068, all operational Eagles were recalled for emergency life support system repairs after a critical flaw was discovered during testing of another frigate class, temporarily stripping the carrier groups of their escorts at an extremely vulnerable moment in the League's naval posture.</p><p>The Jihad proved catastrophic for the Eagle class. Word of Blake agents who had deeply infiltrated the Free Worlds League military suborned several vessels, turning these well-armed escorts against their former allies and shattering the carrier battle group formations that had defined League naval doctrine for nearly a decade. The suborned Eagles fought for the Blakist cause across multiple theaters before coalition forces tracked them down during the final campaigns of the war. Of the loyal Eagles, most were lost in the fierce naval actions that characterized the Jihad's devastating toll on Inner Sphere fleets. The class suffered one of the highest attrition rates of any WarShip design during the conflict, a grim reflection of both the intensity of the fighting and the strategic value that made these escorts high-priority targets.</p><p>Only the FWLS Lancelot survived the Jihad intact, leaving a single operational vessel to represent what had once been a ten-strong class. The Illium Naval Engineering yard at Ionus passed through several periods of contested ownership during the post-Jihad reorganization before returning to Free Worlds League authority. No new Eagles were laid down after the original production run, and the Lancelot remained in active service well into the thirty-second century as one of the very last operational WarShips in the former League's diminished naval establishment.</p>
+</history>
+
+<manufacturer>
+Illium Naval Engineering
+</manufacturer>
+
+<primaryFactory>
+Ionus
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Illium Naval Engineering
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Standard
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Frigate
+</use>
+
+<length>
+640 m
+</length>
+
+<height>
+790 m Sail
+</height>
+
+<source>
+TR:3067,JTP:AtreusBC
+</source>
+
+<tonnage>
+625000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+110
+110
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+552
+</crew>
+
+<officers>
+90
+</officers>
+
+<gunners>
+55
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+30
+</life_boat>
+
+<escape_pod>
+30
+</escape_pod>
+

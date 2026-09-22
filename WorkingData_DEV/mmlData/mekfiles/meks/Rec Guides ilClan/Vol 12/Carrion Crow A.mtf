@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d877-7832-b3d5-18bb36c918cd
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Carrion Crow
+model:A
+mul id:7776
+
+Config:Biped OmniMek
+techbase:Clan
+era:3145
+source:RG12
+published:RG12
+rules level:2
+role:Striker
+
+quirk:unbalanced
+quirk:imp_target_short
+
+mass:40
+engine:280 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:10
+walk mp:7
+jump mp:0
+
+armor:Ferro-Lamellor(Clan)
+LA armor:11
+RA armor:11
+LT armor:16
+RT armor:16
+CT armor:19
+HD armor:9
+LL armor:19
+RL armor:19
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:3
+HAG/20, Left Arm
+Improved Heavy Medium Laser, Center Torso
+ER Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLHAG20 (OMNIPOD)
+CLHAG20 (OMNIPOD)
+CLHAG20 (OMNIPOD)
+CLHAG20 (OMNIPOD)
+CLHAG20 (OMNIPOD)
+CLHAG20 (OMNIPOD)
+Hyper-Assault Gauss Rifle/20 Ammo (OMNIPOD)
+Hyper-Assault Gauss Rifle/20 Ammo (OMNIPOD)
+Hyper-Assault Gauss Rifle/20 Ammo (OMNIPOD)
+Clan Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLImprovedMediumHeavyLaser (OMNIPOD)
+CLImprovedMediumHeavyLaser (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLERSmallLaser (OMNIPOD)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Carrion Crow is a forty-ton Clan OmniMech introduced in 3145 by the Snow Raven Industrial Complex Beta on Mitchella. Designed in tandem with the heavier War Crow, the Carrion Crow was conceived as part of Khan Sterling McKenna's initiative to rebuild and modernize the Clan Snow Raven touman in anticipation of future conflicts threatening the Raven Alliance. Deliberately concealed from Alliance Military Corps production-sharing agreements, the design was kept exclusively for the Raven touman from the outset. The Carrion Crow was intended to serve as the standard medium 'Mech for frontline formations, filling the role of a versatile striker capable of engaging targets well above its weight class.</p>
+
+capabilities:<p>Built on a Raven WC2 endo steel chassis and powered by a Type 280 Extralight fusion engine, the Carrion Crow achieves a maximum speed of 118 kilometers per hour, making it one of the faster medium OmniMechs in Clan service. The design forgoes jump jets on the base chassis, relying instead on raw speed and advanced protection to fulfill its role. Nine and a half tons of Compound LZ-7 ferro-lamellor armor provide exceptional resistance to damage for a forty-ton 'Mech, with the advanced lamellor composition proving particularly effective at dispersing kinetic energy from ballistic impacts.</p><p>The generous 14.5 tons of pod space allows the Carrion Crow to mount firepower more commonly associated with heavier designs, punching well above its weight class in most configurations. In its Primary configuration, an ER PPC paired with a PPC capacitor delivers devastating alpha strikes, supplemented by improved heavy medium lasers in each side torso and an ER small laser for close defense. An engine supercharger pushes sprint speeds to approximately 140 kilometers per hour, giving pilots the ability to rapidly reposition or close to engagement range. The asymmetric weight distribution of the chassis can make handling unpredictable at speed, though this is partially offset by precise short-range targeting systems that enhance accuracy in close engagements.</p>
+
+deployment:<p>Alternate Configuration A replaces the ER PPC and its capacitor with a Hyper-Assault Gauss Rifle 20 mounted in the left arm, supplied by three tons of ammunition. The ballistic-focused loadout retains an improved heavy medium laser in the center torso and the head-mounted ER small laser for close defense. The HAG 20 provides excellent sustained firepower with its high rate of fire, making this variant particularly effective against lighter targets and conventional forces. The reduced heat generation compared to the Prime configuration allows MechWarriors to maintain continuous fire without the thermal management concerns inherent to energy-heavy loadouts.</p>
+
+history:<p>The Carrion Crow emerged from Clan Snow Raven's extensive military modernization program initiated by Khan Sterling McKenna in the early 3140s. Recognizing that the Raven Alliance faced potential threats from both the Rasalhague Dominion and other regional powers, McKenna authorized the simultaneous development of two new OmniMechs at the Snow Raven Industrial Complex Beta on Mitchella. While the larger War Crow was presented to the Alliance Military Corps as a centerpiece of new military production sharing agreements, McKenna deliberately concealed the Carrion Crow's existence during negotiations, dismissing it as an insignificant secondary project.</p><p>This deception proved enormously beneficial to the Snow Raven touman. By keeping the Carrion Crow exclusively for Clan use and outside the production-sharing obligations with the Alliance Military Corps, the Snow Ravens were able to triple the design's projected production rate. The rapid buildup of Carrion Crow forces gave the touman a significant increase in fast medium OmniMech strength without drawing attention from Alliance oversight.</p><p>The design's shakedown trials took place in January 3146 during a strike against Rasalhague Dominion forces on Idlewind. The Ravens initially trialed for a supply depot, but the engagement escalated when Dominion commanders raised the stakes to include a Star of the new 'Mechs. Fighting in the Bostow Swamp against a mixed Dominion force of hovercraft and light BattleMechs, the Carrion Crows demonstrated their tactical versatility. Working in concert with War Crows, they employed what became known as the "murder of Crows" formation (a five-pointed star encirclement tactic with the enemy trapped in the center) to devastating effect. The engagement confirmed the viability of the paired OmniMech doctrine and led to the finalization of several standard configurations.</p><p>By 3150, individual Carrion Crow pilots had begun proving the design's worth in Trial combat, with the ferro-lamellor armor repeatedly demonstrating its ability to absorb punishment far beyond what opposing MechWarriors expected from a medium-weight frame. The design's resourceful deployment within the Snow Raven touman continues to strengthen the Raven Alliance's military position without alerting external observers to the full extent of its expanded production capabilities.</p>
+
+manufacturer:Snow Raven Industrial Complex Beta
+
+primaryfactory:Mitchella
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Snow Raven Industrial Complex Beta
+systemmode:CHASSIS:Raven Endo Steel WC2
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Type 280 Extralight
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Compound LZ-7 Ferro-Lamellor
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:TDWS-37 Mk. 2.2
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:"Hermes" CT-44

@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb36-7f04-b382-7da6a3064956
+</UUID>
+
+<UnitType>
+SupportVTOL
+</UnitType>
+
+<Name>
+Blackstone Baronet Passenger VTOL
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3832
+</mul id:>
+
+<year>
+3071
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+cargobay:3.0:1:2::-1:0
+standardseats:200.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+43
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+0
+0
+0
+0
+0
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<barrating>
+2
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Baronet shares the Pegasus's electric fuel cell powerplant configuration but mounts it in a fifty-ton airframe that prioritizes passenger capacity over range. Cruising speed and maximum speed match the Pegasus precisely, but the fuel range is reduced to approximately fourteen hundred kilometers, roughly two-thirds that of the smaller design. This trade-off reflects a deliberate emphasis on high-density short-range transit service rather than long-distance routing.</p><p>The interior accommodates two hundred passengers across fifteen tons of seating, with three remaining tons of cargo space for luggage. A crew of three operates the vehicle. Dual entry doors on both the right and left sides allow efficient boarding and deplaning at busy transit stops. As with the Pegasus, the Baronet carries no weapons and offers only the minimal structural integrity of a BAR 2 chassis, providing no meaningful protection against hostile action. The design's critics have noted that even an accidental weapons discharge could down the aircraft, and Blackstone continued to emphasize capacity and newness in its marketing rather than making any claim to durability.</p>
+</capabilities>
+
+<overview>
+<p>The Blackstone Baronet Passenger VTOL is a fifty-ton large civilian air transport developed by Blackstone BattleMechs of Inarcs as the direct follow-on to the company's smaller Pegasus design. Recognizing the strong commercial demand demonstrated by the Pegasus's rapid sales success in 3066 and 3067, Blackstone immediately pursued a larger variant for operators requiring higher passenger capacity. The Baronet doubles the Pegasus's seating to two hundred travelers, trading some fuel range for the additional interior volume. Like its predecessor, it was designed exclusively for the civilian market, carrying no weapons and offering no protective armor, reflecting the company's judgment that the passenger transit role rewards weight efficiency and comfort over survivability.</p>
+</overview>
+
+<deployment>
+<p>The Baronet entered commercial service in 3071 following an extended testing and pre-production phase, targeting high-volume transit routes where the Pegasus's hundred-passenger capacity is insufficient. Its primary market is urban and regional transit across the Lyran Alliance inner worlds, particularly on routes connecting larger population centers where passenger volumes justify the larger airframe. The Lyran Alliance Armed Forces acquired two early prototypes for rear-area troop transport evaluation, though the vehicle's total absence of armor limits it to non-contested secure environments. Commercial operators across Lyran space represent the principal customer base, with the Baronet's dual-door boarding configuration and two-hundred-seat interior making it well-suited for high-volume hubs and busy inter-city transit corridors.</p>
+</deployment>
+
+<history>
+<p>The Baronet's development began almost immediately after the Pegasus's first production run sold out in mid-3067. Blackstone's commercial success with the smaller design had validated the civilian VTOL market, and the firm moved to capture the higher-capacity segment before competitors could respond. Development proceeded at a measured pace through the summer of 3067, slowed by the engineering challenges of adapting more advanced weight-reducing materials into the larger airframe. The prototype finally achieved its first flight in September of 3067, just months after the Pegasus had proven the concept's commercial viability.</p><p>Pre-purchase orders arrived before testing was complete, and Blackstone used those advance commitments to finance construction of the Baronet's assembly line while the aircraft was still in the test phase. The company's willingness to proceed in this manner reflected confidence built by the Pegasus's market performance, even as the Baronet had not yet completed formal validation at the time of announcement.</p><p>The Lyran Alliance Armed Forces procured two early prototypes for evaluation as troop transports, with senior officers interested in the vehicle's potential to rapidly move large numbers of personnel across short distances in secured rear areas. The LAAF evaluators acknowledged the aircraft's complete lack of armor as a fundamental limitation, but accepted it as consistent with the vehicle's civilian design philosophy. The Baronet entered commercial production in 3071 following the conclusion of its extended testing phase.</p><p>The competitive theater Blackstone entered was not empty. Cal-Boeing of Dorwinion had a long history of producing reliable civilian aircraft alongside its combat helicopter lines, and Michaelson Heavy Industries had built much of its business in the former Chaos March on civilian tilt-wing transport sales. Blackstone's advantage was timing and the accumulated goodwill from the Pegasus program, which had demonstrated both the firm's capability and the market's receptiveness to a new class of Lyran civilian VTOL.</p>
+</history>
+
+<manufacturer>
+Blackstone BattleMechs, Ltd
+</manufacturer>
+
+<primaryFactory>
+Inarcs
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:N/A
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown (Electric Fuel Cell)
+ARMOR:N/A (BAR 2 structure only)
+JUMP_JET:N/A (VTOL rotor)
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuel>
+3.0
+</fuel>
+

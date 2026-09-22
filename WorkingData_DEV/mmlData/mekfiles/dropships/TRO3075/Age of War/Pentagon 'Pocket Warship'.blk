@@ -1,0 +1,252 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-abb0-76b4-bf6e-371df23cbc59
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Pentagon
+</Name>
+
+<Model>
+'Pocket Warship'
+</Model>
+
+<mul id:>
+4802
+</mul id:>
+
+<year>
+3075
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:126.0:0:-1::-1:0
+1stclassquarters:40.0:0:-1::-1:0
+cargobay:166.5:1:4::-1:0
+</transporters>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<heatsinks>
+170
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+18000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+368
+323
+323
+278
+</armor>
+
+<Nose Equipment>
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:4
+Ammo AR10 White Shark:2
+Ammo AR10 Killer Whale:4
+(B) ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:48
+(B) ISERPPC
+ISERPPC
+(B) ISERLargeLaser
+ISERLargeLaser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISGaussRifle
+IS Gauss Ammo:16
+(B) ISERPPC
+ISERPPC
+(R) (B) ISERLargeLaser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) (B) ISERPPC
+(B) ISERLargeLaser
+ISERLargeLaser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISGaussRifle
+IS Gauss Ammo:16
+(B) ISERPPC
+ISERPPC
+(R) (B) ISERLargeLaser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) (B) ISERPPC
+(B) ISERLargeLaser
+ISERLargeLaser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) ISERPPC
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+21
+</structural_integrity>
+
+<capabilities>
+<p>The Pocket Warship variant developed by the Word of Blake sacrifices its marine complement, missile armament, and a significant portion of cargo capacity to mount a single AR-10 capital missile launcher in the nose. The AR-10 carries two White Shark, four Killer Whale, and four Barracuda missiles, giving the Pentagon the ability to engage capital warships directly. The remainder of the weapons array retains the Gauss rifles, ER PPCs, and ER large lasers of the standard Star League model.</p><p>Cargo capacity drops to 166 tons and the crew shrinks to thirty personnel. The addition of capital-grade weaponry transforms the Pentagon from an escort and anti-fighter platform into a true pocket warship, capable of delivering meaningful damage against vessels many times its tonnage. One hundred seventy double heat sinks manage the thermal output.</p>
+</capabilities>
+
+<overview>
+<p>The Pentagon is a 4,000-ton Spheroid assault DropShip originally designed for the Terran Hegemony Navy as a dedicated anti-fighter escort for capital warships. First introduced in the mid-twenty-sixth century, the vessel was designed to generate acceleration exceeding five gravities, making it faster than virtually any other DropShip of its era and capable of matching the pace of most aerospace fighters over extended distances.</p><p>Heavily armed and exceptionally well-armored for its size, the Pentagon earned a fearsome reputation as one of the most dangerous combat DropShips ever fielded. Its weapons were regularly updated with the best technology available, ensuring the design remained lethal across multiple centuries of service with the Star League Defense Force and its successors.</p>
+</overview>
+
+<deployment>
+<p>The Pocket Warship variant was deployed by Word of Blake forces during the Jihad, first appearing during ComStar's abortive Case White assault on Terra in 3068. These vessels served in several squadrons among previously unknown Blakist naval units, providing capital-grade firepower to formations that lacked access to conventional WarShips.</p>
+</deployment>
+
+<history>
+<p>The Pentagon was first designed for the Terran Hegemony Navy in the twenty-sixth century to provide anti-fighter escort for Congress-class Frigates. In the years following the Reunification War, SLDF WarShips were rarely called into action against other capital vessels, and with growing demand for convoy escorts, the Congress-class and their attached Pentagons often saw more action than the SLDF's battlecruiser and battleship squadrons combined.</p><p>During the Second Periphery Uprising, the SLS Star Devil, a Congress-class frigate, stumbled into four aging Taurian Lola II destroyers screening a force bound for Brisbane. Far from any support, the Star Devil launched both her Pentagons with orders to concentrate on the Taurian troop transports. Fighting through the enemy fighter screen, the DropShips inflicted crippling damage on four JumpShips before being destroyed. The Star Devil was also lost, but not before taking three enemy destroyers with her.</p><p>The automated Caspar defense drones protecting the Terran Hegemony treated Pentagons as high-priority targets, and none are recorded as surviving the campaign to retake Terra from the Usurper. The design was thought extinct until 3068, when ComStar's Case White assault on Terra encountered previously unknown Word of Blake naval units including several squadrons of Pentagons. The Word of Blake had secretly developed a modified variant mounting capital-grade missile launchers, transforming the already dangerous escort into a pocket warship capable of engaging capital vessels directly.</p>
+</history>
+
+<manufacturer>
+Refit - O'Neil Yards - Titan Yards
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:GM 5600 Sublite
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+4000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+18
+</crew>
+
+<officers>
+4
+</officers>
+
+<gunners>
+8
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+1
+</life_boat>
+
+<escape_pod>
+8
+</escape_pod>
+

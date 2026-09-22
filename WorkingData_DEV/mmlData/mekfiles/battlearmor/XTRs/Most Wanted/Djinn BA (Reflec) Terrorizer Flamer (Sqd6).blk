@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a964-7226-bb6c-f5878768a5b9
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Djinn Battle Armor
+</Name>
+
+<Model>
+(Reflective) 'Terrorizer' [Flamer] (Sqd6)
+</Model>
+
+<mul id:>
+9079
+</mul id:>
+
+<year>
+3079
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+37
+</armor_type>
+
+<armor_tech>
+7
+</armor_tech>
+
+<Squad Equipment>
+BABattleClaw:LA
+BABattleClaw:RA
+IS BA Laser Reflective (Reflec/Glazed):RA
+IS BA Laser Reflective (Reflec/Glazed):LA
+IS BA Laser Reflective (Reflec/Glazed):LA
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):Body
+CLBAFlamer:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The "Terrorizer" is a post-war modification of the Djinn chassis built around experimental reflective armor. This flamer-equipped variant mounts a single flamer in the right arm, paired with battle claws on both arms for close-quarters work. The partial wing and TAG systems of the original Djinn have been stripped out entirely, replaced by 330 kilograms of reflective plating that can deflect a direct PPC hit. Jump capability is retained at ninety meters through conventional jump jets. The reflective armor makes these suits exceptionally resilient against energy weapons, though ballistic and missile fire remains effective. The flamer's short range and anti-personnel focus suggest this variant was configured specifically for terrorizing civilian populations and clearing enclosed spaces.</p>
+</capabilities>
+
+<overview>
+<p>The Demon series of battle armor emerged from Gibson Federated BattleMechs during the Jihad as the companion line to the Word of Blake's Celestial OmniMechs. Conceived by Precentor Vapula, the Manei Domini's engineering chief, the six Demon designs draw their names from the malevolent figures of various world mythologies. Each suit was crafted to fill a specific combat role while projecting an element of psychological terror against the Word's enemies. Fielded almost exclusively by the cybernetically enhanced Manei Domini elite, the Demons share the same unsettling visual aesthetic as their larger Celestial counterparts and were rarely encountered outside the Shadow Divisions.</p>
+</overview>
+
+<deployment>
+<p>The Blakist terror cell that deployed Terrorizer suits after the fall of Terra organized its troopers into Level I-sized formations of up to six operators, consistent with Word of Blake military doctrine. These six-trooper teams conducted combat drops from modified small craft, striking spaceports and population centers before local forces could mount an effective response. The flamer variant proved particularly devastating in the enclosed spaces of spaceport facilities.</p>
+</deployment>
+
+<history>
+<p>By 3072, the Word of Blake's Celestial-series OmniMechs had become well documented across the Inner Sphere. Their companion program, the Demon battle armor series, remained a far lesser-known quantity. Both programs were the brainchild of Doctor Devon Cortland, the Manei Domini's engineering precentor known by the code name Vapula. Where the Celestials gave the Word's elite forces a new generation of heavy combat platforms, the six Demon designs were conceived to fight alongside them, filling the tactical roles that OmniMechs could not. Each suit was crafted to fulfill a specific mission while imposing an element of psychological warfare, and the Djinn was the first of Vapula's infernal creations to reach the battlefield.</p><p>Reports of the light battlesuit in active combat surfaced in 3070, though another year passed before significant numbers appeared in major engagements. The Djinn was built from the ground up for Manei Domini troopers, its deliberately slim, almost skeletal frame relying on the operators' cybernetic augmentations to compensate for what unenhanced soldiers would experience as a cramped and unresponsive suit. This design philosophy ran through the entire Demon program: unlike conventional battle armor intended for mass production and general-issue deployment, the Demons were tailored to the cybernetically enhanced elite who would wear them. Whether this was a deliberate engineering choice or evidence of a deeper rift between the Domini and the regular forces commanded by Cameron St. Jamais remained a matter of speculation.</p><p>The Djinn became synonymous with Blakist oppression. On Galatea and Gibson, its menacing silhouette became the face of the occupation for civilian populations who rarely saw the larger Celestial OmniMechs up close but learned to fear the battle armor troopers who swept their streets. The suit shared the same unsettling visual aesthetic as its larger Celestial cousins, a deliberate design choice that reinforced the sense of a unified, otherworldly force.</p><p>Following the fall of Terra to Devlin Stone's Coalition, a terrorist cell equipped with experimental Djinn prototypes plagued several systems in the former Protectorate. Operating from modified small craft, these insurgents struck at Sirius, New Earth, Liberty, and Altair, deploying modified suits carrying experimental reflective armor in place of the standard model's lighter protection. Local forces eventually began destroying these "Terrorizer" suits, as media outlets dubbed them, and with Blakist supply lines severed, intelligence analysts expected the remaining stocks to dwindle rapidly.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Most Wanted
+</source>
+
+<published>
+XTR:Most Wanted
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+6
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+1
+</weightclass>
+

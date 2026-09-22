@@ -1,0 +1,180 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-af39-73f6-9137-e3b0f693cf32
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Vulcan
+</Name>
+
+<Model>
+VLC-8N
+</Model>
+
+<mul id:>
+5367
+</mul id:>
+
+<year>
+3074
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+16
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+77
+58
+58
+39
+</armor>
+
+<Nose Equipment>
+ISLargePulseLaser
+ISLargePulseLaser
+SRM 6
+ISArtemisIV
+ISERMediumLaser
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISLightGaussRifle
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISLightGaussRifle
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISERMediumLaser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo SRM-6 Artemis-capable
+IS Light Gauss Ammo
+IS Light Gauss Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Vulcan's large delta wing gives the craft handling characteristics more typical of a medium fighter than its 80-ton frame would suggest. In atmospheric combat, this translates to the ability to out-maneuver opponents that expected a heavy fighter to be sluggish, a quality that more than once caught Inner Sphere pilots by surprise. The Olympus 240 power plant drives the Type 698 airframe at competitive thrust ratings while leaving enough internal volume for a substantial weapons load.</p><p>The Vulcan's primary offensive power rests with a pair of Republic Mk. VII Autocannon/10s mounted in the wings. These weapons can punch through the armor of most contemporary designs, and even modern fighters have proven vulnerable to a sustained burst from both guns. A Firefly Type III large laser fitted to the nose in the 2650 upgrade provides reliable supplemental firepower independent of ammunition supply. A Blue Steel SRM-6 launcher and a pair of Firefly Type II medium lasers, one of which covers the aft arc, round out the armament suite.</p><p>The design's most significant tactical liability is its limited ammunition capacity. With only one ton of ammunition per autocannon, pilots who spend freely in early engagement risk exhausting their primary weapons before a fight concludes. Effective Vulcan pilots learn to manage their fire carefully, leaning on the laser armament in extended engagements. Republic UltraWeave armor provides solid protection throughout the airframe, and the design's structural integrity allows it to absorb considerable punishment.</p>
+</capabilities>
+
+<overview>
+<p>The Vulcan stands as the most celebrated warplane ever fielded by the Rim Worlds Republic. Unable to match the Great Houses in fielding large numbers of BattleMechs, the Republic's leadership made a strategic choice early in the twenty-sixth century: concentrate industrial resources on conventional armor and aerospace power instead. Roe Weapon Systems answered that directive with an 80-ton heavy fighter built around devastating wing-mounted firepower and remarkable atmospheric agility. Introduced in primitive form in 2525 and upgraded to full production standard in 2650, the Vulcan became the centerpiece of Republican aerospace power for more than two centuries.</p><p>Production was centered at Roe Weapon Systems' main facility on Apollo, with additional manufacturing spread across other Republic worlds. The design survived the nation that built it, passing into mercenary service, Periphery fleets, and independent operators who recognized a capable and durable heavy fighter when they saw one.</p>
+</overview>
+
+<deployment>
+<p>The VLC-8N emerged from a student restoration project at Greenock Flight Academy on Firgrove that evolved into a comprehensive modernization program by 3074. The introduction of an XL power plant enabled a significant redesign, replacing the autocannon armament with light Gauss rifles and substituting large pulse lasers and extended-range medium lasers for the original laser suite. Artemis IV fire control integration enhanced the existing SRM launcher's effectiveness. The updated armor type partially compensated for the slight reduction in total armor mass required by the upgrade. Demand for the modified fighter prompted Geenock Aero Manufacturing Ltd. on Firgrove to lead sustained production, with Basantapur Fine Metals on Colorado and Wangker AeroSpace on Axton briefly contributing additional output during the Jihad period. Geenock remained the primary producer into the modern era, operating under Federated Suns oversight.</p>
+</deployment>
+
+<history>
+<p>The Vulcan's origins trace to the Republic's recognition in the early twenty-fifth century that the industrial gap between the Rim Worlds and the major Inner Sphere powers was too wide to close through BattleMech production alone. Roe Weapon Systems began development of a heavy aerospace platform in the early 2520s, producing the first primitive prototypes by 2525. These early fighters carried twin autocannons and a modest laser suite using primitive technology throughout, including cockpit and engine systems that would be significantly improved in the production variant that followed.</p><p>The fighter entered full production as the VLC-5N in 2650, incorporating a nose-mounted large laser alongside improved heat management. This upgraded version served as the backbone of Republican aerospace power for over a century, proving its worth during the Reunification War when Lyran Twenty-Fifth Skye Rangers discovered over Black Earth that their lighter Lucifers were being out-maneuvered in atmosphere by the heavier craft. The Republic's fighter arm continued to make the Lyran Expeditionary Force pay for every advance throughout the campaign.</p><p>Following the Star League's seizure of the Rim Worlds in 2767, Roe Weapon Systems did not simply cease operations. Production continued covertly, with fighters quietly distributed to friendly Periphery nations, including 'rebel' factions within the Taurian Concordat. The leaders of the Republic's ruling house viewed anything that caused trouble for the Star League and the Terran Hegemony as a worthwhile investment, and the Vulcan's wide distribution across the Periphery contributed materially to the political conditions surrounding the Amaris coup. After the Republic's eventual collapse following the coup's failure, many Republican pilots took their fighters and entered mercenary service, making the Vulcan a common sight in independent aerospace wings throughout the Periphery.</p><p>The design remained active in Deep Periphery hands well into the Succession Wars era and beyond. ComStar confirmed that the Hanseatic League maintained substantial Vulcan fleets, and examples of the design have been observed operating under both Umayyad and Castilian colors. By the mid-thirty-first century the original production lines were long gone, but surviving airframes remained in service across a surprisingly wide geographic range. A student restoration project at Greenock Flight Academy on Firgrove eventually grew into a full modernization effort, and the resulting upgraded variant prompted several small manufacturers to resume production of the Vulcan for the first time in generations.</p>
+</history>
+
+<manufacturer>
+Geenock Aero Manufacturing Ltd.|Basantapur Fine Metals|Wangker AeroSpace
+</manufacturer>
+
+<primaryFactory>
+Firgrove|Colorado|Axton
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Naketsu
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Type 698
+ENGINE:Unknown (XL 240)
+ARMOR:Unknown (Ferro-Aluminum)
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

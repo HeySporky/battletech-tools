@@ -1,0 +1,222 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa59-7219-97b3-dcb2f6236a98
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Hoshiryokou
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7768
+</mul id:>
+
+<year>
+2480
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+1stclassquarters:10.0:0:-1::-1:0
+crewquarters:28.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+steeragequarters:45.0:0:-1::-1:0
+cargobay:15.0:1:5::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+8
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+1200
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+122
+92
+92
+82
+</armor>
+
+<Nose Equipment>
+(B) Large Laser
+(B) Small Laser
+Small Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+</Left Side Equipment>
+
+<Right Side Equipment>
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Small Laser
+</Aft Equipment>
+
+<Hull Equipment>
+Cargo Container (10 tons)
+Cargo Container (10 tons)
+Cargo Container (10 tons)
+Cargo Container (10 tons)
+Cargo Container (10 tons)
+Cargo Container (10 tons)
+Cargo Container (10 tons)
+Cargo Container (10 tons)
+Cargo Container (10 tons)
+Cargo Container (10 tons)
+</Hull Equipment>
+
+<structural_integrity>
+25
+</structural_integrity>
+
+<capabilities>
+<p>The Hoshiryokou tug variant is built around its naval tug adaptor, which allows the vessel to dock with and maneuver cargo containers, disabled spacecraft, and orbital structures. The hull mounts ten external cargo container hardpoints, each rated for ten tons, providing flexible cargo-hauling capability without requiring internal bay space. This external configuration allows rapid loading and unloading at orbital facilities.</p><p>Defensive armament is minimal, consisting of a nose-mounted large laser and two small lasers, with a single small laser covering the aft arc. Eight single heat sinks manage the modest thermal load. The vessel's 388 points of armor provide surprisingly robust protection for a civilian craft of its size, reflecting the hazardous working conditions of orbital tug operations where collisions and debris impacts are constant risks. A crew of fifteen operates the vessel, with safe thrust of 5g providing excellent maneuverability for precision docking and towing work. Internal cargo space is limited to seven tons, as the tug relies primarily on its external container system for hauling capacity.</p>
+</capabilities>
+
+<overview>
+<p>The Hoshiryokou is a small 800-ton civilian Aerodyne DropShip originating from the early years of the Draconis Combine. First produced in 2480, the vessel was originally designed as a combined cargo and passenger carrier for commercial interstellar operations. However, the design aged badly in its original role, struggling to compete with newer and more capable merchant vessels.</p><p>Facing obsolescence, the Hoshiryokou was redesigned by Kintetsu Stellar Systems to serve as a space tug, a role that proved far more successful than its original merchant configuration. In this new capacity, the vessel became a popular utility craft operating in and around space stations, orbital complexes, and merchant fleet staging areas throughout the Draconis Combine.</p>
+</overview>
+
+<deployment>
+<p>The standard Hoshiryokou represents the original cargo and passenger configuration as first produced by Kintetsu Stellar Systems. Designed in the early years of the Draconis Combine, this small 800-ton aerodyne was initially intended to serve the growing merchant trade between Combine worlds, carrying modest cargo loads and a handful of passengers aboard its compact hull. While the design would later be redesigned as a space tug, the original transport variant saw widespread use among independent traders and small shipping concerns operating within Combine space, valued for its low operating costs and ability to dock with smaller JumpShip collars.</p>
+</deployment>
+
+<history>
+<p>The Hoshiryokou entered service in 2480 during the early expansion of the Draconis Combine, originally serving as a small cargo and passenger vessel on commercial routes within Combine space. While adequate for the era, the design struggled to remain competitive as newer merchant DropShips with greater capacity and better amenities entered the market. By the mid-twenty-sixth century, the Hoshiryokou's commercial viability had declined significantly.</p><p>Kintetsu Stellar Systems, facing near-bankruptcy, redesigned the Hoshiryokou for the space tug role as a last attempt to find a viable market for the aging hull. This conversion proved to be a masterstroke of engineering pragmatism. The tug variant found immediate demand among space station operators, orbital facility managers, and merchant fleet logisticians who needed a reliable utility vessel for in-system hauling, cargo container shuttling, and general orbital operations. The Hoshiryokou's compact size and robust construction, liabilities in the competitive merchant market, became assets in the tug role where maneuverability and durability mattered more than passenger comfort or cargo volume.</p>
+</history>
+
+<manufacturer>
+Kintetsu Stellar Systems
+</manufacturer>
+
+<primaryFactory>
+Midway
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+HB:HK
+</source>
+
+<tonnage>
+800.0
+</tonnage>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+5
+</crew>
+
+<officers>
+1
+</officers>
+
+<gunners>
+1
+</gunners>
+
+<passengers>
+9
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+1
+</escape_pod>
+

@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd20-7c5d-a88c-7c41d30dd490
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Dragon
+model:DRG-5ALAG
+
+Config:Biped
+techbase:Inner Sphere
+era:3060
+source:Shrap25
+published:Shrap25
+rules level:2
+role:Skirmisher
+
+quirk:stable
+quirk:low_profile
+
+mass:60
+engine:300 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:13 Single
+walk mp:5
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:14
+RA armor:14
+LT armor:16
+RT armor:16
+CT armor:27
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:8
+RTR armor:8
+RTC armor:12
+
+Weapons:7
+Medium Laser, Left Arm
+Gauss Rifle, Right Arm
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Right Torso
+SRM 4, Center Torso
+Flamer, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Medium Laser
+Medium Laser (R)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser (R)
+IS Ammo SRM-4
+IS Gauss Ammo
+IS Gauss Ammo
+ISCASE
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 4
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Flamer
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Dragon was introduced in 2754 during the twilight years of the Star League, designed by Luthien Armor Works as an advanced close assault 'Mech intended to replace the aging Shadow Hawk in SLDF service. Though the design ultimately lost the procurement competition to an upgraded Shadow Hawk variant in what many consider a predetermined contest, the rejection proved fortuitous for the Draconis Combine. LAW pushed the Dragon into full production for the DCMS, where it would become the standard heavy BattleMech for centuries.</p><p>Built around a reliable Vlar 300 fusion engine that propels its sixty tons at 86 kilometers per hour, the Dragon was engineered for sustained independent operations. Its distinctive squat profile and reinforced rear armor reflect its intended role of breaking through enemy formations. Multiple production lines across Luthien and Dieron ensured the Dragon's ubiquity within DCMS forces throughout the Succession Wars.</p>
+
+capabilities:<p>The Dragon fulfills its close assault role through a combination of respectable firepower, surprising speed, and exceptional durability for extended engagements. Its primary armament centers on an Imperator-A Autocannon/5 mounted in the right arm and a Telos DecaCluster LRM-10 launcher integrated into its protruding chest assembly. This combination provides effective standoff capability as the 'Mech closes with its targets. Two Victory 23R medium lasers round out the weapons suite, with one forward-mounted and another rear-facing to discourage pursuit.</p><p>The design philosophy prioritizes sustained combat operations over peak damage output. Forty rounds of autocannon ammunition and a generous missile magazine allow the Dragon to operate independently for extended periods. Ten standard heat sinks prove adequate given the modest thermal demands of its weapons loadout. The ten tons of Starshield armor provide solid protection, particularly around the torso and rear sections. However, the Dragon's most notable characteristic may be its effectiveness in close combat, where MechWarriors frequently employ its reinforced fists and devastating kicks to finish wounded opponents.</p>
+
+deployment:<p>The Amphigean take on the DRG-5N, this conversion leverages the Assault Groups' active combat role to procure and mount the newly rediscovered Gauss rifle in place of the autocannon. An extralight engine provides the necessary weight savings, while CASE protects the right-torso magazines. The configuration retains the short-range missile rack and flamer of earlier Assault Group conversions, adding rear-facing medium lasers to discourage pursuit during withdrawal. The variant's battlefield success directly informed the final Dragon production run from Dieron, with its Gauss rifle adopted for the factory-built DRG-7N. During the Jihad defense of Dromini VI, the type's Gauss rifles picked off inferior pilots and scouts at range.</p>
+
+history:<p>The Dragon's combat debut came shortly after its introduction, and the 'Mech quickly proved itself in the brutal fighting of the early Succession Wars. As the Star League collapsed and the Great Houses turned upon each other, the DCMS found itself with a reliable, easily-manufactured heavy 'Mech perfectly suited to its aggressive tactical doctrine. Multiple production lines across Luthien, Dieron, and other fortified worlds ensured steady supply even as the wars devastated industrial capacity across the Inner Sphere.</p><p>By the height of the Succession Wars, the Dragon had achieved legendary status within Combine military culture. Every DCMS battalion included Dragons in significant numbers, with some formations composed entirely of these 'Mechs. The Arm of the Dragon typically employed these machines for softening up barrages before charging to exploit gaps in enemy lines. Such was the Dragon's proliferation that significant numbers fell into enemy hands through salvage, with both the Federated Suns and Lyran Commonwealth fielding captured examples. As the embodiment of the Pillar of Steel, the Dragon saw remarkably few variants during its long service. The untraditional Amphigean Light Assault Groups stood apart as the only Combine commands to regularly modify the design, integrating equipment from captured stocks, a practice formalized through a petition granted in 3004 that established a lasting relationship between the Assault Groups and Luthien Armor Works.</p><p>The formation of the Free Rasalhague Republic in 3034 saw another power adopt the Dragon from former Combine garrisons. The beginning of the end for the original Dragon came around 3025 when the Grand Dragon prototype entered development. By 3065, Luthien Armor Works had ceased production of the original Dragon entirely, though the chassis remained in DCMS inventory for decades afterward. Following the Jihad, the Assault Groups retired their venerable conversions in favor of newer machines.</p>
+
+manufacturer:Luthien Armor Works
+
+primaryfactory:Dieron
+
+fluffdate:2026-06-10 16:40:45
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Type 56-60H
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:Standard with CASE
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:CommSys 3
+systemmanufacturer:TARGETING:Eagle Eye
+systemmode:TARGETING:SY10-10

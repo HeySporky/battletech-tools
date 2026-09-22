@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c16a-788a-8a34-0c1d6fb5b56e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Enforcer
+model:ENF-5A 'Enforcer II'
+
+Config:Biped
+techbase:Inner Sphere
+era:3028
+source:TR:3025C
+rules level:1
+role:Skirmisher
+
+quirk:barrel_fists_la
+quirk:barrel_fists_ra
+weaponquirk:imp_cooling:RA:3:Autocannon/10
+weaponquirk:ammo_feed_problems:RA:3:Autocannon/10
+weaponquirk:fast_reload:RA:3:Autocannon/10
+
+mass:50
+engine:200 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:12 Single
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:14
+RA armor:14
+LT armor:16
+RT armor:16
+CT armor:23
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:2
+RTR armor:2
+RTC armor:4
+
+Weapons:2
+Large Laser, Left Arm
+AC/10, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+IS Ammo AC/10
+IS Ammo AC/10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Enforcer was introduced in 2777 by Achernar BattleMechs after the discovery of unbuilt Star League-era schematics on Achernar. Originally designed around an autocannon and dual medium laser configuration, Achernar engineers modified the blueprints to mount a single large laser alongside the autocannon, creating a versatile fifty-ton trooper 'Mech ideally suited to the Armed Forces of the Federated Suns. The design quickly became the iconic medium-weight workhorse of the AFFS, serving as both a mobile barrage platform and an effective city fighter. Production remained largely undisturbed throughout the Succession Wars, ensuring the Enforcer's continued prominence in Davion military doctrine for centuries.</p>
+
+capabilities:<p>The Enforcer's primary armament centers on a Federated Autocannon/10 mounted in the right arm, whose cooling jacket doubles as protective sleeving for close-quarters brawling. A ChisComp 43 large laser in the left arm provides complementary firepower at intermediate ranges, while a ChisComp 32 small laser in the left torso rounds out the weapons suite for close engagements. This combination gives the Enforcer respectable firepower at multiple engagement ranges, making it effective as both a fire support platform and a frontline combatant.</p><p>The Enforcer's nine tons of Starshield armor are concentrated heavily forward, providing excellent frontal protection for a design of its weight class. However, this distribution leaves the rear torso dangerously thin, less protected than some light 'Mechs. The design's other notable weakness is its limited ammunition supply, with only a single ton of autocannon rounds carried in a clip-based reloading system. McCloud Specials jump jets grant a 120-meter jump capability, which combined with a top speed of 64 km/h makes the Enforcer a mobile and tactically flexible design despite its middling ground speed.</p>
+
+deployment:<p>Debuting in limited numbers before the Fourth Succession War, this variant represents the first major internal redesign of the Enforcer chassis. Jump jets were relocated from the legs to the torso, and a second ton of autocannon ammunition was added to address the design's chronic endurance problems. The scope of the torso and leg modifications was so extensive that field technicians and spotters began referring to it as the "Enforcer II," though this designation was never officially adopted. The visual similarity to the original ENF-4R belied an internally distinct machine.</p>
+
+history:<p>The Enforcer's origins trace to Duke Davion's interest in autocannon-equipped designs during the waning years of the Star League. When Achernar BattleMechs discovered blueprints for an unbuilt 'Mech in their engineering library, they quickly adapted and rushed the design into production. The Enforcer first proved itself during the defense of New Avalon, where sniper troops employed the design to devastating effect in urban combat around Selby. During the First Succession War, Enforcers of the 2nd Crucis Lancers participated in the Capra offensive, while second-wave drops during the Tannil assault in the Second Succession War demonstrated the design's versatility in securing planetary perimeters.</p><p>Production of the Enforcer remained remarkably stable throughout the Succession Wars, a rarity given the widespread industrial collapse of the era. This consistency ensured the Enforcer became deeply embedded in AFFS doctrine and force structures. The formation of the Federated Commonwealth saw Defiance Industries on Hesperus II obtain manufacturing rights, allowing traditional Davion designs like the Enforcer to be paired with Steiner standards in the new Federated Commonwealth Corps. The Enforcer and Valkyrie pairing alongside the Zeus and Commando became a hallmark of integrated FedCom formations.</p><p>The recovery of lostech from the Helm Memory Core spurred Achernar to develop the ENF-5D, which debuted in late 3050 and was immediately contracted for a ten-year exclusive production run by the AFFC. Demand during the Clan Invasion forced First Prince Hanse Davion to license production to Kallon Industries on Talon, moon of Wernke. Both manufacturers continued production until the Jihad, when Kallon's Talon plant was destroyed in 3069 and Defiance Industries ceased Enforcer production entirely. The connection between the Enforcer and the later-discovered Enfield (both found on Achernar with similar weapon loads) has never been officially explained, though the designs share an unmistakable kinship.</p><p>During the Dark Age, the loss of New Avalon to the Draconis Combine prompted Kallon Industries on Wernke to develop the ENF-5R, a simplified variant designed for rapid mass production to replenish depleted AFFS formations. The Enforcer's legacy also extends through a family of derivative designs (the Watchman, Sentry, Cuirass, and Enforcer III) all of which trace their lineage to the original Achernar chassis.</p>
+
+manufacturer:Achernar BattleMechs|Kallon Industries|Defiance Industries
+
+primaryfactory:New Avalon|Talon (Wernke)|Hesperus II
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Achernar BattleMechs
+systemmode:CHASSIS:Dorwinion Standard
+systemmanufacturer:ENGINE:Nissan
+systemmode:ENGINE:Nissan 200
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:Starshield
+systemmanufacturer:JUMP_JET:McCloud
+systemmode:JUMP_JET:McCloud Specials
+systemmanufacturer:COMMUNICATIONS:Achernar Electronics
+systemmode:COMMUNICATIONS:HICS-11
+systemmanufacturer:TARGETING:Federated Hunter
+systemmode:TARGETING:Federated Hunter

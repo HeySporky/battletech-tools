@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd3b-7064-ba2e-47821785131c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Rattlesnake
+model:JR7-31P
+mul id:9239
+
+Config:Biped
+techbase:Inner Sphere
+era:3043
+source:Shrap09
+published:ShrapRS
+rules level:2
+role:Striker
+
+
+mass:35
+engine:245 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:11 IS Double
+walk mp:7
+jump mp:7
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:11
+RT armor:11
+CT armor:15
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:8
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+Small Laser, Left Torso
+Medium Laser, Right Torso
+Medium Laser, Right Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Medium Laser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Medium Laser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Medium Laser
+Medium Laser
+Small Laser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Medium Laser
+Medium Laser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Medium Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISC3SlaveUnit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Rattlesnake BattleMech was created for the Ministry of Information, Intelligence, and Operations by Dr. Robert Madson as part of Project Trapdoor sometime after 3042. It is derived from the Jenner to the point of ultimately being arguably just an upgrade variant of it, sharing the Jenner's JR7 alphanumerical code. The design was an upgrade intended to make use of cutting-edge technology recovered from the Helm Memory Core while outwardly appearing as a standard Jenner.</p><p>As part of Project Trapdoor, the Rattlesnakes were deployed with an eye to sowing confusion and uncertainty among Draconis Combine forces. They were also used for MIIO black ops missions requiring plausible deniability. The exact number of Rattlesnakes built is unknown, but even at the height of Trapdoor, no more than twenty to thirty were in use, distributed among Armed Forces of the Federated Suns regiments stationed in the Draconis March.</p>
+
+capabilities:<p>The original JR7-31 Rattlesnake from the 3040s featured cutting-edge technologies including ferro-fibrous armor, an XL engine, and a Guardian ECM Suite. Its main armament consists of seven medium lasers, giving it devastating close-range firepower that far exceeds a standard Jenner. Eleven double heat sinks are only just capable of keeping its heat in check when all weapons fire.</p><p>Two additional jump jets were added to the original five, for a total of seven, providing 210 meters of jump capability. The design philosophy emphasized overwhelming firepower delivery, close rapidly, unload all weapons at once, and withdraw at the same speed. The ECM suite provides protection against enemy targeting systems during approach and withdrawal.</p><p>As far as can be established, Rattlesnakes were created by refitting existing Jenners rather than being built in a proper factory. Each Rattlesnake was effectively hand-built, with components varying between individual machines. This bespoke construction made field repairs challenging but ensured each machine was optimized for its intended pilot and mission profile.</p>
+
+deployment:<p>A variant that came up in 3043, this configuration replaced the ECM suite with a head-mounted C3 slave unit and added a small laser in the left torso. This variant was the original Rattlesnake as presented in period publications, which were later revealed to be deliberately misleading MIIO psyops material. It has been put back in production during the ilClan era.</p>
+
+history:<p>In 3042, after the shock of facing Star League-era BattleMechs during the War of 3039, House Davion's Ministry of Information, Intelligence, and Operations developed Operation Trapdoor. Using technology recovered from the Helm Memory Core, Trapdoor took established 'Mechs, tore them down, and rebuilt them into radically different machines while mostly retaining the outward appearance of the original. The best-known Trapdoor 'Mech was the JR7-31 Rattlesnake.</p><p>For ten years, the Rattlesnake and other Trapdoor models tried to sow confusion among the DCMS and the Internal Security Force, mixing battlefield clashes with planned leaks through news items. One mission which involved the destruction of a Warhawk OmniMech by Rattlesnakes was embellished and published as part of the psyops campaign. As of 3084, the 'Mech was widely regarded as an urban legend.</p><p>It is debatable how successful the operation was, but when the Clan Invasion began in 3049, Operation Trapdoor had already been discontinued. The remaining Trapdoor 'Mechs continued to be used under a veil of secrecy, but only a few survived to the end of the Word of Blake Jihad. The design would be resurrected decades later when the Draconis Combine seized New Avalon in 3146.</p>
+
+manufacturer:Phoenix Heavy Industries (Refit)
+
+primaryfactory:Ashkum
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:245 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

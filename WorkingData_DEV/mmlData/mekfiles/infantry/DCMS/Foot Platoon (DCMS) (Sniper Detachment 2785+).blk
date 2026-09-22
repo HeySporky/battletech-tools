@@ -1,0 +1,89 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bbe3-77e8-bf23-8eda06f45ce5
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Platoon (DCMS)
+</Name>
+
+<Model>
+(Sniper Detachment 2785+)
+</Model>
+
+<year>
+2785
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+DEST Infiltration Suit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Combine's martial traditions extend beyond the BattleMech cockpit, and the Dictum Honorium demands that all citizens contribute their talents to the defense of House Kurita. Infantry soldiers of the DCMS embody that expectation on garrison worlds across the realm. Foot infantry are the cheapest troops the DCMS can field, and the Combine fields them in enormous numbers. Every military district maintains garrison formations whose sole purpose is holding ground that BattleMech regiments cannot occupy permanently. Slow and vulnerable in open terrain, these soldiers prove their worth through discipline and endurance, standing post on worlds across the Combine because the Dragon demands nothing less. Armed with standard assault rifles, the cheapest and most widely manufactured personal weapon in the Inner Sphere. Effective range is limited, but any world with basic industry can produce and stockpile them in quantity, and resupply is rarely a concern even on remote garrison posts. These designated marksmen operate in small teams, engaging high-value targets from concealed positions at ranges where the enemy cannot effectively respond. A single sniper team can disrupt enemy command and control out of proportion to the resources it consumes.</p>
+</overview>
+
+<notes>
+Hammel Marksman selected as representative weapon of decent but not overwhelming range. Intro date based on prototype date for DEST stealth suit.
+</notes>
+
+<squad_size>
+2
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+Sniper Rifle (Hammel Marksman)
+</Primary>
+
+<Secondary>
+Submachine Gun
+</Secondary>
+
+<dest>
+true
+</dest>
+

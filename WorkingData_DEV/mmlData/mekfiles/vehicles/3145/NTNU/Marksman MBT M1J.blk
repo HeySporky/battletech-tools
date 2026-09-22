@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e843-705a-be84-38e102e8f932
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Marksman MBT
+</Name>
+
+<Model>
+M1J
+</Model>
+
+<mul id:>
+6806
+</mul id:>
+
+<year>
+3128
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+65
+50
+50
+35
+41
+</armor>
+
+<Body Equipment>
+IS Machine Gun Ammo - Half
+IS Ammo SRM-6
+IS Streak SRM 4 Ammo
+IS MRM 20 Ammo
+IS MRM 20 Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISGaussRifle
+MRM 20
+MRM 20
+SRM 6
+SRM 6
+ISStreakSRM4
+ISStreakSRM4
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>The Marksman M1A rides on a ninety-five-ton tracked chassis powered by an Edasich Motors 285 Light Fusion engine, reaching a top speed of fifty-four kilometers per hour. The light engine's reduced weight footprint frees up mass for combat systems, though it carries a substantial cost premium over conventional powerplants. Protection is provided by fifteen and a half tons of AmberStar Weave heavy ferro-fibrous armor backed by a chassis-mounted CASE system, offering strong protection against conventional fire while containing ammunition cook-off risks.</p><p>The primary weapon is an M-7 Gauss Rifle, capable of delivering precision strikes at long range with minimal heat buildup. Two Holly Multi-Missile Launcher nines extend the tank's engagement envelope across ranges, providing flexibility against armored and unarmored targets alike. Four Krieger C1 Series medium lasers, adapted from the Cyclops Eye design used on the Drillson Hover Tank, supply reliable close-range backup firepower. Four MainFire Miniguns round out the weapon suite for anti-infantry and light vehicle work.</p><p>The Marksman M1A's principal weaknesses are cost and ground speed. The combination of a light fusion engine, heavy ferro-fibrous armor, and a high-tier weapons package makes this vehicle expensive to procure and maintain. At fifty-four kilometers per hour, the Marksman is slower than many lighter competitors, reducing its ability to reposition under fire or exploit breakthroughs in fluid engagements.</p>
+</capabilities>
+
+<overview>
+<p>The Marksman Main Battle Tank emerged from a competitive procurement process launched by the Republic of the Sphere Armed Forces in the early thirty-second century. Pandora 'Mech Works of Terra entered the bidding not in response to an explicit contract solicitation, but by submitting an assault tank design that was already undergoing internal development and trials. The RAF had previously selected the Kinnol as its light main battle tank, passing over Pandora's lighter Winston Combat Vehicle. Rather than withdraw from the market, Pandora moved quickly and placed its heavier M-series design before the RAF's Quartermaster office before a formal open bid had even been announced. The RAF designated the winning design the Marksman, a name coincidentally shared by an earlier Star League artillery vehicle. Pandora subsequently released a cost-reduced variant for the broader market, extending the chassis beyond its original Protectorate role.</p>
+</overview>
+
+<deployment>
+<p>The M1J is a third-party refit produced by Jake's Discount Equipment Warehouse for operators seeking greater area-fire capability from the Marksman chassis. The engine swap reduces the tank's performance ceiling in exchange for tonnage redirected to larger MRM banks, shifting the vehicle toward indirect and mid-range fire support rather than the precision long-range role of the base Marksman. JDEW's independent distribution network gives the M1J a presence across markets outside the main Protectorate supply chain, including peripheral and independent buyer communities.</p>
+</deployment>
+
+<history>
+<p>The Marksman's origins lie in Pandora 'Mech Works' broader vehicle development efforts on Terra. The company had invested in a lighter tracked design, the Winston Combat Vehicle, as a contender for the RAF's light main battle tank contract. When the Kinnol secured that award, Pandora was left with a mature development program and no buyer. Rather than shelving the work, the company pivoted to a heavier design and presented it to the RAF before a formal open bid for an assault main battle tank had been announced.</p><p>The RAF reviewed proposals from multiple manufacturers but selected the Marksman. Pandora's head start, with operational prototypes already undergoing internal testing, gave the company a meaningful advantage in both timeline and demonstrated readiness. Initial field trials were conducted at the X-5 Test Ranges in the Outback of Terra's Australian continent. In simulated combined-arms engagements, Marksman M1A tanks supported by infantry and lighter vehicles demonstrated an ability to engage and destroy heavy BattleMechs and armored vehicles. Early suspension concerns were noted, but full Protectorate deployment was projected for 3088, with planners targeting at least one lance of Marksmans on each Protectorate world by 3095.</p><p>Concurrently with M1A development, Pandora released the M1 to the general market. The M1 reduced acquisition cost by substituting a standard engine for the light fusion powerplant and ferro-fibrous armor for the heavier ferro system. The laser battery was removed, and the multi-missile launchers were replaced with a short-range missile package. The CASE system was also omitted, with designers noting that the ammunition would likely be depleted before the armor was fully compromised. First deliveries of the M1 were projected for late 3088, aimed primarily at planetary militias and independent operators with limited procurement budgets.</p><p>In 3128, Jake's Discount Equipment Warehouse introduced the M1J, a refit of the M1 built around an engine swap that freed tonnage for the installation of larger MRM launchers. JDEW operates as an independent wholesaler, and the M1J spread through third-party distribution channels, reaching operators outside the primary RAF and Protectorate supply networks. The M1J demonstrated the underlying flexibility of the Marksman chassis, which proved capable of accommodating significant propulsion changes without compromising the vehicle's structural integrity.</p>
+</history>
+
+<manufacturer>
+Refit - Jake's Discount Equipment Warehouse
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:COMTEC
+TARGETING:GroundTracker
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown XL
+ARMOR:Protec 12
+COMMUNICATIONS:400E
+TARGETING:EE-4
+</systemModels>
+
+<source>
+TR:3145
+</source>
+
+<published>
+RS:3145-NTNU,RS:3145
+</published>
+
+<tonnage>
+95.0
+</tonnage>
+

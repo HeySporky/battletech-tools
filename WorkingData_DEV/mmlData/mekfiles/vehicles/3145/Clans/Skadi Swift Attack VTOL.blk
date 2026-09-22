@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7a5-7566-94fa-45c62128c0ea
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Skadi Swift Attack VTOL
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6246
+</mul id:>
+
+<year>
+3099
+</year>
+
+<type>
+Clan Level 4
+</type>
+
+<role>
+Striker
+</role>
+
+<quirks>
+vtol_rotor_dual
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<cruiseMP>
+10
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+8
+</armor_tech_level>
+
+<armor>
+23
+16
+16
+16
+2
+13
+</armor>
+
+<Body Equipment>
+Clan Ultra AC/10 Ammo
+Clan Ultra AC/10 Ammo
+</Body Equipment>
+
+<Front Equipment>
+CLERMicroLaser
+CLERMicroLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<Turret Equipment>
+CLUltraAC10
+</Turret Equipment>
+
+<capabilities>
+<p>The Skadi's most defining asset is its Light Force XL 160 engine, which drives the craft to a maximum speed of 162 km/h. Combined with VTOL flight capability, this speed allows the Skadi to bypass fortified terrain, cross water obstacles, and operate at treetop altitude to minimize detection. Falcon warriors have dubbed the design the "swerving falcon" for the evasive flight patterns its pilots employ to escape pursuit, threading between obstacles to break targeting locks.</p><p>The craft mounts 4.5 tons of Compound VM22 ferro-fibrous armor, providing just enough protection to absorb an initial volley without catastrophic structural failure. This represents the Skadi's primary limitation. Commanders plan missions knowing the craft cannot absorb sustained fire, relying on speed and terrain masking to compensate. The weapons fit is focused and effective within its parameters. A single Type 9 Ultra Autocannon 10 in a chin turret provides a broad field of fire against light vehicles and battle armor, while two Series 3c Micro Pulse Lasers handle close-in threats in a fixed forward mount. The combination makes the Skadi genuinely dangerous to the light and medium opponents it is most likely to encounter during deep reconnaissance operations.</p>
+</capabilities>
+
+<overview>
+<p>The Skadi Swift Attack VTOL was developed by Quikscell Company at their facility on Pandora, entering service in 3099 as one of the fastest combat vehicles the Lyran Commonwealth had fielded in decades. Designed as a dedicated forward scout and fast-attack platform, the Skadi combines impressive speed with VTOL maneuverability to operate across terrain types that defeat conventional ground scouts. Clan Jade Falcon's engineers shaped the design to support their aggressive reconnaissance doctrine, providing a platform capable of penetrating contested airspace and returning targeting data before the enemy can respond effectively. Though produced by one of the Inner Sphere's most ubiquitous vehicle manufacturers, the Skadi is a notable departure from Quikscell's usual mass-market designs, incorporating Clan-grade components and advanced electronics to serve the Falcon touman's demanding standards.</p>
+</overview>
+
+<deployment>
+<p>The Skadi serves in Clan Jade Falcon reconnaissance Stars as the primary fast-scout asset across the Dark Age and ilClan eras. Assigned at the Star level, Skadi flights operate well ahead of main combat elements to identify enemy unit dispositions, screen flanking approaches, and guide ground forces through contested terrain. The design is most effective when paired with heavier fire-support units that can exploit the targeting data the Skadis generate. Prior to the Jade Falcon recapture of Pandora, the type served in Lyran Commonwealth reconnaissance formations and with mercenary units operating across the Inner Sphere, where surviving examples continue to appear in second-line and garrison commands. The Skadi is deployed against light vehicles, battle armor, and infantry rather than heavier BattleMech threats, and is rarely committed to direct assaults.</p>
+</deployment>
+
+<history>
+<p>Quikscell Company opened the Skadi production line at their Pandora facility in 3099, initially under Lyran Commonwealth authority. The Commonwealth integrated the design into LCAF reconnaissance formations, where its speed and terrain-crossing ability proved well-suited to the deep-penetration roles required of light cavalry units. Quikscell's commercial traditions soon pushed the design into export, and for several decades the Skadi circulated across the Inner Sphere, appearing in mercenary commands, planetary militias, and the secondary forces of multiple Great Houses.</p><p>Clan Jade Falcon's recapture of Pandora closed that export market permanently. The Falcons seized the Quikscell facility and converted the line to exclusive Clan production, cutting off all sales outside the touman. Commanders who had observed the Skadi in Lyran and mercenary service recognized its value and expanded output. Existing Inner Sphere users were left with aging frames and no replacement source, ensuring the design grew steadily rarer outside Falcon-controlled space.</p><p>Combat use confirmed the design's operational value across multiple engagements. On Hartshill, a Skadi flight screened Jade Falcon ground forces during a clash with the Glorious Kensai mercenary company, operating through the streets of Trent at low altitude while the main force closed. In a separate action on Tharkad, Star Captain Elaine led her Skadi Star against Twentieth Arcturan Guard elements, pioneering extreme low-altitude flight patterns that limited sensor returns and complicated enemy targeting. Though her methods earned the formation a grim reputation as the Suicidal Skadis, the tactics demonstrated genuine advantages in close terrain. They were studied and adopted across the Falcon touman as the foundation for subsequent Skadi operational doctrine.</p>
+</history>
+
+<manufacturer>
+Quikscell Company
+</manufacturer>
+
+<primaryFactory>
+Pandora
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Quikscell Company
+ENGINE:Light Force
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:XL 160
+ARMOR:Compound VM22
+COMMUNICATIONS:K9 CommSys
+TARGETING:Hunter (2) Dedicated TTS
+</systemModels>
+
+<source>
+TR:3145:C,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

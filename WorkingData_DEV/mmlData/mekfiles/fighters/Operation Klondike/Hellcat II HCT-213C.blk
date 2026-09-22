@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-acd1-79fd-a8f8-1dd37497c36b
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Hellcat II
+</Name>
+
+<Model>
+HCT-213C
+</Model>
+
+<mul id:>
+1470
+</mul id:>
+
+<year>
+2724
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+13
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+68
+51
+51
+45
+</armor>
+
+<Nose Equipment>
+ISMediumPulseLaser
+ISMediumPulseLaser
+BeagleActiveProbe
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISLargePulseLaser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISLargePulseLaser
+</Right Wing Equipment>
+
+<Aft Equipment>
+Medium Laser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>Built on a Wakazashi IX airframe with a Rawlings 250 fusion engine, the Hellcat II achieves roughly twenty-two percent greater acceleration than its heavier predecessor despite mounting a similarly sized powerplant. The original prototypes carried fifteen tons of standard armor, earning the craft the nickname "flying tank" from test pilots, but three tons were removed to improve handling. Designers compensated by switching to SRT ferro-aluminum armor, which provides superior protection per ton while improving heat dissipation characteristics.</p><p>The Hellcat II's primary armament consists of two wing-mounted Diverse Optics large lasers and a single rear-facing Starflash medium laser. Though modest compared to dedicated combat fighters, this all-energy loadout supports extended patrol missions without ammunition concerns. The design's most distinctive feature is its nose-mounted Beagle Active Probe, integrated directly into the Telecron M75 targeting system. This arrangement allows the large lasers to benefit from the probe's enhanced detection capability, providing accuracy rivaling some DropShip-grade sensor suites. Fifteen single heat sinks manage the thermal output adequately, and the Telecron L50 communications system matches the electronics package found on the original Hellcat.</p>
+</capabilities>
+
+<overview>
+<p>The Hellcat II is a fifty-ton medium aerospace fighter commissioned by Mitchell Vehicles in 2710 as a heavy aerospace scout for the Star League Defense Force. Despite sharing a name and manufacturer with the older Hellcat, the Hellcat II is an entirely different design, ten tons lighter and built around a flying-wing airframe intended to minimize its emissions footprint. The craft's inclusion of a Beagle Active Probe made it one of the most capable reconnaissance fighters in the SLDF inventory, though its late introduction meant it saw only limited deployment before the fall of the Star League. In the centuries since, surviving examples have served with Clan second-line formations, ComStar's Com Guards, and various Successor State forces.</p>
+</overview>
+
+<deployment>
+<p>The HCT-213C replaces the standard large lasers with large pulse laser models in each wing and adds a pair of medium pulse lasers in the nose, significantly improving hit probability at the cost of maximum range. A single rear-facing medium laser discourages pursuit. Two heat sinks are removed, but the remaining thirteen are upgraded to double-strength models, maintaining thermal balance with the more demanding pulse weaponry. The Beagle Active Probe is retained in the nose. This variant entered service in 2724 and was produced at Graham IV.</p>
+</deployment>
+
+<history>
+<p>Mitchell Vehicles developed the Hellcat II as part of an effort to raise the profile of their Hellcat product line in the early twenty-eighth century. The project grew well beyond its original scope of a simple variant study, evolving into an entirely new fighter that shared little more than some sub-assemblies with its predecessor. Commissioned for the SLDF in 2710, the Hellcat II was one of the last new fighters accepted into Star League service before the Amaris crisis. Ironically, the older and less advanced Hellcat design proved far more resilient in the long term.</p><p>Production was concentrated solely at Mitchell Vehicles' Graham IV facility, a vulnerability that proved fatal during the Amaris Civil War. Republican forces under Stefan Amaris resorted to widespread nuclear attacks during their seizure of Graham IV, obliterating factories and cities they could not hold. Though the Hellcat II's production lines survived the initial capture, they were destroyed during General Kerensky's subsequent liberation campaign in 2775. With no licensed manufacturers elsewhere, new production ceased entirely.</p><p>The majority of surviving Hellcat IIs departed the Inner Sphere with Kerensky's Exodus Fleet, where they occasionally appeared in Clan second-line formations over the following centuries. The few fighters remaining in Successor State hands gradually lost their advanced capabilities as ferro-aluminum armor and Beagle probes became irreplaceable lostech. These degraded airframes, designated HCT-212, saw limited service throughout the Succession Wars with downgraded electronics and standard armor replacements.</p><p>ComStar preserved a number of intact Hellcat IIs in its massive hidden caches, deploying them with the Com Guards when that military force was unveiled in the 3030s. Following the Clan Invasion, ComStar upgraded its stockpile from the 213B specification to the improved 214 and later 215 configurations. The Word of Blake schism saw some of these upgraded fighters fall into Blakist hands, and during the Jihad, several ComStar 215 models were spotted in Word of Blake service. Post-Jihad refitting of the 215 variant was conducted at facilities on Arcturus and Orestes, keeping the design in limited service well beyond its original production run.</p>
+</history>
+
+<manufacturer>
+Mitchell Vehicles
+</manufacturer>
+
+<primaryFactory>
+Graham IV
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Wakazashi
+ENGINE:Rawlings
+ARMOR:SRT
+COMMUNICATIONS:Telecron
+TARGETING:Telecron
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:IX
+ENGINE:250
+ARMOR:Ferro-Aluminum
+COMMUNICATIONS:L50
+TARGETING:M75 with Beagle Active Probe
+</systemModels>
+
+<source>
+His:OK
+</source>
+
+<published>
+RS:OK
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

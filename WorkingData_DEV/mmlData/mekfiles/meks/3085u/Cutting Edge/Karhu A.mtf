@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cfb3-77cc-9551-0c2a0198ba9d
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Karhu
+model:A
+mul id:1748
+
+Config:Biped OmniMek
+techbase:Clan
+era:3079
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:2
+role:Sniper
+
+quirk:em_inter_whole
+
+mass:65
+engine:325 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:12 Clan Double
+base chassis heat sinks:12
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Clan)
+LA armor:20
+RA armor:20
+LT armor:23
+RT armor:23
+CT armor:30
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:5
+Gauss Rifle, Left Arm
+Large Pulse Laser, Right Arm
+ER Medium Laser, Right Arm
+Micro Pulse Laser, Right Arm
+LRM 10, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLMicroPulseLaser (OMNIPOD)
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+CLLRM10 (OMNIPOD)
+Clan Ammo LRM-10 (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Karhu was introduced in 3079 as the first Clan-technology OmniMech produced by Odin Manufacturing for the Ghost Bear Dominion. Named after the Finnish word for "bear," the sixty-five-ton heavy OmniMech was designed to fill the Dominion's need for a fast cavalry platform built with the latest Clan technology. Odin Manufacturing, based on the former Free Rasalhague Republic world of Orestes, won a competitive contract against their chief rival Bergan Industries in 3077, delivering a design that earned a fierce reputation as a frontline cavalry 'Mech despite lingering questions about its electronics reliability. The Karhu remains a symbol of the Dominion's industrial ambitions and a mainstay of its frontline clusters.</p>
+
+capabilities:<p>The Karhu is built around a Beowulf 4 Enhanced endo steel chassis powered by a Pitban 325-rated extra-light engine, giving the sixty-five-ton OmniMech a respectable top speed of eighty-six kilometers per hour. Ten and a half tons of Compound A2F ferro-fibrous armor provide solid protection for its weight class, while twelve fixed double heat sinks manage baseline waste heat across its varied configurations. This combination of speed, protection, and Clan-grade construction leaves an impressive thirty tons of available pod space for mission-specific equipment.</p><p>The Prime configuration reflects the design's appeal to the KungsArmé tradition of physical combat, mounting a retractable blade sculpted into a fearsome three-pronged claw alongside a plasma cannon in the right arm. An ER PPC and ER medium laser in the left arm provide ranged firepower, while improved jump jets grant exceptional battlefield mobility. However, Odin's relative inexperience with Clan technology has manifested in documented electronics reliability issues. The firm reused the Beowulf's proven Dash-2 Standard communications system and Blade 12 targeting computer to save development time, but intermittent compatibility glitches with Clan-manufactured components have plagued the design in the field, a problem technicians attribute to fundamental incompatibilities between Inner Sphere electronics architectures and Clan equipment.</p>
+
+deployment:<p>Configured for longer-range engagement profiles, the A configuration mounts a Gauss rifle in the right arm supported by a left-torso LRM-10, giving the Karhu credible standoff firepower. The addition of a large pulse laser, ER medium laser, and micro pulse laser in the right arm ensures the configuration remains dangerous at close range should an enemy close the distance. Two tons of Gauss ammunition and one ton of missile reloads provide reasonable endurance for sustained operations, while five standard jump jets maintain the mobility expected of the chassis. The A configuration sees frequent deployment in mixed formations where its combination of precision long-range fire and jump capability allows it to anchor defensive positions while retaining the ability to reposition quickly.</p>
+
+history:<p>The Karhu's development was born from the merger of the Free Rasalhague Republic and the Ghost Bear Dominion, which opened Clan technology to Inner Sphere manufacturers for the first time. For Odin Manufacturing, the merger represented both opportunity and challenge. Their Orestes production facility had been damaged by Word of Blake raids in the late 3060s, and the demands of the Jihad forced them to continue producing existing Inner Sphere designs while simultaneously planning their transition to Clan-technology manufacturing. By 3077, when the Dominion announced a competition for a new heavy OmniMech, Odin was finally ready to make the leap.</p><p>The competition between Odin and their rival Bergan Industries proved fierce. Odin identified Bergan as their primary competitor and designed the Karhu specifically to outperform whatever Bergan produced, while simultaneously launching a marketing campaign rooted in Rasalhagian nationalism aimed at former KungsArme officers within the Dominion touman. This strategy proved effective, and Odin won the contract in 3079 with a design that was widely acknowledged as technologically superior to Bergan's competing entry, the Arcas.</p><p>First deployed in 3079, the Karhu arrived too late to participate in Operation SCOUR but rapidly became a fixture in the Dominion's frontline clusters. Paired frequently with the Ursus II, the Karhu earned a reputation as a cavalry 'Mech, flanking opponents while heavier designs drew fire at close range. During the Jihad's final stages and the early Republic era, Karhus were concentrated in frontline formations alongside Vultures and other OmniMechs, forming the mobile striking arm of Dominion combined-arms doctrine.</p><p>The design's success has not been without controversy. Competition between Odin and Bergan Industries has grown increasingly bitter, with Odin officials publicly disparaging Bergan as "that Capellan company with their Combine workers." Requests for Orestes-built 'Mechs are noticeably higher among Rasalhagian warriors as a result of this rivalry. The Ghost Bear Council has expressed concern over this infighting and has requested that representatives of both companies exercise restraint, though reports suggest the merchants are too deeply engaged in their competition to easily comply.</p><p>The Karhu's documented electronics reliability issues have been a persistent concern throughout its service history. Technicians have traced the intermittent glitches to fundamental incompatibilities between the Inner Sphere-designed communications and targeting systems and the Clan-manufactured components they interface with, citing similar problems on Beowulfs retrofitted with Clan equipment. Odin has denied culpability, but the issue remains unresolved and represents an ongoing maintenance burden for Dominion technicians. Despite this flaw, the Karhu's combination of speed, firepower, and pod flexibility has ensured its continued prominence in the Dominion's order of battle, with the 2nd Legion of Vega's attack on the Orestes production line in 3099 confirming both the design's strategic importance and its vulnerability to disruption.</p>
+
+manufacturer:Odin Manufacturing
+
+primaryfactory:Orestes
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Odin Manufacturing
+systemmode:CHASSIS:Beowulf 4 Enhanced
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:325 XL
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:A2F Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Standard Jump Jets
+systemmanufacturer:COMMUNICATIONS:Dash
+systemmode:COMMUNICATIONS:2 Standard
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Blade 12

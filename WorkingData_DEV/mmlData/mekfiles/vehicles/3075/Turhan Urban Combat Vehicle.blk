@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e645-7274-b869-5eeac3fb9c1b
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Turhan Urban Combat Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3320
+</mul id:>
+
+<year>
+2583
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:5.0
+</transporters>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+30
+29
+29
+26
+20
+</armor>
+
+<Body Equipment>
+IS Machine Gun Ammo - Half
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Large Laser
+Large Laser
+Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>The Turhan's defining engineering feature is the articulating joint dividing its chassis at the midpoint, which allows the vehicle to negotiate corners and alleyways that would defeat any rigid-frame design of comparable mass. Its multi-axle wheeled drive system distributes weight to achieve ground pressure comparable to a civilian transport, limiting damage to urban road surfaces, though this configuration limits cross-country agility. In open terrain or against fast-moving adversaries, the Turhan's modest speed leaves it exposed, and the design depends heavily on the infantry it carries to screen against dismounted threats it cannot outrun.</p><p>Primary armament consists of two large lasers mounted in the main turret, providing sustained energy-based firepower with no dependence on ammunition resupply, a significant logistical advantage in extended urban operations. Two machine guns handle anti-personnel threats. The five-ton infantry compartment can accommodate a full squad with flexibility for different troop types, functioning equally as a fighting vehicle and an armored personnel carrier. The production standard variant added ferro-fibrous armor over the original's conventional protection, substantially improving crew survivability. The absence of any missile countermeasure system is a recurring limitation, leaving the crew reliant on their infantry escort when facing missile-armed opposition.</p>
+</capabilities>
+
+<overview>
+<p>Buhallin Military Products, a Dieron-based manufacturer renowned for wheeled combat vehicles, introduced the Turhan Urban Combat Vehicle in 2530 to fulfill a Terran Hegemony Armed Forces requirement for a dedicated urban assault platform. Designed to support infantry in the dense, ancient street grids of the Hegemony's oldest colonial cities, the Turhan scored over competing designs by incorporating an articulating joint at the chassis midpoint, a feature that earned the vehicle an enduring nickname among its crews but proved essential to navigating tight urban corridors. Its combination of sustained energy firepower and a purpose-built infantry transport compartment made it a natural fit for combined-arms operations. The Turhan served the Star League Defense Force for generations and remained in service long after its original manufacturer closed, a reflection of the soundness of its core design.</p>
+</overview>
+
+<deployment>
+<p>The production standard Turhan, which incorporated ferro-fibrous armor from 2583 onward, became the most widely distributed variant in the design family. SLDF formations across the Inner Sphere operated the type as their primary armored infantry transport, and surviving units passed into ComStar's hands following the Star League's dissolution. The design reached Draconis Combine forces through captured and traded ComStar surplus, and became the primary Combine variant once Pesht Motors resumed production on Unity in 3072. Units manufactured at the Unity facility serve throughout Combine territory, and the configuration remains the reference standard for the Turhan family.</p>
+</deployment>
+
+<history>
+<p>The Turhan's combat reputation was established in 2549, when Director-General Ian Cameron deployed the vehicles into Geneva on Terra during the September Revolt. Elements of the Fifty-first Dragoon Regiment had seized the city after rejecting the authority of the newly elected Director-General, and when no support materialized, the rebels began fighting among themselves. Hegemony Armed Forces dispatched Turhans into Geneva's narrow historic streets, where the vehicles threaded corridors that conventional armor could not navigate, ferrying troops in and out of the fighting until the revolt collapsed. The engagement confirmed the design's core premise and set the standard for urban combined-arms doctrine in the SLDF.</p><p>The vehicle served the Star League Defense Force for well over two centuries across dozens of worlds, filling the role of armored infantry transport wherever urban or close-terrain operations were anticipated. Its only manufacturing source was destroyed in 2776, when the Amaris Civil War brought destruction to Dieron and eliminated the Buhallin Military Products facility. The loss ended new production but could not eliminate the vehicles already in service, and ComStar inherited a substantial number through its access to Star League-era stockpiles and salvage operations.</p><p>ComStar integrated the Turhan into the Com Guards, where its combined-arms utility complemented the organization's balanced force structure. Many were lost at Tukayyid, but their contribution to that campaign helped ensure the design remained among the platforms selected to rebuild the Com Guards' strength. The subsequent fracturing of ComStar transferred many surviving vehicles to the Word of Blake, whose own urban combat doctrine made good use of the type.</p><p>The Clans drew on the Turhan's lineage as well, using the chassis as the foundation for the Ku Wheeled Assault Tank, replacing the infantry compartment with heavier direct-fire weapons to suit Clan tactical preferences.</p><p>Renewed production came in 3072, when Pesht Motors converted a commercial freight vehicle facility on Unity to manufacture the Turhan after recovering technical data from the Hegemony Memory Core. The restart gave the Draconis Combine its first domestically produced units of the type and positioned the design for continued service well into the Jihad era and beyond.</p>
+</history>
+
+<manufacturer>
+Buhallin Military Products|Pesht Motors
+</manufacturer>
+
+<primaryFactory>
+Dieron|Unity
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Baltex
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:180 Fusion
+ARMOR:Mercury Weave Ferro-Fibrous
+COMMUNICATIONS:SP/2 HAYOT
+TARGETING:K580
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dcaa-742a-a6e7-bf396861d346
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Battle Cobra
+model:BTL-C-2OG
+mul id:9492
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3083
+source:Shrap11
+published:ShrapRS
+rules level:2
+role:Brawler
+
+quirk:ext_twist
+
+mass:40
+engine:200 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:11 IS Double
+base chassis heat sinks:8
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:14
+RT armor:14
+CT armor:17
+HD armor:9
+LL armor:17
+RL armor:17
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:4
+Plasma Rifle, Left Arm
+Machine Gun, Left Arm
+Snub-Nose PPC, Right Arm
+Machine Gun, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISPlasmaRifle (OMNIPOD)
+ISPlasmaRifle (OMNIPOD)
+Machine Gun (OMNIPOD)
+ISPlasmaRifleAmmo (OMNIPOD)
+ISPlasmaRifleAmmo (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISSNPPC (OMNIPOD)
+ISSNPPC (OMNIPOD)
+Machine Gun (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Machine Gun Ammo - Half (OMNIPOD)
+ISCASEII (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The BTL-C-2O Battle Cobra represents ComStar's troubled but ultimately successful effort to reverse-engineer Clan OmniMech technology. Following the Battle of Tukayyid in 3052, ComStar recovered numerous Battle Cobra chassis from the fighting in the Devil's Bath, selecting the design as the foundation for their OmniMech development program. Progress was severely hampered by the Word of Blake schism, which saw many of ComStar's top scientists and engineers defect, leaving inexperienced personnel to manage one of the organization's most ambitious technological projects. The loss of Terra to the Word of Blake in 3058 further devastated ComStar's industrial base, but also created the urgency that drove the remaining technical teams to complete the simplest viable OmniMech at any cost. The BTL-C-2O reached full production in 3063, manufactured at ComStar's Tukayyid facility and later at Arc-Royal MechWorks.</p><p>Particularly, the Word of Blake's parallel Battle Cobra research, eventually entrusted to Devon Cortland, would gradually evolve into the first of the notorious Celestial OmniMechs, the Preta.</p>
+
+capabilities:<p>The adaptation of the Battle Cobra to Inner Sphere technology forced several significant compromises. The bulkier frame resulted in an astonishingly cramped chassis, and the late decision to integrate ComStar's cutting-edge C3i networking system necessitated downsizing to a Nissan 200 fusion engine. This reduced the design's top speed to just eighty-six kilometers per hour, substantially slower than its Clan progenitor. The regenerative cooling system demanded by the C3i integration required bulky heat sinks that further crowded the already tight torso compartments, creating maintenance nightmares for ComStar technicians.</p><p>These compromises did yield unexpected benefits. The tightly packed internal layout meant that shots which would normally penetrate to the fusion engine were instead absorbed by intervening components, giving the BTL-C-2O surprising durability for its weight class. The smaller engine also freed sufficient mass to provide seventeen and a half tons of pod space, actually exceeding the Clan original's fourteen tons of capacity. Most configurations carried the C3i computer as standard equipment, transforming the Battle Cobra from an independent combatant into a networked support platform that excelled when operating as part of a coordinated lance or Level II formation.</p><p>The result was an OmniMech that struggled in direct confrontation with contemporary designs but proved highly effective in its intended conventional support role.</p>
+
+deployment:<p>A post-Jihad configuration developed after the dissolution of the Com Guards, Alternate Configuration G carries a Snub-Nose PPC in the right arm and a plasma rifle in the left, each supported by a machine gun. Three tons of plasma rifle ammunition and a ton of machine gun rounds are protected by CASE II in the right torso, with an additional double heat sink managing the thermal load. This mixed-weapon approach provides effective firepower across a broad range of engagement distances, reflecting the mercenary operators who adopted the design after ComStar's disbandment.</p>
+
+history:<p>ComStar's Battle Cobra program was born from the unprecedented access to Clan technology gained at Tukayyid, yet its development became emblematic of the organization's post-Schism institutional failures. While the Draconis Combine successfully leveraged similar salvage from Wolcott and Luthien into a functioning OmniMech program, ComStar's efforts floundered as the Word of Blake schism stripped away their most talented engineers and scientists. The capture of Terra in 3058 compounded the crisis, destroying ComStar's primary industrial base and forcing leadership to order the completion of whatever OmniMech project could be finished fastest. The Battle Cobra, with its straightforward arm-mounted pod system, won this grim competition by default.</p><p>Production began at ComStar's Tukayyid Omega-Epsilon Facility X in 3063, but the factory's existence made it an immediate target when the Word of Blake Jihad erupted. Orbital bombardment destroyed the Tukayyid facility in 3068, leaving ComStar with little more than the design's schematics. A hastily negotiated partnership with Arc-Royal MechWorks provided a new production line, though the struggling manufacturer required years to deliver the troublesome OmniMech reliably.</p><p>The ComStar Battle Cobra's finest hour came during the Fourth Army's assault on Chertan, where two Level IIs of the design championed operations against entrenched Word of Blake Protectorate Militia. Working in concert with battle armor scouts in a formation inspired by the Blakist Choir doctrine, the Battle Cobras demonstrated the design's true strength, rapid reconfiguration between engagements allowed commanders to tailor each machine's loadout to the tactical situation, switching between TAG-equipped spotter configurations and direct-fire assault packages as conditions demanded.</p><p>Despite proving essential in the liberation of Chertan and other Protectorate worlds, front-line service steadily eroded the Battle Cobra's numbers. The dissolution of the Com Guards following the Jihad's conclusion cost Arc-Royal MechWorks its primary customer, and the manufacturer eventually shuttered the production line around 3090 to focus on more profitable designs, including the restored Verfolger line. With the original Clan Battle Cobra now rolling off Arc-Royal's restored production lines under Jade Falcon ownership, the days of the Inner Sphere variant appear numbered, though the few mercenary commands still operating them praise the design's rugged versatility.</p>
+
+manufacturer:Com Guard Tukayyid Omega-Epsilon Facility X|Arc-Royal MechWorks
+
+primaryfactory:Tukayyid|Arc-Royal
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Type 69-40S
+systemmanufacturer:ENGINE:Nissan
+systemmode:ENGINE:200
+systemmanufacturer:ARMOR:Paulina
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Blade
+systemmode:COMMUNICATIONS:12
+systemmanufacturer:TARGETING:Spanke
+systemmode:TARGETING:112-A

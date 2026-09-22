@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dfb8-7f59-b95b-002c7af9b33f
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Anubis
+model:ABS-3MC
+mul id:5562
+
+Config:Biped
+techbase:Inner Sphere
+era:3081
+source:XTR:Periphery
+published:XTR:Periphery
+rules level:4
+role:Missile Boat
+
+quirk:ext_twist
+quirk:exp_actuator
+quirk:difficult_maintain
+quirk:prototype
+
+mass:30
+engine:240 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:8
+jump mp:0
+
+armor:Stealth(Inner Sphere)
+LA armor:8
+RA armor:8
+LT armor:9
+RT armor:9
+CT armor:11
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:4
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+Enhanced LRM 5, Left Torso
+Enhanced LRM 5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Enhanced LRM 5
+Enhanced LRM 5
+ISEnhancedLRM5 Ammo
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Enhanced LRM 5
+Enhanced LRM 5
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAngelECMSuite
+ISAngelECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Anubis was introduced in 3063 as the flagship product of Detroit Consolidated MechWorks, a factory built in the New Colony Region with Capellan Confederation backing to supply advanced war material to all three Trinity Alliance members. Designed by engineers from Fredonian Industrial Technologies whose Osiris companion design had been rejected by every major Federated Suns manufacturer, the thirty-ton Anubis was the first non-Capellan-produced BattleMech to incorporate the Confederation's revolutionary stealth armor technology. The Detroit plant was one of only three facilities in existence capable of building BattleMechs incorporating the full range of advanced Capellan technologies, and the Anubis served as proof of the Trinity Alliance's commitment to sharing military innovation across national borders.</p><p>Intended as a light fire support platform, the Anubis was produced in equal numbers for the Magistracy Armed Forces, Taurian Defense Force, and Capellan Confederation Armed Forces, though the Colonial Marshals of the New Colony Region became its most prolific operators during the design's early years.</p>
+
+capabilities:<p>The Anubis combines speed and stealth to operate as a light fire support platform that relies on not being seen rather than absorbing damage. A Ceres Motors 240 XL engine propels the thirty-ton chassis to speeds exceeding 129 kilometers per hour, while five and a half tons of Hellespont Lite stealth armor and a Guardian ECM suite make the 'Mech exceptionally difficult to target at range. The common refrain among Periphery forces is that the only Anubis visible on the battlefield is the one that wants to be seen, as the design's electronic warfare suite allows it to operate with near-impunity at extended distances.</p><p>The primary armament of four Sian/Ceres Jaguar LRM-5 launchers enables the Anubis to lay down sustained suppressive fire or deploy specialized munitions such as Thunder minefields while faster 'Mechs close with the enemy. A single Diverse Optics extended-range small laser provides minimal self-defense capability at close quarters. This missile-heavy loadout does create significant ammunition dependency, identified as the design's primary tactical weakness alongside its thin armor protection.</p><p>Construction quality has been a persistent concern, as the Detroit facility's use of identical forearm housings on both arms despite only the left mounting a weapon, combined with field reports indicating equipment malfunction rates roughly thirty percent higher than comparable designs, has earned the Anubis a reputation as difficult to maintain.</p>
+
+deployment:<p>This variant is an experimental prototype developed in collaboration between Magistracy scientists and Capellan weapons engineers, with a project start date of 3075 and formal introduction in 3081. Detroit Consolidated MechWorks temporarily retooled their Anubis assembly line to produce a limited run of just twelve units. The variant replaces the standard LRM-5 launchers with enhanced LRM-5 systems that eliminate the minimum range problems plaguing conventional Inner Sphere missile launchers, while mounting twin extended-range medium lasers for an ideal engagement range of approximately 120 meters. The most significant upgrade is the replacement of the Guardian ECM with a prototype Angel ECM suite capable of confounding even Streak missile targeting systems while enhancing the stealth armor's effectiveness. Rumors circulated that Magistracy scientists were developing a further variant incorporating Chameleon Light Polarization Shield and Null Signature System technologies, though such claims were widely dismissed as propaganda.</p>
+
+history:<p>The Anubis emerged from the diplomatic and military framework of the Trinity Alliance, the tripartite agreement between the Capellan Confederation, Magistracy of Canopus, and Taurian Concordat that saw unprecedented sharing of military technology among the three nations. The Capellan Confederation rebuilt a ruined BattleMech factory on Detroit, completing the facility in 3060 to serve as a manufacturing hub for advanced designs incorporating technology previously restricted to Capellan production lines. The Anubis entered service in late 3063, quickly becoming the most visible symbol of Trinity Alliance cooperation.</p><p>The design's early service was marked by political turmoil in the New Colony Region. When Force Marshal McEvens declared independence for the Colony Region and established a provisional government on Fronc, the Magistracy Armed Forces halted all further shipments of the Anubis to the Colonial Marshals. This decision sent mixed signals, particularly as the Magestrix publicly considered recognizing the breakaway government, a position that reportedly angered Capellan leadership. Despite this political disruption, the Anubis continued to serve in significant numbers with the Colonial Marshals, who had already received substantial deliveries before the embargo.</p><p>The Anubis proved its worth during the Jihad era, with Detroit Consolidated MechWorks producing updated variants including the energy-weapon ABS-3T and experimental ABS-3MC prototype. The 3MC represented an ambitious collaboration between the Magistracy and Capellan weapons scientists, though only twelve prototypes were completed before the line was retooled. During this period, ownership of the Detroit facility transitioned fully to the Magistracy of Canopus.</p><p>Following the Jihad, the political theater shifted dramatically when Detroit was gifted to the Capellan Confederation. Detroit Consolidated MechWorks relocated Anubis production to their facility on Krimari, where redesigned variants incorporating a smaller engine and upgraded weaponry entered service beginning in 3121. The Anubis has served the Magistracy of Canopus for over eight decades, remaining a common sight in Canopian and Capellan regiments conducting long-range search-and-destroy missions. A notable engagement in 3145 saw the Fourth Andurien Cavalry deploy two companies of fast 'Mechs including Anubises purchased from the Magistracy for a reconnaissance of Ruschegg, though the operation ended in disaster when the scouts attempted to engage planetary defenders and were ambushed by concealed armor units. The Anubis has also figured prominently in anti-piracy operations, with Colonial Marshals employing lances of the design to devastating effect against raiding bands in the Fronc Reaches.</p>
+
+manufacturer:Detroit Consolidated Mechworks
+
+primaryfactory:Detroit
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Detroit Consolidated MechWorks
+systemmode:CHASSIS:Detroit Type III Endo Steel
+systemmanufacturer:ENGINE:Ceres Motors
+systemmode:ENGINE:Ceres Motors 240 XL
+systemmanufacturer:ARMOR:Hellespont Industries
+systemmode:ARMOR:Hellespont Lite Stealth
+systemmanufacturer:COMMUNICATIONS:Ceres Metals
+systemmode:COMMUNICATIONS:Model 666 with Angel ECM Suite
+systemmanufacturer:TARGETING:Dynatec
+systemmode:TARGETING:Dynatec 990

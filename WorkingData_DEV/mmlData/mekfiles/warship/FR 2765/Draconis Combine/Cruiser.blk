@@ -1,0 +1,349 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ee15-743d-9740-5a9203e56996
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Cruiser
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6989
+</mul id:>
+
+<year>
+2325
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:6.0:2:1::-1:0
+dropshuttlebay:2.0:3:0::2:0
+1stclassquarters:500.0:0:-1::-1:0
+crewquarters:1680.0:0:-1::-1:0
+steeragequarters:2950.0:0:-1::-1:0
+cargobay:37419.0:1:6::-1:0
+</transporters>
+
+<SafeThrust>
+2
+</SafeThrust>
+
+<heatsinks>
+1891
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+12500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+64
+58
+58
+52
+58
+58
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:30
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:30
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+(B) Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Ammo White Shark:30
+(B) Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Ammo White Shark:30
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+(B) Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Ammo White Shark:30
+(B) Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Ammo White Shark:30
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:30
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:30
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:30
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:30
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:30
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:30
+</Right Broadsides Equipment>
+
+<structural_integrity>
+75
+</structural_integrity>
+
+<capabilities>
+<p>Originally envisioned as a missile cruiser, the Cruiser mounts batteries of White Shark launchers in the forward quarter arcs and Barracuda arrays in the nose, broadside, and aft arcs for anti-fighter screening. Political restrictions on nuclear warheads forced the class to rely on conventional kinetic-kill munitions, substantially reducing the striking power its designers had anticipated. To compensate, thirty-six NAC/10 naval autocannons are distributed across all six firing arcs, providing the bulk of the vessel's actual offensive capability against both capital ships and smaller craft.</p><p>As a pre-docking collar design, the Cruiser carries its DropShuttles, small craft, and cargo in interconnected nose bays accessed through bow and flank doors. This arrangement places sacrificial mass forward toward the expected threat axis, but creates an unstable center of mass that shifts unpredictably as cargo is loaded or expended. Seven hundred fifty tons of standard armor provide reasonable protection for the era, though the design's reliance on conventional missile warheads leaves it undergunned compared to later vessels of similar displacement. A crew of over three hundred officers, enlisted personnel, and gunners operates the vessel, supported by a marine complement of ninety and facilities for five hundred steerage passengers, reflecting the class's intended dual role as both combatant and troop transport.</p>
+</capabilities>
+
+<overview>
+<p>The Cruiser-class was among the first purpose-built WarShip designs produced by the Terran Hegemony, entering service in 2325 from the Boeing Interstellar shipyards on Terra. Commissioned as a heavy cruiser to support the Hegemony's nascent naval force, the design reflected an era when interstellar combat doctrine remained largely theoretical and untested, and its engineers drew upon conceptual studies that predated the Hegemony itself. The resulting vessel carried a formidable armament for its time and incorporated troop transport facilities that gave it flexibility well beyond a purely combative role. The Cruiser earned a mixed reputation during its career, respected for its raw firepower but regarded with little affection by the crews who contended with a number of well-documented design compromises inherent to its early generation hull.</p>
+</overview>
+
+<deployment>
+<p>The original Cruiser design served primarily as a show-of-force platform and fleet escort during the Terran Hegemony's early naval expansion, where encounters with armed merchantmen and primitive combat vessels constituted the most likely threat. The vessel's combined firepower and troop transport facilities made it well suited for coercive diplomacy missions, arriving in-system to demonstrate naval superiority and, if necessary, land occupation forces. After Hegemony service, surviving hulls in their original configuration passed to several Great Houses. The Draconis Combine proved the most persistent operator, employing Cruiser-class vessels within its fleet structure alongside other aging designs where their firepower remained relevant against similarly dated opposition.</p>
+</deployment>
+
+<history>
+<p>The Cruiser-class traces its conceptual origins to the late twenty-second century, when Terran Alliance military planners drafted specifications for purpose-built combat JumpShips to counter the potential threat posed by separatist colonies among the stars. These plans remained theoretical for over a century until Director-General James McKenna, confronting precisely the scenario the Alliance had feared in the form of breakaway colonies freed by the Demarcation Declaration, authorized construction of a new fleet based on those venerable designs. The Dreadnought-class battleship and the Cruiser entered service in 2325 as cornerstones of the Terran Hegemony's first true naval force.</p><p>The Cruiser quickly proved its value during McKenna's Campaigns of Persuasion, where fleets of Hegemony WarShips would arrive at recalcitrant colony worlds to demonstrate the futility of resistance. In this political-military role the class excelled, as few colonial systems possessed anything capable of challenging a purpose-built WarShip. As the Hegemony consolidated its position and the broader Inner Sphere began producing more capable naval designs, the Cruiser's shortcomings grew increasingly apparent. Its overall striking power fell short of what designers had originally intended, fundamental hull design issues limited tactical flexibility, and the class's utilitarian cylindrical profile drew constant derision from the crews who served aboard. The Cruiser's squat silhouette and prominent loading doors earned it the nickname "Beercan Battleship" among other less printable epithets, a label that persisted throughout the vessel's operational life.</p><p>The Terran Hegemony retired the last of its Cruisers to mothball storage in 2405 as the Aegis and other more modern designs rendered the class obsolete. Rather than scrap serviceable hulls, the Hegemony sold several to the Great Houses, where they found unexpected longevity in navies that lacked the industrial capacity to build replacements. The Draconis Combine proved the most persistent operator, maintaining a pair of Cruiser-class vessels within the Draconis Combine Admiralty as late as 2765, operating them alongside Lola I destroyers and other aging Hegemony-era WarShips. For the Combine, even a vessel built to twenty-third century standards carried more firepower than anything its shipyards could produce domestically, making the old Cruisers too valuable to retire despite their age and limitations.</p>
+</history>
+
+<manufacturer>
+Boeing Interstellar
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Standard
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Cruiser
+</use>
+
+<length>
+240 m
+</length>
+
+<height>
+1200 m Sail
+</height>
+
+<source>
+FR:2765-DCMS
+</source>
+
+<tonnage>
+500000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+100
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+320
+</crew>
+
+<officers>
+50
+</officers>
+
+<gunners>
+90
+</gunners>
+
+<passengers>
+500
+</passengers>
+
+<marines>
+90
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+150
+</escape_pod>
+

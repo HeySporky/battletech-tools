@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a53d-73f4-baea-f174875d4051
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Thunderbird Battle Armor
+</Name>
+
+<Model>
+[ER Laser](Sqd5)
+</Model>
+
+<mul id:>
+8590
+</mul id:>
+
+<year>
+3086
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+CLBAERSmallLaser:RA
+BAJumpBooster:Body
+BABasicManipulator:RA
+BAHeavyBattleClawVibro:LA
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>This configuration replaces the AP Gauss rifle with an extended-range small laser, providing sustained firepower without ammunition dependency. The ER laser allows engagement at greater distances than the standard AP Gauss loadout, though its energy demands limit sustained fire. The vibro-claw, jump booster, and 250 kilograms of standard armor remain unchanged from the base design. The energy weapon configuration trades raw anti-infantry lethality for operational endurance, as troopers can remain in the field without requiring ballistic munitions resupply. The heavy chassis limits anti-BattleMech effectiveness, but the increased engagement range makes this configuration well suited to defensive operations and prolonged patrol duty.</p>
+</capabilities>
+
+<overview>
+<p>The Thunderbird is a heavy battle armor design developed by Clan Nova Cat to address the Clan's chronic shortage of frontline powered infantry. Produced at the Barcella Battle Armor Facility on Irece, the suit entered service in 3086 as the Nova Cats' first independently manufactured heavy armor. Designed as a practical replacement for the Elemental, the Thunderbird prioritized reliable production over technological ambition. The suit earned a reputation as a capable infantry support platform, combining respectable protection with a flexible modular weapon mount that accepted multiple armament configurations.</p>
+</overview>
+
+<deployment>
+<p>Nova Cat Points equipped with the ER Laser configuration typically drew defensive and patrol assignments where sustained operations made ammunition-free weapons preferable. Five-trooper Points rotated between energy and ballistic loadouts depending on mission requirements, taking advantage of the Thunderbird's modular weapon mount.</p>
+</deployment>
+
+<history>
+<p>Clan Nova Cat's Abjuration in 3060 severed the Clan's access to Elemental battle armor production lines maintained by the Homeworld Clans. Ongoing Jihad-era combat losses further depleted the Nova Cats' dwindling supply of frontline suits. Khan Santin West, preoccupied with the Jihad offensives, was unable to address the shortage until 3084, when he tasked a team of scientists, technicians, and merchant caste members based on Irece with developing a replacement.</p><p>Early proposals ranged from reflective armor composites to projected ballistic weapons and even a VTOL-capable frame, but West ordered all extras stripped in favor of a practical, production-ready design. The Barcella Battlearmor manufacturing lines on Irece began output early the following year. The Thunderbird first saw action in October 3085, when an Elemental Trinary of the 489th Assault Cluster deployed mixed suits against a combined arms raiding force on Labrea. The new armor outranged and outgunned hostile Inner Sphere battle armor, proving its worth alongside existing Nova Cat suits.</p><p>The design remained exclusively Nova Cat property, and inquiries from allied factions including the Draconis Combine were refused. Combine evaluators nonetheless gathered sufficient data from limited exposure to inform development of the Kishi and Oni battle armor designs. An upgraded variant incorporating reflective armor entered service as early as 3089, replacing the vibro-claw to accommodate the added protection.</p>
+</history>
+
+<manufacturer>
+Barcella Battle Armor Facility
+</manufacturer>
+
+<primaryFactory>
+Irece
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3085,TR:3085S
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+2
+</jumpingMP>
+
+<armor>
+10
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

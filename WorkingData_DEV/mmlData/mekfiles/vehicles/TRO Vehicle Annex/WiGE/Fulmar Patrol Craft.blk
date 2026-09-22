@@ -1,0 +1,180 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb98-7b10-8427-7d5fff189c62
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Fulmar Patrol Craft
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4190
+</mul id:>
+
+<year>
+3065
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+WiGE
+</motion_type>
+
+<transporters>
+troopspace:8.5
+cargobay:8.0:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+49
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+10
+10
+10
+9
+</armor>
+
+<Body Equipment>
+Advanced Fire Control
+AmphibiousChassis
+IS Light Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+Light Machine Gun
+</Right Equipment>
+
+<Left Equipment>
+Light Machine Gun
+</Left Equipment>
+
+<Rear Equipment>
+ISVehicularMineDispenser
+ISVehicularMineDispenser
+ISVehicularMineDispenser
+ISVehicularMineDispenser
+</Rear Equipment>
+
+<barrating>
+8
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Fulmar's advanced composite construction yields armor rated at BAR 8, a significant improvement over the Cormorant's commercial-grade protection, while reducing hull weight enough to accommodate a more powerful drive configuration that raises cruise and flank speeds substantially. This combination of better protection and higher speed makes the Fulmar considerably more capable as an escort and patrol platform than any modified Cormorant hull could achieve.</p><p>Armament centers on a pair of light machine guns in wing-mounted positions, supplemented by an Advanced Fire Control system that improves accuracy against the small, fast targets typical of piracy operations. Four mine dispensers mounted to the rear provide area-denial capability useful for blocking coastal approaches and discouraging pursuit by surface vessels. The reduced cargo bay retains sufficient capacity to transport a full company of marines with their equipment, giving the Fulmar practical utility as a paramilitary transport in addition to its patrol role.</p><p>The ICE powerplant keeps operating costs manageable for sustained patrol duty. The Fulmar's primary limitation is firepower: the light machine guns and mine dispensers are effective against unarmored or lightly armored smuggler craft but provide limited capability against opponents with meaningful armor protection. The design performs best as a deterrent and pursuit platform against civilian-grade threats rather than a combat vessel expected to engage organized military opposition directly.</p>
+</capabilities>
+
+<overview>
+<p>The Fulmar Patrol Craft is a seventy-ton military derivative of the Cormorant, introduced by Michaelson Aircraft in 3056 to meet growing demand for dedicated maritime patrol and convoy escort capability in the Federated Suns. Outwardly similar to its commercial parent, the Fulmar incorporates advanced composite materials that simultaneously improve armor protection and increase top speed, making it noticeably faster and more durable than the cargo craft it was designed to protect. Where the Cormorant prioritizes cargo volume and economy, the Fulmar trades payload space for military systems suited to anti-piracy operations, coastal patrol, and the paramilitary transport of infantry forces. Its introduction coincided with an escalating piracy crisis on Ulysses that would ultimately define the design's early operational reputation.</p>
+</overview>
+
+<deployment>
+<p>The updated configuration, with light machine guns, Advanced Fire Control, and rear mine dispensers, became the definitive production standard in 3065 and the version most closely associated with the Fulmar's operational reputation. Ulysses Navy squadrons employed it in active patrol and convoy escort, using the mine dispenser capability to interdict coastal approaches and deny pirates the shallow-water transit routes they had previously exploited freely. The type's cargo capacity, sufficient for a full company of marines and their equipment, was demonstrated during the Penelope island assault and has been replicated in subsequent operations across the Federated Suns. The Fulmar has also attracted criminal users: smugglers recognized that the design's speed, amphibious capability, and military-grade sensors made it valuable for exactly the operations that naval patrols were trying to prevent.</p>
+</deployment>
+
+<history>
+<p>Michaelson Aircraft developed the Fulmar in direct response to conditions on Ulysses, where the FedCom Civil War created an environment that coastal pirates and smugglers exploited aggressively. With the Ulyssean Navy's resources stretched by competing demands, shipping losses in the planet's shallow coastal seas reached epidemic proportions as organized pirate groups used their own WiGEs to prey on unescorted cargo craft. The Cormorant's commercial-grade systems were inadequate for self-defense against coordinated attacks, and the scale of losses threatened the planetary economy.</p><p>Rather than designing a purpose-built military WiGE from scratch, Michaelson adapted the proven Cormorant hull with advanced composite materials, a strengthened drive system, and military-grade electronics. The Fulmar entered service in 3056 with standard machine gun armament closely resembling its cargo parent, but an updated configuration introduced in 3065 replaced those weapons with light machine guns, added an Advanced Fire Control system, and incorporated rear-mounted mine dispensers for area denial. This configuration proved decisive in addressing the Ulyssean piracy problem.</p><p>The Ulysses Navy deployed Fulmars in convoy escort, establishing protective formations around commercial Cormorant flights and gradually forcing pirates to seek softer targets elsewhere. Intelligence gathered through sustained patrol operations eventually identified the primary pirate base on the island of Penelope. A Fulmar squadron transported a full battalion of marines directly to the island, and the resulting assault eliminated the threat. The operation became something of a showcase for the design's dual utility as both patrol platform and military transport. The Fulmar subsequently attracted attention from smugglers themselves, who recognized that a fast, amphibious WiGE with military-grade systems served their purposes as effectively as the naval patrols it was designed to counter.</p>
+</history>
+
+<manufacturer>
+Michaelson Aircraft
+</manufacturer>
+
+<primaryFactory>
+Ruchbah
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Michaelson Heavy Industries
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:ICE
+ARMOR:Advanced Composite (BAR 8)
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Advanced Fire Control
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+70.0
+</tonnage>
+
+<fuel>
+7.0
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

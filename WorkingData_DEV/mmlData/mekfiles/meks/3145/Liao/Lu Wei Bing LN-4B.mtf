@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d37d-78f0-9f12-d702faea4441
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Lu Wei Bing
+model:LN-4B
+mul id:6471
+
+Config:Biped
+techbase:Inner Sphere
+era:3110
+source:TR:3145:CC,TR:3150
+published:RS:3150
+rules level:2
+role:Brawler
+
+quirk:easy_maintain
+
+mass:85
+engine:340 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:28
+RA armor:28
+LT armor:26
+RT armor:26
+CT armor:39
+HD armor:9
+LL armor:36
+RL armor:36
+RTL armor:8
+RTR armor:8
+RTC armor:12
+
+Weapons:4
+Light PPC, Left Arm
+Light PPC, Left Arm
+LB 20-X AC, Right Torso
+MML 5, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Light PPC
+Light PPC
+Light PPC
+Light PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+ISMML5
+ISMML5
+ISMML5
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+ISLBXAC20
+IS LB 20-X AC Ammo
+IS LB 20-X AC Ammo
+IS LB 20-X Cluster Ammo
+IS LB 20-X Cluster Ammo
+IS Ammo MML-5 LRM
+IS Ammo MML-5 SRM
+ISCASEII
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAngelECMSuite
+ISAngelECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit (ARMORED)
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Lu Wei Bing is an 85-ton assault BattleMech designed by Tao 'Mechworks for the Armed Forces of the Capellan Confederation, entering production in 3110 on Sarmaxa. The loss of the Shengli Arms assault 'Mech factories to the Federated Suns during the Victoria War left a critical gap in the Confederation's heavy assault capability. Tao 'Mechworks accelerated expansion of their Sarmaxa facility using component production lines evacuated from their original Styk plant, and the Lu Wei Bing was the first 'Mech to roll off the new lines. Named for the revolutionaries who led the Green movement in twenty-first century China, the design physically resembles a slightly heavier Victor, and its weapons layout deliberately echoes the twenty-sixth century 'Mech it was built to replace. Sometimes derided as merely an overgrown Victor, the Lu Wei Bing has proven itself the new cornerstone of the CCAF's assault forces.</p>
+
+capabilities:<p>The Lu Wei Bing combines the Victor's proven formula of mobility and close-range devastation with modern technology and five additional tons of chassis weight. Its primary weapon is the Mydron Devastator LB 20-X autocannon mounted in the right arm, capable of firing both standard and cluster munitions for tactical flexibility against both hardened and dispersed targets. Unlike its spiritual predecessor, the Lu Wei Bing supplements this close-range hammer with genuine long-range capability in the form of two Ceres Arms Striker light particle projection cannons in the left arm, giving pilots options that Victor MechWarriors have long wished for. A Doombud MML-5 launcher in the left torso provides additional versatility with its ability to fire both long-range and short-range missiles.</p><p>The Lu Wei Bing's durability is among its most notable characteristics. Sixteen tons of Starshield armor provide substantially better protection than any Victor variant, while a reinforced armored cockpit can save pilots from instant death when subjected to devastating headshots. Six tons of ammunition stored in the right torso are protected by a CASE II system to prevent catastrophic detonation. Four GM Jetstar jump jets preserve the Victor's signature tactical mobility, propelling the eighty-five-ton machine one hundred and twenty meters through the air. A Strand 340-rated light fusion engine provides the same ground speed as the Victor while offering improved survivability over an XL powerplant. A powerful Angel ECM suite integrated into the CeresCom communications system provides electronic screening against advanced sensors and guided munitions, a capability few assault 'Mechs can match. Pilots have frequently noted, however, that they would prefer a Gauss weapon for greater reach in place of the autocannon.</p>
+
+deployment:<p>The sole production variant, this variant mounts the full standard weapons suite of the Mydron Devastator LB 20-X autocannon, twin Ceres Arms Striker light PPCs, and Doombud MML-5 launcher. The CCAF has dispersed the Lu Wei Bing throughout most Capellan regiments, focusing on replacing damaged assault 'Mechs rather than concentrating the design in any particular brigade. The design has generally been used to replace other low-end assault 'Mechs, though in some cases it has freed up a BattleMaster, Atlas, or other command 'Mech for an officer. Lu Wei Bing production has kept pace with attrition rates, and the design has allowed rare Cyclops models to be spared frontline duty.</p>
+
+history:<p>The Lu Wei Bing's origins lie in the devastating Victoria War, which cost the Capellan Confederation its Shengli Arms assault 'Mech production facilities on Victoria. The loss was a critical blow to the CCAF's ability to field heavy assault formations, and Chancellor Daoshen Liao directed Tao 'Mechworks to fill the gap as rapidly as possible. Tao had already begun expanding their facility on Sarmaxa using production tooling evacuated from their original Styk plant, and the design team leveraged the existing Victor component lines to accelerate development of a replacement assault platform.</p><p>First produced in 3110, the Lu Wei Bing entered service as the CCAF rebuilt its assault capabilities during the Late Republic era. The design proved its worth during the Battle of Red Clay Hills on Tikonov, where the Fifth Sian Dragoons had pushed deep into Republic lines. When Republic counterattacking forces closed on a Dragoon company holding a hill, they found themselves unable to dislodge a lance of Lu Wei Bings. The stealth armor and Angel ECM suite made accurate targeting nearly impossible, while the autocannon's devastating firepower shredded any Republic 'Mech that closed to engagement range. The Republic forces eventually withdrew after losing five 'Mechs, with only a single Lu Wei Bing rendered inoperable.</p><p>The CCAF has continued to expand Lu Wei Bing production through the Dark Age and into the ilClan era, with the Sarmaxa facility remaining the sole source of new chassis. The design's combination of Victor-derived mobility, superior protection, and electronic warfare capability has made it a valued asset in Capellan formations, though its relatively limited production rate means it has yet to fully replace the older assault 'Mechs in CCAF service. The Lu Wei Bing's battlefield reputation continues to grow as more units enter frontline service across the Confederation.</p>
+
+manufacturer:Tao 'Mechworks
+
+primaryfactory:Sarmaxa
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:HildCo
+systemmode:CHASSIS:Type VI-T Endo Steel
+systemmanufacturer:ENGINE:Strand
+systemmode:ENGINE:340 Light
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Starshield with CASE II
+systemmanufacturer:JUMP_JET:GM
+systemmode:JUMP_JET:Jetstar
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:CeresCom Model 21-RS with Angel ECM Suite
+systemmanufacturer:TARGETING:Apple Churchill
+systemmode:TARGETING:C-Apple Churchill

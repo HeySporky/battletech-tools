@@ -1,0 +1,158 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a3f5-7cb3-bfb2-629d05a8789d
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Hauberk II Battle Armor
+</Name>
+
+<Model>
+(Sqd4)
+</Model>
+
+<mul id:>
+4271
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+33
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+ISBASmallPulseLaser:RA
+ISBAMagshotGaussRifle:Body
+ISBAMagshotGaussRifle:Body
+BABattleClaw:LA
+IS BA Stealth (Improved):LA
+IS BA Stealth (Improved):RA
+IS BA Stealth (Improved):LA
+IS BA Stealth (Improved):LA
+IS BA Stealth (Improved):RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<capabilities>
+<p>The Hauberk II trades the base model's long-range missile capability for close-quarters lethality. Twin Magshot Gauss Rifles replace the LRM-5, providing accurate, hard-hitting ballistic fire at short to medium ranges. A small pulse laser replaces the standard small laser, improving accuracy against fast-moving targets in the chaotic conditions of urban combat. The suit retains the improved stealth armor of its parent design, allowing troopers to close to effective range without drawing concentrated fire.</p><p>At two thousand kilograms, the Hauberk II shares the base model's movement limitations: ten kilometers per hour ground speed, no jump capability, and too heavy to ride OmniMechs. A battle claw provides close-combat capability. The design fills the same defensive role as the standard Hauberk but excels in enclosed environments where long-range weapons offer little advantage.</p>
+</capabilities>
+
+<overview>
+<p>The Hauberk II is a close-combat adaptation of the Hauberk assault battle armor, developed for the Armed Forces of the Federated Suns during the Jihad. Produced by General Motors on Salem, the design replaced the base Hauberk's long-range armament with weapons better suited to urban fighting. Retaining the same heavy frame and defensive armor of its parent design, the Hauberk II gave AFFS infantry commanders a powerful option for the close-quarters engagements that defined the later stages of the conflict on New Avalon.</p>
+</overview>
+
+<deployment>
+<p>The Hauberk II saw primary deployment in AFFS four-trooper squads assigned to urban defense and close-quarters operations. Squads were typically attached to BattleMech companies or armored platoons clearing Word of Blake holdouts from Avalon City and other contested urban centers during the final years of the Jihad.</p>
+</deployment>
+
+<history>
+<p>The Hauberk II emerged from the brutal urban fighting in Avalon City during the Word of Blake's occupation of New Avalon. Front-line AFFS troopers found the standard Hauberk's missile armament effectively useless in close confines, where engagement ranges rarely exceeded a few dozen meters. The suit's stealth protection also degraded in claw-to-claw engagements against Blakist Se'irim and Nephilim battle armor. Field technicians improvised a solution, salvaging compact ballistic weapons from fallen Cavalier suits to replace the missile system. This field-expedient refit addressed the short-range firepower gap and proved effective enough that General Motors on Salem soon began formal production of the modified design, supplying AFFS units fighting across the Federated Suns.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Salem
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+11
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+4
+</weightclass>
+

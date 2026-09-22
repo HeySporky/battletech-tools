@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c11d-7dae-99b1-0cb88b8fac54
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Charger
+model:CGR-1A2
+
+Config:Biped
+techbase:Inner Sphere
+era:3025
+source:TR:3025C
+rules level:1
+role:Juggernaut
+
+quirk:bad_rep_is
+quirk:easy_maintain
+quirk:barrel_fists_la
+
+mass:80
+engine:320 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:22 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:26
+RA armor:26
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:34
+RL armor:34
+RTL armor:14
+RTR armor:14
+RTC armor:20
+
+Weapons:5
+PPC, Left Arm
+Large Laser, Right Arm
+Medium Laser, Left Torso
+Medium Laser, Right Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+PPC
+PPC
+PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Conceived by Wells Technologies on Luthien as an ultra-heavy reconnaissance platform for the Star League Defense Force, the eighty-ton Charger is one of the most maligned BattleMech designs in history. First produced in 2665, the original model could outrun most medium 'Mechs yet mounted only a handful of small lasers, armament that would have been considered inadequate on a 'Mech one-quarter its size. Intended to penetrate defended areas at high speed and withdraw before heavier opponents could engage, the Charger's concept failed to survive contact with reality, and the SLDF quickly sidelined it from frontline service. Despite this ignominious beginning, the Charger eventually found redemption through successive redesigns, proving that even the most flawed chassis can become viable with the right technology and engineering vision.</p>
+
+capabilities:<p>The original Charger’s design philosophy (speed and armor over firepower) produced an assault ’Mech whose five small lasers were laughable even to MechWarrior cadets, while its solid Durallex Heavy armor could absorb direct hits from autocannon fire. The massive LTV 400 engine consumed over half the chassis’s mass, leaving virtually nothing for weapons. MechWarriors quickly discovered that the Charger’s only real offensive option was physical combat, using its eighty-ton mass and considerable speed to charge lighter opponents. Against Wasps, Stingers, and ’Mechs whose primary armament had already been destroyed, the Charger was effective; against anything else, it was a liability.</p><p>The recovery of Star League technology in the late 3040s finally gave LAW the tools to address the Charger’s fundamental weakness. The CGR-3K replaced the small lasers with four medium pulse lasers and an Artemis IV-enhanced LRM-20, while an XL engine and jump jets gave the design unprecedented tactical flexibility for its weight class. The spacious internal layout (originally a consequence of the oversized engine) proved remarkably adaptable to successive generations of weapons technology, producing variants ranging from urban brawlers to Clan-specification scouts. The same roomy chassis that spawned the Hatamoto-Chi family has ensured the Charger’s continued relevance well into the thirty-second century.</p>
+
+deployment:<p>An early variant of the original Charger documented in the TRO 3025 Centennial records, this variant replaced the massive LTV 400 engine with a smaller powerplant, freeing considerable mass for additional weaponry and equipment. The reduced speed was considered an acceptable trade-off given the original’s fundamental failure as a reconnaissance platform. Few were produced before the Succession Wars disrupted manufacturing priorities.</p>
+
+history:<p>Wells Technologies built the Charger in 2665, combining heavy Durallex armor with Magna light lasers in a design intended as a high-speed reconnaissance element for the SLDF. The concept (an assault-weight scout that could absorb punishment while gathering intelligence) failed to account for MechWarriors’ natural inclination to engage the enemy, and the Charger’s popgun armament left pilots defenseless when combat proved unavoidable. The Star League withdrew the design from active service, and Wells Technologies found itself wallowing in unsold inventory. Ironically, the fall of the Star League and the First Succession War saved the company from bankruptcy, as the Draconis Combine’s desperate need for ’Mechs led to bulk purchases of the company’s entire overstock.</p><p>Most Chargers found their way into DCMS forces, though battlefield salvage eventually distributed the design across every Great House military. Lyran forces adopted the Charger as a heavy reconnaissance element for assault companies, embracing it more warmly than other Houses. When the ISF uncovered Wells Technologies’ covert attempts to sell Chargers to the Lyran Commonwealth in violation of export restrictions, Luthien Armor Works executed an emergency buyout of the company. Wells Technologies closed its doors in 3027, and CGR-1A1 production ceased entirely by 3030.</p><p>The Charger’s defining moment came not from any battlefield triumph but from the Hatamoto-Chi program. When ComStar gifted the Draconis Combine with Star League-era BattleMechs in the 3030s, LAW engineers used reverse-engineered Thug technology to transform the despised Charger chassis into the formidable Hatamoto-Chi, an assault ’Mech that would become one of the DCMS’s most iconic designs. The experience gained with lost technology during the crash Hatamoto program led LAW to rework the Charger itself. The CGR-3K debuted in 3049 with ferro-fibrous armor, pulse lasers, and jump jets, earning widespread acceptance from DCMS MechWarriors who had long scorned the design. By 3068, every regular DCMS unit contained at least one post-3050 Charger variant.</p><p>The Sapphire Sunset yakuza clan on Shimonita purchased and upgraded a small LAW complex (renamed Sapphire Metals) and began producing CGR-3Ks, CGR-SA5s, and the newer CGR-KMZ design. When the Raven Alliance absorbed the Outworlds Alliance, Raveena Electronics on Ramora (holder of a production license dating back to a LAW legal error) eventually transitioned from Inner Sphere Charger variants to the Clan-specification Charger C, replacing all previous IS-tech production by 3093.</p>
+
+manufacturer:Luthien Armor Works|Wells Technologies
+
+primaryfactory:Luthien|Luthien
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Wells
+systemmode:CHASSIS:990
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:320 Fusion
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Heavy
+systemmanufacturer:COMMUNICATIONS:Tek
+systemmode:COMMUNICATIONS:BattleCom
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:Hirez

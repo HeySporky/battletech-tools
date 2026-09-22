@@ -1,0 +1,79 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b9a2-7349-a5b0-a70098f0024c
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Field Gun Level I (WOBM)
+</Name>
+
+<Model>
+(Tracked LBX20)
+</Model>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<Troopers Equipment>
+Word of Blake Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+ISLBXAC20
+IS LB 20-X Cluster Ammo
+</Field Guns Equipment>
+
+<overview>
+<p>The Word of Blake Militia inherited ComStar's combined-arms organizational philosophy and its Star League-era equipment stocks, fielding infantry formations that ranked among the best equipped in the Inner Sphere during the Jihad. Operating assault-class cluster-munition autocannon, these gun crews bring overwhelming close-range firepower that devastates anything caught in the blast pattern, though the weapon's weight and ammunition consumption limit sustained operations.</p>
+</overview>
+
+<notes>
+Squad/platoon size from TechManual. Armor kit from Tactical Operations. Intro date from official creation of ComStar Guards and Militia (ComGuards).
+</notes>
+
+<squad_size>
+6
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+

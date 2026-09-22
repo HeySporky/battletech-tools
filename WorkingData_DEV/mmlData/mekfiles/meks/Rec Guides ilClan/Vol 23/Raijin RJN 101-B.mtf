@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-daa7-7781-98b5-09a523a59849
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Raijin
+model:RJN-101-B
+mul id:8429
+
+Config:Biped
+techbase:Inner Sphere
+era:3058
+source:RG23,RGv1
+published:RG23,RGv1
+rules level:2
+role:Scout
+
+quirk:bad_rep_is
+quirk:ext_twist
+quirk:directional_torso_mount:LT RT
+
+mass:50
+engine:300 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:6
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:13
+RA armor:13
+LT armor:13
+RT armor:13
+CT armor:18
+HD armor:9
+LL armor:13
+RL armor:13
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:6
+Large Pulse Laser, Left Arm
+Medium Laser, Left Torso
+Flamer, Left Torso
+ER PPC, Right Torso
+Medium Laser, Right Torso
+Flamer, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISLargePulseLaser
+ISLargePulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Flamer
+BeagleActiveProbe
+BeagleActiveProbe
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERPPC
+ISERPPC
+ISERPPC
+Medium Laser
+Flamer
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Raijin was designed as an all-purpose BattleMech to rearm Com Guard units following the Battle of Tukayyid in 3052. Precentor Martial Anastasius Focht wanted a design unfamiliar to both the Inner Sphere and the Clans, and Krupp Armament Works on Terra delivered. Entering production only six months after Tukayyid, the fifty-ton Raijin spread rapidly through the Com Guards, establishing itself as one of the most versatile medium 'Mechs in ComStar's arsenal.</p><p>The design's history proved turbulent, passing through the hands of ComStar, the Word of Blake, and ultimately the Draconis Combine as political upheavals repeatedly reshaped its production and deployment. Despite this complicated pedigree, the Raijin platform proved remarkably adaptable, spawning an entire family of medium 'Mechs that served multiple factions across radically different eras of warfare.</p>
+
+capabilities:<p>The Raijin is built around a Vlar 300 XL engine, providing a top speed of 97.2 kilometers per hour for a fifty-ton chassis, placing it firmly among the fastest medium 'Mechs of its generation. Six Rawlings 60 jump jets grant an additional 180 meters of jump capability, giving the Raijin excellent tactical flexibility across varied terrain. Seven tons of Krupp 200 ferro-fibrous armor provide reasonable protection, though this can prove a liability in protracted engagements or close-quarters brawling where heavier opponents can exploit the relatively thin plating.</p><p>The primary armament centers on a Blankenburg 200 ER PPC for long-range engagement, supported by three Blankenburg Technologies medium pulse lasers for accurate close-range firepower. A Holly SRM-6 and Holly Streak SRM-2 round out the missile array, providing additional punch at shorter ranges while the Streak system conserves ammunition through its lock-on requirement. Ten double heat sinks manage the substantial thermal load, though sustained firing of the entire weapons suite generates considerable excess heat.</p><p>The original design particularly featured a concealed one-shot SRM-6 bay intended to surprise opponents, though this was replaced with a standard rack for sustained combat utility in the production model. Early production runs also suffered from a jamming issue with the Streak launcher's loading mechanism, resolved through field modifications incorporated into later production.</p>
+
+deployment:<p>A field refit developed after ComStar lost its supply of Mongooses during Operation ODYSSEUS, this variant attempted to fill a scouting role. The modification retains the ER PPC but replaces the remaining weapons with a large pulse laser, a medium laser, flamers in each side torso, and a Beagle active probe for enhanced detection capabilities. Considered an ad hoc solution at best, the variant was quickly superseded by the purpose-built Beowulf and saw limited deployment before being phased out of front-line service.</p>
+
+history:<p>The Raijin's origins lie in the aftermath of the Battle of Tukayyid in 3052, when ComStar's Com Guards suffered heavy casualties despite their strategic victory. Krupp Armament Works on Terra, operating from a facility rebuilt by Jerome Blake and mothballed for just such an emergency, produced the first Raijin in record time. The 'Mech initially equipped the Eighth Army's Eighty-Fifth and 167th Divisions, followed by the Eleventh Army stationed along the Federated Commonwealth-Clan Jade Falcon border.</p><p>The Word of Blake's seizure of Terra during Operation ODYSSEUS in 3058 transferred Krupp's production facilities to Blakist control. Blakist engineers acknowledged the Raijin's shortcomings and initiated the RJN-200 Raijin II upgrade program. ComStar, having lost its primary factory, turned to Independence Weaponry on Quentin in the Draconis Combine for continued production, receiving new variants designed to fill the gap left by Terra's loss.</p><p>Both production lines were eventually shuttered following the Blakist defeat in the Jihad and the disbanding of the Com Guards. The Raijin appeared destined for extinction until the 3120s, when Malcolm Buhl's Blessed Order secretly commissioned Independence Weaponry to manufacture new units for the reconstituted First Division. After the Draconis Combine seized Quentin from the Republic of the Sphere, the design's complicated pedigree was embraced rather than rejected, with Independence modifying and continuing production under Combine authority.</p><p>The Raijin's legacy thus spans ComStar, the Word of Blake, and ultimately the Draconis Combine, a journey that saw the design evolve from a post-Tukayyid stopgap into the foundation for an entire family of medium 'Mechs adapted to serve multiple factions across radically different eras of warfare.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Krupp
+systemmode:CHASSIS:200
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Krupp
+systemmode:ARMOR:200 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:60
+systemmanufacturer:COMMUNICATIONS:Exeter
+systemmode:COMMUNICATIONS:Longscan 200
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:T12A

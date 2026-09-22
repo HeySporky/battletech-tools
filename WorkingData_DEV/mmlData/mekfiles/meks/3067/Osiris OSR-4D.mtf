@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cd62-75eb-985d-5ed42bfafda4
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Osiris
+model:OSR-4D
+mul id:4764
+
+Config:Biped
+techbase:Inner Sphere
+era:3067
+source:TR:3067,TR:J
+published:RS:J
+rules level:2
+role:Striker
+
+quirk:ext_twist
+weaponquirk:direct_torso_mount:CT:10:ISERMediumLaser
+
+mass:30
+engine:240 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:8
+jump mp:8
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:9
+RA armor:9
+LT armor:10
+RT armor:10
+CT armor:15
+HD armor:8
+LL armor:13
+RL armor:13
+RTL armor:3
+RTR armor:3
+RTC armor:5
+
+Weapons:6
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+Medium Pulse Laser, Right Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Center Torso
+ER Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERMediumLaser
+ISERMediumLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Jump Jet
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Jump Jet
+ISMediumPulseLaser
+ISERMediumLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+ISERMediumLaser
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Osiris is a thirty-ton light BattleMech introduced in 3063 by Achernar BattleMechs, produced at their facility on New Avalon. Designed as a fast scout and harasser for the Armed Forces of the Federated Suns, the Osiris represented a major leap forward for Achernar, which had long relied on older designs like the Enforcer and Dervish. The design was developed in partnership with Fredonian Industrial Technologies, whose engineers drew explicit inspiration from the Clan Dragonfly OmniMech to produce an Inner Sphere machine capable of competing with Clan-era performance standards.</p><p>The Osiris earned a strong reputation as a capable light striker, with its combination of speed, energy firepower, and jump capability making it a valued asset in fast-moving engagements. Production continued through the Jihad and beyond, with manufacturing relocated to Cahokia after the New Avalon facility suffered devastating damage, ensuring the design remains a mainstay of Federated Suns light 'Mech formations into the ilClan era.</p>
+
+capabilities:<p>The Osiris was explicitly modeled after the Clan Dragonfly OmniMech, and while Inner Sphere technological limitations forced certain compromises, the design maintains an identical top speed of 129 kilometers per hour through its Pharaoh 240 XL engine. Five Bright-Bloom extended-range medium lasers form the primary armament, providing devastating close-to-medium range firepower ideally suited to a fast raider operating far from supply lines. A Harpoon-6 SRM-6 launcher delivers supplementary short-range punch, while a single Double-Gun machine gun handles unarmored infantry threats. The designers prioritized offensive capability over the Dragonfly's superior jump performance, equipping the Osiris with only four Rawlings 61 jump jets for a 120-meter jump capacity, half that of its Clan-inspired predecessor.</p><p>Where the design suffers most is in protection. Just four and a half tons of StarGuard ferro-fibrous armor leaves the Osiris dangerously reliant on its speed and pilot skill to survive engagements. Heat management also demands careful attention, as the five extended-range lasers can quickly overwhelm the 'Mech's cooling capacity if fired aggressively. The Osiris excels in the hit-and-fade role it was designed for, but MechWarriors who allow themselves to be pinned down quickly discover its limitations.</p>
+
+deployment:<p>Born out of the fighting on New Avalon during the FedCom Civil War, this variant appeared in 3067. The SRM-6 and machine gun are removed, freeing mass to dramatically increase jumping capacity to 240 meters and mount a medium pulse laser. This reconfiguration transforms the Osiris from a hit-and-fade striker into a more mobile skirmisher, better able to exploit rough terrain and maintain distance from pursuing forces. The enhanced jump capability proved particularly valuable during the chaotic close-quarters engagements that characterized the latter stages of the Civil War.</p>
+
+history:<p>The Osiris's development was intimately tied to the transformation of Achernar BattleMechs under CEO Paul LeBeau, who took the helm in 3058 with a promise to triple the company's profits within a decade. Achernar had long stagnated, relying almost entirely on its Enforcer and Dervish lines while competitors pushed ahead with new designs incorporating recovered and advanced technology. Even the updated Enforcer III failed to reverse the company's declining market relevance, and the AFFS Department of the Quartermaster ultimately forced Achernar into a humbling licensing arrangement with Kallon Industries on Talon.</p><p>LeBeau's decision to contract with Fredonian Industrial Technologies proved transformative. The F.I.T. engineers (already recognized for their work designing Inner Sphere 'Mechs capable of matching Clan designs) produced the Osiris as a direct response to the AFFS's need for light scouts and harassers. Drawing explicit inspiration from the Clan Dragonfly, the design entered production on New Avalon in early 3063, just as the simmering tensions of the FedCom Civil War were about to erupt into open conflict.</p><p>The timing proved both fortuitous and tragic. The Osiris saw extensive deployment throughout the Civil War, with production units rushed to the front lines during the fighting on New Avalon itself. The 'Mech's speed and firepower made it a valued asset in the fast-moving engagements that characterized the conflict, though its thin armor resulted in significant attrition among less experienced pilots.</p><p>The Jihad devastated Achernar's New Avalon facilities, with ninety-five percent of production lines either moved or damaged. Marshal of the Armies Jackson Davion ordered surface production shut down and planted false intelligence suggesting the main underground facility had been destroyed by orbital bombardment. This deception kept the Word of Blake from targeting Achernar directly, but the light 'Mech production wing still suffered catastrophic damage. After the Word of Blake was ejected from New Avalon, restoration of light 'Mech production became a top priority for AFFS High Command. A sizable government grant allowed Achernar to relocate the Osiris production line to a new facility on Cahokia, where production was restored by 3081.</p><p>The Cahokia plant has continued to produce the Osiris and its variants into the ilClan era, ensuring the design remains a mainstay of Federated Suns light 'Mech formations. The New Avalon facility, meanwhile, restored only four of its eight production lines after the Jihad, focusing on heavier designs and leaving Cahokia as the primary source for new Osiris production.</p>
+
+manufacturer:Achernar Battlemechs|Achernar Battlemechs
+
+primaryfactory:New Avalon|Cahokia
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:FITES-O
+systemmanufacturer:ENGINE:Pharaoh
+systemmode:ENGINE:240 XL
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:61
+systemmanufacturer:COMMUNICATIONS:Achernar Electronics
+systemmode:COMMUNICATIONS:HID-8.7
+systemmanufacturer:TARGETING:Federated Hunter
+systemmode:TARGETING:Mk. VII

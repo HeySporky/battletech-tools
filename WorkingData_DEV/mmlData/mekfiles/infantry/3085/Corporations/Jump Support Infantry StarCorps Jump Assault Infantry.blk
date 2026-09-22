@@ -1,0 +1,93 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b631-7450-902f-7c4a7a0c2b00
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Jump Support Infantry
+</Name>
+
+<Model>
+StarCorps Jump Assault Infantry
+</Model>
+
+<mul id:>
+1724
+</mul id:>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>StarCorps Industries fields its jump assault infantry as a middle ground between fast but lightly armed rapid response forces and heavily equipped but slow static security teams. Equipped with reinforced jump packs capable of carrying a full combat load, StarCorps troopers can operate across any urban or industrial battlefield with vertical mobility that ground-bound security forces cannot match. Armed with auto-rifles and heavy grenade launchers loaded with inferno rounds, these platoons bring both conventional firepower and incendiary capability that can threaten even BattleMechs. As the Jihad intensified and StarCorps facilities on worlds like Son Hoa came under repeated attack, the company expanded its use of inferno-equipped jump infantry to counter armored threats that corporate security had not previously faced. The grenade launchers add significant weight, but the jump packs compensate by allowing troopers to bypass obstacles and engage from unexpected angles.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+InfantryHeavyGrenadeLauncherInferno
+</Secondary>
+

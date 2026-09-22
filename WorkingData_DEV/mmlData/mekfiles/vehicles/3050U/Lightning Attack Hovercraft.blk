@@ -1,0 +1,152 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e36a-716d-8309-fec22ed6549b
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Lightning Attack Hovercraft
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+1884
+</mul id:>
+
+<year>
+2696
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+11
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+20
+16
+16
+10
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+ISMediumPulseLaser
+ISMediumPulseLaser
+</Front Equipment>
+
+<Right Equipment>
+ISSRM4OS
+</Right Equipment>
+
+<Left Equipment>
+ISSRM4OS
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Lightning's defining attribute is raw speed. Its GM 210 fusion engine pushes the thirty-five-ton hovercraft to a flank speed exceeding 180 kilometers per hour, making it one of the faster combat vehicles in its weight class. Rear-mounted wings with small thrusters and elevators provide remarkable high-speed stability, and testing has demonstrated the craft can clear obstacles up to two meters high at full throttle. This is an extremely dangerous maneuver, however, and numerous Lightnings have been destroyed along with their crews during failed attempts.</p><p>The vehicle's armament is built around a pass-and-fire concept. Two Raker-IV medium pulse lasers in the front allow the crew to engage targets on approach, while a Maxima One Shot SRM-4 rack on each flank delivers a missile volley as the Lightning passes its target. A return pass fires the second rack from the opposite side. This tactic can inflict surprising damage on heavier opponents, particularly when multiple Lightnings coordinate their attack runs. StarSlab/3 ferro-fibrous armor provides reasonable protection for the vehicle's mass, but the one-shot missile launchers represent a significant limitation. Once both racks are expended, the Lightning's offensive capability drops to its pulse lasers alone, and crews must choose their missile targets carefully.</p>
+</capabilities>
+
+<overview>
+<p>The Lightning Attack Hovercraft was commissioned in 2696 by the Star League Defense Force as a light strike vehicle designed to exploit the flanks and rear of enemy formations. Produced by Curtiss Industries on New Stevens, it was conceived as a fast, expendable platform capable of disrupting slower BattleMechs and vehicles through coordinated hit-and-run attacks. Multiple Lightnings were often grouped into temporary compact units tasked with punching through hostile lines, using their exceptional speed to break up formations before heavier assets could engage. The design featured a distinctive low-mounted rear wing that improved stability at high speeds, giving crews greater control during the aggressive maneuvering the vehicle's mission profile demanded. Broadly distributed throughout the SLDF's conventional forces, the Lightning earned a reputation as an effective, if specialized, harassment platform that rewarded bold crews willing to close with much larger adversaries.</p>
+</overview>
+
+<deployment>
+<p>Originally fielded by SLDF armor and infantry regiments as a formation-disruption asset, the standard Lightning was designed for coordinated group attacks against slower opponents. The vehicle's one-shot missile profile made it ideal for rapid, aggressive strikes, though its limited endurance constrained it to short engagements or harassment operations requiring frequent withdrawal to rearm. Kressly Warworks resumed production of the original configuration alongside the newer Word of Blake variants in 3067, supplying it to Blakist militia and garrison formations throughout the Protectorate.</p>
+</deployment>
+
+<history>
+<p>Curtiss Industries received the Star League Defense Force contract in the mid-twenty-seventh century to develop a light, fast vehicle capable of breaking up enemy formations ahead of the main battle line. The resulting Lightning entered service in 2696 and was quickly distributed throughout the SLDF's conventional armor regiments. Its high speed and advanced fire-control systems impressed commanders, and the design saw broad deployment across Hegemony and member state garrisons. In 2720, an upgraded Royal variant entered limited production for SLDF Royal units, replacing the expendable one-shot missile systems with more sustainable launchers and adding a target acquisition designator to improve coordination with supporting artillery.</p><p>Production at the Curtiss Industries facility on New Stevens continued through the Star League era and into the Early Succession Wars. New Stevens passed from Terran Hegemony control to a brief period of independence before absorption by the Capellan Confederation, but the factory ceased active production before the Late Succession Wars began. The Lightning largely disappeared from battlefield inventories as existing stocks were destroyed or cannibalized for parts during the long technological decline.</p><p>The design's revival came under unexpected circumstances. Kressly Warworks on Epsilon Eridani began mass production of the Lightning in August 3067, mere months before the dissolution of the Second Star League. Under Word of Blake patronage, Kressly produced both the original design and a series of new variants tailored to Blakist tactical requirements. The Lightning-RL was conceived by Precentor Robert Havasy specifically to counter Capellan Confederation Shadow Lances operating on Tikonov. Havasy deployed teams of rocket-pod-equipped Lightnings several kilometers from Blakist factory complexes, waiting for stealth-armored BattleMechs to begin their raids before springing coordinated ambushes. In one notable engagement, his crews intercepted a Shadow Lance strike force, crippling a Pillager and a Warhammer before the remaining BattleMechs could withdraw. The surviving raiders attempted to disengage, but the Lightnings reloaded and made a second pass, destroying the rest of the formation.</p><p>Following the Jihad, Epsilon Eridani passed to the Republic of the Sphere, and Kressly continued Lightning production under Republic oversight. The factory remained active through the Dark Age, eventually falling under Capellan Confederation control during the ilClan era. ComStar also experimented with the design during the Jihad, producing a limited number of heavily modified CX-3 prototypes with vehicular stealth armor and sponson-mounted rocket launchers, though this variant saw only limited field evaluation.</p>
+</history>
+
+<manufacturer>
+Curtiss Industries|Kressly Warworks
+</manufacturer>
+
+<primaryFactory>
+New Stevens|Epsilon Eridani
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Curtiss Industries
+ENGINE:General Motors
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:Century
+TARGETING:TGI
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:GM 210
+ARMOR:StarSlab/3 Ferro Fibrous
+COMMUNICATIONS:Model 770
+TARGETING:2331C/TGI F-190
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+

@@ -1,0 +1,216 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-e05e-7f58-a150-ffab9e8a0047
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Triskelion
+model:TRK-4V
+mul id:7384
+
+Config:Tripod
+techbase:Mixed (IS Chassis)
+era:3146
+source:XTR:RotS 3
+published:XTR:RotS 3
+rules level:3
+role:Brawler
+
+quirk:difficult_eject
+quirk:distracting
+quirk:prototype
+
+mass:75
+engine:375 XL (Clan) Engine
+structure:IS Endo-Composite
+myomer:Standard
+cockpit:Tripod Cockpit
+gyro:Standard Gyro
+
+heat sinks:15 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:24
+RA armor:24
+LT armor:24
+RT armor:24
+CT armor:35
+HD armor:9
+LL armor:31
+RL armor:31
+CL armor:31
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:6
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+LRM 15, Left Torso
+LRM 15, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser
+CLERMediumLaser
+IS Endo-Composite
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser
+CLERMediumLaser
+IS Endo-Composite
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLLRM15
+CLLRM15
+CLArtemisV
+CLArtemisV
+Clan Ammo LRM-15 (Clan) Artemis V-capable
+Clan Ammo LRM-15 (Clan) Artemis V-capable
+ISCASEII
+IS Endo-Composite
+Clan Ferro-Fibrous
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLLRM15
+CLLRM15
+CLArtemisV
+CLArtemisV
+Clan Ammo LRM-15 (Clan) Artemis V-capable
+Clan Ammo LRM-15 (Clan) Artemis V-capable
+ISCASEII
+IS Endo-Composite
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISTargeting Computer
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo-Composite
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo-Composite
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo-Composite
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Triskelion is a 75-ton heavy tripod BattleMech developed in secret by the Republic of the Sphere beginning in 3146. Conceived as part of the broader Rhodes Project, the design was inspired by the success of the superheavy Poseidon and Ares tripods, whose three-legged locomotion proved surprisingly agile during raids beyond the Republic's Fortress walls. Republic Armed Forces procurement officials sought to apply the tripod concept to a smaller, faster chassis, granting Rhodes Foundry on Devil's Rock broad latitude to develop the first heavy-class tripod BattleMech. Only a small number of handmade prototypes were completed before being assigned to front-line units for field evaluation.</p>
+
+capabilities:<p>The Triskelion's tripod leg arrangement gives it the signature maneuverability advantage shared by all three-legged designs, allowing the 75-ton 'Mech to change facing without sacrificing speed. A Clan-grade 375-rated Extra-Light fusion engine propels the chassis to a respectable 85 km/h, making it one of the fastest heavy 'Mechs in Republic service. The endo-composite internal structure saves additional weight, allowing the design team to allocate 13.5 tons of Clan ferro-fibrous armor across the hull.</p><p>The Triskelion's armament balances long-range firepower with close-quarters capability. Twin Clan LRM-15 launchers, each paired with an Artemis V Fire Control System, deliver accurate missile volleys at extended range, while CASE II protects the ammunition bays from catastrophic detonation. Four Clan-grade ER medium lasers, split between both arms, provide withering energy fire when the 'Mech closes to shorter distances. A Guardian ECM Suite complicates enemy targeting solutions, and a head-mounted Targeting Computer enhances accuracy across all direct-fire weapons.</p><p>The two-person cockpit, standard for tripod designs of this weight class, divides piloting and gunnery responsibilities between crew members. This arrangement improves battlefield coordination, though the design's prototype nature introduces reliability concerns, with early reports noting intermittent issues with the Artemis V fire control systems.</p>
+
+deployment:<p>This variant is the sole production variant of the Triskelion, representing the initial prototype configuration fielded by Rhodes Foundry beginning in 3146. Built by hand rather than on a production line, the first examples were assigned to the Sixteenth Hastati Sentinels for training and operational evaluation. The TRK-4V's balanced loadout of long-range missile fire and medium-range energy weapons suits the Republic's need for a heavy 'Mech capable of both independent patrol operations and integrated lance-level engagements. Crews have noted that the two-person cockpit arrangement allows the gunner to manage the complex Artemis V targeting solutions while the pilot focuses on exploiting the tripod's maneuverability advantages, though intermittent fire control issues have required ongoing attention from Rhodes Foundry technicians attached to deployed units.</p>
+
+history:<p>The Triskelion's development traces directly to the Republic of the Sphere's Rhodes Project, a classified military program responsible for the superheavy Poseidon and Ares tripod BattleMechs. Those massive designs had proven the viability of three-legged locomotion during the turbulent years following Gray Monday and the activation of Fortress Republic. Successful raids across the Republic's borders demonstrated that the tripod configuration offered genuine tactical advantages in maneuverability, and Republic procurement officials began exploring the possibility of applying the concept to a conventional heavy 'Mech chassis.</p><p>Rhodes Foundry on Devil's Rock received the contract in 3146 with considerable design freedom. The engineering challenges proved substantial. Creating a prototype hybrid tripod chassis at 75 tons required solving entirely new problems in synchronizing the three-legged gait at higher speeds than the superheavy designs ever attempted. Field testing revealed numerous flaws, including prototypes that proved ungainly on rough terrain and at least one incident where a test unit tripped over its own legs during acceleration. After extensive delays, a stable configuration was achieved and the first handmade Triskelions began leaving Devil's Rock.</p><p>The decision to incorporate Clan-grade technologies generated controversy within Republic intelligence circles. Sourcing advanced Clan equipment through channels operating within the fractured Inner Sphere carried inherent security risks, though the weight savings and performance benefits proved difficult to resist.</p><p>Early Triskelions were assigned to the Sixteenth Hastati Sentinels for final field trials. Their first combat deployment came during a raid on the Capellan-held world of Ruchbah in late 3148, where the 'Mechs fought elements of the First Liao Guards. The engagement validated the design concept, with the Triskelions performing well while their distinctive three-legged silhouette reportedly unnerved Capellan defenders encountering the configuration for the first time. With Devil's Rock situated on the Republic's frontier and potentially vulnerable to Clan Wolf incursion, plans were drawn to expand production to a new facility on Mars, though this secondary line had yet to be completed.</p>
+
+manufacturer:Rhodes Foundry
+
+primaryfactory:Devil's Rock
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Rhodes Foundry
+systemmode:CHASSIS:Prototype Hybrid Tripod
+systemmanufacturer:ENGINE:Rhodes Foundry
+systemmode:ENGINE:PlasmaStar 375 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Clan Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

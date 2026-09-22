@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa0b-70c5-9000-acfd9c89fd3d
+</UUID>
+
+<UnitType>
+FixedWingSupport
+</UnitType>
+
+<Name>
+Stork Light Refueling Craft
+</Name>
+
+<Model>
+(Original)
+</Model>
+
+<mul id:>
+5143
+</mul id:>
+
+<year>
+2623
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+LiquidCargoBay:23.93:1:1::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+250
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+51
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+25
+17
+17
+25
+</armor>
+
+<Nose Equipment>
+SRM 4
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+SRM 4
+RefuelingDrogue
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Body Equipment>
+Advanced Fire Control
+Armored Chassis
+IS Ammo SRM-4
+</Body Equipment>
+
+<barrating>
+10
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>When the Stork finally entered service in 2623, Asuncion Industries had produced a design capable of sustaining limited combat, keeping pace with the heaviest aerospace fighters, and carrying enough fuel to refill three fighters in a single sortie--meaning a pair of Storks could service an entire squadron. The refueling system was highly automated, with computers managing the procedure for both the Stork and the receiving aircraft.</p><p>Asuncion's designers reasoned that if a heavy fighter targeted the Stork, little could prevent its destruction regardless of protection. They therefore focused armor coverage against the lighter weapons typically carried by interceptors and guerrilla surface-to-air missiles, concentrating protection on the nose and tail--the facings most likely to be engaged during approach and withdrawal. Quad anti-missile systems, added in 2677 following losses to insurgent missile fire, provided additional defense against missile threats, while a pair of SRM 4 racks discouraged light fighters from pressing attacks to close range.</p>
+</capabilities>
+
+<overview>
+<p>Chancellor Normann Aris of the Capellan Confederation recognized his nation's acute vulnerability during his rule. Economic problems had nearly bankrupted the state while rival powers flourished, and recovery would be slow. Though the Star League provided some security, the scars of the Reunification War remained fresh enough to keep the Confederation wary. A brilliant weapons designer, Aris initiated numerous projects to shore up the nation's defenses without further devastating its struggling economy. Among these was a fixed-wing aircraft capable of extending the operational range of the Confederation's fighter forces through in-flight refueling. This concept would eventually become the Stork Light Refueling Craft, though Chancellor Aris did not live to see his idea reach fruition.</p>
+</overview>
+
+<deployment>
+<p>The Stork served the Capellan Confederation Air Force for centuries, extending patrol ranges and allowing fighter squadrons to remain airborne far longer than their internal fuel permitted. With a pair of Storks attached to each fighter wing, the Confederation could maintain continuous air patrols over critical installations and border zones that would otherwise require twice the number of fighters cycling through ground-based refueling.</p>
+</deployment>
+
+<history>
+<p>The Stork debuted during a period of relative peace, and its early service was dominated by the routine work of keeping fighters aloft during training exercises and extended patrols. By the time the design saw significant combat, the Succession Wars had begun in earnest, and the Stork's value increased dramatically as fighter losses made every sortie extension a force multiplier.</p><p>The addition of anti-missile systems in 2677, prompted by losses to insurgent fire, marked the Standard variant's configuration. The Original variant, lacking the AMS upgrade, saw increasingly limited service as the Star League era gave way to the brutality of the Succession Wars. Throughout centuries of conflict, the Stork accumulated a distinguished service record. Individual airframes like the Enola--the longest-serving Stork in the Confederation with fifteen kills to its credit, mostly against VTOLs and light fighters unfamiliar with the craft's armament--demonstrated that the refueling platform could defend itself capably when circumstances demanded. The CCAF's Death Commandos maintained a dedicated Stork designated Trade Winds, the eighth aircraft to fill that prestigious assignment, with only one predecessor surviving long enough to be retired rather than destroyed in action.</p>
+</history>
+
+<manufacturer>
+Asuncion Industries
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

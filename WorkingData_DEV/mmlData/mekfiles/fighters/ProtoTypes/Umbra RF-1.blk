@@ -1,0 +1,181 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-acef-7f4b-950e-f734b86510d1
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Umbra
+</Name>
+
+<Model>
+RF-1
+</Model>
+
+<mul id:>
+5320
+</mul id:>
+
+<year>
+3082
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Interceptor
+</role>
+
+<quirks>
+easy_maintain
+</quirks>
+
+<weaponQuirks>
+mod_weapons:NOS:0:ISSNPPC
+mod_weapons:NOS:2:ISERMediumLaser
+mod_weapons:NOS:3:ISERMediumLaser
+</weaponQuirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+10
+</SafeThrust>
+
+<cockpit_type>
+1
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+45
+32
+32
+34
+</armor>
+
+<Nose Equipment>
+ISSNPPC
+PPC Capacitor
+ISERMediumLaser
+ISERMediumLaser
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Umbra was designed from the outset around high-thrust maneuverability, a priority inherited from its origins as a proposed counterpart to the Word of Blake's Shade OmniFighter. This emphasis on agility makes the fighter a natural fit for aerospace interception and close air support alike. The all-energy weapons array eliminates the need to land and reload between sorties, a significant logistical advantage during sustained operations. The primary weapon is a Fusigon Smarttooth snub-nose PPC fitted with an ElectroMax Mark 1 capacitor, which allows the pilot to periodically boost the weapon's output at an acceptable level of heat risk. Two Martell extended-range medium lasers in the wings extend the Umbra's engagement envelope and give it useful ground-strike capability beyond pure dogfighting.</p><p>The F-50/C-SX airframe draws directly on the lineage of the Word-modified Spad, preserving that design's well-earned reputation for ease of maintenance and field repair. The Hermes 240 Extralight power plant provides the thrust needed for both high-speed interception runs and sustained atmospheric maneuvering. Divine Shield-D ferro-aluminum armor delivers solid protection for a fighter of the Umbra's weight class, and the COMSTAT 500 ATM communications suite and Ringo Plant 88 Mk.2 targeting system complete a package that keeps crew workload manageable and transition training straightforward for pilots moving from the Spad.</p>
+</capabilities>
+
+<overview>
+<p>The Umbra is a light aerospace fighter born from unlikely origins, assembled from repurposed blueprints and salvaged components rather than a purpose-built development program. Its roots lie in the Word of Blake's Spectral series, an ambitious initiative to field unmanned combat drones over Terra during the Jihad. Shifting priorities redirected the program toward a crewed reservist fighter, but the design was still unfinished when Devlin Stone's Coalition forces seized Terra and brought the Jihad to a close. The Republic of the Sphere found the abandoned facility and chose to complete the work, commissioning New Age Systems Incorporated to bring the design into full production in 3082. Despite its complicated genesis, the finished Umbra is a sleek, capable light fighter, well-suited to the Republic's combined-arms doctrine and widely distributed across Republican regiments.</p>
+</overview>
+
+<deployment>
+<p>The RF-1 is the sole production variant of the Umbra and serves as the standard aerospace fighter for Republican combined-arms formations. Most regiments formed under the Republican banner are assigned a complement of RF-1s, which fill dual roles as high-speed interceptors and ground support assets. The design's all-energy loadout makes it well-suited to sustained patrol operations where resupply may be limited, and its maneuverability gives wing commanders flexibility when responding to rapidly changing battlefield conditions. Though still a comparatively young design, the RF-1 has earned positive assessments from pilots and ground crew alike, who value both its combat performance and its straightforward maintenance profile.</p>
+</deployment>
+
+<history>
+<p>The Umbra's origins trace back not to the Republic of the Sphere, but to the Word of Blake's Spectral series development program during the later stages of the Jihad. Word technicians on Terra were working to field a family of advanced unmanned aerospace drones, and the design that would become the Umbra began as a crewed counterpart intended for reservist pilots who lacked the training to handle a full OmniFighter. The project was modeled closely on the Shade and shared several component lines with existing Blakist production programs, but the effort had not reached full assembly before Devlin Stone's Coalition began closing in on Terra.</p><p>When Coalition technical personnel arrived at the New Age Systems Incorporated facility after the fall of Terra, they found a handful of near-operational Umbra prototypes on the factory floor, along with an unusually complete set of blueprints, inventory records, and design documentation. Word technicians, pressed for time during the withdrawal, had not managed to destroy the records before fleeing. The available documentation gave Republic engineers a thorough picture of the design's capabilities and component requirements. Components had been stockpiled from three different worlds during the Blakist program, and with the records intact, Republic procurement officers were able to trace and reestablish each supply relationship rather than reverse-engineering from scratch.</p><p>Republic engineers disassembled the prototypes and set about modifying the facility for sustainable series production. The frame and cockpit electronics were carried forward from the existing Spad lineage, keeping production costs and training overhead low. The power plant and armor came from Master's Wings Aerospace on Gibson, a supplier relationship the Blakists had already established. Weaponry was produced on Terra, drawing on tooling from the existing Griffin BattleMech upgrade program, though the ElectroMax capacitor system had never been tested under actual combat conditions prior to the Umbra's service debut. Working from the preserved documentation rather than rebuilding the design from salvage, Republic engineers moved the Umbra from testing into full production in under five years. The fighter entered service in 3082 as one of the first new aerospace designs of the Republic era, with manufacture centered at Terra to keep the Republic's flagship production within its political core.</p>
+</history>
+
+<manufacturer>
+New Age Systems Incorporated
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:New Age Systems Incorporated
+ENGINE:Master's Wings Aerospace
+ARMOR:Master's Wings Aerospace
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:F-50/C-SX
+ENGINE:Hermes 240 Extralight
+ARMOR:Divine Shield-D Ferro-aluminum
+COMMUNICATIONS:COMSTAT 500 ATM
+TARGETING:Ringo Plant 88 Mk.2
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<published>
+RS:Proto
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

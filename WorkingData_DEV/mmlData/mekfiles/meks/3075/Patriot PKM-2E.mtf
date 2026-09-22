@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cefb-7b8b-977b-c1fe08f70e21
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Patriot
+model:PKM-2E
+mul id:2449
+
+Config:Biped
+techbase:Inner Sphere
+era:3076
+source:TR:3075
+published:RS:3075u-CE
+rules level:3
+role:Sniper
+
+quirk:stable
+quirk:pro_actuator
+
+mass:65
+engine:260 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Heavy Duty Gyro
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:15
+RA armor:15
+LT armor:22
+RT armor:22
+CT armor:31
+HD armor:9
+LL armor:27
+RL armor:27
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:6
+MML 7, Left Arm
+MML 7, Left Arm
+Heavy PPC, Right Arm
+MML 7, Left Torso
+TAG, Right Torso
+Anti-Missile System, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISArtemisIV
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISArtemisIV
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISArtemisIV
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISTAG
+IS Ammo MML-7 LRM Artemis-capable
+IS Ammo MML-7 LRM Artemis-capable
+IS Ammo MML-7 SRM Artemis-capable
+IS Ammo MML-7 SRM Artemis-capable
+ISAMS Ammo
+ISCASE
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISAntiMissileSystem
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Patriot is a sixty-five-ton heavy BattleMech produced by Ronin Incorporated on Wallis, introduced during the Jihad era as a purpose-built command platform for senior officers. Developed from Ronin's earlier Pikeman chassis, the design was commissioned by Captain-General Kirc Cameron-Jones in 3069 and extensively reshaped to serve as a long-range fire support and battlefield coordination 'Mech for regimental-level commanders. Though born from the political ambitions of one man during a turbulent chapter of Free Worlds League history, the Patriot outlived its patron's regime and has seen continuous production through multiple political transitions, from the League through the Republic of the Sphere era and into the ilClan period.</p>
+
+capabilities:<p>Built on the RI-12b Pikeman chassis with a Hermes 260 XL engine, the Patriot achieves a top speed of 64 kph, adequate for a heavy command 'Mech but insufficient for rapid repositioning. The design centers on two primary weapons systems: a Magna Starflare Heavy PPC providing devastating long-range firepower, and a Holly Arrow IV missile launcher delivering indirect artillery support at extreme distances. This combination allows a Patriot pilot to engage targets well beyond visual range while providing tactical fire support to subordinate units through TAG-designated targeting.</p><p>The electronics suite is among the design's greatest assets, incorporating a Garrett C22A communications system and Wasat Watchdog W120 targeting system with A-Trac capability. A Guardian ECM suite disrupts enemy electronic warfare, while an LFN Lindblad Shotgun anti-missile system provides a defensive screen against incoming ordnance. These systems reflect the design's philosophy of keeping its commander alive at all costs.</p><p>The tradeoff is immediately apparent in close combat. The Patriot lacks any offensive capability at short range, as the design sacrificed close-quarters weaponry to accommodate its long-range and electronic warfare systems. Independent operation is ill-advised, making the design heavily dependent on escorting forces for protection against aggressive opponents who close the distance.</p>
+
+deployment:<p>Taking a generalist approach, this variant mounts three Artemis-enhanced MML-7 launchers, providing flexible engagement capability across multiple range brackets. The multi-missile launchers can deliver both long-range and short-range salvos depending on tactical requirements, making this variant adaptable to rapidly shifting battlefield conditions. As the newest model in the Patriot line, this variant had not yet reached frontline units at the time of its introduction in 3076, though broad interest from across the Free Worlds League military establishment in the design's firepower and versatility suggested strong future demand once production ramped up alongside the 2D.</p>
+
+history:<p>The Patriot's history is inseparable from the political upheaval that gripped the Free Worlds League during the Jihad. Kirc Cameron-Jones's seizure of the Captain-General's office in 3069 prompted an immediate effort to strengthen his military position, and the Patriot became a visible symbol of his ambitions. Cameron-Jones leveraged the industrial capacity of Ronin Incorporated on Wallis, a firm with centuries of heavy 'Mech production experience. Ronin had been developing a new design called the Pikeman, but Cameron-Jones demanded extensive alterations, reshaping the chassis into a dedicated command platform. The extensive redesign delayed the first prototype until late 3070, months behind the original projected timeline.</p><p>Combat deployment came swiftly despite limited production numbers. Some of the earliest PKM-2C units accompanied the Ninth Regulan Hussars during their attack on Oriente in 3071, marking the Patriot's baptism of fire during one of the Jihad's bitter internecine conflicts within the League. Several more were deployed with the Second Hussars in defense of Wallis itself, though their numbers proved insufficient to meaningfully influence the battle's outcome, and the Hussars were destroyed to the last warrior.</p><p>The First Regulan Hussars lost the majority of their Patriots during the Night of Fire, a devastating blow to the design's already limited production base. Those that survived, however, performed credibly against Blakist forces during subsequent operations. In perhaps the most ironic chapter of the Patriot's early service, the design built specifically for Cameron-Jones's consolidation of power was later used to maintain security during Kirc's Purge, its formidable weaponry discouraging resistance against the very regime that had commissioned it.</p><p>Production on Wallis continued through the Jihad and into the post-war period. When the Republic of the Sphere absorbed the region, Ronin Incorporated's facilities fell under Republic jurisdiction, though the factory continued producing all three Patriot variants without significant interruption. The design weathered the Dark Age and the collapse of the Republic, eventually returning to Free Worlds League control by the ilClan era, ensuring the Patriot remained in continuous service across multiple political transitions spanning decades.</p>
+
+manufacturer:Ronin Inc. (Selasys)
+
+primaryfactory:Wallis
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Ronin Incorporated
+systemmode:CHASSIS:RI-12b Pikeman
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:260 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Heavy
+systemmanufacturer:COMMUNICATIONS:Garrett
+systemmode:COMMUNICATIONS:C22A
+systemmanufacturer:TARGETING:Wasat
+systemmode:TARGETING:Watchdog W120 with A-Trac

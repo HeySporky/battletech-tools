@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd0d-7ea7-9bca-a87c40c9929b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hermes III
+model:HER-4K
+mul id:1498
+
+Config:Biped
+techbase:Inner Sphere
+era:3018
+source:TR:3039,TR:SW
+published:RS:SW
+rules level:1
+role:Scout
+
+quirk:easy_maintain
+quirk:imp_com
+
+mass:40
+engine:240 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:11 Single
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:14
+RT armor:14
+CT armor:17
+HD armor:9
+LL armor:14
+RL armor:14
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:2
+Large Laser, Left Torso
+Large Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Heat Sink
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hermes II was introduced in 2798 by Irian BattleMechs Unlimited as a heavier successor to the original Star League-era Hermes. Designed as a heavy scout for the Free Worlds League Military, the forty-ton 'Mech combined respectable firepower with superior armor protection and reliable communications capabilities, filling a critical reconnaissance role in the post-Star League era. Early prototypes suffered from a flawed autocannon placement spread across the center torso, prompting a temporary laser-armed replacement while engineers consolidated the weapon into its final mounting.</p><p>The design earned the nickname "Old Reliable" for its exceptional ease of field maintenance, making it one of the most serviceable medium 'Mechs of its time. Production continued throughout the Succession Wars and beyond, with the Hermes II becoming a signature design of House Marik's military forces.</p>
+
+capabilities:<p>The Hermes II excels in restrictive terrain such as cities and forests, where its combination of speed, armor, and firepower gives it decisive advantages over lighter scouts. The Oriente autocannon provides reliable long-range firepower, while the Irian Weapons Works medium laser handles anti-'Mech duties at closer ranges. The Olympian flamer serves both anti-infantry purposes and enables the 'Mech's signature escape tactic, igniting surrounding terrain to blind enemy thermal sensors and discourage pursuit through the resulting inferno.</p><p>Seven and a half tons of Riese armor provides protection superior to most light 'Mechs the Hermes II is likely to encounter, allowing pilots to trade fire with enemy scouts or survive initial contact with heavier opponents long enough to withdraw. The Hermes 240 engine delivers a top speed of 97 kilometers per hour, sufficient to stay ahead of most pursuit.</p><p>The heart of the design is its Irian E.A.R. communications system, capable of direct satellite uplinks and tight-beam data bursts. This advanced system requires considerable surface area on the chassis, but grants reconnaissance teams exceptional coordination capabilities. The distinctive wing-like protrusions on the 'Mech's ankles, often mistaken for heat sinks, are purely cosmetic elements linking the design to its Hermes predecessor.</p>
+
+deployment:<p>Introduced in 3025, the Hermes III emerged when Kuritan engineers at Ostmann Industries recognized the potential in imported Hermes II chassis. The resulting design replaced all original weaponry with a pair of Tronel III large lasers and additional heat sinks, creating an energy-focused configuration that eliminated ammunition dependency at the cost of punishing heat buildup. The HER-4K proved popular within Draconis Combine and Free Rasalhague Republic forces, where it served as a rugged scout throughout the latter Succession Wars era. This variant was actually a serviceable downgrade from the earlier HER-2R, having lost the double heat sinks that made sustained laser fire manageable.</p>
+
+history:<p>The Hermes II emerged from Irian BattleMechs Unlimited's massive production capacity during the military buildup following Kerensky's Exodus. Based on Star League-era Hermes schematics, the heavier design addressed the need for a more survivable scout platform. Production remained almost exclusively within the Free Worlds League throughout the Succession Wars, with only battlefield salvage and occasional mercenary sales bringing the design to other realms.</p><p>The Dark Shadows scout battalion, founded by Captain Janos DeVille in 3006, became closely associated with the Hermes II and its Mercury variant. Operating under SAFE's intelligence directorate, Dark Shadows units pioneered many of the reconnaissance tactics that defined the chassis's doctrine. DeVille later relinquished command to Captain Margarita Luhenson before rejoining the Fusiliers of Oriente, where he served during Duke Anton's revolt.</p><p>The Concord of Kapteyn opened new markets for the Hermes II, with the Draconis Combine purchasing chassis that Kuritan engineers would transform into the laser-armed Hermes III configuration. This variant proved popular enough to cement the design's reputation within the DCMS reconnaissance forces.</p><p>Following the Clan Invasion and the Outreach Accords, Irian leveraged recovered lostech to produce the upgraded HER-5S, featuring an endo-steel chassis and ultra-class autocannon. Elite formations like the Free Worlds Guards received priority deliveries, with older models cascading down through the FWLM's order of battle. This widespread upgrade program unfortunately meant substantial numbers fell into Word of Blake hands during their subversion of Free Worlds forces.</p><p>The Jihad saw continued evolution of the design, including field refits developed to meet wartime demands. Post-Jihad recovery efforts led to further variants, while the ilClan era brought hybrid designs incorporating Clan technology acquired through various channels. Production continues at Irian and Shiro III facilities, ensuring the Hermes II remains a fixture of Free Worlds League reconnaissance doctrine centuries after its introduction.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-10 14:00:04
+
+systemmanufacturer:CHASSIS:Irian
+systemmode:CHASSIS:Chassis Class 40
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:240
+systemmanufacturer:ARMOR:Riese
+systemmode:ARMOR:456
+systemmanufacturer:COMMUNICATIONS:Ostmann
+systemmode:COMMUNICATIONS:SatNav
+systemmanufacturer:TARGETING:TRSS
+systemmode:TARGETING:2L3

@@ -1,0 +1,184 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-af97-74ce-941f-bfcf01d31d62
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Yùn
+</Name>
+
+<Model>
+Y-2
+</Model>
+
+<mul id:>
+6473
+</mul id:>
+
+<year>
+3107
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<quirks>
+easy_pilot
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+12
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+22
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+43
+34
+34
+25
+</armor>
+
+<Nose Equipment>
+ISERMediumLaser
+ISStreakSRM6
+ISStreakSRM6
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+IS Vehicular Stealth
+ISGuardianECMSuite
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Streak SRM 6 Ammo
+IS Streak SRM 6 Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Yùn's primary function as a battle armor transport shapes every aspect of its construction. A four-ton infantry compartment occupies a central section of the fuselage, designed to carry a full squad of battle armor from high altitude directly to the target zone. Eight and a half tons of Hellespont Aerolite stealth armor coat the airframe, and the communications package incorporates a Guardian ECM suite, working together to suppress the fighter's signatures during approach. The Endicott Type 32 Microwave Projector communications system ensures the pilot can maintain coordination with deployed ground forces without broadcasting a detectable signal.</p><p>Self-defense weapons are grouped in the nose: a Ceres Arms Extended Range Medium Laser provides reach for engaging hardened positions at standoff range, while a pair of Sian/Ceres Stalking Cougar Streak SRM-6 launchers handle clustered infantry, light armor, and any interceptors that manage to track the fighter down. Twelve double heat sinks handle the thermal load comfortably. The Mujika Aerospace Type 16 frame and its well-articulated vernier thrusters give the craft exceptional atmospheric maneuverability, reflected in the Easy to Pilot design quirk that pilots consistently praise. The fighter's modest Rawlings 120 engine yields limited acceleration in orbit, but its atmospheric performance more than compensates. External ordnance hardpoints extend ground support flexibility beyond the fixed weapons loadout.</p>
+</capabilities>
+
+<overview>
+<p>Introduced in 3107, the Yùn is a light stealth aerospace fighter developed by Mujika Aerospace Technologies at their St. Ives facility for exclusive use by the Capellan Confederation Armed Forces. The fighter fills a unique niche in Capellan aerospace doctrine, acting as both a covert battle armor insertion platform and a close air support asset once its passengers have been delivered. Taking its inspiration from Detroit Consolidated Aerospace's Troika, the Yùn advances that design's delivery concept by wrapping the entire craft in sophisticated stealth technology, ensuring the first sign of a Yùn attack is infantry materializing from the shadows rather than the aircraft itself. Rare and seldom encountered in the field, the Yùn has earned a reputation among Confederation adversaries as a fighter more often heard about than seen.</p>
+</overview>
+
+<deployment>
+<p>The Y-2 Yùn serves exclusively within the Capellan Confederation Armed Forces, concentrated in units with well-developed battle armor elements that can exploit the fighter's delivery capability. Phyr's Hussars are among the formations that have employed the Yùn most actively, conducting both conventional combat raids and the deep-penetration urban operations the design was optimized to support. Typical mission profiles involve low-altitude ingress at the edge of detection thresholds, often at night or in poor weather, with troops deployed onto targets well behind enemy lines before conventional ground forces engage.</p><p>The fighter's limited weapons payload means sustained air combat is avoided whenever possible, with pilots relying on the stealth suite to disengage rather than fight through threats. Assignments to Yùn squadrons attract pilots with patience for precision infiltration work over those seeking conventional dogfighting roles.</p>
+</deployment>
+
+<history>
+<p>Mujika Aerospace Technologies has operated its primary facility on St. Ives since the Succession Wars, surviving the turbulent political changes that saw the planet pass through Capellan, St. Ives Compact, and again Capellan hands. The reintegration of the company into the Confederation's industrial base following the Capellan-St. Ives War was difficult, sustained primarily by continued Thrush fighter production and civilian TC-80 Skyliner transport contracts until Mujika could reassert itself as a trusted military partner. The St. Ives facility absorbed losses of approximately twenty percent in capital and personnel during the Jihad, though full production capacity was restored by 3079.</p><p>Development of the Yùn began in the years following the Jihad, as the CCAF sought to expand its specialized insertion capabilities beyond those offered by the aging Troika. Production commenced in 3107, marking the first entirely new aerospace fighter type built at the St. Ives plant in a generation. Early operational deployments quickly demonstrated the value of the design's stealth approach to contested airspace.</p><p>During fighting on New Syrtis, Yùn squadrons supported CCAF infantry operations against entrenched Davion defenders, proving the design's viability in high-threat environments. The fighter's most celebrated early action occurred at Saso, where Yùn units attached to House Hiritsu infantry launched predawn sorties that bypassed the city's entire southern gun battery network. Flying meters above the frozen ground, undetected until seconds from their targets, the fighters delivered elite house infantry directly onto Davion emplacements, silencing the batteries and opening the path for Capellan forces to push deep into the city by dawn.</p>
+</history>
+
+<manufacturer>
+Mujika Aerospace Technologies
+</manufacturer>
+
+<primaryFactory>
+St. Ives
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Mujika Aerospace Technologies
+ENGINE:Rawlings
+ARMOR:Hellespont
+JUMP_JET:N/A
+COMMUNICATIONS:Endicott
+TARGETING:Dwyerson
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Mujika Aerospace Type 16
+ENGINE:Rawlings 120
+ARMOR:Hellespont Aerolite Stealth
+JUMP_JET:N/A
+COMMUNICATIONS:Endicott Type 32 Microwave Projector
+TARGETING:Dwyerson Mark XI
+</systemModels>
+
+<source>
+TR:3145:CC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

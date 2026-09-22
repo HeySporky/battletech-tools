@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e6dd-7086-86a3-d69a23a66dd6
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Gürteltier MBT
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4256
+</mul id:>
+
+<year>
+3081
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+109
+75
+75
+50
+67
+</armor>
+
+<Body Equipment>
+IS Gauss Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+IS Ammo MML-7 LRM
+IS Ammo MML-7 LRM
+IS Ammo MML-7 SRM
+IS Machine Gun Ammo - Half
+ISGuardianECMSuite
+ISTargeting Computer
+ISC3SlaveUnit
+ISCASE
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+Machine Gun
+</Right Equipment>
+
+<Left Equipment>
+Machine Gun
+</Left Equipment>
+
+<Rear Equipment>
+Machine Gun
+</Rear Equipment>
+
+<Turret Equipment>
+ISERPPC
+ISGaussRifle
+ISMML7
+</Turret Equipment>
+
+<capabilities>
+<p>The Gürteltier delivers on its design requirements in full. Nearly a fifth of the vehicle's one hundred tons was allocated to protection, and designers chose heavy ferro-fibrous armor to maximize the coverage that weight could provide. CASE safeguards the crew and the most critical internal systems against ammunition cook-offs. Three light autoguns provide close-in defense against infantry threats that the main armament cannot reliably address at short range.</p><p>The offensive core pairs a Defiance 1001 extended-range particle cannon with a Poland Main Model A Gauss rifle, both mounted in the turret, allowing the Gürteltier to engage targets at nearly three-quarters of a kilometer with two complementary and mutually reinforcing weapons. A seven-tube multi-missile launcher supplements the turret, capable of delivering long-range fire or close-range punch as the mission demands. The system accepts mine-laying and inferno rounds alongside standard missiles, giving the crew meaningful tactical flexibility. Three tons of ammunition for the ammo-dependent weapons provides solid endurance in sustained operations.</p><p>The electronics suite rounds out the design. A Guardian ECM system can shield the tank from enemy targeting or actively disrupt hostile electronics. A C³ slave module integrates the Gürteltier into coordinated network formations. An enhanced targeting computer increases the precision of both turret weapons, converting marginal shots into reliable kills against hardened targets. The suite imposes real demands on crew training and maintenance, but crews that master it gain a decisive edge.</p>
+</capabilities>
+
+<overview>
+<p>The Lyran armed forces maintained many capable specialist vehicles and the proven Rommel and Patton tanks, but lacked a multi-role assault-weight platform to fill a comparable niche at the heavy end of the weight scale. When Defiance Industries rebuilt its Hesperus II facilities following the Jihad, the LAAF Quartermaster's department provided a detailed specification for exactly that kind of vehicle. Planners called for heavy armor that would keep the tank effective even while absorbing punishment, long-range weapons capable of killing both armored vehicles and BattleMechs, and a sophisticated electronics suite suited to integrated C³ operations. Defiance's submitted design met all three demands. The LAAF high command approved it and named the new vehicle after the Terran armadillo, an animal renowned for its thick protective shell. The Gürteltier entered front-line service in 3081.</p>
+</overview>
+
+<deployment>
+<p>The Gürteltier is assigned to front-line LCAF armored regiments, concentrated most heavily in Royal Guards and Lyran Guards formations. Its cost and maintenance requirements have kept it out of militia inventories, and that situation is not expected to change in the near term. Export sales have been authorized to the Federated Suns and the Republic of the Sphere, both of which operate C³ networks compatible with the vehicle's slave module. The Gürteltier's debut engagement on Surcin demonstrated its value in coordinated network operations, and demand from allied buyers has remained steady since that action became known.</p>
+</deployment>
+
+<history>
+<p>The Gürteltier's design history begins with the damage the Jihad inflicted on Hesperus II. The destruction of Defiance Industries' facilities gave the LAAF an opportunity to reassess its heavy armor inventory as reconstruction proceeded. Planners identified a persistent gap, specifically the absence of a capable multi-role vehicle in the assault weight class that could fill the same tactical niche the Rommel and Patton occupied at lighter tonnages.</p><p>The Quartermaster's department conducted a systematic review of recent combined-arms engagements before drafting its specification, giving particular attention to EisenJäger operations on Tharkad. That analysis produced a clear set of priorities. The new vehicle needed armor heavy enough to remain combat-relevant while absorbing punishment, weapons capable of killing both armored vehicles and BattleMechs at long range, and an electronics package suited to the C³ network architectures the LCAF was building into its front-line formations. Defiance Industries submitted a design that addressed all three requirements, and the LAAF approved it promptly. Named after the Terran armadillo, the Gürteltier entered service in 3081.</p><p>Early deployments concentrated the design among Royal Guards and Lyran Guards armored regiments. Initial combat experience was limited, consisting largely of actions against pirate forces. A more consequential engagement occurred on Surcin, where a lance of Gürteltiers encountered a Star of Clan Wolf BattleMechs. The opening exchange cost the Wolves a Linebacker and left one Gürteltier immobile. The Wolf forces pressed in to destroy the disabled tank, but the lance's C³ network allowed the remaining Gürteltiers to coordinate fire with devastating effect. Two more Clan 'Mechs fell in the following thirty seconds before the surviving Wolf forces withdrew. The damaged Gürteltier was recovered and returned to service.</p><p>Defiance introduced the C³ master variant in 3086, designed to serve as the network anchor for mixed Gürteltier formations. The new version replaced the Gauss rifle with an LB-X autocannon to accommodate the upgraded C³ master system, and added Artemis IV fire control to the missile launcher. Both versions have continued in front-line service, distributed together in formations where their complementary network roles can be fully exploited.</p>
+</history>
+
+<manufacturer>
+Defiance Industries
+</manufacturer>
+
+<primaryFactory>
+Hesperus II
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Vlar
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:TharHes
+TARGETING:TharHes
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:300 XL
+ARMOR:StarSlab/4
+COMMUNICATIONS:Muse 54-58K
+TARGETING:Mars8.2
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<tonnage>
+100.0
+</tonnage>
+

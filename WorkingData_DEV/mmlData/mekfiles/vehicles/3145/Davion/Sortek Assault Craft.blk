@@ -1,0 +1,154 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7bc-7de1-984a-0c494731284f
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Sortek Assault Craft
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6318
+</mul id:>
+
+<year>
+3098
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+30
+24
+24
+21
+</armor>
+
+<Body Equipment>
+ISRotaryAC2 Ammo
+ISRotaryAC2 Ammo
+ISAMS Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISRotaryAC2
+ISRotaryAC2
+ISAntiMissileSystem
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Sortek's General Motors 170-rated fusion engine pushes the 45-ton hovercraft to a maximum speed of 151 kilometers per hour, allowing it to run circles around most opponents and choose its engagements carefully. This speed is the Sortek's primary tactical asset, and the rest of the design reflects a deliberate trade-off between mobility and raw firepower.</p><p>For offensive armament, the Sortek relies on a pair of Mydron Tempest rotary Class 2 autocannons, which fill the air with a rapid stream of shells at relatively close range. These weapons are effective at harassing and suppressing enemy units, and many Davion battalion commanders have used them to good effect breaking up the line of battle. However, the autocannons carry a significant drawback: their high rate of fire burns through ammunition quickly, and crews operating away from resupply lines frequently find themselves running dry at critical moments.</p><p>Protecting the vehicle is five tons of Valiant Lamellor Special Heavy Ferro-Fibrous armor, offering meaningful protection for a vehicle of its size. A MainFire Point Defense anti-missile system adds a layer of defense against guided munitions. The Sortek's persistent weakness is its inability to threaten heavier opponents in a straight fight, a limitation that has proven costly when commanders mistake it for a more capable main-line combatant.</p>
+</capabilities>
+
+<overview>
+<p>Corean Enterprises introduced the Sortek Assault Craft in 3098, building on its experience with the Musketeer hovertank to produce a faster, more agile companion design for the Armed Forces of the Federated Suns. Manufactured at the company's New Avalon facility, the Sortek was conceived as a dedicated harasser, designed to exploit its exceptional speed against heavier, slower opponents. Rather than serving as a front-line combatant, the craft fills a skirmisher role, drawing enemy attention and disrupting formations before heavier friendly forces close to deliver decisive blows. In the years following the formation of the Republic of the Sphere and throughout the turbulent Dark Age, the Sortek became a common sight among AFFS units struggling to rebuild depleted orders of battle, offering a cost-effective solution to the urgent need for fast, capable armored support.</p>
+</overview>
+
+<deployment>
+<p>The Sortek fills a screening and harassment role in AFFS combined-arms formations, operating most effectively when paired with heavier units that can exploit the disruption it creates. Its speed allows it to range ahead of main columns, intercept probing enemy forces, and withdraw before heavier opponents can bring decisive firepower to bear. AFFS planners have found it particularly valuable in mobile defense scenarios common to the Dark Age, where denying the enemy freedom of movement matters more than holding ground. The vehicle struggles in static engagements and direct assaults against armored opposition. The Sortek performs best in an economy-of-force role, buying time and disrupting enemy movements rather than trading blows with heavier vehicles.</p>
+</deployment>
+
+<history>
+<p>The Sortek entered service with the Armed Forces of the Federated Suns in 3098, produced at Corean Enterprises' New Avalon plant. Its introduction came during a period when the AFFS was working to modernize its armored forces, and the design quickly found a place in reconnaissance and screening units. The vehicle's harasser role proved valuable in the fluid engagements of the Dark Age, where speed and disruption often mattered as much as direct firepower.</p><p>During the contested campaigns of the 3140s, Sortek-equipped units demonstrated what the design could achieve when employed correctly. On worlds where AFFS forces were scattered and outnumbered, fast-moving Sortek companies repeatedly used their speed to draw enemy pursuit columns away from consolidating survivor groups, buying time for ad hoc formations to assemble and counterattack. This tactic worked time and again, though the vehicle's limited ammunition capacity ultimately constrained sustained operations. When resupply ran short, even determined crews found themselves unable to maintain the harassment pressure that made them effective, and more than one engagement ended badly when vehicles exhausted their rounds before breaking contact.</p><p>The same period produced a harsher lesson on other worlds. Militia and garrison commanders accustomed to the more powerful Musketeer repeatedly misjudged the Sortek's offensive ceiling and ordered platoons to engage enemy logistical columns directly. The Sortek's lighter rotary autocannons could not penetrate the armor of escorting vehicles, and the return fire from longer-ranged, harder-hitting weapons dismantled attacking platoons before they could withdraw. These incidents became pointed examples in AFFS armor doctrine, emphasizing the difference between a harasser and a combatant, and cautioning commanders against misemploying the type.</p><p>New Avalon's fall to the Draconis Combine during the ilClan period transferred the Corean Enterprises facility to Kurita control, ending Federated Suns production of the Sortek.</p>
+</history>
+
+<manufacturer>
+Corean Enterprises
+</manufacturer>
+
+<primaryFactory>
+New Avalon
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:General Motors
+ARMOR:Valiant
+COMMUNICATIONS:Corean
+TARGETING:Corean
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:170
+ARMOR:Lamellor Special Heavy Ferro-Fibrous
+COMMUNICATIONS:Transband-J9
+TARGETING:C-Link
+</systemModels>
+
+<source>
+TR:3145:FS,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

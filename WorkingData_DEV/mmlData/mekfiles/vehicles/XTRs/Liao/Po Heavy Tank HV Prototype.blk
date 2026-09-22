@@ -1,0 +1,157 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ebeb-7f2a-9e05-f9bfb10b45ba
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Po Heavy Tank
+</Name>
+
+<Model>
+(HV Prototype)
+</Model>
+
+<mul id:>
+2546
+</mul id:>
+
+<year>
+3077
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+4
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+20
+16
+16
+15
+17
+</armor>
+
+<Body Equipment>
+IS Streak SRM 6 Ammo
+IS Ammo HVAC/10
+IS Ammo HVAC/10
+</Body Equipment>
+
+<Front Equipment>
+ISStreakSRM6
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Hyper Velocity Auto Cannon/10
+</Turret Equipment>
+
+<capabilities>
+<p>The Po's main offensive weapon is the turret-mounted Ceres Arms Model T Class 10 Autocannon, a well-proven system with an excellent combat record against light and medium 'Mechs. The autocannon is supplied with enough ammunition to sustain several minutes of heavy combat. Two Maxi Mini Machine Guns supplement the main gun, providing close-in defense against infantry, with one mounted alongside the autocannon in the turret and another in a ball joint on the hull front.</p><p>Powered by the Ceres 240 internal combustion engine, the Po reaches a maximum flank speed of 65 km/h. The ICE powerplant is the tank's most important practical advantage: it is cheap to produce, straightforward to service in the field, and replacement parts are available across most Inner Sphere worlds. The CeresCom Model 37-P communications suite and Ceres/Maladev 3 targeting system are competent electronics that favor reliability over advanced capability. Ten and a half tons of Starshield Type V armor provide respectable protection for the weight class.</p><p>The design's weaknesses are the other face of its strengths. The ICE engine carries fire risk from fuel and produces a significant exhaust signature. The autocannon, while effective, cannot match the range of Gauss-armed competitors or the ammunition flexibility of LB-X systems. Against well-armored heavy vehicles the Po frequently requires lance-level coordination to achieve kills, making it a poor choice for independent operations against capable opponents.</p>
+</capabilities>
+
+<overview>
+<p>The Po Heavy Tank is the Capellan Confederation's defining budget combat vehicle, introduced in 3031 to rapidly rebuild the Confederation's depleted military following the Fourth Succession War. Designed by Ivan Maladev at the direction of Chancellor Romano Liao, the Po prioritizes simplicity, low cost, and ease of field maintenance over advanced technology. Named by Liao for a mischievous and vengeful spirit of Chinese tradition, the tank quickly became the standard combat vehicle on Capellan worlds without significant 'Mech forces. Its combination of serviceable firepower, decent protection, and a low price made it an attractive export to the Magistracy of Canopus, the Free Worlds League, and mercenary formations throughout the Inner Sphere. Over the following decades Ceres Metals Industries expanded production to additional facilities and the basic hull spawned several upgrade variants as technology became more available across the Confederation.</p>
+</overview>
+
+<deployment>
+<p>The HV Prototype saw extremely limited production, with the first six vehicles combat-tested on Menke before being declared deployment-ready. These prototypes were assigned to CCAF assault formations for operations on Hsien, where their extended-range autocannons demonstrated real potential. Significant losses during the assault, combined with cost concerns over the experimental hardened armor and fusion engine pairing, drove engineers toward the production fuel-cell variant. The prototype configuration was not carried forward into full production and appears only in very limited CCAF inventories.</p>
+</deployment>
+
+<history>
+<p>The Po traces its origins to the immediate aftermath of the Fourth Succession War. The conflict had devastated Capellan military production, leaving Chancellor Romano Liao desperate for affordable weapons to rebuild depleted forces. Liao turned to Ivan Maladev, a rising military designer and her personal favorite at court, who drew inspiration from the mass-production doctrine of ancient Terran history. Maladev's resulting design was rushed directly into production without the refinements typical of more expensive programs. Maladev did not survive to see the tank's success, a casualty of the brutal court politics surrounding Romano Liao.</p><p>By the time of the Clan Invasion, Po tanks had become the backbone of countless Capellan garrison formations and Reserve Cavalry units, and were being given freely to the Confederation Defense Force as a cost-effective way to fill unit rosters. Export sales to the Magistracy of Canopus and the Free Worlds League generated much-needed revenue for the Confederation's ongoing recovery. The tank's popularity with mercenaries brought it to engagements across the Inner Sphere. Word of Blake militia units in the League also acquired the type, though the mechanism proved to be misuse of FWLM funds through blind accounts, with the diverted units eventually surfacing in Blakist inventories.</p><p>The Jihad proved costly for Po production. Blakist forces struck St. Ives with devastating force around 3070, inflicting severe damage on the Ceres Metals facilities and destroying the turret assembly production line entirely. Rather than rebuild the damaged line in kind, Ceres engineers used the forced downtime to design the Po II. Alliance Defenders Limited at Alpheratz continued production for the Outworlds Alliance market, its line eventually transitioning to Outworlds Alliance and later Republic of the Sphere oversight. Majesty Metals and Manufacturing established production at Dunianshire in the Magistracy, then added a second facility at Luxen following the Jihad, ensuring continued availability of the Po across the Periphery into the Dark Age.</p>
+</history>
+
+<manufacturer>
+Ceres Metals Industries
+</manufacturer>
+
+<primaryFactory>
+Menke
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Ceres
+ARMOR:Ceres
+COMMUNICATIONS:CeresCom
+TARGETING:Ceres
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:240 Fusion
+ARMOR:Nemean Hardened
+COMMUNICATIONS:Model 37-P
+TARGETING:Maladev 3
+</systemModels>
+
+<source>
+XTR:Liao
+</source>
+
+<published>
+XTR:Liao
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

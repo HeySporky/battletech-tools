@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e3e0-7f02-b24b-b741d6952539
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Blizzard Hover Transport
+</Name>
+
+<Model>
+'Black Blizzard'
+</Model>
+
+<mul id:>
+396
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+14
+13
+13
+9
+13
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-4
+IS Ammo MG - Full
+ISGuardianECMSuite
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+SRM 4
+SRM 4
+Machine Gun
+Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>The core of the Blizzard's appeal is its Nissan 95 internal combustion engine, which drives the twenty-five-ton hover chassis to a flank speed of 151 kilometers per hour. This performance allows the vehicle to close with enemy positions under a barrage from its single turret-mounted LongFire V LRM-5, deploy its passengers, and withdraw before absorbing sustained fire. The LRM-5 is deliberately light armament for a front-line vehicle, but it serves its purpose well: once the infantry bays are cleared, the launcher enables the Blizzard to contribute indirect suppression fire from extended range, keeping the vehicle out of direct engagement while still supporting the troops it delivered. The BlazeFire Sight Lock targeting system and Angst Clear Channel 3 communications suite give crews adequate situational awareness for a light transport role.</p><p>The cargo bay holds six tons of capacity, accommodating two standard infantry platoons or a single heavy infantry platoon without reducing the vehicle's speed rating. The ICE powerplant keeps manufacturing costs and logistical complexity low, a deliberate trade-off that broadens the Blizzard's appeal to operators without sophisticated maintenance infrastructure. The primary weakness of the design is its protection: three tons of StarSlab/3 armor can absorb only a limited number of direct hits before the hull is compromised. This vulnerability forces crews to treat the Blizzard as a true transport rather than a fighting vehicle, staying at range and avoiding direct engagement with anything heavier than infantry. For commands that understand its limitations, the Blizzard performs its role effectively; those that push it into the line of fire tend to lose it quickly.</p>
+</capabilities>
+
+<overview>
+<p>The Blizzard Hover Transport is a light infantry carrier designed and produced by Kressly WarWorks of Epsilon Eridani, entering service in 3054. Conceived to give small militias and independent commands the ability to deliver troops rapidly across contested terrain, the design reflects Kressly's practical philosophy: affordable, reliable, and easy to maintain. The vehicle was originally intended to counter Clan mobile tactics, relying on extreme speed rather than armor or firepower to survive on a modern battlefield. It found its greatest success not in the Clan Invasion campaigns its designers envisioned, but among the fractious factions of the Chaos March, where its low acquisition cost and exceptional speed made it the transport of choice for underfunded armies, local defense forces, and mercenary commands that needed to move infantry quickly without exhausting their operational budgets.</p>
+</overview>
+
+<deployment>
+<p>The Black Blizzard strips the infantry bay entirely and reconfigures the vehicle as a dedicated escort platform. Ferro-fibrous armor replaces the standard protection, improving survivability significantly over the transport variants. Paired SRM-4 launchers and machine guns in the turret, combined with a Guardian ECM suite, give the escort meaningful offensive capability and electronic protection for the formations it accompanies. The Black Blizzard is intended to operate alongside standard Blizzards, screening their approach and withdrawal against light combat vehicles and infantry threats. It is not suited for prolonged independent operations, but in its assigned escort role it substantially improves the survivability of the transport lance as a whole. The Word of Blake's Epsilon Eridani militia was the most prominent early operator, and the variant spread to other independent world forces through the post-Jihad period.</p>
+</deployment>
+
+<history>
+<p>Kressly WarWorks developed the Blizzard in the early 3050s with the goal of providing Chaos March worlds and independent commands an affordable transport capable of operating against the fast-moving Clan threat. The vehicle debuted in 3054, predating the formal dissolution of Federated Commonwealth authority over the former Sarna March. When Operation Guerrero shattered that authority in 3057 and dozens of worlds found themselves without the support of a major power, demand for cheap military hardware surged. Kressly, already producing the Blizzard at its Epsilon Eridani plant, was ideally positioned to meet that demand, and the transport became a common sight in the militias that formed across contested systems throughout the new March.</p><p>The design's first significant test in sustained operations came during the Capellan reunification war against the St. Ives Compact beginning in 3060. Infantry-heavy Capellan formations mobilized every available vehicle, and the Blizzard's speed proved critical during rapid assault and evacuation operations across the Compact's contested worlds. Multiple Warrior Houses fielded the transport to shuttle infantry squads between engagements, though casualties mounted when vehicles were pushed further forward than their armor could sustain. The campaign also exposed the Blizzard to direct competition with the Maultier Hover APC, which emerged as a short-range alternative. Kressly responded by developing two variants to preserve its market position: a simple swap to short-range missiles for closer-range engagements, and a dedicated escort design that traded the infantry bay for heavier armament and electronic countermeasures.</p><p>During the Jihad, the Word of Blake absorbed Epsilon Eridani into its Protectorate in the early 3070s, and Kressly's production facilities operated under Blakist oversight for most of that decade. The Epsilon Eridani Protectorate Militia became the primary operator of the Black Blizzard escort variant during this period, fielding it to protect supply convoys and support Blakist infantry operations. Coalition forces from the Federated Suns front of Operation SCOUR liberated the planet in February 3078 after a sharp week-long campaign, and production resumed under Republic of the Sphere administration. The Blizzard remained active in Republic service through the Dark Age as a reserve transport, fielded by garrison forces and planetary militias that valued its low cost and mechanical simplicity. When the Republic's authority collapsed in the 3130s, surviving vehicles dispersed across the successor states. The Capellan Confederation, which had reasserted regional dominance in the area surrounding Epsilon Eridani, continued to operate the Blizzard in logistical support roles into the ilClan era.</p>
+</history>
+
+<manufacturer>
+Kressly Warworks
+</manufacturer>
+
+<primaryFactory>
+Epsilon Eridani
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Nissan
+ARMOR:Brooks, Inc.
+JUMP_JET:N/A
+COMMUNICATIONS:Angst
+TARGETING:BlazeFire
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:95 ICE
+ARMOR:StarSlab/3
+JUMP_JET:N/A
+COMMUNICATIONS:Clear Channel 3
+TARGETING:Sight Lock
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-I
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

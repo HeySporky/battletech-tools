@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ddf8-7983-993a-cc209631e32a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Harvester Ant
+model:KIC-3M-B AgroMech MOD
+mul id:7153
+
+Config:Quad
+techbase:Inner Sphere
+era:2801
+source:TR:VAr
+published:RS:VA
+rules level:2
+role:Missile Boat
+
+
+mass:20
+engine:60 ICE Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:2 Single
+walk mp:3
+jump mp:0
+
+armor:Commercial(Inner Sphere)
+FLL armor:3
+FRL armor:3
+LT armor:7
+RT armor:7
+CT armor:8
+HD armor:8
+RLL armor:3
+RRL armor:3
+RTL armor:2
+RTR armor:2
+RTC armor:2
+
+Weapons:2
+LRM 5, Left Torso
+LRM 5, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+LRM 5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+LRM 5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ammo LRM-5
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Harvester Ant is a twenty-ton quad IndustrialMech introduced in 2650 by Kong Interstellar Corporation on Connaught. Designed during the golden years of the Star League, the KIC-3 was purpose-built to serve the needs of colonists settling frontier worlds across the Inner Sphere. New terraforming techniques and inexpensive water purification systems had opened vast tracts of previously unsuitable land for development, and affordable agricultural machinery was in high demand. Kong identified this growing market and delivered a simple, robust crop harvester that could be operated safely by even the most inexperienced pilots. The Harvester Ant became one of the most successful IndustrialMech designs of the Star League era, and its combination of reliability, ease of maintenance, and fuel flexibility ensured its survival long after the factories that built it fell silent during the Succession Wars.</p>
+
+capabilities:<p>The Harvester Ant employs a quad chassis layout that provides exceptional stability on uneven terrain, a critical feature for agricultural work on partially terraformed colony worlds. Twin Thresher combine units mounted ahead of the forelegs allow the IndustrialMech to cut a ten-meter-wide swath through crops, while a two-ton internal cargo bay stores harvested material for transport. For higher-yield crops such as wheat, the cargo bay fills quickly and requires supplementary vehicles for unloading, but lighter crops like the Midkiff-native kiffnut can be gathered continuously without pause.</p><p>The Leenex 60 internal combustion engine is central to the design philosophy. Capable of burning refined petrochemicals, alcohol, or even plant-extracted oils, it allows the Harvester Ant to operate on worlds where fusion fuel infrastructure has not yet been established. This flexibility comes at the cost of speed and power (the ICE propels the machine to a maximum of only fifty-four kilometers per hour) but colonists valued accessibility over performance. Two tons of StarSlab commercial-grade armor provide minimal protection against the elements and incidental impacts, though this plating is wholly inadequate for any combat situation. The Bassix 100 communications system handles basic coordination with other agricultural equipment, and the design intentionally omits any targeting or tracking systems, reinforcing its purely civilian role.</p>
+
+deployment:<p>The LRM MOD is the fire support counterpart to the machine gun modification, favored by communities seeking to keep threats at a distance rather than close to engagement range. The stable quad chassis proves well-suited to missile delivery, and the Harvester Ant's low profile makes it a surprisingly difficult target when positioned in defilade. Like its close-range sibling, this configuration has appeared independently across the Inner Sphere wherever desperate defenders have access to LRM launchers and a Harvester Ant to mount them on. Despite the universally poor results of sending IndustrialMechs against proper BattleMechs, the LRM-armed Harvester Ant remains a common sight on underdeveloped worlds where it may be the only fire support platform available.</p>
+
+history:<p>The Harvester Ant emerged during the Star League's great colonization wave of the mid-twenty-seventh century. As new terraforming technologies opened frontier worlds across the Inner Sphere and Periphery, demand for affordable agricultural machinery surged. Kong Interstellar Corporation recognized the opportunity and began production on Connaught in 2650, quickly establishing the KIC-3 as a staple of colony operations. The design's simplicity and fuel flexibility made it ideal for worlds where advanced infrastructure had not yet been constructed, and within decades the Harvester Ant could be found on agricultural worlds throughout the Free Worlds League and beyond.</p><p>The brutality of the Succession Wars devastated Kong's manufacturing facilities on Connaught, reducing them to little more than a repair depot by the early twenty-ninth century. Production of new Harvester Ants ceased entirely, and existing machines dwindled as they fell victim to mechanical failure, were stripped for parts to maintain BattleMechs, or were pressed into desperate service as improvised combat platforms. Among the Kerensky Exodus populations on the Pentagon Worlds, armed Harvester Ants saw action during the Pentagon Civil War beginning in 2801, where factions lacking proper military equipment bolted weapons onto any available chassis. These crude modifications would be independently replicated across the Inner Sphere throughout the Succession Wars as frontier communities faced threats with no BattleMechs to defend them.</p><p>The technological renaissance of the mid-thirty-first century allowed Kong to rebuild. A new factory opened on Connaught in 3058, and initial sales were strong during the economic upswing that accompanied the formation of the Second Star League. The subsequent inter-member state conflicts and the dissolution of the new Star League curtailed demand as military spending took priority over agricultural investment. However, production continued through the Jihad and into the Republic era, with the factory changing hands between the Free Worlds League, the Republic of the Sphere, and eventually returning to Free Worlds League control. The Harvester Ant remains in production in the ilClan era, a reflection of the enduring value of a design that has served the agricultural needs of humanity for over five centuries.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Kong
+systemmode:CHASSIS:Industrial
+systemmanufacturer:ENGINE:Leenex
+systemmode:ENGINE:60 ICE
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:StarSlab/Comercial
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Unknown (upgraded fire control)
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Unknown (upgraded fire control)

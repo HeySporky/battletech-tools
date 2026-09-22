@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d030-7428-8077-b1586c56e77e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Thunder Fox
+model:TFT-C3
+mul id:3218
+
+Config:Quad
+techbase:Inner Sphere
+era:3085
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:4
+role:Skirmisher
+
+quirk:easy_maintain
+
+mass:55
+engine:220 Light Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Command Console
+gyro:Standard Gyro
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+FLL armor:17
+FRL armor:17
+LT armor:20
+RT armor:20
+CT armor:21
+HD armor:9
+RLL armor:17
+RRL armor:17
+RTL armor:4
+RTR armor:4
+RTC armor:6
+
+Weapons:4
+Medium X-Pulse Laser, Left Torso
+ER Medium Laser, Left Torso
+C3 Computer (Master), Left Torso
+ER Large Laser, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+MechanicalJumpBooster:SIZE:4.0
+MechanicalJumpBooster:SIZE:4.0
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+MechanicalJumpBooster:SIZE:4.0
+MechanicalJumpBooster:SIZE:4.0
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMediumXPulseLaser
+ISERMediumLaser
+ISC3MasterUnit
+ISC3MasterUnit
+ISC3MasterUnit
+ISC3MasterUnit
+ISC3MasterUnit
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERLargeLaser
+ISERLargeLaser
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Cockpit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+MechanicalJumpBooster:SIZE:4.0
+MechanicalJumpBooster:SIZE:4.0
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+MechanicalJumpBooster:SIZE:4.0
+MechanicalJumpBooster:SIZE:4.0
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Thunder Fox is a fifty-five-ton quad BattleMech introduced in 3077 by Skobel MechWorks on Terra. Derived from stolen Word of Blake technology during the final years of the Jihad, the design is based on the chassis of the Blue Flame quad 'Mech. Despite the stigma attached to Word of Blake designs in the post-Jihad era, the Thunder Fox proved commercially successful, finding eager buyers in the newly formed Republic of the Sphere. Production soon expanded to Defiance Industries on Hesperus II and Luthien Armor Works on New Samarkand, establishing the design as a multi-faction medium striker. The Thunder Fox fills a specialist niche as a stable, four-legged sniping platform with respectable mobility, and its ease of maintenance has helped sustain its popularity across multiple successor states well into the Dark Age.</p>
+
+capabilities:<p>Built on a heavily modified Dennenbach-Mitchell Series 8 chassis inherited from the Blue Flame, the Thunder Fox adds ten tons to that design while sacrificing some mobility. A standard DAV 220 fusion engine provides a top speed of sixty-four kilometers per hour, modest for a medium 'Mech but adequate for its intended role as a ranged combatant. Three Rawlings 60 jump jets, arranged with a center-mounted unit providing lift and two rear-leg units offering directional control, grant a ninety-meter jump capability that helps compensate for the quad chassis's limited torso rotation.</p><p>The Thunder Fox's primary armament centers on long-range engagement. A Corean light Gauss rifle and Diverse Optics Sunbeam extended-range large laser provide effective striking power beyond six hundred meters, allowing the 'Mech to exploit its stable firing platform. Close-range defense relies on a Guided Technologies Streak SRM-4 launcher and a Diverse Optics ER small laser, though the Thunder Fox is often outgunned in brawling engagements. Nine tons of Krupp light ferro-fibrous armor with CASE protection offer acceptable survivability, sufficient to absorb a heavy PPC strike without penetration except when caught from behind. The quad configuration provides excellent stability for precision fire but limits the design's ability to engage multiple threats simultaneously.</p>
+
+deployment:<p>Developed by the Draconis Combine in 3085, this variant is an experimental command variant designed to coordinate lances of C3 slave-equipped scouts. The light Gauss rifle is removed to accommodate a cockpit command console and C3 master computer, essentially adding a second cockpit that frees the commanding officer to focus on C3 network data, troop movements, and tactical decisions without the distraction of direct combat. An ER medium laser and medium X-pulse laser replace the original close-range weapons, while the standard fusion engine gives way to a light fusion engine to accommodate the additional electronics. The jump jets are traded for experimental mechanical jump boosters in each leg, extending jumping range to one hundred twenty meters. Produced exclusively at Luthien Armor Works on New Samarkand, the C3 variant is ideal for training junior officers in command responsibilities.</p>
+
+history:<p>The Thunder Fox's origins are rooted in corporate espionage and the chaos of the Jihad's final years. When the Word of Blake Protectorate began to collapse, most defense corporations scrambled to reposition their product lines. Skobel MechWorks on Terra prospered thanks to an engineer who had defected from Mitchell Vehicles and joined Skobel in 3075. Using connections within the Word of Blake, she redirected components from multiple Blakist production programs, combining the Blue Flame's chassis with diverted weaponry, armor, and engine components to create what was essentially a 'Mech that officially did not exist. Republic Intelligence later determined that the engineer had been siphoning trade secrets from Mitchell for years and may have been on Skobel's payroll the entire time.</p><p>The gamble paid off handsomely. Despite predictions that Blake-derived designs would carry a lasting stigma, the Thunder Fox became a popular design within the Republic of the Sphere. The TFT-A9 entered service with the Principes Guards and other Republic formations by 3083. Lyran units along the Republic border began receiving limited quantities, and Defiance Industries on Hesperus II soon established its own production line. The Draconis Combine followed suit, with Luthien Armor Works beginning production on New Samarkand around the same time. StarCorps Industries on Loburg briefly held a production license as a contingency arrangement, though this line never became fully active.</p><p>The engineer behind the Thunder Fox's creation was ultimately indicted for war crimes and profiteering, a fate that did nothing to diminish demand for her creation. By the 3130s, the HPG Blackout and the fragmentation of the Republic scattered Thunder Foxes across numerous splinter factions. Steel Wolves, Swordsworn, and Spirit Cats units all fielded the design, drawn to its reliability and ease of maintenance. Both the Lyran Commonwealth and Draconis Combine continued developing specialized variants, ensuring the Thunder Fox remained a common sight on battlefields well into the ilClan era.</p>
+
+manufacturer:Luthien Armor Works
+
+primaryfactory:New Samarkand
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Dennenbach-Mitchell
+systemmode:CHASSIS:Series 8 - Modified
+systemmanufacturer:ENGINE:DAV
+systemmode:ENGINE:220 Light
+systemmanufacturer:ARMOR:Krupp
+systemmode:ARMOR:205 Light Ferro-Fibrous with CASE
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Mechanical Jump Boosters
+systemmanufacturer:COMMUNICATIONS:Skobel
+systemmode:COMMUNICATIONS:Wave 13
+systemmanufacturer:TARGETING:Matabushi
+systemmode:TARGETING:Sentinel

@@ -1,0 +1,93 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bcb4-70e1-8adc-4fbee0b1a737
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Tracked Platoon (FWLM)
+</Name>
+
+<Model>
+(MG 3035+)
+</Model>
+
+<mul id:>
+2141
+</mul id:>
+
+<year>
+3030
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<Troopers Equipment>
+Free Worlds League Infantry Kit (3035+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Free Worlds League's fractious politics have always made centralized BattleMech procurement difficult, pushing the FWLM toward heavy investment in conventional infantry to fill the gaps. Tracked mechanized platoons sacrifice road speed for all-terrain capability, carrying their infantry across ground that would halt wheeled vehicles. The FWLM assigns these formations to worlds where rough terrain or poor infrastructure demands mobility that wheels cannot provide. Carrying infantry-portable machine guns that deliver sustained automatic fire at close range, these platoons trade precision for volume, putting enough rounds downrange to suppress enemy positions and deny open ground to advancing troops.</p>
+</overview>
+
+<source>
+TW,TM
+</source>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+Machine Gun (Portable)
+</Secondary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

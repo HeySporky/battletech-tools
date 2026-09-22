@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d7d3-7dc3-a8ca-344090d2f9c0
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Dominator
+model:2
+mul id:7435
+
+Config:Biped
+techbase:Clan
+era:3149
+source:RG01
+published:RG01
+rules level:2
+role:Sniper
+
+quirk:battle_fists_la
+quirk:reinforced_legs
+weaponquirk:exposed_linkage:RA:5:CLERLargeLaser
+weaponquirk:exposed_linkage:RT:6:CLERLargeLaser
+
+mass:65
+engine:325 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+ejection:Full Head Ejection System
+
+heat sinks:17 Clan Double
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Clan)
+LA armor:15
+RA armor:20
+LT armor:23
+RT armor:23
+CT armor:31
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:5
+ER Large Laser, Right Arm
+ER Medium Laser, Right Arm
+LRM 20, Left Torso
+ER Large Laser, Right Torso
+ER Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERLargeLaser
+CLERMediumLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLArtemisV
+CLArtemisV
+Clan Ammo LRM-20 (Clan) Artemis V-capable
+Clan Ammo LRM-20 (Clan) Artemis V-capable
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+Jump Jet
+CLERLargeLaser
+CLTargeting Computer
+CLTargeting Computer
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLERSmallLaser (R)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Dominator is a sixty-five-ton Clan Wolf BattleMech introduced in 3148 and produced at W-12 Facilities on Zosma. Designed to serve as a versatile heavy striker capable of dictating engagement terms through a combination of speed, armor, and close-quarters lethality, the Dominator was purpose-built for the aggressive battlefield conditions of the ilClan era. Conceived under the direct oversight of Khan Alaric Ward, the design reflects a philosophy that prizes controlled aggression and physical dominance over the standoff firepower more typical of Clan heavy 'Mechs. Though classified as a second-line design, it incorporates the full breadth of Clan technology, and its combination of mobility and firepower has earned it a solid reputation within Clan Wolf's expanding touman.</p>
+
+capabilities:<p>The Dominator is built around a Starfire 325 XL engine housed in a Type W4 Endo Steel frame, achieving a base cruising speed of fifty-four kilometers per hour with a maximum sprint of eighty-six. A supercharger pushes that top speed to one hundred eight kilometers per hour in short bursts without the actuator damage risk associated with MASC systems, while five BMP Series XV jump jets provide a hundred-fifty-meter jump capability for terrain navigation and tactical repositioning. Ten and a half tons of Forging FF01 Ferro-Fibrous armor offers above-average protection for its weight class, distributed to favor the weapon-heavy right side.</p><p>The Dominator carries lighter armament than typical Clan heavy 'Mechs, mounting a Type 22 Extended Range PPC in the right arm and a Series 7K Extended Range Large Laser in the right torso as primary weapons, supplemented by a Smartshot Mark VI Streak SRM 6 for close-range work and a rear-facing Series 3K Extended Range Small Laser in the head. A WC-TT-008B targeting computer enhances the accuracy of all direct-fire weapons, compensating for the reduced weapon count with precision strikes. Reinforced leg actuators and integrated battlefists make the Dominator a formidable physical combatant, fulfilling its brawling mandate. However, the mounting of the large laser creates an exposed weapon linkage vulnerable to damage from specific strike angles, a flaw that opposing forces have learned to exploit.</p>
+
+deployment:<p>The Dominator 2 originated as a popular field refit before its success led W-12 Facilities to adopt it as an official factory variant in 3149. The configuration replaces the primary ballistic weapon with a second heavy laser and removes the supercharger and short-range missile system, dedicating the freed tonnage to a long-range missile launcher with enhanced guidance. This shifts the Dominator's role from brawler to precision striker, leveraging paired heavy lasers and long-range missiles to engage effectively at extended distances while sacrificing the physical combat emphasis of the original design. The variant has seen adoption among Wolf formations that prefer to maintain standoff range rather than close to brawling distance.</p>
+
+history:<p>The Dominator's development was driven by Khan Alaric Ward's personal vision of a heavy 'Mech that could anchor Clan Wolf's drive toward Terra, one capable of making the Republic of the Sphere tremble behind Fortress Republic while dominating Inner Sphere opponents in open battle. The design team faced immense pressure to deliver on the Khan's exacting specifications, and the development process was marred by internal strife that culminated in at least one suicide and one execution for insubordination. Despite this turmoil, the surviving scientists delivered a finished product ahead of schedule and under budget. Early live-fire testing validated the design's capabilities, with test pilots achieving above-average accuracy using the integrated fire control systems.</p><p>The Dominator first saw significant combat during Clan Wolf's conquest of Alula Australis, one of the bloodiest engagements on the march to Terra. Several Stars of Dominators belonging to the Ninth Wolf Guard Striker Cluster engaged the Eleventh Principes Guards after the Republic unit failed to assassinate Khan Ward in an artillery ambush. Republic MechWarriors rushed into physical combat seeking retribution, unaware that Wolf scientists had specifically reinforced the design's arms and legs for exactly such engagements. The ensuing battle descended into 'Mech-scale brawling, with Dominators leveraging their physical combat systems to devastating effect. Though Republic Axmans inflicted significant casualties, the Dominators gave back in equal measure.</p><p>During the fighting on Alula Australis, Republic forces discovered that the torso-mounted laser created a structural vulnerability, with the weapon tending to snap free when struck from certain angles. When the Principes attempted to exploit this flaw, Dominator pilots simply used their superior mobility to disengage and reengage on more favorable terms. Republic MechWarriors ultimately concluded that the Dominator's combination of firepower, armor, and agility made it exceptionally difficult to bring down, and those who survived the encounter joined the ranks of Clan Wolf.</p><p>The design's performance during the ilClan era has validated the demanding specifications laid down by Alaric Ward, and the adoption of a field refit as an official factory variant in 3149 speaks to the chassis's adaptability and the willingness of Wolf technicians to refine the design based on combat experience. The assault on Skye provided another proving ground, further cementing the Dominator's place in Clan Wolf's order of battle.</p>
+
+manufacturer:W-12 Facilities|Field Refit
+
+primaryfactory:Zosma|Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type W4 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Starfire 325 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Forging FF01 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:W-7 Facilities
+systemmode:JUMP_JET:BMP Series XV
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:WC-020
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:WC-TT-008B with Targeting Computer

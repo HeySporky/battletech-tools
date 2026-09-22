@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec75-7cd8-8032-f2d83d9a0544
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+White Tip Submarine
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5406
+</mul id:>
+
+<year>
+3074
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Submarine
+</motion_type>
+
+<transporters>
+1stclassquarters:10.0:1:-1::-1:0
+1stclassquarters:10.0:1:-1::-1:0
+1stclassquarters:10.0:1:-1::-1:0
+2ndclassquarters:7.0:1:-1::-1:0
+2ndclassquarters:7.0:1:-1::-1:0
+2ndclassquarters:7.0:1:-1::-1:0
+2ndclassquarters:7.0:1:-1::-1:0
+steeragequarters:5.0:1:-1::-1:0
+steeragequarters:5.0:1:-1::-1:0
+steeragequarters:5.0:1:-1::-1:0
+steeragequarters:5.0:1:-1::-1:0
+steeragequarters:5.0:1:-1::-1:0
+steeragequarters:5.0:1:-1::-1:0
+cargobay:30.0:1:14::-1:0
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+49
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+22
+14
+14
+17
+20
+</armor>
+
+<Body Equipment>
+SubmersibleChassisMod
+Advanced Fire Control
+IS Ammo SRTorpedo-4
+IS Ammo SRTorpedo-4
+IS Ammo LRTorpedo-15
+IS Ammo LRTorpedo-15
+IS Ammo LRTorpedo-15
+IS Ammo LRTorpedo-10
+IS Ammo LRTorpedo-10
+Communications Equipment:SIZE:7.0
+FieldKitchen
+MASH Equipment:SIZE:1.0
+</Body Equipment>
+
+<Front Equipment>
+SRT 4
+LRT 15
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+LRT 15
+</Rear Equipment>
+
+<Turret Equipment>
+SRT 4
+LRT 10
+ISERMediumLaser
+</Turret Equipment>
+
+<barrating>
+8
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The White Tip is a 250-ton naval vessel designed around dual roles as a command platform and coastal combat asset. Its primary offensive capability comes from two Long Range Torpedo-15 launchers, one positioned forward and one aft, giving the vessel simultaneous coverage across both arcs. A Long Range Torpedo-10 rounds out the long-range battery, mounted in the turret alongside two Short Range Torpedo-4 launchers for close-range defense. An Extended Range Medium Laser in the bow provides a directed-energy option effective against surface targets and watercraft that may be resistant to torpedo fire.</p><p>The White Tip's armor is minimal by any military standard, relying on just four tons of civilian-grade material rated to BAR 8. This thin protection reflects the core design philosophy of avoidance over absorption. The vessel is intended to remain submerged and difficult to locate, not to absorb fire from dedicated combat units. A cruise speed of 3 and flank speed of 5 are unimpressive for its displacement, but underwater concealment compensates for what it lacks in straight-line performance.</p><p>Command facilities are substantial relative to the vessel's tonnage. Seven tons of communications equipment support a wide-spectrum communications capability, and the ship carries a MASH unit, medical quarters, and berthing for officers and support personnel. Advanced Fire Control guides the weapons suite. A 30-ton cargo hold allows extended independent deployment, reducing reliance on shore support during prolonged operations.</p>
+</capabilities>
+
+<overview>
+<p>The White Tip command submarine was developed by Bigoti Seacraft on Keid in 3074, serving the Word of Blake Protectorate as a mobile command platform for aquatic operations. Rather than building to standard military specifications, Bigoti Seacraft drew on its experience in the civilian shipbuilding market, producing a vessel that met uprated civilian standards at a fraction of the cost of a true military design. This practical approach delivered a platform that could function both as a mobile headquarters and as an auxiliary combatant for coastal patrol work. The White Tip relied on its submersible capability to evade hostile forces rather than on heavy armor protection, a design philosophy that made it well-suited for contested aquatic environments. Despite its modest origins, the design proved resilient enough to outlast its original patron and eventually attract commercial interest well beyond the Protectorate.</p>
+</overview>
+
+<deployment>
+<p>The White Tip is deployed on worlds with significant aquatic terrain, where its submersible capability provides both a tactical and operational advantage. Operating as a mobile command platform, it is best suited to coordinating coastal and riverine operations from submerged positions that deny enemy forces an easy targeting solution. Long-range torpedo batteries allow engagement of surface and underwater targets at standoff distances, while the command facilities give embarked commanders the communications reach to direct dispersed forces across wide areas. The design's light protection means White Tip commanders favor submerged standoff tactics over surface engagements. Medical and personnel support facilities make extended independent deployments practical, allowing the vessel to serve as a self-sufficient mobile headquarters during prolonged coastal operations.</p>
+</deployment>
+
+<history>
+<p>Bigoti Seacraft was a Keid-based company with deep roots in civilian maritime construction when the Word of Blake commissioned the White Tip in 3074. The Protectorate sought an affordable command platform for aquatic environments, and Bigoti's expertise in commercial vessel construction made them a natural choice. Rather than demanding military-specification systems throughout, the Blakists accepted a design built to enhanced civilian standards. This kept unit costs manageable while delivering the capabilities the Protectorate required: submersible operations, torpedo armament, and extensive command and communications facilities.</p><p>When Devlin Stone's Coalition forces arrived to liberate Keid, all six operational White Tips were deployed against the invaders. The submarines proved capable coastal defenders, using their submersible nature to strike and withdraw before Coalition forces could effectively respond. Despite the Protectorate's ultimate defeat, the performance of the White Tips was noted by Coalition commanders. The vessels demonstrated real utility as mobile command posts and coastal patrol assets, and Stone's forces committed resources to recovering and rebuilding four of the six submarines. The two destroyed in combat were beyond recovery.</p><p>The surviving White Tips were pressed into Coalition service, effectively transferring the design's operational legacy from the Word of Blake to what would become the Republic of the Sphere. Bigoti Seacraft, now operating under Republic governance on Keid, formalized this transition by beginning to market the White Tip to off-world customers by 3079. The design's low unit cost and proven submersible capability made it an attractive option for planetary militias and corporate security forces on aquatically active worlds.</p><p>In the ilClan era, Keid's ownership passed to the Capellan Confederation, bringing Bigoti Seacraft's production line under Capellan authority.</p>
+</history>
+
+<manufacturer>
+Bigoti Seacraft
+</manufacturer>
+
+<primaryFactory>
+Keid
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Bigoti Seacraft
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Advanced Fire Control
+</systemModels>
+
+<source>
+XTR:RetroTech
+</source>
+
+<published>
+XTR:RetroTech
+</published>
+
+<tonnage>
+250.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

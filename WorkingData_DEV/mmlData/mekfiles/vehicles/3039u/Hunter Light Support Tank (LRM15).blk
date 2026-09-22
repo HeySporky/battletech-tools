@@ -1,0 +1,158 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e2a5-7760-982a-d00db6a56702
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Hunter Light Support Tank
+</Name>
+
+<Model>
+(LRM15)
+</Model>
+
+<mul id:>
+1578
+</mul id:>
+
+<year>
+2956
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+32
+24
+24
+16
+</armor>
+
+<Body Equipment>
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Machine Gun Ammo - Half
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+LRM 15
+</Front Equipment>
+
+<Right Equipment>
+Machine Gun
+Machine Gun
+</Right Equipment>
+
+<Left Equipment>
+Machine Gun
+Machine Gun
+</Left Equipment>
+
+<Rear Equipment>
+Flamer
+</Rear Equipment>
+
+<capabilities>
+<p>The original Hunter mounts a forward-facing FarFire Maxi-Rack LRM 20 with two tons of ammunition, giving it substantial long-range firepower for a vehicle of its weight class. The launcher is positioned to fire over defensive barriers, allowing the Hunter to exploit terrain without exposing itself to return fire. A rear-facing Zippo flamer serves as the sole close-defense weapon, though crews more commonly use it to create smoke screens during withdrawals. The Magna 175 fusion engine provides a top speed of 86 km/h, offering good mobility for a tracked support vehicle. StarSlab/5.5 armor provides reasonable protection, though the Hunter remains vulnerable at close range where its single flamer offers limited deterrence. TharHes Mini-Talk communications and AGART targeting systems are more capable than typical support vehicle electronics, giving crews reliable battlefield awareness.</p><p>The upgraded model trades speed for firepower, mounting twin Coventry Star Fire LRM racks with Artemis IV fire control on a slower Doorman 140-powered chassis. StarSlab/4 ferro-fibrous armor compensates partially for the reduced plating, but the upgraded Hunter is especially less survivable than its predecessor.</p>
+</capabilities>
+
+<overview>
+<p>The Hunter Light Support Tank is a 35-ton tracked combat vehicle produced by Defiance Industries on Hesperus II. Introduced during the late Succession Wars, the Hunter was conceived as an affordable, reliable platform for providing indirect fire support to frontline units. Its emphasis on simplicity and low manufacturing cost made it an immediate success with planetary militias and under-funded second-line formations across the Inner Sphere and Periphery. Defiance licensed the design to several additional manufacturers, including facilities in the Taurean Concordat and the Outworlds Alliance, ensuring broad availability far beyond Lyran space. The Hunter's combination of effective long-range firepower and modest price tag has kept it in continuous production for centuries, earning it a well-deserved reputation as a dependable workhorse among light vehicle formations.</p>
+</overview>
+
+<deployment>
+<p>Similar in concept to the LRM-10 conversion, this field variant mounts a fifteen-tube launcher with two tons of ammunition and additional close-defense weapons. It retains more of the Hunter's original fire support capability than its smaller-racked sibling while still providing the crew with options against infantry and light vehicles that close to short range.</p>
+</deployment>
+
+<history>
+<p>The Hunter has a longer and more distinguished service record than its modest price tag might suggest. When Defiance Industries first introduced the design, military procurement officers were skeptical. The Succession Wars had established a culture that expected combat vehicles to carry heavy forward firepower and stand up to direct engagement. A specialized, lightly armed fire support platform was not what most buyers envisioned. On paper and in proving trials, there was little about the Hunter to attract the attention of procurement officers. It was not until planetary militias began demonstrating the Hunter's effectiveness in indirect fire roles that commanders across the Successor States took notice.</p><p>Production expanded significantly when Defiance licensed the design to United Outworlders Corporation on Mitchella, Taurus Territorial Industries on Sterope, and Vandenberg Mechanized Industries on New Vandenberg. These Periphery manufacturers ensured the Hunter reached formations that Defiance's Lyran distribution network could not easily supply. On Sudeten, Olivetti Weaponry also produced the base model, though the Clan Jade Falcon invasion brought that line under Clan control. Vengeance Industries in the Haven Star Cluster maintained a smaller production run, supplying independent and pirate operators in the deep Periphery.</p><p>The Hunter saw widespread service during the FedCom Civil War, deployed in large numbers on both sides of the conflict. Almost half of the extant Hunters were destroyed in the fighting. Infantry and faster vehicles frequently overran Hunter positions, exploiting the light tank's lack of close-range defensive armament. Battlefield salvage allowed some upgraded Hunters to filter into the militaries of other Successor States, though their numbers remained small compared to those serving the Lyran Alliance.</p><p>The First Kittery Planetary Armored Militia earned particular distinction with the Hunter during the Davion conquest of Kittery in 3005. The militia's tank corps, which included nine Hunters among its medium and light vehicles, employed a flanking maneuver along a ragged and shifting front that allowed the Lancer garrison to break for freedom. The militia members later formed the core of the Kittery Tong resistance, and all records of their identities were purged to protect their families from Federated Suns reprisals.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Magna
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:TharHes
+TARGETING:TharHes
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:175
+ARMOR:StarSlab/5.5
+COMMUNICATIONS:Mini-Talk
+TARGETING:AGART
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+

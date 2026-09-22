@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d413-799f-8044-5879b1aef47d
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Fennec
+model:FEC-5CM
+mul id:6900
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3133
+source:TR:3145
+published:RS:3145-NTNU,RS:3145
+rules level:3
+role:Skirmisher
+
+quirk:no_arms
+
+mass:55
+engine:275 XXL (Clan) Engine
+structure:IS Endo-Composite
+myomer:Standard
+
+heat sinks:11 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:18
+RA armor:18
+LT armor:21
+RT armor:21
+CT armor:27
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:5
+Large Re-engineered Laser, Left Arm
+ER Medium Laser, Left Arm
+Large Re-engineered Laser, Right Arm
+ER Medium Laser, Right Arm
+C3 Boosted System (Master), Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+CLERMediumLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+Large Re-engineered Laser
+CLERMediumLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Radical Heat Sink System
+Radical Heat Sink System
+Radical Heat Sink System
+IS Endo-Composite
+IS Endo-Composite
+IS Endo-Composite
+IS Endo-Composite
+IS Endo-Composite
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+ISC3MasterBoostedSystemUnit
+IS Endo-Composite
+IS Endo-Composite
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLLightActiveProbe
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Fennec is a fifty-five-ton medium BattleMech developed by Corean Enterprises to address a critical shortcoming in the Armed Forces of the Federated Suns' force structure: the lack of a mobile, medium-weight C3 command platform. Introduced in 3080, the design emerged from Davion experience during the Jihad, where existing C3 command architecture proved dangerously vulnerable. The Fennec provides lance-level C3 coordination in a faster, more survivable package than previous command platforms.</p><p>Produced exclusively at Corean's Augusta facility, the Fennec filled a gap that had cost Davion commanders dearly, combining respectable speed and firepower with the networking capability needed to coordinate medium lance operations across the Federated Suns' frontline formations.</p>
+
+capabilities:<p>The Fennec shares the Corean Model AG47 endo steel chassis and VOX 330 XL engine with Corean's Legionnaire project. This powerplant pushes the fifty-five-ton design to a maximum speed of ninety-seven kilometers per hour, making it significantly faster than most medium-weight command platforms. The design sacrifices jump capability entirely, relying on raw speed for tactical repositioning.</p><p>The primary armament consists of dual arm-mounted Magna Hellstar PPCs supplemented by a pair of Sutel Precision Line medium pulse lasers, a weapon combination reminiscent of proven designs like the Warhammer and Marauder. This loadout provides credible long-range striking power backed by effective close-defense capability. However, the arm-mounted weapons configuration creates known handling issues in combination with the Fennec's narrow, digitigrade legs, as the compactly-designed torso forced designers to mount weapons in the arms rather than the torso. This preserves the design's speed-focused profile but contributes to recognized footing difficulties under sustained fire.</p><p>Nine and a half tons of Kallon Unity Weave ferro-fibrous armor provides solid protection for the weight class, though the reliance on only ten double heat sinks means MechWarriors must manage their fire discipline carefully when both PPCs are cycling. The C3 master computer integrated with the communications suite serves as the design's core purpose, enabling lance-level tactical coordination that the AFFS had previously lacked in this weight range.</p>
+
+deployment:<p>Entering production in 3133, this variant represents Corean Enterprises' willingness to incorporate Clan-grade technology into the Fennec platform. A Clan-manufactured 275-rated XXL engine and endo-composite skeleton free sufficient mass for a dramatic weapons upgrade, replacing the standard PPCs with large re-engineered lasers paired with Clan-spec extended-range medium lasers in each arm. The standard C3 master gives way to a boosted C3 master computer, enhancing the design's networking capability beyond the original specification. A Clan-built light active probe adds battlefield awareness for detecting hidden units, while eleven double heat sinks tied into a Radical Heat Sink System manage the considerable thermal demands of the advanced weapons suite. The FEC-5CM showcases the increasing availability of Clan technology on the Inner Sphere market during the Dark Age period.</p>
+
+history:<p>The Fennec's origins trace directly to the hard lessons learned by the Armed Forces of the Federated Suns during the Jihad. Throughout the Word of Blake conflict, the AFFS discovered that their C3 command architecture was dangerously top-heavy, with master computers concentrated in primarily heavy and assault BattleMechs. Only imported Cyclops and Gunslinger designs were available for lance command duties, and company-level command was limited to conventional vehicles. When the Word of Blake consistently outmaneuvered and isolated these large, slow command units through electronic countermeasures, the need for a faster, more survivable C3 platform became urgent.</p><p>Corean Enterprises answered this requirement by leveraging its ongoing Legionnaire development program. The Augusta-based manufacturer adapted the Legionnaire's chassis architecture and component base to create a dedicated C3 cavalry 'Mech, trading the Legionnaire's speed for nearly double the weapon tonnage and the space required for a C3 master computer. Early prototypes were rushed to the Davion Assault Guard, which deployed them during operations against the Taurian Concordat around 3080. These initial engagements demonstrated the Fennec's value as a mobile command platform, with Davion strike formations using the design to coordinate rapid deployment operations that repeatedly caught Taurian defenders off-balance.</p><p>Production at Corean's Augusta facility expanded through the early Republic era, with the FEC-3C companion variant entering service in 3087 to provide C3 slave-equipped wingmates for Fennec lance formations. The design remained in continuous production through the Republic's collapse and into the Dark Age, with Corean introducing the extensively modernized FEC-5CM in 3133. This variant's incorporation of Clan-grade technology, including an XXL engine and Clan-manufactured weapons systems, reflects both the increasing availability of such technology through merchant Clan trading networks and Corean's commitment to keeping the Fennec competitive against evolving threats.</p><p>The Fennec has remained a cornerstone of Federated Suns medium lance command doctrine from the Jihad's aftermath through the Republic era and into the ilClan period, with the design's three production variants ensuring that C3-equipped Davion formations can field both master and slave nodes from a common, fast-moving chassis family.</p>
+
+manufacturer:Corean Enterprises
+
+primaryfactory:Augusta
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Corean
+systemmode:CHASSIS:Endo-Composite
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:275 XXL (Clan)
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Unknown with C3 Boosted Master
+systemmanufacturer:TARGETING:Unknown

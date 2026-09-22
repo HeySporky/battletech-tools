@@ -1,0 +1,93 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b6f0-703c-b1bc-b49fd32d382e
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Platoon (AFFS)
+</Name>
+
+<Model>
+(Laser XCT 3067+)
+</Model>
+
+<year>
+3067
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Fed Suns Infantry Kit (3067+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Federated Suns infantry benefit from one of the strongest industrial bases in the Inner Sphere, with AFFS quartermasters able to supply platoons with standardized equipment and ammunition from a logistics network that few rival states can match. Foot infantry remain the backbone of AFFS planetary garrisons, cheap enough to deploy in numbers across the Federated Suns' vast territory and reliable enough to hold ground that BattleMech forces cannot permanently occupy. These Xenoplanetary Condition Troops are trained and equipped for combat in hostile environments where standard infantry cannot operate effectively, carrying specialized survival gear alongside laser weapons that allow them to fight in extreme temperatures, toxic atmospheres, or unusual gravity conditions.</p>
+</overview>
+
+<notes>
+Intro date based on production date of AFFS 3067+ advanced infantry kit
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryFederatedBarrettM61A
+</Primary>
+
+<Secondary>
+InfantryFederatedBarrettM61A
+</Secondary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+
+<specialization>
+2048
+</specialization>
+

@@ -1,0 +1,110 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a15b-7925-8742-e4c452fe3a89
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Medium Command Tower
+</Name>
+
+<Model>
+(3039) (External)
+</Model>
+
+<year>
+3039
+</year>
+
+<type>
+IS Level 5
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+60
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+ISLBXAC10(ST)
+Machine Gun(ST)
+Machine Gun(ST)
+Searchlight(ST)
+IS LB 10-X AC Ammo
+IS LB 10-X AC Ammo
+IS Ammo MG - Full
+Communications Equipment:SIZE:7.0
+EXTERNAL PowerGenerator:SIZE:10.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The advanced Medium Command Tower replaces the standard AC/10 with an LBX Autocannon/10, adding cluster ammunition capability to the command post's self-defense armament. The LBX AC/10's cluster rounds spread sub-munitions across a wider impact area, improving hit probability against fast-moving targets and providing anti-infantry area effect that the standard AC/10 cannot match. The LBX system retains solid-shot capability for anti-armor engagement.</p><p>Communications equipment continues to serve as the tower's primary purpose, coordinating the actions of surrounding defensive positions through integrated command links. The LBX AC/10's versatility enhances the tower's ability to defend itself against diverse threats, from infantry assault to vehicle probes. Medium armor and external power are consistent with the base configuration. The machine gun supplements the LBX system's cluster mode for comprehensive anti-infantry defense of the communications installation.</p>
+</capabilities>
+
+<overview>
+<p>The Command Tower serves as the nerve center of fixed defensive installations, combining advanced communications equipment with defensive armament to create a fortified command post that coordinates the actions of surrounding weapon emplacements and garrison forces. Unlike purely offensive positions, the Command Tower's primary value lies in its communications suite, which provides the command and control capability that transforms individual gun emplacements from isolated positions into a coordinated defensive network.</p><p>Armed with autocannon systems and machine guns for self-defense, the Command Tower is not intended to serve as a primary weapons platform. Its defensive armament exists to protect the communications equipment and command staff within, ensuring that the installation's coordination capability survives even direct assault. The loss of a Command Tower degrades the effectiveness of every surrounding position, making it both the most valuable and the most heavily targeted element of any defensive complex.</p>
+</overview>
+
+<history>
+<p>The evolution of fortification doctrine across a millennium of interstellar warfare reveals a consistent truth: walls and weapons alone do not make a fortress. From the first crude border emplacements of the Age of War through the magnificent Castle Brians of the Star League, from the desperate improvised defenses of the Succession Wars through the technological renaissance of the Clan Invasion era and the horrors of the Jihad, the defining factor in defensive success has always been coordination. The gun emplacements that fill defensive perimeters are only as effective as the command structure that directs their fire.</p><p>The ilClan era inherits this accumulated wisdom along with the physical remnants of centuries of fortification construction. Command Towers represent the synthesis of these lessons, providing the communications infrastructure that allows defensive networks to function as integrated systems rather than collections of individual positions. Modern defensive doctrine recognizes that a well-coordinated network of modest emplacements outperforms a collection of powerful but uncoordinated positions, and the Command Tower exists to ensure that coordination. The tower's own defensive armament serves as a reminder that even command posts must be prepared to fight, for the history of siege warfare is filled with examples of command facilities destroyed by forces that bypassed or breached the outer defenses.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+2
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+90
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

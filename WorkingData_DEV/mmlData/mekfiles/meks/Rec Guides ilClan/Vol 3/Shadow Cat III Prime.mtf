@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-db54-79bd-9b1c-b990fef5702e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Shadow Cat III
+model:Prime
+mul id:7491
+
+Config:Biped OmniMek
+techbase:Clan
+era:3111
+source:RG03
+published:RG03
+rules level:2
+role:Striker
+
+quirk:low_profile
+
+mass:45
+engine:270 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:10
+walk mp:6
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:14
+RA armor:14
+LT armor:18
+RT armor:18
+CT armor:22
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:4
+RTR armor:4
+RTC armor:6
+
+Weapons:3
+Gauss Rifle, Left Arm
+Medium Pulse Laser, Right Arm
+Medium Pulse Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLMediumPulseLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Clan Gauss Ammo (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLMASC
+CLMASC
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Shadow Cat III is a forty-five-ton Clan OmniMech born from necessity in the aftermath of the Second Combine-Dominion War. With Clan Nova Cat's touman and industrial facilities on Irece severely damaged, Khan Ajax Drummond recognized that the Clan needed a new, more generalized machine to rebuild its military strength. Taking inspiration from Clan Jade Falcon's Thor II, Nova Cat scientists redesigned the Shadow Cat chassis by removing the fixed jump jets to free tonnage for additional pod space and enhanced armor protection.</p><p>Introduced in 3111, the Shadow Cat III was given distinctive feline-inspired aesthetics that evoked the Nova Cat totem, a deliberate choice to bolster warrior morale during a period of recovery. The look proved so popular that it would be carried over into future projects. Production is based at the Barcella Beta facility on Irece, where it replaced the original Shadow Cat production line.</p>
+
+capabilities:<p>The Shadow Cat III sacrifices the original Shadow Cat's jump capability in exchange for nineteen tons of pod space and eight tons of ferro-fibrous armor, a substantial improvement over its predecessor's seven tons. The chassis retains the Type 79-45 endo steel internal structure and RFUM 270 XL extralight engine, maintaining the same ground speed profile. Critically, the myomer accelerator signal circuitry is preserved, enabling burst speeds approaching 130 kilometers per hour that partially compensate for the loss of jump jets.</p><p>The Prime configuration mirrors the original Shadow Cat's approach with a Gauss rifle as its primary weapon, allowing engagement at extreme range with devastating effect. Paired medium pulse lasers provide accurate close-range backup. Without jump jets, the Shadow Cat III Prime relies more heavily on speed and positioning than its predecessor, making terrain management crucial for MechWarriors transitioning from the original design.</p><p>The increased pod space allows alternate configurations to carry heavier weapon loads than any standard Shadow Cat configuration could accommodate, while several configurations restore jump capability through pod-mounted jump jets. This expanded flexibility makes the Shadow Cat III more adaptable to mission requirements, though the lack of fixed jump capability limits its baseline effectiveness in mountainous or heavily urbanized terrain.</p>
+
+deployment:<p>The primary configuration carries a Gauss rifle as its main weapon, providing powerful long-range striking capability consistent with the Shadow Cat heritage. Paired medium pulse lasers serve as accurate close-range backup weapons. Without fixed jump jets, this variant relies on ground speed and MASC bursts for positioning, making it most effective in open terrain engagements where its long-range firepower advantage can be fully exploited.</p>
+
+history:<p>The Shadow Cat III entered service during a turbulent period for Clan Nova Cat. The Second Combine-Dominion War had devastated the Clan's military and industrial base on Irece, leaving the once-proud touman a shadow of its former strength. The new design represented both a practical military need and a symbolic commitment to rebuilding, with its distinctive feline aesthetics designed to invoke the Nova Cat spirit among warriors who had endured tremendous hardship.</p><p>Shadow Cat IIIs became prominent as the Nova Cats struggled to rebuild their depleted touman under the pressures of an obliterated industrial base and severe restrictions from their Combine overlords. Despite the urgent need for new BattleMechs, a few Shadow Cat IIIs reached Nova Cat enclaves within the Republic of the Sphere as a gesture from the Clan to their separated brethren. Popular in trials, the Shadow Cat III would not see true combat until the joint Combine/Nova Cat campaign into the Republic.</p><p>During the fighting on Pike IV, Alpha Galaxy forces engaged Republic defenders in what became a proving ground for the new design. A Nova of Shadow Cat IIIs and upgraded Thunderbird Battle Armor served as screening forces, detecting engine startups in close proximity before two lances of Manticore II tanks opened fire. The OmniMechs' MASC-enabled speed bursts made them difficult targets, and the Nova Cats responded with devastating arm-mounted weapons fire that left the Republic tanks as nothing more than charred scrap.</p><p>Following the Nova Cat Annihilation, the Draconis Combine absorbed the Irece production facilities and continued manufacturing the Shadow Cat III alongside other former Nova Cat designs. The DCMS assists in maintaining ClanTech equipment and production runs for usual fees and access to production. The design has found a niche among Combine warriors, though it has received only limited interest from the Rasalhague Dominion. The Jade Falcons actively shun the design due to its Nova Cat origins.</p>
+
+manufacturer:Barcella Beta
+
+primaryfactory:Irece
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Type 79-45
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:RFUM
+systemmode:ENGINE:270 XL
+systemmanufacturer:ARMOR:Compound H17
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Sipher CommCon
+systemmode:COMMUNICATIONS:SCU-9
+systemmanufacturer:TARGETING:Build 4 CAT
+systemmode:TARGETING:TTS

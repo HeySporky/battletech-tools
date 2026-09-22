@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cd8c-77d4-b1be-78c05f88286c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Solitaire
+model:
+mul id:5097
+
+Config:Biped
+techbase:Clan
+era:3064
+source:TR:3067,TR:J
+published:RS:J
+rules level:2
+role:Striker
+
+quirk:exp_actuator
+weaponquirk:imp_cooling:RT:2:CLHeavyLargeLaser
+weaponquirk:stable_weapon:RT:2:CLHeavyLargeLaser
+
+mass:25
+engine:250 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:10
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:8
+RA armor:8
+LT armor:9
+RT armor:9
+CT armor:10
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:3
+RTR armor:3
+RTC armor:3
+
+Weapons:4
+Heavy Medium Laser, Left Torso
+Heavy Small Laser, Left Torso
+Heavy Large Laser, Right Torso
+Heavy Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavySmallLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Always flying in the face of convention, Clan Diamond Shark introduced the Solitaire in 3064 as a non-OmniMech design intended for front-line service. In a Clan culture that prizes the flexibility of OmniMech technology above all else, the decision to field a standard BattleMech in premier combat formations was a bold move, yet one that paid dividends almost immediately. The Solitaire was designed from the outset as an advance-deployed skirmisher, built to close with enemy formations at extreme speed and tear apart isolated targets before the main engagement begins. Its reputation for punching well above its weight class has made it one of the more sought-after light designs in the Clan inventory.</p>
+
+capabilities:<p>"Spare no expense" is not a phrase commonly heard among the Diamond Sharks, where even the hardest-line warrior keeps at least one eye on Clan profits. Still, that philosophy guided the creation of the Solitaire. An XL engine, endo steel chassis, and ferro-fibrous armor pack extraordinary performance into a twenty-five ton frame capable of speeds exceeding 160 kph. With ninety-six percent of its maximum armor protection, the Solitaire can absorb punishment that would cripple lighter designs while remaining fast enough to dictate engagement terms against nearly any opponent.</p><p>The Solitaire mounts a quartet of heavy lasers, from the devastating Model X Heavy Large Laser down through paired Model V Heavy Mediums to a Model II Heavy Small Laser. This armament gives the design an outsized bite for its weight class, capable of threatening even assault-weight machines caught out of position. The heavy laser suite does generate significant heat, and the design cannot dissipate a full alpha strike, but Diamond Shark warriors routinely accept this trade-off, maneuvering into a flanking position before unleashing everything at once and withdrawing before their target can respond.</p>
+
+deployment:<p>The base Solitaire configuration represents the original Diamond Shark production model, optimized for the advance skirmisher role. These machines are typically fielded in Stars of three to five, operating ahead of the main battle line to identify and engage enemy scouts, harass command elements, and disrupt formation cohesion before heavier Clan assets close to decisive range. Diamond Shark commanders favor deploying Solitaires on flanking approaches where their exceptional speed allows them to exploit gaps in the enemy line and strike at vulnerable rear-echelon targets. The design's heavy laser armament makes it a serious threat to any opponent that allows it to close, though wise commanders withdraw their Solitaires once the general engagement begins rather than risk them against concentrated return fire.</p>
+
+history:<p>The Solitaire emerged from one of Clan Diamond Shark's more unconventional decisions in the mid-thirty-first century. By 3064, the Diamond Sharks had established themselves as the premier merchant Clan, but their military forces still needed capable front-line machines. Rather than develop yet another OmniMech, the Shark scientists designed a purpose-built standard BattleMech optimized for a single role, advance skirmishing, reasoning that a dedicated design could outperform a generalist OmniMech configuration in that specific niche.</p><p>Production was established aboard the CDS Poseidon, a Potemkin-class WarShip converted into a mobile manufacturing facility. This arrangement reflected the Diamond Sharks' nomadic trading nature and ensured that production could continue regardless of territorial shifts. The facility had relocated from the Clan Homeworlds to the Inner Sphere, operating in the vicinity of Itabaiana during the Civil War and Jihad periods. A second catalog entry under the Diamond Shark Factory Ship designation reflects the mobile nature of this production line.</p><p>The Solitaire quickly proved its worth in combat against Clan Ice Hellion raiders targeting Diamond Shark holdings, and demand for the design grew rapidly among Shark warriors. The Diamond Sharks also leveraged the design as a trade commodity, selling significant numbers to Clan Ghost Bear at favorable prices. Whether this represented repayment for past concessions or an investment in future trade access through Ghost Bear territory remained a matter of debate among intelligence analysts.</p><p>During the Jihad, field refit variants began appearing as the widespread disruption of supply lines encouraged improvisation. The Solitaire 2 emerged around 3080 as a universal refit, not tied to any single Clan or faction, reflecting the broader dispersal of Diamond Shark trade goods across the Inner Sphere. The design continued in service through the Dark Age and into the ilClan era, its speed and firepower ensuring ongoing relevance even as newer designs entered production.</p>
+
+manufacturer:CDS Poseidon [Potemkin Class]/Auxiliary Production Site #4|Poseidon
+
+primaryfactory:Itabaiana|Diamond Shark Factory Ship
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Alpha Primary Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Model SF-25 (XL)
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:FF01 Ferro Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:S9R Beta Series Communications
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Gamma-Five Sensor Package

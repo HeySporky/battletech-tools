@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d983-7787-ba4a-7d6b980f69c4
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Jenner IIC
+model:
+mul id:1698
+
+Config:Biped
+techbase:Clan
+era:3042
+source:RG18,RGv1
+published:RG18,RGv1,RSFP:MERCS-CLAN
+rules level:2
+role:Striker
+
+quirk:no_arms
+
+mass:35
+engine:315 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:9
+jump mp:7
+
+armor:Ferro-Fibrous(Clan)
+LA armor:3
+RA armor:3
+LT armor:6
+RT armor:6
+CT armor:13
+HD armor:7
+LL armor:8
+RL armor:8
+RTL armor:3
+RTR armor:3
+RTC armor:7
+
+Weapons:3
+SRM 6, Left Arm
+SRM 6, Right Arm
+Streak SRM 4, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLSRM6
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLSRM6
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Clan Ammo SRM-6
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Clan Streak SRM 4 Ammo
+Clan Ammo SRM-6
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+CLStreakSRM4
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Despite a somewhat enigmatic origin, the Jenner IIC is a powerful and fast light striker 'Mech. Serving with distinction during Operation Revival among the forces of Clan Nova Cat, the Jenner IIC caused confusion among Inner Sphere observers as the original Jenner was first fielded in September 2784, the same year the Exodus fleet left the Inner Sphere in November.</p><p>Pre-production Jenners were newly deployed when the SLDF left the Inner Sphere to the suffering of the Succession Wars. The Clans were only reintroduced to the BattleMech through isorla Jenners that Wolf's Dragoons returned with on their second supply run. Guided by visions of future doom, the Nova Cats claimed the Kuritan 'Mech as their own and turned what was one of the Inner Sphere's best light strikers into one of the fastest 'Mechs of its time.</p>
+
+capabilities:<p>The Jenner IIC takes the original Jenner concept to the extreme, being fast and well-armed but ill-suited for prolonged engagements. While massing the same as its progenitor, the IIC mounts a more powerful extralight engine. It is ideal for fast striking, scouting, scout-hunting, and head-hunting operations. Jenner IICs are often some of the first 'Mechs off the DropShip, clearing out scouts and other threats early in a battle.</p><p>The base configuration mounts a Pattern C4 Streak SRM-4 in the center torso and a Pattern J7 SRM-6 launcher in each arm, carrying one ton of reloads for each missile rack. Though vulnerable to anti-missile systems and heavily dependent on supply lines, the hail of missiles the Jenner IIC can unleash makes it ideal for eliminating light threats such as scouts and combat vehicles.</p><p>To achieve this firepower on a light chassis, the Jenner IIC uses a 315-rated XL engine, endo steel structure, and three and a half tons of ferro-fibrous armor. It also carries enough jump jets to leap 210 meters, giving it exceptional mobility.</p>
+
+deployment:<p>The standard SRM-laden Jenner IIC served in nearly every Clan's touman during the invasion era. Armed with paired SRM-6 launchers and a Streak SRM-4, this configuration excels at overwhelming light opposition with devastating missile volleys. Its dependence on ammunition supply lines is offset by its ability to quickly eliminate scouts and light vehicles at the start of an engagement.</p>
+
+history:<p>Though the original version is used by a number of Clans, the Nova Cats fielded multiple Jenner IIC variants as well as continuing its development after their Abjurement. Considerable resources were spent to bring new production online of visually refreshed versions at their Irece Alpha facility to help fill out their rebuilding touman.</p><p>Ultimately, the Jenner IIC outlasted the Clan that designed it. During the final battles for Irece in late 3142, Jenner IICs acted as sentries and early-warning scouts, protecting civilian and military transports evacuating before the Dragon's wrath fell upon them. Several Stars of factory-fresh Jenner IICs and Arbalests screened the spaceport near the Irece Alpha production facilities, but the Gunji-no-Kanrei's forces steamrolled the spaceport and only a handful of DropShips managed to reach orbit.</p><p>With the acquisition of Irece Alpha following the Nova Cats' fall, Clan Sea Fox took over production of the Jenner IIC, proliferating it throughout the Inner Sphere. Clan Wolf continues to be the largest customer, forcing mercenaries to pay a premium for this premiere striker. The agreement with the Draconis Combine has the Jenner IIC openly available to all purchasers willing to meet Sea Fox prices.</p>
+
+manufacturer:Irece Alpha|Barcella Alpha
+
+primaryfactory:Irece|Barcella
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type D-SA Modified Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Series V Fusion 315 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Epsilon Compound 31 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Clan Type 2 Light
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:NCO System 7
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Build 1 HLF TTS

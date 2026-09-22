@@ -1,0 +1,82 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bf43-7ab9-8005-74313e11f3ea
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Squad (Anti-'Mech)
+</Name>
+
+<Model>
+(Flamer)
+</Model>
+
+<year>
+2025
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+AntiMekGear
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Anti-BattleMech foot squads are squad-strength formations trained in close-assault tactics against armored combat vehicles. Smaller than a full anti-BattleMech platoon, these squads rely on stealth, ambush positioning, and terrain advantage to close with targets that outmass them by orders of magnitude. Their reduced numbers make each engagement a high-risk commitment, but in restrictive terrain where a single BattleMech can be isolated, even a squad of trained anti-BattleMech infantry poses a credible threat to leg actuators, sensor arrays, and exposed weapon housings.</p>
+</overview>
+
+<source>
+TW
+</source>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+1
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+Flamer (Man-Portable)
+</Secondary>
+

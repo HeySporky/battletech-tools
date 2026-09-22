@@ -1,0 +1,244 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ac45-7f96-8385-3f71b88e7505
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Merlin
+</Name>
+
+<Model>
+Ngake
+</Model>
+
+<mul id:>
+2182
+</mul id:>
+
+<year>
+3078
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+cargobay:150.0:2:1::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:84.0:0:-1::-1:0
+cargobay:147.0:3:5::-1:0
+</transporters>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<heatsinks>
+140
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+6000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+250
+200
+200
+230
+</armor>
+
+<Nose Equipment>
+(B) Sub-Capital Laser /1
+Sub-Capital Laser /1
+Sub-Capital Laser /1
+Sub-Capital Laser /1
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISLargeXPulseLaser
+ISLargeXPulseLaser
+ISLargeXPulseLaser
+ISLargeXPulseLaser
+(B) ISLaserAntiMissileSystem
+ISLaserAntiMissileSystem
+ISLaserAntiMissileSystem
+ISLaserAntiMissileSystem
+(R) (B) ISLargeXPulseLaser
+(R) ISLargeXPulseLaser
+(R) (B) ISLaserAntiMissileSystem
+(R) ISLaserAntiMissileSystem
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISLargeXPulseLaser
+ISLargeXPulseLaser
+ISLargeXPulseLaser
+ISLargeXPulseLaser
+(B) ISLaserAntiMissileSystem
+ISLaserAntiMissileSystem
+ISLaserAntiMissileSystem
+ISLaserAntiMissileSystem
+(R) (B) ISLargeXPulseLaser
+(R) ISLargeXPulseLaser
+(R) (B) ISLaserAntiMissileSystem
+(R) ISLaserAntiMissileSystem
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISLargeXPulseLaser
+ISLargeXPulseLaser
+(B) ISLaserAntiMissileSystem
+ISLaserAntiMissileSystem
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+20
+</structural_integrity>
+
+<capabilities>
+<p>The Ngake variant stands as a radical conversion into a pocket WarShip configuration. Fighter bays and all standard weapons are removed to accommodate four sub-capital laser class-1 weapons in the nose, giving the vessel anti-WarShip capability. Close defense is provided by fourteen Large X-Pulse Lasers distributed across all arcs, while fourteen Laser Anti-Missile Systems provide comprehensive missile defense coverage. Heat sink capacity increases dramatically to 140 double sinks to support the energy-intensive weapons suite.</p><p>Cargo capacity drops to 297 tons with the fighter bays removed entirely. The crew complement increases slightly to twenty-seven. Thrust performance, armor protection, and structural integrity remain identical to the base Merlin, making the Ngake variant equally maneuverable while carrying capital-grade weapons.</p>
+</capabilities>
+
+<overview>
+<p>The Merlin class assault DropShip is a combination WarShip escort and fast-attack craft developed through collaboration between the Free Worlds League and its allies in the early 3060s. This 2,500-ton Spheroid was created to fill a gap in the League's naval capabilities after the collapse of an alliance that had previously provided access to comparable assault craft production.</p><p>Rushed through design and testing, the Merlin proved surprisingly well-rounded despite its expedited development. Fast, well-armored, and carrying substantial firepower, the design earned rave reviews from crews and the vessels it was assigned to protect. Its primary limitations are minor heat management issues and a restricted fuel supply that demands careful planning during independent operations.</p>
+</overview>
+
+<deployment>
+<p>The Ngake is a unique vessel captured from the Word of Blake during the Jihad and refitted by the Principality of Regulus. First spotted undergoing conversion at the Ngake system, this one-of-a-kind pocket WarShip demonstrated the viability of mounting sub-capital weapons on the Merlin hull and served as the proof-of-concept for the subsequent R1 production variant.</p>
+</deployment>
+
+<history>
+<p>The Merlin was born from the Word of Blake-Free Worlds League alliance, intended to replace the Capellan Lung Wang assault craft that had become unavailable following the collapse of the Marik-Liao pact. With Word of Blake technical assistance, the design process was expedited and the first Merlin entered service in 3063. Despite being rushed into production, the design exhibited remarkably few flaws.</p><p>Irian Technologies' Clipperton facility assembled more than a dozen Merlins by 3067, while the Brigadier Corporation's Gibson plant suffered a series of manufacturing accidents that limited its output to a single vessel and consumed excessive materials. Word of Blake security forces traced these problems to ComStar saboteurs and expected the plant to reach full efficiency shortly thereafter.</p><p>During the Jihad, a unique Merlin was captured from the Word of Blake and refitted into a pocket WarShip configuration by the Principality of Regulus. This success led to a limited production variant, though output remained low as the Principality had to acquire standard Merlins and convert them individually. The Merlin has remained in service with most of the former and reconstituted Free Worlds League powers and various mercenary forces into the thirty-second century.</p>
+</history>
+
+<manufacturer>
+Refit - Ngake Ducal Spaceport
+</manufacturer>
+
+<primaryFactory>
+Ngake
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Marik
+</source>
+
+<published>
+XTR:Marik
+</published>
+
+<tonnage>
+2500.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+15
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+9
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+2
+</escape_pod>
+

@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c136-7229-94f4-bc134d096e6c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Warhammer
+model:WHM-6B
+
+Config:Biped
+techbase:Inner Sphere
+era:2609
+source:TR:3025C
+rules level:1
+role:Juggernaut
+
+quirk:stable
+quirk:searchlight
+quirk:ubiquitous_clan
+quirk:rugged_2
+quirk:ubiquitous_is
+
+mass:70
+engine:210 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:20 Single
+walk mp:3
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:17
+RT armor:17
+CT armor:22
+HD armor:9
+LL armor:15
+RL armor:15
+RTL armor:8
+RTR armor:8
+RTC armor:9
+
+Weapons:11
+PPC, Left Arm
+PPC, Right Arm
+Medium Laser, Left Torso
+LRM 5, Left Torso
+Small Laser, Left Torso
+Machine Gun, Left Torso
+SRM 6, Right Torso
+Medium Laser, Right Torso
+LRM 5, Right Torso
+Small Laser, Right Torso
+Machine Gun, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heat Sink
+PPC
+PPC
+PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heat Sink
+PPC
+PPC
+PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Medium Laser
+LRM 5
+Small Laser
+Machine Gun
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+SRM 6
+SRM 6
+Medium Laser
+LRM 5
+Small Laser
+Machine Gun
+IS Ammo SRM-6
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ammo LRM-5
+IS Ammo MG - Full
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Warhammer was introduced in 2515 by StarCorps Industries as a heavy fire-support platform capable of anchoring battle lines and devastating opponents at range. Designed in response to a procurement request for a mobile 'Mech with enough firepower to destroy or severely damage any 'Mech of the same weight class or lower, StarCorps delivered what would become one of the most iconic BattleMechs in history. The seventy-ton chassis quickly proved itself across every major conflict of the Star League era, earning a reputation as the backbone of heavy and battle regiments and a favorite mount of the legendary Star League Gunslingers.</p><p>Produced under license by manufacturers across the Inner Sphere and Periphery, the Warhammer's proliferation is rivaled by few designs. Its combination of devastating long-range firepower, respectable protection, and adaptable chassis has ensured a steady supply across all eras of warfare, with demand only increasing with each new conflict. Few BattleMech designs can claim as broad and continuous a production history as the Warhammer.</p>
+
+capabilities:<p>The Warhammer almost defines the heavy weight class of BattleMechs. Its rugged, stable chassis carries a pair of deadly arm-mounted particle projection cannons that give the design dependable firepower at range, capable of threatening even the heaviest armor. A six-tube Holly short-range missile system supplements these primary weapons and is itself backed by pairs of medium and small lasers and SperryBrowning machine guns, providing a layered defensive suite against infantry and light 'Mechs that close to exploit the PPC minimum range. This combination ensures the Warhammer remains dangerous at every engagement bracket.</p><p>With a top speed of sixty-four kilometers per hour, the Warhammer can keep pace with most battle formations and its eighteen heat sinks allow it the freedom to move and fire without undue concern over heat buildup during sustained engagements. Respectable armor protection enables the design to absorb significant punishment while maintaining combat effectiveness, though the lack of jump capability limits its tactical flexibility in broken terrain. Dated but competitive electronics, including the O/P 3000 COMSET communications suite and O/P 1500 ARB targeting and tracking system, make the Warhammer equally capable of serving in the line of combat or in a command slot, a versatility that has kept it at the forefront of heavy lance doctrine for over five centuries.</p>
+
+deployment:<p>Details regarding the 6B variant remain sparse in surviving military records. The designation suggests it represented one of the earliest field modifications to the original 6R configuration during the early Succession Wars, though the specific nature of the changes and the circumstances of its introduction are not well documented. Limited numbers appear to have seen service, and the design never achieved the widespread adoption of other contemporary Warhammer variants such as the 6D or 6K.</p>
+
+history:<p>The Warhammer may be the best representation of the average citizen's view of the BattleMech. From the unwavering lines of the Star League Defense Force bringing down the Usurper, to the Periphery pirate screaming "Stand and Deliver," the Warhammer looms large over popular images of BattleMech warfare. First deployed in 2515, the design has served admirably in every major action in the Inner Sphere and beyond, from the liberation of Terra from Stefan Amaris to the bloody fields of Marduk in 3039. Every Successor State military makes use of the design, and it is held in high regard by mercenaries and Periphery nations alike.</p><p>Perhaps the most famous chapter in the Warhammer's long battlefield history occurred during the Marik Civil War in 3015, when Wolf's Dragoons fought their way through Duke Anton Marik's forces in engagements that became the stuff of legend. The fighting on Anton's New Delos saw Warhammers on both sides pushing their heat sinks to the limit in brutal close-quarters engagements that demonstrated the design's durability under extreme conditions. The Spirit Cat allies later witnessed the effectiveness of Marik Warhammers firsthand when the Regulan Hussars invaded Marik in 3147, where fire lances built around the design provided devastating covering fire for faster striker elements.</p><p>The Federated Commonwealth's Warhammer production capacity suffered a significant blow with the loss of the 'Mech's primary Olivetti factory on Sudeten to Clan Jade Falcon early in the Clan Invasion. The Commonwealth was reduced to refitting ancient Succession Wars machines to the -7S standard until Project Phoenix brought new Warhammers to the Federated Suns and Lyran Commonwealth more than a decade later. Clan garrisons also developed various ClanTech refit kits for use on captured FedCom Warhammers, replacing the PPCs with pulse lasers on models not yet equipped with double heat sinks. The recovery of the Helm Core brought about a new generation of Warhammer variants, first in the form of refit kits and later with new production variants employing reclaimed technology, with extended-range cannons and improved heat-dissipating technology making an effective combination even against the Clan invaders.</p><p>The Free Worlds League found a booming business in the export of Warhammer refit kits in the years before and after the Clan Invasion, and the popularity of their kits and the deals made with other Houses during the conflict made Free Worlds League Warhammers ubiquitous throughout the Inner Sphere. Production of new units within the League was limited until early in the Jihad, when the Prince of Regulus backed a new Warhammer line on Wallis to supply BattleMechs for his ambitious plans. The Draconis Combine refit its own Warhammers to the -7K standard, and when a variant featuring paired heavy PPCs proved popular enough that other Houses began copying it, Alshain Weapons received funding to build a new Warhammer production line on Tok Do. With the renewed emphasis on tradition in the Draconis Combine, Alshain emphasized the classic chassis on all their Warhammers.</p><p>Wolf's Dragoons contracted to begin production runs on a Golden Century-era Clan Warhammer variant which was popular with the original Dragoons, fulfilling several Clans' subsequent requests for the model. The Taurian Concordat has constructed the Warhammer on Pinard since the 'Mech was first introduced, and after the discovery of the New Dallas Memory Core during the Jihad, SLDF Royal models were introduced into production. After the asteroid attack on Taurus, TTI CEO Matthias Commager won reconstruction bids that not only funded facility refurbishment but brought attention to a revitalized Taurus Territorial Industries, which chose the Warhammer as its new flagship product.</p>
+
+manufacturer:StarCorps Industries
+
+primaryfactory:Crofton
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

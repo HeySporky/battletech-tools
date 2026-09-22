@@ -1,0 +1,212 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e156-720e-ae36-76a1336dfec1
+</UUID>
+
+<UnitType>
+SmallCraft
+</UnitType>
+
+<Name>
+Bus
+</Name>
+
+<Model>
+S-7A
+</Model>
+
+<mul id:>
+3879
+</mul id:>
+
+<year>
+2602
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:32.0:0:1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:0.0:0:-1::-1:0
+1stclassquarters:0.0:0:-1::-1:0
+steeragequarters:15.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+160
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+80
+26
+26
+32
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Side Equipment>
+</Left Side Equipment>
+
+<Right Side Equipment>
+</Right Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+5
+</structural_integrity>
+
+<capabilities>
+<p>The S-7A is built around three separable modules linked by explosive bolts: a forward passenger section accommodating ten occupants and a pilot, a central cargo section with two pressurized bays totaling 31.5 tons of capacity, and an aft engineering module housing the fusion drive. The modular architecture allows any single section to be jettisoned in an emergency, with a surrounding framework ensuring the remaining two sections stay functional. The secondary cargo bay maintains independent pressurization, serving as an airlock for the main hold.</p><p>With a safe thrust of 3G and no weapons, the Bus prioritizes capacity and reliability over performance. It depends entirely on its host vessel or installation for any defensive capability, making independent operation outside protected environments impractical.</p>
+</capabilities>
+
+<overview>
+<p>The S-7A Bus is a civilian aerodyne Small Craft produced by Shipil Company of Skye beginning in 2602, designed for personnel and cargo transport in the vacuum of space. Its non-aerodynamic hull prevents atmospheric operations, but this limitation was accepted in exchange for greater cargo volume than comparable aerodyne designs. The type became one of the most widely distributed Small Craft in the Inner Sphere, serving a broad range of operators across multiple states.</p>
+</overview>
+
+<deployment>
+<p>The S-7A serves as a utility transport aboard JumpShips, DropShips, and orbital installations throughout the Inner Sphere. Its unarmed, space-only configuration limits it to non-combat support roles, but for routine personnel transfer and cargo handling it is reliable and easy to maintain.</p>
+</deployment>
+
+<history>
+<p>Shipil Company introduced the S-7A Bus in 2602, and broad licensing during the Star League era spread production to manufacturers across the Inner Sphere, including Earthwerks Ltd. in the Capellan Confederation, Tomori Trans Industrial in the Draconis Combine, and Vandenberg Mechanized Industries in the Taurian Concordat. This wide distribution gave the design remarkable survivability through the Succession Wars, with multiple independent production lines maintaining output despite conflict and industrial disruption.</p><p>Clan forces adapted the platform in 2843, producing the S-7AC variant with Clan-specification armor for use aboard their WarShips and orbital installations. Both Inner Sphere and Clan versions remained in active production into the Dark Age period.</p>
+</history>
+
+<manufacturer>
+Andurien AeroTech (A Division of Free Worlds Defense Industries)|Andurien AeroTech (A Division of Free Worlds Defense Industries)|Earthwerks Ltd.|Federated-Boeing Interstellar - Port Simon Shipyards|Shipil Company|Tomori Trans Industrial|United Outworlders Corporation|Vandenberg Mechanized Industries
+</manufacturer>
+
+<primaryFactory>
+Lopez|Westover|Ares|Galax|Skye|Chatham|Ramora|Illiushin
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Standard
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<published>
+RS:Aero2
+</published>
+
+<tonnage>
+100.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+3
+</crew>
+
+<officers>
+1
+</officers>
+
+<gunners>
+0
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

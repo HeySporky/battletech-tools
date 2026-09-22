@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a646-7e0f-a0a2-4831761349d2
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Zou Heavy Battle Armor
+</Name>
+
+<Model>
+(C3)(Sqd6)
+</Model>
+
+<mul id:>
+9105
+</mul id:>
+
+<year>
+3113
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+easy_pilot
+sensor_ghosts
+</quirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+37
+</armor_type>
+
+<armor_tech>
+5
+</armor_tech>
+
+<Squad Equipment>
+BABattleClaw:LA
+CLBAMedium Recoilless Rifle:RA
+BattleArmorC3:Body
+IS BA Laser Reflective (Reflec/Glazed):LA
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):RA
+IS BA Laser Reflective (Reflec/Glazed):LA
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The C3 variant replaces the medium laser with a battle armor C3 system, a medium recoilless rifle with twenty rounds of ammunition, and a battle claw on the left arm. This loadout shifts the suit from direct combatant to a command-and-control platform capable of coordinating fire across linked units. The recoilless rifle provides adequate self-defense, while the battle claw enables close combat and field manipulation tasks.</p><p>The C3 integration provides commanders with a heavier ground unit for combined-arms operations, allowing troopers to direct artillery strikes, call in long-range fire, and coordinate maneuvers from hardened observation posts. When dug into a defensive position, the C3 Zou is exceptionally difficult to dislodge, as any attempt to close exposes attackers to precisely coordinated supporting fire from networked assets.</p>
+</capabilities>
+
+<overview>
+<p>The Zou is a heavy battle armor suit developed by Ishikawajima-Harima Battle Armor Industries for the Draconis Combine Mustered Soldiery. Named for the Japanese word for elephant, the 1,500-kilogram design entered service in 3113 as part of the Combine's third generation of battle armor. Built to fulfill a command-and-control role while providing heavy infantry capability, the Zou earned a reputation for toughness among DCMS infantry formations. The design is fielded in both a direct-combat configuration and a variant equipped with battlefield coordination electronics.</p>
+</overview>
+
+<deployment>
+<p>Six-trooper formations equipped with the C3 Zou gained substantial coordination capacity, with the larger unit able to maintain overlapping sensor coverage and fire direction across a wider frontage. The additional troopers provided both redundancy for the C3 network and increased close-defense capability, allowing the formation to anchor larger combined-arms elements while remaining difficult to neutralize through attrition.</p>
+</deployment>
+
+<history>
+<p>The Zou emerged from the Draconis Combine's third generation battle armor program, developed by Ishikawajima-Harima Battle Armor Industries on Luthien. The High Command's original requirement called for a successor to the aging Kanazuchi assault suit, and the initial prototype fulfilled that role with heavy armor plating designed to counter energy weapons. A subsequent development phase added command-and-control electronics, transforming the design from a straightforward heavy combatant into a coordination platform for combined-arms operations.</p><p>The suit entered service in 3113 but saw limited distribution for nearly two decades. Deployment expanded significantly in the 3130s as the DCMS prepared for offensive operations against the Republic of the Sphere. With Kanazuchi stocks dwindling, the Zou filled a growing need in heavy infantry formations across multiple frontline regiments. The C3-equipped variant proved especially popular among active combat commands, where its coordination capabilities justified the higher procurement cost. The original laser-armed pattern remained common in garrison and second-line assignments where combat intensity was lower.</p>
+</history>
+
+<manufacturer>
+Ishikawajima-Harima Battle Armor Industries
+</manufacturer>
+
+<primaryFactory>
+Luthien
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:DC
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+11
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

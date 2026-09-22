@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e101-71c8-8c1a-dc763d039c49
+</UUID>
+
+<UnitType>
+ProtoMek
+</UnitType>
+
+<Name>
+Procyon
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4865
+</mul id:>
+
+<year>
+3063
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Biped
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<interface_cockpit>
+false
+</interface_cockpit>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+42
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+2
+8
+2
+2
+6
+</armor>
+
+<Body Equipment>
+EIInterface
+</Body Equipment>
+
+<Head Equipment>
+</Head Equipment>
+
+<Torso Equipment>
+</Torso Equipment>
+
+<Right Arm Equipment>
+CLERSmallLaser
+</Right Arm Equipment>
+
+<Left Arm Equipment>
+CLERSmallLaser
+</Left Arm Equipment>
+
+<Legs Equipment>
+</Legs Equipment>
+
+<capabilities>
+<p>The base Procyon combines good mobility with an energy weapon payload designed for maximum operational endurance. A forty-five-rated fusion engine drives the five-ton frame at sixty-four kilometers per hour cruising speed, and twin ER Small Lasers mounted in the arms provide reliable firepower without ammunition dependency. Four heat sinks manage the thermal load from sustained laser fire, allowing a Procyon Point to maintain continuous engagement without overheating concerns. Twenty points of armor provide adequate protection, comparable to many first-generation designs of similar mass.</p><p>The Procyon's all-energy weapons configuration gives it virtually unlimited combat endurance, a significant advantage during extended operations where resupply is uncertain. A Point of five Procyons puts ten ER Small Lasers on target, sufficient to threaten light Meks and overwhelm battle armor formations. The design lacks jump jets in its base configuration, limiting terrain flexibility, but several variants address this deficiency. Commanders typically deploy Procyon Points alongside heavier Mek formations, where the ProtoMeks provide flanking fire and clean up damaged targets while the main force absorbs enemy attention.</p>
+</capabilities>
+
+<overview>
+<p>The Procyon is a five-ton second-generation ProtoMek designed by Clan Coyote, among the first Clans to stage Trials on Huntress for ProtoMek technology after the Smoke Jaguar Annihilation. Originally conceived as a quadruped design in the Coyotes' effort to reclaim their former reputation as the innovator Clan, practical limitations with both the technology and pilot adaptation forced Coyote engineers to re-envision their debut machine with a conventional humanoid configuration. The Procyon entered full-scale production after three years of testing, emerging as a versatile energy-weapon platform built to support heavier BattleMek and Elemental formations with maximum field endurance.</p>
+</overview>
+
+<deployment>
+<p>The base Procyon mounts ER Small Lasers in each arm, providing a balanced dual-laser engagement profile with no ammunition dependency. Four heat sinks keep thermal management comfortable during sustained fire. Twenty points of armor distributed across the humanoid frame provide adequate protection for screening and support operations. The Procyon lacks jump jets and relies on its sixty-four kilometers per hour cruising speed for tactical positioning. Originally produced at the Coyote Beta Plant 3F on Tamaron, the base Procyon quickly spread to the Hell's Horses touman through inter-Clan cooperation, becoming a common sight in ProtoMek formations across both Clans.</p>
+</deployment>
+
+<history>
+<p>The Procyon's development history reflects the Coyotes' ambition to push ProtoMek technology beyond the boundaries established by the Smoke Jaguars. After winning Trials of Possession for ProtoMek production data on Huntress, Coyote scientists immediately launched several development projects. Their first concept was an innovative quadruped chassis that would have given the design superior stability and ground speed, but pilot adaptation issues and manufacturing limitations forced a retreat to conventional humanoid configuration. The resulting Procyon, while less revolutionary than intended, proved to be a solid and reliable design that validated the Coyotes' ProtoMek ambitions.</p><p>ProtoMek Stars in the Coyotes' Alpha and Epsilon Galaxies fielded brand-new Procyons in Point-sized formations within a year of the design's introduction. The Procyon also appeared in the Hell's Horses touman by 3066, suggesting collaboration between the two Clans at some stage of development. The Coyotes' shared their ProtoMek expertise in exchange for the Horses' extensive experience with combined-arms integration, a partnership that benefited both Clans' ProtoMek programs.</p><p>The Coyotes subsequently experienced a surge in ProtoMek development that produced multiple Procyon variants in rapid succession. The Procyon 2 traded the energy weapons for twin LRM-4 launchers and additional armor, creating a dedicated fire support variant. The Procyon 3 mounted a Heavy Small Laser alongside an LRM-3, combining close-range punch with indirect fire capability. The Procyon 4 used a Streak SRM-3 and machine gun combination for efficient close combat, while the Procyon 5 incorporated five jump jets alongside an ER Small Laser and SRM-2 for maximum tactical flexibility.</p><p>The quadruped concept was eventually realized by Clan Hell's Horses, who applied Coyote innovation to produce the Procyon Quad variant on Csesztreg. This six-ton design fulfilled the original vision of a four-legged ProtoMek, mounting AP Gauss Rifles and an SRM-2 launcher on a chassis that offered twenty percent more speed and fifty percent more armor than the bipedal original. The Wars of Reaving produced one final variant when the Society developed the Procyon Z, a jump-capable design equipped with a Magnetic Clamp System for OmniMek transport. Following the destruction of the Society, the surviving Procyon production lines continued operating under their respective Clan owners, and the design remains in active service across the Homeworld Clans.</p>
+</history>
+
+<manufacturer>
+Beta Plant 3F
+</manufacturer>
+
+<primaryFactory>
+Tamaron
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Build 2083
+TARGETING:Proto-Enhanced
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Standard C5P
+ENGINE:45 Fusion
+ARMOR:Standard
+COMMUNICATIONS:Micro
+TARGETING:Model 4
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+5.0
+</tonnage>
+

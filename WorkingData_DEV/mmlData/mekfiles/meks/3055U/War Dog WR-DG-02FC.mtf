@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c903-70e1-bcf2-2aff8c45be2a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:War Dog
+model:WR-DG-02FC
+mul id:3476
+
+Config:Biped
+techbase:Inner Sphere
+era:3052
+source:TR:3055U,TR:CI
+published:RS:CI
+rules level:2
+role:Brawler
+
+weaponquirk:fast_reload:LL:4:ISStreakSRM2OS
+weaponquirk:accurate:LL:4:ISStreakSRM2OS
+weaponquirk:fast_reload:RL:4:ISStreakSRM2OS
+weaponquirk:accurate:RL:4:ISStreakSRM2OS
+
+mass:75
+engine:300 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:16
+RA armor:24
+LT armor:23
+RT armor:23
+CT armor:36
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:9
+RTR armor:9
+RTC armor:10
+
+Weapons:8
+Streak SRM 2 (OS), Left Leg
+Streak SRM 2 (OS), Right Leg
+Large Pulse Laser, Left Arm
+Gauss Rifle, Right Arm
+Medium Pulse Laser, Right Arm
+Medium Pulse Laser, Left Torso
+Anti-Missile System, Right Torso
+Small Pulse Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISLargePulseLaser
+ISLargePulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISMediumPulseLaser
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMediumPulseLaser
+IS Gauss Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAntiMissileSystem
+ISAMS Ammo
+ISAMS Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISSmallPulseLaser (R)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISStreakSRM2OS
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISStreakSRM2OS
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The War Dog is a seventy-five-ton heavy BattleMech originally designed for the Star League Defense Force, though the prototype chassis and plans disappeared shortly before the fall of the Star League. The design languished in obscurity for centuries until Snord's Irregulars rediscovered several chassis and a complete set of technical plans in 3052. These were delivered to the Blackwell Corporation on Outreach, whose design teams immediately began work on an extended production run. Combining advanced Inner Sphere technology with the recovered Star League blueprints, the War Dog quickly established itself as a capable and menacing heavy combatant with a reputation for rugged survivability and potent firepower.</p>
+
+capabilities:<p>The War Dog's success stems from its twelve tons of StarSlab 511 ferro-fibrous armor, sufficient to weather the heavy fire typical of engagements against Clan opponents. A Guardian ECM suite and torso-mounted Burow anti-missile system provide layered electronic and physical defenses against advanced enemy systems, giving the design exceptional survivability for its weight class.</p><p>A Grizzard Gauss rifle serves as the 'Mech's primary weapon, delivering punishing long-range fire without generating waste heat. This is supplemented by a Blankenburg large pulse laser and paired Martell medium pulse lasers for accurate close-range engagement, while a rear-mounted Martell small pulse laser discourages flanking attempts. Two Holly Streak SRM-2 one-shot missile packs mounted on the legs provide a last-ditch weapons system for emergencies. One of the design's most distinctive features is its asymmetric armor distribution, with the right arm carrying significantly more protection than the left, shielding the Gauss rifle at the cost of requiring MechWarriors to develop careful gyro balancing techniques.</p>
+
+deployment:<p>The base WR-DG-02FC represents the War Dog as originally envisioned from the recovered Star League plans, adapted with modern technology by Blackwell Corporation. Initially produced under an exclusive contract with Wolf's Dragoons, the design's availability broadened after its spectacular combat debut generated demand from military forces across the Inner Sphere. The Blackwell Corporation filled orders from every major Inner Sphere power and numerous mercenary commands, establishing the War Dog as one of the most sought-after heavy combatants on the open market during the late 3050s and early 3060s.</p>
+
+history:<p>The War Dog's combat history began spectacularly during the Dragoon Civil War, when forces loyal to Jaime Wolf deployed the newly produced 'Mechs to devastating effect. Early in the conflict, vid footage prominently featuring two War Dogs destroying five opposing 'Mechs leaked from Harlech to the rest of the Inner Sphere, instantly generating enormous demand for the design. The Blackwell Corporation has since filled orders from every major Inner Sphere power and numerous mercenary commands.</p><p>Despite its popularity, the War Dog carries complicated associations for Wolf's Dragoons themselves. While the design proved instrumental in resolving the Civil War, many Dragoons shun the War Dog, considering it an unwelcome reminder of the internecine conflict that nearly destroyed their organization. Even the Word of Blake managed to acquire a small number of War Dogs before the Dragoons imposed restrictions on dealings with the Blakist faction.</p><p>The War Dog's menacing silhouette and easily recognizable profile also drew attention on the Solaris VII arena circuit, where the 'Mech became a staple attraction. A fair number of War Dogs, some heavily modified by arena combatants, have competed in the fighting pits where their combination of heavy firepower and sturdy construction makes them crowd favorites.</p><p>Production of the War Dog was concentrated exclusively at Blackwell Corporation's Outreach facility, which tied the design's fate to the turbulent history of that world. When Word of Blake forces attacked Outreach at the start of the Jihad in 3067, the Blackwell facilities suffered catastrophic damage, effectively ending War Dog production. The factory's destruction, combined with the subsequent Blakist occupation of Outreach, ensured that no new War Dogs would roll off assembly lines for the foreseeable future, making surviving examples increasingly valuable to their operators.</p>
+
+manufacturer:Blackwell Corporation
+
+primaryfactory:Outreach
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Arc-Royal
+systemmode:CHASSIS:KH/9
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:511 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T12-A, Garret/Guardian Interface Model 2B
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:O2j

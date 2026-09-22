@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cc66-7287-bd2e-a52f925b07d1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Orion IIC
+model:
+mul id:2340
+
+Config:Biped
+techbase:Clan
+era:2841
+source:TR:3060
+published:RS:3060u
+rules level:2
+role:Sniper
+
+quirk:easy_maintain
+quirk:anti_air
+quirk:rugged_1
+
+mass:75
+engine:300 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:12 Clan Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:24
+RA armor:24
+LT armor:22
+RT armor:22
+CT armor:34
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:10
+RTR armor:10
+RTC armor:11
+
+Weapons:5
+LRM 20, Left Arm
+ER Large Laser, Left Arm
+ER Large Laser, Right Arm
+SRM 4, Left Torso
+Gauss Rifle, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLERLargeLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLERLargeLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLSRM4
+Clan Ammo LRM-20
+Clan Ammo LRM-20
+Clan Ammo LRM-20
+Clan Ammo SRM-4
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Right Torso:
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo
+Clan Gauss Ammo
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>As Aleksandr Kerensky’s chosen BattleMech, the original Orion held a special place within the Clans, especially Clan Wolf. Out of respect for the Great Father, the Clans maintained the design for decades despite the invention of newer technologies. Behind the scenes, however, Clan Wolf was designing an updated version, as they saw it, neither of the great Kerenskys would have approved of blindly following tradition at the expense of military progress. The Orion IIC debuted early in the Golden Century but received little attention alongside the OmniMechs that were fast becoming standard frontline machines. Clan Wolf has jealously guarded the Orion IIC design, defending their exclusive right to it in Trials of Possession and refusing all proposed trades despite generous offers. Like the Kerensky bloodname heritages, Clan Wolf sees the Orion IIC as tied to their honor as guardians of Kerensky’s legacy.</p>
+
+capabilities:<p>Produced before the advent of OmniMechs, the Orion IIC features many technological advancements preserved or developed by the Clans. Endo steel and ferro-fibrous construction materials lighten the design, allowing for a heavier weapons configuration, while double heat sinks manage thermal buildup effectively. The IIC upgrades the original Orion’s medium lasers to extended-range large lasers, particularly two different models, the result of a late design change in which a pulse laser was upgraded to an extended-range weapon. The older Series 6W laser was retained despite maintenance complications because it better matched the original design’s architecture.</p><p>A Clan-specification Omega 12-Coil Gauss rifle replaces the original autocannon, delivering devastating kinetic impacts without generating heat, while upgraded Type XX “Great Bow” LRM-20 and Offset Pattern K4 SRM-4 launchers provide comprehensive missile coverage. The resulting design delivers significantly more firepower than the Inner Sphere original while maintaining the same seventy-five-ton weight class, evidence of the efficiency of Clan manufacturing techniques.</p>
+
+deployment:<p>Clan Wolf produces the standard Orion IIC in limited numbers at WC Aux Site #2 on Strana Mechty, with additional refits conducted at W-7 Facilities on Weingarten using purchased Inner Sphere chassis. The design’s Omega 12-Coil Gauss Rifle serves as the primary weapon, complemented by a Type XX “Great Bow” LRM-20 for ranged bombardment and two extended-range large lasers (the Series 6W and Series 7W) providing heavy energy firepower. An Offset Pattern K4 SRM launcher handles close-range engagements. The combination creates a versatile seventy-five-ton platform that outperforms the Inner Sphere original in virtually every engagement category.</p>
+
+history:<p>The Orion IIC’s history is inseparable from Clan Wolf’s reverence for Aleksandr Kerensky. While other Clans moved rapidly toward OmniMech technology during the Golden Century, Clan Wolf’s scientists quietly redesigned the Orion to incorporate Clan technological advancements while preserving the spirit of Kerensky’s chosen mount. The IIC debuted early in the Golden Century at WC Aux Site #2 on Strana Mechty, produced in limited numbers exclusively for Clan Wolf’s use.</p><p>Clan Wolf has consistently defended its exclusive claim to the Orion IIC, winning Trials of Possession against other Clans who sought the design and refusing all trade proposals regardless of how generous the offers. This possessiveness mirrors the Wolf Clan’s guardianship of the Kerensky bloodname heritages, both are considered matters of honor central to the Clan’s identity.</p><p>Rather than assigning the Orion IIC to frontline units, Clan Wolf uses the design to reward officers in second-line Galaxies who are expected to advance to frontline assignments. Each Orion IIC is sent to its recipient “with the compliments of” Clan Wolf’s Khan or saKhan, a gesture of personal recognition that no officer has ever refused, even if it meant trading an assault-class BattleMech for the smaller heavy design.</p><p>A few Orion IICs traveled to the Inner Sphere with Phelan Kell’s Wolves-in-Exile, where they remain part of the exiled Clan’s second-line forces. Especially, no effort has been made to produce the Orion IIC outside Strana Mechty, a possible gesture of reconciliation toward the homeworld Clan Wolf. The Jihad-era Wars of Reaving disrupted Strana Mechty production, and a refit facility at W-7 Facilities on Weingarten was established to convert purchased Inner Sphere chassis to IIC specifications.</p>
+
+manufacturer:WC Aux Site #2|Refit - W-7 Facilities
+
+primaryfactory:Strana Mechty (Wolf Enclave)|Weingarten
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type W2 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Heavy Force 300
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Composite A-4 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Khan Series (Type 1)
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Series III OPT

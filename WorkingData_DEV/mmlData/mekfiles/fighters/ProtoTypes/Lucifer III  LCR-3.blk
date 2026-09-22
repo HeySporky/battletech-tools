@@ -1,0 +1,182 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ace4-74dd-89fa-8cb63118daa2
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Lucifer III
+</Name>
+
+<Model>
+LCR-3
+</Model>
+
+<mul id:>
+4541
+</mul id:>
+
+<year>
+3086
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<quirks>
+difficult_eject
+easy_pilot
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+13
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+119
+86
+86
+85
+</armor>
+
+<Nose Equipment>
+Bombast Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+Extended LRM 10
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Extended LRM 10
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISMediumXPulseLaser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo Extended LRM-10
+IS Ammo Extended LRM-10
+IS Ammo Extended LRM-10
+IS Ammo Extended LRM-10
+</Fuselage Equipment>
+
+<capabilities>
+<p>The LCR-3 is built around extended-range firepower. Paired Coventry Comet ELRM-10 launchers in each wing deliver ordnance at distances comparable to Clan heavy weapons, a range advantage no earlier Lucifer could approach. The nose-mounted Defiance DialScope Model A Bombast Laser provides the close-engagement punch that defines the design's anti-DropShip mission; it was selected over the originally planned binary laser cannon after recurring heat management issues with that weapon proved irresolvable during development. The substitution freed additional volume for extended-range missile ammunition while keeping thermal load within manageable bounds. A Defiance X5M medium X-Pulse laser covers the aft arc against pursuit. O/P AIR 900 communications and O/P 3000 targeting systems replace the original Lockheed/CBM electronics entirely, addressing the sensitivity and accuracy problems that dogged the LCF series throughout its production life.</p><p>The Shipil Super Ferro-Aluminum armor provides strong protection for the weight class, and the Edasich Motors 195 XL engine delivers thrust performance comparable to the original Lucifer while shedding sufficient mass to accommodate the new weapons fit and armor package. Design quirks inherited from the development process acknowledge the lineage: emergency ejection remains difficult, but the Lucifer III has been made substantially easier to fly than the LCF series ever was, a meaningful improvement for pilots transitioning from the earlier design.</p>
+</capabilities>
+
+<overview>
+<p>The Lucifer III emerged from the Jihad as the Lyran aerospace community's answer to the loss of Lockheed/CBM's Donegal production facility. With the original LCF airframe no longer manufacturable, the Shipil Corporation on Skye undertook the design of a replacement drawing on the experimental LCF-X30 as its technological foundation. The resulting LCR-3 shares a design philosophy with its ancestors but is built on a wholly new Shipil 300 airframe with an extralight engine and substantially updated weapons technology. Developed under the joint endorsement of the Lyran High Command and, after Skye's integration into the Republic of the Sphere in 3081, the Republic's military leadership, the Lucifer III represents both a technical departure from and a direct spiritual continuation of the Lucifer lineage, carrying the design's association with anti-DropShip operations and Lyran aerospace doctrine into the Dark Age.</p>
+</overview>
+
+<deployment>
+<p>First issued to the Skye Jaegers and Donegal Guards, then distributed through LCAF and Republic of the Sphere aerospace forces. Saw significant deployment within the Hastati Sentinels and Principes Guards in Republic service. A standard LCAF medium fighter through the Dark Age until Clan Jade Falcon's seizure of Skye ended production at the Shipil facility.</p>
+</deployment>
+
+<history>
+<p>The destruction of the Donegal facility in 3068 created an immediate need for a Lucifer successor, and the experimental LCF-X30 undergoing trials at Shipil's Hades test facility on Skye provided the only viable technological starting point. Shipil was assigned the development task, but producing a deployable production fighter from prototype hardware proved considerably more difficult than simply scaling up the experimental systems. The Lucifer airframe itself was no longer available, requiring engineers to reverse-engineer a new production frame from the X30 prototypes. Many required components were either in short supply or entirely absent from the market, complicating procurement at every stage of development.</p><p>Political support proved as critical as engineering capability. When Skye was integrated into the Republic of the Sphere in 3081, the Republic's military leadership added its weight to the Lyran High Command's backing, and allied manufacturers were engaged to supply components Shipil could not produce independently. The result was designated the LCR-3 Lucifer III, a new name reflecting the new airframe and updated weapons rather than a variant designation within the old LCF series.</p><p>First deliveries went to the Skye Jaegers as a gesture of local solidarity, with the Donegal Guards also receiving early examples in recognition of their connection to the design's original production heritage. The fighter spread through LCAF units and Republic formations over the following years, appearing in significant numbers within the Hastati Sentinels and Principes Guards in Republic service. When Clan Jade Falcon seized Skye, they captured the Shipil facility and converted the production line to their own weapons and electronics, producing the heavily rearmed C variant that carried the design's operational life forward in Clan service.</p>
+</history>
+
+<manufacturer>
+Shipil Company
+</manufacturer>
+
+<primaryFactory>
+Skye
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Shipil Company
+ENGINE:Edasich Motors
+ARMOR:Shipil Company
+JUMP_JET:N/A
+COMMUNICATIONS:O/P
+TARGETING:O/P
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Shipil 300
+ENGINE:Edasich Motors 195 XL
+ARMOR:Shipil Super Ferro-Aluminum
+JUMP_JET:N/A
+COMMUNICATIONS:O/P AIR 900
+TARGETING:O/P 3000
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<published>
+RS:Proto
+</published>
+
+<tonnage>
+65.0
+</tonnage>
+

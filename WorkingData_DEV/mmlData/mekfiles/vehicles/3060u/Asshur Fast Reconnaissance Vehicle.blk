@@ -1,0 +1,161 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e4ba-735e-8ff8-8ce0c808c21f
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Asshur Fast Reconnaissance Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+135
+</mul id:>
+
+<year>
+2842
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+13
+11
+11
+9
+13
+</armor>
+
+<Body Equipment>
+Clan Machine Gun Ammo - Half
+Clan Streak SRM 6 Ammo
+</Body Equipment>
+
+<Front Equipment>
+CLMG
+CLMG
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLStreakSRM6
+CLERMediumLaser
+CLERMediumLaser
+</Turret Equipment>
+
+<capabilities>
+<p>The Asshur's operational philosophy centers on speed and information gathering over direct engagement. Capable of reaching flank speeds in excess of 150 kilometers per hour, the vehicle can outrun nearly any ground unit of its era, allowing it to observe enemy formations and withdraw before effective counter-fire can be brought to bear. Its hover propulsion system provides excellent cross-terrain mobility, making it effective across a wide variety of surface conditions found throughout the Clan Homeworlds.</p><p>Primary armament consists of two Series 2b extended-range medium lasers mounted in the turret, capable of accurate fire out to 450 meters. This arrangement allows the crew to engage threats from a respectable standoff distance while maintaining forward movement. The turret mounting allows full rotation independent of vehicle heading, an important consideration when a scout must engage while breaking contact.</p><p>Armor protection, provided by Compound JX2 ferro-fibrous plating, is modest for a vehicle of its class, reflecting the design emphasis on speed as the primary defense. The electronics suite (Consolidated Type 2M communications and Consolidated Type V targeting) provides reliable battlefield awareness appropriate to its reconnaissance mission without the weight penalty of more sophisticated equipment. No supplemental missile armament is fitted in the base configuration, leaving the vehicle strictly dependent on its beam weapons for self-defense.</p>
+</capabilities>
+
+<overview>
+<p>The Asshur Fast Reconnaissance Vehicle was among the original combat vehicle designs commissioned by ilKhan Jerome Winson as part of the early Clan military standardization program. Named for the Assyro-Babylonian god of war, the Asshur was developed to fill the reconnaissance role across multiple Clan Homeworlds, providing units with a fast, lightly armed scout capable of operating ahead of main combat elements. Manufactured at several Homeworld facilities under a broad production initiative, the vehicle entered service in the late twenty-eighth century and was adopted by multiple Clans from the outset. Its hover propulsion system and long-range sensors made it well suited to the demanding terrain of the Clan Homeworlds, though its light armament reflected its intended role as an observer rather than a combatant. When the even lighter Shamash entered service, the Asshur's original reconnaissance mission was effectively superseded, prompting a fundamental reassessment of the design's future.</p>
+</overview>
+
+<deployment>
+<p>The base Asshur Fast Reconnaissance Vehicle served widely across Clan Homeworld garrison forces and reconnaissance Stars from its introduction in 2842 through the Succession Wars era, distributed among Clans including Blood Spirit, Burrock, Coyote, Ice Hellion, and Snow Raven with access to the Homeworld production network. Its reconnaissance role placed it ahead of main combat elements in standard Clan operational doctrine, gathering intelligence on terrain and enemy dispositions before engagements. As the Shamash entered service and the Artillery Spotter conversion became the dominant production standard, surviving base-configuration Asshurs were typically retained in secondary roles, training assignments, or garrison duty rather than front-line scouting.</p>
+</deployment>
+
+<history>
+<p>The Asshur was developed during the early decades of the Clan Homeworld consolidation period as ilKhan Jerome Winson sought to standardize combat vehicle production across the emerging Clan military infrastructure. Entering service in 2842, the vehicle was distributed across multiple Clans from the outset, with production facilities established on Albion, Tamaron, Hector, Lum, and York to ensure broad availability across the Homeworlds.</p><p>For several decades the Asshur served competently in its intended reconnaissance role, operating ahead of main combat formations and providing commanders with timely intelligence on terrain and enemy dispositions. The design's speed made it reliable in the role, and its widespread distribution ensured that most Clans with significant ground combat capabilities maintained Asshurs in their force structures.</p><p>When Clan Blood Spirit developed the Shamash, a lighter vehicle designed to serve the same scouting function with greater efficiency, the Asshur faced potential obsolescence. Rather than retire serviceable hulls outright, Blood Spirit technicians identified the chassis as a capable platform for a complementary mission. The conversion to the Artillery Spotter configuration that followed proved so successful that it became the dominant production standard across most facilities, with the base reconnaissance model gradually displaced from active production rosters. Hulls already in service continued operating in reduced or secondary roles, but new production shifted decisively toward the modified configuration.</p>
+</history>
+
+<manufacturer>
+Albion Armor Works Beta|Beta Plant 1T|Hector MotorWorks Facility Gamma|Industrial Complex Raven Epsilon|York Vehicle Y2 Facility
+</manufacturer>
+
+<primaryFactory>
+Albion (Junction City)|Tamaron|Hector|Lum|York
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Consolidated
+TARGETING:Consolidated
+</systemManufacturers>
+
+<systemModels>
+ENGINE:Fusion 95
+ARMOR:Compound JX2 Ferro-Fibrous
+COMMUNICATIONS:Consolidated Type 2M
+TARGETING:Consolidated Type V TTS
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+

@@ -1,0 +1,97 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bc79-7046-810f-7af47b999588
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Platoon (FWLM)
+</Name>
+
+<Model>
+(Flamer 3035+)
+</Model>
+
+<mul id:>
+1143
+</mul id:>
+
+<year>
+3030
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Free Worlds League Infantry Kit (3035+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>New technology and creative tactical thinking have long featured in FWLM infantry deployment, with varied unit types and specialized formations treated as the norm rather than the exception. Foot infantry platoons form the garrison backbone of the League's provincial militaries, assigned to hold ground on worlds that BattleMech forces cannot permanently occupy. Quality varies with provincial investment, but even modest foot platoons benefit from the FWLM's tradition of equipping infantry with reliable, standardized kit. Armed with man-portable flamers that project streams of burning gel, these platoons carry one of the most psychologically devastating weapons available to conventional infantry. The short range and danger of carrying volatile fuel make flamer duty one of the most hazardous assignments in the platoon.</p>
+</overview>
+
+<notes>
+Intro date based on prototype release of FWL advanced infantry kit. Model name based on MUL name.
+</notes>
+
+<source>
+TW,TM
+</source>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+Flamer (Man-Portable)
+</Secondary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

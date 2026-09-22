@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e26a-73f7-8c4d-f127e7c31821
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Coolant Truck
+</Name>
+
+<Model>
+(Hover)
+</Model>
+
+<mul id:>
+687
+</mul id:>
+
+<year>
+2602
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+insulatedcargobay:4.35:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<armor>
+24
+28
+28
+20
+12
+</armor>
+
+<Body Equipment>
+IS Vehicle Flamer Ammo
+IS Vehicle Flamer Ammo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Flamer (Vehicle)
+Flamer (Vehicle)
+</Turret Equipment>
+
+<capabilities>
+<p>Hover variants of the Coolant Truck maintain the same core operational systems as the wheeled 135-K, including pressurized cryogenic coolant tanks, multi-point hose connections for BattleMech thermal interfaces, and stirring motors to prevent dangerous temperature gradients in stored coolant. The hover propulsion system trades the wheeled configuration's structural durability and payload stability for improved cross-terrain mobility, allowing cooler teams to reposition across water obstacles, soft ground, and terrain irregularities that would halt wheeled vehicles. This increased positional flexibility comes with added mechanical complexity and maintenance demands compared to ground-contact drive systems. The standard six-person crew configuration is retained, with the familiar division between driver, gunner, and hose-management personnel. As with the wider Coolant Truck family, most distinctions between individual hover configurations relate to coolant selection rather than fundamental structural differences.</p>
+</capabilities>
+
+<overview>
+<p>Hover variants of the Coolant Truck extend the concept of battlefield thermal support to operational environments where wheeled vehicles face terrain limitations. Appearing across the Inner Sphere in response to broader demand for mobile heat management support, hover coolant trucks serve formations operating in terrain that wheeled designs cannot reliably cross, including wetlands, river obstacles, and broken ground. They share the same fundamental mission profile as the wheeled 135-K: providing emergency cooling support to BattleMechs in the field, allowing formations to sustain combat effectiveness in conditions that would otherwise force overheated units to withdraw. Most variants within the hover configuration differ from one another primarily in the type of coolant carried, typically selected to match the heat sink fluid used by friendly 'Mechs in the formation.</p>
+</overview>
+
+<deployment>
+<p>Hover coolant trucks serve the same support echelon role as the wheeled 135-K, operating under Master Tech command within a regiment's maintenance contingent. The hover configuration is particularly suited to formations operating in wetland, mountainous, or otherwise broken terrain environments where wheeled vehicles cannot reliably follow combat elements. The mobility advantage allows hover crews to reposition more rapidly in response to shifting battle lines, though the increased mechanical demands of hover propulsion require additional maintenance attention. Deployment doctrine otherwise mirrors the standard Coolant Truck pattern: stage at distance from the active engagement, service overheated 'Mechs cycling back from the front, and avoid direct contact with combat units when possible.</p>
+</deployment>
+
+<history>
+<p>Hover variants of the Coolant Truck first appeared in 2602 as the Star League's military technology continued to mature and demand for terrain-capable thermal support vehicles grew beyond what wheeled designs could address. The hover configuration extended the Coolant Truck concept to the full range of operational environments encountered by Inner Sphere military forces, from river deltas and wetlands to rocky highland terrain where wheeled support vehicles struggled to maintain formation contact. No single manufacturer is recorded as the originator of the hover configuration, and production developed across multiple Inner Sphere factions as local operational requirements drove independent adoption. Through the Succession Wars, hover coolant trucks served wherever BattleMech formations required thermal support in conditions that demanded cross-terrain mobility from their support echelons, filling the same critical function the wheeled 135-K provided in more permissive environments.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u,RSFP:SLDF2
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

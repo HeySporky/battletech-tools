@@ -1,0 +1,158 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a683-704b-816b-a544362b91c7
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Leonidas Battle Armor
+</Name>
+
+<Model>
+(MG)(Sqd4)
+</Model>
+
+<mul id:>
+6477
+</mul id:>
+
+<year>
+3096
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+32
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+CLBAMG:RA
+BAAPMount:RA
+InfantryAssaultRifle:APM:RA
+BAHeavyBattleClaw:LA
+BAISAngelECMSuite:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The machine gun configuration loads a standard machine gun with fifty rounds of ammunition into the modular weapon slot, optimizing the suit for anti-infantry and counterinsurgency operations. The high rate of fire proves effective against unarmored personnel and light vehicles, complementing the anti-personnel weapon mount for saturation fire in close engagements. Standard Stealth armor and the Angel ECM Suite allow troopers to close with targets before opening fire, turning the suit's limited ground speed into less of a disadvantage during ambush operations.</p><p>The Heavy Battle Claw provides additional utility for breaching light structures and engaging vehicles at close range. This configuration trades the precision engagement capability of other loadouts for raw volume of fire, making it particularly suited to urban fighting and patrol suppression where multiple soft targets present themselves in quick succession. At thirty-two kilometers per hour with no jump capability, troopers must rely on concealment to close the distance before contact.</p>
+</capabilities>
+
+<overview>
+<p>The Leonidas is a medium Inner Sphere battle armor suit produced by Etna Foundries on Oriente for the Duchy of Oriente's armed forces. Introduced in 3096, the design filled a gap in the Duchy's reconnaissance and infiltration capabilities caused by dwindling stocks of the Achileus stealth suit. The Leonidas prioritizes concealment and electronic warfare over raw speed or firepower, making it well suited for ambush operations, artillery spotting, and counterinsurgency patrol. A modular weapon mount allows rapid reconfiguration across multiple mission roles, from direct engagement to battlefield surveillance. The suit earned a strong reputation for tactical flexibility among operators across multiple factions.</p>
+</overview>
+
+<deployment>
+<p>Free Worlds League garrison commands organized machine gun-equipped Leonidas squads into four-trooper teams for urban patrol and counterinsurgency duties. The standard Inner Sphere squad structure allowed integration with conventional infantry platoons, with battle armor squads providing the close-assault capability that unarmored troops lacked in built-up areas. Export customers in the Periphery found this configuration particularly useful for pacification operations.</p>
+</deployment>
+
+<history>
+<p>Etna Foundries on Oriente developed the Leonidas around the turn of the thirty-second century to address a critical shortage of Achileus stealth suits within the Duchy of Oriente's military. The older design had grown scarce, and Oriente's commanders needed a replacement capable of filling the same infiltration and reconnaissance roles while offering greater flexibility through modular weapon configurations.</p><p>Early operational successes drew attention from buyers across the Inner Sphere and nearby Periphery states. The Free Worlds League Military became the primary operator, with decades of exports reaching the Capellan Confederation, the Magistracy of Canopus, the Marian Hegemony, and various mercenary commands. When the League reformed, production shifted largely toward equipping Oriente's fellow provinces, though export contracts continued. Commanders typically reserved the Leonidas for more experienced and better-trained infantry soldiers.</p><p>Combat experience highlighted both the suit's strengths and limitations. During the Fourth Battle of Tamarind in 3142, a volunteer platoon used the suits to infiltrate the capital city of Zanzibar and destroy a Lyran command post in a devastating surprise assault. Native guerrillas helped the troopers evade patrols and locate the target, and the entire operation concluded before Lyran BattleMechs could respond effectively. By contrast, a Capellan infiltration force on Styk in 3133 was tracked and intercepted by Republic militia, which destroyed the entire platoon after denying the troopers the element of surprise.</p>
+</history>
+
+<manufacturer>
+Etna Foundries
+</manufacturer>
+
+<primaryFactory>
+Oriente
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:FWL,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+6
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

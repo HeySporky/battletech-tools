@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d8a5-7a9b-85e5-7b3863d1f225
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Firestorm
+model:
+mul id:8129
+
+Config:Biped
+techbase:Mixed (Clan Chassis)
+era:3145
+source:RG13
+published:RG13
+rules level:2
+role:Skirmisher
+
+quirk:low_profile
+
+mass:50
+engine:250 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:12 Clan Double
+walk mp:5
+jump mp:7
+
+armor:Ferro-Fibrous(Clan)
+LA armor:16
+RA armor:16
+LT armor:18
+RT armor:18
+CT armor:24
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:6
+ER Medium Laser, Left Arm
+Micro Pulse Laser, Left Arm
+Flamer, Left Arm
+Plasma Rifle, Right Arm
+Plasma Cannon, Right Torso
+ER Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser
+CLMicroPulseLaser
+CLFlamer
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISPlasmaRifle
+ISPlasmaRifle
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+CLMASC
+CLMASC
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+CLPlasmaCannon
+CLPlasmaCannonAmmo
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLERMediumLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Firestorm is a fifty-ton Clan BattleMech produced by Clan Protectorate Arms on Asellus Australis, entering service in 3144. Developed jointly by the Spina Khanate of the Clan Protectorate and the Wolf Empire, the Firestorm was designed to fill an identified gap in dedicated incendiary capability within the Wolf <i>touman</i>. Derived from an in-progress OmniMech project based on the Shadow Cat chassis, the Firestorm was built as a standard BattleMech to accelerate production timelines, providing a cost-effective second-line and garrison platform without the expense of full OmniMech manufacture. The design occupies a unique niche as one of the few Clan BattleMechs purpose-built for incendiary warfare, a role traditionally considered beneath Clan sensibilities.</p>
+
+capabilities:<p>The Firestorm retains the overall paradigm of its Shadow Cat ancestor, combining high mobility with a single main weapon backed by several supporting systems. Built on a Type 79-50 endo steel chassis and powered by a 250-rated Consolidated XL engine, the design achieves a top speed of 86 kilometers per hour, with a MASC system pushing that to 108 in short bursts. Seven improved jump jets provide an impressive 210-meter jump capability, giving the Firestorm exceptional tactical flexibility for a fifty-ton 'Mech.</p><p>The weapons suite centers on plasma-based weaponry optimized for incendiary operations. A FlameTech Inferno plasma rifle serves as the primary armament, capable of overwhelming conventional forces and generating punishing heat loads on enemy BattleMechs. A Zeta-series X plasma cannon supplements this with additional thermal output, and together the paired plasma weapons prove extremely effective against infantry and vehicle formations while frustrating enemies relying on heat-balanced triple-strength myomers or physical combat. Supporting weapons include two Series 2NC extended range medium lasers for engaging harder targets, a Series 3c micro pulse laser, and a DuPont Ultra PM flamer for close-range anti-infantry work. Nine tons of Compound H17 ferro-fibrous armor provide reasonable protection, though the reliance on an extralight engine means catastrophic torso damage poses a serious vulnerability.</p>
+
+deployment:<p>No factory variants of the Firestorm have been produced as of the mid-thirty-second century. The standard configuration entered service as the sole production model, with output from Clan Protectorate Arms divided between the Wolf Empire and the Clan Protectorate's own forces. Ostensibly a second-line design, the Firestorm accomplishes its mission through threat or force, freeing frontline OmniMechs from <i>solahma</i> duties. Its incendiary weapons suite makes it particularly well-suited for pacification operations and garrison duty across the Wolf Empire's holdings.</p>
+
+history:<p>The Firestorm's development was driven by the practical realities facing the Wolf Empire in the early 3140s. Combat projections made clear that the new state's industrial base would struggle to recover from the Wolves' mass exodus, leaving the <i>touman</i> unable to replenish its forces at a sufficient rate for years. The bordering Clan Protectorate, centered on the Spina Khanate, recognized an opportunity for mutual benefit and offered its resources. An active Spina project to create a new OmniMech based on an upscaled Shadow Cat was years from completion, but the team determined that a standard BattleMech could be produced from one of the planned configurations far sooner.</p><p>Wolf Clan officers favored an incendiary configuration, identifying that such a capability was absent from their <i>touman</i>. While OmniMechs could be reconfigured for the role, having dedicated incendiary assets available in significant numbers ensured these tactics could be deployed without even the minor delay of a pod swap. Production began at Clan Protectorate Arms on Asellus Australis, with initial runs intended for the Wolf Empire. The Clan Protectorate military, however, quickly recognized the Firestorm's value and co-opted a large number of the new 'Mechs for its own forces.</p><p>This appropriation provoked a reaction from the Wolves. In early 3144, a Trinary from the Eighth Wolf Cavalry mounted a punitive raid on Asellus Australis. The raid produced a notable engagement outside the city of Broome in the famed petrified forests, where two Firestorms fought a prolonged duel, trading plasma barrages for what seemed like hours. The hellish heat from the weapons combined with temperatures lathered onto the armored shells forced each pilot to repeatedly jump away behind cover to cool down before reengaging, with neither able to claim a decisive victory. The spectacle ended in an amicable <i>hegira</i>, with the opposing Star Captains concluding a special sale of a Star of Firestorms on the side.</p><p>Though not deployed in the numbers the Wolves had desired, the Firestorm proved crucial in the conquest of Alhena. A pair of Firestorms attached to the 103rd Wolf Guard Strikers used plasma weaponry and hit-and-run tactics to rout nearly a battalion of Triarii Protectorate tanks and infantry. MechWarriors from the engagement credited an Elemental Point with keeping them informed of enemy movements from a concealed position, though the feat was impressive enough to draw attention from Khan Ward. Though atypically limited in proliferation for a design associated with Clan Sea Fox, the Firestorm's future in both the Protectorate and the Empire appears bright.</p>
+
+manufacturer:Clan Protectorate Arms
+
+primaryfactory:Asellus Australis
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type 79-50 Endo Steel
+systemmanufacturer:ENGINE:Consolidated
+systemmode:ENGINE:250 XL
+systemmanufacturer:ARMOR:Clan Protectorate Arms
+systemmode:ARMOR:Compound H17 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Model KZ Boosters
+systemmanufacturer:COMMUNICATIONS:JNE
+systemmode:COMMUNICATIONS:Integrated
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Build 4 CAT TTS

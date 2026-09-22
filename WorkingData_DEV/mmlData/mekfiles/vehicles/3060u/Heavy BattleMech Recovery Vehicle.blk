@@ -1,0 +1,154 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e4f8-7b4e-8095-41386d4add8f
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Heavy BattleMech Recovery Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+1429
+</mul id:>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:30.0:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<armor>
+10
+10
+10
+10
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Heavy BattleMech Recovery Vehicle is considerably larger and more capable than the standard model, rated to load and haul payloads up to one hundred tons. This capacity allows it to recover any BattleMech currently produced, including the heaviest assault designs. A Generic 260 ICE power plant moves the seventy-ton vehicle at a cruising speed of 43 kilometers per hour unloaded, but this figure drops sharply in practice. When loaded with any BattleMech weighing more than thirty tons, the heavy recovery vehicle slows to approximately 32 kilometers per hour, a pace that leaves recovery crews dangerously exposed in contested territory. To partially offset this vulnerability, the vehicle carries significantly more armor than the standard recovery version, protecting the crew during the unavoidably slow extraction process. No weapons or targeting systems are fitted, and communications equipment is sourced from whatever is locally available.</p>
+</capabilities>
+
+<overview>
+<p>The Heavy BattleMech Recovery Vehicle is a less common but strategically important companion to the standard recovery vehicle, found primarily in the support echelons of heavy and assault BattleMech formations. Where the standard recovery vehicle is limited in what it can haul, the heavy version is capable of loading and transporting any BattleMech currently in production across the Inner Sphere, making it an irreplaceable asset when an assault machine goes down in recoverable condition. Like its lighter counterpart, it is produced across numerous facilities without a single dominant manufacturer, ensuring availability wherever heavy BattleMech forces are deployed.</p>
+</overview>
+
+<deployment>
+<p>The Heavy BattleMech Recovery Vehicle is concentrated in the support echelons of heavy and assault BattleMech formations, where its rated payload capacity justifies the additional logistical burden. Units supporting assault lances typically maintain at least one HBMRV, while lighter forces may share access to heavy recovery assets at the regimental or brigade level. Despite its slow pace under load, the HBMRV's ability to recover any BattleMech currently in service makes it irreplaceable when an assault machine goes down in recoverable condition. Crews are trained to minimize exposure time during recovery, selecting concealed routes and requesting fire support coverage whenever the tactical situation allows.</p>
+</deployment>
+
+<history>
+<p>The Heavy BattleMech Recovery Vehicle entered service alongside the growing prevalence of assault-weight BattleMechs, whose mass exceeded the rated recovery capacity of standard vehicles. Early Star League-era commanders quickly recognized that losing an assault machine to an irrecoverable breakdown was an unacceptable outcome, and dedicated heavy recovery platforms were developed to address the gap. Like the standard BMRV, the heavy variant was never tied to a single manufacturer, relying instead on generic component specifications that could be sourced and assembled at facilities across the Inner Sphere.</p><p>The Succession Wars placed additional stress on heavy recovery assets, as the losses sustained in major engagements meant that assault-weight machines became increasingly precious. Units operating assault lances often prioritized maintaining at least one heavy recovery vehicle, even at the cost of other support assets. The increased armor protection compared to the standard BMRV reflects lessons learned during this period, as recovery vehicles operating in partially-secured zones found that the extra mass of an assault mech load extended their exposure time dangerously.</p>
+</history>
+
+<manufacturer>
+Various
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Various
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Generic 260 ICE
+ARMOR:Various
+COMMUNICATIONS:Various
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+70.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

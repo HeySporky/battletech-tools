@@ -1,0 +1,241 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa53-71c1-abf0-c0a579f33af3
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Gaajian System Patrol Boat
+</Name>
+
+<Model>
+(2485)
+</Model>
+
+<mul id:>
+7769
+</mul id:>
+
+<year>
+2485
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+smallcraftbay:2.0:2:1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+cargobay:75.0:1:6::-1:0
+steeragequarters:260.0:0:-1::-1:0
+crewquarters:21.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+68
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+5000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+206
+180
+180
+170
+</armor>
+
+<Nose Equipment>
+(B) PPC
+PPC
+PPC
+(B) Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+(R) (B) Medium Laser
+(R) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+(R) (B) Medium Laser
+(R) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Aft Equipment>
+
+<Hull Equipment>
+ISLookDownRadar
+ISHighResImager
+</Hull Equipment>
+
+<structural_integrity>
+12
+</structural_integrity>
+
+<capabilities>
+<p>The original Gaajian mounts a straightforward weapons array suited to its patrol role. The nose carries three PPCs, four medium lasers, and four small lasers. Each broadside mounts two large lasers and four medium lasers, while the aft arc is defended by two large lasers, two medium lasers, and four small lasers. Sixty-eight single heat sinks manage the thermal output of this energy-focused weapons suite. The vessel carries 736 points of standard armor and has a structural integrity of twelve.</p><p>Beyond its weapons, the Gaajian carries a look-down radar and high-resolution imager in its hull, allowing it to assist ground elements from orbit with tactical surveillance. Two small craft bays provide capacity for shuttles or light patrol craft, and seventy-five tons of cargo space supports extended patrol operations. A crew of seventy-two operates the vessel, sufficient for continuous watch rotations during long-duration system patrols.</p>
+</capabilities>
+
+<overview>
+<p>The Gaajian is a small military DropShip that has served as an armed escort and system patrol vessel since before the formation of the Draconis Combine as a nation. Originally designed for the Alliance of Galedon, this 1,500-ton Spheroid was intended to safeguard merchant traffic within star systems, escorting vessels between space stations, JumpShips, and orbital facilities.</p><p>Remarkably long-lived in service, the Gaajian has performed its designed function for centuries with minimal changes to its core configuration. Many individual vessels have accumulated generations of service history, and their crews traditionally record these histories in the form of painted color murals decorating the ship's interior spaces. The Gaajian remains a familiar sight across Combine space, enforcing trade laws and providing early warning of hostile incursions.</p>
+</overview>
+
+<deployment>
+<p>The original Gaajian has served exclusively with the Draconis Combine and its predecessor state, the Alliance of Galedon, since 2485. These vessels patrol trade routes and orbital facilities throughout Combine space, enforcing trade laws, deterring piracy, and providing early warning of hostile incursions. Many have served the Draconis Combine Admiralty Port Authority for centuries, becoming institutions within their assigned systems.</p>
+</deployment>
+
+<history>
+<p>The Gaajian entered service in 2485 with the Alliance of Galedon, predating the formal establishment of the Draconis Combine. When the Combine absorbed the Alliance, the Gaajian fleet transferred seamlessly into the new state's naval forces and continued performing its original mission of system patrol and merchant escort. The Draconis Combine Admiralty Port Authority operated many of these vessels for centuries, with some individual ships accumulating remarkable service records.</p><p>The design proved so effective in its role that it remained in continuous service virtually unchanged through the Age of War, the Star League era, and the Succession Wars. It was not until 3060, with the advent of recovered Star League technology becoming widely available, that the Draconis Combine Admiralty authorized an updated configuration. The modernized variant emerged from the shipyards as a slightly more compact vessel with upgraded weapons and improved point defenses, ensuring the venerable design would remain relevant into the new century.</p>
+</history>
+
+<manufacturer>
+BBP Industries
+</manufacturer>
+
+<primaryFactory>
+New Samarkand
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+HB:HK
+</source>
+
+<tonnage>
+1500.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+21
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+6
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+42
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+4
+</escape_pod>
+

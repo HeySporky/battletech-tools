@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf68-741a-857a-44401e57d01f
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Bruin
+model:
+mul id:430
+
+Config:Biped
+techbase:Clan
+era:3081
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:2
+role:Skirmisher
+
+quirk:exp_actuator
+quirk:rugged_1
+
+mass:80
+engine:320 XL (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:14 Clan Double
+walk mp:4
+jump mp:4
+
+armor:Standard(Clan)
+LA armor:25
+RA armor:25
+LT armor:24
+RT armor:24
+CT armor:35
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:10
+RTR armor:10
+RTC armor:14
+
+Weapons:7
+Large Pulse Laser, Left Arm
+ER Medium Laser, Left Arm
+Gauss Rifle, Right Arm
+ER Medium Laser, Right Arm
+Streak SRM 4, Left Torso
+Streak SRM 4, Right Torso
+LRM 10, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLLargePulseLaser
+CLLargePulseLaser
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLERMediumLaser
+Clan Gauss Ammo
+Clan Gauss Ammo
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLStreakSRM4
+Clan Streak SRM 4 Ammo
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLStreakSRM4
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLLRM10
+Clan Ammo LRM-10
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Bruin is an eighty-ton Clan-technology assault BattleMech produced by Bergan Industries C-Division for the Ghost Bear Dominion. Introduced in 3081, the design emerged as part of the post-Jihad industrial recovery, continuing the lineage of Bergan C-Division designs that included the Ursus and Arcas. Specifically designed to fill an assault-weight role emphasizing both mobility and firepower, the Bruin combines the hitting power expected of its weight class with agility unusual for an assault chassis. As the third original Clan BattleMech developed entirely within the former Rasalhague Republic's industrial base, the Bruin represented a milestone in the Dominion's drive toward military self-sufficiency and earned a strong reputation among Ghost Bear warriors.</p>
+
+capabilities:<p>The Bergan-C team designed the Bruin around the concept of high mobility for an eighty-ton assault 'Mech. A 320-rated extra-light fusion engine propels the chassis to a top speed of 64 kph, while leg-mounted Clan Standard Type A3 jump jets provide 120 meters of jump capability, enabling the design to navigate even the most difficult terrain. This combination of speed and agility is unusual for an assault-class chassis and gives the Bruin tactical flexibility that many heavier designs simply cannot match.</p><p>The weapons loadout was carefully selected to provide effective firepower at all engagement ranges. An Omega 12-coil Gauss rifle and Type X "Short Bow" LRM-10 launcher deliver consistent long-range damage, while a Kolibri Delta Series large pulse laser adds devastating intermediate-range firepower. At shorter distances, a pair of Series 2f extended-range medium lasers and twin Smartshot Mark V Streak SRM-4 launchers ensure the Bruin can punish any opponent that closes to knife-fighting range. The long-range missile system, while old by Clan standards, remains one of the most compact yet reliable systems in the arsenal.</p><p>Fifteen tons of Compound 12A1 standard armor sheathes the Bruin in a protective shell befitting an assault 'Mech. The design's reliance on ammunition-fed weapons, however, means that extended engagements can leave the Bruin increasingly dependent on its energy weapons alone. The extra-light engine, while critical for achieving the design's mobility targets, also leaves it more vulnerable to side torso damage than a standard engine would. With ample tonnage devoted to both survivability and firepower, the Bruin is built to absorb significant punishment while delivering sustained damage across all engagement ranges, provided MechWarriors manage their ammunition carefully.</p>
+
+deployment:<p>The base Bruin configuration is optimized for multi-range engagement, pairing long-range ballistic and missile systems with energy weapons and short-range launchers to ensure the MechWarrior can engage effectively at any distance. Ghost Bear commanders typically deploy the standard Bruin in a fire support role at the outset of an engagement, using its Gauss rifle to soften targets before advancing to exploit its jump capability in closing the range. The design sees widespread use among second-line garrison units throughout the Dominion, where its imposing silhouette and versatile armament make it equally effective at deterring raiders and anchoring defensive positions.</p>
+
+history:<p>The Bruin's origins trace to the broader industrial vision of Khan Bjorn Jorgensson, who sought to produce Clan-technology BattleMechs within the Inner Sphere using the combined resources of the Ghost Bear Dominion. This initiative began in 3059 with the release of the Ursus from the facilities on Alshain, which demonstrated that the shattered industrial sectors of the former Free Rasalhague Republic could be revitalized for Clan military production. The integration of engineering and military leaders from Rasalhague's population played a crucial role in changing attitudes toward the Ghost Bears, shifting perceptions from invading overlords to future leaders for billions of former Rasalhaguians.</p><p>Military industrial growth continued through the 3060s, with the Arcas becoming the second successful BattleMech design upon its release in 3061. If not for the chaos of the FedCom Civil War and the devastating destruction of the Jihad, Bergan Industries' C-Division would likely have produced an entire range of Clan BattleMechs for use by Ghost Bear warriors and the absorbed Royal KungsArme far sooner. As the widespread destruction of the Jihad wound down, the factories of the Ghost Bear Dominion resumed production, and the Bruin was the next design scheduled for completion and launch.</p><p>By 3086, the Bruin was being dispersed among second-line units throughout the Dominion. Production ramped up more slowly than the earlier Arcas or Ursus designs, but the Ghost Bears anticipated having a substantial number of Bruins in the field within a few years of introduction. Initial responses from assigned warriors were extremely positive, validating the design team's approach of combining assault-class firepower with unusual mobility.</p><p>The sheer size and menace of the Bruin has served the defense of the Dominion nearly as effectively as its raw combat capabilities. Raiding units that encounter Stars of pristine Ghost Bear assault 'Mechs are quick to abandon their plans and retreat. Even in an age where wholesale destruction can rain from the skies, the psychological impact of enormous BattleMechs towering over the battlefield remains a potent factor in Dominion defensive doctrine.</p>
+
+manufacturer:Bergan Industries C-Division
+
+primaryfactory:Alshain
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Bergan
+systemmode:CHASSIS:Version 8.4 Standard
+systemmanufacturer:ENGINE:Light Force
+systemmode:ENGINE:320 XL
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:12A1 Standard
+systemmanufacturer:JUMP_JET:Clan Standard
+systemmode:JUMP_JET:Type A3
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:L30
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac Mark XII

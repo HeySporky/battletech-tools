@@ -1,0 +1,186 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d3a7-7b36-8925-840b250cef7b
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Black Hawk (Standard)
+model:2
+mul id:6555
+
+Config:Biped
+techbase:Clan
+era:3092
+source:TR:3145:Merc,TR:DA
+published:RS:DA
+rules level:2
+role:Skirmisher
+
+
+mass:50
+engine:250 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:14 Clan Double
+walk mp:5
+jump mp:5
+
+armor:Standard(Clan)
+LA armor:14
+RA armor:14
+LT armor:16
+RT armor:16
+CT armor:20
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:4
+ATM 6, Left Arm
+ATM 6, Right Arm
+ER Large Laser, Left Torso
+ER Large Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLATM6
+CLATM6
+CLATM6
+Clan Ammo ATM-6 ER
+Clan Ammo ATM-6
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLATM6
+CLATM6
+CLATM6
+Clan Ammo ATM-6 HE
+Clan Ammo ATM-6
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Black Hawk is a non-OmniMech BattleMech version of the Nova, developed by Clan Hell's Horses to simplify production within their Inner Sphere occupation zone. First produced in 3073, the Black Hawk strips away the Nova's OmniMech pod technology in favor of a fixed weapons configuration built around readily available components. Clan Sea Fox also manufactures the design for export to Inner Sphere buyers.</p><p>The Black Hawk quickly established itself as a rugged and inexpensive medium BattleMech that did not excel in any single role but proved capable across a broad range of mission profiles. Its combination of Clan-derived performance, low acquisition cost, and straightforward maintenance requirements gave it wide appeal among military organizations that prioritize quantity and reliability over specialized performance.</p>
+
+capabilities:<p>The Black Hawk retains the Nova's fifty-ton mass, 250-rated XL engine, and five jump jets providing one hundred fifty meters of jump capability, matching its OmniMech ancestor's mobility profile exactly. However, the design trades the Nova's standard internal structure for a Type 3 Standard endo steel frame and carries eight and a half tons of Standard YM17 armor rather than the Nova's ten tons of Forge Type HH30, a reduction of one and a half tons that marginally decreases overall protection but frees weight for its fixed weapons loadout.</p><p>The standard Black Hawk mounts a pair of Series 7K extended-range large lasers in the torso for sustained long-range direct fire support, supplemented by four Pattern J4 Streak SRM-4 launchers in the arms for devastating close-range work. The Streak launchers' lock-on-only firing mechanism ensures ammunition efficiency, while four tons of Streak ammunition split across the torsos provide substantial combat endurance. This combination of long-range energy weapons and short-range missile systems creates a versatile engagement profile that reflects the design's generalist philosophy.</p><p>A sturdy frame and ample armor allow the Black Hawk to absorb more punishment than most Inner Sphere BattleMechs in its weight class, while its low center of gravity makes it both stable and maneuverable. The design's potent mix of short-range missiles and extended-range lasers enables it to hold its own in almost any combat situation, though it lacks the specialized punch to dominate against dedicated fire support or assault platforms.</p>
+
+deployment:<p>The Black Hawk 2 replaces both the laser and missile armament with a quartet of SRM-6 launchers and a pair of medium pulse lasers, dramatically shifting the design toward close-range brawling. Four tons of SRM ammunition feed the launchers through extended engagements, and the pulse lasers' improved accuracy at short range complements the missile barrage. This variant sacrifices the base model's long-range capability entirely but delivers far greater damage output inside three hundred meters, making it a preferred choice for urban combat and dense terrain operations.</p>
+
+history:<p>The Black Hawk emerged from Clan Hell's Horses' practical need for a dependable, easily produced combat unit in their occupation zone. The Nova's OmniMech technology, while tactically superior, demanded manufacturing capabilities that were difficult to maintain far from the Clan Homeworlds. By stripping the design down to a fixed-configuration BattleMech, the Horses created a chassis that could be assembled with simpler tooling and maintained by less specialized technicians, ensuring a steady supply of frontline units.</p><p>Clan Sea Fox recognized the design's commercial potential and began producing their own version at Manufacturing Plant SFF-IT5 aboard the CSF Kraken mobile production facility, deliberately using older and cheaper components to minimize costs for Inner Sphere buyers. This version proved enormously successful on the open market, and Sea Fox traders distributed Black Hawks across the Inner Sphere throughout the late thirty-first and early thirty-second centuries. The design's combination of Clan-grade performance at a fraction of typical Clan pricing made it irresistible to budget-conscious military organizations.</p><p>On New Oslo, the Hell's Horses' Manufacturing Site #3 maintained a separate production line that served the Clan's own touman and its allies. The Black Hawk's widespread distribution meant that by the Dark Age era, one would be hard pressed to find a military in the Inner Sphere that did not field several of the machines. The design's presence among the Wolves-in-Exile, Hell's Horses, and Sea Foxes ensured a particularly strong Clan presence, while mercenary commands and independent worlds prized it as an affordable and reliable frontline medium BattleMech.</p><p>Combat reports from Siendou in 3140 demonstrated the Black Hawk's effectiveness when a lance of Black Hawk 3 variants belonging to the indigenous mercenary command Ogoun's Machete engaged pirate forces from the Hellion Harpies. Operating in the rocky terrain around the Chaîne de la Selle diamond mines, the Black Hawks' superior mobility and coordinated fire proved decisive against the raiders' less maneuverable forces, confirming the design's value as a capable and versatile medium combatant in the hands of skilled MechWarriors.</p>
+
+manufacturer:CSF Kraken Mobile Production Facility/Manufacturing Plant SFF-IT5
+
+primaryfactory:Sea Fox Factory Ship
+
+fluffdate:2026-02-10 14:00:04
+

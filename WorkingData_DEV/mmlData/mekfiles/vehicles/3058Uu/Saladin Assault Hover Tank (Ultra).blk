@@ -1,0 +1,155 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e477-7533-ac5c-8344d124ee8a
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Saladin Assault Hover Tank
+</Name>
+
+<Model>
+(Ultra)
+</Model>
+
+<mul id:>
+2781
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+14
+8
+8
+5
+</armor>
+
+<Body Equipment>
+IS Ultra AC/20 Ammo
+IS Ultra AC/20 Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISUltraAC20
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Saladin's defining feature is the Scarborough Original 20 Autocannon/20, one of the most powerful direct-fire weapons available to any vehicle in its size class. At nearly 130 kph, the Saladin ranks among the fastest armored vehicles in the Inner Sphere, capable of delivering a devastating attack and withdrawing before the enemy can concentrate return fire. Three tons of autocannon ammunition support its intended role of short, decisive engagements.</p><p>The design's weaknesses are substantial. Half the vehicle's total tonnage is consumed by the main gun and its ammunition, leaving minimal room for armor plating. The ProtecTech 4 protection is among the thinnest found on any front-line combat vehicle, and crews that absorb fire from anything heavier than light weapons rarely survive intact. The fixed autocannon mount requires the driver to orient the entire vehicle toward a target, eliminating the flexibility of a standard turret. No secondary armament exists to handle infantry or light vehicles that close to short range, a persistent operational gap. Scarborough prioritized firepower above all else, and commanders must plan Saladin employment with these limitations firmly in mind.</p>
+</capabilities>
+
+<overview>
+<p>The Saladin Assault Hover Tank represents the third entry in Scarborough, Ltd.'s family of medium hover combat vehicles. Introduced in 2942, the Saladin was designed to fill a role the Scimitar and Saracen could not deliver: a single overwhelming blow against armored targets, delivered by the same hover platform that gave the family its tactical relevance. Rather than distribute firepower across multiple systems or compromise for a turret assembly, Scarborough's designers concentrated the Saladin's entire offensive potential into one weapon, accepting significant trade-offs in protection and sustained firepower.</p><p>The design earned a mixed reception among Successor State commanders, who valued the punch but questioned the survivability. Despite sluggish early sales, aggressive marketing and battlefield results in the Azami territories helped establish the Saladin as a respected asset in combined-arms formations across the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Ultra variant upgrades the main autocannon to an Ultra AC/20 capable of double-fire, dramatically increasing short-burst damage output at the cost of potential jams. Introduced during the FedCom Civil War period at Al Na'ir, it serves in Combine shock formations where rapid vehicle kills are essential and the risk of mechanical failure is accepted.</p>
+</deployment>
+
+<history>
+<p>The Saladin Assault Hover Tank was the third vehicle Scarborough, Ltd. brought to market, following the success of the Saracen and Scimitar hover platforms that preceded it by nearly a decade. Engineers studying the battlefield performance of those earlier designs identified a gap: neither the Saracen's missile support role nor the Scimitar's direct-fire harassment could reliably destroy heavily armored targets in a single engagement. Scarborough's answer was radical in its simplicity. Strip the turret, mount the largest autocannon the 35-ton hover chassis could carry, and build every other design decision around supplying and protecting that weapon.</p><p>Initial sales were disappointing. Military procurement officers across the Inner Sphere understood the appeal of the Scarborough Original 20, but the vehicle's minimal armor and fixed mount gave many commanders pause. A hover tank that could not absorb return fire and could not traverse its weapon independently was, in their estimation, a liability rather than an asset. Scarborough responded aggressively. The company offered subsidized shipping contracts, embedded technical training teams with early customers, and priced the Saladin below comparable firepower platforms from larger manufacturers. These incentives brought the vehicle to units that would not otherwise have considered it, and battlefield results did the rest.</p><p>The Azami worlds of the Dieron Military District became the Saladin's proving ground. Open terrain, proximity to the Federated Suns border, and the raider-heavy threat environment of those systems played directly to the vehicle's strengths. Combine commanders who deployed Saladins as shock elements in mixed hover lances, screened by Saracens and Scimitars, found that the autocannon's damage output justified the crew risks. Word spread through the DCMS, and Scarborough's Al Na'ir facility steadily shifted more production capacity toward Saladin orders as demand grew.</p><p>The broader Inner Sphere market remained more cautious. The Free Worlds League and several Periphery states purchased limited numbers through licensing agreements, primarily for garrison and anti-piracy duties where speed and punch mattered more than protection. The political realignment that merged the Federated Suns and Lyran Commonwealth disrupted established export channels for Combine-produced vehicles, and Saladin sales outside the DCMS declined sharply during that period.</p><p>Scarborough introduced factory-upgraded variants as technology recovered from the nadir of the Succession Wars. The LB-X variant replaced the original autocannon with a cluster-munitions-capable model, giving crews options against aerospace assets and infantry as well as armor. The Ultra AC/20 variant followed, offering the possibility of a devastating double tap at the cost of mechanical reliability. Both variants served in Combine shock formations pressing against the Federated Suns border during the FedCom Civil War period. An improvised field modification stripped one ton of ammunition in exchange for additional plate, a conversion adopted wherever technicians could source compatible materials.</p><p>The Jihad produced a unique experimental variant in the Ifrit, a one-of-a-kind refit created in the Fronc Reaches that replaced the ICE powerplant with a fusion engine and paired an energy weapon with vehicular jump jets. The Ifrit bore little resemblance to the original design philosophy beyond the shared hull, and its creator acknowledged it as a non-production curiosity rather than a production blueprint.</p><p>By the Dark Age period, the standard Saladin had served the Combine for nearly two centuries. The original design remained viable in rear-area and garrison roles, but front-line formations increasingly required the protection and endurance that the Mk II program delivered. Production at Al Na'ir and Algedi ensured the redesigned platform reached the Combine's expanding requirements, carrying the Scarborough family concept forward into the ilClan era.</p>
+</history>
+
+<manufacturer>
+Scarborough Manufacturers
+</manufacturer>
+
+<primaryFactory>
+Al Na'ir
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:ConLee
+ARMOR:Scarborough Manufacturers
+COMMUNICATIONS:Scarborough
+TARGETING:Scarborough
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:100 ICE
+ARMOR:Unknown
+COMMUNICATIONS:Talky-2
+TARGETING:Assault-1
+</systemModels>
+
+<source>
+TR:3058U,TR:3039
+</source>
+
+<published>
+RS:3058Uu-I
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

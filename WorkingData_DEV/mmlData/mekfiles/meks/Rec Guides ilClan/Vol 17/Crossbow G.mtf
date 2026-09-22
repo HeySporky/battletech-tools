@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d948-737c-990a-ade8de115913
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Crossbow
+model:G
+mul id:8237
+
+Config:Biped OmniMek
+techbase:Clan
+era:3136
+source:RG17
+published:RG17
+rules level:2
+role:Sniper
+
+
+mass:65
+engine:325 Fusion (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:10
+walk mp:5
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:18
+RA armor:18
+LT armor:19
+RT armor:19
+CT armor:26
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:9
+RTR armor:9
+RTC armor:13
+
+Weapons:6
+Streak LRM 5, Left Arm
+Streak LRM 5, Left Arm
+Streak LRM 5, Left Arm
+Streak LRM 5, Right Arm
+Streak LRM 5, Right Arm
+Streak LRM 5, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLStreakLRM5 (OMNIPOD)
+CLStreakLRM5 (OMNIPOD)
+CLStreakLRM5 (OMNIPOD)
+Clan Streak LRM 5 Ammo (OMNIPOD)
+Clan Streak LRM 5 Ammo (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLStreakLRM5 (OMNIPOD)
+CLStreakLRM5 (OMNIPOD)
+CLStreakLRM5 (OMNIPOD)
+Clan Streak LRM 5 Ammo (OMNIPOD)
+Clan Streak LRM 5 Ammo (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Crossbow emerged during the Golden Century as Clan Steel Viper's first attempt to develop indigenous OmniMech manufacturing capability. The Steel Viper Khans had initially failed to recognize the value of the OmniMech concept, and only after capturing a cadre of Clan Snow Raven scientists during a Trial of Possession did the Vipers commit to building their own. Working together, the Steel Viper technicians and their Snow Raven counterparts produced a 65-ton heavy OmniMech that first saw combat in 2870. As both teams were relatively inexperienced with Omni technology, they developed a novel OmniPod system confined almost exclusively to the 'Mech's arms, making the Crossbow considerably less flexible than most OmniMechs but also far cheaper and easier to produce and maintain.</p><p>Often described as a sleeker version of the Star League-era Longbow, the Crossbow has earned a reputation as a reliable and effective fire support platform. Its simple construction and use of a standard engine, standard internal structure, and conventional armor have made it attractive to resource-conscious Clans, particularly the Blood Spirits. Though largely relegated to second-line duty in many toumans, the Crossbow continues to appear on frontlines across the Inner Sphere and Clan space alike.</p>
+
+capabilities:<p>The Crossbow does not employ any expensive weight-saving technologies. Its Anaconda OmniHeavy chassis uses standard internal structure, and the New Kent Type 325-rated fusion engine drives the 'Mech to a respectable cruising speed of 54 km/h with a top speed of 86 km/h. Twelve tons of Compound V6 armor provide solid protection for a heavy 'Mech, though the design sacrifices jump capability entirely. The chassis dedicates sixteen tons to pod space, with the vast majority concentrated in the arms, giving technicians flexibility to mount a wide variety of weapons systems while keeping the torso structure fixed and simple.</p><p>In its Prime configuration, the Crossbow carries its weaponry almost exclusively in arm-mounted pods, a striking contrast with most other Clan OmniMechs. Two Artemis IV-guided LRM-20 launchers provide devastating long-range firepower that remains effective at point-blank range. The base chassis requires no additional double heat sinks beyond the ten integrated into the engine, as the missile-heavy loadout generates manageable waste heat. The limited ammunition supply is rarely a concern during the structured engagements of Clan Trials, though extended field operations can leave the Crossbow vulnerable once its magazines are depleted.</p><p>The arm-mounted pod system, while restrictive compared to more modern OmniMechs, does allow rapid reconfiguration between engagements. However, concentrating weapons in the arms creates a vulnerability: penetrating fire against an arm pod can knock an entire weapon system offline or, worse, trigger a catastrophic ammunition explosion. The Crossbow's ruggedness and simplicity typically compensate for this weakness, as its sturdy construction often brings its warriors home alive even after sustaining significant damage.</p>
+
+deployment:<p>Alternate Configuration G equips each arm with three Streak LRM-5 launchers backed by two tons of ammunition. The Streak technology ensures that missiles are only launched when a solid lock is achieved, dramatically improving ammunition efficiency compared to standard LRM systems. This configuration functions as an evolution of the Prime's long-range fire support philosophy, trading raw salvo weight for the reliability and precision of Streak guidance systems.</p>
+
+history:<p>Clan Steel Viper unveiled the Crossbow in 2870 during the Trial of Possession for Firebase Climax on Homer. The First Viper Guards deployed the new OmniMech against Clan Smoke Jaguar defenders, defeating them in under an hour. This decisive debut cemented the Crossbow's place in the Steel Viper touman, and the Viper Guards continued to make heavy use of the design, often combining Crossbow Stars with Elemental Points for devastating close-combat effectiveness.</p><p>The Blood Spirits became the only other Clan to field the Crossbow in significant numbers. The design's use of a standard engine, standard internal structure, and conventional armor made it well suited to the Spirits' resource-constrained touman, where expensive technologies were a luxury few units could afford. Production at the Novy Minsky Armaments Plant on New Kent served both Clans for centuries, though by the Jihad era the Crossbow had become increasingly rare as newer OmniMech designs supplanted it in frontline service.</p><p>The Crossbow's remaining Clan Homeworld production facilities were destroyed in 3074 during the Wars of Reaving, effectively ending its manufacture in Clan space. The design found unexpected new life in the Inner Sphere when Clan Wolf conquered Arcturus in 3128. During that battle, a Wolf MechWarrior earned a posthumous place in the Remembrance after destroying an entire company of Lyran 'Mechs while piloting a Crossbow, ensuring the newly captured Arcturan Arms factory would be retooled for mass production. Sporting upgraded configurations, Crossbows became common in the Wolf touman, with the Seventy-ninth Wolf Battle Cluster earning particular distinction on Denebola.</p><p>When the Jade Falcons later claimed Arcturus after the Wolves abandoned the planet, they neglected the Crossbow's production lines, relegating existing units to inferior solahma formations where they produced mixed results. Clan Sea Fox capitalized on this indifference, purchasing and reselling Crossbows in large numbers. On Wotan, fast and light Hell's Horses combat units struggled against the short-range power of the Falcon's favored Crossbow J configuration, until long-range precision fire and aerospace support overwhelmed the defenders.</p><p>Following the rebirth of the Tamar Pact, Clan Sea Fox worked with the Pact's leadership to retool Arcturan Arms' production lines for Clan OmniMech production. In exchange, the Sea Foxes claimed three of every four Crossbows produced, ensuring the design's continued proliferation across the Inner Sphere well into the ilClan era.</p>
+
+manufacturer:Novy Minsky Armaments Plant|Arcturan Arms
+
+primaryfactory:New Kent|Arcturus
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Anaconda
+systemmode:CHASSIS:OmniHeavy
+systemmanufacturer:ENGINE:New Kent
+systemmode:ENGINE:Type 325
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:V6
+systemmanufacturer:COMMUNICATIONS:Bishop
+systemmode:COMMUNICATIONS:211 Meridian
+systemmanufacturer:TARGETING:Spanke
+systemmode:TARGETING:112-A

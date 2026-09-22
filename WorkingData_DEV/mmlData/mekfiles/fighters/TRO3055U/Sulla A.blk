@@ -1,0 +1,181 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ae4a-7067-b054-47bb237b12bb
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Sulla
+</Name>
+
+<Model>
+A
+</Model>
+
+<mul id:>
+3117
+</mul id:>
+
+<year>
+2998
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+9
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+13
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+46
+41
+41
+35
+</armor>
+
+<Nose Equipment>
+CLERLargeLaser:OMNI
+CLERMediumLaser:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLLRM10:OMNI
+CLArtemisIV:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLLRM10:OMNI
+CLArtemisIV:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+CLERSmallLaser:OMNI
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+Clan Ammo LRM-10 (Clan) Artemis-capable:OMNI
+Clan Ammo LRM-10 (Clan) Artemis-capable:OMNI
+CLCASE
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Sulla's base chassis pairs a 315-rated XL fusion engine with Composition G ferro-aluminum armor, freeing fourteen and a half tons of pod space for weapons and equipment across its configurations. Thirteen double heat sinks on the base chassis provide strong sustained-fire characteristics, while five tons of fuel give patrol and escort endurance that few medium OmniFighters can match. These qualities make the Sulla particularly effective in extended operations where resupply may not be immediately available, and its consistent performance during prolonged sorties has become a defining characteristic of the design.</p><p>The Prime configuration illustrates the general-purpose philosophy, pairing a nose-mounted extended-range PPC with an extended-range large laser under each wing for consistent engagement across long and medium ranges. A stern extended-range small laser provides minimal discouragement to pursuing fighters, reflecting the design's emphasis on forward firepower over defensive countermeasures. While the extended-range PPC generates significant heat for a craft of this tonnage, the base chassis heat management gives pilots adequate room to sustain fire without frequent shutdown risk. The primary limitation of the design in its Prime loadout is reliance on a single high-heat weapon in the nose, which restricts burst-fire potential against well-armored opponents. Communications are managed by the BCom 8 system and targeting by the Pattern 9 TTS, both base chassis-mounted and shared across all configurations.</p>
+</capabilities>
+
+<overview>
+<p>The Sulla is a forty-five-ton Clan OmniFighter introduced in 2998 by Forge 7 on Priori. Designed to fill the gap between lighter interceptors and heavier strike fighters in Clan aerospace formations, it prioritizes a balanced combination of weapons capacity, armor protection, and fuel endurance over specialization in any single role. Its OmniPod architecture allows commanders to reconfigure the fighter's weapons suite for the demands of a given operation, from long-range standoff strikes to close-range ground-attack support. Widely distributed across Clanspace through production at multiple Clan facilities and through Trials of Possession, the Sulla has established itself as one of the most commonly encountered Clan OmniFighters in service.</p>
+</overview>
+
+<deployment>
+<p>The A configuration emphasizes standoff engagement, mounting an extended-range large laser and an extended-range medium laser in the nose for limited strafing capability, supported by Artemis IV fire control-enhanced LRM-10 launchers in each wing. The combination provides long-range engagement capability unmatched in the weight class, though each launcher carries only one ton of reloads, requiring careful ammunition conservation. A stern extended-range small laser provides minimal rear-arc coverage. This configuration is favored for roles where forcing opponents to maneuver at extended ranges is preferred over direct close engagement.</p>
+</deployment>
+
+<history>
+<p>The Sulla entered service in 2998 as a product of Forge 7 on Priori, then held by Clan Diamond Shark. Its introduction came during a period of expanding Clan aerospace production, and the design spread rapidly through Trials of Possession. Dedicated production facilities followed at Aeroyard Gargain on Bearclaw under Clan Ghost Bear, at Barcella First Factory on Barcella under Clan Nova Cat, and at Sheridan LA-TF7 on Sheridan under Clan Star Adder. These four concurrent production sites ensured the Sulla's ubiquity across virtually all Clan toumans by the Succession Wars period.</p><p>Through the Succession Wars and into the Clan Invasion era, Ghost Bear and Star Adder built the largest Sulla inventories of any Clan, deploying the type heavily in their drive toward Terra. The Clan Civil War brought significant ownership changes at several key facilities. Priori passed from Diamond Shark to Star Adder control during the Civil War, shifting production of the TRO-documented variant entirely to the Star Adder touman. The Barcella line transitioned through Diamond Shark hands to Cloud Cobra control as alliances shifted in the post-Invasion period, while the Bearclaw facility passed from Ghost Bear to Snow Raven and eventually to Clan Sea Fox.</p><p>The Jihad brought Ghost Bear into active Sulla production at the Tseng Facility on Alshain, an Inner Sphere world the Clan had occupied since the Invasion but only recently committed to dedicated aerospace manufacturing. The Ghost Bear Dominion and its successor the Rasalhague Dominion maintained active production at Alshain through the Dark Age and into the ilClan period. The Jihad also produced the E configuration, introducing plasma cannons paired with an advanced targeting computer as a new tactical option for suppressing enemy heat management. The Dark Age F configuration subsequently incorporated the Watchdog combined electronic warfare system, adding an electronic suppression capability absent from all prior configurations and reflecting the Sulla's continued adaptation across generations of Clan warfare.</p>
+</history>
+
+<manufacturer>
+Forge 7|Aeroyard Gargain|Barcella First Factory|Sheridan LA-TF7|Tseng Facility
+</manufacturer>
+
+<primaryFactory>
+Priori|Bearclaw|Barcella|Sheridan|Alshain
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Priori Type A
+ENGINE:315 XL
+ARMOR:Composition G Ferro-aluminum
+COMMUNICATIONS:BCom 8
+TARGETING:Pattern 9 TTS
+</systemModels>
+
+<source>
+TR:3055U
+</source>
+
+<published>
+RS:3055Uu
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

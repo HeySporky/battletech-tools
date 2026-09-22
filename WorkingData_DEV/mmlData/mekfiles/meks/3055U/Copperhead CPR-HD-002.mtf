@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c76a-7d6a-9445-c9aa85463c84
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Copperhead
+model:CPR-HD-002
+mul id:690
+
+Config:Biped
+techbase:Inner Sphere
+era:3054
+source:TR:3055U
+published:RS:3055Uu
+rules level:2
+role:Striker
+
+quirk:difficult_maintain
+
+mass:30
+engine:180 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:12 IS Double
+walk mp:6
+jump mp:2
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:9
+RT armor:9
+CT armor:12
+HD armor:9
+LL armor:9
+RL armor:9
+RTL armor:3
+RTR armor:3
+RTC armor:5
+
+Weapons:7
+Medium Pulse Laser, Left Arm
+Small Pulse Laser, Left Arm
+SRM 4, Right Arm
+Medium Laser, Left Torso
+Medium Laser, Right Torso
+Medium Laser, Center Torso
+Streak SRM 2 (OS), Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMediumPulseLaser
+ISSmallPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+SRM 4
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Medium Laser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Medium Laser
+IS Ammo SRM-4
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISStreakSRM2OS
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Introduced in late 3054, the Copperhead is a light BattleMech purpose-built for the arena combat circuits of Solaris VII. Designed and manufactured by Solaris Arms, the thirty-ton 'Mech was conceived to excel in the short-duration, close-quarters engagements that define Solaris arena matches. The design quickly gained prominence after a Silver Dragons Stable pilot elevated it into the prestigious Solaris Top Twenty, establishing the Copperhead as a serious contender despite its light weight class. Following this success, the Silver Dragons commissioned Solaris Arms to develop an advanced variant incorporating experimental weaponry, though the prohibitive cost forced the stable to allow outside sales to recoup development expenses. While primarily an arena machine, the Copperhead attracted limited military interest, with the Draconis Combine Mustered Soldiery acquiring a number of the original production models for battlefield evaluation. The design's specialized nature and single-factory production on Solaris VII have kept overall numbers relatively low compared to mainstream military designs.</p>
+
+capabilities:<p>The Copperhead's design philosophy centers on maximizing lethality within a thirty-ton frame optimized for arena combat. Built on a Castelli 211CTC chassis and powered by a GM 180 XL engine fitted with a supercharger, the design can achieve burst speeds of one hundred thirty kilometers per hour, allowing pilots to rapidly close distance or disengage in tight arena terrain. A pair of Luxor 2/Q-EX jump jets provide a modest sixty meters of vertical mobility, enough for tactical repositioning over obstacles but criticized by some as insufficient for a light 'Mech. ArcShield reflective armor provides exceptional protection against the energy weapons prevalent in arena combat, though at only four and a half tons the coverage remains thin by military standards. A cramped small cockpit accommodates the design's tight internal space requirements but reduces pilot comfort during prolonged engagements.</p><p>The Copperhead's firepower centers on a Sutel Precision Line medium X-pulse laser in the left arm, incorporating Bethel Labs X-pulse technology for devastating accuracy at close range. Three torso-mounted Diverse Optics extended-range medium lasers provide the primary damage output at medium distances, while a Holly Streak SRM-4 rack and head-mounted Poland Main Model C Magshot deliver punishing close-range surprises. Thirteen double heat sinks struggle to manage the heat generated by sustained fire from this advanced laser array, forcing pilots to carefully manage their engagement tempo to avoid potentially catastrophic overheating.</p>
+
+deployment:<p>The original production model, this variant first appeared in 3054 and served as the foundation for all subsequent variants. Lacking the supercharger and small cockpit of later models, this version mounts Durallex ferro-fibrous armor and carries twelve double heat sinks. Its weapon array consists of four medium lasers supported by a small pulse laser, with a standard SRM-4 launcher providing close-range firepower and a single-shot Streak SRM-2 offering a one-time surprise punch. While designed for arena combat, the Draconis Combine Mustered Soldiery purchased a quantity of CPR-HD-002 models for conventional military service, making this the only Copperhead variant to see significant battlefield deployment outside Solaris VII.</p>
+
+history:<p>The Copperhead traces its origins to the competitive arena circuits of Solaris VII, where Solaris Arms first produced the design in late 3054. Purpose-built for the gladiatorial combat that defined the Game World's entertainment industry, the original CPR-HD-002 quickly proved itself in Solaris stables. A Silver Dragons Stable pilot drove the design into the prestigious Top Twenty rankings, earning recognition for both the stable and the Copperhead itself. This high-profile success prompted the Silver Dragons to commission a comprehensive upgrade incorporating the latest experimental technologies.</p><p>The resulting CPR-HD-003 variant entered production around 3065, featuring advanced weaponry and improved defensive systems. However, the development costs proved so substantial that the Silver Dragons were forced to allow sales to other interested parties, spreading the upgraded Copperhead across multiple Solaris stables. A simplified CPR-HD-004 variant followed shortly after in 3066, trading jump capability for increased armor protection to suit pilots who preferred durability over mobility.</p><p>The Clan Invasion's arrival in 3049 had dramatically shifted the Inner Sphere's military priorities, diminishing the role of light BattleMechs in conventional warfare. Despite this trend, the Draconis Combine recognized potential in the original Copperhead and purchased a number of CPR-HD-002 models for battlefield service, representing the design's most significant military adoption. The Combine's interest likely stemmed from the Copperhead's energy-weapon-heavy loadout and arena-proven maneuverability, qualities that translated reasonably well to reconnaissance and harassment duties.</p><p>Solaris VII's political control shifted several times over the Copperhead's production history. Originally within Free Worlds League territory during the Star League era, the planet passed through Federated Commonwealth control during the Clan Invasion before falling under Lyran Alliance jurisdiction. These political changes affected but did not halt production, as Solaris Arms continued to operate under successive governments. Production of all Copperhead variants appears to have peaked during the Civil War era before ceasing entirely, likely due to the broader disruptions of the Jihad and the design's inherently limited market appeal beyond the arena circuit. The Copperhead's notoriously high maintenance requirements further constrained its adoption outside the well-equipped workshops of Solaris VII's gaming stables.</p>
+
+manufacturer:Solaris Arms
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Castelli
+systemmode:CHASSIS:211CTC
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:180 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Luxor
+systemmode:JUMP_JET:2/Q-EX
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T-11B
+systemmanufacturer:TARGETING:Federated
+systemmode:TARGETING:Hunter

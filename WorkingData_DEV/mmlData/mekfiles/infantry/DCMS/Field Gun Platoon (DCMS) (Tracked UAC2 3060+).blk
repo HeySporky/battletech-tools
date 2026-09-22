@@ -1,0 +1,85 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bbb5-7503-9605-8b64fae346d4
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Field Gun Platoon (DCMS)
+</Name>
+
+<Model>
+(Tracked UAC2 3060+)
+</Model>
+
+<year>
+3060
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<Troopers Equipment>
+Draconis Combine Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+ISUltraAC2
+IS Ultra AC/2 Ammo
+ISUltraAC2
+IS Ultra AC/2 Ammo
+ISUltraAC2
+IS Ultra AC/2 Ammo
+ISUltraAC2
+IS Ultra AC/2 Ammo
+</Field Guns Equipment>
+
+<overview>
+<p>Conventional infantry within the DCMS serve as the foundation of planetary defense, providing the manpower essential to territorial control while freeing BattleMech and armored assets for offensive operations. The platoon tows a light ultra autocannon that can double its rate of fire at the risk of jamming the mechanism. When it works, the sustained volume of long-range suppressive fire is unmatched by any standard autocannon of similar weight.</p>
+</overview>
+
+<notes>
+Intro date based on production date of ultra-class autocannon
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+

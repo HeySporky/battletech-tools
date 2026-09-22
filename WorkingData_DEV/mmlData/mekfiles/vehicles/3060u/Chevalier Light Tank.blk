@@ -1,0 +1,156 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e4c9-7052-8cc3-89eac7d194b2
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Chevalier Light Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+582
+</mul id:>
+
+<year>
+2690
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<armor>
+26
+20
+20
+16
+22
+</armor>
+
+<Body Equipment>
+IS Streak SRM 2 Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISStreakSRM2
+ISStreakSRM2
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISERLargeLaser
+</Turret Equipment>
+
+<capabilities>
+<p>The Chevalier's primary armament is a turret-mounted Blankenburg Extended Range Large Laser, which allows the vehicle to engage targets at considerable distance while going for extended periods without needing ammunition resupply. Complementing this are two forward-firing Zone-Tone Streak-2 short-range missile launchers, providing accurate close-range punch to three hundred meters. The six and a half tons of Chobham Max-Tec armor provide remarkable protection for a vehicle of the Chevalier's class, giving it better survivability than many comparable light designs. Power comes from an RT 190 fusion plant that constitutes a full third of the vehicle's mass, enabling a top speed of ninety-seven kilometers per hour. This speed falls considerably short of contemporary hovercraft of comparable weight, but remains competitive for wheeled platforms and well-suited to the tank's reconnaissance role.</p><p>The Chevalier's main tactical limitation lies in its cramped crew compartment. The turret and hull configuration leaves barely enough space for the vehicle's three-man crew, let alone provisions and supplies for extended field operations. This constraint limits practical endurance despite the fusion plant's theoretical independence from resupply, making the Chevalier more dependent on logistical support than its designers originally envisioned.</p>
+</capabilities>
+
+<overview>
+<p>The Chevalier Light Tank is a thirty-five-ton wheeled combat vehicle designed during the Star League era for reconnaissance and spotting duties. Built by Millennium Industries, it entered service in 2690 as a scout that could operate at range and stay in the field without frequent resupply. Among wheeled designs of its weight class it earned a reputation for durability and endurance, trading the raw firepower of heavier vehicles for reliability and a respectable turn of speed.</p><p>The Chevalier was built for crews who needed to find the enemy and survive long enough to report, rather than to win stand-up fights. That focus made it a steady, unglamorous workhorse, valued more for what it could see and outlast than for what it could destroy. Its standing as a dependable light scout endured well beyond the Star League that created it.</p>
+</overview>
+
+<deployment>
+<p>Line reconnaissance units fielded the baseline Chevalier as a patrol and spotting vehicle, exploiting its endurance to range ahead of heavier formations and hold contact with an enemy for extended periods. Its frugal main weapon let crews remain on station long after other light vehicles would have withdrawn to rearm. Star League scouts valued it for screening duties and forward observation, where staying in the fight mattered more than winning it outright. Later operators continued to employ the design in the same role, treating it as a steady set of eyes at the front of a column rather than a frontline combatant.</p>
+</deployment>
+
+<history>
+<p>The Chevalier entered service with the Star League Defense Force as a reliable wheeled reconnaissance platform, filling a role that demanded endurance and independent operating capability over raw firepower. Produced at Millennium Industries' facility on Terra, the design saw deployment across SLDF formations during the height of the Star League era and was considered a competent performer in its intended role.</p><p>When the Star League collapsed and the Succession Wars began, the Chevalier suffered the fate of many technically sophisticated designs. Surviving examples were systematically stripped of components to keep other vehicles operational, and the expertise required to manufacture replacement parts eroded alongside the broader collapse of Inner Sphere technology. By the latter stages of the Succession Wars, the Chevalier had largely vanished from Successor State arsenals, with only token numbers retained in service.</p><p>Millennium Industries on Terra was the sole producer to keep the line running, and that output was claimed by the organization that controlled the homeworld. ComStar absorbed the design into its own forces, where it served quietly for decades. As Terra changed hands through the turmoil of the Jihad and its aftermath, the production line and its product passed from ComStar to the Word of Blake and ultimately to the Republic of the Sphere, each in turn fielding the durable little scout. The Chevalier never regained the prominence it held under the Star League, but its continued production on Terra kept a Star League design alive long after most of its contemporaries had disappeared.</p>
+</history>
+
+<manufacturer>
+Millennium Industries
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Blankenburg
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:RT 190
+ARMOR:Chobham Max-Tec
+COMMUNICATIONS:Dec-10 Whisperer
+TARGETING:Blankenburg Trooper
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+

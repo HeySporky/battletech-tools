@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cfcb-799d-bfdc-bde73b185c7b
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Night Wolf
+model:
+mul id:2273
+
+Config:Biped
+techbase:Clan
+era:3084
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:2
+role:Skirmisher
+
+quirk:hyper_actuator
+weaponquirk:direct_torso_mount:HD:3:CLAntiMissileSystem
+
+mass:90
+engine:360 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:18 Clan Double
+walk mp:4
+jump mp:4
+
+armor:Standard(Clan)
+LA armor:25
+RA armor:25
+LT armor:28
+RT armor:28
+CT armor:37
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:10
+RTR armor:10
+RTC armor:12
+
+Weapons:6
+ATM 9, Left Arm
+Plasma Cannon, Left Arm
+ATM 9, Right Arm
+ER Medium Laser, Right Arm
+Heavy Large Laser, Right Torso
+Anti-Missile System, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLATM9
+CLATM9
+CLATM9
+CLATM9
+CLPlasmaCannon
+Clan Ammo ATM-9
+Clan Ammo ATM-9 ER
+Clan Ammo ATM-9 HE
+Clan Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLATM9
+CLATM9
+CLATM9
+CLATM9
+CLERMediumLaser
+Clan Ammo ATM-9
+Clan Ammo ATM-9 ER
+Clan Ammo ATM-9 HE
+Clan Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLPlasmaCannonAmmo
+CLPlasmaCannonAmmo
+Clan Endo Steel
+Clan Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLTargeting Computer
+CLTargeting Computer
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLAMS Ammo
+CLECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLAntiMissileSystem
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Night Wolf is a ninety-ton assault BattleMech developed by Clan Wolf in the aftermath of the Jihad. Introduced in 3085, the design was conceived as a practical response to two simultaneous crises facing the Wolves: the severing of their supply lines to the Kerensky Cluster during the Word of Blake Jihad, and the growing effectiveness of combined-arms doctrines employed by their adversaries. Produced at W-7 Facilities on Weingarten, which had become the administrative capital of the Wolf Occupation Zone following Tamar's irradiation in 3070, the Night Wolf was intended to replenish aging second-line assault formations with a purpose-built standard BattleMech. The design represented a departure from the Wolves' traditional reliance on OmniMech superiority, instead embracing a more pragmatic philosophy of fielding a capable and self-sufficient assault platform manufactured entirely from resources available within the Occupation Zone.</p>
+
+capabilities:<p>For a Clan-made assault 'Mech, the Night Wolf presents a deliberately balanced profile rather than pursuing excellence in any single area. Its Light Force 360 XL engine drives the ninety-ton chassis to a modest sixty-four kilometers per hour, while four Grandthrust Mk. 5 jump jets provide a hundred and twenty meters of jump capability, sufficient to maintain tactical positioning against most contemporary opponents. The DSAM Endo 4 internal structure saves critical tonnage for the design's diverse weapons suite.</p><p>The armament reflects a combined-arms philosophy well suited to garrison and second-line duty. Twin Type 9 Series 1 ATM 9 launchers provide flexible engagement capability at any range through their selectable munitions, while a Series 4D-2 Heavy Large Laser delivers punishing direct-fire damage at medium range. A Zeta-series X Plasma Cannon in the left arm proves especially effective against conventional vehicles and infantry formations, and a Series 2b ER Medium Laser supplements the energy weapons. A targeting computer helps offset the Heavy Large Laser's inherent accuracy difficulties, while a TJ6 "Bell" Mark II ECM suite and a Shield 3A Anti-Missile System provide layered defensive countermeasures against electronic warfare and missile-heavy opponents.</p><p>The fifteen and a half tons of Compound 12B2 standard armor provide adequate protection for most encounters, though noticeably less than ferro-fibrous alternatives could offer at equivalent weight. This trade-off reflects the design's emphasis on manufacturing simplicity within the Wolf Occupation Zone's industrial constraints.</p>
+
+deployment:<p>Clan Wolf has employed the Night Wolf primarily to replenish losses in its second-line assault formations, where it has gradually replaced more venerable designs that the Clan can no longer readily acquire from the Homeworlds, including the Highlander IIC and the Supernova. Significant numbers of Night Wolves have appeared among forces arrayed along the Wolves' shared border with Clan Hell's Horses, forming a key component of the defensive cordon against inter-Clan territorial disputes. No factory variants of the Night Wolf have been produced; the design entered service in its sole configuration, reflecting the pragmatic priorities of a wartime development program.</p>
+
+history:<p>The Night Wolf's development is inseparable from the upheavals that reshaped Clan Wolf during the Jihad era. When the Word of Blake's campaign severed the Wolves' year-long supply lines to the Kerensky Cluster, the Clan was forced to confront the inadequacy of its homeworld-dependent logistics. Compounding this crisis, the combined-arms philosophies championed by enemies like the Word of Blake and the returning Hell's Horses challenged traditional Clan combat doctrines, demanding a more flexible battlefield response. The Night Wolf emerged from this dual crisis as a practical, indigenously produced assault 'Mech.</p><p>W-7 Facilities on Weingarten (a complex that had grown from a series of smaller industrial sites near accessible resources into a significant military manufacturing hub) began Night Wolf production around 3084. Weingarten's elevation to the administrative capital of the Wolf Occupation Zone after Tamar's irradiation by the Word of Blake in 3070 ensured the planet received priority allocation of resources and technical expertise, making it a natural home for new weapons programs.</p><p>Clan Wolf deployed the Night Wolf primarily in its second-line assault formations, where it gradually replaced aging designs such as the Highlander IIC and the Supernova that the Clan could no longer readily acquire from the Homeworlds. Many Night Wolves appeared among forces stationed along the shared border with Clan Hell's Horses, forming a key part of the defensive cordon against inter-Clan raids and territorial disputes in the former Lyran and Free Rasalhague Republic worlds.</p><p>The Night Wolf's production run proved relatively brief. When Clan Wolf abandoned its Occupation Zone in the late 3130s to pursue its march toward Terra, the departing Wolves systematically destroyed the Night Wolf production line at W-7 Facilities rather than allow it to fall into enemy hands. Clan Hell's Horses annexed Weingarten in 3138, but the destruction of the sole manufacturing facility effectively ended Night Wolf production. Only existing units remain in service, primarily with Hell's Horses garrison forces that inherited the remnants of the former Wolf Occupation Zone.</p>
+
+manufacturer:W-7 Facilities
+
+primaryfactory:Weingarten
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:DSAM
+systemmode:CHASSIS:Endo 4
+systemmanufacturer:ENGINE:Light Force
+systemmode:ENGINE:360 XL
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:12B2 Standard
+systemmanufacturer:JUMP_JET:Grandthrust
+systemmode:JUMP_JET:Mk. 5
+systemmanufacturer:COMMUNICATIONS:TJ6
+systemmode:COMMUNICATIONS:"Bell" Mark II with ECM
+systemmanufacturer:TARGETING:Mars System
+systemmode:TARGETING:9 (Build 2) with Targeting Computer

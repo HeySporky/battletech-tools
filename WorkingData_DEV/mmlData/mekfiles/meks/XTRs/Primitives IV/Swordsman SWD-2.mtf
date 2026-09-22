@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dfff-71d1-bdd9-d34d299d4b35
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Swordsman
+model:SWD-2
+mul id:7182
+
+Config:Biped
+techbase:Inner Sphere
+era:2482
+source:XTR:Primitives IV
+published:XTR:Primitives IV
+rules level:1
+role:Brawler
+
+quirk:bad_rep_is
+quirk:obsolete:2482
+quirk:searchlight
+quirk:poor_work
+weaponquirk:ammo_feed_problems:LT:0:Autocannon/5
+weaponquirk:accurate:LT:0:Autocannon/5
+
+mass:40
+engine:160 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:14
+RT armor:14
+CT armor:16
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:6
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+AC/5, Left Torso
+SRM 4, Right Torso
+LRM 5, Right Torso
+Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+SRM 4
+LRM 5
+IS Ammo LRM-5
+IS Ammo SRM-4
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Small Laser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Swordsman was one of the earliest BattleMech designs fielded by the Federated Suns, entering prototype testing in 2463 under the direction of First Prince James Davion. Conceived as a mid-weight, inexpensive combat platform, the forty-ton design was intended to be built in large numbers and distributed across the Armed Forces of the Federated Suns, supplementing the heavier Mackie and Battleaxe chassis that formed the backbone of the AFFS at the time. Produced by Jerricho Industries of Robinson, the Swordsman was plagued by quality issues from the outset and carried a poor reputation throughout its service life, never achieving the widespread adoption its designers envisioned.</p>
+
+capabilities:<p>The Swordsman is built around a 145-rated primitive fusion engine, giving the forty-ton chassis a top speed of roughly 54 kilometers per hour. While adequate for keeping pace with contemporary Age of War designs such as the Mackie and Battleaxe, this speed provides little tactical flexibility against faster opponents. The design mounts no jump jets, further limiting its maneuverability on broken terrain.</p><p>The weapons complement is designed for general-purpose engagement across multiple range bands. A Class-5 autocannon occupies the left torso, providing reliable long-range firepower, while a five-tube long-range missile launcher in the right torso supplements it with indirect fire capability. A pair of medium lasers, one in each arm, round out the arsenal for intermediate and close-range combat. The autocannon benefits from particularly accurate targeting integration, though this advantage is undercut by a persistent ammunition feed problem that risks catastrophic failure.</p><p>Ten tons of primitive armor provide reasonable protection for the era, though well below what later standardized designs would carry at the same tonnage. Combined with a primitive cockpit and the design's documented poor workmanship, the Swordsman offered only marginal survivability in sustained engagements. Integrated searchlights round out the equipment package, reflecting the design's intended role as a versatile frontline unit.</p>
+
+deployment:<p>Debuting in 2482, this variant serves as a comprehensive modernization of the original Swordsman design. Jerricho Industries replaced the primitive fusion engine, cockpit, and armor with modern equivalents, yielding significant weight savings that allowed the addition of new weapons systems. A four-tube short-range missile launcher provides additional close-range punch, while a small laser mounted in the head adds a supplementary weapon for point defense. The upgraded armor and improved mobility addressed many of the SWD-1's most glaring deficiencies, making this variant a substantially more capable frontline combatant and the primary Swordsman model throughout the remainder of the design's production run.</p>
+
+history:<p>The Swordsman's origins are inseparable from the political ambitions of the Terran March during the early Age of War. When First Prince James Davion authorized the design in the early 2460s, his intent was to create a mass-produced medium BattleMech that could be manufactured across multiple facilities throughout the Federated Suns. The contract, however, was steered to Jerricho Industries of Robinson through the influence of Terran March Prince Mikhail Rostov, who held a controlling interest in the company. Rostov's interference ensured that the Swordsman would remain a Terran March asset rather than a realm-wide design.</p><p>Jerricho submitted three prototypes before winning acceptance from the AFFS, with the final design incorporating the autocannon, missile launcher, and paired medium lasers that would define the chassis. The compressed development timeline, less than five years from initial request to acceptance, resulted in numerous technical problems. Despite these shortcomings, Rostov pressed hard for production, and the Swordsman quickly became the predominant BattleMech within the Terran March. An improved model, the SWD-2, debuted in 2482, addressing many of the original's flaws while adding enhanced firepower and protection.</p><p>The Swordsman's reputation suffered its most damaging blow during the Davion Civil War. Beginning in 2525, rebel forces aligned with Dmitri Rostov, grandson of Mikhail, fielded large numbers of Swordsman 'Mechs against loyalist AFFS formations. By the war's conclusion in 2540, the design had become indelibly associated with the rebellion. First Prince Alexander Davion ordered the Swordsman production lines shut down and simultaneously dismantled the Terran March as a political entity, in part as retribution for the Rostov family's disloyalty. The surviving Swordsman 'Mechs remained in service with former Terran March units, but no new machines would be built.</p><p>By 2571, the bulk of remaining operational Swordsman 'Mechs were transferred along with their parent regiments to the newly formed Star League Defense Force. These machines saw combat during the Reunification War, serving in reserve and second-line roles. Those that survived were subsequently mothballed or dispersed to reserve and militia formations across the Star League. The Swordsman continued to appear in diminishing numbers through the Star League era, ensuring that the Federated Suns' third home-grown BattleMech design, behind the Battleaxe and the Wolverine, would persist in service until the Amaris Civil War finally claimed the last of them.</p>
+
+manufacturer:Jerricho Industries
+
+primaryfactory:Robinson
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

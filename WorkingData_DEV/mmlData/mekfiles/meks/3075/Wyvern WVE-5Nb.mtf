@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf3f-73eb-95f1-294e75ec9977
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Wyvern
+model:WVE-5Nb
+mul id:3598
+
+Config:Biped
+techbase:Inner Sphere
+era:2660
+source:TR:3075
+published:RS:3075u-AW
+rules level:2
+role:Missile Boat
+
+quirk:rugged_1
+
+mass:45
+engine:180 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:13 Single
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:14
+RA armor:14
+LT armor:16
+RT armor:16
+CT armor:20
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:5
+Large Pulse Laser, Right Arm
+Medium Laser, Right Arm
+Small Laser, Right Arm
+SRM 6, Right Torso
+LRM 10, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Heat Sink
+ISLargePulseLaser
+ISLargePulseLaser
+Medium Laser
+Small Laser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Heat Sink
+Jump Jet
+IS Ammo LRM-10
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Heat Sink
+Jump Jet
+SRM 6
+SRM 6
+IS Ammo SRM-6
+ISCASE
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 10
+LRM 10
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Commissioned in 2660 by the Maltex Corporation, the Wyvern was designed as a dedicated close-quarters BattleMech for the Star League Defense Force. Drawing on the same rugged engineering philosophy that defined Maltex's heavier designs, the 45-ton Wyvern was built to dominate confined environments where raw speed matters less than maneuverability and firepower. The design quickly proved itself one of the finest combatants ever produced for restricted terrain, capable of engaging opponents well above its weight class. Its combination of heavy armor, diverse weaponry, and exceptional agility made it an ideal garrison and defense platform that saw widespread adoption across the Inner Sphere.</p>
+
+capabilities:<p>The Wyvern's tactical doctrine revolves around exploiting its four Northrup 750 jump jets to navigate terrain that would stymie faster but less agile opponents. With a 120-meter jump capability, the Wyvern can vault between rooftops and over obstacles to position itself behind enemy 'Mechs, where its diverse weapons suite can exploit exposed rear armor. The primary armament centers on a Nightwind large laser mounted in the right arm, an oversized but remarkably robust weapon whose components are so well-engineered that the paired Starflash small lasers on the same arm draw power directly from its feed without any efficiency loss.</p><p>A Jackson Dart LRM-10 provides long-range fire support, though its placement directly forward of the fusion engine creates a known vulnerability, as excessive heat can force the launcher's safety shutdown and overriding this risks catastrophic ammunition detonation. Complementing the missile systems, a Totschlagen SRM-6 offers reliable close-range punch, with a unique vertical assembly that allows MechWarriors to clear jams by performing the distinctive "schlagen hop." Protected by nine and a half tons of Kilosh armor on an endo steel frame with CASE-protected ammunition bays, the Wyvern absorbs punishment that would cripple most 45-ton designs, though its modest top speed of 65 km/h leaves it vulnerable when caught in open country.</p>
+
+deployment:<p>Introduced concurrently with the base model, this variant was fielded exclusively by SLDF Royal brigades. A 180-rated XL engine freed sufficient tonnage to upgrade the large laser to a pulse model and replace one small laser with a medium laser, while an additional heat sink helps manage the increased thermal load from these more powerful weapons. The variant retained all other base model systems, making it a straightforward performance improvement for elite formations.</p>
+
+history:<p>The Wyvern entered service with the Star League Defense Force in 2660, where it earned a reputation as a premier combatant in confined environments. Despite its effectiveness, the design carried an uncomfortable stigma. Its mission profile explicitly included crowd control, and few MechWarriors relished the task of pacifying cities and threatening unarmed civilians. However, those who embraced the assignment counted themselves among the proudest warriors in the SLDF.</p><p>Following the collapse of the Star League, the Wyvern continued in widespread service across the Successor States. Maltex Corporation maintained production at their Errai facility, but the onset of the Succession Wars and the gradual loss of advanced technology forced difficult compromises. The company began stripping advanced components from the Wyvern line to sustain production of the more prestigious Thug, producing a downgraded variant beginning in 2821. The Errai factory's destruction in 2835 by a battalion of unidentified raiders effectively ended new Wyvern production for over two centuries. The attackers carefully disguised their identities, sowing destruction across the manufacturing plant and the surrounding city of New Atlanta. A lance of Wyverns from Maltex's security force famously intercepted the larger raiding force on the outskirts, leaping into the enemy formation and causing enough confusion and damage to drive the numerically superior enemy into retreat over the nearby mountains.</p><p>As the Third Succession War settled into a pattern of preservation over destruction, the Wyvern found itself relegated to fighting in rough terrain, mountainous regions, and heavily forested areas where its limited ground speed was less of a liability. Despite steady attrition over the centuries, every Successor State managed to retain at least some Wyverns in their arsenals through the Clan Invasion era.</p><p>ComStar adopted the Wyvern for the Com Guards and developed the WVE-9N "Clanbuster" refit prior to the Battle of Tukayyid in 3052. It was not until 3064 that Maltex Corporation finally restarted their Errai production line, producing upgraded variants that took advantage of recovered Star League technology, including the WVE-10N developed for the Com Guard.</p>
+
+manufacturer:Maltex Corporation
+
+primaryfactory:Errai
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Ost
+systemmode:CHASSIS:Ost Endo Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:180 XL
+systemmanufacturer:ARMOR:Kilosh
+systemmode:ARMOR:1000 with CASE
+systemmanufacturer:JUMP_JET:Northrup
+systemmode:JUMP_JET:750
+systemmanufacturer:COMMUNICATIONS:Ostmann
+systemmode:COMMUNICATIONS:AMB
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Scrambler-7 Series

@@ -1,0 +1,176 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec35-7e08-9f76-82bd6361d19f
+</UUID>
+
+<UnitType>
+FixedWingSupport
+</UnitType>
+
+<Name>
+Caravan Heavy Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5624
+</mul id:>
+
+<year>
+2346
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+no_eject
+atmo_flyer
+easy_maintain
+fragile_fuel
+obsolete:2490
+gas_hog
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:60.0:4:1::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+464
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+48
+48
+48
+40
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Body Equipment>
+</Body Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Caravan's primary asset is its cavernous sixty-ton cargo bay, accessible through four doors, two forward and two aft, enabling efficient loading and unloading of palletized freight or heavy military materiel. Powered by a primitive internal combustion engine, the aircraft achieves adequate cruising speed for continental-range cargo runs, though its primitive powerplant consumes fuel at a especially inefficient rate. Despite carrying thirteen tons of fuel, the Caravan's effective operational range is constrained by this thirst, and the fuel tanks themselves are fragile, lacking meaningful protective shielding.</p><p>Seven tons of BAR 6-rated armor provide reasonable protection for both the airframe and its cargo, though this mass serves as much a structural necessity for supporting heavy loads as it does a defensive measure. The Caravan carries no armament whatsoever, and its crew of three enlisted personnel have no ejection capability. These limitations were considered acceptable trade-offs for a civilian cargo platform never intended for hostile environments. The design's greatest operational strength is its ease of maintenance, a quality that kept Caravans flying for decades on frontier worlds with minimal technical support infrastructure.</p>
+</capabilities>
+
+<overview>
+<p>The Caravan Heavy Transport is a 200-ton fixed-wing cargo aircraft designed by the Morrison-O'Connor-Marquand Corporation and introduced in 2346. Conceived during an era when atmospheric transport and space transport remained fundamentally separate industries, the Caravan filled a critical niche for planetary cargo hauling where DropShips and shuttles were either unavailable or prohibitively expensive. At 200 tons, it ranked among the largest conventional aircraft of its time, and its combination of massive cargo capacity, simple maintenance requirements, and low operating costs made it a favorite of civilian freight operators and government logistics agencies alike. The Caravan became one of the most commercially successful conventional aircraft designs in Inner Sphere history, with production expanding across multiple worlds to meet sustained demand throughout the Age of War.</p>
+</overview>
+
+<deployment>
+<p>The standard Caravan configuration saw service on hundreds of worlds across the Inner Sphere throughout the twenty-fourth and early twenty-fifth centuries, primarily operating from established airfields with long runway facilities capable of handling its 200-ton mass. Operators ranged from planetary government logistics agencies to private freight carriers, with the overwhelming majority serving purely civilian roles. Military use was limited and incidental, typically involving the transport of palletized supplies or heavy war materiel during wartime requisitioning rather than any dedicated combat logistics function. The aircraft's ubiquity ensured that trained maintenance crews and spare parts remained widely available throughout its operational life.</p>
+</deployment>
+
+<history>
+<p>The Caravan proved an immediate commercial success following its 2346 debut, with more than ninety percent of all units sold to civilian and government operators rather than military customers. Demand grew so rapidly that Morrison-O'Connor-Marquand Corporation built primary production facilities on six different worlds, supplemented by final assembly plants on dozens more. The company organized a fleet of DropShips and JumpShips specifically to transport partially constructed Caravans from its factories to these assembly sites, creating one of the most extensive manufacturing and distribution networks for any conventional aircraft of the era.</p><p>Throughout the Age of War, the Caravan and similar large atmospheric transports dominated planetary cargo operations on virtually every major world. The design's combination of heavy lift capacity, low operating cost, and simple maintenance requirements made it indispensable to economies still reliant on conventional air transport for intra-planetary logistics. No military conflict of the period significantly disrupted this dominance, as the Caravan served a fundamentally civilian role that persisted regardless of which factions controlled the worlds where it operated.</p><p>The Caravan's decline came not from competition or conflict but from technological progress. As advances in spacecraft design brought the cost of DropShip and shuttle operations down to more accessible levels, the flexibility of space-capable transports made dedicated atmospheric cargo aircraft increasingly redundant. By the final decades of the twenty-fifth century, drop-shuttles and small DropShips had absorbed most of the roles the Caravan once filled. The design faded into obscurity by approximately 2490, and no single conventional aircraft design since has replicated its once-ubiquitous presence in planetary skies across the Inner Sphere.</p>
+</history>
+
+<manufacturer>
+Morrison-O'Connor-Marquand Corporation
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<source>
+XTR:Primitives III
+</source>
+
+<published>
+XTR:Primitives III
+</published>
+
+<tonnage>
+200.0
+</tonnage>
+

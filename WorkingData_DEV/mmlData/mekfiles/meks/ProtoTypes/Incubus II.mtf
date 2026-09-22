@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d76b-7474-94d2-154761345e59
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Incubus II
+model:
+mul id:4363
+
+Config:Biped
+techbase:Clan
+era:3085
+source:TR:Proto
+published:RS:Proto
+rules level:4
+role:Striker
+
+quirk:cramped_cockpit
+quirk:reinforced_legs
+
+mass:30
+engine:240 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:8
+jump mp:8
+
+armor:Ferro-Fibrous(Clan)
+LA armor:10
+RA armor:10
+LT armor:10
+RT armor:10
+CT armor:15
+HD armor:9
+LL armor:14
+RL armor:14
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:3
+ER Medium Pulse Laser, Left Torso
+Laser AMS, Left Torso
+ER Medium Pulse Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLPartialWing
+CLPartialWing
+CLPartialWing
+Jump Jet
+Jump Jet
+CLERMediumPulseLaser
+CLERMediumPulseLaser
+CLLaserAntiMissileSystem
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLPartialWing
+CLPartialWing
+CLPartialWing
+Jump Jet
+Jump Jet
+CLERMediumPulseLaser
+CLERMediumPulseLaser
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLLightActiveProbe
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Incubus II is a thirty-ton Clan light BattleMech developed in 3085 through an industrial alliance between Clan Hell's Horses and Clan Wolf-in-Exile. Born from necessity during the tumultuous Jihad era, the design represents the first collaborative product of the Horses' technical expertise and the Exiled Wolves' material support. The Wolves provided raw materials and supply assistance from their adopted Inner Sphere holdings, while the Horses contributed the scientific knowledge gained from years of producing their own Incubus variants.</p><p>Produced at the Csesztreg Industriplex Alpha on Csesztreg, the Incubus II was chosen as the alliance's first project due to the original Incubus's high regard among the Clans. The Exiled Wolves secured right of first refusal on produced units as part of the agreement, ensuring both Clans benefited from the partnership. The design trades raw speed for enhanced mobility and tactical flexibility, carving out a distinct niche from its celebrated predecessor.</p>
+
+capabilities:<p>The Incubus II retains the Model MH-26 endo steel chassis and Compound H17 ferro-fibrous armor of its predecessor, but diverges significantly in its propulsion and weapons philosophy. A smaller 240-rated XL engine reduces the top ground speed to 129 kilometers per hour, but this sacrifice enables the installation of jump jets augmented by a partial wing. In standard atmosphere, the Incubus II can cover an impressive 240 meters in a single jump, with the partial wing's increased airflow also improving heat dissipation through the 'Mech's cooling systems.</p><p>The fixed armament consists of two ER medium pulse lasers mounted in the torsos and a laser anti-missile system in the head for protection against incoming ordnance. A light active probe enhances the design's reconnaissance capability, making it effective at spotting hidden enemy units. The relatively light fixed weaponry reflects the design's most innovative feature: a system of interchangeable handheld weapons that provides commanders with a degree of tactical flexibility approaching that of an OmniMech. Available handheld packages include chemical lasers, Streak and standard missile launchers, AP Gauss rifles, machine guns, and TAG designators.</p><p>The cramped cockpit and reinforced leg structure reflect the design's emphasis on jump-capable mobility over pilot comfort, a trade-off that Hell's Horses warriors have generally accepted given the significant tactical advantages the partial wing provides in rough terrain operations.</p>
+
+deployment:<p>The standard Incubus II configuration mounts twin ER medium pulse lasers alongside its laser anti-missile system and light active probe. Clan Hell's Horses has deployed the design extensively to bolster their damaged touman, with production ramped to maximum levels as many Galaxies were reduced to Binaries during the Jihad and its aftermath. Clan Wolf-in-Exile also operates a limited number, employing them as reconnaissance specialists in light Stars where the design's jump capability and active probe complement faster scout 'Mechs.</p>
+
+history:<p>The Incubus II's origins trace to the desperate circumstances facing Clan Hell's Horses during the Jihad. Having seized Inner Sphere systems in 3071 more out of necessity than desire, the Horses planned to rapidly establish military production facilities to offset combat losses. This plan met with limited success, as industrial construction could not keep pace with the Horses' military expansion. Overextended and forced to consolidate, the Horses turned to their modest production facilities on the adopted homeworld of Csesztreg.</p><p>Help came from Clan Wolf-in-Exile, whose Khan Phelan Kell had maintained a loyal ally in the Exiled Wolves despite Khan Ward's hostility. After intense negotiations, the two Clans established a joint production agreement on Csesztreg, with the Horses handling design and production while the Wolves provided critical raw materials and technical advisors. Technology acquired from the Exiled Wolves and reverse-engineered from Jade Falcon isorla provided many of the advanced components.</p><p>The Hell's Horses scientists selected the Incubus as the basis for their redesign due to its sterling reputation across the Clans. Focusing on the original's renowned speed, they developed a design that traded some ground velocity for dramatically improved jump capability. The addition of a partial wing to the vaguely LAM-like chassis proved a natural fit, increasing jump distance by over thirty percent while improving heat dissipation. The innovative handheld weapons system provided OmniMech-like flexibility on a second-line budget.</p><p>Production began at the Csesztreg Industriplex Alpha following the Jihad, with the Horses deploying the Incubus II to rebuild their battered touman. The design has remained in continuous production through the Dark Age and into the ilClan era, serving primarily with Clan Hell's Horses forces. The Exiled Wolf contingent maintains a smaller number, valuing the design for its reconnaissance capabilities and terrain-crossing ability in their light formations.</p>
+
+manufacturer:Csesztreg Industriplex Alpha
+
+primaryfactory:Csesztreg
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Model MH-26 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Fusion 240 XL
+systemmanufacturer:ARMOR:Csesztreg Industriplex Alpha
+systemmode:ARMOR:Compound H17 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Clan Light Series Mk. II with Partial Wing
+systemmanufacturer:COMMUNICATIONS:Bergan Industries
+systemmode:COMMUNICATIONS:CH2 Series Integrated
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Version Gamma-V TTS with Light Active Probe

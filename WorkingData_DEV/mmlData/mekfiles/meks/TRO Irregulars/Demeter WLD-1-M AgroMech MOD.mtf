@@ -1,0 +1,193 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd8d-7c88-93b5-3426e94ebe49
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Demeter
+model:WLD-1-M AgroMech MOD
+mul id:7856
+
+Config:Biped
+techbase:Inner Sphere
+era:3130
+source:TR:I
+published:TR:I
+rules level:2
+role:Ambusher
+
+
+mass:30
+engine:120 ICE Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:2 Single
+walk mp:4
+jump mp:0
+
+armor:Heavy Industrial(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:10
+RT armor:10
+CT armor:10
+HD armor:6
+LL armor:10
+RL armor:10
+RTL armor:4
+RTR armor:4
+RTC armor:4
+
+Weapons:1
+Flamer (Vehicle), Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Combine
+Combine
+Combine
+Combine
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Flamer (Vehicle)
+IS Vehicle Flamer Ammo
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Demeter is a thirty-ton AgroMech introduced in 3116 as a joint venture between Wunderland Enterprises and DiNapoli Industries for the Republic of the Sphere's civilian market. Representing Wunderland's first entry into IndustrialMech construction, the Demeter drew on the established Harvester AgroMech's proven design while incorporating Wunderland's military-grade electronics expertise. The result was a commercially successful agricultural platform whose integrated electronics suite made it remarkably easy to convert for military applications. This ease of modification would prove fateful, as the Demeter became one of the most commonly armed IndustrialMechs across the former Republic Prefectures during the upheavals of the Dark Age.</p>
+
+capabilities:<p>The Demeter's most significant feature is its Wunderland XL-4 integrated communications and targeting system. The system combines both functions into a single suite that requires only minor software modifications to accommodate weapon systems, meaning that converting a standard Demeter into a combat-capable MOD variant demands far less technical expertise than comparable IndustrialMech modifications. This makes the design attractive to militia forces and irregular combatants who lack dedicated military production facilities.</p><p>In its MOD configuration, the thirty-ton 'Mech mounts an Olympian vehicle flamer paired with a DiNapoli ST4 heavy-duty thresher, giving it both ranged firepower and a formidable melee capability. The Wunderland XL-4 targeting system makes the Olympian flamer exceptionally accurate by MOD standards. Heavy industrial armor provides reasonable protection for a machine of its class, though it remains far below true BattleMech standards, and the design's reliance on an internal combustion engine limits both its speed and its tactical flexibility compared to fusion-powered competitors. The GM 120 Classic ICE does offer superior fuel economy, however, and the base AgroMech variant carries additional fuel tanks that effectively quadruple its operational range over the original Harvester.</p>
+
+deployment:<p>The WLD-1-M represents the standard militarized conversion of the Demeter, replacing the base variant's extra fuel capacity with an Olympian vehicle flamer while retaining the DiNapoli ST4 thresher for close combat. The Wunderland XL-4 targeting system's inherent accuracy makes this one of the most precise flamer-equipped MODs fielded across the former Republic Prefectures. Spirit Cat forces adopted the design in significant numbers due to Wunderland Enterprises' presence on their territory, and the Steel Wolves acquired additional units following their occupation of Ankaa in December 3132. Bannson's Raiders similarly fielded Demeters sourced through their commercial ties with DiNapoli Industries. The design's simplicity and widespread availability have also made it a favored platform among pirate bands and irregular forces throughout the Republic's fractured territories.</p>
+
+history:<p>The Demeter emerged during the early thirty-second century, when the Republic of the Sphere's emphasis on demilitarization and civilian industry created unprecedented demand for IndustrialMechs. Wunderland Enterprises, an established electronics manufacturer based on Ozawa, recognized the commercial opportunity but lacked experience in 'Mech construction. The company partnered with DiNapoli Industries, a successful IndustrialMech startup operating from Ankaa just across Prefecture borders, and the resulting design entered production in 3116 at both locations. Early sales were strong despite criticism that the Demeter borrowed heavily from the existing Harvester platform.</p><p>The HPG Blackout of 3132 dramatically altered the Demeter's significance. The collapse of interstellar communications triggered widespread economic disruption and political fragmentation across the Republic, and desperate factions armed whatever machines were available. The Demeter's ease of military conversion made it a natural choice for forces that lacked access to true BattleMechs. Spirit Cat warriors, Steel Wolf commanders, and Bannson's Raiders all incorporated armed Demeters into their formations during the initial scramble for territory in the former Republic Prefectures.</p><p>The economic collapse also spawned numerous pirate bands that turned to IndustrialMech modification as an accessible path to military capability. The Demeter became particularly popular among these irregular forces due to the simplicity of its MOD conversion. Raiding parties equipped with armed Demeters became a persistent threat to outlying settlements across multiple Prefectures, further cementing the design's reputation as a workhorse of irregular warfare.</p><p>Both production facilities changed hands multiple times as political borders shifted through the Dark Age and into the ilClan era. The Ankaa plant, operated by DiNapoli Industries, passed from Republic control to Federated Suns sovereignty, while the Ozawa facility under Wunderland Enterprises transitioned through Republic and independent ownership before falling under Draconis Combine control. This divergence ensured continued Demeter production for competing powers, virtually guaranteeing that the humble AgroMech and its militarized variant would remain a common sight on battlefields for decades to come.</p>
+
+manufacturer:DiNapoli Industries|Wunderland Enterprises
+
+primaryfactory:Ankaa|Ozawa
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:IM Medium Deluxe
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:120 Classic ICE
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:LaborHeavy/1 or StarSlab/3 Heavy Industrial
+systemmanufacturer:COMMUNICATIONS:Wunderland
+systemmode:COMMUNICATIONS:XL-4
+systemmanufacturer:TARGETING:Wunderland
+systemmode:TARGETING:XL-4

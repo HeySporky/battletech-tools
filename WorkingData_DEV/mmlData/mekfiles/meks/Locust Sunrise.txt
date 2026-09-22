@@ -1,0 +1,27 @@
+                 BattleMech Technical Readout
+
+Name/Model:         Locust Sunrise
+Designer:           Welkin
+Source(s):          Custom Mordel.Net Units
+Technology:         Inner Sphere
+Technology Rating:  E
+Tonnage:            20
+Role:               Scout
+Configuration:      Biped BattleMech
+Era/Year:           Succession Wars / 3049
+Rules (Current):    Standard
+Rules (Era):        Standard
+Rules (Year):       Standard
+Total Cost:         1,720,000 C-Bills
+Battle Value:       693
+
+Chassis:              Endo Steel
+Power Plant:          LTV 160 
+Walking Speed:        86.4 kph  
+Maximum Speed:        129.6 kph 
+Jump Jets:            None
+    Jump Capacity:    None
+Armor:                Ferro-Fibrous
+Armament:             
+    3 Medium Lasers
+    1 Martell Medium Laser

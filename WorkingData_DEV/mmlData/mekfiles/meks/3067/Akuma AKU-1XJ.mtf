@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cce2-7de3-8e39-ab8a14988d69
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Akuma
+model:AKU-1XJ
+mul id:3692
+
+Config:Biped
+techbase:Inner Sphere
+era:3064
+source:TR:3067,TR:CI
+published:RS:CI
+rules level:2
+role:Juggernaut
+
+quirk:easy_maintain
+
+mass:90
+engine:270 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:3
+jump mp:3
+
+armor:Standard(Inner Sphere)
+LA armor:30
+RA armor:30
+LT armor:28
+RT armor:28
+CT armor:43
+HD armor:9
+LL armor:38
+RL armor:38
+RTL armor:10
+RTR armor:10
+RTC armor:15
+
+Weapons:6
+ER Large Laser, Left Arm
+Medium Pulse Laser, Left Arm
+Medium Pulse Laser, Left Arm
+MRM 40, Left Torso
+LB 20-X AC, Right Torso
+ER Small Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERLargeLaser
+ISERLargeLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS LB 20-X Cluster Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Left Torso:
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+MRM 40
+IS MRM 40 Ammo
+IS MRM 40 Ammo
+IS MRM 40 Ammo
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+IS LB 20-X Cluster Ammo
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERSmallLaser
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS LB 20-X AC Ammo
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Akuma is a ninety-ton Inner Sphere assault BattleMech introduced in 3058 as part of Coordinator Theodore Kurita's Phoenix Programs, a sweeping initiative to field more cost-effective designs against the Clan threat. Independence Weaponry, already renowned for producing the venerable Atlas, designed the Akuma as a lighter and less expensive alternative that shared many components with its larger sibling, achieving significant production savings while fielding a formidable assault platform.</p><p>The design's fearsome visage, a massive demonic mask inspired by its Japanese namesake meaning "devil," serves both psychological and practical purposes, intended to distract or unsettle opposing MechWarriors during the critical opening moments of an engagement. Produced at Independence Weaponry's Quentin facility, the Akuma quickly found favor with the Ryuken-go regiments and has remained a staple of Draconis Combine assault lances.</p>
+
+capabilities:<p>The primary cost-reduction strategy behind the Akuma centers on its reduced size relative to the Atlas. The Foundation AKU Endo Steel chassis saves considerable weight while a GM 270 fusion engine provides a top speed of 54 kilometers per hour, identical to the Atlas despite the tonnage difference. Seventeen and a half tons of Durallex Special Heavy armor ensures the Akuma can absorb punishment comparable to many hundred-ton designs, making it exceptionally durable for its weight class. Thirteen double heat sinks manage the thermal load adequately under sustained fire, though aggressive use of all weapon systems simultaneously can strain heat dissipation.</p><p>The Akuma's weapons array is optimized for medium and close-range engagements. A Lord's Light 2 extended-range particle projection cannon and an Imperator Code Red LB 10-X autocannon provide effective fire at range, with the autocannon's dual ammunition capability offering tactical flexibility between armor-piercing slugs and cluster munitions. A Shigunga medium-range missile rack delivers devastating salvos at intermediate distances, while paired Guided Technologies second-generation Streak launchers (a Streak SRM-6 and Streak SRM-4) ensure no missile is wasted, firing only when a solid lock is achieved. A Victory 23R medium laser and Victory Heartbeat medium pulse laser serve as reliable backup weapons.</p>
+
+deployment:<p>Introduced in 3064, this variant adds jump capability to the Akuma platform, allowing it to cover up to ninety meters in a single bound, a remarkable feat for a ninety-ton assault 'Mech. This mobility comes at significant cost: the variant carries only ten double heat sinks and completely restructures its weapons loadout. An ER large laser replaces the ER PPC as the primary long-range weapon, while the close-combat suite is dramatically enhanced with an LB 20-X autocannon replacing the lighter class-10 version and an upgraded MRM-40 rack replacing the MRM-30. Two medium pulse lasers and an ER small laser complete the arsenal. The AKU-1XJ first saw combat during the counterassaults against Duke Robinson's forces, where its unexpected jump capability created chaos among Davion defenders on the worlds of Breed and Kesai IV.</p>
+
+history:<p>The Akuma emerged from the crucible of the Clan Invasion, born of Coordinator Theodore Kurita's recognition that the Draconis Combine needed affordable assault 'Mechs in quantity rather than expensive prestige designs in limited numbers. Independence Weaponry's Quentin facility began full production in 3058, leveraging existing Atlas component supply chains to achieve economies of scale that reduced per-unit costs dramatically.</p><p>The Ryuken-go regiments were the earliest and most enthusiastic adopters of the Akuma, integrating the design into their assault lances where its combination of heavy armor and devastating close-range firepower complemented existing doctrine. Other front-line DCMS units were initially slower to embrace the design, viewing it as an inferior substitute for the Atlas. This perception changed dramatically during Operation BULLDOG's assault on Clan Smoke Jaguar, where the Akuma proved its worth in sustained heavy combat and demand subsequently outstripped Quentin's production capacity.</p><p>The AKU-1XJ variant's debut in 3064 caused considerable disruption among Davion border units during the ill-fated attacks launched against the Combine by Duke Robinson. The jump-capable Akuma proved devastating in the counterassaults that reclaimed the Davion worlds of Breed and Kesai IV, demonstrating that the platform's potential extended well beyond its original design parameters.</p><p>The Jihad brought upheaval to the Akuma's production history. The Word of Blake's seizure of Quentin disrupted primary manufacturing, prompting Independence Weaponry to establish refit and production capabilities at their New Samarkand facilities. The AKU-2X series of variants emerged from this period, incorporating advanced electronics, heavier firepower, and network warfare systems suited to the brutal close-quarters fighting that characterized the conflict.</p><p>Following the Jihad, Quentin's Akuma production lines did not resume operations despite the planet passing through Republic of the Sphere control before eventually returning to Draconis Combine sovereignty. New Samarkand has remained the center of Akuma production and refit work from the Dark Age through the ilClan era, ensuring the design's continued service as a mainstay of DCMS assault formations.</p>
+
+manufacturer:Independence Weaponry
+
+primaryfactory:Quentin
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Foundation
+systemmode:CHASSIS:AKU Endo Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:270
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Special Heavy
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:Security Plus
+systemmanufacturer:TARGETING:Matabushi
+systemmode:TARGETING:Sentinel

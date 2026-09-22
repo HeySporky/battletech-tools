@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6a2-7141-8d08-a9f0cb309497
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Woodsman
+model:A
+mul id:3586
+
+Config:Biped OmniMek
+techbase:Clan
+era:2866
+source:TR:GC,ED:GC
+published:TR:GC,ED:GC
+rules level:2
+role:Sniper
+
+quirk:easy_maintain
+
+mass:75
+engine:300 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:17 Clan Double
+base chassis heat sinks:12
+walk mp:4
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:22
+RA armor:22
+LT armor:23
+RT armor:23
+CT armor:33
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:6
+ER PPC, Left Arm
+ER PPC, Right Arm
+Medium Pulse Laser, Left Torso
+Large Pulse Laser, Right Torso
+Medium Pulse Laser, Center Torso
+ER Small Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+CLMASC
+CLMASC
+CLMASC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLMediumPulseLaser (OMNIPOD)
+CLERSmallLaser (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Woodsman was Clan Wolf's first heavy OmniMech, introduced in 2865 during the Golden Century as one of the most extensively tested weapons platforms ever produced by the Clan. Every detail of the design was scrutinized and refined before production began at Wolf Clan Site #2 on Strana Mechty, resulting in a chassis that served the Wolf Clan's front-line forces for nearly a century. Named after a literary character who progressively lost parts of his body yet continued to live, the Woodsman's robust design philosophy would prove prophetic, as its chassis would inspire three successor OmniMechs: the Timber Wolf, the Gargoyle, and the Naga.</p><p>Though eventually superseded by these newer designs and relegated to second-line service before being phased out entirely prior to Operation REVIVAL, the Woodsman was returned to production in 3149 by Alaric Wolf at Earthwerks Incorporated on Keystone, pressed into service to rapidly rebuild the Wolf Empire's touman. The venerable design once again earned the grudging respect of Clan and Inner Sphere forces alike.</p>
+
+capabilities:<p>The Woodsman eschews the extra-light fusion engines common to later Clan assault OmniMechs in favor of a standard Wolf 300-rated powerplant, a conservative choice that dramatically improves battlefield survivability. While this limits the chassis to a base speed of 64 kph, a permanently installed MASC system allows pilots to briefly exceed 80 kph, providing the tactical flexibility to sprint to cover or exploit breaches in enemy formations. The endo steel internal structure saves critical weight, freeing 27.5 tons of pod space for mission-specific loadouts.</p><p>Clad in thirteen and a half tons of Durallex Heavy armor, the Woodsman offers excellent protection for its weight class, a marked contrast to the thinly armored descendants it would later inspire. This combination of durability and generous pod space made the Woodsman an ideal testbed for experimental weapons, including the dual Arrow IV launcher configuration that would eventually define the Naga. The Primary configuration mirrors what would become the iconic Timber Wolf loadout: paired ER large lasers and ER medium lasers in each arm supported by twin LRM-15 racks and a pair of machine guns for anti-infantry work, with seventeen double heat sinks managing the thermal load.</p><p>The Woodsman's principal weakness lies in its relatively modest speed compared to later designs. Without MASC engaged, the chassis is slower than most heavy OmniMechs, making sustained pursuit difficult and withdrawal risky against faster opponents.</p>
+
+deployment:<p>The most common alternate configuration throughout the Woodsman's long service history, Alternate Configuration A shifts to a pure energy loadout anchored by paired ER PPCs for devastating long-range fire. A large pulse laser and two medium pulse lasers provide accurate close-range support, while an ER small laser serves as a backup weapon. The configuration retains the same heat sink count as the Prime but redistributes them across the torso to better manage the thermal demands of the PPC-heavy armament.</p>
+
+history:<p>The Woodsman emerged during the Golden Century, a period of intense competition and Trials among the Clans for resources and territory. Clan Wolf suffered numerous raids during this era, and Wolf MechWarriors grew to rely on the capable and durable Woodsman to defend their holdings. The design's reputation was forged in the crucible of inter-Clan conflict, particularly during the resource trials of the early Golden Century where the chassis proved its worth repeatedly.</p><p>One of the Woodsman's most famous trials for resources came in 2912, when Clan Smoke Jaguar began exterminating their own lower castes due to a crop shortage. Several Clans conducted trials to gain new citizens before the Smoke Jaguars eliminated them. The Jaguars viewed these trials as affronts and interference in their internal affairs, leading to vicious fighting between the Jaguars and the Wolves. The largest engagement saw Wolves landing DropShips on Londerholm to evacuate an entire town, with the battle raging for nearly a full day as civilians loaded onto Wolf transports. A Star of Woodsmans elected to stay behind and hold the Jaguars long enough for the evacuation to succeed, fighting against nearly four times their number until all five warriors fell.</p><p>As OmniMech technology matured, the Woodsman's chassis inspired three distinct successor designs. The Timber Wolf served as a direct upgrade, the Gargoyle traded MASC for a larger engine to achieve comparable speed without the system's inherent risks, and the Naga repurposed the torso to mount fixed Arrow IV artillery systems. With these newer designs entering service, the Woodsman was progressively relegated to second-line units and eventually phased out completely before Operation REVIVAL. When the Wolves fell out of frontline use of the design, many Woodsmans were traded to Clan Snow Raven, who employed them through the Operation Revival trials era.</p><p>The Woodsman's story did not end with obsolescence. In 3149, Alaric Wolf's desperate need for equipment to flesh out his growing Wolf Empire led to the design's revival at Earthwerks Incorporated on Keystone. Returning to active duty, the Woodsman once again demonstrated its enduring utility, and the Raven Alliance has reportedly made inquiries about reacquiring the design for their own touman.</p>
+
+manufacturer:Wolf Clan Site #2|Earthwerks Inc.
+
+primaryfactory:Strana Mechty (Wolf Enclave)|Keystone
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:WOD-1
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Wolf 300
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Durallex Heavy
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:WolfCom 3-4
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:CW3

@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df55-75d1-9cd3-2fa971339de8
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Scourge
+model:SCG-WX1
+mul id:8109
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3132
+source:XTR:Caveat
+published:XTR:Caveat
+rules level:4
+role:Skirmisher
+
+quirk:exp_actuator
+quirk:difficult_maintain
+quirk:reinforced_legs
+
+mass:65
+engine:325 XL Engine(IS)
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Heavy Duty Gyro
+
+heat sinks:15 IS Double
+walk mp:5
+jump mp:0
+
+armor:Reflective(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:10
+RTR armor:10
+RTC armor:12
+
+Weapons:5
+Improved Heavy Large Laser, Left Arm
+Ultra AC/10, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+CLImprovedHeavyLargeLaser
+CLImprovedHeavyLargeLaser
+CLImprovedHeavyLargeLaser
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+ISAES
+ISAES
+ISAES
+IS Reflective
+IS Reflective
+IS Reflective
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Clan Ultra AC/10 Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Reflective
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Reflective
+IS Reflective
+IS Reflective
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Reflective
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Scourge is a 65-ton heavy BattleMech designed by Kaiser Systems on the Lyran world of Herzberg, first reaching production lines in 3131 using proven, readily available technology. An improved model incorporating advanced components followed two years later, enhancing combat performance while maintaining the same proven chassis. Conceived as a versatile general-purpose combatant equally capable of operating as a heavy scout, the Scourge fills a valuable niche between dedicated reconnaissance platforms and frontline assault units. Kaiser Systems licensed production to StarCorps Industries, significantly expanding availability beyond Lyran space. The relatively recent introduction of the Scourge means many opponents encounter it without prior knowledge of its capabilities, granting pilots a notable tactical advantage through unfamiliarity.</p>
+
+capabilities:<p>Built on Kaiser's Quadriga I endo steel frame and powered by a VOX 325 XL engine, the Scourge achieves a top speed of 86 kilometers per hour, well above average for a 65-ton heavy 'Mech. Four Dynamo jump jets provide 120 meters of jump capability, granting the design exceptional tactical flexibility for its weight class. The 'Mech's combat profile draws comparisons to venerable designs like the Shadow Hawk and Vindicator in its ability to serve multiple battlefield functions.</p><p>The Scourge's primary armament centers on an Eisen Gauss rifle mounted in the left arm, delivering devastating long-range firepower. A quartet of Diverse Optics extended range medium lasers in the right arm provides potent close-range punch, enhanced in the WF1 model by an actuator enhancement system that yields exceptional accuracy. A single medium pulse laser in the left arm rounds out the weapons loadout. Durallex super light ferro-fibrous armor on the advanced model provides solid protection while keeping tonnage available for the weapons payload.</p><p>The design's principal limitation lies in its Gauss rifle ammunition supply. With only sixteen rounds available, sustained engagements can quickly deplete the Scourge's primary weapon, forcing pilots to rely on their laser array for continued combat effectiveness.</p>
+
+deployment:<p>This variant was an experimental prototype developed at Kaiser Systems on Herzberg beginning in 3132. This radical modification replaced the standard Gauss rifle with a Clan-specification Ultra autocannon/10 and improved heavy large laser in the left arm, while mounting reflective armor and a heavy-duty gyro for enhanced survivability. Three Clan-specification extended range medium lasers and an actuator enhancement system occupied the right arm. The design sacrificed jump capability entirely to accommodate the heavier equipment. Chronic technical problems, including cascading software conflicts and an uncontrollable arm twitch caused by overloaded actuator systems, prevented the WX1 from leaving the test hangar. The sole prototype was destroyed during an Eighth Free Worlds Guards raid on Herzberg in 3134, and the concept was not pursued further.</p>
+
+history:<p>The Scourge emerged during a period of considerable upheaval in the Inner Sphere, entering service as the Blackout severed HPG communications across human-occupied space. Kaiser Systems, an established manufacturer on Herzberg, developed the design to meet the Lyran Commonwealth's growing need for versatile heavy BattleMechs capable of independent operations. The initial SCG-WD1 model reached production in 3131, using proven components that could be sourced reliably despite disrupted supply chains.</p><p>Recognizing the design's potential, Kaiser Systems licensed production to StarCorps Industries, which brought its facilities on Emris IV and Loburg online to produce the Scourge. This arrangement significantly increased production capacity and, through the Emris IV plant's location within the former Free Worlds League, expanded the design's reach beyond Lyran space. The advanced SCG-WF1 entered production in 3133, offering enhanced combat performance through advanced armor and improved targeting systems, though its reliance on advanced components restricted production volume compared to the more accessible WD1.</p><p>Kaiser Systems also explored more radical modifications during this period. An experimental prototype designated SCG-WX1 attempted to integrate Clan-specification weaponry and reflective armor into the Scourge chassis beginning in 3132. Persistent technical difficulties kept the prototype confined to Kaiser's test hangar. The sole WX1 was ultimately destroyed defending the factory complex during an Eighth Free Worlds Guards raid on Herzberg in 3134, ending the experimental program.</p><p>By 3136, the Scourge had established itself in Lyran service, seeing action against raiding forces throughout the Commonwealth's border regions. A militia garrison on Wiltshire employed a Scourge to devastating effect against raiding elements of Able's Aces that year, demonstrating the design's effectiveness in defensive operations against numerically superior light forces. The pirate-hunting mercenary Wrathful Privateers adopted Scourges as lance leaders in their scout company by 3140, successfully tracking raiders across Lyran worlds. These engagements underscored the Scourge's suitability for independent scouting operations, where its combination of speed, firepower, and durability allowed it to operate effectively ahead of supporting forces.</p><p>Export sales of the SCG-WD1 have spread the design to mercenary commands and smaller realms throughout the Inner Sphere and Periphery, though the advanced WF1 remains concentrated in Lyran and Free Worlds League service. The Scourge continues to see expanding adoption as commanders recognize its versatility in an era defined by disrupted communications and decentralized operations.</p>
+
+manufacturer:Kaiser Systems
+
+primaryfactory:Herzberg
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Kaiser
+systemmode:CHASSIS:Quadriga I Endo Steel
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:325 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Reflective)
+systemmanufacturer:COMMUNICATIONS:Telestar
+systemmode:COMMUNICATIONS:Model XK-71
+systemmanufacturer:TARGETING:Starlight
+systemmode:TARGETING:LX-1

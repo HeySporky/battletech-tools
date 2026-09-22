@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e6be-796e-a57b-3d3237d7ef8a
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Demon Medium Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+871
+</mul id:>
+
+<year>
+3077
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+18
+12
+12
+7
+10
+</armor>
+
+<Body Equipment>
+IS Vehicle Flamer Ammo
+IS Light Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+Light Machine Gun
+Light Machine Gun
+Flamer (Vehicle)
+Flamer (Vehicle)
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISMediumPulseLaser
+ISMediumPulseLaser
+</Turret Equipment>
+
+<capabilities>
+<p>The Demon Medium Tank's most significant tactical attribute is its speed. A GM 295 fusion engine drives the vehicle to 76 kph at cruise and nearly 120 kph at full throttle, allowing it to outpace the majority of non-hovercraft opponents and to disengage when confronted by heavier threats. This mobility is paired with three tons of Leopard II Heavy ferro-fibrous armor, which provides meaningful protection against light and medium caliber fire while accepting vulnerability in sustained engagements against main battle tanks.</p><p>The base configuration mounts two Tronel XII medium pulse lasers in the turret for accurate close-range fire, supplemented by a pair of Zippo conventional flamers and two GM light machine guns covering the forward arc against infantry and battle armor. The Exeter LongScan communications system enables effective urban coordination, while the Standard TargetTrack targeting suite handles the short-range identification and engagement problems the design was built to solve. Maintenance accessibility was a deliberate design priority, resulting in a chassis somewhat more exposed to incoming fire in certain configurations than contemporaries of similar weight, in exchange for the reliability that militia-scale technical support could realistically sustain.</p>
+</capabilities>
+
+<overview>
+<p>The Demon Medium Tank entered service with the Republic of the Sphere's armed forces in 3077, built at the Brigadier Corporation's retooled facility on Oliver following that world's incorporation into the Republic. Named deliberately after the Star League's original Demon combat vehicle to give its crews a sense of shared history and inherited tradition, the new design shared only the designation with its predecessor. Fifteen tons lighter and nearly twice as fast, the medium tank was developed specifically for the densely urbanized worlds of the former Blakist Protectorate, where close-quarters combat against infantry and battle armor formations had become the dominant form of ground fighting. Despite some initial resistance from armor commanders accustomed to heavier vehicles, CEO Joseph Zimmal's decision to demonstrate the design's performance directly to skeptical officers helped secure the Republic's commitment, and the Demon Medium Tank was subsequently issued broadly as a replacement vehicle across Republic armor formations.</p>
+</overview>
+
+<deployment>
+<p>Issued broadly across Republic of the Sphere armor formations as replacement vehicles during the post-Jihad rebuilding period, the base Demon Medium Tank concentrated in units specializing in urban and close-quarters combat as force levels stabilized. Following the transition to peacetime operations, many examples dispersed to planetary militia organizations where the vehicle's modest logistical footprint suited the reduced technical support available. Its speed made it equally useful in non-combat roles such as rapid response, carrying coolant or fire-fighting equipment in urban pacification and disaster response contexts.</p>
+</deployment>
+
+<history>
+<p>The Demon Medium Tank's development grew from the Republic of the Sphere's recognition that post-Jihad defensive requirements on the core worlds differed sharply from the open-terrain engagements that conventional heavy armor doctrine assumed. When Devlin Stone's government incorporated Oliver following the Jihad's conclusion, they found the Brigadier Corporation facility at Gordon operational for lighter vehicle production after the heavier BattleMech lines had been destroyed or abandoned during the wars. Republic planners commissioned a compact wheeled design for urban environments, and Brigadier's engineers produced a vehicle that prioritized agility and ease of maintenance. Drawing on the name and legacy of the Star League original helped build crew morale for a design that was otherwise considered inferior to other contemporary vehicles when introduced alongside the M1 Marksman. CEO Joseph Zimmal's decision to bring armor commanders to trial demonstrations, rather than presenting only performance specifications, ultimately secured the Republic's commitment to production.</p><p>The HPG Blackout of 3132 and the subsequent fragmentation of the Republic proved decisive for the Demon Medium Tank's operational legacy. As fighting erupted across Republic space and coherent command structures broke down, the vehicle's wide distribution meant that examples passed into the hands of numerous splinter militias, separatist factions, and planetary defense forces. The Demon Medium Tank consequently saw action across virtually every theater of the late Dark Age conflicts, cementing its reputation as the Republic's defining light armor design of the era regardless of which banner its crews fought under.</p>
+</history>
+
+<manufacturer>
+Brigadier Corporation
+</manufacturer>
+
+<primaryFactory>
+Oliver
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Brigadier Corporation
+ARMOR:Brigadier Corporation
+JUMP_JET:N/A
+COMMUNICATIONS:Brigadier Corporation
+TARGETING:Brigadier Corporation
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:GM 295
+ARMOR:Leopard II Heavy
+JUMP_JET:N/A
+COMMUNICATIONS:Exeter LongScan
+TARGETING:Standard TargetTrack
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

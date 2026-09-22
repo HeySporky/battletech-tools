@@ -1,0 +1,177 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec1d-7022-b8e3-21b683ba510f
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Armored Personnel Carrier
+</Name>
+
+<Model>
+(Hover Primitive)
+</Model>
+
+<mul id:>
+113
+</mul id:>
+
+<year>
+2390
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+troopspace:1.0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+46
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+4
+3
+3
+2
+2
+</armor>
+
+<Body Equipment>
+Basic Fire Control
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+</Turret Equipment>
+
+<barrating>
+5
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The primitive hover APC represents the earliest incarnation of the hovercraft personnel carrier concept, dating to approximately 2390. Using civilian-grade drive train components and a petrochemical-powered internal combustion engine, this ten-ton vehicle carries one ton of infantry -- a single squad -- at a maximum speed of approximately one hundred nineteen kilometers per hour. A single turret-mounted machine gun provides minimal self-defense capability.</p><p>Constructed with barrier armor rating five protection -- only fourteen points of armor coverage total -- the primitive hover APC offers significantly less survivability than its modern Star League-era successor. The vehicle's dependence on petrochemical fuel and civilian-grade components makes it unsuitable for sustained front-line operations, but its extreme simplicity and low production cost keep it in service with militia, paramilitary, and private security forces across the Periphery and the most impoverished Inner Sphere worlds centuries after more capable designs have superseded it.</p>
+</capabilities>
+
+<overview>
+<p>The Armored Personnel Carrier is a ubiquitous ten-ton combat transport found in virtually every military force across the Inner Sphere and Periphery. Produced in three standard configurations -- hover, tracked, and wheeled -- these vehicles serve as the primary means of delivering infantry squads to and from the combat zone. The basic designs date back to the Star League era around 2500, with primitive predecessors operating as early as 2390, and production has continued without interruption for centuries. Their simplicity, low cost, and ease of manufacture ensure that every House military, mercenary command, and planetary militia fields them in quantity, making them among the most commonly encountered military vehicles in the galaxy.</p>
+</overview>
+
+<deployment>
+<p>The primitive hover APC remains in service exclusively with militia, paramilitary, and private security forces on the least developed worlds of the Inner Sphere and Periphery. No front-line military has fielded the design in centuries, but its extremely low cost and simple construction keep it in production on worlds where even standard APC technology is difficult to manufacture. Some Periphery bandits and pirates use captured or improvised primitive hover APCs for raiding operations.</p>
+</deployment>
+
+<history>
+<p>The armored personnel carrier concept predates the modern Star League designs by over a century. Primitive APCs first appeared around 2390, using civilian drive train components and petrochemical-powered internal combustion engines to deliver troops under fire. Though crude by later standards, these early carriers established the fundamental template -- a lightly armed, armored box on wheels, tracks, or a hoverskirt -- that would endure for centuries. The Age of War and the technological advances it brought rendered these primitive designs obsolete for front-line service, but they never fully disappeared, remaining in use with militia and paramilitary forces well into the thirty-first century.</p><p>The modern APC entered service around 2500, when Star League-era manufacturers standardized three motive configurations optimized for different operational environments. Production spread rapidly across the Inner Sphere, with virtually every military manufacturer offering some version of the basic design. During the Succession Wars, demand far outstripped supply, and APCs became one of the few military vehicles that even the most devastated economies could continue producing. Hundreds of local manufacturers emerged to fill the gap, many working from incomplete specifications or reverse-engineered examples.</p><p>The standard APC's enduring legacy owes as much to its limitations as its capabilities. Its minimal carrying capacity of a single infantry squad pushed militaries to develop heavier alternatives, while its thin armor and light armament drove the creation of numerous weapon-platform conversions. Militia commanders, unable to afford purpose-built combat vehicles, frequently stripped the infantry compartment to mount LRM or SRM launchers, creating improvised fire support vehicles. The Taurian Concordat and Marian Hegemony independently developed sensor-equipped hover variants for border patrol duties. One notable action occurred in 3034, when Overste-Lojtnant Illya Stroncek of the Lyran Commonwealth led a column of tracked APCs through Kurita lines on Last Frontier, evacuating three companies of wounded infantry under sustained fire and earning the Order of the Griffin for her actions.</p>
+</history>
+
+<manufacturer>
+Maxim Transport Industries|Maxim Transport Industries|Maxim Transport Industries|Aldis Industries
+</manufacturer>
+
+<primaryFactory>
+Al Na'ir|Sian|Skye|Terra
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+ENGINE:Primitive ICE
+ARMOR:BAR
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Primitives I
+</source>
+
+<published>
+XTR:Primitives I
+</published>
+
+<tonnage>
+10.0
+</tonnage>
+
+<fuel>
+0.5
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

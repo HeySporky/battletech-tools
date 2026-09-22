@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a7a8-78c6-b58e-5f9aadf43d8d
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Cavalier II Battle Armor
+</Name>
+
+<Model>
+[SRM](Sqd5)
+</Model>
+
+<mul id:>
+9519
+</mul id:>
+
+<year>
+3142
+</year>
+
+<type>
+Mixed (IS Chassis)
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+31
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Squad Equipment>
+ISBASRM1:RA
+BABattleClaw:LA
+Clan BA Stealth (Basic):Body
+Clan BA Stealth (Basic):Body
+Clan BA Stealth (Basic):LA
+BAJumpBooster:Body
+BAAPMount:LA
+InfantryAssaultRifle:APM
+BA-SRM1 Ammo:RA:Shots4#
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The SRM configuration arms the Cavalier II with a missile launcher in the modular weapon mount, paired with the anti-personnel weapon station for secondary engagements. Clan-specification stealth armor allows the trooper to close within effective missile range without early detection, a significant tactical advantage when delivering a weapon system that demands close proximity to the target. Improved jump jets provide the mobility needed to reach firing positions quickly and withdraw after launching. The missile loadout delivers strong per-salvo impact against vehicles and BattleMech armor, but limited ammunition constrains the trooper to short, decisive engagements. The stealth armor partially offsets this weakness by enabling ambush tactics that maximize the value of each missile fired.</p>
+</capabilities>
+
+<overview>
+<p>The Cavalier II is a medium Inner Sphere battle armor suit produced by General Motors on Talcott for the Armed Forces of the Federated Suns. Entering service in 3142, the design was developed specifically to counter Capellan Confederation battle armor threats along the contested Davion-Liao border. The suit incorporates Clan-specification stealth armor and improved jump performance alongside a modular weapon mount and a dedicated anti-personnel weapon station, giving it broader tactical flexibility than its predecessor.</p>
+</overview>
+
+<deployment>
+<p>Clan Points armed with SRM Cavalier IIs employed the stealth armor to set up close-range ambush positions, maximizing the missile launcher's effectiveness. Five-trooper Points used hit-and-fade tactics, closing under concealment to deliver a volley before jumping clear of return fire.</p>
+</deployment>
+
+<history>
+<p>By the mid-thirty-second century, the Capellan Confederation had fielded increasingly sophisticated battle armor designs, with the Amazon suit becoming a fixture of CCAF front-line formations. The Amazon's stealth capabilities posed a growing tactical problem for Federated Suns border units, which lacked an equivalent counter in their own armored infantry doctrine. General Motors engineers at Talcott responded with the Cavalier II, drawing on Clan-specification stealth armor technology derived from the Grenadier II design and made available through Clan Sea Fox trade networks.</p><p>Production began in 3142, with initial distribution prioritizing commands stationed along the Capellan March. The Cavalier II retained the proven operational framework of its predecessor while adding capabilities that earlier models lacked: improved jump performance for better tactical mobility and a dedicated anti-personnel weapon mount that freed the modular hardpoint for heavier primary weapons. The design filled a gap in AFFS battle armor doctrine that the original Cavalier could not address against stealth-equipped opponents.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Talcott
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3150
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+9
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

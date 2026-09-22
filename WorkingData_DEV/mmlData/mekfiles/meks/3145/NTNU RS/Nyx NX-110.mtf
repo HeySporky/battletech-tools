@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d468-79c8-af43-76541e5ea235
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Nyx
+model:NX-110
+mul id:6936
+
+Config:Biped
+techbase:Inner Sphere
+era:3141
+source:TR:3145
+published:RS:3145-NTNU,RS:3145
+rules level:3
+role:Scout
+
+quirk:difficult_maintain
+quirk:low_profile
+
+mass:30
+engine:300 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+walk mp:10
+jump mp:0
+
+armor:Anti-Penetrative Ablation(Inner Sphere)
+LA armor:7
+RA armor:7
+LT armor:10
+RT armor:10
+CT armor:12
+HD armor:8
+LL armor:8
+RL armor:8
+RTL armor:2
+RTR armor:2
+RTC armor:4
+
+Weapons:2
+Medium Re-engineered Laser, Left Arm
+Medium Re-engineered Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Medium Re-engineered Laser
+Medium Re-engineered Laser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Anti-Penetrative Ablation
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Medium Re-engineered Laser
+Medium Re-engineered Laser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Anti-Penetrative Ablation
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Anti-Penetrative Ablation
+IS Anti-Penetrative Ablation
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISC3SlaveUnit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Anti-Penetrative Ablation
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Anti-Penetrative Ablation
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Nyx is a thirty-ton light BattleMech originally conceived by Word of Blake engineers as a fast and capable reconnaissance platform during the Jihad. Recovered by Draconis Combine forces during the liberation of Quentin in 3077, the design was subsequently brought into production through a joint agreement between the DCMS and the Republic of the Sphere, with manufacturing split between Diplan 'MechYards on Aix-la-Chapelle and Krupp Armament Works on Terra.</p><p>Though less a revolutionary design than an efficient amalgamation of proven technologies, the Nyx has earned a solid reputation as a fast, capable scout 'Mech. Its extraordinary speed and integrated electronic warfare systems make it a natural fit for reconnaissance and pursuit operations, and steady production has ensured a growing presence across multiple military establishments.</p>
+
+capabilities:<p>The heart of the Nyx is its Pitban 300 XL fusion engine, an oversized powerplant that pushes the thirty-ton chassis to a remarkable 162 kilometers per hour. This extraordinary speed, combined with a Beagle Active Probe, makes the Nyx a natural scout platform capable of detecting hidden units and rapidly relaying battlefield intelligence. The Chariot Type I-B endo steel chassis keeps structural weight to a minimum, while five tons of Krupp 200 ferro-fibrous armor provides respectable protection for a design in the light weight class.</p><p>The weapon loadout is practical rather than inspired. A pair of Diverse Optics extended-range medium lasers mounted in the arms serve as the primary offensive weapons, effective at medium to long range. A Diverse Optics extended-range small laser supplements the energy weapons at close quarters, while a Holly SRM-6 launcher delivers additional punch during hit-and-run engagements. Ten double heat sinks manage the thermal load efficiently, allowing sustained fire without significant overheating concerns.</p><p>The Nyx's primary weakness lies in its reliance on the XL engine, which leaves it vulnerable to catastrophic shutdown from a single side torso breach. The design has also earned a reputation as being difficult to maintain in the field, a legacy of its Word of Blake origins and the scarcity of specialized components during the early years of production.</p>
+
+deployment:<p>The most recent production variant, this variant appeared in 3141 and stands as a significant evolution of the design. Two medium re-engineered lasers serve as the primary armament, supplemented by a Bloodhound active probe that substantially enhances the original design's detection capabilities. A C3 slave unit provides network integration for coordinated operations, while anti-penetrative ablation armor offers specialized protection against ballistic weapons and physical attacks. An XL gyro frees the tonnage needed for the expanded equipment suite. Developed as a test bed incorporating captured technology from Clan sources, this variant reflects the shifting technological environment of the Dark Age era.</p>
+
+history:<p>The origins of the Nyx trace back to the Word of Blake's extensive military development programs during the Jihad. As the Blakists expanded their war machine through the late 3060s and into the 3070s, their engineers conceived the Nyx as a fast scout 'Mech that could outpace most opponents while providing real-time battlefield intelligence. The design reached the field testing stage at Independence Weaponry facilities on Quentin before the planet's liberation by Allied Coalition forces in 3077, where a complete set of technical documentation and a mostly functional prototype fell into Draconis Combine hands.</p><p>The captured materials were rushed to Diplan 'MechYards on Aix-la-Chapelle, where Combine engineers quickly recognized the design's potential but struggled with its construction requirements. Many critical components were highly specialized and available only from factories on Terra, still under Word of Blake control at the time. For nearly two years the project stalled, with engineers forced to work with whatever substitute components they could scrounge.</p><p>Terra's liberation in 3079 changed the equation dramatically. The Draconis Combine approached the nascent Republic of the Sphere, and with Diplan's engineering knowledge and Krupp Armament Works' access to Terra-based manufacturing, the two powers established a joint production agreement. The Nyx entered full production shortly before the Jihad's formal end, with both Aix-la-Chapelle and Terra serving as manufacturing sites.</p><p>Within the DCMS, the Nyx found an enthusiastic reception among the Sword of Light regiments, where its speed and electronic warfare capabilities complemented existing reconnaissance doctrine. The Republic of the Sphere issued the design to its own forces and distributed small numbers to Coalition allies that had helped liberate Terra, a gesture that was received with less than stellar enthusiasm from the Draconis Combine. As the design matured, Diplan 'MechYards expanded production to include a range of specialized variants, from the C3-networked NX-80C to the missile-armed NX-100 and the technologically advanced NX-110.</p><p>As the Republic retreated behind Fortress Republic and the Dark Age descended, the Nyx remained in steady production at Aix-la-Chapelle for the DCMS. The design's relatively modest logistical demands and proven reliability have ensured its continued service, even as more advanced designs have entered the battlefield. The recovery of additional Word of Blake design notes, including the radical lance-armed NX-90 concept, has provided Combine engineers with ongoing opportunities to refine and expand the Nyx family.</p>
+
+manufacturer:Diplan 'MechYards
+
+primaryfactory:Aix-la-Chapelle
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Chariot Type I-B
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:Pitban 300 XL
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

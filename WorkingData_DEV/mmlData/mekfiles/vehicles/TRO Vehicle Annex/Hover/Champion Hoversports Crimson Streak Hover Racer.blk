@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ea91-7849-8b93-ca87e63a1f10
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Champion Hoversports Crimson Streak Hover Racer
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3941
+</mul id:>
+
+<year>
+3065
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+cargobay:0.053:1:1::-1:0
+standardseats:1.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+17
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+49
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+2
+2
+2
+1
+</armor>
+
+<Body Equipment>
+UltraLightChassisMod
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+8
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Crimson Streak is powered by a fuel cell electric drive system delivering a cruise speed of approximately 306 kilometers per hour and a flank speed approaching 468 kilometers per hour, placing it among the fastest small hovercars in active competition use. An Ultra-Light Chassis Modification holds the vehicle to 3,500 kilograms, achieving this performance through aggressive weight reduction rather than raw mass. The single-occupant cockpit is the vehicle's only habitable space, with a single crew seat and cargo capacity of 53 kilograms suitable for little beyond race supplies and personal gear. The design carries no weapons or military electronics of any kind.</p><p>Despite its racing emphasis, the Crimson Streak mounts seven points of BAR 8 armor, providing substantially more structural protection than most comparable competition craft. This level of protection has demonstrated measurable real-world value in high-speed contact racing formats, where catastrophic multi-vehicle incidents are an accepted risk of the sport. The vehicle's structural integrity under extreme collision loading has drawn considerable attention from racing safety analysts and prospective team managers alike, contributing significantly to its commercial adoption rate.</p>
+</capabilities>
+
+<overview>
+<p>Champion Hoversports entered vehicle manufacturing in 3042, leveraging decades of professional racing experience in the ISCHAR and LHRS leagues into a dedicated production operation. The Crimson Streak Hover Racer is the company's flagship competition model, representing Champion Hoversports' most advanced engineering effort to date. Drawing on improvements in materials construction and engine efficiency accumulated through years of race-team operation, the Crimson Streak delivers measurably better performance and durability than the preceding generation of Champion Hoversports competition craft. Its rapid acceptance across dozens of professional leagues has established it as one of the most recognized competition hovercars in the Inner Sphere within a remarkably short time following its commercial introduction.</p>
+</overview>
+
+<deployment>
+<p>The Crimson Streak is fielded exclusively in competitive hovercar racing. Within one year of its commercial introduction it was represented across forty-three different leagues by twenty-seven teams, and fifteen of the top-ten-ranked drivers in their respective circuits had adopted it as their primary mount. The vehicle is produced at a Champion Hoversports facility whose location is not publicly disclosed. No military, paramilitary, or government procurement has been documented for this design.</p>
+</deployment>
+
+<history>
+<p>Champion Hoversports began as a small racing outfit operating in the Outback and Periphery-adjacent circuits of the Inner Sphere, building its reputation over several decades through consistent competitive results. By the period preceding 3042, the organization had developed strong enough standings in the ISCHAR and LHRS leagues to attract outside investment. The controlling partners who assumed majority stake took an unusual approach: rather than simply funding ongoing competition, they committed to simultaneous development of a dedicated racing platform and a companion civilian model, pursuing both the professional and consumer markets together.</p><p>Development of the Crimson Streak proceeded as part of this expansion, with Champion Hoversports retaining five prototype vehicles. Three were allocated directly to affiliated racing teams before the vehicle's formal commercial introduction, generating substantial media attention ahead of launch. Results from early competitive deployment were strong. Aleisha Cotten drove her Crimson Streak prototype to a fourth ISCHAR championship, and Teren San-Hi secured a second-place LHRS finish, establishing the design's competitive credentials before it was available to other teams.</p><p>The Crimson Streak's structural reputation was cemented by an incident at the Edwards 1000, where a seventeen-vehicle pileup resulted in three driver fatalities and eleven serious injuries across the field. The Crimson Streak in the crash absorbed impact forces that destroyed surrounding cars while its driver walked away unharmed, an outcome that generated more press coverage than any of the vehicle's race victories. Within a year of official introduction, twenty-seven racing teams across forty-three leagues had adopted the design, and fifteen top-ten-ranked drivers in their respective disciplines had made it their primary competition mount.</p>
+</history>
+
+<manufacturer>
+Champion Hoversports
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Electric (Fuel Cell)
+ARMOR:Standard (BAR 8)
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+3.5
+</tonnage>
+
+<fuel>
+0.451
+</fuel>
+

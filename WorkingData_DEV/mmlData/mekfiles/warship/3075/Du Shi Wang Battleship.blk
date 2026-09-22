@@ -1,0 +1,274 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ede0-70f8-b71a-c51c55180f71
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Du Shi Wang Battleship
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4103
+</mul id:>
+
+<year>
+2380
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:18.0:6:1::-1:0
+cargobay:70000.0:4:3::-1:0
+dockingcollar
+dockingcollar
+crewquarters:1855.0:0:-1::-1:0
+1stclassquarters:650.0:0:-1::-1:0
+steeragequarters:50.0:0:-1::-1:0
+cargobay:73529.0:4:8::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+2100
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+12500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+240
+135
+135
+120
+135
+135
+</armor>
+
+<Nose Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+</Right Broadsides Equipment>
+
+<structural_integrity>
+150
+</structural_integrity>
+
+<capabilities>
+<p>The Du Shi Wang mounted an exclusively energy-based weapons suite, eliminating ammunition dependency and enabling extended independent operations. Four Heavy Naval PPCs dominated the nose arc, backed by heavier frontal armor than any contemporary WarShip carried. Standard Capellan doctrine called for pointing the vessel directly at a target and overwhelming it with sustained capital fire from these weapons. Three NL45 naval lasers covered each fore and aft quarter arc, four NL45s protected each broadside, and a pair of Medium Naval PPCs guarded the stern.</p><p>Eighteen fighters and two DropShip docking collars gave the class modest force projection capability relative to its displacement. A crew of over four hundred operated the vessel, including sixty officers, two hundred sixty-five enlisted personnel, thirty gunners, and a small marine detachment. Safe thrust reached three gravities with a maximum of five, respectable acceleration for a vessel of this mass, though insufficient agility to reliably bring the strongest arcs to bear against faster opponents. Over two thousand tons of standard armor concentrated heavily forward offered formidable protection along the axis of attack but left the flanks and stern comparatively exposed.</p><p>The class suffered from a deeply flawed internal arrangement reflecting Capellan social hierarchy. Senior officers enjoyed exclusive access to the aft gravity deck, while the majority of the crew quartered forward had woefully inadequate access to escape pods and lifeboats during catastrophic damage events.</p>
+</capabilities>
+
+<overview>
+<p>The Du Shi Wang-class battleship was the first true WarShip designed and built by the Capellan Confederation, launched in 2380 from the Cynthiana Shipwrights yards on Aldebaran. Commissioned by the Duchy of Liao even before the Confederation had fully coalesced, the class was intended to anchor Capellan naval power and project the young nation's military strength across its growing sphere of influence. The vessel's name translates roughly as 'god of burning suffocation,' a designation that proved grimly appropriate given the aggressive forward-assault doctrine for which the class was designed.</p><p>The Du Shi Wang earned a fearsome and deeply controversial reputation during the Age of War, shaped by actions that established dark precedents for the conduct of interstellar warfare. Though respected for its raw striking power, the class was also recognized as a product of Capellan ambition outpacing Capellan resources, with compromises in its design that would haunt crews throughout its long service life.</p>
+</overview>
+
+<deployment>
+<p>The CCS Mica Liao served with the Sarna Commonality Squadron on border patrol when the First Succession War erupted. At the Battle of Second Chance in February 2787, the Mica Liao engaged the Atreus-class battleship FWLS Sorunda, but the League vessel raked the Capellan battleship before turning to add a devastating broadside. League fighters exploited the weakened flank, destroying the Mica Liao.</p><p>The CCS Sundermann Liao served as flagship of Task Force Devlin at the Battle of Calloway VI in 2789. The intervention of the Free Worlds League Navy Third Fleet proved catastrophic, destroying the Sundermann Liao and most of the task force.</p><p>The CCS Duncan Liao survived the disastrous first invasion of Oriente in December 2804, where nuclear-armed fighters destroyed three sister ships, but was itself shattered during the third invasion in September 2805 by forces screening the FWLS Bismarck.</p><p>The CCS Jasmine Liao was captured by the SLDF and accompanied Kerensky on the Exodus in 2784. Claimed by Clan Mongoose and rebuilt with Clan technology as the Quicksilver Mongoose, the vessel served as the Mongoose flagship for decades. During the Trial of Absorption in 2868, the Quicksilver Mongoose crippled the Smoke Jaguar flagship CSJ Obsidian, a McKenna-class battleship, before being crippled itself by the CSJ Storm Cat. The battered vessel was mothballed at Strana Mechty following the Mongoose's destruction as a Clan.</p>
+</deployment>
+
+<history>
+<p>The Du Shi Wang program originated with the Duchy of Liao, which began work on a capital ship design even before the formal creation of the Capellan Confederation. Knowing that conflict among the nascent Great Houses was inevitable, the Duchy sought a vessel around which to anchor its growing fleet. The resulting battleship carried a primary armament derived from designs stolen from the Terran Hegemony through espionage, but neither the Duchy nor the young Confederation possessed the resources to equip their new WarShip with the broad batteries that rival designs carried. This financial reality drove designers to concentrate the heaviest weapons forward rather than distribute firepower across multiple arcs, a decision that defined the class for its entire service life.</p><p>The Du Shi Wang quickly earned a fearsome reputation during the opening campaigns of the Age of War. The class achieved particular infamy for the orbital bombardment of the Federated Suns world of Novaya Zemlya in 2399, the first recorded instance of massed orbital bombardment directed against civilian population centers. This act established a grim precedent that shaped the conduct of interstellar warfare for centuries. The fighting of this era also exposed the design's internal shortcomings repeatedly, with heavy crew casualties resulting from inadequate safety provisions aboard these vessels.</p><p>By 2765, only five Du Shi Wang battleships remained operational, each forming the nucleus of a Capellan commonality naval squadron typically escorted by pairs of Aegis or Soyal-class heavy cruisers. The Confederation managed to restore additional vessels to service in the buildup to the First Succession War, but fewer than twelve were available when hostilities erupted. The class fought in numerous engagements against the Free Worlds League Navy, suffering devastating losses at Second Chance, Calloway VI, and during the invasions of Oriente. Nuclear-armed fighters proved particularly lethal, destroying multiple vessels in a single engagement during the fighting at Oriente. All Capellan-operated Du Shi Wang battleships had been destroyed by the end of the Second Succession War, a complete loss that reflected the Confederation's inability to protect or replace its heaviest capital assets during that ruinous conflict.</p><p>Only a single vessel survived into the Clan era. Captured by the SLDF and carried into exile with the Exodus fleet, this ship was claimed by Clan Mongoose and rebuilt with Clan technology. It served as the Mongoose flagship until the Clan's Absorption by the Smoke Jaguars in 2868, during which the vessel was crippled in a fierce exchange with a Jaguar capital ship. The damaged battleship was subsequently mothballed at Strana Mechty, the last Du Shi Wang known to exist in any condition.</p>
+</history>
+
+<manufacturer>
+Cynthiana Shipwrights Ltd.
+</manufacturer>
+
+<primaryFactory>
+Aldebaran
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Cynthiana Shipwrights Ltd.
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Standard
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Battleship
+</use>
+
+<length>
+870 m
+</length>
+
+<height>
+1300 m Sail
+</height>
+
+<source>
+TR:3075
+</source>
+
+<tonnage>
+900000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+150
+70
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+361
+</crew>
+
+<officers>
+60
+</officers>
+
+<gunners>
+30
+</gunners>
+
+<passengers>
+5
+</passengers>
+
+<marines>
+10
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+25
+</life_boat>
+
+<escape_pod>
+15
+</escape_pod>
+

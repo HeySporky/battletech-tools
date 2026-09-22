@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a8f4-7b5e-a2ad-e273fe73afe0
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Tunnel Rat III Mining Exoskeleton
+</Name>
+
+<Model>
+[Armored Glove](Sqd4)
+</Model>
+
+<mul id:>
+5305
+</mul id:>
+
+<year>
+3062
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+-1
+</armor_tech>
+
+<Squad Equipment>
+BAExtendedLifeSupport:Body
+BAArmoredGlove:LA
+BAArmoredGlove:RA
+BASearchlight:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Tunnel Rat III's Armored Glove configuration pairs its upgraded chassis with modular manipulator adaptors fitted with armored gloves. Massing close to three hundred kilograms fully loaded, the Tunnel Rat III is lighter in frame than its predecessors but far better protected, mounting two points of standard armor and an extended life support system designed for prolonged operations in hostile atmospheres. A basic jump jet system provides thirty meters of vertical mobility, allowing operators to reach elevated work sites or escape flooded shaft sections. The trade-off for this improved protection and mobility is increased cost, making the Tunnel Rat III considerably more expensive than the earlier models it supplements.</p>
+</capabilities>
+
+<overview>
+<p>The Tunnel Rat III is a thorough redesign of General Motors' mining exoskeleton line, produced at the company's Talcott facility. Heavier and more capable than its predecessors, the Tunnel Rat III offered mining operators a significantly tougher platform with greater survivability in the event of underground emergencies. Its higher price point compared to earlier Tunnel Rat models limited adoption among smaller and more cost-conscious mining operations, but the improved protection and expanded capabilities made it the preferred choice for well-funded concerns operating in particularly dangerous or remote environments.</p>
+</overview>
+
+<deployment>
+<p>The Tunnel Rat III's Armored Glove configuration found favor among mining operations in particularly hazardous environments where the improved armor and life support justified the added cost. Operators performed the same precision tasks as their Tunnel Rat I counterparts, but with substantially better survivability.</p>
+</deployment>
+
+<history>
+<p>The Tunnel Rat III represented GM's most ambitious revision of the mining exoskeleton concept. Produced at the company's Talcott factory beginning in 3062, it was a ground-up redesign rather than an incremental upgrade. GM's engineers prioritized operator survivability and operational flexibility, producing a significantly tougher and more mobile platform than the original Tunnel Rat.</p><p>The added capability pushed the price well above the earlier models, and many smaller mining operations could not justify the expense. Larger corporations and government-backed extraction projects adopted the Tunnel Rat III more readily, particularly for work in especially dangerous or remote environments where operator losses carried high replacement and liability costs. The Tunnel Rat III chassis later attracted attention from military planners during the Jihad, who recognized that its modular hardpoints could accept light weaponry with minimal modification.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Talcott
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<published>
+RS:VA
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+1
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

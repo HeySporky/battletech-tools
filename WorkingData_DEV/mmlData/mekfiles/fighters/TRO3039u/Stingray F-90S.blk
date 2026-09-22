@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad73-7fef-879e-42400d13aa08
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Stingray
+</Name>
+
+<Model>
+F-90S
+</Model>
+
+<mul id:>
+3070
+</mul id:>
+
+<year>
+2911
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+19
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+50
+42
+42
+34
+</armor>
+
+<Nose Equipment>
+Autocannon/5
+</Nose Equipment>
+
+<Left Wing Equipment>
+Large Laser
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Large Laser
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo AC/5
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Stingray's forward-swept wings reduce wingtip vortices and provide aerodynamic stability that would otherwise require much greater surface area, while forward canard surfaces give additional lift to offset the heavy nose section. Powered by a VOX 240a fusion engine, the fighter is not particularly fast, but its atmospheric agility allows it to engage targets at range and earn the respect of even heavy aerospace fighters. The F-90/A frame mounts a Sunspot particle projector cannon in the nose, flanked by a pair of Hellion-a III large lasers and Hellion-b II medium lasers across both wings. This all-energy weapons loadout, cooled by twenty single heat sinks, grants the Stingray extended combat endurance without dependence on ammunition resupply. Andurien Steel Standard armor provides solid protection for the fighter's weight class.</p><p>The nose-heavy weight distribution created by the forward-mounted PPC makes the Stingray feel unpredictable to new pilots, who often describe the flight characteristics as "slippery" or "dicey." It takes months of experience for pilots accustomed to conventional fighters to develop the touch needed to exploit the Stingray's full potential, but those who master it find a supremely capable dogfighter.</p>
+</capabilities>
+
+<overview>
+<p>The F-90 Stingray is a sixty-ton medium aerospace fighter produced by Andurien AeroTech, a division of Free Worlds Defense Industries. Introduced in 2762, the Stingray refined the forward-swept wing concept pioneered by the failed F-77 Deathstalker prototype into a proven, combat-ready airframe. Instantly recognizable by its distinctive slanted wing profile, the fighter earned a reputation for exceptional maneuverability and stability that made it a favorite among experienced pilots. The Stingray became the Free Worlds League Military's standard medium fighter, with production at multiple Andurien AeroTech facilities ensuring a steady supply. Licensing agreements with Gutierrez Aerospace on Trellisane further expanded output. While most common within the League, every Successor State fields at least a few Stingrays, with the Lyran Commonwealth maintaining a particularly notable inventory inherited from the Star League era.</p>
+</overview>
+
+<deployment>
+<p>The F-90S is a Lyran Commonwealth refit variant produced by Bowie Industries on Carlisle. Introduced in 2911, this ground-attack modification replaces the nose-mounted particle cannon and one heat sink with a class-5 autocannon and ammunition. While intended to address the base model's nose-heavy tendencies, the autocannon actually increased airframe stresses. Despite this drawback, the variant found a niche within Lyran aerospace forces, where it served alongside unmodified Stingrays. Bowie Industries has maintained the refit line continuously from the Late Succession Wars through the ilClan era, making it one of the longest-running Stingray production programs outside the Free Worlds League.</p>
+</deployment>
+
+<history>
+<p>The Stingray traces its lineage directly to the failed F-77 Deathstalker program. After the Deathstalker's grounding in 2744, Andurien AeroTech undertook a complete redesign that retained the forward-swept wing philosophy while eliminating the structural weaknesses that had doomed its predecessor. The resulting F-90 entered service with the Star League Defense Force in 2762, proving that the unconventional wing concept was not only viable but exceptionally effective when properly implemented.</p><p>Production was established at Andurien AeroTech's facilities on both Andurien and Westover, and the Stingray quickly became the Free Worlds League Military's standard medium fighter. The design's popularity was such that the League government pressured Andurien AeroTech into licensing production to Gutierrez Aerospace, a startup firm founded by ace Stingray pilot Maria Gutierrez on Trellisane. Gutierrez Aerospace began building fighters in 3040, and their precision-built, hand-finished Stingrays developed a near cult-like following among pilots and technicians who credited the small firm's aircraft with measurably higher survivability rates.</p><p>Throughout the Succession Wars, the Stingray remained common within League space thanks to continuous production at multiple facilities. Other Successor States maintained smaller inventories, primarily from Star League-era stocks or occasional trade with the Free Worlds League. House Steiner proved a notable exception, having inherited a substantial number of Stingrays from the Star League period. Clashes between Steiner and Marik Stingrays became frequent enough to enter aerospace lore, and the Lyran Commonwealth maintained its fleet despite having no direct access to Free Worlds League production lines. The F-90S variant, a Lyran refit replacing the nose-mounted particle cannon with an autocannon, was produced at Bowie Industries on Carlisle beginning in 2911 in an attempt to address the fighter's nose-heavy tendencies.</p><p>The recovery of Star League technology spurred a wave of upgrades beginning in the early 3050s. Andurien AeroTech's F-92, introduced in 3050, replaced standard weapons with their extended-range equivalents and switched to double heat sinks. Gutierrez Aerospace responded with the F-94 in 3052, featuring a distinctly different weapons array built around missile launchers and energy weapons. After years of litigation gained Gutierrez access to restricted Andurien technology, the firm produced the F-95 in 3069, mounting a heavy PPC and ferro-aluminum armor. Following the dissolution of the Free Worlds League during the Jihad, Gutierrez Aerospace's output went primarily to the Regulan Fiefs, with some fighters reaching the Duchy of Tamarind-Abbey and independent mercenary commands. Andurien AeroTech continued production under the Duchy of Andurien, and the F-96R, designed to counter glazed armor technology, entered service from both manufacturers in 3132.</p>
+</history>
+
+<manufacturer>
+Refit - Bowie Industries
+</manufacturer>
+
+<primaryFactory>
+Carlisle
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:VOX
+ARMOR:Andurien Steel
+COMMUNICATIONS:Telstar
+TARGETING:SynCom
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:F-90/A
+ENGINE:240a
+ARMOR:Standard
+COMMUNICATIONS:F-67
+TARGETING:VAX
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d7b5-7bd3-a944-fcf9c4ebd0b3
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Assassin
+model:ASN-30 (Alice)
+mul id:3738
+
+Config:Biped
+techbase:Inner Sphere
+era:3066
+published:RS:UM
+rules level:2
+role:Striker
+
+quirk:cramped_cockpit
+quirk:easy_maintain
+quirk:poor_life_support
+quirk:non_standard
+
+mass:40
+engine:280 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:7
+jump mp:7
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:15
+RT armor:15
+CT armor:18
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:4
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Left Torso
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISERMediumLaser
+ISERMediumLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+Jump Jet
+Jump Jet
+Jump Jet
+BeagleActiveProbe
+BeagleActiveProbe
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+Jump Jet
+Jump Jet
+Jump Jet
+ISGuardianECMSuite
+ISGuardianECMSuite
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+ISTargeting Computer
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISC3SlaveUnit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Assassin was introduced in 2676 as the product of corporate ambition rather than military necessity. Maltex Corporation successfully lobbied the Star League to purchase the design as a replacement for the lighter Wasp and Stinger reconnaissance 'Mechs, achieving this through over-hyped performance statistics, fudged budget approximations, and political maneuvering. Despite this inauspicious origin, the forty-ton Assassin proved itself a capable light 'Mech hunter with impressive speed and jumping capability, and its modular design and ease of maintenance allowed it to persist through centuries of warfare long after Maltex's own fortunes had faded. Hellespont 'Mech Works revived the chassis in the late Jihad era, ensuring the Assassin remains a common sight in Capellan and Periphery forces.</p>
+
+capabilities:<p>The Assassin combines respectable mobility with adequate firepower for its intended role as a reconnaissance platform and light 'Mech hunter. Its VOX 280 fusion engine propels the forty-ton chassis to speeds of 118 kilometers per hour, while seven Lox Lift Series 1 jump jets provide an impressive 210-meter jumping distance that allows pilots to exploit terrain advantages against heavier opponents.</p><p>The weapons suite centers on a Holly-5 LRM-5 launcher for long-range harassment, supplemented by a Holly-2 SRM-2 rack and arm-mounted Martell medium laser for close engagements. This combination provides flexibility across engagement ranges, though the design's limited ammunition capacity of just seventy-four total rounds restricts extended operations without resupply. The SRM launcher's ammunition feed system is also prone to jamming in high-heat situations, a persistent concern that has led many operators to adopt conservative firing disciplines during sustained engagements.</p><p>The Assassin's most significant weakness lies in its cockpit design. Maltex's cost-cutting measures produced one of the most cramped cockpits in the Inner Sphere, limiting pilot endurance to half that of comparable designs and causing many veterans to develop chronic back problems. Despite numerous redesign attempts over four centuries, this fundamental flaw has never been adequately addressed in standard production models.</p>
+
+deployment:<p>This unique Assassin was rebuilt by a MechWarrior of the 24th Lyran Guards during the FedCom Civil War, incorporating substantial Davion salvage into the design. The custom configuration trades the standard engine for a light fusion engine and significantly upgrades the armor protection with ferro-fibrous plating. The original mixed-weapon loadout gives way to an all-energy arsenal of extended-range medium lasers linked to a salvaged targeting computer, while a Beagle active probe and C3 slave unit round out a sophisticated electronics package. The result is a dedicated reconnaissance and strike platform that sacrifices none of the Assassin's signature mobility while dramatically improving survivability and sustained firepower. The Alice saw action in several engagements during the Civil War, operating as a forward spotter and flanking element, though the radical departure from standard Assassin logistics made field repairs a constant challenge for its pilot's technical support staff.</p>
+
+history:<p>The Assassin's troubled history began when Maltex Corporation secured Star League Defense Force contracts through aggressive lobbying rather than superior design. Only several hundred units were produced before quality control investigations slowed production to a crawl, and the design was quietly shuffled to Periphery garrisons and militia markets. The primary manufacturing facility on Errai was destroyed in 2835 during the Second Succession War, further limiting the chassis's availability.</p><p>House Marik became the Assassin's most enthusiastic user during the Third Succession War. The 'Mech's impressive performance during the Battle of Rochelle in 2980, where it excelled in muddy conditions that hampered heavier designs, led to widespread adoption in Free Worlds League garrison forces. Marik commanders frequently assigned Assassins to rear-area raiding parties, where their speed and jump capability proved invaluable for hit-and-run operations.</p><p>The Capellan Confederation exhausted its Assassin inventory by 3025, and spare parts shortages plagued operators across the Inner Sphere. By 3058, most surviving Assassins had been phased out of frontline service, with the remaining examples typically serving as family heirlooms passed down through MechWarrior dynasties, often sporting extensive field modifications.</p><p>The Assassin's fortunes reversed dramatically in late 3067 when Hellespont 'Mech Works acquired the design from Maltex Corporation. Distracted by Jihad-era chaos, tax evasion charges, and suspected Word of Blake connections, Maltex readily surrendered control. Hellespont began producing upgraded variants for the Capellan Confederation Armed Forces, Taurian Defense Force, and Magistracy Armed Forces, using the chassis as an economical means to rebuild shattered formations. The design's shared components with the Raven II further simplified logistics for Capellan operators.</p><p>Defiance Industries' attempt to produce the ASN-30 variant for Lyran forces during the FedCom Civil War proved largely unsuccessful, with the radical redesign failing to win acceptance. However, Hellespont's more conservative upgrades have ensured the Assassin remains a common sight in Capellan and Periphery forces well into the thirty-second century.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:VOX 280 Light
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Ferro-Fibrous)
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Unknown with Targeting Computer

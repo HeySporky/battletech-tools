@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cde3-7bcb-84da-bec652367df4
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hellspawn
+model:HSN-10SR
+mul id:5674
+
+Config:Biped
+techbase:Inner Sphere
+era:3081
+source:TR:J
+published:RS:3067u,RSFP:Davion
+rules level:2
+role:Striker
+
+quirk:bad_rep_is
+
+mass:45
+engine:270 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:8
+
+armor:Standard(Inner Sphere)
+LA armor:14
+RA armor:14
+LT armor:17
+RT armor:17
+CT armor:21
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:5
+Light PPC, Left Arm
+ER Medium Laser, Left Arm
+Light PPC, Right Arm
+ER Medium Laser, Right Arm
+TAG, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Light PPC
+Light PPC
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Light PPC
+Light PPC
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+BeagleActiveProbe
+BeagleActiveProbe
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+ISTAG
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hellspawn was developed by General Motors in response to a 3056 call from the Armed Forces of the Federated Commonwealth for a modern, highly mobile fire support BattleMech to replace the aging Dervish. As the flagship design of GM's newly opened production facility on Talcott, the Hellspawn was awarded its contract by the Department of the Quartermaster in October 3060 and first entered service in 3062.</p><p>At 45 tons, the Hellspawn carries the same primary firepower as the Dervish in a package ten tons lighter, trading armor protection and structural durability for dramatically increased speed and maneuverability. The design incorporates advanced technologies including an endo steel chassis, extralight engine, and integrated Guardian ECM suite, positioning it as a next-generation fire support platform for Federated Suns forces. Despite its technological sophistication, the Hellspawn has earned a mixed reputation, praised for its agility but criticized for its fragility.</p>
+
+capabilities:<p>The Hellspawn is built on a GM Fury-M endo steel chassis powered by a GM 270 XL extralight engine, achieving a top speed of 97.2 kph, significantly faster than the Dervish it was designed to replace. Six Rawlings 80 jump jets provide an impressive 180 meters of jumping capability, making the Hellspawn one of the most mobile fire support platforms in active service. A Dalban SuperMicronics communications system integrated with a Guardian ECM suite provides protection against enemy electronic warfare systems such as C3 networks and Artemis IV fire control.</p><p>Twin Federated 10-Shot LRM-10 launchers deliver effective ranged fire support, while three RAMTech 800P medium pulse lasers provide accurate close-range defense that actually improves upon the Dervish's short-range capability while reducing ammunition dependency. However, the design's most significant weakness is its armor protection. Six and a half tons of StarGuard III armor represents less than seventy percent of the chassis' theoretical maximum, leaving the Hellspawn dangerously vulnerable to concentrated fire. The decision to forgo CASE protection for the left torso ammunition bins compounds this fragility, and the XL engine amplifies the vulnerability further, any side torso breach results in a catastrophic combat kill, leading some pilots to label the 'Mech a deathtrap.</p>
+
+deployment:<p>Introduced in 3081, this variant was configured as a dedicated reconnaissance and target designation platform. Each arm carries a light PPC and extended-range medium laser, while the chassis mounts a full electronic warfare suite comprising a Guardian ECM system, Beagle active probe, and TAG target designator. Eight improved jump jets replace the standard models, extending jump capability to an exceptional 240 meters, making the 10SR one of the most mobile medium 'Mechs in service. This combination of sensors, electronic warfare, and target designation equipment transforms the Hellspawn from a fire support platform into a force multiplier for allied artillery and missile units.</p>
+
+history:<p>The Hellspawn's development was driven by the devastation inflicted upon the Armed Forces of the Federated Commonwealth during the Clan Invasion and its aftermath. Department of the Quartermaster reports estimated that the AFFC would require as long as two decades to return to its pre-3049 readiness levels, a timeline that failed to account for the conflicts of subsequent years. In 3056, the AFFC released requirements for several new combat units with contracts to be awarded by 3060, and General Motors responded with the Hellspawn from its newly opened Talcott production lines, winning the contract in October of that year.</p><p>The Hellspawn was first shipped to the Crucis Lancers in September 3062, allowing them to retire their ancient Dervishes to garrison units or scrap heaps. Distribution quickly expanded, with units from the Deneb Light Cavalry to the Robinson Rangers receiving the new design. The Second Ceti Hussars and Davion Light Guards employed Hellspawns to particularly devastating effect on New Syrtis, ravaging the lightest elements of the Fourth Donegal Guards' reconnaissance force using combined direct fire and Thunder munitions.</p><p>Despite its combat successes, the Hellspawn has struggled to fully escape its poor reputation among MechWarriors, a consequence of its thin armor, exposed ammunition bins, and vulnerable XL engine that has made many pilots wary of the assignment. General Motors has continued developing improved variants to address these criticisms, with proposals ranging from enhanced fire control systems to completely redesigned weapons loadouts emphasizing close combat capability. The Jihad and its aftermath saw several of these variants enter production, as the desperate demand for any available combat units overrode lingering concerns about the chassis' survivability limitations.</p>
+
+manufacturer:General Motors
+
+primaryfactory:Talcott
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:GM
+systemmode:CHASSIS:Fury-M Endo
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:270 XL
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:III
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Unknown (Improved)
+systemmanufacturer:COMMUNICATIONS:Dalban
+systemmode:COMMUNICATIONS:SuperMicronics with Guardian ECM
+systemmanufacturer:TARGETING:GME
+systemmode:TARGETING:HiTrak-3 with Beagle Active Probe and TAG

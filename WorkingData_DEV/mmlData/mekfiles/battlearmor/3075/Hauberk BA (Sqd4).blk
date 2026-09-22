@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a3f0-7ef3-afd9-d988642245c6
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Hauberk Battle Armor
+</Name>
+
+<Model>
+(Sqd4)
+</Model>
+
+<mul id:>
+4269
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+33
+</armor_type>
+
+<armor_tech>
+1
+</armor_tech>
+
+<Squad Equipment>
+ISBASmallLaser:RA
+ISBALRM5:Body
+IS BA Ammo LRM-5:Body:Shots4#
+IS BA Ammo LRM-5:Body:Shots2#
+BABattleClaw:LA
+IS BA Stealth (Improved):LA
+IS BA Stealth (Improved):LA
+IS BA Stealth (Improved):LA
+IS BA Stealth (Improved):RA
+IS BA Stealth (Improved):RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<capabilities>
+<p>The base Hauberk configuration mounts one of the most potent weapon systems found on battle armor: a five-tube long-range missile rack with five salvos of ammunition, positioned behind the head on the suit's torso. This gives a squad the combined firepower to threaten BattleMechs and vehicles from well beyond typical infantry engagement ranges. A small laser in a fixed right-arm mount provides secondary firepower at shorter distances, while a battle claw allows the trooper to engage in close combat despite the suit's inability to perform anti-BattleMech swarming attacks.</p><p>The Hauberk's improved stealth armor is its defining defensive feature, allowing squads to set up ambushes and engage targets before they can effectively return fire. At two thousand kilograms, the suit is too large to ride OmniMechs into battle and moves at only ten kilometers per hour on the ground, limiting it to defensive operations or requiring armored personnel carrier transport. The lack of anti-personnel weapons leaves the suit exposed to conventional infantry at close quarters, though the battle claw partially offsets this gap.</p>
+</capabilities>
+
+<overview>
+<p>The Hauberk is an Inner Sphere assault battle armor developed by the Armed Forces of the Federated Suns during the Jihad. Built by General Motors on Salem, the two-thousand-kilogram suit was derived from Clan Goliath Scorpion's Undine chassis, repurposed from its original aquatic role into a ground-based heavy infantry platform. The Hauberk's thick armor and powerful armament made it one of the most heavily equipped battle armor designs fielded by the Federated Suns, filling a defensive assault role that had previously been dominated by Clan designs.</p>
+</overview>
+
+<deployment>
+<p>The Hauberk saw its heaviest deployment in four-trooper squads within the Armed Forces of the Federated Suns. AFFS commanders organized their suits following standard Inner Sphere infantry doctrine, with squads operating as part of larger platoons attached to BattleMech or armored formations. The suit's defensive orientation made it well-suited to holding key positions and establishing ambush corridors while faster units maneuvered around the enemy.</p>
+</deployment>
+
+<history>
+<p>The Hauberk traces its origins to the Federated Suns' acquisition of Clan Goliath Scorpion's Undine battle armor through Clan Diamond Shark during the Jihad. The AFFS had hoped to field the Clan suits directly, but the Undine's aquatic specialization and chronic maintenance difficulties rendered it impractical for general combat use. Researchers at the New Avalon Institute of Science recognized that the Undine chassis offered a more refined foundation than anything the Inner Sphere had produced, and used it to develop a new assault suit to challenge established designs like the Kanazuchi and Golem.</p><p>With Word of Blake forces devastating manufacturing centers on New Avalon, the AFFS contracted General Motors on Salem to handle production. Armed with data recovered from the NAIS before its destruction, GM delivered prototypes by 3069 and achieved full-scale production by 3070. The suit quickly found favor with front-line formations including the Crucis Lancers, Avalon Hussars, and March Militia, though deployment remained constrained by production capacity. Combat experience during the Jihad exposed the base design's close-range limitations, driving the development of specialized configurations. Tech Sergeant Timothy Balke assembled hybrid suits from salvage on New Avalon, and Albion Advanced Technologies later formalized these urban combat lessons into the Commando configuration, which entered production in 3088.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Salem
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+11
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+4
+</weightclass>
+

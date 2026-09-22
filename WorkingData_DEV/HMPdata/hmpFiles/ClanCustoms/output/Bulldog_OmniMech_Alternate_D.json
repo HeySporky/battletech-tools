@@ -1,0 +1,439 @@
+{
+  "filename": "Bulldog_OmniMech_Alternate_D.hmp",
+  "size": 1646,
+  "header_hex": "56 35 2e 30 30 01 00 08 05 ff ff ff 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 8,
+      "length": 1,
+      "text": "\b"
+    },
+    {
+      "type": "byte",
+      "offset": 8,
+      "hex": "05"
+    },
+    {
+      "type": "byte",
+      "offset": 9,
+      "hex": "ff"
+    },
+    {
+      "type": "byte",
+      "offset": 10,
+      "hex": "ff"
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 268,
+      "length": 255,
+      "text": "\u0000\u0000\u0000\u0000K\u0000\u0010\u0000Bulldog OmniMech\u000b\u0000Alternate D\u00f4\u000b\u0002\u0000hu^\u0001\u00f7\u0007\u0000\u0090\u0019E\u0000\u0090\u0019E\u0000\u0000\u00c0A\u0000\u0000\u00b8A\u0000\u0000\u0080A\u0014\u0000MH 6 4 4 3 3\u0097 5 omni\u0001\u0000\n\u0000\u0001\u0000w\u0001\u0001\u0000\u0005\u0000\u0000\u0000\u000f\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\b\u0000\b\u0000\u000b\u0000\u0000\u0000\u0003\u0000\u0001\u0000<\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000A\u0000\u0001\u0000 \u0000\u0002\u0000\t\u0000(Unknown)\u0001\u0000O\u0000\u0005\u00002\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A"
+    },
+    {
+      "type": "byte",
+      "offset": 268,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 269,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 270,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 271,
+      "end": 272,
+      "text": "A"
+    },
+    {
+      "type": "byte",
+      "offset": 272,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 273,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 274,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 275,
+      "end": 276,
+      "text": "A"
+    },
+    {
+      "type": "byte",
+      "offset": 276,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 277,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 278,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 279,
+      "end": 280,
+      "text": "A"
+    },
+    {
+      "type": "byte",
+      "offset": 280,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 281,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 282,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 283,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 284,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 285,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 286,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 287,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 288,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 289,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 290,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 291,
+      "end": 308,
+      "length": 15,
+      "text": "\u0000\u0000\u000f\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u00d1"
+    },
+    {
+      "type": "byte",
+      "offset": 308,
+      "hex": "01"
+    },
+    {
+      "type": "byte",
+      "offset": 309,
+      "hex": "08"
+    },
+    {
+      "type": "byte",
+      "offset": 310,
+      "hex": "08"
+    },
+    {
+      "type": "len_string",
+      "start": 311,
+      "end": 778,
+      "length": 465,
+      "text": "\b\b\u00d1\u0001\b\b\u00d1\u0001\b\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000<\u0000\u0000\u0000<\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000O\u0000\u0000\u0000\u00df\u00012\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0014\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00f6\u00ff\u00e6\u0000R\u0001The Bulldog was an attempt to make a big brother to the very sucessful Maddog OmniMech, known in the Inner Sphere as the Hagateka, or Vulture.   "
+    },
+    {
+      "type": "ascii",
+      "start": 778,
+      "end": 971,
+      "text": "Though the design was a marginal success, updating the chassis to 75 tons, some critics feel this design is merely a stopgap in attempt to fill holes in the still recovering Clan Forces.   \r\n\r\n"
+    },
+    {
+      "type": "len_string",
+      "start": 971,
+      "end": 1449,
+      "length": 476,
+      "text": "This Alternative is very Reminisce of the Alternate D of the Original Maddog.  However, only half of the configuration is there.  The right side of the mech has a large pulser in place of the Gauss rifle on the arm, and a targeting computer and SRM 2 with a ton of ammo in the right torso.  4 tons of Gauss slugs ride in the left torso, giving the rifle plenty of staying power as the primary weapon, and with the targeting computer linked to it, it can make every shot count."
+    },
+    {
+      "type": "len_string",
+      "start": 1449,
+      "end": 1452,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 1452,
+      "end": 1453,
+      "text": "0"
+    },
+    {
+      "type": "byte",
+      "offset": 1453,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1454,
+      "end": 1502,
+      "text": "Currently 6 variants, including the Prime Model."
+    },
+    {
+      "type": "len_string",
+      "start": 1502,
+      "end": 1505,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1505,
+      "end": 1508,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1508,
+      "end": 1511,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1511,
+      "end": 1514,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 1514,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1515,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1516,
+      "end": 1533,
+      "length": 15,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 1533,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1534,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1535,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1536,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1537,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1538,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1539,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1540,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1541,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1542,
+      "end": 1545,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 1545,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1546,
+      "end": 1556,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 1556,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1557,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1558,
+      "end": 1559,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1559,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1560,
+      "end": 1570,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1570,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1571,
+      "end": 1581,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1581,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1582,
+      "end": 1592,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1592,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1593,
+      "end": 1603,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1603,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1604,
+      "end": 1614,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1614,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1615,
+      "end": 1625,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1625,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1626,
+      "end": 1636,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1636,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1637,
+      "end": 1646,
+      "text": "(Unknown)"
+    }
+  ]
+}

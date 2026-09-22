@@ -1,0 +1,155 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a4d5-7157-a751-68d8c58d3578
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Trinity Medium Battle Armor
+</Name>
+
+<Model>
+(Theseus RL)[LRR](Sqd4)
+</Model>
+
+<mul id:>
+5283
+</mul id:>
+
+<year>
+3069
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+CLBALight Recoilless Rifle:RA
+ISBARL1:Body
+ISBARL1:Body
+ISBARL1:LA
+BABattleClaw:LA
+BABattleClaw:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<capabilities>
+<p>The Theseus rocket launcher variant pairs a light recoilless rifle with a single three-tube rocket launcher, creating a combined-arms loadout that balances sustained and burst fire capabilities. The light recoilless rifle provides a steady baseline of ballistic damage, while the rocket launcher delivers a one-shot salvo useful for opening engagements or finishing weakened targets. Standard armor protection and battle claws match the base Theseus configuration. Ground speed remains at approximately 30 kilometers per hour with no jump capability.</p><p>The added rocket launcher gives individual troopers a punch above their weight class during initial contact, but the single-use nature of the tubes leaves the suit reliant on its rifle once the rockets are expended. This configuration favors ambush tactics and defensive positions where the opening volley can be maximized.</p>
+</capabilities>
+
+<overview>
+<p>The Trinity is a family of three medium battle armor suits commissioned by the Capellan Confederation Armed Forces and funded jointly by the Trinity Alliance. Introduced in the mid-3060s, the program aimed to make powered infantry available beyond the elite formations that fielded the Fa Shih. The Capellan variant, designated the Ying Long, incorporates advanced camouflage technology derived from an outside source. The Taurian Asterion and Canopian Theseus share a more conventional protection scheme, differing primarily in cosmetic styling. All three designs emphasize ground mobility, close-quarters capability against heavier units, and a flexible modular weapon mount that allows field commanders to tailor loadouts to mission requirements.</p>
+</overview>
+
+<deployment>
+<p>Magistracy Armed Forces squads fielded the rocket-equipped Theseus in four-trooper teams, typically assigning them to ambush positions along likely enemy avenues of approach. The combination of sustained rifle fire and an opening rocket salvo gave these small squads outsized impact during the critical first moments of an engagement. Canopian commanders favored this configuration for defensive operations along the Magistracy's border with the Marian Hegemony.</p>
+</deployment>
+
+<history>
+<p>The CCAF Strategios commissioned the Trinity after recognizing that battle armor needed to reach beyond prestige formations. The Trinity Alliance partners provided funding that accelerated development to under two years, fueling speculation that preliminary design work had already begun before the formal program launched. Initial production was handled exclusively by Ceres Metals Industries on Capella, with the Capellan government employing deliberate delays and bureaucratic obstacles to prevent technology transfer to its allies. Both the Taurian Concordat and the Magistracy of Canopus eventually reverse-engineered the design independently, establishing their own production lines through Taurus Territorial Industries on Sterope and Foxx Infantry Systems on Royal Foxx.</p><p>The rapid proliferation of the Trinity across three nations gave the Alliance a common infantry platform that saw its first major combat test during Operation Sovereign Justice, where the suits proved capable against comparable designs fielded by other powers. Upgraded variants incorporating improved protection and heavier close-combat equipment appeared during the Jihad, further extending the family's service life across all three member states.</p>
+</history>
+
+<manufacturer>
+Foxx Infantry Systems
+</manufacturer>
+
+<primaryFactory>
+Royal Foxx
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+8
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

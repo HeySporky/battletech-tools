@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-daf8-7978-b1ce-31c3f78d46d3
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Caesar
+model:CES-5R
+mul id:9321
+
+Config:Biped
+techbase:Inner Sphere
+era:3148
+source:RG26
+published:RG26,RS:MERCS
+rules level:3
+role:Brawler
+
+quirk:hyper_actuator
+
+mass:70
+engine:280 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Hardened(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:22
+RT armor:22
+CT armor:30
+HD armor:9
+LL armor:27
+RL armor:27
+RTL armor:8
+RTR armor:8
+RTC armor:11
+
+Weapons:6
+ER Medium Laser, Left Arm
+Snub-Nose PPC, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Left Torso
+Gauss Rifle, Right Torso
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISSNPPC
+ISSNPPC
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERMediumLaser (R)
+IS Gauss Ammo
+IS Gauss Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISERMediumLaser (R)
+ISCASEII
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Caesar was born from an unlikely beginning, designed by Johnston Industries on New Syrtis as a reverse-engineered version of the Capellan Confederation's Cataphract, its true purpose was to serve as a public distraction while the Federated Commonwealth secretly developed the Axman. Introduced in 3049, the seventy-ton heavy 'Mech surprised its own creators by proving to be a high-quality design in its own right. Though initial sales were mediocre, the Caesar found a loyal following among Capellan March forces, Lyran units stationed along the Clan front, FedCom-employed mercenaries, and the Com Guards.</p><p>The design's combination of long-range direct-fire capability and excellent heat management made it particularly valued in sustained engagements and extreme temperature operations. Johnston Industries continued to develop the platform through multiple generations, producing variants tailored to both Lyran Alliance and Federated Suns doctrines, ensuring the Caesar remained relevant from the Clan Invasion through the ilClan era.</p>
+
+capabilities:<p>The Caesar's primary tactical role centers on delivering devastating long-range direct fire through a complementary pairing of a Poland Main Model A Gauss rifle and a Johnston High Speed extended-range PPC. This combination provides significant striking power at extended ranges, the Gauss rifle delivers kinetic impact capable of shearing off nearly a ton of armor with each shot, while the energy weapon supplements this with ammunition-independent firepower. Four Sutel Precision Line medium pulse lasers provide close-range defense, with two rear-mounted units discouraging flanking attacks.</p><p>The design's generous allocation of double heat sinks allows a MechWarrior to fire all weapons simultaneously with minimal thermal buildup, a trait that earned the Caesar particular favor for operations in extreme heat environments. Defensively, the Caesar carries substantial armor protection backed by CASE ammunition containment for the Gauss rifle magazine, though its reliance on an extralight fusion engine creates vulnerability to side torso damage.</p><p>The absence of jump jets limits tactical flexibility in close terrain, but the design philosophy deliberately sacrifices mobility for sustained firepower, a trade-off that has proven effective in the fire-support and heavy skirmisher roles the Caesar was designed to fill.</p>
+
+deployment:<p>When Johnston Industries regained control of its New Syrtis facility in 3148, engineers reworked the CES-5D concept into a domestically viable production model. Retaining the hardened armor that gives the design assault-class resilience in a heavy chassis, this variant substitutes Inner Sphere weaponry for the Clan systems that were no longer available through foreign suppliers. A snub-nose PPC and CASE II-protected Gauss rifle serve as primary armament, supported by two pairs of extended-range medium lasers split between forward and rear arcs. This variant proved itself immediately in combat, defending the factory city of Cilitren against Capellan forces during the August 3148 campaign for New Syrtis.</p>
+
+history:<p>The Caesar's development began as part of a deliberate deception campaign by Johnston Industries and the Federated Commonwealth's military leadership. Intended to draw public and intelligence attention away from the Axman project, the Caesar was promoted as the flagship product of Johnston's newly established 'Mech production facility on New Syrtis. The design's origin as a reverse-engineered Cataphract gave Johnston's engineers a solid foundation, and the finished product exceeded expectations, though it would take years of combat proving before sales reflected the 'Mech's actual capability.</p><p>During the Clan Invasion era, the Caesar demonstrated its worth as a fire-support platform, with its long-range punch particularly valuable against Clan opponents that excelled at standoff engagement. Capellan March garrison forces and Lyran units deployed along the Clan front became early advocates of the design, while Com Guard commanders appreciated its reliability during extended operations.</p><p>In the aftermath of the FedCom Civil War, Johnston Industries pursued a dual-market strategy, developing the CES-3S specifically for the Lyran Alliance and the CES-4R for the Armed Forces of the Federated Suns. Defiance Industries also entered the market, producing the CES-4S at Hesperus II for the LAAF. This diversification significantly boosted sales, and the Caesar saw increasing adoption during the Jihad, the Lyran Alliance Armed Forces particularly embraced the design, in part as a symbolic tribute to the assassinated Caesar Steiner.</p><p>The Jihad inflicted severe damage on Johnston Industries' New Syrtis facility. Taurian Concordat strikes left the production lines contaminated with radiation, forcing the factory offline for years. Though the plant could theoretically operate at near three-quarters capacity, government reluctance to expose workers to residual contamination delayed reconstruction well into the Republic era.</p><p>The Caesar's most dramatic chapter came during the ilClan era. When the Capellan Confederation invaded New Syrtis, Johnston Industries' facility fell under enemy control during the latter Dark Age period. Following the liberation of New Syrtis in 3148, Johnston reworked earlier plans for the advanced CES-5D (originally intended for New Avalon production in partnership with Clan Sea Fox) into the domestically-sourced CES-5R. This new variant proved its worth immediately, with CES-5R units defending the factory city of Cilitren against renewed Capellan aggression in August 3148.</p>
+
+manufacturer:Johnston Industries
+
+primaryfactory:New Syrtis
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Unknown (280 XL)
+systemmanufacturer:ARMOR:Riese
+systemmode:ARMOR:Unknown (Hardened)
+systemmanufacturer:COMMUNICATIONS:Johnston
+systemmode:COMMUNICATIONS:Wide Band
+systemmanufacturer:TARGETING:Randar
+systemmode:TARGETING:Pinpoint-HY

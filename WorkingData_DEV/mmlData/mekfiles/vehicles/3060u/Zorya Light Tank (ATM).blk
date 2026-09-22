@@ -1,0 +1,164 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e558-7c87-8ff6-89409b2ba249
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Zorya Light Tank
+</Name>
+
+<Model>
+(ATM)
+</Model>
+
+<mul id:>
+3653
+</mul id:>
+
+<year>
+3068
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+18
+10
+10
+10
+16
+</armor>
+
+<Body Equipment>
+Clan Ammo ATM-6
+Clan Ammo ATM-6
+Clan LB 5-X Cluster Ammo
+Clan LB 5-X AC Ammo
+CLECMSuite
+CLCASE
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLLBXAC5
+CLATM6
+</Turret Equipment>
+
+<capabilities>
+<p>The Zorya is powered by an ICE powerplant, which limits its flanking speed to 65 km/h and places it at a disadvantage against most purpose-built military vehicles. The vehicle carries two weapons in its fully traversing turret, giving the crew 360-degree coverage. The Type OVR-X LB 5-X Autocannon cycles between armor-piercing slugs and cluster munitions, making it effective against infantry concentrations and light vehicles as well as heavier armor. A Type X "Short Bow" LRM-10 launcher with an integrated Artemis IV Fire Control System complements the autocannon with guided long-range missile fire. Both weapons can engage VTOLs and other aircraft with reasonable effectiveness. The Zorya carries forty rounds for the autocannon, split between ammunition types, providing substantial endurance in sustained engagements.</p><p>The vehicle's armor is concentrated toward the front hull and turret, but uses conventional plate rather than ferro-fibrous construction, leaving it approximately 20 percent less resistant to damage than a design using advanced composites. The integrated ECM suite supports friendly units nearby but tends to attract enemy fire, meaning the Zorya depends on maintaining range from heavy opponents. The commander doubles as the communications and electronic warfare officer, allowing the three-person crew to manage the vehicle's sensor and ECM systems efficiently, though this dual role leaves little redundancy when crew losses occur.</p>
+</capabilities>
+
+<overview>
+<p>Named for a dawn goddess of ancient Slavic mythology, the Zorya Light Tank holds a unique distinction as the single most common armored combat vehicle in service with the Clans of Kerensky. Introduced in 2842 during the upheaval of the Succession Wars era, the design was conceived not as a frontline predator but as a practical, affordable solution to the Clans' need for garrison firepower across dozens of Homeworld facilities. Built from commonly available parts with an internal combustion engine and conventional armor plate, the Zorya is inexpensive to manufacture and demands little specialized training from its three-person crew. Its long-range weapons give it a useful fire-support role in garrison and second-line clusters throughout Clan space.</p>
+</overview>
+
+<deployment>
+<p>The ATM variant emerged from Clan Wolf production at Weingarten during the Jihad era, built on the framework of the Ammo variant. Its most significant change is the replacement of the LRM-10 with a turret-mounted ATM-6 launcher loaded with twenty rounds, providing access to standard, extended-range, and high-damage warhead types suited to different engagement ranges and target profiles. A fuel cell powerplant replaces the original internal combustion engine, pushing top speed to 80 km/h and improving tactical mobility over earlier variants. Clan Hell's Horses subsequently adopted the ATM variant after assuming control of the Weingarten production facility, integrating it into their garrison and second-line forces as a more capable successor to earlier Zorya designs.</p>
+</deployment>
+
+<history>
+<p>The Zorya emerged in 2842 from a recognition among Clan military planners that garrison operations required large numbers of affordable, easily crewed vehicles rather than small numbers of elite equipment. The name, drawn from ancient Slavic legend where the Zorya were dawn goddesses who guarded against cosmic destruction, was chosen to reflect the vehicle's protective garrison role rather than an aggressive frontline identity.</p><p>Production spread rapidly across multiple Homeworld facilities, and nearly every Clan integrated the Zorya into its second-line and garrison clusters. Clan Blood Spirit and Clan Cloud Cobra were among the earliest heavy adopters, fielding the vehicle in significant numbers through their lower-caste garrison forces. Blood Spirit Zoryas suffered severe losses during the Star Adder-Burrock Trial of Absorption, when Clan Blood Spirit intervened and found its garrison units badly outmatched. The losses proved difficult to replace quickly despite the vehicle's low unit cost.</p><p>The design gained renewed prominence following Operation Revival and the Refusal War. Clan Wolf, its warrior population significantly depleted by the Inner Sphere campaign and the fighting against Clan Jade Falcon, turned to the Zorya as an affordable platform for rebuilding garrison strength. Khan Vlad Ward authorized recruiting members of the artisan, laborer, and merchant castes through Trials of Position to crew Zoryas and other vehicles, acknowledging that conventional warrior recruitment could not fill the gap quickly enough.</p><p>The Zorya's longevity is a sign of sound, if unambitious, design. No single Clan has dominated its production, and the vehicle remains a fixture of Clan garrison forces well into the ilClan era.</p>
+</history>
+
+<manufacturer>
+W-7 Facilities
+</manufacturer>
+
+<primaryFactory>
+Weingarten
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Forging
+COMMUNICATIONS:Consolidated
+TARGETING:TRTTS
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fuel Cell
+ARMOR:OTR17b
+COMMUNICATIONS:BMR 6c
+TARGETING:Mark II with Artemis IV FCS
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+

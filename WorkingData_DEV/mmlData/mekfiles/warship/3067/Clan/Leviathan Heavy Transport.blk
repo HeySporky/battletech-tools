@@ -1,0 +1,588 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ed5c-7e61-a3f5-0469b4e2ad20
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Leviathan Heavy Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4500
+</mul id:>
+
+<year>
+3055
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:50.0:8:1::-1:0
+cargobay:414530.5:12:3::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:1660.0:0:-1::-1:0
+crewquarters:5838.0:0:-1::-1:0
+2ndclassquarters:1575.0:0:-1::-1:0
+smallcraftbay:20.0:12:14::-1:0
+</transporters>
+
+<SafeThrust>
+2
+</SafeThrust>
+
+<heatsinks>
+1500
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+37500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+12
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+250
+250
+250
+250
+250
+250
+</armor>
+
+<Nose Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo:600
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+(B) Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:100
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:200
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+(B) Naval PPC (Medium)
+(B) Naval Autocannon (NAC/30)
+Ammo NAC/30:100
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+(B) Naval PPC (Medium)
+(B) Naval Autocannon (NAC/30)
+Ammo NAC/30:100
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo:600
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+(B) Naval Autocannon (NAC/30)
+Ammo NAC/30:100
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+(B) Naval Autocannon (NAC/30)
+Ammo NAC/30:100
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:600
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:100
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:600
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:100
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+</Right Broadsides Equipment>
+
+<structural_integrity>
+90
+</structural_integrity>
+
+<capabilities>
+<p>Even in its transport configuration, the Leviathan carries a formidable armament distributed across all firing arcs. The nose section mounts a heavy naval Gauss rifle, a pair of naval autocannons, medium naval particle projector cannons, and an AR-10 capital missile launcher stocked with Barracuda, White Shark, and Killer Whale missiles. Extensive banks of extended-range large lasers, pulse lasers, and Clan Gauss rifles provide layered defense against smaller craft, while anti-missile systems guard against incoming ordnance. The broadside arcs deliver the heaviest firepower, featuring medium naval Gauss rifles and batteries of naval laser fifty-fives supplemented by extended-range PPCs and LRM-20 batteries with Artemis IV fire control. Streak SRM-6 launchers provide additional point-defense against fighters penetrating the capital weapon envelope.</p><p>The vessel's enormous internal volume supports eight docking collars for DropShips, with bays accommodating fifty aerospace fighters and twenty small craft. The primary cargo hold alone exceeds four hundred fourteen thousand tons, a capacity sufficient to transport an entire Clan's industrial base and population in a single voyage. Eight grav decks provide artificial gravity for crew and passengers, while thirty thousand escape pods stand ready to evacuate the vast numbers carried during transit operations. Nine hundred fifty tons of Lamellor Ferro-Carbide armor protects the hull, though this figure is modest relative to the vessel's immense displacement, a deliberate trade-off favoring internal volume over protection. A lithium-fusion battery enables consecutive hyperspace jumps, and a mobile HPG allows the vessel to maintain independent interstellar communications without relying on the HPG network.</p>
+</capabilities>
+
+<overview>
+<p>The Leviathan Heavy Transport is the largest WarShip class ever constructed, displacing two million four hundred thousand tons. Jointly developed by Clan Ghost Bear and Clan Snow Raven at the Lum Naval Yards, the class entered service in 3055 as a heavily armored interstellar transport of extraordinary scale. Each vessel carried hundreds of thousands of tons of cargo and personnel across interstellar distances while retaining enough firepower to discourage any potential aggressor. The sheer mass of the hull gave each vessel the profile of a capital combatant despite its logistical mission, an effect reinforced by layered defensive weaponry across all firing arcs. Among Clan naval commands, the class earned recognition as a demonstration of Ghost Bear ambition and Snow Raven engineering prowess operating in concert, producing a vessel without equal in displacement or carrying capacity among the WarShip fleets of any power in the Inner Sphere or Clan homeworlds.</p>
+</overview>
+
+<deployment>
+<p>The CGB Leviathan was the first vessel completed, entering service in February 3055. Designated the centerpiece of what became known as the Third Exodus, the massive transport shuttled millions of Ghost Bear civilians and lower-caste members from the Clan homeworlds to the Inner Sphere occupation zone, operating alongside escorts of transport DropShips on each crossing. The operation required continuous round trips spanning a thousand light years, with the vessel's enormous cargo capacity allowing entire industrial complexes to be relocated alongside the populations they supported. Following the successful completion of the relocation, the vessel was withdrawn from transport service and scheduled for conversion to its originally intended battleship configuration, eventually being redesignated as a Leviathan II-class vessel.</p><p>The CGB Great Bear was the second vessel completed, serving alongside the CGB Leviathan throughout the Third Exodus. Together, the two transports carried the entire Ghost Bear civilian population from their homeworld enclaves to the Inner Sphere, an operation of extraordinary logistical scale that firmly established the Clan as a permanent power in the occupation zone. Like her sister vessel, the Great Bear was subsequently converted to a Leviathan II-class battleship once the transport mission concluded. Both vessels went on to serve with distinction in their new combat role before being lost during the Jihad.</p>
+</deployment>
+
+<history>
+<p>The Leviathan program was conceived in 3044 when Clan Ghost Bear Khans Nornian Tseng and Ursula Jorgensson authorized the creation of a new class of WarShip. In keeping with Ghost Bear tradition, the Khans insisted the vessel be the largest ever built, surpassing even the massive McKenna-class battleship in displacement. Ghost Bear scientists eagerly accepted the challenge, but after several years of work it became clear that the project exceeded their capabilities in naval architecture. The Bears turned to their longstanding allies in Clan Snow Raven, widely recognized as the preeminent masters of naval construction among the Clans, offering rights to mineral-rich asteroid fields in exchange for design expertise and construction assistance. The partnership proved productive, with Snow Raven engineers providing critical guidance on hull stress tolerances, drive integration, and weapons placement for a vessel of such extraordinary mass. Construction of two hulls commenced at the Lum Naval Yards, a Snow Raven facility in the Clan homeworlds.</p><p>Work on the massive hulls progressed steadily until the political upheaval surrounding Operation REVIVAL disrupted priorities. The Snow Ravens declined to participate in the invasion of the Inner Sphere, and Ghost Bear leadership shifted focus to the invasion corridor, leaving the Leviathan program in limbo for several years. It was not until after the Battle of Tukayyid in 3052 that the project found renewed purpose under dramatically different circumstances. Khan Bjorn Jorgensson made the historic decision to relocate the entire Ghost Bear Clan to its Inner Sphere occupation zone, a logistical challenge of staggering proportions requiring the secret transport of millions of lower-caste members across a thousand light years.</p><p>The two partially completed Leviathan hulls provided an unexpected solution. Though still lacking much of their planned weaponry, both vessels were structurally sound and heavily armored. The hulls were ordered modified to prioritize cargo capacity, converting planned weapons bays into holds capable of accommodating thousands of tons of supplies, industrial equipment, and habitat modules. The resulting vessels maintained the outward appearance of fearsome battlecruisers while actually serving as colossal armored transports, a deliberate deception intended to discourage any faction from interfering with the transfer.</p><p>The first vessel was completed in February 3055, and the Third Exodus began immediately. Both transports operated continuously with escorts of transport DropShips, each crossing spanning a thousand light years between the Clan homeworlds and the Ghost Bear occupation zone. The scale of the operation was without precedent in post-Star League history: millions of civilians, entire factory complexes, genetic repositories, and sibko facilities were relocated over a period of years. The massive cargo capacity of each Leviathan hull proved essential, as no other vessels in the Ghost Bear touman could have carried the volume of materiel required to transplant an entire Clan civilization. The relocation succeeded in firmly establishing Clan Ghost Bear as a permanent power in the Inner Sphere, transforming what had been a military occupation zone into a true nation.</p><p>With the transport mission complete, plans turned to converting both vessels to their originally intended military role. However, the mid-construction modifications meant the resulting combat vessels would differ significantly from the original Leviathan battleship blueprint, leading to their redesignation as the Leviathan II class. The conversion program proceeded at the Alshain Naval Yards under Ghost Bear control, while a third hull was laid down directly to the new battleship specifications. No additional vessels were ever produced in the transport configuration, leaving the Leviathan Heavy Transport as a unique artifact of one of the most remarkable population transfers in human history.</p>
+</history>
+
+<manufacturer>
+Lum Naval Yards
+</manufacturer>
+
+<primaryFactory>
+Lum
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Lum Naval Yards
+ENGINE:Unknown
+ARMOR:Valiant
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Lamellor Ferro-Carbide
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Heavy Transport
+</use>
+
+<length>
+1623 m
+</length>
+
+<height>
+1560 m Sail
+</height>
+
+<source>
+TR:3067
+</source>
+
+<tonnage>
+2400000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+185
+185
+95
+95
+95
+95
+95
+95
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+1100
+</crew>
+
+<officers>
+166
+</officers>
+
+<gunners>
+64
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+225
+</battlearmor>
+
+<life_boat>
+150
+</life_boat>
+
+<escape_pod>
+30000
+</escape_pod>
+

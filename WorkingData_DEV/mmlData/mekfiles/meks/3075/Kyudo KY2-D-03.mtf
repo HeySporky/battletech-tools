@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cec4-7663-9b17-c27d138768c6
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Kyudo
+model:KY2-D-03
+mul id:1852
+
+Config:Biped
+techbase:Inner Sphere
+era:3074
+source:TR:3075
+published:RS:3075u-AW
+rules level:2
+role:Missile Boat
+
+quirk:exp_actuator
+quirk:easy_pilot
+
+mass:45
+engine:225 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:14
+RA armor:14
+LT armor:16
+RT armor:16
+CT armor:22
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:3
+MML 7, Left Arm
+ER Large Laser, Right Arm
+MML 7, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISArtemisIV
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISERLargeLaser
+ISERLargeLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Ammo MML-7 LRM Artemis-capable
+IS Ammo MML-7 SRM Artemis-capable
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Torso:
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISArtemisIV
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Kyudo was introduced in 2443 by Martinson Armaments as the Terran Hegemony's second production BattleMech design. Lighter, faster, and significantly cheaper than the imposing Mackie, the forty-five-ton Kyudo was conceived to fill a fire-support role alongside heavier and better-armed frontline units. Martinson Armaments, one of the founding members of the Hegemony's original BattleMech consortium, developed many of the Kyudo's systems from scratch due to limited access to the Mackie's blueprints. This independent approach led to several innovative design concepts that would influence BattleMech engineering for centuries.</p><p>Rapid advances in technology soon outpaced early designs, relegating the Kyudo to second-echelon duties before the Reunification War. An upgraded variant kept the design marginally competitive for a time, but the loss of its original manufacturer during the Amaris crisis and the devastation of the Succession Wars saw the Kyudo vanish from active service for centuries before an unexpected resurgence during the Jihad era.</p>
+
+capabilities:<p>The rugged Conan/20 LRM launcher serves as the Kyudo's primary armament, making it well suited to its fire-support mission profile. The single Sorenstein extended-range large laser provides effective secondary firepower, though critics have argued the combination leaves the design under-armed for a forty-five-ton chassis. In practice, the Kyudo can hold its own against most BattleMechs in its weight class when deployed at appropriate engagement ranges.</p><p>Perhaps the Kyudo's most distinctive feature is its unique suspension and leg actuator layout, developed because Martinson had to engineer many systems independently. This design spreads ground pressure more efficiently, granting the BattleMech superior performance when negotiating soft terrain. However, this novel approach creates a notable vulnerability, the actuators are more exposed than those of contemporary designs, making the Kyudo particularly susceptible to infantry attacks targeting its lower extremities.</p><p>Armorscale ferro-fibrous armor with CASE provides reasonable protection for the design's tonnage, while the VOX 225 power plant delivers a respectable top speed of eighty-six kilometers per hour, allowing the Kyudo to maintain effective fire-support distances from advancing enemy forces.</p>
+
+deployment:<p>This variant emerged from the Duchy of Andurien's efforts to expand Kyudo production during the Jihad era. With Irian Technologies' plant on Shiro III operating at capacity, Andurien authorities converted the maintenance facility on Lopez into a makeshift production line, using updated plans of long-forgotten equipment to avoid complicated licensing terms. The principal modification replaces the Conan/20 LRM launcher with two advanced MML-7 launchers, each equipped with Artemis IV fire control, mounted in the left arm and right torso respectively. This configuration grants this variant greater tactical flexibility, allowing pilots to switch between long-range missile bombardment and close-range support as the engagement dictates. The trade-off comes in ammunition capacity, with only two tons available, requiring careful fire discipline during extended engagements.</p>
+
+history:<p>Martinson Armaments unveiled the KY2-D-01 Kyudo in 2443 as the second BattleMech to enter production for the Terran Hegemony, following the groundbreaking but cumbersome Mackie. Despite being locked out of the Mackie development program, Martinson's independent engineering produced several lasting innovations. The technique used to couple myomer bundles to actuators proved more reliable and easier to maintain than the Skobel-designed system in the Mackie, eventually becoming the standard adopted across all subsequent BattleMech designs. Similarly, the Kyudo's internal systems layout simplified field maintenance considerably, earning the design a strong reputation among Hegemony Armed Forces technicians.</p><p>Rapid technological advancement relegated the Kyudo to second-echelon duties before the Reunification War, and SLDF spending cutbacks in the war's aftermath curtailed plans for a wholesale replacement with the upgraded KY2-D-02. By the time First Lord Jonathan Cameron launched his ambitious rearmament program in the late twenty-seventh century, the Kyudo had been passed over in favor of newer offerings. Despite this, the design saw significant action during the 2725–2729 border conflict between Houses Kurita and Davion, where Kyudo units participated in Operation Smother. Hegemony technology proved a match for Combine skill in clashes against Phoenix Hawks and Wolverines along the frontier.</p><p>The destruction of Martinson Armaments during the Amaris Coup in 2766 and the subsequent Succession Wars eliminated the Kyudo from active service for centuries. The older KY2-D-01 frames had already been shuffled into the Hegemony's reserve or relegated to rear-echelon militia commands, where they were gunned down by Rim Worlds Republic forces during the Hegemony's seizure.</p><p>The design resurfaced unexpectedly during the Jihad, when desperate circumstances drove multiple factions to establish retrotech production lines for the simple and reliable KY2-D-01. Facilities on Kittery, Xanthe III, Chukchi III, and Xinyang all began manufacturing the primitive variant to bolster depleted garrison forces. The Duchy of Andurien went further, reviving advanced Kyudo production at the Lopez Maintenance Facility with the modernized KY2-D-03 variant. The First Andurien Rangers particularly employed Kyudos on Shiro III, where their knowledge of local terrain allowed them to repel elements of the Second Oriente Hussars through expert use of cover and sustained long-range fire.</p>
+
+manufacturer:Lopez Maintenance Facility
+
+primaryfactory:Lopez
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Chariot Type E
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:VOX 225
+systemmanufacturer:ARMOR:Armorscale
+systemmode:ARMOR:Ferro-Fibrous with CASE
+systemmanufacturer:COMMUNICATIONS:Dalban
+systemmode:COMMUNICATIONS:Dalban Comline
+systemmanufacturer:TARGETING:Standus
+systemmode:TARGETING:Standus 3 with Artemis IV FCS

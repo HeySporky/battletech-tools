@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec4f-7522-895b-66f3e0e40f6e
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Dunning Mobile Tactical Command Post
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7409
+</mul id:>
+
+<year>
+2317
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+difficult_maintain
+obsolete:2650
+gas_hog
+imp_com
+</quirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:3.0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+18
+18
+18
+10
+</armor>
+
+<Body Equipment>
+Communications Equipment:SIZE:7.0
+ISOffRoadChassis
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>Built with what would later be classified as primitive technology, the Dunning nonetheless carried seven tons of communications equipment that provided solid coordination capability for its era. The vehicle's improved communications systems could link ground forces with orbital assets and adjacent formations across a wide area. An off-road chassis modification improved mobility on unprepared surfaces, though the vehicle's internal combustion engine consumed fuel rapidly due to its inherent inefficiency, making the half-ton fuel system a persistent limitation during extended operations.</p><p>The Dunning carried no armament whatsoever, relying entirely on its BAR 6 armor and escort forces for protection. A three-ton infantry compartment housed security personnel or additional communications staff. The vehicle required an eleven-member crew, including two officers and nine enlisted technicians, to operate its full communications suite. Despite its seemingly civilian construction, the Dunning's communications payload gave commanders coordination capability that was unmatched by any ground-based system of the era, justifying its priority production status in the early Hegemony military.</p>
+</capabilities>
+
+<overview>
+<p>The Dunning Mobile Tactical Command Post was among the earliest purpose-built mobile command vehicles, commissioned during the formative years of the Terran Hegemony. Produced by Altheon Ballistic Dynamics on New Earth under the supervision of engineer Domingo Halleburton, the Dunning was designed to give field generals a complete picture of the battlespace while operating near the front lines. Its chassis was based on an extended armored personnel carrier with a proven wheeled suspension, chosen for ease of maintenance and superior mobility across most terrain types. The Dunning represented a foundational step in battlefield coordination technology, providing capabilities that would inform the design of mobile headquarters vehicles for centuries to come.</p>
+</overview>
+
+<deployment>
+<p>The Dunning served the Terran Hegemony Armed Forces from 2317 through the late Age of War, with upgraded and field-modified examples persisting in secondary roles well beyond their intended service life. Civilian variants found use with planetary governments, emergency services, and media organizations across Hegemony space. The vehicle was rendered obsolete by approximately 2650 as more capable command platforms entered service. No Dunnings are known to survive in the modern era, though the design's influence on subsequent mobile headquarters vehicles is well documented.</p>
+</deployment>
+
+<history>
+<p>After Admiral James McKenna forcibly dissolved the Terran Alliance and established the Terran Hegemony, military reforms began reshaping the armed forces into a professional fighting force. The Campaigns of Persuasion that brought more than forty worlds under Terran control demonstrated the need for superior battlefield coordination. Field Marshal Mears Coblitz, Commanding General of the Hegemony Armed Forces, commissioned the Dunning as one of his first new equipment programs.</p><p>Initially destined only for division-level commanders, McKenna's campaigns in 2316 and 2317 showed that lead assault regiments required the same command capabilities. Coblitz requested sufficient Dunnings for every regiment, brigade, and higher-level formation. The first expanded production run was distributed in time for McKenna's second major campaign in 2320, where the Dunning played a major role in coordinating multi-regiment operations. The vehicle served the Hegemony military for well over a century, surviving throughout the Age of War in upgraded and field-modified forms. Within a decade of its introduction, Dunnings and virtual clones appeared in service with planetary governments, police forces, fire departments, civilian relief agencies, and entertainment organizations across Hegemony space. The vehicle was rendered obsolete by 2650, replaced by more capable designs that built upon its pioneering communications architecture.</p>
+</history>
+
+<systemManufacturers>
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+ENGINE:ICE
+ARMOR:BAR 6 Standard
+COMMUNICATIONS:Improved Comms (Primitive)
+</systemModels>
+
+<source>
+XTR:Primitives V
+</source>
+
+<published>
+XTR:Primitives V
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+
+<fuel>
+0.5
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

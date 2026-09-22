@@ -1,0 +1,89 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bcd9-7d68-bff6-77b6b44e95b7
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Motorized Platoon (FWLM)
+</Name>
+
+<Model>
+(Rifle AA 3056+)
+</Model>
+
+<year>
+3056
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Free Worlds League Infantry Kit (3035+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Conventional infantry within the FWLM serve as the backbone of provincial defense across a patchwork of semi-autonomous states, each maintaining its own military traditions and equipment preferences. Motorized platoons provide the speed the FWLM needs to cover the vast distances between garrison posts on provincial worlds, mounting troops on light vehicles that can respond to threats faster than foot infantry but without the expense of full mechanization. Armed with standard ballistic assault rifles, the most common and affordable infantry weapon in the Inner Sphere, these platoons deliver reliable short-range firepower and can be equipped and resupplied from almost any garrison stockpile. These anti-aircraft specialists are trained and equipped to engage low-flying aerospace fighters, VTOLs, and conventional aircraft, providing dedicated point air defense for installations and ground formations.</p>
+</overview>
+
+<notes>
+Intro date based on re-introduction date of AA weapon
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+AA Weapon (Mk. 1, Light)
+</Secondary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

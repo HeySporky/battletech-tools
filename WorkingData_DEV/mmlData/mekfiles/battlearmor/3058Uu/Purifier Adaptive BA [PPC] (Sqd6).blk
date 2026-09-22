@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a309-7f94-9131-80f935c3751e
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Purifier Adaptive Battle Armor
+</Name>
+
+<Model>
+[PPC](Sqd6)
+</Model>
+
+<mul id:>
+8935
+</mul id:>
+
+<year>
+3069
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+36
+</armor_type>
+
+<armor_tech>
+1
+</armor_tech>
+
+<Squad Equipment>
+ISBASupportPPC:LA
+IS BA Mimetic:RA
+IS BA Mimetic:Body
+IS BA Mimetic:Body
+IS BA Mimetic:LA
+IS BA Mimetic:Body
+IS BA Mimetic:RA
+IS BA Mimetic:Body
+BABattleClaw:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The PPC configuration is the newest addition to the Purifier Adaptive's weapon options, mounting an infantry-scale support particle projector cannon in the modular weapon port. Though classified as an infantry weapon rather than a vehicle-scale system, the PPC provides effective standoff capability that pairs well with the suit's mimetic armor. Troopers can remain motionless and nearly invisible at range while delivering accurate fire, making this the preferred loadout for sniping operations. The suit retains its battle claw for close-quarters anti-BattleMech attacks and jump jets for ninety-meter repositioning leaps. As with all Purifier configurations, armor protection is light for a medium suit, but the PPC's engagement range allows troopers to keep hostile units at a distance where the thin armor matters less.</p>
+</capabilities>
+
+<overview>
+<p>The Purifier Adaptive is a medium battle armor design developed by the Word of Blake, built around a mimetic armor system capable of shifting color to match its surroundings. First fielded in 3062 from the Krupp Armament Works on Terra, the suit was among the first combat systems to employ adaptive camouflage technology, allowing troopers to become nearly invisible when stationary. Though lightly protected compared to other medium suits, the Purifier compensates with stealth and jump capability, filling a specialized reconnaissance and infiltration role. Its unique capabilities have made the Purifier one of the most distinctive battle armor suits in service across the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Word of Blake introduced the PPC configuration to its Level I formations during the Jihad, adding a standoff sniping capability that complemented the mimetic armor. Six-trooper teams could establish overlapping fields of fire from concealed positions, engaging enemy forces at range while remaining nearly invisible. This configuration was particularly valued for defensive operations around critical Blakist facilities.</p>
+</deployment>
+
+<history>
+<p>The origins of the Purifier Adaptive trace to ComStar's Sandhurst Royal Military College on Terra, where scientists began developing mimetic color-shifting technology for infantry use in 3058. When elements of the Word of Blake overran the college, the Sandhurst Training Regiment fought to defend it but could not prevent the research data from falling into enemy hands. ComStar believed the project had been destroyed along with the facility.</p><p>Word of Blake engineers had gained considerable experience in battle armor development through their joint program with the Free Worlds League Military to produce the Achileus light suit. That expertise proved critical in adapting ComStar's mimetic research into a functional battle armor camouflage system. Development proceeded at the Krupp Armament Works in Germany, where Blakist technicians refined the technology through extensive testing before settling on a final production design. A prototype was revealed in August 3061, and the Purifier entered full production the following year.</p><p>Production at Krupp proceeded at an advanced pace, with the Word of Blake placing large quantities of the suit into every Division. The Purifier quickly earned a feared reputation during the Jihad, where its camouflage capabilities made it deadly in ambush operations and urban fighting. Troopers learned to exploit the suit's stealth by holding position until targets entered effective range, then striking before the enemy could react. Field commanders learned to manage the suit's operational limitations through disciplined tactical doctrine, maximizing the camouflage advantage under favorable conditions.</p><p>Following the liberation of Terra and the dissolution of the Word of Blake, significant numbers of Purifier suits fell into Coalition hands. The Republic of the Sphere proved the most enthusiastic adopter, capturing enough suits to equip multiple formations within the Republic Armed Forces. Republic commanders reorganized their Purifier troopers into four-member squads, mirroring standard Inner Sphere infantry doctrine rather than the Blakist six-trooper formation structure. Aside from this organizational change, the Republic operated the suit identically to the original Word of Blake configuration.</p><p>Production eventually expanded beyond Terra. HDF Manufacturing on Falsterbo began producing the Purifier Adaptive during the later Republic era, and additional manufacturers including Brevard Industries and Paragon Defense also took up production to meet growing demand. By the ilClan era, the Purifier Adaptive had spread well beyond its Blakist origins, finding service with multiple factions who valued its unique stealth capabilities.</p>
+</history>
+
+<manufacturer>
+Krupp Armament Works|HDF Manufacturing
+</manufacturer>
+
+<primaryFactory>
+Terra|Falsterbo
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-C
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+6
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c830-7086-886c-3a4643c232c4
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Mantis
+model:SA-MN
+mul id:2027
+
+Config:Biped
+techbase:Inner Sphere
+era:3052
+source:TR:3055U
+published:RS:3055Uu
+rules level:3
+role:Scout
+
+quirk:non_standard
+
+mass:30
+engine:270 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:12 IS Double
+walk mp:9
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:9
+RA armor:9
+LT armor:9
+RT armor:9
+CT armor:11
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:3
+RTR armor:3
+RTC armor:3
+
+Weapons:3
+Small Laser, Left Torso
+Small Laser, Right Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISClaw
+ISClaw
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISClaw
+ISClaw
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Small Laser
+ISMASC
+ISMASC
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Small Laser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Mantis is a thirty-ton light BattleMech designed and produced by Solaris Arms exclusively for the gladiatorial arenas of Solaris VII. First fielded as the SA-MN model in 3052, the original design saw only middling success in the competitive arena circuit, struggling to attract the media attention and sponsorship revenue critical to Solaris combat culture. Recognizing that a winning image was as vital as a winning design, Solaris Arms enlisted the services of PR firm Plaugue & Associates and gave the Mantis a comprehensive facelift, debuting the MTS-S in 3061. The redesign proved an immediate sensation, winning the coveted "'Mech of the Year" award just one month after its unveiling.</p><p>By 3067, the Mantis had become the most popular light 'Mech produced on Solaris VII, its distinctive insectoid profile making it a feared and recognizable presence in the arenas. The design's specialized components and arena-focused engineering have limited its adoption by mainstream military formations, keeping the Mantis firmly rooted in the Game World's unique combat culture.</p>
+
+capabilities:<p>The Mantis is built on a modified Solaris Arms Special Light endo steel skeleton, originally designed for a medium BattleMech but reinforced at key stress points with conduits, structural supports, and myomer bundles that enhance stability well beyond what its tonnage suggests. A GM Rama 270XL engine drives the chassis to speeds approaching 151 kph, with a SuperMASC III system capable of boosting that to nearly 200 kph in short bursts. Five tons of Durralex Light II ferro-fibrous armor provides reasonable protection for a light 'Mech, though the design remains vulnerable to sustained fire.</p><p>The weapons suite centers on three Diverse Optics ER medium lasers and two Diverse Optics ER small lasers, all torso-mounted to leave the arms free for the design's signature weapon: a pair of tungsten-reinforced composite claws. These experimental melee weapons allow the Mantis to tear armor from opponents at grappling range, making it devastatingly effective in close-quarters arena engagements. The combination of extreme speed, focused energy firepower, and melee capability makes the Mantis a feared brawler, though pilots must close distance quickly to avoid being picked apart at range by heavier opponents.</p>
+
+deployment:<p>The original Mantis design produced in 3052, this earlier model mounted standard medium and small lasers rather than the extended-range versions fitted to later variants. While equipped with MASC for high-speed bursts and the same distinctive claws, this variant saw only middling success in the Solaris VII arenas, lacking the media polish that would later define the Mantis brand. It was superseded by the MTS-S facelift in 3061 and is no longer in production.</p>
+
+history:<p>The Mantis was born from the unique competitive culture of Solaris VII, where 'Mech design is driven as much by marketability and media appeal as by raw tactical effectiveness. Solaris Arms first fielded the SA-MN model in 3052, but the design initially struggled to distinguish itself in the crowded arena market. Without the media coverage that comes with a winning image, the early Mantis attracted limited sponsorship revenue and saw little adoption beyond a handful of independent stables.</p><p>The turning point came when Solaris Arms invested in a comprehensive redesign during the late 3050s. Working with Plaugue & Associates, a prominent Solaris PR firm, the company relaunched the Mantis as the MTS-S in 3061. The marketing campaign proved wildly successful, earning the redesigned 'Mech the coveted "'Mech of the Year" award just one month after its debut. The facelift transformed the Mantis from a forgettable arena contender into one of the most recognizable light 'Mechs on the Game World.</p><p>By 3067, some fifteen years after the original SA-MN first entered the arenas and six years after its facelift, the Mantis had become the most popular light 'Mech produced on Solaris VII. The sustained marketing effort by Plaugue & Associates ensured that MechWarriors and stables continued to invest in the high-priced brawler, even though relatively few Mantis pilots achieved lasting success in Grand Tournament competition. The design's appeal lay more in its media presence and sponsorship value than in consistent tournament victories.</p><p>Solaris Arms continued developing the platform through the Civil War era, introducing several custom-built variants incorporating advanced technologies such as XL gyroscopes, targeting computers, Triple Strength Myomer, and experimental armor types. These variants demonstrated the company's commitment to keeping the Mantis line competitive and offered arena pilots a range of specialized configurations to suit different fighting styles and opponent matchups.</p><p>The shift of Solaris VII to Clan Wolf control during the Dark Age era brought significant change to the planet's industrial environment. The Solaris Arms facility that had produced every Mantis variant changed hands, and production of the Mantis line appears to have ceased by the late thirty-first century. Despite its limited military adoption, the Mantis remains an iconic symbol of Solaris VII arena combat and the unique design philosophy that prizes spectacle alongside lethality.</p>
+
+manufacturer:Solaris Arms
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Solaris Arms
+systemmode:CHASSIS:Special Light Endo Steel
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:Rama 270XL
+systemmanufacturer:ARMOR:Durralex
+systemmode:ARMOR:Light II Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Endicott
+systemmode:COMMUNICATIONS:Type 22 Master
+systemmanufacturer:TARGETING:Housier
+systemmode:TARGETING:DD-Y-7

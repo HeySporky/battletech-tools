@@ -1,0 +1,119 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a12a-78e7-b994-14981a1e11c3
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Heavy Sniper Gun Emplacement
+</Name>
+
+<Model>
+(3039) (External)
+</Model>
+
+<year>
+3039
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+80
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+Autocannon/2(ST)
+Autocannon/2(ST)
+ISUltraAC5(ST)
+ISUltraAC5(ST)
+Machine Gun(ST)
+Machine Gun(ST)
+Searchlight(ST)
+IS Ammo MG - Full
+IS Ammo AC/2
+IS Ammo AC/2
+IS Ammo AC/2
+IS Ammo AC/2
+IS Ammo AC/2
+IS Ultra AC/5 Ammo
+IS Ultra AC/5 Ammo
+IS Ultra AC/5 Ammo
+IS Ultra AC/5 Ammo
+EXTERNAL PowerGenerator:SIZE:13.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The upgraded Heavy Sniper Gun Emplacement replaces the standard Autocannon/5 with an Ultra Autocannon/5, retaining the AC/2 for long-range work and adding devastating medium-range firepower. The Ultra AC/5 can deliver punishing double-tap salvos that rival the damage output of much heavier weapons systems, giving this emplacement the ability to seriously threaten medium-weight combat vehicles and even BattleMechs that stray within effective range.</p><p>The combination of a standard AC/2 for reach and an Ultra AC/5 for punch creates a layered engagement profile that covers most tactical scenarios. Heavy armor ensures the position can withstand sustained attention while the crew exploits the Ultra autocannon's firepower advantage. External power remains adequate for positions within developed defense networks. The machine gun provides essential close protection against infantry, an ever-present threat to fixed positions regardless of the weight of weapons mounted.</p>
+</capabilities>
+
+<overview>
+<p>The Sniper Gun Emplacement represents one of the oldest and most widely deployed fixed defensive structures in the Inner Sphere. Designed to provide sustained ballistic fire support from a fortified position, these emplacements serve as the backbone of perimeter defense networks around military installations, supply depots, and population centers. Their simple construction and reliance on proven autocannon technology make them accessible to any military force capable of pouring ferrocrete and mounting a turret.</p><p>Gun emplacements of this type trace their lineage to the earliest days of interstellar warfare, when border garrisons needed affordable, reliable defensive works that could be constructed with local materials and maintained by small crews. The fundamental design has changed remarkably little over the centuries, evidence of the enduring utility of placing a well-protected gun behind thick walls.</p>
+</overview>
+
+<history>
+<p>The story of fixed fortifications in the BattleTech universe begins not with the great Castle Brians or the sprawling Star League defense networks, but with the humble gun emplacement. During the Age of War, when the Terran Hegemony first extended its borders and the Great Houses carved their nascent realms from the stars, the need for affordable static defenses became immediately apparent. Not every world could afford a garrison of BattleMechs, and not every strategic asset warranted the expense of a full military base. What they could afford were reinforced positions with autocannons and clear fields of fire.</p><p>The earliest standardized gun emplacements appeared along the Hegemony border worlds in the twenty-fourth century. These were spartan affairs built from local stone and ferrocrete, mounting surplus autocannons stripped from decommissioned vehicles. They proved their worth during the border skirmishes that characterized the Age of War, where a single well-placed emplacement could channel an attacking force into prepared kill zones. The design philosophy was straightforward: deny the enemy easy passage and buy time for mobile reserves to respond. It was a doctrine born of necessity and refined through bitter experience on dozens of contested worlds.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+3
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+120
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

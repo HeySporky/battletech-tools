@@ -1,0 +1,83 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-babc-7665-860f-de6277e38ce2
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Clan Field Gun Point
+</Name>
+
+<Model>
+(Motorized PAC4 Advanced)
+</Model>
+
+<year>
+3070
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Clan Armor Kit (All)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+CLProtoMechAC4
+Clan ProtoMech AC/4 Ammo
+CLProtoMechAC4
+Clan ProtoMech AC/4 Ammo
+CLProtoMechAC4
+Clan ProtoMech AC/4 Ammo
+CLProtoMechAC4
+Clan ProtoMech AC/4 Ammo
+CLProtoMechAC4
+Clan ProtoMech AC/4 Ammo
+</Field Guns Equipment>
+
+<overview>
+<p>Clan doctrine generally treats conventional infantry as a necessary evil, though Clans like Hell's Horses have demonstrated that properly supported infantry can be an effective component of combined-arms operations. Field Gun Points are crew-served weapon teams that bring heavier firepower to the infantry level, towing weapons too large for individual soldiers to carry. The gun itself defines the Point's role, with lighter autocannons providing anti-infantry and anti-vehicle fire while heavier weapons can threaten even armored targets. The Point tows a medium ProtoMech-scale autocannon that delivers solid direct-fire capability in a lighter package than conventional autocannons of comparable caliber.</p>
+</overview>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+5
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+

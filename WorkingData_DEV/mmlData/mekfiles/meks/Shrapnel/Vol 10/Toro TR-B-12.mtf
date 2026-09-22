@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dca7-73b7-9a8f-3080160a91d7
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Toro
+model:TR-B-12
+mul id:9250
+
+Config:Biped
+techbase:Inner Sphere
+era:3146
+source:Shrap10
+published:ShrapRS
+rules level:2
+role:Skirmisher
+
+
+mass:35
+engine:210 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:13
+RT armor:13
+CT armor:17
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:3
+RTR armor:3
+RTC armor:5
+
+Weapons:4
+Light PPC, Left Arm
+ER Medium Laser, Left Arm
+MML 5, Left Torso
+MML 5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Light PPC
+Light PPC
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMML5
+ISMML5
+ISMML5
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMML5
+ISMML5
+ISMML5
+IS Ammo MML-5 SRM
+IS Ammo MML-5 LRM
+ISCASEII
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISTargeting Computer
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISAngelECMSuite
+ISAngelECMSuite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Toro holds the distinction of being the Taurian Concordat's first indigenous BattleMech. Developed in 2481 by the government-run Taurus WarWorks, the design was based on captured Capellan Firebees and won a competition among three Taurian defense contractors to build the Concordat's first home-sourced 'Mech. Intended as a light fire-support platform, the Toro was designed to engage conventional targets and work alongside TDF infantry forces to isolate and destroy enemy BattleMechs. Its comparatively low cost allowed entire battalions to be equipped quickly, giving the Taurian Defense Force a significant boost in capability during the Age of War.</p><p>Few BattleMech designs carry as much symbolic weight as the Toro. Its legacy as the Concordat's first 'Mech and its association with the Reunification War have made it an enduring icon of Taurian independence and self-reliance, inspiring fierce loyalty among Taurian citizens across centuries.</p>
+
+capabilities:<p>The TR-A-6 Toro is built around a long-range engagement doctrine favored by the Taurian Defense Force. Its primary weapon, a Taurus WarWorks particle projector cannon, delivers punishing fire at extended ranges, while twin Delta Dart LRM-5 launchers provide sustained indirect fire support. Two tons of missile ammunition allow flexibility in payload selection and keep the 'Mech operational through protracted engagements, a quantity some League and House observers considered excessive. The Toro lacks meaningful close-range firepower, a deliberate design choice reflecting Taurian tactical philosophy. Formations of Toros compensate for this vulnerability by deploying in staggered lines, ensuring at least a portion of the formation can bring weapons to bear at optimal range.</p><p>Powered by a Magna 175 fusion engine, the Toro reaches a top speed of 86 kilometers per hour, above average for medium 'Mechs of its era and sufficient to maintain standoff distance against heavier opponents. Six and a half tons of Ecto-Mineral Armorplate 2 provide respectable protection for a light design. The infamously cramped cockpit is a legacy of the Toro's primitive origins, a compromise Taurus WarWorks never fully resolved despite multiple redesigns over the course of the design's long production history.</p>
+
+deployment:<p>This variant emerged from diplomatic negotiations between the Taurian Concordat and Calderon Protectorate in 3144, jointly proposed by Protectorate Arms Conglomerate and Vandenberg Mechanized Industries in 3146 as a symbol of reunification between the estranged Taurian nations. The variant completes the TR-B-9's chassis redesign by replacing key structural portions with endo steel from Protectorate Military Industries' new Belle Isle facility. A new extralight engine, supplied by both VMI's Valkyrie refit line and PMI, increases the top speed to 97.2 kilometers per hour. The design upgrades to ten double heat sinks and returns to standard armor while replacing the medium laser with an ER medium laser paired with a targeting computer for improved accuracy. Ammunition protection is enhanced with CASE II, and electronic warfare capabilities are bolstered by upgrading to an Angel ECM suite. The expensive refit is specifically designed to incorporate high-end components from the Concordat, confirming its role as both a military asset and a political statement.</p>
+
+history:<p>The origins of the Toro trace back to a period of relative peace in the Taurian Concordat beginning around 2425. Under the leadership of Protector Amanda Calderon and her successors, the Concordat pursued a strategy of non-interference backed by superior firepower. When the Federated Suns debuted its BattleAxe in 2459, Taurian agents spent two decades acquiring key BattleMech technologies, culminating in the capture of several Capellan Firebees in 2475. Three Taurian defense contractors competed for the procurement contract, with Taurus WarWorks winning thanks to its close ties to Concordat intelligence services and government backing. The first prototype walked out of Taurus WarWorks' labs in August 2481, and first-generation models reached the TDF less than two years later.</p><p>The early TR-A-1 model operated with distinction and was consistently upgraded as newer technologies became available. By the time the TR-A-6 entered production, the Toro had become the backbone of the TDF's BattleMech forces. The Taurian Defense Force fielded the Toro in large numbers and in almost every independent unit, going so far as deploying entire battalions of the design. Though the Concordat did not export the BattleMech, it found its way into Capellan and Federated Suns ranks through battlefield salvage.</p><p>The Reunification War proved devastating for the Toro and its legacy. The Star League initially salvaged captured Toros, but after the design became reviled by SLDF troops, they began publicly destroying any salvaged units to boost morale. Some Striker regiments organized destruction derbies where Toros were propped up to allow MechWarriors to knock them down with charge attacks or fire from above. As the war escalated, some units began executing prisoners of war in these spectacles. Few Toros survived the Reunification War, and only one endured as a historical artifact through the Star League era. The TR-A-6 was the last model produced before the Star League closed and dismantled all manufacturing sites in 2598, hoping the destruction of the Toro would be instrumental in reducing Taurian nationalism.</p><p>When the Concordat was free of the Star League once again, there was heated debate about whether to rebuild a Toro factory. In a pragmatic decision, it was concluded that continuing to produce 'Mechs they already had access to was more sensible than wasting resources resurrecting a design that had not walked in almost two centuries. The Toro remained dormant through the Succession Wars, the Clan Invasion, and the Civil War, surviving only as a cultural icon and symbol of Taurian defiance.</p><p>The Jihad changed everything. The dissemination of the Hegemony Memory Core made retrotech manufacturing feasible again, and the desperate need for any operational BattleMechs spurred multiple factions to revive the primitive TR-A-1 design. Patriotic citizens of the Concordat funded Liberty Arms on Jamestown, while Taurus Territorial Industries converted a WorkMech line on Illiushin. Even the Federated Suns saw retrotech Toro production, with Iroquois Machinery Limited on Shawnee and the newly founded Coalition Armory on Filtvelt building primitive models for March and planetary militias. The Magistracy of Canopus joined through Bermuda Combat Systems on Booker, and the Calderon Protectorate's Protectorate Arms Conglomerate on Diik began its own production run.</p><p>In the decades following the Jihad, the Toro evolved beyond its retrotech revival. The Calderon Protectorate, eager to prove its industrial capabilities, developed the TR-B-9 variant with modern technologies sourced from Federated Suns consultants and allied Periphery realms. This new Toro Bravo became a point of pride for the Protectorate and a sore point for the Concordat, which viewed it as a provocation. Relations between the two Taurian successor states reached a low point around 3111, with border skirmishes highlighting the Toro Bravo's surprising effectiveness. By 3144, diplomatic negotiations between the Concordat and Protectorate led to the jointly developed TR-B-12, touted as a symbol of reunification. Coalition Armory on Filtvelt also upgraded its production line to modern technology, producing the TR-A-6 for the Filtvelt Coalition, while Colonial Tractors on Fronc began manufacturing for the Fronc Reaches.</p>
+
+manufacturer:Protectorate Arms Conglomerate (Formerly Protectorate Defense Conglomerate)
+
+primaryfactory:Diik
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Unknown (Endo Steel)
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:175 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Standard)
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Unknown with Angel ECM Suite
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Unknown with Targeting Computer

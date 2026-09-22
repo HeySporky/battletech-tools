@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7b5-7341-9614-594e3d66a4e6
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Marten Scout VTOL
+</Name>
+
+<Model>
+(Infantry)
+</Model>
+
+<mul id:>
+6314
+</mul id:>
+
+<year>
+3024
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<quirks>
+difficult_maintain
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+troopspace:3.0
+</transporters>
+
+<cruiseMP>
+13
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+8
+5
+5
+4
+2
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+RemoteSensorDispenser
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Marten is a 15-ton VTOL driven by a Tyron 100 internal combustion engine. The ICE powerplant keeps the design simple and inexpensive to maintain, an important consideration for the militia and mercenary formations that form the Marten's primary customer base. That simplicity comes at a cost: the ICE provides no fusion-derived endurance advantages, and the design's bulky muffling system limits its ability to approach targets quietly, which is a significant liability for a scout platform.</p><p>Speed is the Marten's strongest asset. The design reaches a cruising speed of 140 kilometers per hour and a maximum of 216, placing it among the faster light combat helicopters available to Inner Sphere forces. That speed allows it to cross contested airspace quickly and withdraw before enemy fire concentrates.</p><p>Armament consists of a single Federated SuperStreak SRM 2 launcher. The streak guidance system improves hit probability against maneuvering targets, giving the Marten reliable close-in firepower for a platform of its size. ProtecTech Light armor protects the airframe, though coverage is thin and offers little resilience against sustained fire. The Marten carries just enough firepower to make its presence felt and just enough armor to survive a brief engagement, but it exceeds neither threshold by any meaningful margin. Commanders who deploy it in attack or sustained interdiction roles typically find it wanting.</p>
+</capabilities>
+
+<overview>
+<p>The Marten Scout VTOL entered service in 3021 as a product of Cal-Boeing of Dorwinion's Belladonna production line, built to meet demand for a reliable, affordable combat helicopter suited to scouting and special forces insertion. Though production never reached the volumes Cal-Boeing's planners envisioned, the design spread steadily through secondary markets to militia formations and small mercenary units across the Inner Sphere and Periphery over the decades following its introduction.</p><p>The Marten earned a reputation as dependable, if unloved. It offered journeyman service in roles other units often neglected, and its simplicity and low cost kept it operational long after more capable platforms became available. Commanders who understood its limitations found it a useful tool. Those who did not often discovered the Marten's boundaries through painful operational experience.</p>
+</overview>
+
+<deployment>
+<p>The infantry transport variant replaces the SRM 2 launcher and its ammunition with expanded passenger capacity, allowing it to carry a larger infantry payload at the cost of essentially all offensive capability. The variant requires dedicated escort or suppression support for any contested insertion, as it carries no meaningful self-defense armament. It saw limited distribution but found use with formations that prioritized troop delivery and judged the standard model's firepower an acceptable trade for additional lift capacity.</p>
+</deployment>
+
+<history>
+<p>Production of the Marten Scout VTOL began at Cal-Boeing of Dorwinion's Belladonna plant in 3021, with the infantry transport variant following three years later. Distribution was never robust. The type filtered through secondary markets and reached militia formations and small mercenary companies across the Inner Sphere and Periphery over the following decades. Its reliability and low acquisition cost kept it in service long after more capable designs became available, though it never achieved the institutional prestige that would have driven significant reorder contracts.</p><p>The Marten participated in a broad range of actions during the Dark Age. One of the more notable engagements took place on Diefenbaker in 3137, when a company of Taurian mercenaries raided across the border. The local Islamabad Periphery March Militia, reinforced by a PMM BattleMech lance, used a flight of Martens to strike the mercenaries' grounded DropShip while the 'Mech lance engaged the opposing BattleMech forces. Crossing the landing zone under fire, the Marten flight placed twelve Infiltrator Mk II battle armor troopers directly atop the mercenaries' Union-class DropShip. Two Martens were destroyed during the approach. The remaining aircraft completed their runs and withdrew. Unable to fight effectively with battle armor on their hull and their DropShip under threat, the surviving mercenaries surrendered.</p><p>Not all operations ended as favorably. During the fall of Robinson in 3144, a DMM battalion commander ordered a Marten flight to extract an infantry company isolated behind Sword of Light lines. The assigned company commander objected to the mission, judging it too hazardous, but the major overruled him and the Martens launched. Four of the sixteen aircraft were destroyed simply penetrating to the pickup zone. None of the remaining Martens or their embarked infantrymen returned. Concentrated fire brought down every airframe, killing both crews and passengers. The AFFS inspector-general's office had begun reviewing the major's conduct at the time of his death during the subsequent withdrawal.</p>
+</history>
+
+<manufacturer>
+Cal-Boeing of Dorwinion
+</manufacturer>
+
+<primaryFactory>
+Belladonna
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Tyron
+ARMOR:ProtecTech
+COMMUNICATIONS:Achernar
+TARGETING:IsBM
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:100 ICE
+ARMOR:Light
+COMMUNICATIONS:Standard
+TARGETING:Lantirn
+</systemModels>
+
+<source>
+TR:3145:FS,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+15.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

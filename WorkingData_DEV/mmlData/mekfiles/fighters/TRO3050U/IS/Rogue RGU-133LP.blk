@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-adcd-7ec0-85fe-c7b3d4d17e27
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Rogue
+</Name>
+
+<Model>
+RGU-133LP
+</Model>
+
+<mul id:>
+2733
+</mul id:>
+
+<year>
+3055
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+30
+27
+27
+14
+</armor>
+
+<Nose Equipment>
+ISMediumPulseLaser
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISLargePulseLaser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISLargePulseLaser
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISMediumPulseLaser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Rogue's primary armament consists of two wing-mounted Holly-8 LRM-15 launchers capable of engaging targets at considerable range, well-suited to the fire support and zero-G bombardment role the craft was built for. The missile batteries allow the Rogue to threaten opponents before they can close to effective combat range, but the ammunition supply imposes a hard limit on sustained engagement: after eight full salvos the fighter is reduced to its backup weapons.</p><p>When the missiles run dry, a pair of Starflash-1A medium lasers provides the only remaining offensive capability. These are mounted in the nose and the rear of the craft, reflecting a practical tactical philosophy, the nose laser serves the standard attack run, while the rear-facing weapon is positioned to discourage pursuit when the Rogue turns for home. Ten single heat sinks provide adequate thermal management for normal operating conditions.</p><p>Five and a half tons of StarGlo ferro-aluminum armor makes the Rogue one of the better-protected light fighters of its generation, giving it genuine survivability against opponents who close the distance. Its five-ton fuel supply supports extended patrol endurance. Against these strengths, the fighter's limited thrust leaves it dependent on escorts when faced with enemy aircraft; a Rogue that cannot shoot first is usually one that cannot win.</p>
+</capabilities>
+
+<overview>
+<p>The Rogue was commissioned by the Star League Defense Force as a specialized missile boat for zero-G patrol and fire support operations. Developed by the Iona Light Shipyards on Capella and entering SLDF service in 2631, the forty-ton light fighter carried a long-range missile payload paired with ferro-aluminum armor that gave it solid protection for its size. Its designers intended the craft to engage targets from a distance and provide sustained bombardment support across a range of operational environments, from deep-space patrol to ground attack.</p><p>A dependency on faster escorts to compensate for limited maneuverability defined how the Rogue was used throughout its career. Where other fighters were expected to hold their own in a close engagement, the Rogue was expected to find a target, engage it from range, and rely on its protection while faster allies covered the flanks.</p>
+</overview>
+
+<deployment>
+<p>Developed by the Com Guards as an upgrade of surviving L-model airframes in the 3050s, the LP variant replaced standard heat sinks with double heat sinks and upgraded the laser suite to pulse laser versions, substantially improving both accuracy and heat management. The result was one of the most potent configurations the airframe had ever carried and became a favorite among Com Guard aerospace pilots. Despite its performance, the LP remained rare, accounting for only about ten percent of ComStar's active Rogue inventory. It saw action through the Jihad and remained in service into the Dark Age with Com Guard and Word of Blake units.</p>
+</deployment>
+
+<history>
+<p>Iona Light Shipyards on Capella began delivering Rogue fighters to the Star League Defense Force in 2631, filling a specialized niche in SLDF aerospace doctrine as a long-range missile platform for patrol and fire support duties. The design entered service without fanfare, and the SLDF's appreciation of it remained largely practical rather than enthusiastic. Its early variants reflected an ongoing effort to adapt the airframe to roles where its handling limitations were less of a liability, with a ground-attack configuration appearing within years of initial delivery and a laser-strafing model introduced for Lyran Commonwealth service by the late Star League era.</p><p>A Royal command variant was developed for elite SLDF formations before the fall of the Star League, incorporating advanced technology unavailable to standard production lines. These aircraft served exclusively with Royal units and represented the most capable Rogues ever built, though their restricted deployment meant few were ever produced.</p><p>The destruction of the Iona Light Shipyards in 2797 during the First Succession War proved fatal to the design's future. Unlike more popular fighters that found second-life production through faction investment, no organization stepped forward to rebuild the Rogue's manufacturing base. Without new production, every aircraft lost to combat or maintenance was permanently gone. The Lyran Commonwealth had already developed a PPC-armed field refit during the Second Succession War, but the variant proved temperamental - thermal management failures recurred when pilots fired both weapons simultaneously, and the refit was never widely celebrated despite seeing use along the Lyran border with the Free Worlds League.</p><p>Active numbers declined steadily across the Succession Wars until only scattered examples remained. ComStar, with its careful stewardship of pre-Succession War technology, preserved a larger share of surviving Rogues than any other organization. In the 3050s the Com Guards developed an upgrade of surviving laser-configured airframes that became a favorite among their aerospace pilots, producing one of the most capable configurations the design had ever carried. Word of Blake drew on ComStar's preserved reserves after the schism. The Clans are believed to hold additional examples in older Brian Caches, though none have been confirmed deployed in the Inner Sphere. The Rogue persists in ones and twos into the modern era, an aerospace design that outlasted its manufacturer by centuries without ever quite earning the loyalty of those who flew it.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Shipil
+ENGINE:GM
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Rander
+TARGETING:SynCom
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Shipil 10R
+ENGINE:GM 200
+ARMOR:StarGlo Ferro-Aluminum
+JUMP_JET:N/A
+COMMUNICATIONS:Rander 300
+TARGETING:SynCom Master
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

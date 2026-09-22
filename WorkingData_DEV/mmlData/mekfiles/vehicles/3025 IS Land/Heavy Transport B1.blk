@@ -1,0 +1,158 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e234-7c77-8b8e-34a165a78ca7
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Heavy Transport B1
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4277
+</mul id:>
+
+<year>
+2370
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:7.0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<armor>
+12
+12
+12
+12
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-2
+</Body Equipment>
+
+<Front Equipment>
+SRM 2
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Heavy Transport B1 prioritizes cargo capacity and road mobility over fighting ability. Powered by a five-ton internal combustion engine, the vehicle reaches a top on-road speed approaching 85 km/h, allowing it to keep pace with most mechanized supply columns. The vehicle's primary payload is a seven-ton cargo bay, sufficient for ammunition loads, equipment crates, or general military supplies. Three tons of armor provide modest protection against small arms fire and light infantry weapons, enough to discourage opportunistic ambushes but wholly insufficient against any serious military engagement.</p><p>The standard armament is a single SRM-2 with one ton of reloads. Depending on the variant, this weapon is either forward-mounted and fired by the driver or atop the vehicle on a turret operated by a dedicated gunner. The B1 is not designed to fight its way out of trouble. Its greatest strengths are its low acquisition cost, ease of maintenance, and the wide availability of replacement parts across virtually every inhabited world in the Inner Sphere. These qualities come at the price of near-zero survivability once a vehicle enters a contested engagement.</p>
+</capabilities>
+
+<overview>
+<p>The Heavy Transport B1 is the militarized variant of a broad family of wheeled freight vehicles that have supported both civilian and military logistics networks since their introduction in 2370. Ranging from cargo vans to full tractor-trailer configurations, heavy transports fill the unglamorous but essential role of moving supplies, ammunition, and equipment wherever dedicated military transport assets are unavailable or impractical. The B1 designation marks the armed version of this family, fitted with minimal self-defense weaponry while retaining the design's core cargo capacity. Its combination of reasonable on-road speed and low acquisition cost has made it a common sight across the Inner Sphere, valued more for reliability than for any tactical distinction.</p>
+</overview>
+
+<deployment>
+<p>The standard B1 serves in rear-area logistics and supply roles across virtually every faction in the Inner Sphere. Its SRM-2 provides token defense against infantry ambushes and light vehicle threats encountered along contested supply routes. Commanders typically deploy these vehicles in small convoys with some form of armed escort when operating near active front lines, relying on numbers and speed rather than firepower to ensure cargo reaches its destination.</p>
+</deployment>
+
+<history>
+<p>Heavy transports have been a fixture of military logistics since the earliest days of interstellar warfare. The B1 variant emerged in 2370 as the standard armed configuration within a family of generic wheeled freight vehicles, filling the practical need for cargo-carrying platforms capable of operating in contested rear areas without requiring dedicated escort at all times.</p><p>The design's simplicity and lack of proprietary components allowed it to be produced and maintained by a wide range of manufacturers across multiple factions throughout the centuries. This distributed production model proved especially valuable during the Succession Wars, when the disruption of interstellar supply chains left armies dependent on whatever could be fabricated or repaired locally. The B1's basic construction and interchangeable weapon mounts made it a natural fit for that environment, outlasting many more sophisticated designs simply because it could be kept running with locally available materials and minimal technical expertise.</p><p>Neither glamorous nor tactically impressive, the Heavy Transport B1 represents the kind of mundane engineering that keeps armies fed, armed, and functional. Its continued presence across virtually every era of BattleTech history reflects a simple truth: whatever the political situation, someone always needs to move cargo from one place to another.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:80 (ICE)
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3025,MW1e
+</source>
+
+<published>
+RS:V5-V
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

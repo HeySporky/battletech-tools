@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e89e-7e9a-8c64-9cc3ae669224
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Manticore II Heavy Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6601
+</mul id:>
+
+<year>
+3112
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+3
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+44
+38
+38
+26
+42
+</armor>
+
+<Body Equipment>
+ISTargeting Computer
+ISFullyAmphibiousChassis
+ISEnhancedLRM10 Ammo
+ISEnhancedLRM10 Ammo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Enhanced LRM 10
+Enhanced LRM 10
+Heavy PPC
+</Turret Equipment>
+
+<capabilities>
+<p>The Manticore II's armament centers on a Defiance 980 heavy particle projection cannon paired with two Delta Dart II enhanced LRM-10 launchers, all mounted in the turret and integrated with an advanced targeting computer. This weapons suite provides devastating long-range firepower, allowing the vehicle to engage targets from positions where most opponents cannot effectively return fire. The absence of short-range weapons reflects the vehicle's intended role as a standoff fire support platform rather than a close-quarters brawler.</p><p>A GM 280 extra-extra-light fusion engine propels the seventy-ton tank to speeds of 64 km/h, providing excellent mobility for its weight class, particularly in wet terrain where the amphibious design truly excels. Nine and a half tons of Durallex Special heavy ferro-fibrous armor offer substantial protection, comparable to many BattleMechs in the same tonnage range. The Manticore II's primary weakness is its extreme expense, driven by the extra-extra-light engine and advanced electronics suite. Many militia and mercenary commanders balk at the cost, and those who attempt to use it as a direct replacement for the original Manticore often find its specialized capabilities wasted in general-purpose roles where the cheaper original performs adequately.</p>
+</capabilities>
+
+<overview>
+<p>The Manticore II is a seventy-ton amphibious heavy tank developed by Defiance Industries on Hesperus II, introduced in 3112 as a heavier and more specialized successor to the original Manticore. Where the original served as a general-purpose infantry support vehicle, the Manticore II was purpose-built for littoral and amphibious operations, filling a tactical niche that few heavy tanks could address. Its combination of heavy firepower, advanced targeting systems, and amphibious capability made it a valuable asset on water-rich worlds, though its specialized nature and high cost limited its adoption compared to its more versatile ancestor. Defiance Industries marketed the vehicle as a complement rather than a replacement for the original Manticore, recognizing that different operational theaters demanded different tools.</p>
+</overview>
+
+<deployment>
+<p>The Manticore II is deployed primarily by Lyran Commonwealth Armed Forces units on water-rich worlds where its amphibious capabilities offer the greatest tactical advantage. The LCAF assigns Manticore IIs directly to regiments based on worlds where they will be useful, maintaining a number of independent formations expected to attach to commands as needed. Mercenary commands and Republic militia forces also field the vehicle, though its high cost limits widespread adoption outside well-funded organizations.</p>
+</deployment>
+
+<history>
+<p>Defiance Industries developed the Manticore II in 3112 at their Hesperus II facility, drawing on centuries of experience producing the original Manticore to create a successor optimized for amphibious warfare. The vehicle was exported to Republic of the Sphere forces and made available for mercenary purchase before the Blackout disrupted interstellar commerce.</p><p>The LCAF assigned Manticore IIs to regiments stationed on worlds where water-rich terrain offered tactical opportunities, though some wealthy Lyran and Republic militia commands acquired the vehicle without fully understanding its specialized role. Commanders who deployed it as a conventional heavy tank often found its high cost difficult to justify, while those who embraced its amphibious capabilities discovered a powerful force multiplier.</p><p>The Fifth Lyran Guards demonstrated the Manticore II's potential during the Third Battle of Tamarind in 3139. An attached company of Manticore IIs dominated the Zanzibe River Delta north of the planetary capital, denying the Tamarind Regulars the ability to traverse the region. The amphibious tanks pushed down the Zanzibe River itself at the height of the fighting, emerging from the water as a surprise into the rear areas of the Fourth Tamarind Regulars. The attack hit the Regulars' command and supply elements, precipitating the collapse of their resistance.</p><p>In January 3136, the Republic Standing Guard on Poznan faced a Capellan invasion aimed at the capital of New Madrid. A platoon of Manticore IIs was rushed to the main continent of Barcelona from the river-crossed continent of Mieszko to reinforce the existing militia presence. The rolling hills around New Madrid offered little chance to employ the vehicles' amphibious capabilities, but their heavy PPCs and LRMs provided valuable support fire against the CCAF advance. When the fighting closed in on the capital, the Manticore IIs were withdrawn and preserved to fight another day.</p><p>On nearby Ningpo during an earlier Capellan invasion in 3135, planetary defenders elected to use their Manticore IIs as standard heavy tanks to defend the fertile farmlands of the Qingyuan province. They performed adequately driving away Capellan light armor probing the lines of the Republic militia, but were soon pitched into direct combat against a company of CCAF Pixius tanks. The difference in skill and capability was overwhelming, and all of the Manticore IIs were destroyed at the cost of three Capellan tanks. The Manticore IIs were thus unavailable to contest the wetlands north of the planetary capital, speeding up the fall of the world.</p><p>The Manticore II's mixed combat record highlighted a consistent pattern. When employed in its intended amphibious role, the vehicle could dominate engagements and shape entire campaigns. When treated as a conventional heavy tank, its high cost made it a questionable investment compared to the proven original Manticore or other established designs in the same weight class.</p>
+</history>
+
+<manufacturer>
+Defiance Industries
+</manufacturer>
+
+<primaryFactory>
+Hesperus II
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:Durallex
+COMMUNICATIONS:TharHes
+TARGETING:TharHes
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:280 XXL Fusion
+ARMOR:Special Heavy Ferro-Fibrous
+COMMUNICATIONS:Muse 65-128K
+TARGETING:TargiTrack with Advanced Targeting Computer
+</systemModels>
+
+<source>
+TR:3145:LC,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+70.0
+</tonnage>
+

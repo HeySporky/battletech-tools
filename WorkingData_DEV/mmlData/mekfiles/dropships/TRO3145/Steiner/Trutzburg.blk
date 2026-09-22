@@ -1,0 +1,297 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ac33-733e-936e-63ffd3d428c3
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Trutzburg
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6641
+</mul id:>
+
+<year>
+3112
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+difficult_maintain
+</quirks>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+asfbay:6.0:3:1::-1:0
+mekbay:12.0:2:-1::-1:0
+battlearmorbay:4.0:1:3::-1:0
+cargobay:432.0:1:4::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:210.0:0:-1::-1:0
+1stclassquarters:70.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+131
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+12000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+20
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+321
+270
+270
+250
+</armor>
+
+<Nose Equipment>
+(B) ISERPPC
+ISERPPC
+(B) ISImprovedHeavyGaussRifle
+ISImprovedHeavyGaussRifle
+ISImprovedHeavyGauss Ammo:40
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+(B) ISLongTom
+ISLongTomAmmo:100
+(B) ISLongTom
+ISLongTomAmmo:100
+(B) ISLongTom
+ISLongTomAmmo:100
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISERPPC
+(B) Extended LRM 20
+Extended LRM 20
+IS Ammo Extended LRM-20:32
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:72
+(R) (B) ISERPPC
+(R) (B) ISImprovedHeavyGaussRifle
+(R) ISImprovedHeavyGaussRifle
+(R) ISImprovedHeavyGauss Ammo:40
+(R) (B) LRM 20
+(R) LRM 20
+(R) IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+ISArtemisIV
+(R) (B) ISERMediumLaser
+(R) ISERMediumLaser
+(R) (B) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAMS Ammo:72
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISERPPC
+(B) Extended LRM 20
+Extended LRM 20
+IS Ammo Extended LRM-20:32
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:72
+(R) (B) ISERPPC
+(R) (B) ISImprovedHeavyGaussRifle
+(R) ISImprovedHeavyGaussRifle
+(R) ISImprovedHeavyGauss Ammo:40
+(R) (B) LRM 20
+(R) LRM 20
+(R) IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+ISArtemisIV
+(R) (B) ISERMediumLaser
+(R) ISERMediumLaser
+(R) (B) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAMS Ammo:72
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISImprovedHeavyGaussRifle
+ISImprovedHeavyGauss Ammo:20
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+15
+</structural_integrity>
+
+<capabilities>
+<p>The Trutzburg is a 6,000-ton military spheroid designed to transport combined-arms formations including a BattleMech company, an aerospace fighter squadron, and four squads of battle armor, with additional space for cargo. Its weapons suite is substantial for a transport, mounting ER PPCs, Improved Heavy Gauss Rifles, ELRM-20 and LRM-20 launchers, ER Large and Medium Lasers, and three Long Tom Artillery pieces that provide ground fire support capability during landing operations. Twelve anti-missile systems provide comprehensive point defense coverage. Fifty-three tons of Heavy Ferro-Aluminum armor gives the Trutzburg excellent survivability, allowing it to make contested orbital insertions with greater confidence than lighter transports. The drive system provides modest acceleration of 2.5 gravities maximum thrust, typical of vessels prioritizing cargo capacity and armor protection over speed. The inclusion of fighter bays allows the Trutzburg to provide its own aerospace escort for short-duration operations, reducing dependence on external fighter cover during landing and extraction missions. The Long Tom batteries give the vessel a unique capability among transports, allowing it to provide sustained artillery support to its embarked ground forces after landing.</p>
+</capabilities>
+
+<overview>
+<p>The Trutzburg is a military transport DropShip designed by the Tharkad Aerospace Group for the Lyran Commonwealth. Entering service in 3112, the Trutzburg was developed in response to the Commonwealth's critical need for a domestically manufactured DropShip capable of transporting BattleMechs following the defection of the Isle of Skye and its merger with the Republic of the Sphere after the Jihad. Named for the German term for a castle built to besiege an enemy fortress, the Trutzburg sits between the Union and Overlord in capacity and capability, though its role more closely resembles the rarer Fortress class.</p>
+</overview>
+
+<deployment>
+<p>The standard Trutzburg serves in its baseline combined-arms transport configuration, delivering BattleMech, aerospace, and battle armor formations to planetary surfaces. Widely disseminated by Tharkad Aerospace Group since its introduction, these vessels have become a common sight in Lyran Commonwealth naval formations, compensating for the declining availability of Union and Overlord transports.</p>
+</deployment>
+
+<history>
+<p>The Trutzburg was born from strategic necessity when the defection of the Isle of Skye and its absorption into the Republic of the Sphere deprived the Lyran Commonwealth of critical shipyard capacity. With its Aurora, Union, and Overlord fleets declining due to attrition and insufficient replacement production, the Commonwealth urgently needed a domestically built transport that could be manufactured at remaining Lyran facilities.</p><p>Tharkad Aerospace Group was tasked with developing a solution that bridged the gap between the light Union and heavy Overlord transports. The resulting design drew inspiration from the rare Fortress class, combining meaningful transport capacity with enough armor and firepower to survive contested landings without dedicated escort. The chosen name reflected the vessel's intended purpose of delivering forces capable of besieging enemy positions, a reference to the specialized siege castles of ancient Germanic warfare.</p><p>The Trutzburg entered service in 3112 and was quickly disseminated throughout the Lyran Commonwealth Armed Forces. Tharkad Aerospace Group maintained steady production to replace aging transports across the Commonwealth's naval arm, and the design proved popular with commanders who appreciated its balance of capacity, protection, and integrated fire support capability. The artillery batteries proved particularly valued during planetary assault operations, providing sustained indirect fire support that previously required separate artillery DropShips. By the mid-thirty-second century, the Trutzburg had become one of the most common transport DropShips in Lyran service.</p>
+</history>
+
+<manufacturer>
+Tharkad Aerospace Group
+</manufacturer>
+
+<primaryFactory>
+Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:LC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+6000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+90
+</crew>
+
+<officers>
+7
+</officers>
+
+<gunners>
+10
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+4
+</life_boat>
+
+<escape_pod>
+5
+</escape_pod>
+

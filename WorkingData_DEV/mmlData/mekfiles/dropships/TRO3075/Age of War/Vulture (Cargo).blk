@@ -1,0 +1,236 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-abc2-7e24-964d-68c5208a33ea
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Vulture
+</Name>
+
+<Model>
+(Cargo)
+</Model>
+
+<mul id:>
+5368
+</mul id:>
+
+<year>
+2420
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+crewquarters:77.0:0:-1::-1:0
+cargobay:1639.5:1:4::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+82
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+9000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+145
+115
+115
+101
+</armor>
+
+<Nose Equipment>
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:120
+(B) LRM 15
+LRM 15
+IS Ammo LRM-15:64
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:40
+(B) Medium Laser
+(R) (B) Autocannon/5
+(R) IS Ammo AC/5:40
+(R) (B) LRM 15
+(R) LRM 15
+(R) IS Ammo LRM-15:64
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:40
+(B) Medium Laser
+(R) (B) Autocannon/5
+(R) IS Ammo AC/5:40
+(R) (B) LRM 15
+(R) LRM 15
+(R) IS Ammo LRM-15:64
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+9
+</structural_integrity>
+
+<capabilities>
+<p>The Cargo variant is based on the 2405 refit platform and retains the same weapons array, armor protection, and propulsion system. The key difference is the complete removal of all infantry and vehicle bays, with the freed volume devoted entirely to cargo storage. This conversion increases cargo capacity to approximately 1,640 tons, making the Vulture a viable commercial hauler. The crew complement drops dramatically to just 17, reflecting the elimination of all troop support requirements. This variant proved popular with mercenary commands and Periphery operators who purchased decommissioned military Vultures and converted them for commercial service, extending the venerable design's operational life well beyond its military obsolescence.</p>
+</capabilities>
+
+<overview>
+<p>The Vulture is an early military DropShip designed as a dedicated troop transport for the Alliance of Galedon, predating the formation of the Draconis Combine. First entering service in 2312, this 3,500-ton spheroid was built to support aggressive campaigns of territorial expansion, carrying infantry and light vehicles for rapid planetary assault operations. The design earned a reputation for exceptional reliability and low maintenance requirements despite its cramped and austere accommodations, which its passengers derisively dubbed cattle-class. Originally designed for internal carriage aboard pre-docking collar JumpShips, the Vulture served faithfully for centuries before being superseded by larger, more capable transports.</p>
+</overview>
+
+<deployment>
+<p>The Cargo variant found service primarily with mercenary commands and Periphery operators who converted decommissioned military Vultures for commercial transport. These vessels continued hauling freight well into the thirty-first and thirty-second centuries, their ancient but robust spaceframes maintained with improvised replacement components sourced from whatever was available.</p>
+</deployment>
+
+<history>
+<p>Developed by the Alliance of Galedon to support its expansionist campaigns, the Vulture proved invaluable during the early conquests of the Ozawa Mercantile Association, the Principality of Rasalhague, and numerous independent worlds. The design's lightning assault capability helped advance the growing power base of the nascent Draconis Combine. However, the Vulture's limited capacity forced commanders to split infantry companies between multiple vessels, and reconstituting these divided units under fire proved costly, leading to several inglorious defeats where defending forces encircled landing zones and destroyed infantry battalions piecemeal.</p><p>As the Age of War escalated, the DCMS began to prefer higher-capacity transports designed for external JumpShip carriage. The Vulture's inability to transport the heavier combat vehicles increasingly favored by the Great Houses further diminished its utility. The introduction of the more flexible Seeker class marked the end of the Vulture's frontline military service. Large numbers of decommissioned vessels were sold to mercenary commands and Periphery powers, and some ancient examples continued operating as converted commercial cargo carriers well into the thirty-first and thirty-second centuries. Spare parts grew increasingly scarce, and most surviving Vultures were maintained with improvised replacement components.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:V450
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+3500.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+11
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+3
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+7
+</life_boat>
+
+<escape_pod>
+20
+</escape_pod>
+

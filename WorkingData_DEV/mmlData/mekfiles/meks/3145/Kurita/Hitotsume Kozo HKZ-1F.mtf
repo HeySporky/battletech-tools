@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d34b-7344-9aba-4b60b26df61a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hitotsume Kozo
+model:HKZ-1F
+mul id:6412
+
+Config:Biped
+techbase:Inner Sphere
+era:3136
+source:TR:3145:DC,TR:DA
+published:RS:DA
+rules level:3
+role:Brawler
+
+
+mass:55
+engine:330 XL Engine
+structure:IS Endo Steel
+myomer:Triple-Strength
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:12 IS Double
+walk mp:6
+jump mp:4
+
+armor:Hardened(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:13
+RT armor:13
+CT armor:20
+HD armor:9
+LL armor:13
+RL armor:13
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:3
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+Heavy PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+IS Endo Steel
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hitotsume Kozo is a fifty-five-ton medium BattleMech introduced in 3136 by Luthien Armor Works on New Samarkand. Conceived during the Draconis Combine's unofficial cultural rebirth, LAW engineers designed the chassis as a stylized homage to ancient Japanese samurai, channeling the aggressive close-combat philosophy that had come to define a new generation of Combine war machines. Similar in doctrine to the Rokurokubi, the Hitotsume Kozo fills the role of a medium striker capable of devastating enemies at range before closing to deliver punishing melee attacks. Initially unpopular among front-line formations due to its demanding heat management, the design ultimately earned a fearsome reputation in the hands of the Ghost Regiments and other aggressive units within the Draconis Combine Mustered Soldiery.</p>
+
+capabilities:<p>The Hitotsume Kozo's primary weapon is a shoulder-mounted Lord's Light 3 heavy particle projection cannon, capable of delivering devastating fire at range while building the heat necessary to activate the 'Mech's Triple Strength Myomer. A pair of Diverse Optics Type 20X extended-range medium lasers provide supplementary firepower from the left arm, while a stylized hatchet (fashioned to resemble an ancient Japanese double-ended sickle) gives the design its signature melee capability. When the myomer bundles reach optimal operating temperature, the Hitotsume Kozo transforms from a moderately fast skirmisher into a terrifyingly quick close-quarters killer.</p><p>A Hermes 330 XL engine provides respectable speed for a medium 'Mech, while four Icarus 81 jump jets grant tactical flexibility on broken terrain. The chassis mounts an impressive fourteen and a half tons of New Samarkand Teppeki hardened armor, granting exceptional resilience against ballistic and physical attacks at the cost of additional weight. This protection philosophy reflects the design's intended role: close with the enemy and endure return fire while delivering melee strikes.</p><p>The Hitotsume Kozo's greatest weakness is its challenging heat management. Only twelve double heat sinks struggle to dissipate the output of its energy weapons, forcing pilots to carefully manage their firing patterns. In inexperienced hands, the 'Mech can quickly overheat and shut down at the worst possible moment, a vulnerability that contributed to its initial unpopularity among conventional formations.</p>
+
+deployment:<p>The base HKZ-1F is the standard production model and the most widely fielded configuration of the Hitotsume Kozo. Its combination of a heavy PPC, extended-range medium lasers, triple strength myomer, and a melee weapon gives it a distinctive tactical profile among Combine medium 'Mechs. Pilots who have mastered the heat curve use the heavy PPC to soften targets at range before sprinting in under myomer-enhanced speed to deliver devastating hatchet strikes. The HKZ-1F has found particular favor among the Ghost Regiments, where warriors pair it with lighter Rokurokubis and Panthers to form aggressive combined-arms lances.</p>
+
+history:<p>The Hitotsume Kozo emerged during the turbulent 3130s, a period when the Draconis Combine experienced an unofficial cultural renaissance that deeply influenced military procurement. Luthien Armor Works, already producing the Rokurokubi and other culturally-inspired designs, developed the Hitotsume Kozo as a heavier complement to their existing lineup of Japanese-styled BattleMechs. Named after a mythological one-eyed dwarf from ancient Terran folklore, the design entered production at LAW's New Samarkand facility in 3136.</p><p>The 'Mech's early service history was marked by rejection from mainstream DCMS formations. Front-line commanders considered the design too temperamental, its heat management too demanding, and its advanced systems too difficult to maintain for conventional units. The Procurement Department redirected production to the Ghost Regiments and other formations considered expendable by the Combine's military establishment. This decision proved serendipitous, enthusiastic officers and the yakuza-samurai who populated these units embraced the Hitotsume Kozo's aggressive design philosophy wholeheartedly.</p><p>Through extensive practice and raiding operations, Ghost Regiment warriors transformed the Hitotsume Kozo into an efficient killing machine. Paired with Rokurokubis and other fast close-quarters 'Mechs, Hitotsume Kozos provided ranged cover fire before closing to deliver devastating melee attacks. One notable engagement on the world of Mara demonstrated the design's effectiveness when a mixed Ghost company assaulted a fortified bunker network. Five Hitotsume Kozos blasted distant fortifications with their heavy PPCs before sprinting forward to wade into the defensive complex, using their hatchets to cut through the remaining defenders and breach the bunker line for the assault force.</p><p>By the ilClan era, the Hitotsume Kozo had firmly established itself within the DCMS, with LAW continuing production at New Samarkand. The design's reputation had evolved considerably from its inauspicious beginnings, earning grudging respect even among formations that had initially rejected it. The introduction of the HKZ-1P variant provided a more accessible option for conventional units, while the original HKZ-1F remained the preferred choice of veteran warriors who had mastered its demanding heat curve.</p>
+
+manufacturer:Luthien Armor Works
+
+primaryfactory:New Samarkand
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Luthien
+systemmode:CHASSIS:Class 52 Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:330 XL
+systemmanufacturer:ARMOR:New Samarkand
+systemmode:ARMOR:Teppeki Hardened
+systemmanufacturer:JUMP_JET:Icarus
+systemmode:JUMP_JET:81
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:CommSys 4
+systemmanufacturer:TARGETING:Neko
+systemmode:TARGETING:Megane 7

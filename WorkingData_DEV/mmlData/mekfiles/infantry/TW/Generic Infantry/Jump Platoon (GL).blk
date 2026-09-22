@@ -1,0 +1,81 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bfe4-77b0-b936-1a2661036a23
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Jump Platoon
+</Name>
+
+<Model>
+(Grenade Launcher)
+</Model>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Jump
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Jump grenade launcher platoons equip their jump-capable troops with assault rifles and automatic grenade launchers loaded with inferno rounds. The combination of vertical mobility and incendiary area weapons makes these platoons effective at clearing fortified positions, flushing defenders from cover, and denying terrain with persistent fire. The inferno grenades are particularly dangerous to vehicles and infantry in enclosed spaces, though the arcing trajectories limit precision against moving targets.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+InfantryAutoGLInferno
+</Secondary>
+

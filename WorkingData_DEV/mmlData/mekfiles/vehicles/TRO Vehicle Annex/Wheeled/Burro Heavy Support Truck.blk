@@ -1,0 +1,176 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb6c-7733-96f6-360657593341
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Burro Heavy Support Truck
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4381
+</mul id:>
+
+<year>
+2430
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:0.739:1:1::-1:0
+standardseats:3.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+51
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+2
+2
+2
+1
+</armor>
+
+<Body Equipment>
+ISOffRoadChassis
+SV Chassis Mod [Tractor]
+Armored Chassis
+</Body Equipment>
+
+<Front Equipment>
+Manipulator (Non-Mech/Non-Battle Armor)
+HHSearchlight
+HHSearchlight
+</Front Equipment>
+
+<Right Equipment>
+HHSearchlight
+</Right Equipment>
+
+<Left Equipment>
+HHSearchlight
+</Left Equipment>
+
+<Rear Equipment>
+HHSearchlight
+</Rear Equipment>
+
+<barrating>
+10
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Burro is built on an ultra-light wheeled chassis driven by a fusion powerplant providing cruise speeds of 65 km/h and flank speeds of 97 km/h - matching its ICE-powered counterparts in mobility while eliminating dependence on fuel supply chains in the field. Standard equipment includes armored, amphibious, off-road, and tractor chassis modifications, a 10-kilogram manipulator arm mounted on the front for materials handling and ordnance removal, and five handheld searchlights distributed across the hull for night and low-visibility operations. Two passenger seats supplement the single crew position. The cargo bay accommodates 739 kilograms of standard payload, considerably more than lighter utility designs. BAR 10 armor protection, seven points distributed across the hull, provides meaningful resistance to blast overpressure and fragmentation hazards encountered during ordnance disposal operations.</p><p>The manipulator arm can grip unexploded ordnance and position it on a shielded trailer for towing to a controlled detonation area away from personnel and equipment. The tractor modification also allows the Burro to recover light to medium vehicles disabled in forward terrain, extending its utility beyond the ordnance disposal role into general recovery operations.</p>
+</capabilities>
+
+<overview>
+<p>The Iveco Burro Heavy Support Truck is a fusion-powered utility vehicle produced by Iveco since 2430, designed as a heavier-duty counterpart to the lighter ICE-driven work trucks that filled logistical roles across the Inner Sphere. Retaining the open cargo bed and rugged all-terrain chassis of conventional utility vehicles, the Burro adds a fusion powerplant and enhanced amphibious capability to extend its operational reach into environments where fuel resupply constraints would defeat simpler alternatives. Its most significant operational feature is the manipulator arm purpose-designed to handle unexploded ordnance at a safe working distance, enabling support crews to sanitize battlefield debris fields before salvage and gravedigger teams enter. This capability made the Burro a fixture in organized military logistics formations across multiple eras, and its continued production reflects Iveco's success in identifying and filling a niche that pure combat vehicles cannot address.</p>
+</overview>
+
+<deployment>
+<p>The Burro serves in ordnance disposal and general logistics roles with organized military forces, planetary militias, and civilian emergency services across the Inner Sphere. It is typically assigned to salvage and recovery formations where its manipulator arm and tractor capability allow safe handling of unexploded battlefield ordnance. Its generous cargo capacity and towing ability also make it useful in general recovery operations, extracting disabled vehicles and equipment from contested terrain without requiring dedicated heavy recovery assets.</p>
+</deployment>
+
+<history>
+<p>Iveco introduced the Burro in 2430 as a fusion-powered alternative to the utility trucks that had served logistical formations since the early spacefaring era. Where lighter ICE-powered vehicles of the period offered comparable terrain performance, the Burro's fusion powerplant eliminated the fuel supply chain entirely, giving it operational range limited only by crew endurance. The design was quickly adopted by Terran Hegemony logistics formations operating in extended-range missions where fuel resupply represented a critical vulnerability.</p><p>The Burro's ordnance disposal capability proved its most enduring operational contribution. As BattleMech-scale warfare matured, the scale and variety of unexploded ordnance left after major engagements created hazardous conditions across large ground areas. Early salvage teams suffered steady casualties from failed missile warheads, artillery submunitions, and fractured ammunition bins that had not detonated on initial impact. The Burro's manipulator arm provided a practical mechanized solution, allowing a single operator to clear ordnance before other support personnel entered the debris field. This function distinguished it from more generic utility vehicles and secured its continued procurement through the Succession Wars era, even as simpler designs fell out of production on worlds with diminished industrial capacity.</p><p>By the mid-thirty-first century, Iveco continued production from facilities in what had become the politically fragmented Chaos March, maintaining the type through the civil disturbance and territorial shifts that eliminated many contemporary manufacturing lines. The design's longevity (over six centuries of continuous production) reflects the practical value of a straightforward utility vehicle built around a single well-defined operational capability.</p>
+</history>
+
+<manufacturer>
+Iveco
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:N/A
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion
+ARMOR:Unknown (BAR 10)
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:N/A
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+2.5
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

@@ -1,0 +1,179 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa48-7e29-9053-efe7ad1a3a7d
+</UUID>
+
+<UnitType>
+FixedWingSupport
+</UnitType>
+
+<Name>
+Mustang Fighter
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7192
+</mul id:>
+
+<year>
+2463
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<quirks>
+atmo_flyer
+easy_maintain
+obsolete:2475
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+320
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+28
+23
+23
+10
+</armor>
+
+<Nose Equipment>
+Autocannon/10 Primitive
+</Nose Equipment>
+
+<Left Wing Equipment>
+SRM 4
+SRM 4
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+SRM 4
+SRM 4
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Body Equipment>
+Advanced Fire Control
+IS Ammo SRM-4
+IS Ammo SRM-4
+IS Ammo AC/10 Primitive
+IS Ammo AC/10 Primitive
+</Body Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Mustang's centerline-mounted AC/10 was its defining feature and its greatest liability. Replacing a smaller class-5 weapon, the heavy autocannon required Journey's engineers to add what pilots would come to call a "pregnant belly" to the fifty-ton airframe to accommodate the bulky weapon and its complex ammunition feed systems. Four wing-mounted SRM 2 launchers provided supplementary firepower for close-range engagements, though these were downsized from larger models to compensate for the autocannon's mass.</p><p>The fighter possessed acceptable maneuverability at a safe thrust of five but was explicitly not designed as a dogfighter. Its heavy armament was intended to obliterate single targets on each pass, and the AC/10 could defeat most armor of the era. However, the Mustang suffered from marked instability when firing the autocannon, and heavy maneuvering risked flameouts if autocannon propellant fumes were ingested by the ICE powerplant. Pilots learned to rely on lighter, more nimble escorts to protect them from interceptors they could not destroy head-on.</p>
+</capabilities>
+
+<overview>
+<p>The acquisition of BattleMek technology brought the Federated Suns far more than the war machine itself--it revealed the breadth of Terran Hegemony weapons research, including work on heavy-caliber autocannons. Federated Suns R&D teams had been pursuing parallel development of such a weapon, and the technical specifications gleaned from Hegemony data allowed them to build a prototype class-10 autocannon shortly after the Hegemony debuted its own models. First Prince James Davion pushed his military to develop multiple platforms for this powerful weapon, a directive that led directly to the T-12 Tiger medium tank, the Hammerhands BattleMek, and the Mustang fighter. Journey Aerospace, eager to be the first company to field the heavy autocannon in a flying platform, married the weapon to a conventional combat airframe already in development.</p>
+</overview>
+
+<deployment>
+<p>Despite its notable flaws, the Armed Forces of the Federated Suns were sufficiently impressed by the Mustang's raw firepower to purchase thousands of airframes over the course of some two decades. The fighter was typically employed in ground-attack roles where its devastating single-pass striking power could be used to best effect against armored columns and fortified positions, with dedicated interceptor escorts providing air cover.</p>
+</deployment>
+
+<history>
+<p>The Mustang program was inextricably linked to the broader Federated Suns push to field the class-10 autocannon across multiple combat platforms. Journey Aerospace's decision to mount the weapon on a conventional airframe rather than waiting for a proper aerospace fighter design was a calculated gamble to capture the first-to-market advantage, and it paid off handsomely in initial AFFS procurement contracts.</p><p>The fighter's direct connection to the T-12 Tiger and Hammerhands programs meant that engineering lessons learned from the Mustang's autocannon integration fed directly into those parallel development efforts. The instability and flameout issues that plagued the Mustang were studied extensively by Federated Suns engineers and informed the design of subsequent autocannon-armed combat vehicles across multiple weight classes. Though conventional atmospheric fighters had long been supplanted by aerospace fighters for frontline duty, the Mustang demonstrated that a well-armed conventional platform could still deliver decisive battlefield impact when employed within its intended design parameters.</p>
+</history>
+
+<manufacturer>
+Journey Aerospace
+</manufacturer>
+
+<primaryFactory>
+Edwards
+</primaryFactory>
+
+<source>
+XTR:Primitives IV
+</source>
+
+<published>
+XTR:Primitives IV
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

@@ -1,0 +1,181 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e116-79fc-87a9-533170a08a89
+</UUID>
+
+<UnitType>
+ProtoMek
+</UnitType>
+
+<Name>
+Satyr
+</Name>
+
+<Model>
+XP
+</Model>
+
+<mul id:>
+4979
+</mul id:>
+
+<year>
+3079
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<quirks>
+difficult_maintain
+</quirks>
+
+<motion_type>
+Biped
+</motion_type>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<jumpingMP>
+9
+</jumpingMP>
+
+<interface_cockpit>
+false
+</interface_cockpit>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+42
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+2
+5
+1
+1
+3
+</armor>
+
+<Body Equipment>
+Clan Ammo SRM-2 (10)
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+EIInterface
+</Body Equipment>
+
+<Head Equipment>
+</Head Equipment>
+
+<Torso Equipment>
+CLSRM2
+</Torso Equipment>
+
+<Right Arm Equipment>
+</Right Arm Equipment>
+
+<Left Arm Equipment>
+</Left Arm Equipment>
+
+<Legs Equipment>
+</Legs Equipment>
+
+<capabilities>
+<p>The Satyr primary asset is its light active probe, which extends detection range and can reveal hidden units that would otherwise achieve surprise against friendly forces. The ER Small Laser provides reliable firepower without ammunition dependency, allowing the Satyr to operate for extended periods without resupply. A forty-five-rated fusion engine drives the four-ton frame at seventy-six kilometers per hour cruising speed with a flank speed approaching one hundred and thirteen, making the Satyr fast enough to outrun most heavy and assault class BattleMeks while remaining slower than dedicated speedsters like the Siren.</p><p>Armor protection is the Satyr most significant weakness, with only twelve points distributed across the frame. This is barely sufficient to survive a single medium laser hit, and concentrated fire from even conventional infantry can threaten the design. The Satyr mounts no jump jets in its base configuration, limiting terrain navigation options. Commanders typically deploy Satyr Points as the eyes of larger formations, pushing them forward to identify enemy positions while keeping heavier ProtoMeks and BattleMeks in reserve to exploit the intelligence gathered. The Satyr is emphatically not a combat design, and pilots who forget this distinction tend to have short careers.</p>
+</capabilities>
+
+<overview>
+<p>The Satyr is a four-ton first-generation ProtoMek developed as the last design completed in the original Clan Smoke Jaguar ProtoMek program on Huntress. Designed for deep-penetration reconnaissance, the Satyr combines high ground speed with an ER Small Laser and a light active probe, giving it the ability to detect hidden units while operating far from friendly support. The inclusion of electronic detection equipment makes the Satyr unique among first-generation ProtoMeks, as most contemporary designs mounted only weapons and armor. By the mid-3060s, the Satyr had become one of the most widely produced reconnaissance ProtoMeks in the Homeworld Clans, valued for its ability to locate enemies that heavier units could then engage.</p>
+</overview>
+
+<deployment>
+<p>The experimental Satyr XP pushes the chassis to its absolute limits with nine jump jets providing an extraordinary two hundred and seventy meters of jumping distance, the longest of any ProtoMek ever fielded. Armed with only an SRM-2 launcher carrying ten rounds, the XP variant is nearly defenseless in sustained combat but possesses terrain mobility that no other ground unit can match. The oversized jump jet array required a smaller engine, reducing cruising speed to sixty-five kilometers per hour. Armor protection remains at twelve points. Developed under Clan Jade Falcon oversight, the Satyr XP was designed for extreme terrain infiltration missions where reaching otherwise inaccessible positions justified the severe combat trade-offs.</p>
+</deployment>
+
+<history>
+<p>The Satyr was the final design completed in the original Smoke Jaguar ProtoMek program before the Battle of Huntress in 3060. Jaguar scientists developed it to address a critical capability gap: the existing ProtoMek lineup lacked organic electronic warfare and detection capability. While the Siren provided raw speed for visual reconnaissance, the Satyr offered something more sophisticated, the ability to detect concealed enemies and feed targeting data to heavier units. The light active probe was a significant engineering challenge to miniaturize for the ProtoMek chassis, and the Satyr development ran right up to the eve of Task Force Serpent invasion.</p><p>During the Battle of Huntress, the Satyr saw limited deployment due to the small number of units completed before the invasion. Those that did see action proved their worth in the defensive fighting around the Abysmal Manufacturing Complex, where their probes detected Inner Sphere special forces teams attempting to infiltrate Jaguar defensive positions. Khan Osis reportedly expressed particular satisfaction with the Satyr after witnessing its sensor capability in action, though this could not prevent the Clan ultimate defeat.</p><p>Post-Annihilation, the Satyr became one of the most sought-after ProtoMek designs precisely because of its detection capability. Clan Coyote invested heavily in Satyr production, recognizing that ProtoMek formations without organic reconnaissance assets were operating blind. Clan Jade Falcon also acquired Satyr production data and integrated the design into their garrison forces along the Periphery border, where detecting Dark Caste raiders was a constant requirement. Clan Hell Horses established production at Industriplex Upsilon on Niles, valuing the Satyr for its combined-arms reconnaissance doctrine.</p><p>Variant development has focused on enhancing the Satyr combat capability while retaining its reconnaissance role. The Satyr 2 adds seven jump jets and replaces the ER Small Laser with a Micro Pulse Laser, creating a highly mobile variant that can reach terrain inaccessible to ground-bound units. The Satyr 3 mounts a Streak SRM-2 with five jump jets, adding meaningful anti-armor punch. The Satyr 4 replaces the probe with a Light TAG designator and AP Gauss Rifle, converting the design into a target spotter for artillery and guided munitions.</p><p>The experimental Satyr XP, produced under Clan Jade Falcon supervision, pushes the chassis to its limits with nine jump jets providing an extraordinary two hundred and seventy meters of jumping range. Armed only with an SRM-2, the XP variant trades nearly all combat capability for unmatched terrain mobility. The Wars of Reaving disrupted several Satyr production lines, but the design remains in active manufacture across the surviving Homeworld Clans, its reconnaissance capability ensuring continued relevance even as newer designs enter service.</p>
+</history>
+
+<manufacturer>
+Refit - Irece Delta Refit Center
+</manufacturer>
+
+<primaryFactory>
+Irece
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+ENGINE:45 Fusion
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<published>
+RS:Proto
+</published>
+
+<tonnage>
+4.0
+</tonnage>
+

@@ -1,0 +1,351 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ecaf-7265-bbaf-d768bc242d0a
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Texas Battleship
+</Name>
+
+<Model>
+(2835)
+</Model>
+
+<mul id:>
+5211
+</mul id:>
+
+<year>
+2835
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:40.0:6:1::-1:0
+smallcraftbay:16.0:2:2::-1:0
+cargobay:287183.0:5:3::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:1170.0:0:-1::-1:0
+crewquarters:4095.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+2825
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+3500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+12
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+234
+342
+342
+234
+342
+342
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:20
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:75
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:20
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:75
+</Right Front Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:10
+Ammo AR10 White Shark:10
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:10
+Ammo AR10 White Shark:10
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:10
+Ammo AR10 White Shark:10
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:10
+Ammo AR10 White Shark:10
+</Right Broadsides Equipment>
+
+<structural_integrity>
+85
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 1,560,000 tons across 1,209 meters of Galadin SYN hull structure, the Texas employs a radical broadside-dominant weapons philosophy unique among Star League capital ships. The vessel mounts no weapons whatsoever in its nose or direct aft arcs, instead concentrating devastating firepower along its flanks to deliver crushing broadsides in the classic naval tradition. Each forward quarter mounts four Heavy Naval PPCs, two Killer Whale capital missile launchers, and a NAC/40 super-heavy naval autocannon for close-range engagements. The broadsides each carry twelve NL45 naval lasers and two AR10 flexible missile launchers loaded with mixed Barracuda and White Shark missiles, creating walls of energy and warhead fire along the beam. The aft quarters mirror the broadsides' laser and missile batteries while adding four more Heavy Naval PPCs per side, giving the Texas sixteen Heavy NPPCs and forty-eight NL45s total. This enormous energy weapons suite is managed by 2,825 double heat sinks generating 5,650 points of effective dissipation. Nearly 1,800 tons of Panthex lamellor ferro-carbide armor provides protection equivalent to 4,500 tons of standard plating, giving the Texas defensive resilience normally associated with vessels far above its mass. Three gravity decks, six docking collars, and bays for forty aerospace fighters and sixteen small craft support the crew of 862 in extended independent deployments. The Clan refit introduced around 2835 added lithium-fusion batteries for rapid successive jumps and a mobile HPG for independent communications, reducing armor slightly and trading approximately 15,000 tons of cargo capacity for these strategic systems.</p>
+</capabilities>
+
+<overview>
+<p>The Texas-class battleship was the premier capital WarShip of the Star League Defense Force. Commissioned in 2618 by Krester Ship Construction at their Terra orbital facilities, the class answered the SLDF's urgent need for a modern battleship after its aging Monsoon-class vessels proved consistently outmatched by member state navies. Krester leveraged breakthroughs in advanced armor composites and high-output engines to deliver a design combining devastating broadside firepower with acceleration no previous battleship could match. The Texas quickly earned a reputation as the most feared vessel in the SLDF fleet, and many senior officers regarded it as a battlecruiser in all but name given the sheer weight of its capital armament. The class served as the backbone of every major SLDF numbered fleet for over a century, and its name became synonymous with Star League naval supremacy.</p>
+</overview>
+
+<deployment>
+<p>The five Texas-class battleships that survived the Exodus Civil War received comprehensive refits around 2835, becoming the most prestigious command vessels in the Clan fleet. The CWS Nicholas Kerensky, originally commissioned as the SLS Indiana, served Clan Wolf across centuries of operations before falling to Word of Blake nuclear weapons above Skye in July 3074, fighting to the last and claiming a Blakist vessel as it broke apart. The CCS Ancestral Home, stranded at Tamaron after a catastrophic KF drive failure, served as a training vessel for decades before its final act of defiance in December 3074. The vessel opened a hyperspace field that engulfed half of the Perigard Zalman, a Leviathan Prime-class battleship, destroying both vessels. The CJF Falcon's Nest was destroyed in 3073 by nuclear SDS missiles after disabling multiple WarShips during Operation Ice Storm. The CSR Mountbatten was consumed in the bioweapon horror at Galedon V in 3069. The CSJ Veiled Huntress served as the Smoke Jaguar flagship during the Turtle Bay massacre and throughout the Clan Invasion before being captured and scuttled during Operation BULLDOG.</p><p>The SLS Prinz Eugen followed a unique path among the surviving Texas battleships. Its name had become synonymous with rebellion after the infamous Exodus mutiny, and no Clan would claim the vessel for their touman. Decommissioned to a naval reserve boneyard, the battleship sat abandoned for centuries until the Society subverted it and transferred it to the reborn Clan Burrock. The Burrocks used the recommissioned battleship to defend the Tanis system alongside an Olympus-class defense station. In 3073, Clan Cloud Cobra Khan Steiner led an invasion fleet of four WarShips into Tanis to seize Society technology. The Cataclysm, Consequence, and True Sight engaged the Prinz Eugen directly while the Second Coming dueled the orbital station. Outmatched by three WarShips, the Prinz Eugen was destroyed, ending a vessel whose name had haunted Clan history for nearly three centuries. No Texas-class vessels are known to survive.</p>
+</deployment>
+
+<history>
+<p>The Texas-class battleship was born from the SLDF's recognition that its aging Monsoon-class battleships, which had formed the fleet's backbone since the twenty-fourth century, were being consistently outperformed by member state navies. In 2616, Krester Ship Construction received the contract for a replacement capital WarShip that would leverage two centuries of technological advancement. The SLDF demanded superior speed and maneuverability, qualities Krester had already demonstrated with the acclaimed Kimagure-class pursuit cruiser. A breakthrough in advanced armor composites freed enormous mass for engines and weapons, allowing Krester to deliver a battleship with acceleration and firepower that redefined expectations for the vessel class.</p><p>The Texas entered service in 2618 and quickly established itself as the SLDF's premier battleship. Fifty-two were constructed at Krester's Terra orbital facilities, including the famed Station Alpha complex, and the class served across every numbered fleet as capital ships and command platforms. The sheer volume of capital weaponry concentrated along the vessel's flanks made it the most feared combatant in any fleet engagement, while its thrust profile gave fleet admirals tactical flexibility rarely associated with battleship operations. Individual vessels routinely served as fleet flagships, and the Texas became the standard against which all subsequent battleship designs were measured. An ambitious attempt to convert a Texas hull into an M-6 autonomous Caspar drone WarShip ended when the prototype crashed into Pluto during trials, and the program was abandoned.</p><p>The Periphery Uprising of 2765 inflicted the first combat losses on the class when rebels employed asymmetric tactics against SLDF fleet elements. The Amaris Coup the following year caught several vessels in vulnerable positions across the Hegemony, and the grinding attrition of the subsequent civil war and Liberation of Terra campaign destroyed the vast majority of the fleet. The Texas-class bore heavy proportional losses during the liberation campaign, as fleet commanders committed their most powerful vessels to the decisive engagements around Terra. Only seven of the original fifty-two survived to join Kerensky's Exodus in 2784. Two more were lost in the Exodus Civil War, and a mutiny in August 2785 further strained the fragile cohesion of the fleet before being suppressed. By the time the dust settled, only five Texas-class battleships remained operational in the Clan Homeworlds.</p><p>Those five vessels received comprehensive refits around 2835, gaining strategic communication and rapid-transit capabilities that transformed them into independent command ships capable of sustained operations far from established supply lines. Each became the treasured flagship of a major Clan: Wolf, Jade Falcon, Coyote, Snow Raven, and Smoke Jaguar. No Clan shipyard possessed the capability to construct new vessels of this class, making each surviving Texas more valuable with every passing decade. These WarShips served for centuries as irreplaceable symbols of naval power connecting the Clans to their Star League heritage, the most prestigious commands any Clan naval officer could aspire to hold. One additional vessel, which had remained in the Pentagon worlds during the Second Exodus, was recovered in barely functional condition during Operation KLONDIKE and pressed into service.</p><p>The Jihad and Wars of Reaving destroyed every surviving Texas-class vessel between 3060 and 3074 in a cascade of catastrophic losses that erased the class from existence. Nuclear weapons, bioweapon incidents, planetary defense systems, and desperate last stands claimed each remaining battleship across both the Inner Sphere and Clan Homeworlds. Several vessels were destroyed in engagements where their crews chose to fight to destruction rather than surrender, a final echo of the fierce pride that had always surrounded command of these WarShips. The most prolific battleship class of the Star League era left no survivors. Every one of the fifty-two keels laid down at Krester's yards met a violent end across four centuries of conflict.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Krester's Ship Construction
+ENGINE:Rolls Royce
+ARMOR:Panthex
+JUMP_JET:Unknown
+COMMUNICATIONS:Pathfinder
+TARGETING:MORSAT
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Galadin SYN
+ENGINE:Kraken
+ARMOR:YM1
+JUMP_JET:KF Tiger I
+COMMUNICATIONS:43CD
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Battleship
+</use>
+
+<length>
+1209 m
+</length>
+
+<height>
+1375 m Sail
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+1560000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+95
+65
+55
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+862
+</crew>
+
+<officers>
+117
+</officers>
+
+<gunners>
+78
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+35
+</life_boat>
+
+<escape_pod>
+20
+</escape_pod>
+

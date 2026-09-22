@@ -1,0 +1,285 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-abef-7315-b87e-cc6bf49f2cf3
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Isegrim Assault DropShip
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4376
+</mul id:>
+
+<year>
+3083
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:1.0:1:2::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+steeragequarters:50.0:0:-1::-1:0
+1stclassquarters:50.0:0:-1::-1:0
+crewquarters:147.0:0:-1::-1:0
+cargobay:418.0:2:6::-1:0
+</transporters>
+
+<SafeThrust>
+8
+</SafeThrust>
+
+<heatsinks>
+210
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+9000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+671
+501
+501
+338
+</armor>
+
+<Nose Equipment>
+(B) Sub-Capital Missile Launcher (Piranha)
+Sub-Capital Missile Launcher (Piranha)
+Sub-Capital Missile Launcher (Piranha)
+Ammo Piranha:30
+(B) Sub-Capital Missile Launcher (Manta Ray)
+Sub-Capital Missile Launcher (Manta Ray)
+Sub-Capital Missile Launcher (Manta Ray)
+Ammo Manta Ray:30
+(B) CLERPPC
+CLERPPC
+CLERPPC
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) CLHAG40
+CLHAG40
+CLHAG40
+Hyper-Assault Gauss Rifle/40 Ammo:60
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12:30
+Clan Ammo ATM-12 ER:30
+Clan Ammo ATM-12 HE:30
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:72
+(R) (B) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAMS Ammo:72
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) CLHAG40
+CLHAG40
+CLHAG40
+Hyper-Assault Gauss Rifle/40 Ammo:60
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12:30
+Clan Ammo ATM-12 ER:30
+Clan Ammo ATM-12 HE:30
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:72
+(R) (B) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAMS Ammo:72
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) CLHAG40
+CLHAG40
+CLHAG40
+Hyper-Assault Gauss Rifle/40 Ammo:60
+(B) CLERPPC
+CLERPPC
+CLERPPC
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12:30
+Clan Ammo ATM-12 ER:30
+Clan Ammo ATM-12 HE:30
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+21
+</structural_integrity>
+
+<capabilities>
+<p>The Isegrim is an 8,500-ton military aerodyne assault DropShip designed specifically to outperform the Blakist Interdictor. Its drive system provides acceleration superior to its intended opponent, allowing the Isegrim to dictate engagement range and pursue or disengage at will. Ninety-four and a half tons of Ferro-Aluminum armor concentrated on the nose and sides provides excellent protection against frontal attacks, though the aft arc remains the vessel's most vulnerable aspect. The weapons suite combines sub-capital missiles with a devastating conventional battery of HAG 40 autocannons, ER PPCs, Large Pulse Lasers, and ATM 12 launchers, giving the Isegrim overwhelming firepower against targets up to and including Pocket WarShips. Twelve anti-missile systems provide comprehensive point defense coverage. The vessel also carries Elemental marine squads for boarding operations, and its bays can accommodate Piranha and Manta Ray sub-capital missile reloads. The combination of speed, protection, and firepower makes the Isegrim a formidable opponent in any naval engagement, though its relatively small size limits its ability to absorb sustained fire from capital-class weapons.</p>
+</capabilities>
+
+<overview>
+<p>The Isegrim is an assault DropShip born from a secret collaboration between Clan Wolf and Clan Wolf-in-Exile during the Jihad. Scientists and technicians from both Clans, brought together by circumstance when Wolf vessels sought repairs at the Exile yards on Arc-Royal, covertly developed the design to counter the Word of Blake's Interdictor Pocket WarShip. Based on a modified Noruff hull, the Isegrim first launched from the WC Aerospace Annex on Arc-Royal in 3083. The design has since proliferated through both Wolf factions and their trading partners, becoming one of the more widely distributed Clan assault DropShips of the post-Jihad era.</p>
+</overview>
+
+<deployment>
+<p>The standard Isegrim serves in its baseline assault configuration, providing anti-ship and escort capability for Clan Wolf and Clan Wolf-in-Exile naval formations. These vessels typically operate in pairs or small Stars, using their superior speed to run down enemy vessels or screen larger fleet assets from Pocket WarShip threats.</p>
+</deployment>
+
+<history>
+<p>The Isegrim's origins lie in the desperate circumstances of the Jihad, when Word of Blake space forces dealt severe blows to both Clan Wolf and Clan Wolf-in-Exile. When Wolf vessels were forced to use the Exile naval yards on Arc-Royal for repairs, scientists and technicians from both factions began collaborating without authorization on a design to counter the Blakist Interdictor. The resulting vessel, built on a proven Noruff hull, was engineered to outrun, outgun, and outlast the enemy that had been decimating Wolf shipping.</p><p>Both Clans began production separately, with the Exiles launching their first Isegrim from Arc-Royal in 3083 to considerable fanfare from the Lyran Alliance. The celebration turned to alarm within the year when Clan Wolf Isegrims appeared in orbit above Tamar, revealing that the main-line Wolves had established their own production facility on Dell. Archon demanded answers, and Khan Phelan Kell launched an investigation that included the execution of three Exile scientists, though the deliberate pace of the inquiry suggested political theater rather than genuine outrage.</p><p>Despite the controversy, the Isegrim proliferated rapidly. Within two years, the class was seen in large numbers throughout both Lyran space and the Wolf Occupation Zone. Clan Wolf proved willing to trade the design for scarce commodities, selling an entire year's production run to Clan Diamond Shark in exchange for HarJel supplies. Clan Hell's Horses and Clan Nova Cat also expressed interest, and the Exiled Wolves accommodated buyers as well. The Isegrim has since become one of the most widely distributed Clan assault DropShip designs of the post-Jihad era.</p>
+</history>
+
+<manufacturer>
+Dell Aerospace Industriplex|WC Aerospace Annex
+</manufacturer>
+
+<primaryFactory>
+Dell|Arc-Royal
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<tonnage>
+8500.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+26
+</crew>
+
+<officers>
+5
+</officers>
+
+<gunners>
+13
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+10
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+3
+</life_boat>
+
+<escape_pod>
+3
+</escape_pod>
+

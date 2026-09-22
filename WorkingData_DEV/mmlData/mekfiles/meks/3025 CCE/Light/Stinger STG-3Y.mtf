@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c146-7664-b0c4-d34a59545d1b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Stinger
+model:STG-3Y
+
+Config:Biped
+techbase:Inner Sphere
+era:3019
+source:TR:3025C
+rules level:1
+role:Scout
+
+quirk:cramped_cockpit
+quirk:ubiquitous_clan
+quirk:rugged_1
+quirk:ubiquitous_is
+
+mass:20
+engine:120 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:6
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:4
+RA armor:4
+LT armor:6
+RT armor:6
+CT armor:6
+HD armor:4
+LL armor:5
+RL armor:5
+RTL armor:2
+RTR armor:2
+RTC armor:4
+
+Weapons:5
+Small Laser, Left Arm
+Small Laser, Left Arm
+Medium Laser, Right Arm
+Small Laser, Right Arm
+Small Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Small Laser
+Small Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+Small Laser
+Small Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Jump Jet
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Jump Jet
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Stinger was introduced in 2479 as the second mass-produced reconnaissance BattleMech, designed by Earthwerks Incorporated to meet the Terran Hegemony's urgent demand for scout 'Mechs. Its creation sparked a twenty-year legal dispute with General Mechanics, who accused Earthwerks of copying their Wasp design, a case ultimately dropped due to mounting legal costs. Production proved extraordinarily prolific, with over 200,000 units manufactured before the fall of the Star League, making it arguably the most-produced BattleMech in history.</p><p>The devastating Succession Wars reduced operational numbers to approximately 5,000 by 3025, yet the Stinger's ubiquity ensured its survival where more sophisticated designs perished. Manufactured across dozens of facilities throughout the Inner Sphere and Periphery, the Stinger filled the essential role of scout and trainer for centuries, its simple construction and widespread availability making it an enduring fixture of BattleMech warfare.</p>
+
+capabilities:<p>The Stinger fulfills its reconnaissance role through exceptional mobility rather than firepower. Its GM 120 fusion engine propels the twenty-ton chassis to speeds exceeding 90 kilometers per hour, while six Chilton 360 jump jets provide 180 meters of jump capability, sufficient to escape most pursuers or traverse difficult terrain. The weapons loadout reflects this philosophy: an Omicron 3000 medium laser serves as the primary armament, supported by twin LFN Linblad machine guns that proved devastating against infantry, earning the Stinger a fearsome reputation among ground troops until the Firestarter's introduction.</p><p>Three tons of Riese-100 armor provides only modest protection, typical for light 'Mechs but insufficient against sustained fire. Heat management poses no concern, as the ten single heat sinks easily dissipate the minimal thermal output. The fine-tuned hand actuators proved beneficial for salvage work and objective retrieval during raids.</p><p>The Stinger's most notorious weakness is its cramped cockpit, which forces pilots of average build to squeeze into the control seat and often requires technician assistance to exit, the reverse of feudal knights who needed squires to mount their steeds. The Dynatec 990 targeting system remains adequate if unremarkable, retained more for cost efficiency and ease of manufacture than effectiveness.</p>
+
+deployment:<p>This variant represents an aftermarket modification produced by Mech-it Lube, a mercenary-focused parts supplier that specialized in battlefield refits. This variant trades the twin machine guns for a quartet of small lasers, significantly increasing anti-'Mech capability at close range while maintaining some effectiveness against infantry through concentrated laser fire. The configuration proved popular with mercenary units who valued firepower over the machine guns' ammunition dependency, though the increased heat load requires more careful management from pilots.</p>
+
+history:<p>The Stinger's journey began in 2479 when Earthwerks Incorporated won the Terran Hegemony's contract to produce a light scout 'Mech. General Mechanics immediately filed suit, claiming the design illegally copied their Wasp, and the resulting legal battle dragged on for twenty years before GM abandoned the effort due to prohibitive costs. Meanwhile, Stinger production continued unabated, eventually outstripping every other BattleMech design, even Earthwerks' own Archer.</p><p>During the Star League era, over 200,000 Stingers entered service, spreading to every corner of human-occupied space. The design's simplicity proved advantageous as the Succession Wars devastated technological infrastructure; while complex 'Mechs became irreplaceable, Stingers could still be manufactured and maintained. By 3025, approximately 5,000 remained operational, proof of the era's destructive toll but also to the design's resilience.</p><p>Throughout the Succession Wars, the Stinger took on additional duties beyond scouting. Many units pressed them into training roles, replacing the increasingly rare Chameleon training 'Mechs. The iron sights on the machine guns forced cadets to manually aim their weapons, developing motor skills that proved valuable for fine manipulation tasks during objective raids and personnel extractions. Notable actions demonstrated both the limitations and potential of massed light 'Mech tactics, from the disastrous "Charge of the Horde" at Markerson in 3019 to more successful refined approaches that paired Stingers with heavier Jenners for fire support.</p><p>Earthwerks remained the largest producer during the Succession Wars era, with facilities on Calloway VI, Keystone, and Grand Base. Coventry Metal Works held the second position until Periphery manufacturers (particularly Vandenberg Mechanized Industries and Pinard Protectorates Limited in the Taurian Concordat) expanded production as CMW shifted focus to the Commando. Other major Periphery producers included Majesty Metals and Manufacturing on Canopus IV and Alliance Defenders Limited on Alpheratz.</p><p>The Clan Invasion prompted renewed interest in upgrading the venerable design, with Earthwerks introducing the STG-5M in 3050 using recovered lostech from the Helm Memory Core. Later collaboration between the Taurian Concordat and Word of Blake produced further advanced variants, with the Taurians receiving assistance to kick-start their upgrade program in exchange for large numbers of Stinger and Wasp 'Mechs. These designs were eventually shared with Detroit Consolidated and Hellespont Industrials. By the ilClan era, Clan variants emerged from the Wolf Empire's Keystone factory, continuing the Stinger's tradition of serving every known military force in the Inner Sphere.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Earthwerks
+systemmode:CHASSIS:STG
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:120
+systemmanufacturer:ARMOR:Riese
+systemmode:ARMOR:100
+systemmanufacturer:JUMP_JET:Chilton
+systemmode:JUMP_JET:360
+systemmanufacturer:COMMUNICATIONS:Datacom
+systemmode:COMMUNICATIONS:26
+systemmanufacturer:TARGETING:Dynatec
+systemmode:TARGETING:990

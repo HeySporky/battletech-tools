@@ -1,0 +1,176 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa4f-7486-9517-7bad7767d7e7
+</UUID>
+
+<UnitType>
+FixedWingSupport
+</UnitType>
+
+<Name>
+Tsuru VIP Aircraft
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5779
+</mul id:>
+
+<year>
+3021
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:15.0:1:1::-1:0
+1stclassquarters:10.0:1:-1::-1:0
+ejectionseats:20.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+51
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+24
+24
+24
+31
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISChaffPod
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISChaffPod
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISChaffPod
+ISChaffPod
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Body Equipment>
+Armored Chassis
+STOLChassisMod
+Communications Equipment:SIZE:3.0
+</Body Equipment>
+
+<barrating>
+10
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>Wakazashi's modifications were extensive. The Graceful Crane's structure was heavily reinforced with an armored chassis, allowing it to mount the maximum possible armor protection for its airframe. Three tons of military-grade communications equipment enabled the Warlord to maintain contact with all subordinate commands even in flight, effectively transforming the aircraft into an airborne headquarters. In extremis, the communications suite could project an ECCM field to counter hostile electronic warfare.</p><p>Ejection seats were provided for all passengers and crew as a safety measure, and the cargo bay was expanded to hold armored limousines for secure ground transit upon landing. The Tsuru's most distinctive feature was its wing-mounted and aft-quarter chaff pods--four in total. Though chaff dispensing technology had existed since the earliest days of powered flight, it had become a rarity by the thirty-first century due to advances in missile guidance systems. Wakazashi included them as part of a no-expense-spared approach, and the STOL capability ensured the craft could operate from shorter airstrips.</p>
+</capabilities>
+
+<overview>
+<p>The Tsuru was born from the ambitions of Warlord Vasily Cherenkoff of the Dieron Military District, who shortly after his promotion in 3021 commissioned Wakazashi Enterprises to create a military transport befitting his rank. The brief demanded a swift aircraft capable of carrying the Warlord and his senior staff in safety and luxury, yet equipped with military-grade communications for command duties in flight. Rather than design from scratch, Wakazashi elected to modify their existing Graceful Crane luxury airliner--itself a successful imitation of Avanti Industries' Zanadu Air Bus that had debuted in 3007. The resulting one-hundred-ton fixed-wing support craft was designated the Tsuru, adopting the traditional Japanese word for crane.</p>
+</overview>
+
+<deployment>
+<p>The Tsuru served as Warlord Cherenkoff's personal transport within the Dieron Military District, where it provided both mobile command capability and the visible prestige expected of a senior Combine military leader. The Graceful Crane's lavish interior fittings were retained and enhanced with purpose-built luxury quarters, while first-class accommodations served the Warlord's senior staff during extended flights between district commands.</p>
+</deployment>
+
+<history>
+<p>The Tsuru's lineage traced back to Avanti Industries' Zanadu Air Bus, which debuted in 3004 and quickly became synonymous with luxury air travel across the Inner Sphere. When the Zanadu spawned a wave of imitators from rival states, Wakazashi Enterprises' Graceful Crane appeared in 3007 as the Combine's answer, becoming an indispensable status symbol for corporate executives throughout the Draconis Combine. The Tsuru represented the militarization of that successful civilian luxury platform.</p><p>Pleased with the resulting design, Warlord Cherenkoff requested only one final personal touch: he ordered his Tsuru painted red, to match the color scheme of his personal Atlas BattleMek. The aircraft became a highly recognizable symbol of the Warlord's authority throughout the Dieron District, combining the prestige expected of a luxury VIP transport with the practical command and communications capabilities demanded by a senior military officer responsible for coordinating forces across multiple planetary garrisons within one of the Combine's most strategically vital military districts.</p>
+</history>
+
+<manufacturer>
+Wakazashi Enterprises
+</manufacturer>
+
+<primaryFactory>
+Kervil
+</primaryFactory>
+
+<source>
+XTR:SW
+</source>
+
+<published>
+XTR:SW
+</published>
+
+<tonnage>
+100.0
+</tonnage>
+

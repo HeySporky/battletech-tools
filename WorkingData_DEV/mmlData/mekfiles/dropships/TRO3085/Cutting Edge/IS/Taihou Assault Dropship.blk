@@ -1,0 +1,287 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ac0c-7ef1-a9e0-7602a27a0bdd
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Taihou Assault DropShip
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5174
+</mul id:>
+
+<year>
+3079
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:2.0:1:2::-1:0
+cargobay:614.0:2:6::-1:0
+2ndclassquarters:28.0:0:-1::-1:0
+steeragequarters:255.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<heatsinks>
+250
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+12000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+20
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+601
+451
+451
+328
+</armor>
+
+<Nose Equipment>
+(B) Sub-Capital Cannon (Heavy)
+Sub-Capital Cannon (Heavy)
+Sub-Capital Cannon (Heavy)
+Sub-Capital Cannon (Heavy)
+Ammo Heavy SCC:60
+(B) Heavy PPC
+Heavy PPC
+Heavy PPC
+(B) MRM 40
+MRM 40
+MRM 40
+IS MRM 40 Ammo:42
+ISApollo
+ISApollo
+ISApollo
+(B) Screen Launcher
+Ammo Screen:10
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Heavy PPC
+Heavy PPC
+Heavy PPC
+(B) MRM 40
+MRM 40
+MRM 40
+IS MRM 40 Ammo:42
+ISApollo
+ISApollo
+ISApollo
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:72
+(R) (B) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAMS Ammo:72
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Heavy PPC
+Heavy PPC
+Heavy PPC
+(B) MRM 40
+MRM 40
+MRM 40
+IS MRM 40 Ammo:42
+ISApollo
+ISApollo
+ISApollo
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:72
+(R) (B) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAMS Ammo:72
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Heavy PPC
+Heavy PPC
+Heavy PPC
+(B) MRM 40
+MRM 40
+MRM 40
+IS MRM 40 Ammo:42
+ISApollo
+ISApollo
+ISApollo
+</Aft Equipment>
+
+<Hull Equipment>
+ISNC3
+</Hull Equipment>
+
+<structural_integrity>
+30
+</structural_integrity>
+
+<capabilities>
+<p>The Taihou is a 12,000-ton military aerodyne assault DropShip mounting a fearsome array of weaponry. Its primary anti-ship armament consists of four Heavy Sub-Capital Cannons capable of threatening WarShip-class targets, supplemented by twelve Heavy PPCs and MRM 40 launchers equipped with Apollo fire control systems for engaging conventional targets. A Screen Launcher and anti-missile systems provide defensive countermeasures against incoming ordnance. One hundred fifteen tons of Heavy Ferro-Aluminum armor gives the Taihou exceptional survivability for a vessel of its size, allowing it to absorb sustained fire while closing to effective engagement range. The design incorporates a Nirasaki Naval C3 System, which coordinates fire between squadrons of similarly equipped vessels, dramatically enhancing the effectiveness of Taihou flotillas operating in concert. The drive system provides adequate acceleration for fleet operations. The vessel also carries a complement of battle armor marines for boarding operations. The Taihou's combination of sub-capital weapons, heavy armor, and networked fire control makes it a genuine threat to larger vessels, though its relatively compact hull limits the amount of punishment it can absorb in prolonged fleet engagements.</p>
+</capabilities>
+
+<overview>
+<p>The Taihou is an assault DropShip produced by Hinsdale Elec for the Draconis Combine as part of the nation's post-Jihad naval rebuilding program. Entering service in 3079, the Taihou was designed through a collaboration between Hinsdale Elec, personnel from the Midway Warship Yard, and electronic systems specialists from the Nirasaki Computers Collective. The result was a compact but devastating assault vessel capable of engaging targets up to and including WarShips, providing the Combine with a domestically produced capital-capable combat vessel to help replace the naval assets depleted during the Jihad.</p>
+</overview>
+
+<deployment>
+<p>The standard Taihou Assault DropShip serves in its baseline anti-ship configuration, providing capital-grade firepower for Draconis Combine naval task forces. These vessels typically operate in small squadrons linked by networked fire control systems, coordinating their attacks to maximize effectiveness against larger targets.</p>
+</deployment>
+
+<history>
+<p>The Taihou was born from the Draconis Combine's desperate need to rebuild its naval combat capability in the aftermath of the Jihad. The Word of Blake's systematic destruction of Combine WarShips and shipyard facilities had left the DCMS critically short of capital-grade combat vessels, a deficiency that threatened the Combine's ability to defend its borders against rival powers that retained their own naval assets.</p><p>The development program brought together expertise from across the Combine's remaining industrial base. Hinsdale Elec provided the primary shipyard and construction capability, while personnel from the Midway Warship Yard contributed their experience with naval combat vessel design. The Nirasaki Computers Collective developed the advanced networked fire control system that would become one of the Taihou's most distinctive features, allowing squadrons of assault DropShips to coordinate their fire with unprecedented precision.</p><p>The first Taihou entered service in 3079, providing the Combine with a domestically produced vessel capable of engaging WarShip-class targets at a fraction of the cost of a true capital ship. The class proved its worth in subsequent fleet exercises and border deployments, where networked Taihou squadrons demonstrated the ability to concentrate devastating firepower on targets far larger than any individual ship. The design has remained in production, gradually rebuilding the Combine's ability to project naval power along its frontiers.</p>
+</history>
+
+<manufacturer>
+Hinsdale Elec
+</manufacturer>
+
+<primaryFactory>
+Dover
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Assault DropShip
+</use>
+
+<length>
+200 meters
+</length>
+
+<width>
+90 meters
+</width>
+
+<height>
+30 meters
+</height>
+
+<source>
+TR:3085
+</source>
+
+<tonnage>
+12000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+29
+</crew>
+
+<officers>
+4
+</officers>
+
+<gunners>
+9
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+36
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+5
+</life_boat>
+
+<escape_pod>
+5
+</escape_pod>
+

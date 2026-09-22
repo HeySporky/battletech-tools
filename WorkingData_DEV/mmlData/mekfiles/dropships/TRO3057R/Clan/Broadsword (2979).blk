@@ -1,0 +1,246 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aab2-7f1e-87d8-a5606beaa1ec
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Broadsword
+</Name>
+
+<Model>
+(2979)
+</Model>
+
+<mul id:>
+3863
+</mul id:>
+
+<year>
+2979
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+mekbay:1.0:1:-1::-1:0
+mekbay:2.0:2:-1::-1:0
+mekbay:2.0:2:-1::-1:0
+cargobay:69.5:0:4::-1:0
+1stclassquarters:20.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:49.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+79
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+5200
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+190
+160
+160
+126
+</armor>
+
+<Nose Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLERPPC
+CLERPPC
+(B) CLMediumPulseLaser
+(B) CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:12
+CLArtemisIV
+(B) CLAntiMissileSystem
+CLAMS Ammo:24
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:24
+CLArtemisIV
+CLArtemisIV
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLSmallPulseLaser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:24
+CLArtemisIV
+CLArtemisIV
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLSmallPulseLaser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) CLMediumPulseLaser
+(B) CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:60
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+9
+</structural_integrity>
+
+<capabilities>
+<p>The Broadsword transports five OmniMechs distributed across three bays: two side bays each housing a pair of machines, and a smaller nose bay accommodating the fifth. Each bay contains limited repair facilities, while two parts holds at the aft of the craft store spare components and replacement equipment pods. This arrangement does present logistical challenges, as the nose bay connects to the aft stores via a narrow passageway that can only accommodate the smallest 'Mech components, complicating maintenance for the forward-berthed machine. The vessel's main cargo bay occupies the upper deck, accessible only by a pair of stairways, requiring most supplies to be manually transported between decks.</p><p>These layout compromises are offset by the Broadsword's formidable combat characteristics. The design mounts a balanced arsenal of extended-range energy weapons that allow it to engage threats at considerable distance, keeping most adversaries well away from its valuable cargo. Combined with respectable armor protection and a thrust profile that grants excellent maneuverability for its tonnage, the Broadsword is well suited for the raiding and reconnaissance missions that form the backbone of Clan military operations. The craft's primary limitation is the absence of integral aerospace fighter support, a trade-off forced by the requirement to carry an additional 'Mech over the Leopard's complement.</p>
+</capabilities>
+
+<overview>
+<p>The Broadsword-class DropShip was developed by Clan Sea Fox in the late thirtieth century as a purpose-built replacement for the aging Leopard-class BattleMech carrier. Though superficially similar to its predecessor in overall aerodyne configuration, the Broadsword was redesigned from the keel up to transport a full Star of five OmniMechs in accordance with the fundamental organizational doctrine of the Clans. First launched from the Marshall Orbital Yards in 2979, the design quickly earned an enviable reputation as a versatile and reliable combat transport, combining superior speed, firepower, and armor protection into a compact hull well suited to the raiding and reconnaissance missions that form the backbone of Clan military operations. Within a decade of its introduction, the Broadsword had secured a place in the Toumans of most Clans, establishing itself as one of the most widely fielded military transports across all of Clan space.</p>
+</overview>
+
+<deployment>
+<p>The Broadsword serves in the Toumans of virtually every Clan, though Clan Steel Viper has historically maintained the largest fleet after successfully claiming the Marshall Orbital Yards through a Trial of Possession against the Diamond Sharks. The design saw widespread combat during the Battle of Tukayyid in 3052, where many Broadswords were forced into direct engagement when ComStar ground forces overran several Clan landing zones. Despite sustaining significant damage in these engagements, remarkably few Broadswords were lost, their effective arsenals and armor enabling retreating Clan warriors to extricate the vessels in good order. The craft's proven reliability and balanced combat capabilities have made it a standard fixture of Clan expeditionary forces throughout the Kerensky Cluster and the Clan Occupation Zones.</p>
+</deployment>
+
+<history>
+<p>The origins of the Broadsword lie in the growing obsolescence of the venerable Leopard-class DropShip within the Clan military structure. While the Leopard had served admirably for centuries, its four-'Mech capacity was increasingly at odds with the five-warrior Star formation that formed the basic organizational unit of every Clan Touman. Clan Sea Fox, shortly before its transformation into Clan Diamond Shark, undertook the design of a purpose-built replacement that would align transport capacity with Clan doctrine.</p><p>The first Broadsword launched from the Marshall Orbital Yards in 2979, representing a significant advancement over the Leopard in nearly every measurable category. The new design offered superior weaponry, greater maneuverability, and enhanced armor protection, though it sacrificed the Leopard's integral aerospace fighter bay to accommodate the fifth OmniMech. This trade-off proved acceptable to most Clan commanders, who valued the additional ground combat power over organic fighter support.</p><p>The Broadsword's combination of reliability and combat effectiveness drove rapid adoption across the Clans. Within ten years of its debut, the design had been incorporated into the Toumans of most Clans, with production expanding to meet growing demand. Clan Steel Viper emerged as the dominant operator after staging a successful Trial of Possession for the Diamond Sharks' Marshall Orbital Yards, securing both the production facility and a steady supply of new hulls.</p><p>The Broadsword proved its combat worth during the Battle of Tukayyid in 3052, when the Clans' invasion of the Inner Sphere culminated in a key confrontation with ComStar's Com Guards. As Clan positions were overrun at several landing zones, Broadsword crews found themselves thrust into direct ground combat, a role the transport was never intended to fill. The vessels' balanced blend of firepower and protection proved decisive in these desperate engagements, allowing most Broadswords to fight their way clear despite heavy damage. The remarkably low loss rate during these chaotic battles cemented the design's reputation as one of the most capable military transports in the Clan arsenal.</p><p>Production of the Broadsword has continued at multiple facilities across Clan space, including the DS Aero Assembly Site Rho and the WC Aerospace Annex in addition to the Marshall yards. The design remains a cornerstone of Clan force projection, with its proven track record ensuring continued demand well into the thirty-first century.</p>
+</history>
+
+<manufacturer>
+DS Aero Assembly Site Rho|Marshall Yards|WC Aerospace Annex
+</manufacturer>
+
+<primaryFactory>
+Twycross|Marshall (Per-Wadjet)|Arc-Royal
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Peterson 211
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+1900.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+19
+</crew>
+
+<officers>
+2
+</officers>
+
+<gunners>
+4
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+2
+</life_boat>
+
+<escape_pod>
+2
+</escape_pod>
+

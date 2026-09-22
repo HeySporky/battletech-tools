@@ -1,0 +1,177 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad1a-7437-a57a-8099b17d3282
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Corsair
+</Name>
+
+<Model>
+CSR-V12
+</Model>
+
+<mul id:>
+693
+</mul id:>
+
+<year>
+2779
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+16
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+73
+50
+50
+43
+</armor>
+
+<Nose Equipment>
+Large Laser
+Large Laser
+Small Laser
+Small Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+Small Laser
+Small Laser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Corsair's weapons package centers on two Exostar large lasers mounted in the nose, providing the fighter's primary striking power at range. Close-in firepower comes from two Martell medium lasers positioned in each wing and four Exostar small lasers, two of which are rear-mounted and tied directly into the Ranker TA800 targeting system for exceptional accuracy in the aft firing arc. The all-energy loadout eliminates ammunition dependency entirely, giving the Corsair excellent operational endurance and freeing pilots from concerns about supply lines during extended deployments.</p><p>A GM 200 fusion engine provides a safe thrust of three gravities and a maximum of four and a half, making the Corsair competitive with most medium fighters in its weight class. Thirteen and a half tons of Wangker Corsair Standard armor give it substantial protection against anti-aircraft fire and rival fighters. Sixteen single heat sinks allow both large lasers to fire continuously while the medium and small lasers contribute with only marginal heat buildup. The compact laser systems and aerodynamic airframe make the Corsair particularly deadly in atmospheric combat, where it can outmaneuver many conventional fighters at low altitudes. The design's primary weakness is its short optimal engagement range, as pilots must close to exploit the bulk of its firepower.</p>
+</capabilities>
+
+<overview>
+<p>The Corsair is a fifty-ton medium aerospace fighter developed by Wangker Aerospace for the Star League Defense Force in 2779. Commissioned to replace the devastating fighter losses suffered during the Amaris Civil War, the Corsair was built around a compact all-energy weapons package and a sleek airframe optimized for atmospheric operations. Wangker already had a working prototype on hand when the SLDF came calling, which allowed full-scale production to begin within months. Despite early reliability problems that plagued the initial production series, the design's raw performance convinced the Star League to keep the program alive while Wangker corrected the deficiencies. The Corsair has since become one of the most widely recognized medium fighters in the Inner Sphere, earning a reputation for ruggedness and dependability across centuries of continuous service.</p>
+</overview>
+
+<deployment>
+<p>The CSR-V12 represents the standard production Corsair that has served as the backbone of Federated Suns aerospace forces for centuries. House Davion distributed the fighter widely across its various aerospace units following the fall of the Star League, and it quickly became the favored medium fighter of the Federated Suns. The V12 saw extensive service along both the Draconis and Capellan borders, proving itself in countless engagements from the Succession Wars through the FedCom era.</p>
+</deployment>
+
+<history>
+<p>The Corsair's origins trace to the immediate aftermath of the Amaris Civil War, when the SLDF found its fighter strength critically depleted. Wangker Aerospace had shelved a prototype design years earlier, and when the SLDF approached them for an easy-to-produce replacement fighter, the company was able to move into production almost immediately. The initial V1 series suffered from serious flaws, including fuel tanks prone to rupturing during atmospheric maneuvers, landing gear that could not support the craft in emergency landings, and a fragile life support system. These issues were gradually resolved through successive iterations, with the fuel tank redesigned in the V2 series and life support problems corrected through the V3 to V8 series. By the V12 model, the Corsair had matured into a thoroughly reliable airframe.</p><p>When the Star League collapsed just five years after the Corsair's introduction, House Davion seized control of most Wangker production facilities, while the Free Worlds League captured a single line on Connaught. The First Succession War proved devastating for the program. Every Corsair factory was destroyed within five years of the war's outbreak. The Connaught facility fell in the opening salvos, having produced only a few hundred fighters for the Free Worlds League Military before its destruction. Those Corsairs eventually passed into the service of the Principality of Regulus. Wangker faced extinction but managed to deploy specialized salvage teams to recover usable equipment from its ruined complexes. These materials were transported to Axton, where the company painstakingly rebuilt a single production line by the middle of the Second Succession War.</p><p>The Axton facility became the sole source of new Corsairs for centuries, enduring repeated Capellan Confederation raids that, while damaging, never matched the devastation of the First Succession War. By the early thirty-first century, the production equipment showed signs of near-total failure, but the recovery of the Helm Memory Core during the 3020s and 3030s allowed Wangker to fully restore and modernize its lines. When the Federated Commonwealth formed, debate erupted over whether the Corsair or the Lucifer should serve as the AFFC's standard medium fighter. In mock combat trials, Corsair squadrons prevailed more often than not, cementing the design's place in the combined state's aerospace order of battle.</p><p>Beginning in 2945, border conflicts over the planet Cylene saw large Corsair formations assigned to Davion strike forces from the Draconis March Militia. Over nearly eight years of intermittent fighting, Corsair groups scored at least five DropShip kills and numerous fighter victories. In 2982, a defense force of ten Corsairs on the planet Rio executed a brilliant atmospheric ambush against a Capellan raiding force, luring enemy fighters into turbulent low-altitude winds where the Corsairs' atmospheric handling proved decisive. None of the attackers escaped, and the Liao DropShips retreated without further engagement. Near the Davion-Kurita border, Corsairs participated in the battle for David, where a dozen fighters concealed aboard a modified Union-class DropShip ambushed an overconfident Kurita strike force, crippling or destroying most of the attackers before locating and destroying one of their DropShips.</p><p>The Jihad brought the worst damage to Wangker since the First Succession War. In 3074, the Word of Blake's Thirty-third Division raided Axton, inflicting catastrophic losses. The expanded complex suffered ninety-five percent capital and personnel damage, reducing operating capacity to a quarter of its former output by 3079. Despite this devastation, production of Corsairs and Thunderbirds continued at reduced rates. The RIGID NIGHT advanced research project had begun that same year, seeking to upgrade the Corsair with captured Clan technology. While the experimental CSR-X12 prototype used equipment that could not be mass-produced, the project eventually yielded the CSR-12D production variant in 3081. Following the Jihad, Boeing Interstellar purchased Wangker's surviving facilities, leveraging their technology and components for new fighter programs while continuing existing Corsair production.</p>
+</history>
+
+<manufacturer>
+Wangker AeroSpace|Wangker AeroSpace|Wangker AeroSpace|Wangker AeroSpace|Wangker AeroSpace
+</manufacturer>
+
+<primaryFactory>
+Axton|Connaught|Lee|Orbisonia|Ramen II
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Wangker
+ENGINE:General Motors
+ARMOR:Wangker
+JUMP_JET:N/A
+COMMUNICATIONS:Ranker
+TARGETING:Ranker
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Wangker II
+ENGINE:GM 200
+ARMOR:Wangker Corsair Standard
+JUMP_JET:N/A
+COMMUNICATIONS:Ranker 100B
+TARGETING:Ranker TA800
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

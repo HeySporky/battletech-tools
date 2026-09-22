@@ -1,0 +1,158 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a913-7758-a49e-902d0a7f44a2
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Hantu
+</Name>
+
+<Model>
+AIX-210(Sqd6)
+</Model>
+
+<mul id:>
+9246
+</mul id:>
+
+<year>
+3124
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+32
+</armor_type>
+
+<armor_tech>
+1
+</armor_tech>
+
+<Squad Equipment>
+BAArmoredGlove:LA
+BAArmoredGlove:RA
+InfantryAssaultRifle:APM
+IS BA Stealth (Standard):LA
+IS BA Stealth (Standard):RA
+IS BA Stealth (Standard):RA
+IS BA Stealth (Standard):LA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The AIX-210 mounts armored gloves on both hands and basic myomer augmentation that allows operators to carry conventional infantry weapons and equipment with reduced fatigue. Stealth armor provides a lower sensor signature than standard armor plating, improving the suit's survivability against detection-dependent weapons systems. The suit lacks jump jets, integrated weapons, and specialized equipment such as HarJel, keeping the design simple and the training requirements low. Ground speed and overall handling mirror the Groundhog's performance profile.</p><p>The Hantu's primary limitation is that it remains an exoskeleton, not true battle armor. Protection is sufficient against small arms and fragmentation but inadequate against anti-armor weapons or direct BattleMech engagement. The design deliberately avoids the complexity that would require battle armor-level training, trading combat power for accessibility and rapid fielding. Two hundred kilograms of unused capacity in the baseline model allows field customization, though the standard AIX-210 configuration leaves this weight unallocated.</p>
+</capabilities>
+
+<overview>
+<p>The AIX-210 Hantu is an armored infantry exoskeleton derived from the CEX-205 Groundhog. Produced by the Kandersteg Foundry Alpha on the Lyran Commonwealth world of Kandersteg, the Hantu was introduced in 3124 as a purpose-built enhancement for conventional infantry formations. The Kandersteg Militia licensed the Groundhog's base design from Blue Shot Weapons and adapted it with stealth armor sourced from Clan Wolf-in-Exile, creating a low-profile exoskeleton intended to improve the survivability of regular foot soldiers rather than replace dedicated battle armor troopers. Formally designated the "Ghost" for its stealth characteristics, most operators instead call the suit the "Jenglot" in wry acknowledgment of how the exoskeleton measures against true battlefield threats.</p>
+</overview>
+
+<deployment>
+<p>The Kandersteg Militia fielded the Hantu in squads of six and platoons of twenty-four, deliberately mirroring the organizational structure of their conventional infantry battalions. This was not an accident. Kandersteg's commanders insisted on treating Hantu-equipped troops as enhanced infantry rather than battle armor, maintaining familiar chain-of-command relationships and tactical procedures. The six-trooper squad allowed militia platoons to be outfitted with plentiful support weaponry, exploiting the exoskeleton's tireless myomer-assisted carrying capacity to field heavier loads than unaugmented soldiers could sustain.</p>
+</deployment>
+
+<history>
+<p>The Kandersteg Militia developed the AIX-210 after officers observed the Groundhog's modular flexibility and recognized an opportunity to address a long-standing vulnerability in their conventional infantry battalions. Even the lightest powered armor offered dramatically better protection than standard infantry kit, and the Militia sought to close that gap without the expense and training overhead of fielding true battle armor. Blue Shot Weapons, whose Solaris VII production lines had been destroyed decades earlier, licensed the Groundhog's base design to Kandersteg, providing the engineering foundation for what became the Hantu.</p><p>Kandersteg's engineers stripped away the Groundhog's modular adaptor system and focused on protection and simplicity. Stealth armor manufactured for Clan Wolf-in-Exile was integrated into the design, giving the suit a low sensor signature that its operators could exploit in defensive and ambush situations. The Hantu deliberately retained the Groundhog's ergonomic, transparent control interface, which had been designed for minimally trained civilian users. This decision proved critical to the Militia's training doctrine, which emphasized treating Hantu-equipped soldiers as enhanced conventional infantry rather than battle armor troopers.</p><p>Two hundred kilograms of unused capacity in the baseline model spawned a family of AIX-21x sub-variants incorporating sensors, electronic warfare packages, and integrated weapons. The Kandersteg Militia purchased these sparingly, but mercenary commands passing through Kandersteg's hiring halls spread the design well beyond its intended user base.</p>
+</history>
+
+<manufacturer>
+Kandersteg Foundry Alpha
+</manufacturer>
+
+<primaryFactory>
+Kandersteg
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TtS:Kandersteg
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

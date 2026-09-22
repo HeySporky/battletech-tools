@@ -1,0 +1,186 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ac80-70c8-a230-e5742671f194
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Goth
+</Name>
+
+<Model>
+B
+</Model>
+
+<mul id:>
+7660
+</mul id:>
+
+<year>
+2873
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Fire Support
+</role>
+
+<quirks>
+combat_computer
+atmo_instability
+easy_maintain
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+21
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+480
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+74
+54
+54
+48
+</armor>
+
+<Nose Equipment>
+CLActiveProbe:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLLargePulseLaser:OMNI
+CLERLargeLaser:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLLargePulseLaser:OMNI
+CLERLargeLaser:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Goth mounts a Pitban 180 standard fusion engine on a Saroyan 2.5 CCC-OP airframe, producing a maximum thrust of eight Gs with a safe cruise of five. While not the fastest medium fighter, its acceleration is adequate for the interceptor role. The hull carries fourteen and a half tons of Forging OTR17b standard armor, providing respectable protection for sustained engagements against larger targets. Twenty-seven tons of available pod space give pilots considerable latitude in configuring the fighter for specific missions.</p><p>The design's primary weakness is heat management. Fifteen single heat sinks form the fixed cooling infrastructure, a system that struggles to keep pace with most weapon configurations. Nearly every loadout includes additional pod-mounted heat sinks to compensate. The Prime configuration pairs wing-mounted Artemis IV-guided LRM-15 launchers with coaxial small pulse lasers, supplemented by a nose-mounted large pulse laser and two ER medium lasers. Two additional ER medium lasers cover the rear arc. CCC T-55 communications and CCC D5.2J targeting systems round out the electronics package. The airframe's easy maintenance characteristics and integrated combat computer are offset by notable atmospheric flight instability, a quirk inherited from the original Gotha design.</p>
+</capabilities>
+
+<overview>
+<p>The Goth is a sixty-ton Clan medium OmniFighter developed by Clan Cloud Cobra during the Golden Century. First entering service in 2873, the design was derived from the Inner Sphere Gotha aerospace fighter, transforming the proven airframe into a modular weapons platform through the application of OmniPod technology. Cloud Cobra engineers valued the Gotha's reputation for durability and ease of maintenance, qualities that translated well into the new configuration. Intended primarily as an anti-DropShip interceptor, the Goth filled a unique niche between the lighter Issus and the heavier Xerxes that no other Clan fighter occupied until the introduction of the Tyre in 2907. Its versatility and solid performance made the design popular across nearly every Clan, establishing it as one of the most widespread medium OmniFighters of its generation.</p>
+</overview>
+
+<deployment>
+<p>The B configuration emphasizes raw energy output for long-range engagements. Each wing mounts an ER large laser paired with a large pulse laser, creating formidable broadside firepower. A nose-mounted active probe enhances the fighter's sensor capabilities, making this variant well-suited to electronic warfare and reconnaissance missions. Like the A configuration, it carries twenty-one total single heat sinks, though the energy-heavy loadout can still overwhelm the cooling systems during sustained combat.</p>
+</deployment>
+
+<history>
+<p>Clan Cloud Cobra developed the Goth in the years following the Political Century, seeking a dedicated anti-DropShip platform for their aerospace-heavy touman. The Cobras drew upon their extensive experience with the Gotha, an Inner Sphere design that had accompanied the Exodus fleet, recognizing that its robust airframe and maintainable systems provided an ideal foundation for OmniPod conversion. The resulting OmniFighter entered service in 2873 and quickly proved its worth in the Cloud Cobras' naval-centric doctrine.</p><p>The Goth spread rapidly through Trials of Possession and inter-Clan trade, becoming a common sight across Clan space within decades of its introduction. Typically deployed for space superiority and DropShip escort duties, the fighter saw some of its most notable action during Clan Coyote's punitive campaigns against Clan Cloud Cobra in 2948 and 2949. Flying as escorts for Hydaspeses class WarShips, Goths provided critical flexibility as zellbrigen broke down in the escalating conflict. The Cobras also tasked their Goths with hunting Coyote DropShips, a role in which the fighter proved devastatingly effective. Though the Cobras suffered heavy ground losses, the Coyotes' inability to resupply their forces contributed to their eventual withdrawal from the Cloud Cobra enclaves on Homer and Brim.</p><p>By the late 2900s, a new generation of faster OmniFighters began displacing the Goth from frontline service. The design was formally classified as obsolete around 2980, though many Clans retained it in second-line and garrison formations where its reliability and low maintenance requirements remained valuable assets.</p><p>The Goth experienced an unexpected revival in the ilClan era. After Stewart was absorbed into the Wolf Empire, Clan Wolf directed Allied Technologies to convert their existing Gotha production lines to manufacture the Goth beginning in 3146. This decision allowed the Wolves to rapidly bolster their depleted aerospace forces using established factory infrastructure. New Wolf Empire configurations mounting rotary autocannons and advanced missile systems demonstrated the continued viability of the venerable airframe with modern weaponry.</p>
+</history>
+
+<manufacturer>
+Complex H-3 CCC|Allied Technologies
+</manufacturer>
+
+<primaryFactory>
+Homer|Stewart
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Saroyan
+ENGINE:Pitban
+ARMOR:Forging
+COMMUNICATIONS:CCC
+TARGETING:CCC
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:2.5 CCC-OP
+ENGINE:180
+ARMOR:OTR17b (Standard)
+COMMUNICATIONS:T-55
+TARGETING:D5.2J
+</systemModels>
+
+<source>
+TR:GC
+</source>
+
+<published>
+TR:GC
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

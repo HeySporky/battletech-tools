@@ -1,0 +1,85 @@
+                 BattleMech Technical Readout
+
+Name/Model:         Locust VIIC
+Designer:           Vagabond
+Source(s):          Custom Mordel.Net Units
+Technology:         Clan
+Technology Rating:  F
+Tonnage:            20
+Role:               Striker
+Configuration:      Biped BattleMech
+Era/Year:           Succession Wars / 3025
+Rules (Current):    Standard
+Rules (Era):        Standard
+Rules (Year):       Standard
+Total Cost:         1,878,400 C-Bills
+Battle Value:       737
+
+Chassis:              Endo Steel
+Power Plant:          160 Fusion
+Walking Speed:        86.4 kph  
+Maximum Speed:        129.6 kph [172.8 kph]
+Jump Jets:            None
+    Jump Capacity:    None
+Armor:                Standard
+Armament:             
+    1 ER Medium Laser
+    2 Small Pulse Lasers
+Manufacturer:         Unknown
+    Primary Factory:  Unknown
+Communications:       Unknown
+Targeting & Tracking: Unknown
+
+================================================================================================
+Overview:
+    My personal take on what the Clan IICs should have been.  What I am call the VIIC.  Core
+    concept is to avoid using the XL engine; weight, armor, and structure may use special
+    materials.
+
+Capabilities:
+    A straight practical upgrade of the classic 1V.  Upgrading the ML to an ER variant and
+    swapping the Twin MGs and 1t ammo for a pair of SPLs.  The SPL maintains the effective
+    anti-infantry capability while simultaneously enhancing the anti-armor capability; it also
+    frees the mech from the need for ammo resupply.  Finally, the use of Endosteel allows the
+    addition of a MASC unit to further enhance the unit's speed.
+
+================================================================================================
+Equipment                                                              Mass                     
+------------------------------------------------------------------------------------------------
+Internal Structure:                         Endo Steel                 1.00                     
+Engine:                                     160 Fusion                 6.00                     
+    Walking MP:                                 8                                               
+    Running MP:                              12 [16]                                            
+    Jumping MP:                                 0                                               
+Heat Sinks (Double):                         10 [20]                   0.00                     
+Gyro:                                        Standard                  2.00                     
+Cockpit:                                     Standard                  3.00                     
+Armor Factor:                                   64                     4.00                     
+    Type:                                    Standard                                           
+
+                                    Internal         Armor     
+                                    Structure        Value     
+    Head:                               3              8       
+    Center Torso:                       6              8       
+    Center Torso (rear):                               2       
+    R/L Torso:                          5              8       
+    R/L Torso (rear):                                  2       
+    R/L Arm:                            3              6       
+    R/L Leg:                            4              7       
+
+================================================================================================
+Weapons and Ammo                                       Location          Critical      Mass     
+------------------------------------------------------------------------------------------------
+ER Medium Laser                                           CT                1          1.00     
+MASC                                                      CT                1          1.00     
+Small Pulse Laser                                         RA                1          1.00     
+Small Pulse Laser                                         LA                1          1.00     
+
+================================================================================================
+Alpha Strike Statistics
+------------------------------------------------------------------------------------------------
+Point Value (PV): 27
+TP: BM,  SZ: 1,  TMM: 4,  MV: 20"
+Damage: (S) 2 / (M) 2 / (L) 0,  OV: 0
+Armor (A): 2,  Structure (S): 2
+Specials: ENE

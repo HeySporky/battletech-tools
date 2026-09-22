@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d391-7e89-a590-3b171ac656f3
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Anzu
+model:ZU-J70
+mul id:6511
+
+Config:Biped
+techbase:Inner Sphere
+era:3106
+source:TR:3145:FWL,TR:DA
+published:RS:DA
+rules level:2
+role:Skirmisher
+
+quirk:imp_life_support
+quirk:multi_trac
+
+mass:60
+engine:240 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:17
+RA armor:17
+LT armor:22
+RT armor:22
+CT armor:26
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:5
+Rotary AC/5, Left Arm
+Snub-Nose PPC, Right Arm
+ER Medium Laser, Right Arm
+MML 7, Left Torso
+ER Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISCASEII
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISSNPPC
+ISSNPPC
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+IS Ammo MML-7 LRM
+IS Ammo MML-7 SRM
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISCASEII
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISERSmallLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Anzu is a 60-ton heavy BattleMech introduced in 3098 by Earthwerks-FWL, Incorporated as the embodiment of AMSC combat doctrine for the reformed Free Worlds League. Named for the mythological griffin that snatched the tablets of destiny from the gods, the Anzu symbolizes the refusal of the Free Worlds peoples to allow others to dictate their future. Designed to fulfill the AMSC's need for a reliable heavy fire-support platform capable of aggressive mid-range combat, the sixty-ton design has been widely adopted throughout Free Worlds League formations, where its mechanical reliability and versatile weapons suite have earned it favor among MechWarriors and technicians alike.</p>
+
+capabilities:<p>The Anzu is built around an aggressive mid-range combat philosophy, mounting a diverse weapons array designed for direct engagement while maintaining the ability to provide indirect fire support. The Imperator Automatic Ultra Class 10 Autocannon serves as the primary weapon, delivering punishing bursts of fire at medium range, while a Zeus LRM 10 launcher provides indirect fire capability and extends the 'Mech's threat envelope. A Fusigon Shorttooth Light Particle Projection Cannon, enhanced by a PPC Capacitor, gives pilots the option to boost damage output for critical moments, and a Diverse Optics Sunfire Extended-Range Medium Laser rounds out the weapons suite.</p><p>Mounted on an Earthwerks ZU Endo Steel chassis and powered by a Hermes 240 XL engine, the Anzu achieves a top speed of 64 kilometers per hour. Chilton 465 jump jets provide a 120-meter jump capability, giving MechWarriors tactical mobility that compensates for the design's moderate ground speed. Eleven tons of Starshield A armor protected by CASE II ammunition bins provide solid protection for a heavy 'Mech of its tonnage. The RCA Instatrac Mark X targeting system, paired with integrated TAG equipment, allows the Anzu to simultaneously engage multiple targets while designating for indirect fire from supporting lancemates, making it an indispensable member of fire lances.</p>
+
+deployment:<p>Introduced in 3106, this variant was developed by Earthwerks as a dedicated lancemate for the baseline ZU-G60. The variant replaces the Ultra AC/10 with a lighter Rotary AC/5, trading raw single-hit damage potential for a significantly higher sustained rate of fire. The LRM 10 gives way to an MML-7, providing greater ammunition flexibility with access to both long-range and short-range missile loads. A Fusigon Smarttooth Snub-Nose PPC replaces the Shorttooth Light PPC and its capacitor, shifting the energy weapon profile toward close-range striking power. An ER Small Laser mounted in the head provides a last-ditch defensive weapon. Four tons of rotary autocannon ammunition stored across CASE II-protected bins in the left arm and left torso ensure extended engagement capability.</p>
+
+history:<p>The Anzu was born from the post-Jihad reformation of the Free Worlds League, when the newly established AMSC sought purpose-built designs to equip its forces with 'Mechs tailored to its more direct and aggressive combat doctrine. Earthwerks-FWL, Incorporated won the production contract and began manufacturing at their Keystone facility in 3098, delivering a heavy 'Mech that quickly became a staple of AMSC formations.</p><p>The Anzu saw its first significant combat during the conflicts that erupted among the Free Worlds states in 3119, when long-simmering tensions boiled over into open warfare along the Regulan border. During the battle for Harmony, the Eleventh Atrean Dragoons employed their Anzus to devastating effect in the narrow streets and tightly packed industrial buildings of Natus. The 'Mech's jump jets and semi-guided missile capability allowed Anzu-led lances to outmaneuver Regulan defenders in urban terrain, engaging at point-blank range while simultaneously directing indirect fire from supporting Shockwaves and Griffins with no loss of accuracy. The battle demonstrated the Anzu's effectiveness in the kind of aggressive, combined-arms operations the AMSC had envisioned when commissioning the design.</p><p>As Clan Wolf expanded into former Free Worlds League territory during the Dark Age, the Keystone production facility came under direct threat. Rather than allow the manufacturing line to fall into Clan hands, the facility was deliberately destroyed. Earthwerks subsequently reestablished Anzu production at their Calloway VI plant, ensuring an uninterrupted supply of both the ZU-G60 and its ZU-J70 lancemate variant to frontline units of the reformed Free Worlds League. The relocation underscored both the strategic importance the League placed on the design and the determination of its people to maintain their industrial independence in the face of Clan aggression.</p>
+
+manufacturer:Earthwerks-FWL, Inc.|Earthwerks-FWL, Inc.
+
+primaryfactory:Calloway VI|Keystone
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Earthwerks
+systemmode:CHASSIS:ZU Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:240 XL
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:A with CASE II
+systemmanufacturer:JUMP_JET:Chilton
+systemmode:JUMP_JET:465
+systemmanufacturer:COMMUNICATIONS:Irian
+systemmode:COMMUNICATIONS:Orator-5K
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac Mark X with TAG

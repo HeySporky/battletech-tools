@@ -1,0 +1,1 @@
+{"mappings":"AAAA,iBAAiB;IAAG,oBAAoB,CAAC,uVAAuD,CAAC;AACjG","sources":["packages/react-aria/intl/previewtrigger/uk-UA.json"],"sourcesContent":["{\n  \"longPressMessage\": \"Натисніть і утримуйте, щоб відкрити попередній перегляд\"\n}\n"],"names":[],"version":3,"file":"uk-UA.cjs.map"}

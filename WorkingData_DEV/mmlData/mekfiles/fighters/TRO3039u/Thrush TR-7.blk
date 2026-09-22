@@ -1,0 +1,172 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad83-75ba-91c8-2a26aae682ee
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Thrush
+</Name>
+
+<Model>
+TR-7
+</Model>
+
+<mul id:>
+3201
+</mul id:>
+
+<year>
+2798
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Interceptor
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+12
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+7
+6
+6
+5
+</armor>
+
+<Nose Equipment>
+Medium Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Thrush is one of the fastest light fighters in any Successor State aerospace force. Its Rawlings 250 fusion engine delivers thrust figures that let the fighter outrun virtually any opponent it cannot outgun, and the Mujika Aerospace Type 12 airframe handles the stress of most combat maneuvers without difficulty. Three Kajuka Type 2 "Bright Blossom" medium lasers are distributed across the nose and wings, providing adequate firepower for escort and scouting assignments. Heat management requires some discipline with ten single heat sinks, but the loadout is generally adequate for the design's intended role.</p><p>StarShield armor coverage is deliberately thin, a trade-off that purchases the fighter's impressive speed. Against lighter or less numerous opponents this arrangement works well, but the Thrush is at serious risk against heavier interceptors or multiple enemies simultaneously. The standard response is immediate disengagement, relying on thrust advantage to withdraw to supporting units.</p><p>The circular wing design introduces a significant handling hazard during atmospheric entry. The airframe tends to enter uncontrolled spins at the atmospheric interface, a flaw it shares with the Draconis Combine's Sholagar. Where the Combine phased the Sholagar out of service, Capellan flight doctrine took the opposite approach. CCAF instructors developed the "Frisbee Flip," training pilots to lean into the instability and execute a sudden 180-degree reversal, catching pursuing enemies off guard. Capellan pilots used this technique to good effect in orbital engagements against FedCom and Canopian opponents throughout the Succession Wars.</p>
+</capabilities>
+
+<overview>
+<p>Designed and manufactured by Mujika Aerospace Technologies on St. Ives, the Thrush entered service in 2798 as a light escort and screening fighter for Capellan DropShip detachments and garrison forces throughout the Confederation. An earlier variant had served the CCAF since the mid-twenty-fifth century, but the TR-7 became the definitive model and the backbone of Capellan light aerospace strength for generations. Inexpensive to produce and easy to maintain, the design spread to licensed manufacturing facilities across the Confederation, ensuring broad availability despite the toll the Succession Wars took on industrial capacity. Pilots throughout the Confederation know it as "the Frisbee," a nickname drawn from the fighter's distinctive circular wing planform. The Thrush trades armor protection for exceptional speed and agility, making it most effective in screening, scouting, and escort roles rather than as a front-line interceptor. Despite its limitations against heavier opponents, the design's combination of low cost and high performance has kept it relevant across multiple centuries of continuous production.</p>
+</overview>
+
+<deployment>
+<p>The TR-7 is the definitive Thrush variant and the most widely deployed version across its three production sites on St. Ives, Tikonov, and Sarna. DropShip detachments throughout Capellan space rely on the TR-7 for point defense and escort, while planetary garrisons employ it in scouting and intercept roles. Factory changes of ownership at Tikonov and Sarna spread the design into Tikonov Free Republic, Federated Commonwealth, and eventually broader independent hands during the late Succession Wars and Jihad eras. The Sarna line's longevity is notable, with Tengo Aerospace maintaining production through multiple regime changes including brief Sarna Supremacy control during the Clan Invasion period before returning to Capellan ownership. The TR-7 remains in service across the Confederation and in smaller numbers throughout the Inner Sphere wherever surviving airframes can be maintained.</p>
+</deployment>
+
+<history>
+<p>The Thrush traces its lineage to Mujika Aerospace Technologies' earlier TR-5 design, which served the Capellan Confederation as a frontline fighter during the Star League era. When the Star League dissolved and the First Succession War erupted, Mujika rushed the redesigned TR-7 into production in 2798 to replace aging fighter stocks. Recognizing that a single production site would leave Capellan forces vulnerable to interdiction, the Confederation licensed the design to Tengo Aerospace on Sarna and Earthwerks Ltd. on Tikonov, spreading manufacturing across multiple systems and ensuring the CCAF's aerospace formations would not lack for interceptors through the brutal decades of the Succession Wars.</p><p>The Thrush saw combat across multiple Capellan frontier campaigns during the early Succession Wars. In 2812, a pair of Thrushes screening the DropShip Panohai during a raid on the Davion-held world of Demeter were overwhelmed by a full Davion fighter squadron, and only one survived to escape with the damaged vessel. In 2876, a force of ten Thrushes provided screening and close air support during the reclamation of Sax, losing only a single aircraft to surface-to-air fire in an otherwise successful operation. Later analysis noted that Capellan history framed the Sax action as liberation rather than occupation, given the world had been seized from the Confederation by an insurgent lance the previous year.</p><p>The St. Ives Compact's secession from the Confederation in 3029 brought Mujika's primary production plant under Compact control. The company continued operations under its new political masters, and during the St. Ives Civil War era developed the TR-7p upgrade for Compact aerospace formations. When the Confederation reclaimed St. Ives circa 3061, Mujika returned to Capellan oversight, and production shifted toward more capable successors. The TR-8 entered service around 3065 with updated heat management and weapons technology, serving actively through the Jihad. A Mujika INN news item from 3072 reported a fatal crash during an atmospheric test flight, indicating that production and testing continued through the conflict despite reported losses of personnel and infrastructure. The TR-9 followed in the ilClan era, employing an XL engine and a mix of re-engineered and extended-range medium lasers with reflective armor, with production established at both St. Ives and a new Mujika line on Tikonov. HDF Manufacturing on Falsterbo entered the picture in the late Republic era, fielding TR-7s initially under Hanseatic League oversight before Escorpión Imperio assumed control of the line during the Dark Age.</p>
+</history>
+
+<manufacturer>
+Mujika Aerospace Technologies|Earthwerks Ltd.|Tengo Aerospace|HDF Manufacturing
+</manufacturer>
+
+<primaryFactory>
+St. Ives|Tikonov|Sarna|Falsterbo
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Mujika Aerospace Technologies
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Dwyerson
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Mujika Aerospace Type 12
+ENGINE:Rawlings 250
+ARMOR:StarShield
+JUMP_JET:N/A
+COMMUNICATIONS:Endicott Type 22 Master
+TARGETING:Dwyerson Mark XI
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+

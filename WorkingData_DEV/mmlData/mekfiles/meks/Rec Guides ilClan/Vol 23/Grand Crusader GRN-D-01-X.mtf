@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-da9b-72ed-bf42-ffbd29eb9567
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Grand Crusader
+model:GRN-D-01-X
+mul id:8430
+
+Config:Biped
+techbase:Inner Sphere
+era:3053
+source:RG23,RGv1
+published:RG23,RGv1
+rules level:4
+role:Missile Boat
+
+quirk:bad_rep_is
+quirk:directional_torso_mount:LT RT
+
+mass:80
+engine:320 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:26
+RA armor:26
+LT armor:24
+RT armor:24
+CT armor:35
+HD armor:9
+LL armor:34
+RL armor:34
+RTL armor:10
+RTR armor:10
+RTC armor:15
+
+Weapons:7
+ER Large Laser, Left Arm
+Medium Laser, Right Arm
+Medium Laser, Right Arm
+LRM 20, Left Torso
+LRM 20, Right Torso
+Medium Laser, Center Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERLargeLaser
+ISERLargeLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Medium Laser
+Medium Laser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 20 (T)
+LRM 20 (T)
+LRM 20 (T)
+LRM 20 (T)
+LRM 20 (T)
+ISArtemisIV (T)
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+ISShoulderTurret
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 20 (T)
+LRM 20 (T)
+LRM 20 (T)
+LRM 20 (T)
+LRM 20 (T)
+ISArtemisIV (T)
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+ISShoulderTurret
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Medium Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Grand Crusader is an 80-ton assault BattleMech commissioned in 3052 by Word of Blake Precentor Martial Trent Arian following the schism with ComStar. Named for a passage in the writings of Jerome Blake extolling those who fight to preserve technology and knowledge, the design is unrelated to the venerable Crusader despite frequent confusion caused by its name. Produced by Gibson Federated BattleMechs on Gibson, the Grand Crusader was developed to address the fledgling Word of Blake Militia's acute shortage of BattleMech assets after their flight to the Free Worlds League. The first examples reached the Blakist First Division in 3053, quickly becoming a signature design of the Word of Blake's early military buildup.</p>
+
+capabilities:<p>Built around a weight-saving Crucis-ES Endo Steel chassis and a Hermes 240 XL engine, the Grand Crusader trades speed for devastating firepower. Its top speed of only 54 kilometers per hour makes it one of the slower assault designs of its era, but the tonnage freed by its lightweight internal structure allows it to carry an impressive weapons array and over fifteen tons of Maximillian 45 armor protection. The distinctive barrel-chested profile, reminiscent of designs like the Awesome and Mackie, houses twin Holly LRM-20 launchers fed from six tons of ammunition and linked to Artemis IV fire control systems for enhanced accuracy. These missile racks deploy from innovative slide-up housings on the 'Mech's back, granting superior firing arcs.</p><p>For engagements at medium range, two Tronel PPL-20 large pulse lasers provide accurate and punishing firepower, while a pair of Intek medium pulse lasers handle close-range threats. An LFN Lindblad Shotgun anti-missile system mounted atop the cockpit provides limited defense against incoming missiles, though its elevated placement creates blind spots along the lower legs and rear arc that leave the Grand Crusader vulnerable to battle armor attacks. The Word of Blake accepted this limitation, confident that years would pass before their forces encountered Clan Elementals in significant numbers.</p>
+
+deployment:<p>This variant represents the original Grand Crusader prototype, the first variant to mount the larger 320-rated XL engine that would later be adopted by subsequent designs in the family. The prototype featured a pair of experimental shoulder-mounted turrets housing its LRM launchers, a novel arrangement intended to improve firing arcs. Secondary armament consisted of a single extended-range large laser and four medium lasers. The turret mechanism proved unreliable in field testing, and the concept was abandoned for the production GRN-D-01 model in favor of the fixed slide-up launcher housings.</p>
+
+history:<p>The Grand Crusader's origins lie in the tumultuous aftermath of the ComStar Schism. When Trent Arian assumed command of the newly formed Word of Blake Militia in 3052, the organization possessed very few BattleMechs, as most Com Guard MechWarriors who defected to the Word were unable to bring their machines with them. Arian negotiated directly with Gibson Federated BattleMechs to produce the Grand Crusader, underwriting production costs and permitting open-market sales to offset expenses. Despite this arrangement, the Blakists acquired virtually every unit produced, making it a signature design of their early military buildup.</p><p>The Grand Crusader saw steady production throughout the late Clan Invasion and Civil War eras, with Gibson Federated BattleMechs serving as the sole manufacturer. The design earned a reputation as a capable fire-support platform, though its association with the Word of Blake also gave it a stigma that discouraged widespread adoption by other factions. The few examples that reached FWLM commands were generally viewed with a mixture of respect for their firepower and suspicion of their origins.</p><p>Following the Blakist seizure of Terra during Operation Odysseus, the Grand Crusader program underwent a dramatic transformation under Precentor Martial Cameron St. Jamais. Seeking to expand Militia capabilities, St. Jamais enlisted Vicore Industries to streamline production across Terra's manufacturing base. This effort produced the Grand Crusader II, a comprehensive redesign manufactured by Skobel MechWorks and Krupp Armament Works beginning in 3066. The original Grand Crusader also served as the foundation for the Word of Blake's early OmniMech research, though that project was ultimately shelved in favor of the Celestial series. With the fall of the Word of Blake during the Jihad, surviving Grand Crusaders became rare trophies scattered across the Inner Sphere, their presence raising suspicion wherever they appeared due to their unmistakable Blakist heritage.</p>
+
+manufacturer:Gibson Federated BattleMechs (A Division of Free Worlds Defense Industries)
+
+primaryfactory:Gibson
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Crucis
+systemmode:CHASSIS:Crucis-ES Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:320 XL
+systemmanufacturer:ARMOR:Maximillian
+systemmode:ARMOR:Maximillian 45
+systemmanufacturer:COMMUNICATIONS:O/P
+systemmode:COMMUNICATIONS:O/P COMNET 210A
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:Garret A99

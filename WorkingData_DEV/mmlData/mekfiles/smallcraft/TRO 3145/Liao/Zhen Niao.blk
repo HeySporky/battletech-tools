@@ -1,0 +1,222 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e172-7e35-8f1e-cf2ef4459441
+</UUID>
+
+<UnitType>
+SmallCraft
+</UnitType>
+
+<Name>
+Zhen Niao
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6474
+</mul id:>
+
+<year>
+3101
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+imp_com
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:3.0:1:1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:0.0:0:-1::-1:0
+crewquarters:0.0:0:-1::-1:0
+steeragequarters:20.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+5
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+1920
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+84
+61
+61
+41
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Side Equipment>
+</Left Side Equipment>
+
+<Right Side Equipment>
+</Right Side Equipment>
+
+<Aft Equipment>
+ISERMediumLaser
+ISERMediumLaser
+</Aft Equipment>
+
+<Hull Equipment>
+BeagleActiveProbe
+ISGuardianECMSuite
+ISHypersprectralImager
+ISSpaceMineDispenser
+</Hull Equipment>
+
+<structural_integrity>
+8
+</structural_integrity>
+
+<capabilities>
+<p>The Zhen Niao carries only a pair of Extended-Range Medium Lasers, both mounted in the aft arc, and a single Space Mine Dispenser. The lasers provide minimal self-defense capability against pursuing aerospace fighters, while the mine dispenser doubles as an intrasystem weapon and as a prop supporting the craft's cover as a civilian customs vessel. The design makes no pretense of being a front-line combat asset. Its ferro-aluminum armor, at twelve tons, is adequate for a craft whose primary survivability depends on not being identified rather than on absorbing punishment.</p><p>The electronics suite defines what the Zhen Niao actually is. A Hyperspectral Imager provides exceptional surface-scan capability from orbit. A Beagle Active Probe extends detection range well beyond the craft's visual profile. A Guardian ECM Suite degrades enemy targeting and sensor systems, supporting both the craft's own protection and its civilian impersonation role. The Improved Communications design quirk extends the Zhen Niao's data relay range, allowing intelligence gathered in orbit to be transmitted to ground or DropShip commanders in near real time.</p><p>The craft's limitations are clear. Safe thrust of 2.5g and a maximum of 4g leave it vulnerable to dedicated interception if its cover is blown. Its crew of four, all accommodated in Steerage-class quarters, reflects the austere operational profile. The Zhen Niao is built to gather and transmit intelligence, not to fight its way out of trouble. Commands that deploy it expecting anything beyond its reconnaissance role will find it wanting.</p>
+</capabilities>
+
+<overview>
+<p>The Zhen Niao, whose name translates roughly as "Poisonfeather Bird," is a Small Craft designed and produced by Rashpur-Owens Incorporated on Capella for the Capellan Confederation Armed Forces. Introduced in 3101, it was conceived not as a conventional combat vessel but as an armed noncombatant, a platform for electronic warfare and orbital reconnaissance capable of operating without fighter escort. The CCAF adopted it rapidly, recognizing its value as an intelligence asset that could fly random powered orbits, blend into civilian intrasystem traffic, and deny enemy aerospace forces the predictable patterns they relied on to hunt satellite-class craft. Understated in appearance and deceptive in purpose, the Zhen Niao represents the Confederation's preference for asymmetric capabilities over brute-force aerospace superiority.</p>
+</overview>
+
+<deployment>
+<p>The Zhen Niao serves in CCAF aerospace screening and electronic warfare assignments, deployed in pairs from dedicated Capellan DropShips to maintain mutual support during extended independent operations. Its orbital profile mimics civilian intrasystem traffic, and crews are trained to maintain patterns consistent with commercial vessels. The craft's fuel capacity supports lengthy missions without tender contact, making it well suited for advance reconnaissance assignments ahead of conventional operations.</p><p>Commands tasked with planetary assault or large-scale interdiction benefit most from the Zhen Niao. Its limited armament makes direct engagement inadvisable, and commanders who treat it as a combat asset rather than a reconnaissance platform misuse it. Used correctly, it provides actionable intelligence at a cost and risk profile well below that of a dedicated aerospace fighter screen.</p>
+</deployment>
+
+<history>
+<p>Rashpur-Owens Incorporated developed the Zhen Niao in the years following the Jihad, responding to CCAF requirements for a dedicated electronic warfare and orbital reconnaissance platform that could operate without an escort footprint. The design entered service in 3101, marking an expansion of Rashpur-Owens' traditional focus on large aerospace vessels into the Small Craft category. The Capellan Confederation integrated the type into DropShip operations quickly, typically deploying pairs of craft on intelligence-gathering missions ahead of conventional forces.</p><p>The Warrior House Offensive of 3112 provided the Zhen Niao's first significant operational test. Two craft deployed from a Capellan DropShip to make competing orbital passes over Republic-held worlds, gathering first-scan intelligence on planetary defenses and troop dispositions before the assault began. Davion aerospace fighters rose to intercept them. The two Zhen Niaos used their electronic systems and fuel reserves to run, laying minefields and counting on their ECM to protect them. Only one escaped. The surviving craft's data, however, proved critical to the offensive's initial success, and the engagement was studied afterward as a demonstration of both the type's value and its vulnerability when denied the element of surprise.</p><p>Later operations at Tikonov revealed a different dimension of the craft's capability. Operating covertly from Capellan merchant DropShips over an extended period, Zhen Niao crews gathered detailed intelligence on a succession of Republic worlds prior to formal military operations. RAF analysts determined after the fact that the craft had maintained orbit for nearly a week at a stretch, refueling at Capellan merchants in transit, before Confederation ground forces moved. The intelligence contributed materially to the depth of the Capellan advance through Republic lines.</p><p>By the Dark Age, the Zhen Niao had earned a quiet reputation within the CCAF as one of the more effective surveillance platforms in the Confederation's aerospace inventory, prized by commanders who understood how to use it and largely invisible to those who did not.</p>
+</history>
+
+<manufacturer>
+Rashpur-Owens Inc.
+</manufacturer>
+
+<primaryFactory>
+Capella
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:CC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+140.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+4
+</crew>
+
+<officers>
+1
+</officers>
+
+<gunners>
+1
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

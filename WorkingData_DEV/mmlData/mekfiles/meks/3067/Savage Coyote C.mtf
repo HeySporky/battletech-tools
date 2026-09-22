@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cd82-702f-a4a3-363a6672c4e6
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Savage Coyote
+model:C
+mul id:4984
+
+Config:Biped OmniMek
+techbase:Clan
+era:3064
+source:TR:3067,TR:J
+published:RS:J
+rules level:2
+role:Juggernaut
+
+quirk:oversized
+
+mass:85
+engine:255 XL (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:20 Clan Double
+base chassis heat sinks:10
+walk mp:3
+jump mp:3
+
+armor:Standard(Clan)
+LA armor:25
+RA armor:25
+LT armor:26
+RT armor:26
+CT armor:34
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:10
+RTR armor:10
+RTC armor:15
+
+Weapons:8
+ER Large Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Large Laser, Right Arm
+ER Medium Laser, Right Arm
+ER PPC, Left Torso
+ATM 9, Left Torso
+ATM 9, Right Torso
+ER Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERLargeLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERLargeLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLATM9 (OMNIPOD)
+CLATM9 (OMNIPOD)
+CLATM9 (OMNIPOD)
+CLATM9 (OMNIPOD)
+Clan Ammo ATM-9 (OMNIPOD)
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet (OMNIPOD)
+CLATM9 (OMNIPOD)
+CLATM9 (OMNIPOD)
+CLATM9 (OMNIPOD)
+CLATM9 (OMNIPOD)
+Clan Ammo ATM-9 (OMNIPOD)
+Clan Ammo ATM-9 HE (OMNIPOD)
+Clan Ammo ATM-9 HE (OMNIPOD)
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ammo ATM-9 ER (OMNIPOD)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Savage Coyote was developed by Clan Coyote beginning in 3052 following the election of Khan Sullivan Koga, who championed a sweeping modernization of the Clan's military hardware. First fielded in 3059, the 85-ton OmniMech was conceived as a showcase for the Advanced Tactical Missile system, one of Clan Coyote's most significant technological achievements. As the inventors of the OmniMech concept itself, Clan Coyote had seen its influence wane during the decades preceding the Clan Invasion, and the Savage Coyote represented a deliberate effort to revitalize the Clan's military prestige. The assault-weight chassis devotes an exceptional proportion of its mass to modular pod space, giving it unmatched flexibility among Coyote OmniMechs of the era.</p>
+
+capabilities:<p>The Savage Coyote was designed as a true assault platform, with its extra-light engine enabling an unprecedented forty-five tons of pod space, more than half the chassis's total mass dedicated to interchangeable weaponry. This massive payload capacity allows field commanders to configure the 'Mech for virtually any combat role, from long-range fire support to devastating close-quarters brawling. The fifteen tons of Forging ZK11 standard armor provide solid protection for an assault-class OmniMech, though the reliance on an extra-light engine creates a vulnerability to critical torso damage that MechWarriors must account for in combat.</p><p>The primary configuration exemplifies the design's emphasis on versatility, pairing two ATM-12 launchers with an ER PPC and an LB 10-X autocannon to maintain effective firepower across all engagement ranges. A complement of ER medium and small lasers provides additional close-range punch. Heat management requires careful discipline, as the fourteen fixed double heat sinks and three additional pod-mounted sinks can be overtaxed when firing all weapons simultaneously. The chassis's cruising speed of 32 kph is modest even by assault 'Mech standards, making the Savage Coyote dependent on its firepower and armor rather than mobility to dominate the battlefield.</p>
+
+deployment:<p>Representing the most recent standard configuration developed for the Savage Coyote, this variant focuses on precision long-range firepower. An ER PPC and two ER large lasers form the primary engagement suite, all linked to a targeting computer that dramatically improves accuracy. Two ATM-9 launchers provide supplementary fire with full range-mode flexibility, while three ER medium lasers serve as backup weapons. Three jump jets grant improved tactical mobility, and six additional double heat sinks help manage the considerable heat generation of the energy weapons array.</p>
+
+history:<p>The Savage Coyote emerged from a period of institutional crisis within Clan Coyote. Despite their historical distinction as the inventors of the OmniMech, the Coyotes had experienced decades of declining political and military influence among the Clans by the mid-thirty-first century. The election of Khan Sullivan Koga in 3052 marked a turning point, as the new Khan directed the Clan's scientist caste to undertake an aggressive modernization program aimed at restoring Coyote prestige.</p><p>The development of Advanced Tactical Missile technology proved central to this effort, and the Savage Coyote was designed specifically to showcase this new weapons system. First deployed in 3059, the OmniMech was rushed into mass production across Clan Coyote's industrial base. Every primary 'Mech production facility (Landen on Tamaron, Picuris on Londerholm, and Zuni on Foster) was retooled to manufacture the design, with only the Ashton plant continuing to produce the Canis and Rabid Coyote.</p><p>The Savage Coyote quickly became a cornerstone of Coyote military power. Every front-line Cluster fielded multiple examples, and the design's versatility made it valuable across the full spectrum of Clan Coyote operations during the late Civil War era. The 'Mech also attracted the attention of rival Clans, and captured Savage Coyotes appeared in the toumans of several Homeworld Clans, including Clan Star Adder and Clan Cloud Cobra.</p><p>The Wars of Reaving brought significant upheaval to Savage Coyote production. The Zuni plant on Foster changed hands during the conflict, falling under Clan Goliath Scorpion control during the Jihad before ultimately passing to Clan Cloud Cobra, which reactivated production at the facility. The Landen and Picuris facilities on Tamaron and Londerholm respectively remained under Coyote control through the Jihad and into the early Dark Age, continuing to produce the chassis for Coyote forces.</p><p>By the late Dark Age era, the political instability of the Homeworld Clans had cast uncertainty over the long-term future of these production lines, though the Savage Coyote itself remained a respected and feared design wherever it appeared on the battlefield.</p>
+
+manufacturer:Landen 'Mech Production Complex|Picuris 'Mech Production Complex|Zuni 'Mech Production Complex
+
+primaryfactory:Tamaron|Londerholm|Foster (Gregoire)
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Assault Series SXG
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Type 255 Extralight
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:Forging ZK11 Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:TJ6 "Bell" Integrated Communications System
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:TRTTS Mark II CWS

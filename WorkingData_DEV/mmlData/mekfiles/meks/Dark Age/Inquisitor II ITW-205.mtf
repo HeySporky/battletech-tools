@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d5b7-78f0-b844-a04e9b3cade8
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Inquisitor II
+model:ITW-205
+mul id:8063
+
+Config:Biped
+techbase:Inner Sphere
+era:3122
+source:TR:3150
+published:RS:3150
+rules level:3
+role:Brawler
+
+
+mass:50
+engine:200 Fusion Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:13
+RT armor:13
+CT armor:17
+HD armor:9
+LL armor:15
+RL armor:15
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:3
+Light AC/5, Left Arm
+Light AC/5, Right Arm
+SRM 4, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Light Auto Cannon/5
+Light Auto Cannon/5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Light Auto Cannon/5
+Light Auto Cannon/5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+IS Ammo LAC/5
+ISCASEII
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+SRM 4
+IS Ammo SRM-4
+IS Ammo LAC/5
+IS Ammo LAC/5
+ISCASEII
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Ejection Seat (Industrial Mech)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISAntiPersonnelPod
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISAntiPersonnelPod
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Inquisitor II is a 50-ton SecurityMech developed by Irian BattleMechs Unlimited as a heavier and more capable successor to the original 35-ton Inquisitor. Introduced during the Dark Age era, the design was created specifically to safeguard the megacorporation's production facilities against increasingly sophisticated threats that had outpaced the capabilities of the lighter Inquisitor.</p><p>Classified as an advanced IndustrialMech, the Inquisitor II blurs the line between civilian security platform and military hardware more dramatically than its predecessor. Unlike the original Inquisitor, which was widely sold on the open market, the Inquisitor II has been primarily retained as a proprietary asset, though a non-proprietary variant has been offered to interested customers.</p>
+
+capabilities:<p>Built around an ITW 200 fusion engine, the Inquisitor II achieves a modest top speed of 64.8 kilometers per hour, slower than its lighter predecessor, but adequate for facility defense operations. Seven tons of Irian HardCase heavy industrial armor provide protection comparable to a light BattleMech, a significant consideration for a platform that may face militarized intruders. A Beagle active probe enhances the 'Mech's surveillance capabilities, allowing it to detect hidden units and concealed personnel throughout a facility's perimeter.</p><p>The Inquisitor II's primary armament stands as a dramatic upgrade over the original design. A Wildfire TSEMP cannon allows the pilot to use the 'Mech's fusion engine to generate a tight-stream electromagnetic pulse capable of disrupting enemy electronics and potentially shutting down hostile combat units entirely. An Imperator Napoleon light autocannon mounted in the right arm provides sustained ranged firepower with the flexibility of multiple ammunition types, while an Irian Weapon Works Class 4 SRM launcher handles close-range engagements. All weapons are managed through an advanced fire control system that grants accuracy on par with military-grade BattleMechs.</p><p>Learning from the original Inquisitor's most criticized flaw, the Inquisitor II incorporates CASE II protection for its ammunition stores, significantly improving pilot survivability in the event of an ammunition detonation.</p>
+
+deployment:<p>This variant adjusts the Inquisitor II's equipment loadout to better address specific operational requirements encountered during facility security operations in the post-Republic era. Documented in later technical bulletins, this configuration shares the same 50-ton ITW Heavy Industrial chassis and general design philosophy as the base ITW-200 while incorporating refinements based on field experience from active security deployments across Irian Technologies' network of production facilities.</p>
+
+history:<p>The Inquisitor II emerged from Irian BattleMechs Unlimited's assessment that evolving threats to corporate infrastructure demanded a more capable security platform than the original Inquisitor could provide. As raiding and piracy intensified during the Dark Age, particularly after the collapse of the HPG network and the subsequent breakdown of centralized authority, factory complexes became increasingly attractive targets for desperate military forces and organized banditry. The 35-ton Inquisitor, while effective against conventional criminal threats, lacked the firepower to deter or engage militarized opponents.</p><p>The introduction of the Inquisitor II during the Republic era represented a significant investment by Irian BattleMechs Unlimited in self-defense capability. The inclusion of a TSEMP cannon (technology typically reserved for military applications) signaled the megacorporation's willingness to push the boundaries of what constituted acceptable corporate security hardware. The weapon's ability to disable enemy 'Mechs without causing permanent structural damage aligned well with the corporate philosophy of neutralizing threats while minimizing collateral damage to valuable industrial infrastructure.</p><p>Production has remained centered on Irian throughout the design's operational history. The factory weathered political transitions from the Republic of the Sphere through the brief period of independence during the early Dark Age before returning to Free Worlds League control. Through each transition, the Inquisitor II has continued to serve its primary role as guardian of Irian Technologies' industrial assets, with the ITW-200 remaining a proprietary design while the Peacemaker variant has been offered to external customers seeking similar anti-'Mech security capability.</p>
+
+manufacturer:Irian Technologies, Unlimited
+
+primaryfactory:Irian
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:ITW
+systemmode:CHASSIS:Heavy Industrial
+systemmanufacturer:ENGINE:ITW
+systemmode:ENGINE:200 Fusion
+systemmanufacturer:ARMOR:Irian
+systemmode:ARMOR:HardCase Heavy Industrial
+systemmanufacturer:COMMUNICATIONS:McCall
+systemmode:COMMUNICATIONS:Home-20 CommoRig
+systemmanufacturer:TARGETING:ITW
+systemmode:TARGETING:Targetech AFC

@@ -1,0 +1,212 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-defe-71b7-b027-081105a511c7
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Osteon
+model:F
+mul id:5827
+
+Config:Biped OmniMek
+techbase:Clan
+era:3072
+source:WoR,WoRS
+published:WoRS
+rules level:4
+role:Juggernaut
+
+quirk:ext_twist
+quirk:bad_rep_clan
+quirk:multi_trac
+quirk:pro_actuator
+
+mass:85
+engine:255 XL (Clan) Engine
+structure:Clan Reinforced
+myomer:Standard
+cockpit:Torso-Mounted Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 Clan Double
+base chassis heat sinks:10
+walk mp:3
+jump mp:0
+
+armor:Ferro-Lamellor(Clan)
+LA armor:24
+RA armor:24
+LT armor:24
+RT armor:24
+CT armor:40
+HD armor:8
+LL armor:36
+RL armor:36
+RTL armor:12
+RTR armor:12
+RTC armor:12
+
+Weapons:13
+Gauss Rifle, Left Arm
+Rotary AC/5, Right Arm
+Machine Gun Array, Left Torso
+Machine Gun, Left Torso
+Machine Gun, Left Torso
+Machine Gun, Left Torso
+Machine Gun, Left Torso
+Machine Gun Array, Right Torso
+Machine Gun, Right Torso
+Machine Gun, Right Torso
+Machine Gun, Right Torso
+Machine Gun, Right Torso
+ER Large Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+
+Left Torso:
+Life Support
+Fusion Engine
+Fusion Engine
+CLMGA (OMNIPOD)
+CLMG (OMNIPOD)
+CLMG (OMNIPOD)
+CLMG (OMNIPOD)
+CLMG (OMNIPOD)
+Clan Machine Gun Ammo - Half (OMNIPOD)
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+
+Right Torso:
+Life Support
+Fusion Engine
+Fusion Engine
+CLMGA (OMNIPOD)
+CLMG (OMNIPOD)
+CLMG (OMNIPOD)
+CLMG (OMNIPOD)
+CLMG (OMNIPOD)
+CLRotaryAC5 Ammo (OMNIPOD)
+CLRotaryAC5 Ammo (OMNIPOD)
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Cockpit
+Sensors
+
+Head:
+Sensors
+Sensors
+NovaCEWS
+CLRotaryAC5 Ammo (OMNIPOD)
+CLRotaryAC5 Ammo (OMNIPOD)
+CLERLargeLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Osteon was The Society's assault-class OmniMech. To maximize the 'Mech's battlefield longevity, the designers focused on survivability above all other considerations. Eighteen tons of Ferro-Lamellor armor provide excellent protection against weapons fire, but in case the armor is breached the Reinforced Structure will resist most attacks. In addition, the Torso-Mounted Cockpit allows the Osteon's pilot to take advantage of the heavy center torso armor. To maximize the Osteon's damage potential, a Nova CEWS allows the unit to share targeting data with friendly units, and this equipment is so valuable that it is permanently mounted in the 'Mech's head.</p>
+
+capabilities:<p>While some Society strategists insisted that volume production focus on an assault 'Mech, it became clear early on that infrastructure bottlenecks would lead to intolerable compromises in design. The decision was made to use advanced technologies to give the assault an edge over its contemporaries. The Osteon proved itself a very flexible force multiplier and support platform, executing a role alien even to Naga MechWarriors, who fling themselves into combat at the earliest opportunity.</p><p>Emphasizing survivability, the Osteon packs astonishing protection in the form of eighteen tons of ferro-lamellor armor, effectively carrying protection available only to a 100-ton 'Mech. Should this shell be cracked, the 'Mech relies on its extremely durable seventeen-ton reinforced frame to stay functional well beyond the point where lesser 'Mechs would fall. The cockpit was moved to the center torso to further improve the 'Mech's ability to withdraw from combat.</p><p>All these measures did inhibit total pod space, but as the operational role for the Osteon made it entirely subservient to all other battlefield units, this sacrifice was considered acceptable. As an added benefit, more hidebound warrior caste battlefield doctrines caused them to focus a disproportionate amount of attention on the Osteon, ignoring 'Mechs of lesser weight. Given their typical position at the extremities of the battlefield and their high durability, this tendency often caused Clan warriors to use a large fraction of their firepower in inefficient ways.</p>
+
+deployment:<p>This configuration uses an ER Large Laser, Gauss Rifle, and Rotary AC/5 for its main weaponry, providing devastating long-range precision fire. These are supplemented by two four-gun Machine Gun Arrays for anti-infantry work. The combination of ballistic weapons provides a devastating long-range punch that can tear through enemy 'Mechs at extreme distances before they can close to effective range.</p>
+
+history:<p>As rare as the Cephalus, the Osteon was routinely deployed in dense formations of Treys and Septs, where multiple units could provide overlapping fields of fire while sharing targeting data through their Nova CEWS networks. It was heavily utilized on Babylon, where it worked in concert with Septicemia Treys and other OmniMechs equipped with Nova CEWS to exact a heavy toll on the planet's former occupiers.</p><p>Due to the role this OmniMech played with The Society during the Wars of Reaving, the Osteon, as of 3090, was outlawed by the Home Clans, although it was undergoing study. The surviving examples represented some of the most advanced military technology the Clans had ever produced, and their analysis yielded valuable data on ferro-lamellor armor and reinforced internal structures that would influence later Clan designs.</p>
+
+manufacturer:Kerensky Memorial Manufacturing
+
+primaryfactory:Strana Mechty
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:85-100T Support Reinforced Lambda Profile
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Model-G 255 XL
+systemmanufacturer:ARMOR:Gravastar
+systemmode:ARMOR:Ferro-Lamellor
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Model 74/129.3 TCS
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:S438 Mk. VI Mod. 2 TTS

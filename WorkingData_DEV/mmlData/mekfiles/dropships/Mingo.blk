@@ -1,0 +1,235 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa50-7b76-9271-6f29fe4b70c7
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Mingo
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7473
+</mul id:>
+
+<year>
+2315
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+crewquarters:42.0:0:-1::-1:0
+1stclassquarters:20.0:0:-1::-1:0
+steeragequarters:50.0:0:-1::-1:0
+cargobay:2855.0:4:4::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<collartype>
+2
+</collartype>
+
+<heatsinks>
+45
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+8571
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+40
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+92
+80
+80
+65
+</armor>
+
+<Nose Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) Medium Laser
+Medium Laser
+(R) (B) Autocannon/5
+(R) IS Ammo AC/5:20
+(R) (B) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) Medium Laser
+Medium Laser
+(R) (B) Autocannon/5
+(R) IS Ammo AC/5:20
+(R) (B) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+8
+</structural_integrity>
+
+<capabilities>
+<p>The Mingo is a 5,000-ton civilian spheroid DropShuttle built to primitive construction standards reflecting the technological limitations of its era. Its cargo bays provide meaningful transport capacity for colonial supplies and raw materials, filling the gap between Small Craft and the larger vessels that would eventually succeed it. Armament consists of autocannons and medium lasers, adequate for deterring the modest pirate threats of the early colonization period but wholly insufficient against the military vessels of later centuries. Primitive armor provides basic protection consistent with the construction standards of the twenty-fourth century. The drive system, while fusion-powered, reflects early engineering that prioritized reliability over performance, providing modest acceleration typical of the period's cargo vessels. The Mingo's most significant design limitation is its reliance on DropShuttle bay docking rather than the collar system that would later become universal, a feature that ultimately sealed its obsolescence as JumpShip designs evolved to standardize on the more versatile Docking Collar technology. Fuel capacity provides excellent operational endurance for a vessel of its era, allowing extended operations in systems lacking developed infrastructure.</p>
+</capabilities>
+
+<overview>
+<p>The Mingo is a primitive DropShuttle designed by Boeing Interstellar during the later years of the Terran Alliance as a companion vessel for the Conestoga-class JumpShip. Built in 2315, the Mingo predates the invention of the K-F Boom and Docking Collar that would define the modern DropShip, instead relying on specialized DropShuttle bays for transit aboard its parent JumpShip. Boeing designed the Mingo to dominate the emerging market for sub-light cargo vessels larger than Small Craft that could service the needs of newly established colonies, creating a practical if unrefined workhorse for the colonization era.</p>
+</overview>
+
+<deployment>
+<p>The standard Mingo serves in its baseline cargo carrier configuration, transporting supplies and materials between the colonies of the early Terran Alliance. These ancient DropShuttles were designed to operate exclusively alongside Conestoga-class JumpShips, docking via specialized shuttle bays rather than the docking collars that would later become standard.</p>
+</deployment>
+
+<history>
+<p>The Mingo was a product of Boeing Interstellar's strategy to dominate the emerging market for colonial support vessels during the Terran Alliance's great expansion. Recognizing that new colonies needed cargo ships larger than Small Craft but compatible with the JumpShips of the era, Boeing designed the Mingo specifically as a companion to their Conestoga-class, creating an integrated transport system for colonial operations.</p><p>During its operational heyday in the twenty-fourth century, the Mingo served as a reliable if unremarkable cargo hauler, delivering the supplies and equipment that sustained humanity's spread across the stars. Boeing's market strategy proved successful, and the Mingo saw wide distribution among colonial ventures operating in the expanding sphere of human settlement.</p><p>The Mingo's obsolescence came gradually but inevitably. The invention of the K-F Boom and Docking Collar technology revolutionized interstellar logistics, and the newer DropShip designs that utilized this system offered superior versatility and compatibility with modern JumpShips. As the Conestoga-class JumpShips were retired in favor of newer designs, the Mingo lost its operational niche. By 2600, the class had been completely supplanted, with surviving examples found only in the most remote corners of the Deep Periphery where newer vessels had not yet penetrated.</p>
+</history>
+
+<manufacturer>
+Boeing Interstellar
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TtS:Valencia
+</source>
+
+<tonnage>
+5000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+8
+</crew>
+
+<officers>
+2
+</officers>
+
+<gunners>
+3
+</gunners>
+
+<passengers>
+10
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+6
+</escape_pod>
+

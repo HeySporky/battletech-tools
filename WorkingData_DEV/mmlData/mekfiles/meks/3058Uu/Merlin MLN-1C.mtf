@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ca7b-7ac5-93b1-1c9783b75ef0
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Merlin
+model:MLN-1C
+mul id:2180
+
+Config:Biped
+techbase:Inner Sphere
+era:3068
+source:TR:3058U,TR:SW
+published:RS:3058Uu-I
+rules level:2
+role:Brawler
+
+quirk:easy_maintain
+quirk:rugged_1
+
+mass:60
+engine:240 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:19 Single
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:18
+RT armor:18
+CT armor:26
+HD armor:9
+LL armor:19
+RL armor:19
+RTL armor:8
+RTR armor:8
+RTC armor:11
+
+Weapons:5
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+Flamer, Left Torso
+PPC, Right Torso
+LRM 5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Flamer
+IS Ammo LRM-5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+PPC
+PPC
+PPC
+LRM 5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Heat Sink
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Merlin debuted in 3010 as the first entirely new BattleMech design produced in the Inner Sphere in over a century. Developed by the rebuilt Mountain Wolf BattleMechs on Alpheratz in the Outworlds Alliance, the sixty-ton heavy 'Mech was designed using only commonly available components and 3010-era technology. Mountain Wolf had been effectively defunct since the destruction of its Vendrell factory by House Marik forces in 2945, making the Merlin's production all the more remarkable. Brandon O'Leary, grandson of the company's last active CEO, secured an agreement with Outworlds Alliance President Ronaine Avellar to restart production at the long-dormant Alpheratz facility.</p><p>The Merlin immediately established itself as a rugged, versatile brawler well-suited to the garrison and anti-piracy duties common across the Periphery. Its use of standard, widely available parts made it exceptionally easy to maintain and repair, earning it a devoted following among mercenary commands and Periphery militaries that lacked access to advanced supply chains.</p>
+
+capabilities:<p>The Merlin was designed to stand up to hard use, serve multiple roles, and be easily repaired using commonly available parts. Its Pitban 240 fusion engine provides a top speed of sixty-four kilometers per hour, comparable to many heavy 'Mechs encountered during the Third Succession War, while four Pitban LFT-50 jump jets grant surprising agility for a machine of its tonnage, allowing it to cover one hundred and twenty meters in a single bound. Over ten tons of Longanecker PlastiSteel armor provide adequate protection across the entire frame.</p><p>The 'Mech's armament follows a generalist philosophy, covering all engagement ranges. A Magna Hellstar PPC anchored in the right torso delivers effective long-range firepower, supplemented by a Holly LRM-5 launcher for indirect support. At closer ranges, a pair of Martell Model 5 medium lasers mounted in the lower arms deliver consistent damage, while a Zippo flamer and Sperry Browning machine gun provide anti-infantry capability.</p><p>Mountain Wolf BattleMechs drew criticism for omitting hand actuators, but the company argued that the decision simplified maintenance and allowed the medium lasers to be mounted deep within the forearm cores, affording them maximum protection. The design's remarkable compatibility with parts from other manufacturers ensures that Merlins rarely endure extended stays in repair bays, a trait especially valued by mercenary and Periphery operators.</p>
+
+deployment:<p>Developed as a field upgrade kit by Lushann Industries in 3068, this variant replaces the standard medium lasers of the MLN-1B with extended-range models. The upgrade was made possible through the Outworlds Alliance's growing technological relationship with Clan Snow Raven, which enabled Lushann's plant to produce more advanced laser systems. The resulting configuration offered improved reach at medium engagement distances while maintaining the same reliable chassis and heat management improvements of the MLN-1B.</p>
+
+history:<p>The Merlin's origins trace back to the rebuilding of Mountain Wolf BattleMechs after the destruction of its Vendrell factory by Free Worlds League forces in 2945. Decades later, Brandon O'Leary reestablished Mountain Wolf in the Outworlds Alliance, and the Merlin entered production on Alpheratz in 3010. Two company engineers had designed the 'Mech using only 3010-era technology and commonly available parts, though the design was initially rejected by Brandon's father Michael before the latter's death. The Merlin's success saved the company and eventually funded the reopening of the Vendrell facility in 3055 for Night Hawk production.</p><p>Despite being the first new BattleMech in over a century, the Merlin initially saw limited adoption among the Great Houses. The later introduction of the Hatchetman in 3023 (hailed as the Inner Sphere's first new design because the Merlin technically originated in the Periphery) overshadowed Mountain Wolf's achievement. Even so, the Merlin found a loyal market among mercenary units and Periphery states. Wolverton's Highlanders were noted for maintaining one of the largest concentrations of Merlins in any mercenary inventory, and the Magistracy of Canopus purchased large numbers at discounted prices in exchange for supplying Mountain Wolf with electronics components.</p><p>Contact with Clan Snow Raven gave the Outworlds Alliance a significant technological boost, enabling Lushann Industries to produce advanced ER laser upgrade kits beginning in 3068. The Alliance Defenders introduced the MLN-1B refit in 3053, further extending the design's service life. By the Dark Age era, Vandenberg Mechanized Industries on New Vandenberg began producing the upgraded MLN-1D, expanding the Merlin's manufacturing base beyond its original Alpheratz home. Mountain Wolf's Alpheratz facility continued production until approximately 3084, when Raven Alliance restructuring ended active Merlin production there, though the facility later resumed with new variants including the Clan-tech Merlin C around 3130.</p><p>The Merlin has seen action across every major Periphery conflict of the past three centuries. During the Marian Hegemony's invasion of Magistracy of Canopus border worlds in 3150, lances of Merlins from the First Magistracy Highlanders helped crush a full Maniple of Marian conventional forces in ambushes along the Merced River. In the Fronc Reaches, Colonial Marshals patrol the frontier in their signature Marshal 'Mechs (a design strikingly similar to the Merlin) creating occasional rivalries with Merlin-equipped MechWarriors over which machine is superior.</p><p>The Merlin remains a ubiquitous presence across the Periphery and the mercenary market into the ilClan era. Its remarkable parts compatibility ensures that even heavily damaged units can be restored using salvaged components from entirely different 'Mech designs, a trait that has kept the Merlin in frontline service far longer than its modest technology level might otherwise suggest.</p>
+
+manufacturer:Refit - Alliance Defenders Limited
+
+primaryfactory:Alpheratz
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Heavy Star
+systemmode:CHASSIS:QAT-4
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:240
+systemmanufacturer:ARMOR:Longanecker
+systemmode:ARMOR:PlastiSteel
+systemmanufacturer:JUMP_JET:Pitban
+systemmode:JUMP_JET:LFT 50
+systemmanufacturer:COMMUNICATIONS:Magestrix
+systemmode:COMMUNICATIONS:Alpha
+systemmanufacturer:TARGETING:Magestrix
+systemmode:TARGETING:Gamma

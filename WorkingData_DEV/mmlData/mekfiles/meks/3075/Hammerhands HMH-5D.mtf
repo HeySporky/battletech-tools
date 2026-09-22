@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ce7f-7bd0-b0aa-959529ce8b5f
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hammerhands
+model:HMH-5D
+mul id:1371
+
+Config:Biped
+techbase:Inner Sphere
+era:3071
+source:TR:3075,TR:SW
+published:RS:3075u-AW
+rules level:2
+role:Skirmisher
+
+quirk:barrel_fists_la
+quirk:barrel_fists_ra
+quirk:pro_actuator
+
+mass:75
+engine:225 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:3
+jump mp:5
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:21
+RT armor:21
+CT armor:32
+HD armor:9
+LL armor:23
+RL armor:23
+RTL armor:5
+RTR armor:5
+RTC armor:9
+
+Weapons:4
+AC/10, Left Arm
+ER Medium Laser, Left Arm
+AC/10, Right Arm
+ER Medium Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+ISERMediumLaser
+IS Ammo AC/10
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+ISERMediumLaser
+IS Ammo AC/10
+
+Left Torso:
+Improved Jump Jet
+Improved Jump Jet
+IS Ammo AC/10
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Improved Jump Jet
+Improved Jump Jet
+IS Ammo AC/10
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISC3SlaveUnit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hammerhands was introduced in 2475 by Achernar BattleMechs as the Federated Suns' second exclusive BattleMech design. After a decade of reviewing complaints about the BattleAxe, Achernar's engineers increased the chassis weight to seventy-five tons while de-rating the engine, replacing the earlier design's troublesome particle projection cannons with a pair of heavy autocannons mounted in each arm. The modifications were extensive enough that Achernar chose to rebrand the design entirely, christening it the Hammerhands in honor of the devastating firepower loaded in each arm.</p><p>The Hammerhands quickly became the Federated Suns' signature military machine, enjoying considerable popularity within the AFFS for decades. Though later eclipsed by more advanced designs, the Hammerhands earned an enduring place in Davion military tradition as the machine that cemented the Federated Suns' longstanding preference for autocannon-armed BattleMechs.</p>
+
+capabilities:<p>The Hammerhands design philosophy centered on solving the BattleAxe's chronic overheating by replacing its particle projection cannons with a pair of Mydron Model B Autocannon/10s, one mounted in each arm. This traded energy weapon dependency for ammunition-based reliability, giving MechWarriors sustained firepower without crippling heat buildup. Backed by ChisComp 38 medium lasers in each arm and a shoulder-mounted Harpoon-6 SRM-6 rack, the weapons platform delivers punishing volleys at both medium and close range.</p><p>The seventy-five-ton chassis carries StarGuard III armor in respectable quantities, though protection remains secondary to firepower in the design's priorities. Rawlings 50 jump jets provide ninety meters of jump capability, an unusual feature for a heavy 'Mech of the Age of War era that many Federated Suns pilots were slow to embrace. Ground speed suffers at only fifty-four kilometers per hour, making the Hammerhands among the slower designs in its weight class.</p><p>The autocannon-heavy loadout created a favorable damage-to-heat ratio that endeared it to generations of Davion MechWarriors and sparked the Federated Suns' enduring fascination with ballistic weaponry. The barrel-shrouded arm mounts also allow effective physical combat without compromising the primary weapons.</p>
+
+deployment:<p>This variant was the first upgraded Age of War design brought back by the Federated Suns military-industrial complex during the Jihad, serving as a trial run for modernizing other legacy designs. This proof-of-concept variant uses advanced materials to enhance armor protection and jump capability while incorporating a C3 slave unit for networked fire coordination. The original medium lasers were exchanged for extended-range models, but the classic autocannons were deliberately retained, taking advantage of split ammunition bins capable of carrying armor-piercing, precision, and standard munitions. Only a limited production run was completed before the line transitioned to the more ambitious HMH-6D.</p>
+
+history:<p>The Hammerhands emerged from Achernar BattleMechs in 2475 as a direct response to the failures of the BattleAxe, the Federated Suns' first exclusive BattleMech design. Where the BattleAxe had been plagued by chronic overheating from its particle projection cannons, the Hammerhands traded those weapons for Mydron Model B autocannons, a change that proved enormously popular with Davion MechWarriors. The design quickly became the chosen BattleMech of the Federated Suns military, spreading through the AFFS so rapidly that the Terran Hegemony took notice.</p><p>The Hegemony ultimately drew on both the Hammerhands and the BattleAxe as inspiration when StarCorps Industries created the Warhammer in 2515. Achernar fiercely protested this appropriation of their flagship designs, but the Warhammer proved superior in virtually every measurable respect. Improved secondary weapons, better heat management, and higher ground speed combined to render the Hammerhands obsolete. In repeated confrontations between the two designs, the Warhammer prevailed decisively, and the Hammerhands earned the derisive nickname the "poor man's Warhammer." Both the Hammerhands and BattleAxe gradually faded from frontline service.</p><p>Even as the design disappeared from active inventories, the autocannons it had championed endured. The Mydron Corporation's prominence, built on the Hammerhands' success, helped establish the autocannon as the Federated Suns' weapon of choice. Military media highlighted the weapons' favorable damage-to-heat ratio, and a generation of cadets grew up seeking autocannon-equipped 'Mechs, cementing a doctrinal preference that would persist for centuries. Mydron would eventually locate many of its factories in the Hegemony, only to have them destroyed in the Amaris Coup.</p><p>The Hammerhands' revival came during the Jihad, when the Federated Suns military-industrial complex resurrected several Age of War designs. Achernar BattleMechs on New Avalon and Hessen IndustrialWorks on New Hessen both restarted production lines, initially fielding updated versions of the venerable design for the Armed Forces of the Federated Suns. The modernized variants incorporated advanced technologies including C3 networking, rotary autocannons, and triple-strength myomer, transforming the ancient chassis into a credible Jihad-era combatant. Production of the HMH-6D and HMH-6E continued well beyond the Jihad, with Achernar maintaining active lines into the ilClan era.</p>
+
+manufacturer:Achernar Battlemechs
+
+primaryfactory:New Avalon
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Achernar
+systemmode:CHASSIS:Special Type 4-reinforced
+systemmanufacturer:ENGINE:DAV
+systemmode:ENGINE:225
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:Unknown
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:50
+systemmanufacturer:COMMUNICATIONS:Achernar Electronics
+systemmode:COMMUNICATIONS:HICK-3
+systemmanufacturer:TARGETING:Federated
+systemmode:TARGETING:Gatherer Mk II

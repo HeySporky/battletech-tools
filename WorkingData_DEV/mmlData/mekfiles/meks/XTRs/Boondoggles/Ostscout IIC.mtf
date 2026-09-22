@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df45-7844-ab90-18dcd7edd737
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Ostscout IIC
+model:
+mul id:5844
+
+Config:Biped
+techbase:Mixed (Clan Chassis)
+era:3067
+source:XTR:Boondoggles
+published:XTR:Boondoggles
+rules level:4
+role:Scout
+
+quirk:bad_rep_is
+quirk:no_eject
+quirk:unbalanced
+quirk:prototype
+quirk:bad_rep_clan
+
+mass:35
+engine:385 XXL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:XL Gyro
+
+heat sinks:10 Single
+walk mp:11
+jump mp:11
+
+armor:Ferro-Fibrous(Clan)
+LA armor:2
+RA armor:2
+LT armor:5
+RT armor:5
+CT armor:6
+HD armor:5
+LL armor:5
+RL armor:5
+RTL armor:1
+RTR armor:1
+RTC armor:1
+
+Weapons:1
+TAG, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLTAG
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLPartialWing
+CLPartialWing
+CLPartialWing
+Jump Jet
+Jump Jet
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLPartialWing
+CLPartialWing
+CLPartialWing
+Jump Jet
+Jump Jet
+Jump Jet
+Jump Jet
+Jump Jet
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISAngelECMSuite
+ISAngelECMSuite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Ostscout IIC represents one of Clan Jade Falcon's most notable failures in BattleMech development. Initiated in 3063 to address the Clan's lack of effective reconnaissance and electronic warfare units, the project tasked Falcon engineers with upgrading the venerable Inner Sphere Ostscout to Clan standards. Development proved troubled from the start, with multiple design teams producing competing plans over the first decade before a final team of Inner Sphere engineers partnered with captured Wolf scientists and Falcon technicians delivered four prototypes to the Hazen Proving Grounds on Sudeten.</p><p>While the design achieved impressive speed (outpacing even the Fire Moth despite weighing fifteen tons more) and a nearly 400-meter jump distance through its partial wing system, critical flaws doomed the project. Khan Samantha Clees ultimately cancelled the Ostscout IIC, and the surviving prototypes were sold to Clan Diamond Shark in an attempt to recoup development costs. It remains perhaps the most damning evidence against the design that even the Sharks have been unable to find buyers.</p>
+
+capabilities:<p>The Ostscout IIC's designers prioritized speed and mobility above all other considerations. A massive 385-rated XXL engine propels the 35-ton 'Mech to an unprecedented 170 kilometers per hour, while eleven jump jets working in conjunction with a partial wing assembly provide nearly 400 meters of jumping distance. This exceptional performance comes at severe cost. The cramped Inner Sphere-developed small cockpit lacks an ejection system, and bulky components forced unbalanced placement of the jump jets, causing the 'Mech to spin counterclockwise during every leap.</p><p>The Ostscout IIC carries no offensive weapons whatsoever, a decision that proved especially offensive to Clan warriors accustomed to honorable combat. Only a Clan-grade TAG laser designator allows the MechWarrior to participate in battle, though with artillery support rare in Clan toumans, opportunities to contribute directly remain limited. The 'Mech's electronics suite (an Inner Sphere Bloodhound active probe and Angel ECM) proves capable for scouting and electronic warfare but cannot compensate for the design's other failings.</p><p>Perhaps most damning, cost-cutting measures led engineers to install standard single heat sinks rather than doubles. Combined with the highly heat-intensive XXL engine and eleven jump jets, this decision caused prototypes to suffer shutdown after merely three consecutive jumps, rendering the design's impressive mobility largely theoretical.</p>
+
+deployment:<p>No factory variants of the Ostscout IIC were developed before the project's cancellation. The base configuration remains the only version produced, with all four prototypes reportedly transferred to Clan Diamond Shark following the project's termination. These machines have languished in Diamond Shark inventory, finding no buyers among either Clan or Inner Sphere militaries due to the design's notorious reputation for poor performance and dangerous operating characteristics.</p>
+
+history:<p>Fighting against the powers of the Inner Sphere brought several harsh realities to light for Clan Jade Falcon, with one of the most glaring being their lack of effective reconnaissance and electronic warfare units. Where in the Homeworlds the Clans could expect accurate force dispositions from a simple batchall, ferreting out such information against Inner Sphere foes proved to be a hands-on challenge. In 3063, Clan Jade Falcon tasked its technicians with revamping the venerable Ostscout to Clan standards.</p><p>Development progressed poorly, with several different plans emerging from at least three different teams over the first decade. The team that finally won the project consisted mostly of native Inner Sphere engineers partnered with captured Wolf scientists and Falcon techs. Testing on Sudeten revealed that while speed was impressive (outpacing the infamous Dasher despite weighing nearly twice as much) the good reviews ended there. Armor protection proved thinner than a Succession Wars-era Stinger. The cramped cockpit was particularly treacherous for pilots attempting to push their 'Mech's limits. Most egregiously from the Falcon point of view, the design lacked any offensive weaponry.</p><p>Compounding these issues, cost-cutting measures resulted in standard heat sinks that quickly overwhelmed the prototypes during jump operations. While these oversights could have been corrected with further development, Khan Samantha Clees chose to cancel the project, transferring staff to other assignments. The surviving prototypes were reportedly sold to Clan Diamond Shark to salvage something from the resources invested. Incredibly, even the mercantile Sharks have been unable to sell these machines, with much of the blame attributed to inconsistent development involving too many teams and leaders.</p>
+
+manufacturer:Olivetti Weaponry
+
+primaryfactory:Sudeten
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:Core Tek
+systemmode:ENGINE:385 XXL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Unknown with Angel ECM
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Unknown with Bloodhound Active Probe and TAG

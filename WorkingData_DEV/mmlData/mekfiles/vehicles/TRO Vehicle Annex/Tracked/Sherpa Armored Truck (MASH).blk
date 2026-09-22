@@ -1,0 +1,177 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb2c-7dd0-b55a-dbea0e342200
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Sherpa Armored Truck
+</Name>
+
+<Model>
+(MASH)
+</Model>
+
+<mul id:>
+5047
+</mul id:>
+
+<year>
+2430
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+easy_maintain
+gas_hog
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+51
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+7
+6
+6
+6
+6
+</armor>
+
+<Body Equipment>
+Armored Chassis
+IS Ammo MG - Full
+MASH Equipment:SIZE:5.0
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+</Turret Equipment>
+
+<barrating>
+10
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Sherpa is powered by a petrochemical-fueled Internal Combustion Engine, trading the unrestricted operational range of fusion-powered vehicles for lower unit cost and broad parts availability. Its cruise speed of 43 kilometers per hour and flank speed of 65 kilometers per hour are adequate for rear-echelon operations. The vehicle's principal shortcoming is its high fuel consumption, which strains logistics chains during extended campaigns and earned it a reputation as demanding in the supply sense, even when demand for its cargo services is high.</p><p>The standard cargo configuration carries seven tons of supplies accessible through a rear bay door, with the reinforced chassis allowing emergency towing of considerably heavier loads. For self-defense, the Sherpa mounts a single machine gun in a turret, paired with Basic Fire Control to give the gunner modest accuracy. One ton of ammunition sustains defensive use without frequent rearming. Two tons of BAR 10 armor protect the crew against small arms and light support weapons, though the vehicle is not rated for front-line combat.</p><p>The Armored Chassis Modification provides greater crew protection than a standard civilian truck. The Sherpa's most tactically significant attribute is its Easy to Maintain design, which allows field repairs using components sourced from common commercial freight vehicles. This compatibility cuts both ways, however, as locally sourced civilian parts are equally serviceable to anyone seeking to immobilize the vehicle.</p>
+</capabilities>
+
+<overview>
+<p>The Sherpa Armored Truck is a medium tracked support vehicle that has served Inner Sphere and Periphery militaries since the Age of War. Introduced in 2430, the design was built to provide logistical backbone support for mobile campaigns, hauling supplies, fuel, and equipment behind the front lines. Its straightforward, rugged construction made it practical for manufacturers across known space to produce and maintain. Earthwerks Limited in the Capellan Confederation became the most prolific single producer, while Vandenberg Mechanized Industries in the Taurian Concordat operated the second major production line. The Sherpa's adaptable chassis has been configured into numerous specialized variants over the centuries, from mobile medical facilities to field kitchens, reflecting the broad utility commanders have found in a simple, dependable, armored cargo platform.</p>
+</overview>
+
+<deployment>
+<p>The MASH variant converts the Sherpa's cargo space into a mobile surgery suite, allowing medical teams to establish a functioning field hospital close to the front lines. Both the Capellan Confederation and the Taurian Concordat employ this variant in their planetary militia structures, as do various Periphery states seeking affordable medical mobility. Its armored cab protects surgical staff from small arms and shrapnel, and its tracked mobility allows it to reposition when a front shifts.</p>
+</deployment>
+
+<history>
+<p>The Sherpa Armored Truck entered service in 2430, early in the Age of War, as armies recognized that a campaign's outcome depended as much on logistics as on firepower. While fusion-powered BattleMechs drew the attention of military planners, field commanders valued reliable cargo transport with enough armor to survive near the front. The Sherpa filled that role across dozens of worlds, manufactured by local concerns and major industrial firms alike from its earliest years of production.</p><p>During the Star League era the Sherpa spread broadly through commercial licensing and independent manufacture. Earthwerks Limited on Grand Base became the dominant Capellan producer, and the Taurian Concordat established its own line at Vandenberg Mechanized Industries on New Vandenberg. Both states relied heavily on ICE-powered support vehicles as economical alternatives to fusion options, and the Sherpa fit their operational doctrine well. The Capellan Confederation and the Taurian Concordat both integrated the truck into their planetary militia structures, and it saw service with paramilitary formations throughout the Periphery.</p><p>The Succession Wars did little to reduce the Sherpa's presence in service. The collapse of Star League industry and the loss of advanced technology actually increased demand for simple, easily-maintained vehicles. As fusion-powered alternatives became harder to produce and service, militia and paramilitary formations that could not afford front-line equipment came to depend on the Sherpa for supply, medical evacuation, and field support. Its compatibility with civilian freight components proved invaluable during the LosTech era, keeping vehicles operational in theaters where purpose-built military spares were unavailable.</p><p>Production at Grand Base and New Vandenberg continued through the Jihad and into the Dark Age, with both facilities maintaining output for their respective states. The vehicle's long service record reflects less a lack of alternatives than the practical reality that a low-cost, easy-to-repair cargo platform with basic self-defense capability remains useful long after more sophisticated designs have come and gone.</p>
+</history>
+
+<manufacturer>
+Earthwerks Limited|Vandenberg Mechanized Industries
+</manufacturer>
+
+<primaryFactory>
+Grand Base|New Vandenberg
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+35.0
+</tonnage>
+
+<fuel>
+1.5
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cfbe-7a9b-a028-5c3dfab352ad
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Mangonel
+model:MNL-3L
+mul id:2012
+
+Config:Biped
+techbase:Inner Sphere
+era:3079
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:2
+role:Skirmisher
+
+quirk:difficult_maintain
+quirk:no_arms
+
+mass:70
+engine:350 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:20
+RT armor:20
+CT armor:20
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:7
+RTR armor:7
+RTC armor:6
+
+Weapons:6
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+Light Gauss Rifle, Right Torso
+Light Gauss Rifle, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+IS Light Gauss Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Mangonel was introduced in 3078 as one of the more controversial products of Khan Phelan Kell's initiative to develop Inner Sphere technology solutions for the dwindling Clan Wolf-in-Exile touman. Designed and manufactured by Arc-Royal MechWorks, this seventy-ton heavy cavalry 'Mech was built to supplement the Wolves' shrinking pool of Clan OmniMechs during the chaos of the Jihad. Though limited in production numbers, the Mangonel proved a capable and cost-effective addition to the Wolf-in-Exile force structure, earning grudging respect from warriors who initially viewed any Inner Sphere design with suspicion. The design's evolution through multiple variants reflects its enduring value within Exile Wolf doctrine.</p>
+
+capabilities:<p>Envisioned as a heavy cavalry unit, the Mangonel prioritizes speed and ranged firepower over armor protection. An AR-7b endo steel frame and Magna 350-rated light fusion engine push the seventy-ton design to a respectable 86 km/h, allowing it to dictate engagement range against heavier opponents. The 'Mech was literally built around the massive weapons bay occupying nearly the entire right side of its torso, housing twin Corean light Gauss rifles that serve as the primary armament. At medium and short range, four arm-mounted Diverse Optics extended-range medium lasers provide supplementary firepower capable of threatening most opponents.</p><p>However, this speed and firepower come at a steep price. The Mangonel carries a mere eight tons of Royal-7 ferro-fibrous armor, barely adequate for a design intended to operate at range. The lack of CASE protection for the Gauss ammunition creates a critical vulnerability, and the single ton of reloads carried for the primary armament severely limits sustained engagements. The design also has a reputation for being difficult to maintain, with leg actuators requiring more frequent servicing than comparable heavy 'Mechs.</p>
+
+deployment:<p>The base MNL-3L was designed from the outset as a second-line garrison platform, best suited to hit-and-run operations where prolonged engagements can be avoided. Its exclusively Inner Sphere technology base makes it significantly cheaper and easier to supply than Clan-grade alternatives, a critical advantage for a force with limited access to Clan manufacturing. Garrison and second-line commands typically pair the -3L with faster light 'Mechs that can screen for it while it delivers punishing long-range fire from prepared positions.</p>
+
+history:<p>The Mangonel was born out of necessity during the Jihad, when Clan Wolf-in-Exile found its reserves of Clan-grade materiel steadily diminishing with no prospect of resupply. Khan Phelan Kell authorized several programs to leverage more readily available Inner Sphere components, and the MNL-3L was among the most visible results. The design entered production in 3078 at Arc-Royal MechWorks, drawing on the expertise of technicians from both the Kell Hounds and the Wolves-in-Exile to blend Inner Sphere manufacturing capability with Clan tactical doctrine.</p><p>The Mangonel saw its heaviest initial deployment with the Wolves-in-Exile second-line forces, particularly within Omega Galaxy, where it fought alongside other Arc-Royal designs like the Pack Hunter and Arctic Wolf. The 'Mech typically replaced Clan OmniMechs such as the Loki and Linebacker, freeing those more capable machines for frontline Clusters. Early production runs suffered from excessive leg actuator wear, a problem that Arc-Royal MechWorks eventually addressed through revised manufacturing tolerances. By 3082, the upgraded MNL-3W variant entered service, its complete Clan-technology rebuild making it suitable for frontline commands that demanded greater combat capability.</p><p>As a product of Arc-Royal, the Mangonel naturally found its way into Kell Hounds formations as well, with at least three machines confirmed in Hounds colors. Following the Jihad, several Wolves-in-Exile MechWarriors who had served in Devlin Stone's coalition chose to remain with the newly formed Republic of the Sphere, bringing their Mangonels with them and introducing the design to yet another military.</p><p>The MNL-4S variant appeared in 3088, offering a middle ground between the affordable but limited -3L and the expensive Clan-technology -3W. Arc-Royal MechWorks continued producing all three variants through the Dark Age, though the fate of the production line following Clan Jade Falcon's capture and orbital bombardment of Arc-Royal remains uncertain.</p>
+
+manufacturer:Arc-Royal MechWorks
+
+primaryfactory:Arc-Royal
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Arc-Royal MechWorks
+systemmode:CHASSIS:AR-7b
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:350 Light
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Royal-7
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:K9
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Type V Bloodhound

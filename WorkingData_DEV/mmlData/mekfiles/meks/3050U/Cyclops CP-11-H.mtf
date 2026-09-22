@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c415-7b1e-9248-2593e2e74ac7
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Cyclops
+model:CP-11-H
+mul id:779
+
+Config:Biped
+techbase:Inner Sphere
+era:3064
+source:TR:3050,TR:3050U
+published:RS:3050Uu-I,RSFP:BlackRemnant
+rules level:2
+role:Juggernaut
+
+quirk:difficult_eject
+quirk:cowl
+quirk:weak_head_2
+quirk:battle_computer
+
+mass:90
+engine:360 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:12 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:26
+RT armor:26
+CT armor:35
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:8
+RTR armor:8
+RTC armor:11
+
+Weapons:9
+Medium Laser, Left Arm
+Rocket Launcher 20, Left Arm
+Medium Laser, Right Arm
+Rocket Launcher 20, Right Arm
+Rocket Launcher 20, Left Torso
+Rocket Launcher 20, Left Torso
+Rocket Launcher 20, Left Torso
+Rocket Launcher 20, Left Torso
+AC/20, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+RL20
+RL20
+RL20
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+RL20
+RL20
+RL20
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+RL20
+RL20
+RL20
+RL20
+RL20
+RL20
+RL20
+RL20
+RL20
+RL20
+RL20
+RL20
+
+Right Torso:
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+IS Ammo AC/20
+IS Ammo AC/20
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Cyclops began production in 2710 at Stormvanger Assemblies, Unlimited on Caph as an assault-weight command platform for Star League Defense Force field officers. Designed to combine the firepower expected of a ninety-ton 'Mech with sophisticated command-and-control electronics, the Cyclops filled a critical niche as a mobile headquarters capable of directing brigade-scale operations from the cockpit. The centerpiece of the design is its Tacticon B-2000 Battle Computer, a holographic battle management system that, when paired with the Olmstead 840 communications suite, grants planetary-scale coordination capability.</p><p>The destruction of Stormvanger's Caph facility during the Amaris Civil War in 2774 ended original production, and centuries of attrition without replacement parts left fewer than ten percent of surviving Cyclops frames with functional B-2000 systems by the late Succession Wars. Grumium Creations eventually restarted production on Grumium for the Free Rasalhague Republic, Com Guards, and Draconis Combine, breathing new life into the venerable command chassis with modernized variants.</p>
+
+capabilities:<p>Powered by a Hermes 360 fusion engine, the Cyclops achieves a top speed of sixty-four kilometers per hour, making it one of the faster assault 'Mechs in service. This mobility serves its command role well, allowing rapid repositioning as tactical situations evolve. Ten tons of Starshield Special armor provide adequate protection for a 'Mech intended to operate behind the front lines with a headquarters lance escort, though this falls well short of the protection expected of dedicated assault platforms. The distinctive single viewport of the cockpit, while providing excellent pilot visibility, leaves the head section and its irreplaceable electronics vulnerable to headhunting attacks.</p><p>The standard armament reflects a generalist philosophy. A Zeus-36 Mark III Autocannon/20 dominates close-range engagements, backed by a Hovertec Quad SRM-4 and twin Diverse Optics Type 20 medium lasers. A Delta Dart LRM-10 provides indirect fire capability, giving the design coverage across all range brackets. This diverse loadout ensures the Cyclops can defend itself in any situation, though ammunition dependency across multiple weapon systems limits sustained combat endurance.</p><p>The true value of the Cyclops lies in its electronics suite. The Tacticon B-2000 holographic battle computer allows a single MechWarrior to coordinate formations up to brigade strength, while the Olmstead 840 tight beam communications system with SatNav module enables planet-wide and surface-to-orbit communications. When operating with ample support from a headquarters lance and higher-echelon command apparatus, the Cyclops's shortcomings in armor and firepower become far less consequential, and the 'Mech can be held in reserve to turn the tide of battle or exploit an enemy weakness.</p>
+
+deployment:<p>First sighted in 3064 among the pirate forces known as Lady Death's raiders, this variant is a Periphery-sourced bandit refit built on the standard CP-10-Z chassis. Eleven and a half tons of ferro-fibrous armor replace the original Starshield Special, and the LRM-10 and SRM-4 are stripped in favor of six Rocket Launcher 20 systems. Combined with the retained Autocannon/20 and twin medium lasers, this gives this variant devastating alpha strike capability at close range, though the single-use nature of the rocket launchers severely limits sustained combat endurance. The variant exemplifies the improvised but effective modifications characteristic of Periphery operators working with salvaged equipment.</p>
+
+history:<p>Stormvanger Assemblies, Unlimited delivered the first Cyclops from its Caph production lines in 2710, fulfilling a Star League Defense Force requirement for an assault-weight mobile command platform. SLDF tactical doctrine placed the Cyclops in reserve positions, guarded by headquarters lances and supporting elements, where its B-2000 battle computer could coordinate regimental and brigade-scale operations without exposing the design's relatively thin armor to direct assault. The CP-10-HQ variant followed in 2753, mounting a Collapsible Command Vehicle Module that extended the Cyclops's headquarters capabilities beyond the cockpit. Though the 'Mech earned an unfair reputation among officers who attempted to employ it as a frontline assault platform comparable to the more heavily armored Awesome or Stalker, those who used the Cyclops in its intended command role found it an unparalleled asset.</p><p>The Amaris Civil War proved catastrophic for the design when Rim Worlds Republic forces destroyed Stormvanger's Caph factory in 2774, permanently ending original production. Through the Succession Wars, spare parts for the sophisticated B-2000 computer became increasingly scarce. By the end of the era, only an estimated ten percent of surviving Cyclops frames retained functional battle computers. Stripped of their defining electronic systems, these 'Mechs were pressed into conventional assault service as bodyguards or decoys for actual commanding officers. Many pilots experimented with false head protectors to guard the vulnerable cockpit, a practice the NAIS eventually found counterproductive after the Fourth Succession War, as the modifications restricted vision and created additional shrapnel hazards during weapons impacts. The CP-10-Q field refit, which replaced the autocannon with additional LRM capacity and armor, emerged as one attempt to adapt the de-fanged Cyclops to a more survivable fire support role.</p><p>The discovery of the Helm Memory Core ignited attempts to replicate the B-2000, but these efforts bore no fruit before the Clan Invasion. The simultaneous development of the C3 computer network and doctrinal shifts toward using DropShips as mobile command posts further diminished enthusiasm for the Cyclops's dedicated command role. The CP-11-A field modification, replacing the autocannon with a Zeus Slingshot Gauss rifle, became the most common upgrade during this period. However, where a Cyclops with a functional B-2000 participated in operations, its effects on the outcome remained noticeable, ensuring the design retained its prestige among high-ranking officers.</p><p>Grumium Creations, a small military parts manufacturer on Grumium that ComStar had upgraded to serve both the Com Guards and the KungsArmé following the loss of Terra, proved instrumental in reviving the design. The company secured contracts to produce fully modernized Cyclops variants, beginning with the CP-11-G for the Second Star League Defense Force, Com Guards, and Free Rasalhague Republic in 3058, followed by the DCMS-oriented CP-12-K in 3059. These new-build frames reestablished the Cyclops as a viable frontline command platform with contemporary technology.</p><p>The Jihad proved a turbulent period for Cyclops production. Grumium Creations continued to operate under Clan Ghost Bear occupation following the formation of the Ghost Bear Dominion, though production operated at only sixty percent capacity by 3079. A Manei Domini Shadow Division assault on the Grumium compound in 3080 caused further disruption. Meanwhile, factory-level refits of older Cyclops frames were carried out at Hollis Incorporated on Corey and Lexatech Industries on Hun Ho, producing the dual-Gauss CP-11-B. The proliferation of electronic countermeasures on Jihad-era battlefields also spurred development of the CP-11-C2 and CP-11-C3 C3 networking variants. Following the Jihad, Grumium Creations struggled to attract funding for production line upgrades and shuttered its Crockett line, though Cyclops and Viking production continued. The Cyclops C, a Clan-tech garrison variant featuring hardened armor and Clan-grade weaponry, eventually emerged from the Grumium lines during the Dark Age for Rasalhague Dominion garrison Clusters, with surplus units offered on the open market.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Stormvanger
+systemmode:CHASSIS:HV-7
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Ferro-Fibrous
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c826-72f0-8e1e-bdc2985de848
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Longshot
+model:LNG-4
+mul id:1950
+
+Config:Biped
+techbase:Inner Sphere
+era:3068
+source:TR:3055U
+published:RS:3055Uu
+rules level:4
+role:Striker
+
+quirk:difficult_maintain
+
+mass:35
+engine:245 XXL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:7
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:7
+RA armor:7
+LT armor:11
+RT armor:11
+CT armor:14
+HD armor:9
+LL armor:10
+RL armor:10
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:6
+Streak SRM 6, Left Torso
+Medium X-Pulse Laser, Left Torso
+Small X-Pulse Laser, Left Torso
+Streak SRM 6, Right Torso
+Medium X-Pulse Laser, Right Torso
+Small X-Pulse Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISStreakSRM6
+ISStreakSRM6
+ISMediumXPulseLaser
+ISSmallXPulseLaser
+IS Streak SRM 6 Ammo
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISStreakSRM6
+ISStreakSRM6
+ISMediumXPulseLaser
+ISSmallXPulseLaser
+IS Streak SRM 6 Ammo
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Longshot is a thirty-five-ton light BattleMech designed by Innovative Design Concepts for the Solaris VII arena circuit. First entering the featherweight fight scene in the mid-3050s, the design was built as an extensive customization of the venerable Assassin chassis, tailored specifically for the close-quarters combat of Solaris competition. Initially dismissed by many MechWarriors for its unimpressive armament (particularly the inclusion of a Narc missile beacon better suited to team matches than the popular one-on-one duels) the Longshot gradually earned a loyal following through its combination of speed, agility, and resilience.</p><p>IDC, one of the many small ’Mech design firms operating on the Game World, was notable as the only Solaris-based company listed on the Lyran Alliance stock exchanges, driven by CEO Ramon Pietro’s ambitions to break into the mainline ’Mech market. A steady stream of variant designs incorporating increasingly advanced technology helped the Longshot overcome early skepticism and establish itself as a competitive arena design.</p>
+
+capabilities:<p>The Longshot’s primary configuration, the LNG-2, combines a 245-rated XL engine with an endo steel frame to achieve a top speed of nearly one hundred twenty kilometers per hour, making it one of the faster designs in its weight class. The design’s most notable feature is its use of reactive armor, an advanced defensive system that provides enhanced protection against ballistic and missile attacks, a significant advantage in the missile-heavy arena environment. The main armament consists of twin TharHes Maxi SRM-6 launchers linked to an Artemis IV fire control system, providing devastating close-range punch with improved accuracy. These are supplemented by a pair of IDC medium X-pulse lasers and two IDC small X-pulse lasers, giving the Longshot reliable energy weapon backup that does not depend on ammunition supplies.</p><p>Despite its impressive speed and firepower for its tonnage, the Longshot carries only six tons of armor protection, leaving it vulnerable to sustained engagements against heavier opponents. The absence of jump jets limits its tactical flexibility in broken terrain, though on the flat arena floors of Solaris this is less of a concern. The design has also earned a reputation for being difficult to maintain, with its mix of advanced and experimental systems requiring specialized technicians more readily found on Solaris VII than in frontline military formations.</p>
+
+deployment:<p>This variant emerged in 3068 as the culmination of IDC’s Longshot development program. Building on the XXL engine introduced in the LNG-3, this variant abandoned the Narc-based philosophy entirely in favor of pure direct combat capability. Each side torso mounts a medium X-pulse laser, a small X-pulse laser, and a Streak SRM-6 launcher, providing a symmetrical weapons layout with ammunition-efficient missile systems. The Streak technology ensures that every launched missile tracks to its target, maximizing the effectiveness of each volley, a critical advantage in arena duels where every exchange counts.</p>
+
+history:<p>The Longshot’s history is inextricably tied to the Solaris VII arena circuit and the fortunes of its manufacturer, Innovative Design Concepts. Introduced in the mid-3050s during the Clan Invasion era, the design emerged from IDC’s workshop as a purpose-built arena combatant at a time when the featherweight fight class was growing in popularity. The original LNG-1B drew mixed reviews, its combination of a Narc missile beacon with conventional lasers and short-range missiles proved effective in team matches and grand melees, but placed it at a disadvantage in the one-on-one duels that drew the largest audiences and betting pools.</p><p>IDC responded aggressively to pilot criticism, rolling out the improved LNG-2 in 3058 with reactive armor and upgraded X-pulse weaponry. The redesign transformed the Longshot from a curiosity into a genuine contender, and its success fueled IDC’s commercial ambitions. The LNG-3 followed in 3062 during the Civil War era, pushing the technological envelope further with an XXL engine while returning to the Narc-equipped philosophy of the original. The LNG-3C represented an attempt to mount the more advanced iNarc system, though ComStar’s refusal to grant an export license delayed its introduction until 3064.</p><p>Solaris VII’s turbulent political history shaped IDC’s fortunes throughout the design’s production life. The Game World changed hands repeatedly, from Free Worlds League control in the Star League era to Lyran ownership through the Succession Wars, then briefly under the Federated Commonwealth during the alliance period before reverting to Lyran control. The Jihad devastated Solaris VII’s arena infrastructure, and while IDC survived the conflict, the firm struggled to compete with larger and more advanced manufacturers in the post-war market. By the Dark Age, Clan Wolf’s conquest of Solaris VII placed IDC and its production lines under new management, though the Longshot’s niche appeal as an arena design limited its strategic significance.</p><p>The large number of quickly placed orders during the design’s peak years helped recoup IDC’s capital investment and funded research and testing on several other designs and weapon systems. The Longshot’s competitive success in the arenas (particularly through the repeated rebuilding and evolution of famous arena ’Mechs bearing its name) slowly changed the design’s shape over seventy-six matches and twenty-four complete rebuilds, cementing its reputation as a resilient platform that could absorb punishment and keep fighting.</p>
+
+manufacturer:Innovative Design Concepts
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Innovative Design Concepts
+systemmode:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:245 XXL
+systemmanufacturer:ARMOR:Riese
+systemmode:ARMOR:Riese-400 Reactive
+systemmanufacturer:COMMUNICATIONS:IDC
+systemmode:COMMUNICATIONS:IDC Hailer B
+systemmanufacturer:TARGETING:IDC
+systemmode:TARGETING:IDC ScopeTrak I

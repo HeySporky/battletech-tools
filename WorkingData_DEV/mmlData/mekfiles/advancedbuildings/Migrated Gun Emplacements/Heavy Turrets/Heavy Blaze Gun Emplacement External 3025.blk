@@ -1,0 +1,116 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a0f9-773e-bfae-8abfa2e305e1
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Heavy Blaze Gun Emplacement
+</Name>
+
+<Model>
+(3025) (External)
+</Model>
+
+<year>
+3025
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+80
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+Binary Laser (Blazer) Cannon(ST)
+Binary Laser (Blazer) Cannon(ST)
+SRM 4(ST)
+SRM 4(ST)
+SRM 6(ST)
+SRM 6(ST)
+Searchlight(ST)
+IS Ammo SRM-4 Inferno
+IS Ammo SRM-4 Inferno
+IS Ammo SRM-4 Inferno
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+EXTERNAL PowerGenerator:SIZE:13.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The Heavy Blaze Gun Emplacement mounts the Binary Laser Cannon with SRM 4 and SRM 6 support behind heavy armor protection. The identical armament to the medium variant is paired with substantially improved construction, allowing the position to absorb significant return fire while the Blazer delivers its devastating focused thermal strikes. Heavy armor is especially valuable for a Blaze position, as the Blazer's limited range compared to other heavy weapons means the emplacement operates within reach of enemy direct fire.</p><p>The Binary Laser Cannon's concentrated damage output makes each hit count, and heavy armor ensures the position survives long enough to deliver multiple firing cycles. The SRM 4 and SRM 6 create a combined ten-missile close defense salvo that shreds anything approaching the position. External power handles the Blazer's considerable energy draw from established infrastructure. The heavy construction's superior thermal management also benefits the Blazer, whose heat generation is the weapon's primary operational limitation on mobile platforms.</p>
+</capabilities>
+
+<overview>
+<p>The Blaze Gun Emplacement combines the devastating Binary Laser Cannon with Short Range Missile batteries to create a multi-purpose defensive position that excels at both medium-range anti-armor engagement and close-range area denial. The Binary Laser, commonly known as the Blazer, fires two laser beams simultaneously that converge on a single point, delivering concentrated thermal damage that can melt through heavy armor. SRM launchers provide supplementary firepower for closer engagements.</p><p>The Blaze emplacement occupies a unique tactical niche, bridging the gap between energy weapon positions that lack close-range punch and shredder positions that lack reach. The Blazer's ability to deliver focused thermal damage at medium range combined with SRM close defense creates a position that threatens targets across multiple engagement bands, making it a versatile addition to defensive networks that need concentrated firepower without the single-purpose limitations of more specialized designs.</p>
+</overview>
+
+<history>
+<p>The technological renaissance that swept the Inner Sphere in the wake of the Helm Memory Core's discovery and the subsequent Clan Invasion brought new weapons systems back into production and introduced entirely new concepts to fixed defensive works. Among the beneficiaries of this revival was the Binary Laser Cannon, a weapon whose demanding power requirements and heat generation had always made it better suited to fixed installations than to the mobile platforms that typically carried it.</p><p>The Clan Invasion of 3049 demonstrated that the Inner Sphere's existing fortifications were inadequate against opponents wielding superior technology and tactics. The frantic modernization that followed saw every available weapon system evaluated for defensive applications. The Binary Laser Cannon found its ideal role in fixed emplacements, where the structure's thermal mass could absorb the weapon's prodigious heat output and dedicated power systems could feed its energy appetite. Combined with SRM batteries for close defense, the Blaze emplacement represented the new generation of fortification design: purpose-built to mount weapons that were difficult to use effectively on mobile platforms, turning their drawbacks into advantages through the stability and support capacity of permanent construction.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+3
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+120
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

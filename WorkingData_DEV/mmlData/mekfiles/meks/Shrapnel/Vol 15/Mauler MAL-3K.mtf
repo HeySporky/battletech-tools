@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dcd0-71d5-9557-d7976bf60f21
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Mauler
+model:MAL-3K
+mul id:9548
+
+Config:Biped
+techbase:Inner Sphere
+era:3074
+source:Shrap15
+published:ShrapRS
+rules level:3
+role:Missile Boat
+
+
+mass:90
+engine:270 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Compact Gyro
+
+heat sinks:12 IS Double
+walk mp:3
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:30
+RA armor:30
+LT armor:28
+RT armor:28
+CT armor:44
+HD armor:9
+LL armor:38
+RL armor:38
+RTL armor:10
+RTR armor:10
+RTC armor:14
+
+Weapons:8
+Large VSP Laser, Left Arm
+Large VSP Laser, Right Arm
+LRM 15, Left Torso
+Thunderbolt 5, Left Torso
+Thunderbolt 5, Left Torso
+LRM 15, Right Torso
+Thunderbolt 5, Right Torso
+Thunderbolt 5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISLargeVSPLaser
+ISLargeVSPLaser
+ISLargeVSPLaser
+ISLargeVSPLaser
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISLargeVSPLaser
+ISLargeVSPLaser
+ISLargeVSPLaser
+ISLargeVSPLaser
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 15
+LRM 15
+LRM 15
+Thunderbolt 5
+Thunderbolt 5
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Ammo Thunderbolt-5
+IS Ammo Thunderbolt-5
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 15
+LRM 15
+LRM 15
+Thunderbolt 5
+Thunderbolt 5
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Ammo Thunderbolt-5
+IS Ammo Thunderbolt-5
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Mauler is a ninety-ton assault 'Mech with one of the most convoluted development histories in the Inner Sphere. Originally designated the MAL-1PT5, the design was created by Earthwerks Incorporated on Tikonov for the Capellan Confederation around 3022 as a long-range fire support platform. After six handcrafted prototypes saw action during McCarron's Long March, the Confederation abandoned the project in favor of the more versatile Cataphract. Earthwerks subsequently sold the plans to Luthien Armor Works in the Draconis Combine, where they were filed as Project Nainokami.</p><p>In 3036, LAW reactivated the design as Project Daboku, a testbed for recovered Star League technology from the Helm Memory Core. The resulting Daboku proved a spectacular failure, plagued by critical construction flaws across nearly every major system. Following a thorough redesign, LAW unveiled the finalized MAL-1R Mauler in 3048, deliberately discarding the Daboku name to escape its stigma. The Mauler has since become one of the Draconis Combine's most iconic assault 'Mechs, achieving widespread recognition across the Inner Sphere.</p>
+
+capabilities:<p>The standard Mauler mounts a weapons suite optimized entirely for long-range engagement. Four Imperator Smoothie-2 autocannon/2s provide sustained fire at extreme distances, supplemented by twin Shigunga LRM-15 racks that deliver punishing missile salvos. A pair of Victory Nickel Alloy extended-range large lasers round out the arsenal, giving the design considerable hitting power at range. This combination allows a skilled MechWarrior to engage targets well beyond effective response distance, steadily whittling away armor before opponents can close.</p><p>The Hermes 270 XL engine provides a top speed of fifty-four kilometers per hour, adequate for a fire support role but insufficient for rapid repositioning. New Samarkand Royal ferro-fibrous armor provides eleven and a half tons of protection, while CASE safeguards the MechWarrior from catastrophic ammunition detonation. An early production flaw in the CASE system went undetected until 3051, causing false auto-eject triggers when the center torso took sufficient impact.</p><p>The Mauler's greatest weakness lies in its vulnerability to close-range engagements. Faster 'Mechs can exploit the minimum effective ranges of its primary armament, and urban environments render the design severely disadvantaged. Its heavily ballistic and missile-based loadout also demands reliable supply lines to sustain prolonged operations.</p>
+
+deployment:<p>Proposed by a professor at the Sun Zhang Academy as a final concept prior to the end of pre-Jihad Mauler development, this variant mounted an updated weapons package centering on Thunderbolt missile launchers and variable-speed pulse lasers. Unfortunately, the design was implemented on the flawed MAL-1KX chassis, inheriting all of its predecessor's structural compromises including the small cockpit and overburdened actuators. Despite these inherited issues, LAW continued production at New Samarkand through the Dark Age and into the ilClan era, suggesting that subsequent refinements have addressed at least some of the original shortcomings.</p>
+
+history:<p>The Mauler's origins trace to the Late Succession Wars, when Earthwerks Incorporated developed the MAL-1PT5 prototype on Tikonov for House Liao. Six handcrafted prototypes were deployed with the Fourth McCarron's Armored Cavalry during their Long March in 3022-3023, where they proved effective at long-range support during field trials on multiple worlds. The prototypes earned the affectionate nickname "Linesman" from their pilots for their ability to support engagements from the sidelines. Two fell on Beten Kaitos and were salvaged by Federated Suns forces, providing Davion intelligence with detailed knowledge of the design years before it would enter mass production.</p><p>Through the Concord of Kapteyn, Earthwerks traded the Mauler plans to Luthien Armor Works, where they were filed as Project Nainokami. In 3036, a joint think tank of LAW engineers, DCMS officers, and representatives from Independence Weaponry and Wakazashi Enterprises reactivated the project as Daboku, attempting to integrate recovered Star League technology. The resulting design debuted in 3038 to almost universal derision, plagued by overheating lasers, jamming autocannon feeds, and a catastrophic CASE malfunction that triggered false ejections. The Daboku saw limited service during the War of 3039, where its failings became painfully apparent and numerous examples were captured by the Federated Commonwealth.</p><p>LAW's subsequent redesign produced the MAL-1R Mauler in 3048, incorporating Victory Nickel Alloy's newly perfected extended-range lasers and correcting the worst of the Daboku's flaws. The Mauler quickly achieved outsized public recognition through a combination of media events: a prominent role in a wildly popular but historically inaccurate holo series, and the Coordinator's use of the design as a centerpiece for the newly formed Mercenary Review and Bonding Commission. By the time of the Clan Invasion in 3050, captured and traded Maulers had appeared in all invasion corridors, serving with both DCMS formations and Federated Commonwealth forces fielding salvaged examples along the Lyran Periphery border.</p><p>Produced in massive quantities during the Clan Invasion and again for Operation Bulldog, the Mauler became a fixture of DCMS assault lances. The years following the Truce of Tukayyid saw unprecedented cooperation between the Federated Commonwealth and Draconis Combine, leading to General Dynamics of Ozawa opening a refit facility producing Davion-aligned variants. During the Civil War, Maulers served on both sides of the conflict across multiple theaters. The destruction of LAW's Luthien facility during the Jihad forced production to consolidate at New Samarkand, where development continued through several experimental designs including the ill-fated MAL-1KX and the weapons package that eventually became the MAL-1K.</p><p>Access to Clan technology from the former Nova Cat factories in the Dark Age ultimately inspired LAW to revisit the Mauler in 3144, producing the MAL-4R with Clan-grade weaponry and armor. As of the ilClan era, no original Daboku models remain in active service, but the Mauler itself continues to serve in DCMS formations across the Draconis Combine, with battlefield salvage examples found among AFFS and LAAF units as well.</p>
+
+manufacturer:Luthien Armor Works
+
+primaryfactory:New Samarkand
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:New Samarkand
+systemmode:CHASSIS:Class 201 Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:270 XL
+systemmanufacturer:ARMOR:Wakazashi
+systemmode:ARMOR:Standard Plate
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:Security Plus mk.II
+systemmanufacturer:TARGETING:Matabushi
+systemmode:TARGETING:SuperSentinel

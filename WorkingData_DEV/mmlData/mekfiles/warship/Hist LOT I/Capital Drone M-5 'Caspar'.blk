@@ -1,0 +1,304 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ee4f-70e8-ba56-156852fc3140
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Capital Drone
+</Name>
+
+<Model>
+M-5 'Caspar'
+</Model>
+
+<mul id:>
+7146
+</mul id:>
+
+<year>
+2710
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:1840.5:1:1::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+1250
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+2500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+11
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+48
+48
+48
+48
+48
+48
+</armor>
+
+<Nose Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:20
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:300
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:20
+Ammo AR10 Killer Whale:10
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:300
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:20
+Ammo AR10 Killer Whale:10
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:40
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:300
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:300
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+SDSSelfDestructSystem
+ImprovedCasparDroneControlSystem
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Laser 55
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:200
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:200
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:40
+Ammo AR10 Killer Whale:20
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Laser 55
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:200
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:200
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:40
+Ammo AR10 Killer Whale:20
+</Right Broadsides Equipment>
+
+<structural_integrity>
+50
+</structural_integrity>
+
+<capabilities>
+<p>The M-5 production model is built on a heavily modified Lola II destroyer hull displacing 680,000 tons, with a safe thrust of four and a maximum of six gravities. This acceleration profile is exceptional for a capital vessel, allowing the drone to close rapidly on targets or reposition across a defensive perimeter. Eighteen NL55 naval lasers provide layered coverage across all firing arcs, while paired Heavy Naval PPCs in the nose enable long-range slashing attacks. NAC/20 and NAC/25 naval autocannons form the backbone of the broadside armament, and AR-10, Killer Whale, and Barracuda capital missile launchers deliver flexible engagement capability at all ranges. A bank of 1,250 double heat sinks allows simultaneous broadsides without risk of overheating.</p><p>The autonomous control systems replace all crew requirements, eliminating life support, quarters, and personnel systems to free tonnage for weapons and ammunition. An integrated SDS Drone Control System manages combat functions at the equivalent of Gunnery 3, Piloting 4 skill ratings, while 110 automated marine points provide internal security. The SDS Self-Destruct System prevents capture, though its placement in the engine compartment creates a critical vulnerability where a penetrating hit to the aft section can trigger premature detonation. A Kearny-Fuchida drive with a 1,100-meter jump sail provides interstellar mobility, and 322.5 tons of ferro-carbide armor offers substantial protection for the hull's displacement. Cargo capacity of roughly 1,840 tons accommodates ammunition reserves and spare parts for sustained autonomous operations.</p>
+</capabilities>
+
+<overview>
+<p>The Capital Drone was developed by Nicholas Spacecraft and Ulsop Robotics on New Earth as the premier autonomous combat platform of the Star League's Space Defense System. Conceived to defend the Terran Hegemony's most critical worlds without drawing upon the navy's finite supply of trained crews, the program evolved through several generations of increasingly capable unmanned platforms before achieving capital WarShip-scale operations. Fully autonomous and requiring no human crew, the Capital Drone earned a fearsome reputation among Star League naval officers who recognized the strategic implications of an automated defender that never tired, never hesitated, and could be stationed in numbers that crewed fleets could not sustain. The design's combination of speed and firepower for its displacement class made it one of the most formidable weapons in the Star League's arsenal.</p>
+</overview>
+
+<deployment>
+<p>M-5 drones formed the backbone of the SDS defensive network, stationed in layered formations around protected Hegemony worlds. Most garrisons included a mix of M-5 units and lighter M-3 DropShip-class drones, with the capital-class platforms handling WarShip threats while the smaller drones screened against aerospace fighters and DropShip assaults. Terra's garrison of over two hundred fifty M-5 units represented the densest concentration, organized into multiple overlapping defense zones. During the Liberation of Terra, these drones inflicted tremendous casualties on General Kerensky's fleet, engaging in coordinated formations that crewed vessels found extraordinarily difficult to counter until the introduction of purpose-built jamming systems broke the drones' networked coordination.</p>
+</deployment>
+
+<history>
+<p>The Capital Drone program grew out of the Star League's broader Space Defense System initiative, which aimed to build an automated defensive network for the Terran Hegemony's most critical worlds without straining the navy's limited supply of trained crews. Early experiments began with the M-1 drone, a modified Ares Mark VII attack craft that entered trials in 2692 and proved autonomous combat operations were viable at the small craft scale. The M-2 adapted Hector DropShip hulls to drone control, and the M-3 scaled the concept to Pentagon-class assault DropShip frames, entering widespread production from 2698. Each generation refined the autonomous control systems and combat protocols needed for capital-class operations.</p><p>The leap to WarShip-scale drones required two intermediate steps. The M-4 program converted ten Baron-class destroyer hulls to validate that capital vessels could function under machine control, though the aging Baron frames proved unsuitable for sustained defensive duty and all ten were scrapped by 2735. The M-6 program attempted to adapt a far larger hull class but failed when engine integration with drone control architecture proved infeasible. The breakthrough came with the M-5, which entered production in 2710 at Nicholas Spacecraft and Ulsop Robotics facilities on New Earth. Designated "Caspar" after an ancient Terran military commander, the M-5 achieved the program's central goal: a fully autonomous capital WarShip capable of engaging crewed vessels of comparable or greater displacement. A dedicated command variant followed, networking individual drones into coordinated defensive formations of extraordinary effectiveness.</p><p>At its peak, the SDS deployed over two hundred fifty M-5 units at Terra alone, with most Hegemony worlds maintaining smaller garrisons of drones alongside lighter M-3 platforms and ground-based defenses. The network functioned as intended throughout the Star League era, its mere presence deterring aggression against protected worlds. Senior SLDF officers recognized the strategic implications of a defensive system that required no crew rotation, no shore leave, and no morale considerations, freeing trained naval personnel for offensive fleet operations.</p><p>That calculus changed catastrophically when Stefan Amaris launched his coup against First Lord Richard Cameron in 2766. Amaris forces seized control of the drone network, and the automated defenders built to protect the Hegemony instead fought to preserve the usurper's conquest. During the Liberation of Terra, General Kerensky's SLDF forces suffered devastating losses fighting through dense drone formations originally commissioned by their own government. Waves of drones engaged the liberation fleet with coordinated precision that crewed vessels struggled to match. Only after SLDF technicians devised an electronic jamming system to disrupt drone coordination could Kerensky's fleet overcome the automated defenders. The battles for Terra confirmed both the terrifying effectiveness of the Capital Drone concept and the catastrophic risk of any autonomous weapons system falling into hostile hands.</p><p>The fall of the Star League ended the Capital Drone as an operational system. Surviving units lacking central coordination reverted to basic autonomous protocols, becoming unpredictable hazards scattered across former Hegemony space for centuries. The technology resurfaced during the Jihad, when the Word of Blake developed the Caspar II program using updated drone control systems fitted to new hull designs. Caspar II drones defended Word of Blake holdings as the allied coalition advanced on Terra, forcing coalition naval forces to confront many of the same tactical challenges that had plagued Kerensky's fleet centuries earlier. The coalition's eventual success required significant naval losses, reinforcing the grim lesson that autonomous capital WarShip technology remained a potent threat long after the original SDS infrastructure had crumbled.</p>
+</history>
+
+<manufacturer>
+Nicholas Spacecraft/Ulsop Robotics
+</manufacturer>
+
+<primaryFactory>
+New Earth
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Modified Lola II
+ENGINE:Unknown
+ARMOR:Ferro-Carbide
+JUMP_JET:Unknown
+COMMUNICATIONS:SDS Drone Control System
+TARGETING:SDS Drone Control System
+</systemModels>
+
+<use>
+Capital Drone
+</use>
+
+<length>
+628 meters
+</length>
+
+<source>
+His:LoT1
+</source>
+
+<tonnage>
+680000.0
+</tonnage>
+
+<bv>
+181377
+</bv>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+229
+</crew>
+
+<officers>
+39
+</officers>
+
+<gunners>
+48
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

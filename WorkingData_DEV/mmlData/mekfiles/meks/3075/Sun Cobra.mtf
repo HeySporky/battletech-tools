@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf1f-7ecf-bca4-ae1802178f43
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Sun Cobra
+model:
+mul id:3122
+
+Config:Biped
+techbase:Clan
+era:3074
+source:TR:3075
+published:RS:3075u-CE
+rules level:2
+role:Sniper
+
+quirk:pro_actuator
+
+mass:55
+engine:220 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:15
+RA armor:15
+LT armor:14
+RT armor:14
+CT armor:18
+HD armor:9
+LL armor:13
+RL armor:13
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:2
+Gauss Rifle, Left Arm
+Gauss Rifle, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo
+Clan Gauss Ammo
+Clan Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo
+Clan Gauss Ammo
+Clan Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Sun Cobra is a 55-ton Clan medium BattleMech developed in 3074 by Clan Wolf at the W-7 Facilities on Tamar. Conceived during the Jihad as a dedicated fire support platform, the design deliberately eschewed OmniMech technology in favor of a simpler, fixed-configuration approach that could be manufactured quickly and in large numbers to replenish the Wolf touman's devastating losses. The Sun Cobra earned a reputation as a dependable long-range killer, though it was often regarded as a second-tier assignment by the trueborn warrior elite who favored more prestigious OmniMech designs.</p>
+
+capabilities:<p>The Sun Cobra's design philosophy centers on a single, devastating capability: long-range precision firepower. Armed with a pair of Series II Gauss Rifles mounted in the arms, the 'Mech delivers punishing salvos at extreme range with pinpoint accuracy. A sophisticated targeting computer provides the fire control necessary to place shots precisely, even while the 'Mech is maneuvering. This combination of dual Gauss rifles and advanced targeting systems makes the Sun Cobra exceptionally lethal at stand-off distances.</p><p>The trade-offs for this focused armament are significant. The 220-rated XL engine propels the 55-ton chassis to only 64 km/h, making it slow for a medium 'Mech. The design completely lacks secondary weapons, meaning that any opponent who closes to short range can exploit significant gaps in its firepower. The reliance on ammunition also creates vulnerability, as the Gauss rifle magazines represent potential weak points if the Advanced/3 armor is breached.</p><p>Built on an IX Endo Steel frame, the Sun Cobra uses the weight savings to maximize armor protection and ammunition capacity, but the XL engine's fragility means that torso damage can prove quickly fatal.</p>
+
+deployment:<p>The Sun Cobra's fixed configuration has led many trueborn warriors to view it with disdain, preferring the versatility of OmniMechs. This cultural bias pushed the design toward younger, freeborn, and solahma Wolf warriors who valued its reliable lethality over prestige. In many of the Wolves' provisional garrison Clusters, entire Stars of Sun Cobras formed a long-range anvil against which faster Trinary-mates could hammer enemies. The design has found a home primarily in the Beta and Delta Galaxies, with only a few appearing in the high-profile Alpha Galaxy.</p>
+
+history:<p>The Sun Cobra emerged from the crucible of the Jihad in 3074, born of necessity on the shattered world of Tamar. Clan Wolf had suffered catastrophic losses when the Word of Blake targeted their Occupation Zone with nuclear and conventional strikes, devastating industrial capacity and slaughtering warriors. With the Occupation Zone simultaneously under assault by the Hell's Horses, Ice Hellions, and opportunistic Jade Falcon raids, Khan Vlad Ward demanded new BattleMechs to replenish his decimated touman. The Wolf scientist caste, testing the capabilities of newly established production facilities on Tamar, developed the Sun Cobra to meet this urgent need.</p><p>The design proved effective in its intended role. Wolf warriors used Stars of Sun Cobras to devastating effect across the Occupation Zone, employing their heavy armament to shatter enemy formations before they could close to effective range. The 'Mech's simplicity proved an unexpected asset during the chaos of the Jihad, as replacement parts and ammunition were far easier to procure than the sophisticated components required by OmniMechs.</p><p>Despite its battlefield success, the Sun Cobra never achieved the prestige of Clan Wolf's iconic OmniMech designs. Trueborn warriors considered it beneath their status, seeing it as a weapon for lesser fighters. This attitude inadvertently ensured a steady supply for the younger and freeborn warriors who formed the backbone of garrison forces. The Diamond Shark merchant caste took notice of the design's commercial potential, and by the late 3070s envoys were already negotiating for production licenses. This eventually bore fruit, with Trellshire Heavy Industries on Twycross producing Sun Cobras under Clan Diamond Shark (later Sea Fox) auspices.</p><p>By the Dark Age era, the Sun Cobra had proliferated well beyond its Clan Wolf origins. Sea Fox traders offered the design to various Inner Sphere factions, contributing to its widespread deployment by the 3130s. The introduction of the Sun Cobra 2 variant around 3093 demonstrated the design's continued evolution, trading its signature long-range ballistic armament for energy weapons and a faster engine to create a more versatile combat platform. With the rise of the ilClan era, production on Tamar passed to Clan Hell's Horses as Clan Wolf relocated its industrial base, while the Twycross line continued under Alyina Mercantile League ownership.</p>
+
+manufacturer:Trellshire Heavy Industries|W-8 Facilities
+
+primaryfactory:Twycross|Tamar
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:W-7 Facilities
+systemmode:CHASSIS:IX Endo Steel
+systemmanufacturer:ENGINE:W-7 Facilities
+systemmode:ENGINE:220 XL
+systemmanufacturer:ARMOR:W-7 Facilities
+systemmode:ARMOR:Advanced/3
+systemmanufacturer:COMMUNICATIONS:W-7 Facilities
+systemmode:COMMUNICATIONS:Build 1685 Tacticom
+systemmanufacturer:TARGETING:W-7 Facilities
+systemmode:TARGETING:Build 2 Cat TTS

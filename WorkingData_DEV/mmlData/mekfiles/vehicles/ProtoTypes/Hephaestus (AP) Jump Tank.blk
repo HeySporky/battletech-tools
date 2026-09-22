@@ -1,0 +1,177 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e959-7c9d-aec4-7032dad0882c
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Hephaestus Jump Tank
+</Name>
+
+<Model>
+(AP)
+</Model>
+
+<mul id:>
+4310
+</mul id:>
+
+<year>
+3089
+</year>
+
+<type>
+Clan Level 4
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+hard_pilot
+difficult_maintain
+distracting
+non_standard
+</quirks>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+8
+</armor_tech_level>
+
+<armor>
+20
+24
+24
+19
+18
+</armor>
+
+<Body Equipment>
+CLArmoredMotiveSystem
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+CLAPGaussRifle Ammo
+</Body Equipment>
+
+<Front Equipment>
+CLAPGaussRifle
+CLAPGaussRifle
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLERMediumLaser
+CLERMediumLaser
+CLAPGaussRifle
+CLAPGaussRifle
+</Turret Equipment>
+
+<capabilities>
+<p>Eight V-Lift jump jets provide 240 meters of range per leap, exceeding the original Kanga's jump distance. A fusion engine delivers high ground speed for a light vehicle, giving the Hephaestus Jump Tank excellent tactical mobility overall. The jump control system builds on the Track-Nav AI architecture derived from the recovered KGA-3X software, incorporating adaptive thrust vectoring that stabilizes the vehicle during and after jumps regardless of turret position.</p><p>Armament emphasizes precision fire and electronic warfare. Two extended-range medium lasers provide accurate firepower at significant range, while TAG, ECM, and an Active Probe allow the vehicle to operate as an artillery-calling platform and sensor asset simultaneously. Five and a half tons of ferro-fibrous armor, reinforced by an Armored Motive System on the hover skirts, provides reasonable protection for a vehicle of this class.</p><p>The jump system carries real operational costs. The infantry bay present in the Hephaestus Scout Tank was eliminated to free mass for the jump hardware, and the vehicle carries significant maintenance and piloting difficulty quirks that reflect the complexity of a jump-capable hover platform. Logistics and technical support demands are substantially higher than for conventional vehicles, which has limited the design's adoption to dedicated Hell's Horses units with the support infrastructure to sustain it.</p>
+</capabilities>
+
+<overview>
+<p>The Hephaestus Jump Tank is a non-OmniVehicle design developed by Clan Hell's Horses following the Jihad, fulfilling the long-sought goal of a production-viable jump hovertank. Unlike earlier efforts that attempted to replicate the Star League-era Kanga's AI control system, the design emerged from technical data recovered at the ruins of the original Mitchell Vehicles plant on Graham IV, giving the Horses' engineers the insight needed to stabilize jump control in a hover vehicle without rebuilding the full AL2200 system. Produced at Csesztreg Industriplex Beta from 3083, the Hephaestus Jump Tank represents the culmination of more than two decades of Hell's Horses development effort across three distinct programs and is the first production vehicle since the Kanga to successfully mount jump jets.</p>
+</overview>
+
+<deployment>
+<p>The anti-infantry variant replaces the standard electronic warfare suite with AP Gauss Rifles for dedicated anti-infantry work. Fielded in units where battle armor or conventional infantry concentrations represent primary threats, this configuration sacrifices the electronic warfare flexibility of the base model for substantially greater effectiveness against soft targets. It retains the jump jets and hover chassis, maintaining the same mobility advantage, and remains capable of direct-fire anti-armor work with its standard armament.</p>
+</deployment>
+
+<history>
+<p>During the Jihad, Clan Hell's Horses' Alpha Galaxy participated in the Coalition assault on Graham IV as part of the Free Worlds thrust against the Word of Blake. While clearing the ruins of Mitchell Vehicles' original Kanga manufacturing facility, Horses technicians discovered a preserved data core, most likely unearthed by Blakist salvage operations in the area. That core contained flight control software from the KGA-3X, an experimental Kanga variant from the late Star League period that had reportedly explored turret integration for the hover jump concept.</p><p>The KGA-3X software proved to be the critical breakthrough. Previous Hell's Horses jump-vehicle programs, including the Kanga-X prototypes on Arc-Royal, had foundered on the problem of turret rotation during a jump, which destabilized the vehicle's center of mass in ways that real-time AI compensation could not fully correct. The recovered software showed how the original Star League engineers had partially addressed this through adaptive thrust vectoring, providing a working framework that the Horses' team could refine rather than derive from first principles.</p><p>Development proceeded at Csesztreg Industriplex Beta, a facility the Hell's Horses had controlled since the Jihad era following their acquisition of the world from Clan Wolf. The first production vehicles entered service in 3083, assigned to Cavalry Clusters and Strike Clusters where their combination of jump mobility, electronic warfare capability, and speed served the Horses' combined-arms doctrine. Speculation arose almost immediately about potential magnetic clamp technology that could allow Elementals to ride the vehicle, though the practical difficulties of jumping with mechanized battle armor attached remained a significant obstacle. An anti-infantry variant entered service in 3089, replacing the electronics suite with AP Gauss Rifles to address threats the standard configuration was not equipped to handle.</p>
+</history>
+
+<manufacturer>
+Csesztreg Industriplex Beta
+</manufacturer>
+
+<primaryFactory>
+Csesztreg
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion 105
+ARMOR:Compound VM22 Ferro-Fibrous
+JUMP_JET:V-Lift X8
+COMMUNICATIONS:Build 1700/5 Tacticom with ECM Suite
+TARGETING:Series XL FWS Track-Nav v2 with Active Probe and TAG
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<tonnage>
+35.0
+</tonnage>
+

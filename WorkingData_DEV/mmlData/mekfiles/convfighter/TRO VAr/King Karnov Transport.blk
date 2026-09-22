@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa30-79ee-b7f2-51b60a02bb75
+</UUID>
+
+<UnitType>
+FixedWingSupport
+</UnitType>
+
+<Name>
+King Karnov Transport
+</Name>
+
+<Model>
+KC-9
+</Model>
+
+<mul id:>
+4447
+</mul id:>
+
+<year>
+3053
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Transport
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:76.0:1:1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<vstol>
+1
+</vstol>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+190
+</fuel>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+48
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+34
+33
+33
+33
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Body Equipment>
+Lift Hoist/Arresting Hoist
+PropChassisMod
+VSTOLChassisMod
+</Body Equipment>
+
+<barrating>
+7
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The KC-9 model, which debuted in 3053, is the pinnacle of its class, weighing in at the largest possible size for maximum cargo capacity. It sports a CBM-Festerling hydrogen fuel cell engine as its main power supply, replacing the Praht-450 internal combustion turbines used by the KC-5 and KC-6 models. A sophisticated onboard communications system, first introduced on the KC-6, is complemented by one high-capacity lift hoist and six tons of industrial-grade armor strong enough to withstand most heavy weapons. The aircraft features tilt-rotor wings for VSTOL landings in difficult terrains, allowing far swifter delivery than the shorter hops of the Karnov VTOL.</p><p>Though plans were floated to upgrade to Lockheed Skyshield armor, functionally similar to modern battlefield armor, the necessary structural modifications proved too costly to the craft's primary cargo mission, and the predicted KC-10 military model never saw production. However, even without dedicated military armor, the KC-9's six tons of industrial plating proved adequate for most threats encountered in rear-area logistics operations. The seventy-six-ton cargo capacity with full access to a military-grade lift hoist makes the King Karnov one of the most capable industrial air transports available in the Inner Sphere.</p>
+</capabilities>
+
+<overview>
+<p>As a battlefield support vehicle, New Earth Trading Company's Karnov UR Transport is a craft whose origins lay shrouded in mystery. The New Earth-based company has long been known to completely lack VTOL manufacturing capabilities, yet no other firm has taken credit for the design. In 3001, Lyran-based Lockheed/CBM of Gibbs unveiled a heavy industrial air transport with design lines so similar to the lighter Karnov that corporate conspiracy theorists immediately declared the origin mystery solved. The mystery only deepened, however, as Lockheed/CBM insisted their KC-5 air transport was based on entirely different engineering. Though Lockheed/CBM maintained the KC series bore only a superficial resemblance to the Karnov VTOL, the aircraft was built for sustained long-distance air travel rather than the shorter hops of the VTOL, with engines and electronics wholly made in the Commonwealth.</p>
+</overview>
+
+<deployment>
+<p>Despite the lack of a dedicated military variant, sales of the KC-9 to military and militia units rose steadily throughout the Commonwealth states in the decade after the Clan Invasion, as the allies struggled to race troops and supplies to the front lines. The King Karnov competes with similar industrial air transports across the Inner Sphere, including Cal-Boeing's SA-10 Swallow favored in the Federated Suns and the AAC-60 Walrus produced by Andurien AeroTek for Free Worlds League, Capellan, and corporate agencies.</p>
+</deployment>
+
+<history>
+<p>Despite Lockheed/CBM's protests, the media-dubbed King Karnov name stuck with the KC series, though it was never formally adopted by the company. A failed 3012 legal action by NETC charged that Lockheed/CBM had deliberately traded on the Karnov name. While Lockheed/CBM admitted their KC-5 bore a certain resemblance to the Karnov, they maintained it was built as an aircraft for sustained long-distance air travel rather than the shorter hops of the VTOL, with engines and electronics wholly made in the Commonwealth. The lawsuit was found without merit and dismissed.</p><p>The KC series underwent numerous upgrades over the years to compete with rival industrial transports. The KC-6 introduced a sophisticated communications system, while the KC-9 of 3053 represented a fundamental redesign with its CBM-Festerling hydrogen fuel cell engine and maximum-sized airframe. Throughout these evolutions, the King Karnov always retained its distinctive look and its association, however disputed, with the smaller Karnov VTOL. The aircraft's silhouette continues to invite comparison, and the King Karnov nickname has proven as enduring as the aircraft itself. The Lyran Alliance Armed Forces and later the LCAF made extensive use of the KC series for rear-area logistics, and the King Karnov eventually spawned enough specialized military variants that Lockheed/CBM developed the Zugvogel Omni Support Aircraft as a modular replacement capable of filling multiple roles from a single airframe.</p>
+</history>
+
+<manufacturer>
+Lockheed/CBM Corp.
+</manufacturer>
+
+<primaryFactory>
+Donegal
+</primaryFactory>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+200.0
+</tonnage>
+

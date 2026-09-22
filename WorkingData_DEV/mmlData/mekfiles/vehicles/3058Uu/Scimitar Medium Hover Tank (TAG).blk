@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e47a-7aeb-b970-7d7140bb1dab
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Scimitar Medium Hover Tank
+</Name>
+
+<Model>
+(TAG)
+</Model>
+
+<mul id:>
+2832
+</mul id:>
+
+<year>
+3050
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+30
+25
+25
+20
+25
+</armor>
+
+<Body Equipment>
+ISNarc Pods
+ISNarc Pods
+IS Ammo SRM-4 Narc-capable
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISNarcBeacon
+SRM 4
+SRM 4
+ISTAG
+</Turret Equipment>
+
+<capabilities>
+<p>The Scimitar mounts an Armstrong J11 Autocannon/5 as its primary weapon, paired with two Guided Technologies SRM 2 launchers that provide a close-range option when targets press inside the autocannon's effective envelope. The combination covers a useful range band and gives the crew options against both armored vehicles and light infantry. Scarborough deliberately kept the weapons load simple and maintenance requirements low, prioritizing field reliability over maximum firepower.</p><p>The ProtecTech 7 armor is the same specification used on the Saracen, making the two vehicles highly compatible in the field and simplifying maintenance for units that operate both designs. The engine and electronics are likewise shared, reducing the parts burden on combined hover lances. At nearly 130 kph, the Scimitar is fast enough to disengage from threats it cannot defeat, though crews are cautioned that the armor offers little margin against autocannon fire or missile salvos at close range.</p><p>The SRM racks occasionally exhibit a jamming tendency when the turret rotates rapidly at speed, a minor but persistent complaint among experienced crews. Against heavy opposition, the Scimitar is most effective as a harassment platform that leverages its speed to avoid sustained fire rather than trading blows with better-protected opponents.</p>
+</capabilities>
+
+<overview>
+<p>The Scimitar Medium Hover Tank entered production five years after the Saracen, completing Scarborough, Ltd.'s initial trio of hover combat vehicles and filling the direct-fire support role the missile-armed Saracen was not designed to provide. Introduced in 2937, the Scimitar was intended to operate alongside the Saracen in combined hover lances, with each vehicle covering the other's tactical weaknesses. Scarborough built the design around economy and reliability, selecting a proven autocannon as the primary weapon and sharing as many components as possible with its predecessor to simplify spare parts requirements.</p><p>The Scimitar achieved solid sales to the Draconis Combine and Free Worlds League, where commanders valued its straightforward design and manageable logistical demands. Like its siblings, the vehicle carries light armor and depends on hover speed for survival, limiting its effectiveness when forced into sustained close-range exchanges with heavier opposition.</p>
+</overview>
+
+<deployment>
+<p>Produced at Scarborough's Al Na'ir facility during the Clan Invasion, the TAG variant strips secondary weapons and installs a targeting acquisition gear system to support Arrow IV artillery strikes. Combine forces used TAG Scimitars extensively as forward observer platforms in counter-Clan operations, pairing their hover speed with the ability to designate targets for indirect fire assets operating beyond visual range.</p>
+</deployment>
+
+<history>
+<p>Scarborough released the Scimitar Medium Hover Tank five years after the Saracen, completing the company's initial trio of hover combat vehicles and providing the direct-fire capability that the missile-armed Saracen could not deliver. The design was built on an explicit combined-arms doctrine. Scimitars operating alongside Saracens in mixed lances, with the autocannon covering close-range threats while the Saracen's LRM system handled targets at standoff distances, and the Saladin held in reserve for engagements that required a single decisive blow. Engineers used the same hull, engine, and electronics as the Saracen to minimize the parts burden for units fielding multiple types, and Scarborough offered bundled logistics packages to encourage that procurement pattern.</p><p>Early production runs supplied the growing Draconis Combine customer base at Al Na'ir, with secondary licensing arrangements making the vehicle available to Free Worlds League units and interested mercenary commands. The Combine recognized the Scimitar as a cost-effective solution for formations that needed direct-fire support without the weight and expense of a dedicated tank destroyer. Mixed lances of Saracens and Scimitars became a standard organizational building block in DCMS hover cavalry, supplemented occasionally by a Saladin where shock capability was required.</p><p>The vehicle's combat record in the closing years of the Third Succession War demonstrated its value clearly enough that demand periodically outpaced Al Na'ir's production capacity, leading to short-term licensing agreements with other facilities. A pattern of battlefield modification emerged alongside factory production. Crews dissatisfied with the autocannon's limited ammunition or seeking extended operational range converted Scimitars to missile configurations using components sourced from damaged or decommissioned Saracens. This Missile variant became one of the most widespread field modifications in the Scarborough family, produced wherever technicians could source the necessary materials.</p><p>The Clan Invasion stressed the Scimitar's design envelope in the same ways it challenged the Saracen. The light armor that made the vehicle maintainable and affordable also made it acutely vulnerable to Clan weapons at any range. Combine commanders who had used Scimitars effectively in harassment and screening roles against Inner Sphere opponents found the same tactics far more costly against Clan forces. The DCMS responded with factory-built upgrade variants. The TAG variant, introduced at Al Na'ir during the Clan Invasion, stripped the secondary launcher and installed a targeting acquisition gear system suited to the Counter-Clan doctrine that emphasized artillery as a force equalizer. TAG Scimitars operated as forward observer platforms, using hover speed to designate targets for indirect fire assets positioned well behind the forward line.</p><p>The Jihad brought a more radical modification. Working from the TAG variant, Combine technicians replaced the weapon suite with a rotary autocannon and a C³ computer, thickening the hull with heavy ferro-fibrous armor to suit the close-range nature of the new configuration. The C3 variant served as a networked fire-direction node in Jihad-era lance formations, a role that would have been unrecognizable to the design's original operators. Production through the F0055 refit network reflected how thoroughly the Scimitar had been adapted to evolving operational requirements over its production life.</p><p>By the Republic era, the original Scimitar had accumulated nearly two centuries of continuous service. Its simple construction and widely available components kept it viable in second-line and garrison roles long after newer designs displaced it from front-line formations. The early development of the Scimitar Mk II, beginning in 3105, reflected the Combine's recognition that the original platform had reached the limits of its development potential. The Mk II's fusion powerplant and heavier armor carried the Scimitar's harassment and close-support identity forward while addressing the protection shortcomings that had defined the original since its introduction.</p>
+</history>
+
+<manufacturer>
+Scarborough Manufacturers
+</manufacturer>
+
+<primaryFactory>
+Al Na'ir
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:ConLee
+ARMOR:Scarborough Manufacturers
+COMMUNICATIONS:Scarborough
+TARGETING:Scarborough
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:105 ICE
+ARMOR:7
+COMMUNICATIONS:Talky-2
+TARGETING:Tracky-2
+</systemModels>
+
+<source>
+TR:3058U,TR:3039
+</source>
+
+<published>
+RS:3058Uu-I
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

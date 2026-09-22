@@ -1,0 +1,98 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b87e-7810-b6ed-8b18f85f7222
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Platoon (CCAF)
+</Name>
+
+<Model>
+(SpecOps Fireteam 2505+)
+</Model>
+
+<year>
+2505
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+AntiMekGear
+Sneak Suit (Camo/IR)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Capellan infantry serve where BattleMechs and armor cannot be spared, which in the resource-constrained CCAF means nearly everywhere. The Xin Sheng movement revitalized the infantry arm alongside every other facet of the Capellan Confederation Armed Forces, giving foot soldiers better equipment and renewed purpose. CCAF foot platoons anchor the Confederation's garrison network, holding worlds that BattleMech forces cannot permanently occupy. Slow and vulnerable in open terrain, they depend on prepared positions and local knowledge to offset their lack of mobility. These small special operations fireteams carry a mix of assault rifles and blazer laser rifles, combining conventional and energy weapons for maximum tactical flexibility during infiltration and direct action missions.</p>
+</overview>
+
+<notes>
+Intro date based on common availability for two-system stealth suit. Slightly oversized squads selected for minimum anti-Mek capability.
+</notes>
+
+<squad_size>
+8
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+Laser Rifle (Blazer)
+</Secondary>
+
+<sneakcamo>
+true
+</sneakcamo>
+
+<sneakir>
+true
+</sneakir>
+
+<specialization>
+512
+</specialization>
+

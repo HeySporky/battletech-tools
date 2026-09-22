@@ -1,0 +1,295 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ac00-7adb-a066-e7846ae565d7
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Arondight Pocket WarShip
+</Name>
+
+<Model>
+(SCC)
+</Model>
+
+<mul id:>
+3733
+</mul id:>
+
+<year>
+3077
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+smallcraftbay:2.0:2:2::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+steeragequarters:120.0:0:-1::-1:0
+crewquarters:231.0:0:-1::-1:0
+cargobay:381.0:2:5::-1:0
+1stclassquarters:70.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+200
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+7500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+353
+322
+322
+301
+</armor>
+
+<Nose Equipment>
+(B) Sub-Capital Cannon (Heavy)
+Sub-Capital Cannon (Heavy)
+Sub-Capital Cannon (Heavy)
+Ammo Heavy SCC:60
+(B) ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:32
+(B) ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:72
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Sub-Capital Cannon (Light)
+Sub-Capital Cannon (Light)
+Sub-Capital Cannon (Light)
+Sub-Capital Cannon (Light)
+Ammo Light SCC:80
+(B) Sub-Capital Missile Launcher (Piranha)
+Sub-Capital Missile Launcher (Piranha)
+Ammo Piranha:20
+(B) ISERMediumLaser
+ISERMediumLaser
+(B) ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5 Ammo:120
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:48
+(R) (B) Sub-Capital Missile Launcher (Piranha)
+(R) Sub-Capital Missile Launcher (Piranha)
+(R) Ammo Piranha:20
+(R) (B) ISRotaryAC5
+(R) ISRotaryAC5
+(R) ISRotaryAC5 Ammo:120
+(R) (B) ISERMediumLaser
+(R) ISERMediumLaser
+(R) ISERMediumLaser
+(R) (B) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAMS Ammo:72
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Sub-Capital Cannon (Light)
+Sub-Capital Cannon (Light)
+Sub-Capital Cannon (Light)
+Sub-Capital Cannon (Light)
+Ammo Light SCC:80
+(B) Sub-Capital Missile Launcher (Piranha)
+Sub-Capital Missile Launcher (Piranha)
+Ammo Piranha:20
+(B) ISERMediumLaser
+ISERMediumLaser
+(B) ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5 Ammo:120
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:48
+(R) (B) Sub-Capital Missile Launcher (Piranha)
+(R) Sub-Capital Missile Launcher (Piranha)
+(R) Ammo Piranha:20
+(R) (B) ISRotaryAC5
+(R) ISRotaryAC5
+(R) ISRotaryAC5 Ammo:120
+(R) (B) ISERMediumLaser
+(R) ISERMediumLaser
+(R) ISERMediumLaser
+(R) (B) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAMS Ammo:72
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Screen Launcher
+Ammo Screen:10
+(B) ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:32
+(B) ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:72
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+20
+</structural_integrity>
+
+<capabilities>
+<p>The SCC variant was developed in direct response to the demonstrated ineffectiveness of capital missiles against heavy anti-missile defenses. The nose-mounted Kraken-T tele-operated missile launcher is replaced with two additional Heavy Sub-Capital Cannons, bringing the nose battery to three Heavy SCCs alongside two Gauss rifles, four ER medium lasers, and three anti-missile systems. The broadside arcs each retain four Light Sub-Capital Cannons, four Piranha sub-capital missile launchers, four rotary AC/5s, five ER medium lasers, and five anti-missile systems. The aft arc maintains a Screen Launcher, two Gauss rifles, four ER medium lasers, and three anti-missile systems. Two hundred double heat sinks manage the thermal load across all arcs. The vessel carries two small craft bays and approximately 381 tons of cargo, with a crew of 99 operating the ship at a safe thrust of 5g.</p>
+</capabilities>
+
+<overview>
+<p>The Arondight is the first purpose-built Pocket WarShip developed by the Armed Forces of the Federated Suns, entering service in 3075. Unlike earlier AFFS Pocket WarShip conversions based on existing DropShip hulls, the Arondight was designed from the ground up as a dedicated anti-WarShip combatant. Federated-Boeing Interstellar incorporated feedback from experienced mercenary naval specialists during the design process, drawing on their extensive combat experience with converted Pocket WarShip platforms. The resulting vessel is fast, heavily armored, and carries a devastating mix of capital and conventional weaponry that makes it a credible threat to vessels many times its tonnage.</p>
+</overview>
+
+<deployment>
+<p>The SCC variant entered service in 3077 and was deployed with AFFS naval task forces during the final campaigns of the Jihad. Its enhanced ballistic armament proved far more reliable against the layered anti-missile defenses employed by Word of Blake naval formations, and the variant quickly became the preferred configuration for direct engagement missions against enemy Pocket WarShips and escort vessels.</p>
+</deployment>
+
+<history>
+<p>The Arondight emerged from a late Jihad-era AFFS requirement for a purpose-built Pocket WarShip capable of engaging enemy WarShips and other capital-grade threats. Previous AFFS Pocket WarShips had been conversions of existing designs, which imposed significant compromises on combat performance. Federated-Boeing Interstellar received the development contract and wisely consulted with experienced mercenary naval units, whose combat experience with converted Pocket WarShips proved invaluable in shaping the new design's specifications.</p><p>The prototype Arondight launched in 3075 and rapidly proved its worth during the closing stages of the Jihad. However, combat experience during the assault on Towne revealed a critical vulnerability when heavy anti-missile defenses rendered capital missile launchers largely ineffective against prepared opponents. The loss of an AFFS vessel to concentrated sub-capital cannon fire from Blakist Pocket WarShips, while its own missiles were systematically intercepted, prompted Federated-Boeing to develop the SCC variant in 3077, which replaced missile launchers with additional cannon armament. A further refit variant followed in 3082, incorporating lessons from the full breadth of Jihad-era naval combat.</p>
+</history>
+
+<manufacturer>
+Clyde Shipyards|Federated-Boeing Interstellar Ltd. (Formerly Universal Air)|Refit - Federated-Boeing Emergency Refit Yard
+</manufacturer>
+
+<primaryFactory>
+Firgrove|Delavan|Tikonov
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<tonnage>
+12000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+43
+</crew>
+
+<officers>
+7
+</officers>
+
+<gunners>
+25
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+24
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+7
+</life_boat>
+
+<escape_pod>
+4
+</escape_pod>
+

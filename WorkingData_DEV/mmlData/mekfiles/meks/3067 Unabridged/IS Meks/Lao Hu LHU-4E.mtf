@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cde7-7782-81d0-144c5c5c4fd3
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Lao Hu
+model:LHU-4E
+mul id:5696
+
+Config:Biped
+techbase:Inner Sphere
+era:3078
+source:TR:J
+published:RS:3067u
+rules level:4
+role:Sniper
+
+quirk:good_rep_1
+
+mass:75
+engine:375 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:XL Gyro
+
+heat sinks:14 IS Double
+walk mp:5
+jump mp:0
+
+armor:Stealth(Inner Sphere)
+LA armor:23
+RA armor:23
+LT armor:24
+RT armor:24
+CT armor:33
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:5
+Heavy PPC, Left Arm
+Gauss Rifle, Right Arm
+Rocket Launcher 10, Left Torso
+Rocket Launcher 10, Left Torso
+Rocket Launcher 10, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+RL10
+RL10
+RL10
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Gauss Ammo
+IS Gauss Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISGuardianECMSuite
+ISGuardianECMSuite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Lao Hu was introduced in 3062 as a product of Chancellor Sun-Tzu Liao's Xin Sheng revitalization program. Designed by a student at the Victoria Academy of Arms and Technology, the seventy-five-ton heavy 'Mech was conceived as an evolution of the Thunder BattleMech, correcting perceived shortcomings in that design through the application of new technologies made available by the Capellan Confederation's growing industrial capacity. The name Lao Hu, meaning "Tiger" in Chinese, proved prophetic as the design lived up to its aggressive namesake on the battlefield.</p><p>Manufactured by Shengli Arms on Victoria, the Lao Hu was developed to bridge the gap between heavy and assault-class BattleMechs, offering the firepower to hold its own against heavier opponents while maintaining respectable mobility. The design quickly became one of the most popular heavy 'Mechs in the Capellan Confederation Armed Forces.</p>
+
+capabilities:<p>The Lao Hu is built on a Chariot Type II Endo Steel chassis and powered by a GM 375 XL engine, achieving a top speed of eighty-six kilometers per hour. This impressive speed for a seventy-five-ton design comes at the cost of engine survivability, as the extralight powerplant is vulnerable to torso damage, but the trade-off frees tonnage for a formidable weapons payload and thirteen and a half tons of Star Shell Standard armor protection.</p><p>The design's primary striking power comes from its Shengli LB 20-X autocannon, the same weapon fitted to the Yu Huang assault 'Mech. Capable of firing both standard slugs and cluster munitions, the autocannon gives the Lao Hu devastating close-range firepower with enough ammunition to sustain extended engagements against multiple assault-class opponents. A Martell extended-range large laser and Zeus LRM-15 launcher complement the autocannon, providing effective fire support at longer ranges while the varied LRM munitions developed for the Confederation further augment the design's tactical flexibility.</p><p>This combination of speed, firepower, and protection creates a 'Mech designed for aggressive engagement at medium to close range, closing quickly to bring its devastating autocannon to bear while energy weapons and missiles soften targets during the approach.</p>
+
+deployment:<p>This variant is a radical departure from previous Lao Hu configurations, incorporating several advanced technologies. Clad in stealth armor powered by a Guardian ECM Suite, the 4E is far more difficult to target at range than its predecessors. A Heavy PPC and Gauss rifle provide devastating long-range firepower, while three Rocket Launcher 10 systems offer a single powerful salvo for close encounters. To accommodate this extensive equipment package, the variant employs an XL gyro and small cockpit, increasing internal volume at the cost of reduced pilot comfort and gyro survivability. Fourteen double heat sinks manage the substantial waste heat generated by its energy weapons.</p>
+
+history:<p>The Lao Hu emerged from Shengli Arms' production facility on Victoria in 3062, one of several new designs developed as part of the Capellan Confederation's Xin Sheng national revitalization movement. The facility, built around a rediscovered Star League-era research complex and restored with discreet assistance from the Word of Blake, had already produced the Duan Gung, Jinggau, and Yu Huang before the Lao Hu joined its production lines.</p><p>The design first saw combat during the St. Ives conflict, where its role was initially underestimated. The Lao Hu's true value became apparent through numerous successful petitions from assault-class lances and independent companies requesting the design, and by its seventh production run the Lao Hu had surpassed the Jinggau in popularity among Capellan commanders. Few regiments in the Confederation did not boast at least one of these machines.</p><p>The onset of the Jihad brought both opportunity and disaster for the Lao Hu program. In December 3068, Olson's Rangers, mercenaries garrisoning the Shengli Arms facility, turned their weapons against the very factory they were hired to protect, inflicting devastating damage that crippled production lines. While Shengli Arms eventually recovered partial production capacity, the facility suffered capital and personnel losses of eighty-four percent from this single attack. The Jihad-era LHU-3L variant initially appeared as a field refit before entering limited factory production.</p><p>The Victoria War proved catastrophic for the Lao Hu's original production line. When the Armed Forces of the Federated Suns invaded Victoria in 3103, retreating Capellan forces destroyed the Shengli Arms facility rather than allow it to fall into enemy hands. Ceres Metals Industries on Sian, leveraging their partial ownership of the Lao Hu design, subsequently took over production by phasing out their Thunder manufacturing lines to accommodate the more popular design. This ensured continued availability of the Lao Hu and its variants even as Victoria changed hands between the Federated Suns and Capellan Confederation.</p><p>When the CCAF recaptured Victoria in 3145 during Operation CELESTIAL REWARD, the planet's industrial infrastructure had been fundamentally altered by decades of Davion occupation and Lao Hu production remained centered at the Ceres Metals facility on Sian.</p>
+
+manufacturer:Shengli Arms|Ceres Metals Industries
+
+primaryfactory:Victoria|Sian
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Chariot
+systemmode:CHASSIS:Chariot Type II Endo Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:GM 375 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Stealth Armor)
+systemmanufacturer:COMMUNICATIONS:Dian-bao
+systemmode:COMMUNICATIONS:Dian-bao Comms, Standard
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:O/P 911 Targeting and Tracking System

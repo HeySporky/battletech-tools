@@ -1,0 +1,181 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dc9e-75e9-9724-d81888cb0c4c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Phoenix Hawk 'Hammer Hawk'
+model:PXH-1S
+
+Config:Biped
+techbase:Inner Sphere
+era:3150
+source:ShrapGothic
+published:ShrapGothic
+rules level:5
+role:Skirmisher
+
+quirk:command_mech
+quirk:ubiquitous_clan
+quirk:ubiquitous_is
+quirk:imp_com
+weaponquirk:jettison_capable:RA:5:Large Laser
+
+mass:45
+engine:225 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:11 Single
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:18
+RT armor:18
+CT armor:23
+HD armor:6
+LL armor:15
+RL armor:15
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:3
+Light Blazer, Left Arm
+Large Laser, Right Arm
+Light Blazer, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Heat Sink
+Light Blazer
+Light Blazer
+Mace
+Mace
+Mace
+Mace
+Mace
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Heat Sink
+Large Laser
+Large Laser
+Light Blazer
+Light Blazer
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:Debuted by the Ironclad Alliance, the PXH-1S was designed as an arena duelist and close-quarters ambusher for urban environments. Central to this concept is its five-ton, hammer-shaped mace, earning the variant its "Hammer Hawk" nickname. A smaller engine and the replacement of medium lasers and machine guns with a pair of light blazers accommodate the melee weapon without sacrificing too much firepower.
+
+capabilities:An ambush fighter built for dense terrain where jump jets allow rapid closing to melee range. Ranged firepower keeps opponents honest during the approach, but the real threat comes at arm's length. Pilots who overcommit in open ground will find the reduced top speed leaves them exposed during withdrawal. Works best operating in pairs with a conventional fire-support lance mate.
+
+fluffdate:2026-03-12 16:30:00
+

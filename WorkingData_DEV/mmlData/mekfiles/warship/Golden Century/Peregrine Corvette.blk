@@ -1,0 +1,275 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ee4b-7091-bb8f-427590f05d32
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Peregrine Corvette
+</Name>
+
+<Model>
+(2969)
+</Model>
+
+<mul id:>
+4805
+</mul id:>
+
+<year>
+2969
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:2.0:1:1::-1:0
+asfbay:10.0:2:2::-1:0
+dockingcollar
+1stclassquarters:160.0:0:-1::-1:0
+crewquarters:581.0:0:-1::-1:0
+cargobay:1607.0:1:6::-1:0
+</transporters>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<heatsinks>
+350
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+5000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+12
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+25
+25
+25
+20
+23
+23
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:30
+(B) CLERLargeLaser
+CLERLargeLaser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) CLERLargeLaser
+CLERLargeLaser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) CLERLargeLaser
+CLERLargeLaser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) CLERLargeLaser
+CLERLargeLaser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+</Right Broadsides Equipment>
+
+<structural_integrity>
+30
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 130,000 tons across 400 meters of hull, the Peregrine emphasizes speed over raw firepower. Its propulsion system delivers a safe thrust of six and maximum of nine, translating to three and four-and-a-half gravities respectively. This makes the Peregrine one of the fastest WarShips in any fleet. Seventy-seven tons of lamellor ferro-carbide armor provide excellent protection for the vessel's mass, while a structural integrity of thirty ensures the hull can sustain combat damage. A lithium-fusion battery allows rapid successive jumps, and a Mobile HPG gives the vessel independent interstellar communication capability, a critical asset for a vessel operating far from fleet support.</p><p>The primary offensive armament centers on two NAC/35 naval autocannons in the nose, providing significant forward-arc striking power. Six NL35 naval lasers distributed across the fore and aft arcs deliver sustained fire capability, while twelve ER Large Lasers across all arcs handle anti-fighter and close-range defense. Three hundred fifty double heat sinks manage thermal output efficiently. The vessel carries a Star of ten OmniFighters and two small craft through a single docking collar, with 1,607 tons of cargo capacity supporting extended independent operations. A crew of 129 operates the vessel without gravity decks, reflecting the Clan emphasis on warrior endurance.</p>
+</capabilities>
+
+<overview>
+<p>The Peregrine-class corvette holds the distinction of being the first WarShip designed and built entirely by a Clan, a milestone achievement in post-Exodus naval engineering. Commissioned by Clan Jade Falcon during the Golden Century, the compact corvette was conceived for patrol and independent operations across Clan-held space. Jade Falcon's naval architects eschewed the massive displacement of inherited Star League-era capital vessels in favor of a smaller, faster hull better suited to the Clan's immediate operational requirements. Though modest in size compared to the WarShips of the preceding age, the Peregrine earned a reputation as a swift and capable vessel, filling an operational niche that heavier designs could not efficiently address. Its combination of speed, endurance, and self-sufficiency made the class well regarded among Jade Falcon naval commanders.</p>
+</overview>
+
+<deployment>
+<p>The CJF Green Kestrel compiled the most extensive operational record of any Peregrine. In 3001, Star Colonel Zachary Zywot commanded the vessel during a Trial of Possession at Acadia against Clan Blood Spirit, employing orbital bombardment to force a Blood Spirit Trinary from prepared positions and securing five tons of prized Arcadian Russets for the Jade Falcons. The Green Kestrel subsequently discovered the Hazen system, where Clan Jade Falcon established a mining colony that operated for over a decade, spending five years supporting initial operations and eight years mining vanadium before the site's resources were exhausted. In a subsequent Trial against Clan Steel Viper, the Green Kestrel secured a shipment of aluminum while leaving the Vipers in control of the depleted system.</p><p>The CJF Silver Merlin earned distinction as a feared Dark Caste hunter, operating independently for years at a time pursuing bandit enclaves throughout the Kerensky Cluster. Its crew preferred the autonomy of independent hunting missions to routine escort duty. In 3045, the Silver Merlin departed on what appeared to be another routine hunting expedition and was never seen again by Clan forces. Decades later, Interstellar Expeditions detected a Peregrine-class vessel in the Deep Periphery during the early 3070s, and a Clan Goliath Scorpion expedition encountered a similar craft operated by the enigmatic Green Ghosts in 3071. Whether this vessel was the missing Silver Merlin remains unconfirmed, though unverified sightings of a Peregrine associated with the Green Ghosts persisted through 3150.</p>
+</deployment>
+
+<history>
+<p>The Peregrine-class corvette emerged in 2969 as Clan Jade Falcon's answer to a growing challenge facing the Clans during the Golden Century. The WarShips inherited from the Star League were aging, and maintaining them demanded increasing resources. Rather than attempting to reverse-engineer those massive designs, the Falcon naval command chose to build something new: a purpose-built corvette optimized for the missions the Clan actually needed performed. This made the Peregrine the first true WarShip designed and constructed by any Clan since the Exodus.</p><p>The design philosophy prioritized speed and operational flexibility over brute force. Jade Falcon engineers reasoned that a fast, relatively inexpensive vessel capable of independent operations would serve the Clan better than a slow capital vessel requiring constant support. Originally conceived as a stopgap measure while the Clan pursued larger designs, the Peregrine proved so effective in patrol, convoy escort, anti-piracy, and deep reconnaissance roles that it earned a permanent place in the fleet. Its ability to operate far from support infrastructure for extended periods made it particularly valuable for policing the vast distances of the Kerensky Cluster, where Dark Caste pirates and bandit enclaves threatened trade routes and outlying holdings.</p><p>The class saw active service throughout the late Golden Century and into the political upheavals preceding the Clan Invasion. Production numbers remain uncertain, but at least two vessels are confirmed to have served with distinction, conducting Trials of Possession, exploration missions, and anti-piracy operations across multiple systems. The loss of one vessel in the mid-thirty-first century under mysterious circumstances reduced an already small class. Unconfirmed reports later placed a Peregrine in the Deep Periphery during the early 3070s, associated with a faction of uncertain origin, but no positive identification was established. The Wars of Reaving and their aftermath saw references to Peregrine-class vessels in various operational contexts, suggesting some continued presence into the Jihad era. No confirmed sightings of operational Peregrines in Clan space exist beyond the thirty-first century, and the current status of the class remains uncertain.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Peregrine
+ENGINE:Unknown
+ARMOR:Lamellor Ferro-Carbide
+JUMP_JET:Standard (LF Battery)
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Corvette
+</use>
+
+<length>
+400 m
+</length>
+
+<height>
+950 m Sail
+</height>
+
+<source>
+TR:GC
+</source>
+
+<published>
+TR:GC
+</published>
+
+<tonnage>
+130000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+129
+</crew>
+
+<officers>
+16
+</officers>
+
+<gunners>
+10
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+10
+</life_boat>
+
+<escape_pod>
+10
+</escape_pod>
+

@@ -1,0 +1,177 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e698-7a2d-b783-87b2432b497e
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Bolla Stealth Tank (RotS)
+</Name>
+
+<Model>
+A
+</Model>
+
+<mul id:>
+410
+</mul id:>
+
+<year>
+3084
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:4.0
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+22
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+34
+32
+32
+30
+40
+</armor>
+
+<Body Equipment>
+IS Vehicular Stealth
+IS Light Gauss Ammo:OMNI
+IS Light Gauss Ammo:OMNI
+ISAMS Ammo:OMNI
+ISTargeting Computer:OMNI
+IS Machine Gun Ammo - Half
+ISGuardianECMSuite
+ISC3SlaveUnit
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISLightGaussRifle:OMNI
+ISAntiMissileSystem:OMNI
+ISTAG:OMNI
+</Turret Equipment>
+
+<capabilities>
+<p>The Republic Bolla retains the stealth armor and wheeled mobility of its Blakist predecessor, maintaining the core capability that defined the original design’s operational value. Factory standard equipment includes a single machine gun, a C³ slave linking the vehicle into supporting tactical networks, and a Guardian ECM suite sustaining the stealth armor system. The infantry transport bay was redesigned around the RAF’s standard four-trooper squad, reducing its size compared to the Blakist original and freeing four additional tons of pod space for mission-specific weapons loads. The VOX 280 XL fusion plant delivers a cruising speed of fifty-four kilometers per hour and a flank speed of eighty-six, providing useful strategic mobility on road networks while the stealth system manages tactical survivability during approach.</p><p>The OmniVehicle architecture gives the RotS Bolla substantial mission flexibility. Nearly twenty tons of pod space, with up to fifteen tons accessible through the turret, accommodates configurations tailored to specific infiltration or direct-action requirements. The Baltex K590 targeting system and GPT Multi-Track Enhanced communications package ensure reliable coordination between the vehicle, its embarked troops, and C³-networked supporting units. The stealth system and pod-space adaptability are the design’s primary strengths. Its principal limitation is the thin fixed armament when stripped of pod weapons, making the vehicle dependent on completing its mission before heavier enemy forces can bring it to a stand-up fight.</p>
+</capabilities>
+
+<overview>
+<p>The Bolla Stealth Tank in its Republic of the Sphere configuration is a sixty-ton wheeled OmniVehicle developed by the Republic Armed Forces in 3084 as a covert battle armor delivery platform. Derived from a Word of Blake design uncovered during the Jihad, the Bolla was substantially reworked to match RAF organizational standards while retaining the stealth characteristics that made the original concept operationally valuable. Manufactured by Maxwell-Pulaski Motors at a concealed facility on Terra, the RotS Bolla entered service exclusively with Republic special forces and has been kept under deliberate operational security, with few outside the RAF aware that the new configurations exist. The design represents the Republic’s commitment to preserving specialized covert capabilities inherited from the conflict that defined its founding.</p>
+</overview>
+
+<deployment>
+<p>The A configuration transforms the Bolla into a long-range precision platform. A light Gauss rifle enhanced by a targeting computer provides exceptional accuracy at extended ranges, while an anti-missile system protects against incoming missile fire. A TAG designator extends the configuration’s utility beyond direct fire to target designation for supporting assets. The A’s emphasis on stand-off precision makes it well-suited to special operations missions where the stealth approach allows the vehicle to acquire and engage high-value targets before defenders can locate the firing position.</p>
+</deployment>
+
+<history>
+<p>The Word of Blake developed the original Bolla during the Jihad as a covert infiltration vehicle, deploying it from Krupp Armaments Works on Terra to support operations requiring undetected battle armor insertion. Coalition forces encountered captured examples in service with multiple factions who had salvaged them from Blakist engagements, but the design remained poorly understood until coalition analysts accessed the Blakist research facility where the vehicle had been developed. The technical intelligence gathered there proved far more complete than anything recoverable from field salvage, giving Republic-aligned engineers a solid foundation for a successor design.</p><p>At Devlin Stone’s direction, Maxwell-Pulaski Motors, operating a Terra facility already associated with the vehicle through earlier captured-equipment support work, was tasked with developing the revised platform. Engineers reduced the infantry bay to accommodate the RAF’s four-trooper squad standard, converting the recovered weight into additional pod capacity, and replaced the C³i system with a conventional C³ slave that simplified logistics without sacrificing network capability. The revamped Bolla entered production in 3084 and was delivered exclusively to Republic special forces units under strict operational security. The Republic’s deliberate secrecy around the new configurations meant that factions holding original Blakist examples remained unaware of the RotS variant’s improved capabilities for many years.</p><p>Production continued through the Dark Ages into the ilClan era, reflecting the enduring value Republic and successor-state special forces placed on covert battle armor delivery. Despite the disruption of the Fortress Republic period and subsequent political realignments across the Inner Sphere, Maxwell-Pulaski Motors maintained production sufficient to support ongoing special operations requirements.</p>
+</history>
+
+<manufacturer>
+Maxwell-Pulaski Motors
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:VOX
+ARMOR:Krupp
+COMMUNICATIONS:GPT
+TARGETING:Baltex
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:VOX 280 XL
+ARMOR:Krupp Stealth
+COMMUNICATIONS:GPT Multi-Track Enhanced
+TARGETING:Baltex K590
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+
+<baseChassisTurretWeight>
+1.5
+</baseChassisTurretWeight>
+

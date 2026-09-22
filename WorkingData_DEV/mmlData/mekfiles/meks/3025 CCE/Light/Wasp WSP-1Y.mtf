@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c155-7f01-827b-2c200f81dc08
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Wasp
+model:WSP-1Y
+
+Config:Biped
+techbase:Inner Sphere
+era:3018
+source:TR:3025C
+rules level:1
+role:Scout
+
+quirk:ext_twist
+quirk:easy_maintain
+quirk:ubiquitous_clan
+quirk:ubiquitous_is
+
+mass:20
+engine:120 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:6
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:4
+RA armor:4
+LT armor:8
+RT armor:8
+CT armor:10
+HD armor:8
+LL armor:8
+RL armor:8
+RTL armor:2
+RTR armor:2
+RTC armor:2
+
+Weapons:2
+Medium Laser, Left Leg
+Medium Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Wasp was introduced in 2471 as the first BattleMech to mount jump jets, a revolutionary advancement that redefined battlefield mobility. Developed by General Mechanics under the direction of engineer Soren Iishi, the design emerged from an ambitious Terran Hegemony Armed Forces requirement for a highly mobile fast reconnaissance platform. The Wasp's ability to leap over obstacles and rough terrain gave it unmatched flexibility for scouting operations, setting a paradigm that would influence light 'Mech doctrine for centuries.</p><p>Mass-produced in staggering numbers throughout the Age of War and Star League eras, the Wasp became the most numerous BattleMech in the Inner Sphere. Better quality control made the Wasp more respected than the similar Stinger. Its combination of speed, jump capability, and low production cost made it the quintessential reconnaissance platform, with centuries-old Wasps existing in vast numbers, a testament not to durability but to prodigious production.</p>
+
+capabilities:<p>General Mechanics designed the Wasp with an emphasis on low cost, simplicity of maintenance, and expendability. All major systems were engineered for rugged durability and ease of replacement in forward operating conditions. The standard armament of a single medium laser and SRM-2 launcher provides adequate firepower for reconnaissance engagements while minimizing logistical demands, allowing extended operations without resupply.</p><p>The Wasp's Hermes 120 fusion engine propels the twenty-ton chassis to speeds exceeding ninety kilometers per hour, while its Rawlings 52 jump jets enable leaps of up to 180 meters. This mobility allows MechWarriors to rapidly disengage from superior forces or exploit terrain features inaccessible to heavier units. The arm-mounted medium laser serves as the primary weapon, offering reliable performance across most combat conditions.</p><p>However, the design's light armor protection stands as a significant vulnerability. The Wasp cannot sustain concentrated fire from heavier opponents, and early production models suffered from catastrophic leg actuator failures when pilots employed jump-kick maneuvers. This flaw was corrected by 2610 with the universal retrofit of MMSR actuator bars following the infamous Battle of Electra in 2580. Chronic finger myomer issues on some models led MechWarriors to remove the right hand of their 'Mechs and wrist-mount the laser instead.</p>
+
+deployment:<p>Mech-it Lube's WSP-1Y removed the SRM launcher in favor of additional armor and a second medium laser, becoming functionally identical to the STG-3G Stinger. This aftermarket modification proved popular with MechWarriors who preferred the reliability of an all-energy loadout and appreciated the enhanced protection. The conversion addressed the Wasp's armor deficiency while maintaining its reconnaissance capability through superior firepower at medium range.</p>
+
+history:<p>Development of the Wasp began in the mid-twenty-fifth century when General Mechanics sought to expand beyond its role as a subcontractor for the Mackie and Banshee programs. Engineer Soren Iishi, known as "Dr. Hive," led a team tasked with creating a 'Mech capable of unprecedented mobility. While the team's ultimate vision of a flying BattleMech would require decades more advancement to realize as the Land-Air 'Mech, their work on jump jet integration proved revolutionary. When the WSP-1X-02 prototype demonstrated its capabilities by leaping over a hangar during trials before HAF High Command, the competition was effectively over.</p><p>Production of the WSP-1A began in 2471, and General Mechanics constructed thousands of Wasps for the Hegemony and later the Star League. The design's widespread adoption led to the development of combined Wasp and Stinger swarm tactics that became legendary during the Star League era. However, the popularity of jump-kick maneuvers revealed a critical flaw in the leg actuators, resulting in numerous catastrophic failures during the Battle of Electra in 2580. By 2610, nearly all operational Wasps had been retrofitted with strengthened MMSR actuator bars.</p><p>The Succession Wars saw the Wasp deployed extensively by all Great Houses. The second battle of Ravannion in 3022 demonstrated the continued viability of light 'Mech swarm tactics when a Combine battalion assembled a full battalion's worth of Wasps and Stingers against Davion defenders. Everything went wrong for the attackers, freezing temperatures wreaked havoc with light 'Mechs overdue for maintenance, and Davion MechWarriors used their much-maligned Blackjacks' autocannons to devastating effect at ranges far exceeding the light 'Mechs' weapons. The engagement ultimately ended in disaster for the Combine forces.</p><p>The Phoenix programs of the 3060s returned the Wasp to prominence with upgraded variants incorporating recovered Star League technology and new innovations like stealth armor. The Word of Blake Jihad disrupted production across the Inner Sphere, though many factories eventually resumed operations under new management. Following the formation of the Wolf Empire, conquest of Kalidasa led to ramped-up Wasp production, ensuring the design remains one of the most common light 'Mechs in service. Wolf Empire's Theta Galaxy equipped with new Wasp Cs raided into the Lyran Commonwealth, striking the Eighth Donegal Guards on Caledonia, where the arm-mounted large laser proved decisive in cutting through the Guards' light screening units.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Irian
+systemmode:CHASSIS:1A Type 3
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:120
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Light
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:52
+systemmanufacturer:COMMUNICATIONS:Duotech
+systemmode:COMMUNICATIONS:65
+systemmanufacturer:TARGETING:RadCom
+systemmode:TARGETING:TXX

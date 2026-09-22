@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c12d-7e54-a9d6-544bcaa88b11
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Orion
+model:ON1-KA
+
+Config:Biped
+techbase:Inner Sphere
+era:2763
+source:TR:3025C
+rules level:1
+role:Brawler
+
+quirk:easy_maintain
+quirk:anti_air
+quirk:rugged_1
+
+mass:75
+engine:300 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:24
+RA armor:24
+LT armor:22
+RT armor:22
+CT armor:36
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:10
+RTR armor:10
+RTC armor:10
+
+Weapons:5
+SRM 4, Left Arm
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+LRM 15, Left Torso
+AC/10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+SRM 4
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+LRM 15
+LRM 15
+LRM 15
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Ammo SRM-4
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+IS Ammo AC/10
+IS Ammo AC/10
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Commissioned by the Terran Hegemony in response to the expanding BattleMech arms race that followed Operation PROMETHEUS, the Orion was designed by General Mechanics on Mars as the Hegemony’s premier heavy attack BattleMech. First fielded in prototype form in 2456, the seventy-five-ton design has remained in continuous production for over half a millennium, making it one of the longest-serving BattleMech designs in history. Often called “a poor man’s Atlas,” the Orion earned lasting fame as the chosen mount of General Aleksandr Kerensky during his campaign to liberate Terra from Stefan Amaris, an image that made the Orion one of the most recognized BattleMechs in known space. Production shifted to Kali Yama Weapons Industries in the Free Worlds League after the fall of the Star League, and the Orion’s roomy, easily maintained chassis has proven remarkably adaptable to successive generations of weapons technology, ensuring its continued relevance across every major conflict of the last five centuries.</p>
+
+capabilities:<p>The Orion’s design philosophy emphasizes versatility through a balanced mix of ballistic, missile, and energy weapons systems, an approach that has kept the chassis competitive even as battlefield technology has evolved dramatically. The standard ON1-K mounts a KaliYama Class 10 Autocannon as its primary weapon, supplemented by a KaliYama Death Bloom LRM-15 launcher for ranged fire support, two Irian Weapons Works medium lasers, and an SRM-4 rack to exploit armor breaches at close range. Over fourteen tons of Valiant Lamellor armor provides protection sufficient for sustained frontline combat, while a Vlar 300 fusion engine delivers a respectable maximum speed of sixty-four kilometers per hour.</p><p>The chassis’s greatest strength lies in its adaptability. The roomy internal layout has readily accommodated every major technological advancement since the Star League era, from XL engines and double heat sinks to extended-range weaponry and advanced fire control systems. This flexibility has produced an extraordinary number of variants, from simple field refits that swap missile launchers to ground-up redesigns mounting Gauss rifles and experimental weapons. Any MechWarrior who can pilot one Orion can quickly adapt to virtually any variant, a logistical advantage that few other designs can match.</p>
+
+deployment:<p>An alternate designation for the standard production Orion as documented in the original TRO 3025 Centennial-era records, this variant is functionally identical to the ON1-K. The design mounts the same KaliYama Class 10 Autocannon, Death Bloom LRM-15 launcher, two medium lasers, and SRM-4 rack that have defined the Orion’s combat profile for centuries.</p>
+
+history:<p>The Orion’s origins trace to the earliest days of the BattleMech arms race. After the Lyran Commonwealth obtained BattleMech technology through Operation PROMETHEUS, the Terran Hegemony commissioned General Mechanics of Mars to develop a new heavy attack ’Mech. The first ON1-C prototype debuted in 2453 but was rejected by the Hegemony Armed Forces for insufficient firepower. General Mechanics returned to the drawing board, settling on a smaller engine to free mass for additional weapons. The third prototype (the ON1-H, incorporating the newly developed class-10 autocannon) finally won HAF approval in 2456.</p><p>The Orion served the Hegemony with distinction, but its defining moment came centuries later during the Amaris Civil War. General Aleksandr Kerensky chose an Orion as his personal BattleMech, piloting it through the liberation of Terra and the capture of Stefan Amaris. That olive-drab Orion became one of the most recognized machines in military history. When Kerensky departed on the Exodus, he abandoned the venerable ’Mech, which was eventually recovered by Combine salvage teams in the New Samarkand system and given to the young Theodore Kurita. Named “Revenant,” the machine served Theodore through the Fourth Succession War before reportedly being destroyed on Marfik.</p><p>Production shifted from the original Hesperus II and Mars facilities to Kali Yama Weapons Industries on Kalidasa and the Kali Yama/Alphard Trading Corporation joint venture on Kendall following the fall of the Star League. The Free Worlds League became the largest producer, fueling complaints that the Marik Militia received more than their fair share of new Orions. The Outreach Accords during the Clan Invasion opened League military exports to the other Great Houses, sparking a golden age for Kali Yama and the Alphard Trading Corporation.</p><p>The recovery of Star League technology in the late 3040s produced the ON1-M upgrade, trading the temperamental autocannon for a versatile LB 10-X and adding an XL engine. The plethora of field variants that followed (Artemis IV refits, MRM conversions, rotary autocannon upgrades, and light Gauss substitutions) testified to the chassis’s enduring adaptability. The ON2-M represented the first ground-up redesign, employing an endo steel frame, Gauss rifle, and Artemis-equipped LRM-15 to create what many consider the definitive modern Orion. Kali Yama’s ON3-M “Orion 3100” pushed the design further with Extended LRM technology, though declining military budgets limited initial sales.</p><p>When Clan Wolf captured Kalidasa, they converted the Kali Yama production lines to build the Orion C, a fitting tribute to Kerensky’s legacy that combined the proven Inner Sphere chassis with cutting-edge Clan weaponry.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Kali Yama
+systemmode:CHASSIS:Chassis
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Valiant
+systemmode:ARMOR:Lamellor
+systemmanufacturer:COMMUNICATIONS:Irian
+systemmode:COMMUNICATIONS:Orator-5K
+systemmanufacturer:TARGETING:Wasat
+systemmode:TARGETING:Aggressor Type 5

@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7ab-779f-b06f-a796df22ab88
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Hanse MBT
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6326
+</mul id:>
+
+<year>
+3108
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Skirmisher
+</role>
+
+<quirks>
+bad_rep_is
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+61
+48
+48
+40
+</armor>
+
+<Body Equipment>
+SponsonTurret
+Supercharger
+ISCASE
+IS Ammo LAC/5
+IS Ammo LAC/5
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+IS Light Machine Gun Ammo - Half
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+</Body Equipment>
+
+<Front Equipment>
+ISPlasmaRifle
+ISPlasmaRifle
+Light Auto Cannon/5
+</Front Equipment>
+
+<Right Equipment>
+Light Machine Gun(ST)
+Light Machine Gun(ST)
+</Right Equipment>
+
+<Left Equipment>
+Light Machine Gun(ST)
+Light Machine Gun(ST)
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Hanse is a 75-ton tracked vehicle powered by a GM 300 XL fusion engine, giving it a cruising speed of 43 kph and a top speed of 64 kph. An onboard supercharger pushes sprint speed to 86 kph, a figure that suggests a vehicle optimized for rapid approach and aggressive tactics. The armament reinforces that impression: a Mydron Snakekiller Light Class 5 Autocannon provides sustained direct fire, two Jalastar Engineering Plasma Rifles deliver devastating close-range heat damage capable of disrupting battle armor and overheating opposing vehicles, and four GM Light Machine Guns offer anti-infantry coverage. Kallon Unity Weave Ferro-Fibrous armor with CASE protects the crew and shields ammunition stores from sympathetic detonation.</p><p>The Hanse's central weakness is the absence of a turret. The entire hull must rotate to bring weapons onto targets outside a limited forward arc. At standoff ranges, where the speed advantage allows the crew to orient toward threats before they close, this limitation is manageable. In the close-quarters engagements that the vehicle's speed and firepower profile seem to invite, the fixed forward armament becomes a liability that experienced opponents readily exploit. Battle armor units and faster flanking vehicles consistently neutralize Hanses whose crews have committed to a brawl, a tactical trap the vehicle's own design makes dangerously tempting.</p>
+</capabilities>
+
+<overview>
+<p>General Motors developed the Hanse MBT in the years following the Victoria War of 3103-3105, when after-action analysis revealed persistent shortcomings in AFFS armored platoon doctrine. The company aimed to deliver a vehicle capable of standing alongside the Manticore and the Brutus as one of the premier armored fighting platforms of the Federated Suns. Produced at the General Motors Annex on Kathil beginning in 3108, the Hanse was positioned as an aggressive close-combat design intended to complement existing AFFS heavy armor.</p><p>The finished product disappointed nearly every operator who fielded it. The Armed Forces of the Federated Suns quickly developed a lukewarm relationship with the design, and General Motors turned to export markets to sustain production. Buyer's remorse proved nearly universal among export customers as well, cementing the Hanse's reputation as a vehicle that fails to live up to its apparent capabilities.</p>
+</overview>
+
+<deployment>
+<p>The Hanse performs best when used as a screening and harassment platform rather than a frontline assault vehicle. Effective doctrine positions the tank at extended range along prepared approach corridors, where its autocannon and plasma rifles can engage targets across open ground without requiring the hull-down reorientation that turretless vehicles demand in close terrain. The supercharger provides a meaningful retreat option when opponents attempt to close, and disciplined crews who disengage before flanking threats develop consistently survive longer than those who hold position.</p><p>AFFS units have found the Hanse most useful in defensive screening assignments, where known enemy approach vectors allow the crew to pre-position and engage along predictable lines. Mercenary operators have achieved the most consistent results through plasma rifle ambush configurations, using heat-generating bursts to disrupt enemy formations before withdrawing at speed. Any deployment plan that relies on the Hanse absorbing close assault reliably ends in its loss.</p>
+</deployment>
+
+<history>
+<p>The Victoria War left AFFS armor planners searching for answers. Capellan light infantry and battle armor formations had repeatedly defeated heavier Federated Suns armored units through close-quarters swarming tactics, and the after-action record pointed toward a need for faster, more heavily armed vehicles that could punish enemy infantry before they closed to engagement range. General Motors responded with the Hanse, a design intended to fill that gap with a combination of sprint speed and concentrated short-range firepower.</p><p>Initial AFFS reception was cautiously optimistic. The vehicle's specifications compared favorably to existing designs on paper, and procurement officers approved orders in anticipation of a capable new platform entering the inventory. Operational experience delivered a sharply different verdict. Early deployment reports from frontline armor units described a consistent failure pattern: crews pressed the Hanse into close combat, where its forward-fixed weapons proved unequal to the demands of the engagement, and where the same infantry and battle armor formations the vehicle was supposed to suppress swarmed it instead. The absence of turret traverse, which had seemed an acceptable trade-off in the design phase, proved to be a decisive tactical vulnerability once opponents recognized it.</p><p>The AFFS gradually reduced the Hanse's prominence in frontline formations. General Motors pivoted to export markets, marketing the vehicle's armament and speed to buyers across the Inner Sphere. The design found customers, but the experience of those operators mirrored what the AFFS had already learned. Buyer's remorse spread through export inventories as unit commanders encountered the same tactical limitations in different theaters and against different opponents.</p><p>Mercenary units proved to be the most receptive long-term operators. Professional mercenaries typically bring greater tactical flexibility and lower institutional attachment to prescribed doctrine, and some formations developed effective methods for deploying the Hanse within its actual capabilities rather than against them. Hit-and-fade ambushes using the plasma rifles, followed by supercharged withdrawal before opponents could flank, extracted consistent results that AFFS line units rarely achieved. Attrition remained higher than comparable tracked designs even in mercenary service, but the vehicle found a niche among operators willing to accept its limitations in exchange for its armament profile and reasonable acquisition cost.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Kathil
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:General Motors
+ENGINE:GM
+ARMOR:Kallon
+COMMUNICATIONS:Wunderland
+TARGETING:Dalban
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:300 XL
+ARMOR:Unity Weave Ferro-Fibrous
+COMMUNICATIONS:XXXV-2 Series
+TARGETING:HiRez
+</systemModels>
+
+<source>
+TR:3145:FS,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

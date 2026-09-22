@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d339-7a89-b434-7569f20488af
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Vulpes
+model:VLP-1D
+mul id:6346
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3133
+source:TR:3145:FS,TR:DA
+published:RS:DA
+rules level:4
+role:Skirmisher
+
+quirk:difficult_maintain
+quirk:distracting
+
+mass:60
+engine:300 XXL (Clan) Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:5
+jump mp:0
+
+armor:Stealth(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:22
+RT armor:22
+CT armor:30
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:3
+ER Large Laser, Left Arm
+ER Large Laser, Right Arm
+Rotary AC/5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+CLERLargeLaser
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+CLERLargeLaser
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISMASC
+ISMASC
+ISMASC
+ISCASE
+IS Stealth
+IS Stealth
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+IS Stealth
+IS Stealth
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Vulpes was introduced in 3133 by Achernar BattleMechs on New Avalon, entering service with the Armed Forces of the Federated Suns barely a year after the HPG Blackout plunged the Inner Sphere into chaos. Designed as a heavy, fast attack BattleMech in the same vein as the venerable Argus, the sixty-ton Vulpes was built from the outset to mix Clan-grade technology with advanced Inner Sphere systems, a combination that gave it capabilities few contemporaries could match.</p><p>The Vulpes was conceived to fight at extended range, using its advanced defensive systems to shield it from return fire while it closed to effective engagement distance. Fast enough to keep pace with the battle line and dangerous enough that enemies learned quickly not to ignore it, the design's combination of speed, protection, and firepower found an immediate home in the regiments of House Davion.</p>
+
+capabilities:<p>The Vulpes is the AFFS' preeminent heavy attack BattleMech, designed to engage at range and exploit its advanced defensive systems. Its primary armament consists of two ExoStar Pinnacle Clan-specification extended range large lasers mounted in the arms, providing devastating long-range firepower that can outreach most Inner Sphere opponents. Complementing these is a Mydron Tornado rotary class 5 autocannon in the right torso, fed by two tons of ammunition stored in the left torso and protected by CASE. This weapons suite allows the Vulpes to engage effectively at long range while maintaining sustained firepower as engagements close.</p><p>The Model 42b 300 XXL engine pushes the Vulpes to a cruising speed of 54 kilometers per hour, with a maximum of 86 that can be boosted to 108 with MASC. Twelve and a half tons of StarGuard Nightshroud stealth armor, working in concert with the integrated Guardian ECM Suite, makes the Vulpes remarkably difficult to target at range. This defensive suite defines the design philosophy, as the Vulpes is intended to fight where its stealth systems provide maximum advantage rather than brawling at close quarters.</p><p>The reliance on an XXL engine and stealth armor does create vulnerabilities. The engine is notoriously fragile under concentrated torso fire, and the stealth system's complexity has earned the Vulpes a reputation as difficult to maintain. These trade-offs are considered acceptable given the tactical advantages the design provides when properly employed.</p>
+
+deployment:<p>This variant is the standard production model of the Vulpes, representing the baseline configuration as it rolled off the Achernar BattleMechs assembly line beginning in 3133. As the foundation upon which all subsequent variants are built, this variant established the design's reputation as a ranged combatant that leverages stealth and speed to control engagement distances. The first production runs were assigned exclusively to elite AFFS formations, where MechWarriors quickly developed tactics centered on engaging at distances where the design's defensive profile made return fire least effective. The VLP-1D remains the most widely produced variant and the standard by which the Vulpes family is judged.</p>
+
+history:<p>The Vulpes emerged during one of the most turbulent periods in Inner Sphere history, entering production in 3133 as the Blackout signaled the end of Devlin Stone's vision for a peaceful Republic. Achernar BattleMechs responded to the crisis faster than most manufacturers, recognizing the AFFS' urgent need for a modern heavy attack platform. The design found immediate acceptance among Davion commanders, who deployed it to their most elite formations as quickly as production lines could deliver.</p><p>Vulpes BattleMechs earned a fearsome reputation in the short time they served in the field. Popular among the AFFS' most elite regiments, they fought in some of the heaviest actions of the period's numerous border conflicts and invasions. On Almach, a pair of Vulpes attached to the First Federated Suns Armored Cavalry led two lances of Red Lancers on an extended pursuit, demonstrating the design's combination of speed and endurance. When heavy Arrow IV bombardments forced several detachments to hunt for the launchers, the two MechWarriors instead stumbled upon reconnaissance lances probing the Armored Cavalry's flank. Activating their stealth systems, they engaged from long range, trusting their Clan-specification large lasers to outrange anything the Capellans could bring to bear.</p><p>Captured Vulpes BattleMechs became prized trophies for both Draconis Combine samurai and Capellan Confederation janshi, with examples observed on New Syrtis and Robinson operating under enemy colors. At least one disaffected AFFS company commander took his Vulpes when he deserted to form an independent mercenary company, further spreading the design beyond Davion space. This proliferation, while unwelcome to AFFS High Command, served as proof of the design's combat effectiveness and the high regard in which it was held by MechWarriors across the Inner Sphere.</p><p>By 3151, the political arena had shifted dramatically. The Achernar BattleMechs facility on New Avalon fell under Draconis Combine control during the upheavals of the ilClan era, bringing Vulpes production under new management. Whether the Combine will continue producing the design or redirect the factory's output remains to be seen, but the Vulpes' proven combat record makes it a valuable addition to any faction's arsenal.</p>
+
+manufacturer:Achernar Battlemechs
+
+primaryfactory:New Avalon
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Dorwinion
+systemmode:CHASSIS:Royal Fox
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Model 42b 300 XXL
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:Nightshroud Stealth
+systemmanufacturer:COMMUNICATIONS:Lynx-Shur
+systemmode:COMMUNICATIONS:7 with Guardian ECM Suite
+systemmanufacturer:TARGETING:Federated Hunter
+systemmode:TARGETING:Mk. XII

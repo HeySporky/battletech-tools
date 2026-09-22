@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-add5-7a4c-951b-3b5e68078f74
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Swift
+</Name>
+
+<Model>
+SWF-606
+</Model>
+
+<mul id:>
+3141
+</mul id:>
+
+<year>
+2682
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Interceptor
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+13
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+240
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+10
+10
+10
+5
+</armor>
+
+<Nose Equipment>
+Small Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Swift's performance comes at considerable cost to payload capacity. The Shinobi 275-A engine accounts for roughly sixty percent of the airframe, with fuel, avionics, and life support consuming most of the remainder. Only three and a half tons of KX4 ferro-aluminum armor and a light weapons suite of one Maxell-UD6 medium laser and one McCorkel small laser remain for combat purposes. The fighter can sting its targets and rely on its speed to escape retaliation, but cannot absorb sustained punishment in a protracted engagement.</p><p>In raw thrust, the Swift excels. The Shinobi plant generates ten gravities of acceleration, matched only by the Bashkir among fighters of comparable mass and exceeded solely by the Avar. This performance, combined with plug-and-play component architecture, made the design popular with both pilots and ground crews. Engineers could diagnose and remedy faults quickly, reducing the downtime that afflicted more complex contemporary fighters.</p><p>The B-TT7i central computer oversees navigation, communications, fire control, and life support, providing voice-based feedback through the Lockheed Matrix-V communications system. Despite a controversial reception from crews accustomed to simpler interfaces, the system ultimately freed pilots from many routine monitoring tasks, allowing them to concentrate on maneuvering and target acquisition. Later software revisions allowed pilots to set threshold levels for advisory warnings, reducing the interruptions that initially earned the system its unflattering nickname.</p>
+</capabilities>
+
+<overview>
+<p>The Swift is a twenty-five-ton light aerospace fighter developed by Caletra Fighters of Terra for the Star League Defense Force. Entering service in 2682, the design arrived six years behind its original schedule after Caletra's engineers worked to integrate advanced technologies at a level unprecedented for the era. The extended development timeline ultimately produced a fighter whose performance rivaled far heavier designs. Serving for over a century as the principal light fighter of the SLDF, the Swift earned widespread respect for its exceptional speed and sophisticated electronics suite, even as pilots and technicians initially regarded its revolutionary systems with suspicion. After the Exodus, the design effectively disappeared from the Inner Sphere, surviving primarily in Clan second-line forces and in the hands of ComStar, whose manufacturing presence on Terra kept the type in limited service long after the Succession Wars erased knowledge of the original production techniques.</p>
+</overview>
+
+<deployment>
+<p>The SWF-606 served as both dogfighter and reconnaissance platform throughout its long SLDF career, combining superior speed with sophisticated electronics to fill roles that heavier designs could not. Swift squadrons screened warship formations, conducted advance reconnaissance ahead of main fleet elements, and harassed heavier opponents by exploiting their agility to draw enemy fighters away from vulnerable capital ships and DropShips. The design's limited individual firepower made concentrated squadron tactics essential, and SLDF doctrine evolved accordingly. Outside the SLDF, operational examples are extraordinarily rare, confined almost entirely to Clan second-line units and former ComStar inventories.</p>
+</deployment>
+
+<history>
+<p>Caletra Fighters accepted the Swift development contract with ambitions to advance Inner Sphere aerospace technology beyond anything then in production. The timeline slipped badly, and the first production airframes arrived in 2682, six years behind the original delivery date. Early scrutiny of the design intensified after an electronics sequence in the B-TT7i caused the system to eject a pilot without warning during an approach, sending the unmanned aircraft into a crash that caused significant secondary damage. The subsequent investigation found no fault in the underlying hardware or software, attributing the incident to an unforeseeable combination of flight conditions and pilot behavior. The report's characterization of the accident as unforeseeable did little to reassure crews, and only a subsequent record of near-flawless flight operations gradually eroded the suspicion the incident had generated.</p><p>The B-TT7i's voice advisory module drew immediate and sustained mockery from pilots who nicknamed the female voice "Bitching Betty." Caletra responded with software updates that allowed threshold adjustments and selective muting of all but the most critical warnings. The controversy faded as crews recognized the genuine benefit of having routine monitoring removed from their mental workload, and the Swift's acceptance curve followed a familiar pattern: skepticism giving way to appreciation as pilots learned to work with the design's systems rather than against them.</p><p>Despite its troubled introduction, the Swift became the SLDF's dominant light fighter over the following decades. Its plug-and-play architecture simplified logistics across far-flung carrier groups, and a succession of electronic and software upgrades extended service life well beyond initial projections. The design proved particularly suited to warship carrier operations, where its agility and maintenance efficiency compensated for its limited individual weapons payload. At peak SLDF deployment, Swift squadrons served aboard carriers across every operational theater, fulfilling both defensive screening duties and advance reconnaissance roles.</p><p>The Kerensky Exodus removed the bulk of surviving Swifts from the Inner Sphere. Relatively few had been exported to the Great Houses, and those that remained were consumed by the ferocious attrition of the Succession Wars. By the late Succession Wars, the design had effectively vanished from Inner Sphere service. The Clans retained the Swift in second-line and solahma units for generations, valuing it as a transitional trainer for pilots advancing to OmniFighter platforms, as its integrated systems architecture foreshadowed elements of Clan aerospace design philosophy.</p><p>ComStar maintained Swift production at its Terra facility long after Inner Sphere manufacturers had lost the technical knowledge required to replicate the design. The Word of Blake inherited this capability when they seized Terra, continuing limited production and supporting refits through the Jihad. The Republic of the Sphere held the facility afterward but did not resume active manufacturing, and surviving examples remain confined to former ComStar, Word of Blake, and Clan inventories.</p>
+</history>
+
+<manufacturer>
+Caletra Fighters|Caletra Fighters
+</manufacturer>
+
+<primaryFactory>
+Fletcher (TH)|Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Caletra Fighters
+ENGINE:Shinobi
+ARMOR:Unknown
+COMMUNICATIONS:Lockheed
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Mujika-L9 Aerospace
+ENGINE:275-A
+ARMOR:KX4 Ferro-Aluminum
+COMMUNICATIONS:Matrix-V
+TARGETING:PhantomTrac 55
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+

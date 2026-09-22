@@ -1,0 +1,191 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df56-7328-953b-253f7b4c4523
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Uni
+model:ATAE-70 ArtilleryMech
+mul id:8101
+
+Config:Quad
+techbase:Inner Sphere
+era:3090
+source:XTR:Caveat
+published:XTR:Caveat
+rules level:5
+role:Missile Boat
+
+
+mass:70
+engine:210 Fuel Cell Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:5 Single
+walk mp:3
+jump mp:0
+
+armor:Heavy Industrial(Inner Sphere)
+FLL armor:21
+FRL armor:21
+LT armor:20
+RT armor:20
+CT armor:31
+HD armor:9
+RLL armor:21
+RRL armor:21
+RTL armor:9
+RTR armor:9
+RTC armor:10
+
+Weapons:2
+Thumper, Center Torso
+Thumper, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+-Empty-
+-Empty-
+
+Right Torso:
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumperAmmo
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISThumper
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Uni is a seventy-ton quadrupedal CargoMech introduced in 3050 by N&D WorkMechs on the Lyran world of Furillo. Its development traces back to the Donegal-based Nashan Diversified conglomerate, which leveraged its longstanding alliance with Hesperus-based Defiance Industries to enter IndustrialMech manufacturing in the early 3030s. The company's first product, the eighty-ton Lugger SalvageMech, proved to be little more than a stripped-down, fusion-powered design with virtually no external protection, but the lessons learned from its production informed the creation of the Uni.</p><p>Designed from the outset as a rugged, versatile cargo hauler, the Uni quickly became the standard industrial-grade CargoMech across the Inner Sphere following its introduction. Its combination of environmental sealing, substantial cargo capacity, and battlefield salvage capability made it popular with commercial operators, military logistics units, and mercenary commands throughout the former Federated Commonwealth and beyond.</p>
+
+capabilities:<p>The Uni derives its name from "Universal," a reference to its adaptability across diverse operational environments. As a quadruped design, the ATAE-70 provides a stable platform for heavy cargo operations, with its spidery legs capable of adjusting their stance from low-slung positions that distribute heavy loads to full extension for maximum ground clearance. A Defiance Motors 210 HydroCell fuel cell engine powers the chassis, providing adequate speed for industrial operations while keeping costs well below those of comparable fusion-powered designs.</p><p>The 'Mech's primary cargo bay features a top-opening flatbed design capable of internalizing loads when closed or accommodating oversized cargo when left open, providing up to seventeen tons of carrying capacity. Twin GripperTech Lift Hoists mounted on the rear torsos extend this versatility further, enabling the Uni to handle battlefield salvage and haul external loads as massive as an assault-class BattleMech using the hoists as a sling.</p><p>Nine tons of Nashan commercial-grade armor provide reasonable protection for an industrial chassis, though this falls well short of military standards. Environmental sealing throughout the design allows the Uni to operate in hostile conditions ranging from toxic atmospheres to underwater environments, a capability that has proven particularly valuable for operations on frontier worlds with harsh climates.</p>
+
+deployment:<p>A crude field modification developed by a pirate band on the Rim Commonality world of Astrokaszy beginning around 3133, this variant bears little resemblance to the Uni's intended purpose. The pirates permanently attached a Thumper artillery piece to the 'Mech's flatbed, using welded cargo containers as both a mounting pedestal and improvised living quarters for their crew. The environmental sealing and lift hoists were removed to accommodate upgraded heavy industrial armor and additional heat sinks needed to operate the artillery piece. The resulting platform serves as a mobile extortion tool, with the pirates shelling settlements that refuse to comply with their demands for supplies and valuables. Efforts by the Fifth Rim Commonality Guards to neutralize the threat have proven unsuccessful, hampered by a lack of air assets and the vast deserts of Astrokaszy into which the pirates disappear.</p>
+
+history:<p>The Uni's introduction in 3050 came at a fortuitous moment for the Federated Commonwealth. With Defiance Industries scrambling to fill military orders in the wake of the Clan Invasion, N&D WorkMechs' production of the Uni on Furillo alleviated growing demands for WorkMech platforms that might otherwise have diverted capacity from critical BattleMech production lines. The design quickly found favor throughout both the commercial and military sectors of the former Federated Commonwealth, with mercenary commands and corporations placing orders for complete production runs.</p><p>The success of the base CargoMech led N&D to develop the ATAE-70M MilitiaMech variant in 3053 at the request of the Donegal March Militia, which recognized military potential in the rugged chassis. The MilitiaMech was widely exported throughout the Donegal March and the Periphery March before the FedCom Civil War. Its most notable deployment came during the Jade Falcon Incursion of 3058 on the world of Bucklands, where Clan warriors made short work of the militia units. The retention of commercial-grade armor proved wholly inadequate against Clan weaponry, reinforcing the limits of converting industrial platforms for frontline combat.</p><p>By the late 3060s, the Uni faced increasing commercial pressure from rival designs. Kong Interstellar's ninety-ton King-class CargoMech dominated Free Worlds League markets, while Achernar BattleMechs' sixty-ton Heavy Lifter, a fusion-powered design utilizing industrial-grade triple-strength myomers, captured an estimated forty percent of N&D's Federated Suns market share in just four years. This competitive threat spurred the development of the ATAE-70T variant incorporating its own industrial triple-strength myomer system.</p><p>In the chaos following the HPG blackout of 3132, at least one Uni found a far less conventional role when pirates on the Rim Commonality world of Astrokaszy jury-rigged an ATAE-70 into a mobile artillery platform. Mounting a Thumper artillery piece on the 'Mech's flatbed and converting its cargo containers into living quarters, the pirates used the modified Uni to extort settlements across the remote world. Efforts by the Fifth Rim Commonality Guards to neutralize the threat proved unsuccessful, hampered by limited air assets and the vast deserts into which the pirates could disappear.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:N&D
+systemmode:CHASSIS:Universal Ultraload (modified)
+systemmanufacturer:ENGINE:Defiance
+systemmode:ENGINE:210 HydroCell
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Heavy Industrial)
+systemmanufacturer:COMMUNICATIONS:Unknown

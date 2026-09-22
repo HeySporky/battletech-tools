@@ -1,0 +1,623 @@
+{
+  "filename": "Okuma B.hmp",
+  "size": 2566,
+  "header_hex": "56 35 2e 30 30 04 00 08 05 48 00 10 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0005H\u0000"
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 29,
+      "length": 16,
+      "text": "\u0000\u0000\u0000\u0000<\u0000\u0005\u0000Okuma\u0001\u0000B"
+    },
+    {
+      "type": "byte",
+      "offset": 29,
+      "hex": "f4"
+    },
+    {
+      "type": "len_string",
+      "start": 30,
+      "end": 555,
+      "length": 523,
+      "text": "\u0000\u00e0\u00ae\u001f\u0001W\u0006\u0000\u0090\u0014E\u0000\u0090\u0014E\u0000\u0000\u0010B\u0000\u0000pA\u0000\u0000\u00a0@\u0018\u0000MH 5 4 6 4 12 6 omni, if\u0001\u0000\n\u0000\u0001\u0000h\u0001\u0001\u0000\u0006\u0000\u0000\u0000\u0013\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\u001c\u0000\u0000\u0000\u0006\u0000\u0006\u0000\u0007\u0000\u0002\u0000\u0006\u0000\u0001\u0000\u0080\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0002\u0000\u0082\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0081\u0000\u0005\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0081\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000M\u0000\b\u0000\u0010\u0000\u0002\u0000\t\u0000(Unknown)\u0001\u0000\u0082\u0000\u0007\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0082\u0000\u0000\u0000\u0082\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0081\u0000\u0000\u0000\u0081\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u00dd\u0001\b\b\u00dd\u0001\b\b\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0080\u0000\u0000\u0000\u0080\u0000\u0000\u0000\u0080\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0081\u0000\u0000\u0000\u0081\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 555,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 556,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 557,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 558,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 559,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 560,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 561,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 562,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 563,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 564,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 565,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 566,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 567,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 568,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 569,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 570,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 571,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 572,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 573,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 574,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 575,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 576,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 577,
+      "end": 591,
+      "length": 12,
+      "text": "\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0082\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 591,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 592,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 593,
+      "end": 594,
+      "text": "\r"
+    },
+    {
+      "type": "byte",
+      "offset": 594,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 595,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 596,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 597,
+      "end": 611,
+      "length": 12,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 611,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 612,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 613,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 614,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 615,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 616,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 617,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 618,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 619,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 620,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 621,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 622,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 623,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 624,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 625,
+      "end": 642,
+      "length": 15,
+      "text": "\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010"
+    },
+    {
+      "type": "byte",
+      "offset": 642,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 643,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 644,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 645,
+      "end": 663,
+      "length": 16,
+      "text": "\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 663,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 664,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 665,
+      "end": 666,
+      "text": "M"
+    },
+    {
+      "type": "byte",
+      "offset": 666,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 667,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 668,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 669,
+      "end": 670,
+      "text": "M"
+    },
+    {
+      "type": "byte",
+      "offset": 670,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 671,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 672,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 673,
+      "hex": "e2"
+    },
+    {
+      "type": "byte",
+      "offset": 674,
+      "hex": "ff"
+    },
+    {
+      "type": "len_string",
+      "start": 675,
+      "end": 859,
+      "length": 182,
+      "text": "i\u0001Having inherited a Grand Dragon production line on Alshain, the Ghost Bear clan decided to try and optimize it for their own use until their ark ships could be properly deployed.  "
+    },
+    {
+      "type": "ascii",
+      "start": 859,
+      "end": 1041,
+      "text": "They decided to make the Grand Dragon into an Omnimech design, to help soothe hard feelings with the local population, even going so far as to name it the Okuma (Japanese for bear).O"
+    },
+    {
+      "type": "byte",
+      "offset": 1041,
+      "hex": "03"
+    },
+    {
+      "type": "ascii",
+      "start": 1042,
+      "end": 1890,
+      "text": "The Okuma is a brand new design, a rarity with the tradition-minded Ghost Bears.  With a MASC installed, the Okuma can concievably run to ground most light and medium mechs, and evade heavier mechs.  The primary configuration closely mirrors the Grand Dragon, with an ER PPC and three medium pulse lasers, with a Streak SRM-6 replacing the LRM launcher.  The Ghost Bears gave the design of the Okuma to the Coyote in exchange for ATM technology, for the Okuma A, with a potent ATM-9 launcher and an array of lasers to back it up.  Captured salvage from the Star Adders as the Ghost Bears departed the Kerensky Cluster provided the heavy laser designs for the Okuma B, with plenty of heat sinks to keep heat problems down.   Lastly, the Okuma C uses a Gauss Rifle for long rang punch, a quartet of medium lasers proving ample damage at close range.;"
+    },
+    {
+      "type": "byte",
+      "offset": 1890,
+      "hex": "01"
+    },
+    {
+      "type": "ascii",
+      "start": 1891,
+      "end": 2206,
+      "text": "The Okuma was unveiled against Clan Wolf to amazing effect when the Ghost Bears attacked the Wolf worlds for their conduct in the Great Refusal.  Apparently thinking the mech was a second-line design instead of a true Omni, most Wolf warriors underestimated the design until they found out the truth the hard way.\r\n"
+    },
+    {
+      "type": "len_string",
+      "start": 2206,
+      "end": 2209,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2209,
+      "end": 2212,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2212,
+      "end": 2428,
+      "length": 214,
+      "text": "The Okuma is deployed throughout the Ghost Bear front-line forces.  Though some hard-liners refuse to use a 'Spheroid' mech, most warriors, particularly ones working with elemental troops, like the fast heavy mech."
+    },
+    {
+      "type": "len_string",
+      "start": 2428,
+      "end": 2431,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2431,
+      "end": 2434,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 2434,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2435,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2436,
+      "end": 2452,
+      "length": 14,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 2452,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2453,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2454,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2455,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2456,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2457,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2458,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2459,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2460,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2461,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2462,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2463,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2464,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2465,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2466,
+      "end": 2476,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 2476,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2477,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2478,
+      "end": 2479,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2479,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2480,
+      "end": 2490,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2490,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2491,
+      "end": 2501,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2501,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2502,
+      "end": 2512,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2512,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2513,
+      "end": 2523,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2523,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2524,
+      "end": 2534,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2534,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2535,
+      "end": 2545,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2545,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2546,
+      "end": 2556,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2556,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2557,
+      "end": 2566,
+      "text": "(Unknown)"
+    }
+  ]
+}

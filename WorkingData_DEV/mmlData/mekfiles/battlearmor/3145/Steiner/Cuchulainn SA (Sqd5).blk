@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a768-761c-b1b7-7f9508cd6b05
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Cuchulainn Support Armor
+</Name>
+
+<Model>
+(Sqd5)
+</Model>
+
+<mul id:>
+8768
+</mul id:>
+
+<year>
+3134
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+33
+</armor_type>
+
+<armor_tech>
+6
+</armor_tech>
+
+<Point Equipment>
+ISDetachableWeaponPack:RA
+BACLERMediumPulseLaser:DWP
+BABasicManipulator:LA
+BABasicManipulator:RA
+Clan BA Stealth (Improved):LA
+Clan BA Stealth (Improved):Body
+Clan BA Stealth (Improved):LA
+Clan BA Stealth (Improved):Body
+Clan BA Stealth (Improved):Body
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Cuchulainn is a 1,500-kilogram battle armor suit built on Clan technology and optimized for direct fire support. Its primary armament is a single ER medium pulse laser mounted in a detachable weapon pack on the left arm. When carrying the weapon pack, the suit is limited to roughly 10 km/h, making it one of the slowest battle armor designs in active service. Detaching the weapon pack doubles the suit's speed to 22 km/h, allowing troopers to reposition or withdraw once their ammunition is expended.</p><p>Nearly half a ton of improved stealth armor provides strong protection while reducing the suit's sensor signature at range. Each arm mounts a basic manipulator, and the suit can ride on mechanized transport, though its bulk prevents swarm or leg attacks against enemy BattleMechs. The design excels when paired with faster, lighter suits such as the Gray Death armor series, which can engage enemies that close the distance.</p>
+</capabilities>
+
+<overview>
+<p>The Cuchulainn Support Armor is a heavy Clan-technology battle armor suit developed jointly by Clan Wolf-in-Exile and the Kell Hounds on Arc-Royal. Named for the legendary hero of Irish mythology, the suit entered production in 3134 as a dedicated fire support platform for armored infantry operations. The Cuchulainn was designed to anchor defensive positions and engage hostile forces at range while lighter battle armor formations handled close-quarters combat. The suit earned a reputation as a dependable, if slow, complement to faster designs and saw widespread adoption among Lyran Commonwealth forces and affiliated mercenary commands.</p>
+</overview>
+
+<deployment>
+<p>Clan Wolf-in-Exile organized Cuchulainns into five-trooper Points, the standard Clan formation for armored infantry. The suit was generally available across Exile toumans, and Clan Wolf later acquired additional suits during its 3140 assault on the Commonwealth, distributing them among scattered Elemental Trinaries. A Point of Cuchulainns fought a stubborn rearguard action outside Knockbridge during the defense of Incukalns against the Jade Falcon and Hell's Horses Golden Ordun, buying time for the remaining Wolves-in-Exile to withdraw from the field.</p>
+</deployment>
+
+<history>
+<p>The Cuchulainn grew out of a joint development program between Clan Wolf-in-Exile and the Kell Hounds, both based on Arc-Royal. With Clan Jade Falcon expected to escalate its attacks against the Lyran Commonwealth, the two organizations pooled their resources to create a heavy battle armor suit capable of anchoring defensive positions alongside lighter infantry. Arc-Royal MechWorks and WC Site 2 began production in 3134, shortly before the Blackout severed interstellar communications across the Inner Sphere.</p><p>The suit was made available for general mercenary purchase early on, though Arc-Royal prioritized deliveries to units in Lyran employ. The Kell Hounds fielded a large number of suits before the disaster on Timkovichi, while Wolf's Dragoons acquired and retained a sizable force of their own. Favored units of the LCAF also received priority allocations. When Clan Wolf launched its surprise assault on the Commonwealth in 3140, Wolf warriors seized Cuchulainn suits from overrun garrisons and integrated them into scattered Elemental Trinaries. The suit saw action during Operation HAMMERFALL, the defense of Tharkad against the Jade Falcons, and Dragoon campaigns along the Federated Suns border.</p>
+</history>
+
+<manufacturer>
+Arc-Royal MechWorks|WC Site 2
+</manufacturer>
+
+<primaryFactory>
+Arc-Royal|Arc-Royal
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:LC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+12
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

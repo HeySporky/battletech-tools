@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ebf3-71e5-87d9-42ca289ea269
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Kanga-X Jump Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+1746
+</mul id:>
+
+<year>
+3075
+</year>
+
+<type>
+Clan Level 4
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+10
+</armor_tech_level>
+
+<armor>
+25
+24
+24
+22
+20
+</armor>
+
+<Body Equipment>
+CLLargeChemLaserAmmo
+Clan Streak LRM 10 Ammo
+Clan Streak LRM 10 Ammo
+Clan Streak SRM 4 Ammo
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+CLCASE
+CLLargeChemLaserAmmo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLLargeChemicalLaser
+CLStreakLRM10
+CLStreakSRM4
+</Turret Equipment>
+
+<capabilities>
+<p>The Kanga-X retains the hover-jump configuration of the original but replaces its internal combustion engine with a fusion plant of equivalent rating, freeing mass for a more capable weapons suite. The primary weapon is an experimental large chemical laser in a turret, which provides sustained firepower without ammunition dependency beyond the chemical fuel supply. A pair of Streak missile systems handles shorter-range engagements, with the lock-on requirement ensuring ammunition is not wasted on missed shots. A CASE system protects the hull against secondary explosions from the missile stores.</p><p>The jump capability is maintained at roughly the original Kanga's range, but the rotating turret mechanism that was absent in the fixed-armament original created persistent balance problems that the prototype team could not fully resolve. The combination of jump dynamics and turret rotation in a hover vehicle proved nearly impossible to stabilize, contributing directly to a high accident rate in testing. At least three of the five prototypes were lost to accidents, including one vehicle destroyed during a routine obstacle course exercise. The program remained in indefinite experimental status and never progressed to a production contract.</p>
+</capabilities>
+
+<overview>
+<p>The Kanga-X is an experimental joint-venture prototype developed through the manufacturing alliance between Clan Hell's Horses and the exiled Wolves on Arc-Royal. The project emerged from the Hell's Horses' long-standing interest in fielding a production-viable jump hovertank, a goal that had eluded their earlier Hephaestus OmniVehicle program. Rather than attempting to reproduce the Star League-era AI system that enabled the original Kanga's jump capability, the engineering team at Wolf City Auxiliary Factory Epsilon chose to copy the original chassis and computer architecture as faithfully as possible while upgrading the weapons and propulsion to modern Clan standards. Five prototypes were constructed beginning in 3075, driven by both Clans' need for new weapons in the fight against the Word of Blake.</p>
+</overview>
+
+<deployment>
+<p>The Kanga-X was never deployed as an operational combat unit. Only five prototypes were constructed at Wolf City Auxiliary Factory Epsilon on Arc-Royal, and three of those were lost to testing accidents before the program was effectively suspended by the demands of the Jihad. The surviving examples were retained for engineering study rather than assigned to operational units. The program's principal contribution was the experimental data it generated, which informed the Hell's Horses' subsequent and ultimately successful jump-tank development effort after the Jihad's conclusion.</p>
+</deployment>
+
+<history>
+<p>Clan Hell's Horses maintained a persistent interest in developing a jump-capable hovertank from the early decades of their Clan identity, recognizing the tactical value the original Kanga had demonstrated. The Hephaestus OmniVehicle program had already abandoned jump capability as prohibitively expensive, and the Horses needed a different approach. The opportunity arrived in the form of their trading and manufacturing alliance with Clan Wolf-in-Exile on Arc-Royal, which provided both facilities and engineering resources for a joint development effort.</p><p>Wolf City Auxiliary Factory Epsilon served as the production site, with Senior Technician Ansom of the Horses leading the engineering team. The same alliance that had produced the Cygnus BattleMech provided the organizational framework for the effort, which began in 3075. Unlike previous attempts, the team focused on copying the original Kanga's frame and control computer architecture rather than trying to replicate the AI system from first principles, drawing on the latest Clan experimental technology to upgrade the weapons and drive systems.</p><p>The results were mixed. The five prototypes demonstrated that the basic concept was achievable, but the addition of a rotating turret, absent in the original design, introduced stability problems that the control software could not fully compensate for. Three vehicles were lost to accidents during trials, with balance failures during jumps proving the primary cause. With the Jihad consuming resources and the prototype program remaining hazardous, the Kanga-X was never advanced to production. Its engineering data nonetheless contributed to the subsequent post-Jihad program that eventually produced the Hephaestus Jump Tank.</p>
+</history>
+
+<manufacturer>
+Wolf City Auxiliary Factory Epsilon
+</manufacturer>
+
+<primaryFactory>
+Arc-Royal
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:165 Fusion
+ARMOR:Ferro-Fibrous
+JUMP_JET:Vehicular Jump Jets (Experimental)
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Mercs
+</source>
+
+<published>
+XTR:Mercs
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

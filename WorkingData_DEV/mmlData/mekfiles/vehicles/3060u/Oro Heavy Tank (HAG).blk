@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e53f-79f1-838f-e9b1be6468a7
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Oro Heavy Tank
+</Name>
+
+<Model>
+(HAG)
+</Model>
+
+<mul id:>
+2341
+</mul id:>
+
+<year>
+3073
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+45
+30
+30
+28
+30
+</armor>
+
+<Body Equipment>
+Hyper-Assault Gauss Rifle/30 Ammo
+Hyper-Assault Gauss Rifle/30 Ammo
+Hyper-Assault Gauss Rifle/30 Ammo
+Hyper-Assault Gauss Rifle/30 Ammo
+CLCASE
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLLargePulseLaser
+CLHAG30
+</Turret Equipment>
+
+<capabilities>
+<p>Built around the rugged G6 fusion power plant, the Oro can reach speeds up to 65 kph despite carrying more than twenty-five tons of weapons and armor. The Compound 3092/3 ferro-fibrous armor provides considerable protection, though Inner Sphere commanders would consider it inadequate compared to tanks of similar tonnage such as the Manticore and Po. The Clans view the armor load as a pragmatic statement of the value, or lack thereof, assigned to vehicle crews.</p><p>The turret-mounted Kolibri Delta Series large pulse laser delivers accurate, high-volume fire at range, while a nose-mounted Series 2d extended-range medium laser provides a secondary defensive option. The Oro's most devastating weapon is its turret-mounted Type J LB-20X autocannon, capable of firing both standard slugs and cluster munitions. The cluster rounds prove particularly effective against vehicles and aircraft, shredding treads, tires, fans, and flight surfaces with ease.</p><p>The Oro shares its Build 2 JRD targeting and tracking system with the Hachiman fire support tank, though it lacks the Artemis missile control hookups. A tactical coordination system allows the gunner and commander to assume each other's role if one is incapacitated, though designers have questioned the value of this feature given the slim likelihood of surviving a penetrating hit to the crew compartment. Limited ammunition storage, with only five rounds of each type for the autocannon, forces crews to carefully manage their shots.</p>
+</capabilities>
+
+<overview>
+<p>The Oro Heavy Tank is a Clan combat vehicle designed specifically to oppose conventional vehicles and aircraft. Introduced in 2844 during the Golden Century, the Oro filled a critical niche in Clan combined-arms doctrine as a dedicated anti-armor and anti-air platform. Produced across numerous Clan homeworld facilities, the sixty-ton tracked tank earned a reputation as a feared presence on the battlefield. Its ability to engage both ground and airborne targets with equal lethality made it a prized asset for commanders seeking a decisive edge over enemy conventional forces. The Oro remains a common sight in Clan second-line and garrison formations, valued for its versatility and rugged reliability.</p>
+</overview>
+
+<deployment>
+<p>Introduced in 3073, the HAG variant replaces the LB-20X autocannon and extended-range medium laser with a single Type 0 Class 30 hyper-assault Gauss rifle and sixteen rounds of ammunition. Armor protection is doubled from the baseline model, significantly improving survivability. The Kolibri Delta large pulse laser is retained as a secondary weapon. Originally discovered in Snow Raven service near the Outworlds Alliance border, this variant may have been designed to train Raven pilots to counter the emerging hyper-assault Gauss threat, or it may reflect a broader shift in Raven design priorities. Alliance Defenders Limited on Alpheratz produces this variant under Raven Alliance authority.</p>
+</deployment>
+
+<history>
+<p>The Oro Heavy Tank entered service in 2844, during the formative years of the Golden Century. Originally fielded as a general-purpose anti-vehicle platform, the design saw widespread adoption across multiple Clans. Alexandria Motors on Marshall produced early models for Clan Steel Viper, while facilities on Tamaron, Homer, Bearclaw, Hector, and Lum supported production for Clans Coyote, Cloud Cobra, Ghost Bear, Ice Hellion, and Snow Raven respectively.</p><p>The Oro's current configuration is the result of an upgrade by Clan Steel Viper, developed specifically to counter the aerospace fighters of Clan Snow Raven. The redesign proved devastatingly effective against aerospace targets, and the new version quickly earned acceptance throughout the Clans. It found use in roles well beyond its original anti-air mandate.</p><p>Ironically, Clan Snow Raven became one of the Oro's most prolific operators. The Ravens fielded large numbers of Oros at their Ravenshead training facility, where the tanks served as opposition forces to expose aerospace pilots to tactics for evading ground-based anti-air fire. This training role made the Oro an integral part of Snow Raven pilot development programs.</p><p>Following the Wars of Reaving and the migration of several Clans to the Inner Sphere, production continued at Alliance Defenders Limited on Alpheratz in the Outworlds Alliance. This facility, operating under Raven Alliance oversight, began producing the Oro alongside a newer variant equipped with hyper-assault Gauss technology during the Jihad era.</p>
+</history>
+
+<manufacturer>
+Alliance Defenders Limited
+</manufacturer>
+
+<primaryFactory>
+Alpheratz
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:G6 240
+ARMOR:Compound 3092/3
+COMMUNICATIONS:Q2 Block 7
+TARGETING:Build 2 JRD TTS
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

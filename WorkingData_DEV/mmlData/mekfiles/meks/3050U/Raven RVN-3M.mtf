@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c670-7a8d-b748-45169a0493b9
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Raven
+model:RVN-3M
+mul id:5444
+
+Config:Biped
+techbase:Inner Sphere
+era:3053
+source:TR:3050,TR:3050U
+published:RS:3050Uu-I
+rules level:2
+role:Missile Boat
+
+quirk:no_arms
+
+mass:35
+engine:210 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:6
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:8
+RA armor:8
+LT armor:11
+RT armor:11
+CT armor:11
+HD armor:6
+LL armor:8
+RL armor:8
+RTL armor:3
+RTR armor:3
+RTC armor:3
+
+Weapons:5
+Narc, Left Arm
+Small Pulse Laser, Right Arm
+Small Laser, Left Torso
+LRM 15, Right Torso
+Small Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISNarcBeacon
+ISNarcBeacon
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISSmallPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Small Laser
+IS Ammo LRM-15 Narc-capable
+IS Ammo LRM-15 Narc-capable
+ISNarc Pods
+ISNarc Pods
+ISCASE
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 15
+LRM 15
+LRM 15
+Small Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Raven is a thirty-five ton electronic warfare BattleMech developed by the Capellan Confederation, with the first prototype, the RVN-1X, entering service in 3024. Wedged between the Free Worlds League and Federated Suns, the diminutive Confederation was desperately searching for force multipliers at the close of the Third Succession War. One ambitious research program attempted to recreate the sophisticated electronic warfare technology of the long-lost Star League era. While the resulting Ceres Arms Electronic Warfare X-1 equipment was a technical success, the seven-and-a-half ton package proved too bulky to install on any existing BattleMech chassis.</p><p>Rather than abandon a promising technology, Chancellor Maximillian Liao directed Hellespont Industries to develop an entirely new design built around the electronics. The resulting Raven was one of the first truly original BattleMech designs produced in centuries, though the prototype would not live up to its ambitious expectations until the recovery of lostech allowed Hellespont 'Mech Works to produce the definitive RVN-3L model in the late 3040s.</p>
+
+capabilities:<p>The production RVN-3L Raven is built around the most comprehensive electronic warfare suite available to any Inner Sphere light 'Mech of its era. The Apple Churchill consortium provides the complete electronics package, including a Guardian ECM suite to blanket friendly units with electronic jamming, a Beagle Active Probe to locate hidden enemies, Target Acquisition Gear for designating artillery targets, and a Narc Missile Beacon to improve allied missile accuracy. A Ceres Metals Model 666 communications system integrates these disparate systems into a cohesive electronic warfare platform.</p><p>A Hermes 210 XL engine provides a respectable top speed of ninety-seven kilometers per hour, while four and a half tons of Hellespont Lite ferro-fibrous armor offers reasonable protection for a design never intended to see direct combat. The Raven's offensive armament is deliberately modest, consisting of a Harpoon-6 SRM-6 launcher and a pair of Ceres Arms medium lasers. CASE protection in the left torso mitigates the risk of ammunition explosions.</p><p>The Raven's design philosophy accepts that any mission requiring direct engagement serves as a tactical failure. Its true value lies in electronic countermeasures, target designation, and sensor operations conducted from standoff range. When forced into combat, the 'Mech's light armor and limited firepower make survival dependent on speed and the hope that reinforcements arrive quickly.</p>
+
+deployment:<p>A 3053 factory variant based on the 3L, the 3M removed the SRM-6 launcher, medium lasers, and most of the electronic warfare systems to convert the Raven into a long-range fire support platform. Armed with a single LRM-15 launcher backed by two small lasers and a small pulse laser for close defense, the 3M retained the Narc Missile Beacon to enhance allied missile accuracy. Two ammunition bins ensured the 'Mech could sustain its fire support role during extended operations far from supply lines. This variant was particularly exported to other powers, reflecting the Confederation's need for foreign currency.</p>
+
+history:<p>The Raven's combat debut came during the Fourth Succession War, when prototype RVN-1X models were pressed into service against the Federated Suns. Deployed at the battalion level as temporary additions to command lances, these early Ravens provided electronic warfare support to Capellan formations, but the primitive EW equipment could not provide a sufficient edge to influence the course of engagements. Many Ravens were captured by Davion forces during the conflict, with some sent to the New Avalon Institute of Science for reverse engineering while others were retained by the units that seized them.</p><p>One of the Raven's earliest notable missions involved providing electronic cover for Capellan units participating in Operation Intruders Communion. A pair of Ravens supported a commando team sent to raid a secret NAIS laboratory on Bethel, where they successfully recovered prototypes of a new and powerful type of myomer in exchange for the loss of one Raven. The Capellan Confederation continued to experiment with this triple-strength myomer, incorporating it into the RVN-3X variant despite the technology's dangerous flaws.</p><p>The recovery of the Gray Death Core in the 3030s rejuvenated the entire Inner Sphere's technological base, and Hellespont 'Mech Works used the recovered knowledge to finally produce a Raven worthy of its original design ambitions. The RVN-3L entered production in the late 3040s and quickly established itself as the premier electronic warfare platform in the Inner Sphere. While closely associated with House Liao, the Capellan Confederation also exported Ravens to the Free Worlds League and Draconis Combine, with the larger share going to the former. Smaller numbers found their way into Federated Suns and Lyran hands through salvage and battlefield capture.</p><p>During Operation Sovereign Justice, Capellan March forces captured a significant number of damaged Ravens. These "Shattered Ravens" were rebuilt and re-armed by Johnston Industries on New Syrtis with weapons configurations significantly different from the Capellan original, tailored to address the infantry threats that had facilitated their capture. The Capellan Confederation continued to advance the design through the Civil War era with stealth armor variants and C3-capable models, cementing the Raven's role as a cornerstone of Capellan electronic warfare doctrine.</p><p>By the early 3120s, the Raven had served the Confederation for nearly a century. The introduction of the RVN-5L in 3125, designed to operate alongside the heavier Raven II, demonstrated that Hellespont continued to find relevance in the platform. Incorporating the Raven II's engine and the experimental Raven X's XL gyro, the 5L variant represented the latest evolution of a design that had grown from a desperate gamble into one of the Capellan Confederation's most enduring military assets.</p>
+
+manufacturer:Hellespont 'Mech Works
+
+primaryfactory:Sian
+
+fluffdate:2026-02-18 20:22:52
+
+systemmanufacturer:CHASSIS:Hellespont
+systemmode:CHASSIS:Type R
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:210 XL
+systemmanufacturer:ARMOR:Hellespont
+systemmode:ARMOR:Lite Ferro-Fibrous with CASE
+systemmanufacturer:COMMUNICATIONS:Ceres Metals
+systemmode:COMMUNICATIONS:Model 666 with Guardian ECM
+systemmanufacturer:TARGETING:Apple Churchill
+systemmode:TARGETING:2000 with Beagle Probe and 442x TAG

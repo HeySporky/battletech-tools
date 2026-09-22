@@ -1,0 +1,233 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e176-70e2-bf9c-7942728922e1
+</UUID>
+
+<UnitType>
+SmallCraft
+</UnitType>
+
+<Name>
+Caerleon
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6520
+</mul id:>
+
+<year>
+3093
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+atmo_instability
+easy_maintain
+fast_reload
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:0.5:1:1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:0.0:0:-1::-1:0
+1stclassquarters:0.0:0:-1::-1:0
+steeragequarters:20.0:0:-1::-1:0
+troopspace:20.0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+8
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+1200
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+107
+99
+99
+86
+</armor>
+
+<Nose Equipment>
+ISLightGaussRifle
+ISLightGaussRifle
+IS Light Gauss Ammo
+IS Light Gauss Ammo
+LRM 15
+ISArtemisIV
+LRM 15
+ISArtemisIV
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+</Nose Equipment>
+
+<Left Side Equipment>
+</Left Side Equipment>
+
+<Right Side Equipment>
+</Right Side Equipment>
+
+<Aft Equipment>
+ISERMediumLaser
+ISERMediumLaser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+6
+</structural_integrity>
+
+<capabilities>
+<p>The Caerleon's defining characteristic is its protection. More than twenty tons of ferro-aluminum armor give the craft a fortress-like durability that shields its troop complement through intense defensive fire. Its armament centers on a nose battery of two Light Gauss Rifles and two LRM-15 launchers, the latter fitted with Artemis IV fire control systems to improve salvo accuracy at range. Two ER Medium Lasers cover the aft arc, providing a deterrent against pursuit and a close-in option during boarding approaches. The craft carries two tons of Light Gauss Rifle ammunition and four tons for the LRM racks, supporting extended operations without resupply.</p><p>The Caerleon benefits from Easy to Maintain and Fast Reload design quirks, keeping it operational under austere field conditions and allowing its weapons to be cycled quickly during close-quarters assaults. These practical advantages helped offset persistent criticism that the engine is underpowered for an assault craft, limiting acceleration and reducing the ability to chase or evade faster opponents. Nimakachi's engineers consistently declined to address either the engine or the firepower concerns, citing favorable feedback from the troopers the craft served.</p><p>The design's most serious liability is a well-documented atmospheric flight instability that makes precision planetside approaches hazardous and has caused a number of combat losses. This flaw is inherent to the airframe and has not been corrected in any production run.</p>
+</capabilities>
+
+<overview>
+<p>Named for an ancient fortress associated with the legendary King Arthur, the Caerleon entered service in 3093 as Nimakachi Fusion Products Limited's dedicated battle armor transport, designed to carry a full platoon into assault operations. Built at the Dalton orbital yards, the craft spread quickly from its Free Worlds League origins into the broader mercenary market, where its combination of heavy armor and reliable troop-carrying capacity earned it a loyal following. Two roles define its service career: boarding operations against enemy DropShips and JumpShips, and direct battlefield support for the infantry it delivers. Nimakachi's engineers emphasized durability and ease of maintenance over outright speed or firepower, a philosophy that critics questioned but the troopers who relied on it consistently validated.</p>
+</overview>
+
+<deployment>
+<p>The Caerleon excels in boarding operations and assault landings, where its heavy armor absorbs defensive fire long enough to deliver its battle armor platoon. Boarding missions represent the design's optimal employment profile, with the atmospheric flight instability being largely irrelevant in vacuum operations. Operators learned to prefer orbital insertion profiles when circumstances permitted, reserving contested atmospheric approaches for situations where no alternative existed.</p><p>Notable individual Caerleons include the Phantom, a craft of unknown affiliation and ownership that operates opportunistically throughout League and Periphery space, targeting damaged or disabled DropShips for capture. Its mismatched battle armor squads secure targets before escorting them to an Invader-class JumpShip. The Phantom was last reported active in 3144 before disappearing from observation. The Chatelain serves with the Second Andurien Guard's Escort Group Three under Commander Daniel Gallery, frequently leading the advance into enemy territory on raids. Under the direction of Master Banner Jillian Leigh Foley, the Chatelain's boarding party has captured six enemy vessels since 3138.</p>
+</deployment>
+
+<history>
+<p>Nimakachi Fusion Products Limited introduced the Caerleon in 3093 at their Dalton orbital production facility, developing it as a dedicated battle armor transport during the political realignment that followed the dissolution of the Free Worlds League. Backed by Oriente Protectorate procurement contracts, the design found ready buyers across the successor states and the mercenary market, where its reputation for durability and low maintenance burden made it an attractive option for commands needing a reliable assault craft on limited budgets.</p><p>The Caerleon's combat record grew quickly. During the Victoria War, the Sixth Oriente Hussars employed Caerleons at Bentley in a boarding action against a Capellan Seeker-class DropShip breaking orbit. Two craft intercepted the vessel at the edge of its drive envelope, concentrating fire on the engines before marines breached the hull from two points simultaneously. Once the DropShip was secured, the Hussars discovered the planetary governor and his family aboard. The operation validated the Caerleon's primary design role and helped establish its reputation as an effective boarding platform across the former League states.</p><p>The atmospheric limitations cost the design dearly on Pella II in February 3104. When the Eighth Orloff Aerospace committed their Caerleons to continuous troop lifts under heavy antiaircraft fire during fighting between combined Red Lancers and Roman's Mounted Fusiliers forces and the Eighth Orloff Grenadiers, seven craft were lost. Three of the surviving Caerleons diverted directly into the path of advancing Capellan BattleMechs to cover the DDOCFH withdrawal, demonstrating the willingness of Caerleon crews to accept extreme risk for their passengers. The Pella II engagement became a cautionary example of misapplying the Caerleon in sustained contested atmospheric operations.</p><p>Production continued under the Oriente Protectorate through the Dark Age period. When the Oriente Protectorate collapsed and the Free Worlds League reconstituted, the Dalton facility returned to FWL stewardship, and the Caerleon remained in production as one of several Nimakachi designs serving the new League's military and export markets.</p>
+</history>
+
+<manufacturer>
+Nimakachi Fusion Products Limited
+</manufacturer>
+
+<primaryFactory>
+Dalton
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Pitban
+ARMOR:ArcShield
+COMMUNICATIONS:Lassitor
+TARGETING:Garret
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:300a
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:FWL,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+195.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+4
+</crew>
+
+<officers>
+1
+</officers>
+
+<gunners>
+1
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

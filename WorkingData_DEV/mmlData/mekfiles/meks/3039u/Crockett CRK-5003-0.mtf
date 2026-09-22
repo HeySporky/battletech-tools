@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c1e6-7a10-8b21-7b8f8ddf7745
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Crockett
+model:CRK-5003-0
+mul id:724
+
+Config:Biped
+techbase:Inner Sphere
+era:2881
+source:TR:3039,TR:3025r
+rules level:1
+role:Juggernaut
+
+quirk:easy_pilot
+quirk:poor_life_support
+
+mass:85
+engine:255 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:15 Single
+walk mp:3
+jump mp:3
+
+armor:Standard(Inner Sphere)
+LA armor:28
+RA armor:28
+LT armor:25
+RT armor:25
+CT armor:35
+HD armor:9
+LL armor:36
+RL armor:36
+RTL armor:11
+RTR armor:11
+RTC armor:19
+
+Weapons:7
+Large Laser, Left Arm
+Small Laser, Left Arm
+Large Laser, Right Arm
+Small Laser, Right Arm
+AC/10, Left Torso
+SRM 6, Left Torso
+SRM 6, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Large Laser
+Large Laser
+Small Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Large Laser
+Large Laser
+Small Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+SRM 6
+SRM 6
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+SRM 6
+SRM 6
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo AC/10
+IS Ammo AC/10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Crockett is an eighty-five-ton assault BattleMech originally designed by Blankenburg Technologies as a training platform for the Star League Defense Force. Entering limited production in 2735 during the Hidden Wars, the design was intended to expose trainees to the full spectrum of combat systems while maintaining genuine battlefield capability. The Crockett exceeded its training mandate so thoroughly that SLDF commanders began deploying it on the front lines within a decade of its introduction. Its simplified cockpit controls, which allowed rapid familiarization for new MechWarriors, proved equally valuable in combat by reducing pilot workload during engagements. Following the fall of the Star League, the Crockett gradually disappeared from Inner Sphere arsenals as its advanced components became lostech. The design's resurrection began in the thirty-first century through ComStar's hidden stockpiles, and full production resumed in 3054 when Blankenburg reopened its Terra production line. Grumium Creations later established a second manufacturing source in 3062.</p>
+
+capabilities:<p>The Crockett carries a diverse weapons array reflecting its origins as a training platform designed to familiarize cadets with multiple weapon types simultaneously. Twin Blankenburg 25 extended-range large lasers mounted in the arms provide effective long-range fire, while a Blankenburg LB 10-X autocannon in the left torso offers tactical versatility through its ability to fire both standard and cluster ammunition. Close-range engagements are handled by a pair of Holly SRM-6 launchers in the side torsos, specifically selected for their reliability after jump jet use, and two Dodd small lasers provide point-defense capability. Fifteen double heat sinks manage the considerable thermal output across all weapon brackets.</p><p>The Strand 255D fusion engine drives the eighty-five-ton chassis to a cruising speed of thirty-two kilometers per hour, while three Geotec 300 jump jets provide ninety meters of jumping capability. This combination enables the design's signature tactic of engaging targets at range before jumping behind them to exploit weaker rear armor. Sixteen and a half tons of CarboStrand armor provide robust protection for an assault 'Mech. The advanced Scope 30 RNDST targeting-tracking system enhances accuracy at extended ranges. An early production flaw in the cockpit life support system, which caused three MechWarrior deaths, was corrected through a recall and refit program.</p>
+
+deployment:<p>This variant is a downgraded variant of the Crockett that first appeared around 2881 as the design's original Star League-era components became increasingly unavailable during the Succession Wars. This version substitutes standard Magna Mark III large lasers for the original extended-range models, replaces the LB 10-X autocannon with a conventional Blankenburg AC/10, and downgrades the fifteen double heat sinks to twenty single units. While these substitutions significantly reduce the 'Mech's firepower and heat management capabilities, the overall design philosophy and tactical role remain intact. The CRK-5003-0 saw widespread service across the Successor States during the late Succession Wars era until component scarcity drove even this simplified version to extinction.</p>
+
+history:<p>The Crockett was commissioned during the Hidden Wars era as part of the SLDF's effort to expand its training infrastructure. Blankenburg Technologies on Terra began production in 2735, and an SLDF Royal variant, the CRK-5003-1b, followed in 2752 with enhanced weaponry including a Gauss rifle and an endo steel chassis. The design's combat effectiveness was recognized within a decade of its introduction, and it was increasingly deployed alongside dedicated frontline units rather than remaining in training formations.</p><p>Following the dissolution of the Star League, the Great Houses stripped Crocketts from their training programs to reinforce combat units during the Succession Wars. As the advanced components that defined the design became increasingly scarce, Blankenburg was forced to substitute inferior replacements. The downgraded CRK-5003-0 emerged around 2881, retaining the general layout but substituting standard large lasers, a conventional autocannon, and single heat sinks. Despite these compromises, even the degraded Crockett served effectively until attrition and component scarcity drove the design to extinction in the Inner Sphere.</p><p>ComStar's secret caches preserved a number of original Star League-era Crocketts, which were used to equip the Com Guards. During Operation Rosebud in the 3030s, ComStar transferred downgraded Crocketts to the Draconis Combine, where they were redesignated as the Katana and entered service as a separate chassis line under Independence Weaponry on Soul. Surviving Crocketts also appeared among second-line Clan forces following the Clan Invasion of 3049.</p><p>Precentor Martial Anastasius Focht's rearmament program reopened the Blankenburg production line on Terra in 3054, producing new CRK-5003-1 models for the Com Guards. The Word of Blake's seizure of Terra during Operation Odysseus transferred control of this facility, and Blankenburg production subsequently supplied both the Word of Blake Militia and their Free Worlds League allies. ComStar contracted Grumium Creations on Grumium to establish an alternative production source in 3062, ensuring continued supply independent of Terra.</p><p>The Crockett saw significant action during the Jihad, with both ComStar and Word of Blake forces fielding the design on opposing sides. The Word of Blake developed the CRK-5005-1, a dedicated combat variant utilizing a light engine and improved jump jets, cementing the design's full transition from its training origins to a frontline assault role. Grumium Creations produced upgraded variants including the CRK-5003-3 and CRK-5004-1 before discontinuing Crockett production in 3078 due to declining demand. The Crockett's chassis also served as the basis for the Black Watch BattleMech, further demonstrating the fundamental soundness of Blankenburg's original design.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Geometric
+systemmode:CHASSIS:530 Hard Core
+systemmanufacturer:ENGINE:Strand
+systemmode:ENGINE:255
+systemmanufacturer:ARMOR:CarboStrand
+systemmode:ARMOR:30 Weight AS
+systemmanufacturer:JUMP_JET:Geotec
+systemmode:JUMP_JET:300
+systemmanufacturer:COMMUNICATIONS:GRPNTR
+systemmode:COMMUNICATIONS:Groundpainter 5
+systemmanufacturer:TARGETING:Scope
+systemmode:TARGETING:30 RNDST

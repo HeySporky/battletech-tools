@@ -1,0 +1,182 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e9dd-7b81-b940-c65ecff062fc
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Eurus MBT
+</Name>
+
+<Model>
+A
+</Model>
+
+<mul id:>
+9390
+</mul id:>
+
+<year>
+3146
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Skirmisher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+16
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+42
+33
+33
+20
+33
+</armor>
+
+<Body Equipment>
+CLTargeting Computer:OMNI
+Supercharger:OMNI
+Clan Ultra AC/20 Ammo:OMNI
+Clan Ultra AC/20 Ammo:OMNI
+Clan Ultra AC/20 Ammo:OMNI
+Clan Ultra AC/20 Ammo:OMNI
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLUltraAC20:OMNI
+CLERSmallLaser:OMNI
+CLERSmallLaser:OMNI
+CLERSmallLaser:OMNI
+CLERSmallLaser:OMNI
+CLERSmallLaser:OMNI
+</Turret Equipment>
+
+<capabilities>
+<p>The Eurus is built around a 300-rated extralight fusion engine that propels the sixty-ton tank to a cruising speed of 54 km/h and a maximum of 86 km/h. Eleven and a half tons of Composite Alpha-V1 ferro-lamellor armor protect the hull, making the Eurus the first OmniVehicle to mount this advanced armor type. The damage-reducing properties of ferro-lamellor plating allow the tank to absorb hits that would cripple lighter vehicles.</p><p>The Eurus carries 23 tons of pod space, with a two-ton turret accommodating up to 20 tons of weaponry. Most configurations concentrate their armament in the turret, favoring heavy ballistic weapons capable of disabling a BattleMech in one or two shots. The Prime configuration pairs a gauss rifle with a large pulse laser for versatile engagement ranges, supplemented by a machine gun array and an anti-missile system for point defense. This emphasis on concentrated firepower makes the Eurus the anvil onto which lighter units such as the Zephyros can drive their enemies.</p>
+</capabilities>
+
+<overview>
+<p>The Eurus is a sixty-ton tracked OmniVehicle developed by Clan Hell's Horses as a next-generation main battle tank. Swedenborg Heavy Industries on Kirchbach began the project in the early 3100s, intending the vehicle to serve as the primary platform for the Clan's TankWarrior phenotype. After decades of development delays, the Eurus finally entered service in late 3146. The tank has proven itself a dependable anchor for Hell's Horses vehicle Stars, delivering heavy firepower while absorbing punishment well beyond expectations for its weight class. The Horses guard the design closely, and no command outside the Hell's Horses touman has been recorded fielding the Eurus.</p>
+</overview>
+
+<deployment>
+<p>The Alpha configuration trades range for devastating close-quarters firepower, mounting a class-20 ultra autocannon alongside five ER small lasers, all linked to a targeting computer for improved accuracy. A supercharger allows the Eurus to reach speeds of up to 104 km/h in short bursts, helping the tank close rapidly with its targets. Star Captain Priam famously used an Alpha configuration during his wilderness race against the Rasalhague Dominion's Second Tyr on Karston, relying on the supercharger to compensate for a drive hit and win by centimeters.</p>
+</deployment>
+
+<history>
+<p>Hell's Horses scientists conceived the Eurus in the early 3100s to complement the then-new TankWarrior program, but difficulties integrating ferro-lamellor armor into an OmniVehicle chassis stalled the project almost immediately. With limited resources available, the Clan diverted funding to alternatives such as QuadVees and advanced ProtoMechs, leaving the Eurus as a phantom project that lingered for decades without reaching production. The absorption of several former Clan Wolf worlds in the mid-thirty-second century provided the influx of materiel and manpower needed to break through the technical barriers, and the Eurus entered the Horse touman in late 3146.</p><p>The tank proved itself quickly. By 3148, Eurus crews were participating in anti-pirate operations across the Barrens, where the Horses maintain a mutual defense relationship with the Republic of the Barrens. During a deep sweep by a mixed Trinary of the Fifth Horde from Gustrell to Nyserta, one pirate group on Elissa proved unusually well-equipped with Kurita-made VTOLs and conventional fighters. Their strikes on civilian settlements appeared focused on destruction rather than larceny, prompting the Horde to set an ambush using supply caches as bait. When the pirates struck at night, two Eurus tanks in the Bravo configuration emerged from concealment and filled the skies with fire. Elementals descended on each downed craft to extract prisoners, but the surviving pirates killed themselves with poison capsules before they could be interrogated.</p><p>Star Captain Priam of the Ninth Horde Cluster developed an unusual rivalry with the Rasalhague Dominion's Second Tyr following an aborted clash on Karston during the Wolf world absorptions. Ordered to relinquish the planet, Priam has since raided Karston repeatedly, engaging the Second Tyr in non-lethal contests of strength and skill. In one notable incident, Priam challenged the Tyr's entire armor contingent to a race through twenty kilometers of wilderness in his Eurus Alpha. Gunplay was involved, as is customary in Clan racing, and many tanks were disabled before Priam crossed the finish line first, his autocannon barrel clearing it by nine centimeters after his supercharger compensated for a drive hit. Star Colonel Bob Vewas reprimanded Priam for giving the Ghost Bears a free demonstration of the Eurus's capabilities.</p><p>Star Commander Jerrica of the Seventy-First Mechanized Cavalry became separated from her Trinary during Operation Noyan's contested landing on Leskovik in 3147. Hunted through the northern tundra by Jade Falcon hovercraft, Jerrica's crew repulsed every attack, leaving destroyed Falcon vehicles in their wake. When the Horses withdrew from Leskovik, the stranded Eurus crew continued to operate independently, forming ties with the tundra's nomadic inhabitants and striking at Falcon installations across the northern continent. Star Colonel Jan von Jankmon sent a Star of solahma BattleMechs to eliminate the nuisance. They never returned. Jerrica is now considered dezgra by the Falcons, and even the Horses have struck her from the Seventy-First's rolls.</p><p>Nova Captain Arianna Mitchell further elevated the Eurus's reputation when she won a Bloodname traditionally held by MechWarriors, defeating every BattleMech challenger from the command chair of her Enyo tank. Her assignment to a Eurus in the Twenty-Second Mechanized Assault Cluster by Galaxy Commander Trina Mitchell serves multiple political goals, positioning the TankWarrior phenotype as a legitimate path to martial distinction within the Clan. As victories accumulate for Eurus crews across the touman, esteem for the TankWarrior phenotype has steadily climbed.</p>
+</history>
+
+<manufacturer>
+Swedenborg Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+Kirchbach
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:300 XL Fusion
+ARMOR:Composite Alpha-V1 Ferro-Lamellor
+JUMP_JET:N/A
+COMMUNICATIONS:Build 1685 Tacticom
+TARGETING:Series XL FWS
+</systemModels>
+
+<source>
+RG29
+</source>
+
+<published>
+RG29
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+
+<baseChassisTurretWeight>
+2.0
+</baseChassisTurretWeight>
+
+<baseChassisTurret2Weight>
+0.0
+</baseChassisTurret2Weight>
+

@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cbbd-793e-9655-0e4102092fe2
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Cossack
+model:C-1FC
+mul id:702
+
+Config:Biped
+techbase:Inner Sphere
+era:3076
+source:TR:3060
+published:RS:3060u
+rules level:3
+role:Scout
+
+quirk:ext_twist
+
+mass:20
+engine:120 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:6
+jump mp:6
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:5
+RA armor:5
+LT armor:7
+RT armor:7
+CT armor:8
+HD armor:9
+LL armor:6
+RL armor:6
+RTL armor:2
+RTR armor:2
+RTC armor:2
+
+Weapons:4
+Medium VSP Laser, Left Arm
+Rocket Launcher 10, Left Torso
+Rocket Launcher 10, Right Torso
+Rocket Launcher 10, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMediumVSPLaser
+ISMediumVSPLaser
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Heat Sink
+Jump Jet
+RL10
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Heat Sink
+Jump Jet
+RL10
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+RL10
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Cossack is a twenty-ton light BattleMech introduced in 3060 by Ceres Metals Industries on Warlock, designed to bolster the St. Ives Compact's expanding military roster. Named in honor of the mercenary unit Khorsakov's Cossacks for their faithful service to the Compact, the design emerged from a protracted development process that saw the original concept reshaped several times before entering production.</p><p>The final product entered service as a light trooper rather than a pure scout, earning a reputation as an affordable and versatile platform well-suited to cash-strapped commands needing a capable multi-role 'Mech for combined-arms operations. Its low acquisition and maintenance costs made it particularly attractive to militia and garrison units throughout the Capellan March.</p>
+
+capabilities:<p>The Cossack is built on a weight-saving Taijian Series X endo steel chassis and powered by a Hermes 120 extralight engine, keeping production costs down while achieving a top speed of just under one hundred kilometers per hour. Six Pitban LFT-65 jump jets provide one hundred and eighty meters of jump capability, allowing the design to handle rough terrain with ease despite its modest ground speed. Three tons of ArcShield armor provide only minimal protection, insufficient for sustained engagements but adequate for the hit-and-run tactics the design favors.</p><p>The Cossack's armament centers on a Kajuka Type 2 "Bright Blossom" medium laser and a MilDouglas "Duke" SRM-6, supplemented by a pair of Jackson Model 12 small lasers. While not overwhelming firepower for any weight class, this weapons package allows the Cossack to defend itself against most light opponents and finish off damaged units. In line regiments, the design serves as an effective harasser, probing enemy flanks for weakness or dispatching battlefield stragglers. A full lance of Cossacks can concentrate enough fire to threaten even well-armored targets.</p><p>The Cossack's true strength lies in its affordability. Costing little more than most other light 'Mechs, it is an ideal choice for militia and home guard units operating on limited budgets. While the design cannot hope to stand alone against heavier opponents, it excels when operating as part of a coordinated team where its combination of mobility and firepower can be leveraged to maximum effect.</p>
+
+deployment:<p>This variant is a field modification that emerged during the Jihad, born from the desperate supply situation in the Federated Suns' Capellan March. Expatriate St. Ives MechWarriors who had been assigned captured Cossacks modified their 'Mechs with whatever equipment was available. The C-1FC replaces the entire standard weapons suite with three Death Blossom rocket launcher pods and a Martell medium variable-speed pulse laser, while upgrading the armor to ArcShield light ferro-fibrous for improved protection. This configuration transforms the Cossack into a dedicated ambusher, capable of devastating alpha strikes with its rocket barrages before withdrawing to safety.</p>
+
+history:<p>The Cossack's origins trace to a directive from Caroline Seng, Commander of the St. Ives Military, who assembled regimental commanders and an engineering team from Ceres Metals Industries to design a new light 'Mech for the Compact's expanding forces. The initial specification called for the fastest possible reconnaissance 'Mech, but as more offices and departments became involved in the project, the design underwent four major revisions. Even after prototype combat trials began, new requirements continued to flow in from across the St. Ives bureaucracy. Seng ultimately intervened to end the cycle of redesigns, contracting with Ceres for a well-armed reconnaissance unit based on the first major revision.</p><p>Production began at the Ceres Metals Industries facility on Warlock in 3060 under St. Ives Compact ownership. The Cossack entered service during a period of escalating tension between the Compact and the Capellan Confederation, and the 'Mech was pressed into frontline duty earlier than planned. The Capellan-St. Ives War, which erupted in the early 3060s, saw Cossacks fighting in defense of their namesake nation. The absorption of the St. Ives Compact into the Capellan Confederation in 3063 brought the Warlock production facility under Capellan control, and subsequent Cossack production served the Capellan Confederation Armed Forces.</p><p>During Operation Sovereign Justice in the late 3060s, a number of Cossacks were captured by the Armed Forces of the Federated Suns. Most of these 'Mechs were distributed to expatriate St. Ives MechWarriors who had refused to accept the reunion with the Confederation. The chronic supply shortages plaguing the Capellan March during the Jihad drove these warriors to improvise field modifications using whatever equipment could be found, giving rise to variants such as the C-1FC.</p><p>Production at the Warlock facility continued through the Jihad under Capellan Confederation ownership before eventually ceasing in the post-Jihad era. The Cossack never achieved widespread distribution beyond the former St. Ives region and the Capellan Confederation's frontline forces, leaving it a relatively uncommon sight on battlefields outside the Capellan March. Despite its limited production run, the design earned a solid reputation as an affordable and reliable light trooper, particularly valued by militia and garrison commands operating on constrained budgets.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Taijian
+systemmode:CHASSIS:Series X Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:120 XL
+systemmanufacturer:ARMOR:ArcShield
+systemmode:ARMOR:VII Mk. 6X Light Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Pitban
+systemmode:JUMP_JET:LFT-65
+systemmanufacturer:COMMUNICATIONS:Endicott
+systemmode:COMMUNICATIONS:Type 22 Microwave Projector
+systemmanufacturer:TARGETING:Wentland
+systemmode:TARGETING:Cyber-Track

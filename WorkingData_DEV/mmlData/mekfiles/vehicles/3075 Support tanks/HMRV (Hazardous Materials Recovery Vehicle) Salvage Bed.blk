@@ -1,0 +1,179 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e65c-7589-805d-1f76e53fc17c
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+HMRV (Hazardous Materials Recovery Vehicle)
+</Name>
+
+<Model>
+Salvage Bed
+</Model>
+
+<mul id:>
+6960
+</mul id:>
+
+<year>
+2822
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+cargobay:100.0:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<engine_type>
+8
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+30
+40
+40
+40
+40
+54
+</armor>
+
+<Body Equipment>
+SV Chassis Mod [Trailer]
+</Body Equipment>
+
+<Front Equipment>
+Searchlight
+</Front Equipment>
+
+<Front Right Equipment>
+Lift Hoist/Arresting Hoist
+Searchlight
+</Front Right Equipment>
+
+<Front Left Equipment>
+Lift Hoist/Arresting Hoist
+Searchlight
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+Backhoe
+Searchlight
+Searchlight
+</Rear Equipment>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Salvage Bed carries two lift hoists for raising heavy wreckage from unstable positions, a backhoe for earthmoving support, and five searchlights for illuminating work areas in degraded visibility. Twenty tons of liquid storage provide capacity for decontaminants, water, or other operational fluids. The universal trailer hookup is the design's most significant feature: it allows the Salvage Bed to be drawn by virtually any suitably rated heavy recovery vehicle, not only the dedicated Oppie tractor, making the trailer a versatile asset when tractor availability is limited.</p><p>The Salvage Bed carries no engine and relies entirely on its towing vehicle for mobility. This dependency is its principal limitation, as the trailer cannot reposition without a suitable prime mover. Recovery teams must account for towing vehicle availability and terrain conditions when planning operations. The trailer's medium-rated chassis provides adequate structural capacity for the loads typical of BattleMech and vehicle recovery work.</p>
+</capabilities>
+
+<overview>
+<p>The HMRV Salvage Bed is a towed recovery trailer designed to operate in conjunction with the O-66 "Oppie" tractor unit. Produced by Brown-Corning, Limited at the same Caph facility as the tractor, the Salvage Bed entered service in 2822 alongside the original O-65. Its defining feature is a universal trailer hookup that allows attachment to the Oppie tractor or a wide variety of other heavy vehicles and construction equipment, giving recovery teams flexibility when dedicated tractors are unavailable. The Salvage Bed functions as a working platform and load carrier, extending the Oppie system's total recovery capacity and providing additional specialized equipment for sustained salvage operations in NBC-contaminated environments.</p>
+</overview>
+
+<deployment>
+<p>Deployed as a towed companion to the O-66 "Oppie" tractor in standard NBC salvage operations, though its universal trailer hookup allows pairing with other heavy recovery vehicles when dedicated tractors are unavailable. The Salvage Bed is found wherever Oppie tractors operate, extending overall system capacity and providing the lift hoist and backhoe capability that the tractor unit alone does not carry.</p>
+</deployment>
+
+<history>
+<p>The HMRV Salvage Bed entered production in 2822 alongside the O-65 tractor unit, sharing the same operational history as its companion vehicle. Brown-Corning, Limited produced the Salvage Bed as an integral component of the Oppie system rather than a standalone design, recognizing that the tractor's working equipment alone would not provide sufficient capacity for sustained recovery operations across contaminated zones.</p><p>When the Draconis Combine raid destroyed the Brown-Corning facility on Caph, Salvage Bed production ceased along with all other company manufacturing. Surviving trailers continued operating through the Succession Wars until attrition and parts shortages eliminated the fleet. Production resumed in 3068 when Brown-Corning restarted operations under Word of Blake support, and the Salvage Bed returned to service alongside the rebuilt O-66 tractor. The restored blueprints provided to company leadership covered the full Oppie system, ensuring the Salvage Bed returned to production without design gaps.</p>
+</history>
+
+<manufacturer>
+Brown-Corning, Limited
+</manufacturer>
+
+<primaryFactory>
+Caph
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+150.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

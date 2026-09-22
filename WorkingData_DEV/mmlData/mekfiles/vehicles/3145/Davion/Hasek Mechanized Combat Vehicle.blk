@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7ae-77d6-926b-b720b1b269c7
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Hasek Mechanized Combat Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6317
+</mul id:>
+
+<year>
+3101
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Sniper
+</role>
+
+<quirks>
+easy_maintain
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+4
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+48
+35
+35
+30
+30
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+PPC
+ISSmallPulseLaser
+</Turret Equipment>
+
+<capabilities>
+<p>The Hasek improves on its predecessor, the Goblin tank, across several key metrics without introducing new tactical concepts. The Johnston Duraweave 8000 Heavy Ferro-Fibrous armor provides noticeably better protection than the Goblin's standard plate, and the GM 200 Light Fusion engine yields a top speed of 86 kph, giving the Hasek a meaningful edge in mobility for a tracked design of this weight class. The CommuTech XL communications suite and BlazeFire Ranging System Type 5 targeting system support effective coordination within combined-arms formations.</p><p>Armament consists of a single Johnston Parti-Cannon backed by a BlazeFire Spreadshot Small Pulse Laser for close-range work. The Parti-Cannon delivers reliable direct fire damage at medium range, and the pulse laser provides useful anti-infantry coverage when targets close with the vehicle. The weapon suite is functional but narrow, leaving the Hasek dependent on cooperation with other vehicles to address threats outside its engagement range.</p><p>The design's principal limitation is firepower. A single main weapon means any single Hasek contributes limited damage against heavy targets, and the vehicle performs below expectations in one-on-one engagements with heavily armored opponents. Its value is greatest in numbers, where coordinated fire from multiple vehicles offsets what any single chassis can deliver.</p>
+</capabilities>
+
+<overview>
+<p>The Hasek Mechanized Combat Vehicle entered service in 3101 as a product of the nationalist fervor gripping the Federated Suns in the years before the Victoria War. With the Capellan March under growing military pressure and procurement officers eager to fund domestically produced equipment, Johnston Industries secured a contract for a new tracked combat vehicle. Rather than a radical departure from existing designs, the Hasek represented a measured improvement on proven concepts, offering better protection and mobility than older vehicles of comparable weight. Johnston Industries ensured the contract would succeed by naming the vehicle after House Hasek, the ruling family of the Capellan March, converting a modest incremental upgrade into a politically significant procurement and generating strong demand from AFFS commanders eager to equip their units with a design that carried the march's name.</p>
+</overview>
+
+<deployment>
+<p>The Hasek has been deployed primarily with Federated Suns armor formations, particularly in the Capellan March where the vehicle's name carries political weight. Procurement spread the type across multiple commands, and examples appear in the inventories of other states through battlefield capture and wartime purchase. The Hasek excels in combined-arms formations, where its speed suits it to rapid repositioning alongside lighter units while contributing to coordinated fire support. Its tracked suspension performs reliably across the varied terrain of the Capellan March, and the design has proven equally useful in defensive holding operations and offensive raids deep into hostile territory.</p>
+</deployment>
+
+<history>
+<p>The Hasek Mechanized Combat Vehicle entered production in 3101, the result of an aggressive procurement environment in the Federated Suns as tensions with the Capellan Confederation mounted ahead of the Victoria War. Manufacturers across the Capellan March competed for contracts, and Johnston Industries secured their position by attaching the Hasek family name to the new vehicle. The decision was calculated marketing, tying equipment procurement to the prestige of the march's ruling house and ensuring the design a high public profile from the outset.</p><p>During the Victoria War, Haseks were deployed in significant numbers alongside other Federated Suns armor. Most performed reliably within their design parameters, though individual crews demonstrated considerable initiative. Haseks were used in extended raids across the Liao lines, where their speed and modest profile allowed them to operate with some success in roles that heavier vehicles could not fill, including the transport and support of jump infantry on infiltration missions against Capellan logistics.</p><p>The fall of New Syrtis proved a turning point for the design. As Capellan forces pressed toward Johnston Industries' facility, Hasek crews fought alongside heavier assets in the factory's defense, contributing concentrated fire against Capellan BattleMechs before the position became untenable. After securing the planet, the Capellan Strategios shut down production at the Johnston Industries facility entirely. The decision carried clear symbolic intent: the vehicle bore the name of Duchess Amanda Hasek, whose death at Capellan hands had become a rallying symbol for the Federated Suns. Sustaining production of equipment bearing that name served no Capellan interest and actively undermined the message the Confederation sought to project. Haseks already in the field continued to serve but could not be replaced from the factory floor.</p>
+</history>
+
+<manufacturer>
+Johnston Industries
+</manufacturer>
+
+<primaryFactory>
+New Syrtis
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:General Motors
+ARMOR:Johnston Industries
+COMMUNICATIONS:CommuTech
+TARGETING:BlazeFire
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:200 Light Fusion
+ARMOR:Duraweave 8000 Heavy Ferro-Fibrous
+COMMUNICATIONS:XL
+TARGETING:Ranging System Type 5
+</systemModels>
+
+<source>
+TR:3145:FS,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

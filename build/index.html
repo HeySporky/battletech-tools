@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="/battletech-tools/favicons/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="A forever free and open source fan created PWA for Catalyst Games Lab's Classic BattleTech and Alpha Strike board games" />
+    <meta name="google-site-verification" content="uaT2ulsTicWtAO3o_3nGVWBsO8DLghaXEMh_yVI2lrY" />
+    <meta name="msvalidate.01" content="4EDAF7C37A4695C753DDE49AF30F1B12" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="/battletech-tools/manifest.json" />
+    <!--
+      Notice the use of /battletech-tools/ in the tags above (Vite's equivalent of CRA's
+      %PUBLIC_URL%). It is replaced with the configured base path at build time.
+      Only files inside the `public` folder can be referenced this way.
+    -->
+    <title>Jeff's BattleTech Tools IIC</title>
+    <link rel="apple-touch-icon" href="/battletech-tools/favicons/apple-touch-icon.png">
+
+    <link rel="icon" type="image/png" sizes="512x512"  href="/battletech-tools/favicons/android-chrome-512x512.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="/battletech-tools/favicons/android-chrome-192x192.png">
+		<link rel="icon" type="image/png" sizes="150x150" href="/battletech-tools/favicons/mstile-150x150.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/battletech-tools/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/battletech-tools/favicons/favicon-16x16.png">
+
+    <script type="text/javascript">
+
+      let l = window.location;
+      if (l.search) {
+
+        if( l.search.indexOf("?rd=") > -1 ) {
+          let newPath = "/battletech-tools" + l.search.replace("?rd=%2Fbattletech-tools", "");
+          newPath = newPath.replace("?rd=/battletech-tools", "");
+
+          while( newPath.indexOf("%2F") > -1 ) {
+            newPath = newPath.replace("%2F", "/");
+          }
+
+          window.history.replaceState(
+            null,
+            null,
+            newPath
+          );
+        }
+      }
+
+
+    </script>
+    <script type="module" crossorigin src="/battletech-tools/assets/index-DikwTZZA.js"></script>
+    <link rel="modulepreload" crossorigin href="/battletech-tools/assets/ui-page-C2AXx4M-.js">
+    <link rel="modulepreload" crossorigin href="/battletech-tools/assets/error404-A2Ea7cdC.js">
+    <link rel="stylesheet" crossorigin href="/battletech-tools/assets/ui-page-DcSegcub.css">
+    <link rel="stylesheet" crossorigin href="/battletech-tools/assets/index-D1wchk7E.css">
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>

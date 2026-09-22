@@ -1,0 +1,85 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bc9d-7696-b2d8-567a5162baa1
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Jump Platoon (FWLM)
+</Name>
+
+<Model>
+(Rifle 3035+)
+</Model>
+
+<mul id:>
+7027
+</mul id:>
+
+<year>
+3030
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<Troopers Equipment>
+Free Worlds League Infantry Kit (3035+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Free Worlds League Military has long fielded some of the largest infantry formations in the Inner Sphere, with regiments numbering nearly 1,800 soldiers compared to roughly 750 in the Combine and just over 1,000 in the Federated Suns. Jump infantry in League service exploit vertical mobility to compensate for the FWLM's sometimes fragmented command structure, seizing terrain that wheeled or tracked forces cannot reach. Their ability to operate across broken ground and urban environments makes them valuable in the border provinces where coalition territory changes hands frequently. Armed with standard ballistic assault rifles, the most common and affordable infantry weapon in the Inner Sphere, these platoons deliver reliable short-range firepower and can be equipped and resupplied from almost any garrison stockpile.</p>
+</overview>
+
+<notes>
+Intro date based on prototype release of FWL advanced infantry kit. Model name based on MUL name.
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

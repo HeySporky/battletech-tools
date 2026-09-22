@@ -1,0 +1,160 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e774-79fb-854d-300f5f01af8e
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Plainsman Medium Hovertank
+</Name>
+
+<Model>
+(Sealed)
+</Model>
+
+<mul id:>
+2540
+</mul id:>
+
+<year>
+3074
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+18
+16
+16
+12
+18
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRTorpedo-2
+ISFlotationHull
+Environmental Sealed Chassis
+</Body Equipment>
+
+<Front Equipment>
+SRT 2
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+SRM 6
+SRM 6
+</Turret Equipment>
+
+<capabilities>
+<p>The Plainsman's armament centers on a pair of Harvester 20K SRM 6 launchers mounted in a split-turret arrangement, supplemented by a forward-facing Harvester 2K SRM 2 launcher. This configuration gives the vehicle substantial close-range firepower for its weight class, capable of saturating a single target with a full missile salvo in one pass. Early prototype testing explored a fully independent split-turret concept, allowing each SRM 6 rack to rotate and elevate separately, but evaluators found that divided fire negated the design's punch, and the combined-battery approach was retained for production. The split arrangement does add mechanical complexity, however, and is a known maintenance burden for field crews.</p><p>A 140-rated internal combustion engine delivers a cruising speed of 97 kph and a flank speed of 151 kph, placing the Plainsman among the faster vehicles in its weight class. StarSlab/3 standard armor provides modest protection that experienced crews consider adequate for a fire-support platform operating from the second echelon, though it offers little margin against dedicated anti-armor fire. The Olmstead 30 communications system and Maxwell TA55 targeting suite are reliable mid-tier electronics that match the design's overall emphasis on durability over cutting-edge performance. The Plainsman's central limitation is its exclusively short-ranged armament: any engagement beyond 270 meters leaves it without a meaningful offensive option, and crews must rely on speed and terrain masking when operating against opponents with reach advantages.</p>
+</capabilities>
+
+<overview>
+<p>The Plainsman Medium Hover Tank emerged from a Pinard Protectorates Limited contract tied to Wolf's Dragoons' rearmament initiative of 3030, designed from first principles to maximize operational reliability in the demanding logistics environment of Periphery-adjacent operations. The design philosophy emphasized proven components and ease of field maintenance over technological sophistication, producing a vehicle that Concordat crews could keep operational far from established supply lines. Fast enough to serve as a screening asset and punchy enough to threaten heavier opponents at close range, the Plainsman became a fixture of Taurian Concordat armor formations within a decade of its introduction. Its reputation for durability and consistent performance made it a common sight in second-echelon forces across the Inner Sphere, with Pinard Protectorates Limited continuing to produce variants to meet a demand that has never fully subsided.</p>
+</overview>
+
+<deployment>
+<p>The Sealed variant was developed for operations in heavy seas and flooded terrain, filling a gap in Taurian amphibious doctrine. Its fuel cell engine and sealed flotation hull allow it to navigate through, not merely over, open water, and the forward torpedo launcher provides an offensive capability in littoral and inland waterway environments. It serves primarily with Taurian formations assigned to coastal defense and amphibious assault roles.</p>
+</deployment>
+
+<history>
+<p>The Plainsman's origins trace to a 3030 contract placed by Wolf's Dragoons with Pinard Protectorates Limited during the Dragoons' post-Galtor rearmament phase. Pinard's engineers responded with a straightforward design that prioritized logistics resilience, recognizing that the Dragoons' rapid operational tempo demanded vehicles serviceable by field crews under adverse conditions. The resulting tank quickly attracted a second and more enduring customer: the Taurian Concordat absorbed the Plainsman into its own armor procurement, and Pinard maintained steady production through the 3030s and 3040s to meet Concordat demand.</p><p>The Plainsman's combat record confirmed its designers' assumptions. Operating in Taurian mixed brigades, the tank excelled in screening, raiding, and rear-area denial roles that formed the backbone of Concordat defensive strategy. Its reliability earned it particular favor among logistically constrained formations operating far from major supply depots, where field maintainability mattered more than peak performance.</p><p>In July 3066 the Plainsman gained wider recognition during fighting on Achernar. Elements of Brava Company, operating under Hauptmann Rhonda Jordan, found themselves among the last Concordat-affiliated forces on the planet as the Fifth Syrtis Fusiliers, supported by Smithson's Chinese Bandits and two battalions of mercenary BattleMechs from Wilson's Hussars, closed in on the remnants of the Seventeenth Arcturan Guards. Running low on supplies and significantly outnumbered, Brava Company's surviving Plainsmen held their positions for over two days against Arcturan BattleMechs, buying time for Guards forces to withdraw aboard DropShips. The engagement drew grudging respect from Major General Robert Koenig, the Fusiliers' commander, who appropriated all surviving Plainsmen for the Fifth's own use following the planet's fall.</p><p>By the early 3060s, Pinard Protectorates had already initiated a modernization program, negotiating with Quikscell of Oliver to subcontract production of an upgraded targeting system. That effort produced both a scouting variant and a Streak-capable version, extending the Plainsman's relevance well into the Jihad era. A further specialized variant adapted the hull for fully submerged amphibious operations, giving the Concordat a hover-mobile asset capable of projecting force in littoral and inland waterway environments that conventional armor could not reach.</p>
+</history>
+
+<manufacturer>
+Pinard Protectorates Limited
+</manufacturer>
+
+<primaryFactory>
+Pinard
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:Olmstead
+TARGETING:Maxwell
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:StarSlab/3
+COMMUNICATIONS:30
+TARGETING:TA55
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-ONN
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+

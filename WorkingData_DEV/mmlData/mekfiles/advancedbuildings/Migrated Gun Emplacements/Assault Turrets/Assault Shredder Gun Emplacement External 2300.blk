@@ -1,0 +1,120 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a0e2-706f-9144-814bba7880be
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Assault Shredder Gun Emplacement
+</Name>
+
+<Model>
+(2300) (External)
+</Model>
+
+<year>
+2300
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+150
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+SRM 6(ST)
+SRM 6(ST)
+SRM 6(ST)
+SRM 6(ST)
+SRM 6(ST)
+SRM 6(ST)
+Searchlight(ST)
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+EXTERNAL PowerGenerator:SIZE:16.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The Assault Shredder Gun Emplacement mounts an SRM 6 behind assault-weight armor, providing the maximum close defense protection available. The six-missile salvo is identical to the heavy variant's armament, but the dramatically improved armor transforms the position into a bunker that demands dedicated demolition effort to neutralize. Assault-weight construction at a close defense chokepoint creates a position that can weather extraordinary punishment while continuing to deliver punishing SRM fire.</p><p>The tactical value of assault armor at close defense points cannot be overstated. Attackers who have breached the outer perimeter often arrive at inner chokepoints with depleted ammunition and damaged weapons, making quick neutralization of defensive positions difficult. External power dependency is standard for assault-weight construction. This variant gives defenders time through sheer durability, forcing attackers to expend precious resources reducing the position while other defensive elements respond.</p>
+</capabilities>
+
+<overview>
+<p>The Shredder Gun Emplacement specializes in close-range area denial through Short Range Missile systems, designed to devastate targets that breach the outer defensive perimeter. These positions mount SRM launchers that deliver concentrated warhead clusters at close range, making them lethal against infantry formations, light vehicles, and even BattleMechs that attempt to push through the final defensive line. Their role is unambiguous: destroy anything that gets close enough to threaten the installation.</p><p>Shredder emplacements occupy the innermost ring of fortification defense networks, positioned at gates, sally ports, breach points, and internal corridors where attacking forces must funnel through restricted spaces. The short range of their weapons is not a limitation but a design feature, as these positions activate only when the enemy has already committed to a close assault and cannot easily withdraw from the engagement.</p>
+</overview>
+
+<history>
+<p>The Amaris Civil War exposed a critical gap in Castle Brian defensive design. When Stefan Amaris turned the fortifications' own garrisons against the Star League, the resulting close-quarters fighting within the Castle complexes revealed that many positions lacked adequate weapons for point-blank engagement. Long-range systems that had been designed to engage approaching armies across kilometers of open ground proved useless when the fighting raged in corridors and between buildings within the fortress perimeter.</p><p>General Aleksandr Kerensky's liberation campaign paid a terrible price learning this lesson. SLDF assault forces that breached Castle Brian outer walls found themselves in vicious close-quarters combat where the defenders had improvised close-range positions from whatever weapons were available. The formal inclusion of dedicated short-range weapon emplacements in subsequent fortification designs was a direct response to these bloody experiences. Post-war analysis concluded that purpose-built close defense positions at chokepoints within fortress complexes would have dramatically reduced the casualties suffered during the liberation, and the shredder emplacement design standardized this concept for all future defensive construction.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+4
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+150
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

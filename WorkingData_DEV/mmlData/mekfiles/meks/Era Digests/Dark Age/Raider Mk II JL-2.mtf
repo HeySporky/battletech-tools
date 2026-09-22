@@ -1,0 +1,193 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d5fe-76fe-80b4-a3f49b6a45db
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Raider Mk II
+model:JL-2
+mul id:6956
+
+Config:Biped
+techbase:Inner Sphere
+era:3134
+source:ED:DA,TR:DA
+published:RS:DA
+rules level:2
+role:Brawler
+
+
+mass:50
+engine:150 ICE Engine
+structure:IS Standard
+myomer:Triple-Strength
+
+heat sinks:2 Single
+walk mp:3
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:18
+RT armor:18
+CT armor:24
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:1
+Rotary AC/2, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Dual Saw
+Dual Saw
+Dual Saw
+Dual Saw
+Dual Saw
+Dual Saw
+Dual Saw
+Triple Strength Myomer
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISRotaryAC2
+ISRotaryAC2
+ISRotaryAC2
+ISRotaryAC2 Ammo
+ISRotaryAC2 Ammo
+Triple Strength Myomer
+-Empty-
+-Empty-
+
+Left Torso:
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Raider Mk II is a revised version of the JL-1 Raider developed by Bannson Universal Unlimited to address the original design's lack of accurate ranged firepower. Introduced alongside the base Raider in 3134, the Mk II trades the JL-1's missile launchers for a rotary autocannon, giving the design a genuine ranged engagement capability. This came at the cost of a smaller engine and reduced top speed, though substantially heavier armor helped offset the loss of mobility.</p><p>Like its predecessor, the Raider Mk II benefited from Bannson's aggressive licensing strategy and continued production through third-party manufacturers after Bannson Universal's dissolution. The Mk II's improved combat profile made it marginally more attractive to potential buyers, though it remained firmly in the budget tier of the BattleMech market, competing primarily on price rather than performance.</p>
+
+capabilities:<p>The Raider Mk II's most significant change from the base Raider is the replacement of the twin MRM launchers with a BUU Straightshooter rotary autocannon/2, a weapon developed by Bannson's own engineering team. The RAC/2 provides significantly more accurate fire at longer ranges than the MRM launchers it replaces, giving the Mk II a genuine ranged engagement capability that the original design lacked entirely. Two tons of ammunition ensure reasonable endurance in extended engagements, and the weapon's ejectable mounting allows the pilot to jettison it if ammunition runs dry or the weapon jams.</p><p>Fitting the autocannon and its ammunition required downsizing the engine to a 150-rated internal combustion plant, reducing the Mk II's base speed to just over fifty kilometers per hour. With Triple Strength Myomer engaged, the 'Mech can reach the original Raider's standard running speed of roughly sixty-four kilometers per hour, though this still leaves it slower than most medium designs. To compensate, armor protection was increased to ten tons of BUU MechStandard plating, a substantial improvement that allows the Mk II to absorb considerably more punishment than the lightly protected JL-1. The dual saw is retained for close combat, giving the 'Mech a credible melee threat when TSM is active.</p>
+
+deployment:<p>This variant Raider Mk II was developed to provide the Raider family with a long-range fire support option. The rotary autocannon gives the design accurate firepower at ranges the base JL-1 cannot effectively engage, while substantially improved armor makes the Mk II better suited to standing engagements where it can leverage its range advantage. The slower base speed is partially offset by TSM activation, which restores mobility to the JL-1's standard running rate. This configuration is best employed in overwatch or suppression roles, pinning down lighter opponents while other units maneuver for advantage.</p>
+
+history:<p>The Raider Mk II was born from Bannson Universal's successful development of an in-house rotary autocannon. Originally intended for inclusion in the base Raider design, the weapon proved too heavy to integrate without significant trade-offs. Rather than abandon the weapon entirely, Bannson's engineers created a dedicated variant that sacrificed speed for firepower and survivability, producing a 'Mech better suited to sustained engagements than the hit-and-run tactics the JL-1 was forced to rely upon.</p><p>The Mk II served alongside the standard Raider in Bannson's Raiders during the Scourge, though it was produced in smaller numbers. Its improved firepower made it a marginally more desirable assignment among Bannson's warriors, though the design still suffered from the fundamental limitations of its ICE powerplant and industrial-heritage construction. The autocannon proved particularly effective in suppression roles, where its high rate of fire could pin down lighter opponents while other units maneuvered for advantage.</p><p>After the collapse of Bannson Universal, the Mk II's production rights passed to Simcox Industrials along with the rest of the Raider family. The design continues to find buyers among the same clientele that purchases the standard Raider, with the Mk II commanding a slightly higher price point due to its improved combat capability. Third-party variants of the Mk II have also appeared, following the same pattern of modification seen with the base Raider chassis, removing the dual saw in favor of more effective weaponry and improved heat management.</p>
+
+manufacturer:Bannson Universal Unlimited|Bannson Universal Unlimited|Simcox Industrials
+
+primaryfactory:St. Andre|Tybalt|Mandalas
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:BUU
+systemmode:CHASSIS:Standard Medium
+systemmanufacturer:ENGINE:Bannson
+systemmode:ENGINE:Unknown (150 ICE)
+systemmanufacturer:ARMOR:BUU
+systemmode:ARMOR:MechStandard
+systemmanufacturer:COMMUNICATIONS:BUU
+systemmode:COMMUNICATIONS:FarSweep Comms
+systemmanufacturer:TARGETING:BUU
+systemmode:TARGETING:AccuTrack 3000

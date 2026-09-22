@@ -1,0 +1,247 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e18e-7f15-adbd-790fe3527611
+</UUID>
+
+<UnitType>
+SmallCraft
+</UnitType>
+
+<Name>
+Ares Close Assault Landing Craft
+</Name>
+
+<Model>
+Mk.II
+</Model>
+
+<mul id:>
+5804
+</mul id:>
+
+<year>
+2444
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+atmo_flyer
+easy_maintain
+obsolete:2476
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:0.0:0:-1::-1:0
+crewquarters:0.0:0:-1::-1:0
+steeragequarters:25.0:0:-1::-1:0
+cargobay:7.5:1:5::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+38
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+720
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+40
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+76
+75
+75
+55
+</armor>
+
+<Nose Equipment>
+Large Laser
+Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+Large Laser
+LRM 15
+IS Ammo LRM-15
+IS Ammo LRM-15
+</Left Side Equipment>
+
+<Right Side Equipment>
+Large Laser
+LRM 15
+IS Ammo LRM-15
+IS Ammo LRM-15
+</Right Side Equipment>
+
+<Aft Equipment>
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+7
+</structural_integrity>
+
+<capabilities>
+<p>The Mk.II distinguishes itself from the Mk.I primarily in its offensive armament. Three large lasers supplement the existing weapons layout, dramatically increasing the craft's ability to engage enemy fighters and ground targets at extended range. This heavier weapons load demands more heat management, and the Mk.II carries additional heat sinks over the base design to handle the added thermal output. The reduced cargo capacity is a deliberate trade, reflecting the craft's shift from transport to fire support.</p><p>The primitive fusion engine and armor profile closely mirror those of the Mk.I, providing the same basic mobility and protection envelope. Forward and aft defense is retained through the same combination of nose and aft medium lasers that proved effective on the base landing craft, giving the Mk.II adequate self-protection even when operating away from formation cover. The aerodyne configuration is identical to the base design, keeping maintenance and training requirements consistent across the family. Like all Ares variants, the Mk.II carries the performance limitations common to primitive-era aerospace design, including reduced maneuverability compared to later standard-technology successors.</p>
+</capabilities>
+
+<overview>
+<p>The Ares Close Assault Landing Craft, designated the Mk.II, emerged just six years after the Mk.I as a purpose-built fire support variant of the Ares family. Developed by IncStar Dynamics, the Mk.II replaced a portion of the standard landing craft's cargo capacity with an additional battery of large lasers, transforming the design from a transport with self-defense weaponry into a genuine close-support gunship. Where the Mk.I was optimized for cargo delivery, the Mk.II was intended to serve as a heavy escort, clearing fighter screens and suppressing ground targets as the cargo-laden landing craft completed their runs. The design was fielded by the Hegemony Armed Forces alongside the Mk.I, operating in mixed squadrons that paired the Mk.II's fire support with the Mk.I's cargo capacity and the Mk.III's fighter-engagement role.</p>
+</overview>
+
+<deployment>
+<p>The Mk.II Close Assault Landing Craft was assigned in small numbers to HAF landing craft wings, typically one or two craft per squadron. Its role was strictly fire support: clearing fighter screens and providing heavy ground-attack capability as Mk.I craft completed their cargo deliveries. Mk.II crews developed aggressive approach profiles, closing quickly and engaging hostile fighters before breaking off to allow the cargo craft through. The design was not assigned independent transport duties, relying on the Mk.I for cargo work and the Mk.III for direct fighter engagement. Deployment alongside sister craft in mixed squadrons allowed each variant to focus on its designed mission, a combined-arms approach that defined HAF landing operations throughout the Age of War.</p>
+</deployment>
+
+<history>
+<p>The Hegemony Armed Forces recognized early that the Mk.I, however capable as a cargo carrier, could not simultaneously deliver heavy armor and provide the concentrated fire support needed to suppress determined fighter opposition. IncStar Dynamics' solution was to build the Mk.II Close Assault Landing Craft on the same base hull as the Mk.I, introducing it in 2444 alongside the Mk.III Assault Craft. The three designs formed a deliberate family: the Mk.I as the long-range landing craft branch, the Mk.II as the close attack landing craft branch, and the Mk.III as the dedicated fighter-engagement branch. Sharing a common hull simplified logistics, training, and maintenance across the three types.</p><p>The Mk.II served in mixed HAF landing wings through the Age of War and into the Star League period, operating alongside its two sister designs. Crews developed aggressive escort profiles, closing to maximum effective laser range before breaking off to allow Mk.I cargo craft through contested airspace. The type earned a reputation for sustained close-range fire, often remaining in hostile airspace longer than doctrine required to ensure the landing craft completed their drops.</p><p>When the redesigned Mk.IV successor frame arrived in 2476, the close assault escort role was gradually absorbed into the Mk.III Assault Craft lineage, which offered superior thrust and maneuverability for the fighter-engagement mission. The Mk.II transitioned to second-line duties and was eventually superseded entirely by the Mark VII following the Star League's collapse. The close attack landing craft branch itself did not produce a direct named successor the way the long-range landing craft branch produced the Mark VII, or the assault craft branch produced the Ares Mark IX. The Mk.II's escort role was instead folded into the broader capabilities of those surviving lines.</p>
+</history>
+
+<manufacturer>
+IncStar Dynamics
+</manufacturer>
+
+<primaryFactory>
+New Rhodes III
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Primitive Fusion
+ARMOR:Primitive Armor
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<notes>
+Stat's adjusted from XTR: to be legal.
+</notes>
+
+<use>
+Combat Landing Craft
+</use>
+
+<length>
+27m
+</length>
+
+<width>
+24m
+</width>
+
+<source>
+XTR:Primitives II
+</source>
+
+<published>
+XTR:Primitives II
+</published>
+
+<tonnage>
+200.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+5
+</crew>
+
+<officers>
+1
+</officers>
+
+<gunners>
+2
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

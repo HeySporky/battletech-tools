@@ -1,0 +1,172 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-adaf-7b48-a15f-df74245c6217
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Hammerhead
+</Name>
+
+<Model>
+HMR-HF
+</Model>
+
+<mul id:>
+1376
+</mul id:>
+
+<year>
+3068
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+560
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+76
+50
+50
+30
+</armor>
+
+<Nose Equipment>
+ISLBXAC10
+ISERMediumLaser
+ISERMediumLaser
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS LB 10-X Cluster Ammo
+IS LB 10-X Cluster Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>The definitive HMR-HD model mounts a single Imperator Zeta-20 autocannon in its nose, a weapon capable of crippling lighter fighters in a single pass and posing a serious threat to DropShips and other large spacecraft. The fighter carries three tons of ammunition for this weapon, providing limited but devastating firepower. The absence of secondary armament is considered both the Hammerhead's greatest weakness and an unexpected tactical advantage, as pilots are compelled to withdraw once their ammunition is expended rather than lingering in a fight with insufficient weaponry. For this reason, Hammerheads are typically paired with energy weapon-equipped fighters that can sustain prolonged engagements.</p><p>A Pitban C375 fusion engine provides startling acceleration for such a heavy airframe, allowing the Hammerhead to close rapidly with targets and exploit the short effective range of its main weapon. Boeing C-tran ferro-aluminum armor gives the fighter excellent protection, enabling it to absorb defensive fire during attack runs. The Lassitor FibroLink communications system and BANDAR 9 targeting and tracking system provide reliable electronics performance. Ten single heat sinks comfortably manage the fighter's modest thermal output, a benefit of its ammunition-dependent loadout. Five tons of fuel provide acceptable endurance for extended patrol and escort missions.</p>
+</capabilities>
+
+<overview>
+<p>The Hammerhead is among the longest-serving aerospace fighter designs in human history, with roots stretching back to the earliest days of interstellar conflict. Commissioned by Boeing Interstellar on Terra, the original prototype first flew in 2402 and entered production five years later for the Terran Hegemony. Designed as a heavy ground-based defensive fighter, the Hammerhead was intended for planetary defense and jump point patrol duties. The craft's distinctive wide-nosed profile and devastating forward-mounted weaponry earned it a fearsome reputation, particularly among DropShip captains who learned to dread engaging squadrons of these heavy fighters. At seventy-five tons, the Hammerhead combines impressive firepower with surprising acceleration for its mass, a combination that has kept the design relevant across centuries of service through periodic upgrades and modernization efforts.</p>
+</overview>
+
+<deployment>
+<p>The HMR-HF emerged from the Word of Blake's reactivation of the Boeing plant on Terra. This variant replaces the standard autocannon with an Imperator Code Red LB 10-X autocannon carrying two tons of ammunition, complemented by a pair of Diverse Optics ER medium lasers mounted in the wings. The combination of cluster-capable munitions and laser strafing capability makes the HF a devastating ground support platform. Double heat sinks shared with the E variant help manage the increased thermal load. Blakist commanders fielded large blocks of HMR-HFs, and the variant earned a feared reputation on the battlefields of the former Chaos March.</p>
+</deployment>
+
+<history>
+<p>The Hammerhead traces its origins to 2402, when Boeing Interstellar produced the first prototype of what would become one of the Hegemony's most enduring aerospace designs. The original HMR-HA entered service with Terran Hegemony Armed Forces in 2407, where its twin nose-mounted lasers and heavy primitive armor made it a formidable planetary defender. Ground-based squadrons contested landings so vigorously that it was not uncommon for naval commanders to refuse atmospheric entry until defending Hammerheads had been neutralized.</p><p>Over the following decades, Boeing refined the design substantially. The HMR-HC arrived roughly seventy years later, replacing primitive components with standard equipment for improved protection and performance. The most significant upgrade came in the twenty-sixth century with the adoption of ferro-aluminum armor, culminating in the definitive HMR-HD that would serve the Star League Defense Force for centuries. A Royal command variant mounting a Gauss rifle was also developed for elite SLDF units, offering reduced ammunition dependency compared to the standard model.</p><p>The Hammerhead's production line on Terra fell silent after the fall of the Star League. ComStar seized control of the Boeing Interstellar facilities and mothballed the factory, hoarding its existing stockpile of Hammerheads in secret caches distributed across the Com Guard's divisions. For centuries, the design was effectively extinct in the armies of the Successor States, with only ComStar retaining significant numbers. The Federated Commonwealth did attempt to revive the design in the 3040s, testing prototypes derived from the Helm Memory Core at the Hudson Gulf Aerospace Center on New Avalon, but these efforts did not lead to full-scale manufacturing.</p><p>The Hammerhead's return to prominence came with the public revelation of ComStar's military forces. The Com Guards deployed the fighter in nearly every division, and following the ComStar Schism, both ComStar remnants and the Word of Blake retained significant numbers of the craft. The Word of Blake proved particularly enthusiastic about the design, refurbishing the long-mothballed Boeing plant near the ruins of Unity City on Terra and reactivating production. New variants incorporating modern weapons technology emerged from this restored facility while retaining the Hammerhead's proven airframe.</p><p>During the Jihad, Blakist aerospace forces made extensive use of multiple Hammerhead variants in their own divisions and through sales to aligned states and mercenary commands. Unconfirmed reports surfaced of an unidentified squadron of Hammerheads ambushing and destroying DropShips within Free Worlds League space, though these operators never revealed their affiliation. The Word of Blake Militia placed substantial bounties on certain Com Guard aerospace commanders who used the design against Blakist interests, further illustrating the Hammerhead's continued combat relevance even centuries after its original introduction.</p>
+</history>
+
+<manufacturer>
+Boeing Interstellar
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Lockheed
+ENGINE:Pitban
+ARMOR:Boeing
+COMMUNICATIONS:Lassitor
+TARGETING:BANDAR
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:BR65
+ENGINE:C375
+ARMOR:C-tran Ferro-Aluminum
+COMMUNICATIONS:FibroLink
+TARGETING:9
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

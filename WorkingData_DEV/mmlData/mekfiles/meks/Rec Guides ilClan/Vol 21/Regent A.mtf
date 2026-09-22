@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-da57-74b1-b501-31f965d391b5
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Regent
+model:A
+mul id:8360
+
+Config:Biped OmniMek
+techbase:Clan
+era:3145
+source:RG21
+published:RG21,RSFP:GDL
+rules level:2
+role:Sniper
+
+quirk:easy_maintain
+
+mass:90
+engine:270 Fusion (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:26 Clan Double
+base chassis heat sinks:10
+walk mp:3
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:30
+RA armor:30
+LT armor:28
+RT armor:28
+CT armor:42
+HD armor:9
+LL armor:38
+RL armor:38
+RTL armor:10
+RTR armor:10
+RTC armor:16
+
+Weapons:4
+ER PPC, Right Arm
+ER PPC, Left Torso
+ER PPC, Right Torso
+ER Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+PPC Capacitor (OMNIPOD)
+Coolant Pod (OMNIPOD)
+
+Left Torso:
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+PPC Capacitor (OMNIPOD)
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+PPC Capacitor (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLERMediumLaser (OMNIPOD)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Regent is a 90-ton assault OmniMech introduced in 3145 as the flagship product of Clan Sea Fox's ilKhanate Project Reynard. Born from a unique three-way partnership between Coventry Metal Works, Technicron Manufacturing, and the ilKhanate, the Regent fills the role previously occupied by the Hauptmann OmniMech, which had been shelved following the Jihad and Devlin Stone's military reduction programs. Coventry Metal Works sought to resurrect the Hauptmann concept using Clan-grade technology, but found domestic ClanTech manufacturers overstretched. Merchant Bilius of Clan Sea Fox brokered a novel arrangement through the Chatterweb: CMW and Technicron would each build the base chassis at their respective factories on Coventry and Savannah, while ilKhanate facilities would arm the completed frames with Clan OmniPods for sale to all buyers. The resulting design incorporates elements of both the Hauptmann and the Awesome, earning it the nickname "Awesomemann" among MechWarriors who pilot it.</p>
+
+capabilities:<p>The Regent stands as a philosophy of rugged simplicity over cutting-edge technology. Built on a Reynard Standard Type chassis powered by a GM 270 standard fusion engine, the design deliberately eschews weight-saving measures like extralight engines or endo steel construction. This conservative approach yields exceptional battlefield survivability, as the loss of a side torso will not destroy the 'Mech. Thick Durallex Special Heavy armor provides protection comparable to the heaviest assault designs, while the standard engine and structure ensure straightforward maintenance and repair across diverse logistical environments.</p><p>With 43 tons of available pod space, the Regent supports a wide range of alternate configurations from dedicated fire support platforms to devastating short-range brawlers. This generous payload allowance, combined with Clan OmniPod technology, gives commanders extraordinary flexibility to tailor the 'Mech to specific mission requirements. The design's primary limitations are its lack of jump capability and relatively modest speed of 54 km/h, making it dependent on favorable terrain and good tactical positioning to bring its considerable firepower to bear. Heat management varies significantly between configurations, requiring pilots to familiarize themselves thoroughly with the thermal characteristics of their chosen loadout.</p>
+
+deployment:<p>The A configuration transforms the Regent into a dedicated long-range fire platform, drawing direct inspiration from the venerable Awesome and earning the nickname "Awesomemann" from some pilots. Three Clan ER PPCs, each enhanced with a PPC Capacitor, deliver tremendous alpha strike potential capable of crippling most 'Mechs in a single volley. A Targeting Computer improves accuracy on these devastating weapons. However, heat management remains a significant concern despite twenty-six double heat sinks and a Coolant Pod, sustained fire at full capacitor charge risks dangerous heat buildup that can overwhelm even this extensive cooling system. An ER Medium Laser mounted in the head provides limited close-range defense, but pilots are advised to maintain engagement distance where the PPCs are most effective.</p>
+
+history:<p>The Regent's origins trace to the collapse of Hauptmann production following the Word of Blake Jihad, when Devlin Stone's military reduction programs shuttered numerous 'Mech production lines across the Inner Sphere. Coventry Metal Works, long associated with the Hauptmann, found itself without a signature assault OmniMech as the Dark Age's fragile peace began to deteriorate. When CMW attempted to revive the design with Clan-grade double heat sink technology, they discovered that domestic ClanTech manufacturers in the Lyran Commonwealth were already overstretched by existing supply contracts and unable to accommodate the project.</p><p>Clan Sea Fox's ilKhanate, ever alert for commercial opportunities, identified this gap through the Chatterweb. Merchant Bilius orchestrated one of the era's most innovative manufacturing arrangements, a three-way partnership designated Project Reynard. Legal negotiations, mediated by the ilKhanate itself, produced a deal where Coventry Metal Works and Free Worlds League-based Technicron Manufacturing would each build the base chassis for exclusive Sea Fox purchase. The ilKhanate would then arm the completed OmniMechs with Clan OmniPods for sale to all buyers, adding another accomplishment to the ilKhanate's growing portfolio of cross-border commercial ventures.</p><p>Clan Sea Fox has spread the Regent across multiple markets, selling to both the Lyran Commonwealth and the Free Worlds League. The 'Mech saw early combat during a clash between the Third Marik Protectors and elements of the Magistracy Cavaliers on Rohinjan in 3148, where a Force Commander's Regent proved its worth by dismantling a pirate Atlas and driving off its lance-mates. The design has also attracted interest from displaced Lyran nobles building private forces along the Periphery border, demonstrating the broad appeal of a powerful yet maintainable assault OmniMech.</p><p>Not all within Clan Sea Fox have welcomed Project Reynard's success. The Spina and Tiburon Khanates have expressed resentment at what they view as overreach by the ilKhanate's merchants, reflecting ongoing tensions within the Clan over commercial strategy and the distribution of manufacturing profits. Even so, the Regent's commercial performance and battlefield effectiveness have largely vindicated the project, establishing it as a model for future Clan Sea Fox industrial partnerships with Inner Sphere manufacturers.</p>
+
+manufacturer:Coventry Metal Works|Technicron Manufacturing
+
+primaryfactory:Coventry|Savannah
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Reynard
+systemmode:CHASSIS:Standard Type
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:270
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Special Heavy
+systemmanufacturer:COMMUNICATIONS:MegaBand
+systemmode:COMMUNICATIONS:System 21
+systemmanufacturer:TARGETING:Dtrac
+systemmode:TARGETING:Suite 4

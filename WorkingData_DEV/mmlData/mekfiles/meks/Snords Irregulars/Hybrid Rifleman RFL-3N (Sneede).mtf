@@ -1,0 +1,181 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd4b-7aaf-8863-cc6a6e41f92d
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hybrid Rifleman
+model:RFL-3N (Sneede)
+
+Config:Biped FrankenMek
+techbase:Inner Sphere
+era:3024
+source:CSI
+published:RSFP:SI
+rules level:4
+role:Sniper
+
+
+mass:60
+engine:240 Fusion Engine
+structure:Standard
+LA structure:70
+RA structure:60
+LT structure:65
+RT structure:60
+CT structure:60
+HD structure:60
+LL structure:60
+RL structure:60
+myomer:Standard
+
+heat sinks:14 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:22
+RA armor:20
+LT armor:24
+RT armor:15
+CT armor:22
+HD armor:6
+LL armor:12
+RL armor:12
+RTL armor:5
+RTR armor:2
+RTC armor:4
+
+Weapons:6
+Medium Laser, Left Arm
+PPC, Right Arm
+LRM 20, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Right Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heat Sink
+PPC
+PPC
+PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+LRM 20
+LRM 20
+LRM 20
+LRM 20
+LRM 20
+Medium Laser
+IS Ammo LRM-20
+IS Ammo LRM-20
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Medium Laser (R)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+

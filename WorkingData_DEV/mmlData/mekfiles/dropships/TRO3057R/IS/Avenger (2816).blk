@@ -1,0 +1,240 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aadd-736f-860a-190accc19dbd
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Avenger
+</Name>
+
+<Model>
+(2816)
+</Model>
+
+<mul id:>
+3765
+</mul id:>
+
+<year>
+2816
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:126.5:1:1::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:84.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<heatsinks>
+70
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+8000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+230
+203
+203
+180
+</armor>
+
+<Nose Equipment>
+(B) Autocannon/20
+Autocannon/5
+Autocannon/5
+IS Ammo AC/20:15
+IS Ammo AC/5:40
+(B) LRM 20
+IS Ammo LRM-20:24
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) PPC
+(B) Autocannon/5
+Autocannon/5
+IS Ammo AC/5:40
+(B) LRM 20
+IS Ammo LRM-20:18
+(B) Medium Laser
+Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) PPC
+(B) Autocannon/5
+Autocannon/5
+IS Ammo AC/5:40
+(B) LRM 20
+IS Ammo LRM-20:18
+(B) Medium Laser
+Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Autocannon/2
+IS Ammo AC/2:45
+(B) LRM 20
+IS Ammo LRM-20:18
+(B) Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+12
+</structural_integrity>
+
+<capabilities>
+<p>The Avenger mounts an impressive weapons array for its size, with firepower distributed across all firing arcs. The nose concentrates an AC/20, two AC/5s, an LRM-20 rack, two large lasers, and two medium lasers, while each wing carries a PPC, two AC/5s, an LRM-20, and two medium lasers. The aft arc mounts an AC/2, an LRM-20, and two medium lasers. Seventy single heat sinks manage the thermal load from this considerable arsenal. A small crew of fifteen operates the vessel alongside four dedicated gunners, keeping the Avenger's personnel requirements remarkably low for a combat vessel of its capability.</p><p>Uniquely among aerodyne craft designed for planetary operations, the Avenger features only a single rear maneuvering drive with no secondary transit drive. This requires an exotic interior layout where the orientation of up changes between atmospheric flight and space operations. In atmosphere, up points toward the vertical stabilizer; under thrust in space, up points toward the nose. The crew must reconfigure each room and its furniture between orientations, a process that takes approximately twenty minutes. Long corridors on the ground become lift shafts in space, with wall-mounted ladders providing access. The vessel also carries a small cargo bay and can perform strafing and bombing runs in support of ground forces.</p>
+</capabilities>
+
+<overview>
+<p>The Avenger class Assault DropShip is one of the smallest yet most formidable combat vessels in the Inner Sphere's naval arsenals. First introduced in 2816, this 1,400-ton Aerodyne packs firepower rivaling the much larger Union class, carries armor almost equal to an Overlord, and possesses speed and maneuverability surpassing both designs despite its compact size. Its distinctive disk-shaped hull provides enhanced aerodynamic stability and has been known to be confused with heavy aerospace fighters at a distance, a resemblance that has caught enemy pilots off guard.</p><p>Rare and expensive to produce, the Avenger has traditionally been reserved for the largest and most critical military operations. These assault ships form the vanguard of planetary assault fleets, clearing orbital and atmospheric opposition before transport DropShips commit to landing. This exposed role has ensured consistently high attrition rates throughout the design's service history, making the Avenger a perpetually scarce asset despite continuous production at multiple facilities across the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The original Avenger entered service in 2816 and was adopted by every Successor State navy for planetary assault operations. These vessels were typically reserved for the largest engagements, forming the vanguard of attack formations alongside other assault craft. The Federated Suns maintained the most robust Avenger fleet throughout the Succession Wars thanks to Dynamico's production capacity at Delavan, while the Taurian Concordat stationed Avengers at contested jump points such as the Brinton system to deter Capellan and Canopian incursions. Despite the design's scarcity, its combination of firepower and agility made it a decisive asset in orbital combat across every major conflict of the era.</p>
+</deployment>
+
+<history>
+<p>The Avenger class assault DropShip was introduced in 2816, during the early Succession Wars, filling a critical need for a compact yet heavily armed vessel capable of spearheading planetary assault operations. Multiple manufacturers across the Inner Sphere produced the design, but the Avenger's exposed vanguard role ensured that attrition rates remained consistently high, and production struggled to keep pace with losses throughout the conflict.</p><p>During the Third Succession War, the Federated Suns emerged as the only Successor State able to produce enough Avengers to replace combat losses, thanks to Dynamico Ltd.'s facility at Delavan. The Capellan Confederation's Rashpur-Owens facility above Capella could manage only a single Avenger every other year, leaving the Confederation perpetually short of assault DropShips. This production disparity gave the Federated Suns a significant naval advantage throughout the period.</p><p>The rediscovery of the Helm Memory Core transformed the Avenger's fortunes. Dynamico was the first manufacturer to apply recovered Star League technology to a DropShip design, and the first upgraded vessel slipped its moorings at Delavan in early 3048. The Avenger remained the only Inner Sphere DropShip in production with Star League-grade technology for several years, as the Clan Invasion of 3049 disrupted similar upgrade programs for other classes across the Inner Sphere.</p><p>In 3053, Dynamico negotiated a joint production agreement with Defiance Industries of Hesperus II, allowing the Inner Sphere's premier weapons manufacturer to expand into DropShip production. The two firms unveiled a jointly produced upgraded Avenger in 3055. That same year, the design saw notable action when a Syrtis Fusiliers Avenger engaged a new Capellan Lung Wang attack craft during a Liao raid on Lee. The Avenger outmaneuvered the larger Capellan vessel and inflicted major damage before a missile volley penetrated the Avenger's hull, rupturing the fuel tank and destroying the ship in a massive explosion.</p><p>The Avenger continues to serve in the naval forces of virtually every Inner Sphere power. Dynamico prioritized Avenger and Aurora production during the Jihad, putting their boutique DropShip lines on hold to meet wartime demand. The design's compact size and devastating firepower have ensured its relevance from the Succession Wars through the Dark Age.</p>
+</history>
+
+<manufacturer>
+Defiance Industries|Dynamico Ltd.|Rashpur-Owens Inc.
+</manufacturer>
+
+<primaryFactory>
+Hesperus II|Delavan|Capella
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:GM 9800i
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+1400.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+15
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+4
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+2
+</escape_pod>
+

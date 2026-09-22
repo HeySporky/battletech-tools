@@ -1,0 +1,232 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aba6-7423-a3cc-4ccfabb3ebfd
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Manatee
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4580
+</mul id:>
+
+<year>
+2449
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+mekbay:1.0:1:-1::-1:0
+mekbay:1.0:1:-1::-1:0
+mekbay:1.0:1:-1::-1:0
+mekbay:1.0:1:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+steeragequarters:65.0:0:-1::-1:0
+cargobay:360.5:1:7::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+129
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+5400
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+80
+70
+70
+60
+</armor>
+
+<Nose Equipment>
+(B) Large Laser
+Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Large Laser
+Medium Laser
+Medium Laser
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Large Laser
+Medium Laser
+Medium Laser
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Large Laser
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+10
+</structural_integrity>
+
+<capabilities>
+<p>The original cargo Manatee carries up to 1,044 tons of cargo in open bays situated on a single deck. This straightforward layout, which would later prove ideal for BattleMech gantry installation, provides efficient loading and unloading through individual bay doors. The vessel carries no offensive or defensive weaponry whatsoever, relying entirely on escort vessels or fighter screens for protection during transit.</p><p>A crew of just six personnel operates the vessel, making it one of the most economical DropShips to crew in the Inner Sphere. One hundred seven single heat sinks manage the drive system's thermal output. Safe thrust of 4g provides adequate performance for a cargo vessel, while 280 points of armor offer basic protection against micrometeorites and incidental damage. The Manatee's compact 37-meter length and robust systems make it easy to maintain, contributing to its extraordinary longevity as a design.</p>
+</capabilities>
+
+<overview>
+<p>The Manatee holds a singular place in military history as the first DropShip converted to carry BattleMechs. Originally a compact 1,900-ton Spheroid cargo vessel, the design was selected by the Terran Hegemony Naval Department as the most promising hull for adaptation into a BattleMech transport when the newly invented war machines required a means of reaching the battlefield.</p><p>While the Manatee's tenure as a BattleMech carrier proved brief, its basic form inspired the creation of all dedicated BattleMech transports that followed, most especially the Star League era Confederate class. The original cargo variant continued in far more mundane but enduring service, remaining in production for centuries despite its historical significance being forever linked to its short-lived military role.</p>
+</overview>
+
+<deployment>
+<p>The standard Manatee represents the historic military conversion that became the first BattleMech-carrying DropShip. Converted from Bordello Military Goods' existing cargo hull at the direction of the Terran Hegemony Naval Department, the military Manatee replaced its cargo bays with BattleMech restraint systems capable of securing a lance of the newly developed war machines. First deployed against the Fourth Avalon Hussars on Kentares in 2449, the Manatee proved the concept of orbital BattleMech deployment, though its light armor and modest armament made it vulnerable to concentrated ground fire. While quickly superseded by purpose-built carriers, the military Manatee established the fundamental principles of BattleMech transport that would guide all subsequent designs.</p>
+</deployment>
+
+<history>
+<p>The invention of the BattleMech changed the face of warfare, but the limiting factor for military planners was not how many BattleMechs they could build, but how to transport them from jump point to planetary surface. Early attempts to use existing military vehicle or infantry transports demonstrated limited success. The Terran Hegemony Naval Department began experimenting with converting merchant cargo hulls into military BattleMech haulers, and the Manatee's open cargo bays on a single deck made it the most promising candidate.</p><p>The Manatee's first BattleMech deployment came on Kentares in 2449, where Hegemony forces faced Davion's Fourth Avalon Hussars. Initially the BattleMechs proved their worth, but the Hussars discovered the Manatee was too lightly armed and armored, and began targeting the transports directly. Several DropShips and their precious BattleMechs were lost, forcing the Hegemony to deploy heavier fighter screens. The BattleMech-carrying Manatee was soon retired from frontline service, though the concept it proved led directly to purpose-built BattleMech carriers.</p><p>The basic cargo Manatee was eventually copied by other Inner Sphere powers, with Periphery variants appearing during the Reunification War. Thought extinct by the collapse of the First Star League, the Manatee was rediscovered in service with Nueva Castile in the Deep Periphery. By 3080, Bordello Military Goods, Inc. in Antwerp continued building the design, ensuring the oldest BattleMech-associated DropShip remained in production millennia after its introduction.</p>
+</history>
+
+<manufacturer>
+Bordello Military Goods, Inc.|DeHuego and Freshet DropShip Design|Deller, Bingham, and Fouts|Di Tron Heavy Industries|Earthwerks Ltd.|Markesan Aeronautics|Tharkad Aerospace Group
+</manufacturer>
+
+<primaryFactory>
+Antwerp|Galedon V|Atreus (FWL)|Terra|Ares|Markesan|Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+1900.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+19
+</crew>
+
+<officers>
+2
+</officers>
+
+<gunners>
+6
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+2
+</escape_pod>
+

@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c44d-7cb2-8846-c036d5443436
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Dragonfly
+clanname:Viper
+model:D
+mul id:920
+
+Config:Biped OmniMek
+techbase:Clan
+era:2940
+source:TR:3050,TR:CI
+published:RS:CI
+rules level:2
+role:Striker
+
+quirk:imp_target_long
+quirk:low_profile
+
+mass:40
+engine:320 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:10
+walk mp:8
+jump mp:8
+
+armor:Ferro-Fibrous(Clan)
+LA armor:12
+RA armor:12
+LT armor:13
+RT armor:13
+CT armor:16
+HD armor:9
+LL armor:19
+RL armor:19
+RTL armor:7
+RTR armor:7
+RTC armor:7
+
+Weapons:5
+Streak SRM 6, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Small Laser, Left Torso
+LRM 5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLStreakSRM6 (OMNIPOD)
+CLStreakSRM6 (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLERSmallLaser (OMNIPOD)
+Clan Streak SRM 6 Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLLRM5 (OMNIPOD)
+Clan Ammo LRM-5 (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Viper, known to Inner Sphere forces by its reporting name Dragonfly, is a 40-ton Clan OmniMech first produced in 2940 by Clan Fire Mandrill on the world of Shadow. Conceived as a quick-strike design emphasizing speed and agility over raw firepower, the Viper initially fell out of favor with several Fire Mandrill kindraa due to persistent problems with its omnipod mechanisms. In 3002, the Mandrills traded the design specifications and manufacturing facilities to Clan Ghost Bear in exchange for several production runs of Executioner OmniMechs. The Ghost Bears relocated production to Strana Mechty, developing modular production line technology in the process that would later prove invaluable during their migration to the Inner Sphere. Despite its troubled origins, the Viper has endured as one of the most widely distributed medium OmniMechs in the Clan arsenal, with production eventually spreading to multiple facilities across both the Homeworlds and the Inner Sphere.</p>
+
+capabilities:<p>Built on a lightweight Type W2 Endo-steel chassis and powered by a 320-rated XL engine, the Viper achieves a top speed of nearly 130 kilometers per hour, making it one of the fastest medium OmniMechs in any Clan touman. Eight jump jets provide an impressive 240-meter jump capability, granting exceptional tactical flexibility in broken or urban terrain. Seven tons of ferro-fibrous armor provide reasonable protection for its weight class, though the design remains vulnerable to concentrated fire from heavier opponents.</p><p>The Viper's primary limitation is its modest 8.5 tons of pod space, which significantly restricts its offensive payload compared to other medium OmniMechs in the 35-to-45-ton range such as the Adder, Shadow Cat, and Grendel. In its Prime configuration, the Viper mounts a pair of medium pulse lasers and an SRM-4 launcher for close-range engagements, supported by twin machine guns for anti-infantry work and an anti-missile system for defensive purposes. While considered undergunned for formal Clan dueling, the Viper excels in the fluid, indirect combat typical of Inner Sphere operations, where its speed allows it to choose engagements and screen for heavier formations.</p>
+
+deployment:<p>Designed to engage at multiple ranges, the Alternate Configuration D carries an LRM-5 for long-range harassment, two ER medium lasers and a Streak SRM-6 for medium-to-close engagement, and an ER small laser for point-blank defense. This mixed-range loadout provides greater tactical flexibility than most Viper configurations, allowing MechWarriors to adapt to changing battlefield conditions without sacrificing effectiveness at any particular range bracket.</p>
+
+history:<p>The Viper's early history is defined by a pattern of ownership changes that would shape its manufacturing legacy for centuries. Originally produced by Kindraa Sainze of Clan Fire Mandrill on Shadow, the design's troubled relationship with the Fire Mandrills' fractious internal politics led to its transfer to Clan Ghost Bear in 3002. Rather than Trial for land rights on Shadow and become embroiled in inter-Kindraa conflicts, the Ghost Bears restructured the production facility into a modular design and physically relocated the entire manufacturing line to their enclave on Strana Mechty. This innovative modular approach to production would prove to be one of the Viper's most significant, if unintended, legacies. When the Ghost Bears began their migration back to the Inner Sphere in the late 3050s, the modular factory technology developed for the Viper line allowed them to move several other manufacturing operations with relative ease.</p><p>Production on Strana Mechty continued under Ghost Bear control until the mid-3060s, when Clan Hell's Horses trialed for and won both production rights and the Upsilon Plant 2J facility. Their tenure was short-lived, however, as Clan Ice Hellion seized the entire plant in early 3068 following a grueling twelve-hour battle between both saKhans. The Ice Hellions immediately put the facility to use, with new configurations being shipped out as quickly as DropShips could be loaded, lending credence to rumors of a planned large-scale operation against their Coyote neighbors on Foster.</p><p>Beyond Strana Mechty, additional Viper production existed across the Homeworlds. Clan Coyote maintained a manufacturing line on Delios until 3071, when Clan Goliath Scorpion captured the facility during the opening stages of the Wars of Reaving. The Cloud Cobras operated their own production lines on Homer and at the Albion Armor Works on Albion. Clan Blood Spirit also maintained early production capacity at the Albion facility before the Star Adders assumed control. Following the Wars of Reaving and the destruction or Abjuration of several Clans, the surviving Home Clans continued to field the Viper as the similar Ice Ferret was phased out, possibly due to its association with the departed Spheroid Clans.</p><p>Having abandoned their Homeworld production infrastructure, the Ghost Bears, now reorganized as the Rasalhague Dominion, ultimately resumed Viper production at the newly established Dominion Facility Kappa-5 on Thule. This ensured the design remained a fixture within the Dominion's touman well into the Dark Age, where continued deployment in the Inner Sphere demonstrated that the Viper's combination of speed, mobility, and reconfiguration flexibility remained as tactically relevant as ever.</p>
+
+manufacturer:Kindraa Sainze Primary Production Facility|Upsilon Plant 2J|Albion Armor Works Gamma|Largo 'Mech Production Complex|Complex H-1 CCC|Dominion Facility Kappa-5
+
+primaryfactory:Shadow|Strana Mechty (Bear Enclave)|Albion (Indicass)|Delios|Homer|Thule
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type W2 Endo-steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:320 Light Force XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Compound H17 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Geotec 300
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Series D8 CC-25X
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Sloane 220 Lockover System

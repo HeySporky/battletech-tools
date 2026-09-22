@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e14c-78c2-b4d1-8d5eaa5e9d17
+</UUID>
+
+<UnitType>
+SmallCraft
+</UnitType>
+
+<Name>
+Escape Pod
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4134
+</mul id:>
+
+<year>
+2647
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:0.48:0:1::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+10
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+1
+1
+1
+1
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Side Equipment>
+</Left Side Equipment>
+
+<Right Side Equipment>
+</Right Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>The Escape Pod is a five-ton aerodyne craft measuring 5.3 meters in length and 2.5 meters in diameter. A single liquid hydrogen-fueled thruster provides limited thrust for minor course corrections, capable of up to 3 Gs of acceleration for approximately ninety seconds before fuel is exhausted. Atmospheric reentry relies entirely on heat shielding rather than powered deceleration, and a large steerable para-sail provides limited control of the pod's descent path. The craft carries no landing gear, and touchdown is invariably rough. Injuries during landing are a recognized hazard.</p><p>The interior seats four passengers comfortably, with a maximum of six in cramped conditions. Food and life support are rated for approximately twelve days at four occupants, with that window shrinking proportionally as capacity is exceeded. An automatic piloting computer allows the pod to operate without a trained pilot, though these computers were frequently stripped for parts during the resource-scarce Succession Wars, leaving manual controls as the only option aboard many surviving vessels. A distress beacon broadcasts an omnidirectional signal every five minutes for up to thirty days, with later-generation pods programmed to activate automatically two minutes after launch initiation. The signal is detectable within a few hundred kilometers.</p>
+</capabilities>
+
+<overview>
+<p>The Escape Pod is a ubiquitous emergency craft found aboard virtually every DropShip, JumpShip, and WarShip in known space. First produced in 2647, the five-ton tear-drop-shaped vessel provides crews and passengers with a final means of survival when a stricken vessel cannot be saved. Manufactured by shipyards across the Inner Sphere and Clan space, the pod's core design has changed little since its introduction. Its simplicity and reliability are regarded as its greatest virtues, and nearly every spacefaring culture has maintained production in some form through even the darkest periods of the Succession Wars. The Escape Pod carries no weapons and minimal equipment, yet its combination of limited thrust capability, atmospheric reentry protection, and distress beacon has made it a defining piece of survival hardware across centuries of interstellar travel.</p>
+</overview>
+
+<deployment>
+<p>The Escape Pod is fitted as standard equipment aboard virtually every DropShip, JumpShip, and WarShip operated by Inner Sphere powers and Clans alike. Vessels carry pods in numbers proportional to rated crew and passenger complement, with each assigned to a specific boarding station accessible from crew quarters and passenger areas. The design's universal form factor has made it compatible with a wide variety of vessel types without modification. While intended strictly for emergency use, a small number of pods have been adapted with enlarged flight windows for short-range ferry operations between ships and orbital stations, particularly in remote systems where dedicated shuttle assets are unavailable. Operators choosing this role accept a significant reduction in visibility and handling compared to craft designed for the purpose.</p>
+</deployment>
+
+<history>
+<p>The Escape Pod traces its origins to the early Star League era, first appearing in 2647 as a standardized solution to a longstanding problem in space travel. Emergency evacuation procedures prior to its introduction varied widely between manufacturers, and survival rates aboard stricken vessels depended heavily on whatever equipment a particular shipyard chose to install. The standardized design that emerged established dimensions, beacon protocols, and passenger capacity specifications that proved durable enough to outlast the civilization that created them.</p><p>The Succession Wars tested the pod's resilience in ways its designers could not have anticipated. As interstellar logistics deteriorated and spare parts grew scarce, automatic piloting computers aboard many pods were stripped out and repurposed, a practical economy that left survivors reliant on manual controls during emergencies. Despite this degradation, the basic design continued to function as intended. The distress beacon's thirty-day broadcast capability saved countless lives in remote systems where rescue might be delayed by weeks or longer.</p><p>Production continued across Clan space as well as the Inner Sphere. Clan Jade Falcon manufactured pods at their orbital facility above Sudeten, Clan Ghost Bear produced them on Alshain, and the United Outworlders Corporation on Ramora maintained supply for Alliance and Snow Raven vessels. Throughout the Jihad and into the Dark Age, the Escape Pod remained in continuous production, its universal applicability ensuring demand regardless of political upheaval or technological regression. Few pieces of spacefaring equipment can claim the same unbroken record of practical service across more than five centuries of interstellar conflict and recovery.</p>
+</history>
+
+<manufacturer>
+Falcon's Roost Orbital Assembly Plant|Tseng Facility|United Outworlders Corporation|Various
+</manufacturer>
+
+<primaryFactory>
+Sudeten|Alshain|Ramora|Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:RSD 1
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+5.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+1
+</crew>
+
+<officers>
+0
+</officers>
+
+<gunners>
+0
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

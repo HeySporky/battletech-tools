@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd12-71d6-a21e-2e578ec3dec6
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Falconer
+model:FLC-10R
+
+Config:Biped
+techbase:Inner Sphere
+era:3075
+source:Shrap24
+published:ShrapRS
+rules level:2
+role:Skirmisher
+
+quirk:stable
+
+mass:75
+engine:375 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:5
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:22
+RT armor:22
+CT armor:32
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:7
+RTR armor:7
+RTC armor:8
+
+Weapons:6
+ER PPC, Left Arm
+Gauss Rifle, Right Arm
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+ISERMediumLaser
+IS Gauss Ammo
+IS Gauss Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Falconer was conceived at the personal direction of First Prince Hanse Davion shortly before his death in 3052, born from the desire to create a BattleMech capable of defeating Clan OmniMechs in single combat. Designed by TharHes Industries on Tharkad, the seventy-five-ton heavy 'Mech took its name as a pointed challenge to Clan Jade Falcon. Initial production began in 3053, with TharHes leveraging newly recovered Star League-era technologies alongside features studied from Clan salvage.</p><p>For close to a century the Falconer has stood as a triumph of Inner Sphere engineering, routinely proving itself against Clan opponents across multiple eras. Today produced by General Motors on New Valencia, the design remains one of the most prominent heavy BattleMechs in Federated Suns service.</p>
+
+capabilities:<p>The Falconer was built around a philosophy of matching Clan weapon ranges while maintaining Inner Sphere durability and mobility. A GM 375 XL engine propels the 'Mech to a top speed of eighty-six kilometers per hour, while five Devil A7 jump jets provide a hundred-and-fifty-meter jump capability, making it one of the most agile heavy BattleMechs in service. TharHes engineers built the design on a McLarren-75B endo steel chassis to maximize payload, protecting it with eleven and a half tons of Valiant Chainmail armor plating that provides respectable protection for sustained engagements.</p><p>The Falconer's primary armament centers on a Poland Main Model A Gauss Rifle, capable of devastating targets at extreme range without generating heat. A Defiance 1001 Extended Range PPC complements the Gauss Rifle with a similar engagement envelope, giving MechWarriors the ability to maintain accurate fire at distances that challenge even Clan weapon systems. For close-range engagements, four Defiance B3M medium lasers deliver a powerful energy punch.</p><p>The design's primary weakness lies in its heat management. Ten double-strength heat sinks cannot fully dissipate the thermal output from sustained alpha strikes, forcing pilots to carefully manage their rate of fire. This trade-off of heat efficiency for raw firepower reflects the design's aggressive anti-Clan combat philosophy. The Falconer's inherent stability as a weapons platform has proven nearly impossible to improve upon without radical alterations, a sign of TharHes' original engineering.</p>
+
+deployment:<p>This variant represents General Motors' iterative refinement of the original Falconer, addressing long-standing MechWarrior complaints while preserving the design's proven combat philosophy. Light ferro-fibrous Valiant Ringmail armor replaced the original Chainmail plating, providing improved protection for the sometimes volatile Gauss Rifle magazine. To match, the four standard medium lasers gave way to Bright-Bloom extended-range models, and a Johnston High Speed ER PPC replaced the Defiance unit, extending the 'Mech's effective engagement envelope across all weapon systems. These changes admittedly exacerbated the Falconer's chronic heat-management issues, a trade-off that has generated debate among MechWarriors. Experienced pilots have learned to ride the heat curve with innovative combinations of movement and selective weapons fire, and this variant has accumulated more fans than critics. Updated Newberg and Spar electronics round out the modernization package.</p>
+
+history:<p>The Falconer's origin traces directly to First Prince Hanse Davion, whose final directive before his death in 3052 called for a BattleMech specifically designed to counter Clan OmniMechs. TharHes Industries on Tharkad answered the call, and by 3053 the first Falconers rolled off the production line. The design represented a new philosophy in Inner Sphere 'Mech construction, rather than simply scaling up existing designs, TharHes engineers studied captured Clan technology and incorporated what they learned alongside the best recovered Star League-era equipment available.</p><p>The Falconer's baptism of fire came during the Clan Invasion era, where it quickly earned a reputation for reliability and lethality. Its performance during the FedCom raid on Sudeten in 3054 became legendary despite the operation's strategic failure, demonstrating that Inner Sphere BattleMechs could stand toe-to-toe against Clan defenders when properly designed and piloted. The Armed Forces of the Federated Commonwealth moved quickly to expand production, and General Motors' facility on New Valencia began licensed manufacture after Archon Katherine Steiner-Davion consolidated her control over New Avalon in 3061. The Com Guards and the reformed Star League Defense Force also adopted the design, fielding Falconers during Operation Serpent and other major engagements of the period.</p><p>During the FedCom Civil War, Falconers served on both sides of the conflict as TharHes and General Motors continued production for their respective states. The Jihad brought significant disruption to the Falconer's manufacturing base. The Word of Blake's assault on Tharkad inflicted severe damage on TharHes Industries, permanently halting Lyran production. On New Valencia, Blakist interference disrupted the supply of Poland Gauss Rifles (which General Motors was also using for its Victor production line) prompting the development of the FLC-9R variant as an emergency workaround. Despite these setbacks, the New Valencia facility resumed full FLC-8R production following the Jihad.</p><p>In May 3080, the Armed Forces of the Federated Suns launched their invasion of the Taurian Concordat after years of Taurian provocation. The Davion Assault Guards led the attack on Flintoft, where Falconer-equipped MechWarriors led the charge with devastating precision fire that shattered the Concordat Jaegers and secured the world within two weeks. The engagement underscored the Falconer's lethality against Inner Sphere opponents as readily as against Clan designs.</p><p>The Falconer has continued to see heavy service in later conflicts. During Operation Celestial Reward, the Dynasty Guard's assault on Avigait overran the First Syrtis Fusiliers, and a lone Falconer pilot fought a desperate rearguard action in the Blackfield Forest, destroying nearly a company of Capellan 'Mechs before being overwhelmed by battle armor. Mercenary commands have also embraced the design, with Falconers appearing in freelance units operating along the Alyina Mercantile League border and in the ranks of the Knights Defensor. General Motors' iterative upgrades have kept the Falconer competitive through the Dark Age and into the ilClan era, ensuring this near-century-old design remains a formidable heavy combatant on battlefields across the Inner Sphere.</p>
+
+manufacturer:General Motors
+
+primaryfactory:New Valencia
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:McLarren
+systemmode:CHASSIS:75B
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:375 XL
+systemmanufacturer:ARMOR:Valiant
+systemmode:ARMOR:Ringmail Light Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Devil
+systemmode:JUMP_JET:A7
+systemmanufacturer:COMMUNICATIONS:Newberg
+systemmode:COMMUNICATIONS:Telescan 17
+systemmanufacturer:TARGETING:Spar
+systemmode:TARGETING:3C MegaTrak Tight Band

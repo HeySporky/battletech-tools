@@ -1,0 +1,223 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aaaf-7b71-bcbf-e774ab913fb3
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Behemoth C
+</Name>
+
+<Model>
+(Arcship)
+</Model>
+
+<year>
+3115
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<quirks>
+unstreamlined
+</quirks>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+smallcraftbay:20.0:4:1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:0.0:0:-1::-1:0
+1stclassquarters:34000.0:0:-1::-1:0
+cargobay:19370.5:1:5::-1:0
+cargobay:19370.5:1:6::-1:0
+</transporters>
+
+<SafeThrust>
+2
+</SafeThrust>
+
+<heatsinks>
+297
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+6000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+50
+50
+50
+61
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+(R) (B) CLERLargeLaser
+(R) CLERMediumLaser
+(R) CLERMediumLaser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+(R) (B) CLERLargeLaser
+(R) CLERMediumLaser
+(R) CLERMediumLaser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) CLERMediumLaser
+CLERMediumLaser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+30
+</structural_integrity>
+
+<capabilities>
+<p>The Arcship configuration dramatically repurposes the Behemoth C hull for long-duration habitation rather than bulk cargo transport. The weapons suite and armor protection remain identical to the standard Clan variant, with Clan ER large and medium lasers covering flanks and aft arcs. The critical difference lies in the interior, where cargo capacity has been reduced to approximately thirty-eight thousand tons to accommodate living facilities for over thirty-five hundred crew and passengers. This conversion transforms the vessel into a self-contained mobile habitat capable of sustaining a large population during extended interstellar voyages, serving the needs of Clan communities that have adopted a nomadic existence.</p>
+</capabilities>
+
+<overview>
+<p>The Behemoth is the largest DropShip class ever constructed, a hundred-thousand-ton Spheroid cargo hauler that dwarfs even the Mammoth class at nearly twice its tonnage. Incapable of atmospheric operations or planetary landings due to its sheer mass, the Behemoth relies on orbital cargo stations or shuttle craft to transfer goods to a planet's surface. This additional stage in loading operations increases operating costs considerably, limiting the vessel's economic appeal to most merchant lines.</p><p>Despite these limitations, the Behemoth remains indispensable for bulk cargo operations where no other vessel can match its capacity. Its twenty cargo decks can accommodate nearly eighty thousand tons of goods, making a single Behemoth transit worth dozens of trips by smaller vessels. The design has endured across centuries of service, evidence of the soundness of its original engineering.</p>
+</overview>
+
+<deployment>
+<p>The Arcship configuration emerged in the early thirty-second century as certain Clan populations adopted a more nomadic existence. These converted Behemoths serve as mobile communities, carrying thousands of inhabitants across interstellar distances. Their deployment reflects a significant cultural shift among some Clan factions, prioritizing population mobility over the fixed territorial holdings that defined earlier Clan society.</p>
+</deployment>
+
+<history>
+<p>The Behemoth class has a complicated design history stretching back to the mid-twenty-seventh century. The Terran Hegemony originally commissioned the design alongside the smaller Mammoth class, promising the designer that both classes could be sold to foreign powers. When the prototypes entered their final development phase around 2650, the Hegemony reneged on that promise, restricting both designs to domestic use only. In 2650, two prototypes were stolen from their orbital moorings and sold to the highest bidder, raising fears that the designs could be reverse-engineered by rival states.</p><p>The theft forced the Hegemony to reconsider its stance, and it ultimately permitted the original manufacturer to sell the design abroad. Although suspicion lingered that the manufacturer had somehow been involved in the heist, nothing was ever proven. This decision to share the design with foreign powers ensured that the Behemoth would remain in production even after the original manufacturer's demise. The finalized production variant entered service in 2782, and multiple shipyards across the Inner Sphere took up manufacturing, ensuring the class survived the Succession Wars intact.</p><p>Visual evidence confirms that at least some Clan forces have operated variants of the Behemoth, though whether these vessels were built by the Clans or captured during the Clan Invasion remains uncertain. Clan-operated examples have reportedly featured upgraded energy weapon suites, though detailed configuration data remains scarce.</p>
+</history>
+
+<manufacturer>
+Brigadier Corporation|Galileo Instruments|Krester Ship Construction|Krester Ship Construction|Krester Ship Construction|Krester Ship Construction|Krester Ship Construction|Tharkad Aerospace Group
+</manufacturer>
+
+<primaryFactory>
+MacKenzie|Schuyler|Keid|Terra|Terra Firma|Thorin|Yorii|Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Sunburst M-200L Megadrive
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+100000.0
+</tonnage>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+153
+</crew>
+
+<officers>
+9
+</officers>
+
+<gunners>
+3
+</gunners>
+
+<passengers>
+3347
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+250
+</life_boat>
+
+<escape_pod>
+250
+</escape_pod>
+

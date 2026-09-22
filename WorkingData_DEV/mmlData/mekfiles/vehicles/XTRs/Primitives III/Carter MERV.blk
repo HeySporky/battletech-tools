@@ -1,0 +1,186 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec37-7f5e-b29e-160141dfcb8d
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Carter Medical Emergency Response Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5620
+</mul id:>
+
+<year>
+2341
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<quirks>
+easy_maintain
+obsolete:2580
+gas_hog
+</quirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:2.0:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+14
+14
+14
+10
+</armor>
+
+<Body Equipment>
+MASH Equipment:SIZE:2.0
+Paramedic Equipment
+ISOffRoadChassis
+</Body Equipment>
+
+<Front Equipment>
+Paramedic Equipment
+</Front Equipment>
+
+<Right Equipment>
+Paramedic Equipment
+</Right Equipment>
+
+<Left Equipment>
+Paramedic Equipment
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Carter MERV is a 25-ton wheeled vehicle powered by a primitive internal combustion engine, capable of cruising at modest speeds with off-road mobility provided by its modified chassis and control systems. Unlike conventional combat vehicles, the MERV carries no weapons, dedicating all available mass to medical equipment, crew accommodations, and operational supplies. Its most distinctive feature is an expanding pop-out structural design that allows a compact road footprint to unfold into a substantially larger working space when deployed in the field. This configuration permits a crew of fifteen, including three officers, to operate simultaneously across four interior compartments.</p><p>The forward command section serves as both the driver's compartment and the management station for the senior medical officer. The rear compartment handles triage and walking-wounded cases, with capacity for approximately two tons of cargo or up to twenty unequipped personnel. The center section functions as an emergency room with four treatment bays, each served by paramedic-grade diagnostic and monitoring equipment. Two operating theaters, one fore and one aft of the center section, provide dedicated surgical capability, with one full set of MASH equipment servicing both theaters.</p><p>The vehicle's armor provides protection appropriate to a non-combatant platform designed to operate behind the forward line of engagement. Nominal facing armor is adequate to deflect stray small arms fire and shell fragments but offers little resistance against dedicated anti-vehicle weaponry. The ICE powerplant, while fuel-intensive and demanding of resupply, is straightforward to service and diagnose in the field, and the vehicle's overall construction earned a formal designation as easy to maintain even by the primitive engineering standards of its era.</p>
+</capabilities>
+
+<overview>
+<p>The Carter Medical Emergency Response Vehicle, introduced by Dortmein Wagons, Ltd. on Arcturus in 2341, represents an early Lyran Commonwealth effort to provide organized, mobile battlefield medical care at the regimental level. Developed as a primitive prototype rather than a production design, the Carter MERV was built to deliver surgical-grade treatment far forward from fixed medical installations. Found in both military formations and civilian emergency services organizations across the Inner Sphere, the vehicle earned a reputation as a practical and accessible platform for mobile medical teams despite its primitive construction. Though it eventually gave way to more advanced successors, the Carter MERV served as an early model for the wheeled battlefield medicine concept that would persist across multiple eras.</p>
+</overview>
+
+<deployment>
+<p>The Carter MERV was designed to deploy in groups of two to twelve vehicles, with larger formations providing comprehensive medical coverage for brigade-scale operations. In military service, individual MERVs attached to regimental medical trains were typically positioned well to the rear of the forward engagement line, operating under whatever local arrangement protected non-combatant vehicles while remaining close enough to receive casualties quickly.</p><p>Civilian emergency services organizations across the Inner Sphere adopted the design wherever mobile forward-deployed medical care was required, particularly on worlds lacking the infrastructure for permanent trauma centers. The vehicle's wheeled mobility and off-road capability allowed it to reach incident sites across a wide range of terrain. The Carter MERV's low technical maintenance burden made it especially attractive to planetary defense forces and independent emergency services that lacked access to advanced technical support personnel, keeping examples in service long after the design's nominal obsolescence date.</p>
+</deployment>
+
+<history>
+<p>The Carter MERV emerged from centuries of hard-won battlefield medical doctrine. Military commanders had long understood that survival rates for combat casualties improved dramatically when trained medical personnel reached the wounded quickly. This recognition drove continuous evolution in field medicine, from static regimental aid stations to air-transportable MASH units, then VTOL air ambulances, fixed-wing air hospitals, and dedicated hospital DropShips. By the early thirty-fourth century of the Common Era, military theorists had begun cycling back toward highly mobile ground vehicles as an ideal complement to those larger assets, capable of moving under their own power directly to forward casualty collection points without the logistical complexity of air operations.</p><p>Dortmein Wagons, Ltd., a manufacturer based in the Lyran Commonwealth on Arcturus, developed the Carter MERV in 2341 under the direction of supervising engineer Minka Albrecht. The project was classified as non-production equipment from its inception, intended as a proving ground for the self-contained wheeled medical facility concept rather than a candidate for series manufacture. The timing placed its development in the formative years of the Lyran Commonwealth, as that state was consolidating its holdings and building the logistical infrastructure necessary to support a major regional military. Battlefield medicine, long a secondary concern in frontier conflicts, had become a recognized priority as the scale of potential operations between the emerging Successor States grew.</p><p>Despite its non-production status, the Carter MERV's simple construction and accessible mechanical systems allowed it to remain in service well beyond the lifespan of more sophisticated contemporaries. Its design quirk records formally noted the vehicle as obsolete within the first century of its introduction as more capable platforms became available, but practical considerations kept examples operating in garrison and support roles for decades past that designation. As the Star League era progressed and the Succession Wars followed, primitive systems and limited operational range gradually excluded the Carter MERV from serious front-line consideration. By the later Succession Wars, the design was found primarily in the inventories of low-technology planetary defense forces and civilian emergency organizations where technical simplicity outweighed performance limitations. The design's lasting contribution lay not in its production numbers but in demonstrating that a wheeled, crew-intensive medical platform could operate effectively far forward of permanent installations, a lesson that informed generations of successor designs.</p>
+</history>
+
+<manufacturer>
+Dortmein Wagons Ltd.
+</manufacturer>
+
+<primaryFactory>
+Arcturus
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown (Primitive ICE)
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Primitives III
+</source>
+
+<published>
+XTR:Primitives III
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+
+<fuel>
+1.0
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

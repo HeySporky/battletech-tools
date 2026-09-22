@@ -1,0 +1,205 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c1f9-703b-9068-39c26eefe5a6
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Daboku
+model:DCMS-MX90-D
+mul id:788
+
+Config:Biped
+techbase:Inner Sphere
+era:3038
+source:TR:3039
+published:RS:3039u
+rules level:2
+role:Sniper
+
+quirk:prototype
+weaponquirk:stable_weapon:LT:3:Autocannon/2
+weaponquirk:stable_weapon:LT:4:Autocannon/2
+weaponquirk:stable_weapon:RT:3:Autocannon/2
+weaponquirk:stable_weapon:RT:4:Autocannon/2
+
+mass:90
+engine:270 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:12 Single
+walk mp:3
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:15
+RT armor:15
+CT armor:23
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:8
+
+Weapons:8
+Large Laser, Left Arm
+Large Laser, Right Arm
+LRM 10, Left Torso
+AC/2, Left Torso
+AC/2, Left Torso
+LRM 10, Right Torso
+AC/2, Right Torso
+AC/2, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+LRM 10
+LRM 10
+Autocannon/2
+Autocannon/2
+IS Ammo AC/2
+IS Ammo LRM-10
+ISCASE
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+LRM 10
+LRM 10
+Autocannon/2
+Autocannon/2
+IS Ammo AC/2
+IS Ammo LRM-10
+ISCASE
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Daboku is a ninety-ton assault BattleMech developed by Luthien Armor Works for the Draconis Combine Mustered Soldiery. Introduced in 3038 as a long-range fire support platform modeled after the venerable Awesome, the design was one of the first Combine 'Mechs to incorporate rediscovered Star League-era technologies. The Daboku was almost immediately recognized as deeply flawed, earning widespread ridicule from DCMS pilots and establishing a reputation as one of the most spectacularly failed assault designs of the late Succession Wars era. Only a short production run of roughly three hundred units was completed before Luthien Armor Works shuttered the line.</p>
+
+capabilities:<p>Conceived as a long-range gunnery platform, the Daboku mounted dual Tronel large lasers paired with Holly LRM racks and four Imperator Smoothie-2 autocannons, giving it the theoretical ability to engage targets well beyond conventional engagement ranges. On paper, this weapons suite offered genuine flexibility, allowing a MechWarrior to combine sustained energy fire with missile barrages and ballistic support at multiple range brackets. The design's sheer volume of fire could be devastating when all systems functioned as intended, and the ninety-ton chassis provided a stable firing platform with adequate armor for an assault 'Mech of its era.</p><p>In practice, nearly every major system suffered from critical design flaws rooted in the Combine's incomplete understanding of the recovered technologies. The weapons were chronically underpowered and prone to excessive overheating due to an inadequate number of heat sinks. The frame itself was too compact to properly handle the autocannons' multiple ammunition feeds, resulting in constant jamming, while the Holly loading mechanisms proved equally unreliable.</p><p>The Tronel lasers presented their own problems, as design incompatibilities prevented the mounting of adequate heat baffles on the charging mechanisms. The resulting thermal buildup frequently short-circuited the Matabushi targeting system. Most critically, the newly rediscovered CASE technology was improperly installed in virtually every unit produced. Rather than properly re-engineering the system for the Daboku's specific chassis, technicians essentially copied the technology from salvaged Star League 'Mechs without the necessary calibration. This resulted in the CASE sending false catastrophic ammunition signals when the lower center torso armor absorbed kinetic impacts, triggering the auto-eject system and launching pilots skyward during routine combat engagements.</p>
+
+deployment:<p>No factory variants of the Daboku were ever produced. The sole DCMS-MX90-D model represents the only configuration to reach the field, with its numerous design flaws preventing any serious consideration of derivative variants. Surviving units were concentrated along the Federated Suns border, where many were lost during the War of 3039 to their own malfunctioning systems rather than enemy action. The Daboku would ultimately serve as the engineering foundation for the far more successful Mauler, which entered production under a new designation deliberately chosen to bury the Daboku name.</p>
+
+history:<p>The Daboku's origins trace to the Draconis Combine's efforts to exploit the Helm Memory Core, recovered by the Free Worlds League in 3028 and subsequently disseminated across the Inner Sphere. In 3036, a politically charged think tank was assembled under the Coordinator's authority, drawing from DCMS officers, Luthien Armor Works engineers, university researchers, and graduate students. The group was directed to apply newly rediscovered Star League-era technologies to an existing chassis, Project Nainokami, a Capellan 'Mech design that Earthwerks had sold to the Combine after abandoning it in the prototype stage. The project was handed to LAW based on their recent success with the Hatamoto series, though the politically fractured nature of the think tank hampered cohesive design decisions from the outset.</p><p>The resulting Daboku debuted in 3038 and was almost immediately beset by complaints from the field. Pilots made exhaustive efforts to catalog every flaw, submitting debriefing reports that often ran to several pages of detailed technical criticisms. A short production run of three hundred units was completed at LAW's New Samarkand facility before the line was closed down and retooled.</p><p>Despite its known deficiencies, the Daboku was rushed to frontline units along the Federated Suns border just in time for the War of 3039. DCMS pilots were largely uninformed of the ejection system's critical flaws, and many Dabokus were lost not to enemy fire but to their own malfunctioning systems. Moderate armor damage to the lower torso triggered the auto-eject sequence, sending pilots rocketing into the sky at the worst possible moments. When the scope of the problem became apparent, surviving MechWarriors attempted to disable the auto-eject entirely, gambling that passive blast containment alone would provide sufficient protection.</p><p>The Armed Forces of the Federated Suns capitalized on these early losses, recovering numerous Dabokus as salvage. Several were redeployed with Lyran Commonwealth Armed Forces units along the Combine border, where DCMS warriors discovered they could exploit the same ejection vulnerability against their former machines by targeting the lower center torso. The Lyrans adapted quickly, and most salvaged Dabokus were ultimately stripped for spare parts to support other assault designs rather than risk fielding them in combat.</p><p>By the war's end, the DCMS had shelved the design entirely. When Luthien Armor Works revisited the project in the 3040s with a far more mature understanding of Star League technology, the accumulated engineering data from the Daboku's failures proved invaluable in rectifying the design's systemic flaws. The successful result was reintroduced as the MAL-1R Mauler, with the new designation chosen deliberately to distance the production model from the Daboku's notorious reputation.</p>
+
+manufacturer:Luthien Armor Works
+
+primaryfactory:New Samarkand
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Class 100-X
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:270
+systemmanufacturer:ARMOR:Wakazashi
+systemmode:ARMOR:Standard Plate with CASE
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:Security II
+systemmanufacturer:TARGETING:Matabushi
+systemmode:TARGETING:Sentinel-4

@@ -1,0 +1,211 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d78b-7b32-b86c-c4306f59e575
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Ti Ts'ang
+model:TSG-9DDC
+mul id:5242
+
+Config:Biped
+techbase:Inner Sphere
+era:3083
+source:TR:Proto,XTR:Liao
+published:XTR:Liao
+rules level:4
+role:Skirmisher
+
+quirk:difficult_maintain
+quirk:imp_life_support
+quirk:non_standard
+quirk:pro_actuator
+quirk:hyper_actuator
+weaponquirk:jettison_capable:RA:4:IS Lance
+
+mass:60
+engine:360 XL Engine
+structure:IS Endo Steel
+myomer:Triple-Strength
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:9
+ER Medium Laser, Left Arm
+Small X-Pulse Laser, Left Arm
+Small X-Pulse Laser, Left Arm
+Small X-Pulse Laser, Left Arm
+Small X-Pulse Laser, Left Arm
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+ISSmallXPulseLaser
+ISSmallXPulseLaser
+ISSmallXPulseLaser
+ISSmallXPulseLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Lance
+IS Lance
+IS Lance
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+ISERMediumLaser
+ISERMediumLaser
+ISTargeting Computer
+ISTargeting Computer
+ISTargeting Computer
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Supercharger
+Triple Strength Myomer
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Ti Ts'ang was introduced in 3059 as part of the Capellan Confederation's Xin Sheng national revitalization program. Commissioned directly by Chancellor Sun-Tzu Liao, the design was intended to epitomize the resurgent spirit of House Liao following the devastating territorial losses of the Fourth Succession War. Built by Ceres Metals Industries on Capella, the Ti Ts'ang is a 60-ton heavy BattleMech designed for aggressive close-quarters combat, incorporating distinctly Chinese cultural aesthetics into its armor plating. The 'Mech represents the Confederation's first purpose-built hatchet-armed design, drawing inspiration from successful melee-oriented BattleMechs fielded by other Great Houses. The Ti Ts'ang pushes the boundaries of Capellan technological capability while serving as a potent symbol of the Xin Sheng movement's promise to restore Capellan military strength.</p>
+
+capabilities:<p>The Ti Ts'ang is built around an aggressive close-combat philosophy. A Hermes 360 XL engine drives the 60-ton 'Mech to a respectable 97 km/h, while triple-strength myomer pushes that speed to nearly 119 km/h when the 'Mech runs hot. This combination makes the Ti Ts'ang deceptively fast for its weight class, allowing it to close rapidly with opponents. The primary weapon is a massive hatchet that, when augmented by active triple-strength myomer, can cleave through even heavy armor plating with devastating effect.</p><p>Ranged firepower centers on five Diverse Optics extended-range medium lasers and four extended-range small lasers, providing a withering fusillade at short to medium ranges. An Apple Churchill TAG designator allows the Ti Ts'ang to call in artillery or missile strikes from supporting units. The design deliberately generates significant heat, as the triple-strength myomer requires elevated temperatures to activate, turning what would normally be a liability into a tactical advantage.</p><p>An SL Special endo steel chassis saves considerable weight, while twelve and a half tons of Durallex Heavy armor provides near-maximum protection for the chassis weight. The XL engine remains the design's most significant vulnerability, as a critical hit to either side torso will disable the 'Mech entirely. Chevron I jump jets provide 180 meters of jumping capability, granting the Ti Ts'ang valuable tactical mobility in close-quarters engagements.</p>
+
+deployment:<p>Originally developed as a field modification by Warrior House Dai Da Chi technicians, this variant was later adopted for factory production by Ceres Metals Industries, entering full production on Capella by 3083. A small cockpit frees tonnage for a supercharger that pushes the 'Mech's top speed beyond 150 km/h, making it one of the fastest heavy BattleMechs in the Capellan arsenal. The standard hatchet is replaced with a lance, chosen after reports from Solaris VII arena combat demonstrated the weapon's superior armor penetration when combined with high closing speeds. The extended-range small lasers are swapped for Ceres Arms small x-pulse lasers, and a targeting computer improves accuracy across the entire weapons array, offsetting the decreased precision that comes with operating at the elevated heat levels required by triple-strength myomer. Ceres Heavy armor replaces the standard Durallex plating.</p>
+
+history:<p>The Ti Ts'ang emerged from the political upheaval following the Fourth Succession War, which saw the Capellan Confederation lose half its worlds and over a hundred regular and mercenary battalions. When Sun-Tzu Liao assumed the Celestial Throne in 3052, he launched the Xin Sheng movement to restore Capellan national pride and military capability. The Ti Ts'ang was among the most visible products of this initiative, a new BattleMech that proclaimed Capellan technological achievement and cultural identity through its Chinese-inspired design aesthetic. Chancellor Liao named the design Ti Ts'ang, meaning "King of the Earth's Womb and Lord of Yen-Lo-Wang."</p><p>The first Ti Ts'angs entered service in 3059, delivered to Capellan units stationed along the border of the St. Ives Compact. One was also presented to the Fourth Tau Ceti Rangers, a mercenary unit that had recently been absorbed into the Capellan Armed Forces. The design saw increasing deployment through the FedCom Civil War period, with the TSG-9J long-range variant entering production around 3060 to address the base model's lack of reach beyond medium range.</p><p>During the Jihad, modified Ti Ts'angs carrying plasma rifles served with McCarron's Armored Cavalry during operations in the Federated Suns' Capellan March. These TSG-9C variants earned a fearsome reputation on New Syrtis, where they used plasma weapons to overwhelm enemy heat management systems before closing with their hatchets. Defending AFFS forces placed bounties on these particular machines toward the end of that campaign.</p><p>The TSG-9DDC variant originated as a field modification by Warrior House Dai Da Chi, whose technicians proved that the Ti Ts'ang's perceived weaknesses of reduced range and decreased accuracy at high heat levels could both be addressed. Despite initial resistance from CCAF strategists who considered the base design sufficient, the addition of a supercharger, small x-pulse lasers, and a targeting computer demonstrated enough improvement that Ceres Metals was directed to bring the DDC into full production. After a troubled development process involving custom components that proved difficult to replicate, the variant achieved full production status by 3083.</p><p>Ceres Metals continued refining the design into the Dark Age, producing the TSG-10L variant beginning around 3125. This latest evolution employs an XXL engine and heat-dissipating armor, representing the cutting edge of Capellan military technology. Throughout its service history, the Ti Ts'ang has remained exclusively a Capellan Confederation design, serving as an enduring symbol of the Xin Sheng movement and House Liao's determination to rebuild its military power through advanced technology and cultural pride.</p>
+
+manufacturer:Ceres Metals Industries
+
+primaryfactory:Capella
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:General Systems
+systemmode:CHASSIS:SL Special
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:360 XL
+systemmanufacturer:ARMOR:Ceres
+systemmode:ARMOR:Heavy
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Chevron I
+systemmanufacturer:COMMUNICATIONS:CeresCom
+systemmode:COMMUNICATIONS:Model 21-Rs
+systemmanufacturer:TARGETING:C-Apple
+systemmode:TARGETING:Churchill with Targeting Computer

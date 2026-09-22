@@ -1,0 +1,193 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ddff-7490-a577-4e7defd4f0e7
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Marco
+model:MR-6 ExplorerMech
+mul id:4594
+
+Config:Biped
+techbase:Inner Sphere
+era:2712
+source:TR:VAr
+published:RS:VA
+rules level:2
+role:Ambusher
+
+
+mass:30
+engine:120 Fusion Engine
+structure:IS Industrial
+myomer:Standard
+cockpit:Industrial Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:6
+RT armor:6
+CT armor:9
+HD armor:8
+LL armor:8
+RL armor:8
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:1
+Small Laser, Left Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Small Laser
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Salvage Arm
+Salvage Arm
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Communications Equipment:SIZE:4.0
+Communications Equipment:SIZE:4.0
+Communications Equipment:SIZE:4.0
+Communications Equipment:SIZE:4.0
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Searchlight
+Environmental Sealing (Mech)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Environmental Sealing (Mech)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Marco holds the distinction of being the first purpose-built ExplorerMech, developed by StarCorps Industries on Menke in the Capellan Confederation. Entering production in 2712 after a long and troubled development program, the thirty-ton IndustrialMech was conceived as a customizable frame mating civilian exploration needs with military-grade technology. Despite sound engineering, the design proved a commercial disappointment, with the specialized exploration market far too small to sustain production costs. StarCorps discontinued production in 2720 after just eight years on the line. A small number accompanied General Kerensky on the Exodus, where they found an unexpected second life as the basis for armed field refits among the Pentagon Powers.</p>
+
+capabilities:<p>The Marco's design philosophy prioritized versatility and environmental resilience over combat capability. Built on a StarCorps HD-5 industrial chassis powered by a GM 120 Fusion engine, the design achieves a respectable top speed of sixty-four kilometers per hour for its weight class. The final MR-8C production model added three HildCo L5 jump jets providing ninety meters of jump capability, significantly enhancing the 'Mech's ability to traverse broken terrain during exploration missions. Environmental sealing across all locations allows operations in hazardous atmospheres, vacuum, and underwater environments.</p><p>The Marco's standard equipment package includes a StarCorps salvage system in the right arm for specimen collection and light recovery work, a searchlight for low-visibility operations, and a single Harmon small laser mounted in the left arm as a minimal self-defense weapon. A collapsible two-man cabin on the rear torso provides shelter when the 'Mech is stationary, while a small observation platform spans the shoulders. Four tons of ArcShield CHIL heavy industrial armor offer adequate protection against environmental hazards and wildlife, though the Marco remains extremely vulnerable in any genuine combat situation. The Astar 5 communications system handles expedition coordination, while the design especially lacks any dedicated targeting and tracking system, an understandable omission for a machine never intended to fight.</p>
+
+deployment:<p>The MR-6 represents the first production model of the Marco line, entering service in 2712. Lacking the jump jets that would characterize the later MR-8C, the MR-6 instead devoted its tonnage to four tons of dedicated communication equipment in the right torso, reflecting its intended role as a long-range exploration platform requiring robust data transmission capabilities. The majority of Marcos purchased by the SLDF were of this series, and the surviving examples known to exist as of 3070 are all MR-6 or MR-7 models, suggesting these SLDF-specification machines were better maintained than their civilian counterparts.</p>
+
+history:<p>The Marco's history is inextricably tied to StarCorps Industries' ambitious but ultimately misguided ExplorerMech program. Beginning in 2666 on Menke, the program consumed decades of development effort and produced a series of spectacular failures before yielding a functional design. The Amundsen prototypes of 2666 were agile but structurally unsound, collapsing after minimal field use. The DaGama-series irradiated test pilots through inadequately shielded cockpit systems. The Burton suffered chronic gyroscopic instability, and the Cook was dismissed as comically ungainly. Only the intervention of wealthy investors with connections to StarCorps' board kept the program alive long enough to reach the successful "M" designation.</p><p>When the Marco finally entered production in 2712, StarCorps discovered that the market for dedicated ExplorerMechs was essentially nonexistent. Previously, explorers had simply retrofitted surplus BattleMechs, and few saw reason to purchase a specialized (and weaponless) platform at comparable cost. StarCorps managed to sell two full production runs of predominantly MR-6 and MR-7 series machines to the Star League Defense Force in what contemporary accounts describe as a questionable procurement deal. These SLDF-specification models featured integrated satellite uplinks, remote-controlled floodlights, and modular tool-mounts not found on civilian models. Production ceased entirely in 2720, just eight years after the line opened.</p><p>The Marco found an unexpected second chapter following the Exodus. General Kerensky's fleet carried a number of Marcos into the Pentagon Cluster, where they served their intended exploration role during the initial colonization period. After Kerensky's death and the fragmentation of the colonies into the Pentagon Powers, the desperate need for combat-capable machines led to the Marco's conversion into makeshift fighting vehicles. The most common armed refit, designated MR-8D, and the less prevalent MR-8E appeared around 2801 as Pentagon factions stripped the exploration equipment and installed weapons systems. These refits saw action during the conflicts that preceded Nicholas Kerensky's Operation Klondike.</p><p>Back in the Inner Sphere, the Marco faded into near-total obscurity. By 3070, only a handful of operational examples were known to exist, all of the earlier MR-6 and MR-7 series. The later MR-8C production model (the only version equipped with jump jets) appears to have been produced in the smallest numbers and is considered effectively extinct in the Inner Sphere. The Clan-held refits likely did not survive the consolidation wars that followed Operation Klondike in significant numbers, though scattered reports suggest at least a few remained operational in Clan space as late as 3050.</p>
+
+manufacturer:StarCorps Industries
+
+primaryfactory:Menke
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:StarCorps
+systemmode:CHASSIS:HD-5
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:120 Fusion
+systemmanufacturer:ARMOR:ArcShield
+systemmode:ARMOR:CHIL
+systemmanufacturer:COMMUNICATIONS:Astar
+systemmode:COMMUNICATIONS:5

@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dfc2-7d59-a577-91b317822517
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Grand Titan
+model:T-IT-N14R 'Vengeance'
+mul id:5604
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3075
+source:XTR:Phantoms
+published:XTR:Phantoms
+rules level:4
+role:Missile Boat
+
+quirk:cowl
+quirk:difficult_maintain
+quirk:imp_life_support
+quirk:multi_trac
+
+mass:100
+engine:300 Fusion Engine(IS)
+structure:IS Standard
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Compact Gyro
+
+heat sinks:10 IS Double
+walk mp:3
+jump mp:2
+
+armor:Hardened(Inner Sphere)
+LA armor:32
+RA armor:32
+LT armor:31
+RT armor:30
+CT armor:47
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:10
+RTR armor:10
+RTC armor:11
+
+Weapons:3
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+Thumper, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+ISThumperAmmo
+ISThumperAmmo
+ISCASEII
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+ISThumper
+
+Center Torso:
+Fusion Engine (ARMORED)
+Fusion Engine (ARMORED)
+Fusion Engine (ARMORED)
+Gyro (ARMORED)
+Gyro (ARMORED)
+Fusion Engine (ARMORED)
+Fusion Engine (ARMORED)
+Fusion Engine (ARMORED)
+ISThumper
+ISThumper
+ISThumper
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit (ARMORED)
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Grand Titan is a hundred-ton assault BattleMech introduced in 3054 by Earthwerks Incorporated, based on a design created by Vining Engineering and Salvage Team. The 'Mech traces its lineage to the Titan, an abandoned Star League Defense Force prototype recovered by the Armed Forces of the Federated Suns in 3023. Rather than simply modernizing the original, VEST's engineers used the recovered specifications as a springboard for an entirely new design intended to challenge Clan OmniMechs on equal terms.</p><p>VEST sold the completed design to Earthwerks, whose Keystone facility produces the Grand Titan primarily for the Free Worlds League, with the Word of Blake historically purchasing significant numbers of each production run.</p>
+
+capabilities:<p>Built on a Corean Model 101BLP Endo Steel chassis and powered by an LTV 400 XL fusion engine, the Grand Titan achieves a respectable top speed of sixty-five kilometers per hour for its weight class. The use of an extralight engine saves considerable tonnage but creates a well-known vulnerability to torso damage, a trade-off VEST's designers accepted to maximize the 'Mech's offensive payload. Eighteen tons of Durallex Heavy armor provide solid protection across the frame.</p><p>The Grand Titan's weapons suite is optimized for short-to-medium range engagements. Twin Diverse Optics Type 20 large pulse lasers serve as the primary striking weapons, complemented by a Holly LRM-15 launcher for longer-range fire. At close quarters, paired Holly SRM-6 racks and medium pulse lasers deliver devastating salvos, with all missile systems linked to Artemis IV fire control for improved accuracy. A pair of rear-mounted small pulse lasers and a McArthur anti-missile system round out the defensive package. While effective as a brawler, the design's reliance on the vulnerable XL engine and its troubled development history have earned it a reputation as a maintenance-intensive machine.</p>
+
+deployment:<p>Developed in secret by the Principality of Regulus during the Jihad at an uncertain facility known only as "Tiger Valley," the T-IT-N14R Vengeance is a purpose-built artillery platform that shares little with the standard Grand Titan beyond its external profile. The entire powerplant has been replaced with a smaller, armored three hundred-rated engine, and the endo steel chassis swapped for standard internal structure to accommodate massive amounts of hardened armor. Its sole heavy weapon is a Thumper artillery piece, supported by only two Clan-produced ER medium lasers. Intelligence reports suggest the Vengeance was designed specifically to deliver tactical nuclear warheads via its artillery system, a theory supported by the extensive armoring of the engine, gyro, cockpit, and ammunition storage. The addition of jump jets, a full-head ejection system, and a robust life support system designed for operation in contaminated environments further reinforces this assessment.</p>
+
+history:<p>The Grand Titan's story begins not with VEST or Earthwerks but with the recovery of the original Titan prototype specifications by Federated Suns forces in 3023. The Titan had been an ambitious Star League Defense Force assault 'Mech project that was abandoned during the upheaval of the Amaris Civil War. When VEST's engineers obtained access to the recovered data, they embarked on what would become one of the more eventful development programs in recent BattleMech history.</p><p>VEST's ambitions exceeded their discipline. The engineering team, already plagued by technical difficulties, faced constantly changing project requirements that ballooned the design well beyond its weight budget. By the time the Grand Titan was ready for production, VEST's marketing department had already sold the design to Earthwerks Incorporated, which found itself manufacturing a 'Mech significantly different from what had been originally promised. The removal of missile ammunition and one-shot Streak launchers, along with resolution of engine teething problems, ultimately produced a more focused if less versatile machine.</p><p>Production began at Earthwerks' Keystone Plant #3 in 3054, with the Free Worlds League Military claiming the majority of each production run. The Word of Blake became the second-largest customer, purchasing significant numbers for their growing military forces. The Knights of the Inner Sphere adopted the Grand Titan as a prestige assault platform, while white-painted Grand Titans serving in the Word of Blake's First Division became among the most feared sights on the battlefield.</p><p>During the Jihad, the Grand Titan saw extensive combat on multiple fronts. On Epsilon Eridani, Word of Blake forces demonstrated the 'Mech's devastating close-range firepower against both civilian infrastructure and opposing military forces. When Wolf's Dragoons arrived under the Allied Mercenary Command banner, they faced an assault company anchored by three Grand Titans in the Ruger Badlands, ultimately being forced to withdraw in what became a significant Blakist propaganda victory. The design continued in service following the Jihad, with the N13M variant becoming a popular choice among Republic, Free Worlds League, and mercenary forces through the Dark Age era.</p>
+
+manufacturer:Refit - Tiger Valley Research Facility
+
+primaryfactory:Regulus
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300 Armored
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Hardened
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Hartford
+systemmode:COMMUNICATIONS:JEA-1
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:3000

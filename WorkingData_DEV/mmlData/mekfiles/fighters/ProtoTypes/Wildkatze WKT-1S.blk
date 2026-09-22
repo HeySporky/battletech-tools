@@ -1,0 +1,179 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-acf0-795e-a019-c4a59b767e8b
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Wildkatze
+</Name>
+
+<Model>
+WKT-1S
+</Model>
+
+<mul id:>
+5410
+</mul id:>
+
+<year>
+3086
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<quirks>
+easy_pilot
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+8
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+320
+</fuel>
+
+<engine_type>
+4
+</engine_type>
+
+<armor_type>
+3
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+47
+35
+35
+27
+</armor>
+
+<Nose Equipment>
+Binary Laser (Blazer) Cannon
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISMML5
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISMML5
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISERMediumLaser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo MML-5 SRM
+IS Ammo MML-5 LRM
+</Fuselage Equipment>
+
+<capabilities>
+<p>The <em>Wildkatze</em> achieves a maximum thrust of six Gs using a PlasmaStar 270 Light fusion engine mounted on a Bowie 70 chassis, a design the manufacturer adapted from its experience with heavier platforms such as the <em>Chippewa</em>. This thrust rating places it in a unique position among Inner Sphere light fighters, outperforming designs with lighter engines while remaining considerably less powerful than medium fighter-grade powerplants. The light engine reduces onboard fuel capacity, but the fighter compensates by carrying external fuel tanks when sustained operations demand it.</p><p>Primary armament is a Defiance B33B Binary Laser, selected for its ability to deliver high damage output against both aerospace opponents and ground targets. The concentrated beam can penetrate the armor of even heavy fighters or threaten DropShip hull sections with a sustained attack. Two Helga Series 5-tube Multi-Missile Launchers supplement the binary laser, providing flexible ranged firepower with manageable heat output and the ability to engage at varied distances. A Defiance Model XII Extended-Range Medium Laser covers the aft arc, protecting the <em>Wildkatze</em> from smaller pursuing craft. All forward weapons can be fired simultaneously without heat concern; pilots relying on both forward and rear weapons simultaneously will find heat rising rapidly.</p><p>Nine tons of Bowie Glinting Blade Reflective armor protect the airframe. Designers selected reflective armor over the more common ferro-aluminum after assessing that laser-equipped opponents dominate contemporary fighter engagements, making the reduced total protection worthwhile against the most prevalent threat. Ten double heat sinks complete the thermal management suite.</p>
+</capabilities>
+
+<overview>
+<p>The <em>Wildkatze</em> is a 45-ton light aerospace fighter produced by Bowie Industries for the Lyran Commonwealth Armed Forces, based on the manufacturer's existing platform experience. The name translates as "Wildcat," reflecting the design philosophy of building a capable successor to aging Lyran light fighter designs. Development was commissioned following the Jihad's severe impact on Commonwealth aerospace manufacturing, and the <em>Wildkatze</em> completed its development chain to enter frontline service in 3088. Designed to perform in both space and atmospheric combat environments, the fighter fills a critical gap in LCAF aerospace squadrons that had grown dependent on imports and older designs. Bowie Industries delivered a platform that balances firepower, maneuverability, and protection in a workable package for Commonwealth forces operating along contested borders and in fleet escort roles.</p>
+</overview>
+
+<deployment>
+<p>The WKT-1S serves as the primary Lyran light aerospace fighter in the post-Jihad era, assigned across LCAF aerospace wings with an emphasis on units deployed along active borders and likely to see frontline combat. The fighter is well-suited to both space superiority and atmospheric engagements, and its reflective armor provides a distinct advantage in engagements dominated by energy weapons. The WKT-1S handles space patrol, escort, and strike support duties with comparable effectiveness, making it a flexible asset for commanders managing diverse operational requirements.</p>
+</deployment>
+
+<history>
+<p>The <em>Wildkatze's</em> origins trace directly to the Jihad's devastating impact on Lyran aerospace manufacturing. The conflict and the subsequent cession of most of the Isle of Skye to the Republic of the Sphere stripped the reformed Lyran Commonwealth of nearly all its production capacity for fighters below the mass class of the <em>Morgenstern</em> OmniFighter. This left LCAF aerospace wings reliant on imports and older domestically available designs to fill out their light fighter complements.</p><p>Debate within the service centered on the older <em>Seydlitz</em>, a design with negligible armor that had long served as the Commonwealth's primary light fighter. Opinion divided sharply over whether importing the <em>Seydlitz</em> or relying on any other available light design was acceptable for LCAF needs, but the consensus among planners held that the situation demanded a domestic solution capable of meeting current threats. The LCAF commissioned a task force to define requirements, oversee prototyping, and manage production of a new light aerospace platform. That process concluded with the <em>Wildkatze</em>, which entered service in 3088.</p><p>Reception among pilots has been broadly positive. Former <em>Seydlitz</em> operators in particular embraced the design, noting familiar characteristics in the binary laser's performance profile while appreciating the substantially improved armor and the addition of secondary weapons. The trade-off in raw thrust compared to some contemporaries drew limited criticism; most pilots consider the improvements in protection and firepower a worthwhile exchange. Rather than assigning initial production runs to prestige formations, LCAF planners directed early deliveries to border forces expected to see active combat, prioritizing operational experience over ceremonial deployment. The prestigious Royal Guard had not received a single <em>Wildkatze</em> as of the type's early service period.</p>
+</history>
+
+<manufacturer>
+Bowie Industries
+</manufacturer>
+
+<primaryFactory>
+Carlisle
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Bowie Industries
+ENGINE:PlasmaStar
+ARMOR:Bowie Industries
+JUMP_JET:N/A
+COMMUNICATIONS:Rander
+TARGETING:Rander
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Bowie 70
+ENGINE:270 Light
+ARMOR:Bowie Glinting Blade Reflective
+JUMP_JET:N/A
+COMMUNICATIONS:250
+TARGETING:TA8
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<published>
+RS:Proto
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

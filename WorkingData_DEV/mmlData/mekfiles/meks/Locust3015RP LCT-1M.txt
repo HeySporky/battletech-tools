@@ -1,0 +1,72 @@
+                 BattleMech Technical Readout
+
+Name/Model:         Locust3015RP LCT-1M
+Designer:           Fuzzynubz
+Source(s):          Custom Mordel.Net Units
+Technology:         Inner Sphere
+Technology Rating:  D
+Tonnage:            20
+Configuration:      Biped BattleMech
+Era/Year:           Succession Wars / 3049
+Rules (Current):    Introductory
+Rules (Era):        Introductory
+Rules (Year):       Introductory
+Total Cost:         1,517,200 C-Bills
+Battle Value:       440
+
+Chassis:              Bergan VII 
+Power Plant:          LTV 160 
+Walking Speed:        86.4 kph  
+Maximum Speed:        129.6 kph 
+Jump Jets:            None
+    Jump Capacity:    None
+Armor:                StarSlab/1
+Armament:             
+    1 Medium Laser
+    3 Machine Guns
+Manufacturer:         Unknown
+    Primary Factory:  Unknown
+Communications:       Garret T10-B
+Targeting & Tracking: O/P 911
+
+================================================================================================
+Equipment                                                              Mass                     
+------------------------------------------------------------------------------------------------
+Internal Structure:                          Standard                  2.00                     
+Engine:                                     160 Fusion                 6.00                     
+    Walking MP:                                 8                                               
+    Running MP:                                 12                                              
+    Jumping MP:                                 0                                               
+Heat Sinks (Single):                            10                     0.00                     
+Gyro:                                        Standard                  2.00                     
+Cockpit:                                     Standard                  3.00                     
+Armor Factor:                                   64                     4.00                     
+    Type:                                    Standard                                           
+
+                                    Internal         Armor     
+                                    Structure        Value     
+    Head:                               3              8       
+    Center Torso:                       6              8       
+    Center Torso (rear):                               2       
+    R/L Torso:                          5              8       
+    R/L Torso (rear):                                  2       
+    R/L Arm:                            3              6       
+    R/L Leg:                            4              7       
+
+================================================================================================
+Weapons and Ammo                                       Location          Critical      Mass     
+------------------------------------------------------------------------------------------------
+Machine Gun                                               H                 1          0.50     
+Machine Gun (Ammo 100)                                    CT                1          0.50     
+Medium Laser                                              CT                1          1.00     
+Machine Gun                                               RA                1          0.50     
+Machine Gun                                               LA                1          0.50     
+
+================================================================================================
+Alpha Strike Statistics
+------------------------------------------------------------------------------------------------
+Point Value (PV): 19
+TP: BM,  SZ: 1,  TMM: 3,  MV: 16"
+Damage: (S) 2 / (M) 1 / (L) 0,  OV: 0
+Armor (A): 2,  Structure (S): 2
+Specials: 

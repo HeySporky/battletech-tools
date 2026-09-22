@@ -1,0 +1,161 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e526-7201-bdb6-0aab0e6f9c46
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Light SRM Carrier
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+1869
+</mul id:>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<armor>
+16
+14
+14
+12
+16
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-6
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+SRM 6
+SRM 6
+SRM 6
+SRM 6
+SRM 6
+</Turret Equipment>
+
+<capabilities>
+<p>The Light SRM Carrier mounts five turret-mounted Shannon Six-Shooter SRM-6 launchers, providing wide-angle engagement capability unavailable to the standard fixed-mount SRM Carrier. An InterComBust 140 internal combustion engine on a forty-ton wheeled chassis provides a top speed of sixty-five kilometers per hour, a significant improvement over the standard carrier's fifty-four. A Communicator system and FireScan with IndirecTrack targeting handle coordination.</p><p>The wheeled chassis restricts the vehicle to relatively smooth terrain but provides the speed needed to approach targets, deliver volleys, and retreat before effective counterbattery fire can respond. Seventy-two points of standard armor provide substantially better protection than the standard SRM Carrier's forty-eight. Increased ammunition storage gives each launcher additional volleys. The design uses commonly available parts, making service and repair cheap and easy.</p>
+</capabilities>
+
+<overview>
+<p>The Light SRM Carrier and its derivative, the Light Thunderbolt Carrier, are Periphery-designed wheeled combat vehicles built to provide mobile short-range fire support at low cost. Developed by Pinard Protectorates Limited on Perdition for the Taurian Concordat in 3058, the Light SRM Carrier addressed the standard SRM Carrier's limited range and speed by adopting a smaller, faster wheeled chassis with turret-mounted weapons. Protector Jeffrey Calderon opened sales to all Periphery powers, making the design one of the most widely exported Taurian military products.</p>
+</overview>
+
+<deployment>
+<p>Every major Periphery realm and most lesser Periphery states purchased the Light SRM Carrier in significant quantities after its introduction in 3058. Pinard Protectorates Limited on Perdition and Majesty Metals on Dunianshire served as the primary production sites. The design's cheap parts and easy maintenance made it a perfect support vehicle for planetary militias with limited technical resources.</p>
+</deployment>
+
+<history>
+<p>While the Inner Sphere focused on incorporating advanced technology into new vehicle designs, the Periphery states pursued a different strategy: upgrading proven platforms to address known deficiencies. Pinard Protectorates Limited, already the main vehicle supplier for the Taurian Concordat, designed the Light SRM Carrier to fix the standard SRM Carrier's chief weaknesses of limited speed, restricted firing arcs, and paper-thin armor. The new wheeled chassis provided a thirty-three percent speed increase, turret-mounted launchers eliminated the fixed forward-arc limitation, and additional armor improved crew survivability.</p><p>The Light SRM Carrier began production in 3058, paired with the Canopian Heavy LRM Carrier in a joint Periphery sales campaign. Protector Calderon's willingness to sell to any interested Periphery realm demonstrated the Taurian commitment to collective Periphery defense. Majesty Metals and Manufacturing on Dunianshire also produced the Light SRM Carrier. Every major Periphery realm acquired the design in significant quantities.</p><p>The Light Thunderbolt Carrier emerged in 3072 as a Jihad-era variant, replacing the SRM launchers with five Thunderbolt 5 missile launchers. Quikscell Company on Broken Wheel produced the variant, which was initially developed by the Filtvelt Coalition as a field refit before entering dedicated production. The fusion engine replaced the original ICE powerplant and ferro-fibrous armor was fitted, representing a significant technology upgrade over the base design.</p>
+</history>
+
+<manufacturer>
+Majesty Metals and Manufacturing|Pinard Protectorates Limited
+</manufacturer>
+
+<primaryFactory>
+Dunianshire|Perdition
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:InterComBust
+ARMOR:Unknown
+COMMUNICATIONS:Communicator
+TARGETING:FireScan
+</systemManufacturers>
+
+<systemModels>
+ENGINE:140 ICE
+ARMOR:Standard
+TARGETING:with IndirecTrack
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

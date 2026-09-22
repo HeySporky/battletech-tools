@@ -1,0 +1,206 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d023-7911-894f-eda6051b63e3
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Sphinx
+model:2
+mul id:3006
+
+Config:Biped
+techbase:Clan
+era:3080
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:2
+role:Skirmisher
+
+quirk:easy_maintain
+quirk:rugged_1
+
+mass:75
+engine:375 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:22 Clan Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:20
+RA armor:20
+LT armor:23
+RT armor:23
+CT armor:34
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:8
+RTR armor:8
+RTC armor:11
+
+Weapons:12
+ER Small Laser, Left Torso
+ER Small Laser, Left Torso
+ER Small Laser, Left Torso
+ER Small Laser, Left Torso
+ER Small Laser, Left Torso
+ER Small Laser, Right Torso
+ER Small Laser, Right Torso
+ER Small Laser, Right Torso
+ER Small Laser, Right Torso
+ER Small Laser, Right Torso
+ER Large Laser, Center Torso
+ER Large Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLMASC
+CLMASC
+CLMASC
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERLargeLaser
+CLERLargeLaser
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Clan Nova Cat developed the Sphinx in the closing years of the Jihad as a heavy cavalry design with extended endurance and minimal dependence on supply lines. Introduced in 3078, the seventy-five ton BattleMech was originally intended to serve as an OmniMech, but the pressing need to combat the Word of Blake forced Nova Cat technicians to rush the design into production as a conventional chassis. Envisioned as a heavier companion to the Black Hawk OmniMech, the Sphinx fills the role of a fast-strike heavy combatant with an all-energy weapons loadout.</p><p>The design's rushed development is evident in its appearance, with a blocky, unfinished look reminiscent of the venerable Highlander assault 'Mech. Despite its rough exterior, the Sphinx incorporates a simple and rugged chassis with low maintenance requirements, an unintended benefit of its OmniMech heritage that leaves many primary assemblies and components readily replaceable. Production has been constrained by engine supply shortages, as the powerplant remains in high demand for other Clan designs.</p>
+
+capabilities:<p>The Sphinx is built around an impressive all-energy weapon battery designed for extended operations without ammunition dependency. A pair of arm-mounted Series 6b extended range large lasers provide effective striking power at long ranges, while ten Series 2f extended range medium lasers distributed across the side torsos deliver devastating firepower at closer distances. The Starfire 375 XL engine drives the seventy-five ton chassis to a respectable top speed of eighty-six kilometers per hour, allowing the Sphinx to close rapidly with opponents and bring its medium-range lasers to bear.</p><p>The design's principal weakness is its prodigious heat generation. Although the Sphinx mounts twenty-three double heat sinks, an inexperienced MechWarrior firing all weapons simultaneously can easily push the 'Mech into shutdown. Successful pilots learn to manage their weapons fire carefully, typically engaging with the large lasers at range before switching to the medium laser battery as they close. The Sphinx carries more than thirteen tons of Compound 12A2 armor, providing solid protection for a heavy 'Mech of its tonnage. The absence of jump jets limits tactical flexibility in rough terrain, but the design's speed partially compensates for this shortcoming.</p>
+
+deployment:<p>Appearing in 3080, this variant was developed in preparation for the final campaigns against the Word of Blake. The modification drops all ten extended range medium lasers and a single double heat sink, replacing them with ten extended range small lasers distributed across the side torsos. Both extended range large lasers are relocated to the center torso, and the addition of MASC allows the 'Mech to achieve short bursts of speed well beyond its standard maximum. A targeting computer provides enhanced accuracy, making this variant a devastating close-range combatant that closes rapidly under MASC before delivering precision strikes at point-blank range.</p>
+
+history:<p>The Sphinx traces its origins to 3078, when Clan Nova Cat's experience fighting the Word of Blake made clear the need for a heavy cavalry design that could operate independently for extended periods. The original design specifications called for an OmniMech, but the urgency of the Jihad forced Nova Cat engineers to abandon the modular pod configuration in favor of a fixed weapons layout that could be manufactured more quickly. Production began at the Avon Alpha facility on Avon, a Draconis Combine world jointly administered with the Nova Cats.</p><p>The Sphinx saw its first major deployments in the final years of the Jihad, where it quickly earned a reputation as a reliable and hard-hitting heavy 'Mech. In 3084, the 246th Battle Cluster dispatched its First Sword of Light to support operations against the Ghost Bear Dominion's Ninth Provisional Garrison Cluster on Mualang. The open terrain favored fast BattleMechs with superior ranged armament, and the Sphinx Star performed impressively against heavier Ghost Bear designs including the Kodiak, Arcas, and Grizzly. Though the battle was ultimately decided by the collapse of the Bears' logistical support rather than direct combat, the engagement demonstrated the Sphinx's ability to hold its own against larger opponents.</p><p>Production of the Sphinx has been maintained through a cooperative arrangement with Clan Sea Fox, who provide technical and material assistance in exchange for sales rights to a proportion of the output. This arrangement has helped offset the chronic shortages of the Starfire 375 XL engine that have plagued the design since its introduction. The Sphinx is also well suited to the Clan tradition of single combat and dueling, and has become a popular choice among ristars competing in Trials of Bloodright, where its combination of speed, firepower, and durability makes it an excellent one-on-one platform.</p><p>Following the annihilation of Clan Nova Cat in 3141, full control of the Avon production facility reverted to the Draconis Combine, which has continued manufacturing the Sphinx and its variants to serve in DCMS line formations. Later variants introduced during the Dark Age era, including the Sphinx 3 and Sphinx 4, reflect a shift toward specialized close-range configurations that leverage the chassis's speed and rugged construction for aggressive assault tactics.</p>
+
+manufacturer:LAW-Avon Alpha
+
+primaryfactory:Avon
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Bergan Industries
+systemmode:CHASSIS:Bergan Version 6.2 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Starfire 375 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Compound 12A2
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Raldon R1
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:Dalban Hirez II

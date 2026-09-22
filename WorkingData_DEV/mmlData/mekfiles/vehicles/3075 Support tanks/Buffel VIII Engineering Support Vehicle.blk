@@ -1,0 +1,187 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e650-7bd6-a664-8080fffc751a
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Büffel Engineering Support Vehicle VIII
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5478
+</mul id:>
+
+<year>
+3074
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+48
+</armor_type>
+
+<armor_tech_rating>
+2
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+20
+20
+20
+24
+14
+</armor>
+
+<Body Equipment>
+IS Ammo MG - Full
+Armored Chassis
+SV Chassis Mod [Tractor]
+</Body Equipment>
+
+<Front Equipment>
+Bulldozer
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+ISMineSweeper
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+Machine Gun
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+</Turret Equipment>
+
+<barrating>
+7
+</barrating>
+
+<structural_tech_rating>
+2
+</structural_tech_rating>
+
+<engine_tech_rating>
+2
+</engine_tech_rating>
+
+<capabilities>
+<p>The Büffel VIII shares the seventy-ton tracked chassis and diesel internal combustion engine of the VII series, preserving the operational and logistical compatibility that made the original design so broadly serviceable across Lyran formations. The hull protection and fundamental armor distribution are essentially identical to the VII, as are the lift hoist, bulldozer blade, and minesweeper systems that define the vehicle's engineering role. Crews trained on the VII series require minimal additional instruction to operate the VIII effectively.</p><p>The primary capability difference lies in the personnel compartment. By removing the forward machine gun and reconfiguring the internal cargo bay, the Büffel VIII accommodates up to twenty combat engineers or infantry, giving engineering detachments dedicated organic transport. This dual function enables closer integration between engineering crews and the infantry they support, reducing the coordination overhead required for combined breaching and clearance operations. Units can now move engineers directly to an obstacle line aboard the same vehicle that will clear it, rather than relying on separate transport elements that may not be available when needed.</p><p>The deletion of the forward machine gun represents the principal defensive trade-off, reducing close-range anti-infantry firepower. The turret weapons and rear grenade launchers remain in place, providing adequate suppressive capability against light threats. The ICE powerplant continues to offer the logistical simplicity that has sustained the Büffel line through centuries of service.</p>
+</capabilities>
+
+<overview>
+<p>The Büffel VIII Engineering Support Vehicle is a modernized derivative of the long-serving Büffel VII, developed around 3074 as Lyran defense manufacturers sought to increase the tactical utility of their battlefield engineering assets. Introduced concurrently with the resumption of Büffel VII production, the VIII series preserves the proven mechanical foundation of its predecessor while substantially reconfiguring the vehicle's secondary functions. The most significant change is the transformation of the cargo bay into a personnel transport compartment capable of carrying up to twenty combat engineers or foot soldiers, giving the design a dual role as both engineering support platform and troop carrier. This modification directly addressed lessons from the Jihad era, where engineering units frequently found themselves unable to keep pace with the infantry they supported due to insufficient dedicated transport. The Büffel VIII has been produced on Halfway since the mid-3070s.</p>
+</overview>
+
+<deployment>
+<p>The Büffel VIII is assigned primarily to combined arms formations requiring integrated engineering and troop transport capability. Its ability to carry up to twenty combat engineers makes it particularly effective at delivering breaching teams directly to obstacle lines during offensive operations, reducing the transit time that often disrupts combined arms coordination. Found primarily in Lyran Commonwealth units from the Jihad era onward, the VIII series is most common in formations operating along contested frontiers where route clearance and obstacle breaching are routine requirements. Compatibility with the VII series allows mixed engineering detachments to operate both variants from common logistics pools.</p>
+</deployment>
+
+<history>
+<p>The Büffel VIII emerged from the renewed interest in the Büffel platform that drove the resumption of VII series production around 3074. As the conflicts of the Jihad era demonstrated the persistent operational demand for battlefield engineering support, manufacturers on Halfway recognized an opportunity to modernize the Büffel concept while retaining the mechanical simplicity that had sustained the design through five centuries. Rather than producing an exact copy of the VII series, the Halfway facility developed the VIII as a more tactically flexible derivative, incorporating a personnel transport compartment to address the observed gap between engineering assets and the infantry they were meant to support in the field.</p><p>The timing of the Büffel VIII's introduction placed it within the broader Lyran military reconstitution effort that followed the devastation of the Jihad. Engineering support was at a premium across Commonwealth formations, and the VIII series offered a practical means of both increasing engineering capacity and improving combined arms integration without requiring significant investment in new technology or unfamiliar equipment. The design's direct continuity with the VII series simplified cross-training and supply chains, making the VIII an attractive addition for a military stretched thin across multiple operational theaters.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Halfway
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown (ICE)
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+70.0
+</tonnage>
+
+<fuel>
+0.5
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

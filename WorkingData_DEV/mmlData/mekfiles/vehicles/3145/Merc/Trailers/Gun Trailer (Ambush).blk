@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e815-7f18-86bf-f55a381ff1f5
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Gun Trailer
+</Name>
+
+<Model>
+(Ambush)
+</Model>
+
+<mul id:>
+6528
+</mul id:>
+
+<year>
+3092
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+2
+2
+2
+18
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+Hitch
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+RL15
+RL15
+RL15
+RL15
+RL15
+RL15
+</Rear Equipment>
+
+<capabilities>
+<p>Gun Trailers are armored, towed platforms that trade mobility for firepower and economy. Designed to be hauled into position by standard vehicles and then emplaced for combat, they depend on their crews to select advantageous terrain rather than maneuver under fire. Once positioned, a Gun Trailer becomes a formidable static or semi-static weapons platform capable of engaging targets at ranges its compact frame would otherwise suggest impossible.</p><p>The platform's defining strength is its versatility. Configurations exist for virtually every tactical role: direct-fire anti-armor work using autocannons and Thunderbolt missile systems, indirect artillery support with Thumper and Sniper cannon systems, area suppression with rocket launchers, and dedicated anti-infantry and anti-air platforms. When fielded in the standard formation of four to twelve trailers with supporting transports and infantry, a Gun Trailer battery can generate sustained firepower comparable to a conventional BattleMech lance. Advanced configurations mounting Arrow IV systems can threaten even well-armored targets at extended ranges.</p><p>The design's weaknesses are significant. Gun Trailers are essentially immobile once emplaced and are highly vulnerable when caught in the open or flanked by fast-moving forces. Their reliance on towing vehicles creates a logistical dependency that can leave batteries stranded if support elements are destroyed or disrupted. Their light construction offers minimal protection against sustained direct-fire attack, and experienced opponents specifically target the tow vehicles to neutralize entire batteries. Effective use demands terrain selection, proper infantry screening, and careful integration with mobile support elements.</p>
+</capabilities>
+
+<overview>
+<p>The Gun Trailer is a cheap, flexible, towed combat platform developed in response to the resource constraints facing armies and planetary militias in the post-HPG Dark Age. The Capellan Confederation Armed Forces are credited with first fielding the concept, recognizing early that forces unable to sustain large BattleMech formations still required effective fire support. The design's simplicity and adaptability proved compelling, and it spread rapidly across the Inner Sphere and into Clan-occupied space as manufacturers on dozens of worlds adopted the basic towed-platform framework. Gun Trailers are produced using locally available materials and straightforward construction techniques, making them accessible to militaries that cannot afford more sophisticated weapons. Their low cost allows saturation fielding, and configurations exist for nearly every tactical role from direct-fire anti-armor work to long-range artillery support, making them fixtures in mercenary commands, planetary militias, and regular House armies alike.</p>
+</overview>
+
+<deployment>
+<p>Introduced alongside the Stronghold in 3092, the Ambush variant is designed for offensive operations against armored targets. Crews emplace it along likely enemy movement corridors and trigger it when target vehicles enter the kill zone. Mercenary commands operating in contested terrain have found the Ambush particularly effective against conventional vehicle columns and raiding forces unfamiliar with local geography. Its effectiveness depends entirely on good intelligence, sound position selection, and patient crews willing to hold fire until the moment is right.</p>
+</deployment>
+
+<history>
+<p>The Gun Trailer emerged during the early Dark Age as a pragmatic response to the collapse of HPG communications and the resulting fragmentation of Inner Sphere military industries. With supply chains disrupted and BattleMech production concentrated in fewer facilities than at any time since the Succession Wars, armies throughout the Inner Sphere found themselves unable to replace combat losses at a sustainable rate. The Capellan Confederation Armed Forces are credited with the initial development of the concept, fielding the first variants in 3092 as part of a broader effort to offset BattleMech shortfalls with massed light support weapons.</p><p>The design concept spread quickly. House militaries, mercenary commands, and planetary militias began producing their own interpretations within a decade, adapting the basic towed-platform framework to available weapon systems and local production capabilities. New configurations continued to appear through the 3090s and into the following decade as operators identified tactical niches the original variants did not fill. Even Clan forces operating in the Inner Sphere eventually fielded Gun Trailer variants, a rare example of a purely Inner Sphere design finding acceptance among Clan warriors, driven largely by logistical necessity during occupation duties.</p><p>Combat experience refined the Gun Trailer's operational doctrine. Early operators learned that mass employment was essential, and the standard tactical formation of four to twelve trailers with attached infantry and transport became codified in most armies' field manuals. Garrison and defensive assignments became the natural home of Gun Trailer batteries, where their limited mobility mattered less and their low cost allowed saturation coverage of contested worlds. Mercenary commands embraced the platform with particular enthusiasm, with some building entire defensive doctrines around trailer batteries. By the ilClan period, the Gun Trailer had become one of the most widely distributed weapons platforms in the Inner Sphere, present in inventories ranging from major House armies to planetary constabularies defending against pirate raids.</p>
+</history>
+
+<manufacturer>
+Various
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:Merc,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+10.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+
+<trailer>
+1
+</trailer>
+

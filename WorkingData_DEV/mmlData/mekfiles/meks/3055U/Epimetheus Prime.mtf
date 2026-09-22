@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c788-7dcf-be9f-0d4cad062d11
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Epimetheus
+model:Prime
+mul id:4129
+
+Config:Biped
+techbase:Mixed (Clan Chassis)
+era:3053
+source:Unbound
+published:RS:3055Uu
+rules level:4
+role:Sniper
+
+quirk:non_standard
+
+mass:80
+engine:400 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+cockpit:Torso-Mounted Cockpit
+gyro:Standard Gyro
+
+heat sinks:12 Clan Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:21
+RA armor:21
+LT armor:21
+RT armor:21
+CT armor:35
+HD armor:7
+LL armor:27
+RL armor:27
+RTL armor:13
+RTR armor:13
+RTC armor:14
+
+Weapons:5
+ER Large Laser, Left Arm
+Medium Pulse Laser, Left Arm
+ER Large Laser, Right Arm
+Medium Pulse Laser, Right Arm
+Ultra AC/10, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERLargeLaser
+CLMediumPulseLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERLargeLaser
+CLMediumPulseLaser
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Life Support
+Fusion Engine
+Fusion Engine
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Right Torso:
+Life Support
+Fusion Engine
+Fusion Engine
+Clan Ultra AC/10 Ammo
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Cockpit
+Sensors
+
+Head:
+Sensors
+Sensors
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Epimetheus was conceived in 3053 as an ambitious attempt to design a purpose-built BattleMech integrating Clan technology into an Inner Sphere chassis, paired with the experimental Direct Neural Interface control system. Developed at the New Avalon Institute of Science, the eighty-ton assault 'Mech represented the culmination of research into merging captured Clan components with Inner Sphere engineering principles. Unlike the earlier Prometheus, which was a patchwork retrofit, the Epimetheus was designed from the ground up to exploit Clan-manufactured systems while incorporating the revolutionary DNI cockpit interface. Due to the rare Clan materiel and expertise required for construction, the Epimetheus remained a singular prototype that never entered mass production.</p>
+
+capabilities:<p>The Epimetheus is a remarkable fusion of Inner Sphere and Clan technology, creating a platform that is faster, more heavily armed, and more responsive than comparable assault-weight designs of its era. A Clan-manufactured 400-rated XL engine propels the eighty-ton chassis to speeds of eighty kilometers per hour, exceptional for its tonnage class. A Clan Endo Steel skeleton and Clan ferro-fibrous armor maximize protection while minimizing structural weight, freeing mass for an impressive weapons array.</p><p>The most revolutionary feature is the Direct Neural Interface, which replaces the standard neurohelmet with a direct brain-to-machine connection via a prototype torso-mounted cockpit. This arrangement provides unparalleled reaction speed and relocates the cockpit from the vulnerable head into the better-protected torso. The freed head space houses a Clan Ultra Autocannon/10, while each arm mounts a Clan ER Large Laser paired with a Clan Medium Pulse Laser. All weapons are linked through a Clan Targeting Computer, granting extraordinary accuracy that, combined with the DNI's enhanced response, makes the Epimetheus exceptionally lethal.</p><p>The DNI carries significant drawbacks, however. The pilot must undergo invasive brain surgery to install the interface port and requires regular doses of the compound XA-3 to protect against dangerous neural feedback. Damage sustained by the 'Mech also transmits more intensely to the pilot than through conventional neurohelmets, making enhanced control a double-edged sword.</p>
+
+deployment:<p>The sole Epimetheus prototype served as a technology demonstrator and arena combatant on Solaris VII, where the combination of its advanced weaponry and DNI-enhanced piloting response proved devastating against conventional opponents. No factory variants were ever produced, as the Epimetheus remained a singular prototype constructed from irreplaceable Clan materiel that could not be sourced in sufficient quantity for series production.</p>
+
+history:<p>The Epimetheus emerged from one of the Federated Commonwealth's most secretive advanced research programs of the early Clan Invasion era. The NAIS Dark Mirage facility on Hyde was tasked with integrating captured Clan technology into viable Inner Sphere military applications, and the Epimetheus represented the program's most ambitious undertaking. Work began in 3053 following the completion of the earlier Prometheus retrofit, with the research team seeking to address that design's shortcomings by building a new 'Mech from the ground up rather than grafting Clan components onto an existing chassis.</p><p>Development was disrupted when the project lead fled the Dark Mirage facility, taking the half-completed Epimetheus prototype and critical research data to Solaris VII. There, using a converted pumping station as an improvised workshop, the 'Mech was completed over several months. The Epimetheus saw its only operational deployment in the Solaris VII arenas, where it achieved considerable success owing to its advanced technology suite. The arena career ended abruptly when the DNI system's pure neural link overwhelmed its operator, triggering an uncontrolled destructive episode across Solaris City.</p><p>In the aftermath, both the damaged Epimetheus and the earlier Prometheus were recovered and transported back to the NAIS for detailed analysis. The Federated Commonwealth ultimately chose not to pursue the Direct Neural Interface technology further, instead directing funding toward the less risky Small Cockpit and Torso Cockpit programs. However, the DNI research did not end with the Epimetheus. A ComStar ROM operative successfully copied all plans and schematics for the system during the recovery operation, ensuring the technology survived beyond its original program.</p><p>Decades later, the stolen DNI research resurfaced as a foundational element of the Word of Blake's Manei Domini cybernetic enhancement program. The Vehicular Direct Neural Interface developed for Manei Domini operatives during the Jihad era drew directly from the principles pioneered in the Epimetheus project, demonstrating that even a failed prototype can leave a lasting technological legacy. The Clan Enhanced Imaging system used by ProtoMech pilots, while independently developed, operates on remarkably similar principles and requires comparable pharmaceutical support, suggesting parallel evolution of the same core concept.</p>
+
+manufacturer:NAIS Dark Mirage Facility
+
+primaryfactory:Hyde
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Endo Steel (Clan)
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:400 XL (Clan)
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Fibrous (Clan)
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Targeting Computer (Clan)

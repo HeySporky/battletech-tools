@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a955-7f08-be2f-be2ee3b3c4f8
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Trinity Medium Battle Armor
+</Name>
+
+<Model>
+(Ying Long BC3)[David](Sqd5)
+</Model>
+
+<mul id:>
+8595
+</mul id:>
+
+<year>
+3078
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+36
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+BADavidLightGaussRifle:Body
+BABattleClaw:LA
+BABattleClaw:RA
+BattleArmorC3:Body
+IS BA Mimetic:LA
+IS BA Mimetic:Body
+IS BA Mimetic:RA
+IS BA Mimetic:RA
+IS BA Mimetic:LA
+IS BA Mimetic:LA
+IS BA Mimetic:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<capabilities>
+<p>This experimental Ying Long variant integrates a battle armor-scale C3 computer into the suit's electronics suite, enabling real-time targeting data sharing across networked units. The primary weapon is a King David light gauss rifle, a precision ballistic weapon that complements the C3 system's fire coordination capabilities with accurate long-range fire. Mimetic armor is retained, preserving the Ying Long's signature camouflage capability alongside the network integration. Battle claws maintain anti-BattleMech swarming and OmniMech transport functions.</p><p>Ground speed remains consistent with other Trinity variants at approximately 30 kilometers per hour with no jump capability. The C3 integration gives networked formations a marked advantage in coordinated engagements, particularly against opponents lacking comparable electronic warfare capability. The experimental nature of the system and its reliance on difficult-to-source components constrains production to very small numbers.</p>
+</capabilities>
+
+<overview>
+<p>The Trinity is a family of three medium battle armor suits commissioned by the Capellan Confederation Armed Forces and funded jointly by the Trinity Alliance. Introduced in the mid-3060s, the program aimed to make powered infantry available beyond the elite formations that fielded the Fa Shih. The Capellan variant, designated the Ying Long, incorporates advanced camouflage technology derived from an outside source. The Taurian Asterion and Canopian Theseus share a more conventional protection scheme, differing primarily in cosmetic styling. All three designs emphasize ground mobility, close-quarters capability against heavier units, and a flexible modular weapon mount that allows field commanders to tailor loadouts to mission requirements.</p>
+</overview>
+
+<deployment>
+<p>Five-trooper Points of the experimental BC3 Ying Long were never fielded in meaningful numbers, as the prototype production run yielded too few suits to equip even a single Clan-sized Point. The configuration exists in organizational tables as a theoretical capability, reflecting the possibility of C3-networked mimetic battle armor operating in Clan-pattern formations should production ever scale beyond prototype quantities.</p>
+</deployment>
+
+<history>
+<p>The CCAF Strategios commissioned the Trinity after recognizing that battle armor needed to reach beyond prestige formations. The Trinity Alliance partners provided funding that accelerated development to under two years, fueling speculation that preliminary design work had already begun before the formal program launched. Initial production was handled exclusively by Ceres Metals Industries on Capella, with the Capellan government employing deliberate delays and bureaucratic obstacles to prevent technology transfer to its allies. Both the Taurian Concordat and the Magistracy of Canopus eventually reverse-engineered the design independently, establishing their own production lines through Taurus Territorial Industries on Sterope and Foxx Infantry Systems on Royal Foxx.</p><p>The rapid proliferation of the Trinity across three nations gave the Alliance a common infantry platform that saw its first major combat test during Operation Sovereign Justice, where the suits proved capable against comparable designs fielded by other powers. Upgraded variants incorporating improved protection and heavier close-combat equipment appeared during the Jihad, further extending the family's service life across all three member states.</p>
+</history>
+
+<manufacturer>
+Ceres Metals Industries
+</manufacturer>
+
+<primaryFactory>
+Capella
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Liao
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+7
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e381-7992-855b-dd5b2a0bf7fa
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Rhino Fire Support Tank
+</Name>
+
+<Model>
+(SL)
+</Model>
+
+<mul id:>
+2685
+</mul id:>
+
+<year>
+2724
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+64
+54
+54
+40
+60
+</armor>
+
+<Body Equipment>
+IS Ammo LRM-20
+IS Ammo LRM-20
+IS Ammo LRM-20
+IS Ammo SRM-6
+</Body Equipment>
+
+<Front Equipment>
+SRM 6
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Medium Laser
+Medium Laser
+LRM 20
+LRM 20
+</Turret Equipment>
+
+<capabilities>
+<p>The Rhino's armament centers on two turret-mounted Delta Dagger LRM-20 racks and a centrally mounted Conan DT LRM-10, capable of delivering up to fifty long-range missiles per salvo. Standard tactical practice splits the twin LRM-20s onto separate targets while holding the LRM-10 in reserve for secondary threats, maximizing the vehicle's suppressive effectiveness at range. Two Starflash medium lasers mounted in the turret provide a three hundred sixty degree field of fire, offering the crew adequate defense against infantry and light armor that manage to close the range.</p><p>The Pitban 240 fusion engine delivers sufficient power for the Rhino's 80-ton frame, though a flank speed of 54 kph leaves the vehicle slower than many tanks of comparable mass. Pantherskin VII armor provides solid protection against most direct-fire threats, and the tank can absorb considerable punishment before losing combat effectiveness. The most significant tactical liability is the absence of cellular ammunition storage. Four tons of long-range missiles remain vulnerable to catastrophic cook-offs if enemy fire reaches the ammunition bays, a flaw that vehicle commanders must account for in any defensive deployment. Crew conditions represent another persistent problem, as the original designers made little provision for extended operations, a shortcoming noted repeatedly by veteran tankers over four centuries of service.</p>
+</capabilities>
+
+<overview>
+<p>Introduced in 2669 by Leopard Armor of Terra, the Rhino Fire Support Tank was designed to provide heavy long-range fire support to armored formations from defensive positions. Built for the Terran Hegemony Armed Forces, the 80-ton tracked vehicle carries an imposing battery of long-range missile systems that allow it to deliver sustained fire at range, making it popular with military strategists and tacticians despite its modest speed. The Rhino is not intended for rapid maneuver or close-quarters combat, but compensates with firepower that few comparable vehicles can match. Leopard Armor designed the tank to outlast the engagements it supported rather than participate directly in assaults, and this philosophy shaped every aspect of the vehicle's construction. The design's mechanical simplicity and widely available components allowed it to persist through the Succession Wars and beyond as both a production vehicle and a common base for field modifications.</p>
+</overview>
+
+<deployment>
+<p>The SL variant replaces the LRM-10 with a short-range launcher, addressing the standard Rhino's poor performance against threats that close to short range. The conversion trades standoff firepower for a more balanced engagement envelope and proved popular with crews who frequently found themselves outmatched when enemies closed inside missile minimum range. Field workshops began producing this modification during the Star League period, and the variant has remained in service continuously ever since. The MUPL records an introduction date of 2840, though field use likely predates the formal documentation by over a century based on MegaMek source data placing the design's origin at 2724.</p>
+</deployment>
+
+<history>
+<p>Leopard Armor introduced the Rhino at their Terra facility in 2669, building the design to a Terran Hegemony requirement for a heavy fire support platform capable of sustained long-range bombardment. The vehicle entered service with the SLDF and spread quickly throughout Hegemony and allied formations, earning consistent praise from planners who valued its firepower and reliability in defensive operations. Crews were less enthusiastic, citing poor accommodations and the persistent anxiety of operating a vehicle loaded with unprotected ammunition. Field technicians began developing common modifications shortly after the design entered service, addressing the Rhino's limited short-range capability and poor anti-infantry performance, though none of these conversions received official factory sanction during the Star League period.</p><p>The Leopard Armor plant on Terra was destroyed during the Amaris Coup, ending all new production. ComStar eventually rebuilt and mothballed the facility, restarting limited production around 3020 to supply the Com Guards while permitting export sales to help finance the broader reconstruction of Leopard Armor's manufacturing base. This revival kept the Rhino available to Inner Sphere militaries through the Succession Wars and Clan Invasion, complemented by the many field modifications that units had developed over generations of service. The vehicle's mechanical simplicity made improvised conversions feasible even in undermanned rear-area workshops, and dozens of documented variants emerged from field experience across multiple eras.</p><p>Word of Blake's occupation of Terra transferred control of the Leopard Armor facility during the Jihad, and production continued under new management. Following liberation, the Republic of the Sphere assumed ownership of the plant and maintained production into the ilClan era. Separately, the Clan Coyotes developed their own experimental variant around 2824, exchanging standard missile systems for Clan-spec components in a technology demonstrator that reflected ongoing Clan interest in adapting recovered Star League platforms to their own industrial base.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Pitban
+ARMOR:Unknown
+COMMUNICATIONS:Trannel
+TARGETING:Trannel
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:240
+ARMOR:Pantherskin VII
+COMMUNICATIONS:GL5
+TARGETING:OT73L
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

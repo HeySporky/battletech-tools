@@ -1,0 +1,419 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e1f4-7caf-bd65-84fd9bab44c4
+</UUID>
+
+<UnitType>
+SpaceStation
+</UnitType>
+
+<Name>
+Bastion System Defense Station
+</Name>
+
+<Model>
+(3091)
+</Model>
+
+<year>
+3091
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:12.0:2:1::-1:0
+asfbay:30.0:5:2::-1:0
+crewquarters:3521.0:0:-1::-1:0
+1stclassquarters:920.0:0:-1::-1:0
+navalrepairpressurized:30000.0:1:5:f0
+navalrepairpressurized:30000.0:1:6:f3
+cargobay:125589.5:1:7::-1:0
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+500
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+10000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+20
+20
+20
+20
+20
+20
+</armor>
+
+<Nose Equipment>
+(B) Sub-Capital Laser /1
+Sub-Capital Laser /1
+Sub-Capital Laser /1
+(B) CLERPPC
+CLERPPC
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:24
+CLArtemisIV
+CLArtemisIV
+(B) CLGaussRifle
+Clan Gauss Ammo:24
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) CLERPPC
+CLERPPC
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:24
+CLArtemisIV
+CLArtemisIV
+(B) CLGaussRifle
+Clan Gauss Ammo:24
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) CLERPPC
+CLERPPC
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:24
+CLArtemisIV
+CLArtemisIV
+(B) CLGaussRifle
+Clan Gauss Ammo:24
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) CLERPPC
+CLERPPC
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:24
+CLArtemisIV
+CLArtemisIV
+(B) CLGaussRifle
+Clan Gauss Ammo:24
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Sub-Capital Laser /1
+Sub-Capital Laser /1
+Sub-Capital Laser /1
+(B) CLERPPC
+CLERPPC
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:24
+CLArtemisIV
+CLArtemisIV
+(B) CLGaussRifle
+Clan Gauss Ammo:24
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Sub-Capital Laser /1
+Sub-Capital Laser /1
+Sub-Capital Laser /1
+(B) CLERPPC
+CLERPPC
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:24
+CLArtemisIV
+CLArtemisIV
+(B) CLGaussRifle
+Clan Gauss Ammo:24
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>The Bastion's defensive armament is organized across six arcs to provide all-aspect coverage against aerospace threats. The original configuration mounts a particle projector cannon battery, a mixed long-range missile battery, an autocannon battery, a heavy laser battery, and close-in small lasers in each arc, providing layered engagement from extreme range through knife-fight distances. One thousand single heat sinks accommodate sustained fire across multiple arcs. An onboard sensor suite provides vessel detection at ranges up to 200,000 kilometers, giving station commanders early warning well before any attacker reaches weapon range. Armor coverage of 199.5 tons of standard naval plating applies twenty points evenly across all six arcs.</p><p>The station's logistics systems are equally formidable. Two pressurized naval repair bays, each rated for vessels up to 30,000 tons, enable simultaneous DropShip servicing in fully enclosed facilities. The main repair bay hatch opens the top third of the station's hull, and once sealed around a docked vessel, makes that DropShip undetectable to external sensors; an advantage that has surprised more than one attacker. Up to thirty-six aerospace fighters sortie from a dedicated bay with multiple access doors, and twelve small craft operate from a separate bay. Approximately 125,000 tons of cargo capacity enables stockpiling of spare parts, ammunition, and consumables for sustained independent operations. A single 250-meter diameter grav deck supports over 700 operational crew across all configurations, with accommodation for 25 first-class passengers.</p>
+</capabilities>
+
+<overview>
+<p>The Bastion-class space station served as the backbone of the Star League Defense Force's orbital security network from the mid-twenty-sixth century onward, representing the most widely deployed system-defense platform in human history. Designed by Nicholas Spacecraft and introduced in 2584, the Bastion was built from the outset as the primary manned fortress component of the Space Defense Systems, intended to guard the jump points of inhabited worlds against hostile incursion. Weighing 150,000 tons and measuring 345 meters across, the Bastion combined formidable anti-aerospace firepower with substantial DropShip repair capacity, making it as much a logistics hub as a combat installation. At the Star League's height, these stations were a familiar and reassuring presence at the jump points of major worlds across the Inner Sphere, their spherical hulls a visible expression of the League's reach and its commitment to the defense of its member states.</p>
+</overview>
+
+<deployment>
+<p>The (3091) configuration incorporates Clan-technology weaponry throughout, representing a post-Jihad upgrade reflecting access to Clan production systems in the Inner Sphere. Sub-capital lasers appear in the nose and aft-side arcs, providing a limited capital-scale engagement capability absent from all earlier Bastion configurations. The remaining batteries throughout all arcs use Clan-specification extended-range PPCs, Clan LRM-20 launchers with Artemis guidance, Clan Gauss rifles, and Clan extended-range laser suites. Five hundred double heat sinks replace the earlier single-sink arrangement. The fighter complement is reduced to thirty aerospace frames, and the structural frame with both pressurized repair bays is retained unchanged.</p>
+</deployment>
+
+<history>
+<p>The Bastion class originated in the early Star League period, with Nicholas Spacecraft delivering the first examples to the SLDF in 2584. From the beginning, the design addressed a practical challenge facing any power seeking to defend dozens of systems with capable orbital platforms: most inhabited worlds lacked the construction infrastructure to assemble large space assets locally. The Bastion's answer was a modular design built as two 75,000-ton sections, each compatible with JumpShip hardpoints and capable of independent transport, then assembled on arrival at the destination system. This K-F adapter approach influenced later orbital construction programs, including the Hughes-class mobile yard and the Hephaestus Station derivative that followed. At the Star League's peak, Bastion stations guarded the jump points of every major world, combining defensive firepower with fighter capacity and DropShip repair facilities to project SLDF logistics infrastructure across the breadth of the Inner Sphere.</p><p>The Amaris Civil War and the collapse of the Star League placed Bastion stations in an increasingly precarious position. Passing into the hands of whoever controlled the worlds they orbited, these installations became contested assets almost immediately, as each Successor State recognized their value for maintaining aging DropShip fleets and defending high-value systems. Unable to maneuver or withdraw from combat, each station could only be held or destroyed. Border systems lost their Bastions in the opening campaigns of the Succession Wars, and few were ever replaced. The surviving examples retreated progressively inward, concentrated at Successor State capitals and other heavily defended core worlds. With no WarShips left to contend with, the anti-fighter orientation of surviving weaponry became an advantage rather than a limitation, and garrison commanders adapted to using them as secure fighter launch platforms and jump point sentinels rather than frontline combat installations.</p><p>By the thirty-first century, fewer than two dozen Star League-era Bastions remained operational across the entire Inner Sphere. Those that survived had done so on improvised maintenance, cannibalizing components from destroyed stations and relying on technicians who had learned the systems through institutional memory rather than formal documentation. Their capabilities were frequently well below original specifications, but their value as repair facilities, fighter bases, and the last surviving examples of a class once found everywhere meant that even diminished examples were carefully preserved by whatever faction held them.</p>
+</history>
+
+<manufacturer>
+Nicholas Spacecraft
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+150000.0
+</tonnage>
+
+<sail>
+0
+</sail>
+
+<grav_decks>
+250
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+690
+</crew>
+
+<officers>
+67
+</officers>
+
+<gunners>
+38
+</gunners>
+
+<passengers>
+25
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+35
+</life_boat>
+
+<escape_pod>
+35
+</escape_pod>
+

@@ -1,0 +1,295 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab6f-7897-a7ff-44d79f9c6a07
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Mercer
+</Name>
+
+<Model>
+(3065)
+</Model>
+
+<mul id:>
+4621
+</mul id:>
+
+<year>
+3065
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+mekbay:10.0:4:-1::-1:0
+1stclassquarters:40.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:119.0:0:-1::-1:0
+cargobay:577.0:2:5::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+175
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+3000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+350
+330
+330
+310
+</armor>
+
+<Nose Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+(B) CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+(B) CLLargePulseLaser
+CLLargePulseLaser
+(B) CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo:96
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:72
+(B) CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:90
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLERPPC
+CLERPPC
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+(R) (B) CLERMediumLaser
+(R) CLERMediumLaser
+(R) CLERMediumLaser
+(R) CLERMediumLaser
+(R) CLERMediumLaser
+(R) (B) CLERPPC
+(R) CLERPPC
+(R) (B) CLLargePulseLaser
+(R) CLLargePulseLaser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLERPPC
+CLERPPC
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+(R) (B) CLERMediumLaser
+(R) CLERMediumLaser
+(R) CLERMediumLaser
+(R) CLERMediumLaser
+(R) CLERMediumLaser
+(R) (B) CLERPPC
+(R) CLERPPC
+(R) (B) CLLargePulseLaser
+(R) CLLargePulseLaser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLERPPC
+CLERPPC
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:36
+CLArtemisIV
+CLArtemisIV
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+30
+</structural_integrity>
+
+<capabilities>
+<p>The Mercer's nose concentrates devastating firepower: six ER large lasers, three ER medium lasers, four ER PPCs, two large pulse lasers, two Gauss rifles, four LRM-20 racks with Artemis IV fire control, and two Streak SRM-6 launchers. Each broadside carries two ER large lasers, five ER medium lasers, four ER PPCs, two large pulse lasers, and two medium pulse lasers. The aft arc mounts four ER large lasers, two ER PPCs, and two Artemis-guided LRM-20 racks for rear defense.</p><p>One hundred seventy-five double heat sinks manage the enormous thermal output from this Clan-grade arsenal. The vessel carries 1,320 points of armor and achieves a safe thrust of five with a structural integrity of thirty, giving it both resilience and agility for a transport of its size. The transport bays accommodate ten OmniMechs, a full Binary, alongside 577 tons of cargo for spare parts and OmniMech pod equipment. A crew of fifty-three operates the vessel.</p>
+</capabilities>
+
+<overview>
+<p>The Mercer class assault transport is a 4,500-ton Spheroid DropShip developed by Clan Steel Viper as part of a major rearmament program in the mid-3060s. Designed specifically to land troops in the face of determined aerospace opposition without relying on safcon protocols, the Mercer was conceived to carry a full Binary of ten OmniMechs while mounting enough firepower and armor to fight through hostile aerospace screens independently.</p><p>While the final design fell short of its ambitious specifications on several counts, the Mercer nonetheless represented a significant addition to the Steel Viper touman's transport capabilities. Its heavy armament and substantial armor made it a formidable opponent for any defending force, and its unexpected appearance proved a potent tactical advantage in the Mercer's first engagements.</p>
+</overview>
+
+<deployment>
+<p>The Mercer served exclusively with Clan Steel Viper's touman, deployed as the spearhead of contested planetary assaults where enemy aerospace opposition was expected. These vessels were typically assigned to frontline Galaxies tasked with offensive operations against Clan Snow Raven holdings and other Steel Viper rivals. The design's brief combat record demonstrated both its strengths in forcing landings and its vulnerability when operating beyond the protection of its own fighter escorts.</p>
+</deployment>
+
+<history>
+<p>The Mercer was born from Clan Steel Viper's rearmament program, which included a major bolstering of aerospace forces. The Steel Vipers recognized that their campaign of vengeance against Clan Snow Raven would require assaulting worlds defended by the formidable Raven aerospace arm, and that safcon would neither be requested nor granted. The Vipers needed a transport that could force a contested landing against the best the so-called naval Clan could deploy.</p><p>The Mercer's first combat deployment came at the world of Lum, where its unexpected appearance as a completely unknown design caught the Snow Raven defenders off guard. The Mercer allowed the Steel Vipers to punch through the Raven aerospace cordon and successfully land troops on the factory world. However, the assault came at significant cost. Two Mercers were lost to aerospace fighter attacks after they outran their own fighter escorts, and a third was destroyed on the ground during Raven counterattacks. Though the Snow Ravens eventually drove the Vipers off world, the battle disrupted manufacturing operations at Lum for over a month.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+4500.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+37
+</crew>
+
+<officers>
+4
+</officers>
+
+<gunners>
+12
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+4
+</escape_pod>
+

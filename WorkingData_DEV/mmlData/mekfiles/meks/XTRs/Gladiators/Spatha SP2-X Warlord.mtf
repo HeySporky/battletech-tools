@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df7f-7a4f-b466-8c79af4bce2c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Spatha
+model:SP2-X 'Warlord'
+mul id:2999
+
+Config:Biped
+techbase:Inner Sphere
+era:3069
+source:XTR:Gladiators
+published:XTR:Gladiators
+rules level:4
+role:Skirmisher
+
+quirk:difficult_maintain
+quirk:non_standard
+
+mass:60
+engine:360 XXL Engine
+structure:IS Standard
+myomer:Triple-Strength
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:13 IS Double
+walk mp:6
+jump mp:0
+
+armor:Reflective(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:26
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:4
+ER Large Laser, Left Arm
+Medium VSP Laser, Right Torso
+Laser AMS, Right Torso
+Medium VSP Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERLargeLaser
+ISERLargeLaser
+Blue Shield Particle Field Damper
+IS Reflective
+IS Reflective
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Sword
+Sword
+Sword
+Sword
+Blue Shield Particle Field Damper
+IS Reflective
+IS Reflective
+IS Reflective
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAngelECMSuite
+ISAngelECMSuite
+Blue Shield Particle Field Damper
+IS Reflective
+IS Reflective
+IS Reflective
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMediumVSPLaser
+ISMediumVSPLaser
+ISLaserAntiMissileSystem
+ISLaserAntiMissileSystem
+Blue Shield Particle Field Damper
+IS Reflective
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Blue Shield Particle Field Damper
+IS Reflective
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISMediumVSPLaser
+ISMediumVSPLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Blue Shield Particle Field Damper
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Blue Shield Particle Field Damper
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Spatha was introduced in 3067 as a bespoke dueling design for the Solaris VII arena circuit. Conceived and hand-assembled by the eccentric engineer Doctor Géné Lyndon, the sixty-ton medium 'Mech was built to showcase bleeding-edge technology in a package that prioritized finesse over raw power. Unlike the typical Solaris combatant cobbled together from surplus military hardware, the Spatha was designed from the ground up as a purpose-built arena fighter, with every component hand-selected and custom-fitted by a dedicated team of fifteen engineers. The extraordinary cost of construction and maintenance has kept production limited to individual hand-built examples, making the Spatha one of the rarest designs ever to grace the Solaris arenas.</p>
+
+capabilities:<p>The Spatha is built around a hand-tooled Hermes 360 XXL engine, a choice that trades mechanical durability for tremendous weight savings. This fragile powerplant is the design's most significant vulnerability, as any penetrating hit to the side torsos from an autocannon or Gauss rifle risks catastrophic engine failure. To mitigate this, Doctor Lyndon equipped the 'Mech with eleven tons of Long-Arms Laser Reflect armor and a McArthur Laser-X anti-missile system, effectively neutralizing both energy weapons and missile fire. Only ballistic weapons pose a serious threat to the Spatha's defenses, a calculated risk in the energy-weapon-heavy Solaris arenas.</p><p>The design's signature feature is its namesake sword, gripped in the right hand and made devastatingly effective by a suite of Triple Strength Myomer. As the 'Mech's heat rises, the TSM activates, dramatically boosting both the sword's striking power and the Spatha's speed and maneuverability. Ranged firepower centers on a Defiance 1001 extended-range PPC backed by a custom Spatha-X capacitor that pushes the weapon's output well above standard. A pair of RAMTech 800P-X medium X-pulse lasers and a Guided Technologies second-generation Streak SRM-6 provide effective medium and close-range support. The design is lethal at point-blank range and moderately effective out to 270 meters, more than sufficient for arena combat.</p>
+
+deployment:<p>Designated the SP2-X, this second hand-built Spatha was constructed during the Word of Blake occupation of Solaris VII, with work beginning in 3069. The design retains the original's core strengths, including the hand-tooled Hermes XXL engine, reflective armor, sword, and laser anti-missile system, but replaces the ranged weapons suite entirely. The extended-range PPC, Streak launcher, and X-pulse lasers give way to an extended-range large laser and two medium variable-speed pulse lasers salvaged from Blakist wreckage. Weight savings from a small cockpit allow the addition of an Angel ECM suite and one of the first operational Blue Shield particle field dampers, dramatically enhancing the 'Mech's already formidable electronic and physical defenses. The SP2-X proved its worth in combat during the final days of the Blakist occupation, its shimmering blue defensive field making it a striking and terrifying presence on the battlefield.</p>
+
+history:<p>The Spatha emerged during the twilight of the FedCom Civil War, debuting in the 3067 Solaris VII season as one of several new designs vying for attention in the planet's competitive arena circuit. Doctor Géné Lyndon, the design's creator, had long been a fixture of Solaris's engineering community, known for her exacting standards and willingness to spend lavishly on cutting-edge technology. The Spatha represented her most ambitious project, a completely original chassis rather than a modification of existing military hardware. Lyndon financed the project from her personal fortune, the origins of which remained a subject of persistent rumor, with speculation ranging from war profiteering to organized crime connections.</p><p>The Word of Blake occupation of Solaris VII beginning in 3068 disrupted much of the planet's arena culture, but Lyndon adapted rather than fled. Viewing the occupation as an opportunity, she withdrew her team from Solaris proper and began work on an improved second Spatha, incorporating salvaged Blakist technology recovered from the conflict. This second machine, designated the SP2-X, retained the original's core philosophy of advanced defensive systems and melee lethality while integrating captured Word of Blake weaponry and experimental defensive technology. The SP2-X first saw combat in the closing days of the Blakist occupation, where it proved devastating against battered Word of Blake garrison forces.</p><p>Despite persistent rumors that Lyndon might build additional Spathas or license the design to a Solaris manufacturing firm, she consistently denied any such plans through the late Jihad era. The Spatha remained a hand-built curiosity, its extraordinary maintenance requirements and bespoke construction making mass production impractical. The design's legacy lay not in numbers deployed but in its demonstration that a small team of dedicated engineers could produce a 'Mech rivaling anything from the major manufacturers, provided cost was no object. By the time Solaris VII changed hands from Lyran Commonwealth control to Clan Wolf during the Dark Age, the Spatha had already cemented its place in arena legend among enthusiasts and military engineers alike.</p>
+
+manufacturer:Doctor Géné Lyndon
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Doctor Géné Lyndon
+systemmode:CHASSIS:Spatha X
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:360 XXL
+systemmanufacturer:ARMOR:Long-Arms
+systemmode:ARMOR:Laser Reflect
+systemmanufacturer:COMMUNICATIONS:Custom
+systemmode:COMMUNICATIONS:Custom
+systemmanufacturer:TARGETING:Custom
+systemmode:TARGETING:Custom

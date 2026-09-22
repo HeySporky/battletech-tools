@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ebae-7f64-afc4-cf104f59543b
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Pollux II ADA Heavy Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7401
+</mul id:>
+
+<year>
+3130
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+4
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+24
+24
+24
+11
+24
+</armor>
+
+<Body Equipment>
+ISGuardianECMSuite
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVHomingAmmo
+ISArrowIVHomingAmmo
+ISArrowIVHomingAmmo
+Silver Bullet Gauss Ammo
+Silver Bullet Gauss Ammo
+Silver Bullet Gauss Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISSmallXPulseLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISSmallXPulseLaser
+ISArrowIV
+ISSBGR
+</Turret Equipment>
+
+<capabilities>
+<p>The Pollux II's primary weapon is an Arrow IV system capable of both direct and indirect fire across a range of specialized munitions, including homing rounds for precision engagement of armored targets at extended range without direct line of sight. A Silver Bullet Gauss rifle provides a high-velocity direct-fire alternative, firing cluster munitions effective against both armored and soft targets. Two Small X-Pulse Lasers cover close-in defense against infantry and light armor that approach within the missiles' minimum range. A Guardian ECM suite rounds out the weapons package, degrading enemy guidance systems and providing some protection against guided munitions attacks on the vehicle.</p><p>The Pollux II replaces the original's standard fusion engine with a Light Fusion Engine of equivalent rating, preserving the design's cruising and maximum speeds while freeing internal volume for the expanded weapon and ammunition payload. This trade-off extends the vehicle's tactical utility at the cost of somewhat reduced resilience to critical engine damage. Armor protection, while not dramatically improved over the original, remains adequate for a fire-support vehicle expected to operate from second-echelon positions rather than direct engagement range.</p>
+</capabilities>
+
+<overview>
+<p>The Pollux II ADA Heavy Tank is a late-era descendant of the original Pollux design, introduced around 3130 as part of broader efforts to field updated ground defense platforms in an increasingly unstable political environment. While retaining the original vehicle's 75-ton tracked chassis dimensions and overall speed profile, the Pollux II departs significantly from its predecessor's anti-air artillery concept. Its weapon suite is oriented toward indirect fire and precision engagement rather than dedicated aerospace defense, reflecting a doctrinal shift toward more general-purpose combined-arms support vehicles. A Guardian ECM suite and advanced fire control systems give the Pollux II enhanced survivability and electronic warfare capability compared to the original design.</p>
+</overview>
+
+<deployment>
+<p>The Pollux II was deployed in combined-arms formations as an indirect fire and precision engagement platform, operating from covered or hull-down positions to deliver Arrow IV homing strikes against targets identified by forward observers or drone assets. Doctrine paired the vehicles with conventional armor and infantry to provide direct-fire screening while Pollux II crews managed fire missions. In defensive operations, the design's ability to engage threats beyond visual range while remaining concealed behind terrain made it particularly valuable in delaying actions against mechanized forces. The Silver Bullet Gauss rifle provided a secondary direct-fire capability for targets of opportunity and close-range threat response.</p>
+</deployment>
+
+<history>
+<p>The Pollux II's development reflects efforts to field ground defense platforms in the late Republic period, when aging original Pollux ADA tanks had long since vanished from active inventories. With access to recovered Star League technology allowing new production options, Republic defense planners commissioned an updated vehicle that shared the original's dimensional profile while incorporating contemporary weapons technology. The Arrow IV system and Silver Bullet Gauss rifle represent a fundamental shift in the design's intended role, moving it from dedicated aerospace suppression toward a flexible indirect-fire and precision-strike mission aligned with combined-arms doctrine.</p><p>Entering service around 3130, the Pollux II debuted during a period of increasing instability as the collapse of the Republic's HPG network triggered conflicts across multiple theaters. The vehicle saw service in contested areas as the Dark Age unfolded, with its Arrow IV capability proving useful for engaging enemy armor concentrations from covered positions where direct-fire platforms could not easily operate. Documentation of the Pollux II's full production history and large-scale deployments remains incomplete, reflecting the fragmented record-keeping of the period.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:General Motors
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:QingShi
+TARGETING:Sylix Systems
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:225 Light
+ARMOR:Unknown
+COMMUNICATIONS:CommStar 7
+TARGETING:GSL 'Evil Eye' series II
+</systemModels>
+
+<source>
+TP:EE
+</source>
+
+<published>
+TP:EE
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

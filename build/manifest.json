@@ -1,0 +1,32 @@
+{
+  "short_name": "BattleTech Tools IIC",
+  "name": "Jeff's BattleTech Tools IIC",
+  "icons": [
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "maskable_icon_x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "maskable_icon_x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/battletech-tools/",
+  "scope": "/battletech-tools/",
+  "orientation": "any",
+  "display": "standalone",
+  "theme_color": "#dfab2d",
+  "background_color": "#000000"
+}

@@ -1,0 +1,160 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a5f3-7df4-8ef7-9e31d1c57ea6
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Buraq Fast Battle Armor
+</Name>
+
+<Model>
+(Support)(Sqd5)
+</Model>
+
+<mul id:>
+8724
+</mul id:>
+
+<year>
+3104
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<quirks>
+imp_com
+</quirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+CLBAMyomerBooster:Body
+CLAdvancedSRM2:Body
+BA-Advanced SRM-2 Ammo:Body:Shots4#
+CLBALightTAG:Body
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<capabilities>
+<p>The support Buraq carries an advanced SRM-2 launcher with four salvos of ammunition, providing the formation with indirect fire capability absent from the other configurations. More critically, the variant mounts light target acquisition gear, enabling troopers to designate targets for Arrow IV and other artillery systems operating behind the front line. This makes the support element the most tactically significant within a Buraq Star, connecting forward scouts with rear-area fire support assets.</p><p>The myomer booster remains standard, allowing support troopers to keep pace with the rest of the formation. As with all Buraq variants, armor is limited to 175 kilograms of standard plating, and the quad chassis prevents swarm attacks. The support model's value lies in force multiplication rather than direct engagement, extending the reach of heavier weapons systems across the battlespace.</p>
+</capabilities>
+
+<overview>
+<p>The Buraq is a Clan medium-weight quad battlesuit developed by Clan Hell's Horses in the early thirty-second century. Manufactured at Csesztreg Industriplex Gamma, the design prioritizes speed above all other characteristics, using myomer-enhanced mobility to fulfill scouting, interdiction, and anti-piracy roles along the Horses' Periphery frontier. Named for a mythological steed of ancient Terra, the four-legged suit matches its namesake in raw velocity, closing ground faster than nearly any other battlesuit in service. Clan Hell's Horses typically deploy mixed Stars of Buraq variants, combining different weapon fits into cohesive reconnaissance formations that range far ahead of heavier Cluster elements.</p>
+</overview>
+
+<deployment>
+<p>The support Point within a Buraq Star connected the formation's scouts to rear-area artillery assets. Five troopers equipped with light target acquisition gear could designate multiple targets simultaneously, enabling devastating fire missions against positions identified by the standard and hunter-killer Points. This coordination made the Buraq Star greater than the sum of its parts, turning a light scouting formation into a potent force multiplier for the broader Cluster.</p>
+</deployment>
+
+<history>
+<p>Clan Hell's Horses developed the Buraq at Csesztreg Industriplex Gamma, fielding the quad battlesuit in 3104. The design addressed a persistent challenge along the Horses' Periphery border, where pirate bands exploited the vast distances of the Barrens to raid settlements and vanish before conventional forces could respond. Ranger Clusters needed a fast scout capable of ranging far ahead of heavier formations to locate hidden bases, storage depots, and landing zones.</p><p>The Buraq proved effective in this role. Kappa Galaxy's Eighty-fifth BattleMech Cluster employed Buraqs during anti-piracy sweeps on Icar in 3122, tracking Sarkon's Bloody-Handed pirates across the Barrens to their hideout on Crellacor. Star Captain Mellysa Ravenwater's Point discovered the pirate headquarters in a cave network beneath the Rishlin Estuary outside Loriaq, leading to the destruction of the encampment.</p><p>The suit also found a grimmer purpose under the Mongol Doctrine. The 666th Mechanized Assault Cluster used Buraqs as advance elements during punitive operations on Timkovichi in August 3142, where a hunter-killer Point under Star Colonel Tricky Brown engaged and crippled a concealed Kell Hound Jaguar before the engagement escalated into an artillery exchange that devastated the settlement of Greywalk.</p>
+</history>
+
+<manufacturer>
+Csesztreg Industriplex Gamma
+</manufacturer>
+
+<primaryFactory>
+Csesztreg
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:C,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<chassis>
+quad
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+7
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

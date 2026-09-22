@@ -1,0 +1,157 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a5c6-74b2-9c14-d558efcb6b19
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Trinity Medium Battle Armor
+</Name>
+
+<Model>
+(Asterion Upgrade)[PPC](Sqd5)
+</Model>
+
+<mul id:>
+8593
+</mul id:>
+
+<year>
+3073
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+30
+</armor_type>
+
+<armor_tech>
+1
+</armor_tech>
+
+<Squad Equipment>
+IS BA Advanced:LA
+IS BA Advanced:Body
+IS BA Advanced:LA
+IS BA Advanced:RA
+IS BA Advanced:Body
+BABattleClaw:LA
+BABattleClawVibro:RA
+CLBAMG:RA
+ISBASupportPPC:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<capabilities>
+<p>This upgraded Asterion variant pairs the advanced armor and enhanced close-combat suite with a support particle projector cannon, combining the improved protection and swarming capability of the upgrade program with energy-based ranged firepower. The vibro-claw and machine gun provide the same close-quarters lethality as the rifle-armed upgrade, while the support PPC eliminates ammunition concerns for the primary weapon.</p><p>Advanced armor improves survivability over the original Asterion configurations. Ground movement and the lack of jump capability remain consistent with the base design. The energy weapon loadout makes this variant better suited to extended operations where resupply is uncertain, though the support PPC's power demands and the vibro-claw's maintenance requirements make this the most mechanically complex Asterion configuration in the field.</p>
+</capabilities>
+
+<overview>
+<p>The Trinity is a family of three medium battle armor suits commissioned by the Capellan Confederation Armed Forces and funded jointly by the Trinity Alliance. Introduced in the mid-3060s, the program aimed to make powered infantry available beyond the elite formations that fielded the Fa Shih. The Capellan variant, designated the Ying Long, incorporates advanced camouflage technology derived from an outside source. The Taurian Asterion and Canopian Theseus share a more conventional protection scheme, differing primarily in cosmetic styling. All three designs emphasize ground mobility, close-quarters capability against heavier units, and a flexible modular weapon mount that allows field commanders to tailor loadouts to mission requirements.</p>
+</overview>
+
+<deployment>
+<p>Five-trooper Points of PPC-armed upgraded Asterion suits remained uncommon, confined to small formations where Clan-pattern organization was adopted by Periphery forces. The energy weapon and improved close-combat suite combination made these Points functional in both ranged and swarming engagements, though logistics for the advanced armor components remained a persistent challenge outside Taurian territory.</p>
+</deployment>
+
+<history>
+<p>The CCAF Strategios commissioned the Trinity after recognizing that battle armor needed to reach beyond prestige formations. The Trinity Alliance partners provided funding that accelerated development to under two years, fueling speculation that preliminary design work had already begun before the formal program launched. Initial production was handled exclusively by Ceres Metals Industries on Capella, with the Capellan government employing deliberate delays and bureaucratic obstacles to prevent technology transfer to its allies. Both the Taurian Concordat and the Magistracy of Canopus eventually reverse-engineered the design independently, establishing their own production lines through Taurus Territorial Industries on Sterope and Foxx Infantry Systems on Royal Foxx.</p><p>The rapid proliferation of the Trinity across three nations gave the Alliance a common infantry platform that saw its first major combat test during Operation Sovereign Justice, where the suits proved capable against comparable designs fielded by other powers. Upgraded variants incorporating improved protection and heavier close-combat equipment appeared during the Jihad, further extending the family's service life across all three member states.</p>
+</history>
+
+<manufacturer>
+Taurus Territorial Industries
+</manufacturer>
+
+<primaryFactory>
+Sterope
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+8
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

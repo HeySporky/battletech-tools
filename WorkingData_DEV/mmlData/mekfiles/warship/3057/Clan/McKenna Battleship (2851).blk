@@ -1,0 +1,361 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eca0-7f18-9a2f-2cea109a8d6d
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+McKenna Battleship
+</Name>
+
+<Model>
+(2851)
+</Model>
+
+<mul id:>
+4610
+</mul id:>
+
+<year>
+2851
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:16.0:2:1::-1:0
+asfbay:25.0:4:2::-1:0
+asfbay:25.0:4:3::-1:0
+cargobay:255528.0:2:4::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:970.0:0:-1::-1:0
+crewquarters:3374.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+6325
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+4000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+11
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+200
+250
+250
+143
+250
+250
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+(B) Naval Laser 55
+Naval Laser 55
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:10
+Ammo AR10 White Shark:7
+Ammo AR10 Killer Whale:7
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:10
+Ammo AR10 White Shark:7
+Ammo AR10 Killer Whale:7
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:10
+Ammo AR10 White Shark:6
+Ammo AR10 Killer Whale:6
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:40
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+</Right Broadsides Equipment>
+
+<structural_integrity>
+95
+</structural_integrity>
+
+<capabilities>
+<p>At 1,930,000 tons and 1,405 meters in length, the McKenna dwarfed every other WarShip class in the SLDF inventory. Its primary armament consisted of forty-eight Kreuss XX Heavy Naval PPCs arranged in broadside batteries, twelve per broadside and twelve per aft flank, capable of reducing any vessel to wreckage in a single coordinated salvo. This extraordinary energy battery was supplemented by ten Zeus-40 NAC/40 super-heavy naval autocannons and twelve Thunderbolt-55 NL55 naval lasers distributed across the nose, forward flanks, and aft arc, providing overlapping fields of fire in every engagement geometry. Six Maelstrom AR10 capital missile launchers loaded with mixed Barracuda, White Shark, and Killer Whale missiles provided flexible long-range striking power from the forward flanks and aft.</p><p>The Ulston C5-A ferro-carbide armor provided exceptional protection, with the Star League configuration mounting over 1,600 tons of plating. Heat management for the enormous weapons suite relied on 6,325 double heat sinks generating 12,650 points of effective dissipation, allowing sustained broadside fire without degradation. A lithium-fusion battery enabled rapid successive jumps, granting strategic mobility unusual for a vessel of such mass. Despite its enormous tonnage, the McKenna achieved a safe thrust of 3 and maximum thrust of 5, giving the class surprisingly aggressive acceleration for its displacement. Six docking collars, bays for fifty aerospace fighters and sixteen small craft, over 255,000 tons of cargo capacity, and three gravity decks supported the crew of nearly 760 in extended independent operations. The primary trade-off for this overwhelming firepower was armor coverage that many fleet officers considered insufficient relative to the vessel's enormous tonnage, a concern that planners accepted on the basis that the McKenna's long-range firepower would keep hostile vessels well beyond effective return-fire distance. The Clan refit added a mobile HPG for independent fleet communications while modestly adjusting the armor distribution and cargo capacity.</p>
+</capabilities>
+
+<overview>
+<p>The McKenna-class battleship was the largest and most powerful WarShip ever constructed by any Inner Sphere power. Commissioned by the Terran Hegemony in 2652, the class was designed to serve as the definitive SLDF capital WarShip, a vessel so overwhelmingly powerful that no realistic combination of Successor State WarShips could hope to challenge one. Blue Nose Clipperships on Mars and the O'Neil Yards at Terra's Titan orbital complex shared construction duties, and the McKenna quickly established itself as the undisputed queen of the SLDF battle line. Displacing nearly two million tons, these enormous battleships carried the heaviest broadside battery ever mounted on a WarShip and projected an aura of absolute naval authority that few commanders dared contest. No other class has ever matched the McKenna's combination of raw firepower, strategic presence, and sheer physical scale.</p>
+</overview>
+
+<deployment>
+<p>The most famous McKenna in history, the SLS McKenna's Pride, served as Aleksandr Kerensky's personal flagship during the Liberation of Terra and accompanied the Exodus fleet into the Deep Periphery. Nicholas Kerensky chose the same vessel as his command ship during Operation KLONDIKE, and after his death it was maintained in permanent orbit above Strana Mechty as a memorial and tomb. During the Wars of Reaving, Clan Wolf operatives seized the vessel under Khan Vlad Ward's orders and concealed it within the Dark Nebula. In July 3147, saKhan Garner Kerensky recovered the legendary battleship and led it at the head of the Wolf assault on Terra that established the ilClan.</p><p>The SLS Zughoffer Weir served Clan Wolverine until the Trial of Annihilation, crippling the CHH Mustang before being abandoned. Found derelict in 3061, the Word of Blake rechristened her Blake's Sword and achieved 112% combat effectiveness before she was disabled by the CGB Rasalhague in 3070 and declared unsalvageable. The CSR James McKenna, Khan Stephen McKenna's KLONDIKE flagship at Circe, was destroyed at Ramora in January 3069 when a terrorist DropShip detonated inside its cargo bay. The CWS Werewolf, flagship of the First Wolf Guardians, liberated Tharkad during the FedCom Civil War and held off two Word of Blake WarShips at Outreach before falling to nuclear SDS weapons at Chara III during Operation SCOUR.</p><p>The CSJ Obsidian served as the Smoke Jaguar flagship during the Golden Century before being crippled during the Absorption of Clan Mongoose. The CCS Second Coming served Cloud Cobra's Delta Galaxy until its KF drive cracked during the Tanis Campaign in 3073, after which Society forces captured and held the vessel until its destruction above Dagda by Clan Star Adder. The CIH Cage's Pride, flagship of Ice Hellion's Alpha Galaxy, ordered catastrophic orbital strikes at Vantaa before being caught under devastating Jade Falcon fire. The CSA Sovereign Right conducted a brutal twenty-two-day orbital bombardment at York, while the CGS Lei Kung survived into the Escorpion Imperio as its largest WarShip, though observed in poor condition at Granada in 3087.</p>
+</deployment>
+
+<history>
+<p>The McKenna-class battleship emerged from a Terran Hegemony naval program initiated in the mid-twenty-seventh century to create the definitive SLDF capital WarShip. Blue Nose Clipperships on Mars received the primary construction contract, with the O'Neil Yards at Terra's Titan orbital complex serving as a secondary production facility. The design team drew on proven hull construction techniques from the preceding Farragut class while dramatically scaling up tonnage, creating a spaceframe capable of mounting the most powerful weapons battery ever fitted to a WarShip. The first McKenna entered service in 2652 and immediately established itself as the dominant capital ship in known space.</p><p>Approximately 280 keels were laid down across both yards over a production run spanning more than 130 years. The class became synonymous with the Star League Defense Force battle line. No numbered SLDF fleet was considered complete without at least one McKenna among its capital ships, and fleet commanders regarded the vessel as essential for any major engagement. Six hulls received the McKenna Command configuration, serving as supreme fleet flagships with enhanced command-and-control systems. Individual vessels earned recognition at the Martial Olympiad competitions, with the class winning the Best WarShip designation on multiple occasions. Every major fleet command counted McKennas among its most senior vessels, and the type's presence in a battle line was often sufficient to discourage opposition before the first shots were fired.</p><p>The Amaris Coup of December 2766 devastated the McKenna fleet. Multiple vessels were lost in the opening hours of the crisis, caught in orbit over Hegemony worlds as Republican forces struck without warning. The Liberation of Terra and the brutal fighting that followed consumed dozens more, with several McKennas destroyed in some of the largest fleet actions of the entire conflict. By the time Aleksandr Kerensky issued the call for the Exodus in 2784, fewer than twenty McKennas remained operational from an original production run of 280. Those that survived carried the scars of nearly two decades of continuous warfare, with some operating at significantly reduced combat effectiveness.</p><p>The surviving vessels accompanied the Exodus fleet into the Deep Periphery and became the most prestigious naval assets distributed among the nascent Clans. Around 2851, the McKennas received comprehensive refits that extended their operational relevance for centuries. Each Clan that possessed a McKenna treated the vessel as an irreplaceable cornerstone of its touman's naval strength, and possession of one conferred significant prestige in inter-Clan politics. The class remained the most powerful WarShip available to any Clan well into the thirty-first century, a position no subsequent design ever challenged.</p><p>The irreplaceability of the McKenna could not be overstated. No shipyard capable of constructing vessels of this scale had operated since the fall of the Star League, and the specialized knowledge required to build and maintain such massive WarShips degraded with each passing century. Every hull lost to combat or mechanical failure represented a permanent reduction in a Clan's strategic capability, a reality that made naval commanders deeply reluctant to commit these vessels except in the most critical engagements. The sheer cost of routine maintenance for a vessel of nearly two million tons strained even the most prosperous Clan economies, yet no Clan willingly decommissioned one.</p><p>The Jihad and the Wars of Reaving shattered this centuries-long equilibrium. McKennas that had survived since the Star League era were destroyed in rapid succession across multiple theaters, victims of nuclear weapons, terrorist attacks, orbital engagements, and the fratricidal violence that consumed Clan society in the Homeworlds. The destruction of each hull sent shockwaves through the Clan naval establishment, as commanders watched irreplaceable capital ships vanish in engagements that would have been unthinkable a generation earlier. The Inner Sphere lost its only McKenna as well, after the Word of Blake briefly returned a derelict hull to service only to see it destroyed within a few years.</p><p>Attrition ultimately reduced the once-mighty class to a single known operational vessel. That lone survivor carried a legacy stretching back nearly five hundred years and played a decisive role in the assault that established the ilClan on Terra. The last McKenna-class battleship endured above the birthworld of humanity, an irreplaceable relic of the naval supremacy that defined the Star League at its zenith.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Blue Nose Clipperships / O'Neil Yards
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Cortex UltraBond
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Battleship
+</use>
+
+<length>
+1405 m
+</length>
+
+<height>
+1560 m Sail
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+1930000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+45
+45
+75
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+759
+</crew>
+
+<officers>
+97
+</officers>
+
+<gunners>
+78
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+30
+</life_boat>
+
+<escape_pod>
+30
+</escape_pod>
+

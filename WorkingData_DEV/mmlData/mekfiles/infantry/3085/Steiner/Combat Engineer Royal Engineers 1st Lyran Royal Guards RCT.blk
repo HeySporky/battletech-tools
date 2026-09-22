@@ -1,0 +1,90 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b674-7717-b2cb-028618c777fe
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Combat Engineer
+</Name>
+
+<Model>
+Royal Engineers; 1st Lyran Royal Guards RCT
+</Model>
+
+<mul id:>
+664
+</mul id:>
+
+<year>
+3045
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Vibro-Shovel
+Lyran Alliance/Lyran Commonwealth (3060+) Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Royal Engineers maintain a separate reporting structure from regular Lyran infantry, making them difficult to locate within the LCAF's bureaucracy. Armed with Gunther MP-20 submachine guns and organized into small platoons of just two seven-trooper squads, they are not fielded as a direct combat force. Their value lies in what they build and what they destroy. Capable of engineering fieldwork and demolitions, the Royal Engineers serve as a force multiplier for any formation they attach to, integrating with regular infantry or combined-arms units as the mission demands. Most line officers would scoff if asked whether combat engineers concern them. Most generals would not.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<Primary>
+SMG (Gunther MP-20)
+</Primary>
+
+<specialization>
+32
+</specialization>
+

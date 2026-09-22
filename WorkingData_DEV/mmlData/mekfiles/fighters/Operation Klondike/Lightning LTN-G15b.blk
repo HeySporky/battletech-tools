@@ -1,0 +1,178 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-acd2-76fc-a33f-3b79cab012cf
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Lightning
+</Name>
+
+<Model>
+LTN-G15b
+</Model>
+
+<mul id:>
+1878
+</mul id:>
+
+<year>
+2721
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+66
+56
+56
+46
+</armor>
+
+<Nose Equipment>
+ISGaussRifle
+Medium Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISMediumPulseLaser
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISMediumPulseLaser
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+Medium Laser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Gauss Ammo
+IS Gauss Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Lightning's primary weapon is a nose-mounted Luxor Heavy 20 Autocannon, one of the heaviest weapons a fifty-ton frame can credibly carry into an aerospace engagement. When this weapon can be brought to bear, the Lightning becomes a serious threat to fighters, BattleMechs, and DropShips alike, capable of delivering crippling damage in a single firing pass. Four Diverse Optics II medium lasers distributed across the wings and rear arc supplement the autocannon for dueling and anti-pursuit defense, though their limited range reinforces the design's identity as a close-range combatant.</p><p>The GM 200 powerplant delivers adequate thrust for the weight class, and the Aerobus Vanluminum Advanced armor provides solid protection relative to the fighter's tonnage. The Hildco Aerospace Type 4 frame is well-regarded for its organized internal layout, making field maintenance practical even under operational conditions. Pilots praise the Lightning's predictable handling, while technicians value the ease of access to internal components. Thirteen single heat sinks manage thermal output adequately during normal combat operations but leave little margin during sustained engagements or repeated main gun use.</p>
+</capabilities>
+
+<overview>
+<p>The Lightning is a fifty-ton medium aerospace fighter developed by Tengo Aerospace on Sarna, born from the Capellan Confederation's effort to field a domestic design capable of mounting the era's most powerful autocannon technology. The original model entered service in 2465, but rapid advances in military hardware during the following century rendered it obsolete. Tengo responded with a comprehensive redesign, and the resulting LTN-G15 entered CCAF evaluation in 2511. Though the Confederation ultimately chose a competing design as its primary procurement contract, the Lightning proved attractive enough to spread across manufacturers throughout the Inner Sphere and Periphery. The design is now found in virtually every major military, valued for its raw close-range firepower, reliable handling characteristics, and straightforward maintenance requirements.</p>
+</overview>
+
+<deployment>
+<p>Produced briefly at several facilities during the Star League era for SLDF service, the LTN-G15b upgrades the standard airframe with an advanced powerplant, a Gauss rifle in place of the autocannon, and double heat sinks to handle the higher thermal demands. Production was cut short by the Amaris Coup before the Royal variant could establish a significant service record, and the advanced technology it required was largely lost during the Succession Wars. Surviving examples were highly sought by elite units throughout that era, circulating through top-tier formations until attrition reduced numbers to near zero. Tengo Aerospace later recovered the necessary technical data, and limited G15b production resumed at Sarna in the post-Jihad period, returning the Royal variant to limited Capellan service in the Dark Age.</p>
+</deployment>
+
+<history>
+<p>The Lightning traces its origins to a Capellan Confederation development program launched after its engineers successfully reverse-engineered the autocannon technology used by the Terran Hegemony. Tengo Aerospace on Sarna produced the resulting LTN-G14 in 2465, giving the Confederation a credible medium fighter for the era. However, the technological advances of the 26th century quickly outpaced the original design, and Tengo undertook a comprehensive redesign incorporating a heavier autocannon, a more efficient powerplant, and improved armor protection.</p><p>The CCAF evaluated the revised LTN-G15 beginning in 2511 and placed initial orders in 2513, but the Confederation's long-term procurement plans did not favor Tengo. Instead, the CCAF signed a major contract with Mujika Industries for the Transit, a competing design that shared the Lightning's frame and many of its components. As Mujika absorbed Tengo's supplier base, Tengo lost its primary customer and was forced to redirect sales to mercenaries, militia forces, and Periphery states.</p><p>Facing bankruptcy, Tengo's management took the drastic step of selling production licenses to manufacturers in the Lyran Commonwealth and Federated Suns. The Confederation arrested and executed the responsible executives for treason, but the blueprints had already circulated. HildCo Interplanetary, Lockheed/CBM Corporation, and Lycomb-Davion IntroTech each opened production lines under the illegally sold licenses. United Outworlders Corporation and Taurus Territorial Industries later added the Lightning to their manufacturing rosters, extending the design's reach deep into the Periphery. CCAF management, operating under supplemental contracts, subsequently opened an additional Tengo plant on St. Ives to stabilize Capellan production.</p><p>The Star League era saw brief production of a Royal variant at several facilities, configured for SLDF service with advanced systems. The Amaris Coup interrupted those lines before the design could establish itself, and the technology required for the Royal variant was largely lost during the Succession Wars. The Lightning continued in its standard form throughout that conflict, its broad manufacturing base providing steady availability even as other designs suffered critical parts shortages. The Jihad later prompted faction-specific upgrades at most surviving plants, collectively expanding the Lightning's roster of active configurations.</p>
+</history>
+
+<manufacturer>
+Tengo Aerospace|Lockheed/CBM Corp.|Lycomb-Davion IntroTech
+</manufacturer>
+
+<primaryFactory>
+Sarna|Tharkad|New Avalon
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Hildco
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Endicott
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Aerospace Type 4
+ENGINE:Unknown XL
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Type 22 Master
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:OK
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

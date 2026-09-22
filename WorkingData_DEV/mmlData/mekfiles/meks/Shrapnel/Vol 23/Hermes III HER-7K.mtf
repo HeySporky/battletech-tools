@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd11-7c29-8a16-2a9774314824
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hermes III
+model:HER-7K
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3151
+source:Shrap23
+published:ShrapRS
+rules level:2
+role:Sniper
+
+quirk:easy_maintain
+quirk:imp_com
+
+mass:40
+engine:240 XL Engine(IS)
+structure:IS Standard
+myomer:Standard
+
+heat sinks:12 IS Double
+walk mp:6
+jump mp:0
+
+armor:Heavy Ferro-Fibrous(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:14
+RT armor:14
+CT armor:17
+HD armor:9
+LL armor:14
+RL armor:14
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:2
+ER Large Laser, Left Torso
+ER Large Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+CLERLargeLaser
+Supercharger
+IS Heavy Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+CLERLargeLaser
+ISTargeting Computer
+ISTargeting Computer
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAngelECMSuite
+ISAngelECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISC3SlaveUnit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hermes III designation originally applied to the Draconis Combine's HER-4K variant of the Hermes II, but Luthien Armor Works' extensive post-Jihad upgrades have effectively created a new chassis bearing the same name. Built from salvaged HER-4K frames recovered from militias and scrapyards across the Combine, these modernized 'Mechs incorporate advanced technology that transforms the aging scouts into capable contemporary reconnaissance platforms.</p><p>Luthien Armor Works' involvement reflects the DCMS's urgent need to reconstitute its reconnaissance forces following the devastating losses of the Jihad. Rather than waiting for new construction, LAW's engineers developed comprehensive refit packages that could rapidly return damaged Hermes III frames to frontline service while dramatically improving their combat capabilities.</p>
+
+capabilities:<p>The upgraded Hermes III retains the original's role as a heavy scout and skirmisher while significantly enhancing its combat potential. The refitted snub-nose PPCs provide effective firepower within 270 meters, offering pilots a measure of parity against contemporary medium 'Mechs without the range disadvantages of the original's large lasers. The sacrifice of the traditional flamer for an additional hand actuator improves the 'Mech's ability to manipulate objects during extended operations, a practical consideration for reconnaissance units operating far from supply lines.</p><p>Advanced electronics distinguish the modernized Hermes III from its predecessor. The proven Irian E.A.R. communications system receives upgrades including Guardian ECM integration and C3 slave capability, allowing the 'Mech to coordinate with Combine tactical networks while providing electronic countermeasures protection. The Cat's Eyes targeting computer enhances accuracy, partially compensating for the snub-nose PPCs' reduced effective range compared to standard particle cannons.</p><p>The chassis itself receives attention, with an Irian-Ost-LAW hybrid frame incorporating improvements developed through the partnership between the original manufacturer and its Combine counterpart. A GM 240 XL engine maintains the design's mobility while Samarkand Royal Heavy ferro-fibrous armor provides improved protection without excessive weight penalties.</p>
+
+deployment:<p>Luthien Armor Works' newest Hermes III variant addresses longstanding criticisms of the design's speed relative to dedicated light scouts. A supercharger provides burst acceleration capability, while a Bloodhound probe and Angel ECM offer formidable electronic warfare capabilities superior to the standard Guardian suite. Twin Clan-specification ER large lasers (reportedly acquired from dwindling Nova Cat stocks) provide extended-range firepower that restores the engagement envelope the snub-nose PPCs of the 6K variant sacrificed. LAW hopes this configuration will prove the definitive version of the Hermes III chassis.</p>
+
+history:<p>The original Hermes III emerged during the First Succession War when Ostmann Industries' Kuritan branch recognized the potential in Hermes II chassis imported under the Concord of Kapteyn. Their engineers transformed these Free Worlds League scouts into energy-focused strikers that eliminated ammunition dependency, creating a variant that proved popular enough to receive its own designation despite being built on the same forty-ton frame.</p><p>The Jihad's devastation of DCMS reconnaissance forces created urgent demand for capable scout platforms. Rather than waiting for new construction to fill the gap, Luthien Armor Works recovered damaged and abandoned HER-4K frames from across the Combine, developing comprehensive upgrade packages that could rapidly return these veterans to service. The New Samarkand Refit Facility became the primary center for this work, processing salvaged chassis and upgrading them to contemporary standards.</p><p>The upgraded Hermes III received its first combat test on Mualang in 3084 during a Ghost Bear incursion. Elements of the First Sword of Light's Third Battalion deployed several HER-6Ks on a flanking maneuver that surprised the Ninth Provisional Garrison Cluster, demonstrating the modernized design's reconnaissance and fire support capabilities. The engagement marked the end of serious Ghost Bear offensive operations on the world.</p><p>Subsequent deployments during the Second Combine-Dominion War further validated the design. At Trondheim in 3100, Hermes IIIs from the Eleventh Ghost were among the first 'Mechs to reach the ground during heavily contested combat drops, using their C3 integration to direct fire support while still descending. Luthien Armor Works continues developing new variants, with the HER-7K representing their latest effort to create the definitive version of this venerable chassis.</p>
+
+manufacturer:New Samarkand Refit Facility
+
+primaryfactory:New Samarkand
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Irian-Ost-LAW
+systemmode:CHASSIS:Chassis Class 40a
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:240 XL
+systemmanufacturer:ARMOR:Samarkand Royal
+systemmode:ARMOR:Heavy Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Unknown with Angel ECM and Bloodhound Probe
+systemmanufacturer:TARGETING:Unknown

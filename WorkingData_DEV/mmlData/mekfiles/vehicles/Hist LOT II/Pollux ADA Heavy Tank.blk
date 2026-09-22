@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e918-71e8-9534-1fbe87b54ad5
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Pollux ADA Heavy Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6779
+</mul id:>
+
+<year>
+2710
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<quirks>
+trailer_hitch
+anti_air
+imp_sensors
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+24
+24
+24
+11
+24
+</armor>
+
+<Body Equipment>
+ISSniperAmmo
+ISSniperAmmo
+ISSniperAmmo
+IS LB 10-X Cluster Ammo
+IS LB 10-X Cluster Ammo
+IS LB 10-X Cluster Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISSmallPulseLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISSniper
+ISLBXAC10
+Medium Laser
+</Turret Equipment>
+
+<capabilities>
+<p>The Pollux ADA tank's firepower centers on a modified GAD-14 turret reconfigured for crewed vehicle operation. The turret mounts a Hegemony Arms DAT/96 Sniper tube artillery cannon adapted for flak munitions alongside a Blankenburg LB 10-X autocannon, allowing the crew to engage airborne targets across multiple range bands. The elevation modifications required for effective anti-air use involved significant reworking of both weapons, particularly the long Sniper barrel, and the resulting configuration reduced the tank's effectiveness in conventional ground-to-ground engagements. A Maxell DW medium laser provides intermediate-range point defense, while a front-mounted Starflash Plus small pulse laser covers the immediate close-in zone against strafing fighters. Six tons of ammunition storage supports sustained anti-air operations.</p><p>Because the ADA tank cannot access the SDS network's sensor feeds as stationary emplacements can, Hadley's engineers required a standalone sensor solution. After evaluating multiple options including the widely used Garrett systems, they selected the Sylix Systems GSL 'Evil Eye' series II, which provides simultaneous tracking and engagement solutions for scores of airborne and ground-based targets. The tank's General Motors 225-rated fusion engine delivers a cruising speed suitable for repositioning within a defensive network. Six tons of Grumman-5 ferro-fibrous armor provides adequate protection against weapons typical of fighters and light aerospace craft, though the tank was not designed to withstand sustained fire from heavy ground combatants.</p>
+</capabilities>
+
+<overview>
+<p>The Pollux Air Defense Artillery tank emerged from the Star League's ambitious Space Defense System program, which required not only orbital infrastructure but an extensive network of ground-based sensors, batteries, and communications nodes spread across the Terran Hegemony. Recognizing that these installations would be prime targets for enemy aerospace assets, the Star League awarded Hadley, Incorporated a contract to develop a mobile anti-air platform capable of defending SDS ground components. Hadley partnered with General Motors, one of the Inner Sphere's largest combat vehicle manufacturers, to develop a tracked chassis suited to the role while its own engineers adapted an existing automated turret design for crewed operation. First Lord Jonathan Cameron backed the program publicly and pledged to deploy batteries of these tanks across every Hegemony world. Production began at the Hadley-General Motors facility on Pollux in 2710.</p>
+</overview>
+
+<deployment>
+<p>The Pollux ADA tank was assigned to both Star League Defense Force Air Defense Artillery battalions and Hegemony planetary garrison ADA batteries, serving as the mobile component of the ground-based Space Defense System protection network. Standard doctrine positioned batteries of Pollux tanks around key SDS installation sites, where they operated alongside stationary emplacements to provide overlapping coverage against enemy fighters and aerospace craft. Their dual-mode weapons allowed crews to engage ground targets with indirect artillery fire during lulls in air threats, making the vehicles useful beyond their primary ADA mission. SLDF ADA doctrine called for the vehicles to reposition frequently to complicate enemy targeting of coverage zones.</p>
+</deployment>
+
+<history>
+<p>Production of the Pollux ADA tank began in 2710 at the joint Hadley, Incorporated and General Motors facility on Pollux, following years of development prompted by complaints from Hegemony worlds that lacked adequate ground-based air defense under the Space Defense System. From the outset, the SLDF managed distribution of the new vehicles carefully. Rather than fully equipping garrison ADA units as the Hegemony government expected, the Star League Defense Force quietly allocated deliveries on a 50/50 basis between existing regular SLDF ADA formations and the planetary batteries it was publicly building up. To conceal this arrangement, commanders publicized the delivery of a small number of tanks to each world, then staged prominent joint training exercises featuring garrison Polluxes operating alongside regular army units, creating the impression of larger garrison allocations than actually existed.</p><p>This distribution arrangement held for nearly a decade before unraveling in 2718, when Commanding General Fredasa was directly confronted by the governor of Ankaa. The governor, a former SLDF regular and reserve officer, recognized the pattern. Following the exposure, deliveries to planetary garrisons increased substantially for the next two decades, and the SLDF's own annual allocations were reduced to minimal levels. In the years leading up to the Periphery Uprising, General Aleksandr Kerensky quietly transferred large numbers of the ADA tanks from garrison duty into the regular army, in some cases moving entire batteries. These vehicles served extensively in Periphery operations before returning to the Inner Sphere, where the survivors eventually found themselves fighting the threat they had been designed to defeat during the Amaris Civil War.</p><p>Production on Pollux continued through the early Succession Wars as the planet's political status shifted from Terran Hegemony control to independence and eventually Free Worlds League jurisdiction, but output had ceased well before Pollux was absorbed into the FWL. No Inner Sphere producer revived the design, and the Pollux ADA tank gradually disappeared from active inventories through combat loss and parts exhaustion.</p>
+</history>
+
+<manufacturer>
+Hadley, Inc./General Motors
+</manufacturer>
+
+<primaryFactory>
+Pollux
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:General Motors
+ENGINE:GM
+ARMOR:Grumman
+COMMUNICATIONS:QingShi
+TARGETING:Sylix Systems
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:225
+ARMOR:Grumman-5
+COMMUNICATIONS:CommStar 7
+TARGETING:GSL 'Evil Eye' series II
+</systemModels>
+
+<source>
+His:LoT2
+</source>
+
+<published>
+His:LoT2
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

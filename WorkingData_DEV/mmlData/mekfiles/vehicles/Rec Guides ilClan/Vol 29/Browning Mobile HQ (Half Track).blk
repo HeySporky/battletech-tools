@@ -1,0 +1,152 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e9d6-719b-8a02-67da557995ea
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Browning Mobile HQ
+</Name>
+
+<Model>
+(Half Track)
+</Model>
+
+<mul id:>
+9386
+</mul id:>
+
+<year>
+2635
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<quirks>
+difficult_maintain
+imp_com
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+15
+15
+15
+15
+12
+</armor>
+
+<Body Equipment>
+Communications Equipment:SIZE:4.0
+ISGuardianECMSuite
+ISCASE
+ISAMS Ammo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISAntiMissileSystem
+</Turret Equipment>
+
+<capabilities>
+<p>The Browning retains four tons of communications equipment, enough to coordinate regiment-level operations and maintain satellite links without the full battle computer suite of the heavier Mobile HQ. A Guardian ECM Suite provides electronic warfare protection, jamming enemy targeting systems and shielding nearby friendly units from advanced munitions. A McArthur Anti-Missile System offers point defense against incoming missiles, with its ammunition bay protected by CASE to prevent a catastrophic kill if the magazine is breached.</p><p>Powered by an Omni 130 fusion engine, the Browning achieves a brisk top speed of 97 km/h, making it one of the fastest command vehicles in service. StarSlab/3 armor provides reasonable protection for a vehicle of its weight class, though commanders are well advised to keep the Browning behind the front lines. The vehicle carries no offensive weaponry, relying entirely on its speed and electronic defenses for survival. The Bowman CommSet with integrated Guardian ECM and Wayne SweepSight targeting system provide a comprehensive electronic picture of the battlefield for the command staff.</p>
+</capabilities>
+
+<overview>
+<p>The Browning Mobile Headquarters was an alternative mobile command vehicle that served alongside the original Star League Defense Force Mobile HQ during the final centuries of the Star League era. Produced by Mitchell Vehicles on Terra, the Browning was designed as a lighter, more accessible command platform for regiment-level and smaller formations. Where the standard Mobile HQ provided theater-level coordination with its seven tons of communications equipment, the Browning carried a reduced but still capable four-ton suite better matched to the needs of combined-arms commanders in the field. Its smaller footprint and simpler construction made it a practical choice for officers who valued tactical flexibility over the comprehensive but fragile capabilities of larger command vehicles.</p>
+</overview>
+
+<deployment>
+<p>The Browning Half-Track is a limited-production variant that replaces the standard wheeled suspension with a half-tracked drivetrain, offering improved mobility on rough terrain at the cost of top speed. Republic forces used this model on worlds where road infrastructure was poor or nonexistent, and the AFFS adopted several during the expansion of former Republic territories. Half-Tracks are rare enough that spotting one usually indicates a formation with Republic heritage or direct access to Mitchell Vehicles' production line.</p>
+</deployment>
+
+<history>
+<p>The Star League Defense Force fielded thousands of regiments across hundreds of worlds, a military establishment of unprecedented scale. Such forces required extensive command and control infrastructure, from the sophisticated Mobile HQ down to simple command vans. The Browning occupied a middle ground, providing capable field coordination without the complexity and expense of the full-sized Mobile HQ. Mitchell Vehicles of Terra produced the Browning alongside other support vehicles, establishing it as a reliable workhorse of SLDF logistics formations.</p><p>The Republic of the Sphere was the primary force behind the Browning's return to the battlefield. Needing greater command capability at every level for its mixed Clan and Inner Sphere force structure, the Republic made the Browning a common sight among its formations. The vehicle proved its worth during the Capellan Crusades and the battles following the Blackout. Following the Republic's contraction, First Prince Julian Davion re-equipped his forces with former Republic supplies, and the Federated Suns became the largest operator of Brownings after the Republic. Further deliveries solidified the Browning's place in AFFS service through the ilClan era. A limited run of Browning Half-Track models was also produced, offering improved rough-terrain mobility at the cost of top speed.</p>
+</history>
+
+<systemManufacturers>
+ENGINE:Omni
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:Bowman
+TARGETING:Wayne
+</systemManufacturers>
+
+<systemModels>
+ENGINE:130 Fusion
+ARMOR:StarSlab/3
+COMMUNICATIONS:CommSet (Echo IX)
+TARGETING:SweepSight
+</systemModels>
+
+<source>
+RG29
+</source>
+
+<published>
+RG29
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+

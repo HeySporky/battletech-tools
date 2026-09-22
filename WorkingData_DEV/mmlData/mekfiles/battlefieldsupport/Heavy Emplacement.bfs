@@ -1,0 +1,46 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid: "019f5efd-5a92-7d48-a718-a6b36869bee6"
+chassis: "Heavy Emplacement"
+model: ""
+assetType: "Emplacement"
+cardTitle: "Heavy"
+cardSubtitle: "Emplacement"
+movement:
+  mp: 0
+  mode: "NONE"
+tmm: 0
+range:
+- 3
+- 6
+- 9
+skill:
+  standard: 5
+  veteran: 4
+damage:
+  perHit: 15
+  hits: 1
+destroyCheck: 10
+threshold: 8
+cost:
+  standard: 13
+  veteran: 15
+specials:
+- "Immobile"
+- "No Turret"
+- "Spotter"

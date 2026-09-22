@@ -1,0 +1,215 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e16b-79f6-a539-fe9094adc2d4
+</UUID>
+
+<UnitType>
+SmallCraft
+</UnitType>
+
+<Name>
+Ares Attack Craft
+</Name>
+
+<Model>
+Mark IX
+</Model>
+
+<mul id:>
+3726
+</mul id:>
+
+<year>
+3077
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:0.0:0:-1::-1:0
+crewquarters:0.0:0:-1::-1:0
+steeragequarters:20.0:0:-1::-1:0
+cargobay:3.5:1:5::-1:0
+</transporters>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<heatsinks>
+15
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+800
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+159
+118
+118
+81
+</armor>
+
+<Nose Equipment>
+ISLargePulseLaser
+ISERLargeLaser
+</Nose Equipment>
+
+<Left Side Equipment>
+ISMediumPulseLaser
+ISMediumPulseLaser
+</Left Side Equipment>
+
+<Right Side Equipment>
+ISMediumPulseLaser
+ISMediumPulseLaser
+</Right Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Hull Equipment>
+BeagleActiveProbe
+</Hull Equipment>
+
+<structural_integrity>
+11
+</structural_integrity>
+
+<capabilities>
+<p>The Mark IX departs from its landing craft relatives most fundamentally in propulsion. Two engine nacelles replace the single nacelle of the Mark VII, providing a safe thrust of 7 and maximum thrust of 11, giving the craft genuine interceptor performance against aerospace fighters. Weighing 200 tons, the Mark IX carries more than double the mass of the Mark VII, with the additional tonnage distributed across a heavier weapons suite, expanded fuel capacity, and substantially more armor.</p><p>Armament centers on a forward nose battery of a Large Pulse Laser and an ER Large Laser, suited to extended engagement ranges in deep space. Four medium pulse lasers in the wings provide close-range firepower once the craft closes. Fifteen freezer-model heat sinks manage the energy load. A Beagle active probe allows the Mark IX to support friendly fighters by disrupting hostile ECM fields, a capability that proved decisive in the heavily contested electronic warfare environments of the Jihad. Twenty-seven tons of standard armor protect the hull, concentrated at the nose. The craft carries only three tons of cargo, reflecting its exclusively combat-oriented mission. The dual-nacelle propulsion system is the Mark IX's most visually distinctive feature, making it immediately recognizable alongside the single-nacelle landing craft variants.</p>
+</capabilities>
+
+<overview>
+<p>The Ares Attack Craft Mark IX is a deep space escort vessel that emerged from the Jihad, representing a radical departure from the landing craft heritage of its name. Produced by Federated Boeing, the Mark IX was developed as large-scale naval operations expanded during the Jihad and the renewed growth of Inner Sphere WarShip fleets created demand for capable close-escort small craft. The design shares the hull dimensions of the Mark VII family but replaces the single engine nacelle with a dual-nacelle propulsion system that nearly doubles available thrust, and trades the landing craft's cargo utility for a heavily armored, deeply armed combat platform. Introduced in 3077 and proven during the campaign for Terra, the Mark IX subsequently attracted license production from Lyran, Republic, and Draconis Combine manufacturers, extending the Ares lineage into the modern era of Inner Sphere naval warfare.</p>
+</overview>
+
+<deployment>
+<p>The Mark IX is deployed exclusively in naval escort and deep space defense roles, assigned to WarShip flotillas and large DropShip formations rather than ground assault wings. Federated Suns naval forces were the first to integrate it, fitting Mark IXs into Arondight-class WarShip complements during the Jihad. Its dual nacelles and high thrust give it genuine interceptor capability, and the Beagle active probe makes it particularly effective in ECM-heavy environments. Licensed production spread the design to Lyran, Republic, and Combine fleets in the post-Jihad era, and all four major naval powers continue to operate it into the ilClan period. The Mark IX is rarely encountered in planetary assault roles, its three-ton cargo bay making it unsuitable for the transport missions that define the rest of the Ares family.</p>
+</deployment>
+
+<history>
+<p>The Mark IX traces its origins to the Mk.III Assault Craft of 2451, the dedicated fighter-engagement branch of the original Ares family. IncStar Dynamics built the three-branch family on a single common hull: the Mk.I as the long-range landing craft, the Mk.II as the close attack landing craft, and the Mk.III as the assault craft. All three operated together in HAF wings through the Age of War and into the Star League period before the family was gradually replaced by lighter successor frames from 2476 onward.</p><p>The Star League's collapse ended the Ares lineage in its original form. IncStar Dynamics dissolved during the First Succession War after dropping the Ares name as the collapse of the Ares Conventions made the designation politically awkward. The long-range landing craft branch survived in the form of the Mark VII, which entered production by 2824 and spread across the Inner Sphere under multiple manufacturers. The close attack landing craft branch had no direct successor. The assault craft branch went entirely dormant, with no active production line carrying the Mk.III's fighter-engagement mission forward.</p><p>Universal Air maintained the Ares design archives through the Succession Wars and the Clan Invasion era. After Universal Air merged with Federated Boeing, the combined company possessed both the manufacturing capacity and the institutional knowledge to revisit the dormant assault craft branch. The catalyst arrived with the Jihad and the resurgence of large-scale WarShip operations demanding capable close-escort small craft. Universal Air restarted Ares attack craft production in 3066, and Federated Boeing introduced the substantially upgraded Mark IX in 3077. The Mark IX's combat debut during the campaign for Terra proved the revival, with Federated Suns Arondight crews deploying the design against Word of Blake CASPAR II drone control ships. Its Beagle active probe disrupted hostile ECM coverage and cleared targeting solutions for follow-on Coalition strikes. License production followed to Lyran, Republic, and Draconis Combine manufacturers, reuniting all three surviving lines of the Ares family under active production for the first time since the Star League era.</p>
+</history>
+
+<manufacturer>
+Federated-Boeing Interstellar Ltd.|Johnston Industries|Lockheed/CBM Corp.|Tomori Trans Industrial
+</manufacturer>
+
+<primaryFactory>
+Delavan|Addicks|Furillo|Chatham
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<tonnage>
+200.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+4
+</crew>
+
+<officers>
+1
+</officers>
+
+<gunners>
+1
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

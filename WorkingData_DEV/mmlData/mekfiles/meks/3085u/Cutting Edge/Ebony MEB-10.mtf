@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf85-71ef-a9c5-ea992e258e85
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Ebony
+model:MEB-10
+mul id:940
+
+Config:Biped
+techbase:Inner Sphere
+era:3081
+source:TR:3085
+published:RS:3085u-CE
+rules level:2
+role:Scout
+
+quirk:imp_target_med
+
+mass:25
+engine:250 XL Engine
+structure:IS Endo Steel
+myomer:Triple-Strength
+cockpit:Small Cockpit
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+walk mp:10
+jump mp:0
+
+armor:Stealth(Inner Sphere)
+LA armor:8
+RA armor:8
+LT armor:10
+RT armor:10
+CT armor:12
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:1
+ER Large Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Sword
+Sword
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERLargeLaser
+ISERLargeLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGuardianECMSuite
+ISGuardianECMSuite
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Ebony is a covert operations light BattleMech first appearing in 3081 as a joint product of the Magistracy of Canopus and the Capellan Confederation. Named for the secretive Ebon Magistrate (the Magistracy Intelligence Ministry's ultra-elite covert operations branch) the 25-ton design emerged shrouded in mystery, with even its manufacturing origins initially unknown to foreign intelligence agencies. Jointly produced at Majesty Metals and Manufacturing on Canopus IV and Hellespont 'Mech Works on Sian, the Ebony was designed from the ground up as an intelligence-gathering and surgical strike platform. Leveraging advanced stealth technology and extraordinary speed, the design infiltrates enemy positions while remaining virtually invisible on sensors. Despite limited production numbers, the Ebony quickly established itself as a feared covert operator along the Capellan-Republic border.</p>
+
+capabilities:<p>A massive Magna 250 extralight engine propels the 25-ton Ebony to a cruising speed of 108 kph, placing it among the fastest BattleMechs in production. When running hot enough to activate its triple-strength myomer, the design achieves sustained speeds exceeding 180 kph, making pursuit virtually impossible. The Ebony's sole weapon is a Ceres Arms Thrasher snub-nose PPC, providing highly accurate firepower to a range of 270 meters with maximum engagement out to 450 meters. The Majesty MLIX endo steel chassis keeps structural weight to a minimum, maximizing combat payload.</p><p>Five and a half tons of Hellespont Light Stealth armor, powered by an integrated Guardian ECM suite, renders the 'Mech extremely difficult to detect and target. The ECM system also disrupts hostile C3 networks and electronics across a substantial area. Ten double-strength heat sinks manage the thermal load from the stealth armor, PPC, and myomer systems, though activating TSM requires careful heat management by the MechWarrior. While the single weapon limits sustained firepower, the Ebony's combination of stealth, speed, and precision striking creates a formidable covert combatant that excels at hit-and-run operations.</p>
+
+deployment:<p>Introduced in 3081, this Capellan-oriented modification replaces the snub-nose PPC with an ER large laser, extending effective engagement range considerably. A Capellan-styled dao sword mounted in the left arm provides a devastating melee capability, particularly lethal when combined with active triple-strength myomer. An additional half-ton of armor improves survivability, though these enhancements required exchanging the standard cockpit for a small model, creating somewhat cramped conditions for the pilot. McCarron's Armored Cavalry fields this variant alongside the base model in many of its reconnaissance lances.</p>
+
+history:<p>The origins of the Ebony are inseparable from the shadowy Ebon Magistrate, the Magistracy of Canopus's ultra-elite covert operations branch that first surfaced shortly before the Jihad. While the Ebon Magistrate's activities remain largely shrouded in secrecy, its namesake 'Mech appeared in both the Magistracy Armed Forces and the Capellan Confederation Armed Forces beginning in 3081, confirming at minimum the existence of the organization.</p><p>The circumstances surrounding the Ebony's development remain an enigma. Canopus IV suffered significant damage during the Word of Blake occupation, which lasted until late 3075. Intelligence analysts debated how Majesty Metals could have constructed a new manufacturing line and repaired existing facilities within six years, even with substantial Capellan assistance. Various theories persist, ranging from hidden pre-war facilities on Canopus IV to primary construction occurring within the Confederation itself, with the use of Capellan stealth armor on a Magistracy design lending credence to the latter possibility.</p><p>On the Capellan front, intelligence services confirmed construction at Hellespont 'Mech Works on Sian but found deployment patterns considerably harder to track. The Ebony remained especially rare in most Warrior Houses during its early years of service. Significantly, the design was not spotted along the borders of Prefectures V and VI during the tense standoff between the Republic of the Sphere and the Confederation, fueling theories that Capellan forces were being marshaled for eventual military action to reclaim worlds lost during the Blakist occupation.</p><p>In the Magistracy, the Ebony found its way into elite formations including the Magistracy Royal Guard, Chasseurs á Cheval, and Canopian Fusiliers. McCarron's Armored Cavalry adopted both the MEB-9 and MEB-10 in reconnaissance lances, further cementing the design's role as a front-line intelligence asset. Within the Warrior Houses, deployment remained limited, with House Imarra receiving confirmed shipments while other surviving Houses were believed to be receiving units as production expanded.</p><p>As technology advanced through the Dark Age, the Ebony platform proved adaptable enough to incorporate new weapons systems. The MEB-12 field refit emerged around 3118, introducing TSEMP technology to the chassis, while the factory-produced MEB-13 of 3137 represented a more radical departure with re-engineered laser technology and heat-dissipating armor. These later variants demonstrated the continued relevance of the Ebony even as its role evolved from pure covert operations to broader light combat applications. Production continues at both original facilities, ensuring the design remains a fixture in Canopian and Capellan light 'Mech formations.</p>
+
+manufacturer:Majesty Metals & Manufacturing|Hellespont 'Mech Works
+
+primaryfactory:Canopus IV|Sian
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Majesty
+systemmode:CHASSIS:MLIX Endo Steel
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:250 XL
+systemmanufacturer:ARMOR:Hellespont
+systemmode:ARMOR:Light Stealth
+systemmanufacturer:COMMUNICATIONS:Majesty
+systemmode:COMMUNICATIONS:COMSET with Guardian ECM
+systemmanufacturer:TARGETING:Majesty
+systemmode:TARGETING:032-199

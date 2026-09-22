@@ -1,0 +1,365 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ee1d-79b7-b4e8-d5d5ff071beb
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Narukami Destroyer
+</Name>
+
+<Model>
+(Block II)
+</Model>
+
+<mul id:>
+6991
+</mul id:>
+
+<year>
+2770
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:53600.0:2:1::-1:0
+asfbay:12.0:6:2::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:400.0:0:-1::-1:0
+smallcraftbay:2.0:2:7::-1:0
+crewquarters:1435.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+1300
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+10000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+11
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+75
+75
+75
+65
+70
+70
+</armor>
+
+<Nose Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/30)
+Ammo NAC/20:100
+Ammo NAC/30:50
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/30)
+Ammo NAC/20:100
+Ammo NAC/30:50
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+PPC
+PPC
+PPC
+PPC
+PPC
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/30)
+Ammo NAC/20:100
+Ammo NAC/30:50
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/30)
+Ammo NAC/20:100
+Ammo NAC/30:50
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:100
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:100
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+</Right Broadsides Equipment>
+
+<structural_integrity>
+50
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 670,000 tons, the Narukami mounted a devastating capital weapons suite centered on heavy and medium naval particle projector cannons in the forward arcs, complemented by naval autocannons distributed across every firing arc. The broadside batteries carried the heaviest caliber guns, while fore and aft quarter arcs mounted lighter autocannons for sustained engagement at multiple angles. A substantial secondary battery of standard-scale energy weapons provided close-range defense across all arcs. The vessel carried three docking collars and maintained a crew of approximately three hundred, supported by two large gravity decks and over fifty thousand tons of cargo capacity.</p><p>The Narukami's acceleration profile was exceptional for a destroyer, with its oversized maneuvering drive delivering thrust that outperformed contemporaries such as the Lola I-class. However, this power came at a significant cost. The drive pushed the hull beyond its structural limits, causing chronic stress fractures and engine failures that plagued the class throughout its operational life. These maintenance demands made the Narukami prohibitively expensive to operate during peacetime, an ironic weakness for a vessel that proved devastating in combat. The original configuration carried adequate armor for the era and dedicated its bay space entirely to small craft. The Block II revision introduced advanced armor materials, replaced the small craft complement with a twelve-fighter wing, and upgraded the secondary battery to heavier energy weapons, transforming the Narukami into a more self-sufficient combatant.</p>
+</capabilities>
+
+<overview>
+<p>The Narukami-class destroyer holds the distinction of being the first WarShip designed and manufactured entirely within the Draconis Combine. Built by Tengoku no Ken Master Shipwrights of Mizunami, the class reflected the Combine's doctrine of concentrating on smaller, harder-hitting vessels rather than competing with the larger navies in heavy capital ship production. Entering service in the late twenty-fourth century, the Narukami was designed as a swift killer, capable of outrunning whatever it could not outfight. The class earned a fearsome reputation among both allies and adversaries, and remained one of the most effective destroyer designs ever fielded by an Inner Sphere navy. For a nation with a relatively modest shipbuilding base, the Narukami proved that the Combine could produce vessels to rival any power's finest.</p>
+</overview>
+
+<deployment>
+<p>The DCS Omodaka demonstrated the tactical cunning that characterized Combine naval operations during the First Succession War. At Cartago in May 2788, the vessel had concealed itself behind the planet, evading detection by the incoming AFFS task force led by First Prince John Davion himself. When the Davion forces began their retreat, the Omodaka emerged to join two Baron-class destroyers in pursuit. The ensuing chase turned the withdrawal into a running battle that cost the Federated Suns the destroyer FSS Duke Henry before the remaining Davion vessels could escape.</p><p>The DCS Showakusei served as part of the Combine's garrison at Robinson, paired with the Samarkand II-class carrier DCS New Samarkand. When AFFS forces arrived to liberate Robinson in March 2814, the Showakusei engaged a pair of Davion II-class destroyers, the FSS Duke Alexander and FSS Sarah Davion. In the ensuing engagement, the Showakusei managed to cripple the Sarah Davion before being overwhelmed and destroyed, one of the last Narukami-class vessels to fall in combat.</p>
+</deployment>
+
+<history>
+<p>The Narukami-class destroyer entered service in 2380, marking the Draconis Combine's emergence as an independent WarShip-building power. Unable to compete with the Terran Hegemony in heavy capital ship construction, the DCA instead commissioned Tengoku no Ken Master Shipwrights on Mizunami to produce a destroyer that could punch well above its displacement. The gamble paid off, and the Narukami quickly earned a reputation as one of the most lethal vessels in its weight class.</p><p>The first generation saw action during the Reunification War before the class's chronic mechanical unreliability forced the DCA to begin decommissioning vessels during the Star League's peak years. The Narukami's exceptional performance came at a steep price in maintenance hours and replacement parts, and the DCA ultimately found it more economical to mothball the class and resort to purchasing secondhand Hegemony designs. By 2765, only six operational vessels remained, all assigned to the Pesht-based fleets where proximity to shipyard facilities could address their frequent mechanical issues.</p><p>The repeal of the Council Edict of 2650 prompted the Combine to revisit the design. The resulting Block II vessels, unveiled after Kerensky's liberation of Terra, incorporated improved protective systems, redesigned flight decks, and an upgraded weapons suite. These second-generation vessels, alongside Samarkand II carriers, formed the backbone of the resurgent Combine navy as the Succession Wars began.</p><p>Narukami-class destroyers saw extensive service throughout the First Succession War, participating in major fleet actions across both the Federated Suns and Lyran Commonwealth fronts. Combine admirals employed them as fast strike platforms, using their speed and firepower to devastating effect in ambushes, pursuit actions, and fleet screening operations. At Luthien, a trio of Narukamis ambushed the Lyran Tamar Tigers, emerging from the planet's sensor shadow on both flanks while a third materialized near the Tigers' JumpShip transports, destroying the Mako escorts and scattering the invasion force. The class proved particularly effective when operating in pairs or small groups, where their combined capital weapons could threaten vessels of significantly greater displacement.</p><p>Ultimately, it was economics rather than enemy action that ended the Narukami's service. With the Combine's fragile industrial infrastructure shattered during the wars, maintaining these temperamental vessels became financially impossible. The surviving hulls were mothballed and endured for decades in reserve. When the Clan Invasion prompted attempts to reactivate them in the 3060s, inspectors found that both the maneuvering drives and jump cores had deteriorated beyond salvage. The last venerable Narukamis were scrapped before the onset of the Jihad, closing a service history that had spanned nearly four centuries.</p>
+</history>
+
+<manufacturer>
+Tengoku no Ken Master Shipwrights Ltd.
+</manufacturer>
+
+<primaryFactory>
+Mizunami
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Tengoku no Ken Master Shipwrights Ltd.
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Ferro-Carbide
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Destroyer
+</use>
+
+<length>
+610 m
+</length>
+
+<height>
+1100 m Sail
+</height>
+
+<source>
+FR:2765-DCMS
+</source>
+
+<tonnage>
+670000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+200
+200
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+279
+</crew>
+
+<officers>
+40
+</officers>
+
+<gunners>
+45
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+45
+</escape_pod>
+

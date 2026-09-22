@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d3ca-7cbe-9fce-2ba77ce78e00
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Tiburon
+model:
+mul id:6552
+
+Config:Biped
+techbase:Clan
+era:3099
+source:TR:3145:Merc,TR:DA
+published:RS:DA
+rules level:2
+role:Striker
+
+quirk:multi_trac
+
+mass:35
+engine:245 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:15 Clan Double
+walk mp:7
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:11
+RA armor:11
+LT armor:11
+RT armor:11
+CT armor:17
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:8
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Small Laser, Left Torso
+SRM 2, Left Torso
+ER Small Laser, Right Torso
+SRM 2, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERMediumLaser
+CLERMediumLaser
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERMediumLaser
+CLERMediumLaser
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERSmallLaser
+CLSRM2
+Clan Ammo SRM-2
+CLCASEII
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERSmallLaser
+CLSRM2
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+WatchdogECMSuite
+WatchdogECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLTargeting Computer
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Tiburon is a 35-ton Clan light BattleMech produced by Trellshire Heavy Industries on Twycross for Clan Sea Fox. Named for a large Terran shark found in the Caribbean, the design evokes the Clan's predatory heritage dating back to their Diamond Shark identity. First entering service in 3099, the Tiburon was developed during a period when the Clan was transforming from a decimated, centralized military power into a nomadic, spacefaring society of warrior-merchants. Unlike most Sea Fox military hardware, the Tiburon was not offered for sale to other factions, remaining exclusively in the hands of Sea Fox warriors. Fast and well-armed for its weight class, the design fills both scout and attack roles within Sea Fox light Stars across the Khanates.</p>
+
+capabilities:<p>The Tiburon packs considerable firepower into a compact frame. Four Series 6b extended-range medium lasers provide its primary striking power, split between both arms, while a pair of Series 6c extended-range small lasers and two Pattern Alpha SRM-2 launchers offer additional close-range punch. All lasers are linked to the Multi-Spread 9 targeting computer, significantly improving accuracy and making the Tiburon a dangerous opponent in any engagement. In keeping with Clan Sea Fox's mercantile tendencies, most of the Tiburon's weapons are concealed behind retractable panels, giving the design a deceptively nonaggressive appearance until the moment of engagement.</p><p>A Watchdog CEWS integrated with the Able-Seven Sensor Suite gives the Tiburon powerful electronic warfare capabilities, disrupting enemy targeting and communications while extending the pilot's detection range. Built on an NCIA Type N endo steel frame and powered by a Standard 245 XL engine, the Tiburon reaches speeds near 120 km/h, outrunning most BattleMechs it encounters. Alpha Compound ferro-fibrous armor provides solid protection for a light design, and a CASE II system ensures that an ammunition explosion from the SRM reloads will not destroy the BattleMech outright. The design trades jump capability for raw speed and firepower, leaving it vulnerable if terrain prevents it from using its mobility advantage.</p>
+
+deployment:<p>The Tiburon is common in Sea Fox light Stars, appearing among warrior-merchants across all five Khanates. The retractable weapon panels only deploy when the pilot commits to engagement, allowing the Tiburon to move through populated areas and trade corridors without provoking alarm. This feature proves particularly valuable in the Clan's mercantile operations, where warrior-merchants often conduct business in potentially hostile environments.</p><p>In September 3135, Epsilon Aimag deployed Tiburons during operations against pirates threatening the Spina Khanate's assets between the Rim Commonality and the Regulan Fiefs. OvKhan Gar Labov moved his Aimag to the Kogl system under cover of a trade mission, using merchant contacts and the Watch to locate a pirate base in the Duchy of Tamarind-Abbey. Labov led two Sea Fox Clusters to the base, sending his heavier forces against the pirate defenders while personally leading lighter, faster BattleMechs around the defenders' flank. The survivors and the base surrendered, and evidence recovered implicated senior Kogl government officials in the piracy, allowing Epsilon Aimag to negotiate favorable trading concessions.</p>
+
+history:<p>The Tiburon emerged from Clan Sea Fox's transformation during the early thirty-second century. As the Clan abandoned fixed territorial holdings in favor of a nomadic, trade-based existence among the stars, new military hardware was needed to reflect this shift in doctrine. The former Diamond Sharks, recently renamed Clan Sea Fox, commissioned Trellshire Heavy Industries on Twycross to develop a fast, lethal BattleMech suited for the hit-and-run engagements that would characterize their new way of life.</p><p>The Twycross facility had a long and turbulent history before the Tiburon entered production. Originally a Lyran Commonwealth factory producing Stalkers, BattleMasters, and Riflemen, the plant passed through the hands of the Federated Commonwealth, Clan Steel Viper, and Clan Jade Falcon before the Diamond Sharks secured control during the Civil War era. The factory suffered significant damage during the Bloody Tricentennial attacks of late 3080, but the Clan invested heavily in rebuilding the facility. By the time production began in 3099, the refurbished plant had become a key asset in the Clan's military-industrial portfolio.</p><p>The Tiburon's exclusivity to Sea Fox warriors was unusual for a Clan that made its fortune selling military goods to any willing buyer. This policy reflected the Clan's desire to maintain a technological edge over its trading partners and potential adversaries. In an era when most Sea Fox military encounters involved Trials of Possession with other Clans seeking to take goods by force rather than commerce, the Tiburon's combination of speed, electronic warfare capability, and concentrated firepower proved invaluable. The design saw widespread deployment across all five Khanates, becoming a staple of light formations. By the ilClan era, the Alyina Mercantile League had assumed oversight of the Twycross production line, continuing to supply Sea Fox forces with this exclusive design.</p>
+
+manufacturer:Trellshire Heavy Industries
+
+primaryfactory:Twycross
+
+fluffdate:2026-03-12 18:03:23
+
+systemmanufacturer:CHASSIS:NCIA
+systemmode:CHASSIS:Type N Endo Steel
+systemmanufacturer:ENGINE:Standard
+systemmode:ENGINE:245 XL
+systemmanufacturer:ARMOR:Alpha Compound
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Able-Seven
+systemmode:COMMUNICATIONS:Sensor Suite
+systemmanufacturer:TARGETING:Multi-Spread
+systemmode:TARGETING:9

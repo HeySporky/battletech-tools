@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d784-7c6a-9009-45caf12d6f9c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Stinger IIC
+model:2
+mul id:5136
+
+Config:Biped
+techbase:Clan
+era:3086
+source:TR:Proto
+rules level:4
+role:Scout
+
+quirk:cramped_cockpit
+quirk:difficult_eject
+quirk:combat_computer
+
+mass:20
+engine:100 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Clan)
+LA armor:6
+RA armor:6
+LT armor:7
+RT armor:7
+CT armor:8
+HD armor:7
+LL armor:8
+RL armor:8
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:3
+Improved Heavy Medium Laser, Left Arm
+Improved Heavy Large Laser, Right Arm
+Improved Heavy Medium Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLImprovedMediumHeavyLaser
+CLImprovedMediumHeavyLaser
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLImprovedHeavyLargeLaser
+CLImprovedHeavyLargeLaser
+CLImprovedHeavyLargeLaser
+CLImprovedMediumHeavyLaser
+CLImprovedMediumHeavyLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Left Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+Jump Jet
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+Jump Jet
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Stinger IIC emerged from the formal unification of the Outworlds Alliance and Clan Snow Raven into the Raven Alliance. Constant border struggles with the Draconis Combine had depleted both parties' scout forces, and with limited light 'Mech production capabilities in the Inner Sphere, the Ravens faced difficult choices. Johann Eshei, CEO of Alliance Defenders Limited, proposed a solution that would serve as both practical military asset and symbol of the deep bond between the Snow Ravens and their Outworlds partners.</p><p>By upgrading ADL's existing Stinger production facilities to Clan standards, both Clan warriors and Periphery pilots would receive a capable reconnaissance platform. The venerable Inner Sphere design would gain Clan technology sufficient that warriors would not consider it beneath them to pilot. The Raven Alliance Council approved the project with strict oversight, though the speed of implementation demonstrated growing trust between Outworlds citizens and the warrior-dominant Ravens. Beyond combat effectiveness, the Stinger IIC succeeded as a unifying symbol, embraced by warriors on both sides of the alliance.</p>
+
+capabilities:<p>The Stinger IIC maintains the original chassis weight at twenty tons while incorporating significant technological improvements. Ground speed remains modest at approximately 100 kilometers per hour (relatively slow for the weight class) but 180 meters of jump capability compensates effectively, enabling rapid repositioning or escape from difficult situations. Three and a half tons of Compound FM3 ferro-fibrous armor provides near-maximum protection for the frame, allowing the IIC to withstand more punishment than most 'Mechs of comparable mass.</p><p>Primary armament consists of twin Series X-a improved heavy medium lasers, weapons that match standard medium laser range while delivering firepower comparable to a PPC. This allows the Stinger IIC to threaten heavier opponents and destroy lighter targets rapidly. However, the improved heavy lasers' powerful capacitors remain unstable and prone to explosion when struck. While CASE mitigates catastrophic ammunition-style detonation, the neurofeedback from capacitor failure remains dangerous to pilots.</p><p>A Sigma-I anti-personnel Gauss rifle in the right arm might appear an afterthought but proves highly effective at dispersing infantry while serving as a backup weapon during heat management. The Nissan 120 engine, SR Starlifter 20 jump jets, and Garret T10B communications system with Tokasha B4 targeting computer round out a well-integrated reconnaissance platform. Raven warriors typically employ the IIC as a scout and fast skirmisher, while Outworlds pilots favor hit-and-run tactics that maximize the jump jet and improved heavy laser combination.</p>
+
+deployment:<p>The sole documented variant sacrifices the anti-personnel Gauss rifle and accepts reduced ground speed to mount an improved heavy large laser. This configuration suffers tremendous heat problems that would cripple sustained operations, but proves ideal for hit-and-run tactics favored by Alliance warriors. The enhanced striking power allows pilots to deliver devastating alpha strikes before jump jets carry them to safety. This variant builds heavily on Outworlds tactical traditions while maintaining Clan-grade firepower.</p>
+
+history:<p>The Stinger IIC's development reflected the evolving relationship between Clan Snow Raven and the Outworlds Alliance following their merger into the Raven Alliance. Border conflicts with the Draconis Combine had reduced both nations' reconnaissance capabilities to critical levels. Traditional Clan procurement would have favored entirely new OmniMech designs, but the Outworlds' industrial base could not support such sophisticated manufacturing.</p><p>Alliance Defenders Limited's proposal to upgrade existing Stinger production lines offered an elegant solution. The company had manufactured STG-3R Stingers for generations, and retooling for Clan-specification components proved faster and more economical than establishing entirely new production. The project received Raven Alliance Council approval with characteristically strict Clan oversight, yet the rapid successful implementation demonstrated how far trust had developed between the warrior caste and their Periphery partners.</p><p>Production splits evenly between Snow Raven line Clusters and native Outworlds militias, with initial shipments to both groups departing Alpheratz simultaneously, a deliberate symbolic gesture. The design has seen extensive deployment in ongoing border struggles with the Draconis Combine. Combine forces, expecting only Snow Raven warriors to continue fighting after the alliance merger, discovered Alliance-born troops operating the new 'Mech during Periphery raids, demonstrating that the Outworlds military had gained genuine capability rather than merely accepting Clan protection.</p><p>The symbolic success matched the tactical achievements. Warriors from both origins embraced the design without the cultural friction that might have accompanied a purely Clan or purely Inner Sphere solution. The Stinger IIC stands as proof that the Raven Alliance merger produced genuine integration rather than simple absorption.</p>
+
+manufacturer:Alliance Defenders Limited
+
+primaryfactory:Alpheratz
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Earthwerks
+systemmode:CHASSIS:STG-EC
+systemmanufacturer:ENGINE:Nissan
+systemmode:ENGINE:120
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:FM3 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:SR
+systemmode:JUMP_JET:Starlifter 20
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T10B
+systemmanufacturer:TARGETING:Tokasha
+systemmode:TARGETING:B4 T&T

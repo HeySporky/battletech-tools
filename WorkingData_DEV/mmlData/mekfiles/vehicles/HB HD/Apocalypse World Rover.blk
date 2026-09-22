@@ -1,0 +1,175 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e8f4-7564-9283-eef7d59681c3
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Apocalypse World Rover
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3705
+</mul id:>
+
+<year>
+2983
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+standardseats:7.0:0:-1::-1:0
+cargobay:0.501:1:2::-1:0
+</transporters>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+48
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+3
+2
+2
+1
+</armor>
+
+<Body Equipment>
+ISOffRoadChassis
+</Body Equipment>
+
+<Front Equipment>
+PintleTurret
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+7
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Apocalypse is a small wheeled support vehicle massing just two metric tons, powered by an internal combustion engine running on petrochemicals. It achieves a cruise speed of 4 movement points and a flank speed of 6, adequate for keeping pace with infantry formations across varied terrain. An off-road chassis and controls modification gives the vehicle meaningful cross-country capability that its civilian counterparts lack.</p><p>Though the Apocalypse carries no fixed weapons, it is equipped with a pintle mount capable of accommodating heavy support weapons up to 80 kilograms in weight, giving crews the flexibility to arm the vehicle with whatever crew-served weapons are available in the field. Armor protection uses BAR 7 composite construction, providing eight points distributed across the hull; three points to the front, two on each side, and one point protecting the rear. This offers meaningful protection against small arms and light support weapons, though it affords minimal defense against heavier military-grade fire. The vehicle seats a crew of one driver alongside up to six passengers, with a 501-kilogram cargo bay accessible through a single rear door.</p>
+</capabilities>
+
+<overview>
+<p>The Apocalypse World Rover is GM/Rowell's military-grade adaptation of their popular civilian World Rover line of wheeled off-road vehicles. Introduced in 2983 to meet a longstanding need among militia, paramilitary, and secondary military forces across the Inner Sphere and Periphery, the Apocalypse addresses the widespread practice of pressing civilian vehicles into military service. Rather than accept the limitations of unmodified commercial vehicles (poor cross-country mobility, no weapons hardpoints, and minimal protection) GM/Rowell engineered the Apocalypse from the outset for the demanding conditions faced by motorized and mechanized infantry units. Available to buyers across all political boundaries, it has become one of the most recognizable light utility vehicles in the known universe, serving everything from House military rear-echelon formations to Periphery planetary militias and corporate security details.</p>
+</overview>
+
+<deployment>
+<p>The Apocalypse World Rover serves in motorized and mechanized infantry support roles across virtually every military and paramilitary organization in the Inner Sphere and Periphery. House military forces assign it to rear-area logistics, security, and reconnaissance missions, while planetary militias use it as a general-purpose tactical vehicle for infantry units that lack access to more sophisticated military transports. Its pintle mount allows individual units to configure it for specific mission requirements, armed with whatever crew-served heavy support weapons are available locally. The vehicle's simple petrochemical powerplant and low maintenance burden make it well-suited to operations far from major supply depots, and the rear-loading cargo bay accommodates a range of payloads from ammunition resupply to casualty evacuation.</p>
+</deployment>
+
+<history>
+<p>The practice of assigning civilian vehicles to military roles dates back to humanity's earliest planetary militias, and by the time of the Succession Wars the Inner Sphere's armies had long since normalized the use of commercial transports as a substitute for proper military vehicles. Faced with constrained budgets and diminishing industrial output, militia and paramilitary formations made do with whatever wheeled vehicles could be sourced locally. These vehicles were frequently inadequate, lacking off-road capability, hardpoints for weapons, or any meaningful protection, and frontline commanders routinely noted the dangers this posed to infantry units dependent on them for mobility.</p><p>GM/Rowell recognized this gap and entered the market in 2983 with the Apocalypse, positioning it as a purpose-designed alternative to ad hoc civilian vehicle conversions. Rather than simply modifying an existing commercial chassis, the company developed a military variant of their World Rover line with off-road suspension upgrades, reinforced body panels, and integrated weapons mounting provisions. This approach allowed buyers to receive a ready-made military vehicle without the expense and uncertainty of field modifications.</p><p>The Apocalypse found a ready market across a broad customer base. House militaries acquired it for rear-area security and support roles. Periphery states and independent worlds without sophisticated manufacturing capabilities valued the vehicle's simplicity and the ease with which petrochemical engines could be maintained and supplied far from industrial centers. Corporate security forces and mercenary units operating on tight budgets rounded out the customer base. GM/Rowell's decision to market the vehicle without faction restrictions made the Apocalypse one of the most widely distributed light utility vehicles of the late Succession Wars era and beyond.</p>
+</history>
+
+<manufacturer>
+GM/Rowell
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+HB:HD
+</source>
+
+<tonnage>
+2.0
+</tonnage>
+
+<baseChassisSponsonPintleWeight>
+0.08
+</baseChassisSponsonPintleWeight>
+
+<fuel>
+0.024
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

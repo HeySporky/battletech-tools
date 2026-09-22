@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dc9d-7bed-b23a-1916b68aaba0
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Templar III
+model:TLR2-J 'Arthur'
+mul id:7955
+
+Config:Biped OmniMek
+techbase:Mixed (IS Chassis)
+era:3120
+source:SF
+published:SF
+rules level:3
+role:Skirmisher
+
+
+mass:85
+engine:340 Light Engine(IS)
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Command Console
+gyro:Heavy Duty Gyro
+
+heat sinks:17 IS Double
+base chassis heat sinks:13
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:28
+RA armor:28
+LT armor:26
+RT armor:26
+CT armor:44
+HD armor:9
+LL armor:36
+RL armor:36
+RTL armor:10
+RTR armor:10
+RTC armor:10
+
+Weapons:6
+ER PPC, Left Arm
+ER Medium Laser, Left Arm
+ER PPC, Right Arm
+ER Medium Laser, Right Arm
+Streak SRM 6, Right Torso
+ER Small Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+CLStreakSRM6 (OMNIPOD)
+CLStreakSRM6 (OMNIPOD)
+Clan Streak SRM 6 Ammo (OMNIPOD)
+ISCASEII
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERSmallLaser (OMNIPOD)
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Cockpit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Templar III is a Dark Age era eighty-five ton assault OmniMech produced by General Motors for the Federated Suns. Introduced around 3100, it was designed as a direct replacement for the original Templar after the destruction of Kallon Industries' factory on Talon during the Jihad eliminated production of the first-generation design. General Motors established a new production line on New Valencia to continue the Templar legacy with updated technologies.</p><p>Like its predecessor, the Templar III serves primarily as a command 'Mech for AFFS assault formations. The design incorporates advanced equipment across its alternate configurations, giving field commanders significant tactical flexibility while maintaining the assault-weight presence that made the original Templar an effective formation anchor.</p>
+
+capabilities:<p>The most significant change from the original Templar is the Templar III's adoption of a GM 340 Light engine in place of the KalTek 340 Extralight. This substantially improves survivability by eliminating the vulnerability to side torso destruction that plagued the original design, though it comes at the cost of reduced pod space, dropping from forty tons to twenty-nine. The Kallon Type XX Endo Steel chassis and StarGuard CIV armor maintain the same level of protection as the predecessor, and a Heavy-Duty Gyro improves stability under fire.</p><p>The primary configuration draws comparison to the proven WHM-8D Warhammer loadout, mounting twin ER PPCs as its primary armament alongside extended-range medium and small lasers. A four-tube short-range missile launcher provides supplementary close-range firepower, with CASE protecting the ammunition. A targeting computer links all energy weapons for improved accuracy, while four additional double heat sinks manage the considerable thermal output of the energy-heavy weapons suite.</p><p>While the reduced pod capacity limits the Templar III's ability to mount the heaviest weapon loadouts, the improved chassis durability ensures it can remain in the fight longer. Several configurations take advantage of advanced and Clan-specification technologies to maximize firepower within the tighter weight budget, making the Templar III a more resilient, if somewhat less versatile, successor to the original.</p>
+
+deployment:<p>This custom configuration features a complete suite of Clan-specification weaponry, mounting a Clan ER PPC and Clan ER medium laser in each arm, with a Clan ER Small Laser and Clan Streak SRM-6 in the torso. A targeting computer enhances the accuracy of the energy weapons, while four additional double heat sinks manage the thermal output of the upgraded arsenal. The weight savings from Clan technology allow this configuration to achieve firepower levels that would be impossible with Inner Sphere equivalents within the Templar III's twenty-nine ton pod capacity.</p>
+
+history:<p>The Templar III's development grew directly from the ashes of the Jihad. With the Kallon Industries factory on Talon destroyed by the Word of Blake, the Federated Suns lost its only production source for the original Templar. General Motors on New Valencia, already producing the Pendragon, a limited-production design loosely based on the Templar chassis, leveraged their familiarity with the platform to develop a modernized successor. Production of the Templar III began around 3100, establishing New Valencia as the new center of Templar-lineage manufacturing.</p><p>The Templar III quickly became a popular command 'Mech for AFFS company and battalion commanders, appearing regularly in assault lances throughout Federated Suns frontline formations. During the Capellan invasion campaigns of the Dark Age, lances of Templar IIIs proved effective in combined arms operations. In one notable engagement on Spica in late 3144, a lance of three Templar IIIs and a Salamander inflicted significant casualties on a Capellan 'Mech company, using ER PPCs and targeting computers to devastating effect while channeling the enemy through minefields and narrow streets.</p><p>The Templar III's influence extended beyond the Federated Suns. When General Motors resumed Victor production in the 3080s, they redesigned that venerable assault 'Mech to share many components with the Templar III, creating manufacturing efficiencies on New Valencia. Additionally, the custom configuration piloted by the First Prince demonstrated the platform's ability to accept Clan-specification weaponry, producing a significantly more lethal variant that served through the critical campaigns of the late 3140s and into the ilClan era.</p>
+
+manufacturer:General Motors
+
+primaryfactory:New Valencia
+
+fluffdate:2026-02-20 17:30:00
+
+systemmanufacturer:CHASSIS:Kallon
+systemmode:CHASSIS:Type XX Endo Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:340 Light
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:CIV with CASE
+systemmanufacturer:COMMUNICATIONS:Newberg
+systemmode:COMMUNICATIONS:Telescan 17
+systemmanufacturer:TARGETING:Spar
+systemmode:TARGETING:3C MegaTrak

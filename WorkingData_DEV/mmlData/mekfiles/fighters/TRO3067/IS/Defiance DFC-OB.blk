@@ -1,0 +1,177 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ae94-764a-84db-672c41dd5ee2
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Defiance
+</Name>
+
+<Model>
+DFC-OB
+</Model>
+
+<mul id:>
+4062
+</mul id:>
+
+<year>
+3067
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Fire Support
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+11
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+75
+60
+60
+45
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISLBXAC10:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISLBXAC10:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS LB 10-X Cluster Ammo:OMNI
+IS LB 10-X Cluster Ammo:OMNI
+IS LB 10-X Cluster Ammo:OMNI
+IS LB 10-X Cluster Ammo:OMNI
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Defiance is built around a Mujika Aerospace Modular Version 6 frame and powered by a Magna 220 XL engine, providing a safe thrust of six and a maximum thrust of nine. The use of an extra-light engine is central to the design's ground-attack philosophy, freeing twenty-six tons of pod space for weapons and equipment, a generous allowance for a medium-weight fighter. Fifteen tons of Ceres Standard armor provide adequate protection for its intended low-altitude attack role, though pilots must exercise caution when engaging dedicated air superiority fighters. Communications are handled by a Ceres MaserCom Variable 3s system paired with a Dwyerson Upgrade Multitask Version 3 targeting and tracking suite.</p><p>The trade-off for this impressive pod capacity is a limited heat dissipation system, with only eleven double heat sinks fitted to the base chassis. Most configurations must therefore carefully manage their weapon loadouts or devote pod tonnage to additional heat sinks. Despite this constraint, the generous pod space allows the Defiance to mount a diverse array of configurations ranging from energy-heavy strafing loadouts to ballistic-focused anti-vehicle packages, giving commanders considerable tactical flexibility.</p>
+</capabilities>
+
+<overview>
+<p>The Defiance is a fifty-five ton Inner Sphere OmniFighter developed through the Word of Blake's technological partnership with the Capellan Confederation. As Capellan ties with the Free Worlds League weakened during the early 3060s, the Blakists stepped into the role of technological benefactor, sharing advanced OmniFighter technology with the Confederation in exchange for administering Capellan HPG stations. Ceres Metals Industries on Capella was selected as the production facility, with both the Confederation and Word of Blake agreeing to split early production runs during the initial manufacturing phase. Entering service in 3067, the Defiance was purpose-built for ground-attack and bombing operations, filling a role that traditional Capellan aerospace assets had struggled to address. Its medium weight class provides a useful balance of speed and ordnance capacity that has made it a valued addition to Capellan combined-arms formations.</p>
+</overview>
+
+<deployment>
+<p>Alternate Configuration B is a dedicated anti-vehicle ground attack design, mounting an LB 10-X autocannon in each wing. Four tons of ammunition allow the fighter to carry both standard slugs for armored targets and cluster rounds that prove highly effective at shredding the delicate control surfaces of aerospace fighters, giving this configuration unexpected versatility in both ground-attack and air-to-air engagements.</p>
+</deployment>
+
+<history>
+<p>The Defiance traces its origins to the shifting political theater of the late Civil War era. The long-standing Liao-Marik technological exchange had provided the Capellan Confederation with a steady flow of advanced military technology for decades, but as the relationship between the two states deteriorated, that pipeline began to dry up. Chancellor Sun-Tzu Liao found himself in need of a new source of advanced military hardware, and the Word of Blake, eager to deepen its influence over the Confederation through HPG administration rights, was ready to fill the void.</p><p>After Blakist technicians successfully developed their own OmniFighter technology, they approached the Chancellor with the Defiance as a tangible demonstration of their capabilities. Sun-Tzu recognized the design's value but understood that Capellan technicians would require Word of Blake expertise to establish initial production. The resulting agreement saw the first several production runs at Ceres Metals Industries split between the two parties, providing both with operational units while allowing the Capellan manufacturing base to absorb the complexities of OmniFighter production.</p><p>Production began in 3067, just as the FedCom Civil War reached its conclusion and the Inner Sphere stood on the brink of the Word of Blake Jihad. The onset of the Jihad complicated the design's early service history, as the relationship between the Word of Blake and its various partner states shifted dramatically. However, Ceres Metals continued production on Capella throughout the conflict, and the Defiance remained an important element of the Capellan aerospace inventory. The development of the D configuration during the Jihad demonstrated ongoing investment in the platform, incorporating newer weapons technology that kept the design competitive against evolving battlefield threats. Production has continued into the Dark Age and beyond, establishing the Defiance as a mainstay of the Confederation's OmniFighter capability.</p>
+</history>
+
+<manufacturer>
+Ceres Metals Industries
+</manufacturer>
+
+<primaryFactory>
+Capella
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Mujika Aerospace
+ENGINE:Magna
+ARMOR:Ceres
+COMMUNICATIONS:Ceres
+TARGETING:Dwyerson
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Modular Version 6
+ENGINE:220 XL
+ARMOR:Ceres Standard
+COMMUNICATIONS:MaserCom Variable 3s
+TARGETING:Upgrade Multitask Version 3
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+55.0
+</tonnage>
+

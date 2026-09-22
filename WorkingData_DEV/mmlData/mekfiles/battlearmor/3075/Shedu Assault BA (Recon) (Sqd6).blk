@@ -1,0 +1,164 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a47d-7e92-b324-944178c2dc89
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Shedu Assault Battle Armor
+</Name>
+
+<Model>
+(Recon)(Sqd6)
+</Model>
+
+<mul id:>
+9036
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+30
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+CLBALightMortar:Body
+Camo System:Body
+ISImprovedSensors:Body
+IS BA ECM:Body
+IS BA Advanced:Body
+IS BA Advanced:Body
+IS BA Advanced:Body
+IS BA Advanced:Body
+IS BA Advanced:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The recon Shedu is perhaps the most unusual of the type's configurations, replacing direct firepower with electronic warfare and indirect fire capability. An electronic camouflage system and light ECM suite render the suit nearly invisible to sensors, while improved sensors allow the trooper to detect enemy forces at extended range. A light mortar provides indirect fire support, enabling the squad to engage enemies from concealment without revealing their position. The 600 kilograms of advanced armor and quad chassis mobility are retained. This configuration turns the Shedu into a battlefield predator that hunts through stealth and patience rather than brute force, locating enemy formations and either eliminating soft targets with mortar fire or calling in heavier assets to deal with armored opposition.</p>
+</capabilities>
+
+<overview>
+<p>The Demon series of battle armor emerged from Gibson Federated BattleMechs during the Jihad as the companion line to the Word of Blake's Celestial OmniMechs. Conceived by Precentor Vapula, the Manei Domini's engineering chief, the six Demon designs draw their names from the malevolent figures of various world mythologies. Each suit was crafted to fill a specific combat role while projecting an element of psychological terror against the Word's enemies. Fielded almost exclusively by the cybernetically enhanced Manei Domini elite, the Demons share the same unsettling visual aesthetic as their larger Celestial counterparts and were rarely encountered outside the Shadow Divisions.</p>
+</overview>
+
+<deployment>
+<p>Recon Shedu troopers deployed in six-trooper Level I formations as deep reconnaissance and electronic warfare assets. Their camouflage and ECM systems made them nearly undetectable while their improved sensors tracked enemy movements at extended range. The light mortar allowed these Level Is to harass enemy formations from concealment, scattering conventional infantry and disrupting vehicle formations without ever revealing their position to direct fire.</p>
+</deployment>
+
+<history>
+<p>The Shedu was the most radical departure from the rest of the Demon battle armor series. Named for the bull-human hybrid demons of ancient mythology, the Shedu was the only four-legged design in the entire line. Its animalistic appearance and "folded wing" armor plates conjured the same otherworldly imagery that Vapula had established across the rest of his designs, but the quadrupedal chassis represented a fundamentally different engineering approach from any of its siblings.</p><p>The Shedu was conceived as the Nephilim's faster companion. Vapula needed an assault-class suit that could keep pace with advancing Celestial OmniMech formations, and the quad chassis delivered excellent ground speed for its weight class. Other designers had taken a similar approach with quad battle armor like the Lyran Fenrir and Rottweiler, but those designs had sacrificed protection to emphasize speed and weapon payload. Vapula refused to make that trade. He ensured the Shedu carried enough armor to withstand hits from some of the heaviest weapons in common battlefield use before allocating mass to the motive systems. This left the Shedu with less space for weapons than the Fenrir, but the deficit was offset by the same tactical doctrine that drove the Demons in the same manner as their Celestial counterparts: these battlesuits were designed to operate in groups. A Shedu did not need to carry enough firepower to win alone. It needed to carry enough to fulfill its role within a combined-arms formation where Celestial OmniMechs, Demon battlesuits, and conventional forces each contributed their own piece to the whole.</p><p>The Shedu was one of the last Demons to enter service, and it remained a fairly rare sight even compared to its fellow Demon designs. It was more widely deployed among the Word of Blake's elite Shadow Divisions than the Nephilim, which suggests Vapula prioritized getting the faster assault suit into more hands to support the formations already built around Celestial OmniMechs. Like the other Demons, however, the Shedu remained firmly in the hands of the Manei Domini and never appeared in the colors of even the most prestigious and trustworthy regular Militia commands.</p>
+</history>
+
+<manufacturer>
+Gibson Federated BattleMechs
+</manufacturer>
+
+<primaryFactory>
+Gibson
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<chassis>
+quad
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+15
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+4
+</weightclass>
+

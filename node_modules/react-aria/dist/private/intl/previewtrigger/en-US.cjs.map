@@ -1,0 +1,1 @@
+{"mappings":"AAAA,iBAAiB;IAAG,oBAAoB,CAAC,0BAA0B,CAAC;AACpE","sources":["packages/react-aria/intl/previewtrigger/en-US.json"],"sourcesContent":["{\n  \"longPressMessage\": \"Long press to open preview\"\n}\n"],"names":[],"version":3,"file":"en-US.cjs.map"}

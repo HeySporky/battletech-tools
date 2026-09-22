@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e398-734e-b9f9-cbfdbabca800
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Zephyr Hovertank
+</Name>
+
+<Model>
+(Original)
+</Model>
+
+<mul id:>
+5435
+</mul id:>
+
+<year>
+2620
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+38
+24
+24
+19
+29
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ammo SRM-2
+</Body Equipment>
+
+<Front Equipment>
+SRM 6
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+SRM 2
+Small Laser
+</Rear Equipment>
+
+<Turret Equipment>
+Medium Laser
+Medium Laser
+Medium Laser
+</Turret Equipment>
+
+<capabilities>
+<p>The Zephyr's tactical value derives primarily from its Guardian ECM suite and the speed to deploy it effectively. The GM 185 fusion engine provides a cruising speed of 97 kilometers per hour and a flank speed exceeding 150 kilometers per hour, allowing the vehicle to reposition rapidly and maintain the ECM umbrella where it is most needed. Seven tons of Grumman CRT ferro-fibrous armor give the Zephyr above-average protection for its weight, sufficient to absorb glancing fire and permit high-speed disengagement when engagements turn unfavorable.</p><p>Armament is deliberately secondary to the support mission. Three medium lasers and the Alloran target acquisition gear occupy the turret, providing reliable fire support without generating significant heat. A nose-mounted SRM-6 with two tons of reloads adds short-range punch, and a rear-facing small laser discourages pursuit. Clan Invasion-era production models use Bowie Electronics lasers, a Thor SRM-6, and a Bundesweyth TAG, performing identically to their Star League predecessors with different component branding.</p><p>The Zephyr's limitations stem from its support focus. It carries no jump jets, relying on hover speed to evade threats. Against dedicated anti-vehicle platforms or sustained fire, its armor and weapons cannot sustain extended engagements. Crews train to establish the ECM umbrella, contribute fire support from medium range, and withdraw before the vehicle absorbs critical damage.</p>
+</capabilities>
+
+<overview>
+<p>Designed in 2620 by Grumman Industries for the Terran Hegemony, the Zephyr hovertank was originally conceived as a medium-duty, fast-response infantry support platform. The Star League Defense Force saw greater potential in the design, pressing it into service as a dedicated escort for the Chaparral Arrow IV artillery tank and insisting that Grumman incorporate a Guardian ECM suite into all production units. This change transformed a capable support vehicle into a battlefield force-multiplier, enabling combined-arms formations to exploit ECM coverage in ways that far exceeded the vehicle's modest firepower.</p><p>Grumman's Terra facility served as the primary production site, with New Earth hosting a secondary plant during the Star League era. The Zephyr's combination of above-average armor, exceptional speed, and electronic warfare support earned it a reputation as one of the most successful combat vehicles in Inner Sphere history, a legacy that endured through centuries of conflict and multiple major redesigns.</p>
+</overview>
+
+<deployment>
+<p>The pre-Guardian variant represents the Zephyr as originally designed, before the SLDF required Grumman to incorporate the ECM suite. Carrying an extra half-ton of armor and a rear-mounted SRM-2 in place of the Guardian ECM, this version was produced in limited numbers at New Earth for Hegemony border garrisons that had not yet received the updated specification.</p><p>After the New Earth plant's destruction during the Succession Wars, surviving SRM2 Zephyrs became increasingly uncommon. The type is occasionally encountered in deep periphery stockpiles or wartime caches, usually in poor condition. Restorationists and collectors prize the variant for its historical significance as the original production intent, before the SLDF's intervention shaped the tank that defined the Zephyr's legacy.</p>
+</deployment>
+
+<history>
+<p>Grumman Industries finalized the Zephyr design in 2620 at its New Earth facility, responding to Terran Hegemony requirements for a fast, medium-duty support platform. The initial concept called for a straightforward infantry escort hovertank suited to large-scale production. The Star League Defense Force changed that equation. SLDF planners evaluating the vehicle alongside the Chaparral artillery tank saw the Zephyr's speed and payload capacity as ideal for a Guardian ECM support role, and SLDF Quartermaster Command ordered Grumman to incorporate the suite into all production units before accepting the contract. The revised vehicle entered service in 2621, with Grumman's Terra facility joining New Earth as a production site to meet expanding SLDF demand.</p><p>Royal brigades received a specialized variant fitted with a Narc missile beacon in place of the SRM launcher, refining the vehicle's indirect-fire coordination role for elite SLDF formations. A smaller run of the pre-Guardian design, produced at New Earth, supplied Hegemony border garrisons that had not yet transitioned to the full ECM specification. Both configurations served as niche complements to the dominant standard model throughout the Star League era.</p><p>The Amaris Civil War tested Grumman's production capacity severely, and surviving Zephyrs made the journey with the SLDF into the Exodus. Clan Blood Spirit eventually adapted the design during the Golden Century, replacing the Star League weapons suite with early Clan technology, though that variant circulated little beyond Blood Spirit territory. On Terra, Grumman continued supplying ComStar after the Hegemony's fall. The New Earth facility did not survive the Early Succession Wars, leaving Terra as the sole production source through the long centuries of technological decline.</p><p>ComStar's custodianship preserved the Terra plant, and when the Word of Blake seized Terra in 3062 they found a functioning factory ready for heavy investment. The Blakists provided Grumman substantial capital in exchange for a C3i-networked Zephyr redesign. The first of these vehicles appeared in service that same year, and demand from Word of Blake Militia and Protectorate forces proved high enough that Grumman opened a new New Earth plant in 3066, the first Zephyr production on that world in over twelve centuries.</p><p>The relationship between Grumman's New Earth branch and the Protectorate collapsed in 3071. Dissidents within the facility, coordinated in significant part by Vice President Rudolph Brice, began diverting vehicles to anti-Blakist resistance cells and black market networks operating between the Protectorate and the Lyran Alliance's Skye region. More than two hundred Zephyrs reached Protectorate enemies before the operation was uncovered. The entire New Earth plant was locked down pending investigation, Brice fled ahead of the Word of Blake detainment teams, and the organization placed a 75-million C-Bill bounty on his capture. The plant never fully recovered its pre-lockdown production levels.</p><p>The Jihad's end brought reassessment under the Republic of the Sphere. The C3i and LRM variants were discontinued, as the Republic Armed Forces did not adopt C3i networking as a core doctrinal system, and standard production resumed at Terra. In 3096, Grumman undertook a more fundamental redesign, replacing the crew compartment with a drone operating system and Angel ECM suite while retaining the original engine, armor, and general silhouette. The resulting Zephyr OmniDrone was adopted enthusiastically by the Fifth Principes Guards, who used screens of drones to cover armor formations and conduct unmanned reconnaissance during the opening phases of the Capellan Crusades. The Guards' experience validated Republic doctrine on unmanned combat vehicles and contributed to planning for similar conversions of other proven Inner Sphere designs.</p>
+</history>
+
+<manufacturer>
+Grumman Industries
+</manufacturer>
+
+<primaryFactory>
+New Earth
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:Grumman
+COMMUNICATIONS:Unknown
+TARGETING:Bundesweyth
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:185
+ARMOR:CRT Ferro-Fibrous
+COMMUNICATIONS:Unknown
+TARGETING:Target Acquisition Gear
+</systemModels>
+
+<notes>
+Errata - Errata (3 of currently 3):Zephyr (SRM) should be renamed Zephyr (Original) - please also make the MUL aware of that.
+</notes>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

@@ -1,0 +1,293 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab75-76dd-bda9-8f888ca025c4
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Outpost
+</Name>
+
+<Model>
+(3070)
+</Model>
+
+<mul id:>
+5764
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+mekbay:5.0:1:-1::-1:0
+heavyvehiclebay:10.0:2:2::-1:0
+ProtoMekBay:2.0:2:3::-1:0
+battlearmorbay:10.0:1:4::-1:2
+1stclassquarters:40.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:98.0:0:-1::-1:0
+steeragequarters:0.0:0:-1::-1:0
+cargobay:1814.0:1:9::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+170
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+4500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+360
+355
+355
+350
+</armor>
+
+<Nose Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLHAG30
+Hyper-Assault Gauss Rifle/30 Ammo:20
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:120
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLHAG30
+Hyper-Assault Gauss Rifle/30 Ammo:20
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:72
+(R) (B) CLERLargeLaser
+(R) CLERLargeLaser
+(R) (B) CLHAG30
+(R) Hyper-Assault Gauss Rifle/30 Ammo:20
+(R) (B) CLMediumPulseLaser
+(R) CLMediumPulseLaser
+(R) CLMediumPulseLaser
+(R) (B) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAMS Ammo:72
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLHAG30
+Hyper-Assault Gauss Rifle/30 Ammo:20
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:72
+(R) (B) CLERLargeLaser
+(R) CLERLargeLaser
+(R) (B) CLHAG30
+(R) Hyper-Assault Gauss Rifle/30 Ammo:20
+(R) (B) CLMediumPulseLaser
+(R) CLMediumPulseLaser
+(R) CLMediumPulseLaser
+(R) (B) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAMS Ammo:72
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLHAG30
+Hyper-Assault Gauss Rifle/30 Ammo:20
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:72
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+20
+</structural_integrity>
+
+<capabilities>
+<p>The 3070 refit replaces the Streak SRM launchers with five Hyper-Assault Gauss 30 autocannons distributed across all arcs, dramatically increasing the vessel's anti-armor and anti-DropShip firepower. The nose mounts a HAG/30 alongside four ER large lasers, six medium pulse lasers, and three anti-missile systems. Each side carries two HAG/30s along with six ER large lasers and eight medium pulse lasers, with four anti-missile systems. The aft arc mounts a HAG/30 alongside two ER large lasers, four medium pulse lasers, and two anti-missile systems. One hundred and seventy double heat sinks handle the thermal load.</p><p>The transport configuration shifts to accommodate two ProtoMech Points and ten battle armor Points alongside the five Mech and ten vehicle bays. Cargo capacity increases to 1,814 tons, and crew complement rises to 236 to service the expanded troop contingent.</p>
+</capabilities>
+
+<overview>
+<p>The Outpost is a seven-thousand-ton Spheroid assault DropShip designed from the ground up by Clan Hell's Horses to carry a truly mixed military force of BattleMechs, armor, infantry, aerospace fighters, and battle armor. Commissioned in 3061, the design addressed the Clan's long-standing dissatisfaction with the patchwork conversions of existing Union-C and Overlord-C transports that had been individually modified for combined-arms use.</p><p>Falling between the Union and Overlord classes in size, the Outpost can attain nearly double the acceleration of either vessel, allowing it to outmaneuver or outrun the most common DropShips encountered during planetary assault missions. Protected by heavier armor than even the Overlord-C and mounting formidable weaponry, the design gives its operators a powerful advantage during contested landings.</p>
+</overview>
+
+<deployment>
+<p>The 3070 refit expanded the Outpost's combined-arms capability to include ProtoMech elements, reflecting Clan Hell's Horses' growing incorporation of these assets into their force structure. These upgraded vessels continued to serve as the primary combat transports for Horse combined-arms formations, with the heavier weapons load providing improved fire support during contested landings.</p>
+</deployment>
+
+<history>
+<p>The Outpost class was born from Clan Hell's Horses' recognition in the early 3060s that their naval transport fleet was an unsatisfactory collection of individually converted DropShips. Rather than continue modifying existing designs, saKhan Tanya DeLaurel commissioned a complete ground-up design in 3061, requesting a vessel faster and sturdier than the standard Mech carriers used throughout Clan space, capable of serving as an effective mobile command and coordination center during major operations.</p><p>The Clan's aerospace engineers used the rare Fortress class DropShip as a baseline, upgrading nearly every positive aspect of that venerable design while adding improvements of their own. The resulting Outpost class entered service in 3063, and its ability to carry a balanced combined-arms force in a single hull quickly proved its worth during operations where the Horses' integrated doctrine demanded seamless cooperation between Mech, armor, and infantry elements.</p><p>Subsequent variants expanded the design's capabilities. A 3070 refit incorporated hyper-assault Gauss weapons and facilities for ProtoMech and expanded battle armor contingents, while a Defender configuration introduced capital missile systems and dedicated aerospace fighter capacity for a fleet defense role.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+7000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+224
+</crew>
+
+<officers>
+4
+</officers>
+
+<gunners>
+8
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+5
+</life_boat>
+
+<escape_pod>
+10
+</escape_pod>
+

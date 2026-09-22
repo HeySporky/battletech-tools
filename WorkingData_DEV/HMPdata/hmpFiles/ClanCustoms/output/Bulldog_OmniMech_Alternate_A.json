@@ -1,0 +1,334 @@
+{
+  "filename": "Bulldog_OmniMech_Alternate_A.hmp",
+  "size": 2406,
+  "header_hex": "56 35 2e 30 30 01 00 08 05 ff ff ff 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 8,
+      "length": 1,
+      "text": "\b"
+    },
+    {
+      "type": "byte",
+      "offset": 8,
+      "hex": "05"
+    },
+    {
+      "type": "byte",
+      "offset": 9,
+      "hex": "ff"
+    },
+    {
+      "type": "byte",
+      "offset": 10,
+      "hex": "ff"
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 268,
+      "length": 255,
+      "text": "\u0000\u0000\u0000\u0000K\u0000\u0010\u0000Bulldog OmniMech\u000b\u0000Alternate A\u00f4\u000b\u0002\u0000\b\u00a7x\u0001\u0011\t\u0000\u00d0OE\u0000\u00b0=E\u0000\u0000,B\u0000\u0000\u00d8A\u0000\u0000\u0000A\u0014\u0000MH 6 4 8 6 23 5 omni\u0001\u0000\n\u0000\u0001\u0000w\u0001\u0001\u0000\u0005\u0000\u0000\u0000\u000f\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\b\u0000\b\u0000\u000b\u0000\u0000\u0000\u0005\u0000\u0001\u00006\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0002\u00004\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0003\u00005\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u00ff\u0000\u0005\u0000\u000f\u0000\u0005\u0000\t\u0000(Unknown)\u0002\u0000T\u0000"
+    },
+    {
+      "type": "len_string",
+      "start": 268,
+      "end": 272,
+      "length": 2,
+      "text": "\u001e\u0000"
+    },
+    {
+      "type": "len_string",
+      "start": 272,
+      "end": 276,
+      "length": 2,
+      "text": "\t\u0000"
+    },
+    {
+      "type": "ascii",
+      "start": 276,
+      "end": 285,
+      "text": "(Unknown)"
+    },
+    {
+      "type": "len_string",
+      "start": 285,
+      "end": 288,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "len_string",
+      "start": 288,
+      "end": 802,
+      "length": 512,
+      "text": "\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0000\u00005\u0000\u0000\u00005\u0000\u0000\u00005\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000T\u0000\u0000\u0000T\u0000\u0000\u0000T\u0000\u0000\u0000T\u0000\u0000\u0000\u00e4\u0001\u000f\b\u00e4\u0001\u000f\b\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u00006\u0000\u0000\u00006\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u008f\u0002\u0005\b\u00ff\u0000\u0000\u0000\u00ff\u0000\u0000\u0000\u00ff\u0000\u0000\u0000\u00ff\u0000\u0000\u0000\u00ff\u0000\u0000\u0000\u008f\u0002\u0005\b\u008f\u0002\u0005\b\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0000\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u00f6\u00ff\u00e6\u0000R\u0001The Bulldog was an attempt to make a big brother to the very sucessful Maddog OmniMech, known in the Inner Sphere as the Hagate"
+    },
+    {
+      "type": "ascii",
+      "start": 802,
+      "end": 1013,
+      "text": "ka, or Vulture.   Though the design was a marginal success, updating the chassis to 75 tons, some critics feel this design is merely a stopgap in attempt to fill holes in the still recovering Clan Forces.   \r\n\r\n"
+    },
+    {
+      "type": "len_string",
+      "start": 1013,
+      "end": 2209,
+      "length": 1194,
+      "text": "The Alternate A Model of this Omni sticks close to the same Alternate of its Forebearer.  As with as many of the variants as possible, the designers tried to keep close to the original mech to promote familiarity in the design, cutting down on training time.  \r\n\r\n\r\nThis mech is definately a shorter range one, with the Left arm being composed of 2 extended range medium lasers side saddled to a trio of small lasers, giving a mean punch at close range.   \r\n\r\nHowever, the right arm houses a surprise for the unwary.  An ER PPC is the sole weapon in the right arm, giving a kick at any range as the most damaging energy weapon available on a mech.  Also on the right, in the torso missle bay is a new weapon to the scene, the Advanced Tatical Missle Rack.  This 12 rack launcher has multiple ammo capibilities, and the Alternate A carries a ton of each kind, giving flexibility to its load, depending on what the situation warrants.  \r\n\r\nComplementing the high tech ATM's is a familiar sight among clanners, a dual stack of Streak six shooters.  Combined with the 2 tons of ammo for it, and its ammo conservation ability to begin with, gives this rack enormous staying power for a missile boat."
+    },
+    {
+      "type": "len_string",
+      "start": 2209,
+      "end": 2212,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 2212,
+      "end": 2213,
+      "text": "0"
+    },
+    {
+      "type": "byte",
+      "offset": 2213,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2214,
+      "end": 2262,
+      "text": "Currently 6 variants, including the Prime Model."
+    },
+    {
+      "type": "len_string",
+      "start": 2262,
+      "end": 2265,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2265,
+      "end": 2268,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2268,
+      "end": 2271,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2271,
+      "end": 2274,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 2274,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2275,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2276,
+      "end": 2293,
+      "length": 15,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 2293,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2294,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2295,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2296,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2297,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2298,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2299,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2300,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2301,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2302,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2303,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2304,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2305,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2306,
+      "end": 2316,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 2316,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2317,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2318,
+      "end": 2319,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2319,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2320,
+      "end": 2330,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2330,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2331,
+      "end": 2341,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2341,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2342,
+      "end": 2352,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2352,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2353,
+      "end": 2363,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2363,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2364,
+      "end": 2374,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2374,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2375,
+      "end": 2385,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2385,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2386,
+      "end": 2396,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2396,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2397,
+      "end": 2406,
+      "text": "(Unknown)"
+    }
+  ]
+}

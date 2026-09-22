@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7d4-7b6c-8073-e8a2903e63c3
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+SM2 Heavy Artillery Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6386
+</mul id:>
+
+<year>
+3093
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+65
+65
+65
+64
+</armor>
+
+<Body Equipment>
+Clan Heavy Machine Gun Ammo - Half
+ISLimitedAmphibiousChassis
+ISSniperAmmo
+ISSniperAmmo
+ISSniperAmmo
+ISSniperAmmo
+ISSniperAmmo
+</Body Equipment>
+
+<Front Equipment>
+ISSniper
+</Front Equipment>
+
+<Right Equipment>
+CLHeavyMG
+</Right Equipment>
+
+<Left Equipment>
+CLHeavyMG
+</Left Equipment>
+
+<Rear Equipment>
+CLHeavyMG
+</Rear Equipment>
+
+<capabilities>
+<p>The SM2's primary armament is a nose-mounted Type 3 Sniper Artillery Piece supported by five tons of ammunition. The Sniper delivers indirect fire effective against fortifications, vehicle concentrations, and troops caught in the open at ranges exceeding most direct-fire weapons. Its selection was effectively imposed by Luthien Armor Works, which already maintained ample logistics support for the Type 3 in the Draconis Combine supply system. Three Series XIV Heavy Machine Guns, one each on the left, right, and rear flanks, provide close-in defense against infantry threats.</p><p>The SM2's 225-rated ICE powerplant moves the tracked chassis at up to 54 km/h, sufficient for repositioning between fire missions but not for front-line maneuver. Alpha Compound Ferro-Fibrous armor provides protection against counter-battery fire and opportunistic attacks. The vehicle carries the Gas Hog design quirk, reflecting the ICE engine's voracious fuel consumption during sustained operations. Non-Standard Parts complicates maintenance in extended campaigns. The SM2's Improved Communications system partially offsets these drawbacks, enabling better coordination with supported units. The Long Tom Cannon variant gains range over the base Sniper but suffers severe structural instability in the mount. Poorly placed shock rings cause the cannon to occasionally tear free under recoil, a flaw LAW addressed by offering the variant at reduced cost rather than correcting the underlying engineering problem.</p>
+</capabilities>
+
+<overview>
+<p>The SM2 Heavy Artillery Vehicle represents Clan Nova Cat's reluctant embrace of tube artillery as part of Inner Sphere combined-arms doctrine. Developed at the LAW-Barcella facility on Irece, the SM2 gave the Nova Cats a mobile mid-range artillery support platform to complement their growing combined-arms force structure. The vehicle's design was shaped as much by Luthien Armor Works' logistics needs as by tactical requirements, and the Nova Cats never considered it an ideal fighting vehicle. Warriors assigned to SM2 crews were invariably those judged to have limited potential, and the design reflected this cultural indifference. The SM2 found far greater acceptance in Draconis Combine service and on the broader mercenary market after the Combine seized the production line and relocated it to Hyner, where the vehicle's Clan-technology base and limited amphibious capability made it an immediate commercial success.</p>
+</overview>
+
+<deployment>
+<p>The SM2 entered service with Nova Cat solahma units, typically operating alongside Elementals, Void battle armor infantry, and Mamono Infantry Fighting Vehicles. The Nova Cats remained uncomfortable with dedicated artillery formations throughout their tenure, and the SM2 was never enthusiastically adopted within the touman. Following the factory's relocation to Hyner, Draconis Combine forces and mercenary buyers became the primary operators. The SM2's broader commercial availability after production resumed transformed it from a niche Nova Cat design into a common sight across multiple factions during the Dark Age.</p>
+</deployment>
+
+<history>
+<p>The SM2's origins lay in the same cultural tension that shaped all of Clan Nova Cat's Inner Sphere adaptations. Artillery had always been viewed with deep suspicion among Nova Cat warriors. Stars dedicated to indirect fire support were considered contrary to the warrior ideal, and assignment to an SM2 crew was an implicit judgment on a warrior's limited potential. The vehicle was built despite this resistance, driven by practical recognition that combined-arms warfare required fire support capabilities that BattleMech formations alone could not provide.</p><p>Original production ran at the LAW-Barcella facility on Irece. When the Second Combine-Dominion War ended with Ghost Bear forces seizing the factory, the Draconis Combine relocated the entire production line to Hyner. The Nova Cats, who had never been enthusiastic about the SM2, did not contest the transfer. Military bureaucrats within the Dragon reacted more positively to the SM2's commercial potential, and the rebuilt Hyner facility began producing the vehicle for a broader market outside the Combine's borders. The SM2's Clan-technology chassis and limited amphibious capability made it an immediate success once commercial sales began.</p><p>The most celebrated SM2 crews in post-Jihad history served with Anton's Stompers, a mercenary unit operating out of Fletcher. Major Bryce Anton integrated a company of SM2s into his artillery battalion and used them in a deliberate fire-and-maneuver operation during a 3136 raid on a Capellan target, where the vehicles provided sustained fire support that overwhelmed the defending militia. Anton subsequently became regarded as the Inner Sphere's foremost expert on SM2 artillery tactics. The Long Tom Cannon variant emerged as a cheaper option for commanders who needed additional range, despite the structural problems that occasionally caused catastrophic mount failures under recoil.</p>
+</history>
+
+<manufacturer>
+Luthien Armor Works|Luthien Armor Works
+</manufacturer>
+
+<primaryFactory>
+Irece|Hyner
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Sony
+TARGETING:Neko
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:225 ICE
+ARMOR:Alpha Compound Ferro-Fibrous
+COMMUNICATIONS:ABC-14
+TARGETING:Megane 9
+</systemModels>
+
+<source>
+TR:3145:DC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

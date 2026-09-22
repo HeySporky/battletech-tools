@@ -1,0 +1,160 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e250-7929-ae67-52b0b8960f6b
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Armored Personnel Carrier
+</Name>
+
+<Model>
+(Tracked)
+</Model>
+
+<mul id:>
+120
+</mul id:>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+troopspace:1.0
+</transporters>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+10
+8
+8
+10
+4
+</armor>
+
+<Body Equipment>
+IS Ammo MG - Full
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>The tracked APC is the most robust of the three standard configurations, its tracked drive system providing reliable cross-country mobility across virtually any terrain type. The ten-ton vehicle reaches a maximum speed of approximately ninety-seven kilometers per hour -- slower than the hover variant but adequate for combined-arms operations alongside heavier vehicles. A single turret-mounted machine gun provides anti-infantry defense, while one ton of infantry carrying capacity accommodates a single squad of foot infantry.</p><p>The tracked configuration carries forty points of standard armor, substantially more protection than either the hover or wheeled versions, making it the most survivable of the three designs. This additional armor, concentrated on the front and flanks, allows the tracked APC to absorb incidental fire during combat insertions that would cripple its lighter counterparts. A LongCom communications system and OptiTrack Techniques targeting array handle battlefield coordination.</p>
+</capabilities>
+
+<overview>
+<p>The Armored Personnel Carrier is a ubiquitous ten-ton combat transport found in virtually every military force across the Inner Sphere and Periphery. Produced in three standard configurations -- hover, tracked, and wheeled -- these vehicles serve as the primary means of delivering infantry squads to and from the combat zone. The basic designs date back to the Star League era around 2500, with primitive predecessors operating as early as 2390, and production has continued without interruption for centuries. Their simplicity, low cost, and ease of manufacture ensure that every House military, mercenary command, and planetary militia fields them in quantity, making them among the most commonly encountered military vehicles in the galaxy.</p>
+</overview>
+
+<deployment>
+<p>The tracked APC is the most widely fielded variant of the standard APC family, prized for its all-terrain capability and robust armor protection. Every major House military maintains large stocks of tracked APCs for infantry transport duties, and the design dominates in formations operating in rough, forested, or mountainous terrain where hover vehicles cannot function and wheeled vehicles are unreliable.</p>
+</deployment>
+
+<history>
+<p>The armored personnel carrier concept predates the modern Star League designs by over a century. Primitive APCs first appeared around 2390, using civilian drive train components and petrochemical-powered internal combustion engines to deliver troops under fire. Though crude by later standards, these early carriers established the fundamental template -- a lightly armed, armored box on wheels, tracks, or a hoverskirt -- that would endure for centuries. The Age of War and the technological advances it brought rendered these primitive designs obsolete for front-line service, but they never fully disappeared, remaining in use with militia and paramilitary forces well into the thirty-first century.</p><p>The modern APC entered service around 2500, when Star League-era manufacturers standardized three motive configurations optimized for different operational environments. Production spread rapidly across the Inner Sphere, with virtually every military manufacturer offering some version of the basic design. During the Succession Wars, demand far outstripped supply, and APCs became one of the few military vehicles that even the most devastated economies could continue producing. Hundreds of local manufacturers emerged to fill the gap, many working from incomplete specifications or reverse-engineered examples.</p><p>The standard APC's enduring legacy owes as much to its limitations as its capabilities. Its minimal carrying capacity of a single infantry squad pushed militaries to develop heavier alternatives, while its thin armor and light armament drove the creation of numerous weapon-platform conversions. Militia commanders, unable to afford purpose-built combat vehicles, frequently stripped the infantry compartment to mount LRM or SRM launchers, creating improvised fire support vehicles. The Taurian Concordat and Marian Hegemony independently developed sensor-equipped hover variants for border patrol duties. One notable action occurred in 3034, when Overste-Lojtnant Illya Stroncek of the Lyran Commonwealth led a column of tracked APCs through Kurita lines on Last Frontier, evacuating three companies of wounded infantry under sustained fire and earning the Order of the Griffin for her actions.</p>
+</history>
+
+<manufacturer>
+Marian Arms, Inc.|Alliance Defenders Limited|Joint Equipment Systems|Quikscell Company|Quikscell Company|Amaris Armored Vehicles|Quikscell Company|Maxwell Planetary Defense Consortium|Quikscell Company|Hadrian Mechanized Industries|Quikscell Company|General Motors|Benson and Bjorn|Taurus Territorial Industries|Aldis Industries
+</manufacturer>
+
+<primaryFactory>
+Alphard (MH)|Alpheratz|Alshain|Ares|Broken Wheel|Erdvynn|Kalidasa|Maxwell|Pandora|Pompey|Richvale|Salem|Spittal|Sterope|Terra
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:LongCom
+TARGETING:OptiTrack Techniques
+</systemManufacturers>
+
+<systemModels>
+ENGINE:ICE
+ARMOR:Standard
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+10.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

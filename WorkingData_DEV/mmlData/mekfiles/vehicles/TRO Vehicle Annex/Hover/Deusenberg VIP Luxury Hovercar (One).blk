@@ -1,0 +1,174 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ea94-79a8-a982-ec2a2a88d9d6
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Deusenberg VIP Luxury Hovercar
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4074
+</mul id:>
+
+<year>
+3059
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+1stclassquarters:10.0:1:-1::-1:0
+cargobay:1.55:1:2::-1:0
+standardseats:0.45:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+51
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+16
+13
+13
+12
+</armor>
+
+<Body Equipment>
+Armored Chassis
+</Body Equipment>
+
+<Front Equipment>
+ISAntiPersonnelPod
+BeagleActiveProbe
+</Front Equipment>
+
+<Right Equipment>
+ISAntiPersonnelPod
+ISGuardianECMSuite
+</Right Equipment>
+
+<Left Equipment>
+ISAntiPersonnelPod
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+10
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The 3059 configuration retains the medium hover chassis, fusion powerplant, and BAR 10 armor layout of the original Deusenberg, preserving the same cruise and flank speeds while upgrading all major systems to Tech D standards. The Armored Chassis Modification is carried forward, and armor distribution across the front, flanks, and rear is unchanged from the original design.</p><p>Where the original configuration devoted internal volume primarily to passenger comfort and cargo, this variant replaces most of that cargo space with a military-grade electronic suite. A Beagle Active Probe mounted at the front of the vehicle provides enhanced sensor coverage, capable of detecting concealed infantry and hidden vehicles well beyond normal sensor range. A Guardian ECM Suite occupies the right side, providing electronic countermeasures against missile guidance and fire-control systems that might target the vehicle or its escort. Three A-Pods mounted on the front, right, and left arcs deliver anti-personnel defense against infantry threats at close range.</p><p>First-class quarters accommodate the primary VIP passenger, and six passenger seats retain space for accompanying staff or security. Available cargo space is reduced to 1.55 tons by the electronic and defensive equipment, limiting logistical flexibility. An Equipment Rating of E/X-X-F reflects the classified nature of the vehicle's intelligence and ECM systems, restricting independent access to the design's core electronics.</p>
+</capabilities>
+
+<overview>
+<p>The Deusenberg VIP Luxury Hovercar represents the modernized production configuration of a protected executive transport first introduced by the Federated Suns in 3024. Entering production in 3059 as an upgraded variant of the original design, this version incorporates a military-grade electronics suite and active anti-personnel systems reflecting the heightened security environment of the post-Clan Invasion Inner Sphere. Retaining the armored chassis and first-class passenger accommodations of its predecessor, the design continues to serve as a prestige transport for senior Federated Suns personnel and allied nobility, combining luxury and survivability with a limited electronic warfare capability suited to high-threat environments.</p>
+</overview>
+
+<deployment>
+<p>The 3059 variant entered service with the Federated Suns command establishment as the prestige executive transport for flag-rank officers and senior nobility requiring active electronic protection in addition to armored mobility. Its Beagle Active Probe proved particularly valuable in the vanguard of high-security convoys, providing advance warning of ambushes and concealed threats that armor alone could not counter. The Guardian ECM suite added a further layer of protection against guided weapons. Deployed primarily at New Avalon and at major Federated Suns command installations, the vehicle continued in service well into the ilClan era, reflecting the durability of its upgraded specifications relative to the original configuration it replaced.</p>
+</deployment>
+
+<history>
+<p>The 3059 variant of the Deusenberg VIP Luxury Hovercar emerged from modifications applied to the Deusenberg One, the First Prince's personal limousine, during the post-Clan Invasion security review conducted across the Federated Commonwealth's executive fleet. Following the Battle of Tukayyid and the subsequent truce, security concerns for senior Federated Commonwealth leadership intensified considerably. Awareness that Clan forces remained concentrated across the border, combined with rising internal political tensions in the years before the Civil War, drove demand for vehicles that could combine executive comfort with active electronic countermeasures rather than passive armor alone.</p><p>The electronic upgrades applied to the Deusenberg One, incorporating a Beagle Active Probe and Guardian ECM suite alongside anti-personnel defenses, were judged sufficiently valuable to warrant inclusion in the standard New Avalon production line. The upgraded variant entered production in 3059, extending its security capabilities to a broader range of senior Federated Suns and Federated Commonwealth personnel beyond the First Prince's immediate household.</p><p>The 3059 design outlasted the original configuration by a considerable margin, remaining in production and service through the Civil War and Jihad eras as the authoritative Federated Suns VIP transport standard. New Avalon's production facilities avoided the catastrophic losses suffered by many other Federated Suns manufacturers during the Jihad, allowing uninterrupted output of the upgraded design. By the ilClan era, New Avalon's industrial arena had shifted considerably as political and commercial changes reshaped the former Federated Suns industrial base.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+New Avalon
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion (unspecified)
+ARMOR:Unknown (BAR 10, 3.5 tons)
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Beagle Active Probe
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

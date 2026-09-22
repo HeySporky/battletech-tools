@@ -1,0 +1,87 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bc5b-74dd-9c5b-6a36bbd209ac
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Field Gun Platoon (FWLM)
+</Name>
+
+<Model>
+(Tracked AC5 3035+)
+</Model>
+
+<year>
+3030
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<Troopers Equipment>
+Free Worlds League Infantry Kit (3035+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+Autocannon/5
+IS Ammo AC/5
+Autocannon/5
+IS Ammo AC/5
+Autocannon/5
+IS Ammo AC/5
+</Field Guns Equipment>
+
+<overview>
+<p>The Free Worlds League's fractious politics have always made centralized BattleMech procurement difficult, pushing the FWLM toward heavy investment in conventional infantry to fill the gaps. Towing crew-served autocannon/5 field guns, these platoons deliver direct fire support that balances range, accuracy, and hitting power. The AC/5 is the workhorse caliber for field gun formations, effective against light vehicles and infantry positions alike.</p>
+</overview>
+
+<notes>
+Intro date based on prototype release of FWL advanced infantry kit
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

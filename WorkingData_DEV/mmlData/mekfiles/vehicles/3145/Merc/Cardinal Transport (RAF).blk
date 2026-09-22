@@ -1,0 +1,150 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e809-7ed4-8db9-cace00c737f1
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Cardinal Transport
+</Name>
+
+<Model>
+(RAF)
+</Model>
+
+<mul id:>
+6543
+</mul id:>
+
+<year>
+3112
+</year>
+
+<type>
+Mixed (Clan Chassis) Experimental
+</type>
+
+<role>
+Striker
+</role>
+
+<quirks>
+vtol_rotor_dual
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+troopspace:12.0
+</transporters>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+8
+</armor_tech_level>
+
+<armor>
+31
+21
+21
+21
+2
+</armor>
+
+<Body Equipment>
+IS Ammo MML-5 LRM
+IS Ammo MML-5 SRM
+</Body Equipment>
+
+<Front Equipment>
+CLSmallPulseLaser
+CLSmallPulseLaser
+CLSmallPulseLaser
+ISMML5
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Cardinal Transport is powered by a Type 215 XL fusion engine that allows the design to cruise at 86 kph and reach a maximum of 129 kph, delivering the speed appropriate for its assault transport role. The dual-rotor arrangement provides enhanced load stability at the cost of greater pilot workload during low-speed insertion maneuvers, and the ten-ton infantry bay accommodates two Points of Elementals or three squads of Inner Sphere battle armor with full equipment. This transport capacity is the design's primary tactical asset, enabling rapid delivery of armored infantry to contested objectives in environments where ground transport would face unacceptable risk.</p><p>The forward-facing armament is modest but effective for a design of this class. A Type OVR-X LB 2-X autocannon provides anti-infantry and light suppression capability, supported by a Type V “Longbow” LRM 5 launcher for standoff engagement. Two Tau-II AP Gauss Rifles give the Cardinal a point-defense capability against battle armor threats, a deliberate design choice given its primary operating environment. All weaponry is concentrated in the forward arc to allow the pilot to bring firepower to bear without repositioning the aircraft.</p><p>The Forging AM15 ferro-fibrous armor provides solid protection for a vehicle of this weight class, and the Neil 9000 communications system paired with the RCA Econotrac targeting suite reflects the straightforward, maintainable electronics philosophy that characterizes Trellshire's commercial product line.</p>
+</capabilities>
+
+<overview>
+<p>The Cardinal Transport is a fifty-ton military VTOL produced by Trellshire Heavy Industries at facilities on Twycross and Itabaiana. Introduced in 3112 to meet the assault transport requirements of Clan Sea Fox and its commercial partners, the Cardinal was designed around a dual-rotor configuration that provides superior load-bearing capacity relative to its weight class. Built to Clan manufacturing standards, the design prioritizes low maintenance overhead and operational reliability, making it well-suited to the extended deployments and disrupted logistics that characterize Dark Age operations. Its ten-ton infantry transport capacity and self-defense armament established the Cardinal as a versatile platform, and its availability through Sea Fox commercial trade networks extended its reach well beyond the Clan space, placing it in service with mercenary commands, Successor State forces, and other buyers seeking capable VTOL assault transport in an era of fractured supply lines.</p>
+</overview>
+
+<deployment>
+<p>The Republic Armed Forces variant emerged from a program to expand the Cardinal's infantry capacity for Republic-specific operational requirements. The enlarged twelve-ton infantry compartment allows the variant to carry a full Point of Elementals plus additional support personnel, or larger conventional infantry complements, giving Republic commanders greater flexibility in assault planning. The armament was substantially modified to suit Republic tactical doctrine and supply realities: an MML 5 replaces the original launcher arrangement for flexible short- and long-range indirect fire support, while three small pulse lasers replace the original weapons for improved anti-infantry and point defense performance. This reconfiguration reflects the Republic's preference for organic fire support within individual transport elements rather than reliance on coordinated combined-arms fires. The variant served primarily within Republic Armed Forces formations during the Dark Age, providing assault transport capability in an era when the HPG blackout made centralized logistics increasingly difficult to sustain.</p>
+</deployment>
+
+<history>
+<p>Trellshire Heavy Industries traces its origins to Clan Diamond Shark's aggressive expansion of commercial manufacturing ventures into the Inner Sphere during the late thirty-first and early thirty-second centuries. The company established the Manufacturing Plant SFF-IT1 facility on Itabaiana in 3071, constructing it well clear of the conflicts that devastated the Inner Sphere during the Jihad years. The Itabaiana plant emerged from that era untouched and operating near full capacity, giving Trellshire a significant advantage when the Clan rebranded as Clan Sea Fox and intensified its commercial dealings across the Inner Sphere.</p><p>The Twycross facility had a more difficult path. Attacks during the Bloody Tricentennial in the late 3080s destroyed production lines there, requiring extensive reconstruction before the plant could return to operation. By 3112 both sites were producing Cardinals, and the design entered service simultaneously across Sea Fox merchant castes and their primary customers, most especially Clan Jade Falcon, which adopted the Cardinal as a standard assault transport for its infantry-heavy tactical formations. The dual-rotor configuration had undergone years of engineering refinement before the Cardinal reached production, with Trellshire testing multiple rotor arrangements before settling on the final layout that balanced lift capacity against mechanical complexity.</p><p>The design spread steadily through the Sea Fox trade network over the following decades, with Galatea emerging as a primary distribution hub from 3136 onward as mercenary demand for capable assault transports grew in the HPG-disrupted Dark Age. Mercenary commands found the Cardinal attractive for its availability through established commercial channels and Trellshire's reputation for reliable parts support. A series of engagements during the 3140s, including intensive use during raiding operations on Galatea in 3141, demonstrated the design's effectiveness in sustained operations and cemented its reputation as a capable and dependable platform. The Republic Armed Forces subsequently developed a re-engineered variant to meet their own operational requirements, further affirming the Cardinal's relevance across a wide range of Inner Sphere and Clan military users.</p>
+</history>
+
+<manufacturer>
+Manufacturing Plant SFF-IT1
+</manufacturer>
+
+<primaryFactory>
+Itabaiana
+</primaryFactory>
+
+<source>
+TR:3145:Merc,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

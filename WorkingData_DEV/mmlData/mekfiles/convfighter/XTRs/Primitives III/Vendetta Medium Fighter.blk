@@ -1,0 +1,192 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa46-72f6-8b76-8238ea3b143f
+</UUID>
+
+<UnitType>
+FixedWingSupport
+</UnitType>
+
+<Name>
+Vendetta Medium Fighter
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5625
+</mul id:>
+
+<year>
+2328
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<quirks>
+cramped_cockpit
+difficult_eject
+atmo_flyer
+obsolete:2580
+weak_undercarriage
+variable_range_targeting
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+standardseats:3.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+250
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+51
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+15
+15
+15
+10
+</armor>
+
+<Nose Equipment>
+Large Laser
+Small Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Body Equipment>
+Armored Chassis
+Advanced Fire Control
+External Stores Hardpoint
+External Stores Hardpoint
+External Stores Hardpoint
+External Stores Hardpoint
+External Stores Hardpoint
+External Stores Hardpoint
+</Body Equipment>
+
+<barrating>
+10
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Vendetta's arsenal consisted exclusively of energy weapons, a revolutionary configuration for its time. A large laser served as the primary armament, supported by two medium lasers and a small laser. This combination gave the Vendetta the ability to destroy virtually any airborne target in a single salvo or deliver a devastating one-hundred-fifty-meter zone of destruction during strafing runs against ground targets. The all-energy loadout eliminated the logistical burden of ammunition resupply, allowing the Vendetta to remain combat-effective for extended sorties without returning to base.</p><p>The fighter's fusion engine provided a safe thrust of five, adequate for a heavy conventional fighter but insufficient to outrun lighter interceptors. Six external hardpoints could mount ordnance or auxiliary fuel tanks, though the Vendetta's five-ton internal fuel capacity was sufficient for all but the longest-range missions. Its armor protection was respectable, making it a durable platform, but it was not designed as a dogfighter and relied on escort craft when facing agile opposition.</p>
+</capabilities>
+
+<overview>
+<p>The development of the large-class laser in the early twenty-fourth century, coupled with the continued miniaturization of compact fusion engines, transformed combat vehicle design across the Terran Hegemony. The Hegemony Armed Forces commissioned several lackluster fighter designs mounting this new weapon before receiving the XKA 44 proposal--later designated the Vendetta. Produced as a combination air-superiority and ground-attack conventional fighter, the sixty-ton Vendetta was the heaviest and most capable common fighter yet flown when it entered Hegemony service. Its fusion powerplant made it expensive for the era, but Hegemony procurement budgets were generous enough to absorb the cost in exchange for unmatched combat effectiveness.</p>
+</overview>
+
+<deployment>
+<p>The Hegemony Armed Forces made the Vendetta their standard front-line conventional fighter, commissioning tens of thousands for production across multiple worlds. Supplemented by various interceptors and bombers over the decades, the Vendetta was never truly superseded in Hegemony service and served faithfully for nearly a century. Opposing armed forces developed their own clones of the design, spreading its influence across known space.</p>
+</deployment>
+
+<history>
+<p>The Vendetta represented a watershed moment in military aviation, proving that energy weapons could replace ballistic and missile armament entirely on a conventional airframe. Its commercial and tactical success validated the large laser as a primary fighter weapon and influenced a generation of subsequent combat vehicle designs across the Hegemony and its neighboring states for decades to come.</p><p>Only after the debut of more powerful and agile aerospace fighters--piloted by crews of just one or two--was the Vendetta replaced in front-line service. Even then, it and its numerous clones continued to serve capably in militia and garrison units for many years, their robust fusion powerplants and ammunition-free weapons systems making them particularly cost-effective for budget-conscious planetary defense commands. The sheer number of airframes produced across multiple Hegemony factory worlds ensured that Vendettas remained a common sight on backwater planets well into the Age of War, a lasting sign of the soundness of the original design.</p>
+</history>
+
+<manufacturer>
+European Aerospace Consortium
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<source>
+XTR:Primitives III
+</source>
+
+<published>
+XTR:Primitives III
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

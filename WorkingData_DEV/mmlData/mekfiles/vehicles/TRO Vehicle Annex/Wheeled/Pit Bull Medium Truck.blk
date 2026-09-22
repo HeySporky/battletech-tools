@@ -1,0 +1,180 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb7e-7909-b38f-56cc78308a5a
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Pit Bull Medium Truck
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4828
+</mul id:>
+
+<year>
+3035
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+easy_maintain
+</quirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+standardseats:4.0:0:-1::-1:0
+cargobay:1.383:1:2::-1:0
+</transporters>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+43
+</armor_type>
+
+<armor_tech_rating>
+1
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+1
+1
+1
+1
+</armor>
+
+<Body Equipment>
+ISOffRoadChassis
+</Body Equipment>
+
+<Front Equipment>
+HHSearchlight
+HHSearchlight
+HHSearchlight
+HHSearchlight
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+2
+</barrating>
+
+<structural_tech_rating>
+1
+</structural_tech_rating>
+
+<engine_tech_rating>
+1
+</engine_tech_rating>
+
+<capabilities>
+<p>The Pit Bull shares its drivetrain and basic specifications with the Bulldog, using the same internal combustion engine, wheeled chassis configuration, and fuel load supporting a one-thousand-kilometer operational range. The defining modification is a reinforced off-road chassis that replaces the Bulldog's standard commercial frame, adding roughly 234 kilograms to the vehicle's structural mass in exchange for the ability to negotiate broken terrain, shallow crossings, and unprepared surfaces. This structural upgrade reduces the available cargo bay to 1,383 kilograms, a reduction of roughly 234 kilograms compared to its civilian counterpart.</p><p>The Pit Bull retains the same crew configuration of one driver and three passengers, four handheld searchlights, and the Easy to Maintain characteristic that makes fleet maintenance practical under field conditions without dedicated logistical support. Like the Bulldog, the Pit Bull carries no weapons or combat systems, making its usefulness in contested areas entirely dependent on the presence of escort forces. Its higher equipment rating reflects the military-grade chassis construction rather than any increase in combat capability.</p>
+</capabilities>
+
+<overview>
+<p>The Pit Bull Medium Truck is the military variant of Pinard Protectorates Limited's commercial Bulldog design, produced at the same Perdition facility and entering Taurian Defense Force service around 3035. The Pit Bull sacrifices a portion of the Bulldog's cargo capacity to accommodate a reinforced off-road chassis, trading peak payload for operational versatility in terrain that would defeat a standard road truck. The Taurian Defense Force relies on the Pit Bull to sustain infantry and light combat units in the Concordat's frontier regions, where paved roads are a luxury and the ability to cross broken ground can determine whether a unit lives or dies.</p>
+</overview>
+
+<deployment>
+<p>The Pit Bull serves exclusively in military and paramilitary roles within the Taurian Concordat and affiliated formations, providing logistics support to infantry battalions, militia units, and light combat elements operating in terrain that precludes the use of road-bound transports. The TDF distributes Pit Bulls among its ground forces at the company and battalion level, using them to sustain units in the Concordat's frontier regions and during operations against Periphery raiders. The Pit Bull is not exported to other states in significant quantities, with the Taurian Defense Force treating it as a domestic military necessity rather than a trade commodity.</p>
+</deployment>
+
+<history>
+<p>The Taurian Defense Force's operational experience in the Concordat's varied terrain environments made clear that standard commercial vehicles often could not sustain units once road infrastructure gave out. PPL responded with the Pit Bull, a military adaptation of the proven Bulldog built around a reinforced off-road chassis, entering TDF inventory around 3035. The company marketed the Pit Bull specifically to Concordat military buyers while keeping the civilian Bulldog line unchanged, establishing clear product differentiation between their commercial and defense offerings.</p><p>The design proved its value in 3044 during a Tortuga Pirates raid on the Concordat world of Althea's Choice. When pirates landed and cut off a local infantry battalion from its garrison base, the unit's commanders ordered their logistics section into action. A convoy of Pit Bulls drove without lights through the night, navigating broken terrain between the garrison and the isolated battalion, delivering a full load of weapons and training gear despite being forced to detour repeatedly around obstacles. The convoy reached the cut-off unit, gave the infantry the means to resist until the pirates withdrew, and then carried the battalion survivors back to base. PPL later highlighted the incident in promotional materials, though the company stopped short of directly crediting the Pit Bull for the military outcome.</p><p>The same competitive threat from Vandenberg Mechanized Industries that targeted the Bulldog's commercial contracts also extended to the Pit Bull's military accounts. The failure and subsequent cancellation of VMI's prototype program in 3054 eliminated the only realistic near-term alternative to PPL's supply vehicle line, leaving the Pit Bull as the TDF's primary light logistics vehicle without serious competition. The design continued in service through the Succession Wars and into the later eras, with production persisting even after Perdition's administrative transition to Federated Suns oversight during the Dark Age.</p>
+</history>
+
+<manufacturer>
+Pinard Protectorates Limited
+</manufacturer>
+
+<primaryFactory>
+Perdition
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:N/A
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:N/A
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+3.0
+</tonnage>
+
+<fuel>
+0.045
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

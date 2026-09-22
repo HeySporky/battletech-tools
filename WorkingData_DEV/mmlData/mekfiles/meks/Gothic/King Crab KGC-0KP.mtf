@@ -1,0 +1,179 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6b1-715b-8a6b-4d78e9665f1a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:King Crab
+model:KGC-0KP
+
+Config:Biped
+techbase:Inner Sphere
+era:3150
+source:Gothic
+published:RS:Gothic
+rules level:5
+role:Juggernaut
+
+quirk:command_mech
+
+mass:100
+engine:300 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:22 Single
+walk mp:3
+jump mp:2
+
+armor:Standard(Inner Sphere)
+LA armor:30
+RA armor:30
+LT armor:29
+RT armor:29
+CT armor:35
+HD armor:9
+LL armor:31
+RL armor:31
+RTL armor:10
+RTR armor:10
+RTC armor:12
+
+Weapons:5
+PPC, Left Arm
+Light Blazer, Left Arm
+PPC, Right Arm
+Light Blazer, Right Arm
+AC/20, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+PPC
+PPC
+PPC
+Light Blazer
+Light Blazer
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+PPC
+PPC
+PPC
+Light Blazer
+Light Blazer
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+IS Ammo AC/20
+IS Ammo AC/20
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Golden Unity's redesign of the King Crab has been likened to a "big brother for the Marauder" due to its weapon layout. Arm-mounted PPCs paired with light blazers replace the assault autocannons, while a single superheavy autocannon sits in a pronounced dorsal mount. Jump jets provide extra maneuverability in cluttered environments, making this variant a nasty surprise for unsuspecting enemies.</p>
+
+capabilities:<p>The jump jets give this assault machine unexpected repositioning ability in broken terrain, allowing it to occupy firing positions that conventional assaults cannot reach. The PPCs and dorsal autocannon create overlapping engagement zones that punish enemies at every range. Pilots should use jump mobility to maintain optimal firing distance rather than wading into brawls, letting the light blazers handle anything that slips inside PPC range.</p>
+
+fluffdate:2026-03-12 17:00:46
+

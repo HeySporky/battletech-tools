@@ -1,0 +1,248 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-abae-70ed-8087-cf34af27a7ea
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Mule
+</Name>
+
+<Model>
+(Star League Pocket Warship)
+</Model>
+
+<mul id:>
+4686
+</mul id:>
+
+<year>
+2756
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+asfbay:6.0:1:1::-1:0
+1stclassquarters:50.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:154.0:0:-1::-1:0
+cargobay:413.5:1:5::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+160
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+9570
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+176
+154
+154
+132
+</armor>
+
+<Nose Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+IS Ammo AC/5:20
+(B) Medium Laser
+(B) Small Laser
+Small Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:39
+Ammo White Shark:39
+(B) SRM 6
+IS Ammo SRM-6:15
+(B) Medium Laser
+Medium Laser
+(R) (B) Large Laser
+(R) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:39
+Ammo White Shark:39
+(B) SRM 6
+IS Ammo SRM-6:15
+(B) Medium Laser
+Medium Laser
+(R) (B) Large Laser
+(R) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Large Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+10
+</structural_integrity>
+
+<capabilities>
+<p>The Star League-era Pocket WarShip variant strips the Mule of its cargo capacity to mount a fearsome array of capital missile systems. Three White Shark and three Barracuda launchers replace the upper cargo bays, supplied by thirty-nine reloads stored in armored magazines. Six aerospace fighter bays provide a screening force for the converted freighter, with only 413 tons of residual cargo space remaining. Armor protection more than doubles to 616 points, and 160 double heat sinks replace the original singles to manage the thermal demands of the capital weapons. The crew complement nearly doubles to 54 to handle the complex weapons systems and fighter operations.</p>
+</capabilities>
+
+<overview>
+<p>The Mule class DropShip is one of the most common civilian vessels in known space, a ubiquitous spheroid cargo transport encountered on virtually every trade route across the Inner Sphere. Designed during the height of the Star League in 2737, the Mule has endured for centuries thanks to its practical and uncomplicated design, affordability, ease of maintenance, and surprisingly spacious crew accommodations. These qualities make the Mule highly attractive to independent traders and small shipping firms, ensuring its continued production long after more sophisticated Star League-era designs fell out of use.</p><p>At 11,200 tons, the Mule carries a generous amount of armor and weaponry for a merchant vessel, boasting an arsenal that rivals those of some small military DropShips. Its cargo capacity of nearly 8,500 tons and versatile interior layout have made it the standard by which all other civilian freighters are measured.</p>
+</overview>
+
+<deployment>
+<p>The Star League-era Pocket WarShip saw limited deployment with the SLDF's naval auxiliary forces, providing capital missile capability in theaters where dedicated WarShip support was unavailable. Few of these conversions survived the Succession Wars intact, though the concept would be revived centuries later by the Word of Blake. The variant demonstrated that even a civilian hull could be transformed into a credible naval combatant with sufficient armament and armor upgrades.</p>
+</deployment>
+
+<history>
+<p>The Mule entered production in 2737, during the final decades of the Star League when interstellar trade volume was at its historical peak. The design filled a critical niche between smaller cargo shuttles and the enormous Mammoth class, offering substantial hauling capacity at a price point accessible to independent operators and mid-sized shipping firms. The Mule quickly became the most popular civilian cargo carrier in the Inner Sphere, a status it would maintain through centuries of conflict and upheaval.</p><p>The Star League's collapse and the onset of the Succession Wars tested the Mule's durability in ways its designers never anticipated. While more complex military vessels became irreplaceable casualties of the conflicts, the Mule's straightforward engineering and widely available components ensured that production could continue even as the Inner Sphere's technological base deteriorated. The drive system proved so reliable and well-understood that it was adapted for use in the Excalibur class military transport when that vessel's original propulsion supply dwindled, further cementing the Mule's importance to the Inner Sphere's industrial base.</p><p>Plans for a comprehensive refit incorporating recovered Star League technology were under consideration by the early 3050s, but the arrival of the Clans and the resulting demand for military DropShip production delayed any upgrades indefinitely. The Mule continued in its original configuration, its proven reliability valued more than ever during a period of heightened military tension. Clan merchants adopted a variant designated the Mule C, incorporating minor modifications suited to Clan production methods while preserving the fundamental design.</p><p>The Word of Blake's Jihad saw the Mule pressed into an entirely new role when Blakist engineers converted several hulls into Pocket WarShip configurations, mounting capital missile launchers and fighter bays in place of cargo holds. These weaponized Mules, including the deceptive Q-Ship variant that retained civilian-grade armor to maintain the appearance of a harmless freighter, represented a dramatic departure from the vessel's peaceful origins. Following the Jihad, the Mule returned to its traditional role, remaining in production at facilities across the Inner Sphere well into the thirty-second century.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:GE 2080
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+11200.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+34
+</crew>
+
+<officers>
+5
+</officers>
+
+<gunners>
+15
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+2
+</life_boat>
+
+<escape_pod>
+2
+</escape_pod>
+

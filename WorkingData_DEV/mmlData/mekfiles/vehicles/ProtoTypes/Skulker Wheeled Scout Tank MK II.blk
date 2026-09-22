@@ -1,0 +1,160 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e976-7f04-9032-5a2b39a58940
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Skulker Wheeled Scout Tank Mk II
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5071
+</mul id:>
+
+<year>
+3082
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<quirks>
+trailer_hitch
+poor_performance
+</quirks>
+
+<weaponQuirks>
+accurate:FR:0:Medium Laser
+</weaponQuirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+18
+18
+18
+18
+</armor>
+
+<Body Equipment>
+ISAngelECMSuite
+BloodhoundActiveProbe
+</Body Equipment>
+
+<Front Equipment>
+Medium Laser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Mk II matches its predecessor's speed, cruising at 75 kph and reaching 118 kph at flank. The GM Electric 120 fuel cell replaces the original's internal combustion engine, trading some fuel sourcing flexibility for a cleaner power signature and reduced maintenance complexity. The Intek Hellborer medium laser provides reliable direct-fire capability comparable to the original Skulker's weapon, with the same no-ammunition-dependency advantage for extended operations.</p><p>The electronic suite represents the Mk II's substantial departure from the base design. The Angel ECM system degrades enemy sensor capability and makes the vehicle significantly harder to detect and target. The Bloodhound Active Probe allows detection of concealed and camouflaged targets at ranges beyond standard probe capability, giving the Mk II a meaningful advantage in the reconnaissance contest. Both systems integrate with the Communique Equipment communications platform and the Targeting System 2.3 retained from the original design, maintaining the unified sensor and navigation architecture JES established with the first Skulker.</p><p>The vehicle retains the four-person crew and roomy interior of the base design, preserving the endurance advantage. The shift to a fuel cell narrows fuel sourcing options compared to the original's combustion engine, a practical limitation on extended independent operations. Wheeled mobility limitations inherited from the base chassis apply equally to the Mk II.</p>
+</capabilities>
+
+<overview>
+<p>The Skulker Mk II emerged from a deliberate effort by Joint Equipment Systems to rebuild its commercial standing after years of damage inflicted by the JES I Tactical Missile Carrier. The company's Panpour facility, operating in Federated Suns territory, became the center of a development program that began with the unsuccessful X-5 prototype series and culminated in a production vehicle entering service in 3082. The Mk II retained the original Skulker's mass, crew capacity, and general reconnaissance role, replacing the internal combustion powerplant with a fuel cell engine and substantially upgrading the electronics suite. Angel ECM and a Bloodhound Active Probe gave the design a level of sensor performance and electronic protection that the original could not approach, making the Mk II more capable in contested electronic environments at the cost of some of the fuel flexibility that had made the original Skulker attractive for extended field operations.</p>
+</overview>
+
+<deployment>
+<p>The Skulker Mk II is distributed primarily through AFFS agencies and mercenary commands operating in the Federated Suns, reaching customers through long-term contracts negotiated with JES's Panpour facility. Deployment within AFFS scout elements is described as prolific, suggesting genuine institutional adoption. The Angel ECM and Bloodhound Active Probe combination makes the Mk II the preferred option for reconnaissance in contested electronic environments. Mercenary contracts are creating supply pathways outside the Federated Suns, with distribution to independent commands and other nations expanding as the design establishes its reputation.</p>
+</deployment>
+
+<history>
+<p>Joint Equipment Systems entered the Jihad era burdened by the legacy of the JES I Tactical Missile Carrier. The Carrier's limited tactical value and chronic quality issues had cost the company established customers and driven its pricing below sustainable margins. With its Panpour facility still operational, JES leadership concluded that the path forward required demonstrating genuine technical capability rather than incremental adjustments to damaged product lines.</p><p>The choice of the Skulker as a development platform was straightforward. The original design had four centuries of production history and a reputation that the Missile Carrier had never approached. JES's proximity to Jalastar Aerospace on Panpour created an opportunity to access electronics manufacturing the company could not have developed internally on its own timeline. A joint engineering effort between the two companies produced the Angel ECM suite and Bloodhound Active Probe that would define the modernized design.</p><p>The X-5 prototype program launched in 3071, pursuing a version of the Skulker upgraded with a fusion powerplant, an extended-range medium laser, and the new electronics package. The resulting vehicle demonstrated that JES could execute technically advanced manufacturing. It also demonstrated that the design cost more than the scout market would bear. A wheeled scout running fusion power and prototype electronics carried a price point that most prospective customers found difficult to justify for an inherently expendable platform.</p><p>JES elected to use the X-5s as demonstrators, leasing prototypes to mercenary commands at nominal rates. The program generated visibility and some credibility, but not commercial orders. Internal analysis concluded that the fusion powerplant was the primary cost driver and that replacing it with a fuel cell engine would bring the vehicle within an acceptable price range while preserving the electronics that differentiated it from the baseline design.</p><p>Development of a suitable fuel cell engine for the Skulker chassis began at the Panpour facility in 3081. Work moved quickly once the engineering parameters were established, and by 3082 production Mk IIs were reaching customers. The fuel cell conversion cost the design some of the field fuel flexibility the original Skulker had offered, and experienced operators noted the change. The Angel ECM and Bloodhound Probe combination provided enough operational advantage in contested reconnaissance environments to sustain demand among customers who could quantify those capabilities' value.</p><p>Initial distribution of the Mk II concentrated within the Federated Suns. Several AFFS agencies accepted long-term contracts, and mercenary commands with Federated Suns connections followed. Deployment among AFFS scout elements proved prolific enough to suggest genuine institutional adoption rather than a limited trial. The vehicle's performance in electronic warfare environments, where the original Skulker had no capability, gave field commanders a practical reason to value it over cheaper alternatives.</p><p>By the ilClan era, distribution had begun extending outside the Federated Suns. Mercenary contracts created supply pathways independent of AFFS procurement, raising the prospect that the Mk II might achieve some of the broad Inner Sphere distribution that had characterized the original design over its centuries of service. JES's Panpour facility remained the sole production source, and the company's reputation, substantially damaged by the Missile Carrier episode, had recovered enough through the Mk II's performance to support continued production commitments.</p>
+</history>
+
+<manufacturer>
+Joint Equipment Systems
+</manufacturer>
+
+<primaryFactory>
+Panpour
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:ProtecTech
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Electric 120
+ARMOR:Light
+COMMUNICATIONS:Communique Equipment
+TARGETING:Targeting System 2.3
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<published>
+RS:Proto
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+

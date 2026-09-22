@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c56c-72c7-af77-14a2193973f1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Imp
+model:IMP-2E
+mul id:4358
+
+Config:Biped
+techbase:Inner Sphere
+era:3005
+source:TR:3050,TR:3050U
+published:RS:3050Uu-I
+rules level:1
+role:Juggernaut
+
+quirk:difficult_maintain
+quirk:command_mech
+
+mass:100
+engine:300 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:30 Single
+walk mp:3
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:25
+RA armor:25
+LT armor:30
+RT armor:30
+CT armor:40
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:12
+RTR armor:12
+RTC armor:21
+
+Weapons:8
+Medium Laser, Left Arm
+LRM 15, Right Arm
+PPC, Left Torso
+Medium Laser, Left Torso
+PPC, Right Torso
+Medium Laser, Right Torso
+Medium Laser, Center Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+LRM 15
+LRM 15
+LRM 15
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+PPC
+PPC
+PPC
+Medium Laser
+IS Ammo LRM-15
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+PPC
+PPC
+PPC
+Medium Laser
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Medium Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Imp was conceived in the years following the SLDF Exodus, when a young Nicholas Kerensky proposed that the exiled military needed a totem, a new BattleMech to rally around whose construction would prompt industrial growth on the Pentagon worlds. First produced by the Babylon BattleMech Consortium on Babylon in 2793, the hundred-ton assault 'Mech emerged at a time when thousands of other designs were being mothballed. Named after a ferocious predator native to the jungles of Eden (ironically hunted to extinction by the genetically engineered smoke jaguar) the Imp was designed specifically for battlefield commanders, its generous frame providing room for both a significant weapons array and a cockpit spacious enough to accommodate a full command console.</p><p>The Imp holds the distinction of being the first BattleMech produced by what would become Clan Wolf. Though plagued by early quality control issues and eventually supplanted by more advanced Clan designs during the Golden Century, the Imp found renewed purpose when Wolf's Dragoons brought examples to the Inner Sphere and GM Blackwell later began production on Outreach.</p>
+
+capabilities:<p>The Imp was designed from the outset as a battlefield command platform. Its bulbous frame provides ample room for both a diverse weapons suite and a cockpit spacious enough to accommodate a full command console, giving its pilot complete command and control of even planetary-scale operations. The powerful Pauley-Bronson Z communications system, tied to a Tacticon T10K Battle Computer and its array of displays, reinforces this role as a mobile command post.</p><p>At one hundred tons, the Imp stresses armor and firepower over speed and finesse. Eighteen tons of Maximillian 300 armor provide excellent protection for a 'Mech intended to remain at the center of combat operations. A pair of extended-range PPCs delivers punishing direct fire at extreme range, while a missile rack provides indirect fire support. A mixed array of pulse and standard lasers offers withering close-range firepower across multiple engagement envelopes, making the Imp something of a weapons platform for all seasons.</p><p>The design's Achilles heel has always been reliability. The Imp was plagued by problems from the start, its designers were rushed, had limited resources, and most supporting industries supplied products of widely varying quality. The first production runs were literally hand-built, with no two identical Imps emerging from the factory. Computer lock-ups, cascading systems failures, and mechanical breakdowns were commonplace until well after the Second Exodus, when the Clans finally excised the Imp's many demons. Even then, glitch and breakdown rates remained three times higher than average.</p>
+
+deployment:<p>First seen in the early 31st century when Wolf's Dragoons arrived in the Inner Sphere, this variant was a deliberate technological downgrade intended to disguise the design's true extraterrestrial origins. Mounting a heavier Strand 300 standard engine and an arsenal of strictly Inner Sphere technology (twin PPCs, an LRM-15, and five medium lasers) the 'Mech walked and talked like a forgotten product of Succession Wars-era decline. Its Star League-inspired design lines and the complete absence of manufacturing records nonetheless triggered suspicion among the intelligence communities of both the Successor States and ComStar, though the true nature of the Imp would not be revealed for decades.</p>
+
+history:<p>The Imp's history traces an unusual arc from the Pentagon worlds to the Inner Sphere. Fewer than two dozen Imps were constructed prior to the Second Exodus, all assigned to regimental and division command units. The majority accompanied Nicholas Kerensky to Strana Mechty, though a handful remained within the Pentagon, some in the hands of rogue commanders, others produced before the Babylon BattleMech Consortium factory was destroyed during the Pentagon Civil War.</p><p>Three years after Operation KLONDIKE, Clan Wolf returned the Imp to regular production, though its heyday was relatively limited. By the dawn of the Golden Century, more advanced and less trouble-prone Clan designs had supplanted the Imp, condemning it to a slowly fading obscurity. The Babylon factory itself passed through several hands over the centuries, from Clan Cloud Cobra through the Succession Wars and Civil War eras, to Clan Coyote during the Jihad, and eventually to uncertain Clan control in the Dark Age.</p><p>The Imp's story might have ended there if not for Wolf's Dragoons. When the Dragoons entered the Inner Sphere in the early 31st century, they brought a number of Imps that had been deliberately downgraded to contemporary technology standards. The appearance of these machines in the Dragoons' TO&amp;E confused ComStar's ROM, who mistakenly believed them to be forgotten Star League prototypes. Rather than correct this error, the Dragoons leveraged the mystery of their unique 'Mechs to secure a business partnership with GM Blackwell, never explaining the slip and leaving the Imp's origins as part of the mystique that helped win them contracts for decades.</p><p>After the recovery of lostech, the Dragoons did not restore their Imps to original Clan configurations, instead allowing Inner Sphere technicians to develop new variants using domestically available components. GM Blackwell produced both the IMP-3E and the more advanced IMP-4E on Outreach until the factory's destruction during the Word of Blake assault in 3067-3068. Attempts to establish IMP-4E production at Arc-Royal MechWorks were disrupted by Blakist attacks in 3072, and while a short production run was achieved during the Jihad, the line was ultimately discontinued in 3081 and reassigned to Grasshopper production.</p><p>Beyond the Dragoons, the Imp remains rare in the modern era. Examples are spotted occasionally in Clan second-line formations in the homeworlds, and the obliteration of the Outreach factories has effectively ended Inner Sphere production. Whispers persist that Arc-Royal factories or the exiled Wolves may look to restart Imp production using Dragoon schematics, but as of the ilClan era, no new production lines have been confirmed.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Star League
+systemmode:CHASSIS:IM-03x
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Strand 300
+systemmanufacturer:ARMOR:Dagda Mining & Forging
+systemmode:ARMOR:Maximillian 300
+systemmanufacturer:COMMUNICATIONS:Arcadian Communications
+systemmode:COMMUNICATIONS:Pauley-Bronson Z
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Wasat Aggressor Type 8

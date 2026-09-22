@@ -1,0 +1,241 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aaea-78db-8999-ef733ca78c5e
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Cargo King
+</Name>
+
+<Model>
+(2790)
+</Model>
+
+<mul id:>
+3896
+</mul id:>
+
+<year>
+2790
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+cargobay:2245.0:2:1::-1:0
+1stclassquarters:40.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:91.0:0:-1::-1:0
+cargobay:2244.5:2:5::-1:0
+cargobay:2244.5:2:6::-1:0
+cargobay:2244.5:2:7::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+128
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+11670
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+82
+71
+71
+62
+</armor>
+
+<Nose Equipment>
+(B) ISERLargeLaser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+(R) (B) ISERLargeLaser
+(R) Medium Laser
+(R) Medium Laser
+(R) (B) LRM 20
+(R) IS Ammo LRM-20 Artemis-capable:30
+(R) ISArtemisIV
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+(R) (B) ISERLargeLaser
+(R) Medium Laser
+(R) Medium Laser
+(R) (B) LRM 20
+(R) IS Ammo LRM-20 Artemis-capable:30
+(R) ISArtemisIV
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+12
+</structural_integrity>
+
+<capabilities>
+<p>The Cargo King's primary asset is its staggering cargo capacity of nearly nine thousand tons, housed in expansive internal bays served by automated handling systems. The vessel's defensive armament is modest for its size, reflecting its civilian role. The nose mounts an ER large laser paired with an LRM-20 rack fitted with an Artemis IV fire control system. Each broadside carries a pair of ER large lasers, four medium lasers, and two LRM-20 racks with Artemis IV guidance, while the aft arc is defended by an ER large laser and two medium lasers.</p><p>One hundred twenty-eight single heat sinks manage the thermal load from this energy-heavy weapons suite. The Merlin 2400 drive system propels the massive hull at a safe thrust of three, adequate for a vessel never intended for combat maneuvering. A crew of just twenty-five operates the entire ship, a remarkably small complement made possible by the extensive automation integrated throughout the vessel's cargo handling, navigation, and engineering systems.</p>
+</capabilities>
+
+<overview>
+<p>The Cargo King class DropShip was the premier civilian cargo transport of the late Star League era. Introduced in 2790 by Federated-Boeing Interstellar at the Galax megaplex, this massive 12,500-ton Spheroid was designed as the civilian counterpart to the military Cargomaster class. The vessel represented the pinnacle of automated cargo handling technology, requiring only a skeleton crew to operate despite its enormous size. Its advanced automation systems eliminated the need for additional dockworkers during loading and unloading operations, a revolutionary capability for the era.</p><p>Only two Cargo Kings were ever constructed, making the class one of the rarest DropShip designs in history. The combination of its immense tonnage, advanced systems, and the catastrophic timing of its introduction ensured that the Cargo King remained an ambitious but ultimately unfulfilled vision of Star League-era logistics capability.</p>
+</overview>
+
+<deployment>
+<p>The Cargo King saw only the briefest operational service. Both completed hulls were operated by Federated-Boeing Interstellar under contract to the Federated Suns during the early First Succession War. The sole surviving vessel, the FSDS Richard III, served as a bulk transport along major supply corridors before vanishing in the Kesai system in 2825. No other Cargo Kings are known to have entered service with any faction.</p>
+</deployment>
+
+<history>
+<p>The Cargo King originated as a Star League Defense Force requirement for a civilian-grade bulk cargo transport based on the proven Cargomaster military design. Pre-production began in 2781 at Boeing Interstellar's newly constructed industrial megaplex at Galax. However, by the time the first hull left the production line in 2789, the Star League had collapsed, the Galax facility had passed to Federated-Boeing Interstellar under Federated Suns ownership, and the Inner Sphere had plunged into the First Succession War.</p><p>The program was plagued by misfortune from the start. One of the two completed vessels was destroyed during testing, leaving only a single operational Cargo King, the FSDS Richard III. The resources and advanced technology required to build and maintain such a massive vessel had become scarce amid the escalating conflict, and production was abandoned shortly after. The Richard III disappeared in the Kesai system in 2825 under unknown circumstances, ending the Cargo King's brief service history entirely. No replacement hulls were ever laid down, and the design remained a footnote in the annals of Star League naval engineering.</p>
+</history>
+
+<manufacturer>
+Boeing Interstellar|Federated-Boeing Interstellar - Port Simon Shipyards
+</manufacturer>
+
+<primaryFactory>
+New Earth|Galax
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Merlin 2400
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r,TR:3026r
+</source>
+
+<tonnage>
+12500.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+17
+</crew>
+
+<officers>
+4
+</officers>
+
+<gunners>
+4
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+2
+</life_boat>
+
+<escape_pod>
+2
+</escape_pod>
+

@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e871-73a1-aef3-4e35e60e3465
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+JES III Missile Carrier
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6669
+</mul id:>
+
+<year>
+3133
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<quirks>
+imp_target_long
+easy_maintain
+</quirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+40
+21
+21
+20
+26
+</armor>
+
+<Body Equipment>
+IS Machine Gun Ammo - Half
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Ammo LRM-15
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+LRM 15
+LRM 15
+LRM 15
+LRM 15
+</Turret Equipment>
+
+<capabilities>
+<p>The JES III mounts four turret-mounted FarFire LRM-15 launchers as its primary armament, giving it a combined barrage of sixty missiles per salvo. The turret mount serves as a significant tactical advantage over the fixed-forward launchers of earlier JES designs, allowing the crew to engage targets across a full arc without repositioning the vehicle. Two GM MiniGun machine guns provide point defense against infantry, though the JES III lacks any meaningful secondary weapons beyond these. A six-ton ammunition bay provides reasonable endurance for sustained bombardment missions.</p><p>A GM 160 XL fusion engine gives the wheeled carrier a top speed of 54 km/h, modest but adequate for a fire support platform that typically operates from the second echelon. Starshield III armor provides protection appropriate to the vehicle's support role, though crews are expected to avoid direct engagement with frontline combatants. The Communicator communications system and FireScan with IndirecTrack targeting system are the same proven electronics suite used across the entire JES carrier line, simplifying logistics and crew training. Whatever lessons Joint Equipment Systems learned building their earlier carriers paid dividends with the JES III, which earned design quirks for both ease of maintenance and improved long-range targeting accuracy.</p>
+</capabilities>
+
+<overview>
+<p>The JES III Missile Carrier was Joint Equipment Systems' attempt to find a middle ground between its two predecessor designs. Introduced in 3133 just before the HPG Blackout, the sixty-ton wheeled carrier was designed with reliability and ease of maintenance as primary goals, learning from the lessons of both the underpowered JES I and the ponderous JES II. Originally built at the Zebebelgenubi facility for the Republic of the Sphere armed forces, production quickly expanded to the Alula Australis and Panpour plants as demand surged in the chaotic post-Blackout environment. The JES III became one of the most popular missile carriers of the Dark Age, proving itself a reliable and rugged support vehicle across multiple factions.</p>
+</overview>
+
+<deployment>
+<p>The standard JES III entered service in 3133 from Zebebelgenubi, with Alula Australis and Panpour adding production shortly afterward. Republic militia forces were the initial primary operators, but the vehicle spread rapidly to Federated Suns, Dominion, and Clan Jade Falcon forces as the Dark Age intensified. The design's ease of maintenance and reliable performance made it a favorite among garrison commanders across the Inner Sphere.</p>
+</deployment>
+
+<history>
+<p>By the early 3130s, Joint Equipment Systems had transformed from a near-bankrupt refugee company into a multi-world defense manufacturer with facilities spanning three successor states and the Republic of the Sphere. The JES I had proven that cheap missile carriers had a viable market, and the JES II had demonstrated the company's ability to produce a competitive heavy missile platform. The JES III was designed to fill the gap between them, offering better firepower than the JES I in a more mobile and affordable package than the JES II.</p><p>The vehicle was originally slated for exclusive delivery to the Republic Armed Forces, and only a handful had been delivered before the HPG Blackout struck in 3132. Many of these early production units fell into the hands of rebellious factions as the Republic fragmented. Joint Equipment Systems responded to the crisis by rapidly expanding production from Zebebelgenubi to their Alula Australis and Panpour plants, selling to any buyer with the means to pay.</p><p>JES carriers appeared in almost every military formation across the Inner Sphere during the Dark Age, and the JES III quickly became the most visible of the line. JES IIIs in particular earned a fearsome reputation as headhunter platforms, with savvy tacticians withholding their firepower until they had identified and marked an enemy commander, then saturating the target with massed LRM fire. During the battle for Robinson, a Combine detachment of six JES IIIs and two JES Is used this tactic to devastating effect, allowing the main force to advance while the carriers circled the engagement on a tangent. The tactic was not universally understood, however. On Alioth, a militia commander ordered six JES IIIs into the main line of battle against Clan Wolf BattleMechs, where all six were destroyed at close range after the carriers' minimum engagement distance was breached.</p>
+</history>
+
+<manufacturer>
+Joint Equipment Systems|Joint Equipment Systems|Joint Equipment Systems
+</manufacturer>
+
+<primaryFactory>
+Alula Australis|Panpour|Zebebelgenubi
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:Starshield
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:160 XL
+ARMOR:III
+COMMUNICATIONS:Communicator
+TARGETING:FireScan with IndirecTrack
+</systemModels>
+
+<source>
+TR:3145:RotS,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

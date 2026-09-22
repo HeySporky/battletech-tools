@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e927-7daf-82c9-4f8777d27930
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Gallant Urban Assault Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4200
+</mul id:>
+
+<year>
+2574
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+60
+55
+55
+60
+50
+</armor>
+
+<Body Equipment>
+ISCASE
+IS Ammo AC/10
+IS Ammo AC/10
+IS Ammo MG - Full
+IS Ammo LRM-10
+IS Ammo SRM-2
+</Body Equipment>
+
+<Front Equipment>
+LRM 10
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Autocannon/10
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+SRM 2
+</Turret Equipment>
+
+<capabilities>
+<p>The Gallant's armament was tailored for close urban combat. The Kali Yama Class 10 Autocannon delivers a heavy punch suitable for dismounting fortified infantry or engaging light vehicles, while four Scatter Gun Light Machine Guns suppress foot soldiers in the alleys and collapsed structures the tank was designed to fight through. A Harvester SRM 2 Missile Rack rounds out the close-range options, and a Light Crossbow LRM 10 provides reach against targets requiring standoff engagement. Together, the weapons suite covers most scenarios likely to arise in urban or industrial fighting.</p><p>The inclusion of Cellular Ammunition Storage Equipment was a meaningful safety upgrade added after the Free Worlds League joined the Star League. CASE could not prevent an ammunition detonation, but it channeled the explosion outward rather than through the crew compartment, significantly improving crew survivability and giving a damaged hull a chance of recovery. The self-inflating tire system served a similar survivability function, maintaining mobility even after significant tire damage.</p><p>The vehicle's weaknesses are real. The ICE power plant imposed a genuine performance ceiling, limiting cruising speed to 32 kph and denying the Gallant any prospect of outmaneuvering faster opponents. The wheeled configuration, unusual for a heavy combat vehicle, delivered reasonable road mobility but struggled in broken or soft terrain. These limitations made the Gallant best suited for deliberate, set-piece urban assaults rather than fluid combined-arms operations.</p>
+</capabilities>
+
+<overview>
+<p>The Gallant Urban Assault Tank emerged from the Free Worlds League Military's recognition that conventional armor and infantry still formed the bulk of any Inner Sphere force. Designed for combat in the cramped corridors of urban and industrial environments, the Gallant was conceived as a dedicated support platform for infantry assaults in areas where the Ares Conventions restricted BattleMech operations. Development proceeded under tight budget parameters that forced Freeport Armorworks and Kallon Industries to substitute an internal combustion engine for the planned fusion power plant and forego advanced structural composites. Despite those constraints, the resulting vehicle was well armored and adequately armed for its intended role. First fielded by the FWLM in the run-up to the Third Andurien War, the Gallant sought to combine the technologies of its era with the proven concept of the armored fighting vehicle.</p>
+</overview>
+
+<deployment>
+<p>The Gallant was fielded exclusively by the Free Worlds League Military and subsequently the Star League Defense Force during the Reunification War era. FWLM deployments concentrated in rear-area security and supply convoy escort roles, the vehicle's intended urban assault function largely foreclosed by the Captain-General's Ares Convention commitments. SLDF formations made more aggressive use of the design in urban and industrial fighting across Periphery theaters. After the war, surviving hulls drifted into second-line and planetary militia service across Free Worlds League space, remaining in nominal inventory through the early Star League period before attrition ended operational use.</p>
+</deployment>
+
+<history>
+<p>The Gallant was developed by the Free Worlds League Military in preparation for the Third Andurien War, with production split between Freeport Armorworks on Helm and Kallon Industries on Loyalty. The original production run predated the League's formal entry into the Star League and accordingly lacked CASE, with that system incorporated during the 2570s as Hegemony technologies were supplied to member states in lieu of direct military contributions.</p><p>Distribution among FWLM formations was never robust. The Captain-General's strict adherence to the Ares Conventions limited the vehicle's use in precisely the urban environments it was designed to fight in, and most FWLM Gallants were reassigned to supply convoy escort roles instead. After the Free Worlds League joined the Star League, Defense Protocols transferred a significant portion of the FWLM's Gallant inventory to the SLDF, where the vehicles saw far broader operational use. The most notable action came at Cerberus in the Outworlds Alliance, where a squadron of Gallants forced its way into a contested city center against determined civilian resistance. On Apollo in the Rim Worlds Republic, Gallants conducted sustained harassment raids against Terra Prime garrisons during the long siege.</p><p>Despite surviving the Reunification War, the Gallant proved difficult to upgrade as more advanced technologies proliferated. By the early 27th century most examples had been consigned to planetary militia and reservist formations. The Succession Wars completed the design's elimination from active service, and no complete examples are known to have survived, though damaged hulks persist in museum collections and private militaria holdings.</p>
+</history>
+
+<manufacturer>
+Freeport Armorworks|Kallon Weapon Industries
+</manufacturer>
+
+<primaryFactory>
+Helm|Loyalty
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Pitban
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:Kallon
+TARGETING:Kallon
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:190
+ARMOR:Star Slab/7
+COMMUNICATIONS:Secure Net I
+TARGETING:Set C
+</systemModels>
+
+<source>
+His:RW
+</source>
+
+<tonnage>
+70.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

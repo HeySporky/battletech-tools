@@ -1,0 +1,176 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a801-724f-9058-796f93186cc8
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Void Medium Battle Armor
+</Name>
+
+<Model>
+(Minelayer)(Sqd5)
+</Model>
+
+<mul id:>
+8701
+</mul id:>
+
+<year>
+3079
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+poor_target_long
+</quirks>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+31
+</armor_type>
+
+<armor_tech>
+5
+</armor_tech>
+
+<Squad Equipment>
+BAHeavyBattleClaw:LA
+BAHeavyBattleClaw:RA
+IS BA Stealth (Basic):LA
+IS BA Stealth (Basic):RA
+IS BA Stealth (Basic):LA
+CLBAMedium Recoilless Rifle:RA
+BAAPMount:LA
+InfantryAssaultRifle:APM:LA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+ISBAMineDispenser:Body
+ISBAMineDispenser:Body
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+ISBAMineDispenser:Body
+ISBAMineDispenser:Body
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+ISBAMineDispenser:Body
+ISBAMineDispenser:Body
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+ISBAMineDispenser:Body
+ISBAMineDispenser:Body
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+ISBAMineDispenser:Body
+ISBAMineDispenser:Body
+</Trooper 5 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Minelayer is a production evolution of the experimental Caltrop, redesigned with Inner Sphere components after Clan-specification prototypes proved impractical for mass production. Physically smaller than the standard Void, the Minelayer drops Elemental accommodation in favor of a compact frame optimized for its specialized role. Twin torso-mounted mine dispensers carry four minefields each, with munitions tailor-selected at the trooper's base. A medium recoilless rifle provides direct-fire capability against BattleMechs and vehicles that push through the minefields, while a left-arm anti-personnel weapon mount handles sentries and soft targets. Heavy battle claws on both arms allow powerful swarm attacks, and the Minelayer has earned a reputation for capturing MechWarriors and their damaged machines after they stumble through kill zones.</p><p>Mechanical jump boosters replace the standard Void's jump jets following an early prototype incident where igniting jets detonated freshly laid mines, killing the trooper. The booster allows operators to deploy mines and bounce clear without thermal risk, though jump distance is reduced. Basic stealth armor substitutes for the original improved stealth plating, reducing cost and production complexity.</p>
+</capabilities>
+
+<overview>
+<p>The Void is a medium battle armor design produced by Ishikawajima-Harima Battle Armor Industries for the Draconis Combine Mustered Soldiery. Entering service in 3067, the suit was purpose-built as a scout and light assault platform capable of accommodating operators of varying physical sizes, including the larger frames of Clan Elemental warriors. Built on a heavily modified Kage chassis, the Void carries improved stealth armor that masks its signature from both visual detection and electronic sensors, granting it considerable infiltration capability. Jump boosters provide mobility comparable to lighter designs despite the Void's one-thousand-kilogram mass. The suit earned gradual acceptance within the DCMS after an initially lukewarm reception, becoming a valued component of Combine powered infantry doctrine.</p>
+</overview>
+
+<deployment>
+<p>Clan Nova Cat forces did not receive the Minelayer variant, as the Combine's Procurement Department chose to withhold production-grade minelayers from the Clan enclaves. This exclusion reflected deteriorating relations between the DCMS and the Nova Cats, and the Minelayer's reduced frame size, which dropped accommodation for Elemental-sized operators, further limited its utility in Clan Points.</p>
+</deployment>
+
+<history>
+<p>The Void emerged from a prolonged Draconis Combine battle armor development program. Following successes with the Kage, Raiden, and Kanazuchi, the DCMS committed to expanding powered infantry capability, but resistance to non-BattleMech units delayed progress. Operation Bulldog and the Combine-Ghost Bear War forced resource allocation, yet the first prototype did not appear until 3067, five years behind schedule.</p><p>Combine scientists built the Void on the Kage platform, modifying it so extensively the two designs bore little resemblance. Accommodation for Elemental-sized operators enabled partnership with Clan Nova Cat, and production authorization followed once the High Command recognized the tactical potential. Ishikawajima-Harima BAI manufactured the suit at Luthien, with additional plants on Agematsu and Loysville opening in 3066. Full production coincided with the December 3067 Black Dragon coup, during which the Otomo and First Genyosha deployed Voids across Imperial City.</p><p>The Word of Blake blockade complicated logistics, but outlying factories continued throughout the Jihad. The Luthien plant's dispersed layout on Shizuoka's coastal flats helped it survive the Blakist occupation, and it became the first battle armor factory to resume production after liberation, reaching full capacity by 3079. The Void became standard among DCMS elite commands but remained nearly exclusive to the Combine. The Procurement Department's decision to withhold Minelayer variants from Nova Cat enclaves reflected deteriorating relations with their Clan allies.</p>
+</history>
+
+<manufacturer>
+Ishikawajima-Harima BAI
+</manufacturer>
+
+<primaryFactory>
+Luthien
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+1
+</jumpingMP>
+
+<armor>
+5
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

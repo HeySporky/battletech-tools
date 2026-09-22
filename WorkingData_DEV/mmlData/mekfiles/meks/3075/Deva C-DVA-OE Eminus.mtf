@@ -1,0 +1,206 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ce5b-7b07-beda-7039feae8f93
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Deva
+model:C-DVA-OE Eminus
+mul id:890
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3072
+source:TR:3075,TR:J
+published:RS:J
+rules level:3
+role:Sniper
+
+quirk:bad_rep_is
+quirk:bad_rep_clan
+quirk:imp_sensors
+quirk:imp_com
+
+mass:70
+engine:280 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Heavy Duty Gyro
+
+heat sinks:13 IS Double
+base chassis heat sinks:11
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:20
+RT armor:20
+CT armor:33
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:10
+RTR armor:10
+RTC armor:10
+
+Weapons:7
+Thunderbolt 15, Left Arm
+Light PPC, Left Torso
+Light PPC, Right Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+Light PPC, Center Torso
+Light PPC, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Thunderbolt 15 (OMNIPOD)
+Thunderbolt 15 (OMNIPOD)
+Thunderbolt 15 (OMNIPOD)
+IS Ammo Thunderbolt-15 (OMNIPOD)
+IS Ammo Thunderbolt-15 (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+Light PPC (OMNIPOD)
+Light PPC (OMNIPOD)
+ISCASE (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Light PPC (OMNIPOD)
+Light PPC (OMNIPOD)
+ISERMediumLaser (OMNIPOD)
+ISERMediumLaser (OMNIPOD)
+ISC3iUnit
+ISC3iUnit
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Light PPC (OMNIPOD)
+Light PPC (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+Light PPC (OMNIPOD)
+Light PPC (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Deva is the heavier of the two heavy-class Celestial OmniMechs, a seventy-ton design that serves as the series' primary close-combat platform. Named for celestial beings from Hindu and Buddhist tradition, the Deva entered production in 3069 at Gibson Federated BattleMechs and Martinson Armaments facilities. Strikingly similar in profile to its sixty-ton sibling the Grigori, the Deva fills a distinctly different battlefield role, closing with the enemy to deliver concentrated direct fire while its lighter partner provides missile support at range. For Coalition MechWarriors, the Deva became the Celestial they were most likely to face in close combat, and the one they learned to fear accordingly.</p>
+
+capabilities:<p>The Deva is constructed on a Celestial Series DV1E endo steel chassis and powered by an Inspiration 280 light fusion engine, providing a top speed of sixty-four kilometers per hour. A heavy-duty gyro absorbs punishment that would cripple a standard unit, while the small cockpit common to all Celestials accommodates Manei Domini cybernetic interfaces. Thirteen and a half tons of Durallex Divine Protector standard armor give the design robust survivability. Twenty-nine and a half tons of pod space allow for substantial weapon configurations, and a fixed C3i computer enables coordinated fire within Manei Domini formations.</p><p>The Invictus configuration emphasizes direct fire support with a Gauss rifle and three light PPCs, supplemented by a retractable blade for melee engagements. The single ton of Gauss ammunition reflects an assumption that engagements will be short and decisive. Other configurations range from long-range sniper platforms with dual ER PPCs to close-assault loadouts featuring Ultra autocannons and jump jets, demonstrating the chassis's adaptability.</p>
+
+deployment:<p>The Eminus configuration centers on an experimental Thunderbolt 15 launcher that delivers concentrated warheads against single targets. Four light PPCs mirror the Invictus variant's energy weapon philosophy, providing sustained ranged firepower after the eight rounds of Thunderbolt ammunition are expended. Paired ER medium lasers and two extra double heat sinks round out the loadout, with CASE protecting the ammunition supply. The configuration serves as a testbed for experimental missile technology while maintaining credible sustained-fire capability.</p>
+
+history:<p>The Deva earned the Celestial series its fearsome combat reputation through a string of engagements that left Coalition commands deeply shaken. Where the Malak surprised and the Seraph intimidated, the Deva fought, and its combat record became the benchmark against which Coalition planners measured the Celestial threat. After-action reports from surviving units consistently highlighted the Deva's combination of accurate fire, punishing resilience, and the fanatical aggression of its Manei Domini pilots as a qualitatively different challenge from anything they had previously encountered.</p><p>Among the recorded Celestial engagements, a Deva piloted by Demi-Precentor Eric Hughes fought against Clan Nova Cat forces and conventional armor on Luthien in August 3072. The Crane district engagement in Nagasaki demonstrated both the design's combat prowess and the fanatical determination of its pilots, who fought without regard for personal survival in defense of Word of Blake positions on the occupied world. Hughes's Deva sustained catastrophic armor damage across multiple engagements but continued fighting, its heavy-duty gyro absorbing hits that would have toppled lesser machines. The Luthien campaign became a case study in Celestial combat effectiveness, as a relatively small number of Manei Domini 'Mechs inflicted disproportionate casualties on forces that significantly outnumbered them.</p><p>The Seventh Division's Bells of Faith III-lambda fielded Devas prominently throughout the Jihad, with Precentor VII Seth Smith-Solomon piloting one of the design's more notable examples. Smith-Solomon's deployment patterns reflected the Deva's versatility, shifting between sniper and brawler configurations depending on mission requirements. Coalition intelligence eventually compiled engagement profiles for known Deva pilots, noting that the design's operators displayed an unusually high degree of tactical sophistication even by Manei Domini standards. The Opacus Venatori also maintained Devas in their inventory, with Adept Achilleus St. John operating a custom configuration built around experimental large variable speed pulse lasers linked to a targeting computer for extreme precision at close range.</p><p>Coalition after-action analyses eventually identified the Deva's heavy-duty gyro as a critical factor in its combat performance. Standard engagement doctrine called for targeting an opponent's legs and gyro to force a fall, but the Deva's reinforced gyro shrugged off impacts that would have knocked down most seventy-ton designs. Revised tactical guidelines recommended concentrating fire on the center torso or attempting to destroy weapons rather than relying on knockdown tactics. These adaptations reduced Deva effectiveness somewhat in later engagements, but the design remained a dangerous opponent throughout the conflict.</p><p>Surviving Devas are among the more commonly encountered Celestials in the post-Jihad era, partly because their heavy-duty gyros and standard armor make them more maintainable than designs relying on more exotic structural components. The Exanimus variant, designed for underwater combat with UMU systems and torpedo launchers, further expanded the operational envelope. Remnant cells have occasionally fielded Devas in engagements through the Dark Age period, and the design's reputation as a lethal close-range combatant ensures that any confirmed sighting draws immediate attention from military intelligence. The Caelestis configuration, incorporating captured Clan binary laser cannons and a targeting computer, represented some of the most advanced technology mounted on any Inner Sphere design during the Jihad.</p>
+
+manufacturer:Gibson Federated BattleMechs|Martinson Armaments
+
+primaryfactory:Gibson|Terra
+
+fluffdate:2026-02-21 20:14:52
+
+systemmanufacturer:CHASSIS:Celestial Series
+systemmode:CHASSIS:DV1E [Endo Steel]
+systemmanufacturer:ENGINE:Inspiration
+systemmode:ENGINE:280 Light Fusion
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Divine Protector
+systemmanufacturer:COMMUNICATIONS:Master's Voice
+systemmode:COMMUNICATIONS:Cel-Alpha with C3i Computer
+systemmanufacturer:TARGETING:Master's Sight
+systemmode:TARGETING:1-Omega

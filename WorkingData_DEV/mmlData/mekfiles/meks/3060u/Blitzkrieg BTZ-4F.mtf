@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cba1-79a1-8a06-185fab69827f
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Blitzkrieg
+model:BTZ-4F
+mul id:395
+
+Config:Biped
+techbase:Inner Sphere
+era:3074
+source:TR:3060,TR:J
+published:RS:3060u
+rules level:2
+role:Skirmisher
+
+quirk:no_arms
+quirk:directional_torso_mount:CT LT
+
+mass:50
+engine:350 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+walk mp:7
+jump mp:7
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:18
+RT armor:18
+CT armor:24
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:1
+Heavy PPC, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Jump Jet
+ISTargeting Computer
+ISTargeting Computer
+ISTargeting Computer
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISC3SlaveUnit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Blitzkrieg is a fifty-ton fast-strike BattleMech produced by Coventry Metal Works, entering full-scale production in 3061. Designed as a successor to the heavily criticized Hollander, the Blitzkrieg addressed every major complaint leveled against its predecessor while mounting even more destructive armament. The Free Worlds League secured purchasing rights to twenty-five percent of all production output, reflecting the broad interest the design generated even before leaving the factory floor.</p><p>The Blitzkrieg quickly established itself as one of the most dangerous medium-weight strike platforms in the Inner Sphere, earning a fearsome reputation for devastating hit-and-run attacks that has kept it in continuous production through the Dark Age and into the ilClan era.</p>
+
+capabilities:<p>The Blitzkrieg's design philosophy centers on delivering overwhelming firepower at high speed. A massive Magna 350 XL engine drives the fifty-ton chassis at speeds exceeding 118 kilometers per hour, making it one of the fastest medium 'Mechs in production. This speed is essential, as the Defiance Thunder Ultra Autocannon/20 (the Blitzkrieg's sole weapon) has only half the effective range of the Hollander's Gauss rifle. What the weapon lacks in reach it more than compensates for with devastating close-range firepower, generating a potential damage output more than double that of the Gauss rifle in a matter of seconds.</p><p>The Coventry BTZ-VII endo steel frame provides a substantially stronger foundation than the Hollander's chassis, while nearly doubling armor protection with Lexington Ltd. High Grade ferro-fibrous plating. Designers carefully placed the massive autocannon and its ammunition feeds to the right side of the frame, with engineered counterweights ensuring proper balance on uneven terrain. The minimal arm structure keeps the design's profile compact and reduces potential snag points during high-speed maneuvers.</p><p>The Blitzkrieg's primary weakness remains its reliance on a single weapon system. When the Ultra autocannon depletes its ammunition (a tendency amplified by its high rate of fire) the 'Mech must withdraw behind friendly lines for resupply. The absence of any secondary armament leaves the pilot completely defenseless during ammunition shortages, though the design's exceptional speed typically allows it to disengage before this becomes critical.</p>
+
+deployment:<p>Introduced in 3074 during the Jihad, this variant serves as a comprehensive reworking of the Blitzkrieg concept developed at an Arcturan Arms refit facility on Arcturus. This variant replaces the defining Defiance Thunder autocannon with a Defiance 753 Heavy PPC, while an extra-light gyro frees mass for significant enhancements including Rawling 45 jump jets providing 210 meters of jump capability. A targeting computer enhances the heavy PPC's accuracy, and a C3 slave unit enables battlefield data sharing with networked lancemates. The light ferro-fibrous armor provides comparable protection in a lighter package, and the heavy PPC offers similar effective ranges to the original autocannon while eliminating the ammunition dependency that was the BTZ-3F's greatest operational weakness. Coventry Metal Works later adopted the design for full factory production, ensuring continued availability beyond the initial refit program.</p>
+
+history:<p>The Blitzkrieg's origins trace directly to the Battle of Coventry in 3058, one of the defining engagements of the Clan Jade Falcon incursion into the Lyran Alliance. Though the bulk of the fighting took place more than a kilometer from the Coventry Metal Works facility, the plant suffered significant collateral damage. Combined with the loss of nearly all defending 'Mech forces, CMW faced an extended period of rebuilding.</p><p>The battle also exposed the critical shortcomings of CMW's primary product, the Hollander. Lyran Alliance Armed Forces pilots had long criticized the design for its lack of secondary weapons, poor speed, light armor, and inherent instability, flaws that, while individually minor, combined to render the Hollander ineffective in stand-up engagements against Clan opponents. The salvage recovered from destroyed Clan 'Mechs, however, provided an unexpected opportunity: intact Ultra-class autocannons in working condition.</p><p>Concurrent technological exchanges between the Lyran Alliance and the Free Worlds League enabled Defiance Industries to develop a production-ready Ultra Autocannon/20, designated the Defiance Thunder. First fitted to upgraded Demolisher heavy tanks, the weapon soon became the centerpiece of an entirely new 'Mech design. Coventry Metal Works channeled their rebuilding efforts into the Blitzkrieg, a design that addressed every major criticism of the Hollander while mounting even more destructive armament.</p><p>The Blitzkrieg entered field testing with the Twenty-fourth Arcturan Guards on Barcelona prior to commencing full-scale production in 3061. The Free Worlds League secured purchasing rights to a quarter of all output, reflecting widespread interest in the design beyond the Lyran state. The Blitzkrieg saw extensive service during the FedCom Civil War, where its ambush tactics and devastating hit-and-run capability proved particularly effective. Its battlefield performance during that conflict inspired Davion designers to develop the Legionnaire around a similar single-weapon philosophy using the newly developed rotary autocannon.</p><p>During the Jihad, advances in tactics and weaponry exposed the limitations of the single-weapon concept, prompting development of the BTZ-4F variant at an Arcturan Arms refit facility on Arcturus. Coventry Metal Works continued producing the original BTZ-3F throughout the conflict, maintaining production under Lyran Alliance ownership despite the upheaval of the era. The facility later adopted the BTZ-4F design for factory production as well, ensuring both variants remained available. The Blitzkrieg has remained a staple of Lyran Commonwealth forces through the Dark Age and into the ilClan era, its combination of speed and devastating close-range firepower ensuring continued relevance across multiple generations of warfare.</p>
+
+manufacturer:Refit - Arcturan Arms Refit Facility|Coventry Metal Works
+
+primaryfactory:Arcturus|Coventry
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Coventry
+systemmode:CHASSIS:BTZ-VII Endo Steel
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:350 XL
+systemmanufacturer:ARMOR:Lexington Ltd.
+systemmode:ARMOR:High Grade Light Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Rawling
+systemmode:JUMP_JET:45
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Muse 54-58K with C3 slave
+systemmanufacturer:TARGETING:Cyclops
+systemmode:TARGETING:9b with Targeting Computer

@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c153-73ca-9c18-0337d4769739
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:UrbanMech
+model:UM-R62
+
+Config:Biped
+techbase:Inner Sphere
+era:2788
+source:TR:3025C
+rules level:1
+role:Ambusher
+
+quirk:ext_twist
+quirk:no_arms
+quirk:low_profile
+
+mass:30
+engine:60 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:2
+jump mp:2
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:8
+RT armor:8
+CT armor:11
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:4
+RTR armor:4
+RTC armor:8
+
+Weapons:3
+Small Laser, Left Arm
+AC/10, Right Arm
+Machine Gun, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Small Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Machine Gun
+IS Machine Gun Ammo - Half
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+IS Ammo AC/10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The UrbanMech was introduced in 2675 by Orguss Industries to fill a specialized niche: urban combat and defense. Designed as a cheap, easily produced garrison 'Mech, the design paired heavy armor protection rivaling many medium BattleMechs with jump jets for mobility in confined city streets. The trade-off was an anemic powerplant, making the UrbanMech the slowest light 'Mech ever fielded.</p><p>This severe limitation relegated the design to urban environments where its low, stocky profile and heavy armor could shine. The UrbanMech earned a reputation as an effective ambusher, capable of surprising heavier opponents in the close confines of city fighting. Mass-produced throughout the Star League era, the design survived the Succession Wars largely because military planners dismissed it as a liability, sparing it from the technological devastation that claimed so many other designs.</p>
+
+capabilities:<p>The UrbanMech's primary armament is the Imperator-B Class 10 autocannon, a reliable weapon well-suited to the design's hit-and-run fighting style. With low heat buildup and proven reliability, the autocannon allows MechWarriors to engage targets of opportunity before withdrawing to new positions. A single Harmon small laser provides backup capability, primarily useful for suppressing infantry rather than engaging armored targets. Limited ammunition capacity (typically enough for approximately two minutes of sustained combat) reinforces the 'Mech's doctrine of brief, decisive engagements rather than prolonged firefights.</p><p>The design's six tons of Durallex Medium armor provide protection comparable to many medium 'Mechs, allowing the UrbanMech to absorb significant punishment while executing tactical withdrawals. Standard doctrine calls for UrbanMech lances to split into individual units, occupying buildings to snipe at enemy formations before falling back to the next defensive line. The Pitban 6000 jump jets provide sixty meters of jumping capability, essential for navigating urban terrain and accessing elevated firing positions.</p><p>The UrbanMech's greatest weakness remains its abysmal ground speed. Any commander foolish or desperate enough to deploy the design in open terrain invites disaster, as faster opponents can dictate engagement ranges at will. Within its intended urban environment, however, the confined spaces limit enemy mobility advantages while the 'Mech's low profile makes it a frustratingly difficult target.</p>
+
+deployment:<p>Similar to the -R61, this Succession Wars variant replaced the spare heat sink with a machine gun and one hundred rounds of ammunition. Intended for anti-infantry operations and riot suppression, the -R62 provided sustained antipersonnel capability that the flamer-equipped variant lacked. Like its sister variant, the -R62 saw more service maintaining civil order than engaging in conventional military operations, becoming a common sight in garrison forces across the Inner Sphere.</p>
+
+history:<p>Orguss Industries produced large numbers of UrbanMechs from 2675 until the destruction of their Marcus facility in 2837 during the Second Succession War. Throughout the Star League era, the design served admirably in its intended role of suppressing urban guerrillas and hostile light 'Mechs in heavily populated areas. When fighting erupted in the close confines of Star League cities, UrbanMechs often found themselves engaging medium and even heavy 'Mechs with surprising success, using classic ambush tactics to offset their limitations.</p><p>The Succession Wars paradoxically ensured the UrbanMech's survival. Most military leaders viewed the slow design as a liability, relegating their stockpiles to garrison duty or stripping them for parts. This dismissive attitude spared the UrbanMech from the intense combat that destroyed so many contemporaries. While other designs were consigned to history, large numbers of UrbanMechs remained in service across the Inner Sphere.</p><p>The Capellan Confederation emerged as the design's primary operator following the Fourth Succession War. Desperate for any BattleMech to replenish catastrophic losses, the Confederation deployed UrbanMechs in front-line formations, a practice unique among the Successor States. The Confederation Reserve Cavalry, Capellan Defense Force, St. Ives Lancers, and Tikonov Republican Guard all fielded significant numbers of the design. Outside Capellan space, the Federated Suns' Capellan March Militia operated the largest concentration of UrbanMechs, largely composed of captured Capellan equipment.</p><p>The recovery of lostech prompted the Confederation to prioritize upgrading the UrbanMech, producing the UM-R63 field modification kit before 3050. Other Successor States followed with their own variants, though with considerably less urgency. The prohibitive cost of replacing the design's engine meant even the Confederation limited upgrades to weapons and armor improvements. During the Word of Blake Jihad, Hellespont Industrials reactivated a shuttered facility on Betelgeuse to resume UrbanMech production alongside primitive retrotech designs for material-starved garrison forces. This plant continued producing new variants throughout the Dark Age, supporting the Capellan Confederation's secret military expansion before its war against the Republic of the Sphere.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Republic
+systemmode:CHASSIS:Republic-R
+systemmanufacturer:ENGINE:Leenex
+systemmode:ENGINE:Leenex 60
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Durallex Medium
+systemmanufacturer:JUMP_JET:Pitban
+systemmode:JUMP_JET:Pitban 6000
+systemmanufacturer:COMMUNICATIONS:Dalban
+systemmode:COMMUNICATIONS:Dalban Interact
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:Dalban Urban

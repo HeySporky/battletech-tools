@@ -1,0 +1,186 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb9f-7b84-a031-8f75c5f879ea
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Ryu Heavy Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4956
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+WiGE
+</motion_type>
+
+<transporters>
+cargobay:108.0:2:1::-1:0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+17
+15
+15
+15
+15
+11
+17
+</armor>
+
+<Body Equipment>
+AmphibiousChassis
+Basic Fire Control
+IS Ammo MG - Full
+IS Ammo AC/5
+IS Ammo AC/5
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+Machine Gun
+</Front Equipment>
+
+<Front Right Equipment>
+Machine Gun
+</Front Right Equipment>
+
+<Front Left Equipment>
+Machine Gun
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Autocannon/5
+</Turret Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Ryu mounts an AC/5 in a dorsal turret as its primary weapon, supported by four machine guns covering the forward arc and both flanks. This battery is not designed for sustained combat against armored opponents, but provides deterrent firepower sufficient to suppress light infantry and engage lightly armored vehicles at close range. A basic fire control system supports the gunners against stationary or slow-moving targets.</p><p>The amphibious chassis modification from the Koi carries forward intact, allowing bay doors to open while afloat without flooding. Cargo capacity is reduced but the Ryu remains one of the highest-payload armed WiGEs available to planetary militia forces. Its combination of lift capacity and defensive armament is its primary selling point.</p><p>The Ryu's limitations mirror those of the Koi, with additional concerns. The armament is inadequate against aerospace fighters or well-armed aircraft, the vehicle's profile makes it a priority target, and the added crew requirement stretches manpower budgets. The machine guns provide only marginal close-in defense against infantry boarding actions. Commanders relying on Ryu transports must still plan for dedicated air cover during transit and landing operations, or accept the risk that comes with a slow, visible target.</p>
+</capabilities>
+
+<overview>
+<p>The Ryu Heavy Transport is an armed variant of the Koi, developed by Wakazashi Enterprises in response to demand from planetary militia commands seeking a heavy WiGE with meaningful self-defense capability. Introduced in 3064, the Ryu retains the Koi's amphibious chassis and fusion powerplant while adding a weapons turret and lateral machine gun mounts to protect the vehicle during the vulnerable loading and unloading phases of transport operations.</p><p>The Ryu fills a recognized gap between unarmed civilian transports and purpose-built assault WiGEs, serving forces that need both significant payload and the ability to engage light ground threats without relying entirely on escorts. Cargo capacity is reduced to one hundred eight tons to compensate for the added crew stations, armament, and ammunition storage.</p>
+</overview>
+
+<deployment>
+<p>The Ryu Heavy Transport serves primarily with Draconis Combine planetary militia and garrison forces on worlds where DropShip transport is unavailable or prohibitively expensive. Its combination of cargo capacity and light armament suits it to moving troops and equipment through territory where hostile light forces may be present. Export units serve militia and paramilitary forces across the Inner Sphere in similar roles. The Ryu is frequently deployed alongside Koi transports, providing escort coverage and suppressive fire for unarmed cargo lifts.</p>
+</deployment>
+
+<history>
+<p>The Ryu emerged directly from Wakazashi's experience selling the Koi to Draconis Combine militia commands. Purchasing officers consistently raised concerns about deploying an unarmed vehicle in contested airspace or near active combat zones, and Wakazashi's engineers identified a straightforward solution. Adding a dorsal turret and lateral machine gun mounts while preserving the core hull and cargo architecture produced a militarized variant at modest additional cost. The result entered service in 3064.</p><p>The timing aligned with growing instability across the Inner Sphere in the years before the FedCom Civil War. Garrison commands looking for transport assets that could defend themselves in low-intensity conflict environments found the Ryu attractive, and Combine militia formations adopted it in quantity for service on worlds where hostile activity was chronic but DropShip support remained unavailable or impractical.</p><p>The Ryu has never distinguished itself in pitched combat, and was never intended to. Its operational record consists largely of convoy escort missions, coastal patrol duties, and garrison support work where its combination of payload and light armament proved sufficient. Instances of Ryu units pressed into direct fire support roles have ended poorly, as the vehicle's size and limited maneuverability make it an easy mark for any unit carrying anti-armor weapons. Despite these limitations, the Ryu has earned a reputation for reliability in the unglamorous work of moving troops and supplies under intermittent threat, and it continues in production alongside the Koi at the Dover facility.</p>
+</history>
+
+<manufacturer>
+Wakazashi Enterprises
+</manufacturer>
+
+<primaryFactory>
+Dover
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+240.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

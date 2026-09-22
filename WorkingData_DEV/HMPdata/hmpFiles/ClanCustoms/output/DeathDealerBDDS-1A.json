@@ -1,0 +1,837 @@
+{
+  "filename": "DeathDealerBDDS-1A.hmp",
+  "size": 914,
+  "header_hex": "56 35 2e 30 30 04 00 08 05 ff ff ff 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0005\u00ff\u00ff"
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 268,
+      "length": 255,
+      "text": "\u0000\u0000\u0000\u0000d\u0000\u000e\u0000Death Dealer B\u0006\u0000DDS-1A\u00f4\u000b\u0003\u0000\u00c4A\u00c1\u0001\u001e\u000b\u0000\u00b0\u00efE\u0000\u00b0\u00efE\u0000\u0000\u0086B\u0000\u00004B\u0000\u0000\u0090A#\u0000MA 8 6 9 8 24 3 omni, ecm, tag, prb\u0002\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\n\u0000\u0000\u0000,\u0001\u0001\u0000\u0003\u0000\u0000\u0000\u0016\u0000\u0001\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000*\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000*\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u00006\u0000\u0000\u0000\b\u0000\b\u0000\b\u0000\u0000\u0000\b\u0000\u0001\u00006\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00006\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0005\u0000=\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0005\u0000="
+    },
+    {
+      "type": "byte",
+      "offset": 268,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 269,
+      "end": 275,
+      "length": 4,
+      "text": "\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "ascii",
+      "start": 275,
+      "end": 276,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 276,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 277,
+      "end": 286,
+      "text": "(Unknown)"
+    },
+    {
+      "type": "len_string",
+      "start": 286,
+      "end": 289,
+      "length": 1,
+      "text": "Z"
+    },
+    {
+      "type": "len_string",
+      "start": 289,
+      "end": 547,
+      "length": 256,
+      "text": "\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000Z\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000W\u0000\u0007\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000X\u0000\u0005\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u00006\u0000\u0000\u00006\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000Z\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u00006\u0000\u0000\u00006\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000="
+    },
+    {
+      "type": "byte",
+      "offset": 547,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 548,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 549,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 550,
+      "end": 551,
+      "text": "Z"
+    },
+    {
+      "type": "byte",
+      "offset": 551,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 552,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 553,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 554,
+      "end": 555,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 555,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 556,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 557,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 558,
+      "end": 559,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 559,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 560,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 561,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 562,
+      "end": 563,
+      "text": "X"
+    },
+    {
+      "type": "byte",
+      "offset": 563,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 564,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 565,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 566,
+      "end": 586,
+      "length": 18,
+      "text": "\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000"
+    },
+    {
+      "type": "len_string",
+      "start": 586,
+      "end": 606,
+      "length": 18,
+      "text": "\u0000\u0000\u0012\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\n\u0000\u0000\u0000"
+    },
+    {
+      "type": "ascii",
+      "start": 606,
+      "end": 607,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 607,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 608,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 609,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 610,
+      "end": 617,
+      "length": 5,
+      "text": "\u0000\u0000\u0006\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 617,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 618,
+      "end": 627,
+      "length": 7,
+      "text": "\u0000\u0000\b\u0000\u0000\u0000\n"
+    },
+    {
+      "type": "byte",
+      "offset": 627,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 628,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 629,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 630,
+      "end": 631,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 631,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 632,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 633,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 634,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 635,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 636,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 637,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 638,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 639,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 640,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 641,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 642,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 643,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 644,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 645,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 646,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 647,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 648,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 649,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 650,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 651,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 652,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 653,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 654,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 655,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 656,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 657,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 658,
+      "end": 672,
+      "length": 12,
+      "text": "\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000W\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 672,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 673,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 674,
+      "end": 675,
+      "text": "\r"
+    },
+    {
+      "type": "byte",
+      "offset": 675,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 676,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 677,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 678,
+      "end": 692,
+      "length": 12,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 692,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 693,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 694,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 695,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 696,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 697,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 698,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 699,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 700,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 701,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 702,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 703,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 704,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 705,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 706,
+      "end": 723,
+      "length": 15,
+      "text": "\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010"
+    },
+    {
+      "type": "byte",
+      "offset": 723,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 724,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 725,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 726,
+      "end": 744,
+      "length": 16,
+      "text": "\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 744,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 745,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 746,
+      "end": 747,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 747,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 748,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 749,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 750,
+      "end": 751,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 751,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 752,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 753,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 754,
+      "hex": "ec"
+    },
+    {
+      "type": "byte",
+      "offset": 755,
+      "hex": "ff"
+    },
+    {
+      "type": "ascii",
+      "start": 756,
+      "end": 757,
+      "text": "3"
+    },
+    {
+      "type": "byte",
+      "offset": 757,
+      "hex": "01"
+    },
+    {
+      "type": "len_string",
+      "start": 758,
+      "end": 761,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 761,
+      "end": 764,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 764,
+      "end": 767,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 767,
+      "end": 770,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 770,
+      "end": 773,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 773,
+      "end": 776,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 776,
+      "end": 779,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 779,
+      "end": 782,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 782,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 783,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 784,
+      "end": 801,
+      "length": 15,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 801,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 802,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 803,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 804,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 805,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 806,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 807,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 808,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 809,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 810,
+      "end": 813,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 813,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 814,
+      "end": 824,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 824,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 825,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 826,
+      "end": 827,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 827,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 828,
+      "end": 838,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 838,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 839,
+      "end": 849,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 849,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 850,
+      "end": 860,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 860,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 861,
+      "end": 871,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 871,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 872,
+      "end": 882,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 882,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 883,
+      "end": 893,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 893,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 894,
+      "end": 904,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 904,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 905,
+      "end": 914,
+      "text": "(Unknown)"
+    }
+  ]
+}

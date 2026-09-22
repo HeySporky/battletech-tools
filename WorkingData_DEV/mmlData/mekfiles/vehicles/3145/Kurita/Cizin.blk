@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7c8-71dd-a4fa-e7c32eac98e3
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Cizin Hover Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6380
+</mul id:>
+
+<year>
+3097
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<quirks>
+bad_rep_is
+fast_reload
+non_standard
+battle_computer
+poor_performance
+</quirks>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+10
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+45
+25
+25
+18
+21
+</armor>
+
+<Body Equipment>
+Clan Ammo SRM-2
+CLTargeting Computer
+</Body Equipment>
+
+<Front Equipment>
+CLSRM2
+CLSRM2
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+</Turret Equipment>
+
+<capabilities>
+<p>Powered by a Consolidated 215-rated XL fusion engine, the Cizin reaches a top speed of 162 kilometers per hour. This velocity defines the vehicle's tactical identity, allowing a Cizin Point to engage a medium-class BattleMech and withdraw before suffering disabling return fire. Seven tons of Alpha Compound ferro-fibrous armor with integrated CASE protection provides a respectable defensive baseline for the tank's mass, but the design is built for speed rather than sustained combat. A slow-moving Cizin presents a dangerous target for heavier weapons, and crews who rely on their protection rather than their throttle rarely survive repeated engagements.</p><p>The primary armament centers on four Series 2d Extended-Range Medium Lasers mounted in the turret, all linked to a targeting computer for accuracy at combat speeds. This energy-only turret arrangement eliminates ammunition dependency from the vehicle's primary strike capability, while the computer integration improves effective accuracy against fast-moving targets. Two Pattern D-II SRM 2 launchers mounted in the front hull supplement the turret with short-range burst fire, though the one ton of ammunition carried limits sustained engagement duration against multiple threats.</p><p>A modular turret design allows the entire assembly to be swapped in under an hour, letting damaged vehicles return to action while technicians service components separately. This rapid-return maintainability reinforced the Cizin's role in fast-tempo operations where sustained availability mattered as much as peak firepower. The vehicle's limitations become apparent when forced into static defense or attrition engagements where its modest protection and limited missile reserves are quickly exhausted.</p>
+</capabilities>
+
+<overview>
+<p>The Cizin is a 45-ton hover tank developed by Clan Nova Cat during the late thirty-first century as a dedicated fast-strike platform for the Clan's combined-arms Stars and Binaries. Drawing on Nova Cat doctrine that emphasized aggressive coordination between vehicle and BattleMech forces, the design prioritizes exceptional speed as its primary survival mechanism, relying on velocity rather than heavy protection to dictate engagement terms. The Cizin is named for the Mayan deity of earthquakes and death, a choice reflecting the cultural diversity the Nova Cats wove into their military traditions. Originally manufactured at the Irece-based LAW-Barcella Beta facility, the design was later produced by Clan Sea Fox and Luthien Armor Works, spreading into Draconis Combine service long after the Clan that created it ceased to exist.</p>
+</overview>
+
+<deployment>
+<p>The Cizin served as a mainstay of Clan Nova Cat's combined-arms Stars, assigned to fast-strike and target-designation missions in support of OmniMech forces. Points of Cizins operated well forward of the main body, identifying targets and drawing pursuing enemy units back toward waiting 'Mechs. The Fury Star of Alpha Galaxy's Ninth Cluster became particularly skilled at this tactic, most particularly during the Clan's final days on Irece when Cizins harassed a First Sword of Light Hatamoto-chi into pursuing them far enough for two Shadow Cat IIs to close and engage. Neither Cizin survived the encounter, but the Hatamoto sustained sufficient damage to force it from the field, demonstrating the willingness of Nova Cat crews to accept personal risk in service of the larger formation.</p><p>Following the transfer of production to Luthien Armor Works, the Cizin entered standard DCMS service and has been distributed across multiple regiments engaged in operations against the Armed Forces of the Federated Suns, where its speed remains valued in mobile warfare across varied terrain.</p>
+</deployment>
+
+<history>
+<p>The Cizin was developed by Clan Nova Cat in the late 3090s as the Clan sought to strengthen its vehicle arm following the Combine-Ghost Bear War. Initial production commenced at LAW-Barcella Beta on Irece in 3097, with the design intended to serve as a core combined-arms element operating under Draconis Combine authority.</p><p>The vehicle's early career was interrupted when the Second Combine-Dominion War reached Irece in 3099, destroying the Barcella Beta production facility. The loss compelled the Nova Cats to seek outside assistance, and in 3107 the Clan negotiated the transfer of the Cizin's specifications and production rights to Clan Sea Fox. In exchange, the Nova Cats and the Draconis Combine received resources supporting enclave relocations on Meinacos and Savinsville. Clan Sea Fox put the design into production at their IndustriPlex-C facility on Itabaiana, keeping the Cizin available during the years the Nova Cats lacked manufacturing capacity of their own. The original Irece line was rebuilt by 3121, and the DCMS authorized a modest expansion to the Nova Cat touman in the 3120s that allowed limited production to resume under Nova Cat hands.</p><p>The Cizin carries a Bad Reputation design quirk, a legacy of the difficult reception it received from Combine logistics crews accustomed to standard Inner Sphere systems. The vehicle's Non-Standard Parts construction made maintenance demanding outside of dedicated Nova Cat facilities, contributing to skepticism among DCMS tankers who could not easily source replacement components through normal supply channels.</p><p>The Nova Cat Rebellion of 3141 ended the Clan's hold on the Irece facilities. The Draconis Combine assigned the plant to Luthien Armor Works, whose engineers systematically dismantled and studied the production equipment. By early 3145, LAW had established a new production wing at the Guthrie Island complex on Luthien, and newly manufactured Cizins began shipping to DCMS regiments across the Federated Suns campaign theaters.</p>
+</history>
+
+<manufacturer>
+Clan Sea Fox IndustriPlex-C|LAW-Barcella Beta|Luthien Armor Works
+</manufacturer>
+
+<primaryFactory>
+Itabaiana|Irece|Luthien
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:LAW-Barcella Beta
+ARMOR:LAW-Barcella Beta
+JUMP_JET:N/A
+COMMUNICATIONS:LAW-Barcella Beta
+TARGETING:LAW-Barcella Beta
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Consolidated 215 XL
+ARMOR:Alpha Compound ferro-fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:Omicron 5000
+TARGETING:Build 4 CAT TTS w/ Advanced Targeting Computer
+</systemModels>
+
+<source>
+TR:3145:DC,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

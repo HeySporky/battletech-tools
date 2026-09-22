@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ccd3-75cf-9b8d-bebe97e240b7
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Yeoman
+model:YMN-6Y
+mul id:3619
+
+Config:Biped
+techbase:Inner Sphere
+era:3060
+source:TR:3060
+published:RS:3060u
+rules level:2
+role:Missile Boat
+
+quirk:no_arms
+
+mass:60
+engine:240 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:15
+RA armor:15
+LT armor:21
+RT armor:21
+CT armor:23
+HD armor:9
+LL armor:15
+RL armor:15
+RTL armor:6
+RTR armor:6
+RTC armor:6
+
+Weapons:4
+LRM 15, Left Torso
+LRM 10, Left Torso
+LRM 15, Right Torso
+LRM 10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+LRM 15
+LRM 15
+LRM 15
+LRM 10
+LRM 10
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Ammo LRM-10
+ISCASE
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+LRM 15
+LRM 15
+LRM 15
+LRM 10
+LRM 10
+IS Ammo LRM-15
+IS Ammo LRM-15
+IS Ammo LRM-10
+ISCASE
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Yeoman is a sixty-ton heavy BattleMech produced by Curtiss Militech on Paradise. Introduced in 3060, the design was conceived as a dedicated fire support platform intended to compete with established missile carriers in its weight class. Curtiss Militech, a military division formed by the water purification firm Curtiss Hydroponics, rushed the Yeoman into production alongside the Eagle following the commercial success of the Wraith. Within the Free Worlds League Military, the Yeoman earned a reputation as one of the most missile-heavy machines of its tonnage, though that singular focus would prove to be both its greatest strength and its most persistent liability. Following the destruction of Paradise in 3080, Graham-Davis Enterprises on Tamarind eventually acquired the production rights, ensuring the design's continued availability.</p>
+
+capabilities:<p>The Yeoman's primary armament consists of two Zeus LRM-15 launchers and two Zeus LRM-10 launchers, providing a withering barrage of fifty long-range missiles per salvo. This loadout makes the Yeoman one of the most potent missile platforms in its weight class, capable of sustained bombardment with enough ammunition for roughly two minutes of continuous fire. Both side torsos are protected by CASE, allowing the 'Mech to survive an ammunition explosion without catastrophic loss.</p><p>The chassis employs a Curtiss Yeoman endo steel internal structure to save weight, while eight and a half tons of Kallon FWL Special ferro-fibrous armor provides respectable protection for a fire support design. A standard Pitban 240 fusion engine propels the Yeoman to a top speed of sixty-five kilometers per hour, a deliberate choice to avoid the expense and fragility of an extralight engine. The design mounts no jump jets and carries no secondary weapons of any kind, leaving the Yeoman entirely dependent on its missile launchers at all ranges. Any pilot who allows an enemy to close inside the minimum effective range of the LRM racks faces a dire situation with no fallback options.</p>
+
+deployment:<p>The base YMN-6Y represents the original production model as it rolled off the Paradise assembly line. Within the Free Worlds League Military, this variant was most commonly assigned to dedicated fire support lances where screening forces could keep faster opponents at bay. Commanders quickly developed standard operating procedures that paired Yeoman-equipped lances with faster skirmishers, as the design's effectiveness dropped sharply when the formation's perimeter was breached.</p>
+
+history:<p>Curtiss Militech was a relatively obscure military division formed around 3055 by Curtiss Hydroponics, a water purification company based on Paradise. After the Wraith proved a commercial success, the company rushed both the Eagle and Yeoman into production by 3060. Despite the speed of development, the Yeoman performed adequately in its intended role. The first shipments were distributed throughout the Free Worlds League Military, with the vast majority assigned to frontline Legionnaires regiments. Curtiss attempted to market the Yeoman as a natural companion to the Eagle, arguing that the latter's target acquisition gear could designate targets for semi-guided missile ammunition. The League Central Coordination and Command remained skeptical of the pairing, however, recalling the failed partnership between the Hammer and Anvil promoted by Free Worlds Defense Industries.</p><p>The Capellan Confederation showed little interest in the new design, preferring to rely on their own older Catapult variants for fire support. Within the League, enemy commanders quickly learned to send fast, close-combat 'Mechs beneath the Yeoman's missile umbrella, exploiting its complete lack of short-range armament. The Yeoman's distinctive boxy silhouette and minimal arm structures also made it easy to identify and prioritize on the battlefield, compounding the problem.</p><p>The Jihad proved devastating for the Yeoman's production history. After the Free Worlds League dissolved in 3079, Curtiss Militech's output briefly fell under the control of the Duchy of Graham-Marik. On February 26, 3080, forces from the Principality of Regulus bombarded Paradise with thousands of cobalt-laced nuclear weapons, obliterating the planet and the Curtiss Militech factory with it. Curtiss Hydroponics subsequently withdrew from the military market entirely and sold off its Curtiss Militech assets. By 3085, the Duchy of Tamarind-Abbey had moved to acquire the rights to both the Eagle and Yeoman designs. Graham-Davis Enterprises on Tamarind, previously an IndustrialMech manufacturer, licensed the Yeoman and eventually began production sometime in the mid-3090s, ensuring the design's survival into the Dark Age and beyond.</p>
+
+manufacturer:Curtiss Militech|Graham-Davis Enterprises
+
+primaryfactory:Paradise|Tamarind
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Curtiss
+systemmode:CHASSIS:Yeoman Endo Steel
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:240
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:FWL Special Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:CurtissComm
+systemmode:COMMUNICATIONS:Mark IV
+systemmanufacturer:TARGETING:Dynatec
+systemmode:TARGETING:MissileTrac X

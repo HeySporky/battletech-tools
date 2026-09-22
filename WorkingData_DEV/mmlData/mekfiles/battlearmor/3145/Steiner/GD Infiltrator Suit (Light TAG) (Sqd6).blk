@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a790-7cda-a257-7c27d8601e44
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Gray Death Infiltrator Suit
+</Name>
+
+<Model>
+(TAG)(Sqd6)
+</Model>
+
+<mul id:>
+9127
+</mul id:>
+
+<year>
+3102
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+31
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+BAParafoil:Body
+BADavidLightGaussRifle:RA
+CLBALightTAG:LA
+BABasicManipulator:LA
+BABasicManipulator:RA
+IS BA Stealth (Basic):LA
+IS BA Stealth (Basic):RA
+IS BA Stealth (Basic):Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The TAG configuration replaces the Firedrake needler with a Light TAG system, transforming the Infiltrator into a forward observer platform. The David Light Gauss Rifle remains for self-defense and opportunistic engagements, while the TAG designates targets for friendly artillery and semi-guided munitions. Basic Stealth armor, Parafoil, and 90-meter jump range carry forward.</p><p>This loadout pairs well with combined-arms formations that include artillery or units carrying semi-guided missiles. The Infiltrator's stealth characteristics make it an effective TAG platform, as troopers can approach designation range with reduced risk of detection. The trade-off is the loss of anti-infantry firepower, leaving the trooper dependent on the Light Gauss Rifle as a sole weapon system.</p>
+</capabilities>
+
+<overview>
+<p>The Gray Death Infiltrator Suit is a medium battle armor design manufactured by Defiance Industries on Furillo. Introduced in 3102 as a successor to the aging Infiltrator Mk. I, the suit fills the scout and skirmisher role with a highly mobile platform built for precision aerial insertion and modular mission flexibility. Nicknamed the Quokka, it can be configured with five distinct equipment packages for roles ranging from direct combat to sensor deployment and target designation.</p>
+</overview>
+
+<deployment>
+<p>Six-trooper Level I formations configured for target designation gave Com Guard commanders multiple simultaneous designation points across a battlefront. The additional troopers allowed Level I leaders to maintain continuous designation coverage even as individual troopers repositioned or came under fire. This redundancy proved critical during defensive operations where artillery support was the primary means of breaking enemy advances.</p>
+</deployment>
+
+<history>
+<p>The Gray Death Infiltrator Suit entered service in 3102 as a Defiance Industries product manufactured on Furillo. Designed as a successor to the aging Infiltrator Mk. I, the new suit filled the scout and skirmisher role that the LCAF had long struggled to address with available battle armor designs. Nicknamed the Quokka, the suit incorporated a Parafoil system for precision aerial insertion, giving drop commanders a level of accuracy previously unavailable with standard battle armor deployment methods.</p><p>Defiance built the Infiltrator around a modular weapon mount philosophy, offering five distinct equipment packages that allowed the suit to fill roles from anti-infantry work to sensor deployment and target designation. This flexibility made the Quokka attractive to LCAF commanders who needed a single platform that could be reconfigured for different mission profiles without maintaining separate suit types in their logistics chain. Production at Furillo continued through the Dark Age and into the ilClan era.</p>
+</history>
+
+<manufacturer>
+Defiance Industries
+</manufacturer>
+
+<primaryFactory>
+Furillo
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:LC
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+7
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

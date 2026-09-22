@@ -1,0 +1,190 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c173-71db-b8cb-20332c63693e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Scorpion
+model:SCP-1A
+
+Config:Quad
+techbase:Inner Sphere
+era:3030
+source:TR:3025C
+rules level:1
+role:Skirmisher
+
+quirk:bad_rep_is
+quirk:hard_pilot
+quirk:bad_rep_clan
+
+mass:55
+engine:330 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+FLL armor:15
+FRL armor:15
+LT armor:17
+RT armor:17
+CT armor:24
+HD armor:8
+RLL armor:15
+RRL armor:15
+RTL armor:5
+RTR armor:5
+RTC armor:8
+
+Weapons:2
+Large Laser, Right Torso
+SRM 6, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+IS Ammo SRM-6
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Large Laser
+Large Laser
+SRM 6
+SRM 6
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Scorpion was introduced in 2570 by Brigadier Corporation as one of the earliest quadrupedal BattleMechs to enter active service. Though the Xanthos was actually designed four years earlier, the Scorpion reached the battlefield first, becoming a pioneering design in four-legged 'Mech development. Created by Dr. David Harrison, who had been extracted from Hollis Incorporated following the troubled Xanthos project, the Scorpion was envisioned as a stable weapons platform that would revolutionize 'Mech combat through its unique configuration.</p><p>Despite Harrison's optimistic predictions, the Scorpion was received poorly by MechWarriors who found the quad gait's rough ride nearly unbearable. The design became synonymous with undesirable postings, often serving as the last assignment before a pilot faced dispossession or forced retirement. Brigadier ceased primary production before the Succession Wars began, and the Scorpion faded into obscurity for centuries until Defiance Industries' Project Phoenix revival and subsequent upgrades by various manufacturers rehabilitated the design's reputation.</p>
+
+capabilities:<p>The quadrupedal Scorpion is built on a Brigadier 800F chassis powered by a VOX 330 fusion engine, providing a top speed of 97 kilometers per hour. While Dr. Harrison theorized that four-legged 'Mechs would provide superior stability, the ride is notoriously rough, with documented discomfort at cruising speeds between 61 and 65 kilometers per hour. The design carries seven tons of StarSlab armor, providing adequate protection for a medium 'Mech.</p><p>The original armament centers on an Anderson Armaments PPC as the primary weapon, which combined with the Scorpion's inherently stable quad chassis makes the 'Mech effective at delivering accurate fire at range. A Marvel Six-Load SRM-6 launcher provides close-range firepower to exploit armor breaches. However, the massive reactor leaves minimal room for protection, and the ammunition bin's exposed position on the left side creates a dangerous vulnerability.</p><p>The quad configuration brings inherent trade-offs. While the low-slung profile offers advantages in certain terrain, torso-mounted weapons suffer from limited firing arcs. The Scorpion is particularly vulnerable in urban environments where infantry and vehicles can exploit its arc limitations. Later variants addressed these concerns through suspension redesigns derived from the failed Scorpion LAM project.</p>
+
+deployment:<p>This variant is a variant of limited documentation, replacing the standard PPC with a large laser while retaining the SRM-6 launcher. This configuration mirrors common Third Succession War field modifications when Anderson Armaments PPCs became increasingly scarce. The weight savings from the smaller weapon allowed for modest improvements elsewhere in the design. Few details survive regarding the variant's specific origins or primary operators.</p>
+
+history:<p>Brigadier Corporation began as a contract manufacturer for the Terran Hegemony, building components and systems for other companies' designs. Seeking to establish themselves in the lucrative BattleMech market, Brigadier's board recruited Dr. David Harrison from Hollis Incorporated, where he had been embroiled in the troubled Xanthos quad 'Mech project. Freed from bureaucratic constraints and armed with lessons learned from the Xanthos failures, Harrison brought his dream of a four-legged combat 'Mech to fruition in 2570. Despite his predictions that the Scorpion would revolutionize warfare, the design received little praise outside the company.</p><p>The Scorpion quickly developed a reputation as a punishment posting. Poor sales led Brigadier to cease manufacturing before the Succession Wars began, and the design faded from prominence. During the Third Succession War, the few remaining Scorpions became increasingly difficult to maintain. The Anderson Armaments PPC proved more valuable than the 'Mech itself, leading many pilots to replace the particle cannon with large lasers when original weapons failed. By the mid-3020s, the Lyran Commonwealth had begun cannibalizing their Scorpions for parts, a process the Federated Suns accelerated following the War of 3039.</p><p>The 2925 battle between the Fusiliers of Oriente and the Liao Guard marked a notable moment in Scorpion history, serving as the final action of the Sixth Liao Guards before their disbandment. Heavy fighting on Hesperus II in 3065 uncovered a long-forgotten bunker containing records and prototypes from an abandoned Scorpion LAM program. While Defiance Industries had no interest in reviving the failed LAM concept, the chassis redesign data promised to correct the handling issues that had plagued the Scorpion for centuries.</p><p>The success of other quad designs like the Tarantula and Barghest convinced Defiance to license production rights from Brigadier and develop the SCP-12S variant. Meanwhile, Word of Blake representatives approached Brigadier directly in 3067, commissioning the SCP-12C for their expanding military. The Blakists' reconstruction of Oliver's factories enabled production of additional variants including the SCP-10M. During the Jihad, Scorpions played a notable role in the resistance on Terra Firma, where partisan forces centered around lances of the quad 'Mechs ambushed Word of Blake forces with devastating effectiveness.</p><p>Following Gray Monday, Brigadier reintroduced a classic Scorpion design based heavily on templates developed by the small refit outfit Bander BattleMechs, which had spent years correcting the original's design flaws. The new variants found popularity with militias, mercenaries, and Republic splinter groups including Bannson's Raiders. When Clan Wolf invaded Oliver, the defending Scorpions proved less successful against frontline OmniMechs, and the facility's capture left Bander BattleMechs on Terra Firma as the sole Inner Sphere source for the design. The Wolves have since kept limited production of Brigadier Scorpions, upgrading them with Clan technology to create the fearsome Scorpion C variant.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

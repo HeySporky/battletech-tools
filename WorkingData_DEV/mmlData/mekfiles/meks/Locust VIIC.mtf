@@ -1,0 +1,165 @@
+generator:Mordel.Net Code Release 2.26.21 on 8-Sep-2026
+chassis:Locust VIIC
+model:
+source:Custom Mordel.Net Units
+
+Config:Biped
+TechBase:Clan
+Era:3025
+Rules Level:2
+role:Striker
+
+Mass:20
+Engine:160 Fusion (Clan) Engine
+Structure:Clan Endo Steel
+Myomer:Standard
+
+Heat Sinks:10 Double
+Walk MP:8
+Jump MP:0
+
+Armor:Standard (Clan)
+LA Armor:6
+RA Armor:6
+LT Armor:8
+RT Armor:8
+CT Armor:8
+HD Armor:8
+LL Armor:7
+RL Armor:7
+RTL Armor:2
+RTR Armor:2
+RTC Armor:2
+
+Weapons:3
+ER Medium Laser, Center Torso
+Small Pulse Laser, Right Arm
+Small Pulse Laser, Left Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLSmallPulseLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLSmallPulseLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+Endo Steel
+
+Left Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+Endo Steel
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERMediumLaser
+CLMASC
+
+Head:
+Life Support
+Sensors
+Cockpit
+Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Leg:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+

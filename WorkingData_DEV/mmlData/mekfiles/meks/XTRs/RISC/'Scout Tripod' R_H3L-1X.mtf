@@ -1,0 +1,213 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-e018-72cc-b25b-5af06f28be08
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:'Scout Tripod'
+model:R/H3L-1X
+
+Config:Tripod
+techbase:Mixed (IS Chassis)
+era:3132
+source:XTR:RISC
+published:XTR:RISC
+rules level:3
+role:Scout
+
+quirk:exp_actuator
+quirk:difficult_maintain
+quirk:no_arms
+quirk:distracting
+quirk:prototype
+quirk:imp_sensors
+
+mass:30
+engine:210 Light Engine(IS)
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Tripod Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 IS Double
+walk mp:7
+jump mp:0
+
+armor:Ferro-Lamellor(Clan)
+LA armor:1
+RA armor:1
+LT armor:5
+RT armor:5
+CT armor:8
+HD armor:9
+LL armor:10
+RL armor:10
+CL armor:10
+RTL armor:5
+RTR armor:5
+RTC armor:8
+
+Weapons:1
+ER PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISGuardianECMSuite
+ISGuardianECMSuite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+CLERPPC
+CLERPPC
+PPC Capacitor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The R/H3L-1X, known in conspiracy circles as the "Scout Tripod," was one of three experimental tripedal BattleMech concepts proposed during the earliest stages of the Republic of the Sphere's Rhodes Project around 3132. Designed by the enigmatic engineer W. Orson at Rhodes Foundry on Devil's Rock, the Scout was the lightest and fastest of the Helix series, a trio of prototype hybrid tripods that blended advanced Inner Sphere and Clan technologies in ways previously unseen at their weight classes. Official records claim the entire Helix series failed at the concept stage and never entered production, yet persistent reports from worlds within and around the Fortress Republic suggest otherwise. The Scout's thirty-ton frame was built for speed and electronic warfare, filling a reconnaissance role that no other tripod design had attempted at such a light tonnage.</p>
+
+capabilities:<p>The Scout Tripod's design philosophy prioritizes speed and electronic disruption above all else. Its 210-rated light fusion engine propels the thirty-ton chassis to a remarkable top speed of over one hundred and seventy kilometers per hour, making it one of the fastest tripedal designs ever conceived. The tripod leg arrangement provides exceptional stability during high-speed maneuvering, allowing the 'Mech to change facing without sacrificing momentum, a significant tactical advantage during reconnaissance operations.</p><p>Offensively, the Scout carries a single Clan-specification extended-range particle projector cannon paired with a PPC capacitor, mounted dorsally above the main chassis. This combination allows the 'Mech to deliver devastating precision strikes at extreme range before withdrawing at speed. A Guardian ECM suite provides continuous electronic countermeasures, reportedly making the Scout exceptionally difficult to track on sensors. The chassis employs Endo Steel internal structure and Clan ferro-lamellor armor, an unusually resilient protection system for a light 'Mech that proved deceptively effective against battlefield weapons. These advanced material choices, likely sourced from Clan foundries, contribute to the design's mixed-technology classification and its overall air of mystery. The absence of articulated arms limits the Scout's versatility, but its role demands speed and stealth rather than physical combat capability.</p>
+
+deployment:<p>The sole known configuration of the Scout Tripod mounts its Clan-spec ER PPC and PPC capacitor in the right torso, with the Guardian ECM suite occupying the left torso. This streamlined loadout reflects a pure reconnaissance and harassment philosophy, sacrificing weapons diversity for maximum electronic warfare capability and the devastating alpha-strike potential of a capacitor-enhanced particle cannon. Battlefield reports from the rumored 3138 Bryant incident suggest four to six of these machines were present, employing their exceptional speed and ECM coverage to screen for the heavier Helix-series tripods while preventing defenders from coordinating an effective response.</p>
+
+history:<p>The Scout Tripod emerged from a think tank at Rhodes Foundry on Devil's Rock during the earliest conceptual phases of the Rhodes Project, circa 3132. The project, which would eventually produce the seventy-five-ton Triskelion and the superheavy Ares and Poseidon tripods, began with the Helix series as a proof of concept for tripedal locomotion across multiple weight classes. The three Helix designs were intended to explore the viability of the tripod configuration before committing resources to larger and more expensive platforms.</p><p>Official Republic records maintain that the Helix series failed during the concept stage, with the designs never progressing beyond initial prototyping. However, these claims are contradicted by persistent reports from worlds within and around the chaotic region known as the Fortress Republic. Strange sightings of unmarked three-legged 'Mechs matching Helix-series descriptions surfaced on multiple planets during the 3130s, suggesting that at least limited prototype production occurred despite official denials.</p><p>The most significant reported deployment occurred on Bryant in 3138, when unmarked tripods matching all three Helix-series concepts arrived via stealth-enhanced drop pods. Between four and six Scout Tripods were reportedly among the attacking force, operating alongside Battle and Harvester variants. Over several days, the raiders ranged across rural and suburban communities, sowing terror and chaos before departing aboard unidentified Union-class DropShips. The assault resulted in over a thousand civilian deaths and millions of Stones in property damage. The exact purpose of this raid, if any existed beyond field testing, was never determined.</p><p>The identity of the forces operating these machines remains unknown. Rhodes Foundry would be the most likely source, yet acquired records show no evidence of production. Whether the Scout Tripods were products of an unrecorded black program within the Republic's military apparatus or originated from some other source remains one of the more unsettling mysteries of the Dark Age era.</p>
+
+manufacturer:Rhodes Foundry
+
+primaryfactory:Devil's Rock
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Prototype Hybrid Tripod (Endo Steel)
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:210 Light
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Lamellor (Clan)
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

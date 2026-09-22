@@ -1,0 +1,88 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bcbb-7262-be8f-eea319502fdd
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Tracked Platoon (FWLM)
+</Name>
+
+<Model>
+(Sappers 2315+)
+</Model>
+
+<year>
+2315
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<Troopers Equipment>
+Demolition Charge
+Demolition Charge
+Demolition Charge
+Ballistic Plate, Standard
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Free Worlds League Military has long fielded some of the largest infantry formations in the Inner Sphere, with regiments numbering nearly 1,800 soldiers compared to roughly 750 in the Combine and just over 1,000 in the Federated Suns. Tracked mechanized platoons sacrifice road speed for all-terrain capability, carrying their infantry across ground that would halt wheeled vehicles. The FWLM assigns these formations to worlds where rough terrain or poor infrastructure demands mobility that wheels cannot provide. Trained as military sappers, these troops specialize in obstacle construction, demolition, and field fortification, combining engineering and combat skills to shape the battlefield before and during engagements.</p>
+</overview>
+
+<notes>
+Intro date based on introduction date of ballistic plate armor. Ballistic plate armor chosen for damage divisor and ATOW stats and general description.
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<Primary>
+Submachine Gun
+</Primary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+
+<specialization>
+10
+</specialization>
+

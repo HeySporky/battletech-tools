@@ -1,0 +1,77 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bcfd-728f-9daf-1a4a8a1458be
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Field Gunners
+</Name>
+
+<Model>
+(AC2)
+</Model>
+
+<year>
+2300
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+Autocannon/2
+IS Ammo AC/2
+Autocannon/2
+IS Ammo AC/2
+Autocannon/2
+IS Ammo AC/2
+Autocannon/2
+IS Ammo AC/2
+</Field Guns Equipment>
+
+<overview>
+<p>Field gun platoons crew light-caliber autocannons towed on wheeled carriages, providing long-range direct fire against armored targets. The lighter autocannon variants trade raw stopping power for accuracy and sustained engagement capability, allowing the crew to engage at distances that keep them well clear of close combat. These platoons supplement armored formations by adding volume of fire without the cost of a dedicated combat vehicle, though their towed configuration limits repositioning speed once emplaced.</p>
+</overview>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+

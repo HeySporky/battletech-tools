@@ -1,0 +1,165 @@
+generator:Mordel.Net Code Release 2.26.21 on 8-Sep-2026
+chassis:Locust PPC1V
+model:LCT-PPC1V
+source:Custom Mordel.Net Units
+
+Config:Biped
+TechBase:Inner Sphere
+Era:3150
+Rules Level:2
+
+Mass:20
+Engine:180 XL Engine(IS)
+Structure:IS Endo Steel
+Myomer:Standard
+Cockpit:Small Cockpit
+Gyro:Compact Gyro
+
+Heat Sinks:10 Single
+Walk MP:9
+Jump MP:0
+
+Armor:Heavy Ferro-Fibrous (IS)
+LA Armor:6
+RA Armor:6
+LT Armor:8
+RT Armor:8
+CT Armor:10
+HD Armor:9
+LL Armor:8
+RL Armor:8
+RTL Armor:2
+RTR Armor:2
+RTC Armor:2
+
+Weapons:2
+Rocket Launcher 10, Right Torso
+Snub-Nose PPC, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Heat Sink
+Endo Steel
+IS Heavy Ferro-Fibrous
+ISSNPPC
+ISSNPPC
+IS Heavy Ferro-Fibrous
+Endo Steel
+Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Endo Steel
+Endo Steel
+RL10
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+Endo Steel
+Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Supercharger
+Endo Steel
+Endo Steel
+Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+Endo Steel
+Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Leg:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+

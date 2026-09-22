@@ -1,0 +1,205 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c86d-78dd-b6c6-7a97d998b753
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Penetrator
+model:PTR-6T
+mul id:2469
+
+Config:Biped
+techbase:Inner Sphere
+era:3066
+source:TR:3055U,TR:CI
+published:RSFP:HRR
+rules level:2
+role:Skirmisher
+
+quirk:good_rep_1
+quirk:stable
+
+mass:75
+engine:300 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:21
+RA armor:21
+LT armor:24
+RT armor:24
+CT armor:34
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:7
+RTR armor:7
+RTC armor:9
+
+Weapons:9
+ER Large Laser, Left Arm
+ER Large Laser, Right Arm
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+Anti-Missile System, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERLargeLaser
+ISERLargeLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERLargeLaser
+ISERLargeLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISTargeting Computer
+ISTargeting Computer
+ISTargeting Computer
+ISTargeting Computer
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAntiMissileSystem
+ISAMS Ammo
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Penetrator was introduced in 3053 by Kallon Industries at their Talon facility on Wernke. Inspired by analysis of combat footage from the Clan front, Kallon's designers based the seventy-five-ton heavy 'Mech on the devastating Black Hawk OmniMech. The design was intended to deliver withering energy weapon firepower while maintaining the rugged durability that Inner Sphere commanders valued in a heavy combat platform.</p><p>The Penetrator's design philosophy prioritized combat endurance through an all-energy weapons loadout backed by heavy armor, making it exceptionally difficult to disable through attrition. Multiple variants have been produced since the initial rollout, ensuring the design has remained relevant across several major conflicts and into the ilClan era.</p>
+
+capabilities:<p>In an era of endo steel internal structures, XL engines, and ferro-fibrous armor, the Penetrator stands as something of a deliberate anachronism. Its Crucis G standard chassis and Vlar 300 fusion engine eschew the weight-saving technologies common to its contemporaries, trading raw firepower and speed for exceptional battlefield survivability. A MechWarrior can lose an entire side torso and still walk the Penetrator off the field, a luxury rarely afforded by XL-equipped designs of similar tonnage.</p><p>The primary armament consists of two Diverse Optics Sunbeam extended-range large lasers mounted in the arms, providing effective engagement capability at long range. Six Sutel Precision Line medium pulse lasers in the side torsos deliver devastating close-range firepower with enhanced accuracy. A Yori Flyswatter anti-missile system provides supplementary defense, though pilots frequently criticize the placement of its ammunition magazine just beneath the engine in the center torso.</p><p>Anderson 398 jump jets grant the seventy-five-ton 'Mech a jumping distance of one hundred and twenty meters, partially offsetting its modest top speed of sixty-five kilometers per hour. Thirteen tons of Durallex heavy armor give the Penetrator considerable resilience, and its all-energy loadout eliminates nearly all ammunition dependency, making it ideal for extended campaigns with limited supply lines.</p>
+
+deployment:<p>This variant emerged as a field modification during the FedCom Civil War. Technicians with the Davion Guards replaced the six medium pulse lasers with extended-range medium lasers and used the freed weight to install two additional double heat sinks and an advanced targeting computer. While sacrificing the pulse lasers' inherent accuracy advantage at close range, the targeting computer enhances the effectiveness of all installed weapons, particularly the extended-range large lasers at longer engagement distances. The modification reflected the realities of Civil War combat, where engagements often occurred at extended ranges across open terrain.</p>
+
+history:<p>Kallon Industries began developing the Penetrator in the wake of the Clan Invasion, studying captured battle footage to create an Inner Sphere answer to the devastating firepower exhibited by Clan OmniMechs. The first production units rolled off the Talon assembly line in July 3053, with the Federated Commonwealth securing exclusive purchasing rights. The design's reputation received an enormous boost when Kallon presented a Penetrator to the Cenotaph Stables on Solaris VII, where it achieved significant arena victories that dramatically increased demand beyond Kallon's production capacity.</p><p>During the Clan Invasion era, the Federated Commonwealth deployed Penetrators extensively to units stationed in Lyran space, where the threat of further Clan incursions remained constant. The 'Mech's rugged construction and ammunition-independent weapons made it well suited to the mobile defensive postures required along the Clan border. Several factory variants emerged during this period, each addressing specific tactical needs identified through operational experience.</p><p>The secession of the Lyran half of the Commonwealth in 3058 and the creation of the Lyran Alliance under Katherine Steiner-Davion split the Penetrator's deployment between two successor states. Many units ended up on the rolls of the Lyran Alliance Armed Forces, though production remained firmly in Federated Suns territory at the Talon facility on Wernke.</p><p>The FedCom Civil War saw Penetrators serving on both sides of the conflict, where their rugged construction proved ideal for the mobile campaigns that characterized the fighting. Allied units conducted planet-hopping campaigns with reliable supply lines almost nonexistent, and the Penetrator's minimal ammunition requirements made it an outstanding choice for such operations. During this period, a number of Penetrators fell into mercenary hands, and word emerged that Kallon Industries might soon relax its policy of exclusively selling the design to the Federated Commonwealth and its successor state, the Federated Suns.</p><p>By the Dark Age, Kallon had established additional Penetrator production on Victoria, constructing a new line on the site of the former Shengli Arms facility. The Wernke complex also developed new variants featuring modern technologies such as reflective armor, snub-nose PPCs, and re-engineered lasers to address the evolving threats of the thirty-second century. The PTR-8D variant in particular represented Kallon's efforts to restock the depleted Armed Forces of the Federated Suns, with the Tonkya complex on Wernke leveraging Federated Suns experience with re-engineered laser technology to produce a design well suited to combating opponents equipped with modern armor types.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Crucis
+systemmode:CHASSIS:G
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Heavy
+systemmanufacturer:JUMP_JET:Anderson
+systemmode:JUMP_JET:398
+systemmanufacturer:COMMUNICATIONS:Dalban
+systemmode:COMMUNICATIONS:Micronics
+systemmanufacturer:TARGETING:Matabushi
+systemmode:TARGETING:Sentinel

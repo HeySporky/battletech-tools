@@ -1,0 +1,178 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa0f-7dcc-a146-250ae987817f
+</UUID>
+
+<UnitType>
+ConvFighter
+</UnitType>
+
+<Name>
+Saroyan Jump Bomber
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6472
+</mul id:>
+
+<year>
+3096
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<quirks>
+poor_work
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+8
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<vstol>
+1
+</vstol>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+640
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+22
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+8
+6
+6
+4
+</armor>
+
+<Nose Equipment>
+ISTAG
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+IS Vehicular Stealth
+ISGuardianECMSuite
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>On paper, the Jump Bomber excels at its intended task, but in practice it consistently falls short of expectations. Its bomb capacity is adequate for a conventional fighter of its mass, and its Hellespont stealth armor--supported by an integrated Guardian ECM suite--makes it more difficult to track than its size would suggest. However, not even stealth systems can protect the lightly armored airframe from determined return fire. The inclusion of built-in TAG target acquisition gear encourages pilots to loiter over the battlefield designating targets when they should be escaping, a doctrinal flaw that has contributed to disproportionate losses in combat.</p><p>Ground commanders frequently misunderstand the stealth armor's limitations, mistaking tactical signature reduction for true invisibility. A Jump Bomber radiating white noise from its Guardian ECM is harder to hit, but it is far from undetectable. Against an enemy with experienced air defense crews, the aircraft's light armor makes it easy prey once targeted.</p>
+</capabilities>
+
+<overview>
+<p>Introduced just before the turn of the thirty-second century, the Saroyan Jump Bomber was intended as a cheap adjunct for Home Guard and private militia use across the Capellan Confederation. The decades-long rebuilding effort following the Jihad left many worlds without the capital to invest in true aerospace fighters, and the market for affordable atmospheric airpower was ripe for a new design. Saroyan Special Productions of Sian adapted several technologies that had matured in the latter part of the thirty-first century and offered the twenty-five-ton fusion-powered Jump Bomber for sale. Pilots, purchasers, and professional technicians have been complaining about it ever since.</p>
+</overview>
+
+<deployment>
+<p>The Jump Bomber saw its baptism of fire during the Victoria War, when forces of the Duchy of Andurien and the Oriente Protectorate invaded the Capellan Confederation. On Altorra in 3104, a wing of Saroyan Jump Bombers based in the fortified city of Tepali initially succeeded in halting Andurien Ranger advances with conventional bombing sorties, but a third sortie using TAG-designated laser-guided bombs ended in disaster when Andurien air defense units destroyed the designating squadron, rendering the follow-on bombers ineffective. Against combined-arms AFFS formations, Jump Bombers have consistently succumbed to ground fire.</p>
+</deployment>
+
+<history>
+<p>Saroyan Special Productions built the Jump Bomber on the Mujika Aerospace Type M airframe, pairing it with a Rawlings 200 fusion engine and Hellespont stealth armor. The design incorporated a Ceres MaserCom 8 communications system with integrated Guardian ECM and a Dwyerson Mark XI targeting system with TAG capability. This combination of proven Capellan-sourced components kept production costs low, but quality control issues plagued the program from the start.</p><p>The Victoria War exposed the Jump Bomber's operational limitations in stark terms. At Tepali on Altorra, the initial success of conventional bombing sorties gave way to catastrophe when the tactical doctrine shifted to TAG-designated precision strikes. The loss of the designating squadron to concentrated anti-aircraft fire demonstrated that the Jump Bomber's stealth armor could not compensate for the vulnerability inherent in loitering over a hostile battlefield. Despite these setbacks, the Jump Bomber's low price point ensured continued procurement by Home Guard units across the Confederation, and Saroyan maintained production at Sian for budget-conscious buyers who accepted the design's limitations.</p>
+</history>
+
+<manufacturer>
+Saroyan Special Productions
+</manufacturer>
+
+<primaryFactory>
+Sian
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Mujika Aerospace
+ENGINE:Rawlings
+ARMOR:Hellespont
+COMMUNICATIONS:Ceres
+TARGETING:Dwyerson
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Type M
+ENGINE:200 Fusion
+ARMOR:Aerolite Stealth
+COMMUNICATIONS:MaserCom 8 with Guardian ECM Suite
+TARGETING:Mark XI with TAG
+</systemModels>
+
+<source>
+TR:3145:CC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+

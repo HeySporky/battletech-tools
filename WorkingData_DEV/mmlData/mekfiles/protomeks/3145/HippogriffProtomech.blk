@@ -1,0 +1,185 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e109-799b-8027-27ed20123663
+</UUID>
+
+<UnitType>
+ProtoMek
+</UnitType>
+
+<Name>
+Hippogriff
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6577
+</mul id:>
+
+<year>
+3110
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<quirks>
+distracting
+</quirks>
+
+<motion_type>
+Biped
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<jumpingMP>
+5
+</jumpingMP>
+
+<interface_cockpit>
+false
+</interface_cockpit>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+42
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+2
+10
+4
+4
+10
+</armor>
+
+<Body Equipment>
+Clan Ammo ProtoMech LRM-2 (24)
+Clan Ammo ProtoMech LRM-2 (24)
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+ExtendedJumpJetSystem
+EIInterface
+</Body Equipment>
+
+<Head Equipment>
+</Head Equipment>
+
+<Torso Equipment>
+ProtoMechPartialWing
+</Torso Equipment>
+
+<Right Arm Equipment>
+CLLRM2
+</Right Arm Equipment>
+
+<Left Arm Equipment>
+CLLRM2
+</Left Arm Equipment>
+
+<Legs Equipment>
+</Legs Equipment>
+
+<capabilities>
+<p>The Hippogriff joins the Gorgon in the eight-ton weight bracket but takes a fundamentally different tactical approach. Where the Gorgon features heavy weaponry, the Hippogriff relies on two compact LRM-2 launchers with atypically deep ammunition bins of twenty-four rounds each, providing an exceptional forty-eight total salvos. Its primary features are extended jump jets and a feathered partial wing that enables it to leap enormous distances in standard atmosphere, adding sixty meters to each jump for a total of one hundred fifty meters of leaping distance under standard atmospheric conditions.</p><p>Thirty points of armor provide solid protection, and the Hippogriff's doctrine of maintaining range while supplying constant covering fire means it is more likely to survive engagements than more aggressive ProtoMek designs. The trade-off is limited damage output per volley; the twin LRM-2 launchers cannot inflict enough damage to seriously threaten BattleMeks without sustained concentrated fire from an entire Point. Ground speed is modest at thirty-two kilometers per hour cruising, and the partial wing is useless in vacuum or airless environments, reducing the design to average jump performance in space or on airless moons. The Hippogriff excels as a long-range support unit that uses its exceptional mobility to maintain optimal engagement distance while providing persistent covering fire.</p>
+</capabilities>
+
+<overview>
+<p>The Hippogriff is an eight-ton ProtoMek designed by the Raven Alliance around partial wing technology, making it one of the most mobile ProtoMeks ever built. The first entirely new ProtoMek developed by the Raven Alliance, the Hippogriff was born from the Ravens' need for additional ground troops and the availability of a dedicated ProtoMek transport DropShip, the Arcadia class. Special care was invested in the design's unique flight-enhanced jump capability, with the partial wing enabling the Hippogriff to leap distances that far exceed what its mass would normally allow. The quasi-totemic design, with its feathered wing profile and avian aesthetic, has become a symbol of the Raven Alliance's ProtoMek program.</p>
+</overview>
+
+<deployment>
+<p>The Hippogriff mounts LRM-2 launchers in each arm, each fed by a deep twenty-four-round ammunition bin providing a total of forty-eight salvos. A partial wing mounted in the torso augments five extended jump jets for one hundred fifty meters of leaping distance in standard atmosphere. The forty-rated fusion engine provides a modest thirty-two kilometers per hour cruising speed on the ground, making the jump capability essential for tactical movement. Thirty points of armor provide solid protection for the weight class. Produced at the Snow Raven Industrial Complex Alpha on Dante, the Hippogriff serves primarily in the Raven Alliance's Gamma and Beta Galaxies, with additional units traded to Clan Hell's Horses for garrison and solahma support duties.</p>
+</deployment>
+
+<history>
+<p>The Raven Alliance restarted its ProtoMek program in the 3080s, driven by the need for additional ground troops that could be transported by the dedicated Arcadia-class DropShip. The Hippogriff was the first entirely new design produced by this renewed program, with special emphasis on the partial wing technology that would become its defining feature. Gamma Galaxy, traditionally the heaviest ProtoMek user in the Raven touman, was quick to experiment with the Hippogriff upon its first delivery in 3110, pleased to receive a long-range support unit capable of keeping pace with dedicated infighters.</p><p>The Hippogriff's first deployment was with a detachment from the Third Raven Auxiliaries guarding Milligan's World against the ManMangler mercenary command in the apparent employ of House Kurita. A Binary of Rocs, Chrysaor 2s, and Hippogriffs intercepted a mixed company of hover APCs and light Meks on the Doone Plains. The Rocs tied up the Meks while the Hippogriffs bombarded the APCs, forcing them to unload their infantry, which was promptly pinned down by the Chrysaors. The ProtoMeks outjumped the mercenaries and forced their remnants into retreat after destroying most of their infantry and two Meks.</p><p>Clan Hell's Horses soon traded for a large number of Hippogriffs, appreciating the equine aspects of its avian design. When the Twenty-first Mechanized Assault Cluster deployed them alongside other heavy ProtoMeks to repel a Clan Wolf probing attack on Harvest in 3118, the results were disappointing. Pitched against BattleMeks without appropriate support, the Hippogriff could not inflict sufficient damage on the advancing enemy, and by the time the Horses recognized their mistake there was no time to redeploy. The Horses rejected the Hippogriff as an alternative to the superheavy Svartalfa and reassigned them to support solahma units instead.</p><p>The Raven Alliance experienced its own failure when attempting to use the Hippogriff in S-Teams for void operations. The ProtoMek proved sensationally incapable in engagements on airless moons, where the partial wing was useless and its jump capability was reduced to average while ground speed remained sluggish. The design redeemed itself during Beta Galaxy's campaign to capture Sterlington and Kirbyville in May 3144. On Sterlington, the Ninth Raven Wing Cluster deployed Elementals and Afreets against dug-in elements of the Third Periphery Guard, supported only by Hippogriffs. With their partial wings ensuring superior flight control, the ProtoMeks deployed at high altitude and swooped down like their namesake, creating panic among the defenders and causing them to flee directly into Mek elements deployed in a second wave. This extremely successful use as a shock weapon greatly elevated the Hippogriff's prestige in the Raven Alliance military.</p>
+</history>
+
+<manufacturer>
+Snow Raven Industrial Complex Alpha
+</manufacturer>
+
+<primaryFactory>
+Dante
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Hraban
+COMMUNICATIONS:Build 1919
+TARGETING:Proto-Enhanced
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:HIP
+ENGINE:40 Fusion
+ARMOR:Standard P-6Q
+JUMP_JET:MicroLeapers
+COMMUNICATIONS:Micro
+TARGETING:Model 8
+</systemModels>
+
+<source>
+TR:3145:Merc,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+8.0
+</tonnage>
+

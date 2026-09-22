@@ -1,0 +1,183 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e92c-7ea8-8f09-e39bc182cda4
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Wayland Mobile Base
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5396
+</mul id:>
+
+<year>
+2541
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+cargobay:11.0:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+48
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+42
+41
+41
+39
+39
+38
+37
+</armor>
+
+<Body Equipment>
+Advanced Fire Control
+</Body Equipment>
+
+<Front Equipment>
+ISMobileFieldBase
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+Lift Hoist/Arresting Hoist
+</Rear Equipment>
+
+<Turret Equipment>
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Turret Equipment>
+
+<barrating>
+7
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Wayland combines formidable mass with practical battlefield utility. Mounted on a heavy tracked hull and driven by an LTV Industrial fusion plant, the vehicle achieves modest speeds appropriate for a logistics asset. The crew is protected by Bergan Commercial Plate armor across the full hull, sufficient to turn away small-arms fire and minor shrapnel while falling short of true combat-vehicle protection. A quartet of Martell medium lasers, mounted in a turret and guided by an advanced fire control system, deters light infantry and scout elements that might probe the rear echelon, though the vehicle is not designed to absorb direct fire from organized opponents.</p><p>The Wayland's principal contribution is its 20 tons of mobile field base equipment, including gantry arms, lifting hoists, and a comprehensive repair toolkit capable of servicing BattleMechs and vehicles without access to a fixed facility. The integral hoist allows technicians to lift and seat all but the heaviest components without external crane support. A rear access door simplifies parts delivery and crew movement.</p><p>Two significant limitations keep the Wayland dependent on supporting assets. Its standard cargo capacity of only 11 tons is insufficient to carry the volume of replacement components needed for sustained operations, requiring accompanying transport vehicles to carry the necessary materials. The vehicle's modest road speed also limits its ability to reposition quickly when the front lines shift unexpectedly.</p>
+</capabilities>
+
+<overview>
+<p>The Wayland Mobile Base was conceived to bring the functional capabilities of a rear-area maintenance depot directly to the battlefield. Developed by Bergan Industries of New Earth for the Hegemony Armed Forces, the Wayland entered production in 2541 as the first military-specification maintenance support vehicle in Inner Sphere service. The Hegemony recognized that operational tempo, not firepower alone, determined the outcomes of extended campaigns. By placing repair gantries and field workshop equipment on a massive tracked hull, Bergan's engineers gave HAF commanders the ability to sustain continuous operations far from fixed installations. The design earned a reputation as a force multiplier valued by logisticians and frontline commanders alike, remaining in production for over 170 years before its formal retirement in 2715.</p>
+</overview>
+
+<deployment>
+<p>The Wayland Mobile Base was not typically assigned at regiment or battalion level. Instead, it was pooled at brigade or division echelon and allocated to whichever formation required urgent field repairs. Its dependence on accompanying transport vehicles for spare parts meant that Wayland detachments almost always operated as part of a larger logistics package. Commanders kept them close enough to the front lines to service damaged units quickly but far enough back to avoid direct engagement with organized enemy forces. The advance fire control system and medium lasers could handle light infiltrators, but the vehicle was never intended to hold ground against a determined assault.</p>
+</deployment>
+
+<history>
+<p>The Wayland Mobile Base emerged from a doctrinal shift within the Hegemony Armed Forces during the early twenty-sixth century. HAF planners recognized that the operational tempo of BattleMech formations was constrained not by ammunition or armor but by maintenance cycles. Forward-deployed BattleMechs required hours of technical attention after each engagement, and the requirement to withdraw to rear-area hangar facilities consumed as much operational time as combat itself. Bergan Industries received the development contract in 2540 and delivered the first Wayland Mobile Bases to the HAF in 2541.</p><p>Initial production reached approximately two dozen vehicles per year. When the Star League formed and the SLDF absorbed the HAF's forces, roughly half of all BattleMech regiments already had at least one Wayland assigned. The rapid expansion of the SLDF during the Reunification War created immediate pressure on the production line. The demands of that conflict consumed production almost as fast as vehicles came off the line, limiting how broadly the type could be distributed to newly raised units. Royal units were often required to release exclusive possession of their Waylands, converting them to brigade or division assets shared across multiple formations.</p><p>The postwar years brought relief. The Wayland became a near-universal fixture in SLDF logistics chains, and a series of upgrades and incremental refits through the late twenty-seventh and early twenty-eighth centuries kept the design current and effective. The SLDF formally retired the type in 2715, replacing aging hulls with more capable successors. A small number of surviving vehicles passed to the Great Houses through transfers and attrition. Those survivors were coveted assets in formations that had never operated with such capable field maintenance support. None endured the catastrophic destruction of the First Succession War. The conflict consumed logistics infrastructure and support vehicles as thoroughly as it consumed front-line BattleMechs, and the manufacturing knowledge required to produce new Waylands perished alongside the last surviving hulls.</p>
+</history>
+
+<manufacturer>
+Bergan Industries
+</manufacturer>
+
+<primaryFactory>
+New Earth
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Bergan Industries
+ENGINE:LTV
+ARMOR:Bergan Industries
+COMMUNICATIONS:Garret
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Industrial Fusion
+ARMOR:Commercial Plate
+COMMUNICATIONS:Type 3
+TARGETING:OP/911
+</systemModels>
+
+<source>
+His:RW
+</source>
+
+<tonnage>
+150.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

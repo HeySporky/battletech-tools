@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad70-7c31-82d2-5f61e6a049a9
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Sparrowhawk
+</Name>
+
+<Model>
+SPR-H5K
+</Model>
+
+<mul id:>
+2993
+</mul id:>
+
+<year>
+3018
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Interceptor
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+10
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+38
+24
+24
+34
+</armor>
+
+<Nose Equipment>
+Small Laser
+Small Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+Small Laser
+Small Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Small Laser
+Small Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Sparrowhawk is built on a StarTech Mod II airframe powered by a Warner 240J fusion plant, delivering sufficient thrust to serve as both an escort and a first-response interceptor. Early production models exhibited a dangerous combination of airframe stress fractures and a problematic fuel tank positioned beneath the pilot's seat, which could rupture and allow hydrogen to seep into the cockpit. The H5 redesign addressed both concerns with a completely reworked airframe and the addition of a dedicated fuel venting system, significantly reducing the risk to pilots.</p><p>The fighter carries an entirely laser-based weapons arrangement. Two Martell medium lasers in the nose deliver accurate fire at short and medium range, while a pair of Exostar small lasers in the wings provide additional close-range punch, though their accuracy degrades under fire-control damage. This heat-efficient, ammunition-independent loadout suits the fighter's endurance-oriented design philosophy well. Seven and a half tons of Carbondale II armor provides reasonable protection for a fighter of its class, supplemented by the unique manual release system that allows pilots to eject plates so severely damaged that they would restrict atmospheric flight. The Rander TA4 tracking and targeting system rounds out the electronics suite, while the Rander 100 communications system provides the reliable inter-unit coordination the fighter's escort mission demands.</p>
+</capabilities>
+
+<overview>
+<p>The Sparrowhawk is a thirty-ton light aerospace fighter that entered service with the Terran Hegemony in 2520 as an escort for heavier attack craft and assault DropShips. Designed for high thrust and combat persistence, the fighter excels in the interceptor role, relying on an all-energy weapons arrangement that eliminates ammunition dependency across extended engagements. A distinctive feature of the design is its manually operated armor ejection system, which allows pilots to jettison badly damaged armor plates that might otherwise compromise atmospheric reentry. The fighter's communications suite earned a reputation as among the most reliable in its class, and its overall performance made it a natural export across the Star League and into the Periphery. Subsequent improvements resolved dangerous early production flaws, and the Sparrowhawk went on to serve virtually every major power in the Inner Sphere as a durable and adaptable design.</p>
+</overview>
+
+<deployment>
+<p>The SPR-H5K is a Kuritan adaptation introduced in 3018, developed to wring additional close-range firepower from captured and locally maintained Sparrowhawk airframes. By removing both nose-mounted medium lasers and replacing them with four additional small lasers positioned in the nose and fuselage, Draconis Combine maintenance crews produced a fighter capable of a high rate of fire at short range. The modification came at a cost, as the targeting system was not recalibrated to handle the increased number of simultaneous laser firings, resulting in accuracy degradation under heavy engagement conditions. The SPR-H5K appears primarily among Combine garrison forces and units that rely on captured Federated Suns equipment, valued more for its availability than its tactical performance.</p>
+</deployment>
+
+<history>
+<p>The Sparrowhawk was developed in 2520 as a standard Terran Hegemony escort fighter, with production established at Warner Incorporated's facility on Quentin. The Star League Defense Force's broad deployment of the type spread the Sparrowhawk across all Star League member states, Periphery nations, and even nominally prohibited mercenary forces, making it one of the more ubiquitous light fighters of the era. A separate production line operated by Steiner Aerospace Manufacturing on Dove supplied the Lyran Commonwealth during the Star League period, though that facility was lost when the planet was rendered uninhabitable in 2812.</p><p>The fighter's fortunes shifted dramatically with the Star League's collapse. The Federated Suns claimed Warner Incorporated's Quentin lines, continuing production until the First Succession War brought Draconis Combine forces against the planet. Kurita bombardment destroyed the Warner facility and forced Davion officials to relocate production to Panpour, where Jalastar Aerospace absorbed the design and continued manufacturing it for the Armed Forces of the Federated Suns. Through captured examples and combat salvage, House Kurita maintained a significant Sparrowhawk inventory despite never controlling the Panpour line, a pattern explained by the fighter's regular presence in any engagement against Federated Suns forces.</p><p>The Sparrowhawk's long service generated considerable mythology. The Great Lee Turkey Shoot of 2955 saw Sparrowhawk squadrons help defend the Davion world of Lee against a Liao assault force over three days of fighting, with Capellan losses well out of proportion to the defenders'. The engagement became one of the more celebrated light fighter actions of the Succession Wars era, though later accounts inflated both its duration and the scale of Capellan losses significantly. A more covert chapter emerged in 2979, when several of the mysterious unmarked aerospace fighters that destroyed the derelict WarShip Tripitz were confirmed to be ComStar Guards and Militia Sparrowhawks, lending the type an unexpected connection to ComStar's most infamous covert operation and giving rise to the legend of the Vandenburg White Wings.</p><p>Data recovered from the Helm Memory Core enabled Jalastar Aerospace to develop a substantially upgraded variant in the early Clan Invasion era, extending the design's service life into the thirty-second century. The Outworlds Alliance later produced their own interpretation during the Jihad, using recovered Terran Hegemony blueprints to manufacture a primitive but functional version suited to the Alliance's constrained industrial capacity. Both productions reflected the enduring value of the Sparrowhawk's fundamental design, which proved adaptable enough to remain relevant across more than six centuries of continuous service.</p>
+</history>
+
+<manufacturer>
+Refit - Mangon Aeronautics
+</manufacturer>
+
+<primaryFactory>
+Schuyler
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:StarTech
+ENGINE:Warner
+ARMOR:Carbondale
+COMMUNICATIONS:Rander
+TARGETING:Rander
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Mod II
+ENGINE:240J
+ARMOR:II
+COMMUNICATIONS:100
+TARGETING:TA4
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

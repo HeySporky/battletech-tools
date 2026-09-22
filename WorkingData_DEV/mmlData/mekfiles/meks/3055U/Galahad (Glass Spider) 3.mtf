@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c796-7499-a746-ae6db23d5ff8
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Galahad
+clanname:Glass Spider
+model:3
+mul id:1172
+
+Config:Biped
+techbase:Clan
+era:3065
+source:TR:3055U
+published:RS:3055Uu
+rules level:2
+role:Sniper
+
+quirk:ext_twist
+quirk:anti_air
+quirk:multi_trac
+
+mass:60
+engine:240 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:16 Clan Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:7
+ER PPC, Left Arm
+ER PPC, Right Arm
+Medium Pulse Laser, Left Torso
+Medium Pulse Laser, Left Torso
+Heavy Medium Laser, Right Torso
+Heavy Medium Laser, Right Torso
+Heavy Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERPPC
+CLERPPC
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERPPC
+CLERPPC
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Glass Spider traces its lineage directly to the Star League-era Galahad, earning its Inner Sphere reporting name when first encountered during the Clan Invasion. Clan Widowmaker originally redesigned the Galahad with Clan-grade technology during the Golden Century, upgrading the weapons, internal structure, and armor before bestowing the Glass Spider designation. When Clan Wolf absorbed the Widowmakers following their Trial of Absorption in 2834, the specifications were claimed as isorla and the design quickly spread throughout the Clans.</p><p>The Glass Spider became one of the most ubiquitous second-line BattleMechs in Clan service, found in the touman of virtually every Clan. Serving in the dual role of direct fire support and anti-aircraft defense for garrison formations, the sixty-ton design's combination of devastating long-range firepower and advanced sensors made it a popular choice for honor duels against aerospace fighters, where its ability to deliver quick kills appealed to warriors seeking glory.</p>
+
+capabilities:<p>The Glass Spider's primary armament consists of two Clan-grade Gauss rifles mounted in fully rotating arm assemblies, giving the design complete firing arc coverage including the rear. Five tons of ammunition stored in cross-linked bins provide forty rounds to sustain extended engagements. This straightforward weapons array allows the Glass Spider to engage and destroy most opponents at long range before they can effectively return fire, a quality that makes it particularly lethal against aerospace fighters attempting attack runs.</p><p>The combination of a Heavy-Series LX endo-steel chassis and Forging ZM15 ferro-fibrous armor allows the Glass Spider to mount a 240-rated fusion engine, providing a top speed of 64 km/h that meaningfully improves upon the original Galahad's plodding pace. Ten and a half tons of ferro-fibrous protection offers respectable coverage for a sixty-ton 'Mech, though the design relies more on standoff range than raw durability for survivability. Ten double heat sinks keep the 'Mech cool during sustained operations. The advanced XS-485 Mk. IV sensor suite and GH D8j targeting and tracking system can track over a hundred simultaneous air and ground targets, making the Glass Spider exceptionally effective in the anti-aircraft role that defines much of its garrison deployment.</p>
+
+deployment:<p>First fielded by Clan Star Adder in early 3065 during their assault on York, the Glass Spider 3 is a thorough redesign that restores long-range firepower while retaining an all-energy loadout. A pair of Type DDS Kingston extended-range PPCs replace the large pulse lasers, while three Series 6A heavy medium lasers provide devastating close-range support alongside two retained Series PPS-XIX medium pulse lasers. All weapons feed through an advanced targeting computer. The upgraded sensor suite capable of simultaneously tracking over a hundred air and ground targets makes this one of the most capable fire-support platforms available to any Clan's second-line formations.</p>
+
+history:<p>Clan Widowmaker created the Glass Spider during the Golden Century as an upgrade to the Star League-era Galahad brought on the Exodus. The Widowmakers debuted their redesigned 'Mech on Dagda, where freshly assembled Glass Spiders from the Dagda Industriplex Zeta assembly lines exacted a fearsome toll on their foes, turning the ritualized zellbrigen duels of the era into bloodbaths. When Clan Wolf prosecuted its Trial of Absorption against the Widowmakers in 2834, the Glass Spider was among the designs claimed as isorla. Clan Wolf swiftly crushed a subsequent Jade Falcon Trial of Possession for the specifications and made the Glass Spider a mainstay of its garrison clusters.</p><p>With these powerful 'Mechs guarding their enclaves, Clan Wolf steadily expanded its Kerensky Cluster holdings throughout the Golden Century and secured its occupation zone in the Inner Sphere. The design spread to virtually every other Clan as well, becoming one of the most common second-line BattleMechs in the Clan military structure. Second-line warriors were often eager for an assignment to a Glass Spider, seeing in its range and lethality the chance to maximize their opportunities for glory, and Trials of Possession were frequently issued for the right to pilot one.</p><p>While most Clans remained content to produce the original design unchanged, Clan Star Adder invested in upgrading the venerable Glass Spider with newer technologies. The Glass Spider 3, first fielded in early 3065 during the Star Adder assault on York, proved devastating during the battle for the Blood Spirit city of Monamora. Twenty-seven of the new variant were deployed, with six assigned to air defense linking their sensor suites with accompanying Rifleman IICs and Krakens. This combined sensor network gained complete control of the skies over Monamora, accounting for the destruction of dozens of Blood Spirit fighters and sealing the city's fate.</p><p>In the ilClan era, the Wolf Empire launched a new production line at Kallon Weapon Industries on Thermopolis, taking advantage of structural similarities with the Rifleman to convert existing manufacturing infrastructure. This facility produces the Glass Spider and its modern variants, ensuring the design continues to serve as a cornerstone of Clan Wolf's garrison and anti-aircraft forces well into the thirty-second century.</p>
+
+manufacturer:Dagda Industriplex Zeta
+
+primaryfactory:Dagda (West Dratha)
+
+fluffdate:2026-02-13 10:47:11
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Heavy-Series LX Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Fusion 240 Mk. V
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:ZM15 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:XS-485 Mk. IV
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:GH D8j TTS

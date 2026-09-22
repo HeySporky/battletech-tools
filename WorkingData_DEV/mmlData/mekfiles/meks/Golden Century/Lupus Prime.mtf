@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d66d-74ba-8a7f-725205aa3a09
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Lupus
+model:Prime
+mul id:1965
+
+Config:Biped OmniMek
+techbase:Clan
+era:2857
+source:TR:GC,ED:GC
+published:TR:GC,ED:GC
+rules level:2
+role:Missile Boat
+
+quirk:exp_actuator
+
+mass:60
+engine:300 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:10
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Clan)
+LA armor:17
+RA armor:17
+LT armor:18
+RT armor:18
+CT armor:25
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:4
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+LRM 20, Left Torso
+LRM 20, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLArtemisIV (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Artemis-capable (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Artemis-capable (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+
+Right Torso:
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLArtemisIV (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Artemis-capable (OMNIPOD)
+CLECMSuite (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Lupus was the second OmniMech ever produced, following Clan Coyote's groundbreaking Coyotl. Introduced in 2857 during the Golden Century, this sixty-ton heavy design was developed by Coyote Industrial on Babylon. Built to function as a cavalry raider and fast support 'Mech, the Lupus could keep pace with contemporary medium designs while carrying substantially more armor and firepower. The design's engineering choices prioritized survivability and generous pod capacity, allowing over a third of the 'Mech's mass to be devoted to mission-configurable weapon systems. The Lupus proved remarkably successful, even inspiring Clan Smoke Jaguar's development of the Mad Dog as a second-generation successor.</p><p>Though eventually outclassed by newer OmniMechs and relegated to second-line formations and Brian Caches, the design's reputation endured across centuries. The Lupus found an unexpected return to production in the late thirty-second century, when Clan Sea Fox recognized an opportunity to meet growing Inner Sphere demand for affordable, proven OmniMech platforms.</p>
+
+capabilities:<p>The Lupus achieves its versatility through a combination of proven engineering and generous pod capacity. Its Vlar 300 standard fusion engine drives the sixty-ton chassis to a top speed of eighty-six kilometers per hour, keeping pace with many medium 'Mechs. The standard engine configuration provides superior survivability against torso penetration compared to extralight alternatives, a deliberate design choice reflecting Clan Coyote's preference for durability over raw performance. Twenty-three tons of pod space gives commanders exceptional flexibility in configuring the Lupus for virtually any battlefield role, from long-range fire support to close-quarters brawling.</p><p>Eleven and a half tons of standard armor offer solid protection for the weight class, distributed to favor the torso sections where the engine and ammunition stores reside. Both original and modern-production Lupuses benefit from ease of manufacture, maintenance, and repair, making the design attractive to mercenaries, well-equipped corporate security forces, and even Periphery states. The exposed actuator design, while a known vulnerability, has proven an acceptable trade-off given the chassis's overall robustness.</p>
+
+deployment:<p>The original Prime configuration established the Lupus as a mobile missile platform, designed to replace Archer and Bombardier 'Mechs in the Clan Coyote touman. Twin LRM-20 racks with Artemis IV fire control deliver accurate long-range firepower, while pod-mounted jump jets provide tactical mobility for holding optimal engagement ranges. ER medium lasers in each arm serve as backup weapons should an enemy close the distance, and an integrated ECM suite disrupts hostile electronic warfare efforts. The configuration's chief limitation remains its modest three-ton ammunition supply, demanding judicious fire discipline during extended engagements.</p>
+
+history:<p>The Lupus entered service in 2857 as only the second OmniMech design to reach production, building on the revolutionary foundation laid by Clan Coyote's Coyotl. During the Golden Century, the design proved invaluable to Clan Coyote's touman, with its combination of speed, protection, and reconfigurability earning respect across the Clans. The Lupus's success was so notable that Clan Smoke Jaguar used it as the foundation for their own second-generation heavy OmniMech, the Mad Dog, naming it deliberately as a slur against the Lupus and its originating Clans. The Mad Dog would go on to become one of the most ubiquitous OmniMechs in Clan arsenals, a legacy that speaks to the soundness of the Lupus's original engineering.</p><p>As newer and more advanced designs entered production throughout the Golden Century and beyond, the Lupus gradually fell from frontline service. Clan Coyote increasingly assigned surviving units to solahma formations or placed them in long-term storage within Brian Caches. The Coyote Industrial production line on Babylon was eventually retooled to produce Mad Dog OmniMechs, seemingly marking the end of the Lupus's manufacturing history.</p><p>The design found an unexpected second life in 3058 when Clan Star Adder scientists, seeking a testbed for newly developed heavy laser technology, drew mothballed Lupus OmniMechs from Brian Caches. The heavy laser-armed conversions proved so successful that the Adder Khans ordered nearly one hundred additional units retrofitted, ultimately producing the Hellfire BattleMech. The Hellfire replaced the Lupus's Vlar 300 engine with a smaller powerplant and added MASC, creating an entirely new design from the venerable OmniMech's bones.</p><p>The Lupus's most dramatic chapter began in late 3146 when Clan Sea Fox saKhan Petr Kalasa identified growing demand for BattleMechs that could not be met by new designs alone. Rather than investing in entirely new chassis, Kalasa ordered the Lupus updated and returned to production through Trellshire Heavy Industries on Marik. The first newly-built Lupuses were delivered to the Shiva Keshik and Purifier Cluster in February 3147 for extended testing and evaluation.</p><p>Combat during the Regulan Fiefs' assault on Marik provided an early proving ground. A Shiva Keshik Trinary equipped with Lupus Primes engaged the Fourth Hussars at Dormuth, where massed Artemis-enhanced missile volleys shattered an entire Hussar medium lance. Sea Fox merchants quickly incorporated the Lupus's combat footage from Marik into their sales campaigns, and the updated design, now available with two new modern configurations, has found buyers among Inner Sphere and Clan forces alike.</p>
+
+manufacturer:Coyote Industrial|Trellshire Heavy Industries
+
+primaryfactory:Babylon|Marik
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Coyote Industrial
+systemmode:CHASSIS:Lupus Endo Steel
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Coyote Industrial
+systemmode:ARMOR:CI Ferro
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Coyote Industrial
+systemmode:COMMUNICATIONS:CI-Com 4
+systemmanufacturer:TARGETING:Coyote Industrial
+systemmode:TARGETING:CI-X 2

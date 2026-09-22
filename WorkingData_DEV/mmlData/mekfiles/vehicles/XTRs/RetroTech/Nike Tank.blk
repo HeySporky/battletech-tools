@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec73-76ec-ad8b-cbe1aef6566b
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Nike Air Defense Platform
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4725
+</mul id:>
+
+<year>
+3079
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+35
+20
+20
+20
+35
+</armor>
+
+<Body Equipment>
+Armored Chassis
+Advanced Fire Control
+IS Ammo LAC/2
+IS Ammo LAC/2
+IS LB 5-X AC Ammo
+IS LB 5-X AC Ammo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Light Auto Cannon/2
+Light Auto Cannon/2
+ISLBXAC5
+ISLBXAC5
+</Turret Equipment>
+
+<capabilities>
+<p>The Nike mounts a pair of LB 5-X autocannons as its primary weapons alongside two Light AC/2s for supporting fire. Both weapon types accept cluster ammunition effective against airborne targets, and a generous two-ton ammunition supply per weapon type provides good endurance for sustained engagements. An Advanced Fire Control system enhances accuracy beyond what the individual weapons would achieve alone.</p><p>The ninety-ton vehicle rides on a fuel cell engine that provides adequate 54 km/h speed while keeping production costs low. Thirteen tons of BAR 9 armor provides substantial protection against most threats short of dedicated anti-armor weapons, making the Nike surprisingly durable for a retrotech design. The vehicle deliberately omits the sophisticated C3 networking and removable targeting systems characteristic of the Partisan family, relying instead on simple, reliable construction that secondary manufacturing facilities can produce and maintain without access to advanced technology. This design philosophy makes the Nike well-suited for peripheral and garrison forces that lack the technical infrastructure to support more complex systems, though it means the vehicle must rely on individual crew skill rather than networked coordination.</p>
+</capabilities>
+
+<overview>
+<p>The Nike Air Defense Platform entered production in 3079, designed by New Samarkand Metals of Xinyang as a budget alternative to the Partisan family. Intended for customers in the Draconis Combine who could not afford the increasingly expensive Partisan variants, the Nike prioritized raw firepower and simplicity over the sophisticated command and coordination systems that defined later Partisan models. Built on a modified support vehicle chassis using older manufacturing techniques and commercially available components, the ninety-ton tracked vehicle represented the wave of retrotech designs emerging from secondary manufacturers during the Jihad's aftermath. The Nike's philosophy of straightforward, affordable air defense found a receptive market among garrison commands stretched thin by years of conflict.</p>
+</overview>
+
+<deployment>
+<p>Produced exclusively at New Samarkand Metals' Xinyang facility, the Nike has been sold solely to the Draconis Combine. Its low cost and simple maintenance requirements make it ideal for the many garrison and militia commands tasked with defending Combine worlds against pirate raids and border incursions. Reports from the field indicate the Nike performs well in the defensive anti-aircraft role for which it was designed.</p>
+</deployment>
+
+<history>
+<p>The fires of the Jihad crippled military-industrial complexes across the Inner Sphere, creating desperate demand for replacement equipment of any kind. While major manufacturers struggled to recover, a wave of secondary producers stepped in using older, less advanced manufacturing techniques. New Samarkand Metals of Xinyang, a Draconis Combine industrial firm, recognized an opportunity to enter the combat vehicle market with a design that addressed one of the most urgent needs of the post-Jihad era: affordable mobile air defense.</p><p>The Partisan Heavy Tank and its upgraded Air Defense variant had set the standard for ground-based anti-aircraft platforms for nearly three centuries. But Kallon Industries' production network had been devastated by the Jihad. Nanking was under Word of Blake occupation, Talon was destroyed, and the surviving plants were struggling to meet demand. For Combine garrison commands, obtaining Partisans through normal procurement channels was effectively impossible. New Samarkand Metals designed the Nike as a deliberate alternative, stripping away the Partisan's sophisticated command electronics and C3 networking to focus on what garrison commanders needed most: guns pointed at the sky, produced cheaply and quickly.</p><p>Built on a modified support vehicle chassis using commercially available components and a fuel cell engine, the ninety-ton Nike could be manufactured by facilities that lacked the precision tooling required for the Partisan's advanced systems. The design philosophy prioritized accessibility over capability, accepting limitations in coordination and electronic warfare resistance in exchange for a vehicle that secondary factories could produce and field technicians could maintain without specialized training.</p><p>Reports from the field validated this approach. When raiders attempted to strike a DCMS arms depot on Benjamin, the depot's air cover was quickly dispatched by a lance of Nikes that were then pressed into direct fire service against the raiders' BattleMechs. The enemy lance was pelted with autocannon fire and forced to take cover, buying critical time. While none of the attacking BattleMechs were destroyed, the raiders retreated in the face of incoming DCMS reinforcements. Other than a bandit fighter crashing into a tenement district, the action was a rousing success.</p><p>The Nike occupied a different market niche than the Partisan family. Where Kallon's designs emphasized networked operations and increasingly advanced technology with each generation, the Nike served commands that could not afford or maintain such sophistication. This same gap in accessible air defense drove the Raven Alliance to develop the Nuberu Anti-Aircraft Tank around the same time, though the Ravens took the opposite approach, using Clan technology to improve upon the Partisan concept rather than simplifying it. Together, the Nike and Nuberu demonstrated that the demand for mobile air defense had outgrown any single manufacturer's ability to supply it.</p><p>Sales of the Nike have gone exclusively to the Draconis Combine, where its simple construction and affordable price tag continue to appeal to the numerous garrison and militia commands that form the backbone of the Combine's defensive infrastructure. Unlike the Partisan, which spawned an entire family of variants and descendants, the Nike has remained a single-variant design. Its purpose was never to replace the Partisan but to fill the gap left by the Partisan's absence, a role it continues to serve as Kallon's recovered production network once again supplies the broader market. The Nike endures as a reminder that in the aftermath of the Jihad, the need for mobile air defense was so acute that even retrotech solutions found willing buyers.</p>
+</history>
+
+<manufacturer>
+New Samarkand Metals
+</manufacturer>
+
+<primaryFactory>
+Xinyang
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown (Tech Level C)
+ENGINE:Electric (Fuel Cell)
+ARMOR:Unknown (BAR 9)
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:RetroTech
+</source>
+
+<published>
+XTR:RetroTech
+</published>
+
+<tonnage>
+90.0
+</tonnage>
+

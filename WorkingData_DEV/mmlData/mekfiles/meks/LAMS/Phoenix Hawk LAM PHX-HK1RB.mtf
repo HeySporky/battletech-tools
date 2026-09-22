@@ -1,0 +1,192 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6f7-7c67-a3a8-b61354c7fe5c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Phoenix Hawk LAM
+model:PHX-HK1RB
+mul id:4821
+
+Config:LAM
+techbase:Inner Sphere
+era:3077
+source:TR:3085
+published:RS:3085u-CE
+rules level:3
+role:Striker
+
+
+mass:50
+engine:250 Fusion Engine
+structure:IS Standard
+myomer:Standard
+lam:Standard
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:19
+RT armor:19
+CT armor:23
+HD armor:8
+LL armor:15
+RL armor:15
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:3
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+Snub-Nose PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Landing Gear
+Avionics
+Jump Jet
+Jump Jet
+ISC3iUnit
+ISC3iUnit
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Landing Gear
+Avionics
+Jump Jet
+Jump Jet
+ISSNPPC
+ISSNPPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Landing Gear
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+Avionics
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Phoenix Hawk LAM was the definitive production model of the Phoenix Hawk Land-Air 'Mech series, succeeding the Mk I prototype. The PHX-HK2 debuted in 2730 and became the largest LAM ever manufactured, nearly double the mass of earlier Wasp and Stinger designs. Allied Aerospace achieved a remarkable technological feat in scaling up the LAM conversion systems, though this knowledge was lost following the Star League's collapse and the destruction of Allied's Pollux factory.</p><p>Armed with an Amsterdam 120 large laser, twin Maxum medium lasers, and machine guns, the Phoenix Hawk LAM suffered from persistent overheating, a recall was issued three months before the Star League fell. Despite its flaws, the Phoenix Hawk LAM remained the only LAM variant with armor protecting actuators during transformation, offering minimal but meaningful protection during the vulnerable conversion process. House Marik retained the largest concentration of Phoenix Hawk LAMs through the Succession Wars era, maintaining stockpiles at the Borden supply depot.</p>
+
+capabilities:<p>The Phoenix Hawk LAM's sheer scale represented a major technological achievement in LAM conversion systems. The Amsterdam 120 large laser served as the primary weapon, supported by tandem Maxum medium laser and Sperry/Browning machine gun mounts in each arm. The Hartford S2000 targeting system effectively coordinated this firepower across all three operational modes. However, persistent overheating remained the design's most significant flaw, and the conversion mechanism's bulk created structural vulnerabilities, particularly with landing gear, where even minor damage could prove catastrophic.</p><p>In 'Mech mode, the Phoenix Hawk LAM performed comparably to standard medium BattleMechs, though its armor remained inadequate for sustained ground combat. The AirMech mode provided the greatest tactical flexibility, enabling rapid deployment across terrain impassable to conventional forces. Full aerospace mode delivered acceptable atmospheric performance but proved vulnerable to dedicated fighters of equivalent tonnage.</p><p>The critical weakness remained the conversion process itself, which exposed internal systems to damage. A well-placed hit during transformation could leave the LAM trapped in a half-converted state, rendering it helpless. This vulnerability was never fully resolved before the Star League's fall.</p>
+
+deployment:<p>Technical details of this variant configuration remain limited in available documentation. As a variant within the Phoenix Hawk LAM family, the design presumably retains the core conversion capability and general performance characteristics of the production line while incorporating modifications to the weapons suite or electronics package. The variant was listed in TRO:3085 alongside other LAM configurations.</p>
+
+history:<p>The PHX-HK2 entered service in 2730 as the definitive Phoenix Hawk LAM, building on lessons learned from the Mk I prototype. Allied Aerospace's Pollux factory produced the design until its destruction during the First Succession War in 2799, ending all production capability for the Phoenix Hawk LAM and effectively sealing the fate of large-scale LAM technology.</p><p>House Marik maintained the largest concentration of surviving Phoenix Hawk LAMs through the Succession Wars, stockpiling critical parts at the Borden supply depot. Notable engagements included operations over Fletcher, where a LAM pilot executed a daring ruse against pursuing forces, and the Davion raid on Tybalt where PHX LAMs provided critical aerospace cover for ground operations. Kurita LAMs were nearly wiped out during fighting on Suk in 3017, where Steiner forces captured a treasure trove of irreplaceable LAM components.</p><p>The extreme rarity of surviving airframes and the impossibility of new production made every Phoenix Hawk LAM an object of intense desire throughout the Succession Wars. Clan Jade Falcon later experimented with their own Phoenix Hawk LAM variant, designated "Evil Twin One," during the late 3050s. The dual-cockpit design required both a MechWarrior and an aerospace pilot, reflecting Clan uncertainty about LAM operational doctrine. Evil Twin One was destroyed in its only battle after ramming opponents to finish them off.</p>
+
+manufacturer:Unknown
+
+primaryfactory:Unknown
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

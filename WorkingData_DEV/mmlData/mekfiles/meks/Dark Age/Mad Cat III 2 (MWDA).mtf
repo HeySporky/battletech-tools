@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d5be-71c3-9061-f1cf0bab7daa
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Mad Cat III
+model:2 (MWDA)
+mul id:6896
+
+Config:Biped
+techbase:Clan
+era:3089
+source:TR:DA,TR:3145
+published:RS:3145
+rules level:2
+role:Sniper
+
+quirk:difficult_maintain
+quirk:bad_rep_clan
+quirk:imp_com
+
+mass:55
+engine:330 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:16 Clan Double
+walk mp:6
+jump mp:5
+
+armor:Ferro-Fibrous(Clan)
+LA armor:18
+RA armor:18
+LT armor:20
+RT armor:20
+CT armor:27
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:4
+Heavy Medium Laser, Left Arm
+Heavy Medium Laser, Right Arm
+LRM 20, Left Torso
+LRM 20, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Mad Cat III was developed by Clan Diamond Shark beginning in 3076, with the design entering full production in February 3086 after a notoriously troubled development cycle. Conceived as a medium-weight companion to the heavier Timber Wolf and assault-class Mad Cat Mk II, the fifty-five-ton design was intended to capitalize on the fearsome reputation of the Mad Cat lineage while addressing demand for a more affordable and accessible platform. Despite visually resembling a scaled-down version of its iconic ancestor, the Mad Cat III met fierce resistance from most Clans, who viewed the Diamond Sharks' practice of selling advanced Clan technology to Inner Sphere buyers as a betrayal of Kerensky's legacy. Only the exiled Wolves and Nova Cats among the Clans embraced the design. The Diamond Sharks nonetheless found eager customers among the Successor States, with the Lyran Commonwealth, Draconis Combine, and Republic of the Sphere all purchasing the 'Mech in significant numbers.</p>
+
+capabilities:<p>At fifty-five tons the Mad Cat III is twenty tons lighter than its Timber Wolf ancestor, yet bears such a striking visual resemblance to the iconic OmniMech that even sophisticated combat computers initially misidentified it as a new Mad Cat configuration during early engagements. The design achieves an impressive maximum ground speed of ninety-seven kilometers per hour through a 330-rated extralight engine mated to a DSAM Endo 6-Composite chassis, giving it exceptional mobility for its weight class.</p><p>The primary armament centers on twin Type XX "Great Bow" LRM-20 launchers equipped with Artemis V fire control systems, each supplied with two tons of ammunition. These provide devastating long-range firepower while allowing the Mad Cat III to function effectively in an indirect fire support role. For close combat, four Series 2b extended range medium lasers mounted in the arms provide reliable energy firepower, supplemented by six Mustang 4.5 extended range micro lasers that prove highly effective against lighter targets and infantry.</p><p>The principal weakness of the design lies in its relatively thin protection. Only eight and a half tons of Forging Zk15 ferro-fibrous armor leaves the 'Mech underprotected for its weight class by contemporary standards, and with only ten double heat sinks the design can be easily overheated when firing its full arsenal. Its speed provides some compensation through evasive maneuvering, allowing pilots to quickly close on enemies or disengage from dangerous situations once missile reserves are depleted.</p>
+
+deployment:<p>This variant represents the Mad Cat III as documented in early Dark Age-era tactical assessments. Configured identically to the standard Mad Cat III 3 for combat purposes, this designation reflects the unit's statistical profile as cataloged during the initial Dark Age period when the design was proliferating rapidly across Inner Sphere militaries through Diamond Shark commercial sales.</p>
+
+history:<p>The Mad Cat III's origins trace to 3076, when Clan Diamond Shark initiated development of a medium-weight BattleMech to complement their existing Mad Cat product line. Where the Mad Cat Mk II had been developed relatively quickly, the Mad Cat III proved exceptionally troublesome. The prototype suffered persistent technical failures, missile launchers refused to function properly, armor panels would not attach to the frame, and hip actuator problems surfaced after seemingly unrelated repairs. Engineers found themselves trapped in an endless cycle of fixes creating new problems, and the project became something of a running joke within the Diamond Shark scientific caste.</p><p>Despite the setbacks, the Diamond Sharks refused to abandon the project, having invested too heavily in both resources and reputation. Their persistence ultimately paid off when an error-free version was produced in 3085, with full production beginning at Manufacturing Plant DSF-IT1 on Itabaiana in February 3086. The experimental Mad Cat III-X prototype, which had preceded the production model, served as a technology demonstrator featuring advanced ferro-lamellor armor and helped validate the core design concept even as the production version continued to encounter difficulties.</p><p>The design's reception among the Clans was overwhelmingly hostile. Khan Samantha Clees of Clan Jade Falcon publicly condemned the Diamond Sharks for selling cutting-edge Clan technology to Inner Sphere powers, a sentiment echoed by most Clan leaders. Only the Nova Cats and the exiled Wolves showed willingness to field the design alongside the Diamond Sharks themselves. This Clan-wide rejection did little to dissuade the Diamond Sharks, who had always intended the Mad Cat III as a commercial product for the broadest possible market.</p><p>The Inner Sphere proved far more receptive. The Lyran Commonwealth, Draconis Combine, and Republic of the Sphere all became major customers, purchasing the Mad Cat III in great numbers. The design saw extensive service during the Dark Age conflicts, earning a solid combat reputation despite its persistent quirks of difficult maintenance and the lingering stigma of its troubled development. Republic Knight Eve Kincaid piloted a customized variant during the invasion of Liao in 3134, demonstrating the platform's adaptability in skilled hands.</p><p>By the ilClan era, Manufacturing Plant SFF-IT1 (as the facility was redesignated following Clan Diamond Shark's reformation as Clan Sea Fox) continued production of the Mad Cat III and its growing family of variants. The design had matured into a well-established medium-weight combatant fielded across both Clan and Inner Sphere forces, vindicating the Diamond Sharks' long and painful investment in its development.</p>
+
+manufacturer:Manufacturing Plant DSF-IT1
+
+primaryfactory:Itabaiana
+
+fluffdate:2026-02-16 21:11:11
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Fusion 330 XL
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:Zk15 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Comset 1
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:J-Track 52 with Artemis V

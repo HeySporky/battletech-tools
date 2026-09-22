@@ -1,0 +1,460 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ee6c-79dd-b5da-192b1a73cb0e
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Dreadnought Battleship
+</Name>
+
+<Model>
+(2330)
+</Model>
+
+<mul id:>
+4098
+</mul id:>
+
+<year>
+2300
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:12.0:2:1::-1:0
+smallcraftbay:12.0:2:2::-1:0
+cargobay:132316.5:4:3::-1:0
+cargobay:40000.0:2:4::-1:0
+crewquarters:4312.0:0:-1::-1:0
+1stclassquarters:1660.0:0:-1::-1:0
+2ndclassquarters:350.0:0:-1::-1:0
+steeragequarters:1350.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+2048
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+12500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+85
+85
+85
+80
+80
+80
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:45
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:45
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+IS Ammo AC/5:80
+IS Ammo AC/5:80
+IS Ammo AC/2:90
+IS Ammo AC/2:90
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+IS Ammo AC/5:80
+IS Ammo AC/5:80
+IS Ammo AC/2:90
+IS Ammo AC/2:90
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+IS Ammo AC/5:80
+IS Ammo AC/5:80
+IS Ammo AC/2:90
+IS Ammo AC/2:90
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:45
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:45
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+IS Ammo AC/5:80
+IS Ammo AC/5:80
+IS Ammo AC/2:90
+IS Ammo AC/2:90
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+IS Ammo AC/5:80
+IS Ammo AC/5:80
+IS Ammo AC/2:90
+IS Ammo AC/2:90
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:60
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+IS Ammo AC/5:80
+IS Ammo AC/5:80
+IS Ammo AC/2:90
+IS Ammo AC/2:90
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:45
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:45
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+IS Ammo AC/5:80
+IS Ammo AC/5:80
+IS Ammo AC/2:90
+IS Ammo AC/2:90
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:45
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:45
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+IS Ammo AC/5:80
+IS Ammo AC/5:80
+IS Ammo AC/2:90
+IS Ammo AC/2:90
+</Right Broadsides Equipment>
+
+<structural_integrity>
+60
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 960,000 tons, the Dreadnought mounted an exclusively ballistic armament of staggering proportions. Twenty-four NAC/20s formed the backbone of the vessel's striking power, distributed across the nose, broadside, and aft arcs to provide capital-grade coverage from virtually every angle of approach. Sixteen NAC/10s supplemented these heavy weapons in the fore and aft quarter positions, while sixty-four conventional AC/5s and sixty-four AC/2s created a layered anti-fighter screen that few contemporary designs could match. This all-autocannon philosophy reflected the era's nascent understanding of naval combat, favoring raw volume of fire over the energy weapon systems that later designs would embrace.</p><p>The class carried twenty-four small craft but lacked docking collars entirely, a limitation inherent to its pre-docking collar vintage. A crew complement exceeding 890 personnel operated the vessel, supplemented by 270 marines for boarding actions and ground operations. With a safe thrust of three and maximum thrust of five, the Dreadnought was surprisingly agile for its displacement. Armor protection totaled over 1,100 tons of standard plating, adequate for the era but modest by later standards. Two 150-meter grav decks provided crew comfort during extended deployments, while cargo capacity exceeding 172,000 tons allowed the class to sustain prolonged independent operations far from friendly supply lines.</p>
+</capabilities>
+
+<overview>
+<p>The Dreadnought-class battleship holds the distinction of being humanity's first purpose-built combat WarShip. Constructed by Krester Ship Construction on Terra and launched at the dawn of the twenty-fourth century, the class was designed to deliver decisive military force across interstellar distances during an era when the very concept of naval warfare between the stars was still taking shape. Massive, heavily armed, and engineered for endurance, the Dreadnought established the fundamental template for every WarShip class that followed and demonstrated that control of deep space was the prerequisite for dominion over entire star systems. No other class in human history can claim as direct a role in shaping the political order of the Inner Sphere, earning the Dreadnought a reputation unmatched in the annals of human naval history.</p>
+</overview>
+
+<deployment>
+<p>The TAS Dreadnought, lead vessel of her class, served as Admiral James McKenna's personal flagship during the founding of the Terran Hegemony. On 2 June 2315, the Dreadnought bombarded Strand Rock in Scotland and an Australian island from orbit, ending the Terran civil war in a single demonstration of spaceborne firepower. The vessel accumulated more battle stars and kill awards than any other WarShip in the Hegemony Armed Forces across centuries of active and reserve service, surviving engagements including a near-catastrophic fire caused by a Draconis Combine kamikaze aerospace fighter near Cylene.</p><p>Converted to a museum exhibit at the Luna Air, Space and Stars Museum, the Dreadnought maintained near-combat readiness with a full crew throughout her years as a display vessel. During the Amaris Coup, Rear Admiral Martin Castillo took command and led the ancient battleship on one final mission, escorting thirty JumpShips and over sixty DropShips carrying thousands of civilian refugees through hostile space. Ambushed by a Republican squadron at Wyatt, the Dreadnought sustained thirty minutes of intense combat that left her engines and KF drive crippled. Rather than allow the vessel's capture, Castillo ordered her scuttled, ending the service of the most decorated WarShip in Hegemony history.</p>
+</deployment>
+
+<history>
+<p>Krester Ship Construction of Terra laid down seven Dreadnought-class keels beginning in 2300, producing humanity's first purpose-built combat WarShips. Admiral James McKenna wielded these vessels as the military foundation of his campaign to overthrow the corrupt Terran Alliance government and forge the Terran Hegemony in its place. The class's ability to deliver devastating orbital bombardment proved instrumental in compelling fractious colonial worlds to accept Hegemony authority, and several vessels were bloodied during the violent political consolidation that accompanied the new state's birth. Remarkably, none were lost to enemy action during this formative period. The most serious damage sustained by any vessel of the class came from navigation mishaps rather than hostile fire.</p><p>The Age of War exacted a heavier toll. Two Dreadnoughts were destroyed in combat, and a third was scrapped after suffering irreparable engineering failures, reducing the class to four operational vessels by the time the Star League was formally established. These survivors had long since been overtaken by newer designs. The Monsoon and Farragut classes rendered the Dreadnought obsolete as a frontline combatant, and the four remaining vessels were relegated to reserve berths. The lead vessel was eventually converted to a museum exhibit, though she retained an SLDF crew throughout.</p><p>The Reunification War forced a reassessment of even the most aged assets in the SLDF fleet. Three of the four surviving Dreadnoughts were reactivated and pressed into active service despite approaching their third century of operation. The class acquitted itself surprisingly well in the campaign. Its layered defensive armament proved unexpectedly effective against massed aerospace fighter assaults, a capability that newer capital vessels had largely abandoned in favor of dedicated escorts and carrier-based fighter screens. This renewed utility was short-lived. The class was formally and permanently retired in 2602 following the war's conclusion, with the surviving hulls either broken up or donated to Inner Sphere institutions as museum exhibits. Only the lead vessel remained in nominal operational condition, retaining an SLDF crew until the Amaris Coup, when she was lost escorting civilian refugees through hostile space.</p><p>Though the Dreadnought class spent the majority of its existence in reserve or museum status, its historical significance far outweighed its limited combat record. These seven vessels established the fundamental principles of WarShip design and naval warfare doctrine that would guide every subsequent class for centuries. The Hegemony's ability to project overwhelming force from orbit, first demonstrated by the Dreadnoughts, became the defining strategic reality of interstellar politics and shaped the military balance of power throughout the Age of War and into the Star League era.</p>
+</history>
+
+<manufacturer>
+Krester Ship Construction
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Krester Ship Construction
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Standard
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Battleship
+</use>
+
+<length>
+890 m
+</length>
+
+<height>
+1050 m Sail
+</height>
+
+<source>
+His:RW
+</source>
+
+<tonnage>
+960000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+150
+150
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+882
+</crew>
+
+<officers>
+146
+</officers>
+
+<gunners>
+98
+</gunners>
+
+<passengers>
+70
+</passengers>
+
+<marines>
+270
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+60
+</life_boat>
+
+<escape_pod>
+60
+</escape_pod>
+

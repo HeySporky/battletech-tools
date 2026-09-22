@@ -1,0 +1,178 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e5ac-7b46-92b8-9e55f99d2962
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Shoden Assault Vehicle
+</Name>
+
+<Model>
+(LB-X)
+</Model>
+
+<mul id:>
+5736
+</mul id:>
+
+<year>
+3073
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+55
+37
+37
+25
+30
+</armor>
+
+<Body Equipment>
+CLCASE
+CLAPGaussRifle Ammo
+CLAPGaussRifle Ammo
+Clan Ammo SRM-4
+Clan LB 10-X AC Ammo
+Clan LB 10-X AC Ammo
+Clan LB 10-X Cluster Ammo
+</Body Equipment>
+
+<Front Equipment>
+CLAPGaussRifle
+CLAPGaussRifle
+CLAPGaussRifle
+CLAPGaussRifle
+</Front Equipment>
+
+<Right Equipment>
+CLAPGaussRifle
+CLAPGaussRifle
+</Right Equipment>
+
+<Left Equipment>
+CLAPGaussRifle
+CLAPGaussRifle
+</Left Equipment>
+
+<Rear Equipment>
+CLAPGaussRifle
+CLAPGaussRifle
+</Rear Equipment>
+
+<Turret Equipment>
+CLERMediumLaser
+CLERMediumLaser
+CLSRM4
+CLSRM4
+CLLBXAC10
+</Turret Equipment>
+
+<capabilities>
+<p>The LB-X field refit replaces the base design's ATM armament with a turret-mounted LB 10-X autocannon, two ER medium lasers, and two SRM-4 launchers. The LB 10-X can fire both standard slugs and cluster munitions, retaining some of the ATM system's munitions flexibility while drawing on more widely available ammunition types. Two tons of autocannon ammunition and one ton each of SRM rounds give crews reasonable endurance.</p><p>Anti-personnel coverage is substantially expanded compared to the base design. Four AP Gauss Rifles are mounted in the front, with two on each side and two at the rear, providing overlapping coverage across all arcs. This makes the LB-X variant particularly more capable against infantry and battle armor than either the base Shoden or the Streak configuration. The energy weapons provide heat-free backup firepower when ammunition runs low. Armor and mobility are unchanged from the base design, preserving the vehicle's defensive durability.</p>
+</capabilities>
+
+<overview>
+<p>The Shoden Assault Vehicle emerged from Clan Nova Cat's effort to redefine its defensive posture following the Combine-Ghost Bear War of 3062 to 3063. Khan Santin West determined that the Nova Cats required a purpose-built combat vehicle capable of holding ground rather than seeking mobile engagements. Despite its classification as an assault vehicle, the Shoden was conceived as a defensive asset, intended to anchor lines and absorb enemy offensives. Produced at Barcella Beta on Irece, the design reflects Nova Cat adaptability and their growing accommodation of Draconis Combine sensibilities. The vehicle's name honors Shoden, the elephant god of wisdom from Japanese folklore, a deliberate cultural gesture acknowledging Nova Cat's partnership with the Combine. That naming choice proved apt: the Shoden brought hard-won tactical wisdom about combined-arms defense to every Provisional Galaxy that fielded it.</p>
+</overview>
+
+<deployment>
+<p>Developed as a field refit following the Jihad, the LB-X variant reflected the realities of maintaining vehicles after factory support collapsed. The combination of an LB 10-X autocannon, ER medium lasers, SRM-4 launchers, and AP Gauss Rifles created a more balanced weapons suite than the original ATM-focused load. Available across multiple factions through field conversion, the variant saw use by forces operating in the post-Jihad security environment through the Dark Age and into the ilClan period.</p>
+</deployment>
+
+<history>
+<p>The catalyst for the Shoden's development was the Combine-Ghost Bear War of 3062 to 3063. That conflict exposed a critical gap in Nova Cat combat capabilities: the Clan's vehicle inventory consisted largely of designs suited to mobile warfare, not the defensive roles the Nova Cats increasingly played alongside Draconis Combine forces. Khan Santin West recognized that joint operations with Inner Sphere allies required a matching tactical vocabulary, including the kind of dug-in defensive firepower that BattleMech-centric Clan doctrine had never emphasized.</p><p>West authorized the retooling of a production line at Barcella Beta on Irece. Naming the vehicle Shoden honored the Japanese elephant god of wisdom and was a calculated gesture to the Combine hosts whose territory the Nova Cats now occupied. Nova Cat warriors expressed predictable skepticism, viewing combat vehicle production as a concession to Inner Sphere mediocrity. West acknowledged these concerns and pressed forward regardless, accepting that the Clan's long-term survival alongside the Combine depended on developing a more balanced combined-arms capability.</p><p>Production began in 3064 and the Shoden entered service across Nova Cat Provisional Galaxies, with all but Zeta eventually receiving the type. Tau Galaxy proved the most aggressive adopter, integrating the vehicle into its 100th Striker and 274th Battle Clusters as a core component of their defensive posture. Zeta Galaxy's resistance to vehicle deployment created a lasting cultural fault line with Tau Galaxy personnel. West addressed this friction by keeping the two galaxies' Shoden-equipped formations well separated rather than attempting to resolve the underlying ideological dispute.</p><p>The factory at Barcella Beta continued producing the Shoden through the Civil War period, but the Jihad severely disrupted Nova Cat industrial capacity on Irece. Word of Blake operations in 3072 targeted the planet's manufacturing infrastructure, and the Barcella Beta Shoden line was among the casualties. Production never resumed under Nova Cat management. After the Nova Cat Abjuration of the early Dark Age, Luthien Armor Works absorbed the Barcella Beta facility, redirecting it toward Draconis Combine production priorities.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Barcella Beta
+ARMOR:Unknown
+COMMUNICATIONS:Build
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:260
+ARMOR:Compound Beta
+COMMUNICATIONS:1685/5 Tacticom
+TARGETING:Series XXVIII IWS
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+70.0
+</tonnage>
+

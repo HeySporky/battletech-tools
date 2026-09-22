@@ -1,0 +1,165 @@
+generator:Mordel.Net Code Release 2.26.21 on 8-Sep-2026
+chassis:Locust3015RP
+model:LCT-1M
+source:Custom Mordel.Net Units
+
+Config:Biped
+TechBase:Inner Sphere
+Era:3049
+Rules Level:1
+
+Mass:20
+Engine:160 Fusion Engine(IS)
+Structure:IS Standard
+Myomer:Standard
+
+Heat Sinks:10 Single
+Walk MP:8
+Jump MP:0
+
+Armor:Standard (IS)
+LA Armor:6
+RA Armor:6
+LT Armor:8
+RT Armor:8
+CT Armor:8
+HD Armor:8
+LL Armor:7
+RL Armor:7
+RTL Armor:2
+RTR Armor:2
+RTC Armor:2
+
+Weapons:4
+Machine Gun, Head
+Medium Laser, Center Torso
+Machine Gun, Right Arm
+Machine Gun, Left Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISMG
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISMG
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+IS Machine Gun Ammo - Half
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISMG
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Leg:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+

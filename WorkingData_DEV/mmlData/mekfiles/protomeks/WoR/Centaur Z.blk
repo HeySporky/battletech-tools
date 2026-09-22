@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e122-79a3-82b0-63fef0171476
+</UUID>
+
+<UnitType>
+ProtoMek
+</UnitType>
+
+<Name>
+Centaur
+</Name>
+
+<Model>
+Z
+</Model>
+
+<mul id:>
+5628
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+Clan Level 4
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Biped
+</motion_type>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<interface_cockpit>
+false
+</interface_cockpit>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+42
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+3
+7
+2
+2
+5
+2
+</armor>
+
+<Body Equipment>
+Clan Ammo ProtoMech LRM-4 (10)
+EIInterface
+</Body Equipment>
+
+<Head Equipment>
+</Head Equipment>
+
+<Torso Equipment>
+ProtoMagneticClamp
+CLLRM4
+</Torso Equipment>
+
+<Right Arm Equipment>
+</Right Arm Equipment>
+
+<Left Arm Equipment>
+</Left Arm Equipment>
+
+<Legs Equipment>
+</Legs Equipment>
+
+<Main Gun Equipment>
+CLERMicroLaser
+</Main Gun Equipment>
+
+<capabilities>
+<p>The Centaur’s defining characteristic is the breadth of its engagement envelope. Its base configuration mounts an LRM-3 launcher for long-range harassment, an SRM-2 rack for close-range punch, and an ER Micro Laser in the main gun mount for point defense, giving a Point of Centaurs the ability to threaten targets from beyond five hundred meters down to knife-fighting range. The forty-five-rated fusion engine drives the five-ton frame to a respectable cruising speed of sixty-five kilometers per hour with a flank speed approaching one hundred, allowing it to keep pace with medium BattleMechs and outrun most heavy designs.</p><p>These advantages come at a cost. The Centaur carries only eight LRM salvos and ten SRM reloads in its base configuration, giving a pilot roughly two minutes of sustained missile fire before being reduced to the ER Micro Laser alone. Armor protection is modest at best, with twenty points distributed across the frame; a single large laser hit to the center torso will breach the internal structure. Without jump jets, the Centaur is also vulnerable to being cornered in broken terrain. Commanders typically deploy Centaur Points in fast-moving screening roles where their speed and multi-range firepower can be leveraged without exposing them to the sustained fire that would quickly overwhelm their limited protection.</p>
+</capabilities>
+
+<overview>
+<p>The Centaur is a five-ton first-generation ProtoMech developed by Clan Smoke Jaguar scientists at the Abysmal Manufacturing Complex on Huntress as part of the original ProtoMech program initiated in the late 3050s. Designed as a versatile light fire support platform capable of engaging targets across multiple range bands, the Centaur proved itself one of the most adaptable designs to emerge from the Jaguar program. Its combination of missile and energy armament in a compact, fast-moving frame set it apart from more specialized contemporaries such as the Harpy or Minotaur. By the mid-3060s, the Centaur was in active production for at least five different Clans, a sign of the soundness of its underlying design and its value as a flexible screening element in Clan combined-arms formations.</p>
+</overview>
+
+<deployment>
+<p>Developed by the Society around 3072 at the Abysmal Manufacturing Complex on Huntress, the Z variant reflects the secret cabal’s emphasis on asymmetric warfare and unconventional tactics. The most significant addition is a Magnetic Clamp System that allows the Centaur to ride externally on friendly OmniMechs, dramatically extending its operational range and enabling rapid battlefield repositioning without expending the ProtoMech’s own limited fuel. The weapons loadout centers on an LRM-4 launcher paired with an ER Micro Laser, providing heavier long-range fire than the base model’s LRM-3 while retaining close-range capability. Armor coverage of twenty-one points is adequate for a unit intended to operate from concealed positions or dismount from a transport ’Mech already in favorable firing position. The Society produced the Z variant covertly, exploiting the Goliath Scorpion administration’s oversight of the Huntress facility. Following the Society’s destruction, surviving examples were captured but the taint of the Synaptic Project has discouraged most Clans from continuing production.</p>
+</deployment>
+
+<history>
+<p>The Centaur traces its origins to the secret ProtoMech development program undertaken by Clan Smoke Jaguar scientists on Huntress following the Battle of Tukayyid in 3052. Facing severe resource shortages and mounting guerrilla resistance in their Inner Sphere occupation zone, Jaguar scientists conceived of a new class of war machine that could be produced at a fraction of the cost of a BattleMech while still fielding meaningful firepower. The Centaur was designed as a versatile mid-weight entry in the ProtoMech lineup, filling the gap between the lightweight scout designs like the Harpy and Siren and the heavier assault platforms like the Gorgon and Minotaur.</p><p>The ProtoMech program remained secret until Khan Lincoln Osis discovered it during the desperate defense of Huntress against Task Force Serpent in 3060. Despite his fury at being kept uninformed, the dire circumstances of the Jaguar Annihilation forced Osis to deploy the untested machines. The Centaur and its sibling designs acquitted themselves well against the surprised Inner Sphere forces in the jungles of Huntress, though they could not prevent the Clan’s ultimate destruction. In the aftermath, multiple Clans raided Huntress to seize ProtoMech technology, and production data for the Centaur was among the most sought-after prizes.</p><p>Clan Goliath Scorpion secured the Abysmal Manufacturing Complex itself, while Clan Wolf established a Centaur production line at the Csesztreg Industriplex Epsilon on Csesztreg, and Clan Jade Falcon began manufacturing the design at Factory Zone 5 on Erewhon. Clan Hell’s Horses set up their own line at Industriplex Upsilon on Niles, giving the Centaur one of the broadest production networks of any first-generation ProtoMech. This wide dispersal reflected the design’s reputation as a reliable and adaptable platform that could serve multiple tactical roles with minimal modification.</p><p>During the 3060s and into the Jihad era, several variant configurations were developed by different Clans to address specific tactical requirements. Clan Fire Mandrill’s Kindraa Payne-Beyl-Grant produced the close-combat-oriented Centaur 2 at their facility on Shadow, while Clan Snow Raven developed the energy-focused Centaur 3 at the Aeroyard Gargain on Bearclaw. The most radical evolution came with the Centaur 4, produced by Clan Coyote at the Yoma Aerospace Plant on Babylon, which incorporated advanced myomer booster technology for dramatically increased sprint capability.</p><p>The Wars of Reaving brought further development when the Society produced the Centaur Z at the Abysmal Manufacturing Complex, then under Clan Goliath Scorpion control. Equipped with a Magnetic Clamp System for OmniMech transport, the Z variant reflected the Society’s asymmetric approach to warfare. Following the destruction of the Society, surviving Centaur production lines passed through several ownership changes as Clans were absorbed or annihilated during the Reaving. The Csesztreg facility transferred from Clan Wolf to Clan Hell’s Horses, while the Niles line passed to Clan Stone Lion. Despite the upheaval, the Centaur remains in active production across the Clan Homeworlds, its fundamental design having proven sound enough to justify over six decades of continuous manufacture.</p>
+</history>
+
+<manufacturer>
+Abysmal Manufacturing Complex
+</manufacturer>
+
+<primaryFactory>
+Huntress (Abysmal)
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+ENGINE:45 Fusion
+</systemModels>
+
+<source>
+WoR,TR:3060,WoRS
+</source>
+
+<published>
+WoR,TR:3060,WoRS
+</published>
+
+<tonnage>
+5.0
+</tonnage>
+

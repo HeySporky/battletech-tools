@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cbe4-7611-82e6-3101227b9c98
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Garm
+model:GRM-01A
+mul id:1189
+
+Config:Biped
+techbase:Inner Sphere
+era:3058
+source:TR:3060
+published:RS:3060u
+rules level:2
+role:Missile Boat
+
+quirk:ext_twist
+
+mass:35
+engine:175 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:9
+RT armor:9
+CT armor:10
+HD armor:6
+LL armor:6
+RL armor:6
+RTL armor:1
+RTR armor:1
+RTC armor:2
+
+Weapons:2
+LRM 10, Left Torso
+LB 5-X AC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Heat Sink
+LRM 10
+LRM 10
+IS Ammo LRM-10
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+ISLBXAC5
+ISLBXAC5
+ISLBXAC5
+ISLBXAC5
+ISLBXAC5
+IS LB 5-X AC Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Named for the mythological hound that guards the entrance to the Norse realm of the dead, the Garm was introduced in 3058 as a light fire support BattleMech manufactured by Johnston Industries on New Syrtis. Designed to operate within fire support lances of the Federated Commonwealth, the thirty-five ton design entered a market long dominated by the venerable Valkyrie, a signature 'Mech of the AFFC. The Garm's combination of long-range direct and indirect firepower on a mobile, jump-capable platform was intended to provide commanders with a viable alternative to the aging Valkyrie design.</p><p>Built on an endo steel chassis to maximize payload, the Garm sacrifices heavy armor protection in favor of the firepower and mobility necessary for its intended role. Despite initial difficulties finding buyers among AFFC commands, the design eventually proved itself in Periphery combat and earned a place in the Federated Commonwealth's order of battle.</p>
+
+capabilities:<p>The Garm is built around a Johnston Biped L-25-a2 endo steel chassis powered by an Omni 175 fusion engine, providing a top speed of eighty-six kilometers per hour. Five Rawlings 80-Beta jump jets grant the 'Mech a jumping range of one hundred fifty meters, allowing it to exploit terrain effectively while maintaining optimal firing positions. The design's primary armament consists of a Mydron Excel 5SG LB 5-X autocannon capable of firing both standard and cluster ammunition, paired with a Federated 10-Shot LRM-10 launcher for indirect fire support. This combination allows the Garm to engage targets at considerable range while providing tactical flexibility through ammunition selection.</p><p>The Garm carries only three and a half tons of Johnston Duraweave 6000 ferro-fibrous armor, leaving it especially under-protected for a thirty-five ton 'Mech. This design compromise reflects the Garm's intended doctrine of engaging from distance rather than closing to brawling range. Johnston's engineers equipped the 'Mech with fully functional hands, a late addition to the design driven by the growing presence of armored infantry on the battlefield. The hands complement the jump jets when navigating mountainous terrain and provide a measure of defense against battle armor swarm attacks.</p>
+
+deployment:<p>The base Garm configuration mounts a Mydron Excel 5SG LB 5-X autocannon and a Federated 10-Shot LRM-10 launcher, providing a balanced mix of direct and indirect fire support. The LB 5-X's ability to fire cluster ammunition gives the pilot flexibility against a range of targets, from conventional armor to aerospace fighters. Paired with ferro-fibrous armor and five jump jets, the design prioritizes engagement range and mobility over raw protection.</p>
+
+history:<p>The Garm's development by Johnston Industries on New Syrtis began as an attempt to challenge the Valkyrie's dominance in the Federated Commonwealth's light fire support role. When the design debuted in 3058, the AFFC high command showed little enthusiasm for a competitor to their established favorite. Johnston Industries found buyers primarily among mercenary units and Periphery states, with the Taurian Concordat's Defense Forces making the largest early purchases.</p><p>The turning point for the Garm came when several lances of Taurian-operated Garms distinguished themselves fending off pirate raids on the world of Mithron. Reports of the 'Mech's effectiveness in these engagements reached AFFC military officials, who reconsidered their assessment and placed orders for several hundred units. This Taurian endorsement proved critical to the design's survival, as Johnston Industries had been preparing to discontinue production before the Mithron reports emerged.</p><p>The Garm saw increasing deployment during the FedCom Civil War era, particularly the GRM-01C variant with its rotary autocannon, which won broader acceptance among AFFC units. Johnston Industries continued refining the design throughout this period, introducing variants tailored to different tactical requirements and operational doctrines.</p><p>During the Jihad, the New Syrtis facility survived the initial Capellan counterattack following the failure of Operation Sovereign Justice, though the world suffered greatly in the fighting. The recovery of advanced Capellan technology from salvage left behind by the retreating invaders provided Johnston Industries with the means to develop the GRM-01A2, incorporating a plasma rifle reverse-engineered from captured Capellan weapons. Later Taurian strikes during the Jihad caused significant damage to the New Syrtis production lines, temporarily halting output.</p><p>Production of the Garm resumed in the post-Jihad era, with Johnston Industries restoring the New Syrtis lines after decontamination efforts addressed radiation damage from the Taurian attacks. The design has continued to serve in Federated Suns forces through the Dark Age and into the ilClan era, maintaining its niche as a capable light fire support platform.</p>
+
+manufacturer:Johnston Industries
+
+primaryfactory:New Syrtis
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Johnston
+systemmode:CHASSIS:Biped L-25-a2
+systemmanufacturer:ENGINE:Omni
+systemmode:ENGINE:175
+systemmanufacturer:ARMOR:Johnston
+systemmode:ARMOR:Duraweave 6000 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:80-Beta
+systemmanufacturer:COMMUNICATIONS:Lynx-shur
+systemmode:COMMUNICATIONS:4.5
+systemmanufacturer:TARGETING:Sync Tracker
+systemmode:TARGETING:(55-42071)

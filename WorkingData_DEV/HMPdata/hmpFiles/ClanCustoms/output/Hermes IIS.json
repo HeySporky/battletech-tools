@@ -1,0 +1,476 @@
+{
+  "filename": "Hermes IIS.hmp",
+  "size": 4475,
+  "header_hex": "56 35 2e 30 30 04 00 08 03 ff ff 3f 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0003\u00ff\u00ff"
+    },
+    {
+      "type": "ascii",
+      "start": 11,
+      "end": 12,
+      "text": "?"
+    },
+    {
+      "type": "byte",
+      "offset": 12,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 14,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 15,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 16,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 17,
+      "end": 49,
+      "length": 30,
+      "text": "\u0006\u0000Hermes\u0003\u0000IIS\u00be\n\u0002\u0000\u00f6\u0018P\u0000R\u0005\u0000\u0000\u0098D\u0000\u0000\u0098"
+    },
+    {
+      "type": "ascii",
+      "start": 49,
+      "end": 50,
+      "text": "D"
+    },
+    {
+      "type": "byte",
+      "offset": 50,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 51,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 52,
+      "hex": "c8"
+    },
+    {
+      "type": "ascii",
+      "start": 53,
+      "end": 54,
+      "text": "A"
+    },
+    {
+      "type": "byte",
+      "offset": 54,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 55,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 56,
+      "end": 58,
+      "text": "pA"
+    },
+    {
+      "type": "byte",
+      "offset": 58,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 59,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 60,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 61,
+      "end": 62,
+      "text": "@"
+    },
+    {
+      "type": "len_string",
+      "start": 62,
+      "end": 80,
+      "length": 16,
+      "text": "ML 3 2 4 3 \u0097\u0097 9 "
+    },
+    {
+      "type": "len_string",
+      "start": 80,
+      "end": 83,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "len_string",
+      "start": 83,
+      "end": 341,
+      "length": 256,
+      "text": "\u0000\u000e\u0001\u0001\u0000\t\u0000\u0000\u0000\u000f\u0000\u0001\u0000\u0001\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0004\u0000\u0004\u0000\u0005\u0000\u0000\u0000\u0005\u0000\u0001\u00004\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000Hellion-V\u0001\u00007\u0000\u0001\u0000\u0000\u0000\u0000\u0000\b\u0000Olympian\u0001\u00004\u0000\u0005\u0000\u0000\u0000\u0000\u0000\t\u0000Hellion-V\u0001\u00004\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000Hellion-V\u0001\u00004\u0000\u0007\u0000\u0000\u0000\u0000\u0000\t\u0000Hellion-V\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u00007\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u00004\u0000\u0000\u0000\u0014\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 341,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 342,
+      "end": 364,
+      "length": 20,
+      "text": "\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 364,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 365,
+      "end": 2159,
+      "length": 1792,
+      "text": "\u0000\u0000\u0000\b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u00004\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u00004\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u00e2\u00ffi\u0000\u00a5\u0004    The Hermes was designed as a heavy scout for the Star League Defense Forces. Commissioned in 2632, the 'Mech was delivered in record time. Though the design requirements were fulfilled to the letter, the Quartermaster Command was skeptical of the swift delivery. Line officers were not surprised, therefore, when many of the first Hermes 'Mechs turned out to have glitches in the electronics bay. When the source of the problem was discovered many months later, Techs had to spend hours in field-repair time rewiring the electronics bays of the new 'Mechs.\r\n    The Hermes design called for a 'Mech as fast as any currently in service. The end product greatly exceeded initial expectations, but only at the cost of a severely weak firepower and armor protection. The high cruising speed is desirable, but the lack of significant firepower makes the 'Mech unpopular. The armor is acceptable, but scout pilots cannot get used to a 30-ton 'Mech with only two medium range weapons. The Hermes saw service for 19 years, after which time the design was reassigned to second-line units. [EDITOR'S NOTE: Irian BattleMechs reworked the basic design, which emerged as the Hermes HER-2S in 2798.]\u0018\b    The main asset of the Hermes is its tremendous speed. Capable of long bursts of speed, the 'Mech fulfills its scout role admirably until it encounters the enemy. The overall design is serviceable, but it does not incorporate any breakthroughs in technology. The original armor was standard plating, making the He"
+    },
+    {
+      "type": "ascii",
+      "start": 2159,
+      "end": 3915,
+      "text": "rmes susceptible to fire from most medium and light 'Mechs. The upgrade to Ferro-Fibrous armor was a modification first performed in the field to give the Hermes a higher survivability factor. Generally successful, the upgrade did improve the 'Mechs ability to withstand combat.\r\n    The single shining piece of equipment on the Hermes is the Alexis Photon Target Acquisition System. The Alexis paints the target with light before actually firing either laser. If the Alexis fails to lock onto a high-density target, such as an armored vehicle or 'Mech, the system suspends the order to fire. The fire order is held in a memory buffer until the system acquires a target. If no target is achieved within two seconds, the order is cancelled. While the heat buildup in the laser capacitor still has to be dissipated, the system saves wear and tear on the laser focusing apparatus, thus reducing maintenance requirements.\r\n    The hand flamer of the Hermes is an older design using a fuel mixture rather than tapping into the fusion plant's plasma field. When the weapon is triggered, the upper cylinder, containing a napalm gel, is opened. The gel is forced along pressure hoses toward the nozzle. Instead of exposing the napalm to open flame, the gel mixes with small amounts of specially treated magnesium suspended in water. When the magnesium hits the air, it bursts into flame, igniting the napalm. The system is considered among the safest devised, because the napalm is stored far from the igniting agent. Only a small amount of magnesium is required to ignite the mixture, and so damage to the storage cylinder usually causes only minor damage to the limb. As a further safeguard, ejection racks can jettison the storage cylinders away from the 'Mech."
+    },
+    {
+      "type": "len_string",
+      "start": 3915,
+      "end": 3918,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3918,
+      "end": 3921,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3921,
+      "end": 3924,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3924,
+      "end": 3927,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 3927,
+      "end": 3928,
+      "text": "`"
+    },
+    {
+      "type": "byte",
+      "offset": 3928,
+      "hex": "01"
+    },
+    {
+      "type": "ascii",
+      "start": 3929,
+      "end": 4281,
+      "text": "    The 3050 Record Sheet book for the 1S does not show ferro-fibrous or endo steel, even though the 2750 TRO showed the design had them. Therefore, FF and ES crits are added to this design, as indicated in the 3050 Record Sheet book for the 3S version, which also had both FF and ES. It is assumed that the 3050 book is in error in the case of the 1S."
+    },
+    {
+      "type": "len_string",
+      "start": 4281,
+      "end": 4284,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 4284,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4285,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4286,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4287,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4288,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4289,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4290,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4291,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4292,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4293,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4294,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4295,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4296,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4297,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4298,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4299,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4300,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4301,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4302,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4303,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4304,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4305,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4306,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4307,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4308,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4309,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4310,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4311,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4312,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4313,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4314,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4315,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 4316,
+      "end": 4326,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 4326,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4327,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 4328,
+      "end": 4357,
+      "length": 27,
+      "text": "Irian BattleMechs Unlimited"
+    },
+    {
+      "type": "len_string",
+      "start": 4357,
+      "end": 4364,
+      "length": 5,
+      "text": "Irian"
+    },
+    {
+      "type": "len_string",
+      "start": 4364,
+      "end": 4368,
+      "length": 2,
+      "text": "GM"
+    },
+    {
+      "type": "len_string",
+      "start": 4368,
+      "end": 4381,
+      "length": 11,
+      "text": "Jolassa-328"
+    },
+    {
+      "type": "len_string",
+      "start": 4381,
+      "end": 4405,
+      "length": 22,
+      "text": "Irian Chassis Class 10"
+    },
+    {
+      "type": "ascii",
+      "start": 4405,
+      "end": 4406,
+      "text": "\r"
+    },
+    {
+      "type": "byte",
+      "offset": 4406,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 4407,
+      "end": 4421,
+      "text": "Irian TelStar*"
+    },
+    {
+      "type": "byte",
+      "offset": 4421,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 4422,
+      "end": 4465,
+      "text": "Alexis Photon Targeting Acquisition System\t"
+    },
+    {
+      "type": "byte",
+      "offset": 4465,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 4466,
+      "end": 4475,
+      "text": "(Unknown)"
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e811-742d-bf99-04c5f47985b6
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Lamprey Transport Helicopter
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6540
+</mul id:>
+
+<year>
+3119
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Striker
+</role>
+
+<quirks>
+easy_pilot
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+3
+</armor_tech_level>
+
+<armor>
+30
+20
+20
+16
+2
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-4
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+SRM 4
+SRM 4
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Lamprey's armament is built around the infantry support mission. Two Harpoon 4 SRM 4 launchers deliver sustained suppressive fire against light vehicles and infantry, while a Scattergun machine gun discourages enemies from engaging at close range. The SRM loadout produces excellent damage per salvo for a vehicle of the Lamprey's size, making it effective at both pre-landing suppression and active fire support during troop insertion. The combination is lethal for clearing contested landing zones, though the Lamprey lacks the firepower to engage armored opposition effectively and should not be used as a dedicated anti-armor platform.</p><p>A Vlar 130 fusion engine delivers exceptional speed for a 30-ton combat vehicle, with a cruising speed of 97 kilometers per hour and a maximum dash capability reaching 151 kilometers per hour. This speed is central to the design's survivability. The Lamprey is not built to absorb concentrated fire, and pilots rely on aggressive movement and minimal exposure time over hot landing zones to stay alive. StarSlab/2 composite armor provides adequate protection for the transport role, though the armor budget is modest by the standards of a purpose-built combat vehicle. Experienced operators describe the controls as unusually responsive and precise. Rookies, however, regularly return from missions with half a rotor destroyed or shredded control surfaces, a reminder that the design must be flown aggressively to realize its full potential.</p>
+</capabilities>
+
+<overview>
+<p>The Lamprey Transport Helicopter is a 30-ton VTOL infantry transport developed by Vandenberg Mechanized Industries on Pinard for the Taurian Concordat. Introduced in 3119, it was purpose-built to solve one of the most persistent problems in combined-arms warfare: delivering and extracting infantry under fire. Vandenberg prioritized reliability, ease of maintenance, and battlefield toughness above all other design goals. The result is a vehicle that can absorb considerable punishment while completing its mission. The Lamprey's reputation spread quickly after its combat debut with the Pleiades Hussars, and subsequent action across multiple campaigns has driven exports beyond Taurian space. Mercenary and periphery units have embraced the design for the same qualities that endeared it to Taurian regulars: it delivers its passengers, it comes home, and it keeps flying.</p>
+</overview>
+
+<deployment>
+<p>The Lamprey serves as a standard infantry transport VTOL in Taurian Concordat airmobile and combined-arms formations, assigned wherever rapid troop insertion and extraction under fire is required. Its armament allows it to provide organic fire support before, during, and after delivering its passengers, a capability that distinguishes it from lighter transports that cannot contribute to the fight itself. The design is well suited to contested airspace where conventional transports cannot loiter safely and where infantry must be placed precisely to exploit fleeting tactical opportunities.</p><p>Export sales have established the Lamprey with several mercenary units and periphery factions. Favorable maintenance requirements and accessible parts availability suit organizations operating without deep supply chains, expanding the design's footprint well beyond its Taurian origins.</p>
+</deployment>
+
+<history>
+<p>The Lamprey's combat debut came during a pirate raid on Brockway in 3119, while elements of the Pleiades Hussars were conducting war games near the Taurian/Federated Suns border. The raiders destroyed a section of the twenty-five-kilometer Monterey-Lapland viaduct, stranding the bulk of the Hussars in the Lapland Archipelago and apparently cutting them out of the fight. Eight Lampreys overflew the Monterey spaceport, hammering the pirates with concentrated SRM fire and combat-dropping battle armor squads directly onto the tarmac. Ten minutes into the engagement, the Hussars had captured the pirate DropShip and turned its guns on the remaining raiders. The surviving pirates retreated into the surrounding hills, but the Lampreys proved equally capable in the pursuit phase: one flight harried the retreating units while the other airlifted conventional infantry into blocking positions. The Hussars ultimately destroyed one pirate lance and salvaged another. All eight Lampreys survived intact.</p><p>The design's record continued to grow in subsequent years. In 3139, Lampreys defending the Duchy of Andurien world of Shiro III faced elements of the resurrected Free Worlds League raiding the Grumman Amalgamated factory complex. Pressed into a delaying action while ground forces established defensive positions, the Lampreys exploited their speed and SRM armament aggressively, setting fires at key chokepoints and stalling the League advance. They returned to rearm and pick up battle armor squads, then rejoined the fight and helped force a Marik heavy BattleMech to retreat. The operation became a minor training case study in VTOL fire support doctrine.</p><p>In 3141, on Pompeii in the Marian Hegemony, a flight of Lampreys supported a two-week jungle sweep against entrenched guerrilla fighters. Operating over dense terrain, the Lampreys provided continuous overwatch for conventional infantry forces working through the jungle floor. When the guerrillas were finally cornered, the Lampreys caught them in the open and disabled one of a pair of modified IndustrialMechs the guerrillas had pressed into service, driving the other off with sustained fire. The engagement reinforced the Lamprey's reputation as a capable asset in low-intensity and counterinsurgency operations as well as conventional assaults.</p><p>The design's durability extended to individual airframes. One Lamprey serving with the Black Daisy mercenary company accumulated a string of engagements spanning decades without taking enemy fire damage, despite changing owners nearly forty times across the company's history. The vehicle's reputation for resilience became a minor legend in mercenary circles, a running example of Vandenberg's manufacturing quality outlasting the careers of the pilots who flew it.</p>
+</history>
+
+<manufacturer>
+Vandenberg Mechanized Industries
+</manufacturer>
+
+<primaryFactory>
+Pinard
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Vlar
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:O/P
+TARGETING:O/P
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:130 Fusion
+ARMOR:StarSlab/2
+COMMUNICATIONS:AIR 19
+TARGETING:411
+</systemModels>
+
+<source>
+TR:3145:Merc,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

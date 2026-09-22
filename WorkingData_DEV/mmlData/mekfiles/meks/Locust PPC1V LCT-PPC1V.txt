@@ -1,0 +1,70 @@
+                 BattleMech Technical Readout
+
+Name/Model:         Locust PPC1V LCT-PPC1V
+Designer:           troylus1
+Source(s):          Custom Mordel.Net Units
+Technology:         Inner Sphere
+Technology Rating:  E
+Tonnage:            20
+Configuration:      Biped BattleMech
+Era/Year:           Dark Age / 3150
+Rules (Current):    Standard
+Rules (Era):        Standard
+Rules (Year):       Standard
+Total Cost:         5,667,240 C-Bills
+Battle Value:       820
+
+Chassis:              Endo Steel
+Power Plant:          180 XL
+Walking Speed:        97.2 kph  
+Maximum Speed:        151.2 kph [194.4 kph]
+Jump Jets:            None
+    Jump Capacity:    None
+Armor:                Heavy Ferro-Fibrous
+Armament:             
+    1 Snub-Nose PPC
+    1 Rocket Launcher 10
+Manufacturer:         Unknown
+    Primary Factory:  Unknown
+Communications:       Unknown
+Targeting & Tracking: Unknown
+
+================================================================================================
+Equipment                                                              Mass                     
+------------------------------------------------------------------------------------------------
+Internal Structure:                         Endo Steel                 1.00                     
+Engine:                                       180 XL                   3.50                     
+    Walking MP:                                 9                                               
+    Running MP:                              14 [18]                                            
+    Jumping MP:                                 0                                               
+Heat Sinks (Single):                            10                     0.00                     
+Gyro:                                        Compact                   3.00                     
+Cockpit:                                      Small                    2.00                     
+Armor Factor:                                   69                     3.50                     
+    Type:                              Heavy Ferro-Fibrous                                      
+
+                                    Internal         Armor     
+                                    Structure        Value     
+    Head:                               3              9       
+    Center Torso:                       6             10       
+    Center Torso (rear):                               2       
+    R/L Torso:                          5              8       
+    R/L Torso (rear):                                  2       
+    R/L Arm:                            3              6       
+    R/L Leg:                            4              8       
+
+================================================================================================
+Weapons and Ammo                                       Location          Critical      Mass     
+------------------------------------------------------------------------------------------------
+Supercharger                                              CT                1          0.50     
+Rocket Launcher 10                                        RT                1          0.50     
+Snub-Nose PPC                                             LT                2          6.00     
+
+================================================================================================
+Alpha Strike Statistics
+------------------------------------------------------------------------------------------------
+Point Value (PV): 21
+TP: BM,  SZ: 1,  TMM: 4,  MV: 22"
+Damage: (S) 2 / (M) 1 / (L) 0*,  OV: 0
+Armor (A): 2,  Structure (S): 1
+Specials: ENE

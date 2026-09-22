@@ -1,0 +1,109 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b63c-7da4-b17a-b32f71bf1353
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+SpecOps Paratrooper
+</Name>
+
+<Model>
+MI6 Extraction Team
+</Model>
+
+<mul id:>
+3001
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Sneak Suit (Camo/IR/ECM)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>When the Federated Suns requires something extracted from hostile territory overnight, the Rabid Foxes answer the call. Officially designated MI6 within the Department of Military Intelligence, the Rabid Foxes are among the most capable special operations personnel in the AFFS. Their Extraction Specialist Teams are trained to deploy from orbit on personal reentry units, locate a target, and reach the extraction point while avoiding all contact. Equipped with stealth suits, portable electronics, and sonic stunners alongside standard assault rifles, E-Teams prize silence and speed over firepower. MI6 units typically operate in five- to seven-person teams, though larger formations are assembled when the mission demands it.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+InfantryFederatedBarrettM42B
+</Primary>
+
+<Secondary>
+Sonic Stunner
+</Secondary>
+
+<sneakcamo>
+true
+</sneakcamo>
+
+<sneakir>
+true
+</sneakir>
+
+<sneakecm>
+true
+</sneakecm>
+
+<specialization>
+512
+</specialization>
+

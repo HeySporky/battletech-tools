@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb64-700a-baa3-813adac7ab4f
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Bombduster
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3847
+</mul id:>
+
+<year>
+2489
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:4.0:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+50
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+25
+20
+20
+13
+</armor>
+
+<Body Equipment>
+Armored Chassis
+ISOffRoadChassis
+Environmental Sealing
+</Body Equipment>
+
+<Front Equipment>
+Searchlight
+Bulldozer
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+9
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Bombduster-series Truck is built on a six-wheeled wheeled chassis with off-road suspension and military-grade armor, providing the protected mobility needed to operate in recently contested terrain. A heavy bulldozer blade mounted on the front of the hull allows the vehicle to push through debris fields, overturn surface objects, and disturb partially buried unexploded ordnance, exposing it for identification and manual disposal. Military-grade armor protection offers meaningful resistance to blast overpressure and fragmentation hazards, a practical necessity for a vehicle expected to operate in the immediate vicinity of detonating munitions.</p><p>No weapons are mounted in the standard configuration; the Bombduster carries basic ordnance disposal tools, marking equipment, and communication gear to support its clearance role. Its six-wheel chassis provides adequate cross-country mobility for the post-battlefield environments it was designed to traverse. Full technical specifications vary across the production series, and not all variant configurations have been uniformly documented in surviving records.</p>
+</capabilities>
+
+<overview>
+<p>The Bombduster-series Truck is a military-grade wheeled utility vehicle developed by the Terran Hegemony and introduced in 2489. Built on a six-wheeled off-road chassis with military-grade armor and a front-mounted bulldozer blade, the Bombduster was purpose-designed to sweep post-battle terrain for unexploded ordnance before gravedigger and salvage teams arrived. Its armored construction and blade allow it to clear debris and disturb surface-hazard munitions that would endanger lighter utility vehicles operating in the same terrain. The design represents an early formal recognition by Hegemony military planners of the ordnance-hazard problem that large-scale BattleMech warfare imposed on post-combat recovery operations, and it has influenced the development of similar battlefield-clearance vehicles used by successor states in subsequent centuries.</p>
+</overview>
+
+<deployment>
+<p>The Bombduster-series serves in battlefield clearance roles attached to salvage and recovery formations, military engineering units, and planetary defense forces in rear-area security assignments. It typically operates ahead of gravedigger and salvage teams entering post-combat terrain, using its bulldozer blade to expose and displace unexploded ordnance before support personnel dismount. The type has appeared in Terran Hegemony successor formations and among various Inner Sphere militaries that inherited or independently rediscovered the design through salvage, technical data recovery, or reverse engineering.</p>
+</deployment>
+
+<history>
+<p>The Bombduster was developed during the mid-Star League era in direct response to the growing casualties suffered by gravedigger crews and salvage teams operating in post-combat terrain. As BattleMech-scale warfare became the norm, the scale and variety of unexploded ordnance left after major engagements increased dramatically. Long-fuse artillery submunitions, failed missile warheads, and fractured ammunition bins created hazardous debris fields across large ground areas, and early salvage operations relying on manual ordnance disposal procedures proved dangerously slow and unpredictable in their outcomes.</p><p>The Hegemony Armed Forces contracted for the Bombduster as a mechanized solution to this chronic problem, commissioning a wheeled platform capable of systematic terrain clearance before human teams were committed to post-battle operations. The bulldozer blade allowed one operator to push through a debris field at pace, exposing surface hazards that would otherwise remain concealed until disturbed on foot. The vehicle proved effective enough to enter service with Hegemony support formations and remained in use through the early Succession Wars period.</p><p>As the Succession Wars eroded industrial capacity across the former Hegemony worlds, maintaining and producing the Bombduster became increasingly difficult. Production records from the later Succession Wars period are incomplete, and it is not certain whether manufacturing continued uninterrupted or was restarted at points from surviving technical documentation. Bombduster-series vehicles have appeared in inventories across multiple eras and factions, suggesting that surviving examples, field-rebuilt units, or rediscovered production templates kept the design in limited circulation long after the collapse of its original manufacturing base.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:N/A
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:N/A
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

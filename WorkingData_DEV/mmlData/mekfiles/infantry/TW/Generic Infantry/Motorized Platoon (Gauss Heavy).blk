@@ -1,0 +1,89 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bff3-7cbd-b2f0-036568efb02d
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Motorized Platoon
+</Name>
+
+<Model>
+(Gauss Heavy)
+</Model>
+
+<year>
+3063
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Ballistic Plate, Standard
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Heavy gauss motorized platoons mount their troops on light vehicles with Imperator assault rifles and David light gauss support weapons distributed across the formation. The light gauss rifles use magnetic acceleration to deliver projectiles at extreme velocity with no propellant signature, giving the platoon credible anti-armor capability at ranges well beyond personal weapon reach. The motorized transport allows rapid repositioning between firing positions, though troops must dismount to employ the crew-served gauss weapons effectively.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Rifle (Imperator AX-22 Assault)
+</Primary>
+
+<Secondary>
+Gauss Rifle, Light (David)
+</Secondary>
+
+<armordivisor>
+2.0
+</armordivisor>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

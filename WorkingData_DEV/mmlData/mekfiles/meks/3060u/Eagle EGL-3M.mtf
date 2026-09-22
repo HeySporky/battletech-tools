@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cbd6-7432-94cc-97ba9683bd02
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Eagle
+model:EGL-3M
+mul id:938
+
+Config:Biped
+techbase:Inner Sphere
+era:3076
+source:TR:3060
+published:RS:3060u
+rules level:3
+role:Brawler
+
+quirk:ext_twist
+quirk:weak_head_1
+
+mass:25
+engine:125 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:8
+RA armor:8
+LT armor:9
+RT armor:9
+CT armor:12
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:2
+Medium VSP Laser, Left Arm
+Light PPC, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMediumVSPLaser
+ISMediumVSPLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Light PPC
+Light PPC
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+Jump Jet
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Eagle is Curtiss Militech's entry into the light BattleMech market, introduced in 3058 as a follow-up to their highly successful Wraith medium 'Mech. Designed primarily for the Free Worlds League, the Eagle was conceived as a balanced mix of firepower and mobility on a twenty-five-ton chassis, sacrificing the raw speed typical of its weight class in favor of heavier armament and a valuable target designation role.</p><p>The Eagle's practical approach to maintenance and logistics has made it attractive to provincial militia and second-line formations across the Free Worlds League, where reliable supply chains are valued as highly as raw combat performance.</p>
+
+capabilities:<p>Though not as fast as many 'Mechs in its weight class, the Eagle compensates with considerable firepower at extended ranges. The design mounts a Diverse Optics Sunbeam extended-range large laser as its primary weapon, capable of stripping significant armor from targets at distances exceeding five hundred meters. A Diverse Optics extended-range medium laser provides supplementary fire at closer ranges, giving the Eagle a credible damage output for a twenty-five-ton platform. The inclusion of a Forward-1 TAG laser designator adds a critical force-multiplier role, enabling the Eagle to call in accurate Arrow IV artillery strikes and semi-guided long-range missile fire from supporting units.</p><p>Built on a Curtiss Eagle endo steel chassis and powered by a Vlar 125 standard fusion engine, the Eagle achieves a top speed of 86 kilometers per hour with five CurtissJet 55 jump jets providing a hundred and fifty meters of jump capability. The standard engine reduces production costs and improves battlefield survivability compared to extralight alternatives, while simplifying field repair with more readily available replacement parts. Five tons of Kallon FWL armor provide respectable protection against other light 'Mechs, though the design remains vulnerable to concentrated fire from heavier opponents. The design philosophy clearly prioritizes sustained ranged engagement and target designation over the close-range skirmishing role typical of most light designs.</p>
+
+deployment:<p>Introduced during the Jihad in 3076, this variant emerged from the growing demand across the Free Worlds League for general-purpose combat BattleMechs rather than specialized spotters. This variant replaces all of the EGL-2M's weaponry with a Fusigon light PPC in the left arm and a Diverse Optics medium variable-speed pulse laser in the right, trading the TAG capability and extended-range firepower for more versatile direct-combat armament. The adoption of a Vlar 125 XL engine frees tonnage for the new weapons systems and slightly improved armor distribution, though at the cost of reduced survivability if the engine is breached. Officers of both the Fusiliers of Oriente and Regulan Hussars showed early interest in this variant.</p>
+
+history:<p>The Eagle's development grew directly from Curtiss Militech's experience with the Wraith, as the company sought to leverage its reputation and manufacturing expertise into the light 'Mech market. The original design, designated EGL-1M, lacked the TAG system that would come to define the Eagle's battlefield role. When the League Central Coordination and Command introduced new semi-guided long-range missiles, Curtiss engineers recognized the opportunity for a fast, light 'Mech capable of designating targets for these munitions and added the TAG system to create the EGL-2M.</p><p>Initial sales validated Curtiss's market instincts. Both the Free Worlds League and Capellan Confederation placed substantial orders, with many units coming from formations already familiar with Curtiss-built 'Mechs through their experience with the Wraith. Within the League, various Marik Militia formations received the majority of Eagle shipments, followed by the Fusiliers of Oriente. Smaller numbers were exported to the Capellan Confederation, where the design found a niche in combined-arms formations that valued its target designation capabilities.</p><p>During the Jihad, the Eagle saw service across nearly every Marik province, primarily operating in its intended role as a close-in spotter for guided munitions and artillery. The disruption of normal military procurement channels during the conflict created uncertainty for continued production, though officers from both the Fusiliers of Oriente and Regulan Hussars were observed meeting with Curtiss executives on Paradise to secure future deliveries. The Jihad-era EGL-3M variant emerged during this period as Curtiss sought to market a less specialized version of the Eagle for general combat duties.</p><p>In the post-Jihad era, Curtiss Militech eventually exited the military market entirely, licensing the Eagle design to Graham-Davis Enterprises on Tamarind. Graham-Davis began production of the EGL-2M and EGL-3M sometime in the mid-3090s under the Duchy of Tamarind-Abbey, ensuring the Eagle's continued availability even as its original manufacturer departed from 'Mech production. The line subsequently passed back to Free Worlds League control as political boundaries shifted during the Dark Age.</p>
+
+manufacturer:Curtiss Militech|Graham-Davis Enterprises
+
+primaryfactory:Paradise|Tamarind
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Curtiss
+systemmode:CHASSIS:Eagle Endo Steel
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:125 XL
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:FWL
+systemmanufacturer:JUMP_JET:CurtissJet
+systemmode:JUMP_JET:55
+systemmanufacturer:COMMUNICATIONS:CurtissComm
+systemmode:COMMUNICATIONS:Mk II
+systemmanufacturer:TARGETING:Dynatec
+systemmode:TARGETING:128

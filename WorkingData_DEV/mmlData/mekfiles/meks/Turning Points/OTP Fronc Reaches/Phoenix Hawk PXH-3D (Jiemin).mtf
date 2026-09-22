@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-de8d-7b75-9efb-443318109055
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Phoenix Hawk
+model:PXH-3D (Jiemin)
+mul id:7699
+
+Config:Biped
+techbase:Inner Sphere
+era:3065
+source:OTP:FR
+published:OTP:FR
+rules level:4
+role:Striker
+
+quirk:command_mech
+quirk:imp_com
+weaponquirk:jettison_capable:RA:4:ISLargeXPulseLaser
+
+mass:45
+engine:315 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+ejection:Full Head Ejection System
+
+heat sinks:13 IS Double
+walk mp:7
+jump mp:7
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:14
+RA armor:14
+LT armor:16
+RT armor:16
+CT armor:21
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:2
+Medium X-Pulse Laser, Left Arm
+Large X-Pulse Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMediumXPulseLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISLargeXPulseLaser
+ISLargeXPulseLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+Jump Jet
+Jump Jet
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Phoenix Hawk was created by Orguss Industries as an ambitious private venture to build "the ultimate Stinger" by more than doubling the mass of the proven scout chassis. Orguss modeled the PXH's head assembly on the more popular Wasp rather than the Stinger, a decision that triggered complex litigation from General Mechanics. A landmark court order mandated widespread licensing of the design, paradoxically ensuring the Phoenix Hawk's survival across the Inner Sphere.</p><p>Produced by the tens of thousands during the Star League era, the Phoenix Hawk almost instantly settled into roles as heavy scout, skirmisher, light lance commander, and reconnaissance denial platform. The chassis proved remarkably adaptable, spawning dozens of variants and becoming the basis for the Star League's premier Land-Air 'Mech. Every known military and major mercenary unit fields the Phoenix Hawk in some capacity, making it one of the most enduring BattleMech designs in history.</p>
+
+capabilities:<p>The Phoenix Hawk is best known for its exceptional electronics suite beyond its impressive speed. The GM 270 fusion engine propels the forty-five-ton chassis to speeds exceeding 97 kilometers per hour, while Rawlings 45 jump jets provide an almost unprecedented 180 meters of jump capability for a 'Mech of its mass. Built around a strengthened Wasp chassis, the design shares a similar philosophy with its lighter cousins, weaponry and movement profiles suited to aggressive short-duration engagements.</p><p>The Harmon large laser serves as the primary armament, capable of threatening heavier opponents at range, while paired Harmon medium lasers and twin M100 machine guns provide effective close-range firepower. The sophisticated, heavily-shielded Tek BattleCom communications suite first established the Phoenix Hawk in low-level command roles, while the high-quality Tek Tru-Trak targeting system ensured the design's reputation for deadly accuracy even under demanding conditions. During the technological regression of the Succession Wars, the Phoenix Hawk became known as a 'Mech that could consistently place shots on target while running hot, a reputation that faded only as the targeting system became scarce, then returned with the thirty-first century technology renaissance.</p><p>The primary weakness remains insufficient armor and heat sink capacity for sustained engagements. Inexperienced MechWarriors frequently lose Phoenix Hawks by overtrusting the design's armor or pushing the heat curve beyond safe limits, though a veteran pilot transforms the chassis into a truly deadly platform.</p>
+
+deployment:<p>This custom configuration mounts a large X-pulse laser as its primary weapon alongside a medium X-pulse laser, providing exceptional accuracy at the cost of reduced range. A 315-rated XL engine increases ground speed significantly, while additional jump jets enhance vertical mobility. The combination of speed, precision weaponry, and jump capability creates an aggressive close-range combatant that excels at exploiting gaps in enemy formations before withdrawing to safety.</p>
+
+history:<p>The Phoenix Hawk first entered service during the closing years of the Age of War, with Orguss Industries establishing the design as a premium scout and skirmisher. The litigation with General Mechanics over design similarities to the Wasp resulted in a landmark court order mandating widespread licensing, spreading production across manufacturers including Earthwerks Incorporated, Coventry Metal Works, Achernar BattleMechs, and Gorton, Kingsley and Thorpe Enterprises. By the height of the Star League era, the Phoenix Hawk had become a staple of reconnaissance formations, with early recon units typically deploying three to four Phoenix Hawks alongside Stingers, Wasps, and Locusts.</p><p>During the Succession Wars, the Phoenix Hawk's value as a command vehicle was increasingly recognized, and many were reassigned from pure scout duties to lance and company leadership roles. The shielded BattleCom communications suite proved invaluable in combat environments with high electromagnetic interference, as demonstrated during the battle on Ronel V in the Blackrock Badlands, where Davion Avalon Hussars engaged Kurita Galedon Regulars in radiation-heavy terrain. With demand for operational Phoenix Hawks far outstripping supply during the darkest years of the Succession Wars, even holovid production models were pressed into military service. Visually-modified Wasps and Stingers served as stand-ins for film productions, creating divergent portrayals of the design in civilian media that persist to the present day.</p><p>Following the recovery of the Helm Memory Core, each Great House pursued its own upgrade path rather than returning to Star League standards. House Davion focused on long-range refits with the PXH-3D, House Kurita developed the PXH-3K, House Marik produced the PXH-3M, and House Steiner's PXH-3S emphasized speed and improved accuracy. These variants were later incorporated into the Project Phoenix program of the 3060s, which gave many Phoenix Hawks a new visual aesthetic. Vicore Industries took up the Marik variant as part of their portfolio, producing functionally identical 'Mechs in various visual configurations.</p><p>The Jihad inflicted severe losses across all Phoenix Hawk production lines. During the Blakist nuclear bombardment of Altair, a pair of Phoenix Hawks from the Third Dieron Regulars refused all retreat orders and stood guard outside an ancient Age of War fallout complex as atomic warheads rained down, when the bombardment ceased, only the shadows of the two 'Mechs remained etched into the shelter entrance. The Word of Blake fielded their own PXH-4W variant, though the Periphery manufacturing plants were seized by the Taurian Concordat and Magistracy of Canopus following the Jihad's conclusion.</p><p>In the ilClan era, the Phoenix Hawk continues to serve with distinction across all factions. Earthwerks introduced the PXH-9 as a modern refit maintaining the proven design philosophy, while newer variants like the PXH-4M brought light PPCs and X-pulse lasers to duplicate the classic skirmishing role with improved heat management. During the Hanseatic Crusade at the Battle of Bremen, Scorpion Empire Seekers encountered a lance of incredibly ancient Phoenix Hawks bearing marks of the first production run. The Clan warriors conducted a herding action to capture rather than destroy these relics, preserving two with consecutive serial numbers, a reflection of the design's remarkable longevity across centuries of warfare.</p>
+
+manufacturer:Unknown
+
+primaryfactory:Unknown
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:315 XL
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

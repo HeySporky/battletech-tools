@@ -1,0 +1,174 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-20
+<UUID>
+019f583e-e571-7292-a37e-0001a1c551e4
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Shoden Assault Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5056
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+55
+37
+37
+25
+30
+</armor>
+
+<Body Equipment>
+Clan Ammo ATM-9 ER
+Clan Ammo ATM-9
+Clan Ammo ATM-9 HE
+Clan Ammo ATM-9 ER
+Clan Ammo ATM-9
+Clan Ammo ATM-9 HE
+Clan Ammo ATM-9 ER
+Clan Ammo ATM-9
+Clan Ammo ATM-9 HE
+Clan Light Machine Gun Ammo - Full
+CLCASE
+</Body Equipment>
+
+<Front Equipment>
+CLLightMG
+CLLightMG
+</Front Equipment>
+
+<Right Equipment>
+CLLightMG
+</Right Equipment>
+
+<Left Equipment>
+CLLightMG
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLATM9
+CLATM9
+CLATM9
+</Turret Equipment>
+
+<capabilities>
+<p>The Shoden centers its combat power on three turret-mounted Type 9 Series 1 ATM 9 launchers. Nine tons of ammunition give crews broad tactical flexibility, enabling them to employ standard, extended-range, and high-explosive munitions as the engagement demands. At the ranges where this flexibility pays dividends, the Shoden is a formidable defensive platform, capable of engaging enemies well before they close to effective return-fire range. Four Series 2c Light Machine Guns provide close-in anti-infantry protection, with two mounted to cover the front and one protecting each side.</p><p>Eleven and a half tons of Compound Beta armor plate provides substantial protection appropriate for a vehicle expected to hold position under fire. A Fusion 260 powerplant delivers a top speed of 64 km/h. The wheeled chassis extracts greater efficiency from the engine than a comparable tracked design would, though this comes at the cost of terrain flexibility. The Shoden is poorly suited to broken ground, dense woodland, or water obstacles. These constraints accept operational limitations in exchange for better mechanical reliability and lower maintenance demands. The Shoden is designed to be in position before the enemy arrives, and to be very expensive to remove once there.</p>
+</capabilities>
+
+<overview>
+<p>The Shoden Assault Vehicle emerged from Clan Nova Cat's effort to redefine its defensive posture following the Combine-Ghost Bear War of 3062 to 3063. Khan Santin West determined that the Nova Cats required a purpose-built combat vehicle capable of holding ground rather than seeking mobile engagements. Despite its classification as an assault vehicle, the Shoden was conceived as a defensive asset, intended to anchor lines and absorb enemy offensives. Produced at Barcella Beta on Irece, the design reflects Nova Cat adaptability and their growing accommodation of Draconis Combine sensibilities. The vehicle's name honors Shoden, the elephant god of wisdom from Japanese folklore, a deliberate cultural gesture acknowledging Nova Cat's partnership with the Combine. That naming choice proved apt: the Shoden brought hard-won tactical wisdom about combined-arms defense to every Provisional Galaxy that fielded it.</p>
+</overview>
+
+<deployment>
+<p>The Shoden entered service with all Nova Cat Provisional Galaxies except Zeta, where cultural resistance to combat vehicle deployment prevented adoption. Tau Galaxy proved the most committed adopter, incorporating the design into the 100th Striker and 274th Battle Clusters as a central element of their defensive doctrine. The vehicle served Nova Cat forces throughout the Civil War era, providing direct-fire support and anti-infantry coverage that complemented the heavier BattleMech formations it accompanied.</p>
+</deployment>
+
+<history>
+<p>The catalyst for the Shoden's development was the Combine-Ghost Bear War of 3062 to 3063. That conflict exposed a critical gap in Nova Cat combat capabilities: the Clan's vehicle inventory consisted largely of designs suited to mobile warfare, not the defensive roles the Nova Cats increasingly played alongside Draconis Combine forces. Khan Santin West recognized that joint operations with Inner Sphere allies required a matching tactical vocabulary, including the kind of dug-in defensive firepower that BattleMech-centric Clan doctrine had never emphasized.</p><p>West authorized the retooling of a production line at Barcella Beta on Irece. Naming the vehicle Shoden honored the Japanese elephant god of wisdom and was a calculated gesture to the Combine hosts whose territory the Nova Cats now occupied. Nova Cat warriors expressed predictable skepticism, viewing combat vehicle production as a concession to Inner Sphere mediocrity. West acknowledged these concerns and pressed forward regardless, accepting that the Clan's long-term survival alongside the Combine depended on developing a more balanced combined-arms capability.</p><p>Production began in 3064 and the Shoden entered service across Nova Cat Provisional Galaxies, with all but Zeta eventually receiving the type. Tau Galaxy proved the most aggressive adopter, integrating the vehicle into its 100th Striker and 274th Battle Clusters as a core component of their defensive posture. Zeta Galaxy's resistance to vehicle deployment created a lasting cultural fault line with Tau Galaxy personnel. West addressed this friction by keeping the two galaxies' Shoden-equipped formations well separated rather than attempting to resolve the underlying ideological dispute.</p><p>The factory at Barcella Beta continued producing the Shoden through the Civil War period, but the Jihad severely disrupted Nova Cat industrial capacity on Irece. Word of Blake operations in 3072 targeted the planet's manufacturing infrastructure, and the Barcella Beta Shoden line was among the casualties. Production never resumed under Nova Cat management. After the Nova Cat Abjuration of the early Dark Age, Luthien Armor Works absorbed the Barcella Beta facility, redirecting it toward Draconis Combine production priorities.</p>
+</history>
+
+<manufacturer>
+Barcella Beta
+</manufacturer>
+
+<primaryFactory>
+Irece
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Barcella Beta
+ARMOR:Unknown
+COMMUNICATIONS:Build
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:260
+ARMOR:Compound Beta
+COMMUNICATIONS:1685/5 Tacticom
+TARGETING:Series XXVIII IWS
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+70.0
+</tonnage>
+

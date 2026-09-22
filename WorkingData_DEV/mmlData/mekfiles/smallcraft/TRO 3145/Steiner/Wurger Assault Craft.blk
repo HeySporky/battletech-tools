@@ -1,0 +1,249 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e180-7073-b94d-6a6a709dc637
+</UUID>
+
+<UnitType>
+SmallCraft
+</UnitType>
+
+<Name>
+Würger Assault Craft
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6640
+</mul id:>
+
+<year>
+3099
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+combat_computer
+atmo_instability
+</quirks>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+cargobay:1.0:1:1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:0.0:0:-1::-1:0
+crewquarters:0.0:0:-1::-1:0
+steeragequarters:25.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<heatsinks>
+14
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+1200
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+20
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+119
+102
+102
+89
+</armor>
+
+<Nose Equipment>
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo
+ISAMS Ammo
+ISAMS Ammo
+</Nose Equipment>
+
+<Left Side Equipment>
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo
+ISAMS Ammo
+ISAMS Ammo
+</Left Side Equipment>
+
+<Right Side Equipment>
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo
+ISAMS Ammo
+ISAMS Ammo
+</Right Side Equipment>
+
+<Aft Equipment>
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+</Aft Equipment>
+
+<Hull Equipment>
+BeagleActiveProbe
+ISGuardianECMSuite
+</Hull Equipment>
+
+<structural_integrity>
+9
+</structural_integrity>
+
+<capabilities>
+<p>The heart of the Würger is the Lockheed/CBM Progeny II tactical computer. This system unifies the craft's offensive and defensive electronics under a single management framework, and also integrates the cooling system and engine control. The Progeny II takes hundreds of sensor readings per second from myriad onboard sensors, making continuous synergistic adjustments to maximize the effectiveness of each installed system. This allows the Würger to respond rapidly to changing battlefield conditions without relying on pilot interpretation alone.</p><p>As a small craft optimized for orbital interdiction and point-defense screening, the Würger trades the raw firepower of heavier aerospace platforms for precision sensor integration and responsiveness. It performs best in engagements against other small craft and missiles rather than capital-scale targets, and operates effectively in the confined tactical space around a Pocket WarShip or space station. This specialization carries tradeoffs: without numerical support, the Würger cannot sustain prolonged engagements against dedicated assault craft, and its point-defense role leaves it reliant on coordinated wing tactics to compensate for individual firepower limits.</p>
+</capabilities>
+
+<overview>
+<p>The Würger Assault Craft is a purpose-built small craft developed by Lockheed/CBM on Furillo for the Lyran Commonwealth Armed Forces, entering service in 3099. It was designed to fill the growing need for dedicated orbital screening platforms in an era when Pocket WarShips had become a fixture of Inner Sphere naval operations. Rather than relying on aerospace fighters to screen capital ships and space stations, the LCAF sought a specialized craft optimized for missile interdiction and close-in defense work. The Würger represents Lockheed/CBM's answer to that requirement, building on earlier small craft concepts to deliver a more capable and electronically integrated platform suited to the demands of Dark Age naval warfare.</p>
+</overview>
+
+<deployment>
+<p>The Würger serves as an orbital escort and interdiction platform within the Lyran Commonwealth Armed Forces, most commonly deployed in wings assigned to Pocket WarShip screens and system defense stations. It performs best in coordinated groups, where numerical advantage over larger assault craft compensates for its individual firepower limits. The type has seen consistent use along the Lyran-Clan border, where the threat of orbital bombardment and deep-space boarding actions has made mobile, responsive small craft a standing priority for LCAF commanders.</p>
+</deployment>
+
+<history>
+<p>The Jihad fundamentally reshaped naval warfare across the Inner Sphere. The prolific use of anti-ship missiles against DropShips and capital ships prompted widespread adoption of robust point-defense systems, seen in vessels like the Interdictor and the Arondight-class DropShips. By 3094, the NL-45 had become the first small craft purpose-built for missile defense and interdiction, establishing a new category of dedicated naval support craft. The Würger followed in 3099 as the next step in that evolution, incorporating the more integrated sensor and control architecture of the Progeny II computer and pushing the concept further toward a true fleet screening platform.</p><p>The design's capabilities were demonstrated during the Jade Falcon offensive of 3143. Archon Vedet Brewer had positioned substantial forces to defend Westerstede, including multiple Würger wings operating alongside two Bastion-class and one Battlesat-class system defense stations. When Jade Falcon DropShips arrived, they split into three groups: one to engage the LCAF fighter screen, one to push 'Mech transports toward the planet, and a third of battle taxis held in reserve to board the stations once the screen was cleared.</p><p>For four hours the LCAF fighter screen and the Jade Falcons fought to a standstill. Engine damage then forced the LCS Akfata, an Isegrim-class assault DropShip, to withdraw, and the Clan forces saw their opening, burning hard for the defense stations. The waiting Würger wings launched from their bays and engaged the Clan craft during the vulnerable deceleration burn. Outnumbered more than two-to-one, the Jade Falcon assault craft eventually withdrew to their transports. Five battle taxis breached the screen and delivered boarding parties, but all were repelled with minimal casualties among the defenders.</p><p>The Würgers then rejoined the wider dogfight, giving the LCAF fighter wing time to return to the stations and rearm. When those fighters came back less than half an hour later, the Clan forces retreated to their jump point. Though the archon ultimately ordered the abandonment of Westerstede in favor of fortifying Tharkad, the Würgers had maintained the LCAF's orbital presence throughout, denying the Jade Falcons air support and reconnaissance for the duration of the planetside campaign.</p>
+</history>
+
+<manufacturer>
+Lockheed/CBM
+</manufacturer>
+
+<primaryFactory>
+Furillo
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Lockheed/CBM
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Progeny II
+</systemModels>
+
+<source>
+TR:3145:LC,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+160.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+5
+</crew>
+
+<officers>
+1
+</officers>
+
+<gunners>
+2
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

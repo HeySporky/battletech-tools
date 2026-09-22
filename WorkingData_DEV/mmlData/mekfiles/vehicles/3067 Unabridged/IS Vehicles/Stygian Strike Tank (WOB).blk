@@ -1,0 +1,157 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e5c4-7a73-ac03-8eb0ad32dfa8
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Stygian Strike Tank
+</Name>
+
+<Model>
+(WOB)
+</Model>
+
+<mul id:>
+5728
+</mul id:>
+
+<year>
+3068
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+18
+18
+18
+18
+16
+</armor>
+
+<Body Equipment>
+ISC3iUnit
+IS Ammo LRM-10
+</Body Equipment>
+
+<Front Equipment>
+ISMediumPulseLaser
+ISMediumPulseLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+LRM 10
+</Turret Equipment>
+
+<capabilities>
+<p>The Stygian's exceptional speed is its primary defensive asset. A Magna 185 Fusion plant drives the hover platform to a flank speed few ground vehicles can match, enabling crews to select engagement range, reposition under fire, and withdraw before opponents can bring heavier weapons to bear. This mobility carries a cost in protection, as the Maximillian 43 armor covering the hull provides only modest resistance against direct fire. The Stygian is not designed to absorb punishment and suffers disproportionately when forced into close terrain or stripped of its mobility.</p><p>The vehicle's offensive focus centers on a turret-mounted Magna Longbow-15 LRM launcher backed by three segregated, full-ton ammunition bins. Gunner-controlled load selection allows the crew to switch between standard fragmentation, anti-infantry, and other specialized munitions without manual handling, extending the platform's tactical flexibility well beyond that of a conventional missile boat. Two forward-fixed Diverse Optics Extended Range medium lasers complement the Longbow at intermediate range, though the fixed mounting limits their effectiveness to threats directly ahead. The Maxell 600b communications suite and Maxell TA70 targeting system provide solid crew support for long-range engagements. Together, the Stygian's speed, missile volume, and munitions flexibility make it a demanding adversary for opponents who cannot force it into unfavorable terrain.</p>
+</capabilities>
+
+<overview>
+<p>The Stygian Strike Tank is a Free Worlds League hover combat vehicle developed by Brooks Incorporated of Irian and introduced in 3062. The design emerged from a Captain-General directive encouraging League manufacturers to bring advanced weapons technology to planetary militia and conventional armor formations at reduced cost. Brooks Incorporated responded by refining their proven Harasser fast missile boat into a more capable platform, fielding the result as the Harasser II before field testing gave the design its permanent name. The Second Free Worlds Legionnaires conducted those trials, and Force Commander Corrine Marik's personal endorsement secured FWLM-wide adoption. Renamed in honor of the Legionnaire unit that validated it, the Stygian combines exceptional hover speed with a potent long-range missile system, positioning it as a flexible reconnaissance and fire support asset for formations across the League.</p>
+</overview>
+
+<deployment>
+<p>The Word of Blake variant appeared in 3068 and served in Blakist combined-arms formations during the Jihad. Carrying an Improved C3 Computer and replacing the base model's armament with an LRM-10 and twin medium pulse lasers, this variant is most effective when operating within coordinated Blakist fire networks. It retains the hover platform's high speed and light armor of the original. Production was confined to the Jihad period, and surviving examples are rare.</p>
+</deployment>
+
+<history>
+<p>The Stygian's origins trace to the early 3050s, when Captain-General Thomas Marik directed League manufacturers to bring modern weapons technology to conventional armor and militia formations at sustainable cost. BattleMech production consumed an increasing share of the FWLM budget, leaving planetary militia forces chronically underfunded, and the directive sought to redress the balance by developing capable armored vehicles using current weapons technology. Brooks Incorporated of Irian answered with the Harasser II, a substantially upgraded version of their proven Harasser fast missile boat. The Harasser II retained the hover platform and speed of its predecessor while incorporating a more capable missile system and extended-range laser armament.</p><p>Initial reception from the LCCC was lukewarm. Procurement officials questioned whether the Harasser II represented sufficient improvement over vehicles already in militia inventories to justify a new production commitment. Field testing resolved the debate. The Second Free Worlds Legionnaires put the Harasser II through exercises across varied terrain and conditions, finding it consistently superior to the alternatives. Force Commander Corrine Marik's personal endorsement broke the procurement deadlock. Brooks Incorporated renamed the production model the Stygian in honor of the Legionnaire unit, and production began at the Irian facility in 3062.</p><p>Early service with the Legionnaires generated feedback for an improved variant, and the Stygian Mudskipper entered production in 3065. This (Armor) variant traded engine output for additional protection and an expanded ammunition supply, addressing consistent crew complaints that the base model's armor was insufficient in closer terrain where standoff distance could not be maintained.</p><p>The Jihad brought significant disruption to Irian and the Brooks Incorporated facility. Word of Blake forces occupied the planet during the 3068 campaign, and a Blakist-modified variant appeared during this period, replacing the original weapons fit with pulse lasers, a lighter missile system, and an Improved C3 Computer suited to networked Blakist operations. Following the Jihad, the Irian facility passed to Republic of the Sphere oversight before cycling through subsequent ownership transitions. Production of the Stygian continued under each governing faction through the ilClan period, a sign of the soundness of the original Brooks design.</p>
+</history>
+
+<manufacturer>
+Brooks Incorporated
+</manufacturer>
+
+<primaryFactory>
+Irian
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Magna
+ARMOR:Maximillian
+COMMUNICATIONS:Maxell
+TARGETING:Maxell
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:185 Fusion
+ARMOR:43
+COMMUNICATIONS:600b
+TARGETING:TA70
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

@@ -1,0 +1,81 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ba0a-776a-9a72-4e28a61ad6c4
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot demi-I (ComGuards)
+</Name>
+
+<Model>
+(Laser)
+</Model>
+
+<mul id:>
+6998
+</mul id:>
+
+<year>
+2933
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+ComStar Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Com Guard conventional infantry benefit from ComStar's access to preserved Star League technology, fielding weapons and equipment that match or exceed the standard issue of any Inner Sphere military, backed by the institutional discipline of the secular Order's professional military culture. Foot infantry Level I formations anchor defensive positions and garrison critical installations, providing the persistent ground presence that BattleMech and armor units cannot maintain indefinitely. Com Guard foot infantry train alongside heavier elements and understand their role within the larger combined-arms framework. Equipped with laser rifles that offer superior range and armor penetration compared to ballistic weapons, these troops field one of the most effective personal arms available to conventional infantry, though the weapons are significantly more expensive and require soldiers to carry additional power packs.</p>
+</overview>
+
+<source>
+TW,TM
+</source>
+
+<squad_size>
+6
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<Primary>
+Laser Rifle
+</Primary>
+

@@ -1,0 +1,172 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e12d-7955-8563-fbe9644cd72e
+</UUID>
+
+<UnitType>
+ProtoMek
+</UnitType>
+
+<Name>
+Sprite Ultraheavy ProtoMech
+</Name>
+
+<Model>
+2
+</Model>
+
+<mul id:>
+5636
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Biped
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<interface_cockpit>
+false
+</interface_cockpit>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+42
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+9
+30
+6
+6
+15
+</armor>
+
+<Body Equipment>
+ProtoMechJumpJet
+ProtoMechJumpJet
+ProtoMechJumpJet
+EIInterface
+</Body Equipment>
+
+<Head Equipment>
+</Head Equipment>
+
+<Torso Equipment>
+CLERLargeLaser
+</Torso Equipment>
+
+<Right Arm Equipment>
+</Right Arm Equipment>
+
+<Left Arm Equipment>
+</Left Arm Equipment>
+
+<Legs Equipment>
+</Legs Equipment>
+
+<capabilities>
+<p>The base Sprite configuration is built around a quad LRM-5 launcher array, with two launchers in the torso and one in each arm, fed by a deep forty-eight-round shared ammunition supply. This provides twelve full salvos of twenty missiles each, a volume of fire that can suppress and destroy targets at ranges normally associated with dedicated missile BattleMeks. Five extended jump jets provide one hundred fifty meters of leaping distance, remarkable for a fifteen-ton design and essential for tactical repositioning given the modest thirty-two kilometers per hour ground speed.</p><p>Sixty-five points of armor make the Sprite one of the most heavily protected ProtoMeks in existence, capable of absorbing punishment that would destroy lighter designs several times over. The extended jump jets add to the cost and complexity but provide the terrain mobility needed to prevent the heavy, slow-moving Sprite from being cornered and overwhelmed. Commanders deploy Sprite Points as heavy fire support elements, using their massed LRM barrages to suppress enemy formations at range while faster assets maneuver for flanking positions. The ammunition supply, while generous by ProtoMek standards, remains the design's primary limitation in extended engagements.</p>
+</capabilities>
+
+<overview>
+<p>The Sprite is a fifteen-ton ultraheavy ProtoMek, the heaviest design in the entire ProtoMek weight class. Developed during the Wars of Reaving, the Sprite pushes ProtoMek technology to its absolute limits, mounting weapons and armor loads that rival light BattleMeks. The design exists at the theoretical maximum of what the ProtoMek cockpit and pilot interface can control, and its sheer mass requires careful tactical employment to compensate for the relatively slow ground speed that results from pushing so much tonnage through a ProtoMek-scale power plant. Despite these limitations, the Sprite provides devastating firepower in a package that costs a fraction of the resources needed for a comparable BattleMek.</p>
+</overview>
+
+<deployment>
+<p>The Sprite 2 replaces the quad LRM array with a single torso-mounted ER Large Laser, the most powerful energy weapon ever fitted to a ProtoMek chassis. Three standard jump jets provide ninety meters of leaping distance, reduced from the base model's one hundred fifty. Armor increases marginally to sixty-six points. The ER Large Laser delivers devastating single-shot damage at extreme range with unlimited ammunition endurance, making the Sprite 2 ideal for extended operations where resupply is impossible. However, the variant sacrifices the base model's volume of fire for concentrated single-target damage, requiring different tactical employment. Heat management limits sustained fire rates, as the massive laser generates significant thermal output.</p>
+</deployment>
+
+<history>
+<p>The Sprite represents the culmination of the ultraheavy ProtoMek development programs initiated during the Wars of Reaving. At fifteen tons, it pushes against the theoretical maximum weight that ProtoMek technology can support, and its development required solutions to engineering challenges that had never been encountered at this scale. The pilot interface systems had to be extensively modified to manage the increased complexity, and the cockpit was expanded to accommodate the additional control requirements.</p><p>The base Sprite was designed as a dedicated long-range fire support platform, with its quad LRM-5 array providing a volume of missile fire previously achievable only by dedicated missile carriers. The extended jump jets were incorporated after initial testing revealed that the design's slow ground speed left it dangerously vulnerable to flanking maneuvers, and the added mobility transformed the Sprite from a static firebase into a mobile fire support platform capable of repositioning between volleys.</p><p>Two additional variants were developed to address different tactical requirements. The Sprite 2 replaced the LRM array with a single ER Large Laser, the most powerful energy weapon ever mounted on a ProtoMek, while reducing jump jets to three standard units. This variant provides devastating single-shot damage output with unlimited ammunition endurance but sacrifices the volume of fire and extended jump capability of the base model. The Sprite 3 took yet another approach, mounting dual Fusillade rapid-fire systems in the torso alongside arm-mounted Medium Chemical Lasers, with five extended jump jets matching the base model. This configuration excels in close-range engagements against mixed formations, combining suppressive fire from the Fusillades with energy damage from the Chemical Lasers. All three variants continue to serve in Homeworld Clan forces, with each filling a distinct tactical niche in the heavy fire support role.</p>
+</history>
+
+<manufacturer>
+Triton Assembly Yard|Unknown
+</manufacturer>
+
+<primaryFactory>
+Roche|Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Ultraheavy
+ENGINE:45
+ARMOR:Standard
+</systemModels>
+
+<source>
+WoR,WoRS
+</source>
+
+<published>
+WoR,WoRS
+</published>
+
+<tonnage>
+15.0
+</tonnage>
+

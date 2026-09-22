@@ -1,0 +1,172 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e10b-782a-94aa-ac77c41acf7c
+</UUID>
+
+<UnitType>
+ProtoMek
+</UnitType>
+
+<Name>
+Cecerops
+</Name>
+
+<Model>
+5
+</Model>
+
+<mul id:>
+8031
+</mul id:>
+
+<year>
+3146
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Biped
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<interface_cockpit>
+false
+</interface_cockpit>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+42
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+3
+5
+1
+1
+4
+</armor>
+
+<Body Equipment>
+CLAPGaussRifle Ammo (12)
+EIInterface
+</Body Equipment>
+
+<Head Equipment>
+</Head Equipment>
+
+<Torso Equipment>
+ProtoMagneticClamp
+CLAPGaussRifle
+</Torso Equipment>
+
+<Right Arm Equipment>
+</Right Arm Equipment>
+
+<Left Arm Equipment>
+</Left Arm Equipment>
+
+<Legs Equipment>
+</Legs Equipment>
+
+<capabilities>
+<p>Speed is the Cecerops' defining characteristic. A forty-five-rated fusion engine drives the three-ton frame to a cruising speed of ninety-seven kilometers per hour with a flank speed approaching one hundred fifty, allowing it to keep pace with most light BattleMeks and hovercraft. Even at rest, the design appears to be in motion; every line of the chassis is optimized for velocity. A single ER Micro Laser provides ammunition-independent firepower, allowing Cecerops Stars to operate for extended periods without resupply, a critical advantage for the resource-strapped Blood Spirits.</p><p>When operating in packs, the overwhelming and constant barrage of laser fire from a Cecerops Star can intimidate medium Mek pilots and bring down light Meks with proper tactics. Most Cecerops pilots are highly experienced by the time they earn assignment to the design, and the chaotic swirl of a pack hunting in concert deliberately mimics the sphinx-raptor's predatory behavior. Fourteen points of armor provide reasonable protection for the weight class, though sustained fire from heavier weapons will quickly overwhelm the design's defenses. The Cecerops excels in harassment and pursuit roles where its extraordinary speed can be leveraged without exposing it to concentrated return fire.</p>
+</capabilities>
+
+<overview>
+<p>The Cecerops is a three-ton second-generation ProtoMek designed by Clan Blood Spirit using resources acquired through collaboration with the Snow Ravens. The first ProtoMek fully designed outside the original Smoke Jaguar program, the Cecerops bears a striking resemblance to the sphinx-raptor found on several Clan worlds, with a snakelike body profile and a forward-thrusting head cowl aerodynamically engineered to reduce drag. Among Blood Spirit ProtoMek forces, piloting a Cecerops is considered an extremely high honor, reflecting both the design's demanding performance envelope and its role as a symbol of the beleaguered Clan's determination to maintain military relevance despite dwindling BattleMek resources.</p>
+</overview>
+
+<deployment>
+<p>The Cecerops 5 is a radical departure from the speed-focused design philosophy of the original. Equipped with a Magnetic Clamp System for OmniMek transport and an AP Gauss Rifle with twelve rounds of ammunition, this variant sacrifices the Cecerops' legendary speed entirely, cruising at just forty-three kilometers per hour. Armor returns to fourteen points, matching the base model. The Magnetic Clamp allows the Cecerops 5 to ride into battle attached to an OmniMek, deploying at close range to use the AP Gauss Rifle against infantry and battle armor formations. This configuration reflects a fundamentally different tactical doctrine, transforming the Cecerops from an independent high-speed interceptor into a transported fire support asset.</p>
+</deployment>
+
+<history>
+<p>The Cecerops was born from an unlikely partnership between Clan Blood Spirit and Clan Snow Raven, two Clans whose shared outsider status in Homeworld politics drove them to collaborate on military technology development. The Snow Ravens provided critical resources and technical assistance that allowed the Blood Spirits to establish their own ProtoMek production capability at the Reserve Industriplex-2 on York. The Cecerops was the first fruit of this collaboration, though it proved an engineering challenge that delayed production until after the smaller and simpler design had already reached the field.</p><p>The Cecerops' debut on Arcadia was marred by controversy. Star Colonel Suzanne Church of the 171st Crimson Guards, commanding an entire Trinary of Cecerops and Chrysaors, treated the ProtoMeks as glorified Elementals rather than exploiting their speed and mobility. Predictably, the machines were overkill against enemy Elementals and wasted when deployed in tight terrain with limited maneuver space. When Church blamed the Cecerops for her command's poor showing, a Cecerops pilot named Andre challenged her to a Trial of Grievance. Issued in front of other Star Colonels and her own troops, Church could not refuse without losing honor. Despite fighting augmented, Church fell to Andre's clever tactical exploitation of the Cecerops' capabilities, simultaneously winning the Trial and demonstrating the design's true potential.</p><p>With BattleMeks becoming increasingly scarce in the constant warfare for York between the Spirits and Star Adders, ProtoMeks gradually usurped much of the Blood Spirit touman as a necessary weapon of choice. The Cecerops became the prestige assignment among the Clan's ProtoMek forces, with failed MekWarrior sibkos reportedly adapting to the program to maintain the large numbers the Clan needed to field effectively. Several initial shipments went to the Snow Ravens as payment for their assistance, though this arrangement ended in 3071 with the Ravens' abrupt departure from Clanspace.</p><p>Production disruptions followed when Clan Cloud Cobra destroyed one of the Blood Spirit production facilities, though the Spirits managed to convert a defunct facility on Albion left behind by the departing Ravens. During the constant clashes with the Star Adders on Arcadia and Albion, several variant configurations were developed to address specific tactical requirements, expanding the Cecerops' role beyond its original pure-speed reconnaissance mission. Contradicting Blood Spirit exclusivity, modified Cecerops were also reportedly sighted among mysterious gray-painted raiding forces that struck targets across the Falcon and Horse Occupation Zones in late 3073, their origin and allegiance unknown.</p>
+</history>
+
+<manufacturer>
+Snow Raven Industrial Complex Alpha
+</manufacturer>
+
+<primaryFactory>
+Dante
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:York
+ENGINE:Unknown
+ARMOR:BloodWeave
+COMMUNICATIONS:Tabitha-II
+TARGETING:CEC-PM
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Raptoris
+ENGINE:20 Type CX Fusion
+ARMOR:Prosis
+COMMUNICATIONS:Howler
+TARGETING:7
+</systemModels>
+
+<source>
+TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+3.0
+</tonnage>
+

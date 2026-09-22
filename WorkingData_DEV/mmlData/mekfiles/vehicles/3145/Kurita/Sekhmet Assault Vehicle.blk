@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7e0-737f-8e09-54fa83dced84
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Sekhmet Assault Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6384
+</mul id:>
+
+<year>
+3113
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Brawler
+</role>
+
+<quirks>
+bad_rep_is
+power_reverse
+bad_rep_clan
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+77
+50
+50
+40
+50
+</armor>
+
+<Body Equipment>
+CLAPGaussRifle Ammo
+Clan Ammo SRM-6
+Clan Ammo SRM-6
+</Body Equipment>
+
+<Front Equipment>
+CLSRM6
+CLSRM6
+CLAPGaussRifle
+CLAPGaussRifle
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLLargePulseLaser
+CLLargePulseLaser
+</Turret Equipment>
+
+<capabilities>
+<p>The Sekhmet is a 65-ton tracked vehicle built around a Consolidated 260 XL fusion engine, providing a cruising speed of 43 km/h and a top speed of 64 km/h. Despite its aggressive designation, most analysts classify it firmly as a defensive platform. Its primary armament consists of two Kolibri Delta Series Large Pulse Lasers, giving the vehicle exceptional accuracy and sustained firepower at medium range. Two Mk.22 Type III SRM 6 launchers supplement the lasers for closer engagement work, and a pair of Tau-II Anti-Personnel Gauss Rifles provide infantry suppression capability. Alpha Compound ferro-fibrous armor delivers substantial protection for a vehicle of its weight class.</p><p>The Sekhmet's limitations are significant and well documented. Its secondary weapons are hull-mounted rather than turret-mounted, severely restricting coverage arcs and making the vehicle poorly suited for offensive operations where targets cannot be engaged directly ahead. Its ground speed is modest, leaving it exposed when forced to reposition under fire. These constraints make the Sekhmet an excellent choice for prepared positions, corridor defense, and hull-down engagements, but a liability in fluid engagements where mobility and all-around firepower are essential.</p>
+</capabilities>
+
+<overview>
+<p>The Sekhmet Assault Vehicle entered service with the Clan Nova Cat touman in 3113, designed and produced at Luthien Armor Works' Barcella Beta facility on Irece. Conceived as a dedicated defensive platform for Nova Cat planetary garrisons, the vehicle was intended to hold fortified positions against attackers while supporting heavier frontline elements. Its name, drawn from an ancient Terran war deity, was chosen in part to mislead the Draconis Combine's Internal Security Force regarding the vehicle's true defensive orientation.</p><p>Over the decades following its introduction, the Sekhmet became a fixture in Nova Cat garrison Clusters throughout Dieron Prefecture. Its creators also offered the vehicle for commercial sale, and examples spread to other Inner Sphere buyers. Following the destruction of Clan Nova Cat in 3141, production at Barcella Beta continued under Draconis Combine control, and the vehicle appeared across multiple conflict zones through the ilClan period.</p>
+</overview>
+
+<deployment>
+<p>The base Sekhmet Assault Vehicle was initially deployed throughout Nova Cat garrison Clusters in Dieron Prefecture, where its defensive strengths matched the Clan's need to hold population centers against raids and counterattacks. Production was offered commercially as well, and the vehicle appeared in other Inner Sphere armies. Following the transfer of the Barcella Beta facility to Draconis Combine control after 3141, the Sekhmet became a standard element in DCMS defensive formations. It performs best in fixed positions, corridor defense, and hull-down engagement zones, where its laser armament and ferro-fibrous protection can be maximized without requiring aggressive repositioning.</p>
+</deployment>
+
+<history>
+<p>The Sekhmet was conceived in the early thirty-second century as a garrison asset for Nova Cat planetary defenses. As the Clan worked to secure its integrated position within the Draconis Combine, the touman faced the ongoing challenge of holding populated worlds against potential threats. The Barcella Beta facility on Irece was established to supply a locally produced solution, with initial production runs assigned almost exclusively to garrison Clusters throughout Dieron Prefecture. The name Sekhmet was reportedly chosen to project an aggressive image and complicate assessments by the Combine's Internal Security Force, masking the vehicle's fundamentally defensive role.</p><p>The Sekhmet's qualities were tested during the Nova Cat rebellion in 3141, when the Clan broke with the Combine and a number of Sekhmets were transferred to forces backing the Dieron Military District. On Rukbat, where Warlord Tormark's troops stood against a Combine counterattack, a company of twelve Sekhmets was concentrated along the Dieron defensive line, assigned to anchor the perimeter. The tanks repeatedly combined their pulse laser fire to savage advancing DCMS assault 'Mech lances, demonstrating exactly the defensive role they had been built for. Their stand ended only when DCMS forces brought forward a lance of captured Wendigos, whose reflective armor neutralized the Sekhmets' lasers and forced the defenders to withdraw.</p><p>Following the destruction of Clan Nova Cat and the absorption of Barcella Beta by Luthien Armor Works, the Sekhmet transitioned into regular DCMS service. During the Draconis Combine's subsequent campaigns against the Federated Suns, the vehicle was used effectively during the pacification of Franklin. A company was attached to a mercenary battalion contracted by the DCMS, where crews employed hull-down positions in local revetments to anchor defensive lines while drawing Franklin militia forces into repeated engagements. The operation successfully eliminated the nascent resistance and secured the world for the Dragon. Later fighting saw a substantial portion of the Federated Suns' Sekhmet stocks destroyed on Palmyra, prompting the AFFS to seek replacement sources for the type.</p>
+</history>
+
+<manufacturer>
+LAW Barcella-Beta
+</manufacturer>
+
+<primaryFactory>
+Irece
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Consolidated
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:260 XL
+ARMOR:Ferro-Fibrous
+COMMUNICATIONS:Build 1685/6 Tacticom
+TARGETING:Series XXVIII IWS
+</systemModels>
+
+<source>
+TR:3145:DC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+65.0
+</tonnage>
+

@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a758-7dce-b070-b588dbdd87cb
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Simian Battle Armor
+</Name>
+
+<Model>
+[LRR](Sqd4)
+</Model>
+
+<mul id:>
+6648
+</mul id:>
+
+<year>
+3135
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+easy_maintain
+</quirks>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+BABattleClawMagnets:LA
+BABattleClawMagnets:RA
+CLBALight Recoilless Rifle:RA
+BASearchlight:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>Fitted with a Light Recoilless Rifle on its modular weapon mount, this configuration gives the Simian a ballistic option with better range than the standard energy loadout. The rifle provides reasonable hitting power against soft targets, though its ammunition dependency limits sustained operations. Magnetic claws on both arms remain available for close-quarters combat and anti-vehicle swarming attacks, with a searchlight completing the equipment fit.</p><p>The suit's 350 kilograms of standard armor offer moderate protection at one thousand kilograms total weight, keeping the design within the medium class. Ground speed and 90-meter jump capability exceed most comparable battle armor designs, allowing troopers to use terrain and mobility to offset the armor's limitations. The recoilless rifle configuration favors engagements at medium range, where operators can pick targets from cover before closing or withdrawing as the tactical situation demands.</p>
+</capabilities>
+
+<overview>
+<p>The Simian is a medium-class Inner Sphere battle armor designed for mass production and easy maintenance. Conceived under a Republic of the Sphere program to reduce the rising cost of powered infantry, the suit prioritizes affordability and field serviceability over technological sophistication. Rhodes Foundry of Devil's Rock brought the design into production in 3135, creating a general-purpose combat suit built entirely from standard Inner Sphere components. Jump-capable and equipped with magnetic claws for anti-vehicle operations, the Simian fills a skirmisher role, relying on speed and agility rather than heavy armor to protect its operators. A modular weapon mount allows field-level customization of the primary armament.</p>
+</overview>
+
+<deployment>
+<p>Inner Sphere commands fielded the recoilless rifle variant in four-trooper squads tailored for ranged engagement and fire support roles. Republic forces favored this configuration during operations in the Draconis March, where squads could provide covering fire for advancing BattleMech formations. The ballistic weapon's reach gave squad leaders more flexibility in positioning than energy-armed alternatives.</p>
+</deployment>
+
+<history>
+<p>The Simian emerged from a Republic of the Sphere initiative to reduce the prohibitive cost of battle armor production. Paladin Kara Rutherford championed the program, commissioning a design study that prioritized affordability and ease of maintenance over advanced technology. Rutherford did not live to see the project reach fruition. Rhodes Foundry on Devil's Rock brought the suit into production in 3135, working behind the secrecy of the Republic's collapsing borders.</p><p>The suit entered service as a tool of Exarch Jonah Levin's campaign to destabilize the Republic's rivals through deniable operations. Substantial numbers were manufactured in the months before April 3136, and troopers wearing the Simian fought across every realm bordering the Republic in false-flag formations. During campaigns in the Draconis March, RAF units masquerading as Davion forces employed Simians extensively alongside conventional forces. On Galatea in 3144, disguised Republic operatives used small craft to insert platoons of Simians directly onto Jade Falcon positions. The suit's deliberate simplicity, using common Inner Sphere components and standard weaponry, meant that virtually any industrial base could replicate it. This proliferation ensured the Simian spread well beyond Republic control as the Dark Age conflicts intensified.</p>
+</history>
+
+<manufacturer>
+Rhodes Foundry
+</manufacturer>
+
+<primaryFactory>
+Devil's Rock
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:RotS,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+7
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

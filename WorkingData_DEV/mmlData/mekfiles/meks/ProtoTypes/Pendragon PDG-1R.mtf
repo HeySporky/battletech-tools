@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d77b-738b-9f10-a483b32c8831
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Pendragon
+model:PDG-1R
+mul id:4799
+
+Config:Biped
+techbase:Inner Sphere
+era:3083
+source:TR:Proto
+published:RS:Proto
+rules level:3
+role:Missile Boat
+
+quirk:imp_target_long
+quirk:difficult_maintain
+quirk:no_arms
+
+mass:95
+engine:380 XL Engine
+structure:IS Composite
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:32
+RA armor:32
+LT armor:30
+RT armor:30
+CT armor:48
+HD armor:9
+LL armor:40
+RL armor:40
+RTL armor:10
+RTR armor:10
+RTC armor:12
+
+Weapons:6
+Extended LRM 15, Left Arm
+Extended LRM 15, Right Arm
+ER PPC, Left Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+IS Ammo Extended LRM-15
+IS Ammo Extended LRM-15
+ISCASEII
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+Extended LRM 15
+IS Ammo Extended LRM-15
+IS Ammo Extended LRM-15
+ISCASEII
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERPPC
+ISERPPC
+ISERPPC
+PPC Capacitor
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISC3SlaveUnit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Pendragon is a ninety-five-ton assault BattleMech developed by General Motors at their New Valencia facility for the Armed Forces of the Federated Suns. Conceived in 3072 under the Operation MUSE RED program, the design was loosely inspired by the successful Templar OmniMech and sought to fill the role of a dedicated long-range fire support platform. Following a protracted development cycle, the production Pendragon entered limited service in the early 3080s.</p><p>The Pendragon fills a specialized niche as a stand-off bombardment 'Mech, capable of engaging targets at extreme ranges that most opponents cannot match. Production has been exclusive to General Motors, serving the Federated Suns' military forces.</p>
+
+capabilities:<p>The Pendragon is designed as an extended-range hitter, built to operate behind the main battle line and strike targets at distances most 'Mechs cannot reach. The production PDG-1R mounts a pair of Holly EX Extended LRM-15 launchers in its arms, providing devastating long-range indirect fire capability enhanced by the 'Mech's head-mounted C³ slave unit, which allows it to share targeting data with lancemates for pinpoint accuracy at extreme distances. A Johnston High Speed Extended Range PPC with an attached PPC Capacitor provides direct-fire punch at long range, while three Bright-Bloom Extended Range Medium Lasers offer adequate protection against enemies that close to shorter distances.</p><p>The design's composite internal structure saves weight but leaves the Pendragon vulnerable to penetrating hits, making close combat inadvisable. The lack of lower arm actuators further limits its melee options. StarGuard CIV armor with CASE II protection in both arms provides solid overall coverage and ammunition safety, while the GM 380 XL engine delivers a respectable top speed of sixty-four kilometers per hour, fast enough to maintain distance from most heavy and assault 'Mechs.</p><p>The Pendragon's extreme missile range and C³ integration allow it to influence battles well before enemy units can effectively return fire, though pilots must carefully manage their limited ammunition supply of twelve reloads per launcher.</p>
+
+deployment:<p>The production Pendragon required significant redesign to eliminate dependence on Clan-sourced components, a priority driven by post-Jihad supply chain realities. The prototype's Extended LRM-20 launchers were replaced with smaller Holly EX Extended LRM-15 launchers, which offered better ammunition economy and allowed the CASE II-protected magazines to be relocated to the arms. Clan Extended Range medium lasers gave way to Inner Sphere Bright-Bloom equivalents, and the Clan ferro-fibrous armor was swapped for StarGuard's Inner Sphere CIV model. The most notable improvement was the upgrade to a GM 380 XL engine, boosting the Pendragon's speed from fifty to sixty-four kilometers per hour. The composite internal structure was retained despite its fragility, and the first production units entered service with the Davion Guards, split between their Assault and Heavy Guard formations.</p>
+
+history:<p>The Pendragon's origins trace to 3072, when the Armed Forces of the Federated Suns initiated Operation MUSE RED at General Motors' New Valencia plant. The program aimed to leverage both Inner Sphere and Clan technologies to produce a next-generation fire support assault 'Mech, drawing inspiration from the Templar OmniMech's proven design philosophy. Progress was slow from the outset. The Jihad-era destruction of much of the Federated Suns' military and civilian industrial infrastructure created severe supply shortages, and the AFFS prioritized restoring existing production lines over funding new experimental programs.</p><p>By 3078, six MUSE RED prototypes had been completed, but testing revealed significant problems. The chassis proved more fragile than expected under sustained fire, leading to the addition of heavier armor protection and improved ammunition safeguards. Despite these improvements, persistent software glitches in the targeting and tracking systems plagued all prototypes, and mechanical failures claimed at least three of the initial batch. A second group of four additional prototypes was authorized, but the design remained far from operational readiness.</p><p>The transition from prototype to production required further compromises. Recognizing that dependence on Clan-sourced components was untenable for sustained production, the design team replaced Clan armor, heat sinks, and energy weapons with Inner Sphere equivalents. The heavy missile launchers were downgraded to lighter models, and a larger engine was fitted to compensate for the weight changes. The production PDG-1R finally entered limited service in the early 3080s, with the first units deployed to the Davion Guards.</p><p>Production has continued at a modest pace through the Dark Age, with the PDG-3R variant appearing around 3134 as an evolution of the design toward direct-fire support roles. The Pendragon remains an exclusively Federated Suns design, produced solely at General Motors' New Valencia facility.</p>
+
+manufacturer:General Motors
+
+primaryfactory:New Valencia
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:General Motors
+systemmode:CHASSIS:PDG Composite
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:380 XL
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:CIV with CASE II
+systemmanufacturer:COMMUNICATIONS:Newberg
+systemmode:COMMUNICATIONS:Telescan 17 with C³ Slave
+systemmanufacturer:TARGETING:Spar
+systemmode:TARGETING:3C MegaTrak

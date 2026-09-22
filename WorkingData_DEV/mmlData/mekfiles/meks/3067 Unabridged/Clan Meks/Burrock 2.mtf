@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cdb1-7ef0-8d60-fbda3ffb3818
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Burrock
+model:2
+mul id:5694
+
+Config:Biped
+techbase:Clan
+era:3071
+source:TR:3067
+published:RS:3067u
+rules level:2
+role:Brawler
+
+quirk:stable
+
+mass:75
+engine:375 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:15 Clan Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:21
+RA armor:21
+LT armor:21
+RT armor:21
+CT armor:28
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:7
+RTR armor:7
+RTC armor:9
+
+Weapons:7
+Heavy Medium Laser, Left Arm
+Heavy Medium Laser, Left Arm
+HAG/40, Right Arm
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+Heavy Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Burrock is a 75-ton Clan heavy BattleMech introduced in 3066 by Clan Star Adder. Named for the Eden burrock, a large subterranean invertebrate known for boring through solid rock, the design was developed as a dedicated close-range brawler following the politically complex absorption of Clan Burrock. The 'Mech was conceived as both a combat platform and a symbol of respect for the absorbed Clan's heritage, intended to earn the loyalty of former Burrock warriors through recognition rather than forced assimilation.</p><p>Built at the Albion Armor Works facility, the Burrock fills a short-range assault role in the Star Adder touman. Its reputation as a relentless close-quarters combatant reflects both its devastating firepower at point-blank range and the fierce pride of the warriors who pilot it.</p>
+
+capabilities:<p>At 75 tons, the Burrock sits at the top of the heavy weight class and moves fast enough to keep pace with most Clan 'Mechs, achieving a maximum speed of 86 kilometers per hour courtesy of a Modified 375-rated extra-light fusion engine. The XL engine does leave the 'Mech vulnerable to torso hits, but roughly twelve and a half tons of Forging XK9 Ceramic Standard armor provides substantial protection.</p><p>The Burrock's offensive capabilities are devastating at short range but nonexistent at distance. A Model SH Class-20 Ultra autocannon serves as the primary weapon, capable of delivering punishing bursts of fire, while six Series 22a Heavy Medium Lasers distributed across the frame provide withering energy support. This weapons array prioritizes raw firepower over flexibility, and twenty double-strength heat sinks struggle to manage the tremendous thermal output when all weapons fire simultaneously. MechWarriors must exercise careful heat discipline or risk shutdown at the worst possible moment, a significant trade-off in a design that must close to point-blank range to be effective.</p>
+
+deployment:<p>Introduced in 3073 during the Jihad, this variant stands as a significant reworking of the Burrock's weapons philosophy. The devastating but ammunition-dependent Ultra Autocannon/20 and three of the Heavy Medium Lasers are stripped out in favor of a massive Hyper-Assault Gauss 40 and three Extended-Range Medium Lasers. The HAG/40 provides a cluster-fire weapon system with substantially greater effective range than the original autocannon, allowing this variant to contribute to engagements well before reaching knife-fighting distance. The swap to ER Medium Lasers similarly extends the energy envelope. Heat management drops to fifteen double heat sinks, but the revised loadout generates a more manageable thermal profile overall. The result is a variant better suited to ranged engagements while retaining significant close-range punch.</p>
+
+history:<p>The Burrock's origins are inseparable from one of the most dramatic political upheavals in Clan history. In 3059, revelations of decades-long underhanded dealings between Clan Burrock and the Bandit Caste inhabiting the Clan Homeworld periphery triggered a Trial of Absorption by Clan Star Adder. Shamed by the discovery of dishonor within their own Clan, many Burrock warriors offered only token resistance, with some actively fighting alongside the Adders against Clan Blood Spirit interference. The absorption was completed by late February 3059, and the Star Adders integrated the former Burrock warriors and their substantial military assets.</p><p>The Star Adders initially misread the willingness of Burrock warriors to accept absorption as enthusiasm for joining a stronger Clan. Adder Keeper Stanislov identified the paradox in a 3061 report: the Burrocks had not embraced the Adder way but rather embraced the removal of their dishonor through absorption into a more honorable Clan. Their sense of identity as Burrocks remained unbroken, and Stanislov warned that attempting to force assimilation would only breed resentment. His recommendation to honor that identity led directly to Khan Cassius N'Buta authorizing development of the Burrock BattleMech at the Albion Armor Works Gamma facility on Albion.</p><p>Production began in 3066, and the 'Mech was deployed primarily to units with large concentrations of former Burrock warriors. The design proved effective in its intended role as a close-range brawler, and its symbolic significance helped smooth the integration of absorbed Burrock personnel into the Star Adder touman. The Albion factory continued production through the Civil War era and into the Jihad, during which the upgraded Burrock 2 variant entered service in 3073.</p><p>The Jihad era brought further turmoil when former Burrock warriors attempted to resurrect their Clan in 3072, raising nearly four Galaxies of mixed troops on Priori from armed civilians. Clan Star Adder responded with overwhelming force, destroying the rebel forces by late 3073. The remaining Burrock holdouts on Tanis were eliminated by orbital bombardment in 3074, ending any hopes of a Burrock revival. Despite this insurgency, the Burrock BattleMech itself remained in Star Adder service, a reminder that the design had succeeded in its original purpose of honoring the absorbed Clan's identity even as the most disaffected elements were purged.</p><p>Production at the Albion facility appears to have ceased following the Jihad era, with no evidence of continued manufacturing into the Dark Age. The relatively small production run and the political complexities surrounding the design's origins have made the Burrock an uncommon sight outside of Star Adder formations, though surviving examples continue to serve in second-line and garrison roles.</p>
+
+manufacturer:Albion Armor Works Gamma
+
+primaryfactory:Albion (Indicass)
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type BIES-75 Light
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Modified 375 XL Fusion
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:XK9 Ceramic Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Series B12 CBS MultiFreq
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Integrated Bravo-7

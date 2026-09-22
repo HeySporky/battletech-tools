@@ -1,0 +1,161 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e3fb-7c77-b8cf-aed807c1de75
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Fulcrum Heavy Hovertank
+</Name>
+
+<Model>
+II
+</Model>
+
+<mul id:>
+1155
+</mul id:>
+
+<year>
+3067
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+10
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+46
+27
+27
+20
+40
+</armor>
+
+<Body Equipment>
+ISGuardianECMSuite
+IS Ammo LRM-10
+IS Ammo SRM-6
+</Body Equipment>
+
+<Front Equipment>
+ISTAG
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+LRM 10
+Medium Laser
+Medium Laser
+Medium Laser
+SRM 6
+</Turret Equipment>
+
+<capabilities>
+<p>The Fulcrum's performance centers on its Strand 265 XL fusion engine, which drives the tank to flank speeds exceeding 160 km/h. This speed comes at a cost: the hover propulsion system remains inherently fragile under concentrated fire, and the vehicle's armor protection is below what heavier designs carry at the same tonnage.</p><p>The weapons suite is mounted entirely in the turret. The Sunglow Type 2 Large Laser and Delta Dart LRM 10 Launcher provide effective engagement capability at range, while a Diverse Optics Type 18 Medium Laser offers supplementary close-in firepower. The LRM system carries only one ton of ammunition, limiting the tank's ability to sustain missile fire through extended engagements.</p><p>The O/P AIR 900 communications suite, fitted with a Guardian ECM system, enables the Fulcrum to screen friendly units from enemy targeting and disrupt adversary coordination. A built-in TAG designator allows the crew to mark targets for indirect fire from artillery and aerospace assets. Together these systems make the Fulcrum a capable force multiplier even when direct engagement would be unwise, supporting combined-arms operations well beyond what the vehicle's weapons alone would suggest.</p>
+</capabilities>
+
+<overview>
+<p>The Fulcrum Heavy Hovertank emerged from Cyclops Incorporated's Skye design bureau in 3055, developed to succeed the aging Drillson Heavy Hovertank. Cyclops prioritized ease of maintenance and technological accessibility, building a vehicle suited for deployment on worlds far from major supply hubs.</p><p>The initial production run impressed the Lyran Alliance command sufficiently to generate an order for 500 vehicles within four months, quickly exceeding Cyclops' production capacity and prompting licensed production at additional facilities. The Fulcrum earned a reputation as an exceptional reconnaissance and fast-strike platform, capable of outrunning threats it could not defeat and delivering meaningful firepower across a broad engagement range. Its combination of electronic warfare capability and long-range weapons made it a valued asset in combined-arms formations throughout the Inner Sphere and Periphery.</p>
+</overview>
+
+<deployment>
+<p>The Fulcrum II was introduced in 3067 to address demand for a variant better suited to urban and close-quarters combat. Replacing the large laser with additional medium lasers and a short-range missile rack trades long engagement reach for volume of fire at closer ranges. The variant served primarily in assault and exploitation roles within Lyran Alliance commands, complementing the standard model's reconnaissance focus. It was particularly effective when paired with standard Fulcrums, moving in to press engagements that the base model's firepower had opened.</p>
+</deployment>
+
+<history>
+<p>Development of the Fulcrum began at Cyclops Incorporated's Skye facility in 3055, driven by Lyran Alliance demand for a hovertank that could be maintained on worlds with limited technical infrastructure. Prototypes completed trials in 3056, and series production began in March 3057 following an initial order that demonstrated the Alliance command's confidence in the design. Early deployments along the Periphery and Free Worlds League borders confirmed the vehicle's value, with garrison forces receiving capable modern equipment for the first time in years.</p><p>The vehicle's strong performance during the FedCom Civil War expanded demand beyond Cyclops' production capacity. By 3067, Johnston Industries of New Syrtis had negotiated a production license, bringing the Fulcrum into Federated Suns service in significant numbers. Both manufacturers supplied vehicles to the combined Davion-Steiner commands engaged across multiple fronts during this period.</p><p>The Jihad placed Fulcrum formations at the center of several notable campaigns. During Duke George Hasek's strikes into Capellan territory and Duke Robert Kelswa-Steiner's operations against the Free Worlds League, Fulcrum units served as screening forces and fire-direction elements for missile batteries, their ECM and TAG capabilities proving well suited to the disrupted communications environment of Jihad-era warfare. The Alphard Trading Corporation's production line on Alphard, operating under Marian Hegemony control, continued uninterrupted during these conflicts, supplying vehicles to Periphery buyers while Inner Sphere manufacturers faced wartime disruptions.</p>
+</history>
+
+<manufacturer>
+Cyclops, Incorporated
+</manufacturer>
+
+<primaryFactory>
+Skye
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Strand
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:265 XL
+ARMOR:StarSlab/11.5 Type HVA
+COMMUNICATIONS:O/P AIR 900
+TARGETING:RCA Instatrac Mark XII
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-I
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

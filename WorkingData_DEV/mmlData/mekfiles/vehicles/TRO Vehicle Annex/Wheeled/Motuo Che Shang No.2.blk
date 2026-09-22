@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb7d-7a0e-8c54-ca0a6f56b117
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Mótuö Chë Shang No.2
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4680
+</mul id:>
+
+<year>
+2469
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+easy_maintain
+</quirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:0.025:1:1::-1:0
+pillionseats:1.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+12
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+43
+</armor_type>
+
+<armor_tech_rating>
+2
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+0
+0
+0
+0
+</armor>
+
+<Body Equipment>
+MonocycleChassisMod
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+2
+</barrating>
+
+<structural_tech_rating>
+2
+</structural_tech_rating>
+
+<engine_tech_rating>
+2
+</engine_tech_rating>
+
+<capabilities>
+<p>The No. 2 is a 320-kilogram wheeled support vehicle built on a Monocycle Chassis Modification, a single-wheel drive arrangement uncommon among production civilian vehicles. Its internal combustion engine produces a cruise speed approaching 130 kilometers per hour and a flank speed near 195 kilometers per hour, providing performance appropriate to its prestige positioning. A pillion seat accommodates a second rider of up to 25 kilograms, and 25 kilograms of storage is available beneath the seat. No armor or weapons are fitted.</p><p>The No. 2's Equipment Rating of C/D-D-D reflects its civilian orientation and limited but consistent availability to buyers of sufficient means. The "Easy to Maintain" design quirk demonstrates that extreme customization need not preclude practicality: the No. 2 uses proven, thoroughly understood components that any competent technician can service without specialist tooling. Parts wear predictably and can be fabricated locally, a deliberate design choice that reflects the company's philosophy of enduring reliability over fashionable novelty.</p>
+</capabilities>
+
+<overview>
+<p>The Mótuö Chë Shang No. 2 is a handcrafted luxury monocycle produced by the Mótuö Chë Shang family enterprise on Sian. Founded in 2467 by Trun Shang, the company built its reputation around faultless craftsmanship and thorough customer service, securing its first commission from the Chancellor's court in 2469. The No. 2 has remained a coveted status symbol within the Confederation's upper social strata ever since. Production is deliberately limited to a few dozen units annually, with every vehicle assembled by hand and customized entirely to the buyer's specifications. No two No. 2s are identical, and the company regards each machine as a commission rather than a product.</p>
+</overview>
+
+<deployment>
+<p>The Mótuö Chë Shang No. 2 is found almost exclusively among Capellan nobility, senior government officials, and wealthy patrons of sufficient social standing to secure a commission from the workshop. With each example unique and output deliberately limited, the vehicle functions as much as a commissioned artwork as a practical transport. Occasional examples reach destinations beyond Sian through diplomatic gifts and private transactions. The company does not pursue export markets and has never sought to expand production volume, regarding the deliberate scarcity as inseparable from the product's identity and value.</p>
+</deployment>
+
+<history>
+<p>The Mótuö Chë Shang company was established on Sian in 2467 by founder Trun Shang, whose philosophy held that excellence required patient refinement rather than commercial ambition. Two years after its founding, the company secured its first commission from the Chancellor's court, beginning a relationship with Capellan aristocracy that would sustain the workshop across centuries of political upheaval. Each No. 2 was built entirely to the buyer's order, with design alterations made only after long deliberation and incorporated gradually rather than as discrete model changes.</p><p>The company's deliberately limited scale proved an advantage during the Succession Wars, as the workshop on Sian operated below the threshold of industrial targeting that devastated larger manufacturing operations during that period. The Shang family continued producing its handful of annual commissions across the centuries of conflict, the vehicle's design evolving slowly in keeping with the founder's principles. Following the Xin Sheng cultural revival of the late 3050s and 3060s, the workshop under Howard Shang's direction began incorporating traditional Chinese iconography into its designs, giving the latest-generation No. 2s a visual character closely tied to Capellan cultural heritage. By the Civil War era, the company continued operating with fewer than a dozen craftsmen, its small annual output as sought-after as ever among the Confederation's upper social circles.</p>
+</history>
+
+<manufacturer>
+Mótuö Chë Shang
+</manufacturer>
+
+<primaryFactory>
+Sian
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Mótuö Chë Shang
+ENGINE:Unknown
+COMMUNICATIONS:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Monocycle Chassis Modification
+ENGINE:ICE
+COMMUNICATIONS:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+0.32
+</tonnage>
+
+<fuel>
+0.01
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

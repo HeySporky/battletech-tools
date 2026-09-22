@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7a9-7a3a-bc7b-1d5353eb104a
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Destrier Siege Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6329
+</mul id:>
+
+<year>
+3100
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<quirks>
+imp_target_long
+oversized
+non_standard
+poor_performance
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+4
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+60
+45
+45
+35
+35
+35
+41
+</armor>
+
+<Body Equipment>
+SponsonTurret
+ISCASE
+Communications Equipment:SIZE:1.0
+ISGuardianECMSuite
+ISC3SlaveUnit
+ISAMS Ammo
+ISAMS Ammo
+ISAMS Ammo
+ISAMS Ammo
+ISLongTomCannonAmmo
+ISLongTomCannonAmmo
+ISLongTomCannonAmmo
+ISLongTomCannonAmmo
+ISLongTomCannonAmmo
+ISLongTomCannonAmmo
+ISLongTomCannonAmmo
+ISLongTomCannonAmmo
+IS Light Machine Gun Ammo - Full
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Front Right Equipment>
+ISAntiMissileSystem(ST)
+Light Machine Gun(ST)
+Light Machine Gun(ST)
+</Front Right Equipment>
+
+<Front Left Equipment>
+ISAntiMissileSystem(ST)
+Light Machine Gun(ST)
+Light Machine Gun(ST)
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+Light Machine Gun
+Light Machine Gun
+Hitch
+ISAntiMissileSystem
+</Rear Equipment>
+
+<Turret Equipment>
+ISLongTomCannon
+ISLongTomCannon
+ISERMediumLaser
+ISERMediumLaser
+ISAntiMissileSystem
+</Turret Equipment>
+
+<capabilities>
+<p>The Destrier's most striking characteristic is its armor. Mounting thirty-seven tons of Johnston Bastion Plate 530 Hardened plating with integral CASE protection, the vehicle can absorb punishment that would destroy most conventional combat vehicles outright. To move this mass, General Motors fitted the design with a GM SuperLoad 400 XL fusion engine powerful enough to tow the Ballista trailer across varied terrain. This combination of armor and engine mass reduces the Destrier to a maximum speed of just over thirty kilometers per hour, making it among the slowest combat vehicles in active AFFS service.</p><p>Offensive firepower is concentrated in the main turret, where two Mydron Model L Long Tom cannons and a pair of Bright Blossom extended range medium lasers provide both extreme-range bombardment capability and direct-fire support. Against infantry and light vehicles, six GM light machine guns are distributed in pairs across all sides of the hull, with the flank weapons mounted in sponson turrets for wider coverage. Four MainFire Point Defense anti-missile systems guard against guided munitions, mounted in the turret and to the rear. A Guardian ECM suite and a C3 slave unit integrate the vehicle into combined-arms networks, while a four-ton infantry compartment provides organic defensive support against enemy boarding attempts.</p>
+</capabilities>
+
+<overview>
+<p>The Destrier Siege Vehicle stands apart from the cautious defensive doctrine that guided the Armed Forces of the Federated Suns in the early thirty-second century. Introduced in 3100 by General Motors on Salem, the two-hundred-ton tracked behemoth was conceived as a deliberate exception to a military culture increasingly focused on holding ground rather than seizing it. Built to bring overwhelming firepower against fortified installations and to trap unsuspecting opponents in devastating ambushes, the Destrier pairs tremendous armor protection with a pair of long-range artillery cannons capable of reducing fortifications to rubble within minutes of arrival. The design pays a steep price for this capability, moving at speeds that severely limit its strategic flexibility. Deployed alongside its purpose-built Ballista artillery trailer, the combined system represents one of the most formidable siege platforms ever fielded by a Successor State.</p>
+</overview>
+
+<deployment>
+<p>The Destrier's combined tonnage with its Ballista trailer makes rapid deployment all but impossible, limiting its use to pre-planned operations where substantial logistical support can be arranged in advance. The AFFS has fielded the vehicle in two primary roles: as a siege weapon against hardened installations and as an ambush platform against armored columns following predictable approach routes. Given the scarcity of Destriers in active service, individual engagements have involved only a handful of vehicles at a time, typically attached to heavy assault formations or garrison commands holding key facilities. The vehicle's extreme armor and artillery reach make it effective in last-ditch defensive actions, though commanders must accept that recovery of committed Destrier units is rarely practical once an engagement begins.</p>
+</deployment>
+
+<history>
+<p>The Destrier emerged from a design process that ran contrary to the prevailing strategic philosophy within the AFFS. In the years following the Jihad, Federated Suns military planners increasingly emphasized defensive operations, rebuilding degraded border defenses rather than projecting offensive force. General Motors' engineering team at Salem developed the Destrier in response to a faction within the Department of the Quartermaster that argued the AFFS needed a dedicated tool for prosecuting offensive sieges and springing large-scale ambushes against enemy armored columns. The result entered service in 3100, an anomaly in an era of retrenchment.</p><p>The design's first major operational test came during the Victoria War, when the Federated Suns pushed into Capellan Confederation space. On Spica in 3104, a company of Destriers was assigned to ambush elements of the Third McCarron's Armored Cavalry. The Eighth Avalon Hussars light combat team used the vehicles as bait and directed the Capellan vanguard into a valley, where concealed Destriers opened fire and destroyed the lead elements with concentrated artillery. Despite taking losses, the operation forced the Third McCarron's to withdraw, buying time for the broader campaign.</p><p>By the 3140s, the character of the Destrier's service had shifted considerably. With the Draconis Combine pressing deep into Federated Suns territory, the AFFS deployed Destriers primarily as last-line holders, committing them to defensive actions from which recovery was rarely expected. On Barlow's End, a platoon of Destriers used the grounds of the Princess Melissa spaceport to delay advancing Combine forces long enough for DropShips to escape. As the Combine closed in, the Destrier crews fired from cover while VTOLs and hovertanks designated targets for the Ballista's Arrow IV launchers. None of the Destrier crews at Barlow's End survived to be captured.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Salem
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:General Motors
+ENGINE:General Motors
+ARMOR:Johnston
+COMMUNICATIONS:Achernar Electronics
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:GM SuperLoad 400 XL
+ARMOR:Johnston Bastion Plate 530 (Hardened/CASE)
+COMMUNICATIONS:Achernar Electronics HICS-17
+TARGETING:Federated Bombard Mk. II
+</systemModels>
+
+<source>
+TR:3145:FS,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+200.0
+</tonnage>
+

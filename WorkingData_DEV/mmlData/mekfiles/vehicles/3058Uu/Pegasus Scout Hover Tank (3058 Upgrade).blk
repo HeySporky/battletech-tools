@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e454-7758-a1ce-6f394a507e3c
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Pegasus Scout Hover Tank
+</Name>
+
+<Model>
+(3058 Upgrade)
+</Model>
+
+<mul id:>
+2455
+</mul id:>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+20
+16
+16
+10
+18
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-6
+ISGuardianECMSuite
+</Body Equipment>
+
+<Front Equipment>
+ISMediumPulseLaser
+BeagleActiveProbe
+ISTAG
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+SRM 6
+SRM 6
+</Turret Equipment>
+
+<capabilities>
+<p>The base Pegasus carries a pair of turret-mounted SRM 6 racks as its primary offensive armament, backed by a front-mounted medium laser. The laser is weight-inefficient on an internal combustion vehicle of this size, but it allows the crew to continue fighting after expending their missiles and provides a backup at range. Six and a half tons of ProtecTech 6 armor provides solid protection for a light hover tank, sufficient to absorb several large laser hits to any location. At nearly 130 kph, the Pegasus ranks among the faster vehicles in its weight class.</p><p>The vehicle's standout feature is its electronics suite. The Exeter LongScan communications system with ReconLock interfaces with the Salamander Systems CommPhase targeting unit, creating an automated fire-control loop that identifies and prioritizes targets, firing the laser and missiles simultaneously unless the gunner overrides. This near-autonomous targeting capability made many crews uneasy in the decades following the Amaris Civil War, and reservations about automated weapons systems persist in forces that field the design.</p><p>A meaningful limitation is the Pegasus's inability to communicate with orbiting vessels without a separately purchased TransBoost unit, an Exeter-built tight-beam transmitter for secure long-range communication. Customers complained about paying extra for a capability standard on larger vehicles, and Exeter began pre-installing units in 3027. Many older Pegasi in service still lack the upgrade.</p>
+</capabilities>
+
+<overview>
+<p>The Pegasus Scout Hover Tank first appeared during the First Succession War, when heavy combat losses forced the Great Houses to redirect BattleMech scouts to frontline duty, creating a critical gap in light reconnaissance. The Exeter Organization on Keystone designed the Pegasus to fill this role, producing a fast, maneuverable hovercraft built on internal combustion technology that remained accessible even as fusion engines grew scarce. A successful licensing arrangement with Red Devil Industries on Pandora and Hellespont Industries on Sian quickly established it as a multi-faction platform available across the Inner Sphere.</p><p>Found in virtually every major military organization and many minor powers, the Pegasus earned the informal designation "Harasser on Steroids" for combining reasonable armament with impressive speed and capable electronics. Its widespread availability, relatively simple maintenance requirements, and flexibility across multiple variants have made it one of the most prolific light combat vehicles produced in the history of the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>Scarborough Manufacturers' substantially upgraded version replaces the internal combustion engine with a fusion powerplant and upgrades to ferro-fibrous armor, significantly enhancing survivability. The medium pulse laser improves accuracy in close engagements, while the Guardian ECM suite and Beagle Active Probe combination make the vehicle a considerably more capable electronic warfare platform than the original. A TAG system allows the crew to designate targets for artillery or aerospace support. Found across Draconis Combine, Free Worlds League, Federated Suns, and Capellan Confederation forces, this variant quickly became the new baseline for well-equipped Pegasus operations following its introduction.</p>
+</deployment>
+
+<history>
+<p>The Pegasus Scout Hover Tank emerged from the desperate improvisations of the First Succession War. When sustained combat losses forced the Great Houses to commit BattleMech scouts to frontline engagements, reconnaissance formations across the Inner Sphere found themselves critically short of capable platforms. The Exeter Organization responded by developing the Pegasus on Keystone, drawing on internal combustion technology that remained accessible even as fusion engines grew scarce and expensive.</p><p>Initial production spread rapidly through a licensing deal that brought in Red Devil Industries on Pandora and Hellespont Industries on Sian. The arrangement reportedly involved Red Devil trading the rights to a proprietary laser design and a substantial cash payment in exchange for production access. This multi-faction supply protected the design's availability as factory worlds changed hands during the long centuries of interhouse warfare. Hellespont Industries eventually began producing unlicensed copies for the Capellan Confederation at reduced rates, exploiting the proprietary TransBoost system that Exeter refused to license in protest. Repeated diplomatic attempts to halt this unauthorized production have been blocked by successive Capellan Chancellors.</p><p>Red Devil's Pandora facility operated under Lyran Commonwealth and later Federated Commonwealth ownership before Clan Jade Falcon seized the planet in 3064, ending that production line. Scarborough Manufacturers on Al Na'ir supplied Draconis Combine forces throughout the Succession Wars and the Clan Invasion period, eventually developing a suite of modernized variants that substantially upgraded the original design. The Algedi facilities, integrated into the Scarborough production network after the Jihad, became the origin point for the most advanced Pegasus configurations, including experimental prototypes that pushed the vehicle's performance far beyond its original parameters.</p><p>Field modifications appeared throughout the Succession Wars as operators adapted the basic platform to specific operational needs. Removing weapons for sensor equipment, replacing the laser with additional missile racks, and stripping the vehicle entirely of armament for dedicated reconnaissance all became common enough to receive formal variant designations over time. This history of field adaptation reflects the Pegasus's enduring flexibility and the practical ingenuity of the crews who operate it.</p>
+</history>
+
+<manufacturer>
+Exeter Organization|Hellespont Industries|Scarborough Manufacturers|Valiant Systems
+</manufacturer>
+
+<primaryFactory>
+Keystone|Sian|Al Na'ir|Johnsondale
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Scarborough
+ARMOR:Valiant Systems
+COMMUNICATIONS:Scarborough
+TARGETING:Scarborough
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:105 Fusion
+ARMOR:ProtecTech 12 Ferro-Fibrous
+COMMUNICATIONS:Talky 3 with Guardian ECM
+TARGETING:Tracky 3 with Beagle Active Probe and TAG
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-I,RSFP:Battlefield
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+

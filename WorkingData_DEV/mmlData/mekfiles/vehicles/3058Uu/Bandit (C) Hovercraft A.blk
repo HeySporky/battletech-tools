@@ -1,0 +1,176 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e3bf-7c87-af5a-ada06a76ab8c
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Bandit (C) Hovercraft
+</Name>
+
+<Model>
+A
+</Model>
+
+<mul id:>
+220
+</mul id:>
+
+<year>
+2875
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+troopspace:5.0
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+40
+40
+40
+20
+32
+</armor>
+
+<Body Equipment>
+Clan Ammo SRM-2:OMNI
+CLCASE:OMNI
+</Body Equipment>
+
+<Front Equipment>
+CLSRM2:OMNI
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLERLargeLaser:OMNI
+CLSRM2:OMNI
+</Turret Equipment>
+
+<capabilities>
+<p>The Clan Bandit shares the same propulsion system and seven-ton pod space as its Inner Sphere counterpart, with hovercraft mobility providing strategic speed advantages of ninety-seven kilometers per hour cruise and one hundred fifty-one kilometers per hour flank. The primary distinction lies in its ferro-fibrous armor, which provides roughly two additional tons of equivalent protection compared to the ProTech standard used by the IS variant, improving survivability in the sustained close-in exchanges common to homeworld garrison engagements without increasing the vehicle's overall mass.</p><p>Clan manufacturing standards ensure tighter component tolerances throughout, though the fundamental mobility and pod space profile remains comparable across both variants. Nine standard configurations cover a wide range of tactical roles, from direct fire support with heavy energy weapons to missile-heavy indirect fire platforms. The OmniVehicle architecture provides the same reconfigurability advantage, though Clan doctrine typically favors more aggressive forward employment than the mercenary flexibility that shaped the IS version's design philosophy. Like the IS Bandit, the Clan variant's hovercraft propulsion limits it to favorable terrain and leaves it vulnerable to mobility kills.</p>
+</capabilities>
+
+<overview>
+<p>The Bandit hovercraft traces its origins to the Clan Golden Century, predating the Inner Sphere version by several centuries as a standard combat vehicle type across multiple homeworlds. When Wolf's Dragoons introduced their Inner Sphere variant through Blackwell Corporation, they drew directly on this earlier Clan design as the conceptual foundation, adapting it to Inner Sphere components and manufacturing processes. The Clan version retains the same fifty-ton chassis and OmniVehicle architecture but employs ferro-fibrous armor, providing additional protection compared to the standard composite used in the IS model. Multiple homeworld factories across Clan-held space produced the design from the early Succession Wars era onward, making it one of the more widely distributed Clan conventional combat vehicles in second-line and garrison service.</p>
+</overview>
+
+<deployment>
+<p>A Clan Invasion-era configuration emphasizing long-range direct fire, the A variant is deployed in homeworld defense clusters tasked with engaging Inner Sphere counterattack forces and raiding units at standoff distances. Its range emphasis reflects the security environment of the Invasion period, when homeworld defenders required reliable long-range coverage to compensate for limited frontline combat experience against the diverse Inner Sphere force compositions they increasingly faced.</p>
+</deployment>
+
+<history>
+<p>The Bandit emerged during the Clan Golden Century as a practical medium combat hovercraft suited to planetary garrison and combined-arms support roles in the harsh homeworld environment. Clan homeworld facilities across multiple worlds maintained production capacity for the design, including installations on Barcella, Hector, Shadow, Strato Domingo, Tranquil, and Weingarten, as well as Albion in the Junction City region. These dispersed manufacturing sites ensured the design's continued availability even as individual homeworld economies fluctuated with the shifting political alignments among the Clans.</p><p>The Blackwell Corporation facility on Outreach held a unique position in the Clan Bandit's production history, producing both the IS and Clan variants at different periods in a reflection of the Wolf's Dragoons' origins and their company's unusual bridging role between Clan and Inner Sphere technology traditions. Clan Invasion-era homeworld factories continued operating under their respective Clans' direction, with some facilities changing hands as political realignments altered homeworld ownership following the Invasion, the Civil War, and the Jihad.</p><p>The post-Jihad era brought uncertainty to several homeworld production sites as Clan political boundaries shifted and Republic of the Sphere influence created contested territorial claims. Records from this period reflect unclear ownership for a number of facilities, though the Bandit continued to appear in Clan second-line formations well into the ilClan era. Its widespread production base and straightforward maintenance requirements ensured the design outlasted the corporate and political disruptions that claimed many more specialized combat vehicle lines.</p>
+</history>
+
+<manufacturer>
+Blackwell Corporation|Albion Armor Works Beta|Barcella Gamma|Hector MotorWorks Facility Gamma|Manufacturing Plant DSF-43|W-7 Facilities|W-7 Facilities|Weapons Plant FM-R33707
+</manufacturer>
+
+<primaryFactory>
+Outreach|Albion (Junction City)|Barcella|Hector|Strato Domingo|Tranquil|Weingarten|Shadow
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Clan Ferro-Fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-I
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+
+<baseChassisTurretWeight>
+1.0
+</baseChassisTurretWeight>
+

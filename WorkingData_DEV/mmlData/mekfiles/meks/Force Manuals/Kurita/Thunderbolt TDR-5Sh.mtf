@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d62b-7fcd-8c16-30dbc2ce936e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Thunderbolt
+model:TDR-5Sh
+
+Config:Biped
+techbase:Inner Sphere
+era:3034
+source:FM:Kurita
+rules level:1
+role:Brawler
+
+quirk:rugged_2
+quirk:multi_trac
+quirk:ubiquitous_is
+
+mass:65
+engine:260 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:15 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:24
+RT armor:24
+CT armor:30
+HD armor:9
+LL armor:29
+RL armor:29
+RTL armor:6
+RTR armor:6
+RTC armor:11
+
+Weapons:7
+Machine Gun, Left Arm
+Machine Gun, Left Arm
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+LRM 15, Right Torso
+SRM 2, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Machine Gun
+Machine Gun
+IS Ammo MG - Full
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Medium Laser
+Medium Laser
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+LRM 15
+LRM 15
+LRM 15
+SRM 2
+IS Ammo SRM-2
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ammo LRM-15
+IS Ammo LRM-15
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Thunderbolt was first produced in 2491 by Earthwerks Limited on Tikonov for the Capellan Confederation, representing the heaviest BattleMech the fledgling manufacturer could produce at the time. Designed from the outset as a planetary assault platform, the Thunderbolt, affectionately known as the T-Bolt or the Thud, established itself as one of the most formidable heavy ’Mechs of the Age of War. The design impressed the Confederation’s neighbors sufficiently that Earthwerks expanded into the Free Worlds League within fifteen years, establishing production on Keystone. Olivetti Weaponry on Sudeten, Taurus Territorial Industries, and Vandenberg Mechanized Industries on Pinard further broadened the manufacturing base across the Inner Sphere and Periphery.</p><p>Renowned for its varied arsenal, exceptional armor protection, and an easily modified chassis, the Thunderbolt has remained in continuous production for over five centuries. Periodic updates have ensured the design remains competitive against newer heavy ’Mechs, and its ubiquity is such that virtually every military force in the Inner Sphere and Periphery fields at least one Thunderbolt in its ranks.</p>
+
+capabilities:<p>The Thunderbolt’s greatest tactical asset is its eclectic weapons mix, which allows it to engage effectively at virtually any range. A Sunglow Type 2 large laser and Delta Dart LRM-15 launcher provide respectable long-range firepower, while three Diverse Optics Type 18 medium lasers mounted in a tight cluster and a Bical SRM-2 launcher deliver punishing close-range salvos. A pair of Voelkers 200 machine guns rounds out the arsenal for anti-infantry work. This combination enables the Thunderbolt to serve capably in roles ranging from fire support to brawling, a versatility few designs of its era can match.</p><p>Thirteen tons of Ryerson 150 armor provide protection that rivals or exceeds many assault ’Mechs, giving MechWarriors considerable confidence in sustained engagements. The Magna 260 fusion engine propels the chassis to a respectable sixty-four kilometers per hour, adequate for maintaining formation with most heavy lances. The Thunderbolt also features an exceptionally roomy cockpit compared to similarly sized designs, reducing pilot fatigue during prolonged campaigns.</p><p>The Thunderbolt’s well-known weakness is its inadequate heat dissipation. With only fifteen heat sinks struggling to manage the thermal output of its numerous energy weapons and missile systems, MechWarriors must carefully manage their rate of fire or risk shutdown and ammunition cook-off. Many commanders order their Thunderbolts into bodies of water at the outset of engagements, allowing pilots to fire their weapons more aggressively than the design’s cooling systems would otherwise permit.</p>
+
+deployment:<p>The TDR-5Sh is a Draconis Combine field modification of the standard TDR-5S, stripping the right arm large laser and installing a hatchet in its place. This refit was developed to support Berserker Lance doctrine, which demands heavy BattleMechs trained to close with the enemy and destroy them through raw physical force. The Thunderbolt’s sixty-five tons of mass and thick armor make it well-suited to absorb punishment during the approach, while its remaining missile and energy weapons provide suppressive fire at range. Once in close, the hatchet delivers crushing strikes capable of breaching armor and shattering internal structure far more efficiently than the laser it replaced. The long-range missile rack keeps the variant relevant during the approach phase, and the medium lasers and machine guns discourage infantry from interfering with the melee engagement. Berserker Lances fielding this variant typically advance behind heavier assault platforms before peeling off to engage targets of opportunity, where the Thunderbolt’s combination of durability and striking power gives it a decisive edge.</p>
+
+history:<p>The Thunderbolt’s origins trace to 2491, when Earthwerks Limited on Tikonov produced the primitive TDR-1C under the guidance of engineer Sarkia Menendez. Despite the Capellan Confederation’s relative inexperience with BattleMech technology, the design set records in development time and immediately proved its worth as a planetary assault platform. The upgraded TDR-5S entered production on Keystone within fifteen years, while Olivetti Weaponry on Sudeten began manufacturing its own line. This broad production base established the Thunderbolt as a traditionally Capellan design that nonetheless became most closely associated with House Steiner and House Marik, the two largest producers during the Succession Wars.</p><p>The Succession Wars tested the Thunderbolt’s durability across centuries of grinding attrition. During the Second Succession War, Earthwerks on Tikonov attempted to preserve Star League technology through the TDR-5L, a downgraded Royal variant, but further industrial decline forced the creation of the even more simplified TDR-5LS by 2850. Both variants eventually vanished from production lines as the technology to build them was lost. Meanwhile, the standard TDR-5S continued to serve in virtually every major engagement, including the Battle of Chesterton in 2828 where Thunderbolts of the Seventh Tikonov Lancers clashed with Davion Crucis Lancers in brutal close-quarters fighting.</p><p>The Clan Invasion brought upheaval when Clan Jade Falcon conquered Sudeten, capturing Olivetti’s production lines. Though the Falcons continued producing Thunderbolts using what they considered outdated technology into 3054, the loss stung the Inner Sphere. Earthwerks responded with modernized variants, most notably the TDR-7M in 3049 and the ambitious TDR-9M in 3067. The latter sparked a legal confrontation with Irian BattleMechs Unlimited, which had introduced the Tempest as the Thunderbolt’s replacement. The Word of Blake brokered a compromise through a combat trial, which the TDR-9M won decisively, securing continued production and Blakist military contracts.</p><p>Trellshire Heavy Industries on Adelaide emerged as an important new manufacturer after barely surviving bankruptcy during the Clan Invasion. Initially producing retrotech garrison models during the Jihad, Trellshire gradually expanded to become the Lyran Commonwealth’s primary Thunderbolt supplier with the TDR-7S in 3091. Blackwell Industries also contributed the TDR-9W for Wolf’s Dragoons, drawing on a Golden Century-era Clan refit package. Earthwerks’ Tikonov facility continued production through multiple regime changes, including Republic of the Sphere control and the Capellan reconquest of 3145, where locally built Thunderbolts played decisive roles during Operation Golden Fortress and subsequent battles for the planet.</p><p>Nearing its seventh century on the battlefield, the Thunderbolt remains one of the most recognizable and widely produced BattleMechs in existence. Its durability and adaptability have ensured that no Inner Sphere or Periphery military is without at least one Thunderbolt in its inventory, whether obtained by purchase, license, or salvage.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-04-01 17:59:51
+
+systemmanufacturer:CHASSIS:Earthwerks
+systemmode:CHASSIS:TDR
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:260
+systemmanufacturer:ARMOR:Ryerson
+systemmode:ARMOR:150
+systemmanufacturer:COMMUNICATIONS:Neil
+systemmode:COMMUNICATIONS:8000
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac Mark X

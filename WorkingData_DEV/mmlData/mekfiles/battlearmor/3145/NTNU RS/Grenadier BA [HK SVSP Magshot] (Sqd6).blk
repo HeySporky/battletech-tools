@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a6bb-73fd-88a1-91c178f80bcc
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Grenadier Battle Armor
+</Name>
+
+<Model>
+(Hunter-Killer) [SVSP/Magshot](Sqd6)
+</Model>
+
+<mul id:>
+9159
+</mul id:>
+
+<year>
+3123
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+32
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+ISBASmallVSPLaser:Body
+ISBAFireDrakeNeedler:RA
+ISBAMagshotGaussRifle:LA
+BABasicManipulator:LA
+IS BA Stealth (Standard):RA
+IS BA Stealth (Standard):Body
+IS BA Stealth (Standard):LA
+IS BA Stealth (Standard):Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>Pairing a Magshot gauss rifle with a small variable speed pulse laser, this Hunter-Killer configuration delivers accurate, sustained firepower across a range of engagement distances. The variable speed pulse laser adjusts its pulse rate to optimize accuracy against targets at different speeds, making it effective against fast-moving vehicles and infantry alike. The Magshot provides precise kinetic strikes at medium range, while the Firedrake support needler covers close-range anti-personnel work. The combination of energy and ballistic weapons reduces ammunition dependency compared to purely projectile-based loadouts, giving troopers better endurance in extended operations. The configuration lacks missile armament entirely, trading the explosive punch of other Hunter-Killer variants for consistent accuracy and sustained damage output across multiple engagement types.</p>
+</capabilities>
+
+<overview>
+<p>The Grenadier is an assault-weight Inner Sphere battlesuit developed by the Hahm-Heinze Design Bureau for the Armed Forces of the Federated Suns. Designed to mount the heaviest weapon systems possible on a single suit frame, the Grenadier prioritized raw firepower over mobility or protection. The suit carries a fixed missile launcher, a modular weapon mount accommodating a range of battlefield roles, and an anti-personnel station for close-range defense. Standard stealth armor provides electronic signature reduction, though total protection is modest for the weight class. At two thousand kilograms, the Grenadier is too heavy for OmniMech transport, restricting deployment to ground-based insertion methods.</p>
+</overview>
+
+<deployment>
+<p>Reinforced six-trooper squads carrying the pulse laser and Magshot combination are uncommon, fielded primarily by AFFS garrison commands concerned with sustained defensive capability. The Kilbourne PDZ militia organized oversized squads of this configuration for perimeter defense operations, where the energy weapon's endurance advantage over purely ammunition-dependent loadouts allowed troopers to maintain continuous fire during prolonged sieges without the resupply requirements that would have strained the militia's limited logistics chain.</p>
+</deployment>
+
+<history>
+<p>The Hahm-Heinze Design Bureau began developing what would become the Grenadier when NAIS first started producing battle armor for the Federated Commonwealth. Drawing on long-standing ties to General Motors' plants on Talcott and Salem, the firm had access to early prototypes that informed their work. Nearly a decade of development produced a concept focused on mounting the heaviest possible weapon systems on a single suit. Hahm-Heinze approached the AFFC in 3062 with the finished design and two prototypes, but the FedCom Civil War consumed resources and attention, and the Federated Commonwealth initially passed on the Grenadier.</p><p>Only after the conflict demonstrated the suit's battlefield potential did production begin in earnest, with General Motors on Talcott and Albion Advanced Technologies on New Avalon manufacturing the design. Sales remained steady but slow through the Jihad years, hampered by disrupted supply lines and transportation. GM responded with an aggressive public relations effort called "Operation Parade," recruiting retired armored infantrymen to demonstrate the suit's effectiveness in field exercises and actual combat deployments alongside AFFS commands. The campaign proved successful enough that GM began offering alternative weapon configurations based on accumulated field reports and combat data.</p>
+</history>
+
+<manufacturer>
+Albion Advanced Technologies and Products|General Motors
+</manufacturer>
+
+<primaryFactory>
+New Avalon|Talcott
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<published>
+RS:3145-NTNU
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+9
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+4
+</weightclass>
+

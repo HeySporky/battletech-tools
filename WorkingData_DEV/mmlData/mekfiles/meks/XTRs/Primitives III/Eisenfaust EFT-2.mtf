@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dfef-7f94-83d8-878fa101827f
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Eisenfaust
+model:EFT-2
+mul id:5618
+
+Config:Biped
+techbase:Inner Sphere
+era:2471
+source:XTR:Primitives III
+published:XTR:Primitives III
+rules level:4
+role:Juggernaut
+
+quirk:obsolete:2472
+quirk:prototype
+quirk:poor_performance
+weaponquirk:poor_cooling:LA:4:Large Laser
+
+mass:45
+engine:110 Fusion Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Primitive Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 Single
+walk mp:2
+jump mp:0
+
+armor:Primitive(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:12
+RT armor:12
+CT armor:15
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:4
+Large Laser, Left Arm
+AC/10, Right Torso
+Medium Laser, Center Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+IS Ammo AC/10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Medium Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Eisenfaust (literally "iron fist" in German) is a forty-five-ton medium BattleMech that entered production during the Jihad, the successful realization of a concept that had eluded Lyran engineers since the earliest days of BattleMech production. Originally commissioned in 2469 as a medium-class siege engine, two separate prototype attempts over the following centuries failed to produce a viable design. It was not until Defiance Industries resurrected the concept with modern technologies that the Eisenfaust finally achieved the balance of firepower, protection, and mobility its designers had always envisioned.</p><p>Produced at the Defiance facility on Hesperus II beginning around 3076, the Eisenfaust serves as a capable defensive and urban combat platform for the Lyran Commonwealth. Its long and troubled development history has become a point of pride among Lyran engineers, who view the design as proof that persistence and technological progress can overcome even the most stubborn engineering challenges.</p>
+
+capabilities:<p>The production Eisenfaust centers its firepower around a Defiance NovaShot Model 2 plasma rifle, a weapon that rivals particle projection cannons in raw damage potential while requiring no field inhibitors. Two tons of ammunition provide adequate supplies for extended engagements, and the weapon proves devastatingly effective against conventional infantry and battle armor formations. Supporting the plasma rifle at range, a Defiance Model 6 extended-range large laser allows the MechWarrior to conserve plasma ammunition for decisive moments.</p><p>Close-range defense relies on twin Defiance P5M medium pulse lasers and a Diverse Optics extended-range small laser, providing accurate fire against faster opponents attempting to exploit the Eisenfaust's modest top speed of sixty-four kilometers per hour. The adoption of the Edasich Motors 180 XL engine (the same powerplant mass-produced for the Hatchetman) proved critical to the design's viability, saving enough weight to mount fifteen double heat sinks that allow the Eisenfaust to fire its entire weapons suite without significant heat buildup. The Chariot Type II-B chassis and Durallex Medium armor provide solid protection for a forty-five-ton platform, though the reliance on an extralight engine means torso breaches carry catastrophic risk.</p>
+
+deployment:<p>The original Eisenfaust was the product of a 2469 LCAF commission to the Coventry Defense Conglomerate. Intended to carry an autocannon/10 into siege and defensive engagements, the design mandate quickly expanded beyond its original scope. The resulting prototype mounted two medium lasers for close defense and a large laser for long-range fire alongside its main autocannon, but primitive technology imposed severe limitations. The EFT-2 could manage only thirty-two kilometers per hour, carried dangerously thin armor, and its single ton of autocannon ammunition left it dependent on energy weapons after only a few volleys. Only one prototype was constructed before the LCAF cancelled the project in 2472.</p>
+
+history:<p>The Eisenfaust endured one of the longest and most troubled development histories of any BattleMech in Lyran service. The LCAF first commissioned a medium-class siege 'Mech in 2469, drawing on early experience with the Commando and Ymir. The Coventry Defense Conglomerate produced a single EFT-2 prototype in 2471 under the direction of engineer Ranomi Ndereba, but the machine's primitive engine could only manage a top speed of thirty-two kilometers per hour, and its thin armor left it hopelessly vulnerable to faster opponents. The LCAF quickly cancelled the project, though the concept continued to percolate through Lyran military planning circles for decades.</p><p>In 2512, the LCAF revisited the Eisenfaust concept using improved construction techniques. The resulting EFT-4J prototypes mounted fifty percent more armor and achieved significantly greater speed than the original, but extended combat trials with eight operational units proved that cheaper conventional tanks could still fill the siege role more effectively. The Eisenfaust project was shelved again, and the design rights were eventually transferred to Defiance Industries. The eight EFT-4J prototypes remained in service with the Coventry security garrison for several decades before being scrapped. Especially, the Eisenfaust's original design concept would later see partial realization in the UrbanMech, which entered service roughly a century and a half later.</p><p>The Eisenfaust's resurrection came during the Jihad, when the revitalization of Lyran military production lines encouraged Defiance Industries to revisit previously abandoned designs. The availability of extralight engines, double heat sinks, and advanced weaponry transformed the Eisenfaust from a failed concept into a viable combat platform. After an expedited redesign and review process, the EFT-7X entered production at the Defiance facility on Hesperus II around 3076, making it one of the first new designs to reach Lyran forces in the wake of the Word of Blake's assault against the Lyran Alliance.</p><p>Initial production runs went primarily to the Seventh Donegal Guards, with smaller numbers distributed to Royal Guard and Lyrag Regulars formations. The Republic of the Sphere also exercised purchasing options for the design, acquiring Eisenfausts to fill defensive formations. As threats to Hesperus II mounted during the Dark Age (particularly from Clan Wolf and Clan Jade Falcon incursions in the 3140s) StarCorps Industries briefly produced the Eisenfaust under license at their Loburg facility to ensure continuity of supply.</p>
+
+manufacturer:Coventry Defense Conglomerate
+
+primaryfactory:Coventry
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:110 Primitive
+systemmanufacturer:ARMOR:Maximillian
+systemmode:ARMOR:Primitive
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

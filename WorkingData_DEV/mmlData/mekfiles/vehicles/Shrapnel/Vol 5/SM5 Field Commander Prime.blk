@@ -1,0 +1,177 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ea5a-7d24-9cd6-edd3414eb4ea
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+SM5 Field Commander
+</Name>
+
+<Model>
+Prime
+</Model>
+
+<mul id:>
+8265
+</mul id:>
+
+<year>
+3151
+</year>
+
+<type>
+Mixed (Clan Chassis) Experimental
+</type>
+
+<role>
+Striker
+</role>
+
+<quirks>
+prototype
+</quirks>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+26
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<omni>
+1
+</omni>
+
+<armor>
+24
+19
+19
+15
+19
+</armor>
+
+<Body Equipment>
+CLCASE
+Clan Ultra AC/20 Ammo:OMNI
+Clan Ultra AC/20 Ammo:OMNI
+Clan Ultra AC/20 Ammo:OMNI
+Clan Ultra AC/20 Ammo:OMNI
+Supercharger
+</Body Equipment>
+
+<Front Equipment>
+CLUltraAC20:OMNI
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLERMediumLaser:OMNI
+ISTAG:OMNI
+</Turret Equipment>
+
+<capabilities>
+<p>The SM5's defining technical characteristic is its 215-rated Clan XL engine paired with a Supercharger, a combination that drives the hover chassis to 151 km/h and enables bursts exceeding 190 km/h when the Supercharger engages. This speed substantially surpasses the base SM1 and reflects the SM5's role as a command vehicle that must reach and withdraw from engagements faster than the units it directs. Eight tons of Ballistic Reinforced Armor provides protection superior to the original SM1, trading some of the SM1's simplicity for survivability appropriate to a command platform.</p><p>The OmniVehicle pod system provides eighteen tons of configurable space, with five tons accessible in the turret. The Prime configuration mounts an Ultra Autocannon/20 in the nose with four tons of ammunition, retaining the family's traditional main armament. The turret carries an ER Medium Laser and a TAG unit, enabling the SM5 to designate targets for artillery and Arrow IV support while maintaining direct-fire capability. The SM5's drivetrain and armor mass reduce ammunition capacity compared to the base SM1. The Supercharger requires careful management to avoid drivetrain stress during extended sprints. A single conventional cockpit replaces the SM1's redundant dual-module arrangement, streamlined for command use but eliminating the crew ejection redundancy of the original design.</p>
+</capabilities>
+
+<overview>
+<p>The SM5 Field Commander is a prototype OmniVehicle developed by the Kell Hounds during their years of exile following the ilClan conflict. Built from the SM1 Tank Destroyer hull and incorporating Clan-grade technology, the Kell Hounds created a command vehicle suited to Callandre Kell's role as leader of the reconstituted mercenary force. The SM5 is less a derivative of the SM1 than a complete rebuild sharing only the fundamental hover hull, trading the original's close-range strike philosophy for speed, heavier protection, and a configurable pod system. First deployed in June 3151 with the Kell Hounds' campaign to reclaim Arc-Royal, the SM5 has remained Callandre Kell's personal command vehicle, with no broader production planned. It is a unique intersection of Inner Sphere mercenary ingenuity and Clan construction technology.</p>
+</overview>
+
+<deployment>
+<p>The SM5 Field Commander Prime is a one-of-a-kind prototype that has served exclusively with the Kell Hounds since its debut on Santana in June 3151. Its Prime configuration combines an Ultra Autocannon/20 for direct fire with a TAG unit for calling in artillery and Arrow IV support, reflecting the dual role of a front-line commander who also serves as a fire controller. The vehicle has been employed throughout the Kell Hounds' Arc-Royal campaign and subsequent operations of the Arc-Royal Liberty Coalition, where its combination of speed and direct-fire capability allows Callandre Kell to operate alongside frontline elements without sacrificing command effectiveness.</p>
+</deployment>
+
+<history>
+<p>The SM5 Field Commander's development is inseparable from Callandre Kell and the Kell Hounds' reconstitution during the ilClan period. Callandre had spent her military career as a tank commander, with the SM1 Tank Destroyer as her vehicle of choice through years of combat. When the Jade Falcon ilClan invasion forced the Kell Hounds into exile on Beta Regulus II, the task of rebuilding the unit from scattered veterans and new recruits required both new equipment and a clearer command structure.</p><p>The SM5 was conceived to give Callandre a command platform equal to the threats she would face leading the Hounds back into combat. The rebuild incorporated a Clan XL engine and Supercharger for speed, upgraded to Ballistic Reinforced Armor for survivability, and added an OmniVehicle reconfiguration system for operational flexibility. The resulting vehicle shared little with the SM1 beyond the hover hull that Callandre knew and trusted from her career as a tank commander.</p><p>The SM5 made its combat debut on Santana in June 3151, where the Kell Hounds deployed to assist in establishing governance after the planet's liberation. The vehicle proved its tactical utility during the subsequent campaign to reclaim Arc-Royal, most particularly during the assault on Old Connaught against Jade Falcon forces. In that engagement, Callandre used the SM5's TAG system to coordinate artillery fire while engaging Falcon units directly, demonstrating the command vehicle concept in combined-arms urban combat. Following the liberation of Arc-Royal and the formation of the Arc-Royal Liberty Coalition, the SM5 has remained in service as Callandre's personal command vehicle.</p>
+</history>
+
+<manufacturer>
+Kell Hounds
+</manufacturer>
+
+<primaryFactory>
+Arc-Royal
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:215 Clan XL
+ARMOR:Ballistic Reinforced Armor
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+Shrap06,Shrap05
+</source>
+
+<published>
+ShrapRS
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

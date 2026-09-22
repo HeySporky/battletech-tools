@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa28-7041-a054-d95620953678
+</UUID>
+
+<UnitType>
+FixedWingSupport
+</UnitType>
+
+<Name>
+Comet Airliner
+</Name>
+
+<Model>
+ACL-800
+</Model>
+
+<mul id:>
+3759
+</mul id:>
+
+<year>
+3030
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:6.0:1:1::-1:0
+1stclassquarters:20.0:2:-1::-1:0
+troopspace:9.0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+750
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+28
+19
+19
+12
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+Lifeboat (Maritime)
+Lifeboat (Maritime)
+Lifeboat (Maritime)
+Lifeboat (Maritime)
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Lifeboat (Maritime)
+Lifeboat (Maritime)
+Lifeboat (Maritime)
+Lifeboat (Maritime)
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Body Equipment>
+Paramedic Equipment
+Paramedic Equipment
+Paramedic Equipment
+Paramedic Equipment
+Lifeboat (Maritime)
+Lifeboat (Maritime)
+Lifeboat (Maritime)
+Lifeboat (Maritime)
+</Body Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>Built for speed, economy, and above all comfort, the Comet is powered by an Avanti AA-700 series propulsion system built around a quartet of variable-intake turbofans that offer excellent airspeed and maneuverability. Seating for the Comet's one hundred and twenty passengers is broken into two decks, with much of the upper deck devoted to two large first-class suites. These suites offer banquet facilities, private quarters convertible for personal and business meetings, and an office center providing access to the liner's onboard satellite and communications suite, enabling VIP passengers to enjoy the full range of local holovid, interweb, and telecommunications networks during their trip.</p><p>The ACL-800 comes equipped with inflatable lifeboats for emergency water landings and a small sick bay for minor medical crises in transit. The secure cargo stores located behind the lower passenger deck handle diverse cargos ranging from routine passenger luggage to small vehicles. Economy versions that dispense with the first-class suites can more than double the passenger and cargo capacity.</p>
+</capabilities>
+
+<overview>
+<p>Avanti Aerospace of Canonbie, the primary branch of Avanti Industries, has been a longtime producer of civilian aircraft for the Lyran elite, with products ranging from the ACP series of private aircraft to the popular ACS Stratocruiser airship series. While most of these designs cater to the exceptionally wealthy, the ACL airliner series has set the standard for comfort and economy in commercial air travel across both halves of the former Federated Commonwealth, if not the whole of the Inner Sphere. Weighing in at one hundred and eighty tons, the ACL-800 Comet is the most common civilian airliner offered by Avanti Aerospace and the benchmark against which all competitors are measured.</p>
+</overview>
+
+<deployment>
+<p>All these features combined have earned the ACL class its place in airlines across the Steiner and Davion realms, and customized models have become popular as the private craft of planetary leaders and major corporate executives. The Comet's popularity has also led to a number of copies seen across the Inner Sphere, from licensed models to honest competitors to outright acts of corporate theft.</p>
+</deployment>
+
+<history>
+<p>The ACL-800's dominance of the commercial air travel market drew both flattery and controversy. Michaelson Aircraft's MA-80 Delta Air Cruiser, seen in skies across the Federated Suns' Capellan March, is an Avanti-licensed model differing in only the most minor ways. Wakazashi's WK-1000 Stratos represents an honest effort by a corporate rival to match the ACL-800's specifications with a ninety-passenger design tailored to the Draconis Combine market.</p><p>Less welcome was the TC-80 Skyliner series recently debuted by St. Ives-based Mujika Aerospace. According to Avanti lawyers, the Skyliner sports engine designs almost indistinguishable from the Avanti AA-700, and legal action remains pending against Mujika for what Avanti characterizes as blatant corporate theft. Despite these imitators -- or perhaps because of them -- the ACL-800 Comet remains the standard against which all Inner Sphere commercial airliners are measured, a sign of the quality of Avanti's engineering and the enduring appeal of their design philosophy.</p>
+</history>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+180.0
+</tonnage>
+

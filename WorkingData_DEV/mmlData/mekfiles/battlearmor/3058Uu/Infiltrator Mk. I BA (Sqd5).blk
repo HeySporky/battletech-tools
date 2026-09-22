@@ -1,0 +1,158 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a29e-7b17-867c-ac0ed7131356
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Infiltrator Mk. I Battle Armor
+</Name>
+
+<Model>
+'Waddle'(Sqd5)
+</Model>
+
+<mul id:>
+8532
+</mul id:>
+
+<year>
+3050
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+34
+</armor_type>
+
+<armor_tech>
+7
+</armor_tech>
+
+<Squad Equipment>
+CLBAHeavyGrenadeLauncher:LA
+BABasicManipulator:LA
+IS BA Stealth (Prototype):RA
+IS BA Stealth (Prototype):LA
+IS BA Stealth (Prototype):Body
+IS BA Stealth (Prototype):Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<capabilities>
+<p>The Infiltrator Mk. I is a 750-kilogram light battle armor suit built around stealth and sensor operations. Its 500 kilograms of prototype stealth armor incorporates radar, infrared, and acoustic suppression systems that mimic a combined ECM and IR sneak suit. This protection is minimal, absorbing roughly one hit from a medium laser before failing. The suit mounts an impressive array of passive sensing equipment, including heat sensors, magnetic-anomaly detectors, and recording devices capable of gathering intelligence deep within enemy territory. Its sole weapon is a heavy grenade launcher in the left arm, offering limited defensive firepower against unarmored personnel and light vehicles. A basic manipulator on the right arm provides object handling, though the suit is not configured for anti-BattleMech attacks or OmniMech transport. Ground speed reaches 21.6 km/h, but the suit's characteristic waddling stride and total lack of jump capability limit tactical mobility considerably.</p>
+</capabilities>
+
+<overview>
+<p>The Infiltrator was among the first battle armor designs fielded by any Inner Sphere military. Produced by Albion Advanced Technologies and Products on New Avalon, the light reconnaissance suit entered service in 3050 as a stealth-focused platform built around advanced sensor and concealment systems. Designed to operate deep behind enemy lines, the Infiltrator emphasized electronic stealth and intelligence-gathering capability over combat power, setting it apart from the heavier battle armor designs emerging across the Inner Sphere during the same period. The suit filled an important role in Federated Commonwealth force structure, providing covert reconnaissance capabilities that no other platform of its era could match.</p>
+</overview>
+
+<deployment>
+<p>Clan formations that captured or salvaged Infiltrator suits organized them into five-trooper Points consistent with standard Clan doctrine. Garrison and solahma formations occasionally fielded Points of captured Inner Sphere battle armor for reconnaissance duties when Elemental suits were unavailable or committed elsewhere. Clan warriors generally viewed these captured suits with disdain, though pragmatic commanders recognized their stealth value for observation missions.</p>
+</deployment>
+
+<history>
+<p>The Infiltrator emerged from the early days of Inner Sphere battle armor development. When the first Clan technology samples reached the New Avalon Institute of Science during the opening years of the Clan Invasion, NAIS researchers recognized the potential for a lighter, more specialized battlesuit than the generalist Inner Sphere Standard then under parallel development. Drawing on captured salvage, the NAIS team created a reconnaissance platform that prioritized stealth and sensor capability over raw combat power. The result was one of the first two battle armor designs fielded by any Inner Sphere power, entering service alongside the Lyran Sloth in 3050.</p><p>The first prototype was dispatched to the 1st Somerset Strikers during their campaign against Clan Jade Falcon. Its initial combat test came during live-fire exercises on Waldorff V, when the renegade Falcon's Claws launched an unexpected attack. Fighting through swampy terrain that hampered its already limited mobility, the Infiltrator used mist cover and its concealment systems to hide from enemy forces and launch surprise attacks. The suit performed well enough to earn approval for full-scale production despite clear limitations.</p><p>Those limitations became painfully apparent as the Infiltrator reached frontline units in greater numbers. Operators quickly dubbed the suit the "Waddle" for its ungainly gait, and frustration mounted as commanders overestimated what it could accomplish and assigned it to missions far beyond its intended reconnaissance role. Sending a lightly protected stealth scout into direct engagements against standard battle armor produced predictable results. Yet operators who employed the Infiltrator within its design parameters found a different story. The suit could penetrate enemy lines undetected, position itself in observation posts no other platform could reach, and gather intelligence critical to operational planning.</p><p>The Infiltrator carved its deepest niche within Federated Commonwealth intelligence operations. The Federated Commonwealth Intelligence Command, along with DMI and MIIO field teams, recognized the suit's value for covert insertion and surveillance work. Purchases by intelligence agencies accounted for a significant share of early production. Thousands of suits were stationed across the Commonwealth by the time of the FedCom Civil War. Special forces operators who understood the suit's strengths proved it could infiltrate enemy territory, collect intelligence that no other platform could obtain, and deliver surprising lethality against soft targets before fading back into concealment.</p><p>The development of the superior Infiltrator Mk. II in 3060 gradually shifted frontline demand away from the original design. Production at Albion Advanced Technologies and Products on New Avalon wound down over the following decade, and the Mk. I line ceased production entirely by 3070. A second production line at TharHes Industries on Tharkad continued somewhat longer, serving Lyran Commonwealth demand. The suit remained in service well after production ended. AFFS and LAAF commanders who could not obtain enough Mk. II suits retained their Mk. I inventory, and covert operations units in both successor states maintained stockpiles for missions where the older suit's particular sensor profile remained useful.</p>
+</history>
+
+<manufacturer>
+Albion Advanced Technologies and Products|TharHes Industries
+</manufacturer>
+
+<primaryFactory>
+New Avalon|Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-C
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+5
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+1
+</weightclass>
+

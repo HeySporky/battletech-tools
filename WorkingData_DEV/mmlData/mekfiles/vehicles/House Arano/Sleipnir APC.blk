@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e931-71da-a947-8fe908ba4981
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Sleipnir APC Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7613
+</mul id:>
+
+<year>
+3002
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+24
+22
+22
+22
+22
+</armor>
+
+<Body Equipment>
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+Machine Gun
+Medium Laser
+Medium Laser
+</Turret Equipment>
+
+<capabilities>
+<p>The Sleipnir is a 50-ton wheeled vehicle powered by an internal combustion engine, giving it a top road speed of 86 km/h. ICE propulsion keeps the vehicle affordable and easy to maintain in the field, a significant advantage for the Aurigan Coalition's logistics chain. Wheeled mobility suits the vehicle to road networks and developed terrain, though cross-country performance is more limited than tracked alternatives.</p><p>The vehicle's primary function is troop transport, with a four-ton infantry bay capable of carrying a standard infantry squad. Seven tons of standard armor provide reasonable protection for an APC, sufficient to deflect small-arms fire and light weapon impacts during troop delivery operations.</p><p>For self-defense, the Sleipnir mounts a turret carrying two machine guns and two medium lasers. This armament is not intended for engaging armored targets; it exists to suppress opposing infantry and provide covering fire during dismount. The machine guns carry half a ton of ammunition, and the medium lasers offer heat-free sustained fire against soft targets. The Sleipnir is not a frontline combat vehicle, and its armament reflects that role honestly. Without escort, it is vulnerable to any opposition capable of fielding light armor or heavy weapons.</p>
+</capabilities>
+
+<overview>
+<p>The Sleipnir APC Tank is a wheeled armored personnel carrier produced by Aspero-Dinton Mining on Mechdur for the Aurigan Coalition. First fielded in 3002, the Sleipnir was designed to move infantry squads across the battlefield, filling a critical transport role for the Coalition's ground forces. Built on Mechdur, the Aurigan Reach's primary industrial world, the Sleipnir reflects the Coalition's pragmatic approach to military procurement: a straightforward, maintainable design suited to the limited industrial base of a periphery nation. Its presence across Aurigan Coalition force tables confirms the vehicle's reliability in supporting infantry operations throughout the Reach.</p>
+</overview>
+
+<deployment>
+<p>The standard Sleipnir serves as a general-purpose infantry transport throughout the Aurigan Coalition. Its wheeled configuration suits the road networks of developed Coalition worlds, and the turret armament provides a measure of protection during transit and dismount. The vehicle is not suited to independent combat operations and should be escorted by heavier assets when operating in areas with significant armor or anti-vehicle threats.</p>
+</deployment>
+
+<history>
+<p>The Sleipnir APC Tank was developed on Mechdur and first fielded in 3002. Production was handled by Aspero-Dinton Mining, whose industrial facilities on Mechdur formed the backbone of the Aurigan Coalition's manufacturing capacity. The vehicle emerged during a period when the Capellan Confederation had long since withdrawn from the Aurigan Reach, leaving the Mechdur oligarchs to redirect their industrial complex toward supplying the nascent Coalition's military needs.</p><p>The Sleipnir appeared exclusively in Aurigan Coalition force tables, with no record of export or mercenary acquisition. This reflected the Coalition's localized production model and the Reach's chronic shortage of JumpShip assets, which kept Mechdur's output circulating within Coalition space rather than reaching outside markets. The design's straightforward internal combustion powerplant and uncomplicated weapon systems required no advanced manufacturing techniques or scarce components, making it a sustainable product for a periphery industrial base operating with limited external supply chains.</p>
+</history>
+
+<manufacturer>
+Aspero-Dinton Mining
+</manufacturer>
+
+<primaryFactory>
+Mechdur
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:230 ICE
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+Arano
+</source>
+
+<published>
+Arano
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

@@ -1,0 +1,157 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e4b9-75fb-aa23-9758f227444a
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Asshur Fast Reconnaissance Vehicle
+</Name>
+
+<Model>
+(Proto AC)
+</Model>
+
+<mul id:>
+134
+</mul id:>
+
+<year>
+3073
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+14
+10
+10
+9
+13
+</armor>
+
+<Body Equipment>
+Clan ProtoMech AC/8 Ammo
+CLCASE
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLProtoMechAC8
+</Turret Equipment>
+
+<capabilities>
+<p>The (Proto AC) variant's defining feature is its ProtoMech Autocannon armament, which replaces the extended-range laser and Streak configuration of the standard Asshur and Artillery Spotter variants. ProtoMech autocannons offer a balance of range and damage output suited to the vehicle's hit-and-run operational approach, with ammunition-based firepower providing sustained engagement capability that beam-weapon variants cannot match over extended operations. The variant retains the Asshur's core performance envelope (flank speeds exceeding 150 kilometers per hour and the full hover mobility package) allowing it to employ its autocannon at high speed and withdraw before effective counter-fire develops.</p><p>Armor protection remains the Compound JX2 ferro-fibrous suite from the base chassis, with the Consolidated communications and targeting electronics package retained without modification. The vehicle's primary constraint is ammunition dependency. Unlike the ER laser configuration, the Proto AC requires resupply to sustain operations, a logistical consideration that limits its deployment in extended reconnaissance or screening missions far from support elements.</p>
+</capabilities>
+
+<overview>
+<p>The Asshur Fast Reconnaissance Vehicle (Proto AC) is a Jihad-era armament experiment applied to the long-serving Asshur hull. Developed at Hector's manufacturing infrastructure during the turbulent thirty-first century, the variant explores the integration of ProtoMech-derived autocannon technology into a proven combat vehicle chassis. First observed in the field with Jade Falcon forces, the variant represents one of the few instances of ProtoMech autocannon technology applied to conventional combat vehicles in the Clan inventory. Its development came from Hector's complex ownership history, with production occurring under Goliath Scorpion oversight during the Jihad period from a facility that had originally been part of Clan Blood Spirit's Homeworld production network.</p>
+</overview>
+
+<deployment>
+<p>The (Proto AC) variant saw limited deployment concentrated among Clan forces with access to Hector's production output or connections to the Jade Falcon forces that first fielded it during the Jihad. Its narrow distribution distinguished it sharply from the Artillery Spotter's broad multi-Clan adoption. Field use was concentrated during the Jihad era in Clan space, where it served in reconnaissance and light screening roles with the autocannon providing sustained firepower advantages over the beam-weapon variants in protracted engagements. The exact extent of distribution beyond the original Jade Falcon association has not been conclusively documented.</p>
+</deployment>
+
+<history>
+<p>The (Proto AC) variant emerged from Hector's manufacturing infrastructure during the Jihad, a period of severe disruption to Clan Homeworld production networks. The facility at Hector MotorWorks had passed through Ice Hellion and Goliath Scorpion hands by the time the variant entered production, reflecting the broader instability that characterized the Homeworlds during the thirty-first century's conflicts. Goliath Scorpion technicians experimented with ProtoMech weapons integration as a means of refreshing the Asshur's combat effectiveness without a full chassis redesign, drawing on the availability of ProtoMech autocannon components in the Homeworld supply chain.</p><p>The variant's first confirmed field sightings were with Jade Falcon forces rather than with the Clans directly associated with Hector's production line. The circumstances of the Jade Falcons' acquisition of the design (whether through technology transfer, salvage, or production agreements arranged during the political turbulence of the Jihad period) have not been conclusively established in surviving records. This gap in documentation reflects the broader disruption to Clan record-keeping and inter-Clan relations during the Jihad.</p><p>Production at Hector continued under Goliath Scorpion oversight during the active Jihad years, with the facility later passing to Cloud Cobra stewardship. The (Proto AC) represented one of the few new Asshur configurations to emerge during this era, though its limited production run and the disrupted state of Homeworld manufacturing meant distribution remained narrow compared to the Artillery Spotter's established multi-Clan network.</p>
+</history>
+
+<manufacturer>
+Hector MotorWorks Facility Gamma
+</manufacturer>
+
+<primaryFactory>
+Hector
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Consolidated
+TARGETING:Consolidated
+</systemManufacturers>
+
+<systemModels>
+ENGINE:Fusion 95
+ARMOR:Compound JX2 Ferro-Fibrous
+COMMUNICATIONS:Consolidated Type 2M
+TARGETING:Consolidated Type V TTS
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+

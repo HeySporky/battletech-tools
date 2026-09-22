@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e2d5-7422-8ff1-8f65b6c80cd0
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Monitor Naval Vessel
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+2219
+</mul id:>
+
+<year>
+2910
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Naval
+</motion_type>
+
+<transporters>
+troopspace:1.5
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+22
+22
+22
+22
+40
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-2
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+SRM 2
+</Right Equipment>
+
+<Left Equipment>
+SRM 2
+</Left Equipment>
+
+<Rear Equipment>
+SRM 2
+</Rear Equipment>
+
+<Turret Equipment>
+Autocannon/20
+Autocannon/20
+</Turret Equipment>
+
+<capabilities>
+<p>The Monitor's armament is built around two 185mm ChemJet Gun autocannons mounted in a turret assembly derived from the Demolisher heavy tank. The turret itself comes from Demolisher production, with Nav Hull adapting the mounting hardware for aquatic operations. Three Harvester 2k SRM launchers are positioned along the sides and rear of the vessel, providing close-range coverage against ambushing infantry in dense riverside terrain. Commanders frequently load inferno rounds for engagements along riverbanks, as the flammable gel floats and burns on the water surface long enough to deny the shoreline to assaulting forces for a brief but critical window.</p><p>The Monitor carries eight tons of ArcShield Maxi II armor, a practical but modest protection level. Some of this plating comes directly from the Demolisher turret, while the remainder consists of flat panels, a cost-reduction measure Nav Hull adopted to keep kits affordable. The armor is sufficient against small arms fire and light weapons typical of riverine piracy and guerrilla actions, though it provides limited protection against dedicated anti-armor systems. The vessel's most operationally significant characteristic is its half-meter draft, which allows it to operate in the shallowest river channels and wetland systems that deny access to heavier naval assets. The tradeoff is that the Monitor relies on its shallow-water mobility rather than armor to survive encounters with better-armed opponents.</p>
+</capabilities>
+
+<overview>
+<p>The Monitor Naval Vessel was developed by Nav Hull, a small company founded by entrepreneur Robert Habeas in the mid-twenty-ninth century. Habeas had traveled to numerous water-rich worlds and observed how planetary defense forces relied on improvised patrol craft, armed wooden barges fitted with recoilless rifles and small SRM tubes, to police their rivers and coastal regions. Dedicated military riverine vessels existed for wealthier states, but light-industrial worlds had no practical options. Nav Hull addressed this gap not by building a conventional factory, but by designing the Monitor as an unassembled kit. Customers, typically planetary governments and militia forces, sourced the hull, power system, and combustion engine locally from available suppliers. Nav Hull supplied the weapons package and turret assembly as the primary value-added components, keeping overhead low and spreading production risk across the supply chain.</p>
+</overview>
+
+<deployment>
+<p>The Monitor is deployed primarily by planetary defense forces and militia units throughout the Draconis Combine, with the heaviest concentrations on worlds featuring extensive river systems, delta regions, or shallow coastal waters. Because the kit model allows customers to substitute locally available components, individual examples vary considerably in their electronics suites and armor configurations, depending on what parts the purchasing government could supply. Most end up in low-priority garrison assignments, patrolling waterways that conventional armored units cannot easily access. The Galedon Military District has historically been the Monitor's strongest market, given the extensive river delta systems found on several district worlds. A small number of examples have appeared in the hands of pirate bands operating along the Combine's spinward frontier, likely captured from militia units or obtained through gray-market kit sales.</p>
+</deployment>
+
+<history>
+<p>Robert Habeas established Nav Hull after observing the improvised naval forces maintained across water-rich worlds throughout the Inner Sphere. These forces typically lacked purpose-built military vessels, relying instead on converted fishing boats and barges. Habeas lacked the capital to build a conventional manufacturing facility or ship finished vehicles across interstellar distances, but recognized that the kit-assembly model shifted the most difficult logistical problems to the customer. By requiring buyers to source their own hulls and engines locally, Nav Hull kept its own overhead minimal and avoided the warehousing and transport costs that made small-run vehicle production uneconomical for minor manufacturers.</p><p>Nav Hull began delivering Monitor kits in 2910, operating from New Samarkand under Draconis Combine jurisdiction. The kits found a ready market among Combine worlds with significant inland waterways and coastal regions, where conventional armored transports could not reach fortified positions deep in river systems. The design's reliance on locally available parts also appealed to garrison commanders who struggled to maintain supply lines for more sophisticated equipment.</p><p>The Fourth Succession War severely disrupted Nav Hull's operations. Commerce disruptions made it impossible to gather complete kits for assembly, and back orders accumulated as the company struggled to source consistent materials. Following the war's conclusion, Nav Hull negotiated a supply agreement with New Samarkand Metals for discounted raw materials, stabilizing production and allowing the company to work through its order backlog.</p><p>The Monitor saw meaningful combat during the War of 3039, when Draconis Combine forces employed several vessels in defense of Athenry's Larsen Island Chain. Operating in shallow coastal waters, Monitor crews used their autocannons to strike at Federated Suns beach emplacements while using their shallow draft to maneuver through terrain that heavier vessels could not access. Several crews deliberately beached their vessels at tactical positions, using the hull as cover for infantry units caught in the open. The performance validated the Monitor's core design concept, demonstrating that an affordable, kit-assembled vehicle could still contribute meaningfully to planetary defense operations.</p>
+</history>
+
+<manufacturer>
+Nav Hull
+</manufacturer>
+
+<primaryFactory>
+New Samarkand
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Nav Hull
+ENGINE:Various
+ARMOR:Unknown
+COMMUNICATIONS:Various
+TARGETING:Various
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:195 ICE
+ARMOR:ArcShield Maxi II
+COMMUNICATIONS:Various
+TARGETING:Various
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:V5-V
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

@@ -1,0 +1,217 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e21b-70b5-b847-f030ba91a3d8
+</UUID>
+
+<UnitType>
+SpaceStation
+</UnitType>
+
+<Name>
+Pressurized Yard
+</Name>
+
+<Model>
+Large (2400)
+</Model>
+
+<mul id:>
+4483
+</mul id:>
+
+<year>
+2400
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:20.0:4:1::-1:0
+navalrepairpressurized:500000.0:1:2:f0
+LiquidCargoBay:15000.0:1:4::-1:0
+1stclassquarters:130.0:0:-1::-1:0
+crewquarters:434.0:0:-1::-1:0
+2ndclassquarters:5488.0:0:-1::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+cargobay:76940.0:1:11::-1:0
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+105
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+3500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+10
+10
+10
+10
+10
+10
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Front Side Equipment>
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+</Right Front Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>The defining feature of a pressurized yard is the enclosed naval repair facility, which maintains a breathable atmosphere throughout the working volume. This shirt-sleeve environment allows crews to perform fine fabrication, electronics work, and structural repairs that would be significantly more difficult in a spacesuit; translating directly into higher-quality outputs and faster turnaround times compared to equivalent unpressurized operations. Docking collars adjacent to the repair bay allow additional vessels to queue for service, while small craft bays support the continuous movement of personnel and material between the yard and client vessels awaiting entry.</p><p>Grav decks housed within the station proper provide crew habitability during extended repair cycles. The station carries no offensive armament in any configuration, relying on the strategic value of functional repair infrastructure and the general prohibition against targeting shipyards to discourage attack. A marine complement provides internal security for visiting vessel crews and protection of the facility's critical systems. The repair bay capacity of each configuration is the primary operational differentiator, ranging from platforms sized for DropShip servicing to installations capable of accommodating the largest JumpShip and WarShip classes.</p>
+</capabilities>
+
+<overview>
+<p>Pressurized shipyards represent the most technologically sophisticated class of orbital repair and construction facilities in the Inner Sphere, providing fully enclosed, atmosphere-controlled working environments that allow construction and maintenance crews to operate without spacesuits. This capability dramatically improves the speed and quality of work compared to the spacesuit-constrained operations required in unpressurized facilities, but at a substantial cost premium that makes pressurized yards far less common than their unpressurized counterparts. Available in configurations ranging from compact single-bay platforms serving low-traffic systems to massive multi-collar installations capable of handling JumpShips and small WarShips, pressurized yards are typically found within larger orbital complexes that include supporting factory stations, habitat platforms, and cargo handling facilities.</p>
+</overview>
+
+<deployment>
+<p>The Pressurized Yard Large (2400) provides substantial pressurized repair capacity at 150,000 tons displacement, comfortably accommodating the full range of commercial and military DropShip classes. Four docking collars allow this configuration to maintain a steady throughput of vessels through the repair cycle, and twenty small craft support continuous logistics operations. Accommodations for 700 passengers reflect the sustained visitor traffic at a facility of this scale. Two grav decks and a marine complement of 84 reflect the operational profile of a primary orbital repair center at a major inhabited system. This configuration was standard at the Inner Sphere's principal naval logistics hubs during the Star League era.</p>
+</deployment>
+
+<history>
+<p>Pressurized shipyards trace their origins to the early colonization period, when the need to construct and maintain vessels at remote locations (where planetary facilities were unavailable) drove the development of self-contained orbital repair platforms. Early pressurized configurations were crude affairs, but successive generations of construction refined the design into the standardized form documented during the Star League era. The Star League brought systematic expansion of pressurized yard infrastructure across the Inner Sphere, with facilities scaling from compact single-bay platforms at secondary worlds to massive multi-collar installations at major JumpShip and DropShip maintenance hubs.</p><p>Unlike factory stations and habitats, pressurized yards demonstrated considerable resilience through the Succession Wars. The progressive destruction of the Inner Sphere's orbital infrastructure made any surviving repair facility extremely valuable, and both formal prohibitions and practical self-interest discouraged belligerents from destroying facilities they might soon need themselves. This unwritten rule (not always honored but widely observed) allowed a significant proportion of pressurized yards to survive through the Succession War period, though many operated at degraded capacity with aging equipment and declining technical staff. The few functioning pressurized yards that maintained full operational capability through the Third Succession War became critical strategic assets, contested by multiple factions and defended at significant cost.</p><p>The Clan Invasion and subsequent ilClan period brought renewed demand for shipyard capacity as WarShip production programs resumed and the Inner Sphere's naval ambitions expanded beyond what existing facilities could easily support. Surviving pressurized yards that had maintained functionality found themselves in high demand, while new construction programs began filling critical capability gaps. The majority of pressurized yards operating in the thirty-second century either trace their origins to Star League-era construction or represent post-Clan Invasion new builds, with the smaller configurations proving the most practical targets for new construction given available manufacturing resources.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+150000.0
+</tonnage>
+
+<sail>
+0
+</sail>
+
+<grav_decks>
+200
+200
+</grav_decks>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+175
+</crew>
+
+<officers>
+13
+</officers>
+
+<gunners>
+0
+</gunners>
+
+<passengers>
+700
+</passengers>
+
+<marines>
+84
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+40
+</life_boat>
+
+<escape_pod>
+40
+</escape_pod>
+

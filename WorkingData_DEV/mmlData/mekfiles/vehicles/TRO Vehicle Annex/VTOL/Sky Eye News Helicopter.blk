@@ -1,0 +1,180 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb4f-7ba8-8c4b-3f0b22b576ef
+</UUID>
+
+<UnitType>
+SupportVTOL
+</UnitType>
+
+<Name>
+Sky Eye News Helicopter
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5072
+</mul id:>
+
+<year>
+3061
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+vtol_rotor_coaxial
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+cargobay:1.2:1:1::-1:0
+standardseats:4.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+46
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+4
+3
+3
+2
+2
+</armor>
+
+<Body Equipment>
+Communications Equipment:SIZE:1.0
+</Body Equipment>
+
+<Front Equipment>
+ISInfraredImager
+ISHighResImager
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<barrating>
+5
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Sky Eye carries no weapons and relies entirely on its civilian status for protection in contested areas. Its real value lies in the sophisticated broadcast suite that has earned it a reputation as a miniature flying studio. The camera array combines a high-resolution imager and an infrared imager, both gyrostabilized with automatic tracking to remain focused during tight maneuvering. An onboard communications array handles mixing, pre-production, and data protocol conversion needed to deliver broadcast-quality content in any format. One ton of dedicated communications equipment enables transmission to ground stations, and a licensing agreement with INN allows direct uplink to ComStar's HPG network for near-seamless off-world broadcast of captured footage.</p><p>The aircraft can be flown solo, though duplicated flight controls allow a co-pilot when conditions require it. The soundproofed rear compartment provides four passenger seats for production personnel, with a standard news team typically consisting of a camera operator, a sound technician/narrator, and a production engineer. The co-axial rotor arrangement provides enhanced stability, particularly during the tight maneuvering common in urban coverage operations. A 1.2-ton cargo bay accommodates additional supplies and equipment. The ICE powerplant and limited half-ton of commercial-grade BAR 5 armor reflect its non-combatant design philosophy, prioritizing payload and range over survivability in any hostile engagement.</p>
+</capabilities>
+
+<overview>
+<p>The Sky Eye News Helicopter is a compact civilian VTOL designed and produced by Cal-Boeing of Dorwinion on Belladonna for news-gathering and broadcast operations. Introduced in 3061, the design entered a Federated Suns market already sliding toward civil war, and initial sales were modest at best. The outbreak of the FedCom Civil War proved unexpectedly beneficial, as media organizations scrambled to acquire capable broadcast platforms for front-line coverage. Nine years after its introduction, examples of the Sky Eye could be found operating in every Successor State, a sign of the universal appeal of a design built not to fight but to document the conflicts of others. The helicopter's combination of high-quality imaging and HPG uplink capability made it uniquely valuable for real-time off-world transmission of conflict coverage.</p>
+</overview>
+
+<deployment>
+<p>The Sky Eye is produced exclusively at Cal-Boeing of Dorwinion's facility on Belladonna in the Federated Suns. No model variants have been developed or fielded. Primary operators are media agencies, commercial broadcast networks, and news organizations throughout the Inner Sphere, with distribution reaching across factional lines through commercial channels. Military and intelligence organizations have acquired limited examples drawn by the design's advanced imaging and HPG transmission capabilities. The design's non-combatant role and widespread commercial presence have allowed it to operate in territories that would normally complicate procurement of Federated Suns-manufactured equipment.</p>
+</deployment>
+
+<history>
+<p>Cal-Boeing of Dorwinion introduced the Sky Eye at an inopportune moment. The Federated Suns of 3061 was a realm on the verge of consuming itself, and military demands dominated procurement budgets across the Federated Commonwealth. Media agencies were cautious with capital expenditure, and initial sales proved sluggish. The design's commercial prospects appeared genuinely uncertain.</p><p>The outbreak of the FedCom Civil War changed the calculus entirely. News organizations across the Federated Commonwealth suddenly competed for quality footage of the conflict, and the Sky Eye's combination of onboard production capability and HPG uplink access made it the preferred platform. Domestic sales recovered quickly, and foreign agencies followed. Irian News was among the early adopters, and ComStar's Interstellar News Network later acquired the type to document the Jihad in the years that followed.</p><p>The Renard Reportage became one of the more prominent early users, deploying Sky Eyes to cover the fighting on New Avalon during the civil war's climax. Crews often flew with reduced personnel to get airborne faster, sacrificing broadcast quality for access. The resulting footage drew criticism from professional news organizations for its technical shortcomings, but it produced some of the war's most widely distributed imagery. The incident highlighted both the Sky Eye's flexibility and the compromises inherent in solo or under-crewed operation.</p><p>Intelligence agencies took notice. MIIO reportedly evaluated the design's imaging systems for surveillance applications, drawn by the advanced optics and the helicopter's ability to transmit data directly through HPG infrastructure. Whether formal procurement followed has not been confirmed in open sources.</p><p>By 3070, nine years after its introduction, examples operated in every Successor State. The Sky Eye had transcended its Federated Suns origins to become the Inner Sphere's de facto standard for conflict journalism, a commercial success built on the back of the very war that had threatened to doom it.</p>
+</history>
+
+<manufacturer>
+Cal-Boeing of Dorwinion
+</manufacturer>
+
+<primaryFactory>
+Belladonna
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Cal-Boeing of Dorwinion
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+20.0
+</tonnage>
+
+<fuel>
+0.5
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

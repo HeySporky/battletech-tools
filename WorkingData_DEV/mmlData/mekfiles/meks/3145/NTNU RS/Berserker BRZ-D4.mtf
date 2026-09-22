@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d3e3-7b94-9097-c1503c5b4c70
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Berserker
+model:BRZ-D4
+mul id:6831
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3112
+source:TR:3145
+published:RS:3145-NTNU,RS:3145
+rules level:4
+role:Juggernaut
+
+quirk:distracting
+
+mass:100
+engine:400 XL (Clan) Engine
+structure:IS Endo-Composite
+myomer:Triple-Strength
+cockpit:Standard Cockpit
+gyro:Compact Gyro
+
+heat sinks:16 IS Double
+walk mp:4
+jump mp:4
+
+armor:Impact-Resistant(Inner Sphere)
+LA armor:34
+RA armor:34
+LT armor:31
+RT armor:31
+CT armor:46
+HD armor:9
+LL armor:37
+RL armor:37
+RTL armor:10
+RTR armor:10
+RTC armor:15
+
+Weapons:6
+Bombast Laser, Left Arm
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+Flamer, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Bombast Laser
+Bombast Laser
+Bombast Laser
+IS Endo-Composite
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+Triple Strength Myomer
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLERMediumLaser
+CLERMediumLaser
+IS Endo-Composite
+IS Endo-Composite
+IS Impact-Resistant
+IS Impact-Resistant
+IS Impact-Resistant
+IS Impact-Resistant
+IS Impact-Resistant
+Triple Strength Myomer
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLERMediumLaser
+CLERMediumLaser
+IS Endo-Composite
+IS Endo-Composite
+IS Impact-Resistant
+IS Impact-Resistant
+IS Impact-Resistant
+IS Impact-Resistant
+IS Impact-Resistant
+Triple Strength Myomer
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro (ARMORED)
+Gyro (ARMORED)
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAngelECMSuite
+ISAngelECMSuite
+IS Endo-Composite
+IS Endo-Composite
+
+Head:
+Life Support
+Sensors
+Cockpit
+Flamer
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Berserker emerged from Defiance Industries' Hesperus II facility in 3056 as one of the most ambitious and expensive assault 'Mech designs ever produced. Conceived as a hundred-ton close-range brawler capable of devastating opponents at arm's reach, the design nearly perished on the drawing board due to massive cost overruns during its protracted research and development phase. Defiance Industries spared no expense in creating a state-of-the-art juggernaut that prioritized both engineering excellence and psychological intimidation, drawing inspiration from the classic Atlas in its approach to battlefield presence. With a price tag exceeding thirty-two million C-bills, the Berserker stands among the most expensive BattleMechs in production, a fact that has done little to diminish its popularity among those who can afford it.</p>
+
+capabilities:<p>The Berserker's defining characteristic is its extraordinary speed for an assault 'Mech. The massive LTV 400 XL engine propels the hundred-ton chassis to speeds exceeding sixty-five kilometers per hour, while a sophisticated MASC system pushes that figure to an astonishing eighty-six kilometers per hour in short bursts. This combination makes the Berserker the fastest 'Mech in its weight class, allowing it to close with targets that would normally outrun an assault platform. The design's signature seven-ton hatchet and head-mounted Zippo flamer make it a terrifying presence on the battlefield, with few opponents able to forget the sight of a hundred tons of 'Mech belching flame while swinging a massive axe.</p><p>At range, the Berserker employs a Defiance 1001 extended-range PPC for long-distance engagement while closing the gap, supplemented by two Sutel Precision Line large pulse lasers that more than double its firepower at medium range. Eighteen and a half tons of Durallex Heavy Special armor provide substantial protection, augmented by a Guardian ECM suite and a MainFire Point Defense anti-missile system that offer electronic and point-defense countermeasures. Sixteen double heat sinks manage the considerable thermal load generated by the energy-heavy weapons array, though sustained fire at close range demands careful heat management from the MechWarrior.</p>
+
+deployment:<p>Defiance Industries' most advanced Berserker to date, this variant incorporates numerous technological innovations into the venerable chassis. An endo-composite internal structure reduces weight while a Clan-specification extralight engine provides a base speed of sixty-four kilometers per hour, supplemented by jump jets that grant unprecedented tactical mobility for the design. The 'Mech retains the trademark hatchet and flamer alongside triple strength myomers, but replaces the traditional weapons suite with a bombast laser (whose adjustable output helps maintain the ideal operating temperature for the myomers) and four Clan-spec extended-range medium lasers. An armored compact gyro frees torso space for an Angel ECM suite, while impact-resistant armor provides enhanced protection specifically designed for the close-combat engagements the Berserker seeks out. These innovations represent a significant evolution of the platform for thirty-second century battlefields.</p>
+
+history:<p>Plagued by design problems and massive budget overruns throughout its development, the Berserker finally entered full-scale production in 3056. With all of Defiance Industries' considerable marketing muscle behind it, the design became an instant commercial success despite its staggering cost. The Lyran military, with its long-standing affection for assault 'Mechs, proved the natural primary market, with Defiance executives correctly anticipating that the awe-inspiring prospect of a fast hundred-ton 'Mech would outweigh concerns about the price, equal to three AS7-S Atlases.</p><p>The Free Rasalhague Republic's KungsArmé became an early and enthusiastic adopter, drawn by the nation's traditional preference for hatchet-armed 'Mechs. Several Berserkers were purchased for service alongside the Axman and Hatchetman in front-line regiments, where the design's combination of speed and devastating melee capability proved well-suited to Rasalhague combat doctrine. The Berserker also found a devoted following in the Solaris VII arena circuit, where its dramatic appearance and close-combat prowess made it an unforgettable crowd-pleaser, with several major stables acquiring the design for their rosters.</p><p>The turmoil of the FedCom Civil War and its aftermath drove continued development at Defiance Industries. Faced with the Lyran military's need for rapid rebuilding and force modernization, Defiance responded with new variants that addressed the Berserker's exorbitant cost while incorporating emerging technologies such as triple strength myomers and C3 networking. Production has continued at Hesperus II through successive eras, with Defiance introducing progressively more advanced variants incorporating Clan-specification technology and innovative new armor systems, ensuring the Berserker remains a relevant and feared presence on battlefields well into the thirty-second century.</p>
+
+manufacturer:Defiance Industries
+
+primaryfactory:Hesperus II
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Endo-Composite
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:400 Clan XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Impact-Resistant
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Unknown w/Angel ECM Suite
+systemmanufacturer:TARGETING:Unknown

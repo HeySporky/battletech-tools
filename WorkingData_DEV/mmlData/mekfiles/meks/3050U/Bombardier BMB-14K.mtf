@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c399-7b6a-bcd8-9a119fb17d7a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Bombardier
+model:BMB-14K
+mul id:425
+
+Config:Biped
+techbase:Inner Sphere
+era:3071
+source:TR:3050,TR:3050U
+published:RS:3050Uu-C
+rules level:2
+role:Missile Boat
+
+quirk:bad_rep_is
+
+mass:65
+engine:325 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:22
+RT armor:22
+CT armor:29
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:8
+Machine Gun, Right Arm
+Machine Gun, Right Arm
+Machine Gun, Right Arm
+Machine Gun Array, Right Arm
+MML 7, Left Torso
+MML 7, Left Torso
+MML 7, Right Torso
+MML 7, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Ammo MML-7 SRM
+IS Ammo MML-7 SRM
+IS Ammo MML-7 LRM
+IS Ammo MML-7 LRM
+IS Ammo MML-7 LRM
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Machine Gun
+Machine Gun
+Machine Gun
+ISMGA
+IS Machine Gun Ammo - Half
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISC3SlaveUnit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Bombardier was proposed to the Star League in 2735 by Wakazashi Enterprises as a specialized sixty-five-ton fire support BattleMech designed to replace less-mobile artillery vehicles that might fall behind in an advance or be destroyed by counterbattery fire. The design used specialized missile racks capable of carrying diverse types of advanced munitions, filling the role of a mobile artillery platform that could keep pace with advancing BattleMech formations while delivering devastating long-range firepower.</p><p>The Bombardier's reputation has fluctuated dramatically over the centuries, from a promising Star League-era fire support platform to a near-extinct relic of the Succession Wars. Multiple manufacturers across the Inner Sphere and Periphery have since revived the design, and the Bombardier's long-range fire support role has proven as relevant in the post-Jihad era as it was during the Star League.</p>
+
+capabilities:<p>The original BMB-12D mounts a pair of Delphinius-20 LRM launchers as its primary armament, weapons specifically designed to handle unique Star League-era ammunition types such as Swarm and Thunder missiles. A VOX 325 XL engine provides a respectable top speed of eighty-six kilometers per hour, allowing the Bombardier to keep pace with advancing formations and reposition as needed. Choutaka Armorscale protection with CASE provides solid defensive coverage for a fire support platform, and a Buzzsaw anti-missile system offers additional protection against incoming missile fire.</p><p>The Bombardier's greatest weakness is its limited endurance. With only two tons of LRM ammunition providing a mere twelve salvos, the design cannot sustain fire in an extended engagement. An Arrowlite-4 SRM launcher in the right arm provides some defense against units that close inside the LRMs' minimum effective range, but it carries only a single ton of ammunition and is insufficient to repel a determined assault. Unlike comparable fire support designs such as the Archer, the Bombardier carries no energy weapons to fall back on once its missile stores are depleted, leaving MechWarriors with a well-armored but toothless machine once the ammunition runs dry.</p>
+
+deployment:<p>This variant was introduced by the Draconis Combine as a direct response to the Outworlds Alliance's BMB-05A, refitting mothballed BMB-10D and BMB-12D frames at Wakazashi Enterprises facilities on Dover and New Samarkand. The variant strips out the original weapon systems and adds a half ton of additional armor before mounting four MML-7 launchers that provide engagement flexibility at all ranges. Five tons of ammunition feed the launchers, though the arm-mounted magazine placement leaves stores vulnerable. A C3 slave unit allows the 14K to share targeting data with networked lancemates, and three machine guns linked to a machine gun array in the right arm provide an anti-infantry capability. Electronic analysis indicates these refits are also being employed in company-sized C3 networks along the border with the Federated Suns.</p>
+
+history:<p>The Bombardier's history is one of promise unfulfilled and unlikely resurrection. Proposed in 2735 by Wakazashi Enterprises on Al Na'ir, the design was conceived as a BattleMech replacement for conventional artillery vehicles, offering superior mobility and survivability while maintaining devastating long-range firepower. The Star League Defense Force embraced the concept, and the Bombardier performed admirably in exercises and limited deployments during the final decades of the Star League era. By the time of the Amaris Civil War and the subsequent Exodus, more than eight hundred Bombardiers were distributed across SLDF formations.</p><p>The Succession Wars proved catastrophic for the design. The specialized Bombardier Artillery Missiles that gave the chassis its name were consumed at staggering rates during the First Succession War, with many garrison worlds exhausting their entire stockpiles within days of sustained combat. Forced into close-support roles for which it was never designed, the Bombardier suffered the highest battlefield loss rate of any BattleMech type. Wakazashi's primary factory on Al Na'ir was destroyed during the First Succession War, and the company, increasingly focused on aerospace production, saw no reason to rebuild capacity for a design with such a poor battlefield reputation.</p><p>Earthwerks Incorporated on Calloway VI obtained a license from Wakazashi to produce spare parts and began refitting surviving Bombardiers into the simplified BMB-10D configuration during the late Succession Wars. These refits kept the design alive in small numbers, though most were consigned to militia garrisons or reserve formations in the Free Worlds League and Draconis Combine. The Federated Commonwealth assigned its Bombardiers to training cadres where their limited ammunition was a manageable constraint rather than a battlefield liability. The Delphinius LRM-20 launchers salvaged from surviving 12Ds found second lives as replacement components for Archers, Apollos, and Catapults, meaning that a working Bombardier in the field was often a sign that the unit fielding it was on its last legs.</p><p>The Bombardier's most dramatic chapter began with the Clan Invasion's aftermath. The Outworlds Alliance, long dismissed as a minor Periphery power, forged a partnership with Clan Snow Raven that transformed the Alliance's industrial base. A massive factory complex, Clan enclave, and DropShip repair facility appeared on Mitchella, and the United Outworlders Corporation began producing both new BMB-12Ds and the radically upgraded BMB-05A. When Alliance Grenadiers fielded these new Bombardiers during a raid against Enif, Combine intelligence agents took immediate notice. The once-timid Alliance was mass-producing effective fire support 'Mechs, prompting Wakazashi to begin refitting older Bombardier frames into the MML-equipped BMB-14K at facilities on Dover and New Samarkand.</p><p>ComStar's secret development of the BMB-14C added another thread to the design's revival, though the Word of Blake schism and subsequent Jihad left the fate of these machines uncertain. By the early thirty-second century, the Bombardier had gone from a design on the verge of extinction to one actively produced and refitted by multiple factions, its long-range fire support role proving as relevant in the post-Jihad era as it had been during the Star League.</p>
+
+manufacturer:Refit - Wakazashi Enterprises|Refit - Wakazashi Enterprises
+
+primaryfactory:Dover|New Samarkand
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:KetoBond
+systemmode:CHASSIS:KetoBond
+systemmanufacturer:ENGINE:Unknown
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

@@ -1,0 +1,175 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e111-7cf3-bbc0-dbf85ed1a584
+</UUID>
+
+<UnitType>
+ProtoMek
+</UnitType>
+
+<Name>
+Svartalfa
+</Name>
+
+<Model>
+3
+</Model>
+
+<mul id:>
+8035
+</mul id:>
+
+<year>
+3118
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+WiGE
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<interface_cockpit>
+false
+</interface_cockpit>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+42
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+9
+14
+4
+4
+8
+</armor>
+
+<Body Equipment>
+CLMediumChemLaserAmmo (75)
+EIInterface
+</Body Equipment>
+
+<Head Equipment>
+</Head Equipment>
+
+<Torso Equipment>
+CLMediumChemicalLaser
+CLMediumChemicalLaser
+CLMediumChemicalLaser
+</Torso Equipment>
+
+<Right Arm Equipment>
+CLMediumChemicalLaser
+</Right Arm Equipment>
+
+<Left Arm Equipment>
+CLMediumChemicalLaser
+</Left Arm Equipment>
+
+<Legs Equipment>
+</Legs Equipment>
+
+<capabilities>
+<p>The Svartalfa's most distinctive feature is its wing-in-ground effect gliding system. While incapable of true flight or transformation like a Land-Air Mek, the Svartalfa uses deployable wings to glide just above the ground surface at cruising speeds of forty-three kilometers per hour, with a flank speed approaching sixty-five. On foot, the massive ProtoMek moves at a crawl barely exceeding ten kilometers per hour, making the gliding mode essential for tactical maneuvering. The wings fold compactly for ground operations and transport, and their robust construction allows them to absorb weapons fire without significantly degrading gliding performance.</p><p>The Svartalfa's weapons suite punches well above its weight class. Twin arm-mounted Medium Chemical Lasers deliver damage comparable to Inner Sphere medium lasers without requiring the heat dissipation systems that standard energy weapons demand, though their chemical fuel supply limits operational endurance to approximately thirty salvos total. A Streak SRM-6 launcher in the main gun mount provides devastating close-range firepower with ten guided salvos, while a torso-mounted machine gun with fifty rounds handles anti-infantry work. Sixty-four points of armor can survive a heavy Gauss rifle hit to the torso at point-blank range, making the Svartalfa extraordinarily resilient for any combat unit below twenty tons. The cockpit is fifty percent larger than standard ProtoMek designs, allowing pilots of Elemental phenotype to operate the machine, though it can be reconfigured for smaller pilots as well.</p>
+</capabilities>
+
+<overview>
+<p>The Svartalfa is a fourteen-ton ultraheavy ProtoMek developed by Clan Hell's Horses, representing a radical leap in ProtoMek design philosophy. Initially mistaken for a light or ultralight LAM by intelligence analysts due to its flight capability, the Svartalfa is in fact an enormous ProtoMek equipped with a wing-in-ground effect gliding system that allows limited low-altitude flight at speeds exceeding sixty kilometers per hour. At half again the mass of any previously known ProtoMek, the Svartalfa mounts more armor than most twenty-ton BattleMeks and carries a weapons suite that can challenge medium Meks in direct combat. The design's existence was first revealed when Clan Wolf became an unwitting live-fire test subject, and the Wolves struggled to understand what they were facing: too small to be a Mek, but far too tough to be battle armor or any known ProtoMek.</p>
+</overview>
+
+<deployment>
+<p>The Svartalfa 3 replaces the entire weapons suite of the base model with five Medium Chemical Lasers: three in the torso and one in each arm. A seventy-five-round chemical fuel supply provides sustained engagement capability. The larger engine increases ground speed to fifty-four kilometers per hour cruising in WiGE mode, making the Svartalfa 3 the fastest variant. Armor is reduced to thirty-nine points, significantly lighter than the base model but still substantial by ProtoMek standards. The all-chemical-laser configuration eliminates the Streak system's devastating close-range punch but provides more consistent damage output across multiple engagements without the binary hit-or-miss nature of guided missiles.</p>
+</deployment>
+
+<history>
+<p>Intelligence gathered from Diamond Shark trade delegations first hinted at the Svartalfa's existence through rumors of Clan Hell's Horses developing a light or ultralight LAM. One distant image was obtained showing a flying object, but covert missions to ferret out more information all ended in failure. The truth was revealed when the Horses deployed the Svartalfa against Clan Wolf in live combat, leaving the Wolves thoroughly confused about what they faced. Too small for a Mek but far too durable for any known battle armor or ProtoMek, the Svartalfa took considerable time and casualties before Wolf warriors learned to counter it effectively.</p><p>The Svartalfa has been distributed exclusively to the Hell's Horses' best ProtoMek pilots in elite units. In raids against the Wolves, the design proved its worth both in direct combat and in the confusion it sowed. Deploying medium and heavy Meks to engage even a single ProtoMek frustrated Wolf MekWarriors, while attempts to counter with battle armor failed due to the Svartalfa's decisive advantages in armor, firepower, and mobility. The design provides a low-resource unit that can tie down far more complex opponents, freeing heavier forces to concentrate on fewer targets.</p><p>A dedicated fire support variant, the Svartalfa 2, was developed by Hell's Horses scientists who managed to mount dual fifteen-tube long-range missile racks, one in the torso and one as a main gun. This required significant armor reduction but provided devastating long-range barrage capability. A Point of LRM-equipped Svartalfas with a forward spotter once convinced a Star of Wolf Meks that they were engaging a Bane hiding in the woods, rotating the spotter position to keep the Wolves guessing while ravaging them with indirect fire. The Svartalfa 3 takes a different approach, mounting five Medium Chemical Lasers for sustained energy-weapon engagements at the cost of the Streak launcher and machine gun.</p>
+</history>
+
+<manufacturer>
+Swedenborg Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+Kirchbach
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:UltraProto
+COMMUNICATIONS:Proto-Type
+TARGETING:SAT-PM
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:SVA-14 Glider
+ENGINE:75 Fusion
+ARMOR:Standard
+COMMUNICATIONS:4
+TARGETING:1
+</systemModels>
+
+<source>
+TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+14.0
+</tonnage>
+

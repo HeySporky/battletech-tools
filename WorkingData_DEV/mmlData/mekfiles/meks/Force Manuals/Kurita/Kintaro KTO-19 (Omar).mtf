@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d61e-7f98-9b2c-e963400af419
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Kintaro
+model:KTO-19 (Omar)
+mul id:8285
+
+Config:Biped
+techbase:Inner Sphere
+era:3052
+source:CM:Kurita,FM:Kurita
+published:FM:Kurita
+rules level:2
+role:Skirmisher
+
+quirk:rugged_1
+
+mass:55
+engine:275 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:11 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:18
+RA armor:18
+LT armor:18
+RT armor:18
+CT armor:26
+HD armor:9
+LL armor:23
+RL armor:23
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:5
+ER PPC, Left Arm
+SRM 6, Left Arm
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+SRM 6, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+SRM 6
+SRM 6
+Medium Laser
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+SRM 6
+SRM 6
+IS Ammo SRM-6
+IS Ammo SRM-6
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Kintaro was introduced in 2587 as a specialized Narc missile beacon carrier for the Star League Defense Force. Designed by General Dynamics as a medium fire-support platform, the fifty-five-ton 'Mech was intended to tag enemy units with Narc beacons, allowing missile-heavy lances to exploit the tracking signal for devastating follow-up strikes. The Kintaro proved effective in this team-oriented role, though its lack of disengagement speed remained a persistent concern for pilots forced to close with their targets.</p><p>When the last known Narc beacon factory was destroyed in 2792, the design's primary purpose evaporated overnight. The Kintaro nearly went extinct during the Succession Wars before General Dynamics rebuilt production on Ozawa with the downgraded KTO-18, while ComStar quietly preserved original models in their Terran stockpiles. The design has since seen a resurgence through multiple manufacturers and variant lines serving factions across the Inner Sphere.</p>
+
+capabilities:<p>The original KTO-19 Kintaro centers its combat doctrine around the Narc missile beacon system, which requires the 'Mech to close within short range of its targets, a risky proposition for a medium chassis. A CoreTek 275 fusion engine drives the Kintaro to a top speed of just under ninety kilometers per hour, providing adequate but not exceptional mobility for its beacon delivery mission. Ten tons of Leopard V ferro-fibrous armor offer respectable protection for a design expected to absorb fire during its approach runs.</p><p>The Kintaro's supporting armament complements its spotter role effectively. A pair of HoverTec-6 SRM-6 launchers deliver punishing close-range salvos, while twin Magna medium lasers provide backup firepower when ammunition runs low. A single Holly-5 LRM-5 launcher offers limited long-range harassment capability. Heat management is a constant concern, as aggressive use of the weapons suite pushes the Kintaro's ten single heat sinks to their limits.</p><p>The left-arm weapon bay houses both the Holly-5 and one HoverTec-6 launcher in an extremely complex arrangement that requires the entire arm to lock in place during the reload cycle. Sudden movements can jam the SRM system, typically requiring an hour to clear, a significant liability in sustained engagements that experienced pilots must account for in their tactical planning.</p>
+
+deployment:<p>This unique field refit was performed on a Star League-era KTO-19 passed down through the Akbani family of the Second Arkab Legion. After sustaining severe damage during the War of 3039, the damaged LRM-5 launcher and Narc missile beacon were replaced with a recovered ER PPC, providing significant long-range striking power uncommon on medium 'Mechs of this era. Double heat sinks were installed to manage the increased thermal load from the particle projector cannon. This modification transformed the Kintaro into an unusual medium-range direct-fire platform quite unlike its factory siblings.</p>
+
+history:<p>General Dynamics first produced the Kintaro on Ozawa in 2587, with General Mechanics operating a second production line on Mars for the Star League Defense Force. The design served with distinction throughout the Reunification War and the Amaris Civil War as a key element in SLDF combined-arms doctrine, with the Royal Brigades fielding the upgraded KTO-19b variant. The destruction of the last Narc beacon factory in 2792 during the First Succession War effectively ended the Kintaro's original role, and attrition through the Succession Wars reduced the surviving population to near extinction.</p><p>General Dynamics managed to rebuild production on Ozawa by the late Succession Wars, manufacturing the downgraded KTO-18 for the Federated Suns. Meanwhile, ComStar preserved a substantial cache of original KTO-19 Kintaros in their Terran warehouses on Mars, recognizing the design's enduring value. As part of Operation Rosebud, ComStar supplied the Draconis Combine with the modified KTO-20, equipping the secretive Ghost Regiments and select Sword of Light formations. These superior machines caused significant overreaction during the War of 3039, as Federated Commonwealth commanders diverted disproportionate resources to destroying them while other Combine units fought freely.</p><p>On Sarna during the Fourth Succession War, a trio of Davion Kintaros supported by a Marauder demonstrated the KTO-18's close-range lethality when they engaged a pair of Capellan Cataphracts and Vindicators. The Kintaros closed rapidly, using their thick armor to absorb PPC fire before unleashing devastating SRM volleys at short range that overwhelmed the Capellan defenders.</p><p>Beyond the Inner Sphere, Clan Cloud Cobra discovered Kintaros among their SLDF Brian Cache stockpiles following the Pentagon Worlds campaigns. Cloud Cobra scientists used these chassis as the foundation for the Naja, a mixed-tech design incorporating improved Clan missile launchers. Though the Naja ultimately became a footnote in Cloud Cobra history as the Clan shifted its focus to aerospace assets, it represented a notable second life for the Kintaro platform in Clan space.</p><p>The Word of Blake's seizure of Terra brought the Mars General Mechanics facility under Blakist control, where production was restarted and expanded. The Word of Blake deployed entire Level II formations of Kintaro variants as fire-support elements and C3i-equipped spotters throughout their divisions. Many Blakist-employed mercenary commands also received Kintaros during the Jihad. General Dynamics on Ozawa upgraded their production line to Star League standards by 3056, enabling production of the KTO-19 once again, and later incorporated technology from the New Dallas Memory Core to produce the Royal KTO-19b variant.</p><p>The Kintaro's production history reflects the fractured political environment of the Inner Sphere, with ownership of its factories shifting through Terran Hegemony, Federated Suns, Federated Commonwealth, ComStar, Word of Blake, Republic of the Sphere, and Draconis Combine hands across the centuries. Despite this turbulent provenance, the design has endured as a reliable medium combatant valued for its combination of firepower, armor, and adaptability.</p>
+
+manufacturer:General Dynamics
+
+primaryfactory:Ozawa
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Technicron
+systemmode:CHASSIS:Technicron-1
+systemmanufacturer:ENGINE:CoreTek
+systemmode:ENGINE:CoreTek 275
+systemmanufacturer:ARMOR:Leopard
+systemmode:ARMOR:Leopard V Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:OmniComm
+systemmode:COMMUNICATIONS:OmniComm 3
+systemmanufacturer:TARGETING:Starbeam
+systemmode:TARGETING:Starbeam 3000

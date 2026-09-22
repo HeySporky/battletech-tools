@@ -1,0 +1,182 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e902-71ce-9cc5-05cb327cd5c8
+</UUID>
+
+<UnitType>
+SupportVTOL
+</UnitType>
+
+<Name>
+Apple-Churchill Surveillance VTOL
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3708
+</mul id:>
+
+<year>
+2971
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+cargobay:0.5:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+46
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+4
+3
+3
+3
+2
+</armor>
+
+<Body Equipment>
+Communications Equipment:SIZE:0.0
+RemoteSensorDispenser
+</Body Equipment>
+
+<Front Equipment>
+ISHighResImager
+ISInfraredImager
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<barrating>
+5
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>At twenty tons, the Apple-Churchill Surveillance VTOL is a lightweight platform built around concealment and observation rather than combat. Powered by an internal-combustion engine and equipped with a dual-ring, counter-rotating multiblade rotor system, the craft achieves near-complete acoustic concealment. Confirmed reports document observers standing no more than three hundred meters from a hovering Apple-Churchill VTOL yet unable to hear it, a capability that suggests an undisclosed noise-reduction system guarded closely by the manufacturer. Cruise speed reaches 75.6 km/h, with a top speed of 118.8 km/h, and a petrochemical fuel system provides a range of 1,250 kilometers.</p><p>The sensor suite is the heart of the design. A high-resolution imaging camera and an infrared imager are mounted in the nose, while the rear compartment houses trained operators who manage a sixty-sensor remote sensor dispenser, typically configured for sonic and visual detection. A dedicated ton of communications equipment rounds out the package. Armor protection is minimal, providing only enough coverage to survive incidental hazards, and the vehicle carries no weapons. Three crew members operate the platform: a pilot and two rear-compartment operators managing the sensor suite and remote dispensers. The design's philosophy is unambiguous, built to observe without engaging, operating in environments where silence and invisibility matter more than any weapon.</p>
+</capabilities>
+
+<overview>
+<p>The Apple-Churchill Surveillance VTOL is a purpose-built intelligence platform produced exclusively by Apple-Churchill Inc. on Sian. Introduced in 2971, the airframe was developed for the Capellan Confederation's internal security apparatus, sold only to the Maskirovka and select constabulary and militia forces across the Confederation. Apple-Churchill maintains total in-house control over every aspect of production and maintenance, with no outside contractors or labor involved at any stage. The company trains all operators and mechanics personally, producing a platform so thoroughly integrated into the Confederation's intelligence structure that its presence has become synonymous with the Maskirovka's reach across Capellan space. Quiet, reliable, and deliberately obscure, it is one of the most tightly guarded designs in the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Apple-Churchill Surveillance VTOL is distributed exclusively within the Capellan Confederation to the Maskirovka and select constabulary and militia units. With output deliberately limited to a small annual run, the total fleet remains carefully controlled and never exceeds the Confederation's internal security needs. Operators receive direct training from Apple-Churchill personnel and are not shared outside the Confederation's security structure. The vehicle is used for surveillance, intelligence gathering, and the covert tailing of individuals, with the ability to follow a single target through dense urban environments using only its airborne sensor suite. The absence of weapons and limited armor confirm the design is not intended for contested airspace, instead operating in controlled or permissive environments where acoustic concealment provides more protection than any gun.</p>
+</deployment>
+
+<history>
+<p>The Apple-Churchill Surveillance VTOL entered service with the Capellan Confederation in 2971, a product of the close relationship between Apple-Churchill Inc. and the Confederation's internal security apparatus. From the outset, the company maintained an unusual degree of secrecy over its construction, ensuring no outside workers or contractors entered the production wing of its Sian facility. In the decades since introduction, not one outside worker has been employed in that section of the factory, a policy enforced with the same discipline as the Maskirovka itself.</p><p>Apple-Churchill produces no more than sixteen units annually under normal circumstances, expanding output only when the Maskirovka or other Confederation agencies place extraordinary orders. Each vehicle leaves the factory with a supply of spare parts and detailed maintenance documentation, and when damage occurs in the field, Apple-Churchill dispatches its own certified technicians to perform repairs on-site rather than allowing outside maintenance personnel access to the airframe. The approach has been successful. In all the years since introduction, only three Apple-Churchill VTOLs have been destroyed in crashes, and all three were attributed to pilot error rather than mechanical failure.</p><p>The level of secrecy surrounding the design is unusual even by Capellan standards. The parts machining is conducted entirely in-house, and the company trains its own operators and mechanics rather than relying on shared Confederation personnel. The result is a platform whose technical details remain almost entirely unknown outside Maskirovka circles, with even allied Confederation military commands reporting no access to its maintenance specifications. Rumors persist within intelligence circles that a second variant of the airframe exists, intended to transport and insert Maskirovka special operations teams from low altitude using zip-line deployment. Apple-Churchill has neither confirmed nor denied these accounts, and the question of whether such a vehicle is a distinct design or merely the standard airframe repurposed remains officially unresolved.</p>
+</history>
+
+<manufacturer>
+Apple-Churchill Inc.
+</manufacturer>
+
+<primaryFactory>
+Sian
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+HB:HL
+</source>
+
+<published>
+HB:HL
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+
+<fuel>
+0.5
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

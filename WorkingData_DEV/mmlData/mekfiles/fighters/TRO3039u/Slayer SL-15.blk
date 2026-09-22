@@ -1,0 +1,176 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad5f-757f-a236-26c39d6c5690
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Slayer
+</Name>
+
+<Model>
+SL-15
+</Model>
+
+<mul id:>
+2959
+</mul id:>
+
+<year>
+2770
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+20
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+800
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+84
+50
+50
+48
+</armor>
+
+<Nose Equipment>
+Autocannon/10
+Medium Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+Medium Laser
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Medium Laser
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+Medium Laser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo AC/10
+IS Ammo AC/10
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Slayer's combat effectiveness derives from a balanced weapons package rather than a single dominant arm. A Zeus 56 Mark IV autocannon in the nose provides heavy striking power at range, while five Diverse Optics Type 20 medium lasers cover the nose, wing, and rear arcs. A sixth medium laser faces aft, mounted on the distinctive raised circular plate at the tail; a vestige of a rotating turret experiment Wakazashi abandoned after the assembly proved unreliable in deep space conditions. All weapons can be sustained in continuous fire without overtaxing the fighter's heat sinks, enabling the kind of prolonged engagement that lighter craft cannot match.</p><p>The Shinobi 320 fusion plant drives the airframe at a moderate thrust rating, making the Slayer less a quick dogfighter and more a heavy-hitting striker and escort. Naketsu AeroWeave Standard protection covers the hull, providing strong resistance to battle damage. The Wakazashi V frame was designed from the outset for structural versatility, accepting a wide range of weapon configurations without modification - a quality that invited years of field tinkering with uneven results. The fighter's double-capacity fuel load is integral to the frame and cannot be altered without compromising structural integrity, a constraint that has shaped Slayer tactics for six centuries. Sony MSF-21 communications and Radcom T11 fire control complete the standard avionics suite.</p>
+</capabilities>
+
+<overview>
+<p>The Slayer is a heavy aerospace fighter produced by Wakazashi Enterprises for the Draconis Combine, entering service in 2657 during the twilight years of the Star League. Built around a deceptively compact delta-wing airframe, the design earned a reputation that outlasted the civilization that created it, with generations of enemy pilots underestimating its mass and paying for the mistake.</p><p>The Slayer was conceived as a true multi-role heavy fighter, equally capable of prosecuting dogfights, strafing ground targets, and hunting DropShips through the vacuum of deep space. Its designers prioritized endurance above all other considerations, fitting the airframe with a double-capacity fuel tank that allows the craft to loiter over contested areas long after lighter fighters have been forced to withdraw. This practical durability, combined with an adaptable airframe that has hosted countless field modifications over the centuries, established the Slayer as one of the most recognizable and enduring warbirds in the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The foundational Slayer configuration served as the primary heavy fighter of the DCA throughout the Succession Wars, appearing in virtually every Combine aerospace unit by the late twenty-eighth century. Production at Wakazashi's Dover facility ran continuously from the Star League era through the mid-Clan Invasion period, supplying both the DCA and, through licensing arrangements, the Outworlds Alliance and Taurian Concordat. The design also reached LCAF service through arms sales, though the 2981 procurement dispute resulted in subsequent deliveries arriving without weapons. Its wide-ranging spare parts availability made it equally common among Periphery militias and mercenary units across the Inner Sphere.</p>
+</deployment>
+
+<history>
+<p>Wakazashi Enterprises commissioned the Slayer in 2657 to give the Draconis Combine Aerospace arm a durable heavy fighter capable of extended independent operations. The design's endurance and adaptable airframe quickly made it a fixture of DCA force structure, and production at Dover continued without interruption through the Star League era.</p><p>As the Star League collapsed and the Succession Wars consumed the Inner Sphere's industrial base, Wakazashi developed a series of missile-armed modification kits during the Third Succession War, producing the A, B, and C configurations as an attempt to adapt the design for an era when autocannon ammunition was becoming increasingly difficult to source. The kits found few advocates among pilots who preferred the original's straightforward arrangement, and the experience left Wakazashi reluctant to tamper with the core design for a generation.</p><p>The company also navigated a difficult relationship with the Lyran Commonwealth during this period. A contentious dispute with LCAF procurement officials in 2981 over production specifications left legal consequences that shaped Slayer sales to the Lyran Alliance for decades, with subsequent contracts routinely shipping fighters without weapons installed.</p><p>Commercially, Wakazashi made a pair of strategic licensing decisions in the late Star League era, extending production rights to the Outworlds Alliance's United Outworlders Corporation on Ramora and to the Taurian Concordat's Wingman Enterprises on Pinard. These arrangements kept the Slayer in production across multiple manufacturers while Wakazashi concentrated on newer programs, and placed a capable heavy fighter in the hands of Periphery states surrounding the Federated Suns without direct Combine involvement.</p><p>The Slayer gained renewed visibility in 3039 when DCA units equipped with the design participated in the Combine's invasion of Davion space, with engagements over Marduk entering DCMS cultural memory after a pair of Combine pilots flew a final defensive run against multiple AFFS DropShips, destroying two before being killed. DCMS propaganda elevated the account into a celebrated example of duty and sacrifice, though subsequent analysis noted the romanticized retellings diverged significantly from the tactical record.</p><p>The SL-15R of 3044 replaced the aging autocannon with an LB 10-X system, a modest improvement compatible as a field refit for existing airframes. A further upgrade in 3066 improved heat management and laser output to produce the SL-15K, with the DCMS planning a fleet-wide conversion that the Jihad would disrupt before it could be completed.</p><p>The Jihad proved costly to the Slayer's production network. The United Outworlders Corporation line on Ramora shut down entirely by 3084 as Snow Raven influence absorbed the Outworlds Alliance, though the Ravens left their own mark first: in 3075, a joint project between UOC engineers and Snow Raven technicians produced five experimental mixed-technology prototypes on Ramora that combined Clan weaponry with an Inner Sphere airframe, advancing no further than the proof-of-concept stage. The Wingman Enterprises line on Pinard proved more resilient, continuing production well into the Dark Age. Wakazashi's own Dover facility maintained the modernized SL-15K line, and a second SL-15K production line established through a Matabushi cooperative venture on Avon extended the type's reach into the ilClan era.</p>
+</history>
+
+<manufacturer>
+United Outworlders Corporation|Wakazashi Enterprises|Wingman Enterprises, Ltd
+</manufacturer>
+
+<primaryFactory>
+Ramora|Dover|Pinard
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Wakazashi Enterprises
+ENGINE:Unknown
+ARMOR:Naketsu
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Wakazashi V
+ENGINE:Shinobi 320
+ARMOR:Naketsu AeroWeave Standard
+COMMUNICATIONS:Sony MSF-21
+TARGETING:Radcom T11
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

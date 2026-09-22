@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-e02f-758a-8405-be95f4585130
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Roadrunner
+clanname:Emerald Harrier
+model:RD-1R
+mul id:7292
+
+Config:Biped
+techbase:Clan
+era:3112
+source:XTR:RotS 1,TR:3150
+published:XTR:RotS 1,TR:3150
+rules level:3
+role:Scout
+
+quirk:easy_pilot
+quirk:no_arms
+
+mass:15
+engine:210 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:14
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:3
+RA armor:3
+LT armor:2
+RT armor:2
+CT armor:3
+HD armor:3
+LL armor:3
+RL armor:3
+RTL armor:2
+RTR armor:2
+RTC armor:2
+
+Weapons:2
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Roadrunner, originally known as the Emerald Harrier, is a fifteen-ton ultralight BattleMech first developed by Clan Jade Falcon during the Golden Century. Designed as a fast scout and harasser, the diminutive 'Mech saw limited use among the Falcons before falling out of production well before the Clan Invasion. The design languished in obscurity until a partnership between Clan Sea Fox and the Republic of the Sphere brought it back into production in 3112.</p><p>The Roadrunner holds the distinction of being the first pure Clan-technology BattleMech built for standard service in an Inner Sphere military. Despite its small size, the design has proven itself a valuable asset for the Republic Armed Forces, filling dual roles as a combat harasser and a training platform for new MechWarriors.</p>
+
+capabilities:<p>Powered by a LightForce 210 XL engine mounted on a Triumph Dynamic Endo Steel frame, the Roadrunner is one of the fastest BattleMechs ever fielded, capable of reaching speeds exceeding 220 kilometers per hour at a full sprint. Its armament consists of a pair of Conquest Extended Range Medium Lasers, one mounted in each arm, giving the 'Mech respectable firepower for its tonnage class. Advantage Ferro-Fibrous armor provides reasonable protection for such a small chassis, though pilots must rely primarily on speed rather than durability to survive engagements.</p><p>The Roadrunner's primary limitation lies in what it lacks. Without jump jets, the design cannot navigate complex terrain or escape ambushes as effectively as dedicated reconnaissance platforms. It also carries no specialized electronics or anti-infantry weaponry, which prevents it from filling a true scouting role. These trade-offs, however, make the Roadrunner exceptionally simple to operate. Combined with straightforward control systems that make the 'Mech forgiving to handle, the Roadrunner serves as an excellent training platform for cadets transitioning to heavier machines.</p>
+
+deployment:<p>This variant is the sole production model of the Roadrunner, designated under the Republic Armed Forces' codification of the original Clan Jade Falcon Emerald Harrier. Republic tactical doctrine employs the Roadrunner primarily in pairs or light lances, where its exceptional straight-line speed allows it to run down retreating forces or execute rapid flanking maneuvers against heavier opponents. The design has also found a valued secondary role as a training 'Mech, where its forgiving handling characteristics allow cadets to develop fundamental piloting skills before moving on to more complex designs. No other factory variants of the Roadrunner are in production as of 3145.</p>
+
+history:<p>The Emerald Harrier was first produced by Clan Jade Falcon during the Golden Century, with an estimated introduction date around 2920. The design served primarily as a training 'Mech and light harasser, with its last confirmed Jade Falcon deployment being alongside Eyrie units on Coventry in 3058. By the time of the Clan Invasion, the Emerald Harrier was already out of production and virtually unused within the Falcon touman.</p><p>ComStar's ROM division spotted the design on occupied Lyran worlds during the early 3050s, assigning it the code name Roadrunner. With limited numbers deployed against Inner Sphere forces and the design already out of production, the 'Mech quickly faded from intelligence reports. The brief merchant alliance between Clans Jade Falcon and Diamond Shark during Operation REVIVAL had included the technical sharing of the Emerald Harrier's specifications, but the Diamond Sharks never pursued production of the diminutive design.</p><p>The Roadrunner's resurrection came through an unlikely partnership. Negotiations between then-ovKhan Mori Hawker of the Clan Sea Fox ilKhanate and the Republic of the Sphere's Procurement Division resulted in a groundbreaking deal to produce the 'Mech on Capolla. The Republic financed the construction of a dedicated manufacturing facility, Auxiliary Production Site #11, which was inaugurated in 3112. Under the agreement, Clan Sea Fox maintained complete operational control of the facility until 3127, at which point it transitioned to an independent enterprise under Republic economic jurisdiction. The accompanying service contracts included training of RAF support staff in Clan manufacturing techniques, furthering the Republic's goal of building domestic ClanTech production capability.</p><p>The Roadrunner saw combat during the Senate Rebellion, where pairs of the fast 'Mechs were tasked with tracking fleeing pro-Senate forces. The design's combination of speed and adequate firepower proved well suited to pursuit operations. By the mid-thirty-second century, the Roadrunner had been joined in service by the more advanced Jackalope, though the older design continues to fill its niche as a harasser and training platform within the Republic Armed Forces.</p>
+
+manufacturer:Auxiliary Production Site #11|Eagle Craft Group
+
+primaryfactory:Capolla|Ironhold
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Triumph Dynamic
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:LightForce
+systemmode:ENGINE:210 XL
+systemmanufacturer:ARMOR:Advantage
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Angst
+systemmode:COMMUNICATIONS:Clear Channel 5
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:TA1240

@@ -1,0 +1,77 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bef3-787b-9383-e254296182f6
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Motorized Duplus Contubernium (MHAF)
+</Name>
+
+<Model>
+(Laser)
+</Model>
+
+<year>
+2920
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Marian Hegemony Armed Forces organize their conventional infantry along Roman legionary lines, with formations structured into contubernia, centuries, and cohorts rather than the squads and platoons used by Inner Sphere armies. A duplus contubernium, or double tent-group, fields two squads of ten soldiers. Motorized duplus contubernia use light vehicles for rapid deployment across Hegemony worlds, trading the staying power of heavier mechanized transport for speed and operational reach on patrol and screening duties. Equipped with laser rifles that offer superior range and armor penetration compared to ballistic weapons, these formations field one of the most effective personal arms available to conventional infantry, though the weapons require soldiers to carry additional power packs.</p>
+</overview>
+
+<notes>
+Marian Hegemony infantry platoons consist of a 100-trooper Century comprised of ten 10-trooper contubernia or squads. Game play requires this to be broken down into units of 30 or fewer troopers, with the Duplus Contubernium being a two-squad (20 trooper) deployment and the Triplus Contubernium being a three-squad (30 trooper) deployment.
+</notes>
+
+<squad_size>
+10
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<Primary>
+Laser Rifle
+</Primary>
+

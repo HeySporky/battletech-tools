@@ -1,0 +1,262 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-abb6-74de-a1fe-4db817547209
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Pentagon
+</Name>
+
+<Model>
+Mk I
+</Model>
+
+<mul id:>
+4804
+</mul id:>
+
+<year>
+2540
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+cargobay:594.5:1:1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+steeragequarters:125.0:0:-1::-1:0
+crewquarters:126.0:0:-1::-1:0
+1stclassquarters:40.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<heatsinks>
+170
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+18000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+368
+323
+323
+278
+</armor>
+
+<Nose Equipment>
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20:24
+(B) PPC
+PPC
+(B) Large Laser
+Large Laser
+(B) Autocannon/10
+Autocannon/10
+IS Ammo AC/10:50
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20:48
+(B) PPC
+PPC
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) (B) PPC
+(R) (B) LRM 20
+(R) IS Ammo LRM-20:30
+(B) Autocannon/10
+IS Ammo AC/10:20
+(B) Large Laser
+Large Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20:48
+(B) PPC
+PPC
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) (B) PPC
+(R) (B) LRM 20
+(R) IS Ammo LRM-20:30
+(B) Autocannon/10
+IS Ammo AC/10:20
+(B) Large Laser
+Large Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) PPC
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+21
+</structural_integrity>
+
+<capabilities>
+<p>The original Pentagon Mk I mounts a devastating array of conventional weaponry distributed across all firing arcs. The nose concentrates two LRM-20 racks, two PPCs, two large lasers, and two AC/10 autocannons. Each broadside carries an even heavier loadout: two forward-facing LRM-20s, two PPCs, a large laser, and four medium lasers, plus an aft-facing PPC, LRM-20, AC/10, and two large lasers. The stern mounts a large laser, four medium lasers, and a PPC for rear defense.</p><p>One hundred seventy single heat sinks manage the considerable thermal load. Over seventy-five tons of armor provide 1,292 points of protection, exceptional for a vessel of this size. The GM 5600 Sublite maneuver drives generate 5.573g of thrust, pushing crews to the very limits of human endurance. A crew of fifty-five operates the vessel, which carries 594 tons of cargo including ammunition stores for its ballistic weapons.</p>
+</capabilities>
+
+<overview>
+<p>The Pentagon is a 4,000-ton Spheroid assault DropShip originally designed for the Terran Hegemony Navy as a dedicated anti-fighter escort for capital warships. First introduced in the mid-twenty-sixth century, the vessel was designed to generate acceleration exceeding five gravities, making it faster than virtually any other DropShip of its era and capable of matching the pace of most aerospace fighters over extended distances.</p><p>Heavily armed and exceptionally well-armored for its size, the Pentagon earned a fearsome reputation as one of the most dangerous combat DropShips ever fielded. Its weapons were regularly updated with the best technology available, ensuring the design remained lethal across multiple centuries of service with the Star League Defense Force and its successors.</p>
+</overview>
+
+<deployment>
+<p>The original Pentagon Mk I served with the Terran Hegemony Navy from the mid-twenty-sixth century, operating as an anti-fighter escort attached to Congress-class Frigates and other capital warships. These vessels were among the most active combat DropShips in the SLDF fleet, regularly engaging pirates, Periphery raiders, and hostile aerospace formations during convoy escort duties.</p>
+</deployment>
+
+<history>
+<p>The Pentagon was first designed for the Terran Hegemony Navy in the twenty-sixth century to provide anti-fighter escort for Congress-class Frigates. In the years following the Reunification War, SLDF WarShips were rarely called into action against other capital vessels, and with growing demand for convoy escorts, the Congress-class and their attached Pentagons often saw more action than the SLDF's battlecruiser and battleship squadrons combined.</p><p>During the Second Periphery Uprising, the SLS Star Devil, a Congress-class frigate, stumbled into four aging Taurian Lola II destroyers screening a force bound for Brisbane. Far from any support, the Star Devil launched both her Pentagons with orders to concentrate on the Taurian troop transports. Fighting through the enemy fighter screen, the DropShips inflicted crippling damage on four JumpShips before being destroyed. The Star Devil was also lost, but not before taking three enemy destroyers with her.</p><p>The automated Caspar defense drones protecting the Terran Hegemony treated Pentagons as high-priority targets, and none are recorded as surviving the campaign to retake Terra from the Usurper. The design was thought extinct until 3068, when ComStar's Case White assault on Terra encountered previously unknown Word of Blake naval units including several squadrons of Pentagons. The Word of Blake had secretly developed a modified variant mounting capital-grade missile launchers, transforming the already dangerous escort into a pocket warship capable of engaging capital vessels directly.</p>
+</history>
+
+<manufacturer>
+Nicholas Spacecraft
+</manufacturer>
+
+<primaryFactory>
+New Earth
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:GM 5600 Sublite
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+4000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+18
+</crew>
+
+<officers>
+4
+</officers>
+
+<gunners>
+8
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+25
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+1
+</life_boat>
+
+<escape_pod>
+8
+</escape_pod>
+

@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6cd-79f0-9387-fb79eeb061c6
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Talos
+model:TLS-1B
+mul id:5175
+
+Config:Biped
+techbase:Inner Sphere
+era:2532
+source:His:RW,TR:SW
+published:RS:SW
+rules level:1
+role:Brawler
+
+quirk:easy_pilot
+
+mass:50
+engine:200 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:20
+RT armor:20
+CT armor:22
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:4
+AC/10, Right Arm
+SRM 6, Left Torso
+LRM 5, Right Torso
+LRM 5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+-Empty-
+
+Left Torso:
+SRM 6
+SRM 6
+IS Ammo SRM-6
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+LRM 5
+LRM 5
+IS Ammo LRM-5
+IS Ammo AC/10
+IS Ammo AC/10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Talos was conceived in 2521 when the Taurian Defense Force solicited requirements for a new domestically-produced BattleMech to counter the increasingly advanced designs fielded by the Capellan Confederation and Federated Suns. Vandenberg Heavy Industries, one of the Taurian Concordat's largest IndustrialMech manufacturers, formed its Vandenberg MilTech division specifically to answer this call. After nearly a decade of development, Vandenberg MilTech delivered the TLS-1B Talos to the TDF in 2532.</p><p>A fifty-ton medium 'Mech emphasizing ease of production and simplified logistics, the Talos proved immediately popular with Taurian MechWarriors and became the backbone trooper 'Mech of the TDF through the 2540s. Its financial success and reputation for reliability led to strong export sales across the Periphery, ensuring the design remained in continuous production for nearly five decades.</p>
+
+capabilities:<p>The Talos was designed first and foremost around heat management, a direct response to TDF MechWarriors' persistent complaints about the poor thermal performance of contemporary designs. As a medium BattleMech, the Talos required less maintenance than the heavier designs favored by the Federated Suns and Terran Hegemony, while its compact stature simplified DropShip loading and transport logistics. The design achieves a top speed of 64 kph, matching or exceeding the average speed of most 'Mech designs of its era, though it lacks jump jet capability entirely.</p><p>The Talos relies on a proven combination of autocannon and missile systems arranged for layered fire to optimize heat dissipation. The Westen Heavy Autocannon class-10, mounted in the lower right arm, serves as the primary weapon and earned widespread praise among Taurian armor crews for its accuracy and stopping power. This is supplemented by a pair of shoulder-mounted Delta Dart long-range missile racks and a Delta Bolt short-range missile system, giving the Talos engagement capability across all range brackets. Eight and a half tons of Hoyt StarPlate armor provide solid protection for a design of its tonnage, allowing the Talos to absorb considerable punishment while closing to effective engagement range. The trade-off for this thermally efficient loadout is complete ammunition dependency; once its magazines run dry, the Talos is effectively defenseless.</p>
+
+deployment:<p>This variant represents the sole production model of the Talos, entering service with the Taurian Defense Force in 2532. No official factory variants were ever produced by Vandenberg MilTech or the TDF, though the design's widespread service across multiple Periphery nations led to extensive field customization, making the Talos one of the most individually modified designs during the Reunification War.</p>
+
+history:<p>The Taurian Defense Force accepted its first Talos BattleMechs in the spring of 2532, and by the end of the decade the design had been distributed to every Taurian BattleMech regiment, rapidly displacing older and less capable designs still in frontline service.</p><p>Vandenberg MilTech continued full production of the Talos for nearly five decades, proving the design a considerable financial success. Just over half of total production was exported beyond the Concordat's borders, with significant sales to the militaries of the Rim Worlds Republic, the Magistracy of Canopus, and even the Outworlds Alliance. The Talos also found buyers among less-developed Inner Sphere powers seeking affordable, proven medium BattleMechs for their nascent military forces.</p><p>As military technology and doctrine matured through the mid-twenty-sixth century, the TDF found itself requiring ever more capable designs to meet emerging threats. Vandenberg MilTech was prompted to rotate the Talos out of production shortly after the start of the Reunification War in 2575, as technological advances had rendered the design increasingly obsolete against Star League Defense Force equipment.</p><p>Despite the cessation of manufacturing, the sheer number of Talos BattleMechs already produced ensured the design's continued presence on battlefields for generations. The hardy 'Mechs remained in active service within Periphery armies and as second-line assets for Inner Sphere formations well into the early Succession War era, a sign of the rugged simplicity that had defined the design from its inception. The Talos's role in the Reunification War was particularly notable, as its widespread availability led to the design being one of the most customized BattleMechs of the conflict, with individual units and garrisons applying a dizzying array of field modifications to adapt the venerable chassis to rapidly evolving battlefield conditions.</p>
+
+manufacturer:Vandenberg MilTech
+
+primaryfactory:New Vandenberg
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Vandenberg Technologies
+systemmode:CHASSIS:Medium-III
+systemmanufacturer:ENGINE:Nissan
+systemmode:ENGINE:200
+systemmanufacturer:ARMOR:Hoyt
+systemmode:ARMOR:StarPlate 3
+systemmanufacturer:COMMUNICATIONS:Kensu-Mocom
+systemmode:COMMUNICATIONS:Angelia-II
+systemmanufacturer:TARGETING:Rushpoint
+systemmode:TARGETING:TT2B5

@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf35-7552-9a2f-4c4dc94c0a8c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Wight
+model:WGT-1LAW/SC3
+mul id:3547
+
+Config:Biped
+techbase:Inner Sphere
+era:3070
+source:TR:3075,TR:J
+published:RS:J
+rules level:2
+role:Sniper
+
+quirk:exp_actuator
+quirk:weak_legs
+
+mass:35
+engine:175 Compact Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:0
+
+armor:Heavy Ferro-Fibrous(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:11
+RT armor:11
+CT armor:14
+HD armor:9
+LL armor:15
+RL armor:15
+RTL armor:4
+RTR armor:4
+RTC armor:4
+
+Weapons:2
+ER Medium Laser, Left Torso
+Heavy PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERMediumLaser
+ISC3SlaveUnit
+IS Endo Steel
+IS Endo Steel
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Heavy Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Wight emerged from a Coordinator's directive to demonstrate that the Dragon remained strong despite the devastating losses of the Jihad. With the destruction of their primary production facility on Luthien in early 3068, Luthien Armor Works faced an impossible mandate: fulfill a government contract without adequate manufacturing capacity. The solution proved as innovative as it was pragmatic.</p><p>LAW purchased a large stock of worn-out PNT-10K Panthers sent to Wakazashi Enterprises for refurbishment, stripping each 'Mech down to its bare Alshain 560-Carrier endo steel skeleton. The company then partnered with StarCorps Industries of Son Hoa in the Lyran Alliance, sharing development costs in exchange for StarCorps receiving base chassis with ER medium lasers already mounted. This daring collaboration between former enemies resulted in a design that proved both innovative and combat-effective, serving as a beacon for the Combine's people to rally around during the darkest days of the Jihad.</p>
+
+capabilities:<p>The Wight's combat philosophy centers on short-range brawling capability built around one of the newly introduced Lord's Light heavy PPCs. This devastating weapon provides exceptional firepower for a light 'Mech, though at the cost of considerable heat generation. Dual Diverse Optics ER medium lasers in the left torso supplement the primary weapon, creating an all-energy loadout that allows the Wight to remain in combat as long as its pilot's endurance permits.</p><p>LAW's version utilizes an Omni 175 Compact fusion engine, sacrificing speed for improved survivability and battlefield longevity. The compact engine's smaller profile leaves more internal volume for other systems, while 5.5 tons of New Samarkand Royal heavy ferro-fibrous armor provides surprising protection for a front-line light 'Mech. Ten double heat sinks struggle to manage the heavy PPC's thermal output but represent a significant improvement over single heat sink designs.</p><p>The Wight's lack of jump capability drew criticism from StarCorps engineers, who considered 86 km/h insufficient mobility for a light 'Mech. However, LAW prioritized durability and firepower over speed, creating a design intended to stand and fight rather than skirmish and withdraw.</p>
+
+deployment:<p>A field refit of the base Wight model that removes one ER medium laser to accommodate a C3 slave unit. This modification enables network-coordinated targeting with other C3-equipped units, enhancing the Wight's effectiveness when operating as part of combined-arms formations. The refit kit has been made available for both LAW and StarCorps base models, allowing flexible integration into C3 networks regardless of original manufacturer.</p>
+
+history:<p>The Wight's development represents one of the most unusual collaborative efforts in Inner Sphere industrial history. Luthien Armor Works, facing destruction of their primary facility and a government contract they could not refuse, turned to Wakazashi Enterprises for raw materials and StarCorps Industries for financial backing and manufacturing capacity. StarCorps provided capital to expand LAW's mobile factories concept while receiving shipments of base chassis to outfit according to their own specifications.</p><p>LAW constructed their Wights aboard a mobile factory built within the unfinished hull of the battleship Yamato, operating over the planet Dover. This unconventional production facility allowed continued manufacturing despite the loss of fixed industrial sites. StarCorps, meanwhile, produced their variants at Son Hoa in the Lyran Alliance, creating the unusual situation of an ostensibly Combine design being manufactured by a Lyran corporation.</p><p>Unlike prestigious designs such as the Akuma or No-Dachi that were first deployed with House Kurita's elite formations, the Wight was placed with units in the most desperate need of 'Mechs, whether elite regiments of the Pillar of Steel or battered garrison forces. This egalitarian distribution reflected the design's purpose: demonstrating Combine industrial resilience rather than showcasing technological superiority.</p><p>The partnership between LAW and StarCorps generated ongoing friction, with StarCorps engineers publicly criticizing the base model's lack of mobility. LAW responded with the 2LAW variant featuring improved jump jets, while StarCorps developed their own mobile variant. Despite these disagreements, the collaboration continued, with rumors of a StarCorps 3SC variant intended for the Capellan market suggesting the partnership's commercial potential extends beyond the Combine.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:560-Carrier Endo Steel
+systemmanufacturer:ENGINE:Omni
+systemmode:ENGINE:175 Compact
+systemmanufacturer:ARMOR:New Samarkand Royal
+systemmode:ARMOR:Heavy Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:CommCon SCU-4
+systemmanufacturer:TARGETING:Cat's Eyes
+systemmode:TARGETING:5 with C3 Slave

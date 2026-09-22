@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c4ef-733d-8de5-f1873edad30c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Grasshopper
+model:GHR-7K
+mul id:1270
+
+Config:Biped
+techbase:Inner Sphere
+era:3068
+source:TR:3050,TR:3050U
+published:RS:3050Uu-I
+rules level:2
+role:Skirmisher
+
+quirk:rugged_1
+
+mass:70
+engine:280 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:16 IS Double
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:10
+RTR armor:10
+RTC armor:13
+
+Weapons:5
+Light PPC, Left Arm
+Light PPC, Right Arm
+Snub-Nose PPC, Left Torso
+Snub-Nose PPC, Right Torso
+ER Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Light PPC
+Light PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Light PPC
+Light PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISSNPPC
+ISSNPPC
+ISC3SlaveUnit
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISSNPPC
+ISSNPPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISERMediumLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Grasshopper entered service in 2780 as a heavy close-range BattleMech designed for the Star League Defense Force. Originally conceived as a stealthy hunter-killer of light and medium 'Mechs, difficulties integrating experimental stealth systems with the chassis delayed the design past the end of the Amaris Civil War, and the troublesome technology was ultimately stripped from the final production model. The untested and unorthodox 'Mech was distributed throughout the Regular Army rather than the more prestigious Royal divisions, and within four years Grasshoppers could be found in most SLDF regiments. As the Star League dissolved, the chaos of Operation EXODUS and the defection of SLDF units carried the design into virtually every Successor State army. Manufactured by Lantren Corporation on Bryant, the Grasshopper earned an enduring reputation as a mobile, self-reliant heavy 'Mech capable of operating far from established supply lines, and its rugged construction kept the design on battlefields for centuries despite severely limited production numbers.</p>
+
+capabilities:<p>The Grasshopper combines heavy 'Mech firepower with mobility typically associated with lighter designs. Its VOX 280 engine provides a ground speed of sixty-four kilometers per hour, while four Leviathon Lifter jump jets grant a jump capability of one hundred and twenty meters—remarkable for a seventy-ton chassis. This combination allows the Grasshopper to close rapidly with enemy formations, appearing suddenly in the midst of tightly-packed units where its predominantly short-ranged armament is most devastating.</p><p>The primary weapon, a Diplan HD large laser mounted in the center torso, ensures the Grasshopper remains combat-capable even after suffering crippling limb damage, earning it the classification of a "zombie" 'Mech among field commanders. Four Diplan M3 medium lasers spread across the torso and arms allow return fire from virtually any angle, while a single Conan/S LRM-5 provides token long-range harassment primarily used to soften targets before the lasers come to bear. Twenty-two heat sinks give the design superior thermal management compared to other heavy 'Mechs, and its near-exclusive reliance on energy weapons frees it from ammunition dependency—a critical advantage during extended independent operations.</p><p>Thirteen tons of Durallex Heavy armor provides respectable protection for the design's weight class, though the Grasshopper can be outgunned by dedicated fire-support platforms of similar tonnage. The design philosophy accepts this trade-off, relying instead on mobility and endurance to dictate the terms of engagement.</p>
+
+deployment:<p>Emerging from LexaTech Industries in 3068, the GHR-7K was designed to address the ammunition supply concerns common during the Jihad. Eschewing ammunition-dependent weapons entirely, the 7K mounts twin arm-mounted light PPCs for long-range engagement and twin torso-mounted snub-nose PPCs for devastating close-range firepower. A head-mounted ER medium laser rounds out the energy weapon suite. The addition of a Guardian ECM suite and C3 slave unit makes the 7K a difficult-to-detect guerrilla fighter that remains true to the Grasshopper's heritage of independent operations far from supply lines.</p>
+
+history:<p>The Grasshopper's history is inextricably linked to the fall of the Star League. Designed by Lantren Corporation on Bryant for the SLDF, the 'Mech entered service in 2780—too late for the Amaris Civil War it was originally intended to fight in. Problems integrating experimental stealth systems had delayed production by years, and when those systems were ultimately abandoned, the resulting conventional design was distributed to Regular Army formations rather than the elite Royal divisions. This widespread distribution proved fateful; as the Star League dissolved and SLDF units defected to the Successor States during Operation EXODUS, Grasshoppers were carried into virtually every House army.</p><p>The First Succession War proved the crucible that forged the Grasshopper's reputation. Its mobility and endurance made it a premier 'Mech for storming fortifications, and it frequently spearheaded assaults that exploited its jump capability to bypass defensive positions. The Grasshopper also served effectively as a backup brawler in companies of light and medium 'Mechs, and its self-reliance made it prized by mercenary commands. However, the design remained an uncommon sight during the Succession Wars, causing many commanders to mistakenly treat it as just another heavy 'Mech until it leapt into their midst and disrupted their formations. ComStar's publication of Technical Readout: 3025 finally brought wider awareness of the Grasshopper's true capabilities.</p><p>The Second Succession War dealt a severe blow to production when the Lantren Corporation factory on Bryant was destroyed in 2843 by a Free Worlds League raiding force that damaged the facility's protective domes, exposing it to the planet's worsening global storms. New production ceased entirely for over two centuries. Despite this, the Grasshopper's rugged construction meant that most of the original production run survived through careful maintenance, with many units prioritizing Grasshopper repairs over even a commander's personal 'Mech.</p><p>The technological renaissance of the thirty-first century breathed new life into the design. Lantren Corporation introduced the GHR-5J upgrade in 3049, incorporating recovered Star League technology, though the original 5H remained so popular it outnumbered the upgrade three to one for decades. Only when the Draconis Combine introduced its C3-equipped variants did this trend begin to reverse. LexaTech Industries of Hun Ho recognized the growing demand and began production of the completely redesigned GHR-6K in 3064, establishing a new production line that would generate several further variants including the Jihad-era GHR-7K. Jalastar Aerospace on Panpour later secured a license to produce the 6K for the Federated Suns.</p><p>During the Jihad, Arc-Royal MechWorks developed experimental prototypes incorporating cutting-edge technology, eventually producing the refined GHR-7P in 3081 primarily for the mercenary market. Rumors also circulated that the Word of Blake had reopened the original Lantren factory on Bryant, supported by higher-than-expected concentrations of Grasshoppers observed in Blakist forces. The Grasshopper has continued to serve across every major conflict of the thirty-first century and beyond, with LexaTech's GHR-8K representing the design's continued evolution in the ilClan era.</p>
+
+manufacturer:LexaTech Industries
+
+primaryfactory:Hun Ho
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Unknown
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:280
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown
+systemmanufacturer:JUMP_JET:Leviathan
+systemmode:JUMP_JET:Lifters
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Unknown

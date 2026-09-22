@@ -1,0 +1,85 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bad2-76c3-bc1a-4701a97f0681
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Clan Field Gun Point
+</Name>
+
+<Model>
+(Tracked CLBX2 Basic)
+</Model>
+
+<year>
+2821
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+CLLBXAC2
+IS LB 2-X Cluster Ammo
+CLLBXAC2
+IS LB 2-X Cluster Ammo
+CLLBXAC2
+IS LB 2-X Cluster Ammo
+CLLBXAC2
+IS LB 2-X Cluster Ammo
+</Field Guns Equipment>
+
+<overview>
+<p>Despite the low regard most Clans hold for conventional infantry, these formations benefit from incidental access to Clan technology that makes even a disaffected garrison Point a match for its Inner Sphere equivalent. Field Gun Points are crew-served weapon teams that bring heavier firepower to the infantry level, towing weapons too large for individual soldiers to carry. The gun itself defines the Point's role, with lighter autocannons providing anti-infantry and anti-vehicle fire while heavier weapons can threaten even armored targets. The Point tows a light-caliber Clan LB-X autocannon capable of firing both solid slug and cluster munitions, providing tactical flexibility to engage both armored vehicles and dispersed infantry.</p>
+</overview>
+
+<notes>
+Intro date is based on when the weapon becomes an Advanced weapon. Uses Generic Infantry kit due to much later intro date of standard Clan kit.
+</notes>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+

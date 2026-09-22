@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ce63-7d73-9a07-0f36a00f7b31
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Firebee
+model:FRB-2E
+mul id:1079
+
+Config:Biped
+techbase:Inner Sphere
+era:2524
+source:TR:3075,TR:SW
+published:RS:SW,RSFP:Proliferation
+rules level:1
+role:Brawler
+
+quirk:weak_legs
+quirk:poor_life_support
+
+mass:35
+engine:175 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:10
+RT armor:10
+CT armor:11
+HD armor:8
+LL armor:13
+RL armor:13
+RTL armor:3
+RTR armor:3
+RTC armor:5
+
+Weapons:5
+SRM 2, Left Arm
+Large Laser, Right Arm
+SRM 2, Left Torso
+SRM 2, Right Torso
+SRM 2, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+SRM 2
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Jump Jet
+Jump Jet
+SRM 2
+IS Ammo SRM-2
+IS Ammo SRM-2
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+SRM 2
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+SRM 2
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Firebee holds the distinction of being the Capellan Confederation's first indigenous BattleMech design. Originally designated the Weapon Armed 'Mech, or WAM, the design emerged in 2472 from the Laryutin Design Bureau on Tikonov after Chancellor Jasmine Liao made acquiring BattleMech technology a top national priority. Capellan Intelligence obtained preliminary design concepts for the Free Worlds League's Icarus, and after nearly a decade of industrial development to produce domestic components, the first WAM prototypes took to the field.</p><p>The heavier and faster WAM-B entered production on Boardwalk in 2483, quickly earning the nickname "Fire-B" after a propaganda broadcast showcased the design's devastating Inferno missile attacks against an entire company of tanks. This led to the official redesignation as the FRB-1E Firebee. A refined third-generation model, the FRB-2E, entered mass production in 2524. Though the Firebee became extinct during the Succession Wars, the design has been revived multiple times, as a Jihad-era RetroTech production 'Mech and later as an IndustrialMech MilitiaMech variant during the Dark Age.</p>
+
+capabilities:<p>The FRB-2E Firebee is a 35-ton light BattleMech built on the Confederated 5 chassis and powered by an Omni 175 fusion engine, providing a top speed of 86 kilometers per hour. Five Anderson Propulsion 12 jump jets give the design a 150-meter leaping capability, making it remarkably agile for a design of its vintage. Six tons of Ceres Shield 2.2 armor provides respectable protection for a light 'Mech, though the design carries well-documented weaknesses in its leg actuators and a notoriously cramped cockpit with poor life support systems.</p><p>The Firebee's primary weapon is a Star Cutter 80cm large laser, providing effective engagement capability at range, while four Maui Crossbow SRM-2 launchers can unleash a devastating eight-missile close-range salvo. With two tons of missile ammunition, MechWarriors can select between standard and Inferno rounds, making the Firebee an exceptionally dangerous anti-vehicle platform. The ability to switch between ammunition types gave experienced pilots considerable tactical flexibility, though newer pilots often struggled with the volume of short-range missile tubes. The combination of Inferno-capable missiles and a heavy energy weapon earned the Firebee a fearsome reputation among conventional armor crews and garrison units, but this aggressive combat profile inevitably made it a priority target in any engagement.</p>
+
+deployment:<p>This variant is the definitive production model of the Firebee, entering mass production in 2524 during the reign of Chancellor Kalvin Liao. This third-generation design represented a significant evolution over its primitive predecessor, incorporating a standard fusion engine, modern armor, and jump jet capability. The addition of a large laser replaced the earlier model's LRM, providing a reliable energy weapon free of ammunition dependency, while four SRM-2 launchers retained the design's trademark close-range missile punch. The Firebee initially served as a shock unit in armor-hunting formations before transitioning to a reconnaissance role as heavier BattleMechs became more prevalent. When the Confederation Defense Corporation's factory was destroyed early in the First Succession War, the Firebee's production ceased permanently, and the aggressive role the design filled led to its rapid extinction on the battlefield by the thirtieth century. A few remained as museum pieces, but none saw combat for many generations.</p>
+
+history:<p>The Firebee's origins trace to the Capellan Confederation's urgent need to enter the BattleMech age. After Capellan Intelligence spent millions of C-bills and a dozen agents obtaining preliminary design concepts for the Free Worlds League's Icarus, Chancellor Jasmine Liao ordered the Laryutin Design Bureau on Tikonov to develop the Confederation's first BattleMech. The first WAM-A prototypes took the field in 2472, followed by the improved WAM-B entering production at the Confederation Defense Corporation on Boardwalk in 2483. A famous propaganda broadcast showing the design devastating a company of tanks with Inferno missiles earned it the nickname "Fire-B," leading to its official redesignation as the Firebee.</p><p>The refined FRB-2E entered production on Exedor in 2524, serving the Capellan military through the Star League era. The design initially filled a shock role in armor-hunting formations before transitioning through reconnaissance and light fire support duties as heavier BattleMechs became more prevalent. The destruction of the Confederation Defense Corporation's factory during the opening phases of the First Succession War effectively ended Firebee production, and the aggressive tactical niche the design occupied hastened its extinction on the battlefield by the thirtieth century. Only a handful survived as museum pieces and curiosities.</p><p>The Firebee's legacy extended well beyond the Confederation's borders. The Taurian Concordat based its indigenous Toro BattleMech on captured Firebees, while the design's modified chassis would eventually inspire the thirty-second century Yinghuochong scout killer.</p><p>The Jihad brought an unexpected revival for the ancient design. As the Word of Blake devastated established production facilities across the Inner Sphere, multiple factions turned to RetroTech manufacturing to replace staggering combat losses. The primitive FRB-1E was produced at temporary facilities on worlds including Bell, Glasgow, Kittery, Randis IV, and Xanthe III, with production running roughly from 3073 through the early 3080s before most lines were shut down. Hope Industrial Works on Randis IV proved the exception, continuing Firebee production well into the ilClan era.</p><p>Meanwhile, Hellespont 'Mech Works began converting surviving RetroTech Firebees into the modern FRB-3E configuration, eventually establishing full production at their Betelgeuse auxiliary plant during the Republic era. Wesley Industries further revived the Firebee name with their WI-WAM MilitiaMech, an IndustrialMech variant produced at Glasgow beginning around 3133 to provide low-cost planetary defense units during the communication blackout following Gray Monday.</p>
+
+manufacturer:Confederation Defense Corporation
+
+primaryfactory:Boardwalk
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Confederated
+systemmode:CHASSIS:5
+systemmanufacturer:ENGINE:Omni
+systemmode:ENGINE:175
+systemmanufacturer:ARMOR:Ceres
+systemmode:ARMOR:Shield 2.2
+systemmanufacturer:JUMP_JET:Anderson Propulsion
+systemmode:JUMP_JET:12
+systemmanufacturer:COMMUNICATIONS:Zenith
+systemmode:COMMUNICATIONS:Sqwak Box 4
+systemmanufacturer:TARGETING:Maui
+systemmode:TARGETING:Missile Trak

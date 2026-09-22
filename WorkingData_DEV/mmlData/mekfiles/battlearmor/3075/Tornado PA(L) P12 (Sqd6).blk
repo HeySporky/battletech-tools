@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a4cb-7480-aa85-4a5d78314e6a
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Tornado PA(L)
+</Name>
+
+<Model>
+P12 'Hurricane'(Sqd6)
+</Model>
+
+<mul id:>
+9056
+</mul id:>
+
+<year>
+2905
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+31
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+BAAPMount:RA
+Camo System:Body
+BAArmoredGlove:LA
+BAArmoredGlove:RA
+InfantryAssaultRifle:APM:RA
+IS BA Stealth (Basic):RA
+IS BA Stealth (Basic):LA
+IS BA Stealth (Basic):LA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The original P12 Tornado combines basic stealth armor with an adaptive camouflage system that mimics combined visual, infrared, and electronic countermeasure concealment, allowing operators to approach targets undetected across most sensor bands. The suit's nearly 400-kilogram mass is supported entirely by the operator, permitting extended deployment without the energy signature of powered exoskeleton systems. A built-in heads-up display provides environmental data, low-light enhancement, and visual magnification, though some operators chose to forgo the helmet's protection for unimpeded sensory awareness. Two waist-mounted connection ports allow modified weapons to draw from the military power pack. Armored gloves enable infantry weapon use and anti-BattleMech attacks, though they can be removed for tasks requiring fine manual dexterity. The suit provides no mobility assistance beyond the operator's own speed.</p>
+</capabilities>
+
+<overview>
+<p>ComStar developed the Tornado power armor (light) suit in the late twenty-ninth century as a covert operations platform for its intelligence service and special forces units. Derived from Star League-era Nighthawk technology preserved on Terra, the Tornado combined lightweight stealth protection with an adaptive concealment system in a package light enough for extended clandestine deployments. The suit gained a reputation as one of the most effective infiltration tools in the Inner Sphere, serving ComStar and later the Word of Blake across decades of covert operations. Multiple variants expanded the design beyond intelligence work into direct combat and logistics support roles.</p>
+</overview>
+
+<deployment>
+<p>ComStar deployed the P12 Hurricane in six-trooper Level I formations as its primary covert operations platform for decades. ROM intelligence teams conducted infiltration, surveillance, and direct action missions across every Successor State, with the Level I formation providing sufficient strength for small-unit operations while maintaining the low profile essential to clandestine work. The six-trooper structure allowed ComStar commanders to pair operators for mutual support during extended deployments behind enemy lines.</p>
+</deployment>
+
+<history>
+<p>ComStar developed the P12 Tornado in the late twenty-ninth century as a lightweight powered armor suit for its special forces operatives and ROM intelligence agents. The design drew heavily from the Star League Defense Force's Nighthawk power armor, several examples of which ComStar had preserved on Terra but lacked the manufacturing capability to reproduce. Engineers at Krupp Armament Works on Terra instead created a new suit that captured many of the Nighthawk's stealth and protection characteristics within a lighter, more producible frame. The P12 entered service around 2905 and quickly became ComStar's signature covert operations platform.</p><p>ROM deployed Tornado-equipped operatives throughout the thirtieth and thirty-first centuries, conducting intelligence-gathering missions and special operations across the Inner Sphere. Operations against the Draconis Combine proved particularly frequent, though the suit saw service against targets in every Successor State. ComStar maintained strict control over Tornado production and deployment, treating the suit as a classified asset reserved for its most sensitive operations.</p><p>The ComStar Schism fractured that control. When the Word of Blake separated from ComStar, significant numbers of Tornado suits fell into Blakist hands. The Word redesignated their captured suits as the G12, modifying the software and user interface to prevent ComStar infiltration while enhancing situational awareness features that encouraged operators to keep their helmets on. ComStar retained its remaining stock under the original P12 "Hurricane" designation. The Blakists put their G12s to dramatic use during Operation Odysseus in 3058, when special forces teams wearing Tornado suits seized control of Terra's Space Defense System ahead of the main landing force and later helped secure the Titan Shipyards.</p><p>With the Word of Blake now capable of producing newly built Nighthawk suits on Terra, the Tornado fell out of favor for elite black operations. The Blakists instead expanded G12 production for their marines, security troops, and allied Free Worlds League Military units. Free Worlds Defense Industries began licensed production on Gibson, making the Tornado available outside ComStar or Blakist channels for the first time. The Word also developed two follow-on variants: the G13, which replaced the camouflage system with a modular weapon mount for direct combat roles, and the G14, which substituted mission equipment storage for infantry support operations. Both entered production at Krupp Armament Works on Terra, with mobile production sites suspected of contributing additional output during the Jihad.</p><p>Two experimental variants emerged during the Jihad era. ComStar produced the P17 Hurricane, a custom refit incorporating Clan-manufactured stealth armor and a specialized ranged weapon obtained through undisclosed channels. Only a handful were confirmed built. On Terra, the planetary militia organization TerraSec developed the G17 under Dr. Roger Fennault, a protégé of the Manei Domini designer Dr. Devon Cortland. The G17 incorporated Clan-grade improved stealth composites and VTOL movement systems, though only prototypes saw action during Coalition operations to liberate Terra. Republic intelligence later assessed that mass production of the G17 would have significantly complicated the final campaign.</p>
+</history>
+
+<manufacturer>
+Krupp Armament Works|Free Worlds Defence Industries
+</manufacturer>
+
+<primaryFactory>
+Terra|Gibson
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

@@ -1,0 +1,177 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec24-747e-8eb7-35e3a54106f4
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Sand Devil Hover Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+2793
+</mul id:>
+
+<year>
+2452
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+46
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+12
+11
+11
+10
+10
+</armor>
+
+<Body Equipment>
+Advanced Fire Control
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Medium Laser
+Medium Laser
+Small Laser
+Small Laser
+</Turret Equipment>
+
+<barrating>
+5
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Sand Devil subscribes to the "speed is armor" school of tactics that defined early Azami hover warfare. Its large ICE power plant gives it strong speed for a fifty-ton vehicle, and its hover mobility allows effective operation across the dunes, wadis, and salt flats of the Azami homeworlds. Azami crews understood that avoiding hits was more reliable than absorbing them, and they trained extensively in high-speed evasive maneuvering.</p><p>Armament consists of two medium lasers and two small lasers in the turret, providing reliable close-range firepower without ammunition dependency. This configuration suits the vehicle's role as a raiding and screening platform rather than a line combatant. The turret-mounted arrangement allows the crew to engage while repositioning, keeping targets under fire during withdrawal.</p><p>The Sand Devil's primary weakness is its armor. While relatively thick for a primitive design of its era, the BAR 5 protection is highly vulnerable to penetration by lasers and autocannons. Any vehicle that achieves a solid hit has a strong chance of disabling the Sand Devil outright. Its survival depended on crew skill and terrain mastery rather than the ability to trade fire with heavier opponents.</p>
+</capabilities>
+
+<overview>
+<p>The Sand Devil Hover Tank is a primitive medium hover vehicle produced by Cairo Enterprises on Arkab, entering service in 2452 among the Azami worlds of the Draconis Combine. Named for the sand devil serpent inhabiting the wastes of Arkab, the design reflected Azami tactical doctrine built around speed and maneuverability rather than firepower or protection. Powered by a large ICE power plant, the Sand Devil was fast for its era and well matched to the open desert terrain of the Azami homeworlds.</p><p>Cairo Enterprises developed the vehicle as a non-production primitive platform, and it was never intended for widespread distribution. It served as the foundational hover design for Azami forces for over two centuries and served as the direct predecessor to the Sabaku Kaze.</p>
+</overview>
+
+<deployment>
+<p>The Sand Devil served exclusively on the Azami worlds of the Draconis Combine, with Arkab and Dabih the primary operating areas. It was never exported or adopted by non-Azami Combine forces in meaningful numbers. Following its retirement from active military service, surviving examples remained in Azami hands as racing vehicles and cultural artifacts. The design's primitive technology made it incompatible with standard Combine logistics chains, limiting its usefulness to the specific environments and communities that maintained independent familiarity with it.</p>
+</deployment>
+
+<history>
+<p>Cairo Enterprises introduced the Sand Devil in 2452 on Arkab, equipping Azami tribal forces with a hover platform suited to their desert homeworlds. The design saw its most significant test when the Draconis Combine moved to incorporate the Azami people in 2497. Azami forces leveraged their familiarity with the terrain and the Sand Devil's speed to conduct raids and feints that frustrated Combine MechWarriors, who were unaccustomed to fighting in the deep desert against a mobile opponent that refused to stand and fight. These operations bought critical time during the Algedi blood burn and contributed to the eventual negotiated settlement that granted the Azami a degree of autonomy within the Combine.</p><p>Following the conclusion of the Azami conflict, the Sand Devil was gradually replaced by more modern combat vehicles as Azami forces began operating alongside other Combine units on worlds where the design's limitations became more apparent. Veterans retained strong affection for the vehicle, and stripped-down examples saved from the scrap heap found a second life in informal racing competitions. These evolved over time into organized events, including the famed "dune races" on Dabih, five-thousand-kilometer endurance contests that pitted Sand Devil crews against the desert itself. The vehicle's mechanical simplicity made it well-suited to these competitions, and it continued to perform competitively against far more modern vehicles for well over a century.</p><p>The Sand Devil's influence on Azami armored doctrine persisted long after the type left active service. When Buda Imperial Vehicles developed the Sabaku Kaze in the 2690s as a modern successor, engineers retained the Sand Devil's flat-nose profile and hover platform as a deliberate acknowledgment of its legacy. Cairo Enterprises retained ownership of the original design throughout, though production had effectively ended long before the Sabaku Kaze entered service.</p>
+</history>
+
+<manufacturer>
+Cairo Enterprises
+</manufacturer>
+
+<primaryFactory>
+Arkab
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:ICE
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Primitives I
+</source>
+
+<published>
+XTR:Primitives I
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuel>
+2.5
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

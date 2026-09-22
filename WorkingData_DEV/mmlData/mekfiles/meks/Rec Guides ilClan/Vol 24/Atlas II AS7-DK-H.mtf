@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dadc-7678-a410-6a391562bb32
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Atlas II
+model:AS7-DK-H
+mul id:8459
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3139
+source:RG24
+published:RG24
+rules level:2
+role:Brawler
+
+quirk:battle_fists_la
+quirk:battle_fists_ra
+quirk:distracting
+quirk:command_mech
+quirk:imp_com
+
+mass:100
+engine:400 XL Engine(IS)
+structure:IS Standard
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:33
+RA armor:33
+LT armor:31
+RT armor:31
+CT armor:42
+HD armor:9
+LL armor:41
+RL armor:41
+RTL armor:10
+RTR armor:10
+RTC armor:14
+
+Weapons:7
+ER Large Laser, Left Arm
+ER Large Laser, Left Arm
+Rotary AC/5, Right Arm
+SRM 6, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+LRM 20, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERLargeLaser
+CLERLargeLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 6
+SRM 6
+CLERMediumLaser
+CLERMediumLaser
+Clan Ammo LRM-20
+Clan Ammo LRM-20
+IS Ammo SRM-6
+ISCASEII
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISCASEII
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Designed in 2755 to maintain the SLDF's edge over the League's Member States, the AS7-D Atlas remains a formidable assault 'Mech even today. But to General Aleksandr Kerensky that was only the beginning, and an advanced version developed for the Royal BattleMech regiments was just beginning deployment on the eve of the bloody Amaris Coup. At one hundred tons, the Atlas II refined its predecessor's already formidable combination of firepower, protection, and psychological impact, incorporating Star League-era technologies to create what many consider the definitive Royal assault 'Mech. Its extreme rarity and storied lineage have made the Atlas II one of the most sought-after chassis in the Inner Sphere and Clan space alike.</p>
+
+capabilities:<p>An evolution of the iconic AS7-D, the AS7-D-H Atlas II retains the basic structure and electronics. The original missile armament is retained, but a smaller caliber arm-mounted LB 10-X autocannon replaces the heavy autocannon. Installed in a double mount on the left forearm, extended-range large lasers complement the autocannon and LRM launcher. With this heavier arm-mounted weaponry, rear-firing weaponry was deemed redundant and the medium lasers (upgraded to pulse models) were switched to fire forward.</p><p>There was no way to surpass the Atlas' legendary armor, but upgrading to ferro-fibrous allowed CASE to be installed. Many of the stylistic alterations in the BattleMech's appearance were made during this change in armor type.</p><p>The trade-offs in this redesign are notable. The LB 10-X, while versatile with its cluster and slug ammunition options, lacks the devastating close-range stopping power of the original AC/20 that made the standard Atlas such a fearsome brawler. Additionally, the Atlas II's extreme rarity has always posed significant logistics challenges. Spare parts, particularly for the advanced ferro-fibrous armor and LB 10-X feed system, are difficult to source outside of major manufacturing centers, and field repairs often require cannibalization of other advanced 'Mechs.</p>
+
+deployment:<p>When Defiance Industries consolidated its multiple Atlas production lines into the AS8-S program during the Dark Age, the company found itself with a massive stockpile of superfluous Atlas components. Rather than waste these parts, Defiance engineers devised an elegant solution: combining the Atlas II's proven chassis and electronics with the Vlar 400 XL engine from the AS7-K2. The resulting AS7-DK-H mounted Clan-specification weapons including paired ER large lasers, two ER medium lasers, an LRM-20, RAC/5, and SRM-6, with Inner Sphere CASE II protecting the side torsos. The faster engine gave this Atlas II a top speed of 64 kph, matching the K2's surprising mobility while retaining the Royal 'Mech's superior armor and structure. The model proved so successful that it remains in production on Hesperus II.</p>
+
+history:<p>The Atlas II was still in its first stages of deployment when the New Vandenburg Revolt sparked off the Periphery uprisings in 2765. Facing formidable odds, these few AS7-D-Hs performed magnificently in the hands of their Royal regiment pilots. General Kerensky himself piloted one during his escape from New Vandenburg, a sign of the faith the Commanding General placed in his enhanced Atlas design.</p><p>With the news that the Terran Hegemony had fallen under Amaris' control, Kerensky led his troops to secure the lightly defended Rim Worlds Republic as a base of operations. Captured Republican factories were repurposed to produce Atlas IIs for Royal commands as they fought the grueling campaign to liberate the Terran Hegemony. When the time came for the Exodus, the Atlas II's fate diverged sharply from its predecessor. While many standard AS7-D Atlas pilots chose to remain in the Inner Sphere, the surviving Atlas II pilots chose almost unanimously to follow their Commanding General into exile. The Atlas II thus vanished from the Inner Sphere entirely, becoming a near-mythical machine known only from old records and fading memories.</p><p>In the Clan Homeworlds, the Atlas II became one of the most prized assault 'Mechs. The Clans treasured every example discovered in Brian Caches during their formative years. The most famous Atlas II in Clan history was piloted by ilKhan Nicholas Kerensky himself, eldest son of Aleksandr. Nicholas had followed his father into exile and, after the elder Kerensky's death, forged the scattered exiles into twenty Clans. He led them on a crusade to retake the war-ravaged Pentagon worlds in 2821. Thirteen years later, in 2834, ilKhan Nicholas Kerensky died at the controls of his Atlas II when he intervened in a Trial of Grievance between Widowmaker Khan Cal Jorgensson and Wolf Khan Jerome Winson. The Widowmakers had committed a gross breach of zellbrigen, and when Kerensky stepped between the combatants, Khan Jorgensson fired into the Atlas II's cockpit, killing the ilKhan and sealing Clan Widowmaker's fate. The destruction of the Widowmakers that followed remains one of the most consequential events in Clan history.</p><p>The Atlas II returned to the Inner Sphere in dramatic fashion. A single example was sighted among the Jade Falcon Touman during the fighting on Tukayyid in 3052, sending shockwaves through ComStar intelligence analysts who had believed the design extinct. During the Jihad, when the Word of Blake captured Defiance Industries' factories on Hesperus II, they produced several runs of the Atlas II for their forces. The enigmatic Devlin Stone piloted one such machine, the "Phantom," in its distinctive black-and-white skeletal color scheme, as he led his growing coalition against the Blakists. Stone personally commanded from the Atlas II's cockpit during the Trial of Possession against a Star of Ghost Bears on Tukayyid in 3073, and led the flanking maneuver that shattered the Blakist Third Division on Skye in 3074. After the coalition forces evicted the Word of Blake from Hesperus II, Defiance Industries chose to keep the Atlas II in production, finally returning this legendary Royal 'Mech to the Inner Sphere after nearly three centuries of absence.</p>
+
+manufacturer:Defiance Industries
+
+primaryfactory:Hesperus II
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Foundation
+systemmode:CHASSIS:Type 10X
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:400 XL
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:/2 Ferro Fibrous with CASE II
+systemmanufacturer:COMMUNICATIONS:Army Comm
+systemmode:COMMUNICATIONS:Class 5
+systemmanufacturer:TARGETING:Army Corporation
+systemmode:TARGETING:Type 29K

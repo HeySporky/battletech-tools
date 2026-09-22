@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e640-770f-81f5-1472db3a9383
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Thumper Artillery Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3210
+</mul id:>
+
+<year>
+2734
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+64
+42
+42
+28
+</armor>
+
+<Body Equipment>
+IS Machine Gun Ammo - Half
+IS Machine Gun Ammo - Half
+ISThumperAmmo
+ISThumperAmmo
+</Body Equipment>
+
+<Front Equipment>
+ISThumper
+Machine Gun
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+Machine Gun
+Machine Gun
+</Rear Equipment>
+
+<capabilities>
+<p>The centerpiece of the Thumper is its namesake Edward Industries Thumper Artillery Piece, a tube-artillery system capable of striking targets at ranges far beyond conventional fire support. The artillery shell's area effect makes it disproportionately effective against massed infantry, dispersed vehicle columns, and any force that cannot afford to spread out. Single-vehicle damage may be modest compared to direct-fire platforms, but the suppression and dispersal effects make the Thumper a legitimate force multiplier in any coordinated engagement.</p><p>Twelve and a half tons of Durallex Heavy armor give the Thumper reasonable survivability when forward lines collapse, and a CASE unit protects the crew and key systems from catastrophic ammunition cook-offs. An ECM suite shields the vehicle and nearby escorts from enemy targeting systems. The secondary armament of ER small lasers and machine guns provides meaningful deterrence against infantry and light reconnaissance units but is not intended for sustained combat. The wheeled drive system is the Thumper's clearest operational weakness, limiting its ability to operate in broken terrain, though on roads and prepared ground it can redeploy at useful speeds when positions are compromised. The four-man crew benefits from a soundproofed interior and amenities unusual in a combat vehicle, including a small galley, supporting extended independent operations.</p>
+</capabilities>
+
+<overview>
+<p>The Thumper Artillery Vehicle is Brooks Incorporated's answer to the perceived overengineering of the Star League's Thor Artillery Vehicle. Introduced in 2734, the Thumper was designed from the outset as a widely affordable and easily producible alternative, stripped of the Thor's more complex and expensive systems while retaining its core artillery function. Brooks sold the design aggressively to virtually any willing buyer, and over three centuries of production at facilities on Irian and Andurien the Thumper became the most common mobile artillery platform in the Inner Sphere. Its reputation rests not on battlefield sophistication but on sheer availability and proven reliability. Any combined-arms commander with reasonable resources and access to the open market could field Thumper support, and most did. The vehicle's straightforward construction and broad commercial availability made it a staple of combined-arms doctrine across the Inner Sphere for centuries.</p>
+</overview>
+
+<deployment>
+<p>The original Thumper appeared in the arsenals of virtually every major military and mercenary command in the Inner Sphere during its three centuries of production. Brooks sold without discrimination to authorized buyers across all factions, and the vehicle became a common sight in formations from the Great Houses to independent Periphery states. Free Worlds League forces maintain the highest concentrations, but surviving examples spread through export sales and battlefield recovery. Most examples encountered by the mid-Jihad era are extensively rebuilt, carrying field modifications applied by generations of unit technicians to compensate for worn-out or unavailable original components. This older configuration lacks the ER small lasers, ECM suite, and CASE unit found in the revitalized production variants, as well as the improved armor protection of the later models.</p>
+</deployment>
+
+<history>
+<p>Brooks Incorporated introduced the Thumper in 2734 as a deliberate commercial alternative to the Star League Defense Force's Thor Artillery Vehicle, designing a system that traded the Thor's advanced capabilities for lower production costs and wider marketability. The company's strategy of aggressive, non-discriminatory sales proved highly effective. Within decades, the Thumper had entered the inventories of every major House military and dozens of smaller mercenary and Periphery commands, establishing itself as the default mobile artillery platform for forces that lacked the resources or connections to acquire Star League equipment.</p><p>Production at the Irian and Andurien facilities ran continuously for over three centuries, though the line's commercial prospects eroded significantly after the Fourth Succession War. Shifting battlefield doctrine favored faster, more mobile forces, and demand for dedicated artillery fell sharply. Brooks wound down both production lines gradually, with active manufacturing ceasing around 3046. By that point, the Inner Sphere was already awash in older Thumper hulls being rebuilt and cannibalized by field crews.</p><p>The Jihad dramatically reversed the Thumper's fortunes. The surge in defense spending that followed the Word of Blake's opening campaigns forced every surviving state to rebuild and expand its military, and artillery demand spiked. Brooks revitalized the Thumper line at both facilities, returning it to production with upgraded electronics, improved secondary armament, and protection features the older design had lacked. The sudden reappearance of the design, combined with Brooks selling to all authorized buyers including the Word of Blake itself, fueled persistent rumors of a deeper arrangement between the company and the Blakists. Brooks consistently denied these claims.</p><p>Concurrently, the Tamarind District's Maxwell Planetary Defense Consortium developed an unlicensed Thumper derivative as part of an effort to build indigenous military production capacity for the post-Jihad fractured Free Worlds League region. The prototype worked around the Thumper's design using a fuel cell powerplant and experimental ECM technology, but MPDC's manufacturing limitations prevented reliable output. Brooks pursued the matter through interstellar legal channels and economic pressure before reaching a licensing settlement, ultimately agreeing to produce its own refined version of the MPDC concept from the Irian facility. That production model entered service in 3089 and became available across the Inner Sphere within a year.</p>
+</history>
+
+<manufacturer>
+Brooks Incorporated|Brooks Incorporated
+</manufacturer>
+
+<primaryFactory>
+Irian|Andurien
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Strand
+ARMOR:Durallex
+COMMUNICATIONS:Irian
+TARGETING:Irian
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:220 Fusion
+ARMOR:Heavy
+COMMUNICATIONS:E.A.R. 5
+TARGETING:FFE-9
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

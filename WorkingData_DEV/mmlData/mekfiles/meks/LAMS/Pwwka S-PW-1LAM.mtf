@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6fb-7eda-b96f-7e0c57d79099
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Pwwka
+model:S-PW-1LAM
+mul id:4882
+
+Config:LAM
+techbase:Mixed (IS Chassis)
+era:3078
+source:JFR
+published:JFR
+rules level:4
+role:Striker
+
+quirk:non_standard
+
+mass:30
+engine:180 Fusion Engine(IS)
+structure:IS Standard
+myomer:Standard
+lam:Standard
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:9
+RA armor:9
+LT armor:9
+RT armor:9
+CT armor:12
+HD armor:9
+LL armor:11
+RL armor:11
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:3
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Landing Gear
+Avionics
+Jump Jet
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Landing Gear
+Avionics
+Jump Jet
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Landing Gear
+Bomb Bay
+
+Head:
+Life Support
+Sensors
+Cockpit
+Avionics
+Sensors
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Pwwka was one of three Land-Air 'Mechs comprising the Word of Blake's Spectral LAM series, introduced in 3078 during the final years of the Jihad. Built by Master's Wings Aerospace on Gibson, the thirty-ton Pwwka was designed to fulfill the light reconnaissance and strike role that earlier LAMs had once occupied during the Star League era. Its appearance on the battlefield came as a profound shock to both coalition and Free Worlds League provincial forces, as LAM technology had long been considered extinct. Named for shape-shifting spirits from ancient Welsh mythology, the Pwwka earned a reputation as one of the rarest and most enigmatic BattleMech designs of the Jihad era.</p>
+
+capabilities:<p>The Pwwka mounts three Clan-manufactured ER medium lasers (one in each arm and one in the head) providing respectable firepower for its weight class without any ammunition dependency. Ten double heat sinks manage the thermal load effectively, allowing sustained laser fire in most engagements. A single-ton bomb bay in the center torso offers limited ordnance delivery capability, though in practice this storage was frequently repurposed for additional fuel to extend the LAM's critically short flight endurance.</p><p>Powered by a GM 180 fusion engine, the Pwwka achieves ground speeds of up to ninety-seven kilometers per hour and can jump one hundred eighty meters via six GM ATO 100 jump jets. In AirMech mode it reaches considerably higher speeds, and full aerospace conversion allows thrust ratings competitive with light fighters. However, the inherent constraints of LAM conversion equipment prevent the use of many advanced technologies common to Jihad-era designs, leaving the Pwwka unable to match the performance of dedicated BattleMechs or aerospace fighters of comparable tonnage. Its small cockpit (almost certainly designed for cybernetically enhanced Manei Domini pilots) and light Durallex Divine Protector armor further limit its survivability in sustained combat.</p>
+
+deployment:<p>The sole production model, this variant was deployed exclusively by Word of Blake Manei Domini formations during the final stages of the Jihad. Observed only in engagements against forces from the Principality of Regulus and the Duchy of Oriente, the Pwwka always operated as part of combined Manei Domini strike elements rather than as an independent unit. No factory variants are known to exist, and given the extremely limited number produced, it is possible that other configurations were built but never encountered by opposing forces.</p>
+
+history:<p>By the mid-thirty-first century, Land-Air 'Mechs had been effectively extinct for decades. The destruction of LexaTech Industries' facility on Irece by Clan Nova Cat in 3050 eliminated the last known LAM production line in the Inner Sphere, and the inherent fragility and technological complexity of conversion equipment ensured that surviving examples dwindled rapidly through attrition. The widespread consensus among military analysts was that LAM technology was a dead end, a relic of a bygone era with no future on the modern battlefield.</p><p>The Word of Blake's Spectral LAM series shattered that assumption. Developed in secret at the former Brigadier Corporation plant on Gibson (rechristened Master's Wings Aerospace under Blakist control) the three Spectral designs including the Pwwka emerged in the late 3070s during the closing stages of the Jihad. The source of the Clan-grade weaponry mounted on the Pwwka has never been conclusively identified, representing one of many unanswered questions about Word of Blake procurement networks during the Jihad era.</p><p>The Pwwka saw action in limited numbers, always operating alongside Manei Domini units. Its primary engagements were against aerospace and ground forces belonging to the Principality of Regulus and the Duchy of Oriente, both of which were conducting operations against Blakist holdings in the former Free Worlds League. Scattered reports suggest that a small number of Pwwkas may also have engaged allied coalition forces, though confirmed encounters remain rare.</p><p>The design's operational lifespan proved extraordinarily brief. The Principality of Regulus launched a devastating raid against Gibson in 3079 that completely destroyed the Master's Wings Aerospace facility, the only known production source for the Pwwka. Combined with the broader defeat of the Word of Blake, this ensured the Pwwka was effectively extinct by 3081. Everything presently known about the design comes exclusively from the analysis of wreckage salvaged by Regulan and Oriente forces, lending the Pwwka an air of mystery that few other BattleMech designs possess.</p>
+
+manufacturer:Master's Wings Aerospace (Brigadier Corporation)
+
+primaryfactory:Gibson
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Master's Wings Aerospace
+systemmode:CHASSIS:Spectral-L Series PW1L
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:GM 180
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Divine Protector
+systemmanufacturer:JUMP_JET:General Motors
+systemmode:JUMP_JET:GM ATO 100
+systemmanufacturer:COMMUNICATIONS:Master's Wings Aerospace
+systemmode:COMMUNICATIONS:Master's Voice Cel-Beta
+systemmanufacturer:TARGETING:Master's Wings Aerospace
+systemmode:TARGETING:Master's Sight 1-Omega

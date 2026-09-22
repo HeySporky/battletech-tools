@@ -1,0 +1,90 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bf62-7c02-952c-31b58f7e3212
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Clan Jump Point
+</Name>
+
+<Model>
+(SRM)
+</Model>
+
+<mul id:>
+615
+</mul id:>
+
+<year>
+2815
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<Troopers Equipment>
+Clan Armor Kit (All)
+AntiMekGear
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Clan jump Points equip five warriors with personal jump packs for vertical mobility across broken terrain. Jump-capable Points offer Clan garrison commanders a flexible response element that can access elevated positions, clear multi-story structures, and exploit terrain features that foot infantry cannot reach. Within the Touman, jump-qualified warriors carry marginally more prestige than standard foot garrison troops, though conventional infantry of any type remains far below BattleMech and battle armor assignments in the warrior caste hierarchy.</p>
+</overview>
+
+<source>
+TW,TO:AUE
+</source>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+InfantryHeavySRM
+</Secondary>
+

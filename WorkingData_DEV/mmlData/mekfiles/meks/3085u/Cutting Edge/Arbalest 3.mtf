@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf4c-759b-85fc-0aa1e2a7e7ff
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Arbalest
+model:3
+mul id:61
+
+Config:Biped
+techbase:Clan
+era:3081
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:2
+role:Brawler
+
+quirk:easy_maintain
+
+mass:25
+engine:125 Fusion (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:7
+RA armor:7
+LT armor:9
+RT armor:9
+CT armor:12
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:3
+RTR armor:3
+RTC armor:3
+
+Weapons:6
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+ER Small Laser, Right Arm
+ER Small Laser, Right Arm
+LRM 10, Left Torso
+LRM 10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERSmallLaser
+CLERSmallLaser
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERSmallLaser
+CLERSmallLaser
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLLRM10
+Clan Ammo LRM-10
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLLRM10
+Clan Ammo LRM-10
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Arbalest is a 25-ton Clan light BattleMech developed by Clan Nova Cat in 3077 as part of a broader effort to expand their second-line forces during the Word of Blake Jihad. Following the successful Ocelot program, Nova Cat engineers designed the Arbalest with an emphasis on reducing the drain on the Clan's limited supply of advanced technology, allowing production to proceed quickly and inexpensively at the Irece Alpha facility on Irece within the Draconis Combine.</p><p>This minimalist approach allowed the Nova Cats to field the Arbalest in significant numbers, filling a critical gap in their second-line formations at a time when resources were being consumed by the Jihad. The design's emphasis on ease of manufacture and maintenance has ensured its continued production and widespread distribution well beyond the Jihad era.</p>
+
+capabilities:<p>Quite slow for a light BattleMech, the Arbalest's Vlar 125 engine provides a top speed of only 86 kilometers per hour, making it one of the more ponderous designs in its weight class. The chassis compensates for this lack of speed by concentrating its Clan technology where it matters most: firepower. Two Mk. 46 Type II LRM-10 launchers provide respectable long-range fire support capability, allowing the Arbalest to contribute meaningful indirect fire from behind the main battle line. At shorter ranges, a pair of Series 2a Mk. 5 extended-range medium lasers effectively double the 'Mech's throw weight, giving it a credible close-range punch unusual for a dedicated missile platform.</p><p>The Arbalest's head-mounted ECM suite represents its most tactically significant system, enabling it to disrupt enemy fire control networks, a capability that proved invaluable against Word of Blake C³i-equipped formations. However, this weaponry and electronic warfare capability comes at a steep cost in survivability. With only three and a half tons of standard armor, the Arbalest is acutely vulnerable in prolonged engagements, forcing MechWarriors to adopt hit-and-run tactics that sit poorly with traditional Clan combat doctrine. The design's primary virtue beyond its firepower is its ease of maintenance, making it popular with the technician caste members responsible for keeping second-line formations operational.</p>
+
+deployment:<p>Developed in 3081, the Arbalest 3 takes a fundamentally different approach to improving the design's survivability. Ferro-fibrous armor replaces the standard plating, and the ECM suite is removed to free tonnage for an additional ton of armor protection. The arm-mounted extended-range medium lasers are downgraded to extended-range small lasers, further redirecting weight toward defensive capability. The result is an Arbalest variant better suited to close-range engagements and anti-infantry operations, particularly effective against battle armor threats where the increased armor allows it to absorb return fire while its weapons eliminate dispersed targets.</p>
+
+history:<p>The Arbalest emerged from Clan Nova Cat's urgent need to bolster their second-line forces during the Word of Blake Jihad. The Nova Cats had committed heavily to the coalition opposing the Word of Blake, and their frontline formations were suffering significant attrition. The decision to develop a new light BattleMech using primarily Inner Sphere components was driven by pragmatism, the Clan's limited supply of advanced technology was better reserved for frontline OmniMechs while second-line formations could be equipped with designs that were cheaper and faster to produce.</p><p>The Arbalest saw its combat debut in early 3077, deployed alongside Pack Hunters and Ha Otokos in Omicron Galaxy as the Nova Cats promoted it from a provisional formation to a fully operational second-line Galaxy. Nova Cat MechWarriors quickly discovered the value of the Arbalest's ECM suite in disrupting the C³ networks employed by Blakist forces, though many of the new 'Mechs were destroyed in the fierce fighting that followed. In late 3077, Arbalests of the Nova Cats' Delta Galaxy engaged Word of Blake forces on Sheratan, where the design demonstrated its effectiveness in neutralizing enemy electronic warfare networks.</p><p>Further combat on Epsilon Eridani in 3078 saw Blakist forces adapt their tactics, deploying fast hovercraft and battle armor specifically to hunt down Arbalests and other ECM-equipped units. The Blakist Protectorate Militia learned from previous encounters and prioritized eliminating the Nova Cats' electronic warfare capability early in engagements, costing the Clan heavier casualties in exchange for eventual victory.</p><p>Clan Diamond Shark recognized the Arbalest's commercial potential and traded much-needed Clan technology to the Nova Cats in exchange for limited production runs. These Diamond Shark-procured Arbalests were subsequently sold to mercenary commands and the Republic of the Sphere, significantly expanding the design's distribution beyond Clan Nova Cat's own forces. The Irece Alpha factory continued production through the post-Jihad era, though the facility was destroyed during the Second Combine-Dominion War and was not reconstructed until 3129. Despite this interruption, the Arbalest remains a common sight in second-line and mercenary formations across the Inner Sphere.</p>
+
+manufacturer:Irece Alpha
+
+primaryfactory:Irece
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Star League NCX
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:125
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Raldon
+systemmode:COMMUNICATIONS:R1
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:Hirez II

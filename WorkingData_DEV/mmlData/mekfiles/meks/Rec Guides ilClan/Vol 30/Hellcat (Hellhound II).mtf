@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-db61-7d48-ac34-3eac811a2723
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hellcat
+clanname:Hellhound II
+model:
+mul id:9409
+
+Config:Biped
+techbase:Clan
+era:3133
+source:RG30
+published:RG30
+rules level:3
+role:Skirmisher
+
+quirk:ext_twist
+quirk:difficult_maintain
+
+mass:50
+engine:300 XXL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:14 Clan Double
+walk mp:6
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:14
+RA armor:14
+LT armor:19
+RT armor:19
+CT armor:23
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:4
+ER Large Laser, Left Arm
+LB 10-X AC, Right Arm
+SRM 6, Left Torso
+ER Large Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLERLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLLBXAC10
+CLLBXAC10
+CLLBXAC10
+CLLBXAC10
+CLLBXAC10
+Clan LB 10-X AC Ammo
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLSRM6
+Clan Ammo SRM-6
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERLargeLaser
+Clan LB 10-X Cluster Ammo
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hellcat traces its origins to Clan Nova Cat's post-Abjurement rebuilding program of the 3060s, when Nova Cat engineers developed an unconventional Conjurer variant designated the Conjurer 6. This radical departure from the standard Hellhound configuration (featuring back-canted legs, weapon pod arms, and a heavy reliance on energy weapons) caught the attention of Clan Jade Falcon merchants, who traded raw materials for access to the Nova Cat 'Mech chassis catalog.</p><p>Falcon technicians reworked the atypical Conjurer variant into a distinct design emphasizing flexible firepower over the Nova Cat preference for speed and energy weapons. Named as a subtle acknowledgment of both its Conjurer creators and the Inner Sphere reporting name for the parent design, the Hellcat saw limited production before the Jihad. A modernized variant was later produced on Graus during a brief Jade Falcon remilitarization program in the 3130s, before the design's production ultimately transferred to Clan Sea Fox facilities on Twycross, where it has achieved wider distribution than at any previous point in its history.</p>
+
+capabilities:<p>The Hellcat serves as a significant philosophical departure from its Conjurer ancestor, trading the jump-capable skirmisher role for a faster, more direct combatant built around a potent mix of ballistic and energy firepower. Powered by a Model 32d 300-rated extra-extra-light engine, the Hellcat achieves a top speed of 97.2 kilometers per hour while preserving considerable weight for armament and protection. The absence of jump jets (unusual for a design descended from the jump-capable Wolverine lineage) reflects the Jade Falcon emphasis on aggressive speed over tactical flexibility.</p><p>The primary weapons suite centers on a Type KOV LB 10-X autocannon, capable of firing both standard and cluster ammunition for versatility against hardened and dispersed targets alike. Two Series 6b extended-range large lasers provide devastating long-range firepower, while an Mk. 22 Type III SRM-6 rack adds close-range punch. Two tons of autocannon ammunition and one ton of missile reloads give the Hellcat reasonable battlefield endurance, though pilots must exercise careful heat management given that the XXL engine's reduced shielding creates thermal challenges when firing the full weapons complement.</p><p>The endo steel chassis and ferro-fibrous armor provide solid protection for the design's weight class, though the XXL engine stands as a notable vulnerability, any critical hit to either side torso risks catastrophic engine damage, a trade-off accepted in exchange for the weight savings that make the Hellcat's heavy armament possible.</p>
+
+deployment:<p>The standard Hellcat configuration emerged from Clan Jade Falcon workshops as a comprehensive rework of the Nova Cat Conjurer 6, emphasizing flexible firepower over the original's speed and energy-weapon focus. Powered by a 300-rated extra-extra-light engine that achieves 97.2 kilometers per hour, the Hellcat abandons jump jets entirely, a rare choice for a design descended from the jump-capable Wolverine lineage. The primary armament centers on a Type KOV LB 10-X autocannon capable of firing both standard and cluster ammunition, paired with twin Series 6b extended-range large lasers for devastating long-range energy firepower and an SRM-6 rack for close-range engagements. Built on the familiar Puma Type Medium endo steel chassis with Alpha Plate Special ferro-fibrous armor, the design was initially produced at Kinetic Dynamics and Trellshire Heavy Industries facilities on Graus until 3136, when production relocated to Twycross. Named as a subtle acknowledgment of both its BattleMech and Inner Sphere heritage, the Hellcat carved its own reputation during the Falcon Incursion and subsequent Wolf-Falcon conflicts.</p>
+
+history:<p>The Hellcat's development began in the workshops of Clan Nova Cat during the 3060s, as the Abjured Clan worked to rebuild its shattered touman on Irece and the surrounding worlds. The original Conjurer 6 design was a radical departure from the standard Hellhound configuration, incorporating back-canted legs and weapon pod arms that made it barely recognizable as a Conjurer derivative. While the Nova Cats valued the design for its heavy energy armament and speed, it was the variant's export that proved most significant.</p><p>Clan Jade Falcon merchants, seeking to expand their arsenal through trade rather than Trials, negotiated access to the Nova Cat 'Mech chassis catalog in exchange for raw materials. Falcon technicians were drawn to the Conjurer 6's unconventional layout and reworked it into an entirely new design, replacing the Nova Cat's energy-focused loadout with a more balanced mix of ballistic and beam weapons. The resulting Hellcat entered limited production before the Jihad disrupted Clan manufacturing across the Inner Sphere. The Nova Cat Conjurer program of the 3060s also served as the foundation for the Falcon-built Hellcat's eventual evolution, with the Conjurer 6 additionally inspiring the Avalanche upgrade to the Wendigo on Avon.</p><p>The design resurfaced in the 3130s when Clan Jade Falcon established a remilitarization program on Graus that included a modernized Hellcat variant. This production run was relatively brief, ending in the aftermath of the Falcon's internal political turmoil. The plans and machinery were subsequently acquired by Clan Sea Fox, who relocated manufacturing to their established facilities on Twycross. Under Sea Fox stewardship, the Hellcat has achieved wider distribution than at any previous point in its history, available to any faction willing to meet the merchant Clan's commercial terms.</p>
+
+manufacturer:Kinetic Dynamics / Trellshire Heavy Industries|Kinetic Dynamics / Trellshire Heavy Industries
+
+primaryfactory:Graus|Twycross
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Puma
+systemmode:CHASSIS:Puma Type Medium Endo Steel
+systemmanufacturer:ENGINE:Model 32d
+systemmode:ENGINE:Model 32d 300 XXL
+systemmanufacturer:ARMOR:Alpha Plate
+systemmode:ARMOR:Alpha Plate Special Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:JNE
+systemmode:COMMUNICATIONS:JNE II Integrated
+systemmanufacturer:TARGETING:Build 4 CAT
+systemmode:TARGETING:Build 4 CAT Advanced TTS

@@ -1,0 +1,181 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aed4-7737-9659-9d840e7cd406
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Xerxes
+</Name>
+
+<Model>
+3
+</Model>
+
+<mul id:>
+5760
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Fire Support
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+640
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+45
+43
+43
+41
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLHAG40
+CLCASE
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLHAG40
+CLCASE
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Xerxes is built around a pair of Aero-Model 4 Ultra Autocannon/20s, one mounted in each wing. Capable of firing in rapid-fire mode, these weapons can strip armor from an opposing fighter or ground vehicle in a single pass. Four tons of reloads provide enough ammunition for a typical Clan sortie, though pilots who expend ammunition carelessly may find themselves reliant solely on backup weapons before the engagement ends. Two Series S6a Extended Range Large Lasers mounted in the nose supplement the autocannons at range and provide reliable firepower during strafing runs. The fighter carries nine tons of Compound XAS ferro-aluminum armor, which gives it exceptional endurance for its weight class and allows it to absorb multiple hits during sustained engagements. Its 340-rated Standard fusion engine delivers a respectable acceleration of 3 Gs.</p><p>The primary tactical limitation of the design is thermal management. The twelve double heat sinks cannot handle simultaneous fire from all weapons, and pilots who attempt to do so risk an early combat shutdown and complete loss of control. Experienced pilots learn to stagger their weapons fire, keeping heat levels manageable and using the autocannons sparingly to conserve ammunition. The Xerxes is not agile by Clan fighter standards, but its raw stopping power and durable construction make it effective across a broad range of tactical situations.</p>
+</capabilities>
+
+<overview>
+<p>The Xerxes is an 85-ton heavy aerospace fighter developed by Clan Smoke Jaguar and first produced in 2827 at Kirin Orbital Works SJ-3 on the Kerensky Cluster world of Kirin. Built to embody the Jaguars' direct and aggressive approach to combat, the design prioritizes destructive firepower and durable protection rather than speed or tactical flexibility. Its armament centers on a pair of wing-mounted heavy autocannons backed by nose-mounted extended range lasers, making the Xerxes effective in both air superiority engagements and ground attack roles. This combination of capability quickly established it as a valued asset across the toumans of virtually every Clan. Though second-line designs often struggle to find purpose after the introduction of OmniFighter technology, the Xerxes has remained in active service, continuing to fill escort and close support roles well into the modern era.</p>
+</overview>
+
+<deployment>
+<p>The Xerxes 3 takes the airframe's firepower philosophy to its logical extreme, stripping the design down to a pair of HAG/40 hyper-assault Gauss rifles and shedding supplementary weapons and heat sinks to accommodate them. The resulting configuration delivers concentrated volleys at extended range while eliminating the heat management demands that constrain the base model in sustained engagements. Produced at Kirin Orbital Works SJ-3, the Xerxes 3 is assigned where ammunition resupply can be reliably maintained, and represents the most technologically demanding variant in the Xerxes family.</p>
+</deployment>
+
+<history>
+<p>Developed by Clan Smoke Jaguar in 2827 and produced at Kirin Orbital Works SJ-3 on the shared Kerensky Cluster world of Kirin, the Xerxes reflects the Jaguars' uncompromising combat philosophy from its earliest days. Its blunt effectiveness quickly earned it a place in the toumans of every Clan, and for decades it served as a frontline heavy fighter across both the Pentagon Worlds and the broader Kerensky Cluster. Pilots across the Clans, while rarely questioning its effectiveness, were less generous about its handling characteristics, and the fighter acquired the derisive nickname "Hunchback IIC of the skies" — a commentary on both its ungainly profile and its reliance on brute force over finesse.</p><p>The rise of OmniFighter technology during the Clan Golden Century gradually pushed the Xerxes from front-line service into second-line assignments, primarily as DropShip and WarShip escorts. Production at Kirin wound down as newer designs took priority, though the fighter remained common enough that it continued to see action across the Clan homeworlds. Several other production sites, including facilities operated by the Fire Mandrills and Ice Hellions on their respective homeworlds, produced the design throughout the Succession Wars period, ensuring it remained available to virtually all Clans.</p><p>Kirin was a world shared between Clan Smoke Jaguar and Clan Hell's Horses, a co-habitation marked by frequent Trials and little goodwill between the two Clans. When Operation BULLDOG drew the Jaguar Touman away from Kirin in the late 3050s to defend Huntress from the advancing SLDF, the Hell's Horses moved quickly to claim the abandoned Jaguar facilities. The SJ-3 orbital works proved the most valuable prize, providing the Horses with a functioning production line that had already served as the Xerxes' primary manufacturing center for over two centuries. The Horses consolidated their hold on the entire Kirin system even before the outcome of the Huntress campaign was known, ensuring the Xerxes production line would survive Clan Smoke Jaguar's annihilation. The Fire Mandrills and Snow Ravens maintained significant concentrations of the type from stock acquired through Trials and trade, but the Hell's Horses became the design's foremost operator and developer.</p><p>During the Wars of Reaving, the Hell's Horses transferred their Kirin holdings, including Orbital Works SJ-3, to Clan Coyote as part of their preparations for migrating to the Inner Sphere. This transfer gave the Coyotes a continuing production capability for the design well into the Dark Age period. The Hell's Horses, meanwhile, established new production at Csesztreg Industriplex Delta in their Inner Sphere territory, allowing them to maintain domestic aerospace manufacturing capacity alongside the variants they developed during their years as the design's primary homeworld producer.</p>
+</history>
+
+<manufacturer>
+Kirin Orbital Works SJ-3, Csesztreg Industriplex Delta
+</manufacturer>
+
+<primaryFactory>
+Kirin (Orbital), Csesztreg
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Kirin Orbital Works SJ-3
+ENGINE:Kirin Orbital Works SJ-3
+ARMOR:Kirin Orbital Works SJ-3
+COMMUNICATIONS:Kirin Orbital Works SJ-3
+TARGETING:Kirin Orbital Works SJ-3
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Type 42-5 Aero
+ENGINE:340 Standard
+ARMOR:Compound XAS Ferro-Aluminum
+COMMUNICATIONS:KOW-Comm Type 9
+TARGETING:ASG Mark VII
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+85.0
+</tonnage>
+

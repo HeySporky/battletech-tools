@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a2fe-7575-80d8-76f989806a79
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Purifier Adaptive Battle Armor
+</Name>
+
+<Model>
+[Narc](Sqd4)
+</Model>
+
+<mul id:>
+2604
+</mul id:>
+
+<year>
+3062
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+36
+</armor_type>
+
+<armor_tech>
+1
+</armor_tech>
+
+<Squad Equipment>
+IS BA Mimetic:RA
+IS BA Mimetic:Body
+IS BA Mimetic:Body
+IS BA Mimetic:LA
+IS BA Mimetic:Body
+IS BA Mimetic:Body
+IS BA Mimetic:RA
+BABattleClaw:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+CLBACompactNarc:LA
+BA-Compact Narc Ammo:LA:Shots2#
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+CLBACompactNarc:LA
+BA-Compact Narc Ammo:LA:Shots2#
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+CLBACompactNarc:LA
+BA-Compact Narc Ammo:LA:Shots2#
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+CLBACompactNarc:LA
+BA-Compact Narc Ammo:LA:Shots2#
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Narc configuration mounts a compact Narc missile beacon launcher in the Purifier Adaptive's modular weapon port, transforming the suit into a dedicated missile spotter. The launcher carries a single reload, and its bulk prevents the trooper from executing anti-BattleMech attacks or using jump jets until the ammunition is expended and the launcher jettisoned. This significant limitation restricts mobility during the approach phase of any engagement. Once a Narc beacon is attached to a target, allied missile platforms gain a substantial accuracy bonus against the marked unit. The mimetic armor helps Narc-equipped troopers close to effective range undetected, compensating somewhat for the temporary loss of jump capability. After the launcher is jettisoned, the trooper regains full mobility but is left with only the suit's battle claw for offensive action.</p>
+</capabilities>
+
+<overview>
+<p>The Purifier Adaptive is a medium battle armor design developed by the Word of Blake, built around a mimetic armor system capable of shifting color to match its surroundings. First fielded in 3062 from the Krupp Armament Works on Terra, the suit was among the first combat systems to employ adaptive camouflage technology, allowing troopers to become nearly invisible when stationary. Though lightly protected compared to other medium suits, the Purifier compensates with stealth and jump capability, filling a specialized reconnaissance and infiltration role. Its unique capabilities have made the Purifier one of the most distinctive battle armor suits in service across the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>Republic four-trooper squads equipped with the Narc configuration operated as forward observers for combined-arms formations, tagging enemy units with missile beacons to improve the accuracy of supporting fire. The smaller squad size proved adequate for the spotting role, though the loss of even one trooper during the vulnerable approach phase could compromise the entire mission.</p>
+</deployment>
+
+<history>
+<p>The origins of the Purifier Adaptive trace to ComStar's Sandhurst Royal Military College on Terra, where scientists began developing mimetic color-shifting technology for infantry use in 3058. When elements of the Word of Blake overran the college, the Sandhurst Training Regiment fought to defend it but could not prevent the research data from falling into enemy hands. ComStar believed the project had been destroyed along with the facility.</p><p>Word of Blake engineers had gained considerable experience in battle armor development through their joint program with the Free Worlds League Military to produce the Achileus light suit. That expertise proved critical in adapting ComStar's mimetic research into a functional battle armor camouflage system. Development proceeded at the Krupp Armament Works in Germany, where Blakist technicians refined the technology through extensive testing before settling on a final production design. A prototype was revealed in August 3061, and the Purifier entered full production the following year.</p><p>Production at Krupp proceeded at an advanced pace, with the Word of Blake placing large quantities of the suit into every Division. The Purifier quickly earned a feared reputation during the Jihad, where its camouflage capabilities made it deadly in ambush operations and urban fighting. Troopers learned to exploit the suit's stealth by holding position until targets entered effective range, then striking before the enemy could react. Field commanders learned to manage the suit's operational limitations through disciplined tactical doctrine, maximizing the camouflage advantage under favorable conditions.</p><p>Following the liberation of Terra and the dissolution of the Word of Blake, significant numbers of Purifier suits fell into Coalition hands. The Republic of the Sphere proved the most enthusiastic adopter, capturing enough suits to equip multiple formations within the Republic Armed Forces. Republic commanders reorganized their Purifier troopers into four-member squads, mirroring standard Inner Sphere infantry doctrine rather than the Blakist six-trooper formation structure. Aside from this organizational change, the Republic operated the suit identically to the original Word of Blake configuration.</p><p>Production eventually expanded beyond Terra. HDF Manufacturing on Falsterbo began producing the Purifier Adaptive during the later Republic era, and additional manufacturers including Brevard Industries and Paragon Defense also took up production to meet growing demand. By the ilClan era, the Purifier Adaptive had spread well beyond its Blakist origins, finding service with multiple factions who valued its unique stealth capabilities.</p>
+</history>
+
+<manufacturer>
+Krupp Armament Works|HDF Manufacturing
+</manufacturer>
+
+<primaryFactory>
+Terra|Falsterbo
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-C
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+6
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

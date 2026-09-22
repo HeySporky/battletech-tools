@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df88-76f9-812b-330fb9d46b78
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Rifleman III
+model:RF2-A
+mul id:7323
+
+Config:Biped
+techbase:Inner Sphere
+era:2776
+source:XTR:Gunslingers
+published:XTR:Gunslingers
+rules level:4
+role:Brawler
+
+quirk:fast_reload
+quirk:obsolete:2778
+quirk:prototype
+quirk:searchlight
+quirk:multi_trac
+
+mass:90
+engine:180 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:2
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:20
+RT armor:20
+CT armor:31
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:4
+Gauss Rifle, Left Arm
+Gauss Rifle, Right Arm
+Gauss Rifle, Left Torso
+Gauss Rifle, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo
+Mek Null Signature System
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo
+Mek Null Signature System
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+Mek Null Signature System
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+Mek Null Signature System
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Mek Null Signature System
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Mek Null Signature System
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Mek Null Signature System
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Rifleman III stands as one of Stefan Amaris's desperate technological gambles during the final years of his doomed regime. Developed by Krupp Armament Works as a companion to other "doomsday" designs like the Screamer, this ninety-ton assault 'Mech represented a radical departure from the Rifleman lineage. Where previous variants balanced firepower with mobility, the Rifleman III sacrificed speed entirely for overwhelming alpha-strike capability and battlefield invisibility.</p><p>Only a single prototype was completed before General Kerensky's forces reached Terra in 2777. The design saw combat during the liberation, where recovered BattleROMs documented its effectiveness as an ambush predator before the prototype was finally destroyed. The Rifleman III's existence faded into rumor and barroom speculation until 3146, when Republic of the Sphere archaeologists unearthed the entombed wreckage beneath a collapsed Buenos Aires skyscraper. The recovered ROMs and technical data finally confirmed centuries of whispered legends about a "Mech-killing Rifleman" that had haunted Star League veterans' accounts of the Terra campaign.</p>
+
+capabilities:<p>The Rifleman III was designed exclusively for ambush operations, and every system reflects this singular purpose. The experimental Null-Signature System rendered the 'Mech nearly invisible to sensors, allowing it to remain concealed within buildings or terrain features until targets entered optimal engagement range. At ninety tons, the design carried sufficient armor to survive initial return fire while its weapons eliminated threats. The 180-rated XL engine provided only UrbanMech-equivalent speed, but mobility was irrelevant for a platform intended to strike from prepared positions.</p><p>Four Gauss rifles comprised the entire weapons array, two mounted in the arms and two in the side torsos. This unprecedented concentration of firepower could obliterate most 'Mechs in a single coordinated volley, decapitating enemy command elements before they could react. The design carried only two tons of ammunition, sufficient for four full volleys, reflecting the intended doctrine of short, devastating engagements followed by withdrawal or destruction. Ten single heat sinks were adequate for the ballistic-only loadout. The 'Mech wasn't designed for extended operations; it existed to burst from concealment, destroy the nearest enemies with overwhelming force, and either relocate or die in place.</p>
+
+deployment:<p>This variant Rifleman III represents one of Stefan Amaris's most ambitious (and ultimately futile) technological gambles during the liberation of Terra. Rushed into service in 2777, only a single prototype existed when General Kerensky's forces closed on the Rim Worlds Republic's stolen capital. The massive ninety-five ton chassis mounted four Gauss Rifles for devastating long-range firepower, while a revolutionary Null Signature System rendered the 'Mech nearly invisible to sensors. Glacially slow at just 43 kilometers per hour, the design relied entirely on ambush tactics. BattleROM data recovered from the wreckage recorded nine confirmed SLDF 'Mech kills before overwhelming firepower finally destroyed the prototype. The design's existence was forgotten for centuries until Republic of the Sphere archaeologists discovered the entombed wreckage in 3146, providing a fascinating glimpse into Amaris's desperate technological innovations.</p>
+
+history:<p>Krupp Armament Works began development of the Rifleman III in 2776, racing to complete the prototype before Kerensky's forces reached Terra. The design team drew upon the Rifleman's proven chassis geometry while scaling everything dramatically upward, more mass, more armor, more firepower. The Null-Signature System represented cutting-edge stealth technology that Amaris hoped would offset the SLDF's numerical superiority. The single completed prototype reached operational status just as liberation forces began their final push.</p><p>Recovered BattleROMs tell a grim story of the prototype's brief combat career. Stationed in an ambush position, the Rifleman III detected an approaching SLDF patrol and held fire until the enemy entered optimal range. The first volley decapitated the patrol leader, and subsequent fire destroyed eight more BattleMechs before ammunition began running low. An attached ammo support unit enabled continued operations, but eventually concentrated SLDF firepower overwhelmed the prototype's defenses. The pilot continued fighting until battle damage rendered the 'Mech inoperable.</p><p>None of the extant Star League records mention the Rifleman III, suggesting either extreme compartmentalization of the project or deliberate destruction of documentation during the liberation. Krupp Armament Works has denied Republic archaeologists access to their surviving internal archives, leaving many questions unanswered. The recovered wreckage and ROMs have been passed to Devlin Stone's government, but no information has emerged about potential exploitation of the design. Whether any power will attempt to recreate this assault-weight ambush predator remains to be seen, though the combination of quad Gauss rifles and stealth technology would certainly interest modern military planners.</p>
+
+manufacturer:Krupp Armament Works
+
+primaryfactory:Terra
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Standard
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:285
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Unknown with Null Signature System
+systemmanufacturer:TARGETING:Unknown

@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c27c-7124-be93-3ed85d66c1fb
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Ostroc
+model:OSR-2C
+mul id:2348
+
+Config:Biped
+techbase:Inner Sphere
+era:2511
+source:TR:3039
+published:RS:3039u,RSFP:MERCS
+rules level:1
+role:Skirmisher
+
+quirk:low_profile
+
+mass:60
+engine:300 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:15 Single
+walk mp:5
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:8
+RA armor:8
+LT armor:22
+RT armor:22
+CT armor:22
+HD armor:8
+LL armor:20
+RL armor:20
+RTL armor:4
+RTR armor:4
+RTC armor:6
+
+Weapons:5
+Large Laser, Left Torso
+Medium Laser, Left Torso
+Large Laser, Right Torso
+Medium Laser, Right Torso
+SRM 4, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Large Laser
+Large Laser
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Large Laser
+Large Laser
+Medium Laser
+SRM 4
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ammo SRM-4
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Ostroc was designed in 2511 by Ostmann Industries as a dedicated urban combat platform for the Terran Hegemony's garrison forces. Distinguished by its low-slung walker-pod profile that would later inspire designs like the Stalker and Marauder, the Ostroc combined a silhouette comparable to the diminutive UrbanMech with the firepower expected of a heavy 'Mech. This unique combination made the design exceptionally difficult to target among the towers and debris of contested cityscapes.</p><p>Ostmann Industries' limited production capacity meant the Ostroc remained relatively rare throughout its service life, though the design's reputation for reliability and its interchangeable components with other Ost-series 'Mechs ensured its continued use across the Succession Wars and beyond. Multiple manufacturers eventually took up production, keeping the Ostroc relevant on battlefields well into the thirty-second century.</p>
+
+capabilities:<p>The Ostroc's primary armament centers on twin Fuersturm-C large lasers mounted in the side torsos, providing effective medium-to-long range firepower without ammunition dependency. Secondary weapons include paired Fuersturm-b medium lasers and a single Totschlagen SRM-4 launcher, giving the design respectable close-range punch. This weapons mix allows the Ostroc to operate effectively as a guerrilla fighter, largely independent of supply lines that might be disrupted in urban combat zones.</p><p>The nineteen-ton Vlar 300 fusion engine propels the Ostroc to speeds of 86 kilometers per hour, making it fast for its weight class and capable of dictating engagement ranges against heavier opponents. Fifteen standard heat sinks provide adequate thermal management for sustained combat. Nine tons of Riese-475 armor offer reasonable protection, though the design's distinctive short arms receive minimal plating and are frequently lost in combat.</p><p>This weak arm protection represents the Ostroc's primary tactical liability. The shocks of physical combat can easily damage the torso-mounted Fuersturm weapon systems, and the loss of one or both arms significantly compromises the 'Mech's ability to brace itself during close-quarters engagements. Experienced pilots learn to leverage their speed advantage to avoid such situations entirely.</p>
+
+deployment:<p>The original OSR-2C established the Ostroc's reputation as a capable urban combatant when it entered service in 2511. Armed with twin Fuersturm-C large lasers, paired medium lasers, and a Totschlagen SRM-4, the design delivered heavy firepower without ammunition dependency beyond the modest missile loadout. Fifteen standard heat sinks managed the thermal load adequately for sustained engagements, though aggressive pilots learned to pace their fire during extended operations. The 'Mech's low profile and compact silhouette made it exceptionally difficult to target in the urban environments for which it was designed, compensating somewhat for its modest nine tons of armor protection.</p>
+
+history:<p>The Ostroc served as the flagship design of Ostmann Industries throughout the Star League era, seeing action in every major conflict from its introduction through the Amaris Civil War. Although primarily assigned to garrison duties within the Terran Hegemony, the 'Mech earned a reputation for reliability that kept it in service long after original production ceased. Ostmann licensed its other Ost-series designs to Kong Interstellar simply to maintain adequate output across its product range. Urban legend holds that ComStar founder Jerome Blake himself piloted an Ostroc during the seizure of Terra, though historical records remain inconclusive.</p><p>The destruction of Ostmann Industries' Terra facility during the Amaris Civil War ended production of new Ostrocs, but the design's simple construction and parts compatibility with other Ost-series 'Mechs allowed surviving examples to soldier on. The Draconis Combine became particularly adept at maintaining these aging warriors, and Ostrocs remained common sights in Combine formations throughout the Succession Wars. The wide dispersal of surviving units actually worked against the design when lostech recovery began after the Helm Memory Core discovery, as no concentration of Ostrocs existed to justify dedicated upgrade programs.</p><p>Revival came from an unexpected quarter. The Capellan Confederation's Strategios, having rebuilt their forces after decades of setbacks, ordered all manufacturers to submit bids for a modernized Ostroc replacement. Ceres Metals won the contract with a complete redesign that retained only the name and general profile, entering production in January 3067. The Taurian Concordat and Circinus Federation soon fielded suspiciously similar variants, leading to espionage accusations that further strained Trinity Alliance relations.</p><p>Kong Interstellar, the original licensee of other Ost-series designs, finally returned to Ostroc production in 3139 with Clan Sea Fox assistance. Their new OSR-6R variant incorporated Clan-grade weapons and advanced materials, though its reliance on components shipped through contested space makes continued production uncertain. Meanwhile, Ronin Incorporated on Wallis has produced modest numbers of the OSR-3M, drawing heavily on locally-sourced Ostwar components to maintain Regulan self-sufficiency during the ongoing conflicts fragmenting the former Free Worlds League.</p>
+
+manufacturer:Ostmann Industries
+
+primaryfactory:Terra
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Ostmann Industries
+systemmode:CHASSIS:Ost-II
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Riese
+systemmode:ARMOR:475
+systemmanufacturer:COMMUNICATIONS:Ostmann
+systemmode:COMMUNICATIONS:Ostmann-L
+systemmanufacturer:TARGETING:Ostmann
+systemmode:TARGETING:Ferdinand-a

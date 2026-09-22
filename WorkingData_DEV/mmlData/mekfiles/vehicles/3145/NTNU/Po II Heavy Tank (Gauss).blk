@@ -1,0 +1,164 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e84c-76b1-acfd-0121d3e299e0
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Po II Heavy Tank
+</Name>
+
+<Model>
+(Gauss)
+</Model>
+
+<mul id:>
+6794
+</mul id:>
+
+<year>
+3086
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+40
+32
+32
+30
+42
+</armor>
+
+<Body Equipment>
+IS Gauss Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+IS Machine Gun Ammo - Half
+IS Ammo SRM-6
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISGaussRifle
+Machine Gun
+Machine Gun
+SRM 6
+SRM 6
+ISSRM2IOS
+ISSRM2IOS
+</Turret Equipment>
+
+<capabilities>
+<p>The Po II's defining weapon is the turret-mounted Ceres Huang Di Ultra AC/20, capable of devastating short-to-medium range firepower. The Ultra autocannon's double-fire mode delivers exceptional burst damage against any opponent, representing a near-quadrupling of the original Po's firepower output. Two SperyBrowning Machine Guns provide anti-infantry coverage. Two five-tube LongFire V LRM launchers extend the engagement envelope, while twin Hovertec Streak SRM 2 racks add reliable close-range punch that wastes no shots on missed salvos.</p><p>The Pitban 240 XL Fusion engine maintains the same road speed as the original Po while freeing sufficient mass for the heavier weapons and armor package. Fourteen tons of Starshield V armor substantially exceeds the original's protection. The CeresCom Model 37-P communications system and Ceres/Maladev 3 targeting carry forward from the original design, providing familiar and proven electronics for crews transitioning from earlier Po variants.</p><p>The Po II's improvements come with meaningful trade-offs. The XL engine makes the vehicle significantly more vulnerable to side hits than the ICE-equipped original, and battle damage to the engine compartment can be catastrophic rather than merely disabling. The UAC/20's impressive firepower has limited effective range. The Po II's overall cost far exceeds the original, restricting availability to frontline units rather than the garrison formations the base Po equips.</p>
+</capabilities>
+
+<overview>
+<p>The Po II Heavy Tank stands as a generational advance over its predecessor, trading the original's simplicity and low cost for a comprehensive weapons suite befitting a true main battle tank. Developed by Ceres Metals Industries following Blakist destruction of the St. Ives production facilities during the Jihad, the Po II incorporates an XL fusion engine, an Ultra Autocannon/20, and multiple missile systems into a redesigned hull derived from the familiar Po. Entering production in 3077, it became the Capellan Confederation Armed Forces' primary heavy tracked combat vehicle in the Dark Age, serving alongside surviving Po units rather than replacing them wholesale. Export demand from allied Periphery states and steady domestic requirement have kept both Menke and St. Ives lines running at capacity.</p>
+</overview>
+
+<deployment>
+<p>The Gauss variant trades the Ultra AC/20 for a Gauss rifle, extending the Po II's effective engagement range at the cost of sustained firepower. Deployed as a stop-gap ahead of the Pixiu's introduction, the variant fills a longer-range fire support role the standard Po II cannot match. Production is concentrated at St. Ives and remains limited, with the variant expected to decrease in numbers as Pixiu deliveries increase to frontline CCAF units over the ilClan period.</p>
+</deployment>
+
+<history>
+<p>The Po II was born from the destruction of the Jihad. Word of Blake forces struck St. Ives with devastating effect, inflicting heavy civilian casualties and severely damaging the Ceres Metals facilities that had long produced the Po. The turret assembly line was completely destroyed. Confronted with the scale of the damage, engineers faced a choice between repairing the surviving equipment or designing something better. They chose to start over.</p><p>Taking advantage of the forced design time, Ceres engineers reviewed decades of Po combat reports and addressed every documented limitation of the original. The Pitban 240 XL Fusion engine replaced the old internal combustion plant, recovering mass that enabled the shift to an Ultra Autocannon/20 and a full missile suite. The turret was completely redesigned to accommodate the expanded armament, and additional armor brought protection to fourteen tons. The resulting vehicle shared the Po's hull lineage but little else.</p><p>Production began at St. Ives in 3077, with first deliveries to the St. Ives Lancers for evaluation. The design impressed Confederation planners, and units spread across the CCAF for broader assessment. Republic forces holding the Tikonov corridor discovered the change the hard way. Units conditioned by years of facing the lighter-armed original found themselves outmatched by platoons of Po IIs whose UAC/20 firepower bore no resemblance to what they had prepared for.</p><p>Additional production came online at Menke to meet demand. Ceres engineers continued refining the design, producing an Arrow IV-equipped artillery testbed and then the Gauss and Stealth variants at St. Ives. The Gauss model addressed the need for longer-range fire support ahead of the Pixiu's broader introduction, while the Stealth variant found a niche in reconnaissance and deception operations that sustained limited production beyond its original stop-gap role.</p>
+</history>
+
+<manufacturer>
+Ceres Metals Industries
+</manufacturer>
+
+<primaryFactory>
+St. Ives
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Pitban
+ARMOR:Unknown
+COMMUNICATIONS:CeresCom
+TARGETING:Ceres
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:240 XL
+ARMOR:V
+COMMUNICATIONS:Model 37-P
+TARGETING:Maladev 3
+</systemModels>
+
+<source>
+TR:3145
+</source>
+
+<published>
+RS:3145-NTNU,RS:3145
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

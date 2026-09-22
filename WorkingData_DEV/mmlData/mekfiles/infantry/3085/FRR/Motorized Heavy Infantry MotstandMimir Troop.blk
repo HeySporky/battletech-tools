@@ -1,0 +1,93 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b645-721f-9d66-48a3b62ed62c
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Motorized Heavy Infantry
+</Name>
+
+<Model>
+Motstand/Mimir Troop
+</Model>
+
+<mul id:>
+2232
+</mul id:>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Free Rasalhague Republic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Motstånd draws its strength from Mimir, the Free Rasalhague Republic's intelligence division, which coordinated organized resistance to foreign invaders for centuries before the Clans arrived in 3049. After the initial Clan conquest, Mimir settled into an extended guerrilla campaign against the rapidly improving Clan Watch. A standard Mimir troop is fast and hard-hitting, mounting motorized infantry with assault rifles and disposable rocket launchers that can overwhelm an isolated outpost before fading back into the hinterland. With Mimir's formal absorption into the Dominion Watch, the fate of these troops has been mixed. Many aligned themselves with the Motstånd resistance to continue fighting against Clan authority, while others accepted integration. Rumors persist of Mimir-funded troops operating in the Clan Wolf and Hell's Horses occupation zones, though the Dominion vehemently denies this.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+Rocket Launcher (V-LAW)
+</Secondary>
+

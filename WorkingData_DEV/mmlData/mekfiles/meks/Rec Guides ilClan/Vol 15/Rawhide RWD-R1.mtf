@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d8fa-76ca-b24d-95f34fb08931
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Rawhide
+model:RWD-R1
+mul id:8189
+
+Config:Biped
+techbase:Inner Sphere
+era:3137
+source:RG15
+published:RG15
+rules level:3
+role:Skirmisher
+
+quirk:reinforced_legs
+quirk:rugged_1
+
+mass:55
+engine:275 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:12 IS Double
+walk mp:5
+jump mp:5
+
+armor:Reflective(Inner Sphere)
+LA armor:18
+RA armor:18
+LT armor:20
+RT armor:20
+CT armor:27
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:3
+ER PPC, Right Arm
+Medium X-Pulse Laser, Right Arm
+MML 9, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Reflective
+IS Reflective
+IS Reflective
+IS Reflective
+IS Reflective
+IS Reflective
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+ISMediumXPulseLaser
+ISAES
+ISAES
+IS Reflective
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+ISMML9
+ISMML9
+ISMML9
+ISMML9
+ISMML9
+IS Ammo MML-9 LRM
+IS Ammo MML-9 SRM
+ISCASE
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+IS Reflective
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Rawhide is a 55-ton medium BattleMech introduced in 3137 by Kaiser Systems on Herzberg. Born from the ashes of a failed Scourge heavy BattleMech prototype, the design repurposes salvaged components alongside widely available equipment to produce an affordable and versatile striker. Kaiser deliberately eschewed cutting-edge technology in favor of ease of construction and cost reduction, a philosophy that has made the Rawhide enormously popular with budget-conscious operators, particularly mercenary commands. Despite early derision from Solaris VII commentators, who dismissed it as a lesser imitation of the venerable Griffin, the Rawhide has proven itself a capable and reliable platform across multiple theaters of the Lyran Commonwealth.</p>
+
+capabilities:<p>The Rawhide is built around a Hermes 275 XL engine, providing a top speed of 86 kph, while five Dynamo jump jets grant a jump capacity of 150 meters. This mobility profile allows it to function effectively as a heavy scout or skirmisher, capable of repositioning quickly across broken terrain. The Kaiser Simplex I chassis carries eleven and a half tons of Bowie Glinting Blade reflective armor protected by CASE, a defensive package that proves particularly punishing against energy-heavy opponents, deflecting and diffusing laser fire that would cripple more conventionally armored designs.</p><p>The primary armament is a Magna Firestar ER PPC mounted in the right arm, complemented by a Diverse Optics Type 25PX medium X-pulse laser. Both weapons benefit from an actuator enhancement system fitted to the entire right arm, granting the Rawhide an unusual degree of accuracy for its weight class. A Helga Series 9-tube multi-missile launcher occupies the left torso, fed by two tons of ammunition that allow pilots to switch between long and short-range missile loads as the tactical situation demands.</p><p>The reliance on an XL engine represents the design's most significant vulnerability, as a critical hit to either side torso will destroy the engine. However, the reflective armor and jump capability mitigate this risk by allowing pilots to control engagement range and limit exposure to concentrated fire.</p>
+
+deployment:<p>This variant is the sole production variant of the Rawhide, and no factory variants have been produced as of the mid-thirty-second century. Its combination of standard components and straightforward construction makes it an attractive candidate for field modification. The design's popularity among mercenary commands and Lyran garrison units suggests that aftermarket variants may eventually emerge as the chassis sees wider distribution across the Commonwealth and its allies.</p>
+
+history:<p>The Rawhide takes its name from a Scourge test pilot who died valiantly defending the Kaiser Systems factory on Herzberg from an Armed Mercantile and Scouting Command raid in 3134. From this bloody beginning, the design quickly established itself as a capable and cost-effective combatant across multiple fronts of the Lyran Commonwealth.</p><p>The Rawhide has seen extensive combat across the Coventry, Arcturan, and Donegal provinces in the hands of both Lyran regulars and mercenary MechWarriors. The Jade Falcons, in particular, have come to loathe the sight of Rawhides hunting their favored light OmniMechs such as the Eyrie and Spirit. The design's armor has proven especially punishing against the predominantly energy-based weapons carried by Clan OmniMechs, turning what many Falcon warriors initially dismissed as a bargain-bin design into a persistent and dangerous threat.</p><p>In the Ridesein River Valley on Coventry, elements of the Seventeenth Arcturan Guards RCT faced three Falcon Clusters in a desperate defensive action. With the Lyrans entrenched along the valley's steep sides, Rawhides were employed as scouts to track the Gyrfalcon Galaxy's movements between assault waves. During one engagement, an Arcturan lance including a Rawhide made contact with a Nova of First Falcon Strikers. The Lyrans formed a defensive circle and held their ground as the Falcons charged, with accurate fire from the Rawhide accounting for a Kit Fox before the position was eventually overrun.</p><p>On Loxley, elements of the Fifth Lyran Regulars engaged Jade Falcon forces from Gamma Galaxy in a series of running battles for control of valuable factories in the Gray Mountains. Near the Norse-Storm facility in the Peria Canyon, the Rawhide's precision gunnery proved decisive, with one machine decapitating a Shadow Cat II before coring a Pinion with sustained fire. The dry, desert-like conditions of the canyon fighting turned engagements into swirling close-range melees where the Rawhide's defensive plating deflected incoming fire more effectively than usual, allowing it to outlast opponents that carried heavier weapons. The engagement concluded when Lyran forces collapsed a section of canyon onto the remaining Clan BattleMechs.</p>
+
+manufacturer:Kaiser Systems
+
+primaryfactory:Herzberg
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Kaiser
+systemmode:CHASSIS:Simplex I
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:275 XL
+systemmanufacturer:ARMOR:Bowie
+systemmode:ARMOR:Glinting Blade Reflective
+systemmanufacturer:JUMP_JET:Dynamo
+systemmode:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Telestar
+systemmode:COMMUNICATIONS:Model XK-71
+systemmanufacturer:TARGETING:Starlight
+systemmode:TARGETING:LX-1

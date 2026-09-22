@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e630-7130-baf9-ebd0db83d789
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Saxon APC
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+2811
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+troopspace:5.0
+</transporters>
+
+<cruiseMP>
+10
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+33
+26
+26
+24
+35
+</armor>
+
+<Body Equipment>
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>The Saxon achieves exceptional mobility for its class, reaching a cruising speed of 108 kilometers per hour and a flank speed of 162 kilometers per hour through its GM 175 fusion engine. This performance comes at a steep cost in firepower, as the vehicle carries only a single Kicker-2 machine gun. The Saxon is highly dependent on its passengers for offensive capability in contested engagements, and commanders who mistake it for a combat vehicle do so at their peril.</p><p>The roomy fighting compartment accommodates a foot infantry platoon or a battle armor squad, and well-trained troops can disembark or embark through the large rear hatch in seconds. Extended deployments are supported by provisions for additional stores. The ArcShield Heavy II armor is substantial enough to allow the crew to hold position under fire, an important quality when passenger skill levels are uncertain. The three-man crew of driver, gunner, and cargo master faces considerable risk when paired with poorly trained passengers, as the limited armament provides little self-defense if infantry support fails.</p>
+</capabilities>
+
+<overview>
+<p>The Saxon APC is a fast hover transport developed by Cyclops Incorporated in response to the Lyran Alliance Armed Forces' growing concerns about armored personnel carrier vulnerabilities in the early 3070s. Fielded for the first time with the Second and Third Skye Guards in early 3070, the Saxon prioritizes speed, passenger capacity, and armor protection over offensive armament. Its fusion power plant frees it from the supply line constraints that plague conventional vehicles, and its spacious fighting compartment can accommodate a full infantry platoon or a battle armor squad. Initial performance impressed the LAAF sufficiently that demand quickly outpaced Cyclops Incorporated's production capacity, prompting Defiance Industries on Hesperus II and Quikscell Company on Richvale to acquire manufacturing licenses.</p>
+</overview>
+
+<deployment>
+<p>The base Saxon serves as a standard troop transport and convoy escort. It operates most effectively as part of combined arms formations, where its speed allows rapid infantry repositioning in response to developing threats. The single machine gun makes independent operations against armored opposition inadvisable, and commanders typically deploy it under the cover of heavier vehicles or BattleMechs. Its speed and capacity also make it useful for rapid evacuation and resupply missions behind the front line.</p>
+</deployment>
+
+<history>
+<p>The Saxon's origins lie in a formal LAAF requirement issued in the face of increasingly dangerous battlefield conditions across the Inner Sphere. Existing armored personnel carrier designs were proving inadequate against the threats of the early 3070s, and the Lyran Alliance Armed Forces called for upgraded vehicles to improve the effectiveness and survivability of their infantry forces. Cyclops Incorporated on Skye answered the challenge, delivering prototypes to the Second and Third Skye Guards in early 3070. Those regiments, still deficient in BattleMechs, relied heavily on infantry formations to fill their ranks, and the Saxon complemented that approach well.</p><p>Demand grew rapidly. Duchess Hermione Aten began offering discounts to mercenary commands willing to take contracts bolstering Skye's defenses, and the Raging Horde was among the first to accept. Other small commands followed. When Cyclops Incorporated proved unable to keep pace with orders, Defiance Industries and Quikscell Company acquired licenses to manufacture the Saxon at their own facilities on Hesperus II and Richvale.</p><p>The vehicle's combat value was demonstrated during the Word of Blake's assault on Skye in 3074. Saxon crews from the Second Skye Guard were thrown into the line against the Blakist Third Division. Speed and durability proved decisive, allowing coalition forces to hold the attackers long enough for flanking elements to land the finishing blow. Following the liberation of the Hesperus II factories from Blakist control in late 3074, Defiance Industries produced additional Saxons for a reinforced security contingent. Regular sweeps using these vehicles helped defeat several Blakist insurgent attempts to disrupt arms production supporting coalition operations across the theater.</p>
+</history>
+
+<manufacturer>
+Cyclops, Incorporated|Defiance Industries|Quikscell Company
+</manufacturer>
+
+<primaryFactory>
+Skye|Hesperus II|Richvale
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:Defiance Industries
+COMMUNICATIONS:TharHes
+TARGETING:TharHes
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:175
+ARMOR:ArcShield Heavy II
+COMMUNICATIONS:KR-A P/Com
+TARGETING:Mars 1
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+

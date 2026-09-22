@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eab9-7eb7-92ce-33119b5fd7a6
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Whitestreak Speedboat
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5408
+</mul id:>
+
+<year>
+2322
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Naval
+</motion_type>
+
+<transporters>
+standardseats:1.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+12
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+43
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+0
+0
+0
+0
+</armor>
+
+<Body Equipment>
+UltraLightChassisMod
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+2
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Whitestreak Speedboat achieves a cruise speed of 120 kilometers per hour and a flank speed of 180 kilometers per hour, placing it at the top of the small civilian watercraft performance envelope. Power comes from an electric fuel cell drive system that provides 194 kilometers of range before requiring refueling, a figure adequate for racing circuits and coastal runs but limiting for extended open-water travel. The Ultra-Light Chassis Modification keeps total mass to 230 kilograms, a design choice that contributes directly to the craft's performance but leaves very little room for structural reinforcement.</p><p>The Speedboat carries a single crew member in a forward seat rated for up to 75 kilograms. It has no passenger accommodation and no cargo capacity. Armor protection consists of a thin barrier layer rated at BAR 2, sufficient to resist spray and minor collision damage but entirely inadequate against deliberate attack. This near-total lack of defensive capability is the design's most significant shortcoming. Any Speedboat caught in a hostile situation depends entirely on its speed to disengage, and its fuel range constrains how far that escape can carry it before resupply becomes necessary.</p>
+</capabilities>
+
+<overview>
+<p>The Whitestreak Speedboat is a high-speed pleasure craft produced by Whitestreak, Inc., based on Marantha in the Magistracy of Canopus. Introduced in 2322 as a companion to the company's earlier JetSki design, the Speedboat represents the flagship offering for the performance end of the recreational marine market. At 230 kilograms, it is the heavier and faster of Whitestreak's two-product line, built for thrill-seekers willing to trade comfort and cargo capacity for raw speed. The Speedboat has built a strong reputation across the Magistracy as a purpose-built racing machine, and persistent if unconfirmed rumors of its use by Magistracy Intelligence Ministry operatives have added a certain mystique to the brand. Comparable high-speed pleasure craft are produced by other manufacturers throughout the Inner Sphere, but Whitestreak's design remains the best-known of its type within Canopian space.</p>
+</overview>
+
+<deployment>
+<p>The standard Whitestreak Speedboat serves as a recreational racing and high-speed leisure craft throughout the Magistracy of Canopus. It is primarily found on Marantha and other Canopian worlds with significant coastal and open-water environments, where it participates in organized racing circuits and is owned by private enthusiasts. The design's relatively simple fuel cell construction requires minimal manufacturing sophistication, and production has continued largely uninterrupted since its introduction. The craft is occasionally encountered in private hands outside the Magistracy, though it remains most common within Canopian space.</p>
+</deployment>
+
+<history>
+<p>Whitestreak, Inc. established itself on Marantha in the early twenty-fourth century, growing from a small recreational watercraft producer into a fixture of Canopian leisure culture. The Speedboat, introduced two years after the company's debut JetSki model, targeted a different customer entirely, aimed at racing enthusiasts and adrenaline seekers willing to pay for a purpose-built performance machine. Annual races held on Marantha's Oblivion Sea became a cultural institution, drawing competitors from across the Magistracy and providing Whitestreak with free advertising through spectacle and, on occasion, tragedy. The high accident rate at these events was an accepted cost of designing for maximum performance rather than safety.</p><p>The Speedboat gained a second reputation beyond recreational use in the decades following its introduction. Persistent but unsubstantiated reports emerged of Magistracy Intelligence Ministry Special Forces using Whitestreak-style speedboats to rapidly approach coastal targets on water-rich worlds. The MIM denied all such reports consistently. Regardless of official denials, the craft's combination of high speed, minimal electronic profile, and low visual signature made it theoretically well-suited for covert insertion operations. This association eventually led to the development of a dedicated intelligence ministry variant, though the details of its configuration remained officially classified.</p><p>The Speedboat competes in a market alongside other Inner Sphere pleasure craft. Corean Enterprises' Poseidon hydrofoil carries several passengers at comparable speeds, though at substantially higher cost. StarCorps Industries' Sundiver offers the unique capability to travel briefly underwater at reduced speed. Against these alternatives, the Whitestreak holds its position through competitive pricing, strong brand recognition within the Magistracy, and a top-end performance figure that neither competitor matches in a straight race.</p>
+</history>
+
+<manufacturer>
+Whitestreak, Inc.
+</manufacturer>
+
+<primaryFactory>
+Marantha
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Electric (Fuel Cell)
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+0.23
+</tonnage>
+
+<fuel>
+0.004
+</fuel>
+

@@ -1,0 +1,164 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7e8-791d-a1e6-7185046fa8f3
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Luduan Scout Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6437
+</mul id:>
+
+<year>
+3136
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<quirks>
+imp_com
+</quirks>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+11
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+22
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+12
+10
+10
+8
+8
+</armor>
+
+<Body Equipment>
+IS Vehicular Stealth
+ISMagshotGR Ammo
+ISAngelECMSuite
+BloodhoundActiveProbe
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR
+ISTAG
+</Turret Equipment>
+
+<capabilities>
+<p>The Luduan's mission revolves around detection and designation rather than direct engagement. A Bloodhound Active Probe identifies even well-concealed enemy units, while a turret-mounted TAG laser designator calls in precision artillery and missile strikes from supporting formations. An Angel ECM Suite rounds out the electronics package, jamming enemy sensors and shielding nearby friendly forces from detection. This combination of active and passive electronic warfare makes the Luduan exceptionally effective at both locating hidden opponents and concealing allied movements. RAF commanders learned to expect significantly increased artillery accuracy whenever Luduans appeared on the battlefield.</p><p>Offensive armament is deliberately minimal. Three turret-mounted Mydron Mini Magshot Gauss Rifles provide self-defense capability, drawing from a single ton of ammunition stored in the vehicle's body. The Magshots can discourage unarmored infantry or lightly protected targets, but lack the hitting power to threaten most combat vehicles or BattleMechs. The Magna 145 fusion engine pushes the hovercraft past 180 kilometers per hour, giving it the speed to reposition quickly between spotting runs. Hellespont Lite Stealth armor reduces the vehicle's sensor signature, though actual protection is light at only three tons. Survival depends entirely on speed, stealth, and avoiding direct fire rather than absorbing it.</p>
+</capabilities>
+
+<overview>
+<p>The Luduan Scout Vehicle is a 25-ton Capellan hovercraft built by Novis-AT-H, Inc. on Detroit. Introduced in 3136, the design was conceived as a direct response to weaknesses exposed during the Capellan Crusades, where the CCAF's emphasis on raw firepower had left the Confederation dangerously short of specialized reconnaissance and electronic warfare platforms. Rather than a frontline combatant, the Luduan serves as a force multiplier, providing target designation and sensor coverage to combined-arms formations. Its ability to detect hidden enemies while shielding friendly forces from detection made it an immediate success, and the design spread rapidly through the Confederation's military after entering service.</p>
+</overview>
+
+<deployment>
+<p>The Luduan's specialized mission means it is not required in large numbers, but its presence has spread to nearly every formation in the Confederation since entering service. Militia units commonly employ Luduans as scouts or attach them to artillery vehicle platoons, where the TAG designator directly multiplies the platoon's effectiveness. More prestigious outfits pair them with Arrow IV-equipped BattleMech lances, creating integrated fire-support teams capable of devastating precision strikes. The Confederation's rapid territorial gains into Republic and Federated Suns space have generated new tactical demands, as CCAF garrisons on newly conquered worlds rely on the Luduan's sensor suite to locate and suppress resistance activity across populations that bitterly oppose Capellan rule.</p>
+</deployment>
+
+<history>
+<p>The Capellan Crusades of the early thirty-second century revealed critical deficiencies in the CCAF's force structure. Years of secret military buildup had prioritized main battle units and sheer firepower, leaving the Confederation without the specialized combined-arms assets needed to sustain large-scale offensive operations. Capellan commanders struggled to locate concealed defenders and coordinate indirect fire with the precision their expanding campaigns demanded. The recent fighting demonstrated that possessing materiel was not enough, the Confederation needed the right kind of materiel.</p><p>Novis-AT-H, Inc. on Detroit developed the Luduan to address this gap. The company, already an established Magistracy military manufacturer producing the Tamerlane strike sled, leveraged its existing hover vehicle expertise to deliver the new design quickly. Production began in 3136, and the Luduan's adoption across the CCAF was remarkably swift. Within a few years it had spread to nearly every unit in the Confederation, including formations without organic artillery support.</p><p>The design proved its worth during the Capellan advance into former Republic and Federated Suns territory. On Taygeta, a Davion world that had resisted Capellan occupation for centuries, elements of Lockhardt's Ironsides constructed a network of firebases to contain resistance activity while allowing Davion resistance fighters and remnant AFFS forces to operate freely elsewhere. A sharply fought ambush of a Capellan convoy demonstrated both the danger of the Davion strategy and the Luduan's tactical value. Forced to use the roads, the convoy was vulnerable, but Luduan crews detected the ambush and forced the Davion attackers to spring their trap prematurely. Piercing through Davion jamming, the Luduans swept across the battle zone at high speed, marking enemy positions and calling in devastating artillery fire from nearby Capellan firebases. The Davion force was shattered. The Luduan's speed and stealth armor meant that few of the scout vehicles were lost during the engagement.</p>
+</history>
+
+<manufacturer>
+Novis-AT-H, Inc.
+</manufacturer>
+
+<primaryFactory>
+Detroit
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Magna
+ARMOR:Hellespont
+COMMUNICATIONS:Ceres Metals
+TARGETING:Apple Churchill
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:145
+ARMOR:Lite Stealth
+COMMUNICATIONS:Model 777 with Angel ECM Suite
+TARGETING:3000 with TAG and Bloodhound Active Probe
+</systemModels>
+
+<source>
+TR:3145:CC,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+

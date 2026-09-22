@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad4d-7f2b-83bc-6b5aa2951d99
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Seydlitz
+</Name>
+
+<Model>
+SYD-Z3
+</Model>
+
+<mul id:>
+2884
+</mul id:>
+
+<year>
+2894
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Interceptor
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+11
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+240
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+25
+15
+15
+25
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Seydlitz owes its performance to the Shipil 180 standard fusion engine, which consumes a full third of the airframe's total mass. This commitment to propulsion delivers a safe acceleration rate of five and a half gravities and a maximum of eight and a half gravities, placing the Seydlitz among the fastest interceptors of its era. The fighter mounts a single nose-mounted RAMTech 1200 large laser as its sole armament, a deliberate choice that concentrates the design's limited tonnage on a weapon capable of crippling targets, including the drive systems of small DropShips, with a single well-placed shot. The original Maztel laser fitted during development generated excessive heat and was replaced with the RAMTech model by 2507 for general production use.</p><p>The Seydlitz's weaknesses are inseparable from its strengths. Only two tons of Shipil Standard armor protect the airframe, meaning virtually any weapon system capable of landing a shot can disable the fighter on the first volley. Fuel capacity is similarly constrained, with three internal tons giving the craft a short operational radius that keeps it tethered to friendly DropShips or ground bases. Two external hardpoints allow up to two additional tons of fuel to extend range, though pilots typically jettison them before entering combat to preserve the fighter's maneuverability. Ten single heat sinks provide adequate thermal management for the single laser but offer no margin for sustained fire. The O/P AIR500 communications system and O/P 3000 targeting and tracking system, manufactured by Doering Electronics on New Kyoto for the Skye-built production lines following the Clan Invasion, round out the avionics suite.</p>
+</capabilities>
+
+<overview>
+<p>The Seydlitz is a light aerospace fighter developed by the Shipil Company of Skye under a Terran Hegemony procurement contract for a small, fast planetary defense interceptor. Shipil submitted their design in 2504 and began mass production the same year, reflecting the company's long-standing reputation for delivering combat-ready aerospace systems on schedule. The design philosophy was straightforward: reach the enemy before they could bring their weapons to bear, destroy them with a concentrated strike, and disengage before return fire could tell. Though primarily associated with the Lyran Commonwealth and its successors, the Seydlitz eventually reached the Periphery through licensing agreements with the Outworlds Alliance and Taurian Concordat, and later appeared in Clan Jade Falcon service following their occupation of Skye. More than six centuries after its introduction, the basic design remains in production in some form, a reflection of the enduring utility of a fighter built around exceptional speed and an unambiguous offensive purpose.</p>
+</overview>
+
+<deployment>
+<p>The SYD-Z3 is a heavier, less sophisticated variant developed during the resource-scarce Succession Wars for commanders who needed a fighter their ground crews could keep operational without access to Star League-grade components or complex maintenance procedures. The large laser is replaced with two RAMTech 800 medium lasers, and the freed tonnage goes toward additional armor protection. Contemporary accounts noted the crude quality of the added plating, which does not adequately shield all critical systems. Despite these shortcomings the Z3 remained in production through the Clan Invasion period, serving as a reliable if unspectacular garrison fighter for units unable to obtain upgraded models.</p>
+</deployment>
+
+<history>
+<p>The Seydlitz traces its origins to 2504, when the Shipil Company of Skye secured a Terran Hegemony contract for a fast planetary interceptor and delivered both design and production units within the same calendar year. Under the Hegemony and then the Star League Defense Force, the fighter was manufactured primarily on Skye, with a secondary facility on Dove operated by Steiner Aerospace Manufacturing supplementing output for the Lyran Commonwealth's extensive border commitments. A single-company, single-world design for most of its early history, the Seydlitz became closely identified with Lyran aerospace doctrine, which favored concentrated interceptor strikes and DropShip escort roles over the more complex multi-role operations that larger, more expensive fighters demanded.</p><p>When the Star League dissolved and the Succession Wars began, the Lyran Commonwealth Air Force absorbed the bulk of operational Seydlitz inventory and effective control of the Skye production line. The Dove facility was lost when the planet was rendered uninhabitable in 2812. The Draconis Combine captured several examples during fighting on Alexandria but chose not to integrate them into DCMS service, leaving the Seydlitz almost entirely a Lyran asset for the first two centuries of the Succession Wars. Resource pressures and battlefield attrition during that period drove Shipil to develop successive variants adapted to wartime realities, including the heavier-armed Z2 configuration and the more heavily armored, if crudely modified, Z3.</p><p>At the dawn of the thirty-first century, both the Outworlds Alliance and the Taurian Concordat approached Shipil for production licenses. Since neither nation was opposing the Lyran Commonwealth, licenses were granted and local production began at the United Outworlders Corporation plant on Ramora and at Taurus Territorial Industries on Sterope. The Outworlds Alliance substituted their own locally produced large laser, while the other components were built to Shipil specifications at both Periphery facilities. With the formation of the Federated Commonwealth, ownership of the Skye line transferred to the FC, and the fighter saw service along both the Capellan and Periphery borders of the combined state. After the Lyran secession in 3057, production and ownership reverted to the Lyran Alliance. That same period saw Shipil introduce the SYD-Z1 as a marketing rebrand of the classic design, standardizing the naming convention across all variants while distributing limited numbers to smaller factions struggling within the Chaos March.</p><p>During the Word of Blake Jihad, Shipil's experimental test facility at Hades on Skye developed the SYD-45X prototype, pushing the airframe's performance envelope with experimental technology. After the Jihad, the Republic of the Sphere briefly administered the system before Clan Jade Falcon occupied Skye. Under Clan administration, Shipil engineers produced the Seydlitz C, retrofitting the mature Z4 hull with Clan-specification weaponry and reflective armor to create a variant suited for Clan aerospace doctrine. With the Wolf Empire's subsequent emergence from the former Jade Falcon holdings, the Skye facility passed to Clan Wolf in Exile's sphere, extending the Seydlitz's service life under yet another banner well into the ilClan era.</p>
+</history>
+
+<manufacturer>
+Shipil Company
+</manufacturer>
+
+<primaryFactory>
+Skye
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Shipil Company
+ENGINE:Shipil Company
+ARMOR:Shipil Company
+JUMP_JET:N/A
+COMMUNICATIONS:Doering Electronics
+TARGETING:Doering Electronics
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Shipil 15
+ENGINE:Shipil 180
+ARMOR:Shipil Standard
+JUMP_JET:N/A
+COMMUNICATIONS:O/P AIR500
+TARGETING:O/P 3000
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+

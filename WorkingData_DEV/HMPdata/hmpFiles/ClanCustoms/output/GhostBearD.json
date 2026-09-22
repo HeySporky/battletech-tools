@@ -1,0 +1,688 @@
+{
+  "filename": "GhostBearD.hmp",
+  "size": 3694,
+  "header_hex": "56 35 2e 30 30 01 00 08 05 40 20 00 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 8,
+      "length": 1,
+      "text": "\b"
+    },
+    {
+      "type": "byte",
+      "offset": 8,
+      "hex": "05"
+    },
+    {
+      "type": "ascii",
+      "start": 9,
+      "end": 11,
+      "text": "@ "
+    },
+    {
+      "type": "byte",
+      "offset": 11,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 12,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 14,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 15,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 16,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 17,
+      "end": 18,
+      "text": "d"
+    },
+    {
+      "type": "byte",
+      "offset": 18,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 19,
+      "end": 20,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 20,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 21,
+      "end": 31,
+      "text": "Ghost Bear"
+    },
+    {
+      "type": "len_string",
+      "start": 31,
+      "end": 34,
+      "length": 1,
+      "text": "D"
+    },
+    {
+      "type": "byte",
+      "offset": 34,
+      "hex": "f4"
+    },
+    {
+      "type": "len_string",
+      "start": 35,
+      "end": 560,
+      "length": 523,
+      "text": "\u0000\u00b8\u0015\u00e0\u0000V\t\u0000`\u009dE\u0000\u00c8\u0091E\u0000\u0000\u0080B\u0000\u0000\u0010B\u0000\u00000A\u0018\u0000MA 7 8 9 7 22 3 omni, if\u0001\u0000\n\u0000\u0000\u0000,\u0001\u0000\u0000\u0003\u0000\u0000\u0000\u0013\u0000\u0001\u0000\u0000\u0000\u0000\u0000!\u0000\u0000\u0000\u0000\u0000\u001f\u0000\u0000\u0000\u0000\u0000)\u0000\u0000\u0000\u0000\u0000!\u0000\u0000\u0000\u0000\u0000\u001f\u0000\u0000\u0000\u0000\u0000)\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000+\u0000\u0000\u0000\n\u0000\n\u0000\u000e\u0000\u0000\u0000\u0006\u0000\u0003\u00004\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00003\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000E\u0000\u0005\u0000\u000f\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000N\u0000\u0002\u0000\f\u0000\u0002\u0000\t\u0000(Unknown)\u0002\u0000T\u0000\u0002\u0000\u001e\u0000\u0002\u0000\t\u0000(Unknown)\u0001\u00005\u0000\u0007\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u00003\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000\u00de\u0001\u0006\b\u00de\u0001\u0006\bT\u0000\u0000\u0000T\u0000\u0000\u0000T\u0000\u0000\u0000T\u0000\u0000\u0000\u00e4\u0001\u000f\b\u00e4\u0001\u000f\b\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000E\u0000\u0000\u0000E\u0000\u0000\u0000E\u0000\u0000\u0000E\u0000\u0000\u0000E\u0000\u0000\u0000E\u0000\u0000\u0000E\u0000\u0000\u0000E\u0000\u0000\u0000E\u0000\u0000\u0000\u00d5\u0001\u0005\b\u00d5\u0001\u0005\b\u00d5\u0001\u0005\b\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 560,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 561,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 562,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 563,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 564,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 565,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 566,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 567,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 568,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 569,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 570,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 571,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 572,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 573,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 574,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 575,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 576,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 577,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 578,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 579,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 580,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 581,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 582,
+      "end": 596,
+      "length": 12,
+      "text": "\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u00005\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 596,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 597,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 598,
+      "end": 599,
+      "text": "\r"
+    },
+    {
+      "type": "byte",
+      "offset": 599,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 600,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 601,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 602,
+      "end": 616,
+      "length": 12,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 616,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 617,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 618,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 619,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 620,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 621,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 622,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 623,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 624,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 625,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 626,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 627,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 628,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 629,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 630,
+      "end": 647,
+      "length": 15,
+      "text": "\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010"
+    },
+    {
+      "type": "byte",
+      "offset": 647,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 648,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 649,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 650,
+      "end": 668,
+      "length": 16,
+      "text": "\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 668,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 669,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 670,
+      "end": 671,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 671,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 672,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 673,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 674,
+      "end": 675,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 675,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 676,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 677,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 678,
+      "hex": "ec"
+    },
+    {
+      "type": "byte",
+      "offset": 679,
+      "hex": "ff"
+    },
+    {
+      "type": "ascii",
+      "start": 680,
+      "end": 681,
+      "text": "("
+    },
+    {
+      "type": "byte",
+      "offset": 681,
+      "hex": "01"
+    },
+    {
+      "type": "len_string",
+      "start": 682,
+      "end": 1416,
+      "length": 732,
+      "text": "     As Clan Ghost Bear moved into the Inner Sphere, they knew that they would now have to start producing their own designs for all combat vehicles to replaces their losses. With this in mind the the Clan agreed to create a new OmniMech, which would be the new totem 'Mech of the Clan. With the Ghost Bears love of the second line Grizzly, the clan engineers based their new OmniMech design on this 'Mech. Wanting to limit the new omni's reliance on hitech components and ensure the 'Mechs survival, the design was given a regular fusion engine and a normal internal structure. This saved significant space that the new omni could devote to weaponry, and make this Omni potentially one of the most powerful Omni's ever constructed."
+    },
+    {
+      "type": "len_string",
+      "start": 1416,
+      "end": 1419,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1419,
+      "end": 1422,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 1422,
+      "hex": "14"
+    },
+    {
+      "type": "byte",
+      "offset": 1423,
+      "hex": "08"
+    },
+    {
+      "type": "ascii",
+      "start": 1424,
+      "end": 3492,
+      "text": "     The Prime variant is closely modeled after the Grizzly, which the design was copied from. Designed for close in work, this variant can quickly cripple an opponent.\r\n\r\n     The Alpha variant is also a close in fighter, but is very heat efficient. The Ultra AC-20 will open huge holes in its opponents armor which will allow the six Streak SRM-6 to chew into the internals of its opponent. Their are very few 'Mechs that can survive the onslaught this variant will unleash.\r\n\r\n     The Bravo variant is a pure assault vehicle. Designed with a targeting computer, the two ER PPC's, single ER Large Laser and LRM-15 on this variant will severly damage any opponent daring enough to try and close. And its eight ER Medium Lasers will finish off any enemies that survive that long range barrage. This variant wiill be used in prolonged assaults where ammunition problems might be a concern.\r\n\r\n     The Charlie variant is a long range fighter that will pummel its opponent to scrap metal long before the enemy can mount a effective assault. With two LRM-20's and two of the largest new Advanced Tactical Missile-12's, this variant will unleash a rain of death on every opponent. Six ER Medium Lasers and a single ER Small Laser round out the designed weaponry.\r\n\r\n     The Delta variant is the most common. Its mix of weaponry is deadly at all ranges and opponents should take caution when approaching this variant. Their is no safe range to attack this variant from as it has the ability to \"reach out and touch someone\" at any range.\r\n\r\n     The Echo variant is a rare sight. As the Ghost Bears have very few Heavy Lasers in their inventory, this variant will rarely be seen on the battlefield. Caution should be taken if this variant is encountered as it can quickly chew through an opponents armor with its five Heavy Lasers, Gauss rifle and LRM-20.\r\n\r\nThe Alpha variant is the most heat efficient, followed by the Charlie, Primary and Delta variants. The Bravo variant pilots must be very careful as this variant will run very \"hot\" and could be easily overheated."
+    },
+    {
+      "type": "len_string",
+      "start": 3492,
+      "end": 3495,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3495,
+      "end": 3498,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 3498,
+      "end": 3499,
+      "text": ";"
+    },
+    {
+      "type": "byte",
+      "offset": 3499,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3500,
+      "end": 3559,
+      "text": "Designed by Larry \"Highball\" Leslie\r\n38.5 tons of pod space"
+    },
+    {
+      "type": "len_string",
+      "start": 3559,
+      "end": 3562,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 3562,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3563,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3564,
+      "end": 3584,
+      "length": 18,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 3584,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3585,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3586,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3587,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3588,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3589,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3590,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3591,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3592,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3593,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3594,
+      "end": 3604,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 3604,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3605,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3606,
+      "end": 3607,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3607,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3608,
+      "end": 3618,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3618,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3619,
+      "end": 3629,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3629,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3630,
+      "end": 3640,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3640,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3641,
+      "end": 3651,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3651,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3652,
+      "end": 3662,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3662,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3663,
+      "end": 3673,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3673,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3674,
+      "end": 3684,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3684,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3685,
+      "end": 3694,
+      "text": "(Unknown)"
+    }
+  ]
+}

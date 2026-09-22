@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ac6d-7a17-bbd4-397d19391d97
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Star Dagger
+</Name>
+
+<Model>
+S-2B
+</Model>
+
+<mul id:>
+8117
+</mul id:>
+
+<year>
+2525
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+10
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+34
+22
+22
+18
+</armor>
+
+<Nose Equipment>
+Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+Machine Gun
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Machine Gun
+</Right Wing Equipment>
+
+<Aft Equipment>
+Machine Gun
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo MG - Full
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Star Dagger is an unremarkable light fighter by any modern standard, a consequence of its primitive construction and limited original design intent. It is slow for its weight class, relying on a bulky primitive engine that consumes significant mass and constrains performance well below contemporary equivalents. Its primitive cockpit reduces situational awareness in contested engagements, and the primitive armor protection offers only marginal survivability against modern opponents.</p><p>The armament configuration consists of a single medium laser and small laser for energy-based firepower, supplemented by three machine guns best suited to engaging infantry and unarmored targets. The lasers will threaten only the most lightly protected modern fighters, while the machine guns require close engagement to achieve meaningful results. Heat management is not a concern given the modest loadout and large number of heat sinks relative to the weapons carried.</p><p>The Star Dagger does carry a particularly generous fuel reserve relative to many designs of comparable tonnage, giving it considerable endurance on extended patrol missions. In its intended role as a system picket and perimeter screening craft it performs adequately, discouraging light raiders and extending a formation's detection reach. Pilots quickly learn to commit the design to patrol and escort duties and avoid direct confrontation with any modern aerospace opposition.</p>
+</capabilities>
+
+<overview>
+<p>The Star Dagger began its service life as a Terran Hegemony design in the early twenty-fourth century, when the Star League Defense Force sold the fighter to the Draconis Combine as part of a general fleet upgrade. Inexpensive to produce and maintain, the compact light fighter served the DCMS as its primary aerospace asset for generations, fielding in large numbers to compensate for what it lacked in individual capability. When the Sabre entered service the Star Dagger's role as a frontline design began its slow erosion, and the subsequent arrival of the Sholagar in the twenty-ninth century effectively ended its operational life across the Inner Sphere.</p><p>The design might have faded entirely from active service had the Jihad not created desperate demand for any craft capable of flying. The Protectorate Defense Conglomerate, formerly the Concordat Defense Conglomerate, recognized the opportunity and revived production from its facility on Diik in 3077, selling the ancient type broadly without obtaining a license from the Draconis Combine.</p>
+</overview>
+
+<deployment>
+<p>The S-2B represents the modern-technology evolution of the Star Dagger airframe. Wakazashi Enterprises produced the variant for the Draconis Combine Aerospace in the Star League era, fielding it in DCMS light aerospace units operating from Chatham. The design largely disappeared with the broader decline of the Star Dagger in active service, but production was revived by the Protectorate Arms Conglomerate on Diik during the late Dark Age as the Calderon Protectorate upgraded its forces to contemporary technology standards. The S-2B serves Calderon Protectorate formations in second-line and garrison roles, its modern equipment base providing significantly improved parts compatibility over the primitive S-2 still found in some allied inventories.</p>
+</deployment>
+
+<history>
+<p>The Star Dagger originated as a Terran Hegemony design intended for economical mass production, optimized for low maintenance costs and simple logistics over raw performance. When the Star League Defense Force modernized its aerospace assets in the early twenty-fourth century, the SLDF transferred the design to the Draconis Combine, where Wakazashi Enterprises took on production at their Chatham facility. The fighter served the DCMS as its primary light aerospace asset for generations, built in sufficient quantities to maintain a meaningful presence across the Combine's vast territory despite modest individual capability. In an era when most opponents flew similarly aged equipment, the Star Dagger proved adequate for the work asked of it.</p><p>The arrival of the Sabre fighter marked the beginning of a long decline. The Sabre's superior performance gradually displaced the Star Dagger from frontline assignments, pushing the older design into garrison and second-line inventories. The introduction of the Sholagar in the twenty-ninth century delivered the final blow to the Star Dagger's relevance. Even governments in the Periphery, traditionally tolerant of aging equipment, found the Star Dagger outclassed by the Sholagar's capabilities. Production ceased across the Inner Sphere, and the type retreated to planetary militia stockpiles and salvage inventories.</p><p>The Jihad reversed that trajectory dramatically. The Word of Blake's campaign consumed aerospace assets across the Inner Sphere and Periphery at a rate no established production line could match, creating demand for any craft that could fly and fight. The Protectorate Defense Conglomerate, operating from Diik within the Calderon Protectorate and formerly known as the Concordat Defense Conglomerate, recognized the opportunity in 3077 and revived production of the Star Dagger without seeking authorization from the Draconis Combine. The PDC sold the fighter broadly, directing approximately half of each production run to reinforce the Protectorate's own forces while offering the remainder on the open market to any government willing to pay. Background checks were minimal so long as the transfer documentation cleared, and Periphery states across the region took advantage of the availability to fill gaps in their aerospace rosters. The profits from open-market sales were reinvested into expanding the PDC's broader production infrastructure, with the Star Dagger revival serving as a stepping stone toward larger industrial ambitions.</p><p>The Diik facility continued producing the type into the Dark Age, eventually transitioning its line to a modern-technology variant as the Calderon Protectorate's industrial capacity grew. By the ilClan era, the Protectorate Arms Conglomerate, successor to the PDC, maintained the Star Dagger in updated form as one component of a broader aerospace production effort on Diik.</p>
+</history>
+
+<manufacturer>
+Protectorate Arms Conglomerate (Formerly Protectorate Defense Conglomerate)|Wakazashi Enterprises
+</manufacturer>
+
+<primaryFactory>
+Diik|Chatham
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+FR:2765-DCMS
+</source>
+
+<tonnage>
+30.0
+</tonnage>
+

@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a687-7859-b3ac-23e9ff37fa7a
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Ogre Battle Armor
+</Name>
+
+<Model>
+(Sqd5)
+</Model>
+
+<mul id:>
+8756
+</mul id:>
+
+<year>
+3091
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+1
+</armor_tech>
+
+<Squad Equipment>
+ISBASRM2:Body
+BAHeavyBattleClaw:LA
+BAHeavyBattleClaw:RA
+BA-SRM2 Ammo:Body:Shots4#
+BA-SRM2 Ammo:Body:Shots4#
+BA-SRM2 Ammo:Body:Shots4#
+BA-SRM2 Ammo:Body:Shots1#
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Ogre carries paired Heavy Battle Claws as its primary melee weapons, capable of inflicting serious damage to vehicle armor at close range. An SRM-2 launcher with thirteen volleys of ammunition provides the suit's ranged striking power, giving operators enough firepower for sustained engagements. Nearly a full ton of standard armor provides considerable protection, allowing the Ogre to absorb fire from all but the heaviest vehicle-mounted weapons.</p><p>At 1,500 kilograms, the Ogre is classified as a heavy battle armor suit. Its ground speed of 22 kilometers per hour and complete lack of jump capability limit tactical mobility, making the suit dependent on transport or supporting units to close with targets. Despite its imposing size, the suit lacks anti-personnel weapons, leaving it poorly matched against conventional infantry.</p>
+</capabilities>
+
+<overview>
+<p>Tvastar Enterprises' first entry into the battle armor market, the Ogre was designed to supplement slower vehicle platoons and fill gaps in Regulan planetary militias. Introduced in 3091, this heavy Inner Sphere suit was built on Regulus during a period of increasing reliance on non-BattleMech forces across the former Free Worlds League. The Ogre's unusually wide frame and paired melee weapons give it an intimidating battlefield presence that belies its intended support role. Though ill-suited to anti-infantry work, the suit earned a fearsome, if exaggerated, combat reputation through its effectiveness against armored vehicles.</p>
+</overview>
+
+<deployment>
+<p>Ogre suits acquired by the Rasalhague Dominion through Sea Fox merchants were organized into standard five-trooper Clan Points. Star Captain Idris DelVillar of the 283rd Battle Cluster employed his Ogre Points alongside Dasher OmniMechs, using the suit's bulk to exploit weak points in enemy formations. Initial Clan resistance to the Inner Sphere design was overcome after the Ogre proved itself in a Trial of Grievance.</p>
+</deployment>
+
+<history>
+<p>Tvastar Enterprises developed the Ogre in the years following the Jihad, capitalizing on a growing market for non-BattleMech combat units across the former Free Worlds League. The suit performed far better than anticipated, and Tvastar soon secured export contracts with the Duchy of Andurien and the Lyran Commonwealth.</p><p>The Ogre's tank-shredding reputation traces to a 3095 engagement on the Oriente Protectorate world of Emris IV. The Tenth Regulan Hussars deployed their Ogre troopers during an exploratory raid that escalated into contact with Steel Guard forces. Three Ogre squads ambushed by Vedette tanks in a narrow defile used their suits' heavy claws to disable and tear open the immobilized vehicles. BattleROM footage of the aftermath gave birth to the myth that Ogres could literally rip tanks in half, and the ritual destruction of disabled vehicles became a tradition among Ogre operators.</p><p>A small number of Ogres eventually reached the Rasalhague Dominion through merchant channels, finding an unexpected second market among Clan warriors who valued the suit's physical presence on the battlefield.</p>
+</history>
+
+<manufacturer>
+Tvastar Enterprises
+</manufacturer>
+
+<primaryFactory>
+Regulus
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:FWL
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+14
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

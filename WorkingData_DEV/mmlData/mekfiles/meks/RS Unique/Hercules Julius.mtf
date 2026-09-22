@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d7c4-7ca2-ae55-42b22b5b6de5
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hercules
+model:HRC-LS-9000 (Julius)
+mul id:1483
+
+Config:Biped
+techbase:Inner Sphere
+era:3065
+published:RS:UM
+rules level:2
+role:Skirmisher
+
+quirk:difficult_maintain
+
+mass:70
+engine:350 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:12 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:21
+RT armor:21
+CT armor:33
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:8
+RTR armor:8
+RTC armor:11
+
+Weapons:8
+Medium Laser, Left Arm
+Medium Pulse Laser, Left Arm
+LB 20-X AC, Right Torso
+Medium Laser, Right Arm
+Medium Pulse Laser, Right Arm
+Small Pulse Laser, Left Torso
+Small Pulse Laser, Right Torso
+Anti-Missile System, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+ISMediumPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+Medium Laser
+ISMediumPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISSmallPulseLaser (R)
+ISAMS Ammo
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS LB 20-X Cluster Ammo
+IS LB 20-X Cluster Ammo
+IS LB 20-X AC Ammo
+ISCASE
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISSmallPulseLaser (R)
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAntiMissileSystem
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hercules was introduced in 3054 by Kali Yama/Alphard Trading Corporation and Kali Yama Weapons Industries in response to a Free Worlds League request for a heavy BattleMech combining balanced mobility with substantial firepower. Designed from the outset as a versatile trooper capable of filling multiple combat roles, the seventy-ton Hercules mounts a diverse weapons array covering engagement ranges from extreme distance to point-blank. Powered by a Magna 350 XL engine that propels the chassis to speeds unusual for its weight class, the design fills the gap between slower assault platforms and lighter, less well-armed heavy designs. Production at facilities on Kendall and Kalidasa ensured steady supply to Free Worlds League Military formations, and the chassis quickly earned a reputation as a reliable all-around performer suited to missions ranging from air defense to direct fire support.</p>
+
+capabilities:<p>The Hercules is primarily intended as a mobile firing platform. Its Magna 350 XL fusion engine drives the seventy-ton chassis to a cruising speed of fifty-four kilometers per hour, with a flank speed of eighty-six, making it one of the faster designs in its weight class. This speed comes at the cost of jump capability, leaving the Hercules reliant on open terrain or careful route planning to avoid being outmaneuvered by lighter opponents. Eleven tons of Aldis Heavy ferro-fibrous armor provide protection sufficient to weather volleys from Clan OmniMechs and Inner Sphere opponents alike, giving MechWarriors confidence in sustained engagements.</p><p>The weapons loadout emphasizes versatility across all ranges. A Fusigon Model XI extended-range PPC serves as the primary weapon, capable of reaching targets at extreme distance. An Imperator Code Red LB 10-X autocannon supplements this at intermediate ranges, with the ability to switch between standard slugs and cluster munitions for anti-aircraft or anti-infantry work. Close-range defense falls to a Holly Streak SRM-2 launcher, an Aberdovey medium pulse laser, and two rear-mounted Martell small pulse lasers, the latter added specifically to counter Elemental swarming attacks. A Burow anti-missile system in the center torso provides additional protection against incoming missile fire. The design's primary weakness is a known electrical overload when struck by PPC fire, a flaw that has persisted despite the addition of damper circuits.</p>
+
+deployment:<p>This unique variant was created for a MechWarrior of the Coventry CPM following engagements in 3066. The customization dramatically altered the Hercules's weapons profile, replacing the ER PPC, one small pulse laser, and the LB 10-X autocannon with a massive LB 20-X autocannon fed by three tons of ammunition. Additional firepower comes from a second medium pulse laser and two standard medium lasers, while CASE provides ammunition explosion protection. The result is a brawler-oriented configuration that sacrifices long-range engagement capability for devastating close-range firepower.</p>
+
+history:<p>The Hercules emerged from House Marik's desire for a new generation of heavy BattleMechs that could match the technological resurgence sweeping the Inner Sphere during the mid-thirty-first century. Kali Yama/Alphard Trading Corporation on Kendall and Kali Yama Weapons Industries on Kalidasa both commenced production in 3054, with the design entering Free Worlds League Military service shortly thereafter. The dual production lines ensured a steady supply of frames, and the Hercules quickly became a common sight in FWLM heavy and assault lances.</p><p>The Outworlds Alliance proved an unexpectedly significant customer, purchasing two dozen Hercules chassis, making the Periphery state the third-largest buyer after the FWLM and various mercenary commands. Given the higher cost of the Hercules compared to the older-technology designs typically sold to Periphery governments, the purchases attracted scrutiny. Suggestions that the Alliance intended to reverse-engineer the advanced technology proved unfounded, though especially only nineteen of the twenty-four units shipped were accounted for.</p><p>Operation Bulldog provided the Hercules its first major combat test against Clan forces, where it proved its worth against the Smoke Jaguars. The combination of long-range energy and ballistic weapons with close-range missile and laser systems proved devastating in the varied engagements of the campaign. Earlier, during Operation Guerrero, the design had performed satisfactorily but without particular distinction. It was in engagements against Clan opponents that the Hercules truly demonstrated its design philosophy, the mixed weapons array allowed MechWarriors to engage at whatever range the tactical situation demanded.</p><p>The Hercules also found success in the Solaris VII arenas, where representatives from Kali Yama Weapons Industries persuaded several stables and cooperatives to adopt the design. The chassis fared well in arena competition, further boosting its reputation and commercial appeal. During the Jihad, the Kalidasa facility fell under Word of Blake control while the Kendall plant continued production under Free Worlds League authority. Post-Jihad, the Kendall facility briefly operated under independent management before the reconstituted Free Worlds League reasserted control, introducing upgraded variants including the -9003 and -9004 models during the Dark Age era.</p>
+
+manufacturer:Kali Yama Weapons Industries Inc.|Kali Yama/Alphard Trading Corp.
+
+primaryfactory:Kalidasa|Kendall
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Northrup
+systemmode:CHASSIS:502
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:350 XL
+systemmanufacturer:ARMOR:Aldis
+systemmode:ARMOR:Heavy Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Irian
+systemmode:COMMUNICATIONS:Orator-5K
+systemmanufacturer:TARGETING:Irian
+systemmode:TARGETING:511

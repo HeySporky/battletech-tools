@@ -1,0 +1,161 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a722-79b3-9499-8661eae26478
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Sloth Battle Armor
+</Name>
+
+<Model>
+'Huntsman'(Sqd6)
+</Model>
+
+<mul id:>
+9153
+</mul id:>
+
+<year>
+3093
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+33
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+BAMechanicalJumpBooster:Body
+IS BA Stealth (Improved):Body
+IS BA Stealth (Improved):Body
+IS BA Stealth (Improved):Body
+IS BA Stealth (Improved):Body
+IS BA Stealth (Improved):Body
+ISBAKingDavidLightGaussRifle:Body
+ISBAKingDavidLightGaussRifle:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The Huntsman refit strips the Sloth to its chassis and rebuilds it as a dedicated battle armor hunter. Two King David light gauss rifles replace all previous armament, providing accurate kinetic fire against armored infantry targets at range. Improved stealth armor replaces the original standard plating, reducing the suit's sensor signature while maintaining protective capability. A mechanical jump booster grants limited vertical mobility, a capability the base Sloth never possessed.</p><p>These upgrades transform the platform from a static weapons emplacement into a mobile ambush predator well-suited to stalking hostile battle armor in broken terrain and urban environments. The quad chassis retains its signature low profile, complementing the stealth systems. The Huntsman still lacks manipulators, but its role as a ranged hunter rather than a close-combat brawler makes this less of a liability.</p>
+</capabilities>
+
+<overview>
+<p>The Sloth was one of the first battle armor designs developed natively by the Inner Sphere. A team at the New Avalon Institute of Science, drawing on captured Clan technology, produced a heavy quadruped suit intended to serve as a mobile weapons platform capable of engaging enemy battle armor directly. Unlike the humanoid designs that would follow, the Sloth adopted a four-legged configuration more commonly associated with combat vehicles than powered infantry. Introduced in 3050 alongside its lighter companion, the Infiltrator, the Sloth earned a mixed reputation among field commanders. Its firepower and protection drew praise, but the unconventional design and its inherent limitations left many formations seeking alternatives as newer suits entered production.</p>
+</overview>
+
+<deployment>
+<p>With the Word of Blake's destruction during the Jihad and ComStar's subsequent dissolution, six-trooper Level I formations of Huntsman Sloths were never fielded by either organization. The Republic of the Sphere or other successor states inheriting ComStar organizational patterns may have employed the configuration, but no specific Huntsman deployments in six-trooper formations have been documented in available records.</p>
+</deployment>
+
+<history>
+<p>The Sloth was developed at the New Avalon Institute of Science by a predominantly Lyran design team. The program began after the 1st Somerset Strikers captured Clan Elemental data during a raid in the early stages of Operation REVIVAL. The Federated Commonwealth launched parallel development efforts, producing the lightweight Infiltrator scout suit alongside the heavier Sloth.</p><p>NAIS designers diverged from the Elemental's humanoid configuration, opting for a quadruped chassis that shared more in common with miniaturized combat vehicles than conventional battle armor. This approach simplified myomer integration and eliminated bipedal balance challenges, accelerating both development and pilot training.</p><p>The prototype underwent live-fire testing on Waldorff V, where a surprise Clan Jade Falcon attack produced the first recorded instance of an Inner Sphere battle armor trooper destroying an enemy BattleMech in combat. The Commonwealth approved the Sloth for full production in 3050.</p><p>Limited numbers deployed throughout the Federated Commonwealth, but the Federated Suns' high command never embraced the design. Production shifted to Lyran factories, and after the Lyran Alliance seceded in 3057, TharHes Industries continued building Sloths in limited quantities until the Fenrir replaced it around 3060. Surviving suits persisted in service with various formations, including mercenary commands. Later refits during the Jihad and Dark Age eras extended the chassis into specialized roles.</p>
+</history>
+
+<manufacturer>
+Albion Advanced Technologies and Products|TharHes Industries
+</manufacturer>
+
+<primaryFactory>
+New Avalon|Eutin
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<published>
+RS:3145-NTNU
+</published>
+
+<chassis>
+quad
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+5
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

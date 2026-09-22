@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d3cf-733d-a5eb-085b31b1d8a5
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Vulture Mk IV
+clanname:Mad Dog Mk IV
+model:C
+mul id:6561
+
+Config:Biped OmniMek
+techbase:Clan
+era:3137
+source:TR:3145:Merc,TR:DA
+published:RS:DA
+rules level:3
+role:Brawler
+
+quirk:stable
+quirk:non_standard
+quirk:pro_actuator
+
+mass:60
+engine:300 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:13 Clan Double
+base chassis heat sinks:12
+walk mp:5
+jump mp:0
+
+armor:Ferro-Lamellor(Clan)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:4
+Gauss Rifle, Left Arm
+Improved Heavy Large Laser, Right Arm
+ER Medium Laser, Center Torso
+ER Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Vulture Mk IV, known among the Clans as the Mad Dog Mk IV, represents the fourth iteration of one of the most recognizable OmniMech designs in the Inner Sphere. Introduced in 3136 by Clan Sea Fox, the Mk IV is manufactured at Manufacturing Plant SFF-TU1 on Tukayyid. Weighing sixty tons, the Mk IV preserves the fundamental design philosophy of the original Mad Dog as a heavy fire support platform intended to seize and hold commanding positions on the battlefield. Clan Sea Fox produces the Vulture Mk IV explicitly for export, selling it to every Clan and Inner Sphere nation willing to meet their price, making it one of the most widely distributed Clan OmniMechs of the Dark Age era.</p>
+
+capabilities:<p>The Vulture Mk IV retains the distinctive silhouette of its ancestors, with hunched torso-mounted missile pods angled upward to maximize the range of any missile payload, and a projecting cockpit that provides the MechWarrior with a panoramic view of the battlefield. Despite appearances, the cockpit is far from fragile; heavily reinforced ferro-glass is angled to deflect all but the most precisely aimed shots, and an enemy must position directly in front of the 'Mech and hold steady to achieve a clear hit on the small target. The torso pods are entirely self-contained, ensuring that ammunition feeds and loading mechanisms operate reliably under all conditions while protecting these inherently vulnerable subsystems.</p><p>Built on an Eden Mk 72-OM Endo Steel chassis and powered by a Type I 300-rated XL engine, the Mk IV achieves a top speed exceeding eighty kilometers per hour and has surprised many opponents with its agility for a design lacking jump jets. Fourteen and a half tons of advanced Composite Alpha-V1 Ferro-Lamellor armor provide a significant increase in protection over earlier Mad Dog generations. Twenty-five tons of pod space allow considerable flexibility in weapons configuration, though the torso pod design creates a direct relationship between missile range and the number of tubes that can be carried. To mitigate the risk of ammunition dependency, every Vulture Mk IV configuration incorporates at least one energy weapon in the arms, ensuring the MechWarrior is never left defenseless in a protracted engagement.</p>
+
+deployment:<p>Alternate Configuration C serves as a radical departure from the missile-centric philosophy that defines most Vulture variants. The entire weapons loadout is replaced with a direct-fire combination centered on a Gauss Rifle in the left arm with two tons of ammunition and an Improved Heavy Large Laser in the right arm, creating a devastating long-range alpha strike capability. A pair of ER Medium Lasers in the center torso provide intermediate-range firepower, and a Targeting Computer mounted in the right torso enhances the accuracy of all direct-fire weapons. An additional Double Heat Sink in the left torso manages the thermal output of the heavy energy weapons. This configuration transforms the Vulture Mk IV into a precision fire platform rather than an area suppression unit.</p>
+
+history:<p>The Mad Dog lineage stretches back to 2963, when the original sixty-ton OmniMech first entered Clan service as a dedicated fire support platform. Over the centuries, the design earned the Inner Sphere reporting name "Vulture" for its hunched, predatory silhouette and its perceived battlefield role of watching over engagements from elevated positions. The Mad Dog proved its worth across countless Clan conflicts, and its effectiveness during the Clan Invasion of 3049 cemented its reputation among Inner Sphere military analysts as one of the most dangerous support OmniMechs fielded by the invading Clans.</p><p>Following the Battle of Tukayyid in 3052, Clan Diamond Shark's touman was severely depleted, accelerating the Clan's already strong mercantile tendencies. The Sharks established trading enclaves across the Inner Sphere, and when they formally adopted the name Clan Sea Fox during the early thirty-second century, their commercial ambitions expanded dramatically. The decision to produce a new generation Mad Dog specifically for export reflected this philosophy. Manufacturing Plant SFF-TU1 on Tukayyid, rebuilt from the former ComStar military facility, became the primary production site, leveraging the planet's central location within the Republic of the Sphere for efficient distribution.</p><p>The Vulture Mk IV entered full production around 3136, coinciding with the HPG Blackout and the collapse of interstellar communications that characterized the Dark Age. Clan Sea Fox, whose ArcShip fleets maintained their own communication networks and trade routes, was uniquely positioned to exploit the resulting arms race. The Mk IV became one of several new-production Clan designs offered to desperate buyers across the shattered Republic and the resurgent Successor States, alongside the Stalking Spider II and Mad Cat Mk IV produced at the same facility.</p><p>The design's widespread availability has seen it adopted by militaries and mercenary commands alike across every major faction. Mercenary units operating in the Periphery have proven particularly enthusiastic customers, with mixed-arms battalions operating around the Rim Commonality, Marian Hegemony, and Magistracy of Canopus fielding Vulture Mk IVs in fire support and command roles. The 'Mech's reliability and the relative ease of obtaining replacement parts through Clan Sea Fox's extensive trade network have made it an attractive option for independent operators far from major industrial centers. The Non-Standard Parts quirk inherited from the design's Clan origins is offset by the Sea Foxes' willingness to sell spare components to anyone with sufficient funds.</p>
+
+manufacturer:Manufacturing Plant SFF-TU1
+
+primaryfactory:Tukayyid
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Eden
+systemmode:CHASSIS:Mk 72-OM Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Type I 300 XL
+systemmanufacturer:ARMOR:Swedenborg Heavy Industries
+systemmode:ARMOR:Composite Alpha-V1 Ferro-Lamellor
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Comset 1
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:J-Track 52

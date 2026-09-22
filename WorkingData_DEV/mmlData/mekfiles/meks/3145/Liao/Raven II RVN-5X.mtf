@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d381-7f73-bcf3-23891d70fb4b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Raven II
+model:RVN-5X
+mul id:6458
+
+Config:Biped
+techbase:Inner Sphere
+era:3123
+source:TR:3145:CC,TR:DA
+published:RS:DA
+rules level:3
+role:Scout
+
+quirk:imp_sensors
+
+mass:40
+engine:280 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:7
+jump mp:0
+
+armor:Stealth(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:14
+RT armor:14
+CT armor:17
+HD armor:9
+LL armor:13
+RL armor:13
+RTL armor:4
+RTR armor:4
+RTC armor:4
+
+Weapons:4
+TSEMP Cannon, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+MML 5, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+TSEMP Cannon
+TSEMP Cannon
+TSEMP Cannon
+TSEMP Cannon
+TSEMP Cannon
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMML5
+ISMML5
+ISMML5
+IS Ammo MML-5 LRM
+IS Ammo MML-5 SRM
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAngelECMSuite
+ISAngelECMSuite
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Raven II is the next generation of the Capellan Confederation's iconic Raven electronic warfare BattleMech, introduced in 3123 by Hellespont 'Mech Works on Sian. Developed from the experimental Jihad-era RVN-3X Raven X prototype, the Raven II advances the concept further than any previous model, increasing the chassis weight to forty tons to accommodate improved speed, heavier armor, and a more potent weapon suite. This weight increase pushes the design into the medium 'Mech class, making it a significantly more capable platform than its thirty-five ton predecessor while retaining the electronic warfare focus that has defined the Raven lineage for over a century.</p>
+
+capabilities:<p>The Raven II is built on a lightweight Hellespont Type R2 endo steel skeleton, with a VOX 280 XL engine providing a top speed of nearly one hundred nineteen kilometers per hour. This exceptional speed, combined with seven tons of Hellespont Lite stealth armor powered by an Angel ECM suite, makes the Raven II extraordinarily difficult to detect and track. A Bloodhound Active Probe provides advanced sensor capability that surpasses the Beagle system used by earlier Raven models.</p><p>The most distinctive addition to the Raven II's arsenal is the Firmir Hypnos Tight-Stream Electromagnetic Pulse cannon, capable of shutting down enemy 'Mechs entirely. This weapon shifts the Raven II's role from passive electronic support toward active scout hunting and line-breaking operations. Pilots must exercise caution with repeated TSEMP firings, however, as the weapon's energy discharge can interfere with the Raven II's own sensitive electronics.</p><p>Supplementary armament includes a pair of Firmir Improved ER medium lasers and a Doombud MML-5 launcher fed by two ammunition bays. The absence of CASE protection for the missile ammunition in the left torso represents the design's most significant vulnerability, demanding that pilots prioritize avoiding critical hits to that location.</p>
+
+deployment:<p>The sole production variant of the Raven II mounts the full suite of next-generation electronic warfare equipment inherited from the Raven X prototype, including the Angel ECM suite and Bloodhound Active Probe, combined with the devastating Firmir Hypnos TSEMP cannon. The Ceres Metals Model 777 communications system integrates seamlessly with the Angel ECM, while the Apple Churchill 3000 targeting system works in concert with the Bloodhound probe to provide unmatched battlefield awareness. Ten double heat sinks manage the thermal load from the energy weapons and TSEMP system.</p>
+
+history:<p>The Raven II's development traces directly to the Raven X prototype that Hellespont Industrials unveiled in 3078 during the Jihad. That experimental design demonstrated the potential for mounting cutting-edge electronics and weapons on the Raven platform, but the Strategios ultimately declined to approve it for full production due to concerns about its fragility and the prototype nature of its technology. The lessons learned from the Raven X program, however, informed the development of what became the Raven II.</p><p>When the Raven II entered service in 3123, many observers believed the original Raven's days were numbered. This proved premature, as Hellespont also introduced the updated RVN-5L Raven variant in 3125, designed specifically to work in tandem with the Raven II. The pairing of the lighter 5L as a spotter and electronic warfare support unit alongside the heavier, more combat-capable Raven II created a synergistic team greater than either design alone.</p><p>The Raven II saw extensive deployment during Operation Celestial Reward, where Dynasty Guard units used the 'Mech to devastating effect during the seizure of Avigait from the First Syrtis Fusiliers. Raven IIs from several battalions were deployed in augmented scouting lances, with orders to locate and pin down planetary militia forces. The 'Mech's superior speed and electronics proved instrumental in discovering and eliminating militia ambushes, and its TSEMP cannon disrupted enemy C3 networks while shutting down key Davion commanders' 'Mechs.</p><p>The Confederation has positioned the Raven II as a cornerstone of its reconnaissance and electronic warfare doctrine for the ilClan era, building on over a century of Raven development to field what may be the most capable dedicated EW platform in the Inner Sphere.</p>
+
+manufacturer:Hellespont 'Mech Works
+
+primaryfactory:Sian
+
+fluffdate:2026-02-18 20:22:52
+
+systemmanufacturer:CHASSIS:Hellespont
+systemmode:CHASSIS:Type R2 Endo Steel
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:280 XL
+systemmanufacturer:ARMOR:Hellespont
+systemmode:ARMOR:Lite Stealth
+systemmanufacturer:COMMUNICATIONS:Ceres Metals
+systemmode:COMMUNICATIONS:Model 777 with Angel ECM Suite
+systemmanufacturer:TARGETING:Apple Churchill
+systemmode:TARGETING:3000 with Bloodhound Active Probe

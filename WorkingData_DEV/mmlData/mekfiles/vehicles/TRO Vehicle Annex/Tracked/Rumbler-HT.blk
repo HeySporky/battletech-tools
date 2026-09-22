@@ -1,0 +1,175 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb24-79d8-92d8-73b427772b18
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Rumbler-HT
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4210
+</mul id:>
+
+<year>
+3012
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+standardseats:3.0:0:-1::-1:0
+troopspace:1.0
+cargobay:0.417:1:2::-1:0
+</transporters>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+49
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+3
+2
+2
+2
+1
+</armor>
+
+<Body Equipment>
+Armored Chassis
+Advanced Fire Control
+</Body Equipment>
+
+<Front Equipment>
+HHSearchlight
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun (Semi-Portable):SIZE:1.0
+InfantryHRR:SIZE:1.0
+</Turret Equipment>
+
+<barrating>
+8
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Rumbler-HT follows the same basic design philosophy as the Rock Rover, employing a half-track drivetrain for cross-country mobility and a small hull designed to transport infantry squads. At three tons, it is lighter than the four-ton Rock Rover, with corresponding reductions in capacity and protection. The vehicle's armament and systems configuration closely mirrors the Rock Rover's layout, reflecting Gienah Automotive's approach of adapting a proven design rather than developing something entirely new.</p><p>The half-track's electric fuel cell engine provides sufficient power for the vehicle's modest weight, while the tracked section maintains mobility across varied terrain types. Armor protection is lighter than the Rock Rover's due to the reduced overall mass, but still provides adequate resistance against small arms fire typical of infantry engagements. Gienah Automotive's background as a civilian vehicle manufacturer influenced the design, emphasizing reliability and ease of production over cutting-edge military specifications. Established supply chains for civilian automotive components kept production costs low, making the Rumbler-HT accessible to budget-conscious militia commands. This civilian manufacturing heritage also means that spare parts and maintenance expertise are widely available across Lyran space.</p>
+</capabilities>
+
+<overview>
+<p>The Rumbler-HT is a three-ton infantry half-track produced by Gienah Automotive for the Lyran Commonwealth. Introduced in 3012, the vehicle draws clear inspiration from the Taurian Concordat's Rock Rover, adapting the proven infantry transport concept for Lyran service. Gienah Automotive, primarily known as a civilian vehicle manufacturer based on Gienah, produced the Rumbler-HT through its Gienah Combat Vehicles division. At three tons, the Rumbler-HT is even lighter than the Rock Rover it emulates, representing one of the smallest tracked military vehicles in common service. The design has seen use primarily among Lyran garrison and militia forces, where its low cost and simple maintenance requirements make it an attractive option for equipping second-line infantry formations.</p>
+</overview>
+
+<deployment>
+<p>The Rumbler-HT serves Lyran Commonwealth garrison and militia forces as a budget infantry transport. Its low cost and simple construction make it particularly common among planetary militia units and second-line formations where procurement budgets favor quantity over sophistication. Existing vehicles continued to see service even after Gienah Automotive exited the military market.</p>
+</deployment>
+
+<history>
+<p>Gienah Automotive introduced the Rumbler-HT in 3012, entering the military vehicle market with a design heavily inspired by the well-established Rock Rover platform. The timing coincided with the Late Succession Wars, when Lyran Commonwealth garrison forces needed affordable infantry transports that could be produced with the degraded industrial capacity of the era.</p><p>Gienah Automotive was primarily a civilian vehicle manufacturer headquartered in the city of Molfetta on Gienah, with military contracts handled through its Gienah Combat Vehicles division. The Rumbler-HT represented a relatively modest military commitment for a company whose main revenue came from civilian cars, trucks, and specialty vehicles. Gienah also maintained a productive business relationship with Free Worlds League customers, marketing its vehicles across the border.</p><p>Production continued at the Gienah plant through the Clan Invasion and Civil War eras. Following the Jihad, Gienah Automotive attempted to expand its military presence through a stock sale intended to fund a return to the defense market. The sale fell short of its goals, and by 3085 the company had effectively withdrawn from military production. Existing Rumbler-HT vehicles likely remained in Lyran militia service for years afterward, though new production had ceased.</p>
+</history>
+
+<manufacturer>
+Gienah Automotive
+</manufacturer>
+
+<primaryFactory>
+Gienah
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Gienah Automotive
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Electric (Fuel Cell)
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<notes>
+Extra ammo:
+</notes>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+3.0
+</tonnage>
+
+<fuel>
+0.018
+</fuel>
+

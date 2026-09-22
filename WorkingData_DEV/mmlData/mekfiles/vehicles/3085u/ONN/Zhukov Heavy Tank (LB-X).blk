@@ -1,0 +1,164 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e78b-74bd-9f19-7cec43981c90
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Zhukov Heavy Tank
+</Name>
+
+<Model>
+(LB-X)
+</Model>
+
+<mul id:>
+3648
+</mul id:>
+
+<year>
+3073
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<armor>
+44
+32
+32
+24
+44
+</armor>
+
+<Body Equipment>
+IS LB 10-X AC Ammo
+IS LB 10-X Cluster Ammo
+IS Ammo SRM-4
+ISC3iUnit
+ISCASE
+</Body Equipment>
+
+<Front Equipment>
+SRM 4
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISLBXAC10
+ISLBXAC10
+</Turret Equipment>
+
+<capabilities>
+<p>The Zhukov replaces the Demolisher's massive autocannons with twin SarLon MaxiCannon Autocannon/10s, sacrificing per-shot impact in exchange for improved range, ammunition efficiency, and the ability to engage targets at distances where the Demolisher cannot respond. A Harvester 20K SRM 6 launcher provides a secondary punch at close quarters, giving crews an option when engagement geometry favors missiles over cannon fire. The autocannons use an autoloader system derived directly from the Demolisher's ChemJet Gun autoloaders, simplifying crew training and cross-stocking for units operating both designs simultaneously.</p><p>ArcShield Max I armor provides better protection than the Demolisher's standard plate despite the Zhukov's lighter tonnage, reflecting Aldis's deliberate trade of offensive power for defensive durability. The smaller hull presents a reduced target profile that partially compensates for the more modest armor load. Running gear, suspension, and transmission are direct transfers from the Demolisher, while the turret geometry and fire control systems differ between the two designs. This parts commonality proved a significant logistical advantage in units operating mixed armored companies, reducing spare parts demands and simplifying field maintenance considerably.</p>
+</capabilities>
+
+<overview>
+<p>Aldis Industries introduced the Zhukov in 3030 as a deliberate follow-up to their venerable Demolisher, targeting customers who wanted the design philosophy of the 'Mech Slayer in a lighter, better-armored, and more mobile package. At 75 tons, the Zhukov trades raw destructive power for improved protection and a reduced target profile, qualities that Wolf's Dragoons identified immediately when they became the first major unit to deploy the type in quantity. The Dragoons' sustained operational feedback over the following decades drove a series of refinements and design improvements that Aldis incorporated into successive production runs, making the Zhukov one of the most field-tested combat vehicles of its era. Though smaller and less destructive than the Demolisher, the Zhukov's improved range and secondary weaponry give it a distinct tactical identity, filling roles the 'Mech Slayer cannot occupy effectively.</p>
+</overview>
+
+<deployment>
+<p>Produced at the Terra facility during the Jihad period, this variant upgrades the autocannons to LB-10X models and reduces the SRM launcher to a 4-tube configuration, freeing space for C3i computer installation and CASE protection. The combination of improved autocannons and targeting network integration substantially increases combat effectiveness over the standard model. A Capellan copy uses a standard C³ system with a Guardian ECM suite instead of C3i, optimizing the design for Capellan combined arms doctrine.</p>
+</deployment>
+
+<history>
+<p>The Zhukov was conceived as Aldis Industries' answer to a market reality: the Demolisher's reputation had created demand for a vehicle with similar characteristics, but the original design's weight, cost, and limited secondary armament made it unsuitable for many of the roles customers actually needed to fill. Rather than license a competitor or develop an entirely new platform, Aldis engineers worked from the Demolisher's successful mechanical foundation, retaining the proven drivetrain, running gear, and autoloading systems while building a new hull and turret around a less extreme weapons philosophy.</p><p>Wolf's Dragoons adopted the Zhukov immediately on its 3030 introduction, deploying battalion-strength formations that provided the design's real-world testing program. The Dragoons' operational experience revealed a consistent pattern of strengths and weaknesses, and their feedback loop with Aldis became the primary driver of the production improvements that distinguished later Zhukov runs from early ones. Over twenty-eight years of manufacture between 3030 and 3058, the Dragoons' suggestions shaped the vehicle's fire control systems, ammunition stowage arrangements, and crew station ergonomics in ways the original specification had not anticipated.</p><p>The Zhukov's most famous engagement came during the War of Andurien Succession in 3031 on Watermael. A Marik commander deployed a Zhukov battalion against a Demolisher battalion that had broken through the front and was advancing on a Marik logistics base through sugar cane fields. The terrain proved decisive in unexpected ways. Tall cane blocked all gunnery sights, forcing crews on both sides to track targets by observing the movement of the stalks. The Zhukovs used the same limitation to their advantage - lighter weight allowed them to maneuver through marshy flanking ground the heavier Demolishers could not cross, and their longer-ranged autocannons gave them engagement windows the Demolishers could not match in the obscured terrain. By the time the Demolishers entered effective range, twenty-five of the battalion's tanks were burning. The remaining Demolishers were destroyed within minutes.</p><p>This engagement became a standard case study in combined arms training programs across the Inner Sphere, demonstrating that the Demolisher and Zhukov, though sharing a design heritage, filled genuinely different tactical roles. Where the Demolisher excelled at close-range ambush and prepared defensive positions, the Zhukov's range advantage made it more effective in fluid engagements where terrain and distance could be manipulated.</p><p>Aldis discontinued Zhukov development in 3058, concluding that the advancing technological sphere required more investment than the existing platform could support. The Terra facility operated under ComStar's auspices by that point, and within a decade the Word of Blake had assumed operational control, developing their own variant to suit Blakist requirements during the Jihad. Post-Jihad reconstruction shifted the Terra line to a C³-networked configuration, adapting the aging platform to the Republic of the Sphere's combined arms doctrine. The Capellan-controlled Betelgeuse facility followed with their own C³ variant, ensuring the design remained available to Capellan forces through changing political landscapes.</p><p>The Zhukov's Dark Age story diverges along geographic lines. The Betelgeuse line continued producing the Liao variant through the ilClan period, while the Terra facility's output reflected the successive political transformations of the planet itself, from Word of Blake Protectorate through Republic stewardship and into the upheavals of the late Dark Age. The design that Wolf's Dragoons had first deployed in 3030 proved durable enough to remain relevant through the 32nd century, not because it had been dramatically updated but because its fundamental qualities (range, reliability, and parts commonality with the ubiquitous Demolisher) continued to offer value even in a technological environment that had long since left its original specifications behind.</p>
+</history>
+
+<manufacturer>
+Aldis Industries
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Aldis Industries
+COMMUNICATIONS:Olmstead
+TARGETING:Cirxese
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:225 ICE
+ARMOR:ArcShield Max I
+COMMUNICATIONS:Olmstead 30
+TARGETING:BallistaCheck / RockeCheck
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-ONN
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+
