@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dfdd-7f2d-8b7e-21d7beea766f
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Shadow Hawk
+model:SHD-1R
+mul id:2898
+
+Config:Biped
+techbase:Inner Sphere
+era:2467
+source:XTR:Primitives I
+published:XTR:Primitives I
+rules level:4
+role:Sniper
+
+quirk:battle_fists_la
+quirk:battle_fists_ra
+quirk:imp_life_support
+quirk:ubiquitous_clan
+quirk:rugged_1
+quirk:ubiquitous_is
+
+mass:50
+engine:240 Fusion Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Primitive Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 Single
+walk mp:4
+jump mp:3
+
+armor:Primitive(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:18
+RT armor:18
+CT armor:22
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:2
+Medium Laser, Right Arm
+AC/5, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>First fielded in 2467 by Lang Industries on Caph, the Shadow Hawk was among the earliest BattleMechs produced for the Terran Hegemony. A debilitating flaw in its armor plating forced a costly recall, and the comprehensive overhaul completed in 2550 is widely regarded as the design's true debut. Lovingly known as "The Shad" to civilians (a nickname popularized by the Immortal Warrior holoseries) its pilots instead call it "The Shed," a reference to the rugged, boxy head assembly that resembles a prefabricated outbuilding.</p><p>Despite its unglamorous reputation, the Shadow Hawk proved an extraordinarily versatile fifty-five-ton medium 'Mech capable of filling reconnaissance, fire support, raiding, and general combat roles with equal competence. Production spread across the Inner Sphere and Periphery, with Earthwerks Incorporated, Majesty Metals, Kallon Industries, and Odin Manufacturing among its many builders. Over six centuries of continuous service have cemented the Shadow Hawk as one of the most enduring and widely deployed BattleMech designs in history.</p>
+
+capabilities:<p>The Shadow Hawk's enduring appeal lies in its balanced weapons array and reliable performance across multiple tactical roles. The signature Armstrong J11 autocannon mounted over the left shoulder provides effective medium-to-long-range fire, complemented by a Holly LRM-5 rack in the right torso for sustained bombardment. As engagements close, a Holly SRM-2 launcher beside the cockpit and a Martel Model 5 medium laser on the right arm deliver respectable short-range firepower. Twelve single heat sinks manage the modest thermal load without difficulty, and the strong Lang manipulative hands prove invaluable during raiding and salvage operations.</p><p>The CoreTek 275 engine drives the chassis to a respectable 86 kilometers per hour, though the three Pitban LFT-50 jump jets provide only 90 meters of jumping distance, especially less than the Griffin or Wolverine, its frequent stablemates in the classic fifty-five-ton trio. Nine and a half tons of Maximillian 43 armor afford solid protection for the weight class, though early production models suffered from defective pressure plates in the legs that could sever myomer bundles upon impact.</p><p>Perhaps the most prized component among its pilots is the Sparrow 300J life support system, capable of sustaining a comfortable cockpit environment up to thirty percent longer than comparable units. On extended patrols or prolonged campaigns where fatigue determines outcomes, an unfatigued MechWarrior makes fewer mistakes, a subtle advantage that has kept the Shadow Hawk in demand long after more specialized designs have come and gone. Commanders value it for consistent, dependable performance; as one common refrain puts it, handsome 'Mechs can do anything, but plain ones simply have to.</p>
+
+deployment:<p>Lang Industries developed this primitive Shadow Hawk in 2467 as part of the Terran Hegemony's crash program to expand its BattleMech forces following the Lyran Commonwealth's successful commando raid on Hesperus II in 2455. The design represented Lang's first foray into 'Mech production, as the aerospace manufacturer sought to capitalize on growing military demand. Armed with only a shoulder-mounted autocannon and a single medium laser, this variant relied on its primitive fusion engine for a top speed of approximately 65 kilometers per hour. Fourteen tons of primitive armor provided reasonable protection, though persistent issues with armor plate placement (particularly in the legs) plagued the design throughout its service life. Despite these shortcomings, this variant proved a phenomenal commercial success, opening the door for Lang to secure numerous military contracts. The chassis saw extensive deployment with the Hegemony Armed Forces' frontline units, with some examples lingering into the early years of the Reunification War before being supplanted by the refined SHD-2H.</p>
+
+history:<p>The Shadow Hawk's origins trace to 2467, when Lang Industries (an aerospace manufacturer seeking to expand into the burgeoning BattleMech market) developed the primitive SHD-1R for the Terran Hegemony's crash armament program. The Hegemony had learned that its monopoly on BattleMech technology was ending after a Lyran commando raid on Hesperus II in 2455 revealed the secrets of 'Mech construction. Despite persistent armor plating defects that could sever leg myomer bundles, the SHD-1R proved a commercial triumph, securing Lang's place among major defense contractors. An expensive recall and comprehensive overhaul in 2550 resolved the armor issues for most chassis, and the resulting SHD-2H is widely considered the Shadow Hawk's true debut.</p><p>Lang Industries continued producing Shadow Hawks for the Star League and Great Houses until their Caph factory was destroyed during the Succession Wars. The design's final Star League-era chapter included the SHD-3H, commissioned in 2751 as a deliberate smokescreen for the classified Royal SHD-2Hb upgrade program. Lang pitched the 3H in a staged competition against Luthien Armor Works' Dragon, winning the contract despite the rival design's merits, exactly as planned, since the SLDF wanted the advanced 2Hb all along. The Draconis Combine protested the decision for years, citing procurement bias.</p><p>Following the Star League's collapse, Earthwerks Incorporated on Calloway VI became the primary Inner Sphere manufacturer, while Majesty Metals and Manufacturing on Dunianshire supplied Periphery markets. The desperate First Succession War spawned field refits on both sides, the Federated Suns' armor-sacrificing SHD-2D and the Draconis Combine's PPC-armed SHD-2K, the latter born of chronic ammunition shortages following the Kentares Massacre. The 2K proved so effective that dedicated refit programs continued long after the ammunition crisis passed. During the Second Succession War, Combine forces employed lances of 2K variants in devastating raids on Hean in 2920, attacking supply bases and capturing hundreds of tons of materiel that frustrated Davion campaigns for months.</p><p>The Clan Invasion catalyzed the first complete overhaul in centuries. Earthwerks unveiled the SHD-5M in 3048 for the Free Worlds League, incorporating rediscovered lostech including an endo steel chassis, extralight engine, and ultra autocannon. The 5M enjoyed a remarkable eighteen-year production run in record-shattering numbers before Earthwerks retooled for Project Phoenix. ComStar contributed the classified SHD-2Ht for the Battle of Tukayyid, where teams of disguised Shadow Hawks devastated Clan Elemental formations. Starting in 3066, Vicore Industries' Project Phoenix initiative brought Earthwerks, Kallon Industries, ComStar, and Odin Manufacturing together to produce modernized variants including the Davion SHD-5D cavalry platform, the Free Worlds League's SHD-7M, and the ComStar SHD-7CS electronic warfare model. The Capellan Confederation later sublicensed the 7M to Vandenberg Mechanized Industries.</p><p>The Jihad inflicted severe damage on the Shadow Hawk's industrial base. Kallon's megaplex on Talon was destroyed, forcing the company to concentrate on spare components for the Federated Suns before eventually constructing a major new facility on the continent of Tonkya on Wernke III. After the Gray Monday communications blackout, this facility transitioned from spare parts to complete 'Mech production, and within a decade new SHD-6D models combining classic styling with modern laser weaponry were rolling off the lines. Majesty Metals managed to upgrade their facilities to produce Star League-era SHD-2Hb variants during the conflict, while in the Rasalhague Dominion, Odin Manufacturing began producing the SHD-12C as part of the Ghost Bears' effort to integrate KungsArmé forces with Clan-specification equipment.</p><p>The Shadow Hawk's battlefield record during the late Jihad and Dark Age demonstrated its continued relevance. During Operation Scour, a lone Star League-era SHD-2Hb bearing authentic SLDF insignia appeared to defend a Third Lyran Guards field hospital from Word of Blake infiltrators, destroying more than a dozen battle armor suits before withdrawing, its spent LB-X canisters bearing genuine SLDF procurement markings that observers could not easily explain. On Palmyra, a pair of newly produced SHD-6D models assigned to rescue survivors of the Davion Heavy Guards fought through a Kuritan ambush, with the rearguard Shadow Hawk accounting for a Grand Dragon and two Panthers before breaking contact. The Combine salvaged the lone Shadow Hawk lost to a lucky gyro hit, reportedly gaining grudging respect for the new variant's CASE II system durability.</p><p>By the ilClan era, Shadow Hawk production had diversified further than at any point in the design's history. The reborn Free Worlds League, Magistracy of Canopus, and Federated Suns all operated new-build models, while joint ventures between Nimakachi in the former Rim Commonality and Canopian manufacturers produced the SHD-4H and SHD-7H. Over six hundred years after Lang Industries first walked a primitive prototype off the assembly line on Caph, the Shadow Hawk remains instantly recognizable on battlefields across human-occupied space, proof that reliability and adaptability will always find a place in warfare.</p>
+
+manufacturer:Bermuda Combat Systems|Lang Industries Inc.|King Dumount Defense Facility|Pride of Granada Industries|Nimakachi Fusion Products Limited|Oriente Weapon Works
+
+primaryfactory:Booker|Caph|Castile|Granada|Lesnovo|Oriente
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Lang Industries
+systemmode:CHASSIS:T1 Primitive
+systemmanufacturer:ENGINE:CoreTek
+systemmode:ENGINE:Primitive Fusion
+systemmanufacturer:ARMOR:Maximillian
+systemmode:ARMOR:Primitive
+systemmanufacturer:COMMUNICATIONS:O/P
+systemmode:COMMUNICATIONS:200 COMSET
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:1000A

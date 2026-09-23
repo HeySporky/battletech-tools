@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e6ba-717c-ad9d-3f45a3c07af7
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Chalchiuhtotolin Support Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+537
+</mul id:>
+
+<year>
+3084
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+37
+25
+25
+15
+22
+</armor>
+
+<Body Equipment>
+Clan Streak SRM 4 Ammo
+IS Vehicle Flamer Ammo
+IS Vehicle Flamer Ammo
+CLCASE
+Clan Light Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+CLLightMG
+CLMicroPulseLaser
+CLMicroPulseLaser
+</Front Equipment>
+
+<Right Equipment>
+CLLightMG
+</Right Equipment>
+
+<Left Equipment>
+CLLightMG
+</Left Equipment>
+
+<Rear Equipment>
+CLLightMG
+</Rear Equipment>
+
+<Turret Equipment>
+CLLargePulseLaser
+Flamer (Vehicle)
+CLStreakSRM4
+CLStreakSRM4
+</Turret Equipment>
+
+<capabilities>
+<p>The Chalchiuhtotolin is built on a wheeled chassis, a deliberate choice that reduces vulnerability from lateral fire, causes less damage to the paved urban surfaces the tank is intended to defend, and provides a smoother, more controllable ride than tracked alternatives. A light internal frame paired with a Gorvachs 230 fusion engine maximizes the internal volume available for weapons and equipment, while six and a half tons of Forging MD4 ferro-fibrous armor protect the crew. Critics have argued this protection is insufficient for front-line engagements, and proponents counter that the design's role is deterrence and short-range defense rather than sustained heavy combat.</p><p>The primary armament is a Kolibri Delta Series large pulse laser, delivering accurate fire at both close and medium ranges. A pair of Pattern J4 Streak SRM-4 launchers provide guided missile support, ensuring no ammunition is expended on evaded shots. Two Raid micro pulse lasers handle close-in defense, while four Series 34NC light machine guns are distributed across all firing arcs to suppress infantry and battle armor. A JF 4 flamer, supplied by two tons of fuel, doubles as an anti-personnel weapon and a fire suppression tool for civil emergency scenarios. Should the primary wheels be disabled, backup wheels maintain mobility, though maintenance crews find accessing these secondary systems challenging in field conditions.</p>
+</capabilities>
+
+<overview>
+<p>The Chalchiuhtotolin Support Tank stands as the Jade Falcons' first purpose-designed ground combat vehicle, born from the practical demands of administering their newly conquered Lyran worlds. Despite decades of doctrinal indifference toward conventional armor forces, the Clan recognized that short-range urban defense required a vehicle OmniMechs could not cost-effectively provide. The Eagle Craft Group on Erewhon, veterans of the Jupiter BattleMech program, accepted the challenge, with Quikscell Company on Pandora taking on final production. The design's namesake is Chalchiuhtotolin, a deity from pre-spaceflight Terran Aztec mythology associated with disease and pestilence. The name originated as a casual pejorative, but Falcon leadership embraced the grim imagery and formalized the designation. The result is a compact urban defender built around a heavy pulse laser array and guided missile systems, intended to hold Falcon-controlled population centers against the constant threat of raider incursions.</p>
+</overview>
+
+<deployment>
+<p>The base Chalchiuhtotolin serves as the standard production configuration from Quikscell Company on Pandora. It has been documented in service on Clan Wolf-controlled worlds as well as Jade Falcon territory, with the identical communications and targeting systems shared between the Chalchiuhtotolin and the Carnivore suggesting active inter-Clan trade or exchange arrangements. Lambda Galaxy units fielded these tanks in pirate hunting operations throughout the post-Jihad period, though most of the tank's combat record consists of patrol and defensive duty rather than major engagements. Production remained active through the Dark Age, with the tank continuing to fill its original urban defense role on Pandora and surrounding Jade Falcon-controlled systems.</p>
+</deployment>
+
+<history>
+<p>The Jade Falcons had long dismissed conventional armor as beneath Clan military doctrine, a perspective that persisted even through their campaigns during the initial invasion. The conquest of densely populated Lyran worlds forced a reassessment: administering and defending large urban centers with OmniMechs alone proved expensive and wasteful of elite resources. Clan leadership commissioned a purpose-built defensive vehicle to fill the gap.</p><p>The Eagle Craft Group on Erewhon, whose engineers had previously produced the Jupiter, was recruited for the project. Civilian vehicular engineers captured from various Lyran firms were temporarily assigned to assist Clan scientists. When Merchant Factor Daniel, skeptical of the undertaking, mockingly nicknamed the project after Chalchiuhtotolin, the Aztec deity associated with plague and pestilence, Clan leadership surprised observers by embracing the imagery. Warriors found the unsettling name fitting, and it was formalized for the finished design. Once Eagle Craft Group completed development, production transferred to Quikscell Company on Pandora.</p><p>The design proved its value early. When raiders struck Erewhon with light BattleMechs supported by hovercraft threatening DropPort facilities, newly deployed Chalchiuhtotolins moved to intercept. The attackers attempted high-speed strafing passes to disable the tanks before they could respond, but the pulse lasers and Streak systems tore apart the leading vehicles before they could close to brawling range. The remaining attackers pressed in and found themselves overwhelmed by the tanks' secondary weapons in close quarters. Two Chalchiuhtotolins were disabled but remained repairable, while the raiders lost more than half their force, including Savannah Masters destroyed outright by large pulse laser fire. The engagement validated the design's effectiveness in exactly the defensive urban scenario it was built to fill.</p>
+</history>
+
+<manufacturer>
+Quikscell Company
+</manufacturer>
+
+<primaryFactory>
+Pandora
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Gorvachs
+ARMOR:Forging
+JUMP_JET:N/A
+COMMUNICATIONS:Basix
+TARGETING:OptiSight
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:230 Fusion
+ARMOR:Forging MD4 Ferro-Fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:Basix 200
+TARGETING:OptiSight-12
+</systemModels>
+
+<source>
+TR:3085,TR:3085S
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

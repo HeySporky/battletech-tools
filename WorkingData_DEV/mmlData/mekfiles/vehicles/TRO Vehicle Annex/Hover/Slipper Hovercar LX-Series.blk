@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eaa5-7454-8517-0af434784a6e
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Slipper Hovercar LX-Series
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5080
+</mul id:>
+
+<year>
+3061
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+standardseats:4.0:0:-1::-1:0
+cargobay:0.009:1:2::-1:0
+</transporters>
+
+<cruiseMP>
+15
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+45
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+1
+1
+1
+1
+</armor>
+
+<Body Equipment>
+UltraLightChassisMod
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+4
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The LX-Series achieves its market position through deliberate engineering trade-offs rather than technical sophistication. Power comes from an electric fuel cell drivetrain, which provides a clean ride compared to internal combustion alternatives while avoiding the expense and mass penalties of fusion propulsion. The ultra-light chassis modification holds total vehicle mass to 1,500 kilograms, directly enabling the LX-Series' competitive cruise performance for its class.</p><p>Seating accommodates one driver and three passengers, with a nine-kilogram cargo allowance for luggage. The roomy interior is frequently cited as a standout feature for long cross-country travel, a rare attribute at this price point. The fuel cell system provides roughly 605 kilometers of range on a full tank, more than sufficient for typical daily use or extended trips between settlements.</p><p>Protection is minimal by any military standard, reflecting the vehicle's civilian operating environment. The LX-Series carries no weapons and is not suited for any combat role. Its primary engineering shortcoming is noise, as the hover fans produce substantial sound at higher speeds. This has proven a persistent nuisance in urban areas, prompting many municipalities across the Federated Commonwealth and Lyran Alliance to enact ordinances against unnecessary engine-revving, targeting hover vehicles like the Slipper specifically. Owners who push the fans hard in populated areas face real legal consequences, which somewhat dampens the vehicle's performance appeal.</p>
+</capabilities>
+
+<overview>
+<p>S.L. Lewis, Inc. began as a small manufacturer of military hovercraft on Carlisle before pivoting to civilian transportation. Founder Samuel L. Lewis built the company's early reputation on military contracts before redirecting that manufacturing expertise toward affordable civilian hovercars for the mass market. The result was a lineup of practical designs that made S.L. Lewis a household name across the Federated Commonwealth by the late 3030s.</p><p>The LX-Series represents the core of that civilian offering, a no-frills hover sedan built for price-conscious buyers rather than luxury seekers. Introduced in 3061 as a refined successor to the earlier G-Series, the LX-Series quickly became the benchmark against which other civilian hover vehicles were measured in Lyran and Federated Suns markets. Its combination of wide availability and reasonable ownership cost established S.L. Lewis as the dominant mass-market hovercar brand across much of the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Slipper Hovercar LX-Series serves as a personal transportation vehicle throughout Lyran Alliance and Federated Suns territory, with licensed production variants appearing under different brand names in parts of the Inner Sphere beyond S.L. Lewis' direct market reach. Urban and suburban commuter use accounts for the majority of deployments, where the hover drive allows navigation of most road and light off-road surfaces with equal ease. Long cross-country journeys are also common, with the 605-kilometer fuel range reducing the need for frequent stops.</p><p>The vehicle's low acquisition and maintenance costs make it accessible to working-class civilians, in contrast to competitors like the Capellan Feicui Aircar or the Exeter Excelsior LE turbofan cruiser, which target more affluent buyers. Military applications are negligible, though militia units and low-priority courier operations occasionally press civilian LX-Series units into service when dedicated military transports are unavailable.</p>
+</deployment>
+
+<history>
+<p>S.L. Lewis, Inc. traces its origins to the Lewis family enterprise on Carlisle, which began life supplying military hovercraft to various Lyran Commonwealth procurement contracts. The company's fortunes changed substantially when founder Samuel L. Lewis came across an unexpected cache of military-grade Omni 25 fusion plants, giving the firm access to components that opened larger defense contracts. Revenue from military work funded Lewis' long-standing goal of producing civilian transportation, and the company branched into civilian hovercar and hydrofoil designs as those profits accumulated.</p><p>The G-Series hover sedan debuted in 3040 as the company's first major civilian product. Sales were strong enough to establish S.L. Lewis as a credible consumer brand, and by the late 3030s the company was already gaining recognition across the Federated Commonwealth. The G-Series became, somewhat despite itself, the standard against which civilian hover vehicles were judged throughout FedCom space, not because of technical brilliance but because its economical design philosophy produced the most widely available example of modern civilian hovercraft engineering in the region.</p><p>The LX-Series designation replaced the G-Series branding in 3061, bringing refinements to interior ergonomics and the fuel cell system without altering the core design approach. S.L. Lewis simultaneously licensed the design to select regional automotive firms, with at least one licensee producing a variant marketed under the Crucis-R name. The company also expanded its lineup to include the more luxurious PX-Series hovercruiser and the larger ZX-Series hoverwagon, positioning all three models to cover the full civilian market from economy transport to premium comfort.</p><p>Production continued steadily through the FedCom Civil War and the Jihad, sustained by the civilian transportation demand that persists even during major conflicts. The Carlisle factory remained a consistent supplier through the Dark Age, and the LX-Series maintained its market presence across Lyran Alliance space well into the ilClan era.</p>
+</history>
+
+<manufacturer>
+S.L. Lewis, Inc.
+</manufacturer>
+
+<primaryFactory>
+Carlisle
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Electric (Fuel Cell)
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+1.5
+</tonnage>
+
+<fuel>
+0.078
+</fuel>
+

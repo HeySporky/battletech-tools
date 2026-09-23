@@ -1,0 +1,101 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b62e-7dbd-8f4d-2d1432fcdf64
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Heavy Support Infantry
+</Name>
+
+<Model>
+Irian Technologies SWAT Team
+</Model>
+
+<mul id:>
+1449
+</mul id:>
+
+<year>
+3063
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Ballistic Plate, Standard
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Irian BattleMechs Unlimited, the military division of the Free Worlds League industrial giant Irian Technologies, takes a direct approach to facility security. Deploying from full-sized APCs, Irian SWAT teams wear the heaviest unpowered armor available to conventional infantry and carry Imperator AX-22 assault rifles backed by David light Gauss rifles as secondary weapons. The combination delivers firepower that can threaten light combat vehicles and challenge even battle armor at close range. The weight of their ballistic plate armor and heavy weapons loadout makes these troops slow and unable to conduct anti-BattleMech swarming attacks, but their role is facility defense rather than mobile warfare. Irian's vast factory complexes on worlds across the Free Worlds League demand security forces capable of standing their ground against serious threats, and these SWAT teams are built for exactly that purpose.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Rifle (Imperator AX-22 Assault)
+</Primary>
+
+<Secondary>
+Gauss Rifle, Light (David)
+</Secondary>
+
+<armordivisor>
+2.0
+</armordivisor>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

@@ -1,0 +1,192 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ddc4-7756-8958-cab8ac90a1f1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:StrongArm
+model:SC CVI ConstructionMech
+mul id:7859
+
+Config:Biped
+techbase:Inner Sphere
+era:3094
+source:TR:I
+published:TR:I
+rules level:2
+role:None
+
+
+mass:35
+engine:140 ICE Engine
+structure:IS Industrial
+myomer:Standard
+cockpit:Industrial Cockpit
+gyro:Standard Gyro
+
+heat sinks:0 Single
+walk mp:4
+jump mp:0
+
+armor:Industrial(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:7
+RT armor:7
+CT armor:10
+HD armor:9
+LL armor:8
+RL armor:9
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:0
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Salvage Arm
+Salvage Arm
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Cargo:SIZE:0.5
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The StrongArm ConstructionMech is a 35-ton IndustrialMech produced by Sitwell Corporation on Saiph, introduced in 3094. Built on the foundation of Sitwell's successful Powerman HaulerMech, the StrongArm was designed as an affordable construction platform that complemented rather than competed with Bluth Corporation's widely used Carbine ConstructionMech. Where the Carbine employs a backhoe for digging and earthmoving, the StrongArm carries lift hoists and salvage arms suited to complementary tasks, allowing operators to run both models in tandem without redundancy.</p><p>The design's low price point and modular construction made it popular throughout the Republic of the Sphere, where demand for construction equipment surged during the post-Jihad rebuilding era. However, the StrongArm's ease of modification proved a double-edged sword, earning the chassis a second, far less respectable reputation as one of the most commonly militarized IndustrialMechs in the Inner Sphere.</p>
+
+capabilities:<p>The StrongArm is powered by a Skobel 140 ICE, giving the 35-ton IndustrialMech a top speed of 64 kph, adequate for construction site operations. The PowerBuild CCV chassis, derived from the proven Powerman platform, benefits from an enlarged canopy and extended torso twist that improve operator visibility and working range. Hughes IndusWeave industrial armor provides basic protection against workplace hazards, though it offers little defense in a genuine combat scenario.</p><p>The base SC CV model carries two heavy-duty GripperTech lift hoists, enabling it to move structural materials, prefabricated components, and heavy equipment with efficiency. The design lacks any weapons, targeting systems, or combat-oriented electronics, relying solely on a SineWave 5000 communications system for site coordination. This simplicity is by design, as Sitwell Corporation intended the StrongArm as a purely civilian workhorse.</p><p>The militarized SC CV-M MOD adds a single Zippo heavy flamer with only one heat sink to manage its output. The weapon installation is open and improvised, with poor workmanship that leaves the weapon linkage exposed to incoming fire. The absence of any targeting or tracking system means the operator can do little more than point the weapon in the general direction of a target, making the MOD as dangerous to its operator as to any adversary.</p>
+
+deployment:<p>The SC CVI variant offers a more versatile configuration than the base SC CV, replacing one of the two lift hoists with a salvage arm derived from the Powerman XVI. This combination allows operators to perform both lifting operations and salvage recovery tasks with a single machine, making it particularly popular with operators working demolition or battlefield cleanup contracts. Like the SC CV, the CVI carries space for a half-ton of cargo and was introduced in 3094 as part of the original StrongArm product line.</p>
+
+history:<p>The StrongArm's origins trace back to Sitwell Corporation, a company built on rivalry. Founded in the late Star League era by a disgruntled former employee of Bluth Corporation, Sitwell carved out a niche in the IndustrialMech market with its Powerman HaulerMech, a design that eventually toppled Bluth's dominance in the cargo handling sector. After a legal battle spanning the entirety of the First Succession War, Sitwell emerged victorious, and Bluth Corporation was reduced to a shadow of its former self.</p><p>When the Republic of the Sphere's massive reconstruction efforts created unprecedented demand for construction equipment in the early thirty-second century, Sitwell saw an opportunity to expand beyond hauling into the construction market. Learning from the legal conflicts that had defined the company's early history, Sitwell designed the StrongArm to work alongside the Carbine rather than against it. Introduced in 3094, the StrongArm quickly found a receptive market among Republic contractors.</p><p>The StrongArm's notoriety stems largely from its unauthorized military conversion. An anonymous producer began distributing weaponized refit kits that transformed the civilian StrongArm into a crude but readily available combat platform. The SC CV-M MOD spread rapidly across the Republic, becoming one of the most common militarized IndustrialMechs despite being among the least effective. Nearly every Republic Armed Forces unit could recount encounters with overconfident MOD operators.</p><p>The most infamous incident involving the StrongArm MOD occurred on Caselton in 3126, when a labor dispute at a construction site escalated into violence. Workers armed with StrongArm MODs and other militarized ConstructionMechs clashed with local militia after a political scheme to exploit the strike went badly wrong. The incident resulted in dozens of casualties and millions of stones in property damage, exposing both the dangers of widely available IndustrialMech modifications and the corruption underlying the dispute.</p><p>Sitwell Corporation has repeatedly distanced itself from the MOD, issuing public statements denying responsibility for any military modification of their products and voiding all warranties on weaponized StrongArms. Despite these disclaimers, the ease with which the StrongArm can be converted continues to drive demand for both the civilian original and its improvised military counterpart.</p>
+
+manufacturer:Sitwell Corporation
+
+primaryfactory:Saiph
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:PowerBuild
+systemmode:CHASSIS:CCV
+systemmanufacturer:ENGINE:Skobel
+systemmode:ENGINE:140 ICE
+systemmanufacturer:ARMOR:Hughes
+systemmode:ARMOR:IndusWeave
+systemmanufacturer:COMMUNICATIONS:SineWave
+systemmode:COMMUNICATIONS:5000

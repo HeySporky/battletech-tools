@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c8a3-7998-86f0-35faf411dfde
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Rakshasa
+model:MDG-1B
+mul id:2633
+
+Config:Biped
+techbase:Inner Sphere
+era:3056
+source:TR:3055U
+published:RS:3055Uu
+rules level:2
+role:Skirmisher
+
+quirk:easy_maintain
+quirk:weak_head_1
+
+mass:75
+engine:375 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:15 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:21
+RA armor:21
+LT armor:22
+RT armor:22
+CT armor:32
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:7
+RTR armor:7
+RTC armor:9
+
+Weapons:7
+Large Laser, Left Arm
+Medium Laser, Left Arm
+Large Laser, Right Arm
+Medium Laser, Right Arm
+LRM 10, Left Torso
+Medium Pulse Laser, Left Torso
+LRM 10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Large Laser
+Large Laser
+Medium Laser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Large Laser
+Large Laser
+Medium Laser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 10
+LRM 10
+ISArtemisIV
+ISMediumPulseLaser
+IS Ammo LRM-10 Artemis-capable
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 10
+LRM 10
+ISArtemisIV
+IS Ammo LRM-10 Artemis-capable
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Rakshasa is a seventy-five-ton heavy BattleMech introduced in 3055 by General Motors for the Federated Commonwealth. Named for the mythical creature that mimics the appearance and skills of its adversaries, the Rakshasa was engineered as one of the most ambitious Inner Sphere efforts to replicate the fearsome Clan Timber Wolf OmniMech, providing heavy formations with a platform that could match the general speed and weapons profile of its Clan counterpart.</p><p>While Inner Sphere technology of the era could not fully match Clan capabilities, the Rakshasa emerged as a capable heavy combatant in its own right. Its relatively straightforward construction and use of widely available components earned it a reputation for easy maintenance, though the design has struggled to escape an undeserved reputation for mediocrity that belies its actual combat record.</p>
+
+capabilities:<p>The Rakshasa achieves its mission profile through a combination of speed, firepower, and advanced construction techniques. A GM 375 XL engine propels the seventy-five-ton 'Mech to speeds of eighty-six kilometers per hour, matching the ground speed of the Timber Wolf it was designed to emulate. The use of endo steel internal structure and StarGuard ferro-fibrous armor maximizes available tonnage for weapons and equipment, providing near-maximum armor protection for its weight class.</p><p>The weapons array mirrors the Timber Wolf's general philosophy of combining long-range missile support with direct-fire energy weapons. Twin shoulder-mounted Federated LRM-10 racks, each linked to an Artemis IV fire control system, provide accurate indirect fire capability. A pair of ExoStar extended-range large lasers mounted in the arms deliver punishing damage at range, while two Martell medium lasers and a Martell medium pulse laser round out the close-combat armament.</p><p>This weapons mix generates considerable heat, representing the design's primary tactical limitation. The fifteen double heat sinks struggle to manage sustained fire from all weapons simultaneously, forcing MechWarriors to exercise careful fire discipline. The absence of jump jets further limits tactical flexibility, though the 'Mech's high ground speed partially compensates. A known weakness in the head armor has been noted by field commanders, requiring pilots to avoid prolonged exposure to concentrated headshots.</p>
+
+deployment:<p>Developed as a popular field refit beginning around 3056, this variant addresses the base model's most significant tactical limitation by replacing the two ExoStar extended-range large lasers with standard large lasers. This modification sacrifices effective range in exchange for substantially reduced heat generation, allowing MechWarriors to maintain a higher rate of sustained fire without risking dangerous heat buildup. The simplicity of the conversion, requiring only a weapon swap without structural modifications, contributed to its widespread adoption among frontline units seeking improved heat management.</p>
+
+history:<p>The Rakshasa's origins trace to the aftermath of the Clan Invasion, when NAIS engineers spent five years studying salvaged Timber Wolf OmniMechs in an effort to reproduce the design's capabilities using Inner Sphere technology. The project faced significant challenges, as the technological gap between Inner Sphere and Clan manufacturing remained substantial throughout the 3050s. Even so, the team produced a workable design that, while clearly inferior to its Clan progenitor, offered a competitive platform by Inner Sphere standards.</p><p>The Rakshasa first saw combat shortly after its introduction in 3055, with initial combat trials proving promising. Early deployments included service with a joint FedCom-Clan Wolf task force formed to combat the Red Corsair in 3055, where Rakshasas assigned to the Kell Hounds performed well on Arc-Royal and Elyssa. Despite these successes, the design acquired an unfortunate reputation during Operation Guerrero two years later, when Rakshasas serving with the Eighth FedCom RCT were destroyed in engagements that had more to do with poor tactical circumstances than any inherent design flaw. The resulting criticism from senior officers unfairly tainted the 'Mech's reputation for years.</p><p>Production continued at the General Motors facility on Kathil, which became a critical battleground during the FedCom Civil War. The close-combat MDG-2A variant emerged during the height of the fighting for Kathil around 3064-3065, developed by resourceful technicians who adapted the design to meet the demands of the intense urban and close-quarters combat that characterized the struggle for the planet. The Rakshasa found a surprising following among Capellan March MechWarriors who appreciated the 2A's devastating short-range firepower.</p><p>Beyond its primary service with the Armed Forces of the Federated Suns, the Rakshasa gained a small but dedicated following on Solaris VII, where its combination of speed and firepower proved well-suited to arena combat. Individual Rakshasas have appeared in the service of the Draconis Combine and other states through battlefield salvage and the gray market, demonstrating the design's appeal beyond its nation of origin. Field refit packages developed during the Jihad era further extended the chassis's service life, ensuring the Rakshasa continues to see deployment across the Inner Sphere.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:GM
+systemmode:CHASSIS:Marauder Special MD
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:375 XL
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Dalban Micronics
+systemmode:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Sync Tracker
+systemmode:TARGETING:(39-42071)

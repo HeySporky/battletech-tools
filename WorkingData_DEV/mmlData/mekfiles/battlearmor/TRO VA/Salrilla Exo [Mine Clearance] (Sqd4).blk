@@ -1,0 +1,157 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a8bd-719c-9785-5e56f26ec217
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Salrilla Exoskeleton
+</Name>
+
+<Model>
+[Mine Clearance](Sqd4)
+</Model>
+
+<mul id:>
+7212
+</mul id:>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+-1
+</armor_tech>
+
+<Squad Equipment>
+BACuttingTorch:Body
+BASearchlight:Body
+BABasicManipulatorMineClearance:LA
+BABasicManipulatorMineClearance:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<capabilities>
+<p>The Mine Clearance configuration replaces the salvage arm with a second set of basic manipulators optimized for detecting and neutralizing buried ordnance. Both arms mount modular equipment adaptors fitted with mine clearance tools, giving the operator two-handed dexterity for the delicate work of disarming explosive devices. The body-mounted cutting torch and searchlight remain standard equipment.</p><p>The Salrilla's 100 kilograms of standard armor provides meaningful protection against accidental detonations, and the suit's 30-kilometer-per-hour top speed allows rapid repositioning across a minefield. The mine clearance variant retains enough manual dexterity to engage in anti-BattleMech attacks if cornered, though this is far from its intended role. Engineers operating this configuration typically work ahead of advancing formations, clearing lanes through mined terrain to allow heavier units to pass safely.</p>
+</capabilities>
+
+<overview>
+<p>The PEX-2F Salrilla is an industrial exoskeleton developed by StarCorps Industries as a purpose-built battlefield salvage platform. Derived from the company's successful Gorilla civilian exoskeleton, the Salrilla addresses the shortcomings that made its predecessor poorly suited to operating near active combat zones. StarCorps produces the suit at four factory worlds, maintaining the same broad distribution network that made the Gorilla ubiquitous. The Salrilla fills a critical logistics role for military commands across the Inner Sphere, providing dedicated recovery and engineering capability at a fraction of the cost of true battle armor.</p>
+</overview>
+
+<deployment>
+<p>Inner Sphere combat engineers organized mine clearance Salrillas into four-trooper squads that worked in staggered formations ahead of advancing columns. Each squad could clear a lane wide enough for BattleMech passage, with operators working in overlapping sweeps to minimize the risk of missed ordnance. This configuration saw heavy use during the FedCom Civil War and subsequent conflicts where minefields became common defensive measures.</p>
+</deployment>
+
+<history>
+<p>StarCorps Industries developed the Salrilla after observing private contractors and military units attempting to use the Gorilla exoskeleton for battlefield salvage with mixed results. The company recognized the market opportunity and set about improving the base design for the demands of active combat zones. The resulting PEX-2F offered substantially better armor protection and triple the ground speed of its predecessor, with only a modest increase in cost.</p><p>StarCorps debuted the Salrilla in 3058 across the same factory network that produced the Gorilla, ensuring rapid availability. The suit quickly became a fixture with military salvage and recovery details across the Inner Sphere, where its improved survivability allowed operators to work closer to active fighting. A mine clearance variant followed, adapting the modular equipment mounts for demining operations. Both configurations saw heavy demand during the FedCom Civil War and the Jihad, as the escalating scale of destruction generated enormous quantities of battlefield wreckage requiring systematic recovery.</p>
+</history>
+
+<manufacturer>
+StarCorps Industries|StarCorps Industries|StarCorps Industries|StarCorps Industries
+</manufacturer>
+
+<primaryFactory>
+Crofton|Emris IV|Loburg|St. Ives
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<published>
+RS:VA
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<exoskeleton>
+true
+</exoskeleton>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

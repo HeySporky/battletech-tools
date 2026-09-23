@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c84b-7b65-8502-d1e89e095b23
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Nexus II
+model:NXS2-A
+mul id:2261
+
+Config:Biped
+techbase:Inner Sphere
+era:3066
+source:TR:3055U,TR:J
+published:RS:J
+rules level:2
+role:Scout
+
+quirk:bad_rep_is
+quirk:ext_twist
+
+mass:25
+engine:200 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:8
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:5
+RA armor:5
+LT armor:5
+RT armor:5
+CT armor:7
+HD armor:8
+LL armor:7
+RL armor:7
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:4
+ER Medium Laser, Left Arm
+ER Small Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Small Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERMediumLaser
+ISERSmallLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERMediumLaser
+ISERSmallLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISC3iUnit
+ISC3iUnit
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Nexus II represents the Word of Blake's fulfillment of a long-promised comprehensive overhaul of the Nexus platform. Produced by Blakist engineers at Skobel MechWorks on Terra beginning in 3066, the Nexus II addressed virtually every criticism of the original, creating a substantially more capable combat platform with improved armor, greater speed, and extended jump capability.</p><p>Production of the Nexus II remained confined to the Terra facility under Word of Blake control throughout the Jihad. Following the Blakist defeat, the production line fell silent, though the design's influence extended beyond its own production run. Recovered blueprints would eventually enable the Scorpion Empire to develop the Star Python, a fully Clan-tech derivative, in 3152.</p>
+
+capabilities:<p>The Nexus II addresses virtually every criticism leveled at its predecessor through aggressive application of advanced technology. The Vox-LE 200 light fusion engine increases top speed to approximately 130 kilometers per hour while providing better survivability than an extralight design. Six Rawlings 55 jump jets enable an impressive 180-meter jump capability, making the Nexus II one of the most mobile light 'Mechs of its era.</p><p>The weapons suite shifts entirely to extended-range energy weapons, with two Diverse Optics Sunbeam ER medium lasers and two ER small lasers providing effective firepower at longer ranges than the original Nexus's close-quarters loadout. An integrated C3i computer maintains the cooperative targeting capability that defines the Nexus line. Armor protection increases to three and a half tons of Krupp 200 standard plating, nearly doubling the coverage of the original, though the switch from ferro-fibrous to standard armor means this improvement comes at a significant weight cost.</p><p>The proven Skobel 100-ROB endo-steel chassis carries forward from the original Jackrabbit design, providing a reliable structural foundation that has now served across three generations of 'Mechs. Ten double heat sinks manage the all-energy arsenal efficiently, allowing sustained fire without excessive heat buildup.</p>
+
+deployment:<p>The primary production model addresses the original Nexus's most critical shortcomings through adoption of the Vox-LE 200 light fusion engine and a comprehensive weapons upgrade to extended-range lasers. Its 180-meter jump capability and C3i computer make it a far more versatile platform than its predecessor. The Third Division made good their earlier Nexus losses with the bulk of the first two production runs by the end of 3066, and the remaining divisions received the new variant shortly thereafter.</p>
+
+history:<p>The Nexus II was born from necessity and frustration. Throughout the late 3050s, Nexus pilots had complained bitterly about the design's inadequate armor and short-range weapons, problems that Operation Odysseus in 3058 made impossible to ignore. When the Word of Blake seized control of Terra and the Skobel MechWorks facility, Precentor Martial Cameron St. Jamais inherited both the production line and the backlog of pilot grievances. He promised a comprehensive overhaul when resources permitted.</p><p>The breakthrough came through diplomatic channels. Technology exchange agreements with Archon-Princess Katherine Steiner-Davion provided access to the Lyran Alliance's light fusion engine technology, solving the fundamental weight problem that had constrained the original Nexus design. Given the 'Mech's limited internal space, Blakist engineers chose to redesign the Nexus from the ground up rather than risk compromising the existing chassis integrity. The extensively modified Nexus II began production in 3066, entering service with the Word of Blake Militia just as the Jihad erupted.</p><p>Both the NXS2-A and the electronic warfare-focused NXS2-B served exclusively within Word of Blake formations throughout the Jihad. The Third Division, which had suffered heavily with the original Nexus, was among the first units to receive the upgraded design and quickly validated its improved combat performance. Production ceased with the fall of the Word of Blake Protectorate, and the Skobel facility on Terra passed to the Republic of the Sphere.</p><p>While no new Nexus II production has been confirmed since the Jihad, the design's legacy endured through unexpected channels. Damaged Word of Blake blueprints preserved in Hanseatic League archives on Braunschweig were recovered by the Scorpion Empire, which used them to develop the Star Python, a fully Clan-tech derivative that entered production in 3152 with Imperial BattleMechs. The Star Python's adoption by the former Clan Goliath Scorpion stands as a startling degree of pragmatism, as the design's lineage stretches back through the Blakist Nexus II and ComStar Nexus to the Rim Worlds Republic's despised Jackrabbit. The Scorpion Empire's willingness to embrace such a tainted heritage speaks to the removal of many traditional Clan stigmas under the pressure of external threats from the Clan Homeworlds.</p>
+
+manufacturer:Skobel MechWorks
+
+primaryfactory:Terra
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Skobel
+systemmode:CHASSIS:100-ROB Endo Steel
+systemmanufacturer:ENGINE:Vox
+systemmode:ENGINE:LE 200 Light
+systemmanufacturer:ARMOR:Krupp
+systemmode:ARMOR:200
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:55
+systemmanufacturer:COMMUNICATIONS:Exeter
+systemmode:COMMUNICATIONS:Longscan 200 with C3i Computer
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:T15J

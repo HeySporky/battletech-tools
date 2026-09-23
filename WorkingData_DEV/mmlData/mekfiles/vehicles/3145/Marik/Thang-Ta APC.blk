@@ -1,0 +1,158 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e805-723c-bf2c-9d876a55e2be
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Thang-Ta APC
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6487
+</mul id:>
+
+<year>
+3079
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:1.0
+</transporters>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+15
+10
+10
+10
+8
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISERSmallLaser
+ISERSmallLaser
+</Turret Equipment>
+
+<capabilities>
+<p>The Thang-Ta carries an infantry squad into combat aboard a sturdy wheeled chassis powered by a Magna 70 fusion engine, reaching a top speed just over 150 kilometers per hour. That speed is the vehicle's most reliable asset and its primary defensive tool. Valiant Chainmail ferro-fibrous armor provides solid protection for a vehicle of this weight class, allowing the Thang-Ta to absorb fire while delivering its passengers to the objective.</p><p>The armament consists of two Magna Mk IV Extended-Range Small Lasers mounted in a turret, offering full-circle coverage without heat concerns. Against lightly armored infantry or unprotected targets, the lasers perform adequately. Against serious armored opposition, they offer little beyond nuisance value, and crews are expected to disengage rather than engage heavier threats.</p><p>The turret has long been a source of frustration. Balky mechanical linkages mean that even glancing hits can seize the mount entirely, leaving the crew with no offensive recourse beyond their road speed. Earthwerks sacrificed creature comforts throughout the design to minimize weight and cost, a compromise noticed on extended deployments. The Thang-Ta is not a fire support platform and was never intended to be. Its value lies in delivering infantry intact.</p>
+</capabilities>
+
+<overview>
+<p>Earthwerks-FWL, Incorporated introduced the Thang-Ta shortly before the Jihad as a straightforward, cost-effective infantry transport built for the Free Worlds League's combined-arms doctrine. Simple construction kept production costs low without sacrificing the durability required on contested worlds. When the Jihad shattered the League into warring splinter states, the Thang-Ta proved well suited to the chaotic conditions that followed. Affordable to manufacture and maintain, the vehicle became a staple carrier for the Regulan Fiefs and other successor states struggling to field viable ground forces across a prolonged period of political fragmentation. Its adaptability to varied theaters, from disputed border worlds to urban pacification roles, cemented its reputation as a reliable workhorse. When Captain-General Jessica Marik oversaw the reunification of the Free Worlds League, the Thang-Ta had already proven its value across decades of continuous service with multiple successor states.</p>
+</overview>
+
+<deployment>
+<p>The Thang-Ta serves throughout the reformed Free Worlds League as a standard light infantry carrier, assigned to combined-arms formations at the battalion level and below. It operates frequently in platoon-strength groups alongside heavier armor or BattleMech support, particularly in garrison and security roles on contested League worlds. Cost-effective construction has enabled deployment in substantial numbers. The Regulan Fiefs and several former League splinter states distributed the type widely across their ground forces during the Dark Age, and captured or transferred examples serve in non-League militaries as well. Logistics officers favor the vehicle for its reliable fusion powerplant and simplified systems, which minimize maintenance demands across varied operational environments.</p>
+</deployment>
+
+<history>
+<p>Earthwerks-FWL, Incorporated developed the Thang-Ta at their Tiber facility in the years before the Jihad, fielding the vehicle just as Word of Blake operations began fracturing the Free Worlds League into competing factions. Production at Tiber continued even as political control of the facility shifted over the following decades, first passing to the Regulan Fiefs as the Dark Age reshaped former League territory. The Thang-Ta participated in nearly every major conflict among the League's splinter factions, serving as a cost-effective infantry carrier across contested border worlds and pacification operations where more sophisticated vehicles were unavailable.</p><p>During the Victoria War, Thang-Ta battalions operated with the First Andurien Rangers through the Betelgeuse campaign and the difficult withdrawal to Sigma Mare. House Imarra's combined-arms assault overwhelmed the Rangers, forcing a retreat to Sigma Mare where Thang-Ta crews conducted repeated sorties to recover scattered infantry from across the small continent of Tropinado. Operating under sustained fire from House Imarra BattleMechs and tanks, the APCs breached enemy lines repeatedly. The final breakthrough came at heavy cost when Imarra forces shifted focus entirely to the carriers. Speed and armor preserved most troopers, but a fighter ambush en route to the Rangers' JumpShips negated much of the effort. Only two platoons of the Thang-Ta battalion lifted off Sigma Mare.</p><p>On Loyalty in 3143, First Loyalty Defenders units equipped with Thang-Tas faced Mu Galaxy's Nineteenth Wolf Cavalry in a Trial of Possession for the Kallon Industries facility. Thang-Ta crews drove through the Cavalry's lines in a suicidal charge that disrupted the trial and forced the warriors into a melee, ultimately pushing the Cavalry into retreat. The disgrace of that loss led to two Stars of Clan warriors being consigned to the solahma. A follow-on Trial in 3144 proved more costly, with the Wolf Cavalry adapting to the Defenders' tactics and obliterating the Thang-Ta company. With the League's reunification under Captain-General Jessica Marik, the Tiber facility returned to direct Free Worlds League control, and the Thang-Ta remained a standard component of the reformed League's combined-arms inventory.</p>
+</history>
+
+<manufacturer>
+Earthwerks-FWL, Incorporated
+</manufacturer>
+
+<primaryFactory>
+Tiber
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Earthwerks-FWL, Incorporated
+ENGINE:Magna
+ARMOR:Valiant
+COMMUNICATIONS:Garret
+TARGETING:Wasat
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:70 Fusion
+ARMOR:Chainmail
+COMMUNICATIONS:T21-C
+TARGETING:Watchdog W112
+</systemModels>
+
+<source>
+TR:3145:FWL,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+10.0
+</tonnage>
+

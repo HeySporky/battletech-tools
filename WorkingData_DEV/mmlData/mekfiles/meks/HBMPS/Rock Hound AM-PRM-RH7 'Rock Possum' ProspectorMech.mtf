@@ -1,0 +1,193 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6bb-76de-bcb9-dd2ae5dff78b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Rock Hound
+model:AM-PRM-RH7 'Rock Possum' ProspectorMech
+mul id:4928
+
+Config:Biped
+techbase:Inner Sphere
+era:3045
+source:HB:MPS
+published:HB:MPS
+rules level:2
+role:None
+
+
+mass:40
+engine:160 Fuel Cell Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:1 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:10
+RT armor:10
+CT armor:12
+HD armor:8
+LL armor:13
+RL armor:13
+RTL armor:6
+RTR armor:6
+RTC armor:6
+
+Weapons:1
+SRM 4, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+MiningDrill
+MiningDrill
+MiningDrill
+MiningDrill
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+SRM 4
+IS Ammo SRM-4
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Searchlight
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Ejection Seat (Industrial Mech)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Rock Hound AM-PRM-RH7 ProspectorMech was introduced in 3042 by Alliance Motors, Limited of Sevon in the Outworlds Alliance. Designed as an IndustrialMech for the growing lostech prospecting industry, the Rock Hound was purpose-built to explore the hazardous ruins and wastelands left behind by the Reunification War and the Succession Wars, particularly across the resource-rich but dangerous worlds of the Periphery.</p><p>As one of the largest WorkMech producers in the Periphery, Alliance Motors recognized a growing market among prospectors who needed more than standard industrial equipment to survive encounters with pirates and hostile wildlife common to frontier worlds. The Rock Hound's unusual combination of military-grade armor and weapons on an industrial chassis made it an immediate success, attracting buyers from across the Periphery and the Inner Sphere. Alliance Motors has produced the design continuously since its introduction, offering several factory variants to meet diverse operational requirements.</p>
+
+capabilities:<p>The Rock Hound is a forty-ton middleweight IndustrialMech powered by an Alliance 160 fuel cell engine, giving it a respectable cruising speed of 43 kilometers per hour. What sets the design apart from typical WorkMechs is its military-grade StarSlab/6 armor and offensive armament, twin Shannon Fore SRM-4 launchers imported from the Taurian Concordat and slaved to a dedicated military fire control system. This combination allows the Rock Hound to seriously threaten light BattleMechs and makes it a deadly opponent for conventional vehicles and infantry, though the chassis' limited heat sink capacity forces pilots to use the missile launchers sparingly.</p><p>Beyond its combat capabilities, the Rock Hound is equipped with a powerful rock cutter and lift hoist for its primary prospecting mission, along with a high-power searchlight for nighttime and underground operations. The inclusion of a pilot ejection system is particularly noteworthy, as this safety feature is rarely seen on WorkMech designs. Communications and targeting are handled by a Garret T10B system and O/P 911-C tracking system respectively, providing adequate situational awareness for operations in remote and hostile environments.</p>
+
+deployment:<p>Also known as the "Rock Possum," this cargo variant trades offensive capability for hauling capacity. Introduced in 3045, the modification replaces one SRM-4 launcher and a heat sink with an internalized three-ton cargo bay in the right torso, allowing the ProspectorMech to transport recovered salvage and materials directly from the field without requiring a separate transport vehicle. This trade-off makes the Rock Possum the preferred choice for prospecting operations focused on recovery and material extraction rather than exploration of potentially hostile sites.</p>
+
+history:<p>The Rock Hound emerged from the Outworlds Alliance's unlikely industrial sector in the early 3040s, a period when lostech prospecting was becoming an increasingly lucrative, if dangerous, enterprise across the Periphery. Alliance Motors, Limited, already established as one of the region's largest WorkMech manufacturers, identified a gap in the market for a purpose-built prospecting platform that could defend itself against the pirates and hostile fauna that plagued frontier worlds.</p><p>Production began at Alliance Motors' Sevon facility in 3042, with the base AM-PRM-RH7 model quickly finding buyers among Periphery prospecting firms and major Periphery states alike. The Taurian Concordat and Magistracy of Canopus became significant customers, while the Interstellar Expeditions group, rumored to have helped fund the design's development, acquired substantial numbers for their deep exploration missions. Within a year Alliance Motors introduced the environmentally sealed RH7A variant in 3043, followed by the cargo-focused RH7C variant in 3045.</p><p>The design's popularity extended well beyond the Periphery. By the time of the Clan Invasion in 3049, Rock Hounds had spread across the Inner Sphere, adopted by independent prospectors, small mining firms, and even some militia units who appreciated the combination of industrial utility and military-grade combat capability. The chassis proved particularly valuable on worlds devastated by the Succession Wars, where ruined cities and abandoned military installations offered both rich salvage opportunities and significant dangers.</p><p>Alliance Motors continued production through the Jihad and into the post-war period. Following the formation of the Raven Alliance in 3083, which merged the Outworlds Alliance with Clan Snow Raven, the Sevon facility continued operating under new ownership. Alliance Motors also developed the related AM-PRM-SH1 "Space Hound" in 3047, a more radical derivative design built on a separate chassis with a fusion engine and jump jets for microgravity prospecting operations.</p>
+
+manufacturer:Alliance Motors Ltd.
+
+primaryfactory:Sevon
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alliance Motors, Limited
+systemmode:CHASSIS:AML IndySteel PrM Series
+systemmanufacturer:ENGINE:Alliance Motors, Limited
+systemmode:ENGINE:Alliance 160 Fuel Cell
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:StarSlab/6
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:Garret T10B
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:O/P 911-C

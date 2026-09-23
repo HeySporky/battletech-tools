@@ -1,0 +1,174 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7e4-79ce-906f-e5dad117da57
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Arrow IV Assault Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6446
+</mul id:>
+
+<year>
+3089
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<quirks>
+fast_reload
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+45
+44
+44
+50
+52
+32
+</armor>
+
+<Body Equipment>
+ISAMS Ammo
+ISAMS Ammo
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISCASE
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+ISAntiMissileSystem
+</Right Equipment>
+
+<Left Equipment>
+ISAntiMissileSystem
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rear Turret Equipment>
+ISArrowIV
+</Rear Turret Equipment>
+
+<Front Turret Equipment>
+ISMediumVSPLaser
+ISMediumVSPLaser
+</Front Turret Equipment>
+
+<capabilities>
+<p>The Arrow IV Assault Vehicle mounts a single Luxor I Arrow IV Artillery System as its primary weapon, trading the Demolisher's second launcher for a far more survivable combat profile. StarSlab/7 Heavy Ferro-Fibrous plating covers the hull, providing substantially heavier protection than the Demolisher and giving crews meaningful resistance against the direct fire most likely to target an exposed artillery position. CASE compartmentalization protects the main chassis from secondary explosions should the turret ammunition ignite. A GM 240 fusion engine provides power, delivering a cruising speed of 32 kilometers per hour adequate for repositioning within an engagement zone.</p><p>Two Blankenburg Medium Variable-Speed Pulse Lasers are mounted independently in the turret, allowing the AAV to engage closing infantry and light vehicles without interrupting Arrow IV bombardment cycles. A pair of LFN Lindblad Shotgun Anti-Missile Systems on the hull provides a meaningful defensive layer against incoming missiles, the attack profile most commonly used to suppress exposed artillery. The VSP lasers' independent turret mounting is a particular strength, letting crews track fast-moving threats without repositioning the hull and breaking firing solutions for the Arrow IV system.</p><p>The launch racks are designed with full modularity in mind: all ammunition is stored within the rack assembly itself rather than in the main hull, and the AAV's chassis is reinforced to tow its own ammunition trailers in a configuration reminiscent of older Long Tom land train concepts. Spent racks can be removed and replaced with fresh trailers directly on the battlefield, dramatically reducing reload time compared to conventional artillery vehicles. This logistical flexibility makes the AAV an attractive option for commands operating extended fire missions in contested areas.</p>
+</capabilities>
+
+<overview>
+<p>The Arrow IV Assault Vehicle is an eighty-ton tracked artillery platform developed by Majesty Metals and Manufacturing on Canopus IV and introduced in 3089. Conceived as a direct evolution of the Demolisher Arrow IV tank, the design sacrifices one of the Demolisher's two missile launchers to carry substantially heavier armor and a dedicated anti-missile suite, correcting a critical vulnerability in the original platform. Where the Demolisher proved susceptible to counterattack once enemy forces identified and closed with the artillery line, the AAV is engineered to absorb direct fire and continue its mission. Majesty Metals brought the design to market by capitalizing on the Magistracy Armed Forces' demonstrated appetite for Arrow IV artillery and the broader New Magistracy emphasis on indirect fire capability. Since its introduction, the AAV has established itself as one of the most durable heavy artillery vehicles available, spreading from its Canopian origins into service across the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Arrow IV Assault Vehicle serves primarily within Magistracy Armed Forces artillery battalions, where its combination of firepower, survivability, and logistical flexibility has made it the preferred heavy Arrow IV platform over the older Demolisher type. The design can be found across the Free Worlds, with Brooks Incorporated's Andurien production line supplying units throughout that region since 3101. The type has spread to Taurian Concordat forces and mercenary commands operating across the Inner Sphere, and Lyran units along the Jade Falcon border have adopted the AAV for its ability to withstand the aggressive counterattacks that Clan forces mount against identified artillery positions.</p>
+</deployment>
+
+<history>
+<p>During Naomi Centralla's campaign to expel the Thirty-fourth Word of Blake Militia from Canopus IV, the Magistracy Armed Forces demonstrated the decisive potential of coordinated Arrow IV artillery. Demolisher tanks armed with Arrow IV systems served with the Red Lancers, using sustained barrage fire to herd Word of Blake formations into killing grounds and deny them freedom of maneuver. The battle convinced MAF High Command that Arrow IV artillery was a force multiplier worth pursuing at scale, and the Magistracy subsequently acquired large quantities of Capellan Arrow IV Demolishers to fill the gap while domestic production expanded.</p><p>The Demolisher carried a recognized operational weakness, however: its relatively light armor left crews vulnerable once enemy forces closed to neutralize the artillery threat. When counterattacking units reached the artillery line, Demolisher crews had limited options. Majesty Metals and Manufacturing recognized this gap and in 3089 released the Arrow IV Assault Vehicle. By accepting one fewer Arrow IV launcher, the AAV could carry protection far exceeding that of the Demolisher, transforming a vulnerable fire support vehicle into an artillery tank capable of surviving sustained direct engagement with its attackers. The New Magistracy's focus on Arrow IV artillery capability made the design a natural investment, and the MAF became the AAV's first and most committed customer.</p><p>Demand quickly outpaced Majesty Metals' production capacity at Canopus IV, and in 3101 the company licensed manufacturing rights to Brooks Incorporated at Andurien, extending the AAV's industrial base into Free Worlds League space. The design's combat reputation was cemented during the 3145 campaign on Almach, where Red Lancer AAVs withstood repeated attacks by a company of Davion Fulcrum hovertanks. The Fulcrums had been dispatched to silence the Arrow IV barrage suppressing the First Federated Suns Armored Cavalry's withdrawal, expecting to face the lighter Demolisher type. Instead they found vehicles capable of absorbing their fire while the independently turreted lasers and anti-missile systems stripped away the Fulcrums' advantages. The uninterrupted bombardment kept the Armored Cavalry from disengaging as the Red Lancers' BattleMechs finished the engagement. The AAV's performance at Almach validated the design philosophy Majesty Metals had pursued since 3089, and demand continued to grow throughout the Dark Age period.</p>
+</history>
+
+<manufacturer>
+Majesty Metals & Manufacturing|Brooks Incorporated
+</manufacturer>
+
+<primaryFactory>
+Canopus IV|Andurien
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:StarSlab
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:FireScan
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:240 Fusion
+ARMOR:StarSlab/7 Heavy Ferro-Fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:Communicator
+TARGETING:FireScan with IndirecTrack
+</systemModels>
+
+<source>
+TR:3145:CC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

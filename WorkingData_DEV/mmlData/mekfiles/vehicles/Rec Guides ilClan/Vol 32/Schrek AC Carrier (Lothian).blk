@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ea27-7abf-8c06-c83dd8cd018c
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Schrek AC Carrier
+</Name>
+
+<Model>
+(Lothian)
+</Model>
+
+<mul id:>
+9477
+</mul id:>
+
+<year>
+3140
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Sniper
+</role>
+
+<quirks>
+low_profile
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+28
+24
+24
+21
+28
+</armor>
+
+<Body Equipment>
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+</Turret Equipment>
+
+<capabilities>
+<p>The standard Schrek AC Carrier carries three AC/5s and eight machine guns, replacing the energy weapons of the base design with a conventional loadout that is easier to support in the field. The removal of the fusion engine eliminates both the Schrek's greatest operational expense and its dependency on a component increasingly difficult to maintain during the Succession Wars. The machine guns address the base design's complete vulnerability to infantry, a significant improvement for a vehicle expected to operate with reduced escort support.</p><p>The trade-offs are considerable. The AC/5s produce substantially less damage per salvo than the three PPCs they replace, and the switch to conventional power reduces operational range in extreme environments. Like its parent design, the Schrek AC Carrier remains slow and lightly protected relative to its mass. The design is best understood as a survival measure, a way to keep a useful asset in the field when the preferred configuration was no longer sustainable. The Lothian variant later formalized and improved on this concept with Ultra AC/10s and ferro-fibrous armor.</p>
+</capabilities>
+
+<overview>
+<p>The Schrek AC Carrier is a product of Third Succession War desperation rather than deliberate design intent. As BattleMech units competed with armor formations for scarce fusion engine components during that conflict, Schrek crews whose vehicles had been stripped of their power plants and particle projection cannons sought ways to preserve the remaining hull's utility.</p><p>The solution was straightforward: replace the fusion engine with an inexpensive ICE powerplant and rearm the vehicle with autocannons. The resulting autocannon carrier traded the Schrek's sophisticated energy weapons for a more sustainable conventional loadout, accepting reduced long-range capability in exchange for lower maintenance costs and ammunition-based logistics far easier to sustain during the resource-scarce Succession Wars.</p>
+</overview>
+
+<deployment>
+<p>Produced by the Alphard Trading Corporation on Leximon for the Lothian League beginning around 3140, this variant formalizes the autocannon conversion concept with three Marian-sourced Ultra AC/10s backed by six tons of ammunition. Ferro-fibrous armor improves survivability compared to typical field conversions. An ICE powerplant keeps production and maintenance costs accessible for Lothian League logistics, and the design represents the League's investment in a domestically producible anti-armor platform.</p>
+</deployment>
+
+<history>
+<p>The Schrek AC Carrier's emergence during the Third Succession War reflects a pattern common across the Inner Sphere during that period: converting sophisticated but maintenance-intensive assets into simpler, sustainable alternatives. As the war ground on and fusion engine production continued to contract, units fielding Schreks faced increasingly difficult decisions about how to allocate scarce power plants and PPC components. The PPCs were often stripped first to supply BattleMech repair programs, and the GoreTex fusion engines followed shortly after.</p><p>Rather than abandoning the robust Schrek hull entirely, field technicians improvised. ICE powerplants were sourced from commercial and industrial vehicles, and autocannon batteries replaced the turret weaponry. The removal of the fusion engine's heat-management requirements also allowed crews to strip the heavy heat sink array, freeing mass for additional armor. These converted hulls circulated widely through the later stages of the Succession Wars and persisted in rear-area and garrison units well into the Clan Invasion era and beyond.</p><p>The Lothian League's Alphard Trading Corporation eventually formalized the concept with a dedicated production variant, replacing the field-improvised configuration with a design using Marian-sourced Ultra AC/10s for substantially greater anti-armor capability. The Lothian variant entered production around 3140, representing the League's investment in a domestically producible platform suited to its defensive strategic posture.</p>
+</history>
+
+<manufacturer>
+Alphard Trading Corporation
+</manufacturer>
+
+<primaryFactory>
+Leximon
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:ICE
+ARMOR:Ferro-Fibrous
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+RG32
+</source>
+
+<published>
+RG32
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

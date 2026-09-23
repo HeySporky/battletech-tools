@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d698-7cbf-96a6-8fab66b9c02b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Vision Quest
+model:2
+mul id:7639
+
+Config:Biped
+techbase:Clan
+era:2868
+source:TR:GC
+published:TR:GC
+rules level:2
+role:Sniper
+
+
+mass:60
+engine:300 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:13 Clan Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:20
+RA armor:20
+LT armor:21
+RT armor:21
+CT armor:28
+HD armor:9
+LL armor:25
+RL armor:25
+RTL armor:7
+RTR armor:7
+RTC armor:9
+
+Weapons:6
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+Gauss Rifle, Right Arm
+ER Large Laser, Left Torso
+ER Large Laser, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLERLargeLaser
+CLERLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Clan Gauss Ammo
+Clan Gauss Ammo
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Ferro-Fibrous
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Vision Quest was introduced in 2828 as the first original BattleMech design produced by Clan Nova Cat. Built by Brim Ironworks on the Clan homeworld of Brim, the sixty-ton heavy 'Mech was dedicated to the memory of Khan Sandra Rosse, honoring her vision for the Nova Cats and Kerensky's Clans as a whole. Though conceived more as a symbol of Clan pride than a revolutionary weapons platform, the Vision Quest served as a capable workhorse that could anchor a defensive line or support an aggressive charge. The design demonstrated Brim Ironworks' growing manufacturing capabilities during the Golden Century, incorporating early Clan-specification energy weapons alongside ballistic systems. Production remained limited throughout the design's service life, with the Vision Quest gradually being supplanted by the rise of OmniMech technology beginning in the late twenty-ninth century.</p>
+
+capabilities:<p>The Vision Quest's armament centers on a Kaumodaki Improved Gauss rifle, giving the 'Mech devastating long-range striking power against targets at considerable distance. This primary weapon is complemented by a pair of SearFire Clan ER Large Lasers, providing sustained energy firepower that does not depend on ammunition supplies. For close-range engagements, three Eclipser Medium Pulse Lasers offer accurate fire against fast-moving targets, making the Vision Quest dangerous across multiple range brackets.</p><p>The MotivX 300 XL engine drives the sixty-ton frame to a cruising speed of 54 kilometers per hour, adequate for maintaining formation with heavier elements while keeping pace during general advances. HardShell Class-I Ferro-Fibrous armor provides solid protection, making efficient use of the chassis's tonnage allocation. However, the Vision Quest lacks jump capability entirely, limiting its tactical flexibility in rough terrain and urban environments. The reliance on an XL engine creates an additional vulnerability, as damage to either side torso can result in catastrophic engine failure. Despite these trade-offs, the design's balanced weapon array and respectable armor protection make it a dependable anchor for any formation willing to accept its limitations.</p>
+
+deployment:<p>The Vision Quest 2 emerged in 2868 from a joint development program between the Nova Cats and Clan Snow Raven, representing a return to the original design's long-range philosophy. The improved Gauss rifle was replaced with a standard Gauss rifle, while the Eclipser Medium Pulse Lasers gave way to ER Small Lasers. These changes, combined with improved heat management systems and the integration of a targeting computer, created a more refined fire support platform. The collaboration with the Snow Ravens ensured the Vision Quest 2 saw limited adoption beyond its parent Clan, though the Snow Ravens themselves maintained a small number in their toumans through the end of the Golden Century.</p>
+
+history:<p>The Vision Quest's story is inseparable from Clan Nova Cat's identity as a Clan of mystics and visionaries. Dedicated to Khan Sandra Rosse upon its introduction in 2828, the 'Mech embodied the Cats' desire to establish their own manufacturing traditions independent of other Clans' designs. Brim Ironworks on the planet Brim served as the sole production facility throughout the design's history, and the Vision Quest held the distinction of being the first original BattleMech the Nova Cats ever produced.</p><p>The 'Mech achieved early notoriety through a Trial of Grievance between Khan Phillip Drummond and Smoke Jaguar saKhan Liam Ismiril. Drummond deliberately chose the Vision Quest for the Trial, and though he initially fared poorly against the younger warrior, he employed tactical cunning to exploit Ismiril's overconfidence, maneuvering his large lasers to bear on the Jaguar's rear armor and triggering a catastrophic reactor failure. This victory cemented the design's status as a symbol of Nova Cat pride and perseverance, fueling rivalry between the two Clans that persisted through the rest of the Golden Century.</p><p>The Clantech standard variant introduced around 2832 gave the design renewed tactical relevance, and this configuration served as the primary production model for decades. A later joint effort with Clan Snow Raven produced the Vision Quest 2 in 2868, though by this point OmniMech technology was rapidly rendering fixed-configuration designs obsolete. The Burrocks and Snow Ravens maintained limited interest in the design, occasionally fielding Vision Quests in Trials of Possession, but even this waned as the thirty-first century progressed. Among the Nova Cats themselves, only a single Vision Quest survived their relocation to the Inner Sphere.</p><p>When the Nova Cats departed their homeworlds for the Inner Sphere beginning around 3060, their holdings on Brim, including the Brim Ironworks facility, eventually fell under Clan Cloud Cobra administration. Though the factory changed hands, Vision Quest production had long since ceased as a practical matter, with the facility's value lying in its broader manufacturing infrastructure rather than any continued demand for the design.</p><p>The Vision Quest's final chapter was written during the Nova Cat rebellion against the Draconis Combine on Irece. Besieged and fighting desperately, the Cats gathered every piece of war materiel available. Nova Cat technicians presented Khan Jacali Nostra with an unexpected gift: the original Vision Quest once piloted by Khan Phillip Drummond, maintained for over three hundred years as an honored relic and guardian of the Cats' central genetic repository, now refurbished and made battle-ready. Khan Nostra led the final stand of the Nova Cats from the same cockpit in which her predecessor had long ago inspired their Clan, standing defiantly before the doors of the central repository until a Combine fighter wing obliterated the site. The 'Mech that had begun as a memorial to one Khan's vision accompanied another in the Nova Cats' last battle, a fitting end for a design that had always meant more as a symbol than as a weapon of war.</p>
+
+manufacturer:Brim Ironworks
+
+primaryfactory:Brim
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Brim Ironworks
+systemmode:CHASSIS:Endo Frame Brim-8
+systemmanufacturer:ENGINE:MotivX
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:HardShell
+systemmode:ARMOR:Class-I Ferro
+systemmanufacturer:COMMUNICATIONS:Nova Cat Comms
+systemmode:COMMUNICATIONS:Package A
+systemmanufacturer:TARGETING:PreyStalker
+systemmode:TARGETING:TTS 5.4

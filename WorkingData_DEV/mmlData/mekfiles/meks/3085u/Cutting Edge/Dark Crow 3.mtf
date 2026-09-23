@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf6e-752a-bc87-eb46dff3cdff
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Dark Crow
+model:3
+mul id:825
+
+Config:Biped
+techbase:Clan
+era:3084
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:4
+role:Striker
+
+quirk:low_arms
+
+mass:55
+engine:330 XXL (Clan) Engine
+structure:Clan Endo-Composite
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:6
+jump mp:6
+
+armor:Ferro-Lamellor(Clan)
+LA armor:10
+RA armor:10
+LT armor:16
+RT armor:16
+CT armor:18
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:3
+RTR armor:3
+RTC armor:3
+
+Weapons:4
+Rotary AC/2, Left Arm
+Rotary AC/2, Right Arm
+Improved Heavy Medium Laser, Left Torso
+Improved Heavy Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLPartialWing
+CLPartialWing
+CLPartialWing
+Jump Jet
+CLImprovedMediumHeavyLaser
+CLImprovedMediumHeavyLaser
+CLRotaryAC2 Ammo
+Clan Endo-Composite
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLPartialWing
+CLPartialWing
+CLPartialWing
+Jump Jet
+CLImprovedMediumHeavyLaser
+CLImprovedMediumHeavyLaser
+CLRotaryAC2 Ammo
+Clan Endo-Composite
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Liquid Storage:SIZE:1.0
+Clan Endo-Composite
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo-Composite
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Dark Crow is a Clan Snow Raven medium BattleMech introduced in 3084, produced exclusively at the Snow Raven Industrial Complex Alpha on Dante in the former Outworlds Alliance. Representing one of the Clan's first truly original designs rather than an iteration of existing Star League-era technology, the Dark Crow was developed as a second-line combatant for garrison and patrol duties. Named after a subterranean predatory bird native to Dante's cave systems, the design reflects Snow Raven ingenuity in creating purpose-built solutions for their expanding Inner Sphere territory.</p><p>The fifty-five-ton 'Mech emphasizes speed and firepower over protection, achieving near-heavy 'Mech offensive capability in a medium chassis. While initially overshadowed by OmniMech designs in frontline service, the Dark Crow has carved out a valued niche among second-line forces tasked with territorial defense across the Raven Alliance.</p>
+
+capabilities:<p>The Dark Crow's most distinctive physical feature is its low-mounted arms, positioned near the torso rather than at the shoulders like most BattleMechs. This unusual configuration, inspired by the six-limbed anatomy of its cave-dwelling namesake, gives the design superior firing arcs in confined spaces and urban environments. The stubby wing-like extensions on the side torsos serve as stand-off armor, providing above-average protection for the thick central torso.</p><p>The primary armament consists of a pair of Type 31 Ultra autocannon/5s mounted in the arms, fed by four tons of ammunition. These reliable weapons provide substantial firepower at medium to long range while maintaining a high rate of fire. A Series 6b extended-range large laser in the left torso offers dedicated long-range sniping capability and serves as an effective backup when ammunition runs dry. A Mk 22 SRM-6 launcher in the right torso fills the close-range gap inside the autocannons' minimum effective distance.</p><p>Powered by a 330-rated extralight fusion engine, the Dark Crow achieves speeds approaching one hundred kilometers per hour, making it exceptionally fast for its weight class. However, this performance comes at a cost, only eight tons of standard armor protect the chassis, leaving the design particularly under-armored compared to most medium 'Mechs. The lack of jump jets further limits its tactical flexibility, though the Snow Ravens consider this an acceptable trade-off for the 'Mech's speed and offensive punch.</p>
+
+deployment:<p>Developed by Clan Snow Raven's S-Teams in 3084, this experimental variant represents one of the most ambitious modifications in the Dark Crow program. Virtually every aspect of the base design has been reworked to create a space-capable combat platform. The arm-mounted weapons are replaced with rotary autocannon/2s, while improved heavy medium lasers provide close-range firepower. The chassis itself is rebuilt around an endo-composite structure and an XXL fusion engine, with ferro-lamellor armor providing substantially enhanced protection. Six jump jets and experimental partial wings enable two-hundred-forty-meter leaps in standard gravity, while a liquid storage tank carries additional reaction mass for space operations. Though fragile due to its XXL engine, this configuration has proven very effective in anti-piracy operations throughout Raven Alliance space.</p>
+
+history:<p>The Dark Crow emerged during the early years of the Raven Alliance, when Clan Snow Raven found itself in the unique position of managing a combined Clan-Inner Sphere state within the former Outworlds Alliance. The need for garrison 'Mechs to patrol their newly expanded territory, combined with a desire to demonstrate Clan engineering innovation, led to the development of an entirely original design rather than another derivative of Star League-era technology.</p><p>Production began in 3084 at the Snow Raven Industrial Complex Alpha on Dante, utilizing the planet's existing industrial infrastructure. The decision to base production in the Inner Sphere rather than at traditional Clan homeworld facilities reflected the Snow Ravens' pragmatic acceptance of their new reality, their future lay in the Inner Sphere, and their manufacturing base needed to reflect that. The design was not shared with the Outworlds Alliance civilian government, a decision attributed by some to the Periphery power's general disinterest in procuring new BattleMech designs. This exclusivity kept the Dark Crow firmly within Raven Alliance military hands.</p><p>During the early Dark Age period, the base model and its anti-aircraft variant had yet to see significant combat, though the advanced space combat variant developed by the Snow Raven S-Teams proved highly effective in anti-piracy operations throughout the Alliance's borders. These S-Team variants, packed with experimental technology including ferro-lamellor armor and partial wings, represented the most ambitious iteration of the design and demonstrated the Snow Ravens' continued investment in aerospace-capable 'Mechs.</p><p>By 3087, the Dark Crow 4 entered production, representing a refined combat variant that blended lessons learned from both the original design and the specialized anti-aircraft model. As the Raven Alliance consolidated its position in the post-Jihad political theater, the Dark Crow line continued to serve as a symbol of Snow Raven engineering independence and their commitment to building a self-sufficient military-industrial base in the Inner Sphere.</p>
+
+manufacturer:Snow Raven Industrial Complex Alpha
+
+primaryfactory:Dante
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Endo-Composite
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:330 XXL
+systemmanufacturer:ARMOR:Gravastar
+systemmode:ARMOR:Ferro-Lamellor
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:GBX
+systemmode:COMMUNICATIONS:Series Integrated
+systemmanufacturer:TARGETING:Tokasha
+systemmode:TARGETING:B4-T&T

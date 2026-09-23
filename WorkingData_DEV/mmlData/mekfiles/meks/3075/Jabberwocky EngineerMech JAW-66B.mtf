@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ce9e-7942-b704-5e035ff31367
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Jabberwocky
+model:JAW-66B EngineerMech
+mul id:1650
+
+Config:Biped
+techbase:Inner Sphere
+era:3070
+source:TR:3075
+published:RS:3075u-AW
+rules level:2
+role:Juggernaut
+
+
+mass:50
+engine:200 Fusion Engine
+structure:IS Industrial
+myomer:Industrial Triple-Strength
+cockpit:Industrial Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 Single
+walk mp:4
+jump mp:3
+
+armor:Standard(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:5
+RT armor:5
+CT armor:9
+HD armor:6
+LL armor:6
+RL armor:6
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:0
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Spot Welder
+Environmental Sealing (Mech)
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Salvage Arm
+Salvage Arm
+Environmental Sealing (Mech)
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Jump Jet
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+Searchlight
+Environmental Sealing (Mech)
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Jump Jet
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+Environmental Sealing (Mech)
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Environmental Sealing (Mech)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Environmental Sealing (Mech)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Tracks
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Tracks
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Jabberwocky is a fifty-ton fusion-powered IndustrialMech originally developed by Jalastar Aerospace in 2549 as a general military support unit. The original JAW-65A design fell far short of expectations due to engineering limitations and was quickly relegated to menial tasks, with all production models scrapped within a few decades. Over five hundred years later, the devastation wrought by the Jihad created an acute shortage of engineering and support equipment across the Federated Suns. As one of the few manufacturers to emerge from the early fighting relatively unscathed, Jalastar seized the opportunity to revive the Jabberwocky concept.</p><p>In 3070, the company debuted the completely reworked JAW-66B, a versatile engineering IndustrialMech built around a semi-modular design philosophy that allows operators to swap limb and torso equipment packages for different mission profiles. This flexibility, combined with robust construction and a fusion power plant, has made the Jabberwocky one of the most sought-after support machines in the post-Jihad era.</p>
+
+capabilities:<p>The JAW-66B's design philosophy centers on versatility and durability. Powered by a GM 200 fusion engine, the Jabberwocky achieves a top speed of sixty-four kilometers per hour while a pair of tracks supplements its bipedal locomotion for improved performance on paved surfaces. Three Panpour Special jump jets give the design an unusual degree of maneuverability for a machine of its class, enabling it to navigate the broken terrain of battlefield salvage zones and construction sites alike. Unlike most IndustrialMechs that rely on manual controls, the Jabberwocky utilizes neurohelmets drawn from Jalastar's existing stockpile, giving pilots more intuitive control of the fifty-ton chassis.</p><p>The 'Mech's primary working equipment consists of a StarCorps salvage arm and a JAI spot welder, backed by two JAI lift hoists mounted in the rear torso. Industrial Triple Strength Myomer allows the Jabberwocky to handle loads up to double its own tonnage, a critical advantage for battlefield recovery operations. Environmental sealing and a searchlight extend its operational envelope to hazardous environments including irradiated zones, underwater sites, and vacuum.</p><p>Perhaps the Jabberwocky's most notable feature is its semi-modular construction. Jalastar designed the torso and arm mounting points to accept interchangeable equipment packages, a concept later compared to the Mercury BattleMech's own semi-modular technology. This allows field technicians to reconfigure a single chassis for salvage, demolition, or construction duties with relatively minimal downtime. With components sourced almost entirely from Panpour-based suppliers, maintenance and parts acquisition remain straightforward even in disrupted supply chains.</p>
+
+deployment:<p>The baseline configuration of the redesigned Jabberwocky, introduced in 3070, represents the standard engineering and salvage loadout. Equipped with a salvage arm, spot welder, and dual lift hoists augmented by Industrial Triple Strength Myomer, this configuration excels at battlefield recovery and general engineering support. Orders for this variant have consistently outstripped Jalastar's production capacity, with Federated Suns support units and mercenary commands alike competing for available chassis. Several mercenary units previously interested in VEST's Hyena SalvageMech redirected their orders to Jalastar following the Blakist takeover of Solaris VII.</p>
+
+history:<p>The Jabberwocky's story spans over five centuries, though for most of that time the design existed only as a footnote in Jalastar Aerospace's corporate history. When the original JAW-65A was introduced in 2549, the Age of War was driving demand for military support machines, but the Jabberwocky's fuel cell powerplant and limited capabilities left it poorly suited for the demanding pace of 'Mech-era warfare. The design was quietly abandoned, and all production units were eventually scrapped.</p><p>The Jabberwocky's resurrection came during one of the Inner Sphere's darkest hours. The Jihad, which erupted in 3067, devastated military and industrial infrastructure across every major nation. The Federated Suns, fighting on multiple fronts, found itself pulling every available armed machine from storage and support roles to plug gaps in the front lines. This wholesale stripping of rear-area assets left engineering and reconstruction units critically underequipped at precisely the moment when fortification and repair work was most desperately needed.</p><p>Jalastar Aerospace, based on the Federated Suns world of Panpour, emerged from the Jihad's early years as one of the few manufacturers with intact production capacity. Recognizing both the opportunity and the need, the company dusted off the old Jabberwocky concept and completely redesigned it, debuting the JAW-66B in 3070. The new design's semi-modular architecture and fusion powerplant proved immediately popular, and demand rapidly exceeded Jalastar's ability to deliver.</p><p>The Jabberwocky faced its greatest test when the Taurian Concordat launched a devastating raid against Panpour in 3076. The attack inflicted heavy damage on Jalastar's facilities, though the Jabberwocky production line itself survived largely intact. With the factory's Javelin BattleMech line as the only other production asset to escape serious damage, Jalastar quickly developed the JAW-67 MilitiaMech variant to help meet the Federated Suns' desperate need for combat-capable machines while generating revenue to fund facility repairs. The militarized Jabberwocky served as an effective, if unorthodox, stopgap during the war's final years.</p><p>Following the Jihad's end, the Jabberwocky's industrial variants have continued to see strong demand across the Federated Suns and beyond, supporting the massive reconstruction effort that has defined the post-war period. The MilitiaMech variant, rendered largely anachronistic by peacetime, has been the subject of Jalastar's ongoing campaign to reclassify it as a Corporate SecurityMech, ensuring continued production of the armed variant in a market no longer driven by wartime necessity.</p>
+
+manufacturer:Jalastar Aerospace
+
+primaryfactory:Panpour
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Corean
+systemmode:CHASSIS:Model KL80 Industrial
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:200
+systemmanufacturer:ARMOR:ArcShield
+systemmode:ARMOR:Maxi Special (Industrial Heavy)
+systemmanufacturer:JUMP_JET:Panpour Specials
+systemmode:JUMP_JET:Panpour Specials
+systemmanufacturer:COMMUNICATIONS:O/P
+systemmode:COMMUNICATIONS:R Janxiir
+systemmanufacturer:TARGETING:Jal
+systemmode:TARGETING:ConstrucTrak Mk I

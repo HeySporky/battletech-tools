@@ -1,0 +1,359 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eca3-7497-8d8e-1c948cae3c07
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Nightlord Battleship
+</Name>
+
+<Model>
+(2932)
+</Model>
+
+<mul id:>
+4722
+</mul id:>
+
+<year>
+2932
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:20.0:4:1::-1:0
+mekbay:100.0:3:-1::-1:0
+cargobay:159174.5:0:3::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:1390.0:0:-1::-1:0
+crewquarters:4858.0:0:-1::-1:0
+2ndclassquarters:3500.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+2702
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+5000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+12
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+350
+320
+320
+298
+290
+290
+</armor>
+
+<Nose Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:40
+(B) Naval Laser 55
+(B) Naval PPC (Medium)
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:30
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLERPPC
+CLERPPC
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/25)
+Ammo NAC/10:20
+Ammo NAC/25:20
+(B) Naval Laser 35
+Naval Laser 45
+Naval Laser 55
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:30
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLERPPC
+CLERPPC
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/25)
+Ammo NAC/10:20
+Ammo NAC/25:20
+(B) Naval Laser 35
+Naval Laser 45
+Naval Laser 55
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:30
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:40
+(B) Naval Laser 55
+(B) Naval PPC (Medium)
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:30
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLERPPC
+CLERPPC
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/25)
+Ammo NAC/10:20
+Ammo NAC/25:20
+(B) Naval Laser 35
+Naval Laser 45
+Naval Laser 55
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:30
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) CLERPPC
+CLERPPC
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/25)
+Ammo NAC/10:20
+Ammo NAC/25:20
+(B) Naval Laser 35
+Naval Laser 45
+Naval Laser 55
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:30
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/40)
+Ammo NAC/10:20
+Ammo NAC/40:40
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/40)
+Ammo NAC/10:20
+Ammo NAC/40:40
+(B) Naval Laser 35
+Naval Laser 45
+(B) Naval PPC (Medium)
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:30
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/40)
+Ammo NAC/10:20
+Ammo NAC/40:40
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/40)
+Ammo NAC/10:20
+Ammo NAC/40:40
+(B) Naval Laser 35
+Naval Laser 45
+(B) Naval PPC (Medium)
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:30
+</Right Broadsides Equipment>
+
+<structural_integrity>
+85
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 1,200,000 tons across 1,100 meters of hull, the Nightlord carries more than 1,600 tons of lamellor ferro-carbide armor, providing nearly three times the protection of conventional plating and backed by a structural integrity rating of 85. A lithium-fusion battery system enables rapid successive jumps, while a mobile HPG provides independent interstellar communication. Propulsion delivers a safe thrust of three and maximum of five, giving the massive battleship respectable tactical mobility for its displacement.</p><p>The offensive arsenal centers on naval autocannons across multiple weight classes, supplemented by naval lasers, naval PPCs, and naval Gauss rifles distributed across all firing arcs. Extended-range large lasers and PPCs provide conventional-scale defense against fighters and small craft, while 2,702 double heat sinks manage the thermal output. The vessel carries two Stars of OmniFighters, a combined Galaxy of one hundred OmniMechs and five hundred Elemental marines, and over 174,000 tons of cargo through four docking collars. Two 140-meter gravity decks serve the crew of over 1,500 personnel.</p><p>The Nightlord pays for this capability with extreme construction cost, limiting the number that could be built at any one time. Its massive crew requirement strains the manpower resources of all but the largest Clans, and the loss of a single vessel leaves a gap in fleet strength that cannot be quickly replaced. The concentration of so many ground assets aboard a single hull also creates risk, as a crippled Nightlord could take an entire Galaxy down with it.</p>
+</capabilities>
+
+<overview>
+<p>The Nightlord-class battleship is the pinnacle of Clan-built naval power. Commissioned by Clan Snow Raven at their yards on Lum in 2932, the design was conceived as a self-contained task force command vessel capable of deploying and supporting ground forces on a massive scale while engaging hostile WarShips on equal or superior terms. The Nightlord earned a fearsome reputation across Clan space, with multiple Clans acquiring examples through Trials of Possession to serve as fleet flagships.</p><p>Among the largest and most heavily protected WarShips ever constructed by the Clans, the class carried enough firepower and embarked forces to subdue a world without support. This capability came at extraordinary cost, making each vessel an irreplaceable strategic asset. The Nightlord shaped Clan naval doctrine for over two centuries, and its presence in a fleet signaled a Clan's commitment to projecting power across interstellar distances.</p>
+</overview>
+
+<deployment>
+<p>The CGB Ursa Major participated in the Ghost Bear invasion of Rasalhague in 3050 and in 3062 destroyed the DCS Dragon's Last Tear near the Alshain Naval Yards, triggering the First Dominion-Combine War. The vessel fought extensively during the Jihad at Luthien, Dyev, Dieron, and the Titan Yards before being destroyed at Rasalhague on 29 April 3100 during the Second Combine-Dominion War.</p><p>The CJF Emerald Talon served as the Jade Falcon flagship from Operation REVIVAL onward. The vessel fought the Lyran battlecruiser LCS Yggdrasil at Skye in December 3134 before being crippled during the Jade Falcon Civil War and deliberately crashed into Hammarr, Sudeten's capital, on Khan Malvina Hazen's orders.</p><p>The CSR Snow Raven was destroyed at Dante in 3071 when a JumpShip emerged directly above it. The CSV Dark Asp led the Steel Viper assault on Ironhold in 3069 before being lost during the Wars of Reaving. The CGS Atropos fought at Brim, Foster, and Glory before being destroyed during the Annihilation of Clan Steel Viper in December 3075. The CSA Absolute Truth survived the Wars of Reaving, fighting at Nouveaux Paris, York, and Strana Mechty before leading the bombardment of Blood Spirit remnants at Colleen in 3084.</p><p>The CDS Terror of the Deep served as the Diamond Shark aerospace flagship and participated in Task Force EARTHBOUND at Terra in 3078. Traded to Clan Snow Raven in 3091 and renamed Lynn McKenna, the vessel served with the Raven Alliance Naval Star through 3145 as one of only two operational Alliance WarShips.</p>
+</deployment>
+
+<history>
+<p>Clan Snow Raven launched the first Nightlord from their yards at Lum in 2932, drawing upon experience gained from the smaller Corone-class destroyer. Where the Corone proved effective as a light raider, the Snow Ravens envisioned a vessel capable of matching the legendary McKenna-class in combat power while incorporating advances in Clan construction techniques, protective plating, and weapons technology. The resulting design became one of only three entirely new WarShip classes the Clans ever produced, alongside the Fredasa corvette and the Leviathan transport. The remaining Corone-class vessels were retired to mothball by 2946, their role fully superseded.</p><p>The class proved formidable enough that it spread across Clan space through Trials of Possession. By the mid-thirty-first century, nearly half of all extant Clans maintained at least one Nightlord in their touman. Clan Jade Falcon, Clan Ghost Bear, Clan Diamond Shark, Clan Steel Viper, Clan Star Adder, Clan Coyote, and Clan Goliath Scorpion all fielded examples alongside the Snow Ravens themselves. These vessels typically served as fleet or touman flagships, their combination of firepower and troop transport capacity making them natural command platforms for entire Galaxies.</p><p>The high cost of construction and the continued serviceability of captured Star League-era WarShips limited production numbers. Snow Raven Yards at Lum remained the sole construction facility, and the total built never approached the hundreds common among Star League-era designs. Each vessel was a strategic asset whose loss could reshape the balance of power between rival Clans.</p><p>The Nightlord saw action in nearly every major Clan conflict from Operation REVIVAL through the Wars of Reaving. Multiple vessels fought during the Jihad era, with engagements spanning from the Clan homeworlds to the Inner Sphere. The Wars of Reaving proved devastating, claiming vessels belonging to Clan Coyote, Clan Steel Viper, and Clan Goliath Scorpion during the savage fighting in the Pentagon Worlds. The battle at Tamaron in December 3074, where the Coyote flagship fell, marked the largest naval engagement in the Pentagon Worlds since Operation KLONDIKE. Clan Snow Raven lost their own namesake vessel at Dante in 3071 when a hostile JumpShip deliberately jumped into close proximity, destroying both vessels through transit effects.</p><p>Among the Inner Sphere Clans, the Ghost Bear Nightlord compiled decades of combat service before being destroyed in the Second Combine-Dominion War in 3100. The Jade Falcon flagship survived numerous engagements from the initial Clan Invasion through the thirty-second century before being lost during the Jade Falcon Civil War. The Diamond Shark vessel participated in the liberation of Terra in 3078 before being traded to Clan Snow Raven in 3091, subsequently serving with the Raven Alliance through the Dark Age.</p><p>By the mid-thirty-second century, the Nightlord had become exceedingly rare. The Raven Alliance operated what was likely the last example in Inner Sphere service as late as 3145, while the status of any surviving homeworld vessels remained unknown following the loss of contact with the Pentagon Worlds. From a single production line at Lum, the class had shaped Clan naval doctrine for over two centuries.</p>
+</history>
+
+<manufacturer>
+Snow Raven Yards
+</manufacturer>
+
+<primaryFactory>
+Lum
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Snow Raven Yards
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Nightlord
+ENGINE:Unknown
+ARMOR:Lamellor Ferro-Carbide
+JUMP_JET:Standard (LF Battery)
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Battleship
+</use>
+
+<length>
+1100 m
+</length>
+
+<height>
+1450 m Sail
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+1200000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+140
+140
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+1073
+</crew>
+
+<officers>
+139
+</officers>
+
+<gunners>
+57
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+500
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+160
+</escape_pod>
+

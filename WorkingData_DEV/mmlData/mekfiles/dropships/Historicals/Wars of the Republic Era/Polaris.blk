@@ -1,0 +1,308 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa78-76ba-a56c-baa95a578bda
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Polaris
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6976
+</mul id:>
+
+<year>
+3100
+</year>
+
+<type>
+Mixed (Clan Chassis) Experimental
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+heavyvehiclebay:20.0:4:1::-1:0
+battlearmorbay:10.0:2:2::-1:2
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:133.0:0:-1::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+cargobay:210.0:1:6::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+175
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+4800
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+8
+</armor_tech_level>
+
+<armor>
+222
+195
+195
+168
+</armor>
+
+<Nose Equipment>
+(B) CLUltraAC20
+CLUltraAC20
+CLUltraAC20
+Clan Ultra AC/20 Ammo:60
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:72
+(B) ISCruiseMissile50
+ISCruiseMissile50Ammo:10
+(B) ISCruiseMissile50
+ISCruiseMissile50Ammo:10
+(B) ISCruiseMissile50
+ISCruiseMissile50Ammo:10
+(B) ISCruiseMissile50
+ISCruiseMissile50Ammo:10
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo:32
+(R) (B) CLLargePulseLaser
+(R) CLLargePulseLaser
+(R) CLLargePulseLaser
+(R) CLLargePulseLaser
+(R) (B) CLGaussRifle
+(R) CLGaussRifle
+(R) CLGaussRifle
+(R) Clan Gauss Ammo:32
+(R) (B) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAMS Ammo:72
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:72
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo:32
+(R) (B) CLLargePulseLaser
+(R) CLLargePulseLaser
+(R) CLLargePulseLaser
+(R) CLLargePulseLaser
+(R) (B) CLGaussRifle
+(R) CLGaussRifle
+(R) CLGaussRifle
+(R) Clan Gauss Ammo:32
+(R) (B) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAntiMissileSystem
+(R) CLAMS Ammo:72
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:72
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo:24
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:72
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+15
+</structural_integrity>
+
+<capabilities>
+<p>The Polaris is a 6,000-ton military spheroid DropShip designed around its four Cruise Missile 50 launchers, which serve as long-range artillery capable of devastating ground targets from orbit or high altitude. This missile-based artillery capability is supplemented by an extensive conventional weapons suite including Ultra AC/20s, Gauss rifles, ER Large Lasers, and Large Pulse Lasers, providing the Polaris with formidable direct-fire capability against both ground and aerospace targets. Thirty anti-missile systems provide comprehensive point defense coverage. Ferro-Aluminum armor gives the vessel meaningful protection against return fire. Beyond its combat role, the Polaris carries bays for heavy vehicles and battle armor, allowing it to deliver a Supernova of armored infantry alongside its orbital fire support capability. The drive system provides adequate acceleration for planetary assault operations. The design's most significant limitation is its narrow mission profile, as the combination of artillery systems and vehicle-only transport bays restricts its utility to specific tactical scenarios where heavy fire support and armored infantry deployment are required simultaneously.</p>
+</capabilities>
+
+<overview>
+<p>The Polaris is a specialized ground assault and fire support DropShip produced in limited numbers by Clan Ghost Bear during the Second Combine-Dominion War. Built at Alshain Naval Yards beginning around 3100, the Polaris was conceived as a purpose-built artillery platform that could also serve as a heavy vehicle and battle armor transport. The design gained notoriety during the campaign on Irece, where Polaris DropShips were used to bombard Nova Cat positions with devastating effect. Only twenty were produced, and further production was deemed unnecessary after the war's conclusion, making the Polaris one of the rarest DropShip classes in active service.</p>
+</overview>
+
+<deployment>
+<p>The standard Polaris serves in its baseline ground assault configuration, combining orbital artillery bombardment capability with heavy vehicle and battle armor transport. These rare vessels were deployed exclusively during the Second Combine-Dominion War, where they served with Omega Galaxy and a Star assigned to Beta Galaxy during planetary assault operations against Draconis Combine and Nova Cat targets.</p>
+</deployment>
+
+<history>
+<p>The Polaris was developed by Clan Ghost Bear specifically for the Second Combine-Dominion War against the Draconis Combine and their Clan Nova Cat allies. Ghost Bear military planners conceived the design as an artillery vessel that could provide devastating orbital fire support while simultaneously delivering heavy vehicle and battle armor forces to the surface, combining two critical combat functions in a single hull.</p><p>The class gained immediate notoriety during the campaign on Irece beginning in June 3100, when Rasalhague galaxies deployed their Polaris DropShips to bombard Nova Cat's capital city of New Barcella into rubble. The systematic destruction of the city earned the Polaris and its crews a dark reputation that would persist long after the war's conclusion.</p><p>Only twenty Polaris vessels were produced, with production deemed unnecessary once the war's objectives had been achieved. The lack of an ongoing need for a dedicated artillery fire support vessel, combined with the Polaris's limited transport capacity restricted to heavy vehicles and battle armor, made further production impractical. Three ships were lost during the conflict. After the war, Beta Galaxy retained the few ships remaining in active service, while Omega Galaxy's vessels were dispersed to Alpha Galaxy and formations associated with the former KungsArme. Twelve of the twenty were mothballed, remaining in storage until 3144 when they were reactivated for the campaign to absorb the Vega Protectorate into the Dominion.</p>
+</history>
+
+<manufacturer>
+Alshain Naval Yards (Military)
+</manufacturer>
+
+<primaryFactory>
+Alshain
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+His:WotRE
+</source>
+
+<tonnage>
+6000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+239
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+13
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+35
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

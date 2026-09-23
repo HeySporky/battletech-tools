@@ -1,0 +1,94 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b63f-74a7-b312-5943434c11b9
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Anti-'Mech Jump Infantry
+</Name>
+
+<Model>
+Third Ueda Infantry
+</Model>
+
+<mul id:>
+46
+</mul id:>
+
+<year>
+2600
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<Troopers Equipment>
+Free Rasalhague Republic Infantry Kit
+AntiMekGear
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Third Ueda Infantry is a typical example of the KungsÉrmé forces absorbed into the Rasalhague Dominion touman. Veterans of the grinding war against Clan Wolf, their numbers were culled through the Trials of Position required for integration into the Dominion military structure. The strongest warriors were seconded into the Third Drakon Cluster's battle armor Binaries, while those who remain provide conventional infantry support to the First Ueda Cavaliers. Low on the military hierarchy and without access to Clan equipment, the Third retains much of its old Inner Sphere gear, including Blazer rifles and heavy support lasers. This may make them appear less capable on paper, but appearances are deceptive. As jump infantry with dedicated anti-BattleMech training, they pose a serious threat to any force they can close with, and their years of combat experience against Clan opponents have taught them exactly how to exploit the weaknesses of heavier formations.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+Laser Rifle (Blazer)
+</Primary>
+
+<Secondary>
+Support Laser (Heavy)
+</Secondary>
+

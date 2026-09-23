@@ -1,0 +1,181 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-af42-7805-bd77-b9b708227a99
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Rapier
+</Name>
+
+<Model>
+RPR-100b
+</Model>
+
+<mul id:>
+4894
+</mul id:>
+
+<year>
+2743
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+15
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+63
+40
+40
+49
+</armor>
+
+<Nose Equipment>
+Autocannon/20
+ISLargePulseLaser
+ISLargePulseLaser
+LRM 20
+ISArtemisIV
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISMediumPulseLaser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+ISCASE
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Rapier's design philosophy centers on the Bauer-Scope 130Y targeting and tracking system, one of the most sophisticated fire control suites of its era. By providing independent targeting data for each missile in the Cavalier Industries LRM-10 system, the Bauer-Scope allowed pilots to make mid-flight corrections that dramatically improved the effectiveness of long-range munitions. This capability was carefully matched to the rest of the weapons loadout: twin PDVR Piledriver Model 11-D PPCs mounted beneath the cockpit and a nose-mounted RNG Ranger AC/20 autocannon. The combination allowed pilots to engage targets effectively from beyond standard fighter range using missiles and particle cannon fire, or close to point-blank distance for a devastating autocannon strike.</p><p>The design's primary limitation is thermal management. Firing both PPCs simultaneously places severe demands on the craft's heat dissipation systems, a problem Bauer's engineers never fully resolved in the base design. Rapier pilots are trained to monitor PPC radiator temperatures carefully during pre-flight and throughout combat, and the craft is not recommended for sustained simultaneous particle cannon fire in high-temperature operating environments. The heat issue shaped Rapier tactics for generations: experienced pilots learned to alternate fire rather than rely on simultaneous salvo capability.</p><p>Built on an Interstar 290M airframe and driven by an AeroFord 340 fusion plant, the Rapier carries PhilterMesh armor and uses the COMHRT II.Q communications suite. Its atmospheric handling is reliable without being exceptional, making it effective in both deep-space engagements and low-altitude planetary operations where its heavy armament pays dividends against ground targets and DropShip approach screens alike.</p>
+</capabilities>
+
+<overview>
+<p>Bauer Enterprises shocked the military aerospace world when it announced the RPR-100 Rapier in 2590. Better known as a maker of consumer electronics, few believed the company had the engineering depth to compete with established aerospace contractors. The Rapier proved the skeptics wrong. A heavyweight fighter designed around an innovative targeting system that Bauer's engineers developed entirely in-house, the craft drew the attention of the Star League Defense Force with its unusual combination of long-range missile capability and devastating close-in striking power. Though production delays pushed first deliveries back to 2596, the Rapier went on to become a fixture in SLDF heavy fighter lances, earning a reputation as a versatile craft capable of engaging enemies across virtually any range. That reputation outlasted the Star League, carrying the design through the Succession Wars and into the modern era through successive waves of upgrades and production revivals.</p>
+</overview>
+
+<deployment>
+<p>The RPR-100b was produced exclusively for SLDF Royal units during the Star League era, representing an enhanced version of the standard Rapier reserved for elite formations. It never reached the broader Lyran market during active production. Like most Royal variants, the RPR-100b became extremely rare during the First Succession War as the Royal Brigades were scattered and destroyed across multiple campaigns. Surviving examples became valued prizes for salvagers, collectors, and deep-periphery factions. No resumed production of the type is known to have occurred after the fall of the Star League.</p>
+</deployment>
+
+<history>
+<p>Bauer Enterprises had built its reputation on consumer electronics before the Rapier changed everything. When the company announced plans to enter the military aerospace market in 2590, established contractors were politely skeptical. The SLDF took a different view. With the Reunification War still grinding forward and procurement officers under constant pressure to expand the League's fighter inventory, any viable proposal deserved consideration. Bauer's design had serious problems - the simultaneous-firing configuration of its twin particle cannons caused a cooling cascade that killed a test pilot during development and forced months of redesign before the cockpit life support system met safety standards, but the end result was a craft the SLDF wanted enough to wait for. Production began in 2596, and the Rapier quickly established itself as a capable heavy striker for the League's fighter lances.</p><p>The design's association with the Lyran Commonwealth developed early and became permanent. The Tharkad-based factory gave House Steiner natural access to newly produced frames, and Lyran aerospace forces received substantial deliveries alongside SLDF formations throughout the Star League era. When the League fell, it was the Lyran military that inherited the largest share of surviving production capacity and in-service airframes. The Rapier would carry that Lyran identity for generations.</p><p>The Star League's collapse was not immediately catastrophic for Bauer Enterprises. The factory on Tharkad survived the opening decades of the Succession Wars largely intact; never directly attacked, though operating under increasingly difficult conditions. What the wars destroyed was not the physical plant but the supply network that fed it. The advanced targeting system at the heart of the Rapier's capabilities required components and manufacturing tolerances that became unavailable as interstellar trade collapsed. By the early Second Succession War, Bauer could no longer produce the full-specification Rapier. The factory quietly shifted to the simplified RPR-102 configuration, replacing precision particle cannon assemblies with large lasers and adding conventional heat sinks to compensate. Even in this reduced form the Rapier remained a fixture in Lyran and later FedCom inventories through the Renaissance period, and intercepted intelligence during the late Civil War era hinted that Bauer was quietly exploring a full-specification revival.</p><p>The Jihad ended that prospect violently. The Word of Blake's assault on Tharkad in late 3067 and early 3068 destroyed the Bauer Enterprises facility outright, eliminating the original production line and most of its institutional knowledge. The Word then turned to Tharkad's other major aerospace manufacturer, Lockheed/CBM Corporation, which had survived the initial assault. Using line equipment and technical documentation captured during the occupation, Blakist engineers rebuilt the Rapier from the ground up. The RPR-300 series that entered service in 3074 bore the Rapier's name and general configuration but replaced the old ballistic and missile-heavy loadout with a focused energy weapons array built around the captured Lockheed/CBM production infrastructure.</p><p>When Lyran forces finally retook Tharkad and secured the Lockheed/CBM facilities, they inherited both the production line and a complicated political problem. The RPR-300 was capable enough that scrapping it would have been tactically foolish, but its Blakist origins made it deeply unpopular in a Commonwealth that had paid dearly for the Jihad. Lockheed/CBM's answer was the RPR-300S, which made modest but real improvements to the weapons layout and allowed the design to be relaunched under a new Steiner designation. Critics noted that the 300S and its predecessor were functionally very similar (enemy aerospace pilots were known to have difficulty distinguishing them in combat) but the Commonwealth procurement establishment accepted the rebadging as politically necessary. The 300S entered service in 3081 and became the standard production Rapier for the modern Lyran aerospace force, deployed widely across frontline and garrison formations alike.</p><p>Throughout this long history, every variant of the Rapier traces its origins to Tharkad. From Bauer Enterprises' original gamble in 2590 to the Lockheed/CBM production lines of the ilClan era, the fighter has remained what it always was: a Tharkad product and a Lyran institution.</p>
+</history>
+
+<manufacturer>
+Bauer Enterprises
+</manufacturer>
+
+<primaryFactory>
+Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Interstar
+ENGINE:AeroFord
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Bauer Enterprises
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:290M
+ENGINE:340
+ARMOR:PhilterMesh
+JUMP_JET:N/A
+COMMUNICATIONS:COMHRT II.Q
+TARGETING:Bauer-Scope 130Y
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+85.0
+</tonnage>
+

@@ -1,0 +1,353 @@
+{
+  "filename": "Dante_CHG-3R.hmp",
+  "size": 2128,
+  "header_hex": "56 35 2e 30 30 01 00 08 03 ff ff ff 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 8,
+      "length": 1,
+      "text": "\b"
+    },
+    {
+      "type": "byte",
+      "offset": 8,
+      "hex": "03"
+    },
+    {
+      "type": "byte",
+      "offset": 9,
+      "hex": "ff"
+    },
+    {
+      "type": "byte",
+      "offset": 10,
+      "hex": "ff"
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 268,
+      "length": 255,
+      "text": "\u0000\u0000\u0000\u0000P\u0000\u0005\u0000Dante\u0006\u0000CHG-3R\u00ea\u000b\u0003\u0000o\u00dbv\u0001\u00f1\t\u0000pfE\u0000\u00c0^E\u0000\u0000\bB\u0000\u0000\u00a8A\u0000\u0000 A\u0018\u0000MA 6 5 5 4 12 5Jc3s, prb\u0002\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0001\u0000\u0090\u0001\u0001\u0000\u0005\u0000\u0005\u0000\u000f\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0019\u0000\u0000\u0000\u0000\u0000\u0019\u0000\u0000\u0000\u0000\u0000!\u0000\u0000\u0000\u0000\u0000\u0019\u0000\u0000\u0000\u0000\u0000\u0019\u0000\u0000\u0000\u0000\u0000!\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000%\u0000\u0000\u0000\b\u0000\b\u0000\f\u0000\u0001\u0000\t\u0000\u0001\u00003\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00004\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00003\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00004\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000"
+    },
+    {
+      "type": "ascii",
+      "start": 268,
+      "end": 269,
+      "text": "4"
+    },
+    {
+      "type": "len_string",
+      "start": 269,
+      "end": 1551,
+      "length": 1280,
+      "text": "\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u00c3\u0000\u0005\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00004\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000S\u0000\b\u0000\u0019\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u00c6\u0000\u0007\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u00003\u0000\u0000\u00004\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u00004\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u00003\u0000\u0000\u00004\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u00004\u0000\u0000\u0000\u00c3\u0000\u0000\u0000\u00c3\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u00e3\u0001\u0019\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u00c6\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000S\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u00f6\u00ff\u00f7\u0000!\u0001The Circus acquired several Chrager chassis thru salvage and purchase over the years.  This is what they have done with the design.  The 3050 is built new from the ground up in limited runs as a scout mech.  Earlier versions are refitted with XL engines and the electronics are sacrificed.\u0097\u0001The current design with its near maximun armor, lasers and probe electronics is used as a heavy recon unit.  The Move of 6/9 during Overburn situation is quite astonishing considering the size of the mech.  This places it in the Circus \"cavalry/Recon\" lances where speed and protection are emphasised.  The C3 slave is often linked back to an artillery lance, bossting the firepower of the lance it is with.\u00cc\u0000Dantes have been with the Circus since the 3010's as refit mechs, and later, rebuilds.  Du"
+    },
+    {
+      "type": "ascii",
+      "start": 1551,
+      "end": 1666,
+      "text": "ring this time the design has proven itself repeatedly on raids.  The Current mech is expected to do equally well.U"
+    },
+    {
+      "type": "byte",
+      "offset": 1666,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1667,
+      "end": 1752,
+      "text": "There are many. One drops the SRM and a Medium laser for an additional large laser.  "
+    },
+    {
+      "type": "len_string",
+      "start": 1752,
+      "end": 1755,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1755,
+      "end": 1947,
+      "length": 190,
+      "text": "The older, Refit versions are usually found in the Homestead March Posse units.  The New Builds are found in the Circus and Homestead Guards, who are most often raiding, working offensively."
+    },
+    {
+      "type": "len_string",
+      "start": 1947,
+      "end": 1950,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1950,
+      "end": 1953,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 1953,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1954,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1955,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1956,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1957,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1958,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1959,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1960,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1961,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1962,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1963,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1964,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1965,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1966,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1967,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1968,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1969,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1970,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1971,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1972,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1973,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1974,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1975,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1976,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1977,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1978,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1979,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1980,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1981,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1982,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1983,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1984,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1985,
+      "end": 1995,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 1995,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1996,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1997,
+      "end": 2015,
+      "length": 16,
+      "text": "Customized Mechs"
+    },
+    {
+      "type": "len_string",
+      "start": 2015,
+      "end": 2034,
+      "length": 17,
+      "text": "McRae / KCEI(MCM)"
+    },
+    {
+      "type": "ascii",
+      "start": 2034,
+      "end": 2035,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 2035,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2036,
+      "end": 2046,
+      "text": "Faisal mk2"
+    },
+    {
+      "type": "len_string",
+      "start": 2046,
+      "end": 2063,
+      "length": 15,
+      "text": "ArcShield Light"
+    },
+    {
+      "type": "len_string",
+      "start": 2063,
+      "end": 2080,
+      "length": 15,
+      "text": "Chariot Type IV"
+    },
+    {
+      "type": "ascii",
+      "start": 2080,
+      "end": 2081,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 2081,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2082,
+      "end": 2092,
+      "text": "Cyclops 14"
+    },
+    {
+      "type": "len_string",
+      "start": 2092,
+      "end": 2115,
+      "length": 21,
+      "text": "Thorndyke Lockover II"
+    },
+    {
+      "type": "len_string",
+      "start": 2115,
+      "end": 2128,
+      "length": 11,
+      "text": "Chilton 600"
+    }
+  ]
+}

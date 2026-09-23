@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e39f-782c-9f84-454520290287
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Alacorn Heavy Tank
+</Name>
+
+<Model>
+Mk IV
+</Model>
+
+<mul id:>
+24
+</mul id:>
+
+<year>
+2588
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+50
+40
+40
+28
+50
+</armor>
+
+<Body Equipment>
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Autocannon/20
+Autocannon/20
+Autocannon/20
+</Turret Equipment>
+
+<capabilities>
+<p>The Alacorn's primary armament consists of three turret-mounted Norse-Storm Model-7D Gauss Rifles, each capable of delivering punishing kinetic impacts at extreme range. Five tons of gauss ammunition provide sufficient endurance for sustained engagements, allowing crews to maintain a steady rate of fire throughout prolonged operations. This concentration of firepower makes the Alacorn one of the most dangerous vehicles on the battlefield at range, capable of crippling even heavy BattleMechs with a well-placed salvo.</p><p>A Pitban 285 XL fusion engine propels the tank to a top speed of fifty-four kilometers per hour, sufficient to keep pace with most assault-weight formations. Thirteen tons of StarGuard Type VH armor provide solid protection for a vehicle of its class, with the front hull receiving the heaviest plating. However, the use of an extralight engine serves as a significant vulnerability, as penetrating hits to the side hull can result in catastrophic engine failure. The tracked suspension system also demands constant attention from crews, as the immense weight of the vehicle places considerable stress on the tracks and road wheels. Alacorn crews are well known for their thorough and frequent track maintenance routines.</p>
+</capabilities>
+
+<overview>
+<p>The Alacorn is a ninety-five-ton tracked assault tank developed by the New Earth Trading Company for the Star League Defense Force. Entering service in 2590 as the culmination of nearly three decades of iterative design work that began under Corben Motors, the Alacorn was built to deliver overwhelming long-range firepower from a single vehicle platform. Its combination of heavy armor and a turret-mounted battery of three gauss rifles gave it striking power that rivaled many assault-class BattleMechs. The SLDF deployed the Alacorn widely throughout the Periphery, where it earned a reputation as one of the most effective and dependable heavy tanks in service. The design remains popular with mercenary commands and minor powers seeking BattleMech-equivalent firepower at a fraction of the cost.</p>
+</overview>
+
+<deployment>
+<p>The Mk IV paired the Mk III's extralight engine with the Mk II's devastating triple Class 20 autocannon payload, creating a close-range assault vehicle of fearsome power. Produced in small numbers alongside the Mk III, it saw limited service with SLDF units that valued raw stopping power over sustained engagement range. Like the Mk III, it was eventually overshadowed by the gauss-armed Mk VI.</p>
+</deployment>
+
+<history>
+<p>The Alacorn's origins trace to the years immediately preceding the formal establishment of the Star League, when the Terran Hegemony fought to maintain its technological edge over the other five Great Houses. The Hegemony Armed Forces maintained an open competition policy for defense contracts, inviting manufacturers to invest their own research and development funds in exchange for the chance to win lucrative military orders. Corben Motors of New Earth seized this opportunity in 2559 with an ambitious heavy tank design built around the principle of concentrated firepower, mounting three heavy autocannons in a single turret. The initial prototype, designated the Mk I, paired triple Class 10 autocannons with over ten tons of prototype ferro-fibrous armor, giving it more protection than any standard tank in service at the time. A companion design, the Mk II, pushed this philosophy to its extreme with three Class 20 autocannons, though the massive weapons forced a severe reduction in armor coverage.</p><p>The Hegemony Armed Forces put both prototypes through a full series of combat trials but ultimately rejected the Alacorn after three years of evaluation. The Mk I's revolutionary ferro-fibrous armor proved brittle and easily defeated regardless of adjustments Corben's engineers made to the forging process. The Mk II's lack of protection made it a poor candidate for the close-range engagements its weapons demanded. Corben shelved the project but revisited the design a decade later, this time investing in the integration of an extralight fusion engine to free tonnage for improved systems. It took Corben's engineering team nearly five years to properly incorporate the new powerplant, ultimately producing two refined variants. The Mk III retained the proven triple autocannon layout with Class 10 weapons, while the Mk IV carried the devastating Class 20 payload from the earlier Mk II. The new SLDF accepted both for production but commissioned only a few hundred of each, far too few for Corben to recover its massive research and pre-production costs. The company fell into bankruptcy as a result and was acquired by the New Earth Trading Company.</p><p>NETC continued delivering the Mk III and Mk IV to the SLDF while pursuing further development. The company passed on an intermediate upgrade, the Mk V, which was essentially a Mk III refitted with now-perfected ferro-fibrous armor. Instead, NETC pushed directly toward what would become the definitive Alacorn variant. The company had long regarded the design as a platform for the most powerful direct-fire weapons available, and the development of the gauss rifle provided exactly the armament they had been waiting for. NETC's rollout of the Mk VI, armed with three of the then-experimental gauss rifles, was a logical conclusion to decades of iterative development and came as no surprise to military observers.</p><p>The Mk VI served with distinction throughout the SLDF's Periphery campaigns, and General Aleksandr Kerensky reportedly took hundreds of Alacorns with him during the Exodus. Production at the NETC facility on New Earth continued into the early Succession Wars, but the onset of the Second Succession War brought manufacturing to a halt when shortages of extralight engines and gauss rifles made continued production impossible. The design effectively vanished from the battlefield, surviving only within ComStar's carefully maintained stockpiles of former SLDF equipment.</p><p>The New Earth Trading Company eventually managed to restart Alacorn production in 3055, with the Federated Commonwealth purchasing the majority of the initial output. The revival proved so successful that NETC introduced the Mk VII in 3063, replacing the standard gauss battery with a pair of heavy gauss rifles that pushed the design's per-shot destructive potential to new heights. From that point forward, the Alacorn stood as a symbol of concentrated firepower and technological achievement. Smaller numbers of both the Mk VI and Mk VII appeared in service with the Draconis Combine, Capellan Confederation, and even among Clan Nova Cat forces, while the new SLDF fielded several Mk VIIs of its own. ComStar's ancient stockpile models eventually proliferated to the Word of Blake, and it can be taken for granted that several of these venerable machines found their way into Blakist hands. The Alacorn remains a favorite of mercenary units throughout the Inner Sphere, prized by commands that cannot afford BattleMechs but still require the firepower to stand against them.</p>
+</history>
+
+<manufacturer>
+New Earth Trading Company
+</manufacturer>
+
+<primaryFactory>
+New Earth
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Pitban
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:CeresCom
+TARGETING:TharHes Digital
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:285 XL
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Recon Model 21-RS
+TARGETING:Scanlok 347
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-C
+</published>
+
+<tonnage>
+95.0
+</tonnage>
+

@@ -1,0 +1,259 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ed1c-729f-8b19-11dfdeb32f5a
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Nightwing Surveillance
+</Name>
+
+<Model>
+(2447)
+</Model>
+
+<mul id:>
+4724
+</mul id:>
+
+<year>
+2447
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:4.0:1:1::-1:0
+cargobay:2257.5:1:2::-1:0
+1stclassquarters:200.0:0:-1::-1:0
+crewquarters:546.0:0:-1::-1:0
+2ndclassquarters:70.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+1200
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+56000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+28
+24
+24
+22
+24
+24
+</armor>
+
+<Nose Equipment>
+(B) Naval PPC (Medium)
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:10
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:10
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISLookDownRadar
+ISHighResImager
+ISInfraredImager
+ISSmallNavalCommScannerSuite
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:10
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:10
+</Right Broadsides Equipment>
+
+<structural_integrity>
+65
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 100,000 tons across a 305-meter hull with a 571-meter jump sail, the Nightwing was compact enough to pass visual inspection as a commercial JumpShip. Its drive system delivered a safe thrust of 1.5 gravities and maximum of 2.5, giving the vessel the speed to extricate itself quickly if its cover was compromised. The embedded sensor array included look-down radar, high-resolution imagers, infrared detection systems, and a small naval communications scanner suite, all capable of passive readings without betraying the ship's true nature. Four small craft bays housed shuttles and landing craft or up to two lances of aerospace fighters that could gather additional intelligence while the Nightwing recharged at the jump point. The weapons suite featured three Medium Naval PPCs concentrated in the nose and aft arcs, four NAC/20 autocannons covering the broadsides and forward quarters, and four Naval Laser 45s protecting the rear flanks. Twelve hundred single heat sinks managed thermal loads. Standard armor provided 129.5 tons of protection backed by a structural integrity of 65. A single 80-meter gravity deck served the crew of 128 personnel across a Kearny-Fuchida drive with an integrity of only 4, reflecting the vessel's compact and specialized design.</p>
+</capabilities>
+
+<overview>
+<p>The Nightwing was a purpose-built surveillance vessel developed by Di Tron Heavy Industries for the Terran Hegemony's intelligence apparatus. Designed as a companion to the older Tracker surveillance ship, the Nightwing was deliberately constructed to resemble the common civilian JumpShips that plied trade routes across the Inner Sphere. This deceptive appearance allowed the vessel to infiltrate neighboring states under the guise of a simple transport or trader, giving Hegemony Intelligence unprecedented reach into potentially hostile territories. A comprehensive suite of surveillance equipment was concealed within the hull, allowing passive intelligence collection without betraying the vessel's true nature. Despite its primary role as a reconnaissance platform, the Nightwing carried a formidable array of capital weapons capable of dealing with any opposition short of another WarShip, ensuring its crew could fight free if their cover was compromised.</p>
+</overview>
+
+<deployment>
+<p>Nightwings operated across the Inner Sphere under false transponder identities, jumping into systems to gather signals intelligence and monitor fleet movements before continuing along their assigned itinerary. The standard operational pattern involved arriving at a system's jump point, deploying the sail to recharge while passively scanning all communications and sensor data within range, then jumping to the next target system. Small craft deployed from the vessel's bays could provide closer reconnaissance of planetary installations or naval assets while the Nightwing maintained its cover at the jump point. The class worked alongside the older Tracker vessels to provide the Terran Hegemony with a comprehensive intelligence picture of neighboring states' military capabilities and fleet dispositions. Extended missions sometimes lasted months, with individual vessels charting patrol circuits through dozens of systems before returning to report. The vessel's cargo capacity allowed it to carry supplies consistent with its merchant cover story, further reinforcing its disguise during any inspection at the jump point.</p>
+</deployment>
+
+<history>
+<p>Di Tron Heavy Industries of Terra introduced the Nightwing in 2447 as part of the Terran Hegemony's ongoing effort to maintain its intelligence superiority over all neighboring realms. The vessel was conceived as a companion to the already-operational Tracker surveillance ship, which had proven the viability of disguising WarShips as civilian JumpShips for covert operations. Where the Tracker had pioneered the concept of alterable silhouettes and false transponder identities, the Nightwing refined these techniques while adding a far more capable sensor suite and substantially heavier armament, including a substantial capital weapons suite that could deal with any threat short of a dedicated WarShip engagement. The class served with distinction for decades, providing Hegemony Intelligence with a constant stream of data on the military capabilities of the Lyran Commonwealth, Free Worlds League, Draconis Combine, Capellan Confederation, and Federated Suns. Nightwings routinely crossed borders undetected, their civilian profiles and false transponder codes allowing them to gather intelligence on fleet strengths, base locations, and troop movements that informed Hegemony strategic planning. By 2525, however, the inevitable march of technology had begun to overtake the design. The sensor systems that had been revolutionary in the mid-twenty-fifth century were now outdated, and their deep integration into the hull structure made replacement impractical. More critically, rival intelligence agencies had become increasingly adept at identifying Nightwing-class vessels despite their civilian disguise, steadily narrowing the operational windows available to the class. The Hegemony initiated a search for a successor, eventually selecting the hyper-advanced Bug-Eye surveillance vessel as the Nightwing's replacement. Production of new Nightwings ceased by 2625, and the remaining vessels were gradually withdrawn from service over the following decades as Bug-Eyes entered the fleet in sufficient numbers. None of the aging Nightwings are thought to have survived the chaos of the Amaris crisis and the subsequent Succession Wars, their era of covert service ending with the Star League itself.</p>
+</history>
+
+<manufacturer>
+Di Tron Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Di Tron Heavy Industries
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Nightwing
+ENGINE:Unknown
+ARMOR:Standard
+JUMP_JET:Standard
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Surveillance
+</use>
+
+<length>
+305 m
+</length>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+100000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+80
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+118
+</crew>
+
+<officers>
+20
+</officers>
+
+<gunners>
+18
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+15
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

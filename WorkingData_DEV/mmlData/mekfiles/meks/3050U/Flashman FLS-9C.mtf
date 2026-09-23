@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c4b7-7d4d-9a6c-08747a2695e6
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Flashman
+model:FLS-9C
+mul id:1126
+
+Config:Biped
+techbase:Inner Sphere
+era:3061
+source:TR:3050,TR:3050U
+published:RS:3050Uu-C,RSFP:BlackRemnant
+rules level:2
+role:Skirmisher
+
+quirk:rugged_1
+
+mass:75
+engine:375 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:16 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:24
+RA armor:24
+LT armor:22
+RT armor:22
+CT armor:28
+HD armor:9
+LL armor:25
+RL armor:25
+RTL armor:10
+RTR armor:10
+RTC armor:16
+
+Weapons:8
+ER Large Laser, Left Arm
+Medium Pulse Laser, Left Arm
+ER Large Laser, Right Arm
+Medium Pulse Laser, Right Arm
+Medium Pulse Laser, Left Torso
+Medium Laser, Left Torso
+Medium Pulse Laser, Right Torso
+ER Large Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISERLargeLaser
+ISERLargeLaser
+ISMediumPulseLaser
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISERLargeLaser
+ISERLargeLaser
+ISMediumPulseLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMediumPulseLaser
+Medium Laser (R)
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMediumPulseLaser
+ISC3iUnit
+ISC3iUnit
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERLargeLaser
+ISERLargeLaser
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Flashman FLS-8K entered production in 2701 as a 75-ton heavy BattleMech designed for sustained combat operations requiring minimal logistical support. Manufactured by Renault-Prime Industries on Wasat for the Terran Hegemony, the design quickly earned the nickname "flashbulb" among MechWarriors for its all-energy weapons configuration. The Flashman filled a critical "fire brigade" role within heavy and assault lances, staying to the rear during advances to provide fire support and guard against ambushes while lancemates pressed forward.</p><p>By the end of the Star League era, several divisions had organized entire battalions composed exclusively of Flashmans, evidence of the design's versatility and reliability. The combination of substantial firepower, respectable speed, and the operational independence afforded by its ammunition-free loadout made the Flashman one of the most prized heavy 'Mechs in any commander's arsenal, seeing extensive front-line service throughout the Star League Defense Force.</p>
+
+capabilities:<p>The Flashman's design philosophy centers on sustained energy-weapons firepower delivered at speed. The FLS-8K mounts three Selitex Radonic large lasers, one in each arm and the center torso, supported by five Ichiba 3000 medium lasers distributed across the arms and side torsos, with one rear-mounted to discourage flanking attacks. A head-mounted Zippo Mark X anti-personnel flamer deters infantry, while a Buzzsaw anti-missile system with one ton of ammunition provides defense against incoming missile fire.</p><p>The heart of the design is its GM 375 XL engine, which propels the 75-ton chassis to an impressive 86 kph, making it remarkably fast for its weight class. This speed comes without sacrificing protection, as thirteen and a half tons of Kemplar 5000 armor provide excellent coverage. Fifteen double heat sinks manage the considerable thermal output of the laser array, though sustained alpha strikes can still overwhelm the cooling system.</p><p>The Faust/Shinji AT/TS targeting system provides precision that complements the weapons array, enabling accurate fire placement at medium to long ranges. The primary vulnerability of the design lies in its XL engine, which leaves the Flashman susceptible to mission kills from side torso damage, a trade-off the original designers accepted in exchange for the speed advantage that defines the chassis.</p>
+
+deployment:<p>This variant is a comprehensive overhaul produced by Defiance Industries for ComStar beginning in 3061. This variant upgrades the large lasers to extended-range models, replaces the forward medium lasers with pulse variants, and adds an improved C3 computer for network-centric operations. To accommodate these changes, the chassis was rebuilt with endo steel internal structure and ferro-fibrous armor, freeing the tonnage necessary for the upgraded systems. The 9C retains the GM 375 XL engine of the original 8K, maintaining the design's signature speed advantage. Production was limited, primarily serving ComStar's military forces during the late Civil War period.</p>
+
+history:<p>The Flashman's production history is one of near-extinction and stubborn survival. When the design entered service in 2701, it was manufactured at two facilities: the primary Renault-Prime Industries plant on Wasat and Witten Industries on Hesperus II, the latter being a Star League-era facility licensed to produce the chassis. Both plants supplied the SLDF and Hegemony forces with steady numbers of the design, and the Flashman rapidly became a staple of heavy and assault formations across the Star League.</p><p>The collapse of the Star League scattered Flashmans across the Successor States, but fewer than 500 remained operational at the start of the First Succession War. The brutal fighting of that conflict destroyed many of the survivors, and the situation became dire in 2796 when the Renault-Prime factory complexes on Wasat were utterly destroyed. Witten Industries on Hesperus II had already been absorbed by Defiance Industries at the beginning of the First Succession War, and with Wasat gone, Defiance held the only remaining production capability for the design. Unable to source the advanced extralight engine, Defiance produced a downgraded variant, the FLS-7K, using a standard Vlar 300 engine. This fortuitous acquisition of the design specifications before Wasat's destruction saved the Flashman from total extinction.</p><p>The Lyran Commonwealth became the dominant user of the Flashman throughout the Succession Wars, owing to Defiance's monopoly on production at Hesperus II. The design found a natural home in Lyran heavy lances, where it supported heavier assault machines like the Zeus and Crusader. ComStar also maintained significant stockpiles of Flashmans within the Com Guards, and supplied downgraded examples to the Draconis Combine as part of Operation Rosebud, giving the Combine access to a design it could not otherwise obtain.</p><p>The recovery of the Helm Memory Core in the 3030s proved transformative for the Flashman. The technology renaissance that followed allowed Defiance Industries to restore production of the original FLS-8K model by the mid-3050s, bringing the design back to its full Star League glory. Defiance also developed new variants for ComStar, including the FLS-9C with its improved C3 computer, which entered production around 3061. The Draconis Combine leveraged its Operation Rosebud stockpiles to develop the FLS-C, a straightforward refit adding C3 capability to enhance combined-arms coordination.</p><p>The Jihad brought upheaval to the Flashman's production history when the Word of Blake seized control of Defiance Industries on Hesperus II. Under Blakist management, two new variants emerged: the FLS-9B, designed for Word of Blake Militia forces, and the FLS-9M, intended for Free Worlds League units loyal to the Word. Both variants incorporated advanced technologies including light engines and endo steel construction. Following the liberation of Hesperus II and the conclusion of the Jihad, Defiance returned to Lyran control.</p><p>With the collapse of the Republic of the Sphere and the resulting demand for cutting-edge BattleMechs, Defiance Industries once more updated the venerable Flashman. The FLS-10E, introduced during the ilClan era, incorporates a full suite of Clan-equivalent weaponry and reflective armor, representing the most advanced iteration of the design to date and ensuring the Flashman remains competitive against any foe of equal weight, whether Inner Sphere or Clan.</p>
+
+manufacturer:Defiance Industries
+
+primaryfactory:Hesperus II
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:GM 375 XL
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

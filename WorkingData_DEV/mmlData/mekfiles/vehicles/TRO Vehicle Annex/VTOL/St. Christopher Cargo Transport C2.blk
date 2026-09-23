@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb55-7c2a-8bff-ac2a239a9f9d
+</UUID>
+
+<UnitType>
+SupportVTOL
+</UnitType>
+
+<Name>
+St. Christopher Cargo Transport
+</Name>
+
+<Model>
+C2
+</Model>
+
+<mul id:>
+5117
+</mul id:>
+
+<year>
+3067
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<quirks>
+vtol_rotor_dual
+easy_maintain
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+cargobay:12.55:3:1::-1:0
+standardseats:6.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+45
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+6
+4
+4
+3
+2
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<barrating>
+4
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>Both configurations share a common 25-ton VTOL airframe powered by a fuel cell engine that delivers a cruise speed of roughly 130 km/h and a flank speed approaching 195 km/h, with a fuel range of 740 kilometers. The dual rotor arrangement provides stable flight characteristics in varied weather conditions, and the design seats a crew of two enlisted personnel alongside six passengers.</p><p>The C1 mounts an armored chassis modification and military-grade armor composites rated at BAR 10, giving it reasonable survivability against small arms fire and shrapnel. This protection comes at the cost of cargo capacity, limiting the C1's configurable bay to approximately 8.5 tons. The C2 trades this protection for utility, reducing armor to BAR 4 commercial-grade composites and employing a lighter chassis frame. These changes increase cargo capacity to nearly 12.5 tons, and factory-built modifications allow installation of specialized holds including refrigerated units, pressurized compartments, expanded passenger seating, and electronic warfare equipment.</p><p>Neither variant carries weapons, relying entirely on escorts or operating in permissive environments. The civilian component base makes both variants cheap to acquire and straightforward to maintain, though neither can withstand the rough handling that fully militarized designs like the Karnov tolerate without issue. Lockheed-CBM supplements vehicle sales with a range of maintenance service contracts, from minimum servicing required by the Lyran Aviation Authority to full contract staffing on call at any time.</p>
+</capabilities>
+
+<overview>
+<p>The St. Christopher Cargo Transport is a 25-ton medium VTOL manufactured by the Lockheed-CBM Corporation on Furillo. Designed during the 3050s as a cost-effective multi-role transport, the first prototype flew in 3060 with production models entering service during the final stages of the FedCom Civil War. The design was intended to compete with heavier military transport VTOLs like the Karnov UR, offering a lighter and more affordable alternative built around off-the-shelf civilian components. Lockheed-CBM developed two core configurations to address separate market segments: the C1, a militarized variant with reinforced armor and chassis modifications, and the C2, a civilian model prioritizing cargo volume over protection. Both variants were marketed to the Lyran Alliance government and approved Lyran corporations, establishing the St. Christopher as a versatile platform suited to logistics and passenger transport roles where frontline durability was not the primary concern.</p>
+</overview>
+
+<deployment>
+<p>The C2 is the civilian transport configuration, optimized for maximum cargo volume through a lighter chassis frame and reduced armor protection. Its modular cargo bay accepts factory-built modifications ranging from refrigerated and pressurized compartments to expanded passenger seating and electronic warfare suites, making it adaptable to a wide variety of non-combat roles. The Lyran Diplomatic Corps adopted the C2 for VIP shuttle services on Tharkad, and the variant attracted interest from regional leaders seeking affordable transport solutions for post-war reconstruction.</p>
+</deployment>
+
+<history>
+<p>Lockheed-CBM began development of the St. Christopher in the 3050s as Lyran Alliance military planners sought affordable transport solutions to supplement their existing VTOL fleet. The first prototype completed flight testing in 3060, but the outbreak of the FedCom Civil War disrupted the production timeline. It was not until the conflict's final stages that production models began rolling off the Furillo assembly line, with both variants entering the market simultaneously.</p><p>The Lyran Alliance Armed Forces was the first military customer, purchasing several dozen C1 models for operational evaluation. The initial delivery arrived in September 3067, and the Quartermaster Corps assumed responsibility for the evaluation program. Plans called for deployment to several front-line units for field testing, though the volatile political situation following the Civil War complicated procurement schedules. Industry analysts observed that Lockheed-CBM's maintenance service agreements often generated better financial returns for the company than the vehicle sales themselves, a business model the corporation actively cultivated.</p><p>The civilian C2 found an early high-profile customer in the Lyran Diplomatic Corps, which purchased six units finished in distinctive blue and gold livery. These aircraft operated passenger shuttle routes between the Triad and other districts of Tharkad City, and the design proved well suited to the capital world's harsh climate. Robert Kelswa-Steiner publicly expressed interest in acquiring both C1 and C2 variants to support reconstruction efforts on Skye, citing a desire to rebuild the battered regional economy. At the time of the design's introduction, Tharkad had not yet approved those purchases.</p>
+</history>
+
+<manufacturer>
+Lockheed-CBM Corporation
+</manufacturer>
+
+<primaryFactory>
+Furillo
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+25.0
+</tonnage>
+
+<fuel>
+0.5
+</fuel>
+

@@ -1,0 +1,291 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ede2-789f-97ed-1422c90b9a81
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Robinson Transport
+</Name>
+
+<Model>
+(Block I)
+</Model>
+
+<mul id:>
+4924
+</mul id:>
+
+<year>
+2560
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:24.0:4:1::-1:0
+smallcraftbay:12.0:2:2::-1:0
+mekbay:36.0:4:-1::-1:0
+cargobay:56609.0:2:4::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:460.0:0:-1::-1:0
+crewquarters:875.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+2324
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+6500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+55
+50
+50
+45
+50
+50
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:20
+(B) Naval PPC (Heavy)
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval PPC (Light)
+Naval PPC (Light)
+Naval PPC (Light)
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20:48
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval PPC (Light)
+Naval PPC (Light)
+Naval PPC (Light)
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20:48
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval PPC (Heavy)
+(B) Naval Laser 35
+Naval Laser 35
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) Medium Laser
+Medium Laser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) Medium Laser
+Medium Laser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+</Right Broadsides Equipment>
+
+<structural_integrity>
+79
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 400,000 tons across 537 meters of hull, the Robinson combines substantial troop transport capability with respectable naval firepower. Thirty-six internal bays house a full battalion of combat vehicles or heavy machines, with specialized cocoons enabling combat drops directly from low orbit, a capability shared by few other vessel classes. Four docking collars carry DropShips for conventional deployment, while twenty-four fighter bays and twelve small craft provide layered aerospace defense. Over 56,000 tons of cargo space round out the logistics capacity.</p><p>The Block I mounts two NAC/30 naval autocannons and two Heavy Naval PPCs as its primary capital weapons, supplemented by Light Naval PPCs, NL45 and NL35 naval lasers, and conventional weapons including LRM-20 racks for anti-DropShip duty. However, none of these batteries can concentrate enough fire to threaten a dedicated combatant of equal or greater tonnage. The Block II replaced single heat sinks with doubles, upgraded standard armor to ferro-carbide plating that effectively doubled protection, and added PPCs and LRM racks to the broadside and aft arcs for significantly improved anti-aerospace defense. A crew of over 350 officers, enlisted, gunners, and bay personnel operate the vessel across its transport and combat roles.</p>
+</capabilities>
+
+<overview>
+<p>The Robinson-class transport was the Federated Suns' answer to a uniquely ambitious naval requirement: a single vessel capable of transporting an entire regiment between star systems and then supporting their planetary assault upon arrival. Commissioned in 2560 by Challenge Systems at Galax under the direction of Prince Alexander Davion, the Robinson filled a role few other WarShip classes attempted, combining heavy troop and vehicle transport capacity with enough firepower to provide meaningful orbital support during contested landings. Rather than serving in mobile fleet formations, the class was designed for permanent attachment to specific frontier commands, giving border garrisons their own dedicated interstellar assault capability. The Robinson earned a reputation as a reliable workhorse of the Federated Suns Navy, able to operate independently in regions where larger fleet elements were unavailable or committed elsewhere.</p>
+</overview>
+
+<deployment>
+<p>The FSS Woodbine participated in the Malagrotta Affair of 2573, when a Federated Suns naval squadron responded to a Taurian Concordat WarShip incursion in the Malagrotta system. Arriving via a Lagrange jump point two days after the Taurian vessels, the squadron destroyed or captured all but one of the enemy ships while suffering only a single Leopard CV DropShip loss.</p><p>During the First Succession War, the FSS New Ivaarsen carried four DropShips of reinforcements from Xhosa VII to the Clovis system in May 2787, burning toward the planet from the zenith jump point to engage damaged Combine WarShips during the invasion of Clovis. The FSS Marlette survived the devastating Battle of Cholame in 2788, and by March 2814 served as lead ship in a three-vessel escort alongside two Davion II-class destroyers. At Dahar IV, the formation engaged the DCA Eos, an Aegis-class heavy cruiser that deployed nuclear-tipped capital missiles to devastating effect, crippling both destroyers and inflicting heavy damage on the Marlette before the Eos was finally destroyed.</p>
+</deployment>
+
+<history>
+<p>The Robinson-class transport emerged from the political upheaval following the Davion Civil War. Prince Alexander Davion, acutely aware of the need to rebuild the Federated Suns Navy while rewarding the border systems that had supported his claim, commissioned a new WarShip class that entered service in 2560. Named for the strategically vital border world, the Robinson embodied an ambitious concept: a single vessel that could transport an entire regiment between stars, deliver troops directly to a planetary surface, and provide orbital fire support throughout the engagement. Challenge Systems at Galax, already the primary Federated Suns WarShip producer, built the class at the same yards that produced Congress D frigates.</p><p>Unlike conventional WarShips assigned to mobile fleet operations, Robinsons were permanently attached to specific commands. The Ceti Hussars received dedicated Robinson support along the Draconis Combine border, while other vessels patrolled near New Syrtis alongside the New Syrtis Fighter Cruisers guarding that frontier. The FSS Woodbine proved the transport-combat concept during the Malagrotta Affair of 2573, helping destroy or capture nearly an entire Taurian Concordat flotilla. As Hegemony technology became available to the Federated Suns, the military introduced the Block II variant in 2705. Unlike the Davion destroyer, which was completely transformed by its upgrade program, the Robinson retained its original mass but received improved armor protection and upgraded heat management systems that allowed expanded weapons coverage across the broadside and aft arcs.</p><p>By 2765, eight Robinsons operated across four Federated Suns fleets with two additional vessels in the Department of Naval Transport. The First Succession War devastated the class. The FSS New Ivaarsen carried reinforcements to Clovis in 2787 during the Combine invasion, while the Battle of Cholame in 2788 claimed most surviving vessels. The FSS Marlette, one of the few to escape Cholame, continued serving into the 2810s before suffering crippling damage at Dahar IV. Most critically, the Draconis Combine captured two Block I Robinsons after exploiting a vulnerability in the design. Centuries later, those captured vessels became the direct inspiration for the Kyushu-class frigate, which maintained the Robinson's hybrid transport-combat role for Combine service.</p>
+</history>
+
+<manufacturer>
+Challenge Systems
+</manufacturer>
+
+<primaryFactory>
+Galax
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Challenge Systems
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Robinson
+ENGINE:Unknown
+ARMOR:Standard
+JUMP_JET:Standard
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Transport
+</use>
+
+<length>
+537 m
+</length>
+
+<height>
+969 m Sail
+</height>
+
+<source>
+TR:3075
+</source>
+
+<tonnage>
+400000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+75
+75
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+351
+</crew>
+
+<officers>
+46
+</officers>
+
+<gunners>
+33
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+30
+</escape_pod>
+

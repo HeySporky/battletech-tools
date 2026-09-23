@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cff3-7c35-b93d-52bda72fb7db
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Peacekeeper
+model:PKP-1B
+mul id:2453
+
+Config:Biped
+techbase:Inner Sphere
+era:3087
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:2
+role:Sniper
+
+quirk:rugged_1
+
+mass:95
+engine:380 XL Engine
+structure:IS Endo Steel
+myomer:Triple-Strength
+
+heat sinks:15 IS Double
+walk mp:4
+jump mp:3
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:32
+RA armor:32
+LT armor:30
+RT armor:30
+CT armor:45
+HD armor:9
+LL armor:40
+RL armor:40
+RTL armor:10
+RTR armor:10
+RTC armor:15
+
+Weapons:4
+Heavy PPC, Left Arm
+Heavy PPC, Right Arm
+ER Large Laser, Left Torso
+Plasma Rifle, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+Triple Strength Myomer
+Triple Strength Myomer
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+Triple Strength Myomer
+Triple Strength Myomer
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERLargeLaser
+ISERLargeLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISPlasmaRifle
+ISPlasmaRifle
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISC3SlaveUnit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Peacekeeper is a ninety-five-ton assault BattleMech developed in the aftermath of the Jihad as a joint venture between the newly-formed Republic of the Sphere and the Draconis Combine. First produced in 3086, the design was conceived as a gesture of trust between the two nations, intended for anti-insurgency operations and garrison duty. The project mandated a lack of proprietary technology, ensuring both realms could independently construct and maintain the chassis without reliance on the other.</p><p>The Peacekeeper established itself as a capable garrison platform, with its formidable energy-based firepower and considerable operational endurance proving well-suited to sustained field operations. Production was established at Independence Weaponry on Quentin and Luthien Armor Works on New Samarkand, and the design has continued to serve both nations well into the ilClan era.</p>
+
+capabilities:<p>The Peacekeeper was designed as a heavy garrison 'Mech capable of sustained field operations without regular resupply, a requirement that drove the emphasis on energy-based weaponry with minimal ammunition dependency. At ninety-five tons, the chassis is powered by a GM 380 XL engine providing a top speed of sixty-five kilometers per hour, surprisingly quick for its weight class. Triple Strength Myomer further augments this mobility when the 'Mech runs hot, potentially pushing speeds to eighty-six kilometers per hour. Three Lexington Ltd. Lifters jump jets give the Peacekeeper a ninety-meter jump capability, providing tactical flexibility unusual in an assault design.</p><p>The primary armament centers on twin particle projection cannons (a Lord's Light 3 Heavy PPC and a Lord's Light 2 Extended Range PPC) delivering devastating long-range firepower. A Victory Nickel Alloy ER Large Laser supplements these primary weapons, while a Victory Blast Furnace Plasma Rifle inflicts both damage and significant heat buildup on its targets, discouraging close engagement. A Guided Technologies SRM-2 launcher rounds out the armament as a concession to anti-infantry work. Eighteen tons of standard armor provide solid protection for the massive frame, complemented by a CASE system to mitigate ammunition explosions. The integration of a C3 computer enables the Peacekeeper to share targeting data with lancemates, enhancing the effectiveness of combined arms operations.</p>
+
+deployment:<p>This variant represents the finalized production model of the Peacekeeper, entering full manufacturing in 3087 after field trials validated the core design. Engineers addressed the PKP-1A's armor weight concerns by replacing the standard plating with seventeen and a half tons of light ferro-fibrous armor, providing equivalent protection at reduced mass despite further complicating the already cramped interior layout. The ER PPC was upgraded to a second Lord's Light Heavy PPC, dramatically increasing the 'Mech's devastating long-range striking power with twin heavy particle cannon arms. Both the SRM-2 launcher and CASE system were removed, reflecting the design philosophy's emphasis on energy-based sustainability over ammunition logistics and freeing tonnage for the enhanced weapons suite.</p>
+
+history:<p>The Peacekeeper's origins lie in the tumultuous aftermath of the Jihad, when the Republic of the Sphere sought to reassure the Draconis Combine that the concession of worlds from former Combine territory was not a slight to be left unaddressed. A joint BattleMech development program was proposed as a concrete gesture of trust between the two nascent allies, with the fundamental requirement that neither nation's proprietary technology would be used, ensuring both could independently produce and maintain the design without dependency on the other.</p><p>Development proceeded rapidly despite the ongoing Jihad, with prototype testing beginning while combat still raged across the Inner Sphere. Five mercenary units were commissioned to conduct field evaluations, selected for their assignments in active combat zones, particularly those focused on pirate hunting duties. Their reports proved largely positive, and the mercenaries retained their Peacekeepers as compensation for service. Full production was authorized for both Independence Weaponry on Quentin and Luthien Armor Works on New Samarkand, with manufacturing commencing in mid-to-late 3086.</p><p>The Peacekeeper entered active service during the Early Republic era, seeing deployment across both Republic and Combine territories. Independence Weaponry's Quentin facility, which had passed through numerous hands over the centuries (including the Terran Hegemony, Federated Suns, Draconis Combine, and Word of Blake) produced the design under Republic oversight before the world transitioned through a period of independence and ultimately returned to Combine control. The Luthien Armor Works facility on New Samarkand remained firmly in Combine hands throughout, providing consistent production capacity.</p><p>By the Dark Age, the Peacekeeper had established itself as a capable garrison platform across Combine space. The introduction of the PKP-2K in 3116 reflected the DCMS's ongoing efforts to integrate advanced electronics and improved armor technologies into their front-line designs. The original purpose of the Peacekeeper as a symbol of inter-state cooperation had long since faded by this period, replaced by its practical value as a heavy garrison 'Mech with formidable energy-based firepower and considerable operational endurance. Despite the dissolution of the Republic of the Sphere, the design continued to serve the Combine well into the ilClan era.</p>
+
+manufacturer:Independence Weaponry|Luthien Armor Works
+
+primaryfactory:Quentin|New Samarkand
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Combine-Republic Peacekeeper Superheavy
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:380 XL
+systemmanufacturer:ARMOR:Valiant
+systemmode:ARMOR:Lamellor Light Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Lexington Ltd.
+systemmode:JUMP_JET:Lifters
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Voice of Peace with C3
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Keeper of the Peace

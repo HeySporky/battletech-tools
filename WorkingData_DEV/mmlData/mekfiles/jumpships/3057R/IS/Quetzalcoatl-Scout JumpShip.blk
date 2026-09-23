@@ -1,0 +1,215 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-c0f1-74c5-bd31-7824e160093f
+</UUID>
+
+<UnitType>
+Jumpship
+</UnitType>
+
+<Name>
+Quetzalcoatl-Scout JumpShip
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4885
+</mul id:>
+
+<year>
+2876
+</year>
+
+<originalBuildYear>
+2712
+</originalBuildYear>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+1stclassquarters:20.0:0:-1::-1:0
+crewquarters:112.0:0:-1::-1:0
+asfbay:12.0:1:3::-1:0
+cargobay:437.5:1:4::-1:0
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+158
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+460
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+6
+6
+6
+6
+6
+3
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Front Side Equipment>
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+</Right Front Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>Scout-class JumpShips are equipped with a large and modern bridge, and an extensive computer network for complex navigational calculations. Its shortened Kearny-Fuchida drive allows for 80% shorter charging, while its small size additionally means its damage resistant jump sail unfolds more rapidly than is the case in other JumpShips. The reduced drive and its comperatively small mass of 87000 tons allows the Scout-class a difficult to detect jump signature. As the design prioritises independent operation, its 18 strong crew has access to extensive recreation facilities, as well as a highly equipped medbay for up to four emergency cases and life support systems featuring backup generators. A necessary concession due to its size does mean the Scout-class lacks a grav deck, being limited to gravity maneuvring to sustain the crew its health. The most famous modification is the Capellan Quetzalcoatl. This variant removes the docking collar entirely and replaces it with a specialized fighter bay capable of launching and recovering up to 20 heavy AeroSpace Fighters, effectively turning the tiny Scout into a pocket carrier.</p>
+</capabilities>
+
+<overview>
+<p>Developed for independent operations, the Scout-class JumpShip is a specialized, military-grade vessel that prioritizes speed and stealth over raw transport capacity. It is the smallest JumpShip found travelling the stars, with a low mass and negligible jump signature, while sporting extensive facilities for its small crew. The Quetzalcoatl modification replaces the single docking collar of the master design, with a sizeable fighter capacity.</p>
+</overview>
+
+<history>
+<p>The Quetzalcoatl is a fighter-carrier variant of the Scout JumpShip, first devised in 2876. It trades its DropShip docking collar for fighter cubicles, a design choice first implemented by the Capellan Confederation after a boarding attempt crippled the original ship's docking ports. Because the refit proved so efficient at providing aerospace support, it has since been adopted for multiple ships and is now classified as its own standalone subclass.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<use>
+Carrier
+</use>
+
+<length>
+273m
+</length>
+
+<source>
+TR:3057r,TR:3026r
+</source>
+
+<tonnage>
+90000.0
+</tonnage>
+
+<sail>
+1
+</sail>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+42
+</crew>
+
+<officers>
+2
+</officers>
+
+<gunners>
+0
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+4
+</escape_pod>
+

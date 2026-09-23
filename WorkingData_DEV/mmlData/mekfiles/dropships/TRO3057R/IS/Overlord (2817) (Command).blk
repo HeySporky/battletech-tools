@@ -1,0 +1,254 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab45-7b23-884c-0da59ded6e81
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Overlord
+</Name>
+
+<Model>
+(2817) (Command)
+</Model>
+
+<mul id:>
+4774
+</mul id:>
+
+<year>
+2817
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+mekbay:32.0:6:-1::-1:0
+asfbay:6.0:2:2::-1:0
+crewquarters:245.0:0:-1::-1:0
+1stclassquarters:180.0:0:-1::-1:0
+2ndclassquarters:140.0:0:-1::-1:0
+steeragequarters:140.0:0:-1::-1:0
+cargobay:337.5:0:7::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+120
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+9180
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+220
+210
+210
+152
+</armor>
+
+<Nose Equipment>
+(B) PPC
+PPC
+(B) Autocannon/20
+Autocannon/20
+Autocannon/5
+Autocannon/5
+IS Ammo AC/20:30
+IS Ammo AC/5:40
+(B) Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) PPC
+(B) Autocannon/5
+IS Ammo AC/5:40
+(B) LRM 20
+IS Ammo LRM-20:30
+(B) Large Laser
+Medium Laser
+Medium Laser
+(R) (B) PPC
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) PPC
+(B) Autocannon/5
+IS Ammo AC/5:40
+(B) LRM 20
+IS Ammo LRM-20:30
+(B) Large Laser
+Medium Laser
+Medium Laser
+(R) (B) PPC
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Autocannon/5
+Autocannon/5
+IS Ammo AC/5:80
+(B) LRM 20
+IS Ammo LRM-20:36
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+Communications Equipment:SIZE:0.0
+</Hull Equipment>
+
+<structural_integrity>
+18
+</structural_integrity>
+
+<capabilities>
+<p>The Command variant sacrifices four Mek bays to install a fifteen-ton communications suite in the hull, transforming the Overlord into a mobile command post. Its thirty-two Mek bays and six aerospace fighter slots still provide substantial combat transport capability, while 337.5 tons of cargo space supports extended independent operations. The hull-mounted communications equipment provides encrypted multi-band coordination across an entire operational area, enabling the embarked commander to direct forces well beyond the immediate landing zone.</p><p>The most distinctive feature is its expanded crew accommodations, including first-class quarters for 36 personnel, second-class quarters for 28, steerage quarters for 28 more, and berths for 30 passengers and 28 marines. This combination of communications equipment, command facilities, and marine contingent makes the Command variant the preferred transport for regimental and brigade headquarters elements. The marine detachment provides dedicated security for the command staff and can conduct boarding actions or secure landing zones ahead of the main force deployment. Total complement reaches 191, the largest crew of any standard-weight Overlord configuration. The weapons fit remains identical to the base model, ensuring defensive capability is not compromised by the command role modifications.</p>
+</capabilities>
+
+<overview>
+<p>The Overlord class DropShip is one of the most recognizable and widely-produced military transport vessels in the Inner Sphere. First launched in 2762, this 9,700-ton Spheroid design quickly became the standard by which all other regiment-level Mek carriers would be judged. Produced by numerous shipyards across both the Inner Sphere and Clan space, the Overlord has served continuously for over three centuries, evidence of the fundamental soundness of its original design. Its distinctive teardrop profile and massive bay doors have become iconic symbols of military power projection throughout the BattleTech universe. Few designs have achieved such universal adoption across virtually every major military force in known space.</p><p>The sheer number of Overlords in service has made the class a common sight in virtually every major conflict since the fall of the Star League, and its continued production ensures it will remain so for the foreseeable future.</p>
+</overview>
+
+<deployment>
+<p>Command variants have been a constant presence in major military formations since their introduction in the Succession Wars era. Typically assigned one per regiment, they serve as mobile headquarters providing communications coordination and command facilities for the embarked force commander. The marine contingent provides security for the command staff and can conduct limited independent operations. Every major military maintains at least a handful of Command Overlords, and the variant's communications suite makes it invaluable for coordinating multi-regiment operations during major planetary assaults.</p>
+</deployment>
+
+<history>
+<p>The Overlord class DropShip traces its origins to the height of the Star League era, when the Star League Defense Force recognized the need for a standardized heavy Mek transport capable of deploying a full battalion in a single vessel. Previous designs had forced commanders to split their forces across multiple smaller transports, complicating coordination during contested landings. The Overlord was designed from the ground up to solve this problem, with bay capacity for thirty-six BattleMeks and integral aerospace fighter support.</p><p>Entering service in 2762, the Overlord quickly proved its worth during the Amaris Civil War, where SLDF forces used the design extensively during the liberation of Terra. The ability to land an entire battalion in a single drop, supported by its own fighter screen and considerable defensive armament, gave the Overlord a decisive advantage in contested planetary assaults. When Aleksandr Kerensky led the Exodus, hundreds of Overlords accompanied the SLDF fleet into the unknown.</p><p>The Succession Wars that followed the Star League's collapse only increased the Overlord's importance. As JumpShip numbers dwindled and each transit became more precious, the ability to move a full battalion on a single docking collar became even more valuable. Production continued at reduced rates throughout the Succession Wars, and captured Overlords were among the most prized spoils of war. The Clans independently developed the Overlord C variant, scaling the hull up to 11,600 tons to carry forty-five Meks organized in the Clan Trinary structure.</p><p>The Clan Invasion of 3049 prompted the first major refit of the Inner Sphere Overlord in centuries. The 3056 variant replaced aging autocannons with Gauss rifles and upgraded energy weapons to their ER equivalents, dramatically improving the design's ability to survive contested drops against Clan-grade opposition. The Word of Blake Jihad later spawned the A3 and A3A pocket WarShip conversions, mounting capital-grade weapons on the proven Overlord hull.</p><p>Today the Overlord remains in widespread service across virtually every major military force in the Inner Sphere and Clan space. Its longevity is a reflection of the soundness of the original Star League design, and continued production ensures the class will remain the backbone of military DropShip fleets for decades to come.</p>
+</history>
+
+<manufacturer>
+Earthwerks Ltd.|Federated-Boeing Interstellar - Port Simon Shipyards|Matabushi, Inc|Shipil Company
+</manufacturer>
+
+<primaryFactory>
+Ares|Galax|Avon|Skye
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Star League V450
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+9700.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+119
+</crew>
+
+<officers>
+8
+</officers>
+
+<gunners>
+6
+</gunners>
+
+<passengers>
+30
+</passengers>
+
+<marines>
+28
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+3
+</life_boat>
+
+<escape_pod>
+3
+</escape_pod>
+

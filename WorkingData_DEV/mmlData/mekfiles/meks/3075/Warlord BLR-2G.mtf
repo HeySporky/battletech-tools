@@ -1,0 +1,206 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf33-7078-b7a0-39ee134fa155
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Warlord
+model:BLR-2G
+mul id:3511
+
+Config:Biped
+techbase:Inner Sphere
+era:3071
+source:TR:3075,TR:J
+published:RS:J
+rules level:2
+role:Brawler
+
+quirk:easy_maintain
+
+mass:80
+engine:320 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:16 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:26
+RA armor:26
+LT armor:27
+RT armor:27
+CT armor:40
+HD armor:9
+LL armor:34
+RL armor:34
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:14
+Heavy PPC, Left Arm
+Heavy PPC, Right Arm
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Right Torso
+Medium Laser, Right Torso
+Medium Laser, Right Torso
+Medium Laser, Right Torso
+Medium Laser, Right Torso
+Medium Laser, Center Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser (R)
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser (R)
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Medium Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Warlord is an eighty-ton assault BattleMech introduced in 3070 by General Motors on the Federated Suns world of El Dorado. Originally conceived as a streamlined, all-energy variation of the venerable BattleMaster, the design diverged far enough from its ancestor that GM's intellectual property lawyers insisted on a new designation. The Warlord was developed specifically to exploit El Dorado's powerful civilian manufacturing base, bringing nearly all aspects of production onto a single world free from the supply disruptions of the Jihad.</p><p>The design philosophy emphasized industrial simplification above all else, making the Warlord one of the easiest assault 'Mechs to build and maintain during a period of widespread logistical collapse. Its all-energy weapons suite eliminates ammunition dependency entirely, a quality that has earned the Warlord a strong reputation among garrison commanders operating far from major supply depots.</p>
+
+capabilities:<p>The Warlord carries an entirely energy-based weapons suite, a deliberate choice to eliminate dependence on ammunition supply trains during the chaos of the Jihad. Its primary armament consists of two arm-mounted Magna Hellfire Heavy PPCs, which share many components with the widely available Magna Hellstar PPC, simplifying both production and field repair. Six Martell extended-range medium lasers split between the side torsos provide devastating close-range firepower, with the specialized focusing mirrors of these lasers being the only truly exotic component in the entire design.</p><p>A Pitban 320 fusion engine drives the Warlord to a top speed of sixty-four kilometers per hour, adequate for an assault platform intended to anchor a battle line rather than pursue lighter opponents. Sixteen double heat sinks allow the Warlord to fire either both PPCs or all six lasers near-continuously while maintaining full speed, giving MechWarriors considerable tactical flexibility. Fourteen tons of Starshield Special Heavy armor on a Hollis Mark XII Endosteel frame provide excellent protection for sustained engagements.</p><p>The empty second cockpit position inherited from the BattleMaster's design serves as additional elbow room for the pilot, while the absence of jump jets reflects the Warlord's straightforward role as a heavy fire platform.</p>
+
+deployment:<p>This variant was developed to address the production bottleneck created by the Warlord's reliance on off-world Endo Steel. El Dorado lacked the orbital facilities to manufacture Endo Steel, but its chemical industries readily produced the advanced crystalline polymers required for both double heat sinks and XL engines. The BLR-2G replaces the Endosteel frame with a standard chassis and substitutes the standard fusion engine for an XL model, freeing weight for a revised weapons loadout. The six ER medium lasers give way to twelve standard medium lasers arranged in distinctive quintuple torso bays, five per side in a two-over-three-under configuration, with two additional rear-mounted medium lasers. An extra ton of armor partially compensates for the greater vulnerability inherent in the XL engine. The result is a Warlord variant that can be built entirely on El Dorado with no imported components.</p>
+
+history:<p>The Warlord's origins are inseparable from the unique circumstances of El Dorado during the Jihad. One of the Federated Suns' "Golden Five" worlds, El Dorado had never been known for military production, its economy built instead on banking and advanced civilian manufacturing. The Sanromea-Davion family, among the planet's wealthiest banking dynasties, held a long-standing interest in BattleMech technology through their prior investment in Trellshire Heavy Industries' Twycross facility, a plant that fell to Clan Jade Falcon during the invasion. When the Jihad severed supply lines across the Inner Sphere, the Sanromea-Davions saw an opportunity to bring BattleMech production to their homeworld.</p><p>General Motors, whose military branches had no personnel to spare between 3068 and 3070, partnered with the Sanromea-Davions to convert the Camino IndustrialMech facility on El Dorado for BattleMech manufacturing. GM deliberately avoided its existing assault 'Mech assets, using a new facility, a new engineering team, and a new design based on the BattleMaster chassis, which had not previously been a GM product. The resulting 'Mech underwent live field trials in 3069 and entered full production in 3070.</p><p>Warlords first entered service with El Dorado's Planetary Guards, forming several heavy cavalry battalions that became the backbone of the planet's BattleMech defenses. The design's reliability and ease of maintenance quickly earned it a strong reputation among garrison forces operating far from major supply depots. After 3073, a portion of Warlord production was redirected to rebuild the Davion Brigade of Guards, extending the design's reach beyond its homeworld.</p><p>The success of the BLR-2D led General Motors to develop the BLR-2G variant, which eliminated the sole remaining off-world dependency by replacing the imported Endo Steel chassis with a standard frame. This made the Warlord fully self-sufficient on El Dorado, a significant achievement during a period when interstellar commerce remained unreliable. The experimental BLR-2XC command variant, begun in 3075, demonstrated El Dorado's growing ambitions in advanced military technology, though only a single prototype was completed. Field units later developed the BLR-2Dr refit, adding Triple Strength Myomer and C3 networking capability to extend the Warlord's tactical versatility well into the post-Jihad era.</p>
+
+manufacturer:General Motors
+
+primaryfactory:El Dorado
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:320 XL
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:Special Heavy
+systemmanufacturer:COMMUNICATIONS:Sony
+systemmode:COMMUNICATIONS:MSF-31
+systemmanufacturer:TARGETING:Federated
+systemmode:TARGETING:Stalker

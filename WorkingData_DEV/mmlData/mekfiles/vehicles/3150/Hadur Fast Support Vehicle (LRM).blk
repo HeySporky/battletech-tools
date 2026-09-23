@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e8b1-7229-b7bd-70ab1059d70d
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Hadur Fast Support Vehicle
+</Name>
+
+<Model>
+(LRM)
+</Model>
+
+<mul id:>
+8050
+</mul id:>
+
+<year>
+3145
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+2
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+22
+20
+20
+16
+18
+</armor>
+
+<Body Equipment>
+CLAPGaussRifle Ammo
+Clan Ammo LRM-15 (Clan) Artemis V-capable
+Clan Ammo LRM-15 (Clan) Artemis V-capable
+Clan Ammo LRM-15 (Clan) Artemis V-capable
+Clan Ammo LRM-15 (Clan) Artemis V-capable
+Clan Ammo LRM-15 (Clan) Artemis V-capable
+CLTargeting Computer
+</Body Equipment>
+
+<Front Equipment>
+CLERMediumLaser
+CLERMediumLaser
+CLAPGaussRifle
+CLAPGaussRifle
+CLLightTAG
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLArtemisV
+CLArtemisV
+CLLRM15
+CLLRM15
+</Turret Equipment>
+
+<capabilities>
+<p>The Hadur (LRM) replaces the Arrow IV launcher with a long-range missile system, offering increased operational independence from TAG-equipped spotters. The configuration retains the baseline self-defense suite of two Series 2b Extended Range Medium Lasers and two Tau-II Anti-personnel Gauss Rifles, along with the Type 215 XL Fusion powerplant and hover mobility platform. Twelve tons of Compound VM22 Ferro-Fibrous armor provides the same level of protection as the standard variant. The trade-off compared to the baseline design is reduced individual salvo impact, partially offset by the ability to engage targets without TAG coordination in a wider range of tactical situations.</p>
+</capabilities>
+
+<overview>
+<p>The Hadur Fast Support Vehicle entered service with Clan Hell's Horses in 3102 as a dedicated indirect fire platform built to keep pace with the Horses' aggressive combined-arms doctrine. Manufactured at Csesztreg Industriplex Beta, the Hadur was designed from the outset to provide sustained Arrow IV fire support alongside fast-moving armor and OmniVehicle elements. Rather than adopting the multiple small magazine arrangements common to comparable designs, the Horses' engineers specified a single unified twenty-one-round magazine, accepting reduced flexibility in exchange for mechanical simplicity and sustained-fire endurance. The design drew early skepticism from outside observers, but the Hadur has proved its value across decades of Hell's Horses operations, earning a quiet reputation as a reliable workhorse of Clan artillery support.</p>
+</overview>
+
+<deployment>
+<p>Introduced in 3145, the Hadur (LRM) replaces the Arrow IV system with a long-range missile configuration, reducing operational dependence on TAG-equipped spotters. This variant finds use in independent raiding operations and in environments where the tactical situation makes maintaining dedicated designator assets impractical. Commanders who prefer greater fire support autonomy often request this variant in lieu of the standard Hadur.</p>
+</deployment>
+
+<history>
+<p>Clan Hell's Horses initiated development of the Hadur in the early 32nd century in response to doctrinal requirements for fire support platforms that could maintain pace with their fast-moving combined-arms formations. Existing artillery designs available to the Horses lacked either the speed or the firepower profile required for their operational concepts. Csesztreg Industriplex Beta, the Horses' primary vehicle production facility, began Hadur production in 3102, and the vehicle entered service with armored clusters that same year.</p><p>Reception within the Horses was initially divided. The single unified magazine design drew criticism from commanders accustomed to platforms that could shift between munition types on demand, and questions about Arrow IV accuracy from an unstable hover chassis lingered for years after introduction. Field experience gradually resolved both concerns. Operational data demonstrated that the magazine configuration's sustained fire advantage outweighed its flexibility cost in most engagement types, and the hover stability issues proved manageable with proper crew training. Skepticism gave way to acceptance as the Hadur accumulated a solid combat record across Horses formations.</p><p>A Trial of Possession on Feltre in 3137 became one of the more widely cited examples of effective Hadur employment. Clan Hell's Horses engaged elements of the Jade Falcon's Fifty-third Battle Cluster in a multi-objective action. The Horses deployed Hadurs in coordination with OmniVehicle spotters, using homing Arrow IV salvos to suppress Falcon units across multiple axes. The Falcons, observing no visible TAG designation in the opening phase, concluded the Hadurs were operating on standard munitions. When the Falcons closed their formations to limit the value of unguided fire, the Horses activated TAG assets previously withheld and directed homing salvos against the now-concentrated Falcon elements. The volley destroyed three Falcon 'Mechs and forced their commander to surrender, with the disgraced Falcons granted hegira as the Horses took Feltre.</p><p>The (Reactive) variant debuted in 3142, addressing operator feedback about survivability in engagements where the Hadur faced closer contact than the indirect fire role ideally demands. The (LRM) variant followed in 3145, providing a configuration less dependent on TAG coordination for commanders operating in environments where maintaining dedicated spotter assets proved difficult. Both variants continued production at Csesztreg Industriplex Beta alongside the baseline design into the ilClan era.</p>
+</history>
+
+<manufacturer>
+Csesztreg Industriplex Beta
+</manufacturer>
+
+<primaryFactory>
+Csesztreg
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Type 215 XL
+ARMOR:Compound VM22 Ferro-Fibrous
+COMMUNICATIONS:Build 1750/4 Tacticom
+TARGETING:Series VI TTS
+</systemModels>
+
+<source>
+TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

@@ -1,0 +1,206 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d2de-70f1-9751-34987d7199de
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Kodiak II
+model:
+mul id:6295
+
+Config:Biped
+techbase:Clan
+era:3095
+source:TR:3145:C,TR:3150
+published:RS:3150
+rules level:2
+role:Missile Boat
+
+quirk:distracting
+quirk:command_mech
+
+mass:100
+engine:400 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:20 Clan Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:33
+RA armor:33
+LT armor:32
+RT armor:32
+CT armor:46
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:10
+RTR armor:10
+RTC armor:15
+
+Weapons:12
+LRM 20, Left Arm
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+LRM 20, Right Arm
+ER Small Laser, Right Arm
+ER Small Laser, Right Arm
+ER Small Laser, Right Arm
+ER Small Laser, Right Arm
+LRM 10, Left Torso
+ER PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLArtemisIV
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLArtemisIV
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLLRM10
+CLArtemisIV
+Clan Ammo LRM-10 (Clan) Artemis-capable
+Clan Ammo LRM-20 (Clan) Artemis-capable
+Clan Ammo LRM-20 (Clan) Artemis-capable
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERPPC
+CLERPPC
+Clan Ammo LRM-20 (Clan) Artemis-capable
+Clan Ammo LRM-20 (Clan) Artemis-capable
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLTargeting Computer
+CLTargeting Computer
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Kodiak II is a hundred-ton assault BattleMech developed by the Ghost Bear Dominion, based upon the fourth variant of the original Kodiak. Entering production in 3095 at the Alshain Weapons facility, the Kodiak II was engineered to serve dual roles as both a powerful frontline assault 'Mech and a dedicated command platform. Where the original Kodiak excelled as a close-combat brawler, the Kodiak II reoriented the design toward long-range missile warfare and sophisticated command capabilities, reflecting the evolving needs of the Rasalhague Dominion's military doctrine.</p><p>The enhanced Garret L20 communications system features twelve extra multifunction displays and simultaneous audio and video channels, providing commanding officers with unparalleled battlefield awareness while remaining in the thick of combat. The design quickly became a favored mount for Star Colonels and other senior officers within the Ghost Bear touman, its combination of firepower, survivability, and command functionality proving ideal for leaders who direct Trinary-level and larger formations from the front lines.</p>
+
+capabilities:<p>The Kodiak II retains the hundred-ton mass and 400-rated extra-light engine of its predecessor, maintaining the same impressive sixty-four kilometer per hour top speed on an Alshain LXL Endo Steel chassis. The design fundamentally reoriented its combat philosophy from close-range brawling to long-range missile engagement. The primary armament consists of paired Type XX "Great Bow" LRM-20 launchers mounted in each arm, supplemented by a Type X "Short Bow" LRM-10 in the left torso, all guided by Artemis IV fire control systems for improved accuracy. A Clan Mk. XVII extended-range PPC in the right torso provides direct-fire long-range support.</p><p>For close-range defense, eight Series 1 extended-range small lasers are distributed across both arms, and all energy weapons feed through an integrated targeting computer for enhanced accuracy. The Kodiak II carries nineteen tons of Forging AD56 standard armor, providing robust protection. However, the RCA Instatrac targeting system has exhibited documented malfunctions when running near capacity, including false-positive missile lock readings and occasional failure-to-fire incidents. Alshain Weapons issued a service bulletin in 3105 to address these deficiencies, though a significant number of Kodiak IIs in the field have not received the update.</p>
+
+deployment:<p>The base Kodiak II serves as a long-range missile command platform, mounting paired LRM-20 launchers with Artemis IV and an LRM-10 in the left torso, backed by an extended-range PPC and eight extended-range small lasers fed through an integrated targeting computer. The enhanced communications suite provides commanding officers with twelve additional multifunction displays and simultaneous audio-visual channels, making this the preferred mount for Ghost Bear senior officers who must coordinate large formations while actively engaging the enemy. The substantial long-range missile loadout allows the Kodiak II to remain at standoff distance while directing subordinate units, a marked departure from the original Kodiak's requirement to close to brawling range.</p>
+
+history:<p>The Kodiak II emerged in 3095 as the Rasalhague Dominion sought to modernize its assault 'Mech roster while preserving the legacy of the original Kodiak. Based specifically on the Kodiak 4 variant's weapons philosophy of combining long-range missile capability with close-range hitting power, the new design shifted the primary emphasis from pure close-combat brawling to long-range engagement and battlefield command. Produced at the Alshain Weapons facility (the same Alshain complex where the original Kodiak had been built for decades) the Kodiak II benefited from established manufacturing infrastructure and deep institutional knowledge of the chassis.</p><p>The design quickly proved its worth in combat. During a border skirmish on Jabuka in 3140, elements of Clan Jade Falcon's Fifty-third Battle Cluster engaged the Second Bear Regulars. The Kodiak II's sophisticated command capabilities proved essential as the engagement devolved into a running battle through rugged terrain surrounding Squaw Bay. When Jade Falcon artillery found its mark and engulfed the command Star, the Kodiak II weathered the bombardment better than its companions. Despite losing two 'Mechs to artillery fire during the approach, the surviving Star reached firing range and drove off the Falcon forces within minutes.</p><p>The Kodiak II 2 appeared in the early thirty-second century, introducing HarJel III self-repair technology and Streak LRM launchers at the cost of the more resilient XL engine. More recently, Kodiak IIs operating with Omega Galaxy have been observed with experimental hybrid loadouts incorporating Inner Sphere MRM launchers and Apollo fire control systems, marking an unusual willingness to adopt non-Clan weapons technology. The Kodiak II continues to serve as the preferred command assault platform of the Rasalhague Dominion, maintaining the proud lineage of the Ghost Bear's iconic totem design while adapting to the demands of a new era of warfare.</p>
+
+manufacturer:Bergan Industries - Alshain Weapons(formerly GK&T owned)
+
+primaryfactory:Alshain
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:LXL Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:400 Fusion XL
+systemmanufacturer:ARMOR:Alshain Weapons
+systemmode:ARMOR:Forging AD56 Standard
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:L20
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac Mark IX with Artemis IV

@@ -1,0 +1,256 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e22a-720c-ad2a-d2eb3e14575e
+</UUID>
+
+<UnitType>
+SpaceStation
+</UnitType>
+
+<Name>
+Wheeler-Class Station
+</Name>
+
+<Model>
+(2556)
+</Model>
+
+<mul id:>
+8156
+</mul id:>
+
+<year>
+2556
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:4.0:4:1::-1:0
+navalrepairpressurized:12000.0:1:2:f0
+cargobay:59430.0:1:3::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:100000.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+114
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+3000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+50
+50
+50
+50
+50
+50
+</armor>
+
+<Nose Equipment>
+(B) Large Laser
+Large Laser
+(B) Small Laser
+Small Laser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Large Laser
+Large Laser
+(B) Small Laser
+Small Laser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Large Laser
+Large Laser
+(B) Small Laser
+Small Laser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Large Laser
+Large Laser
+(B) Small Laser
+Small Laser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Large Laser
+Large Laser
+(B) Small Laser
+Small Laser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Large Laser
+Large Laser
+(B) Small Laser
+Small Laser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>The Wheeler's 1,250-meter diameter wheel spins at 1.2 rpm to generate approximately one gravity of centripetal force throughout its residential outer rim, a flattened torus 25 meters thick and 100 meters wide housing apartments, recreational facilities, and commercial districts for up to 10,000 residents. A 200-meter hub, which contra-rotates against the rim to remain stable, provides the station's pressurized docking facilities and connects to the rim via six spokes large enough to accommodate WorkMech cargo lifts alongside personnel elevators.</p><p>Operationally, the Wheeler centers on a single pressurized repair bay capable of servicing vessels up to 12,000 tons, supported by three docking collars and four small craft for continuous traffic management. Just under 60,000 tons of cargo capacity enables the station to stockpile components, fuel, and consumables for extended independent operations. A total operational complement of 128 personnel (covering crew, officers, and gunners) keeps the station running, while the passenger capacity of 9,911 first-class berths accommodates the large contract worker population the station exists to house.</p><p>Life support systems are deliberately overbuilt. Solar-spectrum lamps simulate natural day-night cycles in the near-windowless outer rim, while zeolite scrubbers and supercritical water oxidizers derived from centuries of spaceflight technology maintain atmospheric quality and water purity. Acoustic engineering (discrete shrubs, sound-absorbing tiles, and passive air management systems) keeps public spaces habitable despite the inherent echo characteristics of metallic toroidal structures.</p><p>The station mounts standard defensive lasers in all six firing arcs, adequate for dealing with debris from nearby ring systems but not intended for military engagement. The Coriolis effects from the 1.2 rpm rotation affect some sensitive new arrivals, though long-term residents orient to them quickly. The over-sized life support systems guarantee stable temperatures, bountiful air, and plentiful water, and are rated to handle smoke well - a feature critical in public areas serving large numbers of contract workers.</p>
+</capabilities>
+
+<overview>
+<p>The Wheeler-class station is Gulf Breeze Six's defining contribution to civilian orbital infrastructure; a standardized habitat platform developed in 2556 to house the workforce needed for the system's extensive asteroid mining operations. Built at CMC's Spider shipyard in Gulf Breeze Six's orbit, these 200,000-ton wheel-shaped stations were designed from the outset for long-duration habitation rather than industrial function, providing the terrestrial living conditions that sustained worker productivity over the weeks-long recovery periods required between mining deployments. Though originally designated Stanford-class habitats by their engineers, the workers who first saw their construction plans nicknamed them 'Wheel stations' and then 'Wheelers,' a name that quickly replaced the official designation. Across five centuries of continuous production, the Wheeler has remained the backbone of Gulf Breeze Six's workforce housing.</p>
+</overview>
+
+<deployment>
+<p>The original Wheeler-class configuration mounts 500 tons of standard armor and carries three docking collars per MegaMek data, the TRO cites four, but the repair bay integration constrains the in-game configuration to three. All examples were produced at the Spider shipyard in Gulf Breeze Six's orbit and deployed exclusively within the Gulf Breeze system under Lyran-affiliated ownership throughout most of their operational history, with a period of Federated Commonwealth administration during the LSW-R2 and CI-1 eras. Purchasers were typically either new townships seeking resident space or Nashan-affiliated operations expanding their contract worker capacity. The (2556) variant was progressively superseded by the uparmored (2802) configuration as the Succession Wars continued, with older models either upgraded or left operating at reduced armor standards.</p>
+</deployment>
+
+<history>
+<p>The Wheeler-class station emerged from a fundamental challenge in the Gulf Breeze system: the system's unhealthy gravity and the distance between resource-rich asteroids and any planetary surface created a situation where large numbers of workers needed to spend extended periods in micro-gravity environments, then recover over weeks before returning to work. Terrestrial recovery required either shuttling workers to the planet (an expensive and time-consuming process given the system's surface conditions) or providing orbital habitats capable of simulating terrestrial environments. CMC chose the latter, establishing the Spider shipyard in Gulf Breeze Six's orbit to produce standardized habitat stations beginning in 2556.</p><p>The naming transition from Stanford-class to Wheeler captures the relationship between CMC's engineering teams and the workers who occupied the stations. CMC had named the design after an obscure bit of aerospace history; the workers renamed it based on how the station looked. The popular name was formalized before the Stanford designation had been in use a full generation, and CMC's records eventually dropped the original entirely.</p><p>Interior configurations were left to buyer specification, with purchasers free to contract aftermarket architects for residential and commercial fitouts. The standard Wheeler hull subdivided the torus with six major bulkheads forming damage-tolerant sectors, but everything inside those sectors varied by contract. Typical buildouts included multi-floor atria and commercial 'streets' for the average station population of 10,000, plus one or two recreational and business districts. Life on most Wheelers was described as pleasant, though contractor-heavy stations were often rowdier than resident-dominated ones.</p><p>The onset of the Succession Wars introduced new pressures on the Wheeler-class fleet. Surviving examples accumulated wear that the Spider shipyard could address only partially, and the thinning of trained technical staff affected maintenance quality across the fleet. Beginning in 2802, the Gulf Breeze Mining Union (which had absorbed CMC) undertook an uparmoring program for operating Wheelers, recognizing that even civilian stations required some protection in an era of prolonged interstellar conflict.</p><p>Over subsequent centuries, Wheeler-class stations developed distinct identities tied to their agricultural outputs. The aquaponic farms that formed a redundant life support layer during the Succession Wars were gradually diversified as conditions stabilized, with individual stations specializing in particular crops or livestock for the broader system economy. This agricultural specialization (Station 59's hops and cereal crops being the most widely cited example) became a source of local identity that persisted well into the modern era. With good maintenance, a Wheeler was expected to last 200 years before refurbishment became uneconomical, though Gulf Breeze has never been a strong exporter; Spider could build a peak of only two frames per year.</p>
+</history>
+
+<manufacturer>
+Gulf Breeze Mining Union Spider (Formerly CMC)
+</manufacturer>
+
+<primaryFactory>
+Gulf Breeze
+</primaryFactory>
+
+<systemManufacturers>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<notes>
+Book has with 4 Dropship collars, MML allowing only 3 due to repair bay.
+</notes>
+
+<length>
+1250m
+</length>
+
+<width>
+1250m
+</width>
+
+<source>
+TtS:Gulf
+</source>
+
+<tonnage>
+200000.0
+</tonnage>
+
+<sail>
+0
+</sail>
+
+<grav_decks>
+1250
+</grav_decks>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+109
+</crew>
+
+<officers>
+15
+</officers>
+
+<gunners>
+4
+</gunners>
+
+<passengers>
+9911
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+2000
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

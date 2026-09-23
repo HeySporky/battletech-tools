@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a668-7342-8199-1ce95d28c6d8
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Shen Long Battle Armor
+</Name>
+
+<Model>
+[Pop-Up Mine](Sqd4)
+</Model>
+
+<mul id:>
+6436
+</mul id:>
+
+<year>
+3092
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<weaponQuirks>
+mod_weapons:Squad:0:CLBAHeavyGrenadeLauncher
+mod_weapons:Squad:1:CLBAHeavyGrenadeLauncher
+mod_weapons:Squad:2:BAMineLauncher
+</weaponQuirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<armor_type>
+36
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+CLBAHeavyGrenadeLauncher:TU
+CLBAHeavyGrenadeLauncher:TU
+BAMineLauncher:TU
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<capabilities>
+<p>The Shen Long mounts 1,500 kilograms on a quad chassis capable of 43 kilometers per hour, ranking among the fastest heavy battlesuits in the Inner Sphere. Its 550 kilograms of mimetic armor distorts sensor signatures and visual profiles, making the suit difficult to detect and target. The modular turret mount provides 400 kilograms of weapon and equipment capacity, while the quad design trades manipulators for speed and stability.</p><p>The Pop-Up Mine configuration equips two heavy grenade launchers in the turret, each with twenty rounds, and a body-mounted pop-up mine dispenser. This loadout is purpose-built for area denial and defensive operations. The grenade launchers provide flexible close-range firepower, while the mine dispenser allows troopers to seed terrain with concealed explosives during withdrawal or in preparation for ambushes. The configuration sacrifices direct anti-armor capability for battlefield control, making it dependent on allied units to engage hardened targets.</p>
+</capabilities>
+
+<overview>
+<p>The Shen Long is a heavy battle armor suit produced by Hellespont Industrials for the Capellan Confederation Armed Forces and the Magistracy of Canopus. Introduced in 3092, the design employs a quad chassis that provides exceptional ground speed for its weight class, paired with advanced camouflage systems that allow troopers to approach targets undetected. A reconfigurable weapon platform enables rapid loadout changes between missions, giving field commanders flexibility to tailor formations for specific tactical situations. The suit earned its name, meaning "Divine Dragon" in Chinese, for the aggressive ambush doctrine that defines its primary employment.</p>
+</overview>
+
+<deployment>
+<p>Pop-Up Mine squads in four-trooper formations are the standard CCAF configuration for area denial and defensive preparation. These squads excel at seeding terrain ahead of advancing enemy forces, working in concert with other minelaying assets to create layered obstacle belts that channel opponents into prepared kill zones.</p>
+</deployment>
+
+<history>
+<p>Hellespont Industrials developed the Shen Long on Sian, introducing the suit in 3092 to fulfill a Capellan Confederation Armed Forces requirement for a heavy battle armor platform built around ambush and interdiction tactics. Hellespont drew on existing expertise in advanced armor and modular weapon systems to deliver a quad-chassis suit that sacrificed manipulators for raw speed and a turret-mounted weapon platform. The name, meaning "Divine Dragon" in Chinese, reflected the aggressive doctrine the design was intended to enable.</p><p>The suit first proved itself during the Victoria War, when Menke Home Guard units paired Shen Long squads with Fa Shih minelaying teams to ambush a Davion BattleMech lance. The combined force lured the overconfident MechWarriors into a prepared minefield, then used multiple configurations to overwhelm and deceive the disoriented enemy, capturing an assault BattleMech in the process. On Yuris in 3103, Shen Long troopers harassed a Davion task force during weeks of fighting, though ammunition shortages forced several teams to surrender when reinforcements closed in.</p><p>The Magistracy of Canopus adopted the design with enthusiasm. Magistracy Armed Forces commanders prize Shen Long assignments as a mark of distinction, though the honor carries high casualty rates and routine exposure to difficult engagements.</p>
+</history>
+
+<manufacturer>
+Hellespont Industrials
+</manufacturer>
+
+<primaryFactory>
+Sian
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:CC,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<chassis>
+quad
+</chassis>
+
+<turret>
+Modular:4
+</turret>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+11
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

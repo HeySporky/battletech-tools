@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ce41-7ce9-9d6c-8549ca8ba9aa
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Crossbow
+model:CRS-6B
+mul id:733
+
+Config:Biped
+techbase:Inner Sphere
+era:2473
+source:TR:3075,TR:J
+published:RS:J
+rules level:1
+role:Missile Boat
+
+quirk:poor_target_long
+weaponquirk:mod_weapons:LA:3:LRM 10
+weaponquirk:mod_weapons:RA:3:LRM 10
+
+mass:60
+engine:300 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:5
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:13
+RA armor:13
+LT armor:14
+RT armor:14
+CT armor:17
+HD armor:8
+LL armor:16
+RL armor:16
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:5
+LRM 10, Left Arm
+Medium Laser, Left Arm
+LRM 10, Right Arm
+Medium Laser, Right Arm
+PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+LRM 10
+LRM 10
+Medium Laser
+IS Ammo LRM-10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+LRM 10
+LRM 10
+Medium Laser
+IS Ammo LRM-10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+PPC
+PPC
+PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Arcturan Arms' first foray into BattleMech manufacturing produced the sixty-ton CRS-6B Crossbow, a fast missile support platform that entered service with the Lyran Commonwealth in the late Age of War. Considered a middleweight machine compared to the heavier Mackies and Ymirs already in circulation, the Crossbow was designed to deliver heavy ranged missile fire before closing to engage with directed energy weapons. The prototype CRS-X first walked onto the battlefield in 2468, with the refined production model following several years later.</p><p>Though produced in limited numbers before financial difficulties forced the shutdown of the Arcturus production line, the Crossbow's distinctive arm-mounted weapons configuration left a lasting legacy. The design's self-contained arm assemblies, conceived as easily replaceable turrets, likely inspired the Clan Steel Viper OmniMech that would bear the same name centuries later.</p>
+
+capabilities:<p>The most distinctive feature of the CRS-6B Crossbow is its arm assemblies. Designed with a minimum of complex actuators, these assemblies function as self-contained turrets that could theoretically be easily replaced if severed in combat. Each arm mounts a CDC Double-Five LRM-10 launcher backed by a Rassal Blue-Beam medium laser, providing the Crossbow with effective fire support capability at multiple engagement ranges. This arm-centric weapons philosophy, combined with the 'Mech's primary role as a missile platform, would centuries later likely serve as the inspiration for the Clan-made Crossbow OmniMech.</p><p>An A-4 "Lightning" Series particle projection cannon mounted in the torso provides additional long-range firepower, though the meager heat dissipation system provided by Arcturan Arms' engineers prevents the Crossbow from effectively employing all of its long-range weapons simultaneously. In practice, the PPC serves as a medium-range alternative when the 'Mech's missile ammunition runs low. Powered by an AA Eterna 300-rated fusion engine, the Crossbow achieves an impressive top speed of 86 km/h for its weight class, though this speed comes at the cost of armor protection. With only eight tons of Diamond Skin Beta Series armor, the Crossbow is particularly vulnerable to concentrated fire, a trade-off that would imperil many Lyran MechWarriors during the late Age of War.</p>
+
+deployment:<p>The production model Crossbow replaced the prototype's smaller LRM-5 racks with more potent LRM-10 launchers and swapped the troublesome large laser for an A-4 "Lightning" Series PPC, significantly improving the 'Mech's long-range striking power. Entering production in 2470 under a long-term contract with the LCAF, this variant was earmarked exclusively for the Royal Guard. Despite these improvements, Arcturan Arms struggled with persistent production difficulties, and only 337 units were completed before the Lyran government cancelled the order in 2490 following years of delays and cost overruns triggered by the capital's relocation from Arcturus to Tharkad.</p>
+
+history:<p>The Crossbow's origins trace to the early Age of War, when the Coventry Defense Conglomerate was enjoying record profits from its military contracts. Dozens of other manufacturers competed for their share of the massive Lyran military spending, and Arcturan Arms positioned itself as a viable contender with the CRS-X prototype in 2468. Originally envisioned as a fast cavalry BattleMech capable of delivering heavy ranged missile fire, the prototype mounted paired LRM-5 launchers and a medium laser in each arm with a heavy laser in the torso. However, fewer than a dozen prototypes were constructed before the Lyran government rejected the design, citing inadequate firepower and persistent cooling problems.</p><p>Despite this initial setback, Arcturan Arms secured a supplemental contract to produce Banshees for the Lyran military, giving the company the expertise and revenue needed to refine the Crossbow. The production model CRS-6B replaced the prototype's smaller launchers with LRM-10s and swapped the heavy laser for a harder-hitting PPC, earning a long-term production contract in 2485. The 6B series entered production earmarked exclusively for the LCAF's Royal Guard, but a host of complications quickly undermined Arcturan Arms' ambitions.</p><p>Constantly behind schedule and suffering from financial and labor crises following the relocation of the Lyran capital from Arcturus to Tharkad, Arcturan Arms managed to produce only a fraction of the Crossbows originally planned. The Lyran government cancelled the production order in 2490 after a mere 337 CRS-6Bs had been built. Efforts to restart the line would ultimately fail, and MacEnroe Motors bought out the financially troubled company in 2541, shutting down Crossbow production entirely by 2550.</p><p>The Crossbow faded into obscurity during the Succession Wars, with surviving examples becoming increasingly rare battlefield curiosities. The design saw an unexpected revival during the Jihad, when the Arcturan Arms Refit Facility on Arcturus began producing the modernized CRS-9A variant, built on the remains of the old factory complex. This updated model incorporated advanced technology including double heat sinks, ferro-fibrous armor, and extended-range weaponry, giving the ancient chassis new relevance in a changed battlefield environment.</p>
+
+manufacturer:Arcturan Arms
+
+primaryfactory:Arcturus
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Arc Walker
+systemmode:CHASSIS:6X-B
+systemmanufacturer:ENGINE:AA
+systemmode:ENGINE:Eterna 300
+systemmanufacturer:ARMOR:Diamond Skin
+systemmode:ARMOR:Beta Series
+systemmanufacturer:COMMUNICATIONS:Arc-Signal
+systemmode:COMMUNICATIONS:1100
+systemmanufacturer:TARGETING:Arc Walker
+systemmode:TARGETING:T&T Prime

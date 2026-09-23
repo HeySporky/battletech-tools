@@ -1,0 +1,85 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bda8-7d90-acf9-51d2e5d961a0
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Platoon (LCAF)
+</Name>
+
+<Model>
+(MG 3058+)
+</Model>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Lyran Alliance/Lyran Commonwealth (3060+) Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Reforms begun under Alessandro Steiner and reinforced by Federated Suns influence have integrated Lyran infantry into combined-arms operations more effectively than at any point in the Commonwealth's history. Foot infantry platoons form the backbone of the LCAF's garrison forces, deploying on foot to hold positions, patrol perimeters, and secure urban areas where vehicles cannot easily operate. Armed with assault rifles backed by portable machine guns, these platoons combine individual marksmanship with sustained suppressive fire from crew-served weapons that can pin down opposing formations.</p>
+</overview>
+
+<notes>
+Intro date based on LCAF/LAAF armor kit prototype date
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Rifle (TK Assault)
+</Primary>
+
+<Secondary>
+Machine Gun (Portable)
+</Secondary>
+

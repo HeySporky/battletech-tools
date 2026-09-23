@@ -1,0 +1,155 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e373-7222-b741-eafb82948f34
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Nightshade ECM VTOL
+</Name>
+
+<Model>
+(LAC)
+</Model>
+
+<mul id:>
+2275
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<cruiseMP>
+12
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+21
+15
+15
+9
+2
+</armor>
+
+<Body Equipment>
+IS Ammo LAC/2
+</Body Equipment>
+
+<Front Equipment>
+Light Auto Cannon/2
+ISTAG
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Nightshade's defining characteristic is speed. At 129 km/h cruise and 194 km/h flank, the VTOL can reposition across a battlefield rapidly, making it difficult for conventional ground forces to track and engage. The original Yelm model mounted a Randall Medium Laser for self-defense, paired with a NIRAD 210 Guardian ECM suite, the combination that gave the design its historical significance as the first combat platform to field the Guardian system. However, the original's light armor left it extremely vulnerable to sustained fire. Pilots depended on avoidance rather than direct engagement, and a single burst of autocannon fire could disable the vehicle entirely.</p><p>The Meers-Skobel production version addressed the armor shortcoming by adopting FiberTech Light Plus ferro-fibrous plating, providing roughly 35 percent better coverage for comparable weight. The Moscovia Light Particle Projector Cannon replaced the original medium laser, offering improved standoff range appropriate for a design that prioritizes evasion over direct combat. The Johnston VRR 2.0 communications suite and Lamprey VXX targeting system equip the MSDC production model and complement the C³i integration that makes this variant a meaningful force multiplier when operating alongside other Blake-networked units. Even in its improved form the Nightshade is fragile, and its value lies entirely in its electronics rather than its combat punch.</p>
+</capabilities>
+
+<overview>
+<p>The Nightshade ECM VTOL was developed by Yelm Weapons on New Earth as the Inner Sphere's first dedicated airborne electronic warfare platform, entering service with the Star League Defense Force in 2597. Designed around the Guardian ECM suite, the lightweight 25-ton VTOL was built to suppress enemy electronics and provide real-time reconnaissance support for combined-arms operations. Its high cruising speed offered meaningful survivability against conventional fire, though its light armor made sustained engagements hazardous. The destruction of Yelm's production facilities during the Amaris Crisis and subsequent Succession Wars drove the design into near-extinction. The Nightshade experienced a revival in 3069 when the Meers-Skobel Defense Corporation, operating under contract to the Word of Blake, introduced a thoroughly modernized variant incorporating C³i networking technology, restoring the design as a capable scouting and electronic warfare asset for Blake's Protectorate Militia divisions.</p>
+</overview>
+
+<deployment>
+<p>Developed as a companion to the (Light PPC) model and entering production in 3070, the (LAC) variant replaced the particle cannon with a light autocannon and added target acquisition gear to support indirect fire missions. The combination proved effective when coordinating with artillery batteries, allowing the VTOL to provide rapid targeting solutions while its speed enabled it to avoid counterbattery fire. Like the (Light PPC) version, production was centered at Terra and distribution was concentrated in Word of Blake Protectorate formations. Unlike its C³i-equipped sibling, the simpler electronics made this variant more broadly useful, and production continued at Terra under the Republic of the Sphere through the Dark Age period.</p>
+</deployment>
+
+<history>
+<p>The Nightshade traces its origins to Yelm Weapons on New Earth, where the design entered production in 2597 as the Star League Defense Force's dedicated airborne electronic countermeasure platform. A second Yelm production line at Fletcher provided additional output, and the design proved popular enough that a Royal variant with enhanced electronics entered service in 2717 for select SLDF commands.</p><p>The Amaris Crisis ended the Nightshade's golden era. The New Earth facility was destroyed during the conflict, and Fletcher's factory suffered a similar fate in the fighting that followed the Liberation of Terra. With both production sources gone and spare parts no longer available, the design entered a long decline. Units still in service during the Succession Wars were progressively stripped of their Guardian ECM components, which were pulled to equip other platforms. By the late 2800s, operational Nightshades had effectively ceased to exist as a fielded type, reduced to warehouse curiosities in the inventories of backwater planetary militias.</p><p>The design's revival came through the Word of Blake's appetite for recovered Star League technology. In 3063, Dame Yelena Torowicz founded the Meers-Skobel Defense Corporation on Terra, contracting with the Word to research and modernize archived designs. MSDC identified the Nightshade's airframe as a suitable platform for Blake's growing C³i network doctrine. The result, unveiled in 3069, was a substantially redesigned vehicle using ferro-fibrous armor, a light particle cannon, and full C³i suite. The Word deployed this model widely across Protectorate Militia formations, and a companion variant mounting a light autocannon with target acquisition gear for indirect fire support followed in 3070. Unconfirmed reports from Capellan Confederation border worlds during the Jihad described a locally produced Nightshade variant with a light autocannon and TAG, though the Confederation denied manufacturing any such design.</p><p>When the Republic of the Sphere absorbed former Protectorate worlds after the Jihad, production at the Terra facility continued under ROS stewardship. The C³i-equipped (Light PPC) variant was phased out, as the Republic had no doctrinal need for C³i-reliant platforms and the technology itself was being actively suppressed. The light autocannon variant continued in production and served as the primary Nightshade model through the Dark Age period.</p>
+</history>
+
+<manufacturer>
+Meers-Skobel Defense Corporation
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Meers-Skobel Defense Corporation
+ENGINE:Vlar
+ARMOR:FiberTech
+COMMUNICATIONS:Johnston
+TARGETING:Lamprey
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:160
+ARMOR:Light Plus
+COMMUNICATIONS:VRR 2.0
+TARGETING:VXX
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+

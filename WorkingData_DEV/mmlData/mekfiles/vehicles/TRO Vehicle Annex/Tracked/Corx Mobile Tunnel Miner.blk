@@ -1,0 +1,192 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eae4-7240-bf52-9ce4d3d2aec0
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Corx Mobile Tunnel Miner
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4011
+</mul id:>
+
+<year>
+2420
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+LiquidCargoBay:23.591:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<engine_type>
+7
+</engine_type>
+
+<armor_type>
+46
+</armor_type>
+
+<armor_tech_rating>
+2
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+16
+3
+3
+3
+3
+3
+6
+</armor>
+
+<Body Equipment>
+Environmental Sealing
+</Body Equipment>
+
+<Front Equipment>
+Searchlight
+Searchlight
+Tank Sprayer
+Tank Sprayer
+Tank Sprayer
+Rock Cutter
+</Front Equipment>
+
+<Front Right Equipment>
+Tank Sprayer
+</Front Right Equipment>
+
+<Front Left Equipment>
+Tank Sprayer
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Small Laser
+Small Laser
+Searchlight
+Searchlight
+MiningDrill
+</Turret Equipment>
+
+<barrating>
+5
+</barrating>
+
+<structural_tech_rating>
+2
+</structural_tech_rating>
+
+<engine_tech_rating>
+2
+</engine_tech_rating>
+
+<capabilities>
+<p>The Corx is a 200-ton tracked support vehicle driven by a fission power plant that provides reliable, long-duration energy suited to sustained underground operations. Ground mobility is deliberately limited, with a cruise speed under fifteen kilometers per hour and a flank speed roughly double that, as the Corx is designed for work in confined excavation sites rather than overland transit. The vehicle's primary mining system is the TS-Essex rock cutter platform, mounted in the forward position and capable of cutting at angles up to forty-five degrees from horizontal. A sixteen-speed cutter drive combined with a lightweight condensing system prevents overheating during continuous operation, and the overall system delivers tunnel production rates more than five times greater than those of the earlier MoleRat design. A secondary mining drill mounted in the turret supplements the forward cutter for precision excavation work.</p><p>Supporting equipment includes four searchlights for illumination in lightless environments, five chemical sprayers for dust control and atmospheric management, and an Environmental Sealing chassis modification that protects crew and systems from hazardous subsurface conditions. The Corx carries approximately twenty-six tons of liquid cargo capacity, typically used for chemical supplies or extracted samples. Self-defense armament consists of two small lasers in the turret, backed by commercial-grade armor rated at BAR 5 across all facings. A five-person crew of officer, enlisted specialists, and gunner operates the vehicle. By 3078, the Corx carries an Obsolete design designation, reflecting the age of its underlying technology architecture rather than any failure of capability in its intended role.</p>
+</capabilities>
+
+<overview>
+<p>The Corx Mobile Tunnel Miner is among the most widely distributed industrial support vehicles in the Inner Sphere, produced by Terex-Schaeff on New Earth beginning in 2420. Designed to meet the growing excavation demands of interstellar colonization, the Corx belongs to the Mobile Tunnel Miner class, a category of heavy tracked vehicles that has served as a foundation of large-scale mining and construction since the early Terran Hegemony period. Capable of cutting nearly any tunnel profile required by engineers, the Corx quickly earned preference over earlier designs, building a reputation for versatility and speed that carried it into widespread service across inhabited space. Though its core architecture reflects its Terran Hegemony origins, the Corx remains a common sight in active mining operations centuries after its introduction, a reflection of the soundness of its original design principles and the enduring demand for capable underground excavation equipment.</p>
+</overview>
+
+<deployment>
+<p>The Corx Mobile Tunnel Miner operates across virtually every region of inhabited space, found in the inventories of mining consortiums, planetary engineering corps, and military construction units wherever large-scale underground work is required. Its Terran Hegemony origins meant that early production served colonial development programs across Hegemony space, and as New Earth passed through successive political owners during the Succession Wars, Corx production served Lyran Commonwealth, Federated Commonwealth, Word of Blake, and Republic of the Sphere clients in turn. The dispersal of the Aggerri fleet at auction in 2982 further seeded the design into markets that had previously lacked direct access to Terex-Schaeff output.</p><p>Primary operators are industrial concerns and planetary governments with active mining programs, though military engineering units maintain the Corx for tunnel excavation and field fortification tasks. The vehicle's fission power plant and straightforward mechanical systems make it attractive in economies where complex maintenance infrastructure is unavailable. Despite its age, functioning Corx units remain in active service throughout the post-Jihad Inner Sphere, valued for the combination of raw excavation capability and long-term durability that has characterized the design since its introduction.</p>
+</deployment>
+
+<history>
+<p>The Corx entered service in 2420 as Terex-Schaeff's contribution to New Earth's growing line of heavy industrial vehicles. Mobile Tunnel Miners had existed as a class since Caterpillar-Deere introduced the MoleRat tracked sub-surface miner in 2190, and the category had quickly become essential to Terran Hegemony colonial expansion. The Corx's superior cutting geometry and dramatically higher operational throughput steadily displaced the MoleRat from major mining consortiums across the Hegemony and beyond, and the older design had largely disappeared from industrial inventories by 2540.</p><p>Perhaps the most consequential deployment of any Corx fleet was on the world of Genoa, where Aggerri Manufacturing used a large complement of the vehicles to excavate a sixty-million-square-foot underground factory complex. The scale of the excavation was extraordinary, producing a network of caverns and tunnels connecting multiple production sections to a surface DropPort. The facility allowed Aggerri to assemble full aerospace airframes beneath Genoa's hostile surface and load completed units directly onto transport vessels with minimal environmental exposure. So significant was the plant to the planetary economy that Aggerri's workforce concentration effectively founded a city, Buche Arreste, to house workers and support services, transforming Genoa from a marginal colony into a functioning industrial world.</p><p>That transformation proved temporary. The Second Succession War degraded the plant's critical systems faster than they could be repaired, and with institutional knowledge of the specialized production lines lost, Aggerri could not restore the facility to full operation. The company was reduced to manufacturing spare parts as business contracted and the workforce emigrated in search of opportunity elsewhere. The remaining Corx fleet was liquidated at public auction in 2982, no longer viable as industrial assets on a depopulating world.</p><p>Some of those auctioned units found their way to Contard Mining, which deployed them on New Syrtis. Contard adapted the thermal output of the cutters to practical advantage in the frozen northern tundra, using the heat generated during excavation to thaw permafrost sufficiently for workers to cement mineshaft frameworks. Contard maintained a perfect safety record with no tunnel collapses or structural failures across all operations. The ore deposits uncovered beneath New Syrtis proved substantial, and within two generations Contard had become the second-largest supplier of raw ore to the Federated Suns military machine, a position that contributed to the Suns' military strength through the Fourth Succession War, the Clan Invasion, and the FedCom Civil War.</p>
+</history>
+
+<manufacturer>
+Terex-Schaeff
+</manufacturer>
+
+<primaryFactory>
+New Earth
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fission
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+200.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

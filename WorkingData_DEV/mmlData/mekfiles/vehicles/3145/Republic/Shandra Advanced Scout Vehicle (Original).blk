@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e88b-7932-9bdf-b2264978b2f0
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Shandra Advanced Scout Vehicle
+</Name>
+
+<Model>
+(Original)
+</Model>
+
+<mul id:>
+6699
+</mul id:>
+
+<year>
+3087
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<quirks>
+power_reverse
+poor_sealing
+</quirks>
+
+<weaponQuirks>
+exposed_linkage:RR:0:Machine Gun
+exposed_linkage:RR:1:Machine Gun
+</weaponQuirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+24
+15
+15
+10
+</armor>
+
+<Body Equipment>
+ISGuardianECMSuite
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+Machine Gun
+Machine Gun
+</Rear Equipment>
+
+<capabilities>
+<p>The Shandra is optimized for speed and electronic warfare. Its fusion powerplant drives the twenty-five-ton vehicle to a top speed of 129 kilometers per hour, fast enough to disengage from most threats before a sustained engagement develops. An integrated Guardian ECM suite, connected through the Exeter LongScan communications array, creates a portable electronic denial umbrella that masks the vehicle's sensor signature and disrupts enemy targeting systems. For direct engagement, the Shandra carries a Holly SRM launcher for short-range punch, a Diverse Optics Extended Range Small Laser for precision fire, and a pair of SureFire miniguns for suppression against light infantry and aerial threats.</p><p>The vehicle's construction incorporates low-observable materials that reduce its radar cross-section and heat signature, enhancing the ECM suite's concealment effect. These advantages come at a cost: the Shandra lacks the long-range active sensor systems of dedicated electronic warfare platforms, and its modest armor protection means it cannot absorb significant punishment before losing combat effectiveness. Commanders relying on Shandras must ensure the vehicles can extract themselves before hostile contact becomes unavoidable, as the design was built to observe and report, not to fight its way clear of serious opposition.</p>
+</capabilities>
+
+<overview>
+<p>The Shandra Advanced Scout Vehicle entered service with the Republic of the Sphere in the late 3080s, developed by Brigadier Corporation on Oliver in response to the Republic Armed Forces' need for a fast, self-sufficient reconnaissance vehicle. Designed to gather battlefield intelligence across almost every terrain and climate type, the Shandra became the most widely deployed scout vehicle in Republic combined arms formations and spread to virtually every military force operating in the former Inner Sphere. Its combination of mobility, electronic warfare capability, and modest self-defense armament gave it broad utility beyond pure reconnaissance, establishing a reputation as one of the most versatile wheeled combat vehicles of the Dark Age.</p>
+</overview>
+
+<deployment>
+<p>The Shandra (Original) was the initial prototype configuration evaluated by Republic Armed Forces testing units in the late 3080s. Powered by an internal combustion engine and carrying lighter armament than the production model, it served primarily as a developmental testbed for the electronics suite and chassis design that would define the standard vehicle. Production numbers were minimal, with the design superseded by the fusion-powered production variant within two years. Units that did see operational use were assigned to evaluation formations rather than front-line scout elements.</p>
+</deployment>
+
+<history>
+<p>The Shandra's development traces to the earliest years of the Republic of the Sphere, when Brigadier Corporation secured a contract to produce a lightweight wheeled reconnaissance vehicle for the Republic Armed Forces. The initial prototype, powered by an internal combustion engine and carrying reduced armament, demonstrated the basic design concept but fell short of performance requirements. Brigadier's engineering team quickly developed a refined fusion-powered successor, which entered mass production on Oliver by 3089 and became the standard reconnaissance vehicle across Republic combined arms formations.</p><p>During the Victoria War, Shandras operated across Victoria's windswept plains in advance of Davion-aligned forces probing Capellan defensive lines. The vehicles' speed and electronic countermeasures made them effective instruments for gathering tactical intelligence despite active enemy interception efforts, and the resulting engagements generated operational experience that shaped Republic reconnaissance doctrine for decades. The vehicles' adaptability extended to covert operations well beyond normal reconnaissance duties, with Republic forces deploying Shandras on sensitive missions deep into contested territory, including operations near the Fortress Republic perimeter during the later Dark Age period.</p><p>Brigadier Corporation's facilities on Oliver operated under Republic of the Sphere ownership through the late Dark Age, with active production recorded from the DA-LR era onward. As the ilClan period reshaped the political map of the Inner Sphere, Oliver's production lines transitioned to Clan Wolf-in-Exile control, continuing to supply the Shandra to the diverse array of factions that had come to depend on it across several decades of service.</p>
+</history>
+
+<manufacturer>
+Brigadier Corporation
+</manufacturer>
+
+<primaryFactory>
+Oliver
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown (ICE)
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:RotS,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

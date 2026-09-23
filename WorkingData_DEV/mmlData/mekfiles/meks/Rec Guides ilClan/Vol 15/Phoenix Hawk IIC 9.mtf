@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d8f7-7f76-89c3-ceea760544cf
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Phoenix Hawk IIC
+model:9
+mul id:8196
+
+Config:Biped
+techbase:Clan
+era:2853
+source:RG15,RGv1
+published:RG15,RGv1,RSFP:MERCS-CLAN
+rules level:2
+role:Sniper
+
+quirk:easy_maintain
+weaponquirk:fast_reload:LT:4:CLLRM20
+weaponquirk:fast_reload:LT:8:CLLRM20
+weaponquirk:fast_reload:RT:4:CLUltraAC10
+weaponquirk:fast_reload:CT:11:CLMG
+
+mass:80
+engine:400 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Clan)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:26
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:10
+RTR armor:10
+RTC armor:14
+
+Weapons:5
+LRM 20, Left Torso
+LRM 20, Left Torso
+Ultra AC/10, Right Torso
+Machine Gun, Center Torso
+Machine Gun, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Ammo LRM-20
+Clan Ammo LRM-20
+Clan Ammo LRM-20
+Clan Ammo LRM-20
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+Clan Ultra AC/10 Ammo
+Clan Ultra AC/10 Ammo
+Clan Machine Gun Ammo - Half
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+CLMG
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLMG
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Phoenix Hawk IIC represents the culmination of the Star League's long-standing interest in an assault BattleMech suited for Striker regiment operations, strengthening and hardening the quintessential scout and raider, the Phoenix Hawk, into an eighty-ton platform. The Star League never saw the dream fulfilled; it fell to Clan Steel Viper to complete the concept during the Clan Homeworld era.</p><p>Though its original creators are no longer present to receive recognition, the Phoenix Hawk IIC has become a remarkably successful commercial venture. Clan Diamond Shark recognized the design's market potential early, securing production rights that eventually passed to Trellshire Heavy Industries on Twycross. Steady shipments to other Clans and Inner Sphere customers transformed the Phoenix Hawk IIC into a bestseller, serving as a springboard for many other successful ventures in the cross-cultural BattleMech trade.</p>
+
+capabilities:<p>Built around the largest conventional fusion engine available (the massive Type 70 400 XL) the Phoenix Hawk IIC achieves remarkable speed for an assault BattleMech, reaching 86 kilometers per hour at full stride. Grandthrust Mk. 5 jump jets provide 150 meters of surprising maneuverability for a chassis of this mass, enabling tactical repositioning that most assault 'Mechs cannot match. Forging AM15 ferro-fibrous armor with CASE provides solid protection without sacrificing the mobility that defines the design.</p><p>The baseline configuration mounts a pair of Type DL Ultra-10 autocannons as primary armament, supported by twin Series V machine guns. This loadout proved well-suited to the Steel Vipers' preferred dueling role, delivering devastating volleys at medium range. Other Clans have employed the chassis in its intended heavy cavalry role (chasing down fleeing enemies and eliminating stragglers) while some commanders use it as a headhunter against enemy command assets. Inner Sphere MechWarriors have adapted the design as mobile fire support for heavy lances, where its long-range firepower can be quickly repositioned to exploit breakthroughs.</p><p>The primary limitation remains ammunition dependency in the base configuration, a concern that has driven the development of numerous energy-focused and hybrid variants across multiple Clan production lines.</p>
+
+deployment:<p>A recently reintroduced variant that hybridizes elements of the earliest IIC configurations, the Phoenix Hawk IIC 9 mounts a single Ultra autocannon paired with dual LRM launchers. This loadout provides better dueling capabilities than the pure missile or pure ballistic variants, enabling pilots to break through armor with autocannon fire and then exploit weaknesses with missile volleys. The IIC 9 has become common among new Jade Falcon and Hell's Horses warriors rising through the ranks, valued for its forgiving weapon mix and versatile engagement options.</p>
+
+history:<p>The Phoenix Hawk IIC traces its lineage to unrealized Star League concepts for assault-weight reconnaissance platforms. Clan Steel Viper completed the design during the Homeworld era, fielding it as a versatile assault chassis capable of fulfilling roles from dueling to heavy cavalry. The Steel Vipers employed the IIC extensively, using its speed and jump capability to overwhelm opponents in Trials of Possession and garrison operations across the Clan Homeworlds.</p><p>The Battle of Tukayyid in 3052 marked one of the earliest Inner Sphere sightings of the Phoenix Hawk IIC. When Alpha and Beta Galaxies were repulsed by the Com Guards, Khan Zalman committed Zeta Galaxy to cover the Steel Viper retreat. A Star of Phoenix Hawk IICs smashed through pursuing Com Guard elements in a brief but violent assault. Though the IICs quickly exhausted their ammunition, the assault provided critical breathing room for the withdrawal and taught the Com Guards to exercise greater caution in pursuit.</p><p>Clan Diamond Shark secured production rights and established manufacturing at Trellshire Heavy Industries on Twycross, transforming the design into one of the most commercially successful Clan exports. The IIC's combat capabilities were demonstrated during pirate raids on Thule and Damian, where raiders dropped from orbit, struck targets, and dashed to extraction points before defenders could mass. Even when hits landed, the IIC's combination of speed and armor rendered them seemingly invulnerable to the garrison forces available.</p><p>In the ilClan era, the Phoenix Hawk IIC continues to see widespread adoption across both Clan and Inner Sphere militaries. Clan Sea Fox merchants have leveraged the platform into a thriving export market, with specialized variants tailored to customer requirements. The appearance of the hatchet-armed IIC 10 among pirates attacking the Rasalhague Dominion created unexpected demand (particularly from House Kurita) demonstrating the design's continued evolution and commercial viability centuries after its initial creation.</p>
+
+manufacturer:Trellshire Heavy Industries
+
+primaryfactory:Twycross
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:SFAM 4
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Type 70 400 XL
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:AM15 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Grandthrust Mk. 5
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:MegaBand System 21
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Dtrac Suit 4

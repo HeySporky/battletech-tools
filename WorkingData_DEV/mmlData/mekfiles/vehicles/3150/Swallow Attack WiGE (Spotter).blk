@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e8c6-7ff7-986c-0c4d60a4891e
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Swallow Attack WiGE
+</Name>
+
+<Model>
+(Spotter)
+</Model>
+
+<mul id:>
+8059
+</mul id:>
+
+<year>
+3135
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+WiGE
+</motion_type>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+50
+35
+35
+28
+30
+</armor>
+
+<Body Equipment>
+ISFlotationHull
+IS LB 5-X AC Ammo
+IS LB 5-X Cluster Ammo
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+VehicleJumpJet
+</Body Equipment>
+
+<Front Equipment>
+ISERMediumLaser
+ISERMediumLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISLBXAC5
+ISTAG
+</Turret Equipment>
+
+<capabilities>
+<p>The Swallow's performance centers on its 200-rated extralight fusion engine, which drives the craft to a maximum speed of 118 km/h. That speed is the vehicle's primary defensive asset, allowing crews to execute rapid attack runs and withdraw before heavier opponents can respond effectively. A flotation hull allows the Swallow to land on and operate from open water, extending its tactical reach to coastal, riverine, and island-chain environments that shut out conventional tracked or wheeled designs.</p><p>The main weapon is a heavy autocannon capable of firing both standard slugs and cluster munitions, offering flexibility against armored vehicles, infantry, and light aircraft. A pair of extended-range medium lasers provide reliable secondary firepower at moderate distances without any ammunition dependency. Together the weapons give the crew options across most engagement ranges the vehicle is likely to encounter.</p><p>Seven and a half tons of heavy ferro-fibrous armor protects the Swallow adequately for its weight class, though the coverage is concentrated at the front and falls off sharply toward the flanks and rear. The extralight engine is a significant liability under penetrating fire to the sides or rear. Against aerospace threats or naval gunfire the Swallow has no dedicated countermeasures, making fighter cover and coordinated mutual support essential in any environment where air or sea threats are present.</p>
+</capabilities>
+
+<overview>
+<p>The Swallow Attack WiGE is a medium Wing-in-Ground-Effect combat vehicle produced by Nashan Diversified at their Furillo manufacturing complex. Drawing on the design heritage of Nashan's earlier Sturmvogel maritime patrol WiGE, the Swallow was developed to fill a fast-strike and close-support role for Lyran armed forces, combining the terrain flexibility of a WiGE with a respectable offensive punch. The design entered service in 3092 in an initial export configuration, then received a significant weapons overhaul by 3095 to better align with Lyran tactical preferences.</p><p>Known by its Germanic nickname Schwalbe within Lyran space, the vehicle found broad export success across most of the Inner Sphere, serving with mercenary units and second-line formations wherever speed and amphibious capability were valued. Its critics dismissed it as little more than a faster Hetzer, but operators familiar with WiGE tactics found its blend of speed and firepower well-suited to fast-attack operations across a wide variety of terrain.</p>
+</overview>
+
+<deployment>
+<p>Introduced in 3135, the Spotter variant was developed to meet demand for mobile forward observers capable of operating across the same difficult terrain as the rest of the Swallow family. Carrying additional sensors and fire coordination equipment, the Spotter advances ahead of heavier formations to identify and designate targets for artillery and fire support assets, then withdraws at WiGE speed before opposing forces can bring direct fire to bear.</p><p>The variant proved well-suited to worlds with broken coastal and island terrain, where its amphibious capability allowed it to reach observation positions inaccessible to wheeled or tracked alternatives. Lyran militia formations and combined-arms units operating in the early Dark Age found the Spotter effective at coordinating indirect fire against opponents attempting to exploit water obstacles as defensive barriers.</p>
+</deployment>
+
+<history>
+<p>Development of the Swallow began as Nashan Diversified's engineers sought to build on the commercial success of the Fensalir, a WiGE design produced in partnership with Johnston Industries. Evaluations concluded that the Fensalir's top speed was insufficient for the close-assault role Nashan had in mind, prompting the team to revisit the Sturmvogel maritime patrol WiGE as a structural foundation. The Sturmvogel's proven flotation hull and aerodynamic profile provided a workable starting point for scaling up to a heavier combat configuration.</p><p>The 3092 prototype carried a rotary autocannon and a snub-nose PPC, a pairing that underwhelmed LCAF evaluators. Lyran unit doctrine favored heavier-hitting autocannon systems over sustained fire rate, and the original weapons were considered a poor match for the supply chains and tactical culture of the Lyran armed forces. Nashan redesigned the armament package, substituting heavier and more range-capable weapons that aligned with existing Lyran logistics. The redesigned variant entered service in 3095 and quickly achieved the market traction the original had lacked. The original configuration continued in limited production as an export model, retained for buyers who preferred its higher sustained fire output.</p><p>The Swallow was adopted broadly by Lyran second-line and planetary militia formations throughout the Dark Age. The Twenty-third Arcturan Guards RCT on Furillo became one of its most prolific operators, exploiting the vehicle's water-capable hull across the island-dotted Eidsfoss sea to support the amphibious supply operations the regiment maintained there. In 3144, Grenadier units equipped with Swallows played a supporting role during a Kestrel Grenadiers operation against First Liao Hussar raiders in the Capellan March, using the vehicles' speed and terrain flexibility to track and pin the raiders across multiple systems before cornering them on Amiga.</p>
+</history>
+
+<manufacturer>
+Nashan Diversified
+</manufacturer>
+
+<primaryFactory>
+Furillo
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Nashan Diversified
+ARMOR:Nashan Diversified
+COMMUNICATIONS:Nashan Diversified
+TARGETING:Nashan Diversified
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Omni 200 XL
+ARMOR:ArcShield Heavy
+COMMUNICATIONS:Optichat
+TARGETING:T-800 Series 7
+</systemModels>
+
+<source>
+TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

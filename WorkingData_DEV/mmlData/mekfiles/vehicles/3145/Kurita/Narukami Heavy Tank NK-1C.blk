@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7d1-7791-afbf-c04b77d06f22
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Narukami Heavy Tank
+</Name>
+
+<Model>
+NK-1C
+</Model>
+
+<mul id:>
+6388
+</mul id:>
+
+<year>
+3097
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<quirks>
+hard_pilot
+fast_reload
+low_profile
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+4
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+38
+27
+27
+21
+27
+</armor>
+
+<Body Equipment>
+ISCASE
+ISAMS Ammo
+ISAMS Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISAntiMissileSystem
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+PPC
+PPC
+ISGaussRifle
+ISAntiMissileSystem
+</Turret Equipment>
+
+<capabilities>
+<p>The Narukami's primary armament consists of a Grizzard Model 200 Gauss Rifle paired with two Lord's Light Particle Projection Cannons, a combination designed to engage targets well beyond the effective range of most opposing armor. Two Chosatsugai no Kunai Anti-Missile Systems provide reliable point defense, protecting the crew and ammunition stores from incoming missile fire. The New Samarkand Teppeki Hardened armor, installed with integral CASE to contain potential ammunition explosions, provides substantial protection against weapons fire, with the hardened construction offering additional resistance that standard armor cannot match. A GM 270 XL fusion engine gives the 90-ton vehicle adequate ground speed for defensive operations and siege work, though the design's critics have noted it leaves the Narukami slower than many opponents would prefer.</p><p>The design carries notable trade-offs. The XL engine reduces the vehicle's mass but increases vulnerability to internal destruction if the engine bays are penetrated. The Gauss rifle's reliance on discrete ammunition rounds creates logistical demands that must be planned for in extended campaigns. The PPC pair generates heat that, while manageable for a combat vehicle, stresses cooling systems during sustained engagements. These factors combine to make the Narukami a capable but demanding platform that rewards careful crew training and robust supply chain management.</p>
+</capabilities>
+
+<overview>
+<p>The Narukami Heavy Tank is a 90-ton tracked combat vehicle built by New Samarkand Metals on New Samarkand and introduced to Draconis Combine Mustered Soldiery service in 3097. Named for the Shinto deity of thunder, the design reflects the Combine's long tradition of invoking mythological imagery for its military hardware. New Samarkand Metals developed the Narukami in response to DCMS requirements for a heavy armored platform capable of engaging threats at extended ranges, filling a role that lighter and more common designs could not adequately perform. The tank proved successful enough to generate a dedicated C3-equipped variant in 3108, extending its service life and operational flexibility. Both variants have become fixtures in DCMS armored formations, particularly among the New Samarkand Regulars and the Legions of Vega.</p>
+</overview>
+
+<deployment>
+<p>The NK-1C serves as a standard fire support unit across frontline and second-line DCMS armor regiments. Attrition over decades of conflict has concentrated surviving examples in the New Samarkand Regulars and the Legions of Vega, where proximity to the manufacturing facilities facilitates resupply and maintenance. The variant is deployed most effectively in defensive lines and contested corridor operations, where its long-range weapons suite can be used to full advantage. Field commanders favor the NK-1C for siege operations and prepared defensive positions, where its modest ground speed is a lesser concern.</p>
+</deployment>
+
+<history>
+<p>The Narukami's development traces to the late 3080s, when DCMS planners identified a gap in their heavy armor inventory. The Jihad had inflicted severe losses on Combine armored formations, and the rebuilding period revealed that the DCMS lacked a dedicated long-range heavy tank capable of holding defensive lines and contesting fortified positions. New Samarkand Metals received the development contract, drawing on their experience with large tracked vehicles to design the Narukami from the ground up as a purpose-built fire support platform rather than an adaptation of an existing hull.</p><p>First units entered service in 3097, distributed initially to the New Samarkand Regulars where proximity to the manufacturing facilities simplified resupply. The design's battlefield performance demonstrated both its strengths and its limits. During a reconnaissance operation on Sylvan in early 3145, two platoons of Narukamis held a DropShip landing zone against a superior Federated Suns force, absorbing volleys and withdrawing in good order while maintaining fire discipline. The engagement reinforced the vehicle's reputation as a resilient defensive platform, though it also exposed the cost that attritional warfare extracted from units operating far from their supply bases.</p><p>New Samarkand Metals introduced the BC3 variant in 3108, redesigning the weapon configuration to support C3 network operations. The variant saw action on Barlow's Folly during Duke Corwin Sandoval's invasion in 3141, where a pair of BC3 tanks contributed to significant AFFS losses before being overrun, illustrating both the variant's firepower and its susceptibility to combined-arms pressure when cut off from its support network. The Narukami family's performance across these engagements cemented its place as a capable fire support platform that performs best within organized defensive or networked tactical schemes.</p>
+</history>
+
+<manufacturer>
+New Samarkand Metals
+</manufacturer>
+
+<primaryFactory>
+New Samarkand
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:General Motors
+ARMOR:New Samarkand Metals
+COMMUNICATIONS:Olmstead
+TARGETING:Omicron
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:270 XL
+ARMOR:Teppeki Hardened with CASE
+COMMUNICATIONS:3000
+TARGETING:IX
+</systemModels>
+
+<source>
+TR:3145:DC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+90.0
+</tonnage>
+

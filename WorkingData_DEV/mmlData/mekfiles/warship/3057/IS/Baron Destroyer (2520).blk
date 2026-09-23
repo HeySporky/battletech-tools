@@ -1,0 +1,295 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eccb-7766-97ab-1cfb44cefa1e
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Baron Destroyer
+</Name>
+
+<Model>
+(2520)
+</Model>
+
+<mul id:>
+3792
+</mul id:>
+
+<year>
+2520
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:6.0:2:1::-1:0
+smallcraftbay:6.0:1:2::-1:0
+cargobay:137961.0:1:3::-1:0
+2ndclassquarters:140.0:0:-1::-1:0
+crewquarters:1351.0:0:-1::-1:0
+1stclassquarters:500.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+2
+</SafeThrust>
+
+<heatsinks>
+1100
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+16250
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+13
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+31
+29
+29
+25
+29
+29
+</armor>
+
+<Nose Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:80
+(B) Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Ammo White Shark:20
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:80
+(B) Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Ammo White Shark:20
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+(B) Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Ammo White Shark:20
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:80
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:80
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+</Right Broadsides Equipment>
+
+<structural_integrity>
+30
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 480,000 tons, the Baron was powered by three Palenkov-Reese interplanetary engines. The drive system delivered a safe thrust of two gravities with a maximum burst of three, an underwhelming propulsion profile that hampered the vessel's tactical flexibility throughout its service life.</p><p>The vessel's armament centered on an extensive array of naval lasers supplemented by naval autocannons and White Shark missile launchers, providing adequate firepower for a destroyer of its tonnage. Protection was modest, with only 256 tons of improved ferro-aluminum armor spread across the hull, reflecting the class's intended role as a patrol and screening vessel rather than a ship of the line. A single fighter bay carried six aerospace fighters, with an additional bay for six small craft, though the Baron mounted no docking collars for DropShip operations.</p><p>Where the Baron distinguished itself was in its enormous cargo capacity of nearly 138,000 tons and its passenger accommodations for thirty travelers across first and second class berths. Combined with generously sized fuel bunkers and a crew complement of approximately 275, these features made the vessel remarkably well-suited for long-range transport missions far beyond the capability of most destroyer-class vessels.</p>
+</capabilities>
+
+<overview>
+<p>The Baron-class destroyer was constructed by Krester Ship Construction on Terra, one of the Terran Hegemony's earliest dedicated WarShip manufacturers. Commissioned in 2520 after a prolonged development program, the class was designed as a fleet escort and patrol vessel capable of extended independent operations across the Hegemony's territorial holdings. The Baron carried a mixed reputation among contemporary naval officers. While the vessel's combat performance drew criticism from fleet commanders expecting a more capable frontline combatant, the class possessed an unusually generous internal volume for a destroyer, granting it significant transport capacity alongside its escort duties. This combination of patrol capability and logistical utility made the Baron a distinctive if unorthodox addition to the Terran Hegemony's fleet, occupying a role that few other destroyer classes of the period could match.</p>
+</overview>
+
+<deployment>
+<p>The DCS Yedo holds the distinction of being the last Baron-class destroyer known to have served in the Inner Sphere. Operating under the banner of the Draconis Combine, the Yedo remained in active service well into the Second Succession War, a reflection of the desperate need for any operational WarShip during that era of wholesale destruction. The vessel met its end in 2853 at the Hesperus system's nadir jump point, where it was engaged and destroyed by the Lyran Commonwealth battlecruiser LCS Invincible. The loss of the Yedo marked the end of the Baron's presence in Inner Sphere naval service, over three centuries after the first hull had been commissioned.</p>
+</deployment>
+
+<history>
+<p>The Baron-class destroyer originated in the Terran Hegemony's policy of maintaining technological superiority over the Great Houses during the early twenty-sixth century. Krester Ship Construction on Terra began laying down the first hull in 2515, but construction was halted when critical flaws were discovered in the vessel's revolutionary propulsion system. The two-year delay required to correct the deficiency proved devastating to the program, as the rapid pace of military development rendered the design outdated before it ever entered service in 2520.</p><p>The Baron's combat performance during its early career did little to improve the class's standing among fleet commanders. Although vessels of the class saw action during the Reunification War after the Star League distributed over half the fleet to member states in 2582, their performance remained lackluster by contemporary standards. The class found its true calling as an armed transport, with senior diplomats and military officials frequently requisitioning Barons for travel through the Periphery and other contested regions, where the deterrent value of a WarShip escort proved invaluable.</p><p>The Terran Hegemony also employed ten Baron hulls as unmanned M-4 SDS drone WarShips, an early proof-of-concept for automated naval warfare. All ten were scrapped by 2735, before the program shifted to more advanced drone designs. The SLDF formally decommissioned the remaining manned Barons in 2720, transferring them to the Great Houses. By 2765, twelve vessels remained in service across four member states: five with the Draconis Combine, three each with the Capellan Confederation and the Federated Suns, and a single vessel with the Lyran Commonwealth.</p><p>Attrition during the Succession Wars steadily reduced the Baron fleet. The last confirmed Inner Sphere Baron was lost in 2853, bringing the class's active career to a close after over three centuries of service. Centuries later, the Word of Blake recovered three Baron-class hulls from hidden caches and restored them to operational status during the Jihad, though all three were destroyed by 3077. At least one additional hull survived in a Clan naval cache until the Wars of Reaving, marking the final known trace of the class.</p>
+</history>
+
+<manufacturer>
+Krester Ship Construction
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Palenkov-Reese
+ARMOR:Improved Ferro-Aluminum
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Destroyer
+</use>
+
+<length>
+545.5 m
+</length>
+
+<height>
+1150 m Sail
+</height>
+
+<source>
+TR:3057r,JTP:Luthien
+</source>
+
+<tonnage>
+480000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+65
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+275
+</crew>
+
+<officers>
+40
+</officers>
+
+<gunners>
+43
+</gunners>
+
+<passengers>
+30
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+13
+</life_boat>
+
+<escape_pod>
+38
+</escape_pod>
+

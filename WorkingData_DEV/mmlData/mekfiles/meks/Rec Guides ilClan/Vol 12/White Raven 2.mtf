@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d89c-76ab-b42f-b5b49d84a36f
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:White Raven
+model:2
+mul id:7795
+
+Config:Biped
+techbase:Clan
+era:3149
+source:RG12,RGv1
+published:RG12,RGv1
+rules level:3
+role:Skirmisher
+
+quirk:imp_target_short
+
+mass:75
+engine:375 XXL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:5
+jump mp:8
+
+armor:Standard(Clan)
+LA armor:22
+RA armor:22
+LT armor:24
+RT armor:24
+CT armor:30
+HD armor:9
+LL armor:25
+RL armor:25
+RTL armor:8
+RTR armor:8
+RTC armor:11
+
+Weapons:8
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+ER Small Laser, Right Arm
+ER Small Laser, Right Arm
+Large Pulse Laser, Left Torso
+Large Pulse Laser, Right Torso
+Medium Pulse Laser, Center Torso
+Medium Pulse Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERSmallLaser
+CLERSmallLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERSmallLaser
+CLERSmallLaser
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+Clan Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+CLLargePulseLaser
+CLLargePulseLaser
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+CLLargePulseLaser
+CLLargePulseLaser
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLMediumPulseLaser
+CLMediumPulseLaser
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The White Raven is a Raven Alliance redesign of the Clan Steel Viper Black Python heavy BattleMech. Introduced in approximately 3127 by Raveena Electronics on Ramora, the White Raven represents Clan Snow Raven's deliberate effort to claim the Black Python chassis as their own. The Ravens had long admired the graceful, bird-like silhouette of the original design, feeling that such a 'Mech belonged soaring with them rather than slithering with the hated Steel Vipers. By resurrecting the design under a new name, the Ravens merely stayed true to their scavenger heritage.</p><p>The White Raven is notable as one of the first production BattleMechs to mount ferro-lamellor armor, providing exceptional protection against advanced weaponry. Produced exclusively at Raveena Electronics, the design serves as a precision sniper platform meant to harass enemies at range with accurate fire. The decision to wrap the chassis in ferro-lamellor armor also served as a test bed for newer Raven OmniMechs like the War Crow, which shares many design features with the White Raven.</p>
+
+capabilities:<p>The White Raven retains the same basic endo steel skeleton and jump jet capability of the original Black Python, maintaining the design's characteristic speed and mobility at 86 kilometers per hour. A GM 375 extralight engine provides the power, while five SR Starlifter 75 jump jets allow 150 meters of jumping capability. Where the design diverges most significantly from its predecessor is in its armor protection and weapons suite.</p><p>Fourteen and a half tons of Compound LZ-7 ferro-lamellor armor provide the White Raven with exceptional resilience against advanced weapons systems that would normally bypass conventional armor protection. This makes the design particularly effective against opponents relying on weapons designed to penetrate standard ferro-fibrous plate. The psychological impact of absorbing hits that should have penetrated is considerable in combat.</p><p>The weapons loadout emphasizes precision engagement at range. Paired Series 6b extended-range large lasers serve as the primary armament, supported by two Series 14a medium pulse lasers and four Series 1 extended-range small lasers. Two Sigma-I anti-personnel Gauss rifles provide close-range defense, and all weapons are tied into a targeting computer for enhanced accuracy. Sixteen double heat sinks manage the thermal load effectively.</p>
+
+deployment:<p>The White Raven 2 is a further technological evolution, incorporating an XXL engine to maintain the top ground speed of 86 kilometers per hour while freeing internal volume. Eight improved jump jets dramatically increase jumping capability to 240 meters, making this variant one of the most mobile heavy 'Mechs in existence. The weapons suite shifts to paired large pulse lasers in the side torsos with two medium pulse lasers in the center torso, supplemented by four extended-range small lasers distributed across both arms. Standard armor replaces the ferro-lamellor protection, trading specialized defensive properties for a more conventional but still substantial protection scheme. The absence of ammunition-dependent weapons makes this variant ideal for extended independent operations.</p>
+
+history:<p>The White Raven traces its lineage directly to the Clan Steel Viper Black Python, a design that Clan Snow Raven had long coveted. In the oldest Terran legends, the raven is an opportunist and scavenger, and the case of the White Raven was no different. The carcass the Ravens feasted upon was that of Clan Steel Viper and their Black Python.</p><p>The Ravens had always lamented seeing the graceful, bird-like Black Python in Viper formations, feeling that such a 'Mech should be soaring with them rather than associated with serpents. When the Wars of Reaving destroyed Clan Steel Viper, the opportunity arose for the Snow Ravens to claim the design for themselves. By resurrecting the pre-3060s Black Python under a new name, the Snow Ravens successfully erased the memory of the old Spheroid name.</p><p>Following the formation of the Raven Alliance, Raveena Electronics on Ramora began production of the redesigned chassis around 3127. The White Raven entered service as one of the most advanced heavy 'Mechs in the Raven Alliance arsenal, distinguished by its ferro-lamellor armor protection. This armor technology had previously been rare on production BattleMechs, and the White Raven served as both a front-line combatant and a test bed for applying the technology to future Raven designs.</p><p>The Ravens were deeply disturbed when clashes with the Federated Suns revealed that Davion forces possessed weapons capable of ignoring ferro-lamellor armor. Re-engineered lasers had been deployed for several years, but the Ravens had discounted them as inferior Spheroid technology. This discovery prompted the Raven leadership to seek samples of these weapons for study, dispatching intelligence-gathering teams to the Periphery border regions.</p><p>By the ilClan era, the White Raven had established itself as a symbol of Raven Alliance military capability. Production continued at Raveena Electronics, with the introduction of the White Raven 2 variant incorporating XXL engine technology and improved jump jets. Only the most skilled warriors are awarded the right to pilot this expensive and prestigious design.</p>
+
+manufacturer:Raveena Electronics
+
+primaryfactory:Ramora
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Raven Endo Steel BP3
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:375 Fusion Extralight
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:LZ-7 Ferro-Lamellor
+systemmanufacturer:JUMP_JET:SR
+systemmode:JUMP_JET:Starlifter 75
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:TDWS-37 Mk. 2.2
+systemmanufacturer:TARGETING:Hermes
+systemmode:TARGETING:CT-44

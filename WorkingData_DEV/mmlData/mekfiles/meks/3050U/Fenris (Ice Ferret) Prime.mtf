@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c48c-761e-9571-7dcd5519a6fc
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Fenris
+clanname:Ice Ferret
+model:Prime
+mul id:1053
+
+Config:Biped OmniMek
+techbase:Clan
+era:2948
+source:TR:CI
+published:RSFP:Wave 1
+rules level:2
+role:Striker
+
+quirk:imp_sensors
+
+mass:45
+engine:360 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:12 Clan Double
+base chassis heat sinks:12
+walk mp:8
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:14
+RA armor:14
+LT armor:14
+RT armor:14
+CT armor:19
+HD armor:9
+LL armor:19
+RL armor:19
+RTL armor:7
+RTR armor:7
+RTC armor:8
+
+Weapons:3
+ER PPC, Left Arm
+ER Small Laser, Left Arm
+Streak SRM 2, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERSmallLaser (OMNIPOD)
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLStreakSRM2 (OMNIPOD)
+Clan Streak SRM 2 Ammo (OMNIPOD)
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLActiveProbe (OMNIPOD)
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Ice Ferret, designated Fenris by Inner Sphere forces, is a forty-five ton medium OmniMech first produced in 2948 by Clan Ice Hellion at their W-7 Facilities on Tranquil. Originally designated the Wolf Hunter, the design was conceived as Clan Ice Hellion's answer to the formidable Timber Wolf OmniMech fielded by Clan Wolf. Emphasizing speed and firepower over raw tonnage, the Ice Hellion warriors envisioned a fast hunter-killer capable of challenging the pride of the Wolf touman. The design's initial configurations proved lackluster, however, and Clan Wolf warriors began systematically challenging Ice Hellions for possession of the OmniMech through Trials of Possession. Within five years, the Wolves had claimed eighty percent of the Ice Hellion's Wolf Hunter inventory, including the production facility itself. Renaming the design after the ice ferret (the only natural predator of the ice hellion on the planet Hector) Clan Wolf refined the configurations and transformed the chassis into one of the most versatile medium OmniMechs in their touman.</p>
+
+capabilities:<p>The Ice Ferret is built on a lightweight endo steel chassis powered by a massive 360-rated XL engine, propelling the forty-five ton OmniMech to speeds of nearly one hundred thirty kilometers per hour. This exceptional speed makes the Ice Ferret one of the fastest medium 'Mechs in any Clan arsenal, though it comes at the cost of pod space, the engine alone accounts for roughly one-third of the design's total mass. Protected by seven and a half tons of ferro-fibrous armor, the Ice Ferret carries nearly the maximum protection possible for its weight class, giving it surprising resilience for a design built around speed.</p><p>The chassis mounts twelve fixed double heat sinks and carries nine and a half tons of pod space, enabling a wide variety of mission loadouts. In its Primary configuration, the Ice Ferret balances long-range striking power with reconnaissance capability, mounting an ER PPC for engagements at extended range, supplemented by a Streak SRM-2 and ER small laser for close defense. An active probe supplements the chassis's already superior sensor suite, allowing MechWarriors to detect hidden units, a capability that has proven decisive in numerous reconnaissance operations. This combination of speed, sensors, and flexible armament makes the Ice Ferret equally effective as a scout, striker, or headhunter.</p>
+
+deployment:<p>The Primary configuration exemplifies the Ice Ferret's dual role as scout and striker. An ER PPC provides formidable long-range firepower for a medium OmniMech, allowing MechWarriors to engage heavier opponents at distances where return fire is less accurate. Close-range defense comes from a Streak SRM-2 launcher and an ER small laser, while an active probe supplements the chassis's already superior sensor suite. This combination proved especially effective during reconnaissance operations, where the ability to detect hidden units and engage targets at range before withdrawing at high speed became the Ice Ferret's signature tactical approach.</p>
+
+history:<p>The Ice Ferret's origins lie in Clan Ice Hellion's ambitious attempt to challenge Clan Wolf's dominance during the mid-twenty-ninth century. Designated the Wolf Hunter upon its debut in 2948, the OmniMech was intended to demonstrate Ice Hellion technological prowess and provide their warriors with a platform capable of defeating the vaunted Timber Wolf in single combat. The Ice Hellions' carries proved premature, their initial weapon configurations failed to exploit the chassis's potential, and Wolf warriors found the design more noteworthy for its promise than its performance.</p><p>Tired of constant Hellion provocations, Clan Wolf units began challenging Ice Hellion possessors of Wolf Hunters through formal Trials of Possession. The resulting campaigns were devastating for Clan Ice Hellion, which lost eighty percent of its Wolf Hunter inventory over five years, including the production facility on Tranquil. The Wolves renamed the OmniMech after the ice ferret, the sole natural predator of the ice hellion species on the planet Hector, a calculated insult that soured other Clans on the design and dampened interest in acquiring it through further Trials. The Ice Hellions maintained a large number of their remaining Wolf Hunters in their touman throughout their existence, refusing to adopt the new designation.</p><p>Under Wolf stewardship, the Ice Ferret's configurations were refined and the design became a cornerstone of the Wolf touman's medium weight forces. Many configurations revolve on a single long-range weapon backed by several smaller short-range batteries, giving MechWarriors a distinct advantage over speed-centered designs that typically rely on slews of light short-range weapons. Following the Clan Invasion of the Inner Sphere and the subsequent Refusal War, the Wolves-in-Exile established a secondary production line at Wolf Clan Site 3 on Arc-Royal, ensuring continued supply for their forces operating in the Inner Sphere. The Ice Ferret saw extensive service with the exiled Wolves and their allies, the Kell Hounds, throughout the late thirty-first and early thirty-second centuries.</p><p>The design's few remaining Homeworld production facilities were destroyed during the chaotic fighting of the Wars of Reaving, leading to the Ice Ferret being phased out of use among Homeworld Clans and gradually replaced by the Viper. In the Inner Sphere, however, the design persisted. The Arc-Royal production line was destroyed during the fall of Arc-Royal in 3146, when defenders employed two Stars of Ice Ferrets in a desperate rearguard action against advancing Clan Jade Falcon forces, deliberately scuttling the factory rather than allowing it to be taken as isorla. By the time the Falcons destroyed the last defending Ice Ferret, they were left with a burning factory and no salvageable production equipment.</p><p>Production subsequently shifted to Assault Tech Industries on Donegal, where the design continues to serve with Clan Wolf-in-Exile forces. Numerous Ice Ferrets were also present among the Kell Hounds before their disappearance into the Periphery, and the design has proliferated to other factions through battlefield salvage, with Clan Jade Falcon and Clan Hell's Horses both fielding examples acquired through conquest. The Ice Ferret's combination of speed, armor, and flexible pod configurations has ensured its continued relevance despite the loss of multiple production facilities over the centuries.</p>
+
+manufacturer:W-7 Facilities|Wolf Clan Site 3|Assault Tech Industries
+
+primaryfactory:Tranquil|Arc-Royal|Donegal
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Hellion
+systemmode:CHASSIS:Medium Gamma ES
+systemmanufacturer:ENGINE:Type II
+systemmode:ENGINE:360 XL
+systemmanufacturer:ARMOR:MAC
+systemmode:ARMOR:Level 5 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Hellion Special
+systemmode:COMMUNICATIONS:354B
+systemmanufacturer:TARGETING:Wolf Hunter
+systemmode:TARGETING:MK VII

@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa36-7df8-9d49-a89597ca935b
+</UUID>
+
+<UnitType>
+FixedWingSupport
+</UnitType>
+
+<Name>
+S 2772 Airplane
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4957
+</mul id:>
+
+<year>
+2463
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+difficult_maintain
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:8.5:1:1::-1:0
+1stclassquarters:50.0:5:-1::-1:0
+troopspace:1.5
+</transporters>
+
+<SafeThrust>
+2
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+428
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+43
+</armor_type>
+
+<armor_tech_rating>
+2
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+22
+15
+15
+10
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Body Equipment>
+</Body Equipment>
+
+<barrating>
+2
+</barrating>
+
+<structural_tech_rating>
+2
+</structural_tech_rating>
+
+<engine_tech_rating>
+2
+</engine_tech_rating>
+
+<capabilities>
+<p>The S 2772 features a double-decked design that provides extraordinary interior volume for its class. Those on the lookout for a flying estate will find a whole customer market at their feet -- Branthhide sofas can be ordered from stock, five-star kitchens cater to every taste, small recreational parks, hot-spring bathing caverns, and carousels for children can all be incorporated, all at nearly supersonic speeds with or without an automatic landing system. Only the buyer's budget is the limit.</p><p>The aircraft cruises at high subsonic speeds, offering a smooth and quiet ride that allows passengers to enjoy these amenities in comfort during extended continental transit. The double-deck configuration separates service areas from living spaces, giving the aircraft the feel of a proper residence rather than a vehicle. SphereBAC's craftsmen handle every commission individually, and each S 2772 is effectively a unique creation, with no two interiors alike. The sheer mass of the aircraft -- among the heaviest civilian planes in regular production -- is both its greatest strength and its most significant limitation, as suitable runways are not always available at a buyer's preferred destination.</p>
+</capabilities>
+
+<overview>
+<p>Once quite a fad among nobility, tycoons, and the nouveau riche, real luxury planes like the double-decked S 2772 outfitted by New Avalon-based SphereBAC have become few and far between. Expensive and difficult to maintain, and quickly outmoded both in fashion and technology, only the wealthiest with nothing else to care about treat themselves to such a pleasure. SphereBAC nonetheless carved out a niche serving the most exclusive clientele in the Inner Sphere, with their New Avalon workshops producing some of the most opulent aircraft ever to take flight. The S 2772 represents the pinnacle of atmospheric luxury -- a double-decked flying estate that caters to those for whom cost is no object and ostentation is a way of life.</p>
+</overview>
+
+<deployment>
+<p>The wealthiest category of buyers includes most of the Great Houses, especially the Davion Royal Household fleet of more than one hundred planes, with two aircraft kept ready for use on every major world in the Federated Suns. However, even this source of income for manufacturers tapered down as heads of state became more interested in security than opulence. Most successful businesses -- the other major customer segment -- tend to settle near spaceport hubs, making planetary travel a matter of short distances better served by VTOLs.</p>
+</deployment>
+
+<history>
+<p>The decline of luxury planes like the S 2772 stems from both practical and financial causes. VTOLs carry a smaller price tag and offer much more flexibility, as not every customer, corporate headquarters, or resort has a runway readily available. The rise of recovered technology during the last decades of the thirty-first century only accelerated the trend. VTOLs became faster and, with recovered fusion technology, gained almost unlimited range. Rediscovered communication technologies allowed for better availability anywhere, eliminating the need for fast transit.</p><p>Perhaps the most damaging blow to the personal luxury plane market came from an unexpected quarter: the sudden prestige of private DropShips. With recovered Star League-era technology making private spacecraft more attainable for the ultra-wealthy, the allure of a mere atmospheric aircraft dimmed considerably. After all, who would still want a luxury jet when they now had a real chance at a private DropShip? Despite these pressures, SphereBAC has continued to serve its dwindling but fiercely loyal clientele from New Avalon, maintaining the S 2772 as the gold standard of atmospheric luxury for those who still appreciate the experience of flight itself.</p>
+</history>
+
+<manufacturer>
+SphereBAC
+</manufacturer>
+
+<primaryFactory>
+New Avalon
+</primaryFactory>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+130.0
+</tonnage>
+

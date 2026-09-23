@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf2c-7cf5-a325-68eea0bcb858
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Von Rohrs (Hebi)
+model:VON 4RH-5
+mul id:3455
+
+Config:Biped
+techbase:Inner Sphere
+era:2487
+source:TR:3075
+published:RS:3075u-AW
+rules level:1
+role:Missile Boat
+
+
+mass:65
+engine:325 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:15 Single
+walk mp:5
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:13
+RA armor:13
+LT armor:15
+RT armor:15
+CT armor:22
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:3
+Flamer, Left Arm
+PPC, Right Arm
+LRM 10, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Flamer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+PPC
+PPC
+PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+LRM 10
+LRM 10
+IS Ammo LRM-10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Von Rohrs was the Draconis Combine's first purpose-built "modern" BattleMech, introduced in 2487 by Kankoku MFC on Sverdlovsk. Commissioned by Coordinator Yama Von Rohrs as a replacement for the troubled Gladiator, the sixty-five-ton heavy 'Mech was intended to serve as the Combine's frontline combat design and a symbol of the Von Rohrs dynasty's power. Kankoku MFC was created specifically for this project, tasked with incorporating lessons learned from the Gladiator's battlefield shortcomings.</p><p>Though the Von Rohrs proved a capable design during its years of service, the fall of its namesake dynasty ensured a brief production life and eventual erasure from official Combine military history. The design carries a lasting stigma, with few Kuritans even aware of its existence.</p>
+
+capabilities:<p>The Von Rohrs was the first Combine BattleMech to mount a particle projector cannon, a Lord's Light P1 PPC acquired through technology transfers from the nearby Terran Hegemony. This weapon gave the design a formidable long-range punch, complemented by a DLC-10 long-range missile rack that allowed the 'Mech to engage targets well beyond typical Age of War combat distances. The combination of PPC and LRM fire made the Von Rohrs a potent standoff combatant for its era.</p><p>A VOX 325 fusion engine drives the Von Rohrs to a top speed of eighty-six kilometers per hour, respectable mobility for a heavy design of the era. Nine tons of Kemplar 5000 armor provide reasonable protection, though the design lacks jump capability. For close defense, a single MagnaFlex flamer discourages infantry and light vehicle attacks, though the 'Mech is particularly vulnerable at short range where its primary weapons' minimum engagement distances create a dangerous gap in its fire coverage. Fifteen single heat sinks manage the considerable thermal load of the PPC and missile system adequately under normal operating conditions.</p>
+
+deployment:<p>The base Von Rohrs configuration represents the Combine's first serious attempt at a modern heavy BattleMech, emphasizing ranged engagement capability with its primary armament of a particle cannon and long-range missiles backed by a flamer for close defense. It was pushed out to every Kuritan line unit that fielded BattleMech technology during the late Age of War, serving as the backbone of the DCMS heavy formations until political upheaval ended its production. The base model saw the most widespread service of any Von Rohrs configuration and accounts for the majority of confirmed battlefield engagements in the historical record.</p>
+
+history:<p>The Von Rohrs was born from political ambition as much as military necessity. After the Draconis Combine's humiliating defeat at the Battle of Nox in 2475, where the primitive Gladiator failed against Lyran forces, Coordinator Yama Von Rohrs personally ordered the creation of Kankoku MFC and directed the development of a replacement design. When the first Von Rohrs walked off the assembly line in 2487, it represented the Combine's determination to field BattleMech technology superior to its rivals. The 'Mech was immediately deployed to frontline Kurita regiments and saw action reclaiming worlds lost during the 2463 Lyran invasion.</p><p>The Von Rohrs was on its way to becoming the standard Combine BattleMech when the McAllister Rebellion abruptly ended the Von Rohrs dynasty. One of Coordinator Martin McAllister's first acts was ordering the DCMS to rename all Von Rohrs units to Hebi, the Japanese word for serpent. He further decreed that no Hebi would be replaced if destroyed, and Kankoku MFC was immediately shuttered. The Combine's leadership chose to erase the symbols of the former dynasty rather than maintain a proven combat design.</p><p>The years following the rebellion were comparatively peaceful, allowing the Combine to dismantle and replace the remaining Hebi without significant military risk. The last known unit was dismantled in 2518. Nearly seventy years later, Combine leadership blamed the sudden spike in military purchasing during the Von Rohrs era for the House's poor economic position when the Star League formed. Foreign economists largely disagreed, pointing instead to more recent economic mismanagement.</p><p>The Von Rohrs occupies a peculiar place in Combine history. Military academies gloss over much of the Combine's BattleMech development between 2461 and 2510, touching only on technology acquisition and the disastrous Battle of Nox. The design's association with a disgraced dynasty ensured its erasure from official memory, though scholars who explore into the Dragon's past can still find ample evidence of this early heavy 'Mech and its brief but notable service record.</p>
+
+manufacturer:Kankoku MFC
+
+primaryfactory:Sverdlovsk
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Kankoku
+systemmode:CHASSIS:SP-VI
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:325
+systemmanufacturer:ARMOR:Kemplar
+systemmode:ARMOR:5000
+systemmanufacturer:COMMUNICATIONS:Dalban
+systemmode:COMMUNICATIONS:Primer-I
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:TTS-A

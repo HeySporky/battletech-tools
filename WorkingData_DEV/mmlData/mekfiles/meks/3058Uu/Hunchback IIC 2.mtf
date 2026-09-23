@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ca45-73d1-9501-0c98672d57ba
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Hunchback IIC
+model:2
+mul id:1569
+
+Config:Biped
+techbase:Clan
+era:3061
+source:TR:3058U,TR:CI
+published:RSFP:Wave 2
+rules level:2
+role:Ambusher
+
+quirk:bad_rep_clan
+
+mass:50
+engine:200 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:19 Clan Double
+walk mp:4
+jump mp:4
+
+armor:Standard(Clan)
+LA armor:9
+RA armor:9
+LT armor:13
+RT armor:13
+CT armor:18
+HD armor:8
+LL armor:16
+RL armor:16
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:6
+Heavy Large Laser, Left Torso
+Heavy Large Laser, Left Torso
+Heavy Large Laser, Right Torso
+Heavy Large Laser, Right Torso
+Medium Pulse Laser, Center Torso
+Medium Pulse Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Endo Steel
+Clan Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Endo Steel
+Clan Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLMediumPulseLaser
+CLMediumPulseLaser
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hunchback IIC was developed by Clan Smoke Jaguar around 2856 as a Clan-technology rebuild of the venerable Inner Sphere Hunchback. Deliberately underarmored and ammunition-starved, the design was originally intended as a punitive assignment for disgraced warriors, virtually guaranteeing a short and violent combat career. A celebrated engagement in 3015 rehabilitated the Hunchback IIC's reputation, transforming it from a symbol of shame into a weapon of fierce Clan pride. Since that turning point, the design has maintained a consistent presence of roughly three percent of every Clan's total touman, with production spread across multiple Clan worlds to sustain the high attrition rates inherent to its aggressive combat profile.</p>
+
+capabilities:<p>The Hunchback IIC centers its combat capability on a pair of Devastator Ultra AC/20s, among the most powerful weapons in the Clan arsenal. These twin autocannons can deliver catastrophic damage to any opponent at close range, but carry a combined total of only ten rounds between them, creating severe ammunition constraints that define the design's tactical profile. A pair of Series 7J extended-range medium lasers mounted in the center torso provide token supplementary firepower, though they are frequently overlooked in the chaos of close-range combat.</p><p>Six tons of Series Ab armor offer minimal protection for a fifty-ton BattleMech, leaving the Hunchback IIC critically vulnerable to sustained fire. The General Systems 200 XL engine provides a maximum speed of sixty-four kilometers per hour, while jump jets serve primarily to close distance for optimal autocannon engagement rather than provide true tactical mobility. The design is exceptionally lethal in its opening engagement but possesses virtually no endurance for prolonged operations, a characteristic entirely consistent with its original purpose as a weapon of last resort for condemned warriors.</p>
+
+deployment:<p>Classified as a Crusader variant and introduced in 3061, the IIC 2 replaces the twin Ultra AC/20s with four heavy large lasers, earning it the "Swayback IIC" designation common to Hunchback IICs mounting smaller weapons. Two medium pulse lasers provide secondary firepower. The nineteen double heat sinks cannot adequately manage the tremendous heat generated by the heavy lasers, demanding extreme fire discipline to avoid heat-induced shutdown. Favored by Clan Blood Spirit and Star Adder warriors, the IIC 2 trades ammunition dependency for energy-weapon endurance at significant thermal cost.</p>
+
+history:<p>Clan Smoke Jaguar introduced the Hunchback IIC as a deliberate instrument of punishment, assigning the underarmored and ammunition-starved design to warriors marked for disgrace. Inner Sphere intelligence initially interpreted the machine as a last-chance glory weapon for aging warriors, missing the more calculated cruelty of its true purpose.</p><p>The design's reputation shifted dramatically following the Star of Rage incident in 3015 on Circe. Five outspoken Warden MechWarriors, reassigned to defend a Smoke Jaguar production facility and given Hunchback IICs as a clear signal of their diminished standing, faced a Jade Falcon Trial of Possession for their BattleMech Star. The five warriors responded with overwhelming aggression, decimating the Falcon force in under ten minutes. This victory transformed the Hunchback IIC from a symbol of shame into a weapon of fierce Clan pride.</p><p>In the wake of the Star of Rage, Clan Jade Falcon sibkin adopted the Hunchback IIC as a preferred platform for their initial Trial of Position, using its devastating firepower to secure quick kills. While veteran warriors derided this practice as lacking honor, it proved undeniably effective for blooding new fighters and rapidly expanding unit rosters. Despite staggering attrition rates, every Clan maintains Hunchback IICs at roughly three percent of their total touman, with production spanning multiple Clan worlds ensuring a constant supply of replacements.</p><p>Several variant configurations emerged over time to address the base model's severe limitations. Inner Sphere salvagers who acquire Hunchback IICs typically strip at least one Ultra autocannon to free tonnage for additional armor and supplementary weapons, fundamentally altering the design's Clan-intended purpose. By the Dark Age era, production had spread beyond traditional Clan facilities, with Red Devil Industries on Pandora contributing new variants under both Lyran Commonwealth and later Jade Falcon ownership.</p>
+
+manufacturer:Various Clan Facilities
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Series III
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:General Systems
+systemmode:ENGINE:200 XL
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:JUMP_JET:Clan Medium Series
+systemmode:JUMP_JET:Mk. III
+systemmanufacturer:COMMUNICATIONS:Circe Special
+systemmode:COMMUNICATIONS:MilComm
+systemmanufacturer:TARGETING:DeadEye
+systemmode:TARGETING:Superlock 18K

@@ -1,0 +1,156 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a5b8-7bae-9764-4daec5d7c91c
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Rottweiler Battle Armor
+</Name>
+
+<Model>
+(Firedrake)(Sqd4)
+</Model>
+
+<mul id:>
+2744
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<armor_type>
+31
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+ISBAFireDrakeNeedler:Body
+ISBAFireDrakeNeedler:Body
+ISBAFireDrakeNeedler:Body
+ISBAFireDrakeNeedler:Body
+IS BA Stealth (Basic):Body
+IS BA Stealth (Basic):Body
+IS BA Stealth (Basic):Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<capabilities>
+<p>The Firedrake configuration carries four Firedrake incendiary needlers and heavier armor plating than the standard model. This loadout makes the suit devastatingly effective against conventional infantry formations, capable of shredding unarmored platoons in seconds. The additional armor allows Firedrake-equipped troopers to close with infantry positions that would threaten lighter configurations.</p><p>The concentrated needler armament poses a credible threat even to BattleMechs through sheer volume of fire against exposed joints and sensors, though this remains a secondary capability. Against other battle armor or vehicles the configuration is poorly suited, as needler weapons lack the penetration to defeat proper armor plating. The Firedrake excels in its intended role of infantry suppression and area clearance.</p>
+</capabilities>
+
+<overview>
+<p>The Rottweiler is a medium quad battle armor suit developed by TharHes Industries for the Lyran Alliance Armed Forces. Fielded in 3065, the design built on lessons learned from the earlier Fenrir program, prioritizing speed and sensor capability over raw firepower. Its low profile and advanced electronics package earned it a respected place among Lyran reconnaissance formations, where its ability to operate well ahead of heavier units proved consistently valuable across multiple theaters of operation.</p>
+</overview>
+
+<deployment>
+<p>Lyran commanders organized Firedrake Rottweilers into four-trooper squads for dedicated anti-infantry sweeps. These squads operated ahead of advancing BattleMech formations to clear conventional infantry positions that might otherwise slow an advance. The heavier armor allowed Firedrake squads to press attacks against dug-in infantry that would force lighter configurations to withdraw, and LAAF garrison commands valued them for riot suppression and civil unrest response.</p>
+</deployment>
+
+<history>
+<p>The Rottweiler grew out of a Lyran Alliance effort to push quad battle armor beyond what the Fenrir had demonstrated. TharHes Industries on Eutin led the program, directing their engineers to build a suit that could outrun any competing design while hugging the ground closely enough to frustrate enemy targeting solutions. The result entered service in 3065 as the fastest quad battlesuit in production.</p><p>Lyran commanders had initially greeted quad battle armor with skepticism, but the Rottweiler gradually won converts among LAAF reconnaissance formations during border operations against the Free Worlds League. Mixed groups of Rottweilers and Fenrir armor screened ahead of main assault forces, marking targets and feeding positional data to artillery commanders.</p><p>The Jihad forced TharHes to develop three new configurations between 3069 and 3072. One filled an urban warfare gap left by the destruction of Gray Death Battle Armor production on Glengarry. A defensive variant with remote sensors and a longer-ranged weapon proved critical during the liberation of Donegal in 3071, where mixed squads detected and ambushed a Blakist probing force. Rottweilers remained a staple of Lyran reconnaissance doctrine into the ilClan era.</p>
+</history>
+
+<manufacturer>
+TharHes Industries
+</manufacturer>
+
+<primaryFactory>
+Eutin
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-ONN
+</published>
+
+<chassis>
+quad
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+9
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d7c1-799e-9f7c-960909713a84
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Great Wyrm
+model:(Aemelia)
+mul id:1283
+
+Config:Biped
+techbase:Clan
+era:3062
+published:RS:UM
+rules level:2
+role:Skirmisher
+
+quirk:stable
+
+mass:45
+engine:225 Fusion (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:12 Clan Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:14
+RA armor:14
+LT armor:16
+RT armor:16
+CT armor:20
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:6
+Large Pulse Laser, Right Arm
+ER Large Laser, Right Arm
+ER Medium Laser, Left Torso
+ER Small Laser, Left Torso
+ER Medium Laser, Right Torso
+ER Small Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLLargePulseLaser
+CLLargePulseLaser
+CLERLargeLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERMediumLaser
+CLERSmallLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERMediumLaser
+CLERSmallLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Great Wyrm holds the distinction of being among the first unique BattleMech designs developed by the Clans following their exodus from the Inner Sphere. When General Kerensky departed in 2784, he carried complete copies of the Star League's military hardware specifications, including designs rejected by the SLDF. Clan Mongoose scientists discovered the Dragon specifications and recognized potential the Star League had overlooked. Within little more than a year, they converted the design into the Great Wyrm.</p><p>The Mongoose designers achieved something remarkable: they reduced the chassis weight by fifteen tons while maintaining the Dragon's characteristic speed of 86 kilometers per hour. This weight reduction came primarily through lightening armor protection, deemed acceptable for the Great Wyrm's intended role as a mobile striker. First seeing combat in 2844 against Clan Star Adder forces on Tokasha, the Great Wyrm soon spread throughout every Clan's touman.</p>
+
+capabilities:<p>The Great Wyrm's weapons suite provides engagement flexibility across all combat ranges while emphasizing the standoff approach favored by its Clan Mongoose creators. Twin Series GAA-22 Ultra Autocannon/2s serve as the primary armament, capable of maintaining sustained long-range fire that harasses opponents while the 'Mech exploits its mobility to control engagement distance. A Mk. 44 LRM-10 launcher supplements this with indirect fire capability, while paired Series 1 Mk. 3 ER medium lasers and Series 1 Mk. 2 ER small lasers provide close-range defense.</p><p>The design philosophy reflects early Clan tactical doctrine emphasizing firepower and speed over protection. Seven tons of CerPlate Mod 2F armor represents roughly thirty percent less protection than the parent Dragon design, a trade-off accepted in favor of improved weapons technology. The RFUM 225 fusion engine maintains the 86 kilometer per hour top speed on the reduced forty-five ton chassis, while ten double heat sinks manage thermal output effectively.</p>
+
+deployment:<p>A custom configuration created from necessity rather than design, this Great Wyrm was recovered from a hidden Clan Smoke Jaguar depot and modified to eliminate ammunition dependency. All ballistic and missile weapons give way to an all-energy loadout centered on an ER Large Laser and Large Pulse Laser for primary firepower. Paired ER medium lasers and ER small lasers provide close-range backup. The configuration sacrifices the standard Great Wyrm's long-range harassment capability for unlimited endurance, allowing extended independent operations without concern for ammunition resupply.</p>
+
+history:<p>The Great Wyrm's baptism of fire came in 2844 when Clan Star Adder forces assaulted the Mongoose colony on Tokasha. A Star of the new 'Mechs formed part of the defending Trinary, and though the Adders ultimately prevailed, the Great Wyrms distinguished themselves by being the last to fall. The defenders used their mobility to stay beyond opponents' optimal weapon ranges while maintaining constant autocannon fire, a tactical approach that would define Great Wyrm employment for decades.</p><p>The Great Wyrm's success attracted widespread interest throughout the Kerensky Cluster. Clan Cloud Cobra retooled two of their own production lines to build the 'Mech, operating them for nearly a decade. Other Clans acquired examples through trade, trials, and salvage. However, the introduction of OmniMech technology revolutionized Clan warfare, and traditional BattleMechs like the Great Wyrm found themselves relegated to solahma units deemed unworthy of the new omnipods.</p><p>Main production halted in 2869 when Clan Smoke Jaguar absorbed Clan Mongoose, acquiring their remaining manufacturing capacity. Clan Burrock made limited production runs in 2871-2872 after capturing a former Mongoose facility on Foster, but Clan Fire Mandrill subsequently seized and retooled that plant. Since then, no new Great Wyrms have been constructed, though every Clan maintains some examples in their second-line Clusters. Clans Cloud Cobra, Coyote, Fire Mandrill, Steel Viper, and Star Adder field the most, approximately half a dozen Stars each.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type 56-45C Modified
+systemmanufacturer:ENGINE:RFUM
+systemmode:ENGINE:225 Standard
+systemmanufacturer:ARMOR:CerPlate
+systemmode:ARMOR:Mod 2F
+systemmanufacturer:COMMUNICATIONS:Block 7
+systemmode:COMMUNICATIONS:TRACONM
+systemmanufacturer:TARGETING:TRTTS-X
+systemmode:TARGETING:Mk. I

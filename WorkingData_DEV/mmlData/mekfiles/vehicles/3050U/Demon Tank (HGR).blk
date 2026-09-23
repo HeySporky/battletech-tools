@@ -1,0 +1,161 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e34f-775d-bd6b-0031727df103
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Demon Tank
+</Name>
+
+<Model>
+(HGR)
+</Model>
+
+<mul id:>
+872
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+52
+32
+32
+22
+</armor>
+
+<Body Equipment>
+ISCASE
+ISC3iUnit
+ISTargeting Computer
+IS Streak SRM 6 Ammo
+ISHeavyGauss Ammo
+ISHeavyGauss Ammo
+ISHeavyGauss Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISHeavyGaussRifle
+ISStreakSRM6
+</Front Equipment>
+
+<Right Equipment>
+ISERMediumLaser
+</Right Equipment>
+
+<Left Equipment>
+ISERMediumLaser
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Demon's primary offensive weapon is the turret-mounted M-7 Gauss Rifle, which delivers armor-defeating kinetic rounds at extended range without generating heat signatures that might betray an ambush position. This weapon alone gives the vehicle firepower comparable to what most contemporary medium BattleMechs can bring to bear, and its high muzzle velocity makes evasion difficult for slower targets at typical engagement ranges. Supporting the main gun are two Intek medium lasers, each mounted in a side sponson to provide coverage against targets approaching from the flanks, and a CASE-protected Harpoon-6 SRM launcher in the turret handles close-range threats if an enemy closes to short distance.</p><p>Ten tons of PanzerSlab 2 armor concentrate protection heavily toward the vehicle's forward arc, giving the Demon solid resistance against direct fire within its favored engagement sector while accepting reduced coverage on the sides and rear. The Teledon 19 communications system and Baltex K590 targeting suite provide adequate situational awareness and fire control for ambush-oriented tactics. The DAV 220 fusion plant enables sustained operations across any terrain the wheeled chassis can traverse, though the top speed of 64 kph leaves the vehicle dependent on concealment and positioning rather than mobility to survive contact.</p>
+</capabilities>
+
+<overview>
+<p>The Demon Tank entered service with the Star League Defense Force in 2716 as a purpose-built fighting vehicle designed around its Gauss rifle main armament. A match for light and medium BattleMechs at appropriate ranges, the Demon compensated for limited road speed through disciplined tactical employment, operating in pairs from concealed positions to bring its powerful main gun to bear before an enemy could maneuver to exploit the vehicle's vulnerable flanks and rear. The design fell from production and into obscurity following the collapse of the Star League and the destruction of its manufacturing base during the Amaris conflict, surviving only in scattered examples through the early Succession Wars. ComStar eventually rebuilt the Leopard Armor production facility on Terra and restarted output around 3020 to equip the Com Guards, ensuring the Demon's continued presence in the Inner Sphere through the Clan Invasion period and into the Jihad, where it became closely associated with both ComStar and the Word of Blake's military forces.</p>
+</overview>
+
+<deployment>
+<p>Deployed by the Word of Blake's Protectorate Militia and Blakist combat formations, the HGR variant was directed primarily against heavier opponents that challenged the standard Gauss rifle's effectiveness. The C3i networking equipment allowed coordinated fire solutions across multiple vehicles, and the extended-range lasers provided standoff capability beyond the original's secondary weapon envelope. Production at the Terra facility continued through the Jihad until Coalition siege operations eliminated the manufacturing capability.</p>
+</deployment>
+
+<history>
+<p>The Demon entered Star League Defense Force service in 2716, and Leopard Armor produced it in sufficient numbers over the following decades to equip vehicle formations throughout the SLDF. Its ambush employment doctrine became one of the Defense Force's most consistently effective combined-arms techniques, with pairs of Demons in hull-down or concealed positions generating disproportionate effect against numerically superior enemies. Variant development began within years of the original's introduction. The 2721 Horned Demon replaced the standard secondary weapons with four additional forward-mounted medium lasers, concentrating firepower for fixed defensive positions at the cost of coverage elsewhere; it saw restricted deployment as a consequence. A supply-independent variant followed in 2729, intended for units operating in areas with severely constrained logistics, though the weapon trade-off proved unpopular with combat crews and the type ended its days with Hegemony militia formations. The Royal variant of 2744 upgraded the engine and secondary weapons for SLDF elite units operating at higher performance standards.</p><p>The Amaris Coup and the subsequent liberation war left the Leopard Armor facility on Terra destroyed, and the SLDF's dissolution eliminated the institutional knowledge needed to maintain the vehicle at scale. Within a generation of the Star League's collapse, surviving Demon tanks had largely disappeared from Inner Sphere service as maintenance failures and battle losses accumulated beyond any power's ability to offset without the original production base. ComStar's acquisition of Terra allowed the organization to eventually rebuild and mothball the facility, and the rise of the Com Guards provided the operational requirement that justified restarting the line around 3020.</p><p>The vehicle served ComStar steadily through the Clan Invasion and Civil War period. When the Word of Blake separated from ComStar and the Jihad began, the Blakists inherited a substantial vehicle pool, producing an improved heavy Gauss rifle variant at the Terra facility and fielding Demon units extensively across Protectorate worlds. A separate experimental refit program around the same period produced the prototype CX-2. The Republic of the Sphere absorbed surviving stocks following the Jihad's conclusion, maintaining them as legacy assets while transitioning to more modern armor designs.</p>
+</history>
+
+<manufacturer>
+Leopard Armor
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Leopard Armor
+TARGETING:Leopard Armor
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown (XL)
+ARMOR:ferro-fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:Teledon 19
+TARGETING:Baltex K590
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

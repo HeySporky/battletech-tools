@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d327-709c-bd0c-9fa0417f77b1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Gunsmith
+model:CH11-NG
+mul id:6332
+
+Config:Biped
+techbase:Inner Sphere
+era:3131
+source:TR:3145:FS,TR:DA
+published:RS:DA,RSFP:Davion
+rules level:4
+role:Striker
+
+
+mass:25
+engine:250 XXL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:XL Gyro
+ejection:Full Head Ejection System
+
+heat sinks:10 IS Double
+walk mp:10
+jump mp:0
+
+armor:Reflective(Inner Sphere)
+LA armor:8
+RA armor:8
+LT armor:10
+RT armor:10
+CT armor:12
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:4
+Medium X-Pulse Laser, Left Arm
+Medium X-Pulse Laser, Left Arm
+Medium X-Pulse Laser, Right Arm
+Medium X-Pulse Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+IS Endo Steel
+IS Endo Steel
+IS Reflective
+IS Reflective
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+IS Endo Steel
+IS Endo Steel
+IS Reflective
+IS Reflective
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMASC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Reflective
+IS Reflective
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Reflective
+IS Reflective
+IS Reflective
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Reflective
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Gunsmith is a twenty-five-ton light BattleMech introduced in 3131 by Jalastar Aerospace at their facility on Panpour. Designed as a high-speed pursuit and raiding platform for the Armed Forces of the Federated Suns, the Gunsmith entered service with the AFFS just prior to the HPG Blackout, a timing that proved unfortunate for Jalastar's marketing efforts. The war-ridden aftermath of that event left many procurement officers reluctant to invest in such an expensive light chassis, though units that reached the front quickly silenced their critics.</p><p>Despite initial resistance to its price tag, the Gunsmith demonstrated its worth as a devastatingly fast striker that packs considerably more firepower and protection than most machines in its weight class. Jalastar's gamble on cutting-edge weight-saving technology earned the Gunsmith a fearsome reputation among Davion raider and pursuit lances.</p>
+
+capabilities:<p>The Gunsmith's design philosophy centers on speed and concentrated energy firepower at the expense of operational endurance. A PlasmaStar 250 XXL engine drives the chassis at a cruising speed of one hundred and eight kilometers per hour, while a Myomer Accelerator Signal Circuitry system pushes the top speed beyond two hundred and sixteen kilometers per hour in combat sprints. This extraordinary mobility makes the Gunsmith one of the fastest BattleMechs fielded during the Dark Age, capable of running down virtually any target or disengaging from unfavorable encounters at will.</p><p>The Jalastar Mk.V-CH7 endo steel chassis and an extra-light gyroscope free enough tonnage to mount five and a half tons of StarGuard reflective armor, providing above-average protection against energy weapons for a light 'Mech. Four Martell-X medium X-Pulse lasers, paired in each arm, deliver punishing accuracy at short to medium ranges, though sustained fire generates considerable heat. This heat burden, compounded by aggressive use of the MASC system, represents the Gunsmith's primary operational limitation, occasionally forcing MechWarriors to temper their aggression or risk overheating at critical moments. A Full-Head Ejection System provides pilots an additional margin of safety befitting the chassis's high-risk combat profile.</p>
+
+deployment:<p>The base CH11-NG is Jalastar Aerospace's original production configuration, optimized for raiding operations and pursuit engagements. First fielded in 3131, this variant embodies the design's core philosophy of concentrated energy firepower delivered at extreme speed. Its reflective armor provides meaningful resistance to the energy weapons commonly encountered on the Dark Age battlefield, allowing the Gunsmith to absorb return fire during high-speed attack runs. This configuration remains the standard production model from the Panpour assembly lines and the most commonly encountered variant in AFFS service.</p>
+
+history:<p>The Gunsmith's development at Jalastar Aerospace's Panpour facility represented an ambitious attempt to field a next-generation light pursuit 'Mech for the Federated Suns at a time when the Inner Sphere stood on the brink of unprecedented upheaval. Entering service in 3131, the design arrived just before the HPG Blackout severed interstellar communication across the Inner Sphere, leaving Jalastar's planned marketing campaign in ruins. In the chaotic aftermath, many AFFS procurement officers balked at the Gunsmith's considerable price tag, driven primarily by the cost of its rare extra-extralight engine technology. Even so, the 'Mechs that did reach frontline units quickly silenced their critics through outstanding combat performance.</p><p>Gunsmiths earned a fearsome reputation during the invasions that swept through Davion space in the Dark Age. Assigned to already-aggressive MechWarriors, the sense of outrage most Davion pilots felt during this period only heightened their combat ferocity. The Davion Light Guards demonstrated the Gunsmith's raiding potential to devastating effect on Brookeland, where a lance of Gunsmiths under Leftenant Arbotov conducted extended operations behind enemy lines. Over two weeks, the strike lance hit isolated outposts, destroyed supply convoys, and called in air strikes on enemy aerospace assets. When Ghost BattleMechs dedicated a full battalion to hunting the lance, the Gunsmiths proved adept at luring away their pursuers' fastest units and ambushing them in detail.</p><p>During the early fighting on Robinson, Gunsmiths proved instrumental in several critical engagements against Combine forces. When a Davion company was overrun by elements of the Seventh Sword of Light, a reaction lance of four Gunsmiths arrived in time to prevent the capture of their commanding officer, concentrating their fire on enemy 'Mechs with lethal precision. The combination of extreme speed and accurate pulse laser fire allowed the Gunsmiths to engage heavier opponents on their own terms, striking hard and withdrawing before effective return fire could be organized.</p><p>Beyond its military deployments, the Gunsmith's speed and compact firepower have attracted attention on the Solaris VII competitive circuit, where customized variants have appeared in arena combat. The design's continued production at the Jalastar Aerospace facility on Panpour ensures a steady supply of new frames for both AFFS garrison units and the mercenary market, though procurement remains limited by the ongoing cost concerns that have dogged the chassis since its introduction.</p>
+
+manufacturer:Jalastar Aerospace
+
+primaryfactory:Panpour
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Jalastar
+systemmode:CHASSIS:Mk.V-CH7 Endo Steel
+systemmanufacturer:ENGINE:PlasmaStar
+systemmode:ENGINE:250 XXL
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:Reflec
+systemmanufacturer:COMMUNICATIONS:Telestar
+systemmode:COMMUNICATIONS:Model R4-11Y
+systemmanufacturer:TARGETING:Jalastar
+systemmode:TARGETING:TargiTrack 753

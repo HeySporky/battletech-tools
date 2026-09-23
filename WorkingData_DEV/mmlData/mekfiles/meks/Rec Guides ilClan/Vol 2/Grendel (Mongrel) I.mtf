@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d9ea-71bc-bdd9-26b41e4f01ba
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Grendel
+clanname:Mongrel
+model:I
+mul id:7458
+
+Config:Biped OmniMek
+techbase:Mixed (Clan Chassis)
+era:3140
+source:RG02
+published:RG02
+rules level:2
+role:Striker
+
+quirk:rugged_1
+
+mass:45
+engine:315 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:10
+walk mp:7
+jump mp:7
+
+armor:Ferro-Fibrous(Clan)
+LA armor:12
+RA armor:12
+LT armor:16
+RT armor:16
+CT armor:18
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:3
+ProtoMech AC/4, Right Arm
+ER Medium Laser, Left Torso
+Plasma Rifle, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLProtoMechAC4 (OMNIPOD)
+CLProtoMechAC4 (OMNIPOD)
+CLProtoMechAC4 (OMNIPOD)
+Clan ProtoMech AC/4 Ammo (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+ISPlasmaRifle (OMNIPOD)
+ISPlasmaRifle (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+ISPlasmaRifleAmmo (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>First seen among Clan Diamond Shark forces during the Battle of Tukayyid in 3052, the Mongrel was developed as a fast-moving medium OmniMech capable of leading strike and reconnaissance Stars deep behind enemy lines. The design proved itself admirably during the otherwise disastrous Shark campaign, where its speed and ammo-efficient weaponry allowed it to range far afield while simplifying resupply. Com Guard troops gave it the reporting name Grendel, and following a slight physical remodel the design entered full production in 3053.</p><p>One of the few successes of the Diamond Shark campaign, the Grendel immediately became the target of Trials of Possession from the other Invading Clans. Rather than expend warrior resources, the Sharks leveraged their merchant caste to negotiate production run sales and licensing agreements, ensuring the Grendel spread rapidly across multiple Clan front-line formations. Production has continued through the Dark Age era, with Clan Sea Fox maintaining the largest share of output.</p>
+
+capabilities:<p>Built around a powerful Consolidated 315 XL engine, the Grendel achieves a top speed of nearly 119 km/h, making it one of the fastest medium OmniMechs in service. Seven jump jets fixed to the chassis provide an impressive 210-meter leap capacity, granting pilots exceptional tactical flexibility in broken terrain. This combination of speed and agility allows the Grendel to dictate engagement ranges against most Inner Sphere opponents of similar tonnage, though the advantage proves less decisive in formal zellbrigen duels.</p><p>The Sharks employed endo steel internal structure and seven and a half tons of ferro-fibrous armor to maximize the thirteen and a half tons of available pod space. While the armor protection is adequate for a chassis of its weight, the Grendel relies on mobility rather than protection for survivability. The Prime configuration exemplifies the design philosophy, pairing an ER large laser for long-range engagement with three ER medium lasers and a Streak SRM-6 for devastating close-range firepower.</p><p>The Grendel has also earned a reputation for mechanical reliability unusual among OmniMechs. Where many OmniMech designs require frequent maintenance and are sometimes derisively called "hangar queens," the Grendel can operate for extended periods without significant technical attention, making it popular with technician castes across multiple Clans.</p>
+
+deployment:<p>Alternate Configuration I represents an unusual mixed-technology approach, mounting both Inner Sphere and Clan OmniPods. A ProtoMech AC/4 with a ton of ammunition occupies the right arm, paired with a right torso-mounted Inner Sphere plasma rifle and its own ammunition supply. A single Clan ER medium laser in the left torso rounds out the armament. This eclectic combination reflects the growing trend toward mixed-technology configurations in the post-Jihad era and provides a cost-effective loadout that sacrifices some combat effectiveness for reduced logistical demands.</p>
+
+history:<p>The Grendel's origins trace to a Clan Diamond Shark development program that bore fruit just in time for the Battle of Tukayyid in 3052. Originally designated the Mongrel, the design saw its combat debut leading light Stars on deep reconnaissance and raiding missions during the Shark campaign. While Clan Diamond Shark suffered a decisive defeat on the ComStar fortress world, the Mongrel's performance stood as one of the few unqualified successes of the engagement. The design was rechristened the Grendel after Com Guard troops applied the reporting name, and following minor physical modifications, it entered full production in 3053.</p><p>The other Invading Clans recognized the Grendel's potential almost immediately, staging numerous Trials of Possession for the design. In a move characteristic of their mercantile nature, the Diamond Sharks chose not to waste warrior resources defending against the flood of Trials. Instead, their merchant caste negotiated a series of agreements granting transportation rights, resources, material, and land in exchange for production run percentages and, in some cases, the design blueprints themselves. This shrewd approach accelerated the Sharks' post-Tukayyid recovery while ensuring the Grendel became a common sight among several Clan front-line toumans.</p><p>Production of the Grendel spread across multiple facilities, with the primary line at Arcadia BattleMech Plant CM-T15 on Arcadia eventually being supplemented by additional manufacturing on Vinton and Alnabog in the Chain Cluster. During the Wars of Reaving, the Homeworld-based production on Vinton was disrupted, but the design's foothold in the Inner Sphere Clan occupation zones ensured its continued availability. Clan Hell's Horses in particular adopted the Grendel enthusiastically, finding it well-suited to their combined-arms doctrine.</p><p>In the Dark Age era, the Grendel remains a valued asset across the Inner Sphere Clans, though the majority of production has concentrated within the Clan Sea Fox Khanates. With Sea Fox merchants active among all the Great Houses and Clan Occupation Zones, the Grendel can be found in service across a wide swath of the Inner Sphere. A notable engagement in 3146 saw Tiburon Khanate forces employing Grendels during an independent raid against the Capellan world of Poznan, where a mixed striker Star of Grendels and Hellion OmniMechs overwhelmed a Home Guard company in a Trial of Possession for titanium ore, demonstrating the design's continued effectiveness well over a century after its introduction.</p>
+
+manufacturer:Arcadia BattleMech Plant CM-T15|Manufacturing Plant DSF-94|Manufacturing Plant SFF-AL2
+
+primaryfactory:Arcadia|Vinton|Alnabog
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Process 12 Endo Steel
+systemmanufacturer:ENGINE:Consolidated
+systemmode:ENGINE:315 XL
+systemmanufacturer:ARMOR:Arcadia Compound
+systemmode:ARMOR:Delta VII Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Clan Standard 14X Series
+systemmanufacturer:COMMUNICATIONS:Kindraa Payne
+systemmode:COMMUNICATIONS:KP-3 "Screamer"
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Version Gamma-V TTS

@@ -1,0 +1,439 @@
+{
+  "filename": "]-[311s70r]][[_Storm.hmp",
+  "size": 3303,
+  "header_hex": "56 35 2e 30 30 04 00 08 03 ff ff 3f 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0003\u00ff\u00ff"
+    },
+    {
+      "type": "ascii",
+      "start": 11,
+      "end": 12,
+      "text": "?"
+    },
+    {
+      "type": "byte",
+      "offset": 12,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 14,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 15,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 16,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 17,
+      "end": 18,
+      "text": "d"
+    },
+    {
+      "type": "byte",
+      "offset": 18,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 19,
+      "end": 35,
+      "length": 14,
+      "text": "]-[311s70r]\\/["
+    },
+    {
+      "type": "len_string",
+      "start": 35,
+      "end": 42,
+      "length": 5,
+      "text": "Storm"
+    },
+    {
+      "type": "byte",
+      "offset": 42,
+      "hex": "fb"
+    },
+    {
+      "type": "len_string",
+      "start": 43,
+      "end": 568,
+      "length": 523,
+      "text": "\u0000T\u00ef\u00bb\u0000\u00e1\t\u00008\u00d5E\u00000\u00beE\u0000\u0000\u0094B\u0000\u0000XB\u0000\u0000\u00c8A\u0012\u0000MA 8 8 9 7 51 3 if\u0001\u0000\u0000\u0000\u0000\u0000,\u0001\u0000\u0000\u0003\u0000\u0000\u0000\u0011\u0000\u0001\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000*\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000*\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000.\u0000\u0000\u0000\n\u0000\n\u0000\u0010\u0000\u0000\u0000\b\u0000\u0001\u0000=\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000N\u0000\u0004\u0000$\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000=\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000N\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000N\u0000\u0005\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000N\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00005\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000=\u0000\u0007\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000=\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u00de\u0001\u0006\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000\u0018\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u00de\u0001\u0006\b\u00de\u0001\u0006\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000=\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u00de\u0001\u0006\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000N\u0000\u0000\u0000\u0018\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 568,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 569,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 570,
+      "end": 571,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 571,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 572,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 573,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 574,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 575,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 576,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 577,
+      "end": 1859,
+      "length": 1280,
+      "text": "\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u00de\u0001\u0006\b\u00de\u0001\u0006\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000=\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u00005\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00e2\u00ff3\u0001\f\u0002    The Inner Sphere's first brush with an OmniMech was with a Mad Cat on The Rock, Oberon Confederation, 13 August 3049. It was from a broadcast by a member of the Kell Hounds mercenary unit that Our Blessed Order learned of these machines and their mysterious masters. ComStar named this design the Mad Cat because its hunched-over torso is common to both the Marauder and Catapult. The Mad Cat is an exceptional combination of an XL Class engine, Endo Steel internal structure, Ferro-Fibrous armor, and double heat sinks.\u0089\u0006    The most common configuration of the Mad Cat carries impressive firepower, starting with double LRM-20 racks on the shoulders. The weapons pods on the arms each contain an extended-range large laser and extended-range medium laser. The Mad Cat also incorporates pulse technology, with a medium pulse laser in its left torso. Two machine guns round out its weapon array.\r\n    Alternate Configuration A carries a short-range missile launcher on its right shoulder instead of LRM's, and a box-mount package of three medium pulse lasers in the left shoulder. It also features a particle projection cannon "
+    },
+    {
+      "type": "ascii",
+      "start": 1859,
+      "end": 2927,
+      "text": "in each arm, with a small laser in the center torso.\r\n    Somewhat less common is a version that mounts a Gauss Rifle in its right arm. Its left arm carries a large pulse laser and a small pulse laser. The version B Mad Cat makes use of the Artemis IV fire-control system for the LRM-10 rack on its left shoulder and the SRM-4 on its right shoulder.\r\n    The Mad Cat C also concentrates more firepower in its arm weapons pods. Its right arm carries the Ultra-5 autocannon, while the left has two extended-range large lasers. These leave enough pod weight for an LRM-15 launcher on each shoulder and an anti-missile system in the left torso.\r\n    Though rarely seen, Configuration D of the Mad Cat carries an especially unusual array of weapons. Apparently designed to fight in the enemy's midst, this version has double Streak SRM-6 launchers mounted on each shoulder, one pointing forward, and the other to the rear. Each arm packs the devastating firepower of an extended -range particle projection cannon, and the center torso holds an extended-range small laser.\r\n"
+    },
+    {
+      "type": "len_string",
+      "start": 2927,
+      "end": 2930,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2930,
+      "end": 2933,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2933,
+      "end": 2936,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2936,
+      "end": 3165,
+      "length": 227,
+      "text": "    The Mad Cat is the favorite 'Mech of the Wolf Clan. It can claim a large share of the credit for the Wolves' great successes and there is no apparent explanation why it appears in only moderate numbers with the other Clans."
+    },
+    {
+      "type": "len_string",
+      "start": 3165,
+      "end": 3168,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3168,
+      "end": 3171,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3171,
+      "end": 3175,
+      "length": 2,
+      "text": "\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 3175,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3176,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3177,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3178,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3179,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3180,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3181,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3182,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3183,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3184,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3185,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3186,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3187,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3188,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3189,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3190,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3191,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3192,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3193,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3194,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3195,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3196,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3197,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3198,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3199,
+      "end": 3202,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 3202,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3203,
+      "end": 3213,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 3213,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3214,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3215,
+      "end": 3216,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3216,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3217,
+      "end": 3227,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3227,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3228,
+      "end": 3238,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3238,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3239,
+      "end": 3249,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3249,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3250,
+      "end": 3260,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3260,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3261,
+      "end": 3271,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3271,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3272,
+      "end": 3282,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3282,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3283,
+      "end": 3293,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3293,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3294,
+      "end": 3303,
+      "text": "(Unknown)"
+    }
+  ]
+}

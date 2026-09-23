@@ -1,0 +1,489 @@
+{
+  "filename": "Weaver.hmp",
+  "size": 1889,
+  "header_hex": "56 35 2e 30 30 04 00 08 03 00 20 18 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0003\u0000 "
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 37,
+      "length": 24,
+      "text": "\u0000\u0000\u0000\u0000K\u0000\u0006\u0000Weaver\u0001\u0000 \u00f4\u000b\u0002\u0000(\u008a\u00f5"
+    },
+    {
+      "type": "byte",
+      "offset": 37,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 38,
+      "hex": "e0"
+    },
+    {
+      "type": "ascii",
+      "start": 39,
+      "end": 40,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 40,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 41,
+      "hex": "f8"
+    },
+    {
+      "type": "byte",
+      "offset": 42,
+      "hex": "89"
+    },
+    {
+      "type": "ascii",
+      "start": 43,
+      "end": 44,
+      "text": "E"
+    },
+    {
+      "type": "byte",
+      "offset": 44,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 45,
+      "hex": "f8"
+    },
+    {
+      "type": "byte",
+      "offset": 46,
+      "hex": "89"
+    },
+    {
+      "type": "ascii",
+      "start": 47,
+      "end": 48,
+      "text": "E"
+    },
+    {
+      "type": "byte",
+      "offset": 48,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 49,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 50,
+      "end": 52,
+      "text": "8B"
+    },
+    {
+      "type": "byte",
+      "offset": 52,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 53,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 54,
+      "hex": "0c"
+    },
+    {
+      "type": "ascii",
+      "start": 55,
+      "end": 56,
+      "text": "B"
+    },
+    {
+      "type": "byte",
+      "offset": 56,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 57,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 58,
+      "hex": "80"
+    },
+    {
+      "type": "ascii",
+      "start": 59,
+      "end": 60,
+      "text": "A"
+    },
+    {
+      "type": "len_string",
+      "start": 60,
+      "end": 78,
+      "length": 16,
+      "text": "MH 6 4 7 5 23 4J"
+    },
+    {
+      "type": "len_string",
+      "start": 78,
+      "end": 81,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 81,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 82,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 83,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 84,
+      "end": 85,
+      "text": ","
+    },
+    {
+      "type": "len_string",
+      "start": 85,
+      "end": 344,
+      "length": 257,
+      "text": "\u0000\u0004\u0000\u0004\u0000\u0012\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\b\u0000\b\u0000\f\u0000\u0000\u0000\u0007\u0000\u0001\u0000<\u0000\u0004\u0000\u0000\u0000\u0000\u0000\u0014\u0000Kolibri Delta Series\u0001\u0000<\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0014\u0000Kolibri Delta Series\u0003\u00004\u0000\u0005\u0000\u0000\u0000\u0000\u0000\n\u0000Series 2FM\u0001\u0000@\u0000\u0005\u00000\u0000\u0000\u0000\t\u0000(Unknown)\u0003\u00004\u0000\u0002\u0000\u0000\u0000\u0000\u0000\n\u0000Series 2FM\u0001\u0000@\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00005\u0000\u0007\u0000\u0000\u0000\u0000\u0000\u000f\u0000Series 1 Mk. 2a\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000"
+    },
+    {
+      "type": "len_string",
+      "start": 344,
+      "end": 1370,
+      "length": 1024,
+      "text": "\u0000\u0000\u0000<\u0000\u0000\u0000<\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0000\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0000\u0000@\u0000\u0000\u0000\u00d0\u0001\u0018\b\u00d0\u0001\u0018\b\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000<\u0000\u0000\u0000<\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000@\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u00005\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00f6\u00ff\u00e7\u0000\u00f7\u0001Little is known about this mech as there is only one known to exist and info on it is fuzzy at best. The mech is in the possetion of Clan Wolf in Exile and is belived to have belonged to a Khan of Clan Widowmaker. The mech has never been see moved under it's own power but is assumed to be functional. It is unknow at this time if this design will ever see production again, and will probably remain unknow for some time as our agent that got this info has stopped reporting we can only assume his fate.\u0012\u0001As best we can tell this design was built for prolonged campains or gurrilla warfare.\r\nIt has no ammo based weponry (other than AMS), plenty o"
+    },
+    {
+      "type": "ascii",
+      "start": 1370,
+      "end": 1502,
+      "text": "f armor, and exellant manuverabily.\r\nThe weaponry consist of 2 Large Pulse Lasers, 6 ER Medium Lasers,  1 ER Small Laser, and 2 AMS."
+    },
+    {
+      "type": "len_string",
+      "start": 1502,
+      "end": 1511,
+      "length": 7,
+      "text": "unknown"
+    },
+    {
+      "type": "len_string",
+      "start": 1511,
+      "end": 1520,
+      "length": 7,
+      "text": "unknown"
+    },
+    {
+      "type": "len_string",
+      "start": 1520,
+      "end": 1523,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1523,
+      "end": 1668,
+      "length": 143,
+      "text": "The only known mech is in the hands of Clan Wolf in Exile. It is unknown if any other Clan has any of this design or the plans for making them."
+    },
+    {
+      "type": "len_string",
+      "start": 1668,
+      "end": 1671,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1671,
+      "end": 1674,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 1674,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1675,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1676,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1677,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1678,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1679,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1680,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1681,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1682,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1683,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1684,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1685,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1686,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1687,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1688,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1689,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1690,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1691,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1692,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1693,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1694,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1695,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1696,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1697,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1698,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1699,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1700,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1701,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1702,
+      "end": 1705,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 1705,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1706,
+      "end": 1716,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 1716,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1717,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1718,
+      "end": 1719,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1719,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1720,
+      "end": 1730,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1730,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1731,
+      "end": 1740,
+      "text": "(Unknown)"
+    },
+    {
+      "type": "len_string",
+      "start": 1740,
+      "end": 1756,
+      "length": 14,
+      "text": "Clan Model XT4"
+    },
+    {
+      "type": "len_string",
+      "start": 1756,
+      "end": 1765,
+      "length": 7,
+      "text": "Royal-7"
+    },
+    {
+      "type": "len_string",
+      "start": 1765,
+      "end": 1793,
+      "length": 26,
+      "text": "Clan Modified Heavy Type X"
+    },
+    {
+      "type": "ascii",
+      "start": 1793,
+      "end": 1794,
+      "text": "+"
+    },
+    {
+      "type": "byte",
+      "offset": 1794,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1795,
+      "end": 1838,
+      "text": "TJ6 \"Bell\" Integrated Communications System"
+    },
+    {
+      "type": "len_string",
+      "start": 1838,
+      "end": 1863,
+      "length": 23,
+      "text": "Series XXXII Multitrack"
+    },
+    {
+      "type": "len_string",
+      "start": 1863,
+      "end": 1889,
+      "length": 24,
+      "text": "Clan Standard 14X Series"
+    }
+  ]
+}

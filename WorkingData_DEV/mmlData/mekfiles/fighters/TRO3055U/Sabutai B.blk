@@ -1,0 +1,192 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ae2c-7959-be5b-f87dbace4c57
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Sabutai
+</Name>
+
+<Model>
+B
+</Model>
+
+<mul id:>
+2765
+</mul id:>
+
+<year>
+3048
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Fire Support
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+15
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+240
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+62
+45
+45
+40
+</armor>
+
+<Nose Equipment>
+CLTAG:OMNI
+CLNarcBeacon:OMNI
+CLLRM20:OMNI
+CLLargePulseLaser:OMNI
+CLERSmallLaser:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLLRM20:OMNI
+CLLRM20:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLLRM20:OMNI
+CLLRM20:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+CLMediumPulseLaser:OMNI
+CLECMSuite:OMNI
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+ISNarc Pods:OMNI
+ISNarc Pods:OMNI
+Clan Ammo LRM-20:OMNI
+Clan Ammo LRM-20:OMNI
+Clan Ammo LRM-20:OMNI
+Clan Ammo LRM-20:OMNI
+Clan Ammo LRM-20:OMNI
+CLCASE
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Sabutai's base chassis is built around an endo steel airframe driven by a 300-rated XL fusion engine, delivering a safe thrust of 6 and a maximum thrust of 9. This places it among the faster heavy OmniFighters available to Clan aerospace commanders, giving pilots the ability to dictate engagement range against most opponents. Ferro-aluminum armor provides a measure of protection, though at 192 points the coverage leaves the fighter less durable than some contemporaries in the weight class.</p><p>The base chassis allocates 15 double heat sinks for thermal management, a figure that is adequate for ballistic and mixed-weapons configurations but becomes insufficient when heavier energy loadouts are carried. Engineers developing later configurations were compelled to dedicate pod tonnage to additional heat sink capacity to compensate. The 44.5 tons of available pod space is nonetheless exceptional, supporting a wider variety of weapons and support systems than most comparable designs.</p><p>The base communications suite is the Schedule 11, paired with the Mark 11 targeting and tracking system, both of which deliver reliable performance across the Sabutai's full operational envelope. The fighter's primary weakness in ammunition-dependent configurations lies in the limited number of reloads available within the pod space, which can force premature disengagement after sustained fire.</p>
+</capabilities>
+
+<overview>
+<p>The Sabutai is a 75-ton heavy OmniFighter developed by Clan Smoke Jaguar and introduced in 3048, conceived around a single overriding philosophy: delivering the maximum possible firepower from a single hull. Its generous pod space gives Clan aerospace commanders a flexible and devastating platform capable of overwhelming most opposition in both atmospheric and space combat. The design pays for its offensive capacity with relatively modest armor for a fighter of its weight class, and configurations carrying heavy energy suites push the base chassis toward its thermal limits. Despite these compromises, the Sabutai proved itself a durable and adaptable frontline asset, spreading well beyond its Smoke Jaguar origins to serve in toumans throughout Clan space. Its combination of raw striking power and the flexibility of pod technology has made it one of the most respected heavy OmniFighters in Clan aerospace arsenals.</p>
+</overview>
+
+<deployment>
+<p>The B configuration trades direct combat power for electronic and fire support capability, equipping the fighter with an ECM suite, a TAG designator, and Narc missile pods alongside five LRM launchers. It has appeared only in the toumans of Clan Nova Cat and Clan Steel Viper, reflecting those Clans' interest in integrated fire support doctrines. The B operates as a force multiplier, designating targets for guided munitions while its missile banks add suppression fire. It depends on escort fighters to survive close-range engagements and is rarely effective in independent operations.</p>
+</deployment>
+
+<history>
+<p>Developed by Clan Smoke Jaguar's scientist caste and introduced in 3048, the Sabutai entered service as the Clan was finalizing its forces for the long-planned invasion of the Inner Sphere. The fighter was used in the Trials of Position that qualified warriors for the invasion campaign, marking its combat debut in the fierce competitive trials that determined who among the Jaguar warriors would carry the Clan's honor into battle. It went on to serve as a primary frontline OmniFighter through the invasion proper, performing in every major Clan engagement from the initial landings through the grinding battles of the mid-3050s.</p><p>The Sabutai's fortunes shifted dramatically with the destruction of Clan Smoke Jaguar. After Task Force Serpent reached Huntress in 3060 and subsequent SLDF operations shattered the Clan at Strana Mechty, the Lootera production facilities passed through several claimants. Star League forces held the complex briefly, then Clan Ghost Bear secured the Lootera region as the post-invasion political map solidified. Clan Cloud Cobra later absorbed control during the homeworld reshuffling that followed the Jihad-era conflicts. Throughout these transitions, the Sabutai remained in production, with the design's well-established reputation ensuring that each new owner maintained the lines.</p><p>Production also continued independently at other Clan facilities: Clan Steel Viper operated a factory at Grant's Station, Clan Snow Raven produced the fighter at Lum through the Civil War period, and Clan Ice Hellion and later Clan Cloud Cobra ran production at Babylon on Corsen. The Wars of Reaving brought further disruption, with Clan Coyote reportedly establishing a production complex on Londerholm, though details of that facility's operations remain limited. New configurations continued to appear through the Jihad era, including two that emerged in response to the unique pressures of that conflict. The Z configuration holds a special place in the design's history as a product of the Society faction, incorporating advanced electronic warfare systems into the chassis.</p><p>By the Dark Age, the Sabutai's reach had extended into the Inner Sphere itself. Crest Foundries on Quatre Belle, operating under Republic of the Sphere authority, began producing the design for republic aerospace units, a remarkable journey for a fighter born in the exclusive workshops of a Clan homeworld.</p>
+</history>
+
+<manufacturer>
+Lootera Space Works|Station Tango|Crest Foundries|Crest Foundries|Yoma Aerospace Plant
+</manufacturer>
+
+<primaryFactory>
+Huntress (Lootera)|Grant's Station (North)|Lum|Quatre Belle|Babylon (Corsen)
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Endo Steel
+ENGINE:300 XL
+ARMOR:Ferro-aluminum
+JUMP_JET:N/A
+COMMUNICATIONS:Schedule 11
+TARGETING:Mark 11
+</systemModels>
+
+<source>
+TR:3055U
+</source>
+
+<published>
+RS:3055Uu
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

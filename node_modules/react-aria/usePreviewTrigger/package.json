@@ -1,0 +1,5 @@
+{
+  "main": "../dist/exports/usePreviewTrigger.cjs",
+  "module": "../dist/exports/usePreviewTrigger.js",
+  "types": "../dist/types/exports/usePreviewTrigger.d.ts"
+}

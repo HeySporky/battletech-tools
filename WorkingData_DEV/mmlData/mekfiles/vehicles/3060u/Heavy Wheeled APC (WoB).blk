@@ -1,0 +1,152 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e513-7efe-9f56-8ef7b0c2c4c9
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Heavy Wheeled APC
+</Name>
+
+<Model>
+(WoB)
+</Model>
+
+<mul id:>
+1459
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:6.0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+29
+20
+20
+10
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+ISSmallVSPLaser
+ISSmallVSPLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Word of Blake variant of the Heavy Wheeled APC stands as a radical upgrade to the standard design, replacing the internal combustion engine with an extralight fusion engine that boosts maximum speed to approximately one hundred nineteen kilometers per hour while retaining the full six tons of infantry carrying capacity for two platoons. Two front-mounted Small Variable-Speed Pulse Lasers replace the standard machine guns, providing energy-based anti-infantry and anti-light-vehicle weapons that never run out of ammunition.</p><p>Heavy ferro-fibrous armor provides seventy-nine points of protection -- the heaviest armor of any APC variant in the entire family -- making the WoB variant exceptionally survivable for a transport vehicle. The fusion engine eliminates the petrochemical fuel dependency of the standard design, granting unlimited operational range. Introduced in 3072, this variant was produced in limited numbers for Word of Blake Militia formations during the Jihad, and its advanced technology makes it both significantly more capable and substantially more expensive than the standard Heavy Wheeled APC.</p>
+</capabilities>
+
+<overview>
+<p>The Heavy APC is a twenty-ton combat transport designed to address the fundamental limitation of the standard Armored Personnel Carrier -- its ability to carry only a single infantry squad. By doubling the chassis weight, the Heavy APC provides six tons of infantry carrying capacity, sufficient for two full platoons of standard infantry or one platoon of motorized or jump troops. Produced in the same three motive configurations as its lighter counterpart, the Heavy APC offers substantially improved armor protection alongside its increased transport capacity, making it the largest dedicated personnel carrier in common service across the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Word of Blake variant was produced exclusively for Word of Blake Militia formations during the Jihad, manufactured in limited numbers beginning in 3072. Following the destruction of the Word of Blake, surviving examples were captured by Coalition forces and dispersed across the successor states. The advanced technology incorporated in the design makes maintenance challenging without access to the original production facilities, and the variant has not been reproduced by any post-Jihad manufacturer.</p>
+</deployment>
+
+<history>
+<p>The Heavy APC was developed in the twenty-fifth century as a direct response to the standard APC's limited carrying capacity. Military planners recognized that a single squad per vehicle was insufficient for rapid infantry deployment, particularly in combined-arms formations where infantry needed to arrive in strength alongside heavier units. The twenty-ton design entered service around 2470, predating the modern standard APC by several decades, and quickly became the preferred transport for mobile forces with large infantry contingents.</p><p>The Federated Commonwealth's Regimental Combat Teams made the Heavy APC a centerpiece of their combined-arms doctrine, fielding large numbers of all three motive types to rapidly deploy infantry in support of BattleMech and armor formations. Other Inner Sphere powers adopted the design in varying numbers, with the Free Worlds League and Draconis Combine favoring the tracked variant for its all-terrain capability, while the Lyran Commonwealth preferred the wheeled model for operations along its extensive road networks.</p><p>During the Jihad, the Word of Blake developed a specialized wheeled variant incorporating an extralight engine and heavy ferro-fibrous armor, significantly improving protection and speed while retaining full troop capacity. The Scout Tank conversion of the hover chassis, replacing the infantry compartment entirely with sensors and a light autocannon, demonstrated the platform's versatility beyond its original transport role. Like the standard APC, the Heavy APC's simplicity and reliability have kept it in continuous production and service for over six centuries.</p>
+</history>
+
+<manufacturer>
+Aldis Industries
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+ENGINE:XL Fusion
+ARMOR:Heavy Ferro-Fibrous
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+

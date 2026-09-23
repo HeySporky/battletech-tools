@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c4f9-7878-a2e9-8c8021a6e2c7
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Guillotine
+model:GLT-6WB2
+mul id:1343
+
+Config:Biped
+techbase:Inner Sphere
+era:3070
+source:TR:3050,TR:3050U
+published:RS:3050Uu-C
+rules level:2
+role:Sniper
+
+quirk:searchlight
+
+mass:70
+engine:280 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Compact Gyro
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:27
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:8
+RTR armor:8
+RTC armor:12
+
+Weapons:6
+Light Gauss Rifle, Left Arm
+Light PPC, Right Arm
+Light PPC, Right Arm
+ER Medium Laser, Left Torso
+ER Medium Laser, Right Torso
+LRM 5, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Light PPC
+Light PPC
+Light PPC
+Light PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+ISERMediumLaser
+IS Light Gauss Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+ISERMediumLaser
+IS Ammo LRM-5 Artemis-capable
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 5
+ISArtemisIV
+ISC3iUnit
+ISC3iUnit
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Guillotine was first designed in 2499 by Newhart Industries as a heavy shock unit for the Terran Hegemony, quickly establishing itself as one of the most reliable seventy-ton BattleMechs in the Star League Defense Force. Built to deliver devastating close-range firepower while maintaining exceptional mobility for its weight class, the Guillotine became a mainstay of SLDF heavy regiments for generations. As the march of technology produced heavier and more powerful designs, the Guillotine gradually transitioned from a front-line assault role to that of a heavy raider and harassment unit, a mission profile its speed, jump capability, and energy-heavy weapons suite made it ideally suited for.</p><p>The destruction of Newhart's New Earth factory during the Amaris Civil War in 2776 dealt a severe blow to production, though Irian BattleMechs Unlimited continued to manufacture the design under license from their facility on Irian. The technological decline of the Succession Wars forced a downgrade to the simpler GLT-4L model, but the recovery of the Helm Memory Core in the late 3040s enabled Irian to restore and ultimately surpass the original design's capabilities, ensuring the Guillotine's continued service well into the thirty-second century.</p>
+
+capabilities:<p>The Guillotine achieves an impressive balance of firepower, protection, and mobility for a seventy-ton heavy 'Mech. Its VOX 280 engine drives the chassis to a respectable sixty-four kilometers per hour, while four Anderson 398 jump jets provide a 120-meter jump capability that allows it to exploit difficult terrain such as mountains and jungles where heavier designs cannot follow. Twelve tons of Ulston Prime armor offer protection comparable to many assault-class machines, enabling the Guillotine to absorb considerable punishment during its characteristic aggressive engagements.</p><p>The primary armament centers on a Sunglow Type 2 large laser in the left arm, backed by four ExoStar II medium lasers distributed across the arms and side torsos, and a Coventry-6 SRM-6 launcher. This energy-heavy loadout grants the Guillotine excellent sustained combat endurance with minimal logistical requirements, though the design has been plagued by persistent weapon system quirks. The Sunglow laser's fiber optic power cabling runs near the surface of the underarm and can bind when the weapon is raised above shoulder level, while the SRM launcher has a stubborn tendency to fail to arm its fifth and sixth missiles. Twenty-five single heat sinks on the original model allow the entire weapons suite to fire simultaneously with minimal heat buildup, making the Guillotine a formidable brawler despite these idiosyncrasies.</p>
+
+deployment:<p>Built in 3070, this variant combines elements of the GLT-6WB and the later GLT-7M into the most radical Guillotine variant to date. An extralight engine and endo steel chassis save sufficient weight for twin light PPCs, a light Gauss rifle, an Artemis IV-guided LRM-5, and a pair of ER medium lasers. Six improved jump jets grant an impressive 180-meter leaping distance that often catches opponents off guard. Like the GLT-6WB, it retains an Improved C3 computer and compact gyro, though the standard cockpit provides better pilot comfort than its predecessor. The use of an XL engine is a significant vulnerability trade-off, making the design less survivable than other Guillotine models despite its impressive offensive and mobility upgrades.</p>
+
+history:<p>The Guillotine's combat history spans over six centuries of near-continuous service. Designed in 2499 as a front-line heavy for the Terran Hegemony, it set the standard against which later heavy BattleMechs would be measured. Known for its mobility, armor, and dependable mix of weapons, the Guillotine anchored fast attack units alongside designs like the Griffin and Thunderbolt, providing heavy fire support for entire companies. With the rise of the Star League, the design became a fixture of nearly every SLDF regiment, though heavier and more sophisticated machines eventually pushed it into the role of a heavy raider.</p><p>The fall of the Star League scattered Guillotines across all the Great Houses, while ComStar seized the largest intact stockpile after raiding the former Newhart facilities on New Earth in 2788, acquiring close to a battalion's worth of machines. Newhart's factory had already been destroyed in 2776 during the Amaris Civil War, leaving Irian BattleMechs Unlimited as the sole remaining producer. Lycomb-Davion IntroTech had also manufactured the Guillotine from their facility on Demeter, but Capellan Confederation forces destroyed this plant early in the First Succession War. As the Succession Wars ground on, shortages of advanced components forced Irian to develop the downgraded GLT-4L, which they produced intermittently for the next several centuries.</p><p>During the Second Succession War, House Marik employed Guillotines to devastating effect as guerrilla raiders against Capellan worlds, exploiting the design's energy-based weapons and jump capability to strike military support facilities and industries with impunity. Two dozen Guillotines ranged across half a dozen worlds, hiding in unpopulated areas and appearing at random, tying up Confederation forces until Marik troops captured the worlds of Ohrensen and Ilmachna. ComStar's stockpile fed machines to both their Com Guards and, covertly, to the Ghost Regiments of the Draconis Combine.</p><p>The recovery of the Helm Memory Core in the late 3040s breathed new life into the design. Irian's GLT-5M model, produced from a refurbished plant originally established under a Newhart license, not only restored the Guillotine to its Star League-era capabilities but improved upon them with more reliable weaponry. The design continued to evolve through the FedCom Civil War, which saw the introduction of the Federated Suns' GLT-8D refit, and the Jihad, when Irian Technologies produced the GLT-6WB and GLT-6WB2 variants for the Word of Blake. Production has continued into the Dark Age and ilClan eras from Irian's facilities on both Irian and Angell II, with the GLT-7M representing the latest evolution of this venerable design.</p>
+
+manufacturer:Irian BattleMechs Unlimited
+
+primaryfactory:Irian
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Crucis
+systemmode:CHASSIS:Crucis-I Endo Steel
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:280 XL
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Unknown (Improved)
+systemmanufacturer:COMMUNICATIONS:StarLink
+systemmode:COMMUNICATIONS:StarLink 955G
+systemmanufacturer:TARGETING:Pulsar
+systemmode:TARGETING:Pulsar Tri-X

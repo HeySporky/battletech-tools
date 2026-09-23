@@ -1,0 +1,160 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e8a4-7774-936a-28d6a8eb1ccf
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Winterhawk APC
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6594
+</mul id:>
+
+<year>
+3059
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+10
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+14
+7
+7
+5
+7
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-2
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+SRM 2
+Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>The Winterhawk's greatest asset is speed. Its ScolTek 115 Fuel Cell drives the hover system to a cruising speed of 108 kph and a top speed of 162 kph, allowing it to reposition infantry rapidly across open and low-obstacle terrain. The fuel cell engine reduces logistical burden compared to fusion-powered alternatives, a genuine advantage in conflict zones and peripheral worlds where fusion fuel and spare parts are unreliable. The tradeoff is modest sustained combat endurance, and crews operating in extended engagements must manage their power reserves carefully.</p><p>Armament is light, consistent with a dedicated transport mission. A single SureShot II SRM 2 Launcher provides short-range fire support, and a Coventry Light Autogun gives the crew an anti-infantry option during disembarkation operations. Neither weapon makes the Winterhawk a credible threat to armored opponents, and commanders who press the vehicle into a combat role accept serious risk. The ArcShield V armor provides reasonable protection for a 20-ton hover transport, sufficient to survive light fire during approach and extraction, but it will not absorb sustained fire from anything heavier than light infantry support weapons. The passenger bay earned praise for its ergonomic layout and the standard fold-in cooler, practical features that reflect ScolTek's attention to what infantry soldiers actually require during combat transport operations.</p>
+</capabilities>
+
+<overview>
+<p>The Winterhawk APC is ScolTek Associates' entry into the infantry transport market, a hover vehicle distinguished by its use of a fuel cell rather than a conventional fusion engine. Produced on Inarcs and introduced in 3059, the design was built around the premise of rapidly deploying infantry using the speed advantages of hover propulsion, combined with a powerplant that reduced logistical demands on lower-tier customers. The choice drew immediate skepticism from the LCAF command, which relegated the Winterhawk to backwater militia units and corporate security forces rather than authorizing frontline procurement. Over the following decades, as fuel cell technology became standard infrastructure across the Commonwealth, the vehicle's reputation improved considerably. The LCAF restarted full factory production at Inarcs in 3119 to meet renewed demand for an affordable, capable infantry transport able to keep pace with mechanized formations.</p>
+</overview>
+
+<deployment>
+<p>The Winterhawk APC serves primarily with planetary militias and mercenary units, with LCAF infantry regiments adding it to their transport pools following the 3119 production restart. It performs best supporting light to medium infantry formations on flat or low-obstruction terrain, where its hover speed provides genuine tactical advantage in rapid advance and extraction operations. The vehicle is poorly suited to mountainous or densely urbanized environments, where hover performance is reduced and the light armor becomes a serious liability against close-range anti-vehicle weapons. Commanders typically pair Winterhawks with heavier fire support vehicles, deploying the transports in the second echelon during an advance and moving them forward only after supporting elements have established a secure landing zone for the infantry.</p>
+</deployment>
+
+<history>
+<p>ScolTek Associates introduced the Winterhawk in 3059 as a commercially positioned infantry transport, targeting militia and corporate security markets rather than competing directly for frontline LCAF contracts. The decision to power the vehicle with a fuel cell was deliberate: ScolTek's engineers believed that fuel cell logistics would suit lower-tier customers without access to full military supply chains. The LCAF procurement office disagreed and classified the Winterhawk as a second-line vehicle, routing it to planetary militias and corporate forces on the Lyran periphery. Production during the first decades remained modest, sustained by militia contracts and private buyers with little prospect of major military adoption.</p><p>The Jihad changed the calculus. As conventional fuel cells became common infrastructure in occupied and damaged systems across the Lyran Commonwealth, the argument against the Winterhawk's unconventional powerplant lost credibility. Military planners began acknowledging that a vehicle requiring the same refueling infrastructure as civilian hovercrafts had genuine advantages in conflict zones where fusion fuel could not be reliably supplied. The Winterhawk spread through local service across the Commonwealth during the Jihad period, appearing in militia inventories on dozens of worlds. When the LCAF formally contracted ScolTek in 3119, it recognized a distribution pattern that informal procurement had already established. The production restart at Inarcs placed the Winterhawk in LCAF regimental inventories, and the vehicle's militia reputation faded as regular units gained direct experience with it in sustained operations.</p><p>The Winterhawk demonstrated its capabilities during the Fourth Battle of Tamarind, where the mercenary company Rocinha's Caballeros used a company of the vehicles to support infantry operations against the Second Bourgogne Guards on the Harvison Flats. The Caballeros deployed the transports to deliver infantry to natural strongpoints along the Guards' route of retreat toward Zanzibar, using the Winterhawks' speed to reposition troops ahead of the retreating conventional forces. When the Guards attempted to break through, the Caballeros' infantry stalled their advance long enough for other mercenary elements to cut off a portion of the Guards' retreat. The engagement became a frequently cited example of how a lightly armed hover transport could contribute meaningfully to combined-arms operations when used in coordination with fire support assets.</p>
+</history>
+
+<manufacturer>
+ScolTek Associates
+</manufacturer>
+
+<primaryFactory>
+Inarcs
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:ScolTek Associates
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Tar Tec
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:115 Fuel Cell
+ARMOR:ArcShield V
+COMMUNICATIONS:Cyclops I
+TARGETING:Mini-Find
+</systemModels>
+
+<source>
+TR:3145:LC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+

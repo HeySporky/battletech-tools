@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e26c-74a3-940a-2d94c48f64b5
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Coolant Truck
+</Name>
+
+<Model>
+(Tracked)
+</Model>
+
+<mul id:>
+688
+</mul id:>
+
+<year>
+2592
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+insulatedcargobay:4.35:1:1::-1:0
+insulatedcargobay:1.74:1:2::-1:0
+</transporters>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<armor>
+24
+28
+28
+20
+12
+</armor>
+
+<Body Equipment>
+IS Vehicle Flamer Ammo
+IS Vehicle Flamer Ammo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Flamer (Vehicle)
+Flamer (Vehicle)
+</Turret Equipment>
+
+<capabilities>
+<p>Tracked coolant truck variants share the core operational systems of the wheeled 135-K, including armored cryogenic tanks, multi-point BattleMech cooling interfaces, and the stirring motors that prevent dangerous temperature gradients in stored coolant. The tracked drive system provides superior traction on soft, wet, or loose terrain compared to wheeled configurations, maintaining useful mobility in conditions that would bog down conventional wheeled support vehicles. This enhanced terrain capability comes with reduced top speed relative to wheeled equivalents and increased mechanical complexity in the drive system. The standard six-person crew configuration is retained, with driver, gunner, and hose-management personnel fulfilling the same roles as in other Coolant Truck variants. Specific armament and coolant system details vary by individual configuration and manufacturer.</p>
+</capabilities>
+
+<overview>
+<p>Tracked variants of the Coolant Truck extend battlefield thermal support capability to heavy terrain environments, providing the same fundamental service as the wheeled 135-K in conditions where tracked drive systems outperform wheeled configurations. Appearing across the Inner Sphere beyond the Draconis Combine's wheeled production, tracked coolant trucks serve formations operating in mud, rubble, loose soil, and other difficult surfaces. They carry cryogenic coolant supplies for interfacing with overheated BattleMechs and share the same general mission doctrine as the rest of the Coolant Truck family. Most tracked variants differ from one another primarily in the coolant compounds they carry rather than in major mechanical differences, with selection driven by the heat sink fluid used in the BattleMechs they support.</p>
+</overview>
+
+<deployment>
+<p>Tracked coolant trucks serve the standard support echelon role under Master Tech command, deploying at distance from active engagements to service overheating BattleMechs. The tracked configuration is specifically suited to deployments in marsh, agricultural, rubble-strewn urban, or winter terrain, where wheeled designs lose mobility and hover variants risk mechanical damage from debris ingestion. Formation commanders operating in such environments frequently specify tracked coolers over wheeled or hover equivalents when requisitioning support assets. Deployment doctrine otherwise follows the standard Coolant Truck pattern, with regimental battle groups fielding approximately six coolers and crews following standard procedures for BattleMech hook-up and coolant delivery.</p>
+</deployment>
+
+<history>
+<p>Tracked variants of the Coolant Truck developed within the Star League period, first appearing in 2592 as the original wheeled 135-K's terrain limitations became apparent in a wider range of operational environments. The tracked configuration extended coolant truck support to formations operating in conditions that compromised wheeled vehicle performance, filling a gap in support echelon capability for units assigned to difficult terrain zones. No single manufacturer is associated with the tracked variant, and production developed independently across multiple Inner Sphere factions as local operational requirements drove adoption. Through the Succession Wars, tracked coolant trucks served wherever BattleMech formations required reliable thermal support in terrain demanding tracked mobility from support elements, filling the same critical function that the wheeled 135-K provided in more forgiving environments.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

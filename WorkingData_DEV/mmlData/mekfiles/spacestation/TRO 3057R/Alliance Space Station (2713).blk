@@ -1,0 +1,305 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e1e5-76be-b079-05e678e6d2e2
+</UUID>
+
+<UnitType>
+SpaceStation
+</UnitType>
+
+<Name>
+Alliance Space Station
+</Name>
+
+<Model>
+(2713)
+</Model>
+
+<mul id:>
+3695
+</mul id:>
+
+<year>
+2713
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:8.0:1:1::-1:0
+navalrepairpressurized:50000.0:1:2:f5
+navalrepairpressurized:50000.0:1:3:f4
+1stclassquarters:130.0:0:-1::-1:0
+crewquarters:2093.0:0:-1::-1:0
+2ndclassquarters:2800.0:0:-1::-1:0
+steeragequarters:280.0:0:-1::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+cargobay:67464.0:1:12::-1:0
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+400
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+100000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+14
+13
+13
+14
+13
+13
+</armor>
+
+<Nose Equipment>
+(B) PPC
+(B) LRM 15
+LRM 15
+IS Ammo LRM-15:40
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) PPC
+(B) LRM 15
+LRM 15
+IS Ammo LRM-15:40
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) PPC
+(B) LRM 15
+LRM 15
+IS Ammo LRM-15:40
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) PPC
+(B) LRM 15
+LRM 15
+IS Ammo LRM-15:40
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) PPC
+(B) LRM 15
+LRM 15
+IS Ammo LRM-15:40
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) PPC
+(B) LRM 15
+LRM 15
+IS Ammo LRM-15:40
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>The Alliance's operational core consists of two Standard Pressurized Naval Repair Facilities, each rated for vessels up to 50,000 tons, enabling simultaneous servicing of multiple DropShips within fully enclosed, pressurized bays. Four docking collars (two located on the connecting column and two at the base of the structural cross member) accommodate active DropShip traffic, maintaining a steady throughput of vessels entering and departing the repair cycle. Eight small craft are housed in a dedicated bay with a single access door and two recovery positions, supporting continuous movement of support craft between the station and client vessels. Approximately 67,000 tons of cargo space through a single door allows stockpiling of spare components, fuel, and consumables for sustained independent operations.</p><p>A single 420-meter diameter grav deck supports habitability for the station's operational crew of 352, which includes officers, enlisted ratings, gunners, and dedicated bay personnel. Beyond the crew, the Alliance accommodates up to 400 passengers (typically contractors, technical specialists, and administrative personnel supporting the station's repair and construction programs) alongside a marine complement of 56 for security and boarding operations. This combination of large crew, substantial passenger capacity, and marine presence reflects the Alliance's role as much as an administrative hub as a pure repair facility.</p><p>Defensively, the Alliance mounts eighteen weapons bays combining particle projector cannons, large and medium lasers, long-range missile racks, and autocannons; sufficient to deter raider-scale threats but not intended for sustained combat operations. Four hundred single heat sinks provide adequate thermal management for defensive engagements. The station's primary limitation is scale: its repair bays cannot service the largest DropShip classes, and its relatively modest mass left it vulnerable to determined military assault with no capacity to withdraw or maneuver out of danger.</p>
+</capabilities>
+
+<overview>
+<p>The Alliance-class space station represents one of the Star League's most practical contributions to interstellar logistics, a purpose-built orbital platform designed to keep DropShips and small craft operational without reliance on planetary infrastructure. Introduced in 2713, the design was conceived to serve industrial worlds lacking the surface-based construction capacity to support large-scale aerospace maintenance, with the added capability to construct some small DropShips outright. At 100,000 tons and stretching nearly a kilometer in length, the Alliance ranks among the smaller space station classes of its era, yet its repair throughput and construction capability made it an essential fixture of Star League-era orbital logistics. The station's distinctive mushroom-and-cross silhouette, with its broad primary hull and extending docking cross member, became a familiar sight to DropShip crews across the Inner Sphere, representing reliable repair services and the administrative reach of the Star League's far-reaching logistical network.</p>
+</overview>
+
+<deployment>
+<p>The original Alliance configuration served as the primary DropShip maintenance hub for Star League-era industrial and garrison worlds throughout the 2710s and beyond, operating under the combined authority of SLDF logistics commands and affiliated planetary administrations. These stations handled everything from routine maintenance rotations to significant structural repairs, and their high utilization rates meant extensive waiting lists were common even during peacetime. Their strategic importance made them among the first targets in the opening campaigns of the Succession Wars, and most examples were destroyed or rendered non-functional before the end of the First Succession War.</p>
+</deployment>
+
+<history>
+<p>The Alliance class entered service in 2713, commissioned to address the Star League Defense Force's growing requirement for distributed orbital repair infrastructure across dozens of inhabited systems. As the SLDF extended its operational reach, maintaining DropShip fleets at distant garrison postings required facilities that could function independently of planetary construction yards. The Alliance answered this need, and stations of this class were deployed across numerous industrial and military worlds throughout the height of the Star League era. Their construction involved a broad range of entities (SLDF logistics commands, planetary governments, and private industrial interests) and no single manufacturer or centralized production program has been identified in surviving records.</p><p>When the Star League collapsed following the Amaris Civil War and the subsequent departure of Kerensky's SLDF, Alliance-class stations passed into the hands of whatever successor states or factions controlled the worlds they orbited. Many became contested assets almost immediately, as the Successor States recognized their strategic value for maintaining aging DropShip fleets in the absence of Star League-era production capacity. The demand for their services, always high during the Star League era, only intensified as the broader collapse of the Inner Sphere's technical infrastructure made functional orbital repair facilities increasingly scarce.</p><p>The Succession Wars proved devastating for the class. Unable to maneuver or escape combat, Alliance stations made tempting and stationary targets for any force seeking to deny repair infrastructure to a rival or seize it intact. Stations destroyed in battle were rarely replaced, while those that survived frequently lost trained technical staff and were left to deteriorate over subsequent decades as the knowledge needed to maintain them became harder to find. By the late twenty-eighth century, functioning examples had become rare throughout the Inner Sphere. Isolated survivors operated on improvised maintenance, their capabilities reduced well below original specifications, sustained as much by institutional memory as by formal technical documentation that had long since been lost or destroyed. No new production of the Alliance class has been documented since the fall of the Star League.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+D&J
+</source>
+
+<tonnage>
+100000.0
+</tonnage>
+
+<sail>
+0
+</sail>
+
+<grav_decks>
+500
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+352
+</crew>
+
+<officers>
+13
+</officers>
+
+<gunners>
+12
+</gunners>
+
+<passengers>
+400
+</passengers>
+
+<marines>
+56
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+60
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

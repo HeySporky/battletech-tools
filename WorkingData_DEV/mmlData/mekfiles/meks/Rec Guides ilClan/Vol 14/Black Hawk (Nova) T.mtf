@@ -1,0 +1,210 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d8c9-7dbc-b13b-7b5b290606c6
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Black Hawk
+clanname:Nova
+model:T
+mul id:8164
+
+Config:Biped OmniMek
+techbase:Clan
+era:3142
+source:RG14
+published:RG14,RS:AS
+rules level:2
+role:Skirmisher
+
+quirk:combat_computer
+quirk:low_profile
+
+mass:50
+engine:250 XL (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:14 Clan Double
+base chassis heat sinks:10
+walk mp:5
+jump mp:5
+
+armor:Standard(Clan)
+LA armor:16
+RA armor:16
+LT armor:16
+RT armor:16
+CT armor:23
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:8
+RTR armor:8
+RTC armor:8
+
+Weapons:12
+Medium Chemical Laser, Left Arm
+Medium Chemical Laser, Left Arm
+Medium Chemical Laser, Left Arm
+Medium Chemical Laser, Left Arm
+Medium Chemical Laser, Left Arm
+Medium Chemical Laser, Left Arm
+Medium Chemical Laser, Right Arm
+Medium Chemical Laser, Right Arm
+Medium Chemical Laser, Right Arm
+Medium Chemical Laser, Right Arm
+Medium Chemical Laser, Right Arm
+Medium Chemical Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemLaserAmmo (OMNIPOD)
+CLMediumChemLaserAmmo (OMNIPOD)
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemicalLaser (OMNIPOD)
+CLMediumChemLaserAmmo (OMNIPOD)
+CLMediumChemLaserAmmo (OMNIPOD)
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Nova, designated Black Hawk by Inner Sphere forces, was among the earliest OmniMechs ever produced when it first rolled off the assembly lines at Tokasha MechWorks in 2870. Designed by Clan Hell's Horses as an infantry support platform, the Nova holds the distinction of being the first OmniMech specifically engineered with connection points allowing Elemental battle armor to mount and dismount the chassis with ease, a feature that would become standard across all subsequent Clan OmniMech designs. Produced by a limited number of facilities over its long service life, the Nova has nonetheless spread to every Clan through trials and salvage, earning a reputation as one of the most versatile and recognizable medium OmniMechs in the Kerensky Cluster and beyond.</p>
+
+capabilities:<p>The Nova is built around a 250 XL Model SF-2 extralight engine that propels the fifty-ton chassis to a top speed of eighty-six kilometers per hour. Five jump jets provide exceptional maneuverability with a jumping distance of one hundred and fifty meters, allowing the Nova to exploit terrain that would stymie heavier opponents. The design carries ten tons of Forge Type HH30 armor, providing ninety-six percent of maximum protection for its weight class, a generous allocation that reflects the Hell's Horses' emphasis on survivability in combined-arms operations.</p><p>The chassis dedicates sixteen tons to pod space, enabling a wide range of configurations. In its Primary configuration, the Nova mounts twelve extended-range medium lasers distributed across both arms, creating a devastating close-range barrage capable of shredding battle armor and light vehicles in seconds. However, this firepower comes at a steep cost in waste heat. Even with eighteen double heat sinks, the Nova Prime generates nearly twice as much heat as it can dissipate during a full alpha strike, forcing MechWarriors to carefully manage their fire discipline or risk emergency shutdowns.</p><p>The weaknesses of the Nova's design become apparent across its various configurations. The limited pod tonnage constrains heavier weapon loads, and configurations mounting ballistic weapons like the B and C variants often sacrifice secondary armament. Yet, the combination of speed, jump capability, and configuration flexibility has made the Nova one of the most versatile medium OmniMechs ever fielded.</p>
+
+deployment:<p>Alternate Configuration T is a modern variation on the classic Prime loadout, mounting six medium chemical lasers and two tons of chemical laser ammunition in each arm. The chemical lasers offer comparable performance to standard medium lasers but rely on ammunition rather than pure energy output, fundamentally changing the Nova's traditional advantage of ammunition independence. This Tiburon Khanate-era configuration serves as a philosophical departure for the chassis while maintaining its signature close-range saturation fire doctrine.</p>
+
+history:<p>The Nova made its battlefield debut in 2872 during the combined assault on Kindraa Smythe-Jewel on Foster, launched by the Hell's Horses alongside Clan Coyote and Kindraa Payne. The attack proved devastatingly effective, wiping out the Smythe-Jewels as a faction and establishing the Nova as a proven combat design. The Hell's Horses' new mechanized battle armor tactics, enabled by the Nova's Elemental mounting points, proved so successful that the concept became standard on all subsequent OmniMechs.</p><p>Originally manufactured at a single facility on Tokasha, production ceased in 2921 when Clan Ghost Bear captured the world during the Battle of Tokasha, after which the facility produced only spare parts. Every Clan acquired examples through trials and salvage over the following centuries, ensuring the design remained ubiquitous if increasingly scarce. The Nova's versatility as a jack of all trades saw it deployed across every major Clan conflict of the Golden Century and beyond, though it was increasingly relegated to a secondary role as heavier and lighter OmniMechs entered service.</p><p>The Clan Invasion of the Inner Sphere in 3049 brought the Nova to the attention of the Great Houses, where it earned the reporting name Black Hawk. Inner Sphere encounters with the design directly inspired the Draconis Combine's Black Hawk-KU program and later the Penetrator developed by Kallon Industries. The Nova's balanced design proved so influential that it spawned an entire lineage of derivative designs across both Clan and Inner Sphere production lines.</p><p>Clan Jade Falcon resurrected Nova production at Olivetti Weaponry on Sudeten in 3073, over two hundred years after the original lines fell silent, breathing new life into the aging design. The Falcons fielded Novas extensively during their campaigns in the mid-thirty-second century, including the invasion of Arc-Royal in 3146, where a Star of Novas from the Fifty-Third Falcon Talon intercepted elements of the First Wolf Legion Cluster screening the evacuation of the Exiled Wolf leadership. The Novas' varied configurations caused confusion among the defenders, enabling the Falcon Trinary to press their advantage.</p><p>Meanwhile, Clan Hell's Horses maintained a especially large concentration of Novas in their touman, and in the mid-3140s numerous examples found their way into the Hell's Horses forces during the Golden Ordun alliance. The last Nova production facility in the Clan Homeworlds, on Sheridan under Clan Star Adder control, was eventually retooled to produce Pouncers by 3087, leaving the few remaining Homeworld examples in the hands of Aggressor MechWarriors operating on the fringes of Clan society.</p>
+
+manufacturer:Tokasha MechWorks|Olivetti Weaponry|Sheridan LM-TA 8-10|Kindraa Matilda-Carroll Main Production Facility
+
+primaryfactory:Tokasha|Sudeten|Sheridan|Marshall (Molten)
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Star League XTA
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:250 XL Model SF-2
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Forge Type HH30
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Clan Standard Type A2
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:CH3B
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Version Omega-V TTS

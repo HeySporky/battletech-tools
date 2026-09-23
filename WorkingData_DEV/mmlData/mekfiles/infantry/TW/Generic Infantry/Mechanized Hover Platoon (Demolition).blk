@@ -1,0 +1,78 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bfea-787b-8355-42c1c390d847
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Hover Platoon
+</Name>
+
+<Model>
+(Demolition)
+</Model>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Hover
+</motion_type>
+
+<Troopers Equipment>
+Demolition Charge
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Hover demolition platoons transport combat engineers in hovercraft for rapid delivery to demolition targets. Armed only with auto-pistols for self-defense, these platoons rely on speed and the element of surprise rather than firepower, racing to bridge supports, supply dumps, or defensive installations to place charges before the enemy can react. The hovercraft's ability to cross water makes these platoons particularly effective against riverside infrastructure and coastal fortifications.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<Primary>
+Auto-Pistol
+</Primary>
+
+<specialization>
+2
+</specialization>
+

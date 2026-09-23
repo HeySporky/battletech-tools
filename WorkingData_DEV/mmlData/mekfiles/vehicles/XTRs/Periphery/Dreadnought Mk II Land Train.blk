@@ -1,0 +1,216 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec0a-7340-a6c3-f2700c3efca1
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Dreadnought Mk II Land Train
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5570
+</mul id:>
+
+<year>
+3081
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<quirks>
+prototype
+non_standard
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+cargobay:4.0:1:1::-1:0
+steeragequarters:5.0:1:-1::-1:0
+steeragequarters:5.0:1:-1::-1:0
+steeragequarters:5.0:1:-1::-1:0
+infantrybay:2.0:1:5:Foot:-1:0
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+48
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+35
+26
+26
+26
+26
+26
+35
+</armor>
+
+<Body Equipment>
+SV Chassis Mod [Tractor]
+FieldKitchen
+IS Ammo Extended LRM-5
+IS Ammo Extended LRM-5
+IS Ammo Extended LRM-5
+IS Ammo Extended LRM-5
+IS Ammo Extended LRM-5
+IS Ammo MG - Full
+IS Ammo HVAC/2
+IS Ammo HVAC/2
+IS Ammo HVAC/2
+Advanced Fire Control
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Front Right Equipment>
+Machine Gun(ST)
+Machine Gun(ST)
+Machine Gun(ST)
+ISMGA(ST)
+SponsonTurret
+</Front Right Equipment>
+
+<Front Left Equipment>
+Machine Gun(ST)
+Machine Gun(ST)
+Machine Gun(ST)
+ISMGA(ST)
+SponsonTurret
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+Lift Hoist/Arresting Hoist
+</Rear Equipment>
+
+<Turret Equipment>
+Hyper Velocity Auto Cannon/2
+Hyper Velocity Auto Cannon/2
+Extended LRM 5
+Extended LRM 5
+</Turret Equipment>
+
+<barrating>
+7
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Dreadnought Mk II tractor is built on a 200-ton tracked chassis with both Tech D chassis and armor construction, reinforced with eight tons of commercial grade ATC armor rated at BAR 7. This protection substantially exceeds the unmodified Elite Series 3 baseline and allows the vehicle to withstand repeated strikes from medium-class weapons. A fusion power plant provides sustainable mobility for convoy operations, drawing on the same engine to power any attached trailer modules. The tractor's primary armament mounts two Hyper-Velocity Autocannon/2s and two Extended LRM-5 launchers in the central turret, providing both close-range autocannon fire and the ability to engage threats before they reach optimal direct-fire distance. Six machine guns in front sponson mounts, coordinated by Machine Gun Arrays, provide area suppression against boarding parties and raider infantry. Advanced Fire Control governs all weapons systems.</p><p>The crew of twenty-seven is distributed across officer quarters, enlisted berths, and dedicated gunner stations. Two infantry bays carry a fifty-soldier security element for deployment at fueling stops or to repel boarders. Three steerage-class quarters accommodate fifteen additional personnel, while an onboard field kitchen allows extended operations without forward supply bases. A four-ton cargo bay at the rear, accessed through a rear door, typically carries food and medical supplies for the convoy. A three-ton lift hoist at the rear assists with cargo handling and trailer servicing during stops.</p>
+</capabilities>
+
+<overview>
+<p>The Dreadnought Mk II Land Train is a military conversion of the Gienah-DuraPaq Elite Series 3 civilian land train, developed by Marian Arms, Inc. on Alphard for the Marian Hegemony Armed Forces. Authorized by Hegemony Armed Forces commander Michael Alexander and supervised by Marian Arms technician Proculeius Lodi, the project sought to transform the Hegemony's essential ore transport vehicles into self-defending convoy platforms capable of protecting critical supply routes without diverting dedicated combat assets to escort duty. Development began in 3072 and formal introduction was achieved in 3081. Consisting of a heavily armed tractor module and a series of interchangeable armed trailer configurations, the Mk II represents one of the Hegemony's most ambitious military engineering efforts. Only two complete trains were ever constructed, making the Dreadnought Mk II among the rarest vehicles in Periphery service.</p>
+</overview>
+
+<deployment>
+<p>The Dreadnought Mk II tractor serves as the armored command vehicle and primary weapons platform for each land train convoy. Each tractor operates with two to four trailer modules, with Train 838 typically running two Configuration One and two Configuration Two trailers on Alphard's ore routes, and Train 520 most commonly deploying two each of Configurations Three and Four. Trailer configurations are exchanged between specific cargo runs to suit anticipated threat profiles. The tractor crew manages all turret weapons while dedicated trailer gunners handle their respective module armament, with all gunner personnel quartered aboard the tractor itself. The infantry bays allow rapid deployment of a security element at fueling stops or to repel boarding actions along remote stretches of route.</p>
+</deployment>
+
+<history>
+<p>The Marian Hegemony's overland transport network has been essential to its economy since the realm's founding, with land trains ferrying ore from Alphard's distant mining fields to Nova Roma and the industrial centers supporting Marian military power. The Gienah-DuraPaq Elite Series 3 became the standard platform for this role, and by the mid-thirty-first century the Hegemony operated substantial convoys of these vehicles across Alphard's varied terrain. As the Hegemony grew from a mining operation into a Periphery power attracting raider interest, the vulnerability of these lightly defended convoys became an increasing liability.</p><p>The Word of Blake's terrorist attacks on Nova Roma in the 3060s disrupted supply shipments and rendered several convoy routes untenable. When the Blakists returned the following year and Lugdunum became a primary target, the Hegemony found itself unable to spare military assets for convoy escort. Caesar Cassius O'Reilly's response upon assuming the throne was to appoint Proculeius Lodi of Marian Arms to develop a permanent solution, commissioning a full military conversion of the Elite Series 3 platform rather than relying on improvised escort arrangements.</p><p>Lodi's program, begun in 3072, worked closely with HAF commander Michael Alexander to develop specifications for what would become the Dreadnought Mk II. In September 3079, O'Reilly met with Lodi and Alexander in closed session, reviewed the progress of the project, and approved an ambitious upgrade to the design's defensive and offensive capabilities. O'Reilly provided a generous development budget, reflecting the strategic importance the Hegemony placed on protecting its mining infrastructure.</p><p>By the late 3070s the Mk II was undergoing field trials on Alphard, with life returning to normal in the Hegemony as the two prototype trains demonstrated the viability of the armed land train concept. Train 838 and Train 520 completed their trials and entered service in 3081. FrontierTech marketed the design as both a military asset and a commercial investment opportunity for potential outside customers, though no additional units beyond the two original trains were confirmed constructed.</p>
+</history>
+
+<manufacturer>
+Marian Arms, Inc.
+</manufacturer>
+
+<primaryFactory>
+Alphard (MH)
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Marian Arms, Inc.
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Tech D Chassis
+ENGINE:Fusion
+ARMOR:Commercial ATC (BAR 7, 8 tons)
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Periphery
+</source>
+
+<published>
+XTR:Periphery
+</published>
+
+<tonnage>
+200.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

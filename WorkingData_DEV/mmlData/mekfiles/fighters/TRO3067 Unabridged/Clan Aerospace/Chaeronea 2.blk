@@ -1,0 +1,175 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aec9-7866-bc7b-57cee58e343d
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Chaeronea
+</Name>
+
+<Model>
+2
+</Model>
+
+<mul id:>
+3936
+</mul id:>
+
+<year>
+2883
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Interceptor
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+11
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+240
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+22
+20
+20
+18
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLERMediumLaser
+CLERMediumLaser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLERMediumLaser
+CLERMediumLaser
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Chaeronea is built on a Pattern IIA Standard airframe powered by a 225-rated fusion engine, making it one of the fastest light aerospace fighters in Clan service. Three tons of fuel provide good operational endurance for extended patrols and deep reconnaissance missions. The craft's primary armament is a single nose-mounted Series 1B ER PPC, a weapon selection that gives the twenty-five ton fighter striking power rivaling craft nearly twice its size. This potent main gun allows the Chaeronea to engage targets at extreme range before closing for additional passes or breaking off contact entirely.</p><p>Ten double heat sinks manage the considerable thermal load efficiently, allowing near-continuous fire without significant heat buildup. The design's principal weakness is its armor protection, with only three tons of Standard Comp A plating providing minimal coverage. A single well-placed hit from a comparable weapon can cripple the fighter, forcing pilots to rely on speed and range rather than durability. The exclusive use of energy weapons eliminates ammunition dependency entirely, a significant logistical advantage for Clans operating far from established supply lines.</p>
+</capabilities>
+
+<overview>
+<p>The Chaeronea is a twenty-five ton Clan light aerospace fighter originally developed by Clan Mongoose as a lighter and faster companion to Clan Snow Raven's Issus. Introduced in 2849 under the original designation Striking Mongoose, the fighter was conceived to complement the Mongoose preference for aerospace-oriented warfare with a craft better suited to their aggressive combat doctrine. Despite its diminutive size, the Chaeronea delivers firepower more commonly associated with medium aerospace fighters. Its combination of speed and striking power has made it a mainstay among Clan toumans, particularly those of resource-conscious Clans that value its simple construction and exclusive reliance on energy weapons.</p>
+</overview>
+
+<deployment>
+<p>The Chaeronea 2 addresses the base model's critical armor deficiency by replacing the nose-mounted ER PPC with four extended range medium lasers split between the wings. The additional freed weight is devoted entirely to armor, adding two tons of additional plating and significantly improving survivability. This trade sacrifices the long-range punch of the original in favor of a more durable platform better suited to sustained dogfighting at closer ranges.</p>
+</deployment>
+
+<history>
+<p>The Chaeronea's origins trace to the early Golden Century, when Clan Mongoose sought to expand its aerospace capabilities. After Clan Snow Raven debuted the Stooping Raven during the first part of the Golden Century, Clan Mongoose attempted to acquire the design through a Trial of Possession but was defeated. Khan Jes Greenhalgh then leveraged an incident during Operation Klondike, when the Mongoose and Snow Raven Clans were conquering Circe, to force a second Trial. This time the Mongooses prevailed, and after studying the captured craft, Greenhalgh directed engineers to develop a lighter and faster derivative better suited to the Mongoose style of combat.</p><p>Four years of development produced the Striking Mongoose, which quickly became a cornerstone of the Clan's aerospace touman. The political tensions that had sparked the original Trial continued to escalate, culminating in Clan Smoke Jaguar's absorption of Clan Mongoose in 2868. Along with the Mongoose Bloodnames, the Jaguars inherited the Striking Mongoose but initially rejected it, viewing any craft bearing the absorbed Clan's name as unworthy. When ilKhan Victoria Ward enacted the Uniform Designation Protocols roughly a decade and a half later, the resource-poor Jaguars seized the opportunity to cleanse the design of its perceived taint. Renamed the Chaeronea, the fighter entered full Jaguar production and quickly spread to the toumans of every other Clan.</p><p>The introduction of the Bashkir OmniFighter eventually rendered the Chaeronea technologically obsolete, but its simple construction and energy-only weapons loadout ensured continued service. Production has been maintained across numerous Clan homeworld facilities, with factories on Circe, Lum, Atreus, Babylon, Eden, Bearclaw, and Barcella contributing to a broad manufacturing base. The original Circe facility at Industriplex MC2 changed hands from Clan Mongoose to Clan Smoke Jaguar following the absorption, and later passed to the Snow Ravens. Crest Foundries on Lum has maintained continuous Snow Raven production, including the exclusive Chaeronea 3 variant. During the Jihad era, Crest Foundries established a refit operation on Quatre Belle within the Raven Alliance, producing the modernized Chaeronea 4 for continued reconnaissance duties.</p>
+</history>
+
+<manufacturer>
+DS Aero Assembly Site Alpha|Industriplex MC2|Kindraa Mick-Kreese Primary Production Facility
+</manufacturer>
+
+<primaryFactory>
+Babylon (Callandra)|Circe|Atreus (Clan)
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:VOX
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Pattern IIA Standard
+ENGINE:225 Fusion
+ARMOR:Standard Comp A
+COMMUNICATIONS:Comm IV
+TARGETING:T&T Type 3X
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+

@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d761-79fb-8908-61dbe2b56205
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Deep Lord
+model:RCL-Z1M MilitiaMech
+mul id:4057
+
+Config:Biped
+techbase:Inner Sphere
+era:3085
+source:TR:Proto
+published:RS:Proto
+rules level:4
+role:Juggernaut
+
+quirk:imp_life_support
+quirk:pro_actuator
+weaponquirk:jettison_capable:RA:4:Mace
+
+mass:65
+engine:195 Fuel Cell Engine
+structure:IS Industrial
+myomer:Standard
+cockpit:Industrial Cockpit
+gyro:Standard Gyro
+
+heat sinks:7 Single
+walk mp:3
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:14
+RT armor:14
+CT armor:16
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:3
+RTR armor:3
+RTC armor:5
+
+Weapons:2
+Rifle (Cannon, Heavy), Left Torso
+SRM 6, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Mace
+Mace
+Mace
+Mace
+Mace
+Mace
+Mace
+-Empty-
+
+Left Torso:
+Rifle (Cannon, Heavy) (T)
+Rifle (Cannon, Heavy) (T)
+Rifle (Cannon, Heavy) (T)
+ISShoulderTurret
+IS Ammo Heavy Rifle
+IS Ammo Heavy Rifle
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+SRM 6
+SRM 6
+IS Ammo SRM-6
+IS Ammo SRM-6
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Deep Lord is a purpose-built MilitiaMech produced by Bristol SalvageWorks on Canopus IV in the Magistracy of Canopus, derived from Achernar BattleMechs' Dig Lord MiningMech chassis. Unlike the ad hoc MOD conversions that characterized most armed IndustrialMechs during the Dark Age, the Deep Lord was designed expressly for low-intensity combat from the outset, representing a deliberate engineering effort to transform a proven industrial platform into an affordable military asset.</p><p>The project emerged in the wake of the Jihad, when the brutal violence that devastated the Inner Sphere reached even the deepest recesses of the Periphery. With economies shattered and conventional BattleMech procurement prohibitively expensive, Bristol SalvageWorks identified an opportunity in the wave of armed IndustrialMechs that had sprung up across the Periphery. By applying systematic engineering rather than improvised field modifications, Bristol created one of the cheapest dedicated combat platforms available, marketed aggressively to small mercenary commands, city-states, and corporations operating in the Periphery.</p>
+
+capabilities:<p>The Deep Lord strips the Dig Lord of all mining equipment (treads, rock cutter, mining drill, and fluid guns are removed entirely) and replaces them with weapons, legs, and armor suited to a combat role. Built on a modified Bristol RCL-MOD chassis frame powered by a Core Tek 195-rated fuel cell engine, the Deep Lord retains the sixty-five-ton mass and stately pace of its parent design while fundamentally changing its purpose. Eight tons of Humphreys heavy industrial armor provide protection roughly equivalent to a light BattleMech, adequate against small arms and light weapons but insufficient for sustained engagement with dedicated military hardware.</p><p>The primary armament centers on a Borfore heavy rifle mounted in a BattleMech turret on the left torso, providing a three-hundred-sixty-degree field of fire that compensates for the design's slow speed. Bristol's engineers selected the heavy rifle after more expensive options like autocannons proved beyond the project budget, most semi-developed Periphery worlds had ready supplies of antiquated cannons suitable for the role. A Canopian-made Marklin 6-Pack SRM 6 launcher provides close-range punch, while a mace in the right arm gives the MilitiaMech a fearsome physical attack capability. The O/P 911 targeting and tracking system, purchased from Magistracy Metals and Manufacturing during their Locust line upgrade, provides adequate fire control for the design's limited weapons array.</p><p>The Deep Lord makes no pretense of competing with purpose-built BattleMechs. It is slow, poorly armored by military standards, and lacks an ejection seat. However, it is more than capable of driving off bandits and pirates while being one of the cheapest combat units on any battlefield, a combination that has proven irresistible to the budget-conscious military organizations that represent Bristol's primary customer base.</p>
+
+deployment:<p>The base RCL-Z1M is the original Deep Lord MilitiaMech introduced around 3085, armed with a Borfore heavy rifle in a BattleMech shoulder turret, a Marklin 6-Pack SRM 6 launcher in the torso, and a mace in the right arm. This configuration represents Bristol SalvageWorks' production-ready answer to the improvised armed IndustrialMechs proliferating across the Periphery, a systematic conversion that trades the Dig Lord's mining equipment for dedicated combat systems while keeping costs at a fraction of true BattleMech procurement.</p>
+
+history:<p>Bristol SalvageWorks began developing the Deep Lord in the aftermath of the Jihad, investigating the wave of armed IndustrialMechs that had sprung up across the Periphery. The company's engineers were particularly interested in combat-modified Dig Lord MiningMechs, and they secured a working example through less-than-reputable channels as the basis for their production design. Initial plans called for a vibroblade and enhanced actuator system similar to the experimental Calderon Protectorate conversion, but the complexity and cost of these components proved impractical for production-scale manufacturing. A mace was substituted for the vibroblade, and the multiple missile launcher was replaced with a simpler Canopian-made SRM 6 system.</p><p>The most challenging aspect of the design proved to be the main weapon. Initial designs specified an Armstrong J11 autocannon, but the cost of purchasing and shipping autocannons to Canopus was prohibitive. Bristol's engineers turned to a creative solution, the heavy rifle, an antiquated weapon type readily available on most semi-developed Periphery worlds. Mounting the weapon in a shoulder turret provided the broad field of fire that the design's slow speed demanded. The O/P 911 targeting system was acquired through a deal with Magistracy Metals and Manufacturing, who were upgrading their Locust production line and had surplus systems available.</p><p>The Deep Lord entered production around 3085 and Bristol's aggressive marketing and low pricing yielded steady results. While no single large purchaser emerged, numerous Periphery outposts, city-states, militia units, and mercenary commands ordered the MilitiaMech in small numbers. The design found its niche precisely where Bristol intended, among organizations that needed something more capable than armed civilians but could not afford even the cheapest purpose-built BattleMech. Sales continued through the Dark Age, with the collapse of central authority following Gray Monday only expanding the customer base for affordable combat platforms.</p>
+
+manufacturer:Bristol SalvageWorks
+
+primaryfactory:Canopus IV
+
+fluffdate:2026-02-11 15:11:17
+
+systemmanufacturer:CHASSIS:Bristol
+systemmode:CHASSIS:RCL-MOD
+systemmanufacturer:ENGINE:Core Tek
+systemmode:ENGINE:195 HydroCell
+systemmanufacturer:ARMOR:Humphreys
+systemmode:ARMOR:Heavy Industrial
+systemmanufacturer:COMMUNICATIONS:Channel
+systemmode:COMMUNICATIONS:80 Short Wave
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:911

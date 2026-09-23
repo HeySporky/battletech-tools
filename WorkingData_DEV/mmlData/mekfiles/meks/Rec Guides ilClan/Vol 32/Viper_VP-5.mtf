@@ -1,0 +1,206 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-db95-73c3-9ce3-e824ef0af875
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Viper
+model:VP-5
+mul id:9488
+
+Config:Biped
+techbase:Inner Sphere
+era:2958
+source:RG32
+published:RG32
+rules level:1
+role:Brawler
+
+quirk:difficult_eject
+quirk:searchlight
+quirk:rugged_1
+quirk:imp_com
+
+mass:70
+engine:280 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:17 Single
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:23
+RT armor:23
+CT armor:38
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:7
+RTR armor:7
+RTC armor:6
+
+Weapons:8
+Medium Laser, Left Arm
+Medium Laser, Left Arm
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+Medium Laser, Right Arm
+Medium Laser, Right Arm
+Large Laser, Left Torso
+Large Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Heat Sink
+Medium Laser
+Medium Laser
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Heat Sink
+Medium Laser
+Medium Laser
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Viper emerged during the tumultuous First Succession War as a collaborative effort between the Free Worlds League and Kallon Industries to create a more capable heavy BattleMech design. Built upon an upscaled version of the proven Crusader chassis, the 70-ton Viper was intended to address the FWLM's need for a rugged, reliable heavy 'Mech that could fill multiple battlefield roles while utilizing established manufacturing techniques and supply chains. The decision to base the design on the Crusader's successful framework allowed Kallon engineers to leverage decades of production experience while creating something distinctly new. Despite its larger size and different tactical role, the Viper retained many of the structural advantages that made the Crusader successful, including robust construction and battlefield adaptability.</p>
+
+capabilities:<p>Kallon's engineering team designed the Viper around a fundamentally different combat philosophy than its Crusader predecessor, focusing on direct-fire energy weapons rather than missile systems. The design's primary armament consists of two Magna Mk III-B binary laser cannons providing devastating firepower at medium to long ranges, supported by three Intek medium pulse lasers for enhanced accuracy and damage potential. This energy-focused loadout eliminates ammunition dependency issues while providing consistent firepower throughout extended engagements. The Viper's increased tonnage allows for improved armor protection over the base Crusader design, though the energy weapons create substantial heat loads that challenge the cooling system.</p><p>The upscaled Crucis-B chassis provides a stable firing platform while maintaining reasonable mobility for a 70-ton design. Unlike many contemporary heavy 'Mechs that sacrificed speed for firepower, the Viper retains sufficient tactical mobility to exploit battlefield opportunities and withdraw from unfavorable engagements. The design's weapon placement emphasizes protection of critical systems, with the primary armament positioned to minimize vulnerability to return fire. However, the substantial power requirements and heat generation of the binary laser system demand careful heat management and tactical discipline from MechWarriors to avoid thermal shutdown in prolonged combat.</p>
+
+deployment:<p>An improved variant that emerged during the Third Succession War era, this variant represents Kallon Industries' attempt to address some of the tactical limitations identified in early Viper operations. The configuration maintains the proven energy weapon philosophy while incorporating lessons learned from battlefield experience with the original model. Technical specifications remain largely classified, but intelligence reports suggest improvements to heat dissipation systems and possibly enhanced armor protection around critical components. The VP-5 saw service primarily with FWLM regular forces and select mercenary units, where its enhanced reliability made it particularly valuable during extended campaigns. Combat reports from the Third Succession War indicate that VP-5 variants demonstrated improved survivability compared to earlier models, though specific technical details remain unavailable in public records.</p>
+
+history:<p>The Viper's development history reflects the chaotic conditions of the First Succession War, when the Free Worlds League desperately needed reliable heavy BattleMech designs to replace combat losses. Kallon Industries, already established as a major Crusader producer, proposed the upscaled design as a way to quickly field a more powerful unit while utilizing existing production capabilities and supply networks. The first Viper units rolled off production lines at Bernardo and later Asuncion during the height of the conflict, where they were immediately pressed into service with FWLM regiments facing overwhelming odds against better-equipped opponents.</p><p>Following the conclusion of the First Succession War, Viper production continued at reduced levels as the design found favor with Free Worlds League forces and select mercenary units. The 'Mech's robust construction and reliable performance in garrison and patrol duties made it particularly valuable during the long periods of limited conflict that characterized the later Succession Wars. However, the design never achieved the widespread adoption of its Crusader parent, remaining primarily associated with Free Worlds League forces and their allies.</p><p>Modern sales of the Viper have focused primarily on mercenary commands and militia forces seeking dependable heavy 'Mechs at reasonable prices. The design's proven reliability and straightforward maintenance requirements appeal to units operating with limited technical support, while its energy-focused armament reduces logistical complexity compared to missile-dependent designs. Various mercenary commanders have praised the Viper's performance in garrison duties and small-unit actions, though it has seen comparatively little action in major conflicts. Recent variants have incorporated modest technological upgrades while maintaining the fundamental characteristics that made the original design successful.</p>
+
+manufacturer:Kallon Industries
+
+primaryfactory:Bernardo
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Crucis
+systemmode:CHASSIS:B+
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:280 XL
+systemmanufacturer:ARMOR:Riese
+systemmode:ARMOR:500
+systemmanufacturer:JUMP_JET:Chilton
+systemmode:JUMP_JET:455
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T11-B2
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:A6

@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ddac-79c8-a55c-9bc66416ae66
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Heavy Forester
+model:HFL-1M LoggerMech MOD
+mul id:7871
+
+Config:Quad
+techbase:Inner Sphere
+era:3015
+source:TR:I
+published:TR:I
+rules level:2
+role:Sniper
+
+
+mass:60
+engine:180 ICE Engine
+structure:IS Industrial
+myomer:Standard
+cockpit:Industrial Cockpit
+gyro:Standard Gyro
+
+heat sinks:1 Single
+walk mp:3
+jump mp:0
+
+armor:Commercial(Inner Sphere)
+FLL armor:16
+FRL armor:16
+LT armor:21
+RT armor:21
+CT armor:24
+HD armor:9
+RLL armor:16
+RRL armor:16
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:4
+AC/2, Left Torso
+Machine Gun, Left Torso
+AC/2, Right Torso
+Machine Gun, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Autocannon/2
+Machine Gun
+IS Ammo MG - Full
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Autocannon/2
+Machine Gun
+IS Ammo AC/2
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Ejection Seat (Industrial Mech)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Heavy Forester is a sixty-ton quad IndustrialMech designed by Hogen-Schnogl Industries during the Star League era. Introduced around 2604, the design was innovative for its time, employing a four-legged chassis optimized for cutting and hauling timber in rugged terrain inaccessible to conventional logging vehicles. Hogen-Schnogl marketed the Heavy Forester as a licensable platform, allowing small-scale manufacturers across the Inner Sphere to produce the design locally. This decentralized production approach ensured widespread adoption throughout the forestry industry, and the Heavy Forester remained a staple of commercial logging operations for centuries, its robust quad chassis proving adaptable enough to inspire derivative designs well beyond its original timber-harvesting role.</p>
+
+capabilities:<p>The Heavy Forester is built around a conventional internal combustion engine that provides a top speed of fifty-four kilometers per hour, adequate for traversing logging trails and unimproved forest roads. The quad leg arrangement offers superior stability on uneven ground compared to biped designs, allowing the 'Mech to operate on slopes and through dense undergrowth where wheeled or tracked vehicles cannot follow.</p><p>The design's primary tools are a pair of industrial chainsaws capable of felling even the largest hardwood trees, supplemented by dual lift hoists that load cut timber into the four-ton internal cargo bay or onto the heavy-duty cargo chains slung between the 'Mech's legs. Searchlights mounted on each leg extend the operational window into nighttime hours. Commercial-grade armor provides modest protection against environmental hazards and falling debris, though it offers little resistance to military weapons. An ejection seat gives the pilot a measure of safety in the event of catastrophic equipment failure, an unusual feature for a civilian IndustrialMech that speaks to the hazardous nature of deep-forest logging operations.</p>
+
+deployment:<p>The HFL-1M is a militarized modification of the Heavy Forester that strips the design of its logging equipment in favor of combat weaponry. The chainsaws, cargo space, searchlights, and ejection seat are all removed to make room for a pair of autocannon/2s and twin machine guns, along with an additional heat sink to manage the modest thermal load. While these weapons give the HFL-1M some capacity to engage hostile forces, the commercial armor and lack of sophisticated fire control systems leave it hopelessly outmatched against purpose-built military 'Mechs. The MOD represents the kind of desperate improvisation seen on frontier worlds where no better options exist.</p>
+
+history:<p>The Heavy Forester entered production during the height of the Star League, when Högen-Schnögl Industries' licensing strategy placed the design in the hands of numerous small manufacturers across the Inner Sphere. This decentralized production model proved remarkably resilient, allowing the Heavy Forester to survive the devastation of the Succession Wars largely intact as a species, even as individual factories rose and fell with the fortunes of their host worlds.</p><p>Throughout the Succession Wars, the Heavy Forester continued to serve its intended role in the forestry industry, its simple ICE powerplant and robust quad chassis making it easy to maintain even as technological infrastructure crumbled. The design gained an unexpected moment of military notoriety during a Gray Death Legion-supported rebellion on Verthandi, where Heavy Foresters supplied by local licensee Ericksson-Agro were pressed into service against occupying forces. The 'Mechs' structural limitations rendered them terribly vulnerable in combat, and their small autocannons and machine guns posed no real threat to military opponents, but the episode demonstrated the desperation that could drive civilian equipment onto the battlefield.</p><p>By the thirty-first century, the Heavy Forester remained a common sight in logging operations across the Inner Sphere, its longevity proof of the soundness of Högen-Schnögl's original engineering. The design's most significant legacy, however, may be the Heavy Lifter CargoMech that Achernar IndustrialMechs developed from its chassis in the 3060s, extending the Högen-Schnögl platform into an entirely new commercial role.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:ICE
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Commercial Armor
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

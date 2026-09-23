@@ -1,0 +1,205 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cc1a-723e-b73a-0bb28edcfdd4
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Highlander IIC
+model:
+mul id:1524
+
+Config:Biped
+techbase:Clan
+era:2858
+source:TR:3060,TR:CI
+published:RS:CI,RSFP:MERCS-CLAN
+rules level:2
+role:Missile Boat
+
+quirk:difficult_eject
+quirk:cowl
+quirk:command_mech
+quirk:reinforced_legs
+
+mass:90
+engine:270 Fusion (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:12 Clan Double
+walk mp:3
+jump mp:3
+
+armor:Ferro-Fibrous(Clan)
+LA armor:30
+RA armor:30
+LT armor:28
+RT armor:28
+CT armor:40
+HD armor:9
+LL armor:38
+RL armor:38
+RTL armor:10
+RTR armor:10
+RTC armor:17
+
+Weapons:7
+Streak SRM 6, Left Arm
+Streak SRM 6, Left Arm
+Gauss Rifle, Right Arm
+Medium Pulse Laser, Left Torso
+Medium Pulse Laser, Left Torso
+Medium Pulse Laser, Left Torso
+LRM 20, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Jump Jet
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+Clan Ammo LRM-20 (Clan) Artemis-capable
+Clan Ammo LRM-20 (Clan) Artemis-capable
+Clan Ammo LRM-20 (Clan) Artemis-capable
+Clan Ammo LRM-20 (Clan) Artemis-capable
+Clan Streak SRM 6 Ammo
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLArtemisIV
+Clan Gauss Ammo
+Clan Gauss Ammo
+Clan Gauss Ammo
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>One of the most popular Star League BattleMechs, many Highlanders accompanied General Aleksandr Kerensky into exile during the Exodus. Some were mothballed, but many found their way into the toumans of the Clans. As Clan technology advanced over the subsequent centuries, weapons systems were progressively upgraded until the design known as the Highlander IIC finally emerged around 2858 during the Golden Century. By the Civil War era, though no new Highlander IICs had been produced since the thirtieth century, several hundred remained in scattered use throughout the touman of every Clan.</p><p>The Jihad and subsequent conflicts revitalized production. Clan Wolf established refit facilities on Weingarten to convert salvaged Inner Sphere Highlander chassis into IIC-standard machines, an operation that continued for seventy years. When Clan Hell's Horses captured Weingarten in 3142, they discovered the intact refit line and further enhanced it to produce entirely new Highlander IIC variants, demonstrating the enduring appeal of this venerable assault design.</p>
+
+capabilities:<p>The Highlander IIC retains the fundamental design philosophy of its Inner Sphere ancestor while dramatically upgrading its combat potential through Clan technology. The primary armament centers on an EMRG "Captain" Series Gauss rifle and a Type XXVI "Great Bow" LRM-20 launcher for devastating long-range engagements. At closer distances, a pair of MPA-14 Mod. 12a Streak SRM-6 launchers ensure that every missile finds its target, while three Series PPS-VIII Medium Pulse Lasers provide accurate close-range fire. With the use of newer, lighter Clan weapons, the damage potential of the Highlander has roughly doubled compared to the original design.</p><p>Fourteen and a half tons of Arcadia Compound Delta VII ferro-fibrous armor represent the maximum protection that can be crammed onto the frame, making the IIC exceptionally durable in prolonged engagements. Twelve double heat sinks manage thermal output adequately, though aggressive alphas can still tax the cooling system. The retention of three Prentiss-IIIA jump jets preserves the hallmark ninety-meter jumping capability, allowing Clan MechWarriors to execute the infamous Highlander Burial just as effectively as their Inner Sphere predecessors. The generous ammunition supply means the IIC rarely needs to conserve rounds even during extended Trials.</p>
+
+deployment:<p>The base Highlander IIC represents the standard Clan upgrade of the original Star League design, mounting an EMRG Gauss rifle, Type XXVI LRM-20, dual Streak SRM-6 launchers, and three Medium Pulse Lasers. Fourteen and a half tons of ferro-fibrous armor and three jump jets preserve the original Highlander's hallmark combination of protection and mobility. First produced at the Arcadia BattleMech Plant CM-T15 by Clan Star Adder during the Golden Century, the base configuration remained in scattered service across every Clan touman for centuries, with Clan Wolf later establishing refit production on Weingarten.</p>
+
+history:<p>The Highlander IIC traces its origins to the Golden Century, when Clan scientists methodically upgraded the surviving Highlander chassis brought on the Exodus with progressively more advanced Clan technology. The Arcadia BattleMech Plant CM-T15, operated by Clan Star Adder on Arcadia in the Rechlan system, served as the primary production facility, and the design saw widespread adoption across nearly every Clan touman. Production eventually tapered off, and by the thirty-first century no new Highlander IICs had been built for over a hundred years, though hundreds remained in scattered service.</p><p>The Word of Blake Jihad prompted Clan Wolf to revive the design through an innovative approach. Operating out of an extensive boneyard on Weingarten, the Wolves established the W-7 Facilities refit line to convert purchased, scavenged, or salvaged Inner Sphere Highlander chassis into updated Clan-specification IICs. This operation sustained Wolf production for seventy years, during which new combat variants including the IIC 2 and IIC 3 were developed to address evolving battlefield requirements.</p><p>When Clan Wolf abandoned Weingarten during the Dark Age upheavals, Clan Hell's Horses occupied the planet in 3142 and discovered the intact W-7 refit facilities. However, the post-Blackout hunger for military hardware had dried up all sources of spare Inner Sphere Highlander chassis. Undaunted, the Horses enhanced the production line to build the required SL-XT chassis on-site, sourcing parts from their facilities on New Oslo and the Clan Sea Fox line on Alnabog. The resulting Highlander IIC 4 proved a formidable weapon during Operation Noyan, demonstrating that the ancient assault design still had much to offer on the modern battlefield.</p>
+
+manufacturer:Arcadia BattleMech Plant CM-T15|Refit - W-7 Facilities
+
+primaryfactory:Arcadia (Rechlan)|Weingarten
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:SL-XT Modified
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Fusion 270 Standard
+systemmanufacturer:ARMOR:Arcadia
+systemmode:ARMOR:Arcadia Compound Delta VII Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Prentiss
+systemmode:JUMP_JET:Prentiss-IIIA
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:C-XII Series B4 GDS
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:C-12 Mk. III with Artemis IV FCS

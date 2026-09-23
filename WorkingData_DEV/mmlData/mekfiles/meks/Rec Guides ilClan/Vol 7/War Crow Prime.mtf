@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dc3c-7a21-b583-8f25c2141835
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:War Crow
+model:Prime
+mul id:7545
+
+Config:Biped OmniMek
+techbase:Clan
+era:3145
+source:RG07
+published:RG07
+rules level:2
+role:Brawler
+
+quirk:unbalanced
+quirk:imp_target_short
+
+mass:70
+engine:350 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:15 Clan Double
+base chassis heat sinks:14
+walk mp:5
+jump mp:0
+
+armor:Ferro-Lamellor(Clan)
+LA armor:22
+RA armor:22
+LT armor:22
+RT armor:22
+CT armor:32
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:8
+RTR armor:8
+RTC armor:12
+
+Weapons:7
+ER PPC, Left Arm
+LRM 15, Left Torso
+Medium Pulse Laser, Left Torso
+LRM 15, Right Torso
+Medium Pulse Laser, Right Torso
+ER Medium Laser, Center Torso
+ER Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+PPC Capacitor (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLLRM15 (OMNIPOD)
+CLLRM15 (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLLRM15 (OMNIPOD)
+CLLRM15 (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERMediumLaser (OMNIPOD)
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLERMediumLaser (OMNIPOD)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The War Crow is a 70-ton Clan OmniMech commissioned by Clan Snow Raven in 3144 as part of an effort to rebuild and modernize the Raven touman. Entering service in 3145, the War Crow was designed from the outset to serve as the primary line combatant for Snow Raven ground forces, filling a role analogous to what the Grand Summoner provides for Clan Jade Falcon. Produced at Snow Raven Industrial Complex Beta on Mitchella, the design represents the Snow Ravens' commitment to fielding a modern heavy OmniMech capable of anchoring their ground combat formations across the Raven Alliance. Its advanced armor protection places it among the most survivable heavy designs of the Dark Age era.</p>
+
+capabilities:<p>The War Crow is built on a Raven Endo Steel WC1 chassis powered by a Redline 350 XL engine, giving the seventy-ton design a top speed of 86 kilometers per hour. While not exceptionally fast for its weight class, this pace allows it to keep formation with other medium and heavy combatants in mixed Stars. The chassis mounts no jump jets in its base configuration, relying instead on straightforward ground mobility to reach its engagement positions.</p><p>Protection is provided by 15.5 tons of Compound LZ-7 Ferro-Lamellor armor, representing the next generation of Snow Raven armor technology pioneered on the White Raven. This advanced protection gives the War Crow outstanding survivability for its tonnage, allowing it to trade fire with heavier opponents. The design devotes 25 tons to pod space, providing commanders with substantial flexibility in configuring the chassis for different mission profiles. Particularly, the right arm retains a fully functional hand actuator, an unusual feature for a heavy OmniMech that grants additional close-combat capability.</p><p>The War Crow does carry the design quirk of being somewhat unbalanced, making it prone to stumbling on rough terrain. MechWarriors assigned to the design quickly learn to compensate by leaning the torso backward when traversing rubble or broken ground, a technique that has become a hallmark of War Crow pilots across the Raven Alliance.</p>
+
+deployment:<p>The Primary configuration establishes the War Crow as a balanced generalist capable of engaging at multiple range brackets. A pair of fifteen-tube long-range missile launchers provide sustained indirect fire capability, supported by an extended-range PPC enhanced with a capacitor for devastating single shots at range. For close engagements, this variant mounts a combination of extended-range medium lasers and medium pulse lasers distributed across the torsos and head, giving the MechWarrior reliable firepower at any distance. Four tons of missile ammunition provide adequate endurance for extended operations, making this configuration the standard workhorse of Raven Alliance line formations.</p>
+
+history:<p>The War Crow traces its origins to Khan Sterling McKenna's strategic assessment that the Raven Alliance would inevitably face a major Sphere-wide conflict. Though no immediate threat loomed in 3144, McKenna pushed for the commissioning of two new OmniMech designs to rebuild the Snow Raven touman, which had been diminished by decades of conservative force management. The War Crow, alongside the lighter Carrion Crow, was intended to form the backbone of a revitalized ground combat force.</p><p>The program was not without domestic opposition. Citizens of the Outworlds Alliance, particularly native Outworlders, decried the expense of new OmniMech development when famine had struck Loparri and relief resources were desperately needed. Protests and factory sit-ins forced McKenna to negotiate with local political leaders, resulting in complex agreements that allocated twenty percent of production to the Alliance Military Command's ground forces. These arrangements mollified the loudest critics, and the War Crow entered service only slightly behind its original schedule.</p><p>The War Crow saw its first recorded combat in October 3146, when a Star from the Fifth Raven Wing Cluster encountered an unidentified raiding party among ruins of a Draconis Combine garrison dating from the Reunification War. The engagement demonstrated the design's effectiveness against heavier opponents, with War Crow pilots leveraging their advanced protection and balanced weapons loads to overwhelm a mixed force of pirates. The battle proved costly, however, highlighting the risks of operating without infantry support in urban terrain.</p><p>By late 3147, reports emerged of a War Crow operating independently along the Davion-Liao border, painted in the distinctive green of the infamous Bounty Hunter. Whether this was the legendary mercenary, a successor bearing the mantle, or merely an impersonator remains unknown, but the sightings demonstrated that the design had already begun filtering beyond Raven Alliance control within just two years of its introduction. The War Crow has since become a fixture of Raven Alliance combined-arms formations, serving in both frontline Clan clusters and the increasingly capable Alliance Military Command units that received their allocated production shares.</p>
+
+manufacturer:Snow Raven Industrial Complex Beta
+
+primaryfactory:Mitchella
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Raven Endo Steel WC1
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Redline 350 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Compound LZ-7 Ferro-Lamellor
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:TDWS-37 Mk. 2.2
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:"Hermes" CT-44

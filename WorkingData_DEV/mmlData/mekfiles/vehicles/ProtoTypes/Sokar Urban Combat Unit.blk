@@ -1,0 +1,181 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e978-792a-a203-14b2f1894ce4
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Sokar Urban Combat Unit
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5096
+</mul id:>
+
+<year>
+3084
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+trailer_hitch
+gas_hog
+poor_work
+imp_target_short
+</quirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+8
+</armor_tech_level>
+
+<armor>
+25
+20
+20
+16
+15
+</armor>
+
+<Body Equipment>
+Clan ProtoMech AC/8 Ammo
+Clan ProtoMech AC/8 Ammo
+CLAPGaussRifle Ammo
+CLAPGaussRifle Ammo
+CL Heavy Flamer Ammo
+CL Heavy Flamer Ammo
+</Body Equipment>
+
+<Front Equipment>
+CLHeavyFlamer
+CLHeavyFlamer
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLProtoMechAC8
+CLProtoMechAC8
+CLAPGaussRifle
+CLAPGaussRifle
+CLAPGaussRifle
+CLAPGaussRifle
+</Turret Equipment>
+
+<capabilities>
+<p>The Sokar's primary armament is a turret-mounted quartet of Tau-II Anti-Personnel Gauss Rifles, weapons designed to cut down unarmored infantry and personnel in light battle armor at range. Against heavier opposition, the turret carries two Type P-A ProtoMech Autocannon/8s, offering a long-range punch capable of holding improvised combat vehicles at bay until reinforcements arrive. In the bow, two Type 18h Heavy Flamers serve both as direct-fire weapons and psychological tools, their visible threat frequently effective at dispersing crowds before engagement becomes necessary. Two tons of ammunition are provided for each weapon system, giving the Sokar considerable endurance for extended field operations.</p><p>Five tons of Compound Alpha ferro-fibrous armor protects the vehicle well beyond what crowd-control duty strictly demands. The designers built in this reserve anticipating that civil unrest could escalate to encounters with smuggled or improvised combat vehicles. Quikscell's targeting suite performs adequately at the close ranges typical of urban pacification work, and the improved short-range accuracy partially compensates for the vehicle's modest overall capability.</p><p>The Sokar's weaknesses are significant. The 180 ICE powerplant delivers a top speed of 64 km/h, adequate for urban patrol but a liability against any mobile military opponent. The engine is also fuel-hungry, limiting the vehicle's operational endurance without resupply. Quikscell's manufacturing standards are reflected throughout, and the fit and finish fall well below what most Clan facilities produce. The Sokar is, in short, a product designed to a price, for a mission no warrior considers prestigious.</p>
+</capabilities>
+
+<overview>
+<p>The Sokar Urban Combat Unit is a wheeled medium combat vehicle produced by Quikscell Company at their Pandora facility for Clan Jade Falcon. Introduced in 3084 in the aftermath of the Jihad, the design emerged from the Falcons' urgent need for a dedicated internal security vehicle capable of suppressing lower-caste unrest across their occupation zone. Quikscell delivered a vehicle adequate for its narrow purpose, though the Sokar carries the manufacturer's characteristic reputation for substandard construction and poor fuel economy.</p><p>The vehicle's role is tightly defined, its weapons optimized against unarmored crowds and light resistance rather than conventional military opponents. Reflecting this limited utility, the Jade Falcons assign the Sokar exclusively to solahma units and their police subcaste, making it an unwanted posting that few warriors seek and none desire.</p>
+</overview>
+
+<deployment>
+<p>The Sokar has seen wide distribution throughout the Jade Falcon Occupation Zone. It is issued exclusively to solahma garrison units and the Falcon police subcaste, never to frontline combat forces. Deployments concentrate on urban centers and worlds with large lower-caste populations and documented histories of civil unrest. Some Sokars operate directly through Clan-run civilian police departments on worlds where intelligence assessed the risk of disorder as highest, giving the police subcaste a visible deterrent against further incidents.</p><p>The vehicle's presence at a protest or gathering typically serves its purpose without firing a shot. Warriors assigned to Sokar units generally serve out their remaining career in garrison postings far from any conventional military action. No variants are known to exist, and the design has not been modified since its introduction.</p>
+</deployment>
+
+<history>
+<p>The Sokar's origins lie in the social chaos that followed the Jihad. Clan Jade Falcon had long maintained strict hierarchical control over their lower castes, but the destruction and displacement of the Jihad years frayed that discipline across occupation zones and homeworld territories alike. Uprisings among laborers, merchants, and other non-warrior castes became increasingly common as food rationing and economic disruption sharpened long-standing resentments. On worlds where the Falcons held authority, the warrior caste found itself increasingly called upon to suppress civilian disorder rather than engage military opponents.</p><p>The death of Khan Marthe Pryde marked a turning point. Her passing removed a moderating influence, and the Falcon warrior caste concluded that past leniency toward inner-caste population management had been a mistake. The Galaxy Commanders who filled the resulting authority vacuum moved to equip garrison forces with weapons suitable for suppressing unarmed and lightly-armed resistance. The Jade Falcons commissioned Quikscell Company on Pandora to design and produce a dedicated pacification vehicle, leveraging Quikscell's existing presence in the occupation zone and their willingness to produce inexpensive combat hardware.</p><p>The resulting Sokar entered production in 3084, designed specifically to give police and security forces a credible armed presence without diverting frontline military assets. The Falcons distributed the vehicle primarily to their police subcaste and to solahma garrison units, reinforcing the caste hierarchy by placing the distasteful work of fighting non-warriors in the hands of those the warrior caste had already written off.</p><p>The vehicle's stigma became evident quickly. Assignment to a Sokar unit marked a warrior as unsuitable for honorable combat, condemned to fighting dezgra opponents beneath the dignity expected of Jade Falcon warriors. This reputation served the leadership's intentions, keeping competent warriors far from internal pacification duties while ensuring that those assigned had sufficient firepower to complete their missions without question.</p><p>On Sudeten in 3088, the Sokar's nature was made starkly visible. Civil uprisings over food rationing brought large numbers of lower castemen into the streets in some of the worst unrest the Falcons had seen. Two Sokars were deployed against a gathered crowd, and when the assembly refused to disperse and some individuals were found to have acquired military-grade weapons, both vehicles opened fire. Dozens died in seconds, and the few lower castemen able to flee disappeared into the surrounding city. Jade Falcon command deliberately released footage of the incident. In the Inner Sphere, the footage provoked outrage and renewed debate over Clan occupation policies. Within the Falcon occupation zone, it had the opposite effect. Protests declined markedly in the months that followed.</p>
+</history>
+
+<manufacturer>
+Quikscell Company
+</manufacturer>
+
+<primaryFactory>
+Pandora
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Quikscell Company
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:180 ICE
+ARMOR:Compound Alpha Ferro-Fibrous
+COMMUNICATIONS:Basix 200
+TARGETING:OptiSight 12
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<published>
+RS:Proto
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

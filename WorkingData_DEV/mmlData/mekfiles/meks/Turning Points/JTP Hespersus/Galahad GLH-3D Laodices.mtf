@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-de71-78c5-b97c-19e9524c58f1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Galahad
+model:GLH-3D (Laodices)
+mul id:6978
+
+Config:Biped
+techbase:Inner Sphere
+era:3070
+source:JTP:Hesperus II,TR:J
+published:JTP:Hesperus II
+rules level:4
+role:Sniper
+
+quirk:difficult_maintain
+
+mass:60
+engine:240 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Compact Gyro
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:3
+Light Gauss Rifle, Left Arm
+ER PPC, Right Arm
+Light PPC, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+IS Light Gauss Ammo
+IS Light Gauss Ammo
+IS Light Gauss Ammo
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+PPC Capacitor
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Light PPC
+Light PPC
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISC3iUnit
+ISC3iUnit
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Galahad was conceived by Mitchell Vehicles as a direct replacement for the RFL-2N Rifleman in service with the Terran Hegemony. First unveiled in 2570, the GLH-1D was a fifty-ton medium fire-support platform that carried heavier firepower than its predecessor but suffered from the same chronic overheating problems. Despite finding acceptance within the Hegemony Armed Forces and seeing action during the Reunification War, the Galahad never fully supplanted the Rifleman in the fire-support role.</p><p>The development of the Gauss rifle prompted Mitchell Vehicles to fundamentally redesign the chassis in 2594, creating the sixty-ton GLH-2D heavy BattleMech that would become the definitive version. The Hegemony restricted the advanced GLH-2D primarily to SLDF Royal units, and the design's reliance on cutting-edge Star League technology would ultimately seal its fate during the technological decline of the Succession Wars.</p>
+
+capabilities:<p>The GLH-2D Galahad serves as a bold commitment to ballistic firepower over all other considerations. Mounting two massive M-7 Gauss rifles in fully articulated arm assemblies, the design earned the nickname "Gausszilla" for its ability to deliver devastating long-range barrages. This firepower comes at significant cost, however. The GM 180 engine provides a maximum speed of only 54 km/h, making it one of the slowest heavy 'Mechs of its era and often forcing accompanying units to reduce speed to avoid leaving the Galahad behind. The complete absence of secondary armament or hand and lower arm actuators leaves the design critically vulnerable in close-quarters engagements.</p><p>The shoulder rotation rings, originally engineered for the GLH-1D's energy weapon loadout, proved inadequate for absorbing Gauss rifle recoil. Frontline units during the Reunification War reported catastrophic coupling failures, with accounts of fifteen-ton detached rifle assemblies spinning through the air after firing. Although Mitchell Vehicles redesigned the couplings, the Galahad still required fifteen percent more preventative maintenance time compared to similar-weight designs. Eleven tons of Grumman-3 ferro-fibrous armor mounted on a Star League VI endo-steel frame provide respectable protection, but the design's true survivability depends on maintaining the standoff distance its Gauss rifles demand.</p>
+
+deployment:<p>This custom configuration was tailored for a commander of the Fortieth Shadow Division during the Jihad. Retaining the small cockpit, improved C3 computer, and Guardian ECM suite of the standard GLH-3D, this variant replaces one light Gauss rifle and a ton of ammunition with an ER PPC enhanced by an experimental PPC capacitor in the right arm and mounts a light PPC in the center torso. These modifications significantly extend the 'Mech's combat endurance by reducing ammunition dependency while adding versatile direct-fire energy weapons that proved effective during the brutal fighting on Hesperus II.</p>
+
+history:<p>Mitchell Vehicles developed the original GLH-1D to replace the aging Rifleman for the Terran Hegemony. Though the design found acceptance in the Hegemony Armed Forces and saw deployment during the Reunification War, the Galahad never fully displaced its predecessor. The introduction of the GLH-2D in 2594, built around the revolutionary Gauss rifle, transformed the chassis from a troubled medium 'Mech into a formidable heavy fire-support platform. The Hegemony restricted the advanced GLH-2D primarily to SLDF Royal units, keeping the powerful Gauss weaponry out of the hands of the League's member states.</p><p>The process of manufacturing the M-7 Gauss rifle's superconductors was among the first technological casualties of the Succession Wars. Combined with the destruction of the Graham IV manufacturing center during the First Succession War, the loss of endo-steel and ferro-fibrous armor production capability made it impossible for the Successor States to maintain or reproduce the design. While sizable numbers of the less advanced GLH-1D had spread to the Member State militaries, the technological decline of the era claimed most of those as well. A handful of examples survived in ComStar's secret weapons caches, and occasional patchwork Galahads could be found defending Periphery backwaters or serving with mercenary commands, but the design effectively vanished from the Inner Sphere's battlefields for centuries.</p><p>The Galahad's return came during the Word of Blake Jihad. After capturing Hesperus II in 3070, the Word of Blake established a new production line for the modernized GLH-3D variant at the Defiance Industries complex. The Fortieth Shadow Division fielded these new Galahads to telling effect against coalition forces during the brutal siege at Maria's Elegy. When Blakist fortifications finally fell at the end of 3074, the First Skye Jaegers salvaged several relatively intact examples.</p><p>Following the liberation of Hesperus II, the Lyran Alliance converted the production line back to the GLH-2D variant, restoring this ancient design to active service in the post-Jihad era. The Lyran Commonwealth has maintained production at Defiance Industries since, ensuring the Galahad once again patrols the battlefields of the Inner Sphere centuries after its original designers intended.</p>
+
+manufacturer:Mitchell Vehicles
+
+primaryfactory:Graham IV
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Star League VI
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:GM 240 Light
+systemmanufacturer:ARMOR:Grumman
+systemmode:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:HartfordCo
+systemmode:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:HartfordCo
+systemmode:TARGETING:Unknown

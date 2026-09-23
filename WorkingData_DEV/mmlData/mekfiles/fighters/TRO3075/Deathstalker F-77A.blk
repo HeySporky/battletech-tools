@@ -1,0 +1,177 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aefe-7125-b415-62a5a59af778
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Deathstalker
+</Name>
+
+<Model>
+F-77A
+</Model>
+
+<mul id:>
+4056
+</mul id:>
+
+<year>
+3073
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+25
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+4
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+55
+41
+41
+31
+</armor>
+
+<Nose Equipment>
+ISUltraAC10
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISERLargeLaser
+ISERLargeLaser
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISERLargeLaser
+ISERLargeLaser
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISERSmallLaser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>Designed for an air supremacy role, the Deathstalker mounts a potent arsenal centered on a nose-mounted Imperator X autocannon/10, backed by four wing-mounted Hellion-a III extended-range large lasers and two Hellion-b II medium lasers for close-range backup. Twenty-five double heat sinks allow the fighter to sustain fire from its primary weapons simultaneously, giving it exceptional alpha strike capability for its era. The F-77/X frame incorporates the forward-swept wing geometry that provides remarkable flight stability and allows the use of lighter structural materials in the wings.</p><p>However, the heavy weapons loadout and structural reinforcement come at a significant cost to acceleration. Powered by a VOX 240a fusion engine, the Deathstalker is noticeably slower than comparable heavy fighters, a trade-off that left Star League procurement officials unconvinced despite the fighter's raw destructive potential. Ten and a half tons of StarSlab Lite/2 armor provide reasonable protection, though pilots must rely on firepower rather than speed to survive engagements. The placement of primary weapons along the load-bearing wings follows traditional attack aircraft philosophy, keeping the fighter's center of mass balanced during sustained firing.</p>
+</capabilities>
+
+<overview>
+<p>The F-77 Deathstalker is an eighty-ton heavy aerospace fighter developed by Andurien AeroTech, a division of Free Worlds Defense Industries. Originally unveiled in 2744 in response to a Free Worlds League Military request for a high-performance attack craft, the Deathstalker featured a radical forward-swept wing layout first theorized during the Age of War. Though the design showed tremendous promise during early development, structural flaws discovered during flight trials prevented it from entering full-scale production. Only twenty prototypes were constructed before the program was shelved. Despite this failure, the forward-swept wing concept proved sound enough to inspire a complete redesign that resulted in the highly successful F-90 Stingray. The fighter would not see production until centuries later, when the Duchy of Andurien revived the design during the Jihad era.</p>
+</overview>
+
+<deployment>
+<p>The F-77A represents the first production Deathstalker, entering service in 3073 from a facility beneath the ducal palace in Jojoken on Andurien. Built as a stopgap while the more ambitious XF-78 program struggled with development delays, the F-77A upgrades the original design with a light fusion engine, an ultra-class autocannon, and extended-range energy weapons. Despite Andurien AeroTech resuming production of the type, only small numbers have been deployed, with sightings outside Andurien space remaining exceptionally rare. The variant proved adequate enough in performance that the Duchy continued production even as the XF-78 program faltered, making it the backbone of Andurien's limited heavy aerospace capability during and after the Jihad.</p>
+</deployment>
+
+<history>
+<p>Andurien AeroTech developed the Deathstalker in 2744 to answer a Free Worlds League Military call for a next-generation heavy attack craft capable of competing with frontline Star League Defense Force designs. The forward-swept wing configuration, while unorthodox, produced both exceptional stability and reduced structural weight requirements during initial testing. In competitive evaluations against SLDF and member state fighters, the Deathstalker routinely managed to defeat several opponents before being overwhelmed, but SLDF procurement officials consistently favored lighter, more agile designs. The buyers argued that the fighter was too often outmaneuvered and brought down despite its impressive kill tallies.</p><p>The program's fate was sealed during a high-profile demonstration flight when a prototype suffered catastrophic structural failure, one of its wings tearing away from the fuselage due to an airframe weight imbalance between the wings and body. The resulting crash grounded all twenty prototypes permanently, and the Deathstalker never saw live combat during the Star League era. Andurien AeroTech, however, remained committed to the forward-swept wing concept and channeled the lessons learned into a thorough redesign. Elements of the Deathstalker's wing geometry, weapons philosophy, and nose-mounted main gun concept were incorporated into what became the F-90 Stingray, which entered service in 2762 and went on to become one of the most successful medium fighters in the Inner Sphere.</p><p>Centuries later, the newly independent Duchy of Andurien sought to bolster its indigenous military production following the collapse of the Free Worlds League during the Jihad. By 3071, Andurien AeroTech had resumed construction of the Deathstalker from a facility beneath the ducal palace in Jojoken on Andurien, initially as a stopgap measure. The upgraded F-77A entered production in 3073 while engineers worked on the far more ambitious XF-78 program, which had begun around 3068 with the goal of mating the Deathstalker airframe to domestically produced Clan-specification weaponry. When industrial production of Clan weapons proved nearly impossible and purchases from Clan Diamond Shark fell short, the XF-78 was redesigned around Inner Sphere advanced technology. The program ran dramatically over budget and was only kept alive due to the pressures of the Jihad and political interests in the contract. Following Andurien AeroTech's separation from Free Worlds Defense Industries in 3078, the Duchy's loose export restrictions allowed the Deathstalker to attract interest from buyers beyond the former League's borders.</p>
+</history>
+
+<manufacturer>
+Andurien AeroTech (A Division of Free Worlds Defense Industries)
+</manufacturer>
+
+<primaryFactory>
+Westover
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:StarSlab
+COMMUNICATIONS:Telestar
+TARGETING:SynCom
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:F-77/X
+ENGINE:240 Light
+ARMOR:Lite/2
+COMMUNICATIONS:F-61
+TARGETING:VAX
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

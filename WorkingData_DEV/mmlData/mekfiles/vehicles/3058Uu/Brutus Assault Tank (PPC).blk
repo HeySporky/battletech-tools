@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e3e7-7c08-9c98-9f552896b7e1
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Brutus Assault Tank
+</Name>
+
+<Model>
+(PPC)
+</Model>
+
+<mul id:>
+434
+</mul id:>
+
+<year>
+3005
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<armor>
+57
+46
+46
+30
+45
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-6
+IS Ammo SRM-2
+</Body Equipment>
+
+<Front Equipment>
+SRM 6
+SRM 6
+SRM 2
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+PPC
+PPC
+</Turret Equipment>
+
+<capabilities>
+<p>The Brutus carries a balanced weapon suite optimized for flexibility across multiple engagement ranges. Its primary energy weapons deliver direct-fire damage without ammunition dependency, while a long-range missile rack with a generous three-ton ammunition reserve provides sustained fire support capability at extended distances. A pair of short-range missile launchers rounds out the armament for close engagements where opponents press through the long-range envelope. Together, the combination ensures the tank retains offensive options regardless of range, making it difficult for opponents to disengage safely.</p><p>Powered by a standard fusion engine, the Brutus achieves modest ground speeds that favor defensive positions and hull-down tactics over open-ground maneuver. Its tracked configuration handles most terrain types without difficulty but limits cross-country speed compared to wheeled or hover designs. The most significant tactical liability is the armor system, which provides considerably less protection than Inner Sphere standards for a vehicle of this mass. Crews compensate through positional discipline, engaging from cover and relying on the missile rack's range to keep more dangerous opponents at a disadvantage.</p>
+</capabilities>
+
+<overview>
+<p>Built in the late 2990s at Kressly WarWorks' Epsilon Eridani facility, the Brutus Assault Tank was designed to give the Capellan Confederation's second-line forces an affordable heavy fire support platform capable of engaging targets at every range. Drawing on established industrial suppliers, Kressly built a practical if unspectacular vehicle that proved more capable in sustained combat than its early garrison assignments suggested. The Fourth Succession War expanded the Brutus's reach far beyond its Capellan origins, and subsequent political changes on Epsilon Eridani brought the design to Federated Commonwealth formations, Chaos March militias, and eventually the Word of Blake Protectorate. By the mid-thirty-first century, the Brutus had become one of the most broadly distributed heavy combat vehicles in the Inner Sphere, a reflection of both its durability and the longevity of the Kressly production line.</p>
+</overview>
+
+<deployment>
+<p>The PPC Brutus is a factory-built variant that reconfigures the standard weapon arrangement around particle projector cannon armament, trading the original missile dependency for clean energy firepower. The variant suits extended operations where ammunition resupply is unreliable and has found service across multiple operator factions seeking a lower-logistics alternative to the standard model. Its reliable energy-only armament simplifies maintenance in austere conditions and makes it a common choice for independent planetary defense commands operating without formal resupply chains.</p>
+</deployment>
+
+<history>
+<p>Kressly WarWorks delivered the first production Brutus Assault Tanks in 2998, fulfilling a Capellan Confederation contract to supply second-line armored formations with an affordable heavy fire support vehicle. Epsilon Eridani had long served as a secondary industrial world in the Confederation's manufacturing network, and the new tank drew on established local suppliers for its major systems. Capellan High Command assigned the Brutus almost exclusively to planetary defense commands and garrison formations, reflecting their low opinion of the design's combat potential.</p><p>The Fourth Succession War forced a reassessment. Brutus crews serving in second-line roles demonstrated consistent effectiveness against Federated Suns opponents, and when the war ended with Epsilon Eridani under Federated Commonwealth control, the new administration preserved Kressly WarWorks' production line. The Armed Forces of the Federated Commonwealth began incorporating the design into Regimental Combat Teams, and Brutus tanks appeared on worlds far from their origin. Early factory variants entered service during this period, tailoring the basic design for specific operational requirements.</p><p>The political fragmentation that produced the Chaos March after the Federated Commonwealth's collapse left several Kressly production runs on worlds outside centralized control. Local militias and mercenary commands absorbed those vehicles, and the Brutus became a fixture of Chaos March ground forces. Word of Blake's Protectorate eventually absorbed Epsilon Eridani, bringing Kressly WarWorks under Blake authority. Production increased under Blake direction, and open-market sales ceased as the factory shifted to supplying Blake forces. Brutus tanks were subsequently observed operating in Blake colors across multiple contested worlds during the Jihad.</p>
+</history>
+
+<manufacturer>
+Kressly WarWorks
+</manufacturer>
+
+<primaryFactory>
+Epsilon Eridani
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Kressly WarWorks
+ENGINE:Rawlings
+ARMOR:Kressly WarWorks
+COMMUNICATIONS:Angst
+TARGETING:Dwyerson
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:225 Fusion
+ARMOR:Stoneskin 40X
+COMMUNICATIONS:Clear Channel 3
+TARGETING:Mark XII
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-I
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

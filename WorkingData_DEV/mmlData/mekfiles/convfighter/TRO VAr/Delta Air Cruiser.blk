@@ -1,0 +1,181 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa29-7cc9-a41e-2b5cc437a7f2
+</UUID>
+
+<UnitType>
+FixedWingSupport
+</UnitType>
+
+<Name>
+Delta Air Cruiser
+</Name>
+
+<Model>
+MA-80
+</Model>
+
+<mul id:>
+4635
+</mul id:>
+
+<year>
+3037
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:6.0:1:1::-1:0
+1stclassquarters:20.0:2:-1::-1:0
+troopspace:9.0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+750
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+28
+19
+19
+12
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Body Equipment>
+Paramedic Equipment
+Paramedic Equipment
+Paramedic Equipment
+Paramedic Equipment
+Lifeboat (Atmospheric)
+Lifeboat (Atmospheric)
+Lifeboat (Atmospheric)
+Lifeboat (Atmospheric)
+Lifeboat (Atmospheric)
+Lifeboat (Atmospheric)
+Lifeboat (Atmospheric)
+Lifeboat (Atmospheric)
+Lifeboat (Atmospheric)
+Lifeboat (Atmospheric)
+Lifeboat (Atmospheric)
+Lifeboat (Atmospheric)
+</Body Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Delta Air Cruiser retains the Comet's core strengths: a quartet of powerful variable-intake turbofans providing excellent airspeed and maneuverability, a two-deck passenger configuration with first-class amenities on the upper level, and the robust cargo storage behind the lower passenger deck. Michaelson's local adaptations are primarily cosmetic and logistical, ensuring that the aircraft can be serviced and maintained using components sourced from Capellan March suppliers rather than relying entirely on Canonbie-based Avanti parts chains. This localized supply network gives the Delta Air Cruiser a practical edge in its home market, reducing turnaround times for maintenance and keeping operating costs competitive.</p><p>The MA-80 carries the same one hundred and twenty passengers as the standard Comet, split across the same two-deck layout. First-class suites on the upper deck offer the full range of communications and entertainment amenities, while the lower deck provides comfortable economy seating and access to the secure cargo stores aft of the passenger cabin.</p>
+</capabilities>
+
+<overview>
+<p>The MA-80 Delta Air Cruiser is a product of Michaelson Aircraft, produced under license from Avanti Aerospace for the commercial aviation market of the Federated Suns' Capellan March. As an Avanti-licensed model, the Delta Air Cruiser shares the fundamental design philosophy and proven engineering of the ACL-800 Comet, the most successful civilian airliner in the Inner Sphere, differing from its parent design in only the most minor ways. Michaelson secured the license during the Federated Commonwealth era, gaining access to a proven airframe while giving Avanti a manufacturing partner in a region far removed from their Canonbie production facilities. The arrangement has served both companies well, keeping the ACL platform dominant in the Capellan March's commercial aviation market.</p>
+</overview>
+
+<deployment>
+<p>The Delta Air Cruiser is a common sight in the skies across the Federated Suns' Capellan March, where it serves as the backbone of regional commercial air travel. Airlines operating in the March favor the MA-80 for its combination of Avanti's proven design with Michaelson's local support infrastructure. The aircraft serves routes connecting the March's major population centers and spaceports, providing reliable and comfortable transit for both civilian passengers and light commercial cargo.</p>
+</deployment>
+
+<history>
+<p>Michaelson Aircraft secured its license from Avanti Aerospace during the Federated Commonwealth era, when the political and economic integration of the Lyran and Davion realms encouraged cross-border industrial partnerships. The licensing arrangement allowed Avanti to extend the ACL platform's market reach into regions where direct sales from Canonbie were impractical, while giving Michaelson access to a proven design without the enormous cost of developing a competing airliner from scratch.</p><p>The arrangement has endured through political upheavals, including the FedCom Civil War and the subsequent realignment of borders and trade relationships. Michaelson continues to produce the Delta Air Cruiser at a steady rate, and the aircraft remains one of the most visible symbols of continued Steiner-Davion industrial cooperation in the Capellan March. That the license has survived the dissolution of the Federated Commonwealth speaks to the strength of the commercial relationship underlying it -- both companies profit too handsomely to let politics interfere.</p>
+</history>
+
+<manufacturer>
+Michaelson Aircraft
+</manufacturer>
+
+<primaryFactory>
+Ruchbah
+</primaryFactory>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+180.0
+</tonnage>
+

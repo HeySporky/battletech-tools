@@ -1,0 +1,213 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e205-7c4d-89c2-2d7bd73e71a3
+</UUID>
+
+<UnitType>
+SpaceStation
+</UnitType>
+
+<Name>
+Habitat
+</Name>
+
+<Model>
+Small (2400)
+</Model>
+
+<mul id:>
+5085
+</mul id:>
+
+<year>
+2400
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:20.0:3:1::-1:0
+crewquarters:1421.0:0:-1::-1:0
+1stclassquarters:60010.0:0:-1::-1:0
+cargobay:46757.0:1:4::-1:0
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+98
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+1000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+40
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+13
+13
+13
+13
+13
+13
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Front Side Equipment>
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+</Right Front Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>Habitat stations are defined by their emphasis on human-scale living conditions rather than industrial or military function. Extensive residential quarters supported by large grav decks provide the gravity-assisted environment necessary for extended habitation without the health complications of prolonged microgravity exposure. Small craft bays allow for regular crew rotations, supply deliveries, and administrative transport between the habitat and associated orbital facilities. Cargo capacity is oriented toward consumables, medical supplies, and the logistical requirements of a large resident population rather than industrial throughput.</p><p>Defensive armament on larger habitat designs consists of minimal anti-fighter batteries - enough to discourage opportunistic attack but not capable of sustained defense against military forces. Smaller habitat designs carry no weapons at all, relying entirely on their civilian designation for protection. Life support systems and life boat complement are sized for the total residential population, which for larger designs can number in the tens of thousands. The accommodation capacity of large habitat stations (achieved through extensive first-class residential quarters) far exceeds the station's nominal passenger count, reflecting the permanent rather than transient nature of most residents.</p>
+</capabilities>
+
+<overview>
+<p>Space habitats serve as the residential and administrative anchors of orbital industrial complexes, providing long-term crew accommodations and support facilities for the personnel working aboard nearby factory stations and shipyards. Ranging from compact platforms housing several thousand residents to massive cylinders capable of sheltering populations numbering in the tens of thousands, habitat stations form an essential but often overlooked component of orbital infrastructure. Designed to house the workers, administrators, and technical specialists that keep orbital industry functional, habitats prioritize comfortable, gravity-enabled living spaces through large grav decks, ample cargo space for consumables, and sufficient small craft capacity for regular supply runs to associated stations. Poorly armed and difficult to defend, habitats depend on their civilian status and the practical disincentive of destroying orbital housing for protection; a calculus that did not always prevent their loss during the Inner Sphere's numerous conflicts.</p>
+</overview>
+
+<deployment>
+<p>The Habitat Small (2400), introduced in the mid-twenty-fourth century, represents the standard configuration for moderate-scale orbital housing. At 120,000 tons with a single large grav deck and capacity for thousands of residents in permanent quarters, this design provides the minimum practical configuration for a self-sustaining orbital community. Twenty small craft bays support regular resupply and personnel transfer operations. The design carries no armament, reflecting its purely civilian function. Examples were distributed throughout the Inner Sphere during the Star League era and represent the most commonly encountered surviving habitat type, found at secondary and tertiary industrial worlds where orbital workforce populations require permanent accommodation.</p>
+</deployment>
+
+<history>
+<p>Space habitats emerged as a byproduct of orbital industrialization, built to address the practical problem of housing large populations near facilities that could not be located on planetary surfaces. The earliest purpose-built residential orbital stations appeared during the Terran Alliance era, but it was during the Star League that habitat construction was most actively pursued, as the growth of orbital factories and shipyards created sustained demand for permanent orbital housing. The Star League's investment in orbital infrastructure extended to substantial habitat construction programs, many supporting the labor requirements of facilities manufacturing equipment for the SLDF and the broader industrial economy.</p><p>The Succession Wars were not immediately catastrophic for habitats in the way they were for factory stations. The civilian nature of habitats and the practical difficulty of causing mass casualties among a non-combatant population without political consequences provided some protection, and early Succession War belligerents frequently preferred to capture functioning habitats rather than destroy them. However, the accumulated damage of decades of conflict, the loss of technical knowledge needed to maintain aging systems, and the economic strain of sustaining stations with declining revenue took a heavy toll. The largest habitats that had been constructed during the Star League era proved especially vulnerable, the great O'Neil cylindrical stations, which had once housed more than a million people each, were destroyed in the wars or rendered non-functional, their loss never offset by replacement construction. By the late twenty-eighth century, most surviving habitats operated at reduced capacity with deteriorating equipment.</p><p>The Fourth Succession War and the broader economic recovery it catalyzed marked a turning point for orbital habitat infrastructure. As orbital factories and shipyards expanded, demand for nearby housing for technical workers grew again, leading to new construction of smaller habitat stations and the refurbishment of surviving older designs. The Gulf Breeze facility in the Lyran Alliance (formerly designated C.M.O. 26) became the best-known surviving example of a large Star League-era habitat, housing some 50,000 military and civilian personnel and representing the largest known constructed habitat remaining in the Inner Sphere. Larger examples are known to exist in Clan space, some holding in excess of 200,000 people, but detailed information on these structures is limited.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+120000.0
+</tonnage>
+
+<sail>
+0
+</sail>
+
+<grav_decks>
+500
+</grav_decks>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+324
+</crew>
+
+<officers>
+21
+</officers>
+
+<gunners>
+0
+</gunners>
+
+<passengers>
+5880
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+300
+</life_boat>
+
+<escape_pod>
+300
+</escape_pod>
+

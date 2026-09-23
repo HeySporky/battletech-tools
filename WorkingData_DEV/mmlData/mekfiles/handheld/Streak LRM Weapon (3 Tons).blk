@@ -1,0 +1,79 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b60d-718c-8431-5cf19bdd3c49
+</UUID>
+
+<UnitType>
+HandheldWeapon
+</UnitType>
+
+<Name>
+Streak LRM Weapon
+</Name>
+
+<Model>
+(3 Tons)
+</Model>
+
+<year>
+3085
+</year>
+
+<type>
+Clan Level 4
+</type>
+
+<role>
+None
+</role>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+8
+</armor>
+
+<Gun Equipment>
+CLStreakLRM5
+Clan Streak LRM 5 Ammo:Shots12#
+</Gun Equipment>
+
+<source>
+RS:Proto
+</source>
+
+<tonnage>
+3.0
+</tonnage>
+

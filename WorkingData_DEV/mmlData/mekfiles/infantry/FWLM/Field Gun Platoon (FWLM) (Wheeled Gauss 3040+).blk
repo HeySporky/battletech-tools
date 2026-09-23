@@ -1,0 +1,83 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bc6d-71f1-88d1-0cb7eb6e5644
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Field Gun Platoon (FWLM)
+</Name>
+
+<Model>
+(Wheeled Gauss 3040+)
+</Model>
+
+<year>
+3040
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<Troopers Equipment>
+Free Worlds League Infantry Kit (3035+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+ISGaussRifle
+IS Gauss Ammo
+</Field Guns Equipment>
+
+<overview>
+<p>New technology and creative tactical thinking have long featured in FWLM infantry deployment, with varied unit types and specialized formations treated as the norm rather than the exception. Towing crew-served gauss rifles, these platoons field the most advanced ballistic direct-fire weapon available to conventional infantry. Magnetic acceleration delivers projectiles at extreme velocities with no recoil signature, though the weapon's power requirements and fragility demand careful handling.</p>
+</overview>
+
+<notes>
+Intro date based on re-introduction date of Gauss Rifle
+</notes>
+
+<squad_size>
+6
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

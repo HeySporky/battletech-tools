@@ -1,0 +1,208 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df40-7c73-bb4c-9c0e8c10ebee
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Temax Cat Ninjabolt
+model:TMC-NB
+mul id:3168
+
+Config:Biped FrankenMek
+techbase:Inner Sphere
+era:3075
+source:XTR:Boondocks
+published:XTR:Boondocks
+rules level:4
+role:Sniper
+
+
+mass:65
+engine:260 XL Engine
+structure:Hybrid
+LA structure:Standard:65
+RA structure:IS Endo Steel:65
+LT structure:Standard:65
+RT structure:Standard:65
+CT structure:Standard:65
+HD structure:Standard:65
+LL structure:IS Endo Steel:65
+RL structure:IS Endo Steel:90
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:13
+RA armor:18
+LT armor:19
+RT armor:21
+CT armor:28
+HD armor:9
+LL armor:29
+RL armor:28
+RTL armor:8
+RTR armor:8
+RTC armor:6
+
+Weapons:4
+Enhanced LRM 15, Left Arm
+ER Large Laser, Right Arm
+Medium Laser, Left Torso
+HVAC/10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Enhanced LRM 15
+Enhanced LRM 15
+Enhanced LRM 15
+Enhanced LRM 15
+Enhanced LRM 15
+Enhanced LRM 15
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERLargeLaser
+ISERLargeLaser
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Medium Laser
+ISEnhancedLRM15 Ammo
+IS Ammo HVAC/10
+ISCASE
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Hyper Velocity Auto Cannon/10
+Hyper Velocity Auto Cannon/10
+Hyper Velocity Auto Cannon/10
+Hyper Velocity Auto Cannon/10
+Hyper Velocity Auto Cannon/10
+Hyper Velocity Auto Cannon/10
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Temax Cat Ninjabolt is a 65-ton heavy FrankenMech that took shape on Solaris VII and the Federated Suns frontier, reaching its definitive form around 3075 under the Blackstar Stables banner. Rather than a factory product, it grew out of a battered Axman that was rebuilt piece by piece over more than a decade until little of the original machine remained. The result is a heavy combatant assembled almost entirely from salvaged and experimental parts, a true one-off with no production line behind it. Among Solaris regulars and Outback pirate hunters alike it carries a reputation as a scrappy survivor, an ungainly patchwork that has proven durable and dangerous in the hands of its dedicated owner.</p>
+
+capabilities:<p>The Temax Cat Ninjabolt fields a heavy brawler's mix of range and punch. Its right arm mounts an ER large laser for reach, while the left arm carries an Enhanced LRM-15 with a single ton of reloads for indirect and standoff fire. The right torso houses a class-10 hyper-velocity autocannon, a hard-hitting but ammunition-hungry weapon, backed by a lone medium laser in the left torso for close work. A 260-rated XL engine drives the 65-ton machine to a cruising speed near 60 km/h, and a bank of jump jets lends it battlefield agility unusual for its weight class.</p><p>Ten double heat sinks keep energy and autocannon fire manageable, though sustained shooting still pushes the threshold. Twelve tons of standard armor protect the hull, but the plating is notoriously uneven, a consequence of its patchwork construction that leaves some facings far better covered than others. A full-head ejection system safeguards the pilot. The greatest liabilities are its reliance on two separate ammunition supplies and the questionable reliability of components drawn from many different sources.</p>
+
+deployment:<p>The Temax Cat Ninjabolt is a one-of-a-kind machine with no formal unit assignment. It serves as an independent pirate hunter across the Federated Suns Outback, ranging the thinly settled frontier where bandit raiders strike isolated settlements. Its mobility, missile reach, and heavy-hitting main gun suit the role well, letting it engage at a distance before closing to finish a crippled target. Operating far from any supply depot, the 'Mech depends on field-expedient maintenance and whatever salvage its surroundings provide, a constraint that shapes how aggressively its pilot can commit it in a protracted fight.</p>
+
+history:<p>The Temax began as an ordinary AXM-1N Axman piloted by Solaris VII MechWarrior Larry Allen Barttelbort. In 3065, during a match in the Jungle Arena, the Axman lost its right leg, and the resulting defeat cost Barttelbort his arena partner. With the Federated Commonwealth Civil War choking off the supply of proper spares, Barttelbort scavenged a replacement leg from a wrecked TMP-3M Tempest, beginning a decade of jury-rigged reconstruction.</p><p>The improvisations multiplied. A grudge match in 3066 tore away the right arm, the first of eight times that limb would be lost. An HCT-3F Hatchetman arm bolted on as a stopgap buried its blade in an opponent before ripping free under a counterkick. After the war ended in 3067, Barttelbort returned to the Federated Suns Outback and hired on as a pirate hunter, where steady salvage kept the rebuild going. In 3068 a derelict CPLT-C1 Catapult yielded a new left torso and arm, and he fitted an experimental autocannon and a new missile launcher of murky provenance during the same overhaul.</p><p>In 3073 he traded six tons of guided missile ammunition for the arm of a scrapped NJT-2 Ninja-To, a graft that finally held. Two years later a Word of Blake raid pitted the patchwork machine against a TDR-9M Thunderbolt. The Blakist salvo destroyed its left leg, but Barttelbort's return fire breached the enemy's missile magazine and forced its ejection. He claimed the fallen Thunderbolt's leg rather than rebuild his own. By 3075 only the head, center torso, and right torso of the original Axman survived, and Barttelbort wore each graft as a badge of honor.</p>
+
+manufacturer:Blackstar Stables
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-05-19 19:52:31
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Standard/Endo Steel Hybrid
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:260 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Standard
+systemmanufacturer:JUMP_JET:HildCo
+systemmode:JUMP_JET:Model 12
+systemmanufacturer:COMMUNICATIONS:Johnston
+systemmode:COMMUNICATIONS:Wide Band
+systemmanufacturer:TARGETING:Rander
+systemmode:TARGETING:Pinpoint-HY

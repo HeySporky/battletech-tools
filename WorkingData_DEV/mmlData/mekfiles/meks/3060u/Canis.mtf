@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cbab-7138-b403-9416d1404d38
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Canis
+model:
+mul id:459
+
+Config:Biped
+techbase:Clan
+era:3058
+source:TR:3060
+published:RS:3060u
+rules level:2
+role:Sniper
+
+quirk:fast_reload
+
+mass:80
+engine:240 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:16 Clan Double
+walk mp:3
+jump mp:3
+
+armor:Standard(Clan)
+LA armor:25
+RA armor:25
+LT armor:23
+RT armor:23
+CT armor:37
+HD armor:9
+LL armor:33
+RL armor:33
+RTL armor:10
+RTR armor:10
+RTC armor:12
+
+Weapons:6
+ER Large Laser, Left Arm
+ER Large Laser, Left Arm
+ER Large Laser, Right Arm
+ER Large Laser, Right Arm
+Ultra AC/10, Left Torso
+Ultra AC/10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERLargeLaser
+CLERLargeLaser
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERLargeLaser
+CLERLargeLaser
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+Clan Ultra AC/10 Ammo
+Clan Ultra AC/10 Ammo
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+Clan Ultra AC/10 Ammo
+Clan Ultra AC/10 Ammo
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Canis is an eighty-ton assault BattleMech introduced in 3058 by Clan Coyote. Developed as a dedicated second-line combatant, the design emphasizes sustained energy firepower over the ammunition-dependent loadouts common to many Clan configurations. Produced at the Ashton 'Mech Production Complex on Foster, the Canis was conceived in direct response to combat reports from the Inner Sphere invasion, where Clan OmniMechs frequently exhausted their ammunition stores during prolonged engagements against Inner Sphere opponents. The Canis earned a solid reputation as a rugged and dependable assault platform, valued for its ability to maintain combat effectiveness through extended battles where ammunition-heavy designs would falter.</p>
+
+capabilities:<p>Built on a Clan Series Assault SXC endo steel chassis with a Clan Type 240 XL engine, the Canis achieves a favorable balance between protection, firepower, and internal volume despite its relatively modest top speed of fifty-four kilometers per hour. Fifteen tons of Forging ZK11 standard armor provide excellent protection for an assault-class design, shielding the vulnerable extralight engine from catastrophic side torso hits. Three jump jets grant a ninety-meter jump capability, giving the Canis surprising tactical mobility that belies its heavy frame and allows it to traverse rough terrain that would stymie comparable assault designs.</p><p>The primary armament consists of four Series 7Ja extended-range large lasers mounted in the arms, providing devastating long-range firepower that never runs dry. A pair of Type 9 Ultra Autocannon/10s in the torso add significant medium-range punch with the option for rapid fire, though the design carries only enough ammunition for approximately ninety seconds of sustained firing. This ammunition limitation represents the Canis's most significant tactical weakness, forcing pilots to rely increasingly on their lasers as engagements progress.</p><p>Despite sixteen double heat sinks, the Canis frequently suffers from heat management problems when firing its full weapons complement. Pilots must carefully manage their firing patterns to avoid dangerous heat spikes that can hamper the design's combat effectiveness, making fire discipline essential to getting the most from this assault platform.</p>
+
+deployment:<p>The base Canis serves as the standard configuration fielded by Clan Coyote's second-line garrison Clusters. Most surviving examples remain concentrated in Homeworld Clan toumans, though the small number captured by Clan Jade Falcon during the Harvest Trials saw active service against Lyran Alliance forces on the Inner Sphere front. The Fast Reload quirk inherent to the design has made it a favored platform among garrison commanders who value sustained firepower during prolonged defensive engagements, where its energy-heavy loadout allows it to outlast ammunition-dependent opponents.</p>
+
+history:<p>The Canis was born from Clan Coyote's analysis of combat data filtering back from the Inner Sphere during the initial Clan Invasion. The reports consistently highlighted a critical flaw in Clan tactical doctrine: engagements against Inner Sphere forces lasted far longer than the rapid Trials and honor duels the Clans were accustomed to. OmniMechs configured with ballistic-heavy loadouts repeatedly ran dry during these extended battles, leaving their pilots dangerously underarmed. Coyote scientists moved quickly to develop a dedicated second-line design that would address this vulnerability through greater energy weapon dependence.</p><p>The Canis received its baptism of fire during the Harvest Trials against Clan Jade Falcon shortly after its introduction. Though the engagements were brief, the Coyotes lost several machines to the Falcons, with three falling into Jade Falcon hands. Despite these losses, Clan Coyote leadership was pleased with how the design performed, validating its intended role as a durable second-line combatant capable of standing alongside more prestigious OmniMech designs.</p><p>The captured units were quickly deployed by the Jade Falcons to the Inner Sphere, where they saw action against Lyran Alliance forces. Unfamiliar with the new design, Lyran commanders initially struggled to develop effective countermeasures. It was during this period that the first field modifications appeared, with Jade Falcon warriors adapting the Canis to suit their own tactical preferences and the demands of fighting Inner Sphere opponents.</p><p>Production of the Canis remained exclusively with Clan Coyote at the Foster facility throughout the Civil War era. The factory eventually changed hands to Clan Goliath Scorpion during the tumultuous Jihad period, and it was under Scorpion stewardship that the Canis 2 variant entered production in 3071. The factory later passed to Clan Cloud Cobra control during the early Dark Age, though production activity appears to have diminished significantly, leaving the Canis as an increasingly uncommon sight in Homeworld Clan toumans.</p>
+
+manufacturer:Ashton 'Mech Production Complex
+
+primaryfactory:Foster (Gregoire)
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Clan Series Assault SXC (Endo)
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Clan Type 240 XL Series
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Forging ZK11 (Standard)
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Clan Standard 14X Series
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:TJ6 "Bell" Integrated Communications System
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:TRTTS Mark II CWS

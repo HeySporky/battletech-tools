@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d89b-7f89-871f-53d2f23fe414
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Viper
+clanname:Black Python
+model:5
+mul id:7792
+
+Config:Biped
+techbase:Clan
+era:3055
+source:RG12,RGv1
+published:RG12,RGv1
+rules level:2
+role:Skirmisher
+
+quirk:imp_target_short
+
+mass:75
+engine:375 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:11 Clan Double
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Clan)
+LA armor:22
+RA armor:22
+LT armor:22
+RT armor:22
+CT armor:30
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:10
+RTR armor:10
+RTC armor:12
+
+Weapons:5
+Machine Gun, Left Arm
+Machine Gun, Left Arm
+Gauss Rifle, Right Arm
+ER PPC, Left Torso
+ER PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLMG
+CLMG
+Clan Machine Gun Ammo - Full
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo
+Clan Gauss Ammo
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLERPPC
+CLERPPC
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLERPPC
+CLERPPC
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Black Python, designated the Viper by Inner Sphere forces, is a Clan Steel Viper second-line heavy BattleMech that entered service around 3051. Designed to fill a role similar to Inner Sphere heavies like the Warhammer and Marauder, the Black Python combines highly accurate pulse laser weaponry with impressive mobility for its seventy-five-ton weight class. The design makes extensive use of weight-saving technologies to mount jump jets while carrying a formidable weapons array, achieving a combination of speed and firepower unusual for a second-line heavy.</p><p>Despite its classification as a second-line design, the Black Python proved effective enough that Clan Steel Viper invested in multiple redesigns over the following decades. Produced primarily at New Kent Armorworks on New Kent, the design remained closely associated with the Steel Vipers throughout its operational history. Following the destruction of Clan Steel Viper during the Wars of Reaving, the chassis was resurrected by the Raven Alliance under the new designation White Raven.</p>
+
+capabilities:<p>The Black Python's primary armament centers on paired large and medium pulse lasers, providing highly accurate firepower at multiple engagement ranges. Four small pulse lasers and twin machine guns round out the close-range weaponry, making the design particularly lethal against infantry and light vehicles. A targeting computer enhances the already precise pulse weaponry, creating a 'Mech that delivers devastating concentrated fire. Thirteen double heat sinks manage the thermal load from the all-energy primary armament, though sustained combat at close range can still push heat levels to uncomfortable levels.</p><p>Mobility is a defining feature of the design. The New Kent Model VII 375-rated extralight engine drives the Black Python to speeds of 86 kilometers per hour, while five Pryzhok jump jets provide 150 meters of jumping capability. Eleven tons of Armorweave ferro-fibrous armor offer reasonable protection for a heavy 'Mech, though the reliance on an extralight engine creates a significant vulnerability if side torso armor is breached.</p><p>The design's primary weakness is the lack of knockout firepower at long range. Without large-bore autocannons, PPCs, or Gauss rifles, the original Black Python must close to medium range to bring its most effective weapons to bear, exposing it to return fire during the approach.</p>
+
+deployment:<p>This Clan Steel Viper variant stands as a significant departure from the pulse-centric weapon philosophy of earlier models. The entire weapons suite is replaced with a pair of extended-range PPCs and a Gauss rifle, giving the Black Python true long-range knockout capability for the first time. Twin machine guns are retained for close defense. This configuration transforms the design from a medium-range skirmisher into a heavy fire support platform capable of engaging targets at extreme distances, addressing the primary weakness identified in earlier Black Python configurations.</p>
+
+history:<p>The Black Python was developed by Clan Steel Viper as a second-line heavy BattleMech, entering production around 3051 at the New Kent Armorworks facility on New Kent. Drawing design inspiration from Inner Sphere heavy 'Mechs like the Warhammer and Marauder, the Black Python offered comparable firepower in a faster, more mobile package. Its classification as a second-line design meant that Steel Viper trueborn warriors often viewed assignments to Black Python units with some disdain, despite the 'Mech's considerable combat effectiveness.</p><p>The Black Python saw its most significant combat deployments during the Clan Invasion era and the subsequent Civil War period. Clan Steel Viper fielded the design across their touman, with the 'Mech appearing in every Galaxy. The garrisons around the Mercer building on the Steel Viper capital world became particularly associated with the design, where its distinctive shape became synonymous with the Clan itself. As Steel Viper underwent internal reforms during the late 3050s, the Black Python's effectiveness led to broader adoption throughout the touman despite its second-line status.</p><p>Production at New Kent Armorworks continued under Clan Steel Viper ownership through the Civil War era. The Albion MMA Complex on Albion also produced the base Black Python configuration, though this facility changed hands multiple times, passing from Clan Burrock to Clan Star Adder following the Burrock Absorption, and later to Clan Cloud Cobra during the Jihad.</p><p>The destruction of Clan Steel Viper during the Wars of Reaving ended production at New Kent. The Ravens had always lamented seeing the graceful, bird-like Black Python in Viper formations, feeling that such a 'Mech should be soaring with them rather than slithering with the hated Vipers. By resurrecting the pre-3060s Black Python under a new name, Clan Snow Raven stayed true to its scavenger heritage, claiming the chassis and restarting production at Raveena Electronics on Ramora as the White Raven. There is no more Viper, only the White Raven.</p>
+
+manufacturer:New Kent Armorworks
+
+primaryfactory:New Kent (Celebes)
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Viper Endo Steel BP2
+systemmanufacturer:ENGINE:New Kent
+systemmode:ENGINE:Model VII 375 XL
+systemmanufacturer:ARMOR:Armorweave
+systemmode:ARMOR:NK 62 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Pryzhok
+systemmode:JUMP_JET:Pryzhok
+systemmanufacturer:COMMUNICATIONS:Mercer
+systemmode:COMMUNICATIONS:974
+systemmanufacturer:TARGETING:GEG
+systemmode:TARGETING:Pattern 491/8

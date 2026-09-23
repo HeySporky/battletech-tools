@@ -1,0 +1,248 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aaeb-7b74-9b6a-ae1c19acd98e
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Cargomaster
+</Name>
+
+<Model>
+(2790)
+</Model>
+
+<mul id:>
+3897
+</mul id:>
+
+<year>
+2790
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+cargobay:2238.0:2:1::-1:0
+cargobay:2238.0:2:2::-1:0
+cargobay:2238.0:2:3::-1:0
+cargobay:2237.0:2:4::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+crewquarters:105.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+128
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+10920
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+82
+71
+71
+62
+</armor>
+
+<Nose Equipment>
+(B) ISERPPC
+ISERPPC
+ISERPPC
+(B) ISERLargeLaser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISERPPC
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+(R) (B) ISERPPC
+(R) (B) ISERLargeLaser
+(R) Medium Laser
+(R) Medium Laser
+(R) (B) LRM 20
+(R) IS Ammo LRM-20 Artemis-capable:30
+(R) ISArtemisIV
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISERPPC
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+(R) (B) ISERPPC
+(R) (B) ISERLargeLaser
+(R) Medium Laser
+(R) Medium Laser
+(R) (B) LRM 20
+(R) IS Ammo LRM-20 Artemis-capable:30
+(R) ISArtemisIV
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+12
+</structural_integrity>
+
+<capabilities>
+<p>The Cargomaster's primary asset is its enormous cargo capacity of nearly nine thousand tons, managed entirely by automated systems requiring a crew of only twenty-six personnel. The Merlin 2400 drive system provides a safe thrust of three, adequate for a vessel of this displacement though unremarkable by military standards. The ship's structural integrity rating of twelve ensures the hull can withstand the stresses of atmospheric entry despite its massive size.</p><p>Though designated a cargo carrier, the Cargomaster carries substantial defensive armament. The nose mounts three ER PPCs, an ER large laser, and an LRM-20 rack with Artemis IV fire control. Each broadside carries two ER PPCs, two ER large lasers, four medium lasers, and two Artemis-equipped LRM-20 launchers. The aft is defended by an ER large laser and two medium lasers. One hundred twenty-eight double heat sinks manage the thermal load. Despite this armament, the vessel's thin armor of only 286 points leaves it vulnerable to determined assault, reflecting its intended role operating within the security of a Star League naval formation rather than independently.</p>
+</capabilities>
+
+<overview>
+<p>The Cargomaster class cargo DropShip was designed during the final years of the Star League as the ultimate military logistics transport. At 12,500 tons, this massive Spheroid vessel represented the pinnacle of automated cargo handling technology, incorporating a fully self-loading system that eliminated the need for dockworkers or cargo handlers entirely. The design's remarkably small crew requirement for a vessel of its size reflected the advanced automation built into every aspect of its operations.</p><p>Despite its promising specifications, the Cargomaster never advanced beyond the prototype stage. Conceived in an era of unprecedented technological capability, it required state-of-the-art components and manufacturing processes that proved impossible to sustain once the political order that commissioned it collapsed. The Cargomaster stands as a reflection of both the ambition and fragility of Star League-era engineering.</p>
+</overview>
+
+<deployment>
+<p>The Cargomaster never saw operational deployment. The sole prototype was completed at the Galax Megaplex in 2790, years after the fall of the Star League that had commissioned it. With the Inner Sphere descending into the First Succession War and the advanced manufacturing infrastructure required to support the design rapidly deteriorating, Federated-Boeing Interstellar made the decision to scrap both the prototype and its production tooling rather than pursue a vessel that could not be sustained.</p>
+</deployment>
+
+<history>
+<p>The Cargomaster was designed by Boeing Interstellar as the premier military cargo transport for the Star League Defense Force. After the Star League accepted the design, preproduction began in 2781 at Boeing Interstellar's newly constructed Galax Megaplex facility. The ambitious timeline called for rapid transition from prototype to full production, leveraging the Megaplex's state-of-the-art manufacturing capabilities.</p><p>By the time the first prototype was completed in 2790, however, the Star League had fallen and the Inner Sphere was engulfed in the First Succession War. The Port Simon Shipyards at Galax had passed to the Federated Suns under the reorganized Federated-Boeing Interstellar. The resources and advanced technology required to build and support the massive Cargomaster had become increasingly scarce as the Succession Wars destroyed the industrial base needed to maintain such sophisticated systems. Faced with these insurmountable logistical challenges, the prototype and its production line were scrapped, and the Cargomaster never entered serial production.</p>
+</history>
+
+<manufacturer>
+Federated-Boeing Interstellar - Port Simon Shipyards
+</manufacturer>
+
+<primaryFactory>
+Galax
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Merlin 2400
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r,TR:3026r
+</source>
+
+<tonnage>
+12500.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+18
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+5
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+2
+</life_boat>
+
+<escape_pod>
+2
+</escape_pod>
+

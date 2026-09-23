@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d16e-72d6-b052-9c580aa1faaa
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Griffin
+model:GRF-4R
+mul id:1302
+
+Config:Biped
+techbase:Inner Sphere
+era:3076
+source:TR:3085
+published:RS:3085u-PP
+rules level:2
+role:Striker
+
+quirk:battle_fists_la
+quirk:battle_fists_ra
+quirk:ubiquitous_clan
+quirk:rugged_1
+quirk:ubiquitous_is
+weaponquirk:jettison_capable:RA:4:ISSNPPC
+
+mass:55
+engine:330 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:11 IS Double
+walk mp:6
+jump mp:9
+
+armor:Standard(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:19
+RT armor:19
+CT armor:25
+HD armor:9
+LL armor:23
+RL armor:23
+RTL armor:5
+RTR armor:5
+RTC armor:8
+
+Weapons:3
+Snub-Nose PPC, Right Arm
+ER Medium Laser, Right Arm
+MML 5, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISSNPPC
+ISSNPPC
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+ISMML5
+ISMML5
+ISMML5
+IS Ammo MML-5 LRM
+IS Ammo MML-5 SRM
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Griffin is one of the oldest BattleMech designs still in active service, with origins stretching back over six centuries. Originally conceived by Maxwell Manufacturing, Inc. on Procyon as a sixty-ton heavy 'Mech for the Hegemony Armed Forces, the prototype GRF-1A first walked in 2465 and entered full production by 2492. Earthwerks Incorporated later acquired and overhauled the design into the lighter, faster fifty-five-ton GRF-1N that became the definitive Griffin. Reclassified as a medium fire support platform, the Griffin proved enormously popular with commanders and pilots across the Inner Sphere. Licensed production across numerous manufacturers ensured the design survived the devastation of the Succession Wars largely intact. Built by the tens of thousands, the Griffin has served continuously through the Age of War, the Succession Wars, the Clan Invasion, the Jihad, and into the ilClan era.</p>
+
+capabilities:<p>The Griffin's enduring success rests on a simple but effective combination of long-range firepower and battlefield mobility. The standard GRF-1N mounts a Fusigon PPC in a detachable right-arm housing paired with a Delta Dart LRM-10 launcher in a drum over the right shoulder, giving the design both direct and indirect fire support capability. A CoreTek 275 fusion engine drives the chassis to a top speed of eighty-six kilometers per hour, while five Rawlings 55 jump jets provide a hundred and fifty meters of jumping distance, a combination that allows the Griffin to dictate engagement range against most opponents.</p><p>This firepower comes with notable compromises. All weapons are concentrated on the right side of the chassis, creating a critical vulnerability if that flank is compromised. The design also lacks any short-range defensive armament, leaving Griffin pilots dangerously exposed when enemies close to knife-fighting range. Nine and a half tons of Starshield A armor compares favorably to many medium 'Mechs, though the Griffin frequently faces heavier opponents. Twelve single heat sinks prove insufficient for sustained fire, forcing pilots to choose between engaging and withdrawing rather than doing both simultaneously. The design's forgiving heat curve at walking speeds partially mitigates this limitation during disciplined long-range engagements.</p>
+
+deployment:<p>One of the most lethal Griffin variants to emerge during the Jihad, this variant first appeared in Word of Blake Protectorate forces in 3076. A massive Edasich 330 XL engine and improved jump jets give the design light 'Mech mobility, with a top speed of ninety-seven kilometers per hour and jump capability of two hundred seventy meters. The Fusigon Smarttooth snub-nose PPC and Holly MML-5 provide flexible engagement options across multiple range brackets, supported by a Martell ER medium laser. Compromises include reduced armor coverage and the absence of CASE for ammunition storage, while the XL engine creates a significant survivability liability. Particularly lacking the C3i computers common to other Blakist designs, this variant found favor across the Inner Sphere following the Jihad, with only the Lyran Commonwealth declining to adopt it in favor of their native GRF-6S.</p>
+
+history:<p>The Griffin's history begins with Maxwell Manufacturing's successful bid to produce a highly mobile BattleMech for the Hegemony Armed Forces. The original sixty-ton GRF-1A quickly earned a prominent role in HAF assault battalions, remaining on front lines even as newer designs superseded it. Maxwell's dissolution due to corporate misconduct in the late twenty-fifth century transferred the design to Earthwerks Incorporated, who overhauled it into the fifty-five-ton GRF-1N, lighter, faster, with greater jump capacity and a more powerful missile launcher. This reclassified medium 'Mech became one of the most widely produced BattleMechs in history.</p><p>Production spread across the Inner Sphere through licensing agreements with Defiance Industries on Hesperus II, Kallon Industries on Talon, Brigadier Corporation on Oliver, and Norse BattleMech Works on Marduk. Vandenberg Mechanized Industries even manufactured the design in the Periphery on Illiushin. Only the Capellan Confederation lacked domestic production capability, purchasing limited numbers from the Taurian Concordat. By 2857, Defiance Industries had introduced the GRF-1S, the first production variant, reconfiguring the design as a medium-range brawler for the Lyran Commonwealth.</p><p>The Fourth Succession War reshuffled production lines when the Draconis Combine captured Marduk from the Federated Suns and the Lyran Commonwealth took Oliver from the Free Worlds League. This coincided with the rediscovery of lostech, spawning new variants that quickly spread beyond their intended factions. The Clan Invasion accelerated this trend, with manufacturers rushing upgraded designs into production. Vicore Industries' Project Phoenix initiative prompted Defiance and Kallon to produce the completely redesigned GRF-6S, while Victory Industries joined after acquiring light fusion engine technology. The Free Worlds League and ComStar each developed their own updates, with ComStar's variant ominously appearing in Word of Blake Militia ranks.</p><p>The Jihad saw the Griffin deployed on all sides of the conflict, with the Word of Blake fielding the deadly GRF-4R refit and the Capellan Confederation finally fielding indigenous variants incorporating stealth armor. Following the Jihad, Brigadier Corporation introduced the advanced GRF-6R, and production continued within the Free Worlds League at Earthwerks' facilities. The Wolf Empire's conquest of Terra brought further evolution as Earthwerks' Keystone plant began producing the Griffin C, a Clan-specification refit of older models using captured Clan weapons technology. Spread across the Inner Sphere by Clan Sea Fox traders, the Griffin C ensured the venerable design remained competitive into the ilClan era. Notable engagements throughout this long history include the War Griffins mercenary cadre's exclusive use of the chassis during the Second Succession War, pirate-hunting operations on Hazeldean, and distinguished service during the siege of Odin Manufacturing Works on Orestes during the Second Combine-Dominion War.</p>
+
+manufacturer:Earthwerks Incorporated|Field Refit
+
+primaryfactory:Keystone|Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Earthwerks Incorporated
+systemmode:CHASSIS:Earthwerks GRF Endo Steel
+systemmanufacturer:ENGINE:Edasich Motors
+systemmode:ENGINE:Edasich 330 XL
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:Starshield A
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:Rawlings 65+
+systemmanufacturer:COMMUNICATIONS:Neil
+systemmode:COMMUNICATIONS:Neil 6000
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:RCA Instatrac Mark XI

@@ -1,0 +1,489 @@
+{
+  "filename": "Mongoose IIC.hmp",
+  "size": 3840,
+  "header_hex": "56 35 2e 30 30 04 00 08 03 ff ff 3f 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0003\u00ff\u00ff"
+    },
+    {
+      "type": "ascii",
+      "start": 11,
+      "end": 12,
+      "text": "?"
+    },
+    {
+      "type": "byte",
+      "offset": 12,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 14,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 15,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 16,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 17,
+      "end": 44,
+      "length": 25,
+      "text": "\b\u0000Mongoose\u0003\u0000IIC\u00be\n\u0002\u0000\u0080\u00c3&\u0000\u008a\u0004"
+    },
+    {
+      "type": "byte",
+      "offset": 44,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 45,
+      "end": 48,
+      "text": "@~D"
+    },
+    {
+      "type": "byte",
+      "offset": 48,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 49,
+      "end": 52,
+      "text": "@~D"
+    },
+    {
+      "type": "byte",
+      "offset": 52,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 53,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 54,
+      "hex": "c0"
+    },
+    {
+      "type": "ascii",
+      "start": 55,
+      "end": 56,
+      "text": "A"
+    },
+    {
+      "type": "byte",
+      "offset": 56,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 57,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 58,
+      "end": 60,
+      "text": "pA"
+    },
+    {
+      "type": "byte",
+      "offset": 60,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 61,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 62,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 63,
+      "end": 64,
+      "text": "@"
+    },
+    {
+      "type": "len_string",
+      "start": 64,
+      "end": 85,
+      "length": 19,
+      "text": "ML 2 2 3 3 \u0097\u0097 8 prb"
+    },
+    {
+      "type": "len_string",
+      "start": 85,
+      "end": 88,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "len_string",
+      "start": 88,
+      "end": 346,
+      "length": 256,
+      "text": "\u0000\u00c8\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0001\u0000\u0001\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\u0002\u0000\u0002\u0000\u0004\u0000\u0000\u0000\u0005\u0000\u0001\u00004\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00004\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000W\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00004\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00004\u0000\u0007\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000W\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 346,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 347,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 348,
+      "end": 370,
+      "length": 20,
+      "text": "\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 370,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 371,
+      "end": 2165,
+      "length": 1792,
+      "text": "\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u00004\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00e2\u00ffY\u0000\u000e\u0002    Introduced in the spring of 2660, the quick, agile Mongoose soon became popular with Star League Light Lance commanders. Though the 'Mech was originally designed for deep reconnaissance, commanders began to adapt it to front-line duty as soon as they discovered that the Beagle Active Probe and associated central processing units could coordinate the activities of an entire light company. Demand for this new vehicle was high, and by 2668, the design had become the standard command 'Mech for all light and recon lances.\u009d\t    The Mongoose was designed to replace the venerable Locust, with ground speed, rather than jumping ability, as the key to the 'Mech's maneuverability. An instant success with field commanders, the 'Mech is considered an outstanding design. The 'Mech's armament is based entirely on energy weapons, making the Mongoose an ideal deep-recon 'Mech, raider, or guerrilla fighter. \r\n    The internal structure of the Mongoose employs Endo Steel II, an alloy created especially for use in 'Mechs. Endo Steel offers tremendous load-bearing ability plus greater tensile strength, allowing a much lighter skeleton to carry the same weight as a normal skeleton. Covering the skeleton are plates of Ferro-Fibrous Armor. The Mongoose carries a heavy load of armor for its size, and can withstand a direct PPC blast to the chest without internal damage. If necessary, the Mongoose can engage medium 'Mechs with some chance of success.\r\n    The laser systems are tried and dependable, with e"
+    },
+    {
+      "type": "ascii",
+      "start": 2165,
+      "end": 3647,
+      "text": "xcellent heat dissipation provided by the primary cooling collars located just above the 'Mechs elbows. Secondary heat sinks, located in the back of the torso, funnel heat toward the waist. The lasers mounted in the center torso and head are very accurate, employing internal compensators that allow the Mongoose to aim precisely when at a full run. The only drawback to the weapon system is the cooling jacket for the center torso laser, which rests on top of the engine compartment and tends to deteriorate rapidly. Replacement is not difficult, but studies show the jacket is virtually useless after 100 firings. The additional heat does not impair the Mongoose's performance, but it makes the cockpit uncomfortable and sometimes interferes with the sensor array.\r\n    The Beagle Active Probe, riding within the left shoulder, may be the most important item in the 'Mech. With extended scanner range and a wider scanning-band range, the Beagle can detect and identify vehicles 16 percent faster than any other scanner. Once identified, the target is permanently stored in the Beagle's memory. Should the Beagle encounter the target again, it will remember speed, damage, and even forecast a fighting style to the Mongoose pilot. During off hours, the pilot can review any battle on the tactical display, modifying actions with a joystick. The Beagle projects the tactical change and shows the results. This memory device has made the Mongoose a highly sought battlefield trainer."
+    },
+    {
+      "type": "len_string",
+      "start": 3647,
+      "end": 3650,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3650,
+      "end": 3653,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3653,
+      "end": 3656,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3656,
+      "end": 3659,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 3659,
+      "end": 3660,
+      "text": "'"
+    },
+    {
+      "type": "byte",
+      "offset": 3660,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3661,
+      "end": 3700,
+      "text": "Design by Chris Mc Intosh (Duke Royal)."
+    },
+    {
+      "type": "len_string",
+      "start": 3700,
+      "end": 3703,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 3703,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3704,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3705,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3706,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3707,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3708,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3709,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3710,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3711,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3712,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3713,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3714,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3715,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3716,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3717,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3718,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3719,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3720,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3721,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3722,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3723,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3724,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3725,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3726,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3727,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3728,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3729,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3730,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3731,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3732,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3733,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3734,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3735,
+      "end": 3745,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 3745,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3746,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3747,
+      "end": 3765,
+      "length": 16,
+      "text": "Diplan Mechyards"
+    },
+    {
+      "type": "len_string",
+      "start": 3765,
+      "end": 3772,
+      "length": 5,
+      "text": "Ozawa"
+    },
+    {
+      "type": "len_string",
+      "start": 3772,
+      "end": 3780,
+      "length": 6,
+      "text": "Nissan"
+    },
+    {
+      "type": "len_string",
+      "start": 3780,
+      "end": 3794,
+      "length": 12,
+      "text": "Mitchell GA3"
+    },
+    {
+      "type": "len_string",
+      "start": 3794,
+      "end": 3802,
+      "length": 6,
+      "text": "Kell/D"
+    },
+    {
+      "type": "len_string",
+      "start": 3802,
+      "end": 3808,
+      "length": 4,
+      "text": "ON-5"
+    },
+    {
+      "type": "len_string",
+      "start": 3808,
+      "end": 3829,
+      "length": 19,
+      "text": "Beagle Active Probe"
+    },
+    {
+      "type": "ascii",
+      "start": 3829,
+      "end": 3830,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3830,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3831,
+      "end": 3840,
+      "text": "(Unknown)"
+    }
+  ]
+}

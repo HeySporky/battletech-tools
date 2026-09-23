@@ -1,0 +1,256 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab38-7e81-97da-a55f540eefab
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Okinawa
+</Name>
+
+<Model>
+(3055)
+</Model>
+
+<mul id:>
+4744
+</mul id:>
+
+<year>
+3055
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+asfbay:6.0:2:1::-1:0
+asfbay:12.0:4:2::-1:0
+cargobay:325.5:2:3::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:50.0:0:-1::-1:0
+crewquarters:35.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+77
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+4050
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+160
+160
+160
+160
+</armor>
+
+<Nose Equipment>
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+(B) ISERPPC
+(B) ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:15
+ISArtemisIV
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISERLargeLaser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+(B) ISERPPC
+(B) ISMediumPulseLaser
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:15
+ISArtemisIV
+(R) (B) ISERLargeLaser
+(R) (B) LRM 10
+(R) IS Ammo LRM-10 Artemis-capable:12
+(R) ISArtemisIV
+(R) (B) ISLargePulseLaser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISERLargeLaser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+(B) ISERPPC
+(B) ISMediumPulseLaser
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:15
+ISArtemisIV
+(R) (B) ISERLargeLaser
+(R) (B) LRM 10
+(R) IS Ammo LRM-10 Artemis-capable:12
+(R) ISArtemisIV
+(R) (B) ISLargePulseLaser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) LRM 10
+IS Ammo LRM-10 Artemis-capable:12
+ISArtemisIV
+(B) ISLargePulseLaser
+(B) ISStreakSRM2
+ISStreakSRM2
+IS Streak SRM 2 Ammo:100
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+12
+</structural_integrity>
+
+<capabilities>
+<p>The Okinawa's eighteen fighters are housed in dual-purpose bays arranged in a ring around the vessel's midsection, with each bay serving for both launch and recovery operations. A central repair area accessible from all bays contains ammunition and fuel stores. Pilot quarters occupy the deck above the fighter bays, while engineering crews are located directly below.</p><p>The original variant distributes its armor nearly uniformly across the hull. The nose mounts two ER large lasers, an Artemis IV-enhanced LRM-20, an ER PPC, a large pulse laser, two medium pulse lasers, and an Artemis-enhanced SRM-6. Each broadside carries two ER large lasers, an Artemis-enhanced LRM-20, an ER PPC, a medium pulse laser, an Artemis-enhanced SRM-6, an Artemis-enhanced LRM-10, and a large pulse laser. The aft arc provides an Artemis-enhanced LRM-10, a large pulse laser, and two Streak SRM-2 launchers. A Star League combat computer controls the majority of weapons via Artemis fire control systems, making the arsenal one of the most accurate of any DropShip. Seventy-seven double heat sinks manage the thermal load.</p>
+</capabilities>
+
+<overview>
+<p>The Okinawa class DropShip is a medium aerospace fighter carrier designed and built for the Draconis Combine Mustered Soldiery. Weighing 4,500 tons, this Spheroid carrier transports eighteen aerospace fighters, filling the gap between the small Leopard CV and the massive Vengeance class carriers. The Okinawa is a significant investment in the Combine's carrier capability.</p><p>Unlike most carriers, which use Aerodyne hulls, the Okinawa employs a Spheroid design with a distinctive ring of dual-purpose fighter bays arranged around its midsection. This unusual configuration provides efficient launch and recovery operations while keeping the vessel's fighter complement well protected within the hull.</p>
+</overview>
+
+<deployment>
+<p>The original Okinawa entered service with the Draconis Combine Mustered Soldiery in early 3055, providing medium carrier capability to DCMS fleet formations. The design saw immediate combat during operations along the Clan border, where its fighter complement proved effective against Clan aerospace assets despite the carrier itself suffering significant damage in early engagements.</p>
+</deployment>
+
+<history>
+<p>The first Okinawa class DropShip slipped its moorings at the BBP Industries yard at Luthien in early 3055 after an exhaustive series of trials. The design was conceived to address a gap in the Draconis Combine's carrier fleet between the small Leopard CV and the much larger Vengeance class vessels. Production at Luthien provided a steady stream of new carriers to the DCMS fleet.</p><p>The first Okinawa to see combat participated in the 3055 raid on Luzerne, where the vessel took heavy damage during the rear-guard action and returned with less than half its fighter complement. The fighters that did return inflicted significant damage on a Clan WarShip during the engagement, contributing to the enemy vessel's withdrawal from the battle. Operational experience from this and subsequent engagements revealed that the majority of damage inflicted on Okinawa class vessels occurred around the nose, a result of the standard practice of keeping a DropShip's nose pointed toward hostile craft to minimize engine damage risk. Consequently, vessels launched after April 3056 received reinforced nose armor at the expense of side and aft protection.</p>
+</history>
+
+<manufacturer>
+BBP Industries
+</manufacturer>
+
+<primaryFactory>
+Luthien
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+4500.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+46
+</crew>
+
+<officers>
+5
+</officers>
+
+<gunners>
+5
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+4
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

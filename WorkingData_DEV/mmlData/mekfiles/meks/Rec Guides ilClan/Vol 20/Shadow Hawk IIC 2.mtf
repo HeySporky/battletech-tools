@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-da3f-7f6a-ab70-9ffa6d832a63
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Shadow Hawk IIC
+model:2
+mul id:2912
+
+Config:Biped
+techbase:Clan
+era:2835
+source:RG20,RGv1
+published:RG20,RGv1
+rules level:2
+role:Striker
+
+quirk:battle_fists_la
+quirk:battle_fists_ra
+quirk:imp_life_support
+
+mass:45
+engine:270 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:6
+jump mp:6
+
+armor:Ferro-Fibrous(Clan)
+LA armor:12
+RA armor:12
+LT armor:17
+RT armor:17
+CT armor:20
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:6
+Small Pulse Laser, Left Arm
+Small Pulse Laser, Right Arm
+ER Large Laser, Left Torso
+ER Large Laser, Right Torso
+ER Small Laser, Center Torso
+Small Pulse Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLSmallPulseLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLSmallPulseLaser
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+CLERLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+CLERLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERSmallLaser
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLSmallPulseLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>If any BattleMech could be described as endemic to the Clans, it would be the Shadow Hawk IIC. Introduced in 2831 during the Golden Century (contemporaneous with the Hellhound and arriving just before the Great Father's death) the design upgraded the classic Inner Sphere workhorse into a powerful harassing unit packaged in a lighter forty-five-ton frame. Built on a Lang T3 endo steel chassis with a Consolidated Fusion 270 standard engine, the Shadow Hawk IIC trades its ancestor's multi-role versatility for dedicated close-range lethality, with an emphasis on urban warfare and infighting.</p><p>Early successes established the design across multiple Clan toumans, though its prominence waned during the twenty-ninth century as OmniMech technology rendered second-line designs increasingly obsolete. The Battle of Tukayyid and the subsequent flood of Clan equipment into the Inner Sphere reversed this decline dramatically. By the ilClan era, the Shadow Hawk IIC had spread so widely that most MechWarriors across human-occupied space could expect to encounter one eventually, with production centered at facilities ranging from Manufacturing Site #3 on New Oslo to Odin Manufacturing on Orestes and the Zoetermeer Industriplex Alpha.</p>
+
+capabilities:<p>The Shadow Hawk IIC is an uncompromising infighter. Where the original Shadow Hawk balanced weapons across multiple range brackets, the IIC concentrates its firepower at close quarters to devastating effect. A trio of lasers (two Series 14a medium pulse models and a Series 2d ER medium) can slice through the rear armor of most 'Mechs with precision, while four Pattern J2 Streak SRM-2 launchers exploit any breaches without generating the heat spikes that a single larger launcher would produce. A Series 1 ER small laser rounds out the arsenal for point-blank engagements. Ten double heat sinks manage the thermal load efficiently, particularly since the Streak launchers build no heat when they fail to achieve target lock.</p><p>The Consolidated 270 engine drives the chassis to a brisk 97 kilometers per hour, and six Northrup Starlifters M45 jump jets propel it 180 meters per leap, exceptional mobility that allows the Shadow Hawk IIC to close rapidly and dictate engagement ranges. Compound H17 ferro-fibrous armor provides solid protection for the weight class, though the design's aggressive posture demands skilled piloting to avoid being caught in the open at ranges where its weapons cannot effectively reply. Numerous variants have attempted to remedy the lack of ranged firepower, though the base configuration's close-range philosophy remains the design's defining characteristic.</p>
+
+deployment:<p>The IIC 2 shifts the Shadow Hawk IIC's engagement envelope dramatically toward long range, mounting dual ER large lasers in over-shoulder mounts reminiscent of the original Inner Sphere Shadow Hawk's iconic autocannon position. An ER small laser is retained alongside three small pulse lasers for close-range defense against infantry and unarmored targets. Production centered around Clan Ghost Bear garrison clusters, where the configuration served primarily in direct-fire support roles. Manufacturing ceased when the Ghost Bears relocated to the Inner Sphere, and the IIC 2 remained rare for decades until Odin Manufacturing on Orestes reintroduced the variant following the Second Combine-Dominion War.</p>
+
+history:<p>The Shadow Hawk IIC emerged in 2831 during the Golden Century, when Clan engineers across the Pentagon Worlds were systematically upgrading captured Inner Sphere designs with superior Clan technology. Contemporaneous with the Hellhound (the Wolverine IIC in all but name) the Shadow Hawk IIC stripped ten tons from its ancestor's frame while fundamentally reimagining the design's tactical role. Where the original Shadow Hawk balanced firepower across multiple range brackets, the IIC concentrated its weapons for close-range lethality, reflecting Clan doctrine's emphasis on decisive zellbrigen engagements fought at short range. The design was introduced just before the death of Nicholas Kerensky and quickly spread across multiple Clan toumans as a reliable garrison and second-line combatant.</p><p>The Shadow Hawk IIC's prominence waned during the twenty-ninth century as OmniMech technology swept through the Clans, relegating most second-line designs to provisional garrison clusters and solahma formations. The IIC endured in these diminished roles through sheer mechanical reliability, maintained at facilities including the original Manufacturing Site #3 on Barcella and later on New Oslo. It was not until the Battle of Tukayyid in 3052 that the design returned to prominence, when Ghost Bear garrison forces employed the IIC 2 variant to devastating effect during street fighting in Spanac. ComStar intelligence analysts had initially dismissed the configuration as an oddity, only to watch a single Shadow Hawk IIC systematically eviscerate light 'Mechs and hover tanks that fell behind their parent formations.</p><p>The post-Tukayyid era brought renewed interest from multiple Clans. Clan Diamond Shark recognized commercial potential in the reliable chassis, developing the IIC 5 infantry hunter, IIC 8 cavalry platform, and collaborating with Clan Nova Cat on the versatile IIC 4 beginning in 3060. Clan Snow Raven took the design in an entirely unexpected direction with the space-optimized IIC 7, deploying it with R-Teams and marine contingents aboard WarShips, a role no other Shadow Hawk IIC variant has replicated. The Outworlds Alliance subsequently adopted the IIC 7 for space station security, marking one of the earliest examples of a Clan second-line design finding a dedicated niche with an Inner Sphere power.</p><p>Clan Hell's Horses became the design's most prolific patron during the late thirty-first century. The capture of a custom Shadow Hawk IIC mounting a hyper-assault Gauss rifle on Tranquil in 3068 (piloted by an Inner Sphere-born warrior who had risen through Clan Wolf's warrior caste) provided the foundation for both the IIC 6 and IIC 10 production variants. The Horses employed their Shadow Hawk IICs extensively during Khan James Cobb's invasion of the Wolf Occupation Zone, where IIC formations led attacks on worlds like Nyserta, using their mobility to punish flanking attempts against Horse heavy tank formations. Wolf warriors learned to target the IIC's bulky shoulder-mounted weapons, prompting the Horses to accelerate deployment of the ferro-lamellor-armored IIC 11 prior to Operation Noyan. The pairing of offensive IIC 10s with defensive IIC 11s proved tactically potent, with Delta Striker Star elements demonstrating the design's effectiveness as both hammer and anvil.</p><p>By the ilClan era, Shadow Hawk IIC production had diversified across multiple facilities and factions. Odin Manufacturing on Orestes reintroduced the long-dormant IIC 2 following the Second Combine-Dominion War, while the Zoetermeer Industriplex Alpha absorbed production displaced when the Rasalhague Dominion seized the New Oslo facility from the Hell's Horses. Spirit Cat warriors adopted the field-refitted IIC 9 for its improved range profile, and Diamond Shark successor Clan Sea Fox continued marketing proven configurations through their trade networks. The Shadow Hawk IIC's six-century journey from Golden Century garrison 'Mech to one of the most widely distributed Clan designs in human-occupied space stands as proof of the enduring value of a robust, well-engineered chassis.</p>
+
+manufacturer:Odin Manufacturing|Arcadia BattleMech Plant CM-T02
+
+primaryfactory:Orestes|Arcadia (West)
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Lang
+systemmode:CHASSIS:T3 Endo Steel
+systemmanufacturer:ENGINE:Consolidated Fusion
+systemmode:ENGINE:270
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:H17 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Northrup Starlifters
+systemmode:JUMP_JET:M45
+systemmanufacturer:COMMUNICATIONS:JNE
+systemmode:COMMUNICATIONS:Integrated
+systemmanufacturer:TARGETING:TRTTS
+systemmode:TARGETING:Mark II

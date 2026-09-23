@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf43-758b-8c05-af0c13a025d1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Xanthos
+model:XNT-4O
+mul id:3605
+
+Config:Quad
+techbase:Inner Sphere
+era:3068
+source:TR:3075,TR:DA
+published:RS:DA
+rules level:2
+role:Sniper
+
+quirk:imp_life_support
+
+mass:100
+engine:300 Compact Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Heavy Duty Gyro
+
+heat sinks:15 IS Double
+walk mp:3
+jump mp:3
+
+armor:Stealth(Inner Sphere)
+FLL armor:42
+FRL armor:42
+LT armor:32
+RT armor:32
+CT armor:46
+HD armor:9
+RLL armor:42
+RRL armor:42
+RTL armor:10
+RTR armor:10
+RTC armor:16
+
+Weapons:7
+Light PPC, Left Torso
+ER Medium Laser, Left Torso
+ER Small Laser, Left Torso
+Light PPC, Right Torso
+ER Medium Laser, Right Torso
+Heavy PPC, Center Torso
+ER Medium Laser, Head
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+Light PPC
+Light PPC
+ISERMediumLaser
+ISERSmallLaser (R)
+ISGuardianECMSuite
+ISGuardianECMSuite
+IS Stealth
+IS Stealth
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+Light PPC
+Light PPC
+ISERMediumLaser
+IS Stealth
+IS Stealth
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Jump Jet
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISERMediumLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Xanthos is a hundred-ton quadrupedal assault BattleMech designed by Hollis Industries on Corey. Conceived by Dr. David Harrison, it represented the first four-legged combat platform ever developed, a revolutionary departure from conventional bipedal design philosophy. Harrison believed the quad configuration offered superior stability and could support heavier armor loadouts than traditional assault designs, making it ideal for frontal assault operations. Commissioned during the Age of War, the Xanthos was initially produced for the Capellan Confederation and would later see limited service with other Inner Sphere powers. Though overshadowed by its more famous bipedal contemporaries, the design proved its underlying concept sound, eventually inspiring the development of other quadrupedal BattleMechs. The Xanthos holds a unique place in military history as the progenitor of all four-legged combat machines.</p>
+
+capabilities:<p>The XNT-3O Xanthos is built on a Hollis XNT Mark V chassis powered by a Vlar 300 fusion engine, giving the hundred-ton machine a modest top speed of fifty-four kilometers per hour. Over twenty tons of Durallex Heavy armor provide exceptional battlefield endurance, taking full advantage of the quad chassis's ability to distribute protection across four leg assemblies. Twenty-three single heat sinks manage the thermal output of a diverse weapons array.</p><p>A GE 508 Class 20 Autocannon serves as the primary close-range weapon, capable of devastating damage at short distances. A Donal PPC extends the engagement envelope to longer ranges, while three Martell medium lasers and a Holly six-tube Short Range Missile rack exploit openings created by the heavier weapons. A rear-mounted Diverse Optics Type 10 small laser provides minimal coverage against flanking attacks. With only fifteen salvos each for the autocannon and missile rack, pilots must manage ammunition carefully, relying on the energy weapons to sustain combat once ballistic stores are depleted. HartfordCo Com 2500 communications and HartfordCo XKX 2 targeting systems complete the electronics suite.</p>
+
+deployment:<p>This variant is a Jihad-era modernization jointly developed by Hollis Industries and Norse-Storm Technologies for the thirty-first century battlefield. It replaces the original weapons suite with a heavy PPC and twin light PPCs, supplemented by extended-range lasers. A compact engine and heavy-duty gyroscope improve survivability, while jump jets provide ninety meters of tactical mobility. Over twenty tons of stealth armor make this variant exceptionally difficult to target at range, representing a dramatic departure from the original design philosophy of raw frontal assault.</p>
+
+history:<p>The origins of the Xanthos trace back to the early 2540s when Hollis Industries recruited Dr. David Harrison, a brilliant young engineer given near-complete creative freedom. His mandate was straightforward: produce a BattleMech that would bring Hollis into the upper echelon of military manufacturers. His first success came in 2561 with the Catapult, which provided the financial foundation for his more ambitious vision of a four-legged combat platform.</p><p>Harrison spent years refining his quadruped concepts, producing the first XNT-2O prototypes in 2564 using proven but outdated primitive technologies. These early machines were presented to the Hegemony Armed Forces for evaluation, but the results were disastrous. Test pilots struggled to keep the prototype upright on uneven terrain, and its supposed stability proved illusory. The Hegemony rejected the design, and Harrison departed for the Brigadier Corporation, where he finally succeeded in producing stable quadrupedal designs in the Scorpion and Goliath.</p><p>Hollis eventually perfected the Xanthos by incorporating refinements developed through those later quad designs. The production XNT-3O entered service in 2579, earning Capellan interest. House Liao purchased most of the initial production run, but delivery delays led the Confederation to cancel further procurement. Attrition gradually removed the design from active service, and the Xanthos was effectively extinct by the Second Succession War. The "Harrison's Follies" label dogged all four-legged BattleMechs for centuries, and MechWarriors and commanders alike viewed the quad configuration with deep suspicion.</p><p>In 2761, the SLDF's Eighty-first Mechanized Infantry Division received an unusual gift when the Capellan government donated a full battalion of Xanthos assault machines to the division, a sign of the longstanding goodwill between the unit and the Confederation.</p><p>The Xanthos experienced a dramatic revival in the 3070s following the discovery of the Hegemony Memory Core, which preserved the technical specifications needed to restart production. Hollis Industries and Norse-Storm Technologies partnered to produce modern variants incorporating advanced technologies. Elite Capellan and Lyran units, along with select mercenary commands, began fielding the redesigned assault machine. During the Jihad, additional retrotech XNT-2O production lines were established at Tsinghai, Togura, and Illiushin to help meet wartime demand for heavy combat platforms, though these temporary facilities ceased operations by 3079. Hollis continued to develop new variants through the Dark Age, keeping the Xanthos in active Capellan service well into the thirty-second century.</p>
+
+manufacturer:Hollis Incorporated|Norse-Storm Technologies, Inc
+
+primaryfactory:Corey|Loxley
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Hollis
+systemmode:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Compact
+systemmanufacturer:ARMOR:Ceres Metals
+systemmode:ARMOR:Stealth Armor
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:HartfordCo
+systemmode:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:HartfordCo
+systemmode:TARGETING:Unknown

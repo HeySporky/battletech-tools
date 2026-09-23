@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-de92-7e8d-8071-dd022667ed93
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Snow Fox (Omni)
+model:A
+mul id:7879
+
+Config:Quad OmniMek
+techbase:Clan
+era:3111
+source:OTP:HC
+published:OTP:HC
+rules level:2
+role:Striker
+
+
+mass:20
+engine:160 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:6
+walk mp:8
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+FLL armor:8
+FRL armor:8
+LT armor:8
+RT armor:8
+CT armor:9
+HD armor:9
+RLL armor:8
+RRL armor:8
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:7
+LRM 5, Left Torso
+Flamer, Left Torso
+Flamer, Left Torso
+LRM 5, Right Torso
+Flamer, Right Torso
+Flamer, Right Torso
+LRM 5, Head
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLLRM5 (OMNIPOD)
+CLFlamer (OMNIPOD)
+CLFlamer (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLLRM5 (OMNIPOD)
+CLFlamer (OMNIPOD)
+CLFlamer (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Ammo LRM-5 (OMNIPOD)
+CLMASC
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLLRM5 (OMNIPOD)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Snow Fox OmniMech is a twenty-ton quad design developed by the Escorpion Imperio, the Deep Periphery state built by Clan Goliath Scorpion following their Abjuration from Clan space. Introduced around 3111, the design represents the Imperio's renewed capability to produce advanced Clan technology, including OmniMechs. Drawing upon the original Ice Hellion Snow Fox chassis as inspiration, the OmniMech variant retains the quad configuration and speed emphasis of its predecessor while incorporating modern construction techniques.</p><p>Despite the 'Mech's diminutive frame, the design provides six tons of pod space for reconfiguration, offering tactical adaptability that the original integrated Snow Fox lacked. The Snow Fox OmniMech represents one of relatively few original designs to emerge from the Deep Periphery during the late Dark Age period.</p>
+
+capabilities:<p>The Snow Fox OmniMech builds upon the speed-focused philosophy of its predecessor while adding the advantages of OmniMech reconfiguration. Powered by an extralight engine, the chassis achieves impressive speed, and a permanently mounted MASC system pushes this further in short bursts, making the design exceptionally fast for any weight class. The endo steel internal structure and ferro-fibrous armor maximize available tonnage, yielding six tons of pod space for weapons and equipment.</p><p>The Prime configuration demonstrates the design's versatility by pairing three extended-range medium lasers with a targeting computer for enhanced accuracy. An active probe and ECM suite provide a comprehensive electronics package well suited to reconnaissance and electronic warfare roles. The permanently fixed MASC system cannot be removed during reconfiguration, ensuring that all variants retain the chassis's signature burst speed capability. Four tons of ferro-fibrous armor offer reasonable protection for a light quad 'Mech, though the design remains vulnerable to concentrated fire and relies primarily on speed and electronic countermeasures for survivability.</p>
+
+deployment:<p>Alternate Configuration A reconfigures the pod space into a mobile fire support platform. Three LRM-5 launchers are distributed across the head and both side torsos, providing steady long-range missile fire. Four flamers, two in each side torso, offer close-range area denial and anti-infantry capability. A single ton of LRM ammunition stored in a CASE-protected center torso bay limits sustained engagement but suits the design's hit-and-run approach to combat.</p>
+
+history:<p>The Snow Fox OmniMech emerged from the Escorpion Imperio's decades-long industrial rebuilding program following their Abjuration from the Clan Homeworlds in 3080. After absorbing the remnants of Clan Ice Hellion, the Goliath Scorpions preserved much of the Hellion's military heritage, including familiarity with the original Snow Fox design. Under the leadership of successive Khans, the Imperio accelerated technological development, eventually regaining the capability to produce OmniMechs.</p><p>The Snow Fox OmniMech first saw major combat during the Hanseatic Crusade of 3140 to 3141, when the Scorpion Empire launched a full-scale invasion of the Hanseatic League. The design's exceptional speed proved valuable in the fast-moving campaign across the League's twenty-nine worlds, where rapid redeployment and flanking maneuvers characterized the Scorpion offensive. The conquest of Bremen and the subsequent formation of the Scorpion Empire in March 3141 secured the design's production future as part of the expanded state's military apparatus.</p><p>Specific factory details for the Snow Fox OmniMech remain undocumented in available records, though production is attributed to the Scorpion Empire's industrial base within the former Imperio and conquered Hanseatic territories. Given the Imperio's isolation from mainstream Clan society and the Inner Sphere, the Snow Fox OmniMech represents one of relatively few original designs to emerge from the Deep Periphery during the late Dark Age period.</p>
+
+manufacturer:Unknown
+
+primaryfactory:Unknown
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dce7-7c0e-9eb3-70292b0bc182
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Jackalope
+model:JLP-BD-L 'Harvey'
+mul id:9635
+
+Config:Biped
+techbase:Mixed (Clan Chassis)
+era:3136
+source:Shrap16
+published:ShrapRS
+rules level:3
+role:Striker
+
+quirk:compact_mech
+quirk:low_profile
+
+mass:30
+engine:240 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 Clan Double
+walk mp:8
+jump mp:4
+
+armor:Ferro-Fibrous(Clan)
+LA armor:8
+RA armor:8
+LT armor:9
+RT armor:9
+CT armor:13
+HD armor:9
+LL armor:11
+RL armor:11
+RTL armor:2
+RTR armor:2
+RTC armor:4
+
+Weapons:5
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+M-Pod, Left Torso
+M-Pod, Right Torso
+RISC Advanced Point Defense System, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISERMediumLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISERMediumLaser
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+ISMPod
+ISAPDS Ammo
+Supercharger
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+ISMPod
+ISMASC
+ISMASC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISAPDS
+ISAPDS
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Jackalope is a thirty-ton mixed-technology light BattleMech jointly developed by Victory Conditions Industries and Eris Enterprises Design Group, entering production in 3134. Named after a mythical horned rabbit of ancient Terran folklore, the design proved nearly as elusive as its namesake during its initial years, with modest sales failing to generate significant interest. The widespread chaos following the Blackout and the fall of the HPG network transformed the Jackalope from a curiosity into a sought-after commodity, as its combination of speed, advanced sensors, and anti-missile defenses filled an urgent need across multiple battlefronts. Regular arena footage from Solaris VII cemented the Jackalope firmly in popular culture, and the design has since become a common sight in military formations across the Inner Sphere.</p>
+
+capabilities:<p>Fast, heavily armed for its weight, and equipped with sophisticated electronics, the Jackalope excels as part of scout or reconnaissance lances. Built on a Triumph Dynamic endo steel frame and powered by a Victory 240 XL engine, the design achieves a top speed of 129 kilometers per hour while eight VC Dynamo jump jets provide an impressive 240-meter jump capacity. Though its six and a half tons of Advantage ferro-fibrous armor could be thicker, the chassis compensates with its compact and narrow profile, making it a difficult target to track at range.</p><p>The Jackalope mounts two Clan-specification Conquest extended-range medium lasers in its stubby but flexible arms, providing reliable energy-based firepower without ammunition dependency. A Victory Conditions six-tube Advanced Tactical Missile launcher in the right torso gives the design punch at all engagement ranges, though only a single ton of ammunition limits its endurance in prolonged engagements. The Clean-Sweep laser anti-missile system and a Clan-manufactured light active probe round out the sensor and defensive suite, making the Jackalope a potent intelligence-gathering platform. Eris Enterprises specifically designed the legs to fold the chassis into a compact bundle for DropShip transport, allowing additional cargo and machinery to be carried alongside it. Many Jackalopes operate independently of their parent lances or Stars, constrained only by their ammunition reserves.</p>
+
+deployment:<p>A unique custom variant built for a Republic Ghost Knight operating beyond the Fortress Wall, this highly modified Jackalope emphasizes independence and self-sufficiency in hostile territory where Clan-manufactured replacement parts are unavailable. All Clan-specification equipment is replaced with Inner Sphere equivalents to simplify field maintenance, including the substitution of Inner Sphere extended-range medium lasers for the standard Conquest models. The design mounts two M-pods for anti-infantry defense and reduces its jump jet complement to four, freeing tonnage for both a MASC system and a supercharger that provide extraordinary burst speed capability. Its most significant feature is an experimental RISC Advanced Point Defense System paired with a small cockpit, a combination that proved so successful in field testing that it directly inspired the full-production JLP-KB variant.</p>
+
+history:<p>The Jackalope emerged from a partnership between Victory Conditions Industries on Mizar and Eris Enterprises Design Group on Capolla, with both companies beginning production in 3134. Initial reception was lukewarm, with limited sales failing to establish the design among the increasingly fractured militaries of the post-Republic era. The collapse of the HPG network during Gray Monday changed the equation dramatically, as commanders across the Inner Sphere scrambled for capable reconnaissance platforms equipped to operate with limited logistical support.</p><p>The Republic of the Sphere became the design's most prominent operator, with Jackalopes appearing in several Inner Sphere armies including the Republic Armed Forces and the Free Worlds League. The erection of the Fortress Republic walls in 3135 split the Jackalope's manufacturing base, trapping the Eris Enterprises facility on Capolla inside the Fortress where its output was secretly funneled to rebuild the Republic's shattered armies. Outside the Fortress, the Victory Conditions plant on Mizar continued production under Galatean Defense League regulation, selling to any buyer with sufficient funds. Mercenary commands rarely pass an opportunity to acquire the design, prizing its versatility for combined scout and pursuit operations. Wolf's Dragoons field them in the training battalions of Alpha Regiment and in the striker battalions of Gamma Regiment, though combat attrition during the invasion of the Federated Suns has driven rapid replacement cycles.</p><p>The Jackalope saw extensive service during the turbulent 3140s across multiple theaters of conflict. On Chertan in 3144, a Republic Remnant force used Jackalopes to decisive effect against Clan Wolf raiders, with the engagement becoming a rallying symbol for Republic loyalists. Units equipped with the APDS-armed variants proved vital during the Dieron Regulars' delay-and-counterassault operations against Clan Nova Cat's rebellion, where wide-ranging maneuvers on Piedmont disrupted rear-area logistics and extended what was planned as a three-day battle into a protracted five-week siege.</p><p>During the Siege of Terra, APDS-equipped Jackalopes served as close-in missile defense escorts for the massive superheavy OmniMechs deployed by the Republic. Multiple Jackalopes and Angerona squad formations were assigned as umbrella escorts during Operation Four Horsemen, with their combined missile shields performing effectively against the Clan Wolf solahma Clusters bridging the gap between the Wolves' and Jade Falcon's assault forces. Eris Enterprises independently developed several specialized variants for the Republic, including the stealth-armored Tepoztecatl which was distributed in limited numbers to prevent any single force from stockpiling the capability. Clan Wolf's Watch recovered examples of salvaged Jackalopes and was sufficiently impressed to begin refitting them with ferro-lamellor armor for the expected expansion of the Star League Defense Force.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Triumph
+systemmode:CHASSIS:Dynamic Endo Steel
+systemmanufacturer:ENGINE:Victory
+systemmode:ENGINE:240 XL
+systemmanufacturer:ARMOR:Advantage
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:JUMP_JET:VC
+systemmode:JUMP_JET:Dynamo
+systemmanufacturer:COMMUNICATIONS:Angst
+systemmode:COMMUNICATIONS:Clear Channel 5
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:TA1240

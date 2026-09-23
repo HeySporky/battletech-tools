@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d065-746c-8efe-e3c48bc2e515
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Beowulf
+model:C
+mul id:8073
+
+Config:Biped
+techbase:Clan
+era:3074
+source:TR:3085
+rules level:2
+role:None
+
+quirk:ext_twist
+quirk:exp_actuator
+quirk:command_mech
+
+mass:45
+engine:270 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:6
+jump mp:7
+
+armor:Ferro-Fibrous(Clan)
+LA armor:14
+RA armor:14
+LT armor:16
+RT armor:16
+CT armor:21
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:4
+Medium Pulse Laser, Left Arm
+Medium Pulse Laser, Left Arm
+Large Pulse Laser, Right Arm
+Light TAG, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLMediumPulseLaser
+CLMediumPulseLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLLargePulseLaser
+CLLargePulseLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+CLECMSuite
+CLLightActiveProbe
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+CLMASC
+CLMASC
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLLightTAG
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Beowulf is a forty-five-ton medium BattleMech introduced in 3059 by Odin Manufacturing as a ComStar initiative to replace the aging Mongoose reconnaissance platform. Nearly twice the mass of its predecessor, the Beowulf represented a deliberate shift toward a heavier, more capable scout that could address the older design's chronic shortcomings in firepower and survivability. Designed for extended independent operations behind enemy lines, the Beowulf filled a critical gap in ComStar's force structure at a time when the organization was rebuilding its military capabilities following the loss of Terra. First entering service with the Com Guards, the Beowulf proved successful enough that its chassis eventually formed the basis for several variants and the Clan-technology Beowulf IIC produced for the Ghost Bear Dominion.</p>
+
+capabilities:<p>The Beowulf achieves its reconnaissance mission through a combination of speed, advanced electronics, and sufficient firepower to fight its way out of contact. A GM 270 XL engine drives the chassis to speeds approaching one hundred kilometers per hour, while a MASC system can push that to nearly one hundred and thirty in short bursts, allowing the Beowulf to keep pace with most light 'Mechs. Six Odin Type II jump jets provide one hundred and eighty meters of jump capability for navigating rough terrain, giving the design excellent tactical flexibility.</p><p>The Beowulf's electronics suite is particularly noteworthy for a medium scout. A Beagle active probe detects hidden units while a TAG system allows the 'Mech to designate targets for Arrow IV artillery strikes, making it as much a force multiplier as a direct combatant. Primary armament consists of a Blankenburg large pulse laser supported by two Diverse Optics extended-range medium lasers, providing accurate firepower at medium ranges. Eight and a half tons of Wall Type 6 ferro-fibrous armor offer respectable protection for a medium scout, though the XL engine remains the design's most significant vulnerability, concentrated torso damage can disable the 'Mech far more quickly than its armor coverage might suggest.</p>
+
+deployment:<p>The Beowulf C represents an early attempt by Odin Manufacturing to refit the standard Beowulf chassis with Clan technology following the formation of the Ghost Bear Dominion. Introduced around 3074, these refits were part of Odin's broader effort to integrate Clan-grade components into proven Inner Sphere platforms. However, the results were troubled, persistent electronics incompatibilities between the original Inner Sphere systems and the new Clan equipment caused frequent technical faults, particularly in the communications and targeting suites. The variant served primarily as a testbed, providing valuable lessons in Clan-technology integration that would later inform the development of the purpose-built Beowulf IIC.</p>
+
+history:<p>The Beowulf's origins trace directly to ComStar's loss of Terra in 3058. When the Word of Blake seized humanity's homeworld, ComStar's entire inventory of Mongoose reconnaissance 'Mechs was either destroyed or captured. The Precentor Martial's decision to commission a purpose-built replacement rather than source existing designs reflected both the urgency of the need and ComStar's confidence in its growing manufacturing capability within the Free Rasalhague Republic.</p><p>Odin Manufacturing's facility on Orestes had been among several small production sites that ComStar began upgrading into full 'Mech factories after the Clan defeat on Tukayyid. The Beowulf was the first new 'Mech design to emerge from this investment. Initial production was split between the Com Guards and the Rasalhague KungsArmé, with the 321st Division of the Com Guards and the Fourth Kavalleri of the KungsArmé among the first units to receive the new 'Mech.</p><p>The Jihad and its aftermath dramatically altered the Beowulf's trajectory. As Clan Ghost Bear absorbed the Free Rasalhague Republic to form the Ghost Bear Dominion, Odin Manufacturing's relationship with the Clan deepened. This led to increasingly ambitious Clan-technology refits of the Beowulf chassis during the 3070s, though persistent electronics incompatibilities between Inner Sphere and Clan systems plagued these early hybrid designs. Meanwhile, Lyran interests produced the BEO-14 melee variant through the Arcturan Arms Refit Facility on Arcturus, while ComStar pursued the experimental BEO-X-7a stealth prototype using partially assembled Odin chassis. Odin's increasing focus on Clan-technology production ultimately culminated in the purpose-built Beowulf IIC, effectively superseding the original Inner Sphere design within the Dominion's touman.</p>
+
+manufacturer:Odin Manufacturing
+
+primaryfactory:Orestes
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Beowulf 3
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:270 XL
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

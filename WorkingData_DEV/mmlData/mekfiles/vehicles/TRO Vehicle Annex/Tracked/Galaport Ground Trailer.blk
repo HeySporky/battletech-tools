@@ -1,0 +1,172 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eaec-7b17-9b33-5c0e62d441c3
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Galaport Ground Trailer
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4196
+</mul id:>
+
+<year>
+2457
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+cargobay:88.0:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<engine_type>
+8
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+2
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+6
+5
+5
+5
+5
+5
+</armor>
+
+<Body Equipment>
+SV Chassis Mod [Trailer]
+Environmental Sealing
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+2
+</structural_tech_rating>
+
+<engine_tech_rating>
+2
+</engine_tech_rating>
+
+<capabilities>
+<p>The Galaport Ground Tug Trailer is a purely passive cargo platform, carrying no engine, weapons, or active electronic systems. Its eighty-eight-ton standard cargo hold can accommodate most forms of containerized freight and bulk materials, with loading access provided by twin side doors, one on each flank. Environmental sealing protects cargo from atmospheric hazards common to active DropPort environments, including fuel vapor, exhaust gases, and particulate contamination from landing thrust.</p><p>The trailer incorporates both tractor and trailer chassis modifications, allowing it to be towed by the Galaport Ground Tug while also serving as a lead unit in an extended train with additional trailers coupled behind. This chaining capability allows a single tug to haul multiple trailers on routes with adequate clearance. The trailer's commercial-grade armor plating matches the BAR 6 standard of the tug, providing adequate protection for tarmac operations. The lack of any propulsion system is the trailer's principal limitation, rendering it entirely dependent on the tug for movement and positioning.</p>
+</capabilities>
+
+<overview>
+<p>The Galaport Ground Tug Trailer is an unpowered tracked cargo carrier designed to be towed by the Galaport Ground Tug in heavy-haul DropPort operations. Matching the tug in both mass and general dimensions, the trailer is built to accept the largest standard cargo containers and bulk freight packages that DropShip logistics require. Together, a single tug and trailer combination can move nearly five hundred tons of cargo in one pass, a capacity that made the Galaport system a benchmark for DropPort logistics when it entered service alongside the tug in 2457. Like the tug itself, the trailer design has seen little fundamental change across the centuries since its introduction, defined by the simplicity and robustness that demanding industrial use requires.</p>
+</overview>
+
+<deployment>
+<p>The Galaport Ground Tug Trailer operates exclusively in tandem with the Galaport Ground Tug or comparable tractor vehicles. It is most commonly deployed at major DropPorts handling heavy interstellar freight, where its substantial cargo capacity and environmental sealing justify its size. Trailers are typically staged in dedicated marshaling areas and coupled to tugs as needed for individual cargo runs, allowing a small tug fleet to serve a much larger trailer pool through flexible rotation. Specialized trailer variants, including refueling versions fitted with insulated reaction mass tanks, exist alongside the standard cargo configuration for facilities requiring dedicated propellant transfer operations.</p>
+</deployment>
+
+<history>
+<p>The Galaport Ground Tug Trailer was developed concurrently with the ground tug itself, the two forming an integrated logistics system from the outset. While the tug provided the motive force, the trailer's design prioritized maximum cargo acceptance in minimum unit count. Long trains of lighter vehicles, typical of planetary airstrips, were judged too unwieldy for the tight approaches between DropShip pits at a facility the scale of Galaport. A single tug-trailer combination could accomplish what dozens of lighter vehicles would struggle to manage safely in the chaotic environment of an active DropPort landing field.</p><p>Trailer operations at Galaport declined alongside tug operations when mercenary traffic shifted to Outreach in the 3040s. Much of the trailer fleet entered long-term storage or was sold offworld, leaving the once-busy marshaling yards largely empty. The Jihad's destruction of Outreach brought renewed demand for both tugs and trailers, with the surviving fleet returned to service. Discussions of new trailer construction accompanied the broader push to expand Galaport's capacity to handle the resurgent mercenary trade, and the basic trailer design was considered sound enough to reproduce without modification.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+200.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

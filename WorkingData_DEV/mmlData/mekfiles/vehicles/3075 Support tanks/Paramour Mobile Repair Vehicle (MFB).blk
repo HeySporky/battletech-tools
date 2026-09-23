@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e67b-784c-9db5-d6ce76f2fd2c
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Paramour Mobile Repair Vehicle
+</Name>
+
+<Model>
+(MFB)
+</Model>
+
+<mul id:>
+4788
+</mul id:>
+
+<year>
+3074
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+27
+20
+20
+25
+</armor>
+
+<Body Equipment>
+Armored Chassis
+ISMobileFieldBase
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+</Rear Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Paramour is built on a sixty-ton tracked chassis powered by a fusion engine capable of reaching speeds up to 65 km/h. This mobility allows it to keep pace with armored formations while carrying the tools and parts needed for field repairs. The vehicle's primary asset is its spacious cargo area, which holds fifteen tons of spare parts and equipment for a wide variety of maintenance tasks. A pair of lift hoists enables the Paramour to handle loads up to sixty tons each, sufficient to lift and reposition damaged BattleMechs or heavy combat vehicles on the battlefield.</p><p>The crew compartment accommodates three personnel, with quarters comfortable enough to serve as a mobile field headquarters for quartermasters. A five-ton infantry bay provides space for additional technicians or a security detail. For self-defense, the vehicle mounts a single GM MiniGun machine gun in the front, providing a visible deterrent without adding excessive weight. BAR 6 armor offers adequate protection against small arms fire and shrapnel, while the armored chassis and controls modification provides additional resilience. The Paramour was never intended to see direct combat, and its light armament reflects that design philosophy.</p>
+</capabilities>
+
+<overview>
+<p>The Paramour Mobile Repair Vehicle was introduced in 2557 by Gilbert, Sachs, and Belafonte, a Tiber-based conglomerate in the Free Worlds League. Designed during the period when the League prepared to join the Star League, the Paramour represented a deliberate strategic choice to invest in logistics rather than direct combat capability. GSB, Inc. applied its expertise in luxury rough-terrain vehicles to create a mobile repair platform that would keep FWLM units operating at peak readiness in the field. The result was a vehicle that combined comfort, reliability, and genuine utility in a sixty-ton tracked chassis. The FWLM was so impressed with the design that it purchased every Paramour produced. Though the vehicle's polished appearance sometimes drew mockery from combat formations, the Paramour earned lasting respect through the competence and professionalism of its crews.</p>
+</overview>
+
+<deployment>
+<p>The (MFB) variant appeared during the Jihad, when surviving Paramours on Regulus were reconditioned for the Regulan Hussars. This refit replaced the cargo space and crew quarters with a Mobile Field Base, transforming the Paramour from a parts-carrying repair transport into a dedicated field repair platform capable of servicing BattleMechs and vehicles without returning to a DropShip or fixed facility. A single machine gun was removed to accommodate the conversion. The modification gave the Hussars an organic repair capability suited to the fragmented logistics environment of the Jihad.</p>
+</deployment>
+
+<history>
+<p>The Free Worlds League commissioned the Paramour in the mid-twenty-sixth century as part of a broader effort to bring the FWLM up to Star League Defense Force standards. League planners recognized that matching the SLDF in firepower was impractical, and instead focused on logistical excellence as a way to demonstrate institutional competence. Gilbert, Sachs, and Belafonte, a conglomerate better known for building exotic excursion vehicles for wealthy Free Worlders, won the production contract. The company's experience with luxury vehicles translated into an unusually refined design for a military support platform.</p><p>During the Star League era, duty aboard a Paramour became a prestigious assignment within the FWLM. Quartermasters routinely established their field headquarters aboard the vehicles, and daily inspections of crew areas and uniforms became standard practice. This attention to presentation drew scorn from visiting SLDF officers, who dismissed the Paramour crews as more concerned with appearance than function. The reputation proved unfair. When called upon to service combat units in the field, Paramour crews consistently delivered high-quality work that eventually won over even their harshest critics.</p><p>GSB, Inc. did not survive the Second Succession War, and production of the Paramour ceased permanently. Although the vehicles were rigorously maintained wherever they served, attrition and entropy gradually thinned the ranks of functional examples over the following centuries.</p><p>The Jihad and the collapse of federal authority brought renewed attention to surviving Paramours. Two vehicles appeared on Regulus, where they were reconditioned for service with the Regulan Hussars. By replacing the quarters and cargo space with a mobile field base, the Hussars transformed the Paramour into a true repair vehicle suited to sustained independent operations. The Regulan Prince's intentions for deploying these rare vehicles remained a subject of speculation.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:240 Fusion
+ARMOR:BAR 6 Standard
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

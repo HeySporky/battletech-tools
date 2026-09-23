@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c743-7ce1-aeb3-fe10adebe318
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Aquagladius
+model:AQS-4
+mul id:59
+
+Config:Biped
+techbase:Inner Sphere
+era:3067
+source:TR:3055U
+published:RS:3055Uu
+rules level:4
+role:Striker
+
+quirk:difficult_eject
+quirk:difficult_maintain
+
+mass:50
+engine:300 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:0
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:18
+RT armor:18
+CT armor:24
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:5
+Large X-Pulse Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISLargeXPulseLaser
+ISLargeXPulseLaser
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+UMU
+UMU
+IS HarJel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+UMU
+UMU
+IS HarJel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS HarJel
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Light Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+UMU
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+UMU
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Aquagladius is a 50-ton medium BattleMech introduced in 3065 by Vining Engineering and Salvage Team (VEST) on Solaris VII. Seeking to push the boundaries of BattleMech design, VEST spent the early 3060s developing two radically unconventional machines: the Aquagladius and the Great Turtle. The Aquagladius was purpose-built for underwater arena combat in Solaris VII's famed Pool arena, incorporating a suite of bleeding-edge experimental technologies that made it the first BattleMech designed from the ground up for aquatic operations. Based on the chassis of the proven Crab, the design pioneered aquatic BattleMech combat and earned a fearsome reputation in Solaris arenas despite critics dismissing it as an overspecialized novelty.</p>
+
+capabilities:<p>The Aquagladius is built on a Hollis Mark 2B chassis derived from the Crab's proven frame and powered by a VLAR 300-rated Light fusion engine, providing a respectable top speed of 97 kph on land. Its defining feature is a suite of Underwater Maneuvering Units that allow the 'Mech to achieve approximately 83 percent of its walking speed while fully submerged, far outpacing any conventional BattleMech in aquatic environments. A prototype BattleMech HarJel system provides critical flooding protection by automatically sealing armor breaches underwater, while VEST's extensive modifications to the Crab's fluid dynamics and armor placement optimize hydrodynamic performance.</p><p>The 'Mech's offensive systems are deliberately unconventional. Its primary weapon is an Alpha BattleMech Taser, an experimental device capable of disrupting enemy electronics and temporarily disabling opposing 'Mechs without destroying them, ideal for arena combat where intact salvage increases prize value. A flail provides devastating close-range striking power against disabled targets. Nine and a half tons of York Industries Light Ferro-Fibrous armor offers reasonable protection while keeping weight available for the extensive experimental systems. The design's principal weaknesses include its complete reliance on close-range engagement, lack of jump capability, and the significant maintenance demands of its many experimental technologies.</p>
+
+deployment:<p>Introduced in 3066, this variant replaces the experimental taser and flail combination with more conventional and reliable weaponry. A large X-Pulse laser serves as the primary weapon, delivering concentrated energy damage at close-to-medium ranges, while four extended-range medium lasers provide additional firepower and modest standoff capability. An additional ton of armor compensates for the loss of the taser's electronic disruption capability by improving survivability in prolonged engagements. This configuration proved more versatile and easier to maintain than the original, appealing to buyers seeking aquatic combat capability without the logistical burden of the taser system. The AQS-4 saw continued production well into the ilClan era.</p>
+
+history:<p>VEST first entered the BattleMech market in the mid 3050s, quickly establishing a reputation through successful contracts for designs manufactured by Earthwerks at their Keystone center. Competing against established Solaris VII firms such as Omnitech Industries, Innovative Design Concepts, and Solaris Arms, VEST sought to differentiate itself by exploring radical design concepts throughout the early 3060s. The result was two experimental 'Mechs that pushed the boundaries of established technology: the Aquagladius and the Great Turtle.</p><p>Initial production of the Aquagladius was extremely limited. VEST sold only one AQS-3 to the Banshees Stables and one AQS-4 to an anonymous mercenary unit whose identity was protected by a confidentiality clause in the purchase contract. The AQS-3 quickly became a dominant force in the Bracken Swamp's Pool arena, with bookmakers struggling to handicap matches involving the design due to its overwhelming underwater advantage. Competitors publicly dismissed both the Aquagladius and Great Turtle as overpriced "white elephants" whose excessively focused design parameters made them little more than glorified IndustrialMechs. Despite this criticism, arena performance spoke louder than corporate rhetoric.</p><p>The Jihad brought unexpected prominence to the Aquagladius. During the invasion of Terra, military planners recognized the value of aquatic-capable BattleMechs for waterborne assaults against Word of Blake positions. The Aquagladius, previously dismissed as a Solaris novelty, proved surprisingly effective in these amphibious operations, a deployment so novel that its success owed partly to the sheer unexpectedness of underwater 'Mech assault tactics.</p><p>This combat record caught the attention of the Republic of the Sphere's Armed Forces. As the Republic sought to build a standardized military, certain officials became enamored with the concept of dedicated amphibious warfare 'Mechs. In 3090, the RAF approached VEST to develop a model better suited to genuine military operations outside a Solaris stadium. VEST's engineers, eager to please a potentially lucrative government customer, produced the AQS-5 MAM, a Marine Assault 'Mech featuring an extensively redesigned weapons suite and experimental systems. The RAF equipped an entire company with AQS-5 MAMs and stationed the unit on Terra for amphibious warfare operations, though the force had seen no actual combat through 3135. Meanwhile, production of the AQS-4 continued at VEST's Solaris VII facility well into the ilClan era, finding a modest but steady market among buyers seeking aquatic combat capability.</p>
+
+manufacturer:Vining Engineering and Salvage Teams
+
+primaryfactory:Solaris VII
+
+notes:Moving the Introdate to 3067 to account for the introduction of Harjel.
+
+fluffdate:2026-03-03 16:18:10
+
+systemmanufacturer:CHASSIS:Hollis
+systemmode:CHASSIS:Mark 2B
+systemmanufacturer:ENGINE:VLAR
+systemmode:ENGINE:Light 300
+systemmanufacturer:ARMOR:York Industries
+systemmode:ARMOR:CTC-0 Light Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:Security Plus
+systemmanufacturer:TARGETING:Hartford
+systemmode:TARGETING:S2000A

@@ -1,0 +1,174 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a629-743e-a090-c5cde8b31da0
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Sea Fox Amphibious Armor
+</Name>
+
+<Model>
+(Sqd4)
+</Model>
+
+<mul id:>
+6308
+</mul id:>
+
+<year>
+3116
+</year>
+
+<type>
+Mixed (IS Chassis) Experimental
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+non_standard
+</quirks>
+
+<weaponQuirks>
+accurate:Squad:2:CLBALightMG
+</weaponQuirks>
+
+<motion_type>
+UMU
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+31
+</armor_type>
+
+<armor_tech>
+1
+</armor_tech>
+
+<Squad Equipment>
+BACuttingTorch:RA
+ISBASRM1OS:LA
+CLBALightMG:Body
+BAExtendedLifeSupport:Body
+BAMechanicalJumpBooster:Body
+BAArmoredGlove:RA
+BAArmoredGlove:LA
+InfantryAssaultRifle:APM:RA
+IS BA Stealth (Basic):RA
+IS BA Stealth (Basic):Body
+IS BA Stealth (Basic):Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAUMU
+</slotless_equipment>
+
+<capabilities>
+<p>The Sea Fox is an ambush fighter and infiltrator, purpose-built for operations in and around bodies of water. Its Clan-manufactured Underwater Maneuvering Unit allows the suit to move through shallow water at the same speed as overland travel, giving troopers a significant tactical advantage in riverine and littoral terrain. A Cutting Torch serves as the primary close-combat tool, supplemented by a single-shot SRM launcher and a Light Machine Gun with fifty rounds of ammunition. Armored Gloves on each arm allow troopers to engage in melee and perform swarming attacks against BattleMech legs in shallow water. A Mechanical Jump Booster provides thirty meters of jump capability, aiding rapid repositioning.</p><p>Basic Stealth armor grants limited protection while reducing the suit's sensor signature. At 750 kilograms, the Sea Fox carries only light armament and armor, making it poorly suited for stand-up engagements outside its intended operational environment.</p>
+</capabilities>
+
+<overview>
+<p>General Motors of Salem developed the Sea Fox Amphibious Armor for the Armed Forces of the Federated Suns as a specialized amphibious defense platform. Entering service in 3116, the light battle armor fills a narrow but important role within AFFS defensive doctrine. Built with mixed Inner Sphere and Clan technology, the Sea Fox excels in waterway-adjacent urban environments and coastal defense operations. While ill-suited for general deployment, the suit has earned a strong reputation among the specialized units that field it.</p>
+</overview>
+
+<deployment>
+<p>AFFS commanders organized Sea Fox troopers into four-trooper squads, integrating them with light combat teams and march militia formations along vulnerable border regions. The 302nd Amphibious Platoon, known as the Red Tridents, earned particular distinction during the defense of McGehee in 3144. Attached to the Fourth Robinson Strikers, the Red Tridents used confiscated hydrofoils to extract captured battalion staff from Sixteenth Galedon Regulars forces, navigating the Davis River under fire to complete the rescue.</p>
+</deployment>
+
+<history>
+<p>The Sea Fox Amphibious Armor emerged from the AFFS emphasis on defensive preparation following years of invasion and border conflict. General Motors received the development contract and produced the suit at their Salem facility, incorporating Clan-sourced components acquired through trade with Clan Sea Fox. This mixed-technology approach gave the design amphibious capabilities that no purely Inner Sphere battle armor could match, though it also introduced logistical complications. The non-standard parts used in the suit's construction limited the rate at which technicians could maintain and repair deployed units, constraining wider adoption.</p><p>Production remained modest, with most suits allocated to march militia formations and specialized amphibious platoons within Davion combat commands. The Draconis Combine's Ryuken-roku captured a number of Sea Fox suits on Rowe and pressed them into service as riverine combat assets. The DCMS subsequently explored a maintenance contract with Clan Sea Fox, whose merchant caste had experience with the suit's Clan-sourced components.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Salem
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:FS,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+5
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+1
+</weightclass>
+

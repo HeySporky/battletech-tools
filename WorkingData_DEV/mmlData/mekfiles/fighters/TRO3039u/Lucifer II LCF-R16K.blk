@@ -1,0 +1,180 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad22-7fef-929c-02c4b9576ce1
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Lucifer II
+</Name>
+
+<Model>
+LCF-R16K
+</Model>
+
+<mul id:>
+1958
+</mul id:>
+
+<year>
+2993
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+20
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+320
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+30
+24
+24
+26
+</armor>
+
+<Nose Equipment>
+LRM 20
+Large Laser
+Large Laser
+SRM 6
+</Nose Equipment>
+
+<Left Wing Equipment>
+Small Laser
+Small Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Small Laser
+Small Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+Medium Laser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo LRM-20
+IS Ammo SRM-6
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Lucifer II's most significant departure from its Lyran ancestor is its powerplant. The Manatwist 260 engine provides improved thrust over the original's WAS 195 installation, delivering a more responsive fighter at the cost of reduced overall protection and the elimination of the LRM rack. An SRM-6 in the nose compensates in part for the lost long-range capability, shifting the engagement profile toward shorter distances where the laser battery operates at maximum effectiveness. The overall result is a fighter more aggressive in tactical posture than the conservative Lyran original, better suited to the Combine doctrine of pressing advantage in close combat.</p><p>The LCF-R16KR stands as a generation-step upgrade. Ferro-aluminum armor restores much of the protection sacrificed in the original conversion, while a 260-rated XL engine provides equivalent thrust without the mass penalty of the conventional installation. ER large lasers, medium pulse lasers throughout the secondary battery, and a second SRM-6 give the R16KR substantially greater damage potential across its engagement envelope. Both variants retain the sensitivity of the original Lockheed/CBM communications and targeting electronics, a persistent shortcoming that Wakazashi's engineers were unable to fully resolve despite other improvements to the platform.</p>
+</capabilities>
+
+<overview>
+<p>The Lucifer II emerged from the Draconis Combine's acquisition of damaged and salvaged Lucifer airframes during the mid-Succession Wars. Wakazashi Enterprises on Chatham undertook reverse-engineering from a combination of incomplete R15 and R20 examples and fragmentary technical documentation, producing a design distinct enough in construction methodology to earn independent cataloging despite sharing its ancestor's general configuration and anti-DropShip mission orientation. The Lucifer II diverges substantially from the Lyran original in powerplant selection and close-range weapons fit, reflecting the different material stocks available to Combine manufacturers and the Draconis Combine Aerospace Forces' tactical preferences. Introduced as the LCF-R16K, the design established an independent production lineage at Chatham that outlasted the original Lyran production base, ultimately becoming the longest-surviving continuous Lucifer-designation manufacturing line after the Jihad's destruction of the Donegal facility.</p>
+</overview>
+
+<deployment>
+<p>Issued throughout DCMS aerospace wings during the Late Succession Wars, with concentration in units responsible for orbital defense and DropShip interception along the Lyran and Davion borders. The R16K's improved thrust made it more versatile than the Lyran variants in fighter-versus-fighter engagements while maintaining the anti-DropShip mission profile that defined the design's lineage.</p>
+</deployment>
+
+<history>
+<p>Wakazashi Enterprises began development of the Lucifer II following DCMS acquisition of damaged Lyran fighters through border operations and salvage recovery during the Succession Wars. Working from a mix of partially intact airframes and incomplete technical documentation, the engineers produced a design that closely resembled the original in role and silhouette while differing enough in internal construction to require separate maintenance procedures. The LCF-R16K entered production at Chatham and served the DCMS as a dedicated anti-DropShip asset through the Late Succession Wars, filling a capability gap the Combine had previously addressed with less specialized designs.</p><p>The Safell incident of 2978 provided an early operational test: when Capellan forces moved against the Combine-held world, Lucifer IIs formed part of the defensive response, their performance helping establish confidence in the type within DCMS service and demonstrating that a reverse-engineered design could hold its own in actual combat. The improved LCF-R16KR followed during the Clan Invasion period, incorporating ferro-aluminum armor and ER weapon technology to give DCMS aerospace forces a modernized Lucifer-series fighter capable of more competitive performance against Clan assets. Production at Chatham continued through the Jihad and Dark Age without interruption, and the Wakazashi facility ultimately outlasted the Donegal source to become the only active original-lineage Lucifer-designation manufacturing line during the late Republic era and beyond.</p>
+</history>
+
+<manufacturer>
+Wakazashi Enterprises
+</manufacturer>
+
+<primaryFactory>
+Chatham
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Manatwist 260
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+65.0
+</tonnage>
+

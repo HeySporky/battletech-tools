@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ebe1-733b-8b99-8df3c882e7bf
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Beagle Hover Scout
+</Name>
+
+<Model>
+(LRRP)
+</Model>
+
+<mul id:>
+7330
+</mul id:>
+
+<year>
+2723
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Scout
+</role>
+
+<quirks>
+obsolete:2767
+imp_com
+</quirks>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+14
+11
+11
+8
+</armor>
+
+<Body Equipment>
+BeagleActiveProbe
+ISFlotationHull
+Supercharger
+</Body Equipment>
+
+<Front Equipment>
+Flamer
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+ISVehicularMineDispenser
+ISVehicularMineDispenser
+</Rear Equipment>
+
+<capabilities>
+<p>The Beagle's effectiveness rests almost entirely on its Beagle Active Probe, an electronic sensor system integrated with the vehicle's BlazeFire SightLock targeting and tracking suite. This combination allows the vehicle to detect even powered-down BattleMechs and vehicles lying in wait, providing intelligence that most conventional vehicles cannot hope to match. The Nissan 95 fusion engine drives the hover platform to a cruising speed of 129 kilometers per hour, with a flank speed of 194 kilometers per hour; fast enough to close with or disengage from most opposition before weapons fire becomes decisive.</p><p>For protection, the vehicle carries three and a half tons of Yelm 2.5 ferro-fibrous armor, providing reasonable resistance to small-arms fire and light weapons. The armament of a single Aberdovey Mk II medium laser and Exostar-2C small laser slaved to the turret is consciously minimal. Both weapons are oriented toward discouraging pursuit rather than engaging in sustained combat, and the designers recognized early that a Beagle crew attempting to fight rather than scout was a crew doing the wrong job. The Essex 88 communications system ensures reliable coordination with the larger formation the vehicle supports, making the Beagle as much a communications node as a sensor platform.</p>
+</capabilities>
+
+<overview>
+<p>The Beagle Hover Scout is a fifteen-ton reconnaissance hovercraft developed by Kressly WarWorks on Epsilon Eridani for the Star League Defense Force in 2666. Designed to give ground vehicle units the same electronic intelligence-gathering capability that BattleMechs enjoyed, the Beagle was assigned to virtually every tank and hover company in the SLDF, becoming one of the most widely distributed vehicles in the Star League army. Its mission was straightforward: use speed and sensor technology to locate, identify, and track enemy forces before the battle was joined. Though lightly armed and armored by the standards of combat vehicles, the Beagle proved so effective at its intended purpose that the design outlasted the Star League itself, persisting through the Succession Wars and into the modern era in various configurations. Its reputation as an intelligence-gathering platform without equal among conventional vehicles has never been seriously challenged.</p>
+</overview>
+
+<deployment>
+<p>The long-range reconnaissance patrol variant was an experimental design developed at Numall Armored Vehicles on New Earth, project start 23 November 2723, following the loss of a Beagle crew in the Periphery while attempting to locate bandits in terrain where orbital observation was unavailable. Numall's team rebuilt the vehicle with a flotation hull to allow extended overwater operations, replaced the standard weapons with a single flamer for deterring infantry pursuit, and added a supercharger for rapid egress when discovered. Two mine dispensers allowed the vehicle to lay fields discouraging ground-based pursuit. The SLDF authorized twelve prototypes for Periphery operational testing, sending them in four groups. Only one group encountered significant combat, successfully tracking Taurian separatists across Brisbane's southern continent before one vehicle was sunk by airborne assets. Despite this operational success the SLDF deemed the design unviable and rejected further procurement. All remaining vehicles were destroyed defending New Earth during the Amaris Coup. The design is considered extinct.</p>
+</deployment>
+
+<history>
+<p>The Beagle Hover Scout entered service with the SLDF in 2666. Original Star League era production was centered at Numall Armored Vehicles on New Earth, which served as the primary manufacturing hub during the height of the Star League. Kressly WarWorks on Epsilon Eridani was a second producer that became increasingly important as the centuries passed. Both facilities operated under Terran Hegemony oversight during the Star League era, with the Beagle spreading to virtually every combined arms formation in the SLDF.</p><p>The Amaris Coup and the subsequent liberation of the Hegemony destroyed the Numall facility on New Earth along with the experimental LRRP program that had been developed there in 2723. Twelve prototype LRRP vehicles were lost defending New Earth against Amaris forces, ending that line of development entirely. The Kressly WarWorks facility survived but passed through the hands of several owners over the following centuries, including independent operators, the Capellan Confederation, and the Taurian Concordat's Free Rasalhague successor states, with Beagle production remaining dormant throughout the Succession Wars.</p><p>Word of Blake reactivated the Epsilon Eridani facility during the lead-up to the Jihad, using it to develop advanced C3i-networked variants that transformed the aging design into a coordinated intelligence platform. These updated Beagles proved highly effective during the Jihad, and Word of Blake crews used them to call in devastating indirect fire and orbital support against Davion defenders on Eridani. FedSun commanders learned to treat roaming Beagle formations as an indirect fire threat, not a minor nuisance. Following the Jihad's conclusion, the facility passed to the Republic of the Sphere, which maintained standard and TAG variant production to serve the Republic's reconnaissance needs. The Capellan Confederation acquired the facility in the ilClan period, continuing production of the base design and TAG variant.</p>
+</history>
+
+<manufacturer>
+Numall Armored Vehicles
+</manufacturer>
+
+<primaryFactory>
+New Earth
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Nissan
+ARMOR:Unknown
+COMMUNICATIONS:Essex
+TARGETING:BlazeFire
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:95
+ARMOR:Ferro-Fibrous
+COMMUNICATIONS:88
+TARGETING:SightLock
+</systemModels>
+
+<source>
+XTR:Gunslingers
+</source>
+
+<published>
+XTR:Gunslingers
+</published>
+
+<tonnage>
+15.0
+</tonnage>
+

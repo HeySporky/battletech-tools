@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-e03d-7170-867f-e33ac4fc22ab
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hornet
+model:HNT-182
+mul id:7343
+
+Config:Biped
+techbase:Inner Sphere
+era:3130
+source:XTR:RotS 2
+published:XTR:RotS 2
+rules level:4
+role:Striker
+
+quirk:no_arms
+quirk:low_profile
+
+mass:20
+engine:100 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Compact
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:8
+RT armor:8
+CT armor:8
+HD armor:7
+LL armor:6
+RL armor:6
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:3
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+MML 5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Medium Laser
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Medium Laser
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ammo MML-5 LRM
+IS Ammo MML-5 SRM
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMML5
+ISMML5
+ISMML5
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+2 Compact Heat Sinks
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hornet is a twenty-ton light BattleMech designed for urban reconnaissance that was first unveiled in 2760 by Kallon Weapon Industries. Despite its relatively heavy armor and unique weapons mix for a design of its weight class, the Hornet generated little interest from the Star League member states, and Kallon discontinued production after only two years. The design was thought lost during the Succession Wars until Kallon rediscovered the original blueprints at their Talon factory in the Wernke system in 2990, restarting production with the downgraded HNT-151. Difficulty selling the design to the Armed Forces of the Federated Suns initially drove most Hornets onto the mercenary market, where Wolf's Dragoons became the most prominent early operator.</p><p>The introduction of the upgraded HNT-171 in 3051, incorporating recovered Star League-era technology, renewed interest in the design among Federated Suns March Militias seeking replacements for aging Wasps and Stingers.</p>
+
+capabilities:<p>The Hornet is built around the concept of moving swiftly through urban environments while carrying relatively heavy armor for a twenty-ton chassis. The HNT-171 mounts a Corean Model KL-77 endo steel frame and StarGuard CIV ferro-fibrous armor with CASE, providing excellent protection for its weight class. A Hermes 100 engine drives the design to a top speed of 86 kilometers per hour, supplemented by three Pitban LFT-50 jump jets for a ninety-meter jump capability that proves invaluable in cluttered urban terrain.</p><p>The primary armament centers on a Holly LRM-5 rack, allowing the Hornet to engage targets at extended range or deliver specialized munitions such as Thunder minefields and Swarm missiles. A Martell medium laser provides reliable energy firepower at closer ranges, while a MainFire Point Defense anti-missile system offers valuable protection against incoming missile fire. The expanded LRM magazine capacity enables the Hornet to operate effectively as a raider and scout-hunter over extended engagements.</p><p>The greatest criticism of the Hornet centers on its stubby arms, which lack hand and lower-arm actuators. This renders the 'Mech nearly helpless in close combat, a significant liability given its relatively slow speed for a light design. Outside urban environments where its jump capability and missile armament can be leveraged, the Hornet is hard-pressed to defend itself against faster opponents.</p>
+
+deployment:<p>This variant is a field refit of the -181 that addresses complaints about the variant's underwhelming energy armament. MechWarriors evidently unimpressed by the advanced lasers of the -181 have taken to replacing both the small re-engineered laser and ER small laser with standard medium lasers, substantially increasing the design's close-range striking power. This practical modification trades the specialized capabilities of the original weapons for proven, easily maintained firepower that militia technicians can service without specialized tools or training.</p>
+
+history:<p>The Hornet's origins trace to 2760, when Kallon Weapon Industries designed it to fill a niche urban reconnaissance role for the Star League Defense Force. The SLDF procured a number of HNT-151 models, but the broader Star League member states showed little interest in such a specialized light design when proven scouts like the Valkyrie were readily available. Kallon discontinued production after just two years, and the Hornet faded into obscurity as the Succession Wars consumed the Inner Sphere.</p><p>In 2990, Kallon Industries rediscovered the Hornet blueprints at their Talon factory in the Wernke system and rushed the design back into production. The restarted line produced the HNT-151, a downgraded version stripped of Star League-era technologies that had been lost during the Succession Wars. House Davion showed little initial enthusiasm, and Kallon turned to the mercenary market. Wolf's Dragoons emerged as the most significant early customer, purchasing Hornets in greater numbers than any House command. The Dragoons demonstrated the Hornet's effectiveness during their bloody feud with House Kurita, particularly during the fighting on Misery, Glenmora, and Crossing. These engagements finally convinced the Federated Suns that the design had genuine tactical value.</p><p>With the recovery of advanced Star League technology in the early 3050s, Kallon selected the Hornet as one of its first designs for technological upgrade. Working at the high-security Talon facility, the HNT-171 was unveiled in 3051, incorporating endo steel construction, ferro-fibrous armor, CASE, and an anti-missile system. Demand for upgraded BattleMechs to face the Clan invasion sustained production, and the upgraded Hornets were deployed to reinforce depleted forces in the Sarna March. The Ceti Hussars and Deneb Light Cavalry adopted the design extensively, while Federated Suns March Militia regiments gradually replaced their aging Wasps and Stingers with Hornets.</p><p>Wolf's Dragoons commissioned the HNT-161, a less ambitious upgrade retaining the full jump capability and small laser of the original while sacrificing the anti-missile system. The venerable HNT-151 meanwhile found a ready market among mercenary commands, with the Dragoons themselves eventually relegating their older Hornets to Home Guard service as increasing quantities of Clantech became available.</p><p>The Jihad proved devastating for Hornet production when Capellan forces destroyed the Talon factory in 3069. Without a production source, the surviving Hornets became increasingly valuable assets. By 3130, Coalition Armory Inc. on Filtvelt began a refit program producing the experimental HNT-181, utilizing XL engine technology and compact heat sinks to breathe new life into the aging design for AFFS and Filtvelt Coalition militia forces.</p>
+
+manufacturer:Refit - Coalition Armory, Inc.
+
+primaryfactory:Filtvelt
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Unknown (Endo Steel)
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:100 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Ferro-Fibrous)
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c7eb-7053-950e-7ebaa594a62e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hollander II
+model:BZK-F5
+mul id:1538
+
+Config:Biped
+techbase:Inner Sphere
+era:3058
+source:TR:3055U,TR:CI
+published:RS:3055Uu
+rules level:2
+role:Sniper
+
+quirk:reinforced_legs
+weaponquirk:stable_weapon:RT:0:ISGaussRifle
+
+mass:45
+engine:225 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:13
+RT armor:13
+CT armor:15
+HD armor:8
+LL armor:10
+RL armor:10
+RTL armor:6
+RTR armor:6
+RTC armor:6
+
+Weapons:3
+Medium Laser, Left Torso
+Streak SRM 2, Left Torso
+Gauss Rifle, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Medium Laser
+ISStreakSRM2
+IS Streak SRM 2 Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Torso:
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Gauss Ammo
+IS Gauss Ammo
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hollander II represents Coventry Metal Works' most ambitious attempt to address the original Hollander's critical shortcomings. By increasing the chassis weight to forty-five tons, engineers gained sufficient mass to mount backup weapons alongside the design's signature long-range firepower. First produced in 3058, the Hollander II line retained the parent design's core philosophy of delivering outsized firepower on a relatively inexpensive platform while addressing the most dangerous vulnerability: the original's complete lack of secondary armament. Two production models emerged from Coventry, each taking a different approach to exploiting the additional tonnage. The Hollander II saw service primarily with Lyran Alliance forces during the Civil War era.</p>
+
+capabilities:<p>Building on the Hollander's proven chassis philosophy, the Hollander II adds ten tons of mass to create a medium-weight platform better suited to sustained combat operations. The increased tonnage allows engineers to address the original design's most critical failing (the total absence of backup weaponry) while retaining the devastating long-range punch that defined the Hollander concept. The reinforced leg structure and stabilization systems carry over from the lighter design, maintaining the ability to deliver accurate fire on the move.</p><p>The BZK-F5, the more balanced of the two production models, pairs the proven Poland Main Model A Gauss rifle with a Streak SRM-2 launcher and a medium laser, giving the MechWarrior options when ammunition runs low or combat closes to shorter ranges. The BZK-F7 takes the opposite approach, replacing the standard Gauss rifle with the newly developed heavy Gauss rifle for even greater destructive potential at the cost of returning to the original design's single-weapon vulnerability. This trade-off makes the F7 a controversial choice among field commanders, as it recreates the very problem the Hollander II was designed to solve.</p>
+
+deployment:<p>Entering production in 3058, this variant represents the balanced approach to the Hollander II concept. Retaining the proven Poland Main Model A Gauss rifle as its primary weapon, the additional tonnage allows the mounting of a Streak SRM-2 launcher and a medium laser as secondary armament. This combination provides the MechWarrior with meaningful fallback options when Gauss ammunition is depleted or when engagements close to ranges where the missile and laser systems prove more practical. The design was well received by Lyran commanders who had long requested exactly this capability from the Hollander line.</p>
+
+history:<p>The Hollander II program began at Coventry Metal Works in the late 3050s as a direct response to field commanders' growing frustration with the original Hollander's limitations. While the BZK-F3 had proven effective as a sniper platform, its inability to defend itself at close range or continue fighting after expending its limited Gauss ammunition made it a liability in prolonged engagements. Coventry's solution was straightforward: increase the chassis weight to forty-five tons, providing the mass budget for backup weapons and improved protection.</p><p>The BZK-F5 entered production first in 3058, achieving the balanced design that field units had requested. The more aggressive BZK-F7 followed in 3061, appealing to commanders who valued raw firepower over versatility. Both variants saw action during the FedCom Civil War, serving primarily with Lyran Alliance units.</p><p>Production of the Hollander II line at Coventry effectively ceased during the Jihad, when the factory came under contested control and active manufacturing was disrupted. Unlike the lighter Hollander, which found new life through the BZK-G2 field refit program, the Hollander II received no comparable modernization effort, leaving surviving examples as increasingly rare relics of the pre-Jihad Lyran military-industrial complex.</p>
+
+manufacturer:Coventry Metal Works
+
+primaryfactory:Coventry
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Coventry
+systemmode:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Omni
+systemmode:ENGINE:Unknown
+systemmanufacturer:ARMOR:Lexington Ltd.
+systemmode:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Muse 54-58K
+systemmanufacturer:TARGETING:Cyclops
+systemmode:TARGETING:9

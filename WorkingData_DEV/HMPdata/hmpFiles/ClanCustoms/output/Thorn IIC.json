@@ -1,0 +1,410 @@
+{
+  "filename": "Thorn IIC.hmp",
+  "size": 3554,
+  "header_hex": "56 35 2e 30 30 04 00 08 03 ff ff 3f 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0003\u00ff\u00ff"
+    },
+    {
+      "type": "ascii",
+      "start": 11,
+      "end": 12,
+      "text": "?"
+    },
+    {
+      "type": "byte",
+      "offset": 12,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 14,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 15,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 16,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 17,
+      "end": 39,
+      "length": 20,
+      "text": "\u0005\u0000Thorn\u0003\u0000IIC\u00be\n\u0002\u0000\u00e0\u0011\u001d\u0000"
+    },
+    {
+      "type": "ascii",
+      "start": 39,
+      "end": 40,
+      "text": "\n"
+    },
+    {
+      "type": "len_string",
+      "start": 40,
+      "end": 45,
+      "length": 3,
+      "text": "\u00c0\u0003D"
+    },
+    {
+      "type": "byte",
+      "offset": 45,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 46,
+      "end": 1008,
+      "length": 960,
+      "text": "D\u0000\u0000\u0090A\u0000\u0000@A\u0000\u0000@@\u0012\u0000ML 2 2 2 2 1\u0097 6 if\u0001\u0000\u0000\u0000\u0001\u0000x\u0000\u0000\u0000\u0006\u0000\u0000\u0000\n\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\u0004\u0000\u0004\u0000\u0004\u0000\u0000\u0000\u0003\u0000\u0001\u0000L\u0000\u0004\u0000\f\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00004\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00004\u0000\u0007\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000L\u0000\u0000\u0000\u00dc\u0001\f\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u00004\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u00e2\u00ffE\u0000\u00cd\u0002    The Thorn is an older BattleMech design, incorporated into the Hegemony Armed Forces during the late 24th Century. It was the first 'Mech to incorporate the Endo Steel II Skeleton. The Thorn was unveiled with tremendous hype, but initial reviews were mixed. Commanders later agreed that Endo Steel II had obvious advantages but would not be suitable for all 'Mechs.\r\n    The Thorn was designe"
+    },
+    {
+      "type": "ascii",
+      "start": 1008,
+      "end": 1329,
+      "text": "d to serve in front-line combat units. Its inability to jump was not considered unusual for this type of duty, but commanders who tried to use all light 'Mechs as scouts found the Thorn to be useless. Once separated from company mates, the Thorn's heavier armor and greater firepower were no match for a quicker opponent."
+    },
+    {
+      "type": "byte",
+      "offset": 1329,
+      "hex": "d7"
+    },
+    {
+      "type": "byte",
+      "offset": 1330,
+      "hex": "07"
+    },
+    {
+      "type": "ascii",
+      "start": 1331,
+      "end": 3338,
+      "text": "    The Thorn has had mixed reviews for the entire length of its service. Supporters point out that the design packs more punch per ton than any other 'Mech and that its armor is also the best of its size. In a toe-to-toe slugfest, the Thorn can usually reduce an equal weight opponent to scrap in minutes.\r\n    Opponents of the design note that a 'Mech cannot hit what it cannot reach. Although the 120 class engine allows the 'Mech to run at a respectable speed, its lack of jump jets leaves the Thorn in the dust of other light 'Mechs. The Zeus Long-Range Missile system only partially offsets this lack of pursuit ability.\r\n    This favoring of armor and weapons over maneuverability has made the Thorn a favorite of front-line light companies.\r\n    The weapon placement and ease of maintenance have given the design high marks in every technician's manual. The arms and legs are completely accessible, allowing a service crew to actually enter the limbs and work on repairs from the inside.\r\n    The Thorn's main armament consists of twin medium lasers. These identical weapons further improve maintenance and are extremely efficient. The design is noted as a \"cool running\" 'Mech, but the placement of one laser directly under the pilot's feet makes the Thorn seem to be running hotter than it really is. Extensive cooling is provided in the cockpit area, but the lack of an effective venting system for the medium laser makes repeated firing uncomfortable for the pilot.\r\n    The Zeus Long-Range Missile system is extremely accurate, and the arm mount allows the pilot to switch targets quickly. If damaged, the entire system can be replaced in a few hours, which is fortunate, as the launcher can easily be destroyed if the 'Mech engages in hand-to-hand combat. The missile-feed system, which passes reloads from the torso storage compartment, is average at best. If damaged, reloads can become lodged in the upper arm, where additional damage has been known to cause detonation, destroying the arm."
+    },
+    {
+      "type": "len_string",
+      "start": 3338,
+      "end": 3341,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3341,
+      "end": 3344,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3344,
+      "end": 3347,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3347,
+      "end": 3350,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 3350,
+      "end": 3351,
+      "text": "'"
+    },
+    {
+      "type": "byte",
+      "offset": 3351,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3352,
+      "end": 3391,
+      "text": "Design by Chris Mc Intosh (Duke Royal)."
+    },
+    {
+      "type": "len_string",
+      "start": 3391,
+      "end": 3394,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 3394,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3395,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3396,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3397,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3398,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3399,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3400,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3401,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3402,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3403,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3404,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3405,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3406,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3407,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3408,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3409,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3410,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3411,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3412,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3413,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3414,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3415,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3416,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3417,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3418,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3419,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3420,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3421,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3422,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3423,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3424,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3425,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3426,
+      "end": 3436,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 3436,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3437,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3438,
+      "end": 3461,
+      "length": 21,
+      "text": "Ford Military Limited"
+    },
+    {
+      "type": "ascii",
+      "start": 3461,
+      "end": 3462,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3462,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3463,
+      "end": 3472,
+      "text": "(Unknown)"
+    },
+    {
+      "type": "len_string",
+      "start": 3472,
+      "end": 3476,
+      "length": 2,
+      "text": "GM"
+    },
+    {
+      "type": "len_string",
+      "start": 3476,
+      "end": 3498,
+      "length": 20,
+      "text": "Armorscale with CASE"
+    },
+    {
+      "type": "len_string",
+      "start": 3498,
+      "end": 3515,
+      "length": 15,
+      "text": "Chariot Type II"
+    },
+    {
+      "type": "len_string",
+      "start": 3515,
+      "end": 3533,
+      "length": 16,
+      "text": "Opus I Ultrabeam"
+    },
+    {
+      "type": "len_string",
+      "start": 3533,
+      "end": 3543,
+      "length": 8,
+      "text": "Orion 80"
+    },
+    {
+      "type": "ascii",
+      "start": 3543,
+      "end": 3544,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 3544,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 3545,
+      "end": 3554,
+      "text": "(Unknown)"
+    }
+  ]
+}

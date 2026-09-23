@@ -1,0 +1,232 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e1ff-7ba9-8f8f-5b6c95e465e3
+</UUID>
+
+<UnitType>
+SpaceStation
+</UnitType>
+
+<Name>
+Factory
+</Name>
+
+<Model>
+Medium/Large (2400)
+</Model>
+
+<mul id:>
+4618
+</mul id:>
+
+<year>
+2400
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:12.0:2:1::-1:0
+crewquarters:735.0:0:-1::-1:0
+1stclassquarters:2940.0:0:-1::-1:0
+navalrepairpressurized:24000.0:1:5:f0
+cargobay:8116.5:2:4::-1:0
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+65
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+1000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+18
+15
+15
+15
+15
+15
+</armor>
+
+<Nose Equipment>
+(B) Small Laser
+Small Laser
+Small Laser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Small Laser
+Small Laser
+Small Laser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Small Laser
+Small Laser
+Small Laser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Small Laser
+Small Laser
+Small Laser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Small Laser
+Small Laser
+Small Laser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Small Laser
+Small Laser
+Small Laser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>Orbital factories are designed around a core processing function supported by flexible cargo handling and small craft operations. Their structural layouts prioritize manufacturing and storage volume, with crew habitation occupying only a fraction of total mass. Small craft bays present on larger designs enable regular supply runs and personnel transfers without requiring dedicated docking access. Grav decks provide crew habitability during extended tours, while manufacturing areas remain in microgravity to support production processes requiring the absence of gravitational effects. Defensive armament, where present, consists of light anti-fighter weapons distributed across multiple firing arcs - sufficient to deter opportunistic raiding but not intended for sustained combat.</p><p>The smallest factory designs operate as automated or minimally crewed processing platforms capable of handling raw materials with only a skeleton maintenance team, while larger designs maintain more substantial crews and can accommodate visiting technical specialists and administrative personnel. Larger factory stations may additionally maintain limited pressurized repair bays sufficient for small craft maintenance, extending their utility as combined manufacturing and logistics nodes within broader orbital station complexes.</p>
+</capabilities>
+
+<overview>
+<p>Orbital satellite factories represent the Inner Sphere's capacity for zero-gravity manufacturing, producing refined materials and specialized components that cannot be efficiently processed in a planetary gravity well. Ranging from compact automated processing platforms weighing only a few thousand tons to larger industrial complexes massing in the tens of thousands, these civilian stations form the backbone of orbital industrial networks operating independently of planetary infrastructure. Most factory stations are lightly armed or entirely unarmed, relying on their remote orbital positions and the practical disincentive of destroying functional industrial assets for protection. Capable of supporting small craft operations and housing a permanent technical crew, factory stations serve as essential nodes in the economic networks connecting orbital industry to the broader Inner Sphere, handling everything from routine mineral processing to specialized high-technology manufacturing requiring the controlled environment of microgravity.</p>
+</overview>
+
+<deployment>
+<p>The Factory Medium/Large (2400), introduced in the late twenty-fourth century, represents the standard operational configuration for mid-range orbital manufacturing platforms at 17,000 tons. This design supports a crew of nearly 190 and carries a defensive battery of light lasers across all firing arcs, sufficient deterrence against opportunistic raiding. Twelve small craft bays support regular logistics operations, and a pressurized naval repair facility makes this design useful as a combined manufacturing and light maintenance platform. This dual-purpose capability made the Medium/Large the workhorse of Star League-era orbital industrial complexes, and the type was produced at numerous facilities across the Inner Sphere before the Succession Wars disrupted orbital construction programs.</p>
+</deployment>
+
+<history>
+<p>Factory stations trace their origins to the colonial expansion of the late twenty-second century, when the resource demands of newly settled worlds created demand for orbital processing of locally available asteroid and cometary materials; work that could be done more efficiently in microgravity than in a planetary facility. The Terran Hegemony and later the Star League systematized and expanded orbital factory infrastructure throughout the Inner Sphere, standardizing designs and incorporating them into broader orbital logistics networks that supported both civilian industry and the SLDF's logistical requirements. By the height of the Star League era, factory stations of varying configurations were a familiar presence in the orbital infrastructure of industrialized worlds across human space.</p><p>The collapse of the Star League and subsequent Succession Wars proved catastrophic for factory station infrastructure. Orbital industrial assets were among the first targets for forces seeking to degrade an opponent's economic output, and stations that could not be seized intact were frequently destroyed outright. Smaller, more automated designs fared somewhat better (too minor to merit dedicated attack yet useful enough to maintain where possible) but larger factory complexes were systematically targeted and rarely rebuilt as the Succession Wars ground on. This targeting logic, combined with the general deterioration of technical knowledge during the prolonged conflicts, reduced the Inner Sphere's orbital factory capacity to a fraction of its Star League-era peak by the end of the Third Succession War.</p><p>The resurgence of zero-G manufacturing technology following the Fourth Succession War, driven by the need for materials and components supporting new high-technology weapons programs, created renewed demand for orbital factory infrastructure. New construction proceeded slowly, constrained by the loss of fabrication expertise and production tooling from the Succession War period. Surviving factory stations of Star League-era construction became highly valuable assets, refurbished and returned to service wherever possible. The largest factory complex in operation at the dawn of the thirty-first century was the fully automated germanium-ore refinery at Federated-Boeing Interstellar's Galax Megaplex, a rare example of a major facility surviving the wars with its production capacity largely intact. Most factory stations operating in the modern era are either refurbished Star League-era installations or new builds derived from those templates.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+17000.0
+</tonnage>
+
+<sail>
+0
+</sail>
+
+<grav_decks>
+82
+</grav_decks>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+174
+</crew>
+
+<officers>
+9
+</officers>
+
+<gunners>
+3
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+20
+</life_boat>
+
+<escape_pod>
+20
+</escape_pod>
+

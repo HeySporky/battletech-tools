@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df4c-7076-a357-f6fb07fdd30d
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Daedalus
+model:DAD-DX
+mul id:8105
+
+Config:Biped
+techbase:Inner Sphere
+era:3097
+source:XTR:Caveat
+published:XTR:Caveat
+rules level:4
+role:Striker
+
+quirk:difficult_maintain
+
+mass:45
+engine:270 XXL Engine
+structure:IS Endo-Composite
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:13 IS Double
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:16
+RT armor:16
+CT armor:20
+HD armor:9
+LL armor:17
+RL armor:17
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:8
+Medium X-Pulse Laser, Left Arm
+Medium X-Pulse Laser, Left Arm
+Heavy PPC, Right Arm
+Small X-Pulse Laser, Left Torso
+Small X-Pulse Laser, Right Torso
+ER Small Laser, Right Torso
+ER Medium Laser, Head
+ER Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+IS Endo-Composite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+PPC Capacitor
+IS Endo-Composite
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISSmallXPulseLaser
+IS Endo-Composite
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISSmallXPulseLaser
+ISERSmallLaser (R)
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Supercharger
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISERMediumLaser
+ISERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo-Composite
+IS Endo-Composite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo-Composite
+IS Endo-Composite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Daedalus is a 45-ton Solaris VII arena BattleMech developed by Innovative Design Concepts from the chassis of an original PXH-1 Phoenix Hawk. First appearing in the arenas during the mid-3050s, the design was originally built around a combination of missile racks and a large pulse laser, leveraging the Phoenix Hawk's renowned speed and maneuverability to keep opponents at arm's length. Though the Daedalus initially proved competitive in the Solaris circuits, advancing technology steadily eroded its edge over rival designs. Rather than abandon their flagship product, IDC undertook a comprehensive overhaul in the early 3060s, replacing the original missile-based armament with an all-energy weapons suite built around experimental pulse technology. The revamped design returned the Daedalus to prominence among Solaris stables, though its specialized arena heritage and the heavily modified Phoenix Hawk frame have limited its appeal outside the Game World.</p>
+
+capabilities:<p>The Daedalus retains the Phoenix Hawk's Earthwerks PXH II endo steel frame and Hermes 270 XL engine, providing a top speed of 97 kilometers per hour. Six Rawlings 45 jump jets give the 'Mech excellent maneuverability in the tight confines of Solaris arenas, allowing leaps of up to 180 meters. Various configurations have integrated Triple Strength Myomer, which pushes the design's speed to nearly 119 kilometers per hour when the MechWarrior allows heat to build, a tactic that rewards aggressive energy-weapon use.</p><p>The Daedalus platform has been fitted with a wide variety of armament configurations over its production history, ranging from the original missile-heavy loadout of the DAD-3C to the all-energy suite of the DAD-3D and the Streak missile brawler configuration of the DAD-4A. A Dalban HiRez III Advanced Fire Control System links the weapons battery through a targeting computer in most variants, dramatically improving accuracy at the cost of additional weight and complexity. Twelve double heat sinks manage the thermal output across configurations, though the all-energy loadouts push the heat curve to its limits. Durallex Light armor provides reasonable protection for a medium chassis, though the design's reliance on an XL engine means torso breaches can prove catastrophic.</p>
+
+deployment:<p>Developed in 3097 as an ambitious experimental prototype, this variant represented Innovative Design Concepts' most extravagant attempt to recapture relevance in the post-Jihad arena market. Built around a 270-rated XXL engine and endo-composite structure, the design mounted a capacitor-boosted Heavy PPC as its centerpiece weapon, supported by a mixed array of medium and small X-Pulse lasers alongside extended-range medium and small lasers. The project consumed over ninety million C-bills in research and development costs, making it one of the most expensive one-off arena 'Mechs ever produced. A disastrous debut at Hartford Gardens Arena ended any further development, and the prototype was quietly shelved.</p>
+
+history:<p>The Daedalus emerged from Innovative Design Concepts' workshop on Solaris VII during the early 3050s, one of numerous Phoenix Hawk derivatives to appear as the Solaris arena circuit adapted to the influx of Clan Invasion-era technology. IDC, a small Solaris City-based firm, specialized in extensively customizing existing chassis rather than developing original designs, and the Daedalus exemplified this approach, a PXH-1 Phoenix Hawk rebuilt from the ground up with an arena-optimized weapons configuration.</p><p>The original DAD-3C found initial success in the mid-3050s circuits, but the rapid pace of technological advancement during the Clan Invasion era quickly eroded its competitive advantage. By the early 3060s, IDC recognized the design required more than incremental improvements, and the company invested in a complete weapons refit that produced the DAD-3D in 3062. The upgraded variant's all-energy loadout and experimental X-Pulse laser technology brought the Daedalus back to the forefront of Solaris competition, with Blackstar Stables adopting it as a signature machine.</p><p>IDC continued to iterate on the platform through the Civil War era, producing the DAD-4A and DAD-4B variants by 3067. The company's leadership harbored ambitions of breaking into mainstream military production markets, even securing a listing on the Lyran Alliance stock exchanges, an unusual distinction for a Solaris design firm. However, the Jihad devastated the Solaris gaming world and effectively ended Daedalus production. IDC survived the conflict but struggled to compete with larger manufacturers in the post-war environment.</p><p>The firm made one final attempt to revitalize the Daedalus line in 3097 with the DAD-DX prototype, an extravagant experimental variant that consumed over ninety million C-bills in development costs. The prototype's catastrophic arena debut at Hartford Gardens Arena ended the project and any remaining ambitions for the design's revival. By the Dark Age, Solaris VII itself had changed hands multiple times, and the facility that once produced the Daedalus passed from Lyran to Clan Wolf control alongside the rest of the Game World.</p>
+
+manufacturer:Innovative Design Concepts
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Kallon
+systemmode:CHASSIS:Unknown (Endo-Composite)
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Unknown (270 XXL)
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Light
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Dalban
+systemmode:COMMUNICATIONS:VirtuTalk
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:HiRez III Advanced FCS

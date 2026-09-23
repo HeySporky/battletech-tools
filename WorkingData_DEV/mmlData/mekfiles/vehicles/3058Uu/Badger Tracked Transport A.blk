@@ -1,0 +1,172 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e3b3-7069-9117-b6b3896e5dbf
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Badger Tracked Transport
+</Name>
+
+<Model>
+A
+</Model>
+
+<mul id:>
+200
+</mul id:>
+
+<year>
+3008
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+troopspace:4.0
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+20
+18
+18
+14
+18
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-2:OMNI
+</Body Equipment>
+
+<Front Equipment>
+SRM 2:OMNI
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+SRM 2:OMNI
+SRM 2:OMNI
+SRM 2:OMNI
+</Turret Equipment>
+
+<capabilities>
+<p>The Badger's design philosophy places infantry transport first and combat effectiveness second, a trade-off made explicit by the four-ton fixed infantry bay that occupies a substantial portion of the vehicle's payload budget. Only five tons of pod space remain after the bay and fixed systems are accounted for, limiting the weapon load to light configurations regardless of configuration. A GM 180 fusion engine drives the tracked hull to a cruising speed of 64 kilometers per hour and a flank speed of 97 kilometers per hour, quick enough to keep pace with dismounted infantry across most terrain types while outrunning heavier armor.</p><p>Five and a half tons of ProTech 6 armor spread across all facings offers reasonable protection against small arms and light autocannon fire, though it will not withstand dedicated anti-armor weapons for long. The vehicle's primary strength lies in rapid reconfiguration capability using Blackwell's PNP modules and SnapLight circuits, enabling a crew to swap weapon pods between missions in hours rather than days, without specialized depot equipment. The Dalban StarLink II communications suite and Garret Fib targeting system are reliable mid-tier components well suited to an infantry support role that does not demand the precision accuracy required of heavier anti-armor platforms. Both strengths and weaknesses stem from the same source: a chassis optimized for the soldiers it carries rather than the weapons it bears.</p>
+</capabilities>
+
+<overview>
+<p>The Badger Tracked Transport holds a unique distinction in Inner Sphere military history as the first OmniVehicle constructed outside Clan space. Commissioned in 3007 by Wolf's Dragoons from Blackwell Industries, the design entered production in 3008 alongside the Bandit hovercraft and Kestrel VTOL as the three vehicles the Dragoons contracted exclusively for their own use. Blackwell, then a modest supplier of BattleMech components, leveraged the Dragoons' technical support and capital investment to transform itself into a dedicated vehicle manufacturer capable of producing advanced modular designs.</p><p>The resulting Badger is a thirty-ton tracked infantry carrier built around a generous troop bay, offering commanders the flexibility to adjust weapon loads between missions without specialized tooling. Its role is unapologetically supportive: transport infantry to objectives and provide fire cover while they complete their work. It performs both jobs reliably, which is more than most combat vehicles of its weight class can claim.</p>
+</overview>
+
+<deployment>
+<p>The A configuration trades the Prime's mixed approach for a dedicated short-range missile platform, concentrating four SRM-2 launchers across forward and turret mounts, all drawing from a shared ton of reloads. The resulting vehicle excels at close-range suppressive fire and anti-infantry work, putting a high volume of short-range missiles on target quickly. The shared ammunition pool keeps logistics simple, though sustained fire during prolonged engagements will exhaust the supply faster than the Prime's laser-primary setup. Operators who prioritize ammunition commonality across a vehicle pool often favor the A for its single-load simplicity.</p>
+</deployment>
+
+<history>
+<p>The Badger's origins trace to January 3007, when Wolf's Dragoons approached Blackwell Industries on Outreach with a commission for three new vehicles. The Dragoons provided complete design plans, technical expertise, and significant capital investment that transformed Blackwell from a BattleMech components supplier into a capable vehicle manufacturer. Production of the Badger, Bandit, and Kestrel began in 3008, with initial manufacturing at New Valencia before Blackwell later expanded production to its Outreach facilities after 3030.</p><p>For the first years of Dragoon service, Blackwell's teams maintained strict secrecy about the vehicles' modular nature. When Badgers appeared with different weapon configurations after refit periods, outside observers concluded the Dragoons' exceptional technicians were simply performing rapid field modifications, not that the vehicles had been designed for pod-swapping from the outset. This deception protected one of the unit's most significant technological advantages in the Inner Sphere for years, with the Dragoons carefully managing what configurations were seen in any single engagement.</p><p>The revelation of the Dragoons' Clan origins changed the Badger's standing within the unit. Elemental battle armor gradually supplanted conventional infantry squads, and the unit's growing reliance on OmniMechs further reduced the tracked carrier's frontline role. When Blackwell finally received permission to offer the Badger commercially in the early 3050s, demand proved immediate and overwhelming. At peak, the waiting list stretched to eight months, with mercenary commands and planetary militias alike seeking a flexible infantry carrier at a price well below OmniMech alternatives.</p><p>Word of Blake forces destroyed Blackwell's Outreach production facilities during the Jihad, ending new production and making spare parts increasingly scarce. New Valencia's lines had already gone quiet before the Jihad began. Surviving Badgers depend on salvage and careful maintenance by crews who know no replacements will be coming from any factory still standing.</p>
+</history>
+
+<manufacturer>
+Blackwell Industries|Blackwell Industries
+</manufacturer>
+
+<primaryFactory>
+New Valencia|Outreach
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:ProTech
+JUMP_JET:N/A
+COMMUNICATIONS:Dalban
+TARGETING:Garret
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:GM 180
+ARMOR:ProTech 6
+JUMP_JET:N/A
+COMMUNICATIONS:Dalban StarLink II
+TARGETING:Garret Fib
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-I
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+
+<baseChassisTurretWeight>
+0.5
+</baseChassisTurretWeight>
+

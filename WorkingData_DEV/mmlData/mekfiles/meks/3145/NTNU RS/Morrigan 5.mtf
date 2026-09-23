@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d45e-7acd-b5a4-74d86f41db07
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Morrigan
+model:5
+mul id:6926
+
+Config:Biped
+techbase:Clan
+era:3124
+source:TR:3145
+published:RS:3145-NTNU,RS:3145
+rules level:2
+role:Sniper
+
+quirk:weak_legs
+weaponquirk:stable_weapon:RA:3:CLERPPC
+
+mass:35
+engine:280 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:8
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:10
+RA armor:10
+LT armor:11
+RT armor:11
+CT armor:15
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:3
+ER PPC, Right Arm
+Streak LRM 5, Left Torso
+Streak LRM 5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLERPPC
+CLERPPC
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLStreakLRM5
+Clan Streak LRM 5 Ammo
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLStreakLRM5
+CLTargeting Computer
+CLTargeting Computer
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Morrigan is a 35-ton light BattleMech born from an unusual post-Jihad collaboration between Clan Nova Cat and the Draconis Combine. Introduced in 3083, the design emerged from the Nova Cats' need for a new scout 'Mech following the devastation of the Jihad. The Draconis Combine provided resources and manpower through the Mualang Alpha facility on Coudoux, while the Nova Cats contributed their technical expertise and access to Clan technology. The resulting design blends Clan construction techniques with a practical battlefield philosophy, producing an effective if unspectacular scout platform. Despite production numbers that remained lower than desired, the Morrigan established itself as a reliable reconnaissance asset in both Nova Cat and Combine service.</p>
+
+capabilities:<p>The Morrigan prioritizes speed and information-gathering over raw firepower. Its Consolidated 280 XL engine propels the thirty-five-ton chassis to speeds of 129 kilometers per hour, making it one of the faster light 'Mechs in either the Nova Cat touman or the DCMS inventory. An integrated active probe within the Cat's Eyes 7 targeting and tracking system allows pilots to detect hidden units and electronic emissions, fulfilling the design's primary scouting mission.</p><p>The offensive armament centers on a Model X heavy large laser backed by three Type 3 Series ATM-3 launchers sharing three tons of ammunition. The advanced tactical missiles provide exceptional versatility, with extended-range munitions allowing the Morrigan to engage targets well before closing to effective range, while high-explosive rounds deliver devastating damage at close quarters. The heavy large laser adds serious hitting power for a light 'Mech, though its inherent inaccuracy at speed and substantial heat generation force pilots to carefully manage their fire. With only ten double heat sinks, firing the laser effectively prevents simultaneous missile use until temperatures drop.</p><p>The chassis employs Clan-grade endo steel construction and ferro-fibrous armor to maximize protection within its weight class, with integral CASE protecting each torso from ammunition detonation. Despite these advantages, the Morrigan suffers from a known structural weakness in its leg actuators, and its complete lack of jump jets limits tactical flexibility in broken or urban terrain.</p>
+
+deployment:<p>Introduced in 3124, this variant marks an unusual shift for the Morrigan line toward long-range fire support. An extended-range PPC serves as the primary weapon, paired with twin Streak LRM-5 launchers for supplementary missile fire. A targeting computer enhances the accuracy of the entire weapons package, making this the most effective Morrigan variant at extended engagement ranges. The departure from the traditional scouting role reflects the evolving tactical needs of the Draconis Combine during the Dark Age.</p>
+
+history:<p>The Morrigan emerged from the complex political relationship between Clan Nova Cat and the Draconis Combine in the aftermath of the Jihad. Following their relocation to the Inner Sphere and absorption into the Combine's military structure, the Nova Cats sought to rebuild their diminished touman with new designs suited to their changed circumstances. The Combine, eager to access Clan technology for their own forces, offered material support and factory resources through the Mualang Alpha facility on Coudoux, a plant operating under the Luthien Armor Works corporate umbrella, though particularly without full LAW authorization for the partnership.</p><p>Production began in 3083, but the collaboration proved contentious from the start. The Nova Cats resented what they saw as the Combine's attempts to limit Nova Cat access to the completed 'Mechs, while the Combine accused the Nova Cats of shorting raw material shipments. This mutual suspicion kept production volumes well below the facility's capacity, ensuring that neither faction received as many Morrigans as they desired.</p><p>The divergence in deployment philosophy between the two partners was equally telling. The Nova Cats assigned their Morrigans primarily to second-line garrison units, viewing the design as competent but lacking the prestige of a true OmniMech. The Combine, by contrast, distributed the 'Mech exclusively to its most elite formations (the Sword of Light, Ryuken, and Genyosha brigades) along with granting DEST access. This difference highlighted the fundamental cultural gap between Clan and Inner Sphere military thinking regarding equipment allocation.</p><p>Beginning in 3084, the Combine pushed for variants tailored to their specific doctrinal needs, resulting in the energy-focused Morrigan 2 and the taser-equipped Morrigan 3 for special operations. These variants reduced dependence on Clan-specific ammunition supplies and better aligned with DCMS tactical preferences. As the Dark Age progressed and TSEMP technology became available, the Morrigan line evolved further with the introduction of the Morrigan 4 in 3111 and the long-range Morrigan 5 in 3124, demonstrating the Combine's continued investment in the platform well beyond the original Nova Cat partnership.</p>
+
+manufacturer:Mualang Alpha
+
+primaryfactory:Coudoux
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:NCIS
+systemmode:CHASSIS:Endo Steel Type L
+systemmanufacturer:ENGINE:Consolidated
+systemmode:ENGINE:280 XL
+systemmanufacturer:ARMOR:Alpha Composite
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:CommSys 5
+systemmanufacturer:TARGETING:Cat's Eyes
+systemmode:TARGETING:7

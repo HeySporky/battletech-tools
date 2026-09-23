@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ebbb-7825-9589-355bc1862a35
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Goblin Medium Tank
+</Name>
+
+<Model>
+X
+</Model>
+
+<mul id:>
+1227
+</mul id:>
+
+<year>
+3073
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+troopspace:8.0
+</transporters>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+3
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+40
+32
+32
+24
+30
+30
+</armor>
+
+<Body Equipment>
+IS Ammo MML-9 LRM
+IS Ammo MML-9 SRM
+IS Ammo MML-9 SRM
+ISMagshotGR Ammo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rear Turret Equipment>
+Light PPC
+PPC Capacitor
+ISMML9
+</Rear Turret Equipment>
+
+<Front Turret Equipment>
+ISMagshotGR
+ISMagshotGR
+</Front Turret Equipment>
+
+<capabilities>
+<p>The Goblin's defining characteristic is its rear infantry bay, large enough to hold one squad or a single support weapons team. This arrangement allows the embarked infantry to add their firepower to the tank's weapons in close terrain, or to dismount and provide cover in environments where the tank cannot maneuver effectively. The BlazeFire Systems large laser provides solid range and sustained fire capability without the ammunition limitations of ballistic weapons, making the Goblin capable of contributing throughout extended engagements.</p><p>The Johnston MiniGun provides supplementary anti-infantry capability, though it has limited effect against battle armor. The tank's ICE powerplant is simpler to maintain than fusion systems and gives the Goblin a degree of operational independence valued by formations with limited technical support, but the powerplant is more vulnerable in combat than a shielded fusion engine would be.</p><p>The Goblin's weaknesses are well-documented. It is slow for a medium tank, limiting its ability to reposition or break contact. Its single laser cannot engage multiple targets effectively, and the lack of any missile armament restricts its threat profile at longer ranges. Commanders routinely pair Goblins with faster fire-support vehicles, typically light support tanks, to compensate for the vehicle's inability to engage at distance.</p>
+</capabilities>
+
+<overview>
+<p>The Goblin Medium Tank is one of the oldest combined-arms vehicles in the Inner Sphere, with origins predating the Star League. No single manufacturer has been identified as its original developer, but the design became a common fixture in mechanized infantry regiments of the Star League Defense Force for one defining reason: its integral infantry bay. Built to carry a small infantry team that could support the tank in close terrain, the Goblin occupied a niche that no other medium tank of its era filled.</p><p>Johnston Industries assumed Goblin production during the First Succession War, eventually consolidating the line on New Syrtis after the Fourth Succession War. That factory supplied Federated Suns regiments through the Succession Wars and beyond, keeping an aging but reliable design in continuous front-line service across two centuries of warfare.</p>
+</overview>
+
+<deployment>
+<p>The Goblin-X is an experimental prototype produced by Jalastar Aerospace on Panpour under a license agreement with Johnston Industries. The dual-turret design pairs a rear turret carrying a Light PPC with PPC Capacitor and MML-9 with a forward turret mounting twin MagShot Gauss Rifles, providing both short-range precision fire and indirect capability. The expanded eight-ton infantry bay accommodates a full battle armor squad. As of 3074 the vehicle remained in prototype evaluation status, with Johnston holding first-refusal rights on production that were set to expire without being exercised. The Goblin-X did not enter mass production.</p>
+</deployment>
+
+<history>
+<p>The Goblin's origins remain uncertain. Military historians have been unable to identify the original manufacturer, and records from the Age of War are too fragmentary to establish a clear lineage. What is certain is that by the time of the Star League, the Goblin was already a widely distributed vehicle in SLDF mechanized infantry formations, produced at facilities including Aldis Industries on Terra and Ceres Metals Industries on Indicass. Field Manual: SLDF records note the Goblin as a common sight in mechanized regiments, filling the combined-arms transport role no other medium tank of the era served.</p><p>The Amaris Civil War proved devastating for Goblin production. The Aldis Industries plant on Terra was destroyed during the Amaris Coup, eliminating one of the primary manufacturing centers. The Capellan-controlled Ceres Metals facility on Indicass continued production through the early Succession Wars before shutting down at some point during the Late Succession Wars era. Johnston Industries, which had been producing the Goblin from facilities on Addicks since the First Succession War, became the primary surviving manufacturer, consolidating the line on New Syrtis after the Fourth Succession War.</p><p>Throughout the Succession Wars, the Goblin served primarily with Federated Suns mechanized infantry regiments. Kurita and Capellan forces captured examples in raids and pressed them into service in garrison units. Some examples found their way into the cache of Star League equipment from which the Com Guards were assembled, though investigators were unable to trace the origins of these ancient vehicles. The Ceti Hussar regiments became particularly associated with the Goblin, using them as standard equipment in their mechanized battalions.</p><p>The Clan Invasion exposed the Goblin's limitations starkly. Engagements with Elemental battle armor revealed that the original tank's large laser and conventional infantry bay were inadequate against the new threat, prompting Johnston Industries to begin a comprehensive redesign program. Field modifications, including LRM, SRM, and machine gun variants, appeared as stopgap measures while the new ISV design was developed. The old Goblin Medium Tank chassis persisted in second-line formations and mercenary units long after the ISV entered production, valued for its mechanical simplicity and the availability of replacement parts across the Federated Suns.</p><p>By the Dark Age, Alphard Trading Corporation on Leximon was producing the basic Goblin Medium Tank chassis for Lothian League clients, giving the ancient design a presence in the Periphery that outlasted many more advanced vehicles. The original Goblin chassis thus continued to serve, in one form or another, for centuries after its introduction.</p>
+</history>
+
+<manufacturer>
+Jalastar Aerospace
+</manufacturer>
+
+<primaryFactory>
+Panpour
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Boondocks
+</source>
+
+<published>
+XTR:Boondocks
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cb0d-7b3a-97c7-39fc82f8372e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Striker
+model:STC-2S
+mul id:3096
+
+Config:Biped
+techbase:Inner Sphere
+era:2845
+source:TR:3058U
+published:RS:3058Uu-C
+rules level:1
+role:Brawler
+
+quirk:easy_maintain
+
+mass:80
+engine:320 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:15 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:25
+RT armor:25
+CT armor:35
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:5
+AC/10, Left Torso
+PPC, Right Torso
+Medium Laser, Center Torso
+Medium Laser, Center Torso
+Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+IS Ammo AC/10
+IS Ammo AC/10
+-Empty-
+
+Right Torso:
+Heat Sink
+PPC
+PPC
+PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Medium Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+Medium Laser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Striker is an eighty-ton assault BattleMech introduced in 2571 by Stormvanger Assemblies Unlimited for the Star League Defense Force. One of the first assault designs built specifically for the non-Royal SLDF House formations, the Striker filled a critical political and military need, allowing House Lords to reserve their own assault 'Mechs while still equipping SLDF units with capable heavy firepower. The design quickly became one of the most common assault 'Mechs in SLDF service, with many historians crediting its production for helping cement the early Star League.</p><p>Despite its rugged construction and solid combat record, the Striker was marginal compared to later assault designs and was gradually relegated to militia and second-line duty. With production long since ended and fewer than three hundred known to survive by the late thirty-first century, the Striker endures as evidence of Star League-era engineering and the value of simple, maintainable design.</p>
+
+capabilities:<p>The Striker compared very favorably to its assault-class contemporaries such as the Victor and Emperor, offering maneuverability comparable to many medium 'Mechs thanks to its Pitban 320 fusion engine. This mobility advantage came at no sacrifice to firepower, as the design carries an impressive array of weapons effective across multiple engagement ranges. At long range, the HellStar PPC and Pontiac Light Class 5 Autocannon provide sustained fire capable of softening targets well before they can close. The Defiance B3L Large Laser adds significant punch at medium range, while three Hellion-b II Medium Lasers give the Striker respectable close-range defenses.</p><p>This versatility is both the Striker's greatest strength and its most notable limitation. Firing all weapons simultaneously generates heat that exceeds the capacity of its fifteen standard heat sinks, forcing MechWarriors to carefully manage their rate of fire during sustained engagements. The thirteen and a half tons of Leviathan Plus armor provide solid protection for an assault 'Mech, though not exceptional by the standards of heavier designs.</p><p>The Striker's true value lies in its rugged construction and use of common, easily-sourced components. This Easy to Maintain design philosophy kept these 'Mechs operational across centuries of declining industrial capacity, long after the factory that produced them had been destroyed.</p>
+
+deployment:<p>A field modification popular among Steiner militia units, this variant trades the large laser and autocannon/5 for a Mydron Model B Autocannon/10 with a two-ton ammunition magazine. While this reduces the Striker's overall damage potential, the simpler weapon configuration produces far less waste heat, allowing MechWarriors to maintain a very steady rate of fire for extended periods. The cooler-running Mydron coupled with the two-ton ammunition bin makes this variant well-suited to the sustained defensive engagements typical of garrison duty.</p>
+
+history:<p>The Striker's origins trace back to a deliberate political calculation by First Lord Ian Cameron. While all the Great Houses fielded assault BattleMechs by the time of the Striker's introduction in 2571, these machines were relatively scarce and reserved for the most prestigious units or highest-ranking officers. Terran Hegemony units, equipped with far more powerful designs, created a disparity in firepower between Royal and House SLDF formations that bred resentment. Cameron ordered full-scale production of the Striker to address this imbalance, and the 'Mech quickly filled the ranks of the SLDF's House-donated regiments.</p><p>The strategy succeeded. The addition of capable assault 'Mechs to donated formations generated goodwill among the Great Houses, and many historians credit the Striker's proliferation with convincing reluctant House Lords to commit additional units to the SLDF. However, as technological advances allowed the Star League to field larger and more capable assault designs, the Striker was steadily displaced from frontline service. The Awesome, produced by Technicron Manufacturing beginning in 2665 as a direct replacement, rendered the Striker obsolete for first-line duty. Most surviving Strikers were deployed among militia units in the Rimward section of the Hegemony.</p><p>The fall of the Star League and the onset of the Succession Wars scattered surviving Strikers across the Inner Sphere. The destruction of Stormvanger's Caph facility in 2867 ended any hope of renewed production, and the remaining machines became increasingly rare prizes. By the late thirty-first century, fewer than three hundred Strikers remained operational, concentrated primarily among Steiner and Liao formations.</p><p>Capellan units deployed their Strikers in frontline roles, with many receiving field upgrades that kept them competitive against more modern designs. The Capellan Confederation Armed Forces proved particularly adept at extracting continued value from the aging chassis, developing dedicated refit programs through Earthwerks Ltd. on Grand Base. Steiner forces typically relegated their Strikers to militia and garrison duty, where the design's low maintenance requirements proved well-suited to under-resourced commands. The Word of Blake also fielded Strikers among their formations during the Jihad, where the ancient design continued to perform respectably against more modern opponents. Into the Dark Age, the Capellans continued to invest in the Striker platform, introducing new variants that leveraged advanced technology to keep the five-century-old chassis relevant on the modern battlefield.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Ford
+systemmode:CHASSIS:CVX 21
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:320
+systemmanufacturer:ARMOR:Leviathan
+systemmode:ARMOR:Plus
+systemmanufacturer:COMMUNICATIONS:Basix
+systemmode:COMMUNICATIONS:200
+systemmanufacturer:TARGETING:Rander
+systemmode:TARGETING:Crosshairs

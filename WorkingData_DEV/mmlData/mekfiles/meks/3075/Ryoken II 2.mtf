@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf12-75fd-9c82-77f881a1f922
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Ryoken II
+model:2
+mul id:2759
+
+Config:Biped
+techbase:Clan
+era:3076
+source:TR:3075,TR:J
+published:RS:J
+rules level:2
+role:Sniper
+
+quirk:stable
+
+mass:75
+engine:375 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:19
+RA armor:19
+LT armor:19
+RT armor:19
+CT armor:28
+HD armor:9
+LL armor:25
+RL armor:25
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:4
+Ultra AC/10, Left Torso
+LRM 15, Left Torso
+Ultra AC/10, Right Torso
+LRM 15, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+CLLRM15
+CLLRM15
+Clan Ammo LRM-15
+Clan Ultra AC/10 Ammo
+Clan Ultra AC/10 Ammo
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+CLUltraAC10
+CLLRM15
+CLLRM15
+Clan Ammo LRM-15
+Clan Ultra AC/10 Ammo
+Clan Ultra AC/10 Ammo
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Ryoken II is a 75-ton heavy BattleMech produced by Bergan Industries on Alshain, first entering service in 3075. After the success of the Mad Cat Mk II design, which increased the tonnage and weaponry of the original Mad Cat, Clan Ghost Bear applied the same upscaling concept to the medium-weight Stormcrow. The result retains the Stormcrow's general configuration philosophy while adding twenty tons of additional mass for heavier weapons, greater armor protection, and increased ammunition capacity. Unlike its OmniMech ancestor, the Ryoken II is a standard BattleMech with fixed weapon configurations, a design choice that reduced manufacturing complexity during a period of severe industrial strain for the Ghost Bear Dominion.</p>
+
+capabilities:<p>The Ryoken II is slower than its Stormcrow antecedent, reaching only 87 km/h, though the additional twenty tons of chassis weight provide substantially more capacity for equipment and weapons. Built on a DSAM ENDO 5 endo steel chassis and powered by a GM 375 XL engine, the design is protected by thirteen and a half tons of Forging ZK20 armor, offering a significant improvement in survivability over the lighter Stormcrow.</p><p>As a standard BattleMech rather than an OmniMech, the Ryoken II uses fixed weapon configurations that cannot be reconfigured in the field. This design choice reduced manufacturing complexity and allowed Bergan Industries to produce the design in greater numbers during the Jihad, when the Rasalhague Dominion's industrial capacity was under severe strain. The trade-off is a loss of the tactical flexibility that made the Stormcrow so effective, requiring commanders to select the appropriate variant for anticipated mission requirements before deployment. The XL engine also carries the same vulnerability to side torso penetration as the Stormcrow, a persistent weakness in this design lineage.</p>
+
+deployment:<p>This variant is better suited to close range work and was introduced during the Jihad. It trades the autocannons for a pair of Ultra Autocannon/10s and four tons of ammunition for them. Though ammo stores are still limited, this variant is more likely to succeed in greatly damaging its opponent before the stores run out. This is also more imperative, as it mounts two tons less armor.</p>
+
+history:<p>Following the success of Clan Diamond Shark's Mad Cat Mk II, which upscaled the 75-ton Mad Cat to an 85-ton assault chassis, Clan Ghost Bear applied the same concept to its widely fielded Stormcrow. The result was the Ryoken II, a 75-ton heavy BattleMech that first walked off the assembly line at Bergan Industries on Alshain in 3075, during the Word of Blake Jihad.</p><p>When the Ghost Bears later decided to sell some Ryoken IIs to the Republic of the Sphere, the decision provoked anger among several Clans. Clan Hell's Horses, the original creators of the Corvis and Omni-Corvis designs from which the entire Ryoken lineage descended, filed multiple Trials of Grievance over what they viewed as commercialization of their intellectual heritage. A Hell's Horses variant, the Ryoken II 3, was subsequently developed, mounting paired HAG/20s as a reflection of the Horses' preference for overwhelming ballistic firepower. The design has since become a mainstay of the Rasalhague Dominion's heavy BattleMech forces.</p>
+
+manufacturer:Bergan Industries - Alshain Weapons (formerly GK&T owned)
+
+primaryfactory:Alshain
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:DSAM
+systemmode:CHASSIS:ENDO 5
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:375 Fusion Extralight
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:ZK20
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:GBX-2 Amalgamated Targeting and Tracking
+systemmanufacturer:TARGETING:Alshain
+systemmode:TARGETING:B4 Series 2 T&T

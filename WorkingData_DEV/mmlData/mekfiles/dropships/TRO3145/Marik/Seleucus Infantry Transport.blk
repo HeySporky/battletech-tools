@@ -1,0 +1,275 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ac1c-7e0c-8f57-3ae6c0fca46e
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Seleucus Infantry Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6521
+</mul id:>
+
+<year>
+3100
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+atmo_flyer
+difficult_maintain
+non_standard
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+battlearmorbay:20.0:5:1::-1:0
+lightvehiclebay:12.0:1:2::-1:0
+1stclassquarters:50.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:112.0:0:-1::-1:0
+cargobay:205.0:1:6::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+102
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+6000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+251
+230
+230
+201
+</armor>
+
+<Nose Equipment>
+(B) ISERPPC
+ISERPPC
+(B) ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+IS Light Gauss Ammo:64
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISERPPC
+(B) Extended LRM 20
+Extended LRM 20
+IS Ammo Extended LRM-20:32
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:72
+(R) (B) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAMS Ammo:72
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISERPPC
+(B) Extended LRM 20
+Extended LRM 20
+IS Ammo Extended LRM-20:32
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:72
+(R) (B) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAMS Ammo:72
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+ISArtemisIV
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+12
+</structural_integrity>
+
+<capabilities>
+<p>The Seleucus is a 2,600-ton military aerodyne optimized for battle armor transport and deployment. Its internal bays are configured specifically for battle armor squads, with dedicated storage, maintenance, and deployment systems that allow rapid insertion of armored infantry onto a planetary surface. The aerodyne hull provides atmospheric maneuverability advantages during the critical deployment phase. Defensive armament is substantial for a transport of its size, mounting ER PPCs, Light Gauss Rifles, ER Large Lasers, and a mix of missile systems including ELRM-20 launchers and Artemis-guided LRM-20 racks. Twelve anti-missile systems and twelve ER Medium Lasers round out the defensive suite, providing comprehensive point defense and anti-fighter capability. Standard armor gives the Seleucus adequate protection for a transport operating under fighter escort. The drive system provides military-grade acceleration, allowing the vessel to keep pace with assault formations while maintaining the agility needed for tactical deployment runs. Over decades of service, the Seleucus has proven a tough and reliable transport, consistently delivering its battle armor troops safely to their target destinations.</p>
+</capabilities>
+
+<overview>
+<p>The Seleucus is a dedicated battle armor transport DropShip produced by Kallon Weapon Industries for the Marik-Stewart Commonwealth during the early thirty-second century. Designed at a time when most available transports were multipurpose combined-arms vessels, the Seleucus was engineered specifically to carry and deploy battle armor formations, providing the specialized handling and deployment systems that these advanced infantry units require. The design was subsequently sold to various factions friendly to the Commonwealth, and continued serving ex-League states and mercenary units well into the reunification of the Free Worlds League in 3139.</p>
+</overview>
+
+<deployment>
+<p>The standard Seleucus Infantry Transport serves in its baseline battle armor carrier configuration, providing dedicated transport and deployment capability for armored infantry formations. These vessels were originally fielded by the Marik-Stewart Commonwealth before being sold to allied factions across the former Free Worlds League.</p>
+</deployment>
+
+<history>
+<p>The Seleucus was developed during the early thirty-second century when the fragmented successor states of the former Free Worlds League were rebuilding their military capabilities independently. The Marik-Stewart Commonwealth recognized that existing multipurpose transports were inadequate for the specialized requirements of battle armor deployment, which demanded dedicated handling systems, deployment bays, and tactical insertion capability that general-purpose Combined-Arms DropShips could not provide.</p><p>Kallon Weapon Industries, operating from the Commonwealth's industrial base, was contracted to develop a purpose-built solution. The resulting Seleucus was engineered from the ground up as a battle armor transport, with every aspect of the design optimized for its specialized mission. The aerodyne configuration was selected for its superior atmospheric handling characteristics during the critical low-altitude deployment runs that battle armor insertion missions demand.</p><p>The Commonwealth proved willing to sell the Seleucus to friendly factions, and the design found buyers among other ex-League states and mercenary commands that operated battle armor formations. This commercial success ensured that the Seleucus proliferated across the former League's territory and beyond. The class continued serving these diverse operators well into the reunification of the Free Worlds League in 3139, by which point the Seleucus had established itself as one of the most reliable dedicated battle armor transports in service.</p>
+</history>
+
+<manufacturer>
+Kallon Weapon Industries
+</manufacturer>
+
+<primaryFactory>
+Loyalty
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:FWL,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+2600.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+196
+</crew>
+
+<officers>
+5
+</officers>
+
+<gunners>
+6
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+4
+</life_boat>
+
+<escape_pod>
+4
+</escape_pod>
+

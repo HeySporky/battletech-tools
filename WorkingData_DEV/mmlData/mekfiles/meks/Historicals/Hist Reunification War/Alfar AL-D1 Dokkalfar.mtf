@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6cb-7306-87bb-ef49384d0db3
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Alfar
+model:AL-D1 'Dökkálfar'
+mul id:3693
+
+Config:Biped
+techbase:Inner Sphere
+era:2573
+source:His:RW
+rules level:4
+role:Sniper
+
+quirk:non_standard
+
+mass:55
+engine:275 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:15 Single
+walk mp:5
+jump mp:3
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:17
+RA armor:17
+LT armor:19
+RT armor:19
+CT armor:27
+HD armor:9
+LL armor:25
+RL armor:25
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:2
+PPC, Left Arm
+PPC, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+PPC
+PPC
+PPC
+Heat Sink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+PPC
+PPC
+PPC
+Heat Sink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Alfar was introduced in 2573 by Coventry Metal Works as part of a broader effort by the Lyran Commonwealth Armed Forces to improve its capacity for mobile BattleMech warfare. Developed during the reign of Archon Tracial Steiner, the fifty-five-ton medium 'Mech was intended as a homegrown alternative to widely-used designs like the Griffin and Shadow Hawk, both of which had similar performance profiles but were not manufactured within the Commonwealth. Named for the elves of Germanic legend, the Alfar represented an ambitious attempt by Coventry Metal Works to establish the Commonwealth as a producer of competitive medium-weight platforms.</p><p>The design saw limited production and served almost exclusively within the LCAF, with only a few dozen examples entering Star League Defense Force service. Though well-regarded by its pilots for its combination of speed and firepower, the Alfar's reputation was ultimately overshadowed by the logistical difficulties it imposed on the units that fielded it.</p>
+
+capabilities:<p>The Álfar packed an impressive amount of firepower for a medium 'Mech of its era. Its primary weapon, a Magna Hellstar particle projection cannon mounted in the right arm, provided significant striking power at long range. This was supplemented by three Magna Mark II medium lasers (two in the left arm and one mounted in the head) along with a Shannon Six-Shooter short-range missile launcher in the left torso, giving the design a well-rounded engagement profile across all combat ranges. Fifteen heat sinks provided adequate thermal management, allowing MechWarriors to fire the PPC continuously while selectively engaging secondary weapons systems based on heat conditions.</p><p>Built on a Coventry AL endo steel chassis and protected by ten tons of Coventry Industries ferro-fibrous armor, the Álfar was both well-protected and weight-efficient for its class. Three Luxor Load Lifter jump jets granted a ninety-meter jump capability, enabling the design to traverse rough terrain and negate conventional fortifications with ease. The combination of speed, firepower, and mobility made the Álfar popular with its pilots.</p><p>However, Coventry Metal Works' ambition proved to be the design's greatest weakness. The Álfar relied heavily on non-standard, proprietary components that made field maintenance and logistical support extremely difficult. Technical crews found keeping the design operational to be a constant challenge, and this maintenance burden ultimately sealed its fate.</p>
+
+deployment:<p>The sole official variant of the Álfar, the AL-D1 (known as the Dökkálfar or Dark Elf) replaced all three medium lasers and the short-range missile launcher with a second Magna Hellstar particle projection cannon. Often described as a "baby Warhammer," this configuration proved popular among some Steiner formations as a cost-effective fire support platform capable of delivering devastating long-range alpha strikes. The trade-off was significant, however: the Dökkálfar sacrificed all close-range defensive capability and suffered from considerably worse heat management than its more common sibling. While superior in long-range engagements, it was generally regarded as an inferior brawler and was produced in smaller numbers than the standard AL-A1.</p>
+
+history:<p>The Alfar was born from a recognized deficiency in the Lyran Commonwealth's military doctrine. Like much of the LCAF during the Reunification War era, Lyran forces had a pronounced tendency toward heavy 'Mechs and were largely incapable of conducting effective mobile campaigns. The Tamar Tigers stood as a notable exception to this pattern, and it was during the reign of Archon Tracial Steiner that a concerted effort was made to diversify the Commonwealth's forces with lighter, more agile designs. The Alfar was among the most promising of these proposals.</p><p>The design's combat debut came during Operation Mailed Fist, the Lyran component of the Reunification War. The Tamar Tigers fielded two lances of Alfars during the Rim Worlds Campaign, while the handful of SLDF examples saw action alongside them. The 'Mech demonstrated impressive battlefield performance, blending speed, resilience, and firepower in a way that won praise from its MechWarriors.</p><p>Despite these virtues, the Alfar's reliance on non-standard, proprietary components created severe logistical problems. Many of its fittings were unique to the design, making field repairs time-consuming and parts procurement a constant headache. Of the SLDF's Alfars lost during the Reunification War, only two-thirds fell to enemy action; the remaining third were scrapped or abandoned when maintaining them proved impractical. The LCAF treated the design with more respect, but the same fundamental problems persisted.</p><p>The Star League's push for military standardization in the decades following the Reunification War sealed the Alfar's fate. As the SLDF emphasized logistical compatibility and ease of maintenance across its formations, the high-maintenance Alfar became increasingly untenable. Coventry Metal Works found it more cost-effective to scrap remaining examples and replace them with upgraded Griffins, Shadow Hawks, and Dervishes, ironically the very designs the Alfar had been created to surpass. Production ceased during the mid-Star League era, with the factory lines at Coventry transitioning to other products.</p><p>A handful of Alfars lingered in private ownership after military service ended, but these last survivors are believed to have been destroyed during the devastation of the First Succession War. No examples are known to have survived into the modern era, making the Alfar one of the many promising designs lost to the combined pressures of logistical pragmatism and total war.</p>
+
+manufacturer:Coventry Metal Works
+
+primaryfactory:Coventry
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Coventry
+systemmode:CHASSIS:AL Endo Steel
+systemmanufacturer:ENGINE:CoreTek
+systemmode:ENGINE:275
+systemmanufacturer:ARMOR:Coventry Industries
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Luxor
+systemmode:JUMP_JET:Load Lifters
+systemmanufacturer:COMMUNICATIONS:Field Ranger
+systemmode:COMMUNICATIONS:Wanderer
+systemmanufacturer:TARGETING:Martial Ranger
+systemmode:TARGETING:Series 6

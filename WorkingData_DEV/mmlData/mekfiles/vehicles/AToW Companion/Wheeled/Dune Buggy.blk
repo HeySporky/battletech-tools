@@ -1,0 +1,161 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e8dc-72eb-906e-b0b726970333
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Dune Buggy
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+9226
+</mul id:>
+
+<year>
+2010
+</year>
+
+<type>
+IS Level 5
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:0.2:1:1::-1:0
+standardseats:2.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+43
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+1
+1
+1
+1
+</armor>
+
+<Body Equipment>
+Basic Fire Control
+ISOffRoadChassis
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun (Support):SIZE:1.0
+Wire-Guided Missile Launcher:SIZE:1.0
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+2
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<overview>
+<p>Dune buggies have been a mainstay of militias for countless centuries. Apart from jeeps, few other vehicle classes are more reliable and sturdy in off-road battle. Outfitted with an open gunner's station, dune buggies are very effective against other light vehicles and infantry, especially in the shifting sands of a desert or beachfront terrain. Not only pirate bands refit civilian vehicles into fighting machines.</p>
+</overview>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+AToW Companion
+</source>
+
+<tonnage>
+1.5
+</tonnage>
+
+<fuel>
+0.027
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

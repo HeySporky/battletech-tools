@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ca6f-74c7-af96-4d0774dd2045
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Lynx
+model:LNX-9Q
+mul id:1968
+
+Config:Biped
+techbase:Inner Sphere
+era:2761
+source:TR:3058U
+published:RS:3058Uu-C
+rules level:2
+role:Skirmisher
+
+quirk:multi_trac
+
+mass:55
+engine:275 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:15 IS Double
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:18
+RA armor:18
+LT armor:20
+RT armor:20
+CT armor:28
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:6
+Medium Laser, Left Arm
+Medium Laser, Left Arm
+ER PPC, Right Arm
+Medium Laser, Left Torso
+Large Laser, Right Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Medium Laser
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Medium Laser
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Large Laser
+Large Laser
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Medium Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Lynx was introduced in 2761 by Blue Shot Weapons of Solaris VII as a dedicated striker BattleMech for the Star League Defense Force. One of the first designs built around an Extended Range Particle Projection Cannon, the Lynx offered an exceptional combination of speed, firepower, and protection for a medium 'Mech. Blue Shot Weapons' limited production capacity meant the design never achieved widespread deployment during the Star League era, and the technological decline of the Succession Wars drove it to the brink of extinction.</p><p>The design was resurrected in 3056 when Blue Shot Weapons rebuilt its production lines, with a subsequent licensing agreement with Telfar BattleMechs of Midway expanding output to meet demand from both the Lyran Alliance and the Draconis Combine. Beyond the Inner Sphere, Clan Smoke Jaguar rebuilt the Lynx with Clan technology during the Golden Century, designating it the Lynx C.</p>
+
+capabilities:<p>The Lynx achieves its striker role through a potent combination of mobility and ranged firepower. Powered by a Nissan 275 XL extralight engine, the fifty-five-ton 'Mech reaches speeds of eighty-six kilometers per hour, while five Luxor Load Lifter jump jets provide a hundred and fifty meters of jumping distance, enabling it to exploit terrain that heavier opponents cannot follow. Nearly twelve tons of Kallon Unity Weave armor provide protection approaching the maximum a chassis of this weight can bear, giving MechWarriors confidence to engage targets well above the Lynx's weight class.</p><p>The primary armament centers on a Defiance 1001 ER PPC mounted in the right arm, delivering punishing fire at nearly seven hundred meters. A Defiance B3L large laser in the right torso supplements this reach, while four Defiance B3M medium lasers distributed across the center torso, left torso, and left arm create a devastating close-range bracket. This all-energy loadout eliminates ammunition dependency, allowing the Lynx to operate independently for extended periods, a critical advantage for deep strikes and prolonged engagements. Fifteen double heat sinks manage the considerable thermal load, though sustained alpha strikes still demand careful heat discipline from pilots.</p>
+
+deployment:<p>This variant is the original Star League-era production model, representing the Lynx as Blue Shot Weapons intended it. Its combination of an ER PPC, large laser, and four medium lasers provides overlapping engagement envelopes from extreme range down to point-blank combat. The all-energy weapons suite and generous armor protection make the 9Q an exceptionally self-sufficient design, well-suited to the independent operations and extended patrols that defined its Star League Defense Force role.</p>
+
+history:<p>The Lynx traces its origins to the height of the Star League era, when Blue Shot Weapons of Solaris VII began production in 2761. Designed for the SLDF as a striker capable of independent operations, the Lynx earned distinction as one of the first BattleMechs engineered around an extended-range PPC. Despite its impressive capabilities, Blue Shot's limited manufacturing capacity restricted the Lynx to relatively small production runs throughout the Star League period.</p><p>The fall of the Star League brought further hardship to the design. Blue Shot Weapons struggled to maintain production as the technological base of the Inner Sphere eroded during the Succession Wars. Many surviving Lynxes were downgraded to the less capable LNX-8Q configuration as advanced components became irreplaceable. In 2928, a House Marik raid destroyed the Solaris VII factory entirely, and the remaining Lynxes were gradually cannibalized for parts until the design effectively vanished from the Inner Sphere's battlefields.</p><p>The Lynx's story diverged among the Clans. Carried into exile with Kerensky's Exodus fleet, the design found a new home with Clan Smoke Jaguar. Rebuilt with Clan technology around 2848, the Lynx C served alongside the Sling during the Jaguars' participation in Operation Klondike and the Mongoose Absorption campaign. However, the rapid advance of Clan technology in the mid-twenty-ninth century (particularly the advent of OmniMechs) eclipsed the Lynx C, relegating it to garrison clusters and second-line formations.</p><p>In the Inner Sphere, the Lynx's resurrection came in 3056 when Blue Shot Weapons finally secured the resources to rebuild its Solaris VII production lines. A licensing agreement with Telfar BattleMechs of Midway in the Draconis Combine expanded production capacity, allowing both LAAF and DCMS commands to field the design. By 3067, both manufacturers reported strong sales, with the Lynx appearing in several of the best-equipped regular and mercenary commands of both realms.</p><p>The Clan Lynx C met a grimmer fate. The Jaguars' defense of Huntress during Operation Serpent saw surviving Lynx C units pressed into service against Inner Sphere forces. Following the destruction of Clan Smoke Jaguar, Clan Ice Hellion salvaged many of the surviving examples, only for the majority to be destroyed during the disastrous Operation Ice Storm. The Lynx C's manufacturing base on Huntress and Strana Mechty passed through several Clan hands in the post-Invasion period, though active production appears to have long since ceased.</p>
+
+manufacturer:Blue Shot Weapons|Telfar Battlemechs
+
+primaryfactory:Solaris VII|Midway
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:RAMTech
+systemmode:CHASSIS:QWT
+systemmanufacturer:ENGINE:Nissan
+systemmode:ENGINE:275 XL
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:Unity Weave
+systemmanufacturer:JUMP_JET:Luxor
+systemmode:JUMP_JET:Load Lifters
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Lynx-shur
+systemmanufacturer:TARGETING:Cyclops
+systemmode:TARGETING:Multi-Tasker 10

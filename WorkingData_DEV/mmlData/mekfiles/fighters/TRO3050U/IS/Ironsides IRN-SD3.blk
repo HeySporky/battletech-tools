@@ -1,0 +1,181 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-adbe-77db-b8b5-a6f7ea5baacf
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Ironsides
+</Name>
+
+<Model>
+IRN-SD3
+</Model>
+
+<mul id:>
+1626
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+61
+36
+36
+51
+</armor>
+
+<Nose Equipment>
+ISERPPC
+ISERLargeLaser
+MRM 10
+</Nose Equipment>
+
+<Left Wing Equipment>
+MRM 10
+MRM 10
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+MRM 10
+MRM 10
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS MRM 10 Ammo
+IS MRM 10 Ammo
+IS MRM 10 Ammo
+IS MRM 10 Ammo
+IS MRM 10 Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Ironsides mounts a GM 260 fusion engine on a Lockheed FairFax airframe, achieving a safe thrust of six and maximum thrust of nine. The engine employs an unusual alignment system that shifts its position relative to gravitational and velocity influences, producing a more compact powerplant with the same output as larger contemporary designs. Protection comes from 11.5 tons of SearWeave standard armor, modest for a sixty-five-ton fighter but a necessary concession for its heavy armament.</p><p>Five Colbalt-6 SRM-6 launchers spread across the nose and wings deliver devastating close-range missile salvos. Two Exeter Technologies 1 PPCs in the nose provide ranged firepower, their high-density chamber coils producing narrower beams that avoid disrupting missile flight paths. Two Allied Technologies Model 2 medium lasers round out the armament, though these weapons have proven problematic throughout the fighter's service life. Sustained fire can rupture the power-chain housing, causing a backflash explosion that ripples into the wing roots and can tear the wings from the fuselage during high-stress maneuvers. Three separate recall campaigns failed to eliminate the problem.</p><p>With only ten double heat sinks and a single ton of SRM ammunition providing roughly three full salvos, the Ironsides is best suited to devastating alpha strikes rather than extended engagements. An OP/1/2/3.66 Mk IIa communications system and Ryder Track IV targeting and tracking system complete the electronics suite.</p>
+</capabilities>
+
+<overview>
+<p>The Ironsides is a sixty-five-ton medium aerospace fighter designed by Brooks Incorporated in 2613 for the Star League Defense Force. In an unprecedented marketing strategy, Brooks offered five hundred prototypes to any military command willing to field-test the design, resulting in examples being deployed by the SLDF, every Inner Sphere power, and even the Rim Worlds Republic. This extensive testing program produced a production model with remarkably few defects, earning the fighter a strong reputation for its devastating first-strike capability. Armed with a heavy combination of missiles, particle projectors, and lasers, the Ironsides packed firepower well above its weight class, though limited ammunition stores and poor heat management constrained it to quick-strike engagements rather than prolonged dogfights. The design saw widespread service throughout the Star League era, and its combination of raw hitting power and acceptable maneuverability made it a valued asset in fighter wings across the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>Produced at the reopened Brooks Incorporated facility on Liberty with Word of Blake funding, the IRN-SD3 is a substantial modernization of the design. Built on the SD2 airframe, it mounts an extended-range PPC and extended-range large laser alongside five medium-range missile launchers with generous ammunition stores. Deployed among Protectorate planetary defense forces during the Jihad, these fighters proved capable of delivering punishing firepower against heavier opposition.</p>
+</deployment>
+
+<history>
+<p>The Ironsides entered service in 2613 after Brooks Incorporated's ambitious field-testing program delivered five hundred prototypes across the Star League and its member states. The three-year evaluation period yielded invaluable data, and the SLDF purchased large quantities of the production model, primarily valuing its devastating first-strike capability. Brooks maintained five factories producing the fighter during the Star League era, with the primary facility located on Carver V.</p><p>The Royal variant was developed around 2760 exclusively for SLDF Royal commands. This advanced model incorporated an extralight engine to free internal volume for enhanced ammunition storage, improved heat dissipation, and upgraded energy weapons. The Royal Ironsides remained limited to elite Star League units and was among the designs carried into the Exodus by Kerensky's forces.</p><p>Following the fall of the Star League, production of the Ironsides suffered the same fate as countless other advanced designs. The Succession Wars progressively destroyed Brooks Incorporated's manufacturing infrastructure, reducing its five fighter factories to a single surviving plant by 2910. Located on Carver V, now known as Liberty, this last facility was eventually shut down by the company as a cost-saving measure. The fighter found little respect among contemporary aerospace pilots, who considered the aging design too plain and were all too aware of the notorious energy housing failures that three separate recall efforts had failed to resolve.</p><p>By 3050, most Ironsides still in the Inner Sphere were cared for as family heirlooms or gathering dust in museums. Among the Free Worlds League's Oriente air forces and various planetary defense garrisons, the fighter still saw limited duty, though it enjoyed battlefield anonymity across the rest of known space.</p><p>In Clan space, the Ironsides had followed a different trajectory. Royal models that accompanied Kerensky's Exodus formed the basis for continued development. Following the Klondike campaign, Clan Star Adder scientists began mass-producing prototype Streak missile systems, and a trade with the Steel Vipers brought new life to the aging Royal chassis. The resulting Early Clan refit replaced the older missile launchers with new Streak 4 systems, extending the fighter's combat endurance and addressing one of the original design's most persistent weaknesses.</p><p>The Word of Blake's rise during the Jihad brought unexpected new life to the Ironsides on the Inner Sphere side. The Blakists reopened and modernized the long-dormant Brooks facility on Liberty with Word of Blake funds, producing a substantially redesigned variant mounting medium-range missiles and extended-range energy weapons. These heavy fighters were deployed among planetary defense forces across the Protectorate, where they proved capable of delivering punishing firepower. One Federated Suns DropShip captain barely survived a scrape with six of the Blakist fighters, his vessel's armor reduced to little more than tissue before he successfully docked with a JumpShip and escaped the Acamar zenith point.</p><p>ComStar also took an interest in the design during this period. An innovative Adept hand-built an experimental refit incorporating Clan-manufactured weapons into an Ironsides airframe, engineering standardized installation methods that could theoretically allow broader replication. Analysis of the engineering list revealed that it included parts not used by the Clans at all, suggesting ComStar was building, or preparing to build, Clan-specification components independently. While the project never advanced beyond a single prototype, it demonstrated both the aging airframe's adaptability and ComStar's ambitions regarding Clan technology manufacturing.</p><p>Following the Jihad, the Liberty plant's fate remains uncertain, with ownership of the world passing through several hands including the Republic of the Sphere before eventually returning to Capellan control. The Ironsides endures primarily as a relic of a bygone era, a sign of the time when Brooks Incorporated's bold marketing gamble produced one of the Star League's most widely distributed medium fighters.</p>
+</history>
+
+<manufacturer>
+Brooks Incorporated
+</manufacturer>
+
+<primaryFactory>
+Carver V / Liberty
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Lockheed
+ENGINE:GM
+ARMOR:SearWeave
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:FairFax
+ENGINE:260
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+65.0
+</tonnage>
+

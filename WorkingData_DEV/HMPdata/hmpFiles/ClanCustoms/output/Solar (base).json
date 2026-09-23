@@ -1,0 +1,300 @@
+{
+  "filename": "Solar (base).hmp",
+  "size": 2959,
+  "header_hex": "56 35 2e 30 30 04 00 08 05 40 10 10 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0005@\u0010"
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 29,
+      "length": 16,
+      "text": "\u0000\u0000\u0000\u0000Z\u0000\u0005\u0000Solar\u0006\u0000("
+    },
+    {
+      "type": "ascii",
+      "start": 29,
+      "end": 34,
+      "text": "base)"
+    },
+    {
+      "type": "byte",
+      "offset": 34,
+      "hex": "f4"
+    },
+    {
+      "type": "len_string",
+      "start": 35,
+      "end": 560,
+      "length": 523,
+      "text": "\u0000%\u00c6\u0090\u0001\u00c4\u0003\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0014\u0000MA 7 5 2 \u0097 \u0097\u0097 4 omni\u0001\u0000\n\u0000\u0001\u0000h\u0001\u0001\u0000\u0004\u0000\u0000\u0000\u000e\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u001e\u0000\u0000\u0000\u0000\u0000\u001c\u0000\u0000\u0000\u0000\u0000&\u0000\u0000\u0000\u0000\u0000\u001e\u0000\u0000\u0000\u0000\u0000\u001c\u0000\u0000\u0000\u0000\u0000&\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000,\u0000\u0000\u0000\n\u0000\n\u0000\u000e\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0000\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00e2\u00ff\u0017\u0001\u00e3\u0000     A"
+    },
+    {
+      "type": "ascii",
+      "start": 560,
+      "end": 781,
+      "text": "ttempting to replace machines lost in the Refusal War, Kahn Phelan Kell had his scientists design an assault OmniMech that could stand up to many of the older Omni designs.  After two years of testing, the Solar was born."
+    },
+    {
+      "type": "len_string",
+      "start": 781,
+      "end": 980,
+      "length": 197,
+      "text": "     The Solar was designed primarily as a direct combat machine.  Ferro-fiberous armor, an endo-steel frame and an XL engine give the 'Mech the needed space to hold as much in weapons as possible."
+    },
+    {
+      "type": "len_string",
+      "start": 980,
+      "end": 983,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 983,
+      "end": 984,
+      "text": "+"
+    },
+    {
+      "type": "byte",
+      "offset": 984,
+      "hex": "06"
+    },
+    {
+      "type": "ascii",
+      "start": 985,
+      "end": 2564,
+      "text": "     The Primary variant mounts an ER PPC in each arm, backed up by an extended range large laser.  A third ER PPC rests just below the engine, and a large laser rests on the side of the head.  The extra heat sinks mounted directly on the PPC's do little to control the heat.  Pilots are advised not to fire all of their weapons at once while moving.\r\n     Variant A drops the PPC and laser in the right arm, as well as the laser in the left arm and puts two LRM 15 launchers with several reloads for each launcher.\r\n     The B variant replaces the right arm with a Gauss Rifle with 4 tons of ammo, and moves a large laser form the left arm into the right torso.\r\n     Variant C drops all the lasers, putting two PPCs in each arm and leaves the one in the center torso.  This version overheats repeatedly, but need not reload, and can mangle most 'Mechs in one fatal shot.\r\n     Variant D replaces all the weapons with large pulse lasers.  One large pulse laser is in each arm, and one in each torso.\r\n     Variant E places the Gauss rifle in the left arm, with five tons of ammo stored in the torso.  Extended range large lasers are placed in each side torso.\r\n     The final variant, seen only twice, places the Gauss rifle in the right arm.  It replaces the left arm with a pair of Streak SRM 6 launchers with a few tons of ammo, which is sufficient for the Streak launchers.  It also carries an ECM suite in the left torso to scramble any incoming sensor beams.  This version was attached to a Galaxy Command Star, obivously to defend the Galaxy Commander from any artillery."
+    },
+    {
+      "type": "len_string",
+      "start": 2564,
+      "end": 2567,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2567,
+      "end": 2821,
+      "length": 252,
+      "text": "     Clan Wolf (in-exile) primarily fields this design.  A few were given to the Nova Cats as a sign of fidelity with their return to the Star League.  Clan Ghost Bear captured a single machine when they were raided by the Wolves in exile for material."
+    },
+    {
+      "type": "len_string",
+      "start": 2821,
+      "end": 2824,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2824,
+      "end": 2827,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 2827,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2828,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2829,
+      "end": 2845,
+      "length": 14,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 2845,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2846,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2847,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2848,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2849,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2850,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2851,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2852,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2853,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2854,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2855,
+      "end": 2858,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 2858,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2859,
+      "end": 2869,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 2869,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2870,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2871,
+      "end": 2872,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2872,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2873,
+      "end": 2883,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2883,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2884,
+      "end": 2894,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2894,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2895,
+      "end": 2905,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2905,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2906,
+      "end": 2916,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2916,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2917,
+      "end": 2927,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2927,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2928,
+      "end": 2938,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2938,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2939,
+      "end": 2949,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2949,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2950,
+      "end": 2959,
+      "text": "(Unknown)"
+    }
+  ]
+}

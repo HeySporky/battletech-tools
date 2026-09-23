@@ -1,0 +1,164 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a81d-75e7-8b1a-35825a126864
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Dragoon Battle Armor
+</Name>
+
+<Model>
+(Advanced)(Sqd6)
+</Model>
+
+<mul id:>
+9384
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+Mixed (IS Chassis) Advanced
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Squad Equipment>
+BAHeavyBattleClaw:LA
+CLBALightMortar:Body
+CLBAMicroPulseLaser:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Advanced Dragoon trades the standard configuration's flamer for a micro pulse laser while retaining the light mortar and heavy battle claw. This swap provides a more precise anti-infantry weapon that does not require ammunition, reducing the logistical burden on extended operations. The micro pulse laser's rapid-fire capability maintains the suit's lethality against soft targets at close range.</p><p>The most significant upgrade is the adoption of Clan-specification armor plating, which offers improved protection over the standard variant's Inner Sphere advanced armor. This mixed-technology approach reflects Wolf's Dragoons' unique access to Clan equipment and manufacturing expertise. The Advanced model remains exclusive to the Dragoons, who retain tight control over the ClanTech components. Despite the improved protection, the suit remains a medium-weight design and is not intended for prolonged stand-up fights against heavier battle armor or BattleMechs.</p>
+</capabilities>
+
+<overview>
+<p>The Dragoon is a medium battle armor suit produced by General Motors for Wolf's Dragoons. Introduced in 3072, the design was originally conceived to support combat engineering and high-risk intrusion operations, providing heavier protection than standard infiltration suits without sacrificing the mobility expected of lighter designs. The suit's ease of use and rapid deployment capability made it well-suited to the unpredictable demands of special operations work. An advanced mixed-technology variant incorporates Clan-manufactured protective systems, reflecting the Dragoons' access to both Inner Sphere and Clan resources. The Dragoon has earned a reputation as a capable anti-infantry platform with enough agility to threaten heavier targets through unconventional tactics.</p>
+</overview>
+
+<deployment>
+<p>Though the Advanced Dragoon remains exclusive to Wolf's Dragoons, six-trooper Level I formations represent a doctrinal option for missions requiring maximum trooper density. Seventh Kommando has occasionally fielded oversized formations during defensive operations or when tasked with securing large facilities, where the additional troopers provide broader coverage and improved staying power against determined opposition.</p>
+</deployment>
+
+<history>
+<p>Wolf's Dragoons developed the Dragoon battle armor for their Seventh Kommando, a unit specializing in high-risk covert operations. General Motors produced the suit at their New Valencia facility beginning in 3072. The design grew from a combat engineering requirement, providing Kommando troopers with heavier protection than standard infiltration suits while preserving the agility needed for intrusion work.</p><p>Early prototypes incorporated a multi-tool designed to crack security on BattleMech cockpit hatches. Field trials showed that conventional anti-BattleMech tactics proved more reliable for breaching cockpits, and the multi-tool was dropped from all production models.</p><p>The Dragoon saw significant action during the Draconis Combine's assault on New Avalon in 3146. Seventh Kommando troopers served as shock troops during the months-long campaign, infiltrating defensive positions held by elements of the First Avalon Hussars along the approach to Avalon City. Though most of the infiltrating troopers perished in the action, they broke through the Hussars' conventional infantry and secured a critical breach for the Dragoons' follow-up forces.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+New Valencia
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+RG29
+</source>
+
+<published>
+RG29
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+7
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

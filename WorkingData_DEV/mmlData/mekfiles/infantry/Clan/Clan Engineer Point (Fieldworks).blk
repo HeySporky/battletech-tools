@@ -1,0 +1,86 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+<UUID>
+019f583e-baae-7028-808c-e9d4a2617564
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Clan Engineer Point
+</Name>
+
+<Model>
+(Fieldworks)
+</Model>
+
+<year>
+2810
+</year>
+
+<originalBuildYear>
+2810
+</originalBuildYear>
+
+<type>
+Mixed (Clan Chassis) Advanced
+</type>
+
+<availability>
+2810-2839 CLAN:4
+</availability>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Clothing, Leather/Synthetic Hide
+Vibro-Shovel
+Vibro-Shovel
+Vibro-Shovel
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<squad_size>
+10
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<Primary>
+Rifle (Bolt-Action)
+</Primary>
+
+<specialization>
+32
+</specialization>
+
+<overview>
+<p>A Clan combat engineer Point, a rarity among the warrior-focused Clans. Drawing on Star League engineering practices carried into the Exodus, these laborer- and technician-caste troops build fighting positions and clear obstacles for the touman. By the mid-2800s the Clans increasingly regarded such work as beneath a true warrior, and dedicated engineer Points had all but vanished by 2840.</p>
+</overview>

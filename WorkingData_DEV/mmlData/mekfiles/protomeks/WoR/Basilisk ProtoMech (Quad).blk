@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e11d-7fc2-8424-befb1d5cc1d6
+</UUID>
+
+<UnitType>
+ProtoMek
+</UnitType>
+
+<Name>
+Basilisk ProtoMech (Quad)
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3796
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+Clan Level 4
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Quad
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<interface_cockpit>
+false
+</interface_cockpit>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+18
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+8
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+5
+14
+0
+0
+13
+</armor>
+
+<Body Equipment>
+Clan Ammo SRM-4 (10)
+EIInterface
+</Body Equipment>
+
+<Head Equipment>
+</Head Equipment>
+
+<Torso Equipment>
+CLSRM4
+ProtoQuadMeleeSystem
+Clan Electric Discharge ProtoMech
+</Torso Equipment>
+
+<Right Arm Equipment>
+</Right Arm Equipment>
+
+<Left Arm Equipment>
+</Left Arm Equipment>
+
+<Legs Equipment>
+</Legs Equipment>
+
+<capabilities>
+<p>The Basilisk Quad mounts an SRM-4 launcher in the torso with ten salvos of ammunition, providing the primary ranged firepower. However, the design's true combat power comes from its integrated melee weapons system and Electric Discharge ProtoMek armor. The quad chassis allows the Basilisk to physically engage targets, and the EDP armor adds a taser-like electrical discharge effect to melee attacks that can disrupt Mek systems. This combination makes the Basilisk Quad uniquely dangerous in close combat, capable of both physical and electrical disruption attacks that no other ProtoMek can replicate.</p><p>Thirty-two points of armor provide solid protection, and the quad chassis delivers fifty-four kilometers per hour cruising speed with a flank speed approaching eighty. Without jump jets, the design relies on its superior ground speed to close with targets and engage them in melee range. The quad configuration also provides inherently better stability than bipedal designs, reducing the risk of falling during physical combat maneuvers. Commanders deploy Basilisk Quad Points as shock assault elements, using their speed to close rapidly with enemy formations and engage in the close-range melee combat where their EDP armor provides maximum advantage.</p>
+</capabilities>
+
+<overview>
+<p>The Basilisk ProtoMek Quad is a seven-ton quadruped variant of the Cloud Cobra Basilisk, developed during the Wars of Reaving to provide a more mobile and stable weapons platform for close-range assault operations. The four-legged chassis trades the bipedal Basilisk's ranged firepower for enhanced ground speed and a built-in melee weapons system augmented by Electric Discharge ProtoMek armor, creating a design uniquely suited to aggressive close-quarters tactics. The quad configuration provides fifty-four kilometers per hour cruising speed, significantly faster than the bipedal variant's forty-three, while maintaining the Basilisk family's reputation for durability and reliability.</p>
+</overview>
+
+<deployment>
+<p>The base Basilisk Quad mounts an SRM-4 launcher in the torso with ten salvos of ammunition, supplemented by a quad melee weapons system and Electric Discharge ProtoMek armor. The four-legged chassis provides fifty-four kilometers per hour cruising speed, significantly faster than the bipedal Basilisk. Thirty-two points of armor provide solid protection. The EDP armor adds a taser-like electrical discharge to melee attacks, capable of disrupting Mek systems in close combat. Without jump jets, the design relies on its superior ground speed to close with opponents. The combination of SRM firepower, melee weapons, and electrical disruption makes the base Basilisk Quad a formidable close-range assault platform.</p>
+</deployment>
+
+<history>
+<p>The Basilisk Quad emerged during the turbulent Wars of Reaving period, when the escalating violence in the Clan Homeworlds drove rapid innovation in ProtoMek design. Cloud Cobra engineers, building on their extensive experience with the bipedal Basilisk, recognized that a quadruped chassis could provide the speed and stability needed for the close-range assault role that the standard Basilisk's slow ground speed made difficult. The integration of Electric Discharge ProtoMek armor represented a significant technological advancement, giving the quad variant an anti-Mek capability unique among ProtoMek designs.</p><p>The Basilisk Quad saw service during some of the most intense fighting of the Reaving period, where its melee capability proved valuable in the close-quarters engagements that characterized combat in urban and industrial environments. The electrical discharge effect of the EDP armor could disrupt targeting systems and myomer actuators on Meks caught in physical combat, giving the relatively small ProtoMek a disproportionate impact against much larger opponents.</p><p>A more radical variant, the Basilisk B, was subsequently developed incorporating a myomer booster system that dramatically increases sprint speed while removing all conventional weaponry. The B variant retains the EDP armor and melee systems, relying entirely on its enhanced speed to close with targets and disable them through physical combat and electrical disruption. This stripped-down approach represents the extreme end of the close-assault philosophy, trading all ranged capability for maximum melee effectiveness. Both variants continue to serve in Cloud Cobra formations and have been acquired by several other Clans through Trials of Possession.</p>
+</history>
+
+<manufacturer>
+Chiaroscuro Testing Site
+</manufacturer>
+
+<primaryFactory>
+Ironhold
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Standard Quad
+ENGINE:45
+ARMOR:EDP
+</systemModels>
+
+<source>
+WoR,WoRS
+</source>
+
+<published>
+WoR,WoRS
+</published>
+
+<tonnage>
+7.0
+</tonnage>
+

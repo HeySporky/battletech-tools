@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dcf5-7d0a-8cbe-d962217d5249
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Centurion
+model:CN10-J
+mul id:7696
+
+Config:Biped
+techbase:Inner Sphere
+era:3057
+source:Shrap02
+published:ShrapRS
+rules level:2
+role:Brawler
+
+quirk:non_standard
+quirk:imp_target_short
+
+mass:55
+engine:220 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:17
+RT armor:17
+CT armor:22
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:4
+LB 10-X AC, Right Arm
+LRM 10, Left Torso
+Medium Laser, Center Torso
+Medium Pulse Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Heat Sink
+LRM 10
+LRM 10
+ISArtemisIV
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+IS LB 10-X AC Ammo
+IS LB 10-X Cluster Ammo
+IS Ammo LRM-10 Artemis-capable
+IS Ammo LRM-10 Artemis-capable
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+ISMediumPulseLaser (R)
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The CN10-B Centurion was developed by Corean Enterprises in 3057 as a heavier, more resilient version of the venerable fifty-ton Centurion. Weighing in at fifty-five tons, the design was created alongside heavier variants of the Hollander and JagerMech to field more durable BattleMechs in the fight against the Clans. The CN10 was constructed almost entirely from surplus CN9-D components, with even the endo steel frame being a modified version of its progenitor's chassis, enabling rapid production while keeping costs low.</p><p>Engineers deliberately designed the CN10 to appear virtually identical to the CN9-D, hoping the resulting confusion would provide a tactical advantage against Clan sensors. Lacking the fragile extralight engine of its lighter cousin and mounting over twenty percent more armor, the CN10-B quickly earned the informal designation of "armor variant." Following the Great Refusal and the reduction of the Clan threat, interest in the CN10 waned, though Corean Enterprises continued sporadic production using surplus shared parts.</p>
+
+capabilities:<p>The CN10 is in essence a slower but better-armed and more heavily armored evolution of the CN9-D. The additional five tons of mass are devoted primarily to enhanced survivability, with eleven and a half tons of StarGuard III armor providing substantially greater protection than the standard fifty-ton Centurion. A DAV 220 standard fusion engine maintains the same ground speed as the original CN9-A at sixty-four kilometers per hour, trading the CN9-D's superior mobility for the reliability and durability of a standard power plant.</p><p>The primary armament mirrors the CN9-D's proven loadout, with a Mydron Excel LB 10-X autocannon and Luxor 3R LRM-10 enhanced by an Artemis IV fire control system providing effective firepower at multiple range brackets. A Photech 806c medium laser and a rear-facing Sutel Precision Line medium pulse laser complete the weapons array. The medium pulse laser gives the CN10 improved accuracy against flanking threats compared to the CN9-D's standard rear-mounted laser, representing the primary offensive distinction between the two designs.</p>
+
+deployment:<p>Produced alongside the original CN10-B, this variant trades two tons of armor for four jump jets, granting the heavier Centurion a mobility dimension that the base model lacks. All other specifications remain identical to the CN10-B, retaining the LB 10-X autocannon, Artemis IV-enhanced LRM-10, medium laser, and medium pulse laser. The reduced armor makes this variant somewhat more vulnerable than the "armor variant" from which it derives, but the tactical flexibility provided by jump capability was considered a worthwhile compromise for units operating in difficult terrain or urban environments.</p>
+
+history:<p>The CN10's trial by fire came in May 3059 during Operations Bird Dog and Bulldog. An ad hoc company of the First FedSuns Armored Cavalry landed on Virentofta as part of the Bird Dog attacks, where their CN10s proved a key factor in survival during a guerrilla campaign against the Smoke Jaguars' 151st Garrison Cluster. The heavier Centurions tested Jaguar defenses, provided intelligence for the main assault force, and raided stockpiles, forcing Clan commanders to spread their forces across a wide front, though the scattered Omega Galaxy warriors fought fiercely when relief troops arrived, marking a costly end to the battle.</p><p>On Port Arthur, the CN10 likewise performed admirably against overwhelming odds. A battalion of the First Davion Guards encountered the Jaguars' entire 168th Garrison Cluster, but a well-orchestrated campaign systematically disrupted supply and communication lines. The fight culminated with a single company holding the starport long enough for reinforcements to land and shatter the 168th, a battle hailed as a textbook action demonstrating the CN10's versatility.</p><p>Following the Great Refusal, interest in the CN10 waned considerably as the Clan threat receded. Corean Enterprises continued sporadic production, typically when surplus shared parts were available. The Omni-Centurion's dominance of New Avalon's production output further marginalized the CN10 line until Corean undertook a long-overdue revamp, sharing components from the CN11-O including its compact gyro and producing the CN10-D as a durable workhorse for second-line forces.</p>
+
+manufacturer:Corean Enterprises
+
+primaryfactory:New Avalon
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Corean
+systemmode:CHASSIS:Model KL77-M
+systemmanufacturer:ENGINE:DAV
+systemmode:ENGINE:220
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:StarGuard III with CASE
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Corean
+systemmode:COMMUNICATIONS:Transband-J9
+systemmanufacturer:TARGETING:Corean
+systemmode:TARGETING:B-Tech with Artemis IV

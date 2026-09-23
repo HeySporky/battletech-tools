@@ -1,0 +1,153 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a84e-72e7-8e5e-7ee4cc6f1f35
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Ailette Zero-G Engineering Exoskeleton
+</Name>
+
+<Model>
+(Sqd4)
+</Model>
+
+<mul id:>
+3683
+</mul id:>
+
+<year>
+3056
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+-1
+</armor_tech>
+
+<Squad Equipment>
+BASalvageArm:LA
+BAArmoredGlove:RA
+ISBASpaceOperationsAdaptation:Body
+BAExtendedLifeSupport:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<capabilities>
+<p>The Ailette weighs 400 kilograms and resembles a hardened space suit at first glance. Closer inspection reveals servo-assisted joints at major articulation points, providing the strength necessary for manipulating heavy objects in zero gravity. The right arm mounts a salvage arm for handling large components, while the left carries an armored glove that allows the operator to work with hand tools and perform precision tasks. Attitude control thrusters distributed across the suit both facilitate movement and stabilize the wearer during work operations. A specialized maintenance mode allows the suit to brace automatically, compensating for the operator's movements as though anchored in place.</p><p>Fifty kilograms of standard armor protect against micro-debris and minor collisions. Space operations adaptation gear and extended life support enable prolonged extravehicular activity. Ground speed is limited to 10 km/h, and the suit lacks any jump capability, reflecting its purely industrial role.</p>
+</capabilities>
+
+<overview>
+<p>The Ailette is an engineering exoskeleton developed by Federated-Boeing Interstellar for zero-gravity construction and maintenance work. Introduced in 3056, the suit was designed to improve the performance and safety of orbital laborers working in the hazardous conditions of open space. Taurus Territorial Industries later produced a licensed version from its facilities in the Taurian Concordat, and subsequently developed a rescue variant upgraded to light power armor specifications. The Ailette family has earned a reputation for reliability and ease of use among both civilian and military operators.</p>
+</overview>
+
+<deployment>
+<p>Taurian Concordat and Federated Suns operators organized Ailette crews into standard four-person work teams for orbital construction and maintenance. These squads typically operated from DropShips or space stations, with each member assigned specific roles during extravehicular operations.</p>
+</deployment>
+
+<history>
+<p>The Ailette was developed by Federated-Boeing Interstellar for workers at the Port Simon Naval Shipyards orbiting Galax. Drawing on Clan-derived technology, the exoskeleton entered service in 3056 and quickly became a common sight among orbital construction and maintenance crews across the Federated Commonwealth. The suit's combination of life support systems, reinforced construction, and strength-enhancing servos made it well suited to the demanding conditions of zero-gravity labor.</p><p>When Blakist forces destroyed Galax in 3069, Federated-Boeing's primary production facility was lost. Taurus Territorial Industries had already secured a license for the design and began manufacturing the Ailette from its facilities on Sterope, ensuring continued availability throughout the Periphery.</p><p>In 3073, a training accident in the Taurian Concordat claimed the life of Lance Sergeant Julia Wilson after search and rescue teams lacked proper extraction equipment for her damaged Seydlitz fighter. The resulting public outcry led to a comprehensive review of all Taurian SAR protocols. Anticipating the review's conclusions, TTI began work on a dedicated rescue variant based on the Ailette chassis before the two-year investigation concluded. The Ailette Rescue entered limited production in 3074, earning strong marks from the Concordat government.</p>
+</history>
+
+<manufacturer>
+Federated-Boeing Interstellar|Taurus Territorial Industries
+</manufacturer>
+
+<primaryFactory>
+Galax|Sterope
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<published>
+RS:VA
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+0
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

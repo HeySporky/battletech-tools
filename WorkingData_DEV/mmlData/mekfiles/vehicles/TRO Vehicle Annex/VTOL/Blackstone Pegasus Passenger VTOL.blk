@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb38-7c8e-9913-22a6dd885e82
+</UUID>
+
+<UnitType>
+SupportVTOL
+</UnitType>
+
+<Name>
+Blackstone Pegasus Passenger VTOL
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3833
+</mul id:>
+
+<year>
+3066
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+cargobay:5.0:1:2::-1:0
+standardseats:100.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+43
+</armor_type>
+
+<armor_tech_rating>
+2
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+0
+0
+0
+0
+0
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<barrating>
+2
+</barrating>
+
+<structural_tech_rating>
+2
+</structural_tech_rating>
+
+<engine_tech_rating>
+2
+</engine_tech_rating>
+
+<capabilities>
+<p>The Pegasus is powered by an electric fuel cell engine that provides a cruising speed of eighty-four kilometers per hour and a maximum speed approaching one hundred twenty-five kilometers per hour. With a fuel range of approximately two thousand kilometers, the design is optimized for city-to-city urban and regional transit rather than extended cross-country service. The thirty-ton airframe allocates the majority of its mass to the passenger interior, accommodating a hundred seats across seven and a half tons of seating, with five additional tons of cargo space for passenger luggage. A two-person enlisted crew operates the vehicle.</p><p>As a purely civilian design, the Pegasus carries no weapons and offers only minimal structural protection - a BAR 2 chassis equivalent to the standard integrity of any unarmored vehicle. Critics have been quick to note that even an accidental discharge of a personal weapon could bring the aircraft down, a vulnerability Blackstone has made no effort to address. The design's genuine strengths lie elsewhere: its almost negligible landing footprint, which frees operators from dependency on existing airfields, allows service directly into dense urban centers that conventional fixed-wing transports cannot reach. This capability is the primary commercial selling point for urban operators.</p>
+</capabilities>
+
+<overview>
+<p>The Blackstone Pegasus Passenger VTOL is a thirty-ton civilian air transport introduced by Blackstone BattleMechs of Inarcs in late 3066. Although Blackstone had built its reputation as a premier BattleMech manufacturer, company executives began exploring diversification into the civilian transit market in 3065. A feasibility study confirmed strong demand across nearby Lyran worlds for affordable short-range air transportation that could operate without dependence on conventional airfields. The Pegasus was the firm's answer: a purpose-built passenger VTOL carrying a hundred travelers in relative comfort over ranges exceeding two thousand kilometers. Its commercial debut generated immediate interest, and the first production run sold out before deliveries were complete, validating Blackstone's decision to enter a market well outside its traditional expertise.</p>
+</overview>
+
+<deployment>
+<p>The Pegasus serves primarily as an urban mass-transit and regional transit vehicle across the densely populated inner worlds of the Lyran Alliance. Municipal transit authorities, private transport companies, and franchise operators have adopted the design for city-to-city routes that benefit from its minimal landing footprint and ability to service areas without dedicated airfields. Yellow Taxi of New Exford established the vehicle's commercial template, operating a fleet of ten on inter-city routes and exploring franchise expansion to neighboring worlds. The Lyran Alliance Armed Forces evaluated the Pegasus for rear-area personnel transport, but its total absence of protective armor limits it strictly to non-contested secure environments. Civilian operators remain the primary market.</p>
+</deployment>
+
+<history>
+<p>Blackstone BattleMechs had secured its position as one of Inarcs's premier heavy manufacturers by 3060, but by the mid-3060s some executives were looking beyond the lucrative but capital-intensive business of BattleMech production. A faction within the firm proposed entering the civilian short-range air transport market, citing the significant profit margins available in an underserved Lyran sector. The feasibility study they commissioned confirmed that many nearby Lyran worlds would purchase such a craft if made available at a reasonable price. Blackstone's executives wavered until competitive intelligence revealed that rival firms were researching the same opportunity, and by late 3065 the decision to develop a civilian VTOL had been made.</p><p>Engineering moved quickly. By the end of the first quarter of 3066, a working prototype had been designed and built. Limited production commenced in late 3066, and the first run had sold out entirely by mid-3067. The earliest and most visible commercial success was Yellow Taxi of New Exford, which acquired ten Pegasus VTOLs and established a set pattern between two cities on the planet. Early returns were strong enough that the firm began considering franchise operations on nearby worlds, and the bright yellow aircraft quickly became a familiar sight across New Exford's skyline.</p><p>The Lyran Alliance Armed Forces took note of the Pegasus's capabilities, though its complete absence of protective armor constrained any serious military application. LAAF evaluations focused instead on the larger Baronet design then under development at the same facility. Blackstone's entry into the civilian market did not go uncontested: Cal-Boeing of Dorwinion had long supplemented its combat helicopter production with a steady stream of reliable civilian aircraft, and Michaelson Heavy Industries had financed its combat production in the former Chaos March through sales of civilian tilt-wing transports. The Pegasus's primary competitive advantage was its novelty and the pent-up demand for a modern, airfield-independent passenger VTOL across the Lyran inner worlds.</p>
+</history>
+
+<manufacturer>
+Blackstone BattleMechs, Ltd
+</manufacturer>
+
+<primaryFactory>
+Inarcs
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:N/A
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown (Electric Fuel Cell)
+ARMOR:N/A (BAR 2 structure only)
+JUMP_JET:N/A (VTOL rotor)
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+30.0
+</tonnage>
+
+<fuel>
+2.0
+</fuel>
+

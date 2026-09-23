@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cc7c-7f85-a3d9-a7b533c4c941
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Shugenja
+model:SJA-7D
+mul id:2942
+
+Config:Biped
+techbase:Inner Sphere
+era:3061
+source:TR:3060
+published:RS:3060u
+rules level:2
+role:Brawler
+
+quirk:cowl
+quirk:exp_actuator
+quirk:hyper_actuator
+
+mass:75
+engine:300 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:15 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:24
+RA armor:24
+LT armor:24
+RT armor:24
+CT armor:35
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:8
+RTR armor:8
+RTC armor:11
+
+Weapons:5
+ER PPC, Left Arm
+Large Laser, Right Arm
+Large Laser, Right Arm
+MRM 30, Left Torso
+C3 Computer (Master), Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERPPC
+ISERPPC
+ISERPPC
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Large Laser
+Large Laser
+Large Laser
+Large Laser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+MRM 30
+MRM 30
+MRM 30
+MRM 30
+MRM 30
+IS MRM 30 Ammo
+IS MRM 30 Ammo
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISC3MasterUnit
+ISC3MasterUnit
+ISC3MasterUnit
+ISC3MasterUnit
+ISC3MasterUnit
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Shugenja is a 75-ton heavy BattleMech produced by Independence Weaponry on Quentin for the Draconis Combine. Introduced in 3061 during the Civil War era, the design was conceived as a dedicated C³ command platform capable of coordinating lance-level targeting networks. Named after the Japanese concept of a mystical practitioner or "magic user," the Shugenja reflects the Draconis Combine's growing acceptance of C³ computer technology following years of cultural resistance among Combine MechWarriors. Independence Weaponry built the design on a reinforced heavy chassis derived from the lighter Komodo, adding substantial mass while maintaining respectable speed for its weight class. The first production units were assigned to elite formations such as the Genyosha regiments, demonstrating DCMS high command's confidence in the platform's battlefield potential.</p>
+
+capabilities:<p>The Shugenja's defining feature is its C³ master computer, integrated directly into the communications suite. This allows the BattleMech to serve as a network hub, sharing real-time targeting data with up to three lance mates equipped with C³ slave units. The resulting coordination enables all connected units to fire using the most favorable targeting solutions available within the network.</p><p>Built on an Alshain Type Heavy Chi chassis purchased from Luthien Armor Works and reinforced to support an additional thirty tons over the base Komodo design, the Shugenja mounts a Vlar 300 XL engine providing a top speed of 64.8 km/h. Thirteen tons of ferro-fibrous armor give solid protection for a heavy BattleMech, though the design particularly lacks CASE protection for its ammunition bins, leaving it vulnerable to catastrophic ammunition explosions.</p><p>The weapons loadout favors medium to long range engagement. A Lord's Light 2 extended-range PPC serves as the primary weapon, supplemented by two Diverse Optics Type 30 large lasers and a Shigunga MRM-30 launcher for concentrated damage at closer ranges. Fifteen double heat sinks manage the considerable thermal output, though sustained fire from all weapons simultaneously can overwhelm cooling capacity. The absence of jump jets limits tactical flexibility in rough terrain.</p>
+
+deployment:<p>The SJA-7D is the original production variant, entering service in 3061 with the Genyosha regiments as part of the DCMS's broader adoption of C³ network tactics. As a dedicated command node, the variant was typically deployed at the center of C³-equipped lances, where its firepower and targeting coordination could be maximized. Production on Quentin continued through the Civil War era until the Word of Blake's seizure of the planet disrupted supply lines.</p>
+
+history:<p>The Shugenja's origins trace to the late 3050s, when Independence Weaponry sought to capitalize on the Draconis Combine's slowly warming attitude toward C³ computer technology. For years, Combine MechWarriors had viewed the system with deep suspicion, seeing it as a threat to individual honor and martial prowess. The C³ computer required warriors to share targeting information with their lance mates, an act that many traditionalists considered a compromise of personal skill. By the early 3060s, this stigma had begun to fade, driven in part by the practical advantages demonstrated during border conflicts and the Clan Invasion.</p><p>Independence Weaponry had already produced the Naginata and Tai-sho as C³-equipped designs. The Shugenja represented their most ambitious C³ platform yet, built as a dedicated command node rather than a standard combatant with C³ added as a secondary feature. To create the design, Independence Weaponry purchased Komodo chassis specifications from Luthien Armor Works, then extensively reinforced the frame to handle the additional mass. The company predicted that sales of the Shugenja and its siblings would increase dramatically as acceptance of C³ technology continued to grow within the DCMS.</p><p>The Jihad devastated these plans. The Word of Blake captured Quentin during its offensive into the Draconis Combine, seizing control of Independence Weaponry's production facilities. Factory output shifted to serve Blakist needs during the occupation. Following the Jihad, Quentin was incorporated into the Republic of the Sphere, and the factory passed through a period of independent status before ultimately returning to Combine control. Throughout these upheavals, existing Shugenjas remained in service with Combine units that had retained examples of the design, continuing to serve as valued C³ command platforms in formations that had embraced network warfare.</p>
+
+manufacturer:Independence Weaponry
+
+primaryfactory:Quentin
+
+fluffdate:2026-03-12 18:03:23
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Type Heavy Chi
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Ferro-Fibrous)
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T-19F with C³ Computer
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Cat's Eyes 5

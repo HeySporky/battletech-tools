@@ -1,0 +1,297 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec9d-7fcd-a196-5c567c49500a
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Lola III Destroyer
+</Name>
+
+<Model>
+(2841)
+</Model>
+
+<mul id:>
+4534
+</mul id:>
+
+<year>
+2841
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:10.0:1:1::-1:0
+smallcraftbay:10.0:1:2::-1:0
+1stclassquarters:390.0:0:-1::-1:0
+crewquarters:1337.0:0:-1::-1:0
+cargobay:107696.0:1:5::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+742
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+3000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+11
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+48
+48
+48
+48
+48
+48
+</armor>
+
+<Nose Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (White Shark)
+Ammo White Shark:10
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (White Shark)
+Ammo White Shark:10
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:100
+(B) Naval Laser 45
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:100
+(B) Naval Laser 45
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:100
+(B) Naval Laser 45
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:20
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:100
+(B) Naval Laser 45
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:20
+</Right Broadsides Equipment>
+
+<structural_integrity>
+50
+</structural_integrity>
+
+<capabilities>
+<p>The Lola III's weapons suite emphasized energy firepower across multiple arcs. Sixteen NL55 naval lasers provided the primary punch, distributed with two in the nose, six across the forward flanks, and four covering the aft arc, ensuring devastating laser fire in virtually every engagement geometry. Eight NAC/10 naval autocannons mounted in broadside and aft quarter batteries delivered sustained kinetic damage against capital targets, while capital missile launchers provided long-range striking power: two White Shark tubes on the forward flanks and five Barracuda tubes distributed across the broadsides and stern. Two NL45 naval lasers supplemented the broadside batteries. The 742 double heat sinks generating 1,484 points of effective dissipation managed this substantial weapons suite without degradation during sustained engagements.</p><p>Boeing's D-Span ferro-carbide armor employed baffled-deadspace technology, using layered voids within the plating to absorb and dissipate weapon impacts more effectively than solid armor of equivalent mass. The spartan accommodations reflected the Lola lineage's consistent prioritization of combat capability over crew comfort: no gravity decks and no docking collars kept the mass budget devoted to weapons and propulsion. With a safe thrust of four and maximum thrust of six, the Lola III was among the faster destroyer-class vessels of its era. The Clan refit introduced around 2841 added a lithium-fusion battery and mobile HPG while expanding fighter capacity from six to ten and small craft bays from four to ten, sacrificing approximately nine thousand tons of cargo capacity for improved operational flexibility.</p>
+</capabilities>
+
+<overview>
+<p>The Lola III was the third and final generation of the Lola escort destroyer lineage, designed by Boeing Interstellar at its Galax orbital yards and commissioned in 2662. The six hundred eighty thousand ton destroyer was conceived as the SLDF's standard fleet escort and patrol vessel, a role that demanded the ability to screen capital ships, hunt commerce raiders, and operate independently in patrol squadrons along the vast frontier of the Star League. The design corrected the engineering deficiencies that had plagued the Lola II while incorporating advanced armor technology that gave the class superior protection for its mass. Fast enough to outrun most threats it could not outfight, the Lola III earned a reputation as the most successful and prolific destroyer design in the history of interstellar warfare.</p>
+</overview>
+
+<deployment>
+<p>Clan Lola IIIs served across virtually every Clan touman following the refit program, their numbers making them the most common destroyer in Clan naval service. The CSJ Storm Cat, originally the SLS Fred T. Berry laid down in 2694, had one of the longest continuous service records of any Lola-class vessel. The destroyer served through Periphery patrols, the Amaris liberation campaign, the Exodus, and the Clan Mongoose Absorption before finally being destroyed in June 3059 at Luzerne during Operation BULLDOG.</p><p>The CGB Blizzard and CGB Icepick were both destroyed in May 3067 at the Second Naval Battle of Alshain, a catastrophic engagement that cost Clan Ghost Bear multiple capital ships. The CBS Blood Fury fell at York in August 3063 to Clan Star Adder forces, while the CDS Predator was destroyed above Strana Mechty itself in September 3070 by the Leviathan-class CSV Perigard Zalman. The NCS Mystic was destroyed in August 3058 at Wayside V against the Essex-class Dark Claw. The CHH Black Knight fought through multiple engagements during the Wars of Reaving at Steelton, Toland, and Nouveaux Paris. The CCS Courage was destroyed at Vinton in August 3073 by a local SDS system. Among the few survivors, the CSA Warlock remained in active Clan Star Adder service through the early thirty-second century, one of the last Lola IIIs operational in the Clan Homeworlds.</p>
+</deployment>
+
+<history>
+<p>The Lola-class destroyer lineage began in 2345, when Boeing Interstellar launched the first Lola I from its Terra shipyard. Named for Rear Admiral Adelaide Lola, an early champion of professional standards within the Terran Hegemony's WarShip Sub-Command, the class established a design philosophy centered on heavy protection and broadside firepower at the expense of crew comfort. The Lola I served the Hegemony faithfully for nearly three centuries, escorting convoys through the Periphery and standing picket at critical approach points. Multiple Star League member states eventually received Lola I transfers, with the Draconis Combine fielding five, the Lyran Commonwealth operating four, the Capellan Confederation maintaining two, and the Rim Worlds Republic accumulating the largest foreign fleet with twenty-one destroyers.</p><p>In 2622, Blue Nose Clipperships of Mars began producing the Lola II under license from Boeing Interstellar. The second-generation design replaced conventional point defense weapons with heavier naval-grade armament, adding capital missile capability that the Lola I had entirely lacked. A rushed development cycle introduced chronic fuel system problems and other engineering deficiencies that plagued the class throughout its operational life. The Star League Navy ordered all remaining Lola IIs decommissioned in 2660, ending the class's active service after less than four decades. The scrapping program proved less thorough than intended: several hulls surfaced in Periphery rebel hands during the Second Periphery Uprising, and many more were diverted into the classified M-5 Caspar Capital Drone conversion program beginning in 2710, giving the Lola II hull a far more consequential second career than its brief conventional service.</p><p>Boeing Interstellar answered the Lola II's failure with the Lola III, launched from the company's Galax orbital yards in 2662. The third-generation destroyer proved an unqualified success. Production continued at a remarkable pace, with Boeing's facilities eventually laying down approximately 470 keels. This made the Lola III the most numerous destroyer class ever constructed, and every SLDF numbered fleet maintained multiple vessels in its order of battle. The class became the standard escort for convoys, battlegroups, and independent patrol squadrons across the breadth of Star League territory.</p><p>The Amaris Crisis and the Succession Wars consumed Lola-class destroyers at a devastating rate. The few surviving Lola Is were pressed into front-line combat during the First Succession War, where Draconis Combine and Free Worlds League vessels fought doggedly but were destroyed without exception. No Lola I is known to have survived beyond the first years of the conflict. The Lola III fared better through sheer numbers. Despite heavy losses during the Liberation of Terra, substantial quantities survived: many accompanied Kerensky's Exodus fleet to the Deep Periphery, while others remained in Inner Sphere service with the Great Houses, ComStar, and eventually the Word of Blake.</p><p>Clan technicians upgraded surviving Lola IIIs around 2841 with improved jump capability and expanded fighter and small craft complements. The refitted vessels served across virtually every Clan touman as the most common destroyer in Clan naval service. In the Inner Sphere, ComStar, Wolf's Dragoons, and Clan Nova Cat all operated Lola IIIs recovered from caches or inherited from the SLDF. The Jihad and Wars of Reaving devastated Lola III numbers as they did all WarShip classes, and by the mid-thirty-second century only a handful remained operational. The RSS Triumphus, originally commissioned as the SLS Hunter, was among the last to fall, destroyed at the Battle for Terra in 3151. Nearly five centuries separated the first Lola I's commissioning from the last Lola III's destruction, a span of continuous service unmatched by any other destroyer lineage in human history.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Boeing Interstellar
+ENGINE:Unknown
+ARMOR:Boeing
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:D-Span Ferro-Carbide
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Destroyer
+</use>
+
+<length>
+653 m
+</length>
+
+<height>
+1100 m Sail
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+680000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+300
+</crew>
+
+<officers>
+39
+</officers>
+
+<gunners>
+39
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+8
+</escape_pod>
+

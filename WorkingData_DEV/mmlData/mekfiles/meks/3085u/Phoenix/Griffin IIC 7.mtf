@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d17e-7daa-8fec-bc76a802db43
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Griffin IIC
+model:7
+mul id:1316
+
+Config:Biped
+techbase:Clan
+era:3083
+source:TR:3085
+published:RS:3085u-PP
+rules level:4
+role:Striker
+
+quirk:battle_fists_la
+quirk:battle_fists_ra
+
+mass:40
+engine:280 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:7
+jump mp:7
+
+armor:Ferro-Fibrous(Clan)
+LA armor:10
+RA armor:10
+LT armor:14
+RT armor:14
+CT armor:18
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:4
+ER Medium Pulse Laser, Left Torso
+Streak SRM 6, Left Torso
+ER Medium Pulse Laser, Right Torso
+Streak LRM 10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+CLERMediumPulseLaser
+CLERMediumPulseLaser
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+CLERMediumPulseLaser
+CLERMediumPulseLaser
+CLStreakLRM10
+CLStreakLRM10
+Clan Streak LRM 10 Ammo
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Griffin IIC emerged in 2852 as Clan Nova Cat's answer to an unusual doctrinal challenge. Conceived during Khan Philip Drummond's regime, the design addressed persistent problems caused by warriors acting on prophetic visions that created dangerous mismatches between 'Mech capabilities and mission requirements. Nova Cat scientists developed a forty-ton chassis that was mobile, durable, and versatile enough to perform effectively across unpredictable mission profiles. The resulting design outstripped its Star League-era namesake in nearly every respect while weighing fifteen tons less.</p><p>The Griffin IIC spread beyond Clan Nova Cat when Clan Diamond Shark negotiated access to the schematics in exchange for helping the Nova Cats establish new production centers, earning licensing dividends in the process. The design became a favored choice for garrison troops, solahma warriors, and novice MechWarriors across multiple Clans. At less than half the cost of an OmniMech of equivalent mass, the Griffin IIC became one of the most common Clan BattleMechs operating in the Inner Sphere.</p>
+
+capabilities:<p>The Griffin IIC achieves impressive performance from its compact forty-ton frame through efficient use of Clan technology. An NCIS Endo Steel Type M skeleton and Alpha Compound Ferro-Fibrous armor maximize protection and payload, with seven tons of ferro-fibrous plating providing near-maximum armor coverage for the chassis weight. A Consolidated Fusion 240 Standard engine pushes the design to ninety-seven kilometers per hour, making it slightly faster than its Inner Sphere ancestor, while Northrup Starlifters M40s jump jets provide a hundred and eighty meters of jumping distance.</p><p>The standard armament centers on a Series 7NC ER large laser for direct fire support, supplemented by four Type V Longbow LRM-5 launchers that provide both direct and indirect fire capability. A Series 1NC ER small laser rounds out the weapons suite. Unlike the original Griffin, none of the IIC's weapons suffer from minimum range limitations, making the design equally dangerous at close quarters. Two tons of LRM ammunition prove sufficient for most Clan engagements. Ten double heat sinks keep the 'Mech running cool under normal combat conditions without requiring additional cooling capacity, giving the Griffin IIC a competitive mix of skirmishing capability and respectable fire support that appeals to front-line Great House formations and Clan second-line garrisons alike.</p>
+
+deployment:<p>Introduced in 3083 by Clan Nova Cat, the Griffin IIC 7 features experimental Streak LRM technology. A Streak LRM-10 and Streak SRM-6 provide the missile armament, with each launcher fed by a ton of ammunition, while two ER medium pulse lasers deliver accurate energy weapon fire. A top speed of one hundred eighteen kilometers per hour makes this one of the fastest Griffin IIC configurations. Standard jump jets provide two hundred ten meters of jump capability. The variant was made available to the Republic Armed Forces alongside the IIC 6, reflecting the Nova Cats' cooperative relationship with the early Republic of the Sphere.</p>
+
+history:<p>The Griffin IIC's development under Khan Drummond's leadership reflected Clan Nova Cat's unique cultural challenge, designing a BattleMech flexible enough to accommodate warriors whose tactical decisions were guided by prophetic visions rather than conventional doctrine. Early production centered on Clan homeworld facilities at Barcella Alpha and Brim Ironworks, with the design gradually spreading to other Clans through Trials of Possession and Diamond Shark commerce.</p><p>The design saw significant combat during Operation Serpent in 3060, when Griffin IICs of the Smoke Jaguar Thirty-Third Assault Cluster's Trinary Striker fought alongside newly deployed ProtoMechs against Task Force Serpent on Huntress. The adaptability that Nova Cat scientists had engineered into the chassis proved its worth as MechWarriors adjusted to combined-arms tactics with the unfamiliar ProtoMech technology.</p><p>Clan Nova Cat's relocation to the Inner Sphere and alliance with the Draconis Combine brought new production capacity. The Irece Alpha Industriplex became a major manufacturing center, while Diamond Shark assistance helped establish additional lines. The Jihad disrupted this expansion when Word of Blake forces, masquerading as Draconis Combine troops, launched attacks against Irece that included nuclear strikes against civilian populations. The Nova Cats retooled existing production lines to meet wartime demands, producing specialized variants for frontline combat against Blakist forces. Following the Jihad, at the 3080 Geneva conference, the Nova Cats gifted a Trinary of Griffin IIC 6 variants to the Republic of the Sphere's armed forces, where they were assigned to Stone's Lament.</p><p>The destruction of Clan Nova Cat in December 3142 saw Griffin IIC garrisons on Irece defend their genetic repository against DCMS forces led by Gunji-no-Kanrei Matsuhari Toranaga. Deploying with tactics described as almost prescient, the Nova Cat warriors held the Fourth Sword of Light at bay until the attackers resorted to nuclear weapons. Despite the Clan's annihilation, Griffin IIC production survived through multiple channels. Clan Sea Fox's Tiburon Khanate maintained manufacturing on Twycross through Trellshire Heavy Industries, while the Fox Khanate conducted refits and limited production aboard the ArcShip Kraken. Sea Fox commerce also enabled Luthien Armor Works to reverse-engineer Nova Cat manufacturing techniques at their Guthry Island facility, producing the Griffin IIC 9 with Inner Sphere weaponry for the Draconis Combine. By the ilClan era, the Griffin IIC remained widespread across both Clan and Inner Sphere forces, with variants appearing in DCMS units throughout the Benjamin and Pesht military districts.</p>
+
+manufacturer:Irece Alpha
+
+primaryfactory:Irece
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:NCIS
+systemmode:CHASSIS:NCIS Endo Steel Type M
+systemmanufacturer:ENGINE:Unknown
+systemmanufacturer:ARMOR:Alpha Compound
+systemmode:ARMOR:Alpha Compound Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Northrup
+systemmode:JUMP_JET:Northrup Starlifters M40s
+systemmanufacturer:COMMUNICATIONS:JNE
+systemmode:COMMUNICATIONS:JNE Integrated
+systemmanufacturer:TARGETING:Build 3
+systemmode:TARGETING:Build 3 CAT TTS

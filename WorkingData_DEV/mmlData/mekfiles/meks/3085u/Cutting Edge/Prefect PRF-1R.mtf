@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cff8-797b-b6ae-b5f6f63a1b70
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Prefect
+model:PRF-1R
+mul id:2569
+
+Config:Biped
+techbase:Inner Sphere
+era:3085
+source:TR:3085,TR:DA
+published:RS:DA
+rules level:2
+role:Skirmisher
+
+quirk:ext_twist
+
+mass:75
+engine:375 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:17 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:24
+RT armor:24
+CT armor:35
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:7
+RTR armor:7
+RTC armor:9
+
+Weapons:4
+Heavy PPC, Left Arm
+Snub-Nose PPC, Right Arm
+ER Medium Laser, Left Torso
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISSNPPC
+ISSNPPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Prefect is a 75-ton Republic of the Sphere BattleMech commissioned by Exarch Devlin Stone in the aftermath of the Jihad. With the Republic's military-industrial complex devastated by Operation SCOUR and corporate lawsuits threatening to further disrupt military production, Stone sought a design that would simultaneously create jobs and strengthen his armed forces. Irian BattleMechs Unlimited secured the production contract through undisclosed negotiations, taking the GLT-5M Guillotine chassis as a starting point and modifying it into a purpose-built guerrilla warfare platform. Production began in 3083 on Irian.</p><p>Stone mandated a simple, ammunition-independent design optimized for long-term solo deployments behind enemy lines. While considered underarmed for its tonnage class, the Prefect's exceptional speed for a heavy 'Mech and all-energy weapons loadout made it nearly unmatched as a heavy striker and guerrilla unit.</p>
+
+capabilities:<p>The Prefect is built on a Crucis-III Deluxe Endo Steel chassis powered by a PlasmaStar 375 Light engine, granting a top speed of 86 kilometers per hour. This is exceptional for a 75-ton design and central to its guerrilla mission profile. Durallex ferro-fibrous armor provides solid protection, while an XL gyro saves weight at the cost of increased vulnerability to torso hits.</p><p>The all-energy armament eliminates ammunition dependency, a deliberate choice suited to long-duration independent operations. A Lord's Light 3 Heavy Particle Projector Cannon serves as the primary weapon, delivering devastating damage at medium to long range. A Lord's Light 5 Snub-Nose PPC provides additional punch at closer engagement distances, while twin Diverse Optics Extended Range Medium Lasers round out the loadout. While critics note the design is underarmed for its weight class, the combination of speed, energy independence, and respectable armor protection makes the Prefect highly effective in the extended independent operations it was designed to conduct.</p>
+
+deployment:<p>The base model represents Stone's original vision for the design: a fast, ammunition-independent heavy striker optimized for long-range solo deployments behind enemy lines. The combination of a Heavy PPC for stand-off engagement and a Snub-Nose PPC for close-quarters work gives MechWarriors flexibility across engagement ranges, while the twin ER Medium Lasers provide supplementary firepower without adding logistical burden. Most PRF-1R units were initially deployed with the Republic's Triarii Protectors, though persistent rumors suggest some were diverted to Exarch Stone's shadow operations forces.</p>
+
+history:<p>The Prefect's origins trace to late 3082, when Exarch Devlin Stone's information network revealed that multiple corporations were preparing lawsuits against entities involved in the Jihad's military campaigns. When Krupp Armaments filed suit against Stone and the Republic of the Sphere in 3084 for lost profits stemming from the destruction of their Budapest facility during the Terran invasion, the pressure on the fledgling Republic's military procurement intensified considerably. Stone commissioned the Prefect both to strengthen his forces and to generate economic activity across the Republic's battered industrial base.</p><p>Irian BattleMechs Unlimited on Irian, hosting the largest military manufacturing center within the Republic outside of Terra, secured the production contract. Stone directed significant investment into Holly Industries, a StarCorps subsidiary in Kuala Lumpur, and brokered deals with multiple suppliers including Independence Weaponry on Quentin for armor specifications and Luthien Armor Works for PPC design data. The XL gyro deal with Krupp Armaments was an attempted olive branch that ultimately failed when the lawsuits proceeded regardless, a personal betrayal that poisoned relations between the Republic and Krupp for years afterward.</p><p>Production began in 3083, with initial deployments going to the Republic's Triarii Protectors. Distribution remained limited during the early Republic period, and the discrepancy between production numbers and Triarii deployment figures fueled persistent speculation about diversion to Exarch Stone's covert operations forces. The Republic allegedly took the Irian production line offline during the 3090s, though considerable evidence suggests manufacturing secretly continued throughout the Late Republic era.</p><p>The collapse of the HPG network in 3132 and the subsequent fracturing of the Republic dramatically altered the Prefect's strategic role. RAF Command rushed every available asset to its crumbling defensive lines, and the PRF-1C field refit program converted existing Prefects into C3-capable force multipliers to counter the boosted networks proliferating among neighboring states. The rise of Levin's Wall eventually cut off the flow of refit kits from Terra, though enough PRF-1C conversions reached the field to prove their worth in several decisive engagements.</p><p>By the Dark Age, the Irian factory operated independently before eventually returning to Free Worlds League control, ensuring continued production of the Prefect and its variants well into the ilClan era. The design's simplicity and energy independence have kept it relevant across multiple conflicts, fulfilling Stone's original vision of a durable, self-sufficient heavy striker.</p>
+
+manufacturer:Irian BattleMechs Unlimited
+
+primaryfactory:Irian
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Crucis
+systemmode:CHASSIS:Crucis-III Deluxe Endo Steel
+systemmanufacturer:ENGINE:PlasmaStar
+systemmode:ENGINE:375 Light
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Irian Technologies
+systemmode:COMMUNICATIONS:HMR-35s
+systemmanufacturer:TARGETING:Omnicron
+systemmode:TARGETING:TrackerKeeper

@@ -1,0 +1,178 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad8f-7119-80ec-eb595c02e208
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Transgressor
+</Name>
+
+<Model>
+TR-16
+</Model>
+
+<mul id:>
+3287
+</mul id:>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Fire Support
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+66
+49
+49
+33
+</armor>
+
+<Nose Equipment>
+ISGaussRifle
+ISGaussRifle
+Medium Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+Medium Laser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Gauss Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Transgressor's armament consists of three Selitex Radionic large lasers (one in the nose and one in each wing) supplemented by four Kajuka Type 2 "Bright Blossom" medium lasers distributed across the nose, wing, and rear arcs. This all-energy configuration eliminates ammunition dependency and supports extended combat operations without resupply, but the thermal demands are substantial. Twenty-five single heat sinks fall short of fully managing a simultaneous weapons release, so experienced pilots fire their laser batteries in staggered salvos to allow the heat sinks time to recover between engagements. When managed carefully, this discipline allows the Transgressor to sustain repeated strafe runs against enemy formations while remaining thermally stable over time.</p><p>The Saroyan Standard armor provides excellent protection for a 75-ton airframe, allowing the Transgressor to absorb hits that would force lighter designs to disengage. The Rawlings 300 powerplant delivers adequate thrust for the design's combat role, though the compact, stub-winged airframe that makes it effective in space sacrifices the atmospheric maneuverability of more conventionally configured heavy fighters. The Duoteck 95 communications suite and Radcom T11 targeting system round out a workmanlike electronics package optimized for the design's sustained combat role.</p>
+</capabilities>
+
+<overview>
+<p>The Transgressor entered service with the Capellan Confederation Armed Forces in 2890 as a heavy aerospace fighter produced by Saroyan Special Productions on Sian. Designed from the outset to serve as the backbone of House Liao's aerospace wings, the design prioritizes durability and sustained firepower over outright speed or agility. Though better suited to the vacuum of space than atmospheric operations, it earned a lasting reputation among CCAF aerospace crews for its ability to remain in the fight long after other fighters would be forced to withdraw. As one of only a handful of aerospace designs continuously manufactured within the Confederation through the long years of the Succession Wars, the Transgressor became a defining element of Capellan aerospace doctrine and a common sight in DropShip hunter-killer squadrons across important Capellan systems.</p>
+</overview>
+
+<deployment>
+<p>The TR-16 refit kit emerged in 3058 as an alternative upgrade path for TR-14 airframes, replacing the nose-mounted AC/20 with twin Gauss rifles and three tons of ammunition. The conversion gave the Transgressor improved range and sustained firepower over the TR-14 while retaining a heat-neutral profile, and CCAF aerospace crews responded enthusiastically, though the armor replacement required by the kit took roughly twice as long to install as originally projected. The TR-16 served in frontline squadrons from the Civil War through the Jihad and into the Dark Age, providing Capellan aerospace wings with a capable long-range fire platform derived from existing TR-14 stocks.</p>
+</deployment>
+
+<history>
+<p>The roots of the Transgressor trace to Sian's continent of Imarra, where Saroyan Special Productions was established in 2880. A decade later the firm delivered the TR-13 to the Capellan Confederation Armed Forces, filling a need for a rugged, mass-producible heavy fighter during the darkest years of the Succession Wars. The design drew conceptual inspiration from the ancient Dragonfire airframe, adapting its lines into a modern energy-weapon platform suited to the war-torn Inner Sphere. As the Transgressor's reputation for durability spread through the Confederation's aerospace wings, engineers at Mujika Aerospace studied the design closely, eventually producing the lighter Transit; a companion fighter that replicated the Transgressor's tactical philosophy in a smaller, more affordable frame.</p><p>Through the Succession Wars, Saroyan remained the sole manufacturer keeping the Transgressor in production, and by the aftermath of the Fourth Succession War it was one of only a handful of aerospace designs still being built inside the Confederation. This status made the type central to CCAF planning even as newer designs from other successor states began to outpace it. The early 3050s (marked by the engagement of Sun-Tzu Liao and Isis Marik) provided the catalyst for the TR-13A field refit program, and converted units were rapidly distributed to frontline squadrons through the Clan Invasion and Civil War periods.</p><p>By the mid-3060s the Capellan Admiralty had cut standing orders to Saroyan by thirty percent as more capable designs like the Troika and the Defiance OmniFighter came to dominate procurement priorities. The company investigated new development paths, including possible collaboration with Trinity Alliance partners, but made limited headway given how satisfied those states were with existing designs. The Jihad proved devastating for the Sian facility, which absorbed approximately sixty percent losses in both capital equipment and workforce. Despite these setbacks Saroyan continued delivering updated Transgressor variants, including the factory-built TR-15 fielded in 3071 - the first Transgressor variant assembled on a production line rather than through field conversion kits. The first six TR-15s were presented to the Hell's Black Aces aero-regiment in recognition of their service over Liao.</p>
+</history>
+
+<manufacturer>
+Saroyan Special Productions
+</manufacturer>
+
+<primaryFactory>
+Sian
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Saroyan Special Productions
+ENGINE:Rawlings
+ARMOR:Saroyan Special Productions
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Saroyan 13
+ENGINE:300
+ARMOR:Saroyan Standard
+JUMP_JET:N/A
+COMMUNICATIONS:Duoteck 95
+TARGETING:Radcom T11
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

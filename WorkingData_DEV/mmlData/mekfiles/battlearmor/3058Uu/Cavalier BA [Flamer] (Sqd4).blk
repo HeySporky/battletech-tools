@@ -1,0 +1,161 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a1a5-74fd-baf4-abb88c5f9159
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Cavalier Battle Armor
+</Name>
+
+<Model>
+[Flamer](Sqd4)
+</Model>
+
+<mul id:>
+499
+</mul id:>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+CLBAFlamer:RA
+BABattleClaw:LA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The flamer-equipped Cavalier mounts a single battle armor flamer in its right-arm modular weapon mount, paired with a battle claw on the left arm for anti-BattleMech operations and OmniMech transport. At one thousand kilograms, the suit carries 450 kilograms of standard armor distributed with heavier plating around the legs and thighs at the expense of upper body protection, leaving the elbow and hand joints more vulnerable to shrapnel but granting the trooper superior manual dexterity. Jump jets provide a ninety-meter leap capability matching the IS Standard's mobility profile. The flamer configuration excels in close-quarters engagements, particularly against conventional infantry and in urban clearance operations where the weapon's area-denial properties prove valuable. Ammunition independence makes the flamer loadout attractive for extended operations, though its limited range demands aggressive tactics.</p>
+</capabilities>
+
+<overview>
+<p>The Cavalier is a medium Inner Sphere battle armor suit developed by Federated Commonwealth engineers during the post-Clan Invasion technological expansion. Produced by Albion Advanced Technologies and Products on New Avalon and General Motors on Talcott, the one-thousand-kilogram design entered service in 3058 as a direct replacement for the Inner Sphere Standard battlesuit. Jump-capable and equipped with a modular weapon mount paired with a battle claw, the Cavalier earned a strong reputation among Davion armored infantry formations and became one of the most widely fielded battle armor designs in the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>Armed Forces of the Federated Suns infantry regiments organized flamer-equipped Cavaliers into standard four-trooper squads, the backbone of Davion battle armor doctrine. These squads deployed extensively during the FedCom Civil War and the Jihad, typically operating alongside BattleMech lances in urban clearance and anti-infantry suppression roles where the flamer's area-denial capability proved most effective.</p>
+</deployment>
+
+<history>
+<p>The Cavalier emerged from a period of deep institutional crisis within the Armed Forces of the Federated Commonwealth. Following the Lyran secession in 3057, morale across the AFFC plummeted as soldiers questioned the loyalties of their comrades and the future of their nation. Prince Victor Steiner-Davion responded with the "redesign for Davion pride" initiative, a broad program that produced updated versions of iconic Davion BattleMechs like the Enforcer and JagerMech alongside a dedicated effort to replace the aging Inner Sphere Standard battlesuit.</p><p>Development began in January 3058 at facilities operated by Albion Advanced Technologies and Products on New Avalon and General Motors on Talcott. Engineers ran hundreds of designs through computer simulation and built dozens of prototypes, seeking a balance between cosmetic appeal and battlefield effectiveness. The final configuration was approved in mid-3058, and mass production commenced that June. What had begun as a cosmetic redesign produced unexpected results: redistributing the armor plating increased leg and thigh protection at the expense of the upper body, but testing revealed the new arrangement also granted superior manual dexterity compared to the Standard. Officers reluctantly concluded that the benefits outweighed the drawbacks.</p><p>Cavalier suits shipped to front-line units as direct replacements for damaged and destroyed Inner Sphere Standards, and their arrival had an immediate positive effect on unit cohesion and fighting spirit. The suit quickly became the second-most produced battle armor design in the Inner Sphere, trailing only the IS Standard itself. Every Armed Forces of the Federated Suns Regimental Combat Team fielded Cavaliers, and many Lyran Alliance RCTs adopted the suit as well. During the FedCom Civil War the Cavalier consistently outperformed every opposing Inner Sphere battlesuit except the Infiltrator Mk. II. The suit proved equally decisive during the Jihad, where independent battle armor formations fought Word of Blake forces across numerous worlds. The Federated Suns eventually transitioned IS Standard production lines entirely to the Cavalier, making it the backbone of Davion armored infantry doctrine for decades.</p>
+</history>
+
+<manufacturer>
+Albion Advanced Technologies and Products|General Motors
+</manufacturer>
+
+<primaryFactory>
+New Avalon|Talcott
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<notes>
+In German products the unit's proper name was translated to Chevalier, regardless to the resulting mix-up with the Chevalier light tank, whose proper name used unaltered in German products.
+</notes>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-C
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+9
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

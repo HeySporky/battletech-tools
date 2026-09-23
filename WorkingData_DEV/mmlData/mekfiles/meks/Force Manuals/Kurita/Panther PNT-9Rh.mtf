@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d626-7187-b2a1-a26a549da232
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Panther
+model:PNT-9Rh
+
+Config:Biped
+techbase:Inner Sphere
+era:3034
+source:FM:Kurita
+rules level:1
+role:Brawler
+
+quirk:nimble_jumper
+quirk:imp_target_short
+
+mass:35
+engine:140 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:13 Single
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:10
+RT armor:10
+CT armor:14
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:1
+PPC, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Hatchet
+Hatchet
+Hatchet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+PPC
+PPC
+PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Panther was originally conceived as a fire-support vehicle for reconnaissance units during the waning years of the Star League. Commissioned in 2739, Alshain Weapons began delivering the first Panthers to the SLDF for operations against renegade bandits along the Periphery borders. The original PNT-8Z model's poor performance at the Battle of St. John in 2759 revealed critical flaws in its main weapon, prompting Star League engineers to replace the troublesome Tronel large laser with the Lord's Light PPC.</p><p>This revision established the PNT-9R as the preeminent light BattleMech design for the Draconis Combine throughout the Succession Wars. The Combine remains the only Successor State to field the Panther in significant numbers, with the design becoming as iconic to the DCMS as the Dragon or Atlas. Its combination of heavy firepower and jump capability has made it a cornerstone of Combine doctrine for over three centuries.</p>
+
+capabilities:<p>The Panther's primary armament is a Lord's Light PPC mounted in the right arm, providing firepower unusual for a 'Mech of its tonnage. The Lord's Light combines the damage output of a standard particle cannon with the lightness of an arm-carried weapon, though the design's thirteen single heat sinks struggle to dissipate the weapon's considerable waste heat. Many DCMS officers view this as an advantage, using the Panther as a training platform where recruits learn heat management before advancing to heavier designs.</p><p>The PPC is supplemented by a Telos Four-Shot SRM-4 launcher mounted in the center torso, providing close-range punch when enemies close to point-blank range. Four Lexington Lifter jump jets grant a 120-meter jumping distance, enabling the mobility necessary for its fire-support role. Six and a half tons of Maximillian armor provide respectable protection, though pilots know better than to engage heavier opponents in sustained firefights.</p><p>Star League pilots discovered that the Panther excels at urban combat, earning it the nickname "Alley Cat" from Lyran MechWarriors. Its jump capability navigates restricted city spaces while its PPC can disable heavy opponents from rooftop sniping positions.</p>
+
+deployment:<p>The PNT-9Rh is a Draconis Combine field modification that removes the standard missile system and ammunition to mount a hatchet in the left arm. This refit directly supports House Kurita's Berserker Lance doctrine, which trains MechWarriors to close with enemies and crush them through physical combat. While the Panther's light tonnage prevents it from filling the mandatory heavy 'Mech slots required for Berserker formations, its sturdy frame and respectable armor make it well-suited to supporting roles alongside heavier lancemates.</p><p>The 9Rh retains its arm-mounted particle cannon for ranged engagement, allowing pilots to weaken targets before closing to melee range. Jump capability enables the aggressive leaping attacks favored by Berserker tacticians. DCMS Berserker Lances employ 9Rh Panthers as flanking elements, exploiting openings created by assault-weight lancemates while delivering hatchet strikes to crippled opponents.</p>
+
+history:<p>The Draconis Combine inherited Alshain Weapons' Panther factories when the Star League dissolved, quickly putting the production lines to work building Panthers for the DCMS. The design saw its first large-scale Combine deployment during the First Succession War when the Twenty-Third Galedon Regulars used their Panthers to maul the heavier 'Mechs of the Forty-Second Avalon Hussars at New Mendham, establishing the tactical doctrine that would define Panther operations for centuries.</p><p>Throughout the Succession Wars, the Combine was the only significant user of the Panther, often pairing it with the Jenner in a deadly combination of speed and firepower. Panthers provided covering fire while faster Jenners flanked opponents, a tactic that proved devastatingly effective against slower formations. Other Successor States employed Panthers in smaller numbers, typically older League-era 8Z models obtained through battlefield salvage, though replacement parts remained scarce outside Combine space.</p><p>Demand for the Panther forced Alshain Weapons to open a secondary facility on Jarett, but both factories were eventually lost. New Oslo transferred to the Free Rasalhague Republic following its formation in 3034, where the Panther quickly became a mainstay of the Royal KungsArmé. During the Clan Invasion, both Alshain and New Oslo fell to Clan Ghost Bear while a Free Rasalhague Republic plant on Satalice was captured by Clan Wolf.</p><p>Alshain Weapons crash-built a new facility on Tok Do in 3053, but could not maintain pre-invasion production levels and focused on spare parts and upgrade kits instead. Wakazashi Enterprises eventually purchased the Panther production license, answering Kanrei Minamoto's call for industrial diversification, and began rolling out new variants from New Samarkand. The PNT-10K quickly replaced the venerable 9R as the most common model in DCMS service, seeing action throughout the Jihad and into the Dark Age era.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-04-01 17:59:50
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:56-Carrier
+systemmanufacturer:ENGINE:Leenex
+systemmode:ENGINE:140
+systemmanufacturer:ARMOR:Maximillian
+systemmode:ARMOR:42
+systemmanufacturer:JUMP_JET:Lexington
+systemmode:JUMP_JET:Lifters
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:CommCon CSU-4
+systemmanufacturer:TARGETING:Cat's Eyes
+systemmode:TARGETING:5

@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d660-706f-9dcd-435a647ff102
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Fox
+model:CS-1
+mul id:4182
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:2824
+source:TR:GC
+published:TR:GC
+rules level:4
+role:Missile Boat
+
+quirk:variable_range_targeting
+
+mass:50
+engine:300 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:15
+RA armor:15
+LT armor:18
+RT armor:18
+CT armor:24
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:11
+Streak SRM 2, Left Leg
+Streak SRM 2, Right Leg
+Improved LRM 15, Left Arm
+Medium Laser, Left Arm
+Machine Gun, Left Arm
+Machine Gun, Left Arm
+Improved LRM 15, Right Arm
+Medium Laser, Right Arm
+Machine Gun, Right Arm
+Machine Gun, Right Arm
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Improved LRM 15
+Improved LRM 15
+Medium Laser
+Machine Gun
+Machine Gun
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Improved LRM 15
+Improved LRM 15
+Medium Laser
+Machine Gun
+Machine Gun
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ClanImprovedLRM15Ammo
+ClanImprovedLRM15Ammo
+IS Machine Gun Ammo - Half
+ISCASE
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ClanImprovedLRM15Ammo
+ClanImprovedLRM15Ammo
+IS Machine Gun Ammo - Half
+ISCASE
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+IS Streak SRM 2 Ammo
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISStreakSRM2
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISStreakSRM2
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Fox holds the distinction of being the first original BattleMech designed and produced by Clan Sea Fox, introduced in 2824 during the early Golden Century. Developed at the Constantin Assembly Plant on Priori, the fifty-ton medium 'Mech represented the young Clan's ambition to field a versatile frontline combatant suited to a wide range of tactical situations. Blending older Star League technology with experimental early Clan weaponry, the Fox was designed as a generalist capable of engaging at multiple ranges.</p><p>Despite the Foxes' well-known penchant for commerce, they never marketed the Fox to other Clans, keeping it as an exclusive asset throughout its production life. The design earned a solid reputation among Sea Fox warriors as a dependable and adaptable platform during the Clans' formative era.</p>
+
+capabilities:<p>Powered by a Vlar 300 XL engine, the Fox achieves a respectable top speed of 97 kilometers per hour for a fifty-ton chassis, giving it mobility that many medium 'Mechs of comparable weight cannot match. The weight savings from the extralight engine and Crucis-d endo steel skeleton allow for a substantial weapons payload distributed primarily across the arms.</p><p>The Fox's primary firepower comes from a pair of Type XVa "Crossbow" LRM-15 launchers, one mounted in each arm, providing devastating long-range fire support. These experimental improved launchers gave the design a considerable edge over contemporary rivals during the Golden Century. At closer ranges, three Intek medium lasers positioned in the arms and center torso combine with twin Hovertec Streak-2 SRM launchers mounted in the legs (in a configuration reminiscent of the venerable Crusader) to deliver punishing close-range salvos. Four M100 machine guns split between the arms round out the arsenal, making the Fox a lethal threat to conventional infantry.</p><p>The Garret A6 targeting and tracking system features an adaptive selectable mode with range-finding and telemetry capabilities that provide impressive accuracy across all engagement envelopes. Protected by Riese-500 armor with CASE, the Fox balances offensive capability with adequate survivability, though its complete lack of jump jets limits tactical flexibility in close terrain.</p>
+
+deployment:<p>The original CS-1 is a mixed-technology design reflecting the early Golden Century's transitional period between Star League equipment and emerging Clan innovations. Its combination of experimental Clan missile systems with proven Star League-era energy weapons and ballistic armament gives this variant a broad engagement envelope, making it well-suited to the diverse combat scenarios encountered during Clan Trials throughout the twenty-ninth century. The design saw its heaviest use in garrison and Trial forces across Clan Sea Fox holdings, where its reliability and versatility were valued over raw specialization.</p>
+
+history:<p>The Fox emerged from the Constantin Assembly Plant on Priori in 2824, during an era when many Clans were still fielding refurbished Star League designs or early experimental models. As Clan Sea Fox's first original BattleMech, the design demonstrated the young Clan's engineering ambitions and their desire for a capable frontline medium 'Mech tailored to their specific doctrinal needs.</p><p>Throughout the twenty-ninth century, the Fox was evenly deployed across Clan Sea Fox holdings, serving with distinction in numerous Trials and skirmishes. Notable engagements included clashes against the Smoke Jaguars on Priori and encounters with Clan Wolf forces on Marshall. The design's most legendary action came during a rare Trial of Propagation in 2867, when the Nix Bloodhouse sought to increase their Bloodcount over the objections of the Hawker Bloodline. The resulting Trial drew an audience from several Clans to the world of Bearclaw and saw a grueling engagement through heavily wooded terrain involving a Fox, a Griffin IIC, and a Conjurer that has been recounted in warrior sibkos ever since.</p><p>Despite its combat pedigree, the Fox's production history took a curious turn. Clan Sea Fox mysteriously ceased producing updated variants and dropped the design entirely from their touman. A single attempt to modernize the 'Mech with pure Clan technology produced an upgraded variant that increased firepower substantially but suffered from thermal management issues that left it broadly unpopular. By the end of the Golden Century, the rebuilt Fox had become as despised as the original had been liked, largely due to its unwieldy heat curve.</p><p>Rumors persisted that the Sea Foxes might eventually return the Fox to production status, perhaps leveraging newly developed technology to improve its heat handling, but no concrete evidence of renewed production has been unearthed. The factory on Priori eventually passed from Clan Diamond Shark control to Clan Star Adder during the Wars of Reaving era, though by that time the Fox line had long since gone cold.</p>
+
+manufacturer:Constantin Assembly Plant M27A-E
+
+primaryfactory:Priori
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Crucis
+systemmode:CHASSIS:Crucis-d Endo Steel
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Riese
+systemmode:ARMOR:Riese-500 with CASE
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T11-b
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:A6

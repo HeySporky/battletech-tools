@@ -1,0 +1,184 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ead9-788f-9051-cd4db6b63371
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+TGV Omni Railcar
+</Name>
+
+<Model>
+Primary (Luxury)
+</Model>
+
+<mul id:>
+5217
+</mul id:>
+
+<year>
+3062
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<quirks>
+difficult_maintain
+</quirks>
+
+<motion_type>
+Rail
+</motion_type>
+
+<transporters>
+1stclassquarters:90.0:0:-1::-1:0:omni
+2ndclassquarters:7.0:0:-1::-1:0:omni
+cargobay:4.5:0:3::-1:0
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<engine_type>
+8
+</engine_type>
+
+<armor_type>
+50
+</armor_type>
+
+<armor_tech_rating>
+5
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<omni>
+1
+</omni>
+
+<armor>
+16
+16
+16
+15
+</armor>
+
+<Body Equipment>
+SV Chassis Mod [Trailer]
+OmniChassisMod
+SV Chassis Mod [Tractor]
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+9
+</barrating>
+
+<structural_tech_rating>
+5
+</structural_tech_rating>
+
+<engine_tech_rating>
+5
+</engine_tech_rating>
+
+<capabilities>
+<p>As a trailer unit, the TGV Omni Railcar carries no engine of its own and relies entirely on one or more Adelante tractors for motive power. Its fifteen-and-a-half-ton chassis supports one hundred and one and a half tons of reconfigurable pod space distributed across seventeen equipment slots, providing exceptional payload flexibility for its weight class. BAR 9 armor offers better ballistic protection than the tractor itself, a design choice reflecting the trailer's role as the system's primary payload carrier where passengers, cargo, or military assets require shielding from hostile fire.</p><p>The omni-pod system represents the core innovation of the entire Adelante platform. Overhead magnetic cranes at equipped depots can lift entire configuration modules out of the trailer's open-topped chassis channel and replace them within minutes, even while passengers remain aboard adjacent cars in the same train consist. This allows operators to adjust train composition on short notice, switching between luxury passenger service and bulk cargo hauling without taking vehicles out of the operational rotation. The design carries the Difficult to Maintain quirk, however, reflecting the complexity of its omni-pod interfaces and the specialized depot equipment required for configuration changes. Facilities lacking the proper magnetic crane infrastructure cannot perform field swaps, limiting operational flexibility away from established rail corridors.</p>
+</capabilities>
+
+<overview>
+<p>The TGV Omni Railcar is a one-hundred-twenty-ton modular trailer designed by Alstom Rail Corporation in partnership with Blackwell Corporation during the early 3060s. Created as the interchangeable payload component of the Adelante rail system, the TGV uses omni-technology to allow rapid reconfiguration between five standard pod layouts covering passenger transport, cargo hauling, and military support roles. Swapping configurations requires only a concrete service channel equipped with overhead magnetic cranes, a process completed in minutes rather than the hours demanded by traditional railcar maintenance. This flexibility made the TGV platform commercially attractive to both civilian transport operators and military logistics commands, with universal availability ensuring broad distribution across the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Primary configuration outfits the TGV as a luxury passenger railcar, featuring nine first-class quarters and one second-class quarter alongside four and a half tons of cargo space for passenger luggage and onboard amenities. This layout serves premium commercial routes where passenger comfort commands higher ticket prices, offering accommodations comparable to first-class DropShip cabins at a fraction of the transit cost.</p>
+</deployment>
+
+<history>
+<p>The TGV Omni Railcar entered service shortly after the Adelante tractor in the early 3060s as the payload component of Alstom Rail Corporation's modular rail system. Where conventional railcar operations required time-consuming switchyard procedures to reorganize train composition, the TGV's omni-pod design allowed complete reconfiguration at any depot equipped with the standardized magnetic crane channels. This capability proved commercially transformative, enabling operators to run morning passenger express services and afternoon freight hauls using the same trailer frames.</p><p>Military adoption followed quickly after the FedCom Civil War demonstrated the system's tactical potential on New Avalon. The Davion Heavy Guards configured TGV trailers for battle armor and hovercraft transport, while a dedicated command variant provided mobile headquarters capability across the planet's rail network. These improvised military applications led Alstom to formalize military-specific configurations, including the dedicated Military Support and MASH layouts that supplemented the original civilian passenger and cargo designs.</p><p>The platform's universal availability designation reflects its broad commercial distribution rather than any specific factional adoption. Rail infrastructure varies enormously between worlds, and the TGV system requires both compatible track gauges and depot facilities equipped with the specialized magnetic crane channels. Worlds with extensive rail networks have adopted the system enthusiastically, while those lacking the infrastructure investment find the platform impractical regardless of the trailer's technical merits. Production has continued steadily through the Jihad era and into the Dark Age, with the system's civilian utility ensuring demand even during periods of reduced military procurement.</p>
+</history>
+
+<manufacturer>
+Alstom Rail Corporation / Blackwell Corporation
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:N/A
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Rail (Medium, Trailer)
+ENGINE:N/A
+ARMOR:BAR 9
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+120.0
+</tonnage>
+
+<baseChassisFireConWeight>
+0.0
+</baseChassisFireConWeight>
+
+<fuel>
+0.0
+</fuel>
+

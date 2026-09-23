@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c75c-79a5-b8e0-2b53fbe83172
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Bombard
+model:BMB-010
+mul id:418
+
+Config:Biped
+techbase:Inner Sphere
+era:3054
+source:TR:3055U
+published:RS:3055Uu
+rules level:2
+role:Juggernaut
+
+quirk:bad_rep_is
+quirk:non_standard
+
+mass:50
+engine:100 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:2
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:15
+RA armor:15
+LT armor:17
+RT armor:17
+CT armor:22
+HD armor:9
+LL armor:23
+RL armor:23
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:2
+AC/20, Left Arm
+AC/20, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Heat Sink
+IS Ammo AC/20
+IS Ammo AC/20
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Heat Sink
+IS Ammo AC/20
+IS Ammo AC/20
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Solaris Arms' Bombard debuted in 3054 as a purpose-built arena 'Mech for the Game World of Solaris VII. The fifty-ton design embraced an all-or-nothing philosophy, mounting devastating firepower at the cost of nearly all mobility. Little more than a walking turret, the Bombard attracted only a niche following among arena pilots willing to accept its extreme tradeoffs, and the design never achieved the commercial success Solaris Arms had hoped for.</p><p>A substantially redesigned model introduced in 3063 corrected early engineering deficiencies while retaining the core philosophy of disproportionate firepower for its weight class. Despite these improvements, the Bombard's reputation has remained that of an underperforming curiosity, produced in limited numbers and found primarily in minor arena stables and small private security outfits.</p>
+
+capabilities:<p>The redesigned Bombard centers its firepower around twin Solaris Arms XT-15 Thunderbolt missile launchers, replacing the massive autocannons of the original model. These launchers deliver devastating concentrated warhead impacts at medium to long ranges, with six tons of CASE-protected ammunition providing reasonable endurance across prolonged engagements. A pair of Diverse Optics extended-range medium lasers supplement the primary armament, offering backup firepower independent of ammunition supply. Reinforced leg-mounted spikes provide a last-ditch close combat deterrent, though any Bombard pilot forced into a brawl has likely already lost the tactical initiative.</p><p>The design's most glaring weakness remains its mobility. The Hermes 100 XL engine propels the fifty-ton chassis to a maximum speed of just thirty-two kilometers per hour, making the Bombard one of the slowest medium 'Mechs ever fielded. ArcShield Heavy armor with CASE protection in both side torsos provides respectable survivability, but the lack of speed means pilots cannot disengage from unfavorable engagements. Standard heat sinks keep the thermal profile manageable, though critics note that addressing the heat management solved only one of the design's problems while leaving the fundamental mobility deficit untouched.</p>
+
+deployment:<p>The original Bombard mounted a pair of massive Class-20 autocannons capable of devastating any opponent within close range, supported by standard medium lasers. The design utilized experimental War of 3039-vintage double heat sinks that were less bulky than standard models but employed a corrosive coolant that gradually degraded the 'Mech's structural integrity, a fatal flaw that became increasingly apparent over years of service. Only a handful of original BMB-010s remain operational, with many suffering severe structural damage and corrosion that renders them little more than museum pieces.</p>
+
+history:<p>The Bombard's history is inextricably linked to the volatile arena circuit of Solaris VII. Solaris Arms developed the design in the early 3050s as a purpose-built gladiatorial 'Mech, betting that overwhelming close-range firepower would compensate for minimal mobility in the confined spaces of the Game World's arenas. The original BMB-010 debuted in 3054, and its twin autocannon armament did indeed produce spectacular early results in the hands of capable pilots who could exploit its devastating alpha strike potential.</p><p>However, the Bombard's competitive success proved short-lived. Engineering shortcuts taken during the original design manifested as serious structural problems under combat stress, exacerbated by the experimental War of 3039-vintage double heat sinks whose corrosive coolant gradually degraded the 'Mech's internal framework. A decisive defeat in the Davion Arena in 3060 exposed these flaws before a wide audience, destroying whatever market momentum the design had built. Solaris Arms was forced to acknowledge the problems and undertook a comprehensive redesign.</p><p>The resulting BMB-013, introduced in 3063, addressed the structural integrity concerns and replaced the problematic heat sinks, while transitioning from autocannons to Thunderbolt missile launchers. Despite these improvements, commercial reception remained tepid. Sales were largely confined to minor arena stables and small private security outfits, with the largest known order coming from the Blue Fists, a pro-Steiner Reaches stable that purchased two units.</p><p>By the late 3060s, Solaris Arms reportedly received a special commission to produce a limited run of mixed-technology variants incorporating Clan-specification weaponry and experimental engine technology, a radical approach suggesting the manufacturer was willing to pursue any avenue to make the design commercially viable. The Bombard's reputation for unreliability and non-standard parts continued to haunt its sales prospects even decades later. During the Dark Age, field refit variants appeared using salvaged components from other 'Mech production lines, demonstrating that despite its troubled history, the Bombard chassis continued to attract the attention of resourceful technicians willing to experiment with unconventional approaches.</p>
+
+manufacturer:Solaris Arms
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Solaris Arms
+systemmode:CHASSIS:BX-01 Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:100 XL
+systemmanufacturer:ARMOR:ArcShield
+systemmode:ARMOR:Heavy
+systemmanufacturer:COMMUNICATIONS:Dalban
+systemmode:COMMUNICATIONS:Micronics
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:HiRez

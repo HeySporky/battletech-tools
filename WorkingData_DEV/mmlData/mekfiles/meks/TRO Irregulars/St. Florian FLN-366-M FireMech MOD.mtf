@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ddbf-7ef2-91b1-f2a12ab83546
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:St. Florian
+model:FLN-366-M FireMech MOD
+mul id:7826
+
+Config:Biped
+techbase:Inner Sphere
+era:3133
+source:TR:I
+published:TR:I
+rules level:3
+role:Ambusher
+
+
+mass:90
+engine:270 Fusion Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:12 Single
+walk mp:3
+jump mp:0
+
+armor:Heavy Industrial(Inner Sphere)
+LA armor:15
+RA armor:15
+LT armor:15
+RT armor:15
+CT armor:24
+HD armor:9
+LL armor:15
+RL armor:15
+RTL armor:15
+RTR armor:15
+RTC armor:15
+
+Weapons:6
+Heavy Flamer, Left Arm
+Heavy Flamer, Left Arm
+Heavy Flamer, Right Arm
+Heavy Flamer, Right Arm
+Plasma Rifle, Left Torso
+Plasma Rifle, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Heavy Flamer
+Heavy Flamer
+IS Heavy Flamer Ammo
+IS Heavy Flamer Ammo
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Heavy Flamer
+Heavy Flamer
+IS Heavy Flamer Ammo
+IS Heavy Flamer Ammo
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+ISPlasmaRifle
+ISPlasmaRifle
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+Coolant Pod
+Searchlight
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+ISPlasmaRifle
+ISPlasmaRifle
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+Coolant Pod
+Searchlight
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Coolant Pod
+Environmental Sealing (Mech)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Environmental Sealing (Mech)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The St. Florian is an advanced IndustrialMech created by StarCorps Industries in 3062 as a specialized firefighting platform. When the HGN-734 Highlander variant debuted, the production changeover left a surplus of single heat sink-equipped standard fusion engines. StarCorps developed a profitable secondary use for these and other surplus Highlander components, producing the St. Florian FireMech for the largest and most prosperous municipal buyers.</p><p>Built on repurposed Highlander components, the St. Florian towers over competing designs like the Pompier, fielding the firepower of a heavy combat unit in its firefighting role. Its environmental sealing and bank of heat sinks allow it to wade directly into blazing structures, combating fires from within rather than from the outside. However, its steep cost largely limits procurement to planetary capitals and major metropolitan areas, leaving smaller settlements to rely on lighter alternatives.</p>
+
+capabilities:<p>The secret to the St. Florian's impressive firefighting performance lies in its pedigree. Many of its core components were adapted directly from the Highlander assault BattleMech, including the GM 270 standard fusion engine, environmental sealing systems, and a comprehensive bank of twelve heat sinks that allow the machine to operate in extreme thermal environments. The Industrial XT chassis provides a robust platform for the ninety-ton machine's demanding operational profile.</p><p>Lang Heavy Industrial armor provides adequate protection against structural collapse and incidental hazards, though it offers significantly less protection than military-grade plating. The lack of jump jets (understandable for a firefighting platform) limits the St. Florian's ability to navigate heavily damaged terrain, but its sheer mass and environmental sealing allow it to simply push through obstacles that would stop lighter firefighting machines. Communications and targeting systems inherited from the Highlander line give operators excellent situational awareness in smoke-filled environments where visibility is severely degraded.</p>
+
+deployment:<p>The St. Florian MOD is a militarized conversion that replaces the standard firefighting equipment with combat weaponry, mounting a pair of Defiance Novashot Model 2 Plasma Rifles and four Zippo Heavy Flamers. The environmental sealing and heat sinks of the original design remain intact, allowing the MOD to wade into fires and turn them against opposing forces. However, the lack of additional heat sinks beyond the original twelve and the reliance on volatile coolant pods betray this as a field modification rather than a purpose-built combat design. These conversions have become increasingly common on worlds claimed by Clan-based splinter factions during the Dark Age.</p>
+
+history:<p>The St. Florian emerged from the practical economics of BattleMech production rather than any military requirement. When StarCorps Industries retooled its Son Hoa production line in 3062 to produce the new HGN-734 Highlander variant, the changeover generated a surplus of older-specification components. Rather than scrapping these assets, StarCorps engineers designed the St. Florian FireMech to put them to profitable civilian use, creating what quickly became recognized as the most advanced IndustrialMech introduced since the fall of the Star League.</p><p>The St. Florian became a bestseller among those who could afford it, though the qualifier was significant, as its cost proved prohibitive for most small to medium-sized communities. Consequently, the majority of operational St. Florians are found in planetary capitals and major metropolitan areas across the Inner Sphere, while smaller settlements continue to rely on the lighter Pompier or forego specialized firefighting 'Mechs entirely. The design's long service record has given rise to a significant secondary market, where used or slightly damaged examples remain perennial sellers.</p><p>The current scramble to militarize common IndustrialMechs during the Dark Age and ilClan era has not entirely passed the St. Florian by. The crucial role it plays in protecting civilian infrastructure means that comparatively fewer have been modified for combat use than other designs. However, such conversions have occurred, most commonly on Republic worlds recently claimed by Clan-based splinter factions. The very idea of converting firefighting machines into combat platforms remains controversial, but the deteriorating security situation across the Inner Sphere has made such pragmatism increasingly common.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-14 18:58:16
+
+systemmanufacturer:CHASSIS:StarCorps Industries
+systemmode:CHASSIS:Industrial XT
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:GM 270 Fusion
+systemmanufacturer:ARMOR:Lang
+systemmode:ARMOR:Lang Heavy Industrial
+systemmanufacturer:COMMUNICATIONS:Hartford
+systemmode:COMMUNICATIONS:Hector VII
+systemmanufacturer:TARGETING:Hartford
+systemmode:TARGETING:Starlight LX-1

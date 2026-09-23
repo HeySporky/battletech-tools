@@ -1,0 +1,205 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d0c7-735d-903d-12792dea16b5
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Grigori
+model:C-GRG-OU Exanimus
+mul id:1327
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3077
+source:TR:3085
+published:RS:3085u-ONN
+rules level:4
+role:Sniper
+
+quirk:bad_rep_is
+quirk:bad_rep_clan
+quirk:imp_sensors
+quirk:imp_com
+
+mass:60
+engine:240 Light Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Small Cockpit
+gyro:XL Gyro
+
+heat sinks:11 IS Double
+base chassis heat sinks:9
+walk mp:4
+jump mp:0
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:19
+RA armor:19
+LT armor:20
+RT armor:20
+CT armor:26
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:6
+ER Small Laser, Left Arm
+ER Small Laser, Left Arm
+Heavy PPC, Right Arm
+ER Medium Laser, Left Torso
+ER PPC, Right Torso
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERSmallLaser (OMNIPOD)
+ISERSmallLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Heavy PPC (OMNIPOD)
+Heavy PPC (OMNIPOD)
+Heavy PPC (OMNIPOD)
+Heavy PPC (OMNIPOD)
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+UMU (OMNIPOD)
+UMU (OMNIPOD)
+ISERMediumLaser (OMNIPOD)
+BeagleActiveProbe (OMNIPOD)
+BeagleActiveProbe (OMNIPOD)
+ISC3iUnit
+ISC3iUnit
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+UMU (OMNIPOD)
+UMU (OMNIPOD)
+ISERPPC (OMNIPOD)
+ISERPPC (OMNIPOD)
+ISERPPC (OMNIPOD)
+ISERMediumLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISMASS (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Grigori is the lighter of two heavy Celestial OmniMechs produced by the Word of Blake for its Manei Domini forces. Named after the fallen angels of Christian tradition, the sixty-ton design was the last of the six Celestials to reach production, entering service in late 3069 after Doctor Devon Cortland personally supervised its final manufacturing run at Sekkaris Mekwerks on Mars. Gibson Federated BattleMechs and Martinson Armaments manufactured the design at facilities on Gibson and Terra. Intended to pair with the seventy-ton Deva in heavy Level IIs, the Grigori provides layered missile fire support that complements its heavier sibling's direct engagement role.</p>
+
+capabilities:<p>The Grigori is built on a Celestial Series GG1 standard chassis powered by a GM 240 light fusion engine, giving it a top speed of sixty-four kilometers per hour. An XL gyro and small cockpit reduce internal volume requirements, while eleven tons of Divine Shield-B light ferro-fibrous armor provide above-average protection for a sixty-ton design. Twenty-eight tons of pod space give the Grigori exceptional configuration flexibility for its weight class, approaching the capacity of many heavier OmniMechs. A fixed C3i computer links it into the networked targeting systems shared by all Celestial designs, enabling coordinated fire missions across the formation.</p><p>Unlike the other Celestials, the Grigori's Invictus configuration is primarily a missile platform, mounting an MRM-20, LRM-15, and Streak SRM-4 for layered firepower across all range brackets. A light PPC and retractable blade provide backup when ammunition runs low. Other configurations shift toward energy-heavy loadouts with heavy PPCs, jump capability, and electronic warfare suites, demonstrating the versatility afforded by the generous pod allocation.</p>
+
+deployment:<p>The Exanimus configuration adapts the Grigori for underwater and unusual environment operations. A quartet of underwater maneuvering units provide subsurface mobility, while the weapon loadout is optimized for engagements in aquatic and zero-gravity environments. The configuration enables the Grigori to defend submerged installations and conduct amphibious operations, a capability that proved valuable for protecting critical Blakist infrastructure during the Jihad. Modified sensors compensate for the reduced effectiveness of standard targeting systems underwater.</p>
+
+history:<p>The Grigori's delayed entry into production reflected Doctor Devon Cortland's perfectionism rather than any engineering setback. Cortland had conceived all six Celestial OmniMechs as an integrated combat system at the Sekkaris Mekwerks facility on Mars, each design filling a specific tactical niche within Manei Domini formations. The Grigori represented the final piece of that system, and Cortland refused to release the design until its missile-heavy Invictus configuration met his exacting standards. His personal supervision of the final manufacturing run at Sekkaris delayed the Grigori by several weeks relative to its siblings, but ensured the design performed exactly as intended when it finally reached the Shadow Divisions.</p><p>Cortland's design philosophy treated the Grigori and Deva as halves of a single tactical concept. Where other militaries designed heavy 'Mechs as generalist platforms, Cortland created two specialized complements: the Grigori to saturate targets at range with missile fire, the Deva to close and destroy them with direct energy and ballistic weapons. The C3i network was the glue binding the two together. A Grigori could feed targeting solutions to an advancing Deva, adjusting fire in real time as the heavier design maneuvered into position. Conversely, Deva pilots pushing forward could relay sensor data back to supporting Grigoris, allowing indirect missile fire against targets the fire support 'Mech could not see directly. This complementary doctrine was among the most sophisticated paired-unit tactics the Inner Sphere had seen since the fall of the Star League.</p><p>The Forty-seventh Shadow Division, known as "Azazel's Watchers," deployed Grigoris extensively in combined-arms formations where their missile configurations saturated enemy positions with coordinated volleys. Poltergeist Precentor Sigma Tamiel of the Forty-seventh piloted a custom Grigori equipped with dual Thunderbolt 10 launchers and a snub-nose PPC, combining precision guided munitions with direct fire. His configuration also incorporated jump jets and a Guardian ECM suite, reflecting the tactical flexibility that commanders demanded from their personal machines.</p><p>Senior Manei Domini officers viewed the Grigori's generous pod space as an ideal platform for personalized loadouts. Demi-Precentor Rufus of the Opacus Venatori operated another custom configuration tailored for independent operations, and the design saw proportionally more custom work than lighter Celestials where pod constraints limited experimentation. The Exanimus underwater variant demonstrated the Grigori's adaptability further, equipping it with underwater maneuvering units and direct-fire energy weapons rather than the torpedoes most underwater designs relied on, a choice that reflected the Manei Domini preference for ammunition-independent firepower.</p><p>Surviving Grigoris are among the rarer Celestial sightings in the post-Jihad era. Their larger size made them more difficult to conceal than the lighter Malak and Preta, and their value depended heavily on pairing with a Deva, a combination that remnant cells struggle to maintain. Republic intelligence occasionally documented Grigori encounters during anti-remnant operations through the 3080s and 3090s, typically associated with fortified holdout positions where the design's fire support capabilities could be employed from prepared firing positions. The Caelestis variant, mounting captured Clan streak missile launchers and pulse lasers, represented the pinnacle of Grigori development and demonstrated that even a fire support platform could become a devastating brawler with the right configuration.</p>
+
+manufacturer:Gibson Federated BattleMechs|Martinson Armaments
+
+primaryfactory:Gibson|Terra
+
+fluffdate:2026-02-21 20:14:52
+
+systemmanufacturer:CHASSIS:Celestial Series
+systemmode:CHASSIS:GG1
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:240 Light Fusion
+systemmanufacturer:ARMOR:Divine Shield
+systemmode:ARMOR:-B Light Ferro
+systemmanufacturer:COMMUNICATIONS:Master's Voice
+systemmode:COMMUNICATIONS:Cel-Alpha with C3i Computer
+systemmanufacturer:TARGETING:Master's Sight
+systemmode:TARGETING:1-Omega

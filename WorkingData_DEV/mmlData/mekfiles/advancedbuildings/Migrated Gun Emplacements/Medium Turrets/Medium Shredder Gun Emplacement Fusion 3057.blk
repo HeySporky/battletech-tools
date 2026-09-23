@@ -1,0 +1,111 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a174-7890-b982-f8b4cff4f237
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Medium Shredder Gun Emplacement
+</Name>
+
+<Model>
+(3057) (Fusion)
+</Model>
+
+<year>
+3057
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+60
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+ISStreakSRM4(ST)
+ISStreakSRM4(ST)
+ISStreakSRM4(ST)
+Searchlight(ST)
+IS Streak SRM 4 Ammo
+IS Streak SRM 4 Ammo
+IS Streak SRM 4 Ammo
+IS Streak SRM 4 Ammo
+IS Streak SRM 4 Ammo
+FUSION PowerGenerator:SIZE:10.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The fusion-powered advanced Medium Shredder Gun Emplacement combines the Streak SRM 4's guaranteed accuracy with complete power independence and medium armor. Every salvo delivers four confirmed hits from a self-sufficient position that operates regardless of infrastructure status. This variant maximizes close defense effectiveness while eliminating all external dependencies.</p><p>Streak SRM 4 technology paired with fusion power creates the most reliable medium-weight close defense position available. No ammunition is wasted, no power failure can disable the system, and medium armor provides adequate protection during engagement. For garrison commanders designing inner perimeter defenses, this variant offers certainty: every target that enters the engagement zone takes four missile hits, and no external failure can prevent that outcome.</p>
+</capabilities>
+
+<overview>
+<p>The Shredder Gun Emplacement specializes in close-range area denial through Short Range Missile systems, designed to devastate targets that breach the outer defensive perimeter. These positions mount SRM launchers that deliver concentrated warhead clusters at close range, making them lethal against infantry formations, light vehicles, and even BattleMechs that attempt to push through the final defensive line. Their role is unambiguous: destroy anything that gets close enough to threaten the installation.</p><p>Shredder emplacements occupy the innermost ring of fortification defense networks, positioned at gates, sally ports, breach points, and internal corridors where attacking forces must funnel through restricted spaces. The short range of their weapons is not a limitation but a design feature, as these positions activate only when the enemy has already committed to a close assault and cannot easily withdraw from the engagement.</p>
+</overview>
+
+<history>
+<p>The Amaris Civil War exposed a critical gap in Castle Brian defensive design. When Stefan Amaris turned the fortifications' own garrisons against the Star League, the resulting close-quarters fighting within the Castle complexes revealed that many positions lacked adequate weapons for point-blank engagement. Long-range systems that had been designed to engage approaching armies across kilometers of open ground proved useless when the fighting raged in corridors and between buildings within the fortress perimeter.</p><p>General Aleksandr Kerensky's liberation campaign paid a terrible price learning this lesson. SLDF assault forces that breached Castle Brian outer walls found themselves in vicious close-quarters combat where the defenders had improvised close-range positions from whatever weapons were available. The formal inclusion of dedicated short-range weapon emplacements in subsequent fortification designs was a direct response to these bloody experiences. Post-war analysis concluded that purpose-built close defense positions at chokepoints within fortress complexes would have dramatically reduced the casualties suffered during the liberation, and the shredder emplacement design standardized this concept for all future defensive construction.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+2
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+90
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

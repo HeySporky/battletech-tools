@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d70b-760c-92cd-1c64b0a7ea8a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Wasp LAM Mk I
+model:WSP-100b
+mul id:5394
+
+Config:LAM
+techbase:Inner Sphere
+era:2703
+source:TR:3085
+published:RS:3085u-CE
+rules level:3
+role:Scout
+
+
+mass:30
+engine:150 Fusion Engine
+structure:IS Standard
+myomer:Standard
+lam:Standard
+
+heat sinks:10 Single
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:9
+RT armor:9
+CT armor:12
+HD armor:9
+LL armor:10
+RL armor:10
+RTL armor:3
+RTR armor:3
+RTC armor:3
+
+Weapons:2
+Streak SRM 2, Left Torso
+Medium Pulse Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Landing Gear
+Avionics
+Heat Sink
+Heat Sink
+Heat Sink
+ISStreakSRM2
+IS Streak SRM 2 Ammo
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Landing Gear
+Avionics
+Heat Sink
+ISMediumPulseLaser
+ISGuardianECMSuite
+ISGuardianECMSuite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Landing Gear
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+Avionics
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Wasp LAM Mark I was developed by Harvard Company, Inc. beginning in the late twenty-seventh century as a Land-Air 'Mech variant of the successful Wasp reconnaissance platform. While Harvard collaborated with LexaTech Industries on standard LAM conversion technology, chief designer Katherine Piscalla pursued a more ambitious vision: a hybrid aerospace fighter-bomber capable of delivering ordnance that no conventional light fighter could carry. The WSP-100 entered service around 2690, becoming one of the three primary LAM designs fielded by the Star League Defense Force.</p><p>Unlike its Stinger LAM counterpart, the Wasp LAM Mark I sacrificed some speed and jump capability in BattleMech mode to accommodate a five-ton bomb bay that could carry weapons up to and including Arrow IV artillery missiles. This unique capability made it invaluable for precision strike missions where conventional aerospace assets could not operate.</p>
+
+capabilities:<p>Harvard Company's approach to the Wasp LAM differed significantly from standard conversion philosophy. By reducing the size of the original Wasp's engine and eliminating ammunition-dependent weapons, engineers created space for an internal bomb bay unprecedented in a design of this weight class. The thirty-ton airframe could deliver ordnance loads that would severely compromise the performance of conventional light fighters, giving SLDF commanders a unique tactical asset.</p><p>In BattleMech mode, the Wasp LAM Mark I proves slower than its parent design, with a maximum speed of 86 kilometers per hour and jump capability reduced to 120 meters. The standard armament consists of a single medium laser and a rear-mounted one-shot SRM-2 for self-defense. However, the true utility of the design lies in its aerospace and AirMech modes, where it can rapidly insert into contested areas, deliver its payload, and extract before heavier defensive assets can respond.</p><p>Like its older sibling the Stinger LAM, the Wasp LAM suffers from the same "jack of all trades" weaknesses. As the Wasp LAM offered a performance profile little different from the Stinger LAM, many questioned the wisdom of producing a second light LAM, especially as it meant maintaining two fragile platforms.</p>
+
+deployment:<p>Developed for SLDF special operations units known as the "Blackhearts," this variant replaced the medium laser and bomb bay with an additional jump jet, medium pulse laser, Streak SRM-2, and Guardian ECM suite. Slightly more armor than the standard model enhanced survivability during covert operations. This variant optimized the Wasp LAM for infiltration and reconnaissance missions where the bomb bay's strike capability was less valuable than electronic warfare systems and improved mobility.</p>
+
+history:<p>The Wasp LAM's first operational deployment occurred around 2690 when SLDF special operations forces used the new design to destroy a nuclear weapons facility hidden in the Terran Oort Cloud. This mission demonstrated the unique capabilities Harvard Company had engineered into the platform, validating years of development work. Full-scale production began at Harvard's facilities on Epsilon Eridani.</p><p>Throughout the Star League era, the Wasp LAM was distributed in large numbers alongside Stinger and Phoenix Hawk LAMs to SLDF formations, with the greatest concentration serving in the Terran Hegemony's Royal Divisions. Standard deployment doctrine called for homogeneous Wasp LAM companies transported by pairs of Leopard-class DropShips, allowing rapid insertion into combat zones across varied terrain. Star League ground troops bestowed upon LAM pilots the highest honor available: calling them "angels on our shoulders" for their close support capabilities.</p><p>Unlike the Stinger LAM, production of the Wasp LAM ended during the First Succession War when the lone factory on Epsilon Eridani was obliterated. The 'Mech grew increasingly scarce as the only source of spare Wasp LAM parts became another Wasp LAM. By the thirty-first century, operational Wasp LAMs had become exceptionally rare, with the last confirmed combat-worthy examples lost during the chaos following the Clan Invasion.</p>
+
+manufacturer:Harvard Company, Inc.
+
+primaryfactory:Epsilon Eridani
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Harvard
+systemmode:CHASSIS:12H
+systemmanufacturer:ENGINE:LTV
+systemmode:ENGINE:150
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Light
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:46 FX
+systemmanufacturer:COMMUNICATIONS:Rand
+systemmode:COMMUNICATIONS:1200 with Guardian ECM
+systemmanufacturer:TARGETING:Rand
+systemmode:TARGETING:LAMTar 100

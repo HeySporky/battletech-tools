@@ -1,0 +1,77 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bfde-77a2-83a8-1bf856ca74fb
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Squad
+</Name>
+
+<Model>
+(Medic)
+</Model>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Medic squads are small infantry elements carrying standard rifles alongside enhanced medical equipment and triage supplies. These squads provide battlefield casualty care and evacuation support to larger formations, treating wounded soldiers under fire and stabilizing casualties for transport to rear-area medical facilities. Their combat capability is limited by the need to carry medical gear in place of heavier weapons.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+1
+</squadn>
+
+<Primary>
+Rifle (Federated Long)
+</Primary>
+
+<specialization>
+256
+</specialization>
+

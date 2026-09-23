@@ -1,0 +1,158 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a3c0-7f20-9b54-541542226ac9
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Golem Assault Armor
+</Name>
+
+<Model>
+(Fast Assault)(Sqd4)
+</Model>
+
+<mul id:>
+4222
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+CLBAMG:RA
+CLBASRM5OS:Body
+BAJumpBooster:Body
+BABasicManipulator:LA
+BABasicManipulator:RA
+BAAPMount:LA
+InfantryAssaultRifle:APM:LA
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Fast Assault configuration takes a fundamentally different approach from other Golem variants. The fire-resistant armor is swapped for standard battlesuit plating, and the ground motive systems are lightened to accommodate jump packs paired with a mechanical jump booster. This enables the suit to cover ninety meters per jump, a dramatic improvement in tactical mobility for an assault-weight design. Ground speed drops to 10 km/h, but the jump capability more than compensates in most terrain.</p><p>Offensive capability is reduced accordingly. A single standard machine gun occupies the right arm, while the left mounts a generic anti-personnel weapon. A detachable SRM-5 launcher, identical to the Rock Golem's missile pack, provides the suit's heaviest punch but is expended after a single salvo. The Fast Assault trades the Golem's signature toughness and firepower for mobility, filling a shock assault role that other variants cannot.</p>
+</capabilities>
+
+<overview>
+<p>The Golem is an assault-class battle armor developed by Clan Ghost Bear, first fielded in 3067. Designed to be the definitive assault battlesuit, the two-ton suit was built to deliver heavy firepower while providing exceptional protection for its troopers. Thick, specialized armor plating and powerful short-range armament earned the design a fearsome reputation among both Clan and Inner Sphere forces. Though the Golem sacrifices speed for protection, it remains one of the most formidable assault battlesuits in active service, with multiple configurations fielded across several Clan factions.</p>
+</overview>
+
+<deployment>
+<p>Hell's Horses commands fielded Fast Assault Golems in four-trooper squads for rapid strike operations within their Inner Sphere territories. The squad's jump capability made it effective for seizing elevated positions and conducting vertical assaults on fortified structures, roles where the standard Golem's lack of jump jets left tactical gaps.</p>
+</deployment>
+
+<history>
+<p>Clan Ghost Bear initiated development of the Golem in 3064, driven by encounters with Clan Hell's Horses' Gnome and the Draconis Combine's Kanazuchi during border conflicts in the early 3060s. The Bears wanted an assault battlesuit that could match or exceed both rival designs in protection and firepower. Development stretched over several years as the Ghost Bears prioritized BattleMech and aerospace recovery following the Combine and Horses invasions. The Golem finally entered production in September 3067, and despite initial competition from established Elemental designs for production resources, the suit gradually found its place among frontline formations and Elemental-heavy Clusters from 3070 onward.</p><p>Clan Hell's Horses produced their own variants beginning in 3072, building on captured Ghost Bear technology and new weapon mounting systems at facilities on Csesztreg and Nouveaux Paris. The Ghost Bears responded with a dedicated urban support configuration in 3076, produced at the Bergan Industries annex on Alshain. A separate design known as the Rogue Bear, intended for second-line duty, also used the Golem's basic chassis as a template.</p>
+</history>
+
+<manufacturer>
+Csesztreg Industriplex Gamma|Transitional Facility A-4
+</manufacturer>
+
+<primaryFactory>
+Csesztreg|Nouveaux Paris
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+2
+</jumpingMP>
+
+<armor>
+18
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+4
+</weightclass>
+

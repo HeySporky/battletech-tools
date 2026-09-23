@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ca14-705c-b42a-6fe91438fbe2
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Firestarter
+model:FS9-OD
+mul id:1103
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3057
+source:TR:3058U,TR:CI
+published:RS:CI
+rules level:2
+role:Sniper
+
+quirk:cowl
+quirk:difficult_maintain
+
+mass:45
+engine:270 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:12 IS Double
+base chassis heat sinks:10
+walk mp:6
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:16
+RT armor:16
+CT armor:20
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:5
+ER PPC, Left Arm
+Medium Laser, Right Arm
+LRM 5, Right Arm
+Flamer, Center Torso
+Flamer, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISERPPC (OMNIPOD)
+ISERPPC (OMNIPOD)
+ISERPPC (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Medium Laser (OMNIPOD)
+LRM 5 (OMNIPOD)
+IS Ammo LRM-5 (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+Jump Jet
+Jump Jet
+ISC3SlaveUnit (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+Jump Jet
+Jump Jet
+ISGuardianECMSuite (OMNIPOD)
+ISGuardianECMSuite (OMNIPOD)
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Flamer
+Flamer (R)
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Firestarter OmniMech emerged from an unlikely technology exchange during the Clan Invasion. When Coventry Metal Works offered the specifications for the overly specialized Firestarter BattleMech to an utterly indifferent Luthien Armor Works, few expected the Combine manufacturer to transform the design into a flexible 45-ton OmniMech. The FS9-O debuted around 3056, and despite its politically troubled birth, the two manufacturers hammered out a licensing agreement at the first conference of the Second Star League that allowed Coventry to begin production of the Black Hawk-KU in exchange.</p><p>Production has since expanded to include Ceres Metals Industries and Victory Industries, with the design proving highly effective as a medium trooper platform capable of serving in roles ranging from reconnaissance to fire support.</p>
+
+capabilities:<p>Weighing ten tons more than its BattleMech cousin, the Firestarter OmniMech puts the additional mass to good use with eight and a half tons of Durallex Nova armor and thirteen and a half tons of pod space. Six permanently mounted Luxor Load Lifters jump jets provide 180-meter jump capability across all configurations, while two fixed Hotshot flamers pointing forward and rearward ensure some offensive ability regardless of loadout. Twelve double heat sinks manage thermal output effectively.</p><p>Most configurations center on advanced electronic warfare equipment, with many being specific to either the Draconis Combine, Lyran Alliance, or Free Worlds League based on preferred weapons systems. The Primary configuration mounts paired large lasers for long-range engagement, supplemented by two additional flamers and a Beagle active probe for reconnaissance.</p><p>The only significant complaint from MechWarriors and technical crews concerns the sheer volume of fixed equipment, as the permanently mounted jump jets, flamers, and double heat sinks restrict the natural flexibility expected of an OmniMech. Critics argue that if specialized equipment is needed, pod versions could be mounted quickly while allowing more effective weapons in the meantime.</p>
+
+deployment:<p>Designed for long-range direct fire support and sniping, this configuration mounts an ER PPC as its primary weapon, backed by an LRM-5 launcher and medium laser for supplementary firepower. A Guardian ECM suite protects against enemy electronic warfare while a C3 slave unit provides network targeting benefits, making it effective in both independent and coordinated operations.</p>
+
+history:<p>Despite its dubious beginnings as a reciprocal gift that seemed designed to irritate Coventry Metal Works, the Firestarter OmniMech has made its way into many Draconis front-line regiments, serving in either close-in or long-range support roles. Many have come to view it as a multi-purpose 'Mech for lighter units, able to replace aging workhorses such as the Phoenix Hawk, Wolf Trap, and Trebuchet while streamlining logistics through standardization. It is not uncommon for certain Draconis Combine BattleMech companies to field anywhere from a pair to a full lance of this flexible machine.</p><p>The former Federated Commonwealth states initially assigned their Firestarters at the battalion and regimental level, preferring to use the expensive and fragile machine in a more specialized reconnaissance role. However, with the need to rebuild after the FedCom Civil War, many have found their way into command 'Mech positions for light lances and companies.</p><p>The Free Worlds League has developed configurations taking advantage of their superior extended-range laser systems to create effective long-range snipers, while the Draconis Combine's Configuration E represents the complete opposite approach as a close-in brawler with pulse lasers, medium-range missiles, and a sword. Configuration R serves as a unique field upgrade developed during Operation Bulldog, utilizing captured Clan Smoke Jaguar weapons to bolster SLDF forces in later waves.</p><p>Production continues across multiple manufacturers on Coventry, Luthien, Capella, and Marduk, ensuring the Firestarter OmniMech's place as a mainstay of Inner Sphere medium 'Mech forces well into the thirty-second century.</p>
+
+manufacturer:Coventry Metal Works|Luthien Armor Works|Ceres Metals Industries|Victory Industries
+
+primaryfactory:Coventry|Luthien|Capella|Marduk
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Foundation
+systemmode:CHASSIS:Reinforced Endo Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:270 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Nova
+systemmanufacturer:JUMP_JET:Luxor
+systemmode:JUMP_JET:Load Lifters
+systemmanufacturer:COMMUNICATIONS:Cyclops
+systemmode:COMMUNICATIONS:18XS Adaptable
+systemmanufacturer:TARGETING:Cyclops
+systemmode:TARGETING:Special Limited

@@ -1,0 +1,210 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf24-766d-aa51-b48b93b21068
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Titan II
+model:TI-2PA
+mul id:3259
+
+Config:Biped
+techbase:Inner Sphere
+era:3076
+source:TR:3075,TR:J
+published:RS:J
+rules level:2
+role:Juggernaut
+
+quirk:pro_actuator
+
+mass:100
+engine:300 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:16 IS Double
+walk mp:3
+jump mp:3
+
+armor:Standard(Inner Sphere)
+LA armor:33
+RA armor:33
+LT armor:27
+RT armor:27
+CT armor:41
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:15
+RTR armor:15
+RTC armor:20
+
+Weapons:17
+Plasma Rifle, Left Arm
+Medium Laser, Left Arm
+Plasma Rifle, Right Arm
+Medium Laser, Right Arm
+Streak SRM 6, Left Torso
+Machine Gun, Left Torso
+Machine Gun, Left Torso
+Machine Gun, Left Torso
+Machine Gun, Left Torso
+Machine Gun Array, Left Torso
+Machine Gun, Right Torso
+Machine Gun, Right Torso
+Machine Gun, Right Torso
+Machine Gun, Right Torso
+Machine Gun Array, Right Torso
+Medium Laser, Center Torso
+Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISPlasmaRifle
+ISPlasmaRifle
+Medium Laser
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISPlasmaRifle
+ISPlasmaRifle
+Medium Laser
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISStreakSRM6
+ISStreakSRM6
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+ISMGA
+IS Streak SRM 6 Ammo
+ISCASE
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+ISMGA
+IS Ammo MG - Full
+BeagleActiveProbe
+BeagleActiveProbe
+ISCASE
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Medium Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+Medium Laser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Titan II is a hundred-ton assault BattleMech produced by Kressly WarWorks on Epsilon Eridani for the Word of Blake's Protectorate Militia. First identified by the Successor States in 3071, the Titan II serves as a more faithful modernization of the original Star League-era Titan prototype than the heavily modified Grand Titan that preceded it. Where Vining Engineering and Salvage Team had used the recovered Titan specifications as a jumping-off point for an entirely new design, Kressly's engineers hewed much closer to the original concept.</p><p>Although it shares a lineage with the Vining-designed Grand Titan, the Titan II is emphatically not that 'Mech. Built using standard construction technologies throughout (a standard engine, standard internal structure, and conventional armor) the Titan II eschews the weight-saving but fragile technologies favored by many modern designs. This approach reflects its intended role as a garrison 'Mech for the Protectorate Militia, where reliability and ease of production take precedence over cutting-edge performance.</p>
+
+capabilities:<p>The Titan II retains the same Vlar 300 standard fusion engine and nineteen tons of Kressly Stoneskin 50 armor as its Star League-era ancestor, maintaining the original's philosophy of rugged survivability over speed. At fifty-four kilometers per hour, the Titan II relies on its heavy armor and firepower to dominate engagements rather than maneuver around opponents. The Kressly TIA-Infused chassis provides a solid foundation without resorting to expensive endo steel construction.</p><p>The weapons loadout modernizes the Titan concept with contemporary systems. A Blankenburg "Divine Wrath" Heavy PPC serves as the primary long-range weapon, backed by four Diplan M3-XR extended-range medium lasers that provide effective firepower at intermediate distances. A ZT Triple Fire Streak SRM-6 and twin Helga Series nine-tube multi-missile launchers handle close-range work, with the Streak system ensuring that every missile fired finds its target. Eighteen double heat sinks generally keep the Titan II operating within acceptable thermal limits. Especially absent from the design are the advanced C3 computer networks and other sophisticated electronics that characterize most Word of Blake military hardware, a deliberate omission that suggests the Protectorate is reserving its best technology for more elite formations.</p>
+
+deployment:<p>This variant is an anti-insurgent and urban combat configuration developed for internal security operations within the Protectorate. The Heavy PPC and missile systems are replaced with a pair of plasma rifles capable of suppressing both 'Mechs and infantry, four standard medium lasers, and two four-gun machine gun arrays mounted in machine gun arrays for devastating anti-personnel firepower. The addition of a Beagle active probe allows this variant to detect hidden vehicles and 'Mechs in urban environments, while the Streak SRM-6 is retained for heavier targets.</p>
+
+history:<p>The Titan II's genesis lies in the Word of Blake's expansion of its Protectorate Militia during the early 3070s. As the Blakists consolidated control over their occupied worlds, they required large numbers of garrison 'Mechs that could be produced quickly and maintained by less experienced technicians. Kressly WarWorks on Epsilon Eridani, by then operating under Word of Blake authority, was directed to resurrect the original Titan specifications and produce an updated version suited to garrison duty.</p><p>The Titan II appeared on the battlefield in 3071, deployed primarily to Protectorate Militia forces garrisoning the worlds around Terra. While individual Titan IIs were occasionally spotted among Word of Blake Militia forces engaging coalition troops across the Inner Sphere, none were ever confirmed in service with the elite Manei Domini Shadow Divisions. This exclusion from the Word's most capable formations reinforced assessments that the Titan II was built for the Protectorate's second-line forces, with the Word's Precentor Martial restricting the best equipment for more devoted commands.</p><p>Following the fall of the Word of Blake, Kressly WarWorks continued production of the Titan II under new ownership. The factory on Epsilon Eridani transitioned through Republic of the Sphere control and continued manufacturing the design through the Dark Age, with the Titan II finding new buyers among the successor states that emerged from the Republic's fragmentation.</p>
+
+manufacturer:Kressly WarWorks
+
+primaryfactory:Epsilon Eridani
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Kressly
+systemmode:CHASSIS:TIA-Infused
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Kressly
+systemmode:ARMOR:Stoneskin 50
+systemmanufacturer:COMMUNICATIONS:Kressly-Lantern
+systemmode:COMMUNICATIONS:Allet C500
+systemmanufacturer:TARGETING:Kressly-Lantern
+systemmode:TARGETING:Allet T101

@@ -1,0 +1,81 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b9ea-75b8-9a88-ed40ee840109
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Field Gun demi-I (ComGuards)
+</Name>
+
+<Model>
+(Motorized UAC5)
+</Model>
+
+<year>
+2933
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+ComStar Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+ISUltraAC5
+IS Ultra AC/5 Ammo
+ISUltraAC5
+IS Ultra AC/5 Ammo
+</Field Guns Equipment>
+
+<overview>
+<p>Com Guard conventional infantry benefit from ComStar's access to preserved Star League technology, fielding weapons and equipment that match or exceed the standard issue of any Inner Sphere military, backed by the institutional discipline of the secular Order's professional military culture. Operating medium-caliber ultra autocannon that can fire at double the normal rate, these crews deliver concentrated salvos that overwhelm light armor and suppress infantry positions, accepting increased jam risk for burst damage.</p>
+</overview>
+
+<notes>
+Squad/platoon size from TechManual. Armor kit from Tactical Operations. Intro date from official creation of ComStar Guards and Militia (ComGuards).
+</notes>
+
+<squad_size>
+6
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+

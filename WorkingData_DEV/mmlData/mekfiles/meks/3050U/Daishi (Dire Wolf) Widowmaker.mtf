@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c42a-7bad-894c-a5a01f3c623b
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Daishi
+clanname:Dire Wolf
+model:'Widowmaker'
+mul id:811
+
+Config:Biped OmniMek
+techbase:Clan
+era:3050
+source:TR:3050,TR:CI
+published:RSFP:Wave 1
+rules level:2
+role:Juggernaut
+
+quirk:imp_target_long
+quirk:difficult_eject
+
+mass:100
+engine:300 XL (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:25 Clan Double
+base chassis heat sinks:12
+walk mp:3
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:34
+RA armor:34
+LT armor:32
+RT armor:32
+CT armor:47
+HD armor:9
+LL armor:41
+RL armor:41
+RTL armor:10
+RTR armor:10
+RTC armor:14
+
+Weapons:8
+Large Pulse Laser, Left Arm
+ER PPC, Left Arm
+Large Pulse Laser, Right Arm
+ER PPC, Right Arm
+Ultra AC/20, Right Torso
+ER Medium Laser, Center Torso
+ER Medium Laser, Center Torso
+ER Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+Clan Ultra AC/20 Ammo (OMNIPOD)
+Clan Ultra AC/20 Ammo (OMNIPOD)
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLUltraAC20 (OMNIPOD)
+CLUltraAC20 (OMNIPOD)
+CLUltraAC20 (OMNIPOD)
+CLUltraAC20 (OMNIPOD)
+CLUltraAC20 (OMNIPOD)
+CLUltraAC20 (OMNIPOD)
+CLUltraAC20 (OMNIPOD)
+CLUltraAC20 (OMNIPOD)
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLERSmallLaser (OMNIPOD)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Dire Wolf was introduced in 3010 as the brainchild of the Clan Wolf scientist caste, conceived as the "Ultimate Assault OmniMech." Before Clan Wolf could begin production, however, Clan Smoke Jaguar warriors learned of the project and seized the design through a Trial of Possession fought on the boundaries of zellbrigen, a trial rumored to have been conducted dishonorably. Production commenced at the Phan Industriplex on Huntress, giving the Smoke Jaguars first claim to one of the most devastating war machines ever fielded. The hundred-ton behemoth earned the Inner Sphere codename "Daishi," pseudo-Japanese for "Great Death," bestowed by the criminal underworld of the Draconis Combine upon first encountering the OmniMech during the Clan Invasion. The name proved grimly prophetic as the Dire Wolf became one of the most feared assault platforms in known space, capable of carrying over fifty tons of pod-mounted weaponry into battle.</p>
+
+capabilities:<p>The Dire Wolf's design philosophy is straightforward: sacrifice speed for an unparalleled volume of firepower. Powered by a Starfire 300 XL engine, the chassis manages only 54 kph at full stride, matching the ponderous gait of an Atlas. What it surrenders in mobility, however, it reclaims through sheer destructive potential. With 50.5 tons of available pod space (more than any other OmniMech in common production) the Dire Wolf can mount weapon loadouts that rival entire lances of lighter designs. Nineteen tons of Compound 12B2 Standard armor provide protection equivalent to the heaviest Inner Sphere assault 'Mechs, ensuring the Dire Wolf can absorb considerable punishment while closing to effective range.</p><p>In its Prime configuration, the Dire Wolf pairs four ER large lasers with two Ultra Autocannon/5s and an LRM-10 for devastating long-range engagement capability, supported by four medium pulse lasers for close-quarters defense. The sheer variety of available configurations reflects the design's extraordinary flexibility, from the Gauss rifle-armed Alternate Configuration A to the HAG 40-equipped Alternate Configuration D, each loadout transforms the chassis into a fundamentally different battlefield threat. Heat management remains the primary constraint across all configurations, as even the most generous heat sink allocations struggle to keep pace with the firepower the Dire Wolf can bring to bear.</p>
+
+deployment:<p>The Widowmaker configuration mounts paired ER PPCs and large pulse lasers in the arms for potent medium-to-long range fire, complemented by two ER medium lasers and an ER small laser for sustained engagements. An Ultra Autocannon/20 provides devastating close-range firepower, creating a loadout capable of delivering significant damage at any distance. This versatile configuration served with distinction until its destruction at the Great Gash on Twycross, where it now rests as a silent memorial.</p>
+
+history:<p>The Dire Wolf's history is inseparable from the rivalry between Clans Wolf and Smoke Jaguar. When the Jaguars seized the design in 3010, Clan Wolf's honor demanded a response, but ilKhan action and political considerations initially stayed their hand. It was not until 3019 that Star Colonel Ulric initiated a Trial of Possession specifically for manufacturing rights, which he won decisively. Clan Wolf subsequently established production at Wolf Clan Site #1 on Strana Mechty, breaking the Jaguar monopoly on the chassis. Other Clans could acquire the Dire Wolf only through trade, as isorla, or through individual Trials, a limitation that kept the design concentrated primarily among the Wolves and Jaguars for decades.</p><p>The Clan Invasion of 3049 brought the Dire Wolf to the Inner Sphere in terrifying fashion. Smoke Jaguar forces employed the OmniMech as a spearhead against Draconis Combine defenses, where its devastating firepower earned the Daishi name that would become synonymous with Clan assault doctrine. The battles of Luthien and Huntress represented the golden era of Dire Wolf deployment, where massed formations of the hundred-ton OmniMechs shattered defensive lines through sheer weight of fire.</p><p>Wolf's Dragoons, leveraging technical information provided by Khan Kerlin Ward, began limited manufacturing of the Dire Wolf at Blackwell Corporation on Outreach in the late 3040s. This represented the only Inner Sphere production of the chassis, though the facility's output remained modest compared to the Clan homeworld factories. The destruction of the Phan Industriplex on Huntress in 3060 during Operation BULLDOG eliminated the original Smoke Jaguar production line, while the Wars of Reaving disrupted Clan Wolf's homeworld manufacturing on Paxon.</p><p>The aging OmniMech has been eclipsed in some roles by newer designs such as the Tomahawk, yet the Dire Wolf continues to inspire dread on battlefields across the Inner Sphere and Clan occupation zones alike. Against the defending Turkina Keshik on Skye, Dire Wolfs of the Ninth Wolf Guard Striker Cluster demonstrated both the design's enduring strengths and its persistent vulnerability to fast-moving opponents, while the heavy OmniMechs fared well at range against Jade Falcon forces, they suffered heavy losses when lighter Shrikes and Flamberges closed to exploit the Dire Wolf's poor maneuverability.</p><p>Clan Hell's Horses recognized the continued value of the design and brought the Dire Wolf back into active production at Svarstaad Industriplex Delta on Svarstaad in 3149, introducing new configurations optimized for the ilClan era. This renewal of manufacturing has ensured that the Dire Wolf remains a relevant battlefield presence well into the thirty-second century, evidence of the fundamental soundness of Clan Wolf's original design philosophy.</p>
+
+manufacturer:Phan Industriplex|Wolf Clan Site #1|Blackwell Corporation|W-4 Facilities|Svarstaad Industriplex Delta
+
+primaryfactory:Huntress|Strana Mechty|Outreach|Paxon|Svarstaad
+
+fluffdate:2026-02-10 14:00:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Titan HX
+systemmanufacturer:ENGINE:W-7 Facilities
+systemmode:ENGINE:Starfire 300 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Compound 12B2 Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:TJ6 "Bell" Integrated Communication System
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Mars System 9

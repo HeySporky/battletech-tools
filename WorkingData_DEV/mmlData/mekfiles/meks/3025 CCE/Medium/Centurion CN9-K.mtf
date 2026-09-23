@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c15f-74f4-84aa-4e651a3fa05c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Centurion
+model:CN9-K
+
+Config:Biped
+techbase:Inner Sphere
+era:3008
+source:TR:3025C
+rules level:1
+role:Brawler
+
+quirk:non_standard
+quirk:imp_target_short
+
+mass:50
+engine:200 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:16 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:17
+RT armor:17
+CT armor:22
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:4
+PPC, Right Arm
+LRM 10, Left Torso
+Medium Laser, Center Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+PPC
+PPC
+PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+LRM 10
+LRM 10
+IS Ammo LRM-10
+IS Ammo LRM-10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Medium Laser (R)
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Centurion was designed and built by Corean Enterprises in 2801 as an operational partner for the Trebuchet fire support BattleMech. Produced initially at Corean's facility on Ramen II, the fifty-ton design was equipped with a varied arsenal centered around the arm-mounted autocannon, giving it effective striking power across multiple range brackets. The Centurion quickly proved itself during the First Succession War, earning recognition as the unofficial 'Mech of House Davion and a reputation for making slow, steady advances into enemy positions.</p><p>The loss of the original production facility during the Second Succession War nearly ended the design, but Corean's construction of a new production facility on New Avalon in 3012, combined with a partnership with the New Avalon Institute of Science beginning in 3022, saved the Centurion from retirement and transformed it into the primary test bed for new technologies within the Armed Forces of the Federated Suns.</p>
+
+capabilities:<p>The Centurion is best known for making slow, steady advances, leveraging its autocannon and medium lasers to inflict maximum damage at close range. The Luxor D-Series autocannon serves as the primary weapon, mounted in the right arm and fed by a twenty-round magazine, while a chassis-mounted Luxor 3R LRM-10 with twenty-four reloads provides supplementary fire support capability. Two Photech 806c medium lasers in the center torso, one rear-mounted, round out the arsenal and provide effective close-range defense against flanking opponents.</p><p>Eight and a half tons of StarGuard III armor make the Centurion tough enough to absorb considerable punishment for a medium 'Mech, while ten engine-mounted heat sinks allow for sustained combat operations with minimal risk of overheating. The generous ammunition stores enable the Centurion to operate away from supply bases for extended periods, making it well-suited for raiding lance assignments.</p><p>The design's primary weakness lies in the Luxor autocannon's notorious loading system, which suffers from chronic defects and requires an exceptionally difficult repair cycle. The custom-fitted nature of the weapon mount means that replacing the autocannon with an alternative system is an extremely complicated and time-consuming operation, a limitation that has driven the creation of numerous field variants over the centuries.</p>
+
+deployment:<p>Found in small numbers within the Draconis Combine, this variant stands as a battlefield refit of captured Federated Suns Centurions. The troublesome Luxor autocannon is replaced with a Lord's Light PPC, providing more reliable long-range firepower without the maintenance burden of the original weapon system. Six additional heat sinks manage the increased thermal load, and an extra ton of armor bolsters survivability. The modification transforms the Centurion from a close-range brawler into a more versatile combatant capable of engaging effectively at longer ranges.</p>
+
+history:<p>The Centurion's history is deeply intertwined with that of the Federated Suns. First produced on Ramen II in 2801, the design saw immediate service during the First Succession War and quickly established itself as a mainstay of the Armed Forces of the Federated Suns. Its versatile weapons loadout and rugged construction made it ideal for the grinding campaigns of the era, and the formidable appearance of the Luxor autocannon provided a psychological edge to its pilots in combat.</p><p>The Second Succession War dealt the Centurion a severe blow when Corean Enterprises' Ramen II production lines were destroyed in 2845. Ramen II's strategic position near the Free Worlds League and Capellan Confederation borders made it a constant target, and the planet was rendered uninhabitable by 3025. Corean maintained limited production of spare parts from secondary facilities for the next century and a half, but the increasing scarcity of replacement components for the Luxor autocannon forced technicians to attempt substitutions with other weapon systems, efforts that typically ended in failure. Most Centurions found within Combine and Capellan forces during this period were battlefield salvage, often in significant disrepair owing to Corean's inability to supply rival Houses with parts.</p><p>By the early thirty-first century, the AFFS was seriously considering phasing out the Centurion in favor of the more durable Enforcer. Corean lobbied aggressively to save their flagship design, building a new production facility on New Avalon in 3012 and relocating their entire corporate headquarters to the planet. Billions of D-bills were invested in research and development, and in 3022 the New Avalon Institute of Science partnered with Corean to use the Centurion as a test bed for emerging technologies. Corean's first major improvement was replacing the problematic bulky arm mounts with a more flexible arrangement, offering free replacement assemblies to all AFFS line units, a gesture that dramatically improved the design's image among field technicians.</p><p>The formation of the Federated Commonwealth saw the Centurion adopted by the combined Armed Forces, and in 3047 Corean licensed Jalastar Aerospace on Panpour to produce original CN9-A models. The upgraded CN9-D debuted in 3049, and by 3052 Centurions had become common among border militias. The design continued serving as a platform for technological innovation through Corean's ongoing relationship with the NAIS, with triple-strength myomer, rotary autocannons, targeting computers, compact engines, and plasma cannons all tested on Centurion variants. As each new variant was unveiled, the AFFS rotated older models to the mercenary market, supplementing the military budget.</p><p>The Centurion fought on both sides of the FedCom Civil War, after which it was adopted in limited numbers by the Lyran Alliance Armed Forces. During the Jihad, the Word of Blake blockade halted production at the New Avalon plant, forcing the Panpour facility to double its output to meet demand from Capellan March forces. The design's legacy extended beyond the Inner Sphere proper when the Marian Hegemony began producing primitive and industrial Centurion variants on Alphard beginning in 3077, representing one of the greatest challenges that young nation's fledgling industrial base had ever undertaken. The Centurion MilitiaMech became the face of the Marian military, with every outpost of sufficient size maintaining at least one, and Marian commercial efforts eventually spread the design to former League worlds and pirate bands operating within Republic space.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Corean
+systemmode:CHASSIS:Model K7
+systemmanufacturer:ENGINE:Nissan
+systemmode:ENGINE:200
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:StarGuard III
+systemmanufacturer:COMMUNICATIONS:Corean
+systemmode:COMMUNICATIONS:Transband-J9
+systemmanufacturer:TARGETING:Corean
+systemmode:TARGETING:B-Tech

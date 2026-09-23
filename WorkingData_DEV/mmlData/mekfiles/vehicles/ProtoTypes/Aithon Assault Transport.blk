@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e94c-7446-a472-0d2fc0e6373b
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Aithon Assault Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3685
+</mul id:>
+
+<year>
+3084
+</year>
+
+<type>
+Clan Level 4
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<quirks>
+trailer_hitch
+distracting
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+troopspace:10.0
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+16
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+8
+</armor_tech_level>
+
+<armor>
+37
+37
+37
+34
+30
+</armor>
+
+<Body Equipment>
+CLArmoredMotiveSystem
+ISLongTomCannonAmmo
+ISLongTomCannonAmmo
+ISLongTomCannonAmmo
+CLCASE
+</Body Equipment>
+
+<Front Equipment>
+ISLongTomCannon
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+</Turret Equipment>
+
+<capabilities>
+<p>The Aithon's 300-rated extralight fusion engine delivers a modest top speed of fifty-four kilometers per hour, sacrificing raw speed for the weight savings needed to mount heavy weapons and thick armor on the hundred-ton chassis. The engine's nearly unlimited operating range ensures the transport can sustain extended offensive operations without concern for fuel logistics. A ten-ton infantry bay can accommodate a full Point of standard Elementals, two Points of lighter battle armor, or an equivalent mass of conventional troops and equipment.</p><p>Protection is among the Aithon's greatest strengths. Twelve and a half tons of Composite Alpha-V1 ferro-lamellor armor effectively negates the damage potential of lighter weapons and cluster munitions while reducing the impact of heavier strikes by up to twenty percent. An armored motive system adds further resilience, shielding the tracked propulsion from disabling hits that would otherwise leave the vehicle immobilized.</p><p>The forward-mounted Model LT-Max Long Tom artillery cannon serves as the Aithon's primary weapon, carrying three tons of CASE-protected ammunition for sustained bombardment of bunkers, fortifications, and prepared positions. Four turret-mounted Series 14a medium pulse lasers provide accurate close-in defense, covering the vehicle during the vulnerable process of loading and unloading its infantry complement.</p>
+</capabilities>
+
+<overview>
+<p>The Aithon Assault Transport is a hundred-ton tracked assault vehicle developed by Swedenborg Heavy Industries on Kirchbach for Clan Hell's Horses, entering service in 3084. Conceived as a dedicated heavy infantry transport with significant direct-fire capability, the Aithon was designed to replace several aging vehicle platforms that the Horses could no longer source from the Clan Homeworlds. Its combination of heavy protection, substantial troop-carrying capacity, and devastating artillery firepower has made it a valued asset within the Clan's combined-arms formations. The vehicle fills a critical niche in the Hell's Horses' combat doctrine, where conventional vehicles and infantry operate alongside BattleMechs and Elementals as integral components of assault operations rather than mere support elements.</p>
+</overview>
+
+<deployment>
+<p>Given its limited ground speed and assault transport role, the Aithon is not a front-line combat vehicle in the traditional sense. Field commanders instead deploy it wherever the Hell's Horses are determined to assault a position or break through entrenched resistance. The presence of an Aithon in a Horses formation does not necessarily indicate an imminent infantry assault, however. Some Periphery operations have seen these vehicles repurposed as salvage transports or prisoner wagons, their heavy armor and firepower first employed to overwhelm the opposition before their cargo bays are put to alternative use.</p><p>To date, all Aithons manufactured at Swedenborg Heavy Industries have been distributed among the Hell's Horses' various assault Clusters, where their limited mobility is offset by the near-constant presence of supporting BattleMechs and vehicles.</p>
+</deployment>
+
+<history>
+<p>Swedenborg Heavy Industries has a long and varied history predating its association with Clan Hell's Horses. Originally a struggling IndustrialMech manufacturer under Draconis Combine ownership, the facility saw its fortunes improve dramatically after the formation of the Free Rasalhague Republic, when output more than tripled. A BattleMech construction wing was under development when Clan Wolf seized Kirchbach during the initial Clan Invasion, leaving the project unfinished. Under Wolf stewardship, the plant shifted to producing ballistic and missile weapons.</p><p>The Hell's Horses acquired Kirchbach during their invasion of the Wolf Occupation Zone, and the Clan wasted no time capitalizing on Swedenborg's potential. Cut off from their regular supply lines to the Homeworlds, the Horses invested heavily in modernizing the facility, establishing new production lines for engines, armor, energy weapons, and electronics alongside vehicle and battle armor manufacturing capabilities. The plant suffered no personnel losses during the Jihad and was operating at ninety-five percent capacity by 3079.</p><p>One of the first successes of this renovation effort was the Zephyros infantry support vehicle, a lightweight wheeled design built for fast fire support and intended to replace the Clan's venerable Odin and Mithras light tanks. The Aithon followed as a heavier complement, designed to fill the roles previously held by the Indra infantry transport and the Oro assault vehicle. Where the Zephyros emphasized speed and flexibility, the Aithon prioritized protection and firepower, giving Horses commanders a dedicated platform capable of delivering troops directly into contested areas under its own considerable fire support. No variants have entered production, though speculation about alternative weapon configurations has been fueled by the Horses' ongoing efforts to further expand the Swedenborg factory complex.</p>
+</history>
+
+<manufacturer>
+Swedenborg Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+Kirchbach
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Swedenborg Heavy Industries
+ENGINE:Swedenborg Heavy Industries
+ARMOR:Swedenborg Heavy Industries
+COMMUNICATIONS:Swedenborg Heavy Industries
+TARGETING:Swedenborg Heavy Industries
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:300 Extralight Fusion
+ARMOR:Composite Alpha-V1 Ferro-Lamellor
+COMMUNICATIONS:Build 1685 Tacticom
+TARGETING:Series VI Integrated TTS
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<published>
+RS:Proto
+</published>
+
+<tonnage>
+100.0
+</tonnage>
+

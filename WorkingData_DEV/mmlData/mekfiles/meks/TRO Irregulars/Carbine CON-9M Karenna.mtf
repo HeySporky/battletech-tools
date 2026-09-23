@@ -1,0 +1,193 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd7c-71df-9cce-3cb6a6a0d470
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Carbine
+model:CON-9M (Karenna)
+mul id:7851
+
+Config:Biped
+techbase:Inner Sphere
+era:3131
+source:TR:I
+published:TR:I
+rules level:2
+role:Sniper
+
+
+mass:30
+engine:90 ICE Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:1 Single
+walk mp:3
+jump mp:0
+
+armor:Heavy Industrial(Inner Sphere)
+LA armor:4
+RA armor:4
+LT armor:4
+RT armor:4
+CT armor:7
+HD armor:7
+LL armor:6
+RL armor:6
+RTL armor:2
+RTR armor:2
+RTC armor:2
+
+Weapons:1
+Light AC/5, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Light Auto Cannon/5
+Light Auto Cannon/5
+IS Ammo LAC/5
+IS Ammo LAC/5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Carbine ConstructionMech first walked off Bluth Corporation's Little Rock production line on Terra in 2691 after enduring over a decade of corporate and judicial patent battles. Designed for urban construction, road building, debris removal, and general industrial work, the thirty-ton IndustrialMech quickly became a ubiquitous presence on construction sites across the Inner Sphere. Bluth Corporation produced the original CON-1 at a rate of dozens per week, exporting units through ComStar-approved channels for centuries.</p><p>The updated CON-7 model debuted in 3028, timed to coincide with the wedding of Hanse Davion and Melissa Steiner to attract the attention of the Great Houses, though the Fourth Succession War dampened initial sales. The Carbine's significance extends beyond its civilian roots, the Word of Blake's mass conversion of Carbines into militarized MODs during the Jihad represented the first systematic weaponization of IndustrialMechs, establishing precedents for the widespread MOD conversions that would follow during the Dark Age.</p>
+
+capabilities:<p>The Carbine's distinctive hunchbacked profile belies a deliberately engineered design philosophy emphasizing stability over aesthetics. The raised torso and low-slung arms provide optimal positioning for the SteelTek cargo lift hoist and Lonca backhoe, the design's primary working tools. This configuration gives the Carbine a lower center of gravity that braces the 'Mech during intensive digging and heavy lifting operations, though the trade-off is a complete inability to twist the torso, the Carbine must rotate its entire body to change facing.</p><p>Powered by a Renault 120-rated internal combustion engine, the CON-7 achieves a top speed of 64.8 kilometers per hour for a working machine, though the engine's poor fuel efficiency limits operational range and typically requires dedicated transport for deployment to distant work sites. Three tons of Caterpillar IndusWeave industrial armor provide adequate protection against construction hazards (falling debris, equipment collisions, and structural collapses) but offer minimal resistance against military weaponry.</p><p>The Carbine lacks any form of targeting or fire control system in its base configuration, relying entirely on its industrial tools for emergency self-defense. Despite these limitations, the fifteen-ton rated lift hoist and reinforced backhoe can serve as formidable melee weapons in desperate situations.</p>
+
+deployment:<p>This custom variant combines elements of the standard CON-9M and CON-9M-B configurations, mounting a lift hoist alongside a light AC/5. The hybrid loadout provides both battlefield utility and direct-fire capability, though the combination limits ammunition supply compared to dedicated combat variants. The configuration saw limited deployment with Steel Wolf forces before being removed from active service in 3133.</p>
+
+history:<p>The Carbine's production history is inextricably tied to Bluth Corporation's tumultuous corporate saga on Terra. The original CON-1 design spent over a decade mired in corporate and judicial patent disputes before achieving production in 2691, with the Little Rock facility on Terra's North American continent eventually producing units by the dozens weekly. Bluth Corporation itself weathered significant internal turmoil, company president George Bluth was indicted on charges of treason, embezzlement, and theft, leading to the collapse of Bluth's interstellar operations and leaving only the Terran headquarters intact.</p><p>Under ComStar's stewardship of Terra, Carbines were exported throughout the Inner Sphere through approved channels for centuries, becoming one of the most recognizable IndustrialMech designs in human space. The CON-7 update in 3028 was strategically timed to debut during the wedding of Hanse Davion and Melissa Steiner, though the subsequent eruption of the Fourth Succession War overshadowed Bluth's marketing efforts and suppressed sales until the conflict ended.</p><p>The Word of Blake's seizure of Terra in 3058 marked a dramatic shift in the Carbine's history. Bluth Corporation informed its customers that all shipments would cease and removed replacement parts from the market, though new CON-7s bearing post-3058 registry numbers appeared on several Chaos March worlds associated with the Word of Blake. Republic of the Sphere investigators later confirmed that the Word of Blake had maintained production and developed several armed variants to augment their militia forces, making the Carbine the first IndustrialMech to undergo systematic mass conversion for military use.</p><p>The Jihad-era militarization established a template that would be repeated across the Inner Sphere. By 3132, Carbines had spread throughout the Inner Sphere in both civilian and MOD configurations. The HPG Blackout triggered a new wave of improvised conversions as desperate planetary militias weaponized whatever equipment was available. Jake's Discount Equipment Warehouse, an independent company within Jacob Bannson's commercial empire, emerged as a prominent supplier of aftermarket Carbine MODs, offering specially modified materiel from warehouse locations throughout Prefectures III and IV. The ubiquity of these facilities also made them targets for theft, with significant burglary reported at nearly one-third of all locations.</p><p>Under Republic of the Sphere control, Bluth Corporation was placed under close scrutiny due to its years of Word of Blake association but continued producing civilian models. Meanwhile, the proliferation of independent refit facilities ensured that homegrown Carbine MODs remained more common than nearly any other repurposed IndustrialMech since the Blackout, finding use not only in construction but in forestry, mining, and improvised defense roles across the shattered Republic.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Bluth
+systemmode:CHASSIS:Industrial Magnum-9
+systemmanufacturer:ENGINE:Renault
+systemmode:ENGINE:120 ICE
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Standard
+systemmanufacturer:COMMUNICATIONS:Marconi
+systemmode:COMMUNICATIONS:63-T
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Advanced Fire Control System

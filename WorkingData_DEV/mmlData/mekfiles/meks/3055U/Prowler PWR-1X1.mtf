@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c897-7711-8a2a-69debdb258f9
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Prowler
+model:PWR-1X1
+mul id:2582
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3068
+source:TR:3055U
+published:RS:3055Uu
+rules level:4
+role:Skirmisher
+
+quirk:poor_life_support
+
+mass:55
+engine:385 XXL Engine(IS)
+structure:IS Composite
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Compact Gyro
+
+heat sinks:17 IS Double
+walk mp:7
+jump mp:0
+
+armor:Heavy Ferro-Fibrous(Inner Sphere)
+LA armor:18
+RA armor:18
+LT armor:20
+RT armor:20
+CT armor:27
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:4
+ER Large Laser, Left Arm
+ER Large Laser, Right Arm
+SRM 4, Left Torso
+SRM 4, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERLargeLaser
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERLargeLaser
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+CLSRM4
+Clan Ammo SRM-4
+IS Heavy Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLSRM4
+ISTargeting Computer
+ISTargeting Computer
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Heavy Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Prowler is a fifty-five-ton medium BattleMech designed by Innovative Design Concepts for the Solaris VII arenas, introduced in 3068. Born from a partnership between IDC and the Clan-oriented Zellbrigen Stables, the Prowler was purpose-built as a mixed-technology arena duelist, one of the few Solaris designs to successfully integrate Clan-grade weapons into an Inner Sphere-manufactured chassis. The design has earned a reputation as an exceptionally fast and hard-hitting arena platform, though its reliance on exotic technologies and limited production numbers have confined it almost entirely to the Game World's competitive circuit.</p>
+
+capabilities:<p>The Prowler's design philosophy prioritizes speed and firepower over survivability, making it a formidable arena duelist. Its Crucis-AE composite internal structure saves significant weight but is more susceptible to damage than standard skeletons, a calculated tradeoff for a machine expected to fight in controlled arena conditions rather than prolonged battlefield engagements. The massive Core Tek 385 XXL engine, paired with a Bosch Supercharger, gives the 'Mech an extraordinary top speed of over one hundred and fifty kilometers per hour in short bursts, while seven Northrup 12000 jump jets provide two hundred and ten meters of leaping capability for exceptional arena maneuverability. A compact gyro and small cockpit freed critical tonnage but impose constraints on pilot comfort and life support systems.</p><p>The Prowler's weapons are entirely Clan-manufactured extended-range pulse lasers from the Series PPS line, providing superior accuracy at range. A single ER large pulse laser serves as the primary weapon, supported by paired ER medium and ER small pulse lasers. This all-energy loadout eliminates ammunition dependency, a practical advantage in arena matches where resupply is unavailable. Nine and a half tons of Durallex Super Medium heavy ferro-fibrous armor provides reasonable protection, though the fragile composite structure means that any armor breach carries elevated risk to the 'Mech's internal systems.</p>
+
+deployment:<p>The second Prowler variant received a completely reworked weapons package. Standard Clan extended-range lasers replaced the pulse laser models, while two SRM-4 racks replaced the small pulse lasers for a more potent short-range attack. Designers removed the supercharger and installed an advanced targeting computer, trading burst speed for improved weapon accuracy. Five additional double heat sinks manage the increased thermal load from the extended-range weapons, making this variant better suited to sustained engagements rather than the hit-and-run tactics favored by the base model.</p>
+
+history:<p>The Prowler emerged from the unique commercial ecosystem of Solaris VII during the early Jihad period. Innovative Design Concepts, one of the many 'Mech design firms operating on the Game World, had long sought an opportunity to work with Clan technology. When the Clans began establishing a presence on Solaris VII through stables like Zellbrigen, IDC initially attempted to approach them directly but was turned away. The firm instead bided its time until Zellbrigen Stables came to them seeking technical assistance and a new arena 'Mech.</p><p>The partnership was driven by mutual interest: Zellbrigen's warriors wanted purpose-built arena 'Mechs that carried Clan weapons, while IDC's engineers wanted hands-on experience with Clan weapon systems. Two Wolverine chassis were provided as the foundation, and IDC used these as starting points to develop an entirely new design. Both Prowler prototypes were delivered fully operational and ahead of schedule, proof of IDC's eagerness to complete the project.</p><p>The Prowler's introduction in 3068 coincided with the outbreak of the Jihad, which severely disrupted Solaris VII's arena circuit and likely prevented the design from gaining the commercial traction IDC had hoped for. As a Solaris-exclusive design produced by a relatively small firm, the Prowler never entered mass production or saw widespread military deployment. Its significance lies more in its role as a proof of concept for Inner Sphere firms working with Clan technology than in any battlefield legacy.</p><p>Solaris VII itself changed hands multiple times across the centuries. Originally part of the Free Worlds League during the Star League era, the Game World passed through Lyran, Federated Commonwealth, and eventually Clan Wolf control during the Dark Age. Throughout these political transitions, Innovative Design Concepts continued to operate as one of many small manufacturers serving the arena economy, though the Prowler appears to have remained its most ambitious mixed-technology project.</p>
+
+manufacturer:Innovative Design Concepts
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Crucis
+systemmode:CHASSIS:Crucis-AE Composite
+systemmanufacturer:ENGINE:Core Tek
+systemmode:ENGINE:385 XXL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Super Medium Heavy Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Northrup
+systemmode:JUMP_JET:12000
+systemmanufacturer:COMMUNICATIONS:Dalban
+systemmode:COMMUNICATIONS:StarLink Classic
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:HiRez II-a

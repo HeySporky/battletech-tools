@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d67e-7b80-a058-d229963c860d
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Night Hawk
+model:NTK-2Q-EC
+mul id:7676
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:2819
+source:TR:GC
+published:TR:GC
+rules level:4
+role:Striker
+
+quirk:easy_maintain
+
+mass:35
+engine:210 XL Engine(IS)
+structure:IS Standard
+myomer:Standard
+
+heat sinks:12 IS Double
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:13
+RT armor:13
+CT armor:18
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:3
+Prototype ER Medium Laser (CP), Left Arm
+ER Large Laser, Right Arm
+Large Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLERMediumLaserPrototype
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISERLargeLaser
+ISERLargeLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Large Laser
+Large Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Night Hawk is a thirty-five-ton light BattleMech designed by Mountain Wolf BattleMechs in 2655 to meet Star League Defense Force specifications for a fast-reaction interceptor capable of hunting down Periphery raiders operating behind SLDF lines. The design called for speed rivaling the Wasp or Stinger combined with heavy energy armament and endurance for extended independent operations. Mountain Wolf's proposal marked the company's first venture into BattleMech production, and after extensive combat testing the newcomer outperformed the established Defiance Industries prototype in every parameter, including unit cost. The SLDF's initial order of seven hundred units secured the fledgling manufacturer's future, and the Night Hawk would go on to serve with distinction as one of the Star League's premier light interceptor platforms.</p>
+
+capabilities:<p>The Night Hawk is built around a GM 210 XL extralight engine that propels the thirty-five-ton chassis to a top speed of ninety-seven kilometers per hour, providing the speed necessary to overtake most raiding forces. A maximum load of ProtecTech Light armor gives the design respectable protection for its weight class, allowing it to absorb fire from most opposing light 'Mechs with confidence. Twelve double heat sinks manage the thermal burden of the all-energy weapons array, enabling sustained combat operations without supply line dependency.</p><p>The primary armament centers on a Maxell extended-range large laser capable of engaging targets at extreme distances, supported by a Defiance B3L large laser that provides devastating mid-range firepower. This pairing gives the Night Hawk sufficient striking power to make even lighter medium 'Mechs hesitate before engaging. A Defiance P5M medium pulse laser rounds out the arsenal for close-range defense, its enhanced accuracy proving valuable in the fast-paced skirmishes typical of raider interdiction. The reliance on energy weapons alone reflects the design's emphasis on operational endurance, freeing the Night Hawk from ammunition resupply and allowing extended patrols deep behind enemy lines.</p>
+
+deployment:<p>This variant is an Early Clan modification performed by Clan Smoke Jaguar during the Golden Century. Clan technicians replaced the Defiance medium pulse laser with a prototype extended-range medium laser, improving the engagement envelope at range. An additional half-ton of armor was also fitted, providing enhanced survivability for the aggressive Jaguar warriors who favored the design. The "EC" designation is used by historians to identify early Clan-era refits of inherited Star League equipment, representing the period when the nascent Clans were beginning to adapt captured SLDF materiel with their own emerging technological innovations.</p>
+
+history:<p>The Night Hawk's origins trace to 2655, when Mountain Wolf BattleMechs submitted their proposal to the SLDF for a fast interceptor designed to neutralize Periphery raiders. The company's first foray into BattleMech design proved remarkably successful, besting a competing Defiance Industries prototype across all performance metrics during extensive combat trials. The initial SLDF order of seven hundred units established Mountain Wolf as a viable manufacturer, though the company was never able to replicate the Night Hawk's success with subsequent designs.</p><p>The Night Hawk served the SLDF with distinction for over two centuries, patrolling the Periphery borders and interdicting raiders with its combination of speed and energy firepower. Following the collapse of the Star League, Night Hawks found their way into the militaries of every Successor State as former SLDF personnel dispersed across the Inner Sphere. The design remained in active service throughout the early Succession Wars, with the Vendrell factory continuing production into the late twenty-ninth century. Meanwhile, Clan Smoke Jaguar technicians modified captured examples during the Golden Century, producing the NTK-2Q-EC refit that demonstrated early Clan technological innovation.</p><p>The destruction of the Mountain Wolf factory on Vendrell by Marik BattleMech forces in 2945 effectively ended Night Hawk production. As the inevitably dwindling pool of remaining machines was cannibalized for parts, the design faded toward extinction. Mountain Wolf itself survived as little more than a name for centuries, until Brandon O'Leary, grandson of the company's last president, reopened the Vendrell factory in 3055 and resumed Night Hawk production. The Federated Commonwealth immediately placed orders, deploying the reborn Night Hawk along the Jade Falcon border and Periphery frontier regions.</p><p>The Alpheratz facility in the Outworlds Alliance, which had originally produced Night Hawks during the Star League era before being abandoned by 2945, also resumed limited production around 3063. Mercenary commands including Snord's Irregulars and the Blue Star Irregulars became early customers once Mountain Wolf expanded sales beyond the Federated Commonwealth. Reports of Night Hawks serving with Vandelay's Valkyries in the Taurian Concordat have never been confirmed by Mountain Wolf or Lyran authorities, leading to speculation that the Valkyries' machine may be an original Star League-era example that somehow survived the centuries. Production on Alpheratz was ultimately ended by the Raven Alliance around 3084, while the Vendrell line also ceased operations during the Jihad era.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Telestar
+systemmode:CHASSIS:Model 6LQ
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:210 XL
+systemmanufacturer:ARMOR:ProtecTech
+systemmode:ARMOR:ProtecTech Light
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Kr-A P/comm
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac Mk X

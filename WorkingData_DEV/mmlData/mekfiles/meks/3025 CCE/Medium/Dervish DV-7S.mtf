@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c166-75f2-9cc7-e91b929c3c66
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Dervish
+model:DV-7S
+
+Config:Biped
+techbase:Inner Sphere
+era:3025
+source:TR:3025C
+rules level:1
+role:Missile Boat
+
+quirk:easy_maintain
+quirk:hyper_actuator
+
+mass:55
+engine:275 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:15
+RT armor:15
+CT armor:20
+HD armor:8
+LL armor:15
+RL armor:15
+RTL armor:4
+RTR armor:4
+RTC armor:4
+
+Weapons:7
+Small Laser, Left Arm
+Small Laser, Right Arm
+SRM 2, Right Arm
+LRM 10, Left Torso
+SRM 2, Left Torso
+LRM 10, Right Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Small Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Small Laser
+SRM 2
+IS Ammo SRM-2
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+LRM 10
+LRM 10
+SRM 2 (R)
+IS Ammo SRM-2
+IS Ammo LRM-10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+LRM 10
+LRM 10
+IS Ammo LRM-10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Medium Laser (R)
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Dervish was designed in 2520 by Coventry Defense Conglomerate as a simple, missile-armed fire support 'Mech for the Lyran Commonwealth militia market. Originally built with exclusively ballistic and missile armament to ease maintenance for militia technicians, the design gained immediate acceptance and was soon licensed to manufacturers across the Inner Sphere. The Terran Hegemony later funded a comprehensive modernization to the DV-6M standard in 2610, cementing the chassis as a staple of the Star League Defense Force.</p><p>A 55-ton medium design, the Dervish earned a reputation as a mobile fire support platform, sometimes dismissed as a "poor man's Archer," though its pilots strongly dispute this characterization. Achernar BattleMechs on New Avalon became the primary manufacturer through the Succession Wars, and the design has remained in continuous production for over six centuries, making it one of the most enduring BattleMech designs in service.</p>
+
+capabilities:<p>The Dervish relies on mobility and long-range firepower to accomplish its fire support mission. Twin Federated 10-Shot LRM-10 launchers, deeply embedded in the 'Mech's torso for protection, provide effective ranged fire support comparable to heavier designs. Supporting Federated 2-Shot SRM launchers are self-contained within the paddle-like forearms, originally serving as the only auxiliary weapons before designers added a ChisComp 39 medium laser atop each launcher to reduce ammunition dependency. Five Swingline X-100 jump jets (originally an afterthought in the design) have proven invaluable, granting 150 meters of jumping capability that allows the Dervish to exploit terrain, close with opponents, or extract from difficult engagements.</p><p>The design's primary weaknesses lie in its armor protection and lack of hand actuators. Seven and a half tons of Maximillian 105 armor provides adequate protection against light and medium weapons but proves insufficient against concentrated heavy firepower. The absence of hands limits the 'Mech's utility outside combat and restricts close-quarters fighting capability. Commanders face an uncomfortable tradeoff between adding armor and sacrificing the very firepower that defines the Dervish's role. Despite these limitations, the chassis is renowned for being easy to maintain and durable in extended campaigns, qualities that have kept it in frontline and garrison service across centuries of warfare.</p>
+
+deployment:<p>A short-lived 3027 retrofit produced by the Lyran Commonwealth Armed Forces from Davion-built Dervishes supplied in exchange for Hatchetman BattleMechs. The 7S relocated weapons to provide rear-arc firepower at the expense of forward-facing armament, a modification that few field commanders had requested or desired. The variant was quickly discarded, though it holds historical significance as the first project by the engineering team that would later produce the celebrated AS7-S Atlas variant. Surviving units were eventually returned to the Federated Suns and converted to the up-armored DV-7A configuration.</p>
+
+history:<p>The Dervish's origins trace to 2520 when Coventry Defense Conglomerate recognized a growing demand for simple, easy-to-maintain BattleMechs among Lyran Commonwealth militia units. The original DV-1S proved so successful that when unauthorized copies appeared in the Draconis Combine, Coventry chose to license production to manufacturers throughout the Inner Sphere during the mid-2500s. By the dawn of the Star League, First Lord Ian Cameron directed Coventry to revisit the design using modern technologies, and thousands of League-subsidized refits brought existing Dervishes up to the improved DV-6M standard during the years leading to the Reunification War.</p><p>Service in the Star League Defense Force ensured the Dervish's widespread proliferation, with examples eventually turning up as far as the Deep Periphery among the forces of Nueva Castile. The most celebrated engagement involving the chassis occurred on 23 March 2789 during the First Succession War, when elements of the Tenth Robinson Chevaliers (their "Whirling Dervishes") conducted a guerrilla campaign on New Rhodes III against Kurita's Second Sword of Light. Operating from the thick forests surrounding the planet's capital, a force of Dervishes and Enforcers destroyed supply dumps with repeated hit-and-fade attacks, significantly disrupting the Kurita drive toward New Avalon. The resulting boost to morale on both New Rhodes III and New Avalon, where smuggled tapes of the attacks were broadcast, cemented the Dervish's legendary status.</p><p>Over the course of the Succession Wars, attrition and parts shortages reduced the Dervish's numbers, and all but one of Achernar's factories was destroyed. The Federated Suns maintained the sole remaining production line, making the 'Mech particularly popular with the Avalon Hussars and earmarking it for newly forming Federated Commonwealth regiments after the Fourth Succession War. The DV-7D upgrade of 3047 incorporated recovered Star League technology, boosting sales, though Achernar was forced to lobby House Davion heavily to maintain orders. Ironically, the run-up to the FedCom Civil War and the conflict itself generated enough demand to keep the production lines running.</p><p>In the civil war's aftermath, the Federated Suns continued purchasing upgraded Dervishes while the Lyran Alliance shifted to the Griffin. Older models found homes in militia and reserve units across the Inner Sphere, while smaller mercenary outfits valued the 'Mech for its durability and ease of maintenance. During the Jihad, the disruption of supply lines prompted a revival of retrotech manufacturing, with companies such as Sword of the Prophet Enterprises on Algedi producing primitive DV-1S models for militia forces desperate for any available BattleMechs.</p><p>The fall of New Avalon in 3146 interrupted development of the latest Dervish variant, but the Draconis Combine seized the opportunity, reverse-engineering Achernar's captured work over three years to produce the DV-11DK, the first Combine-built Dervish variant. Pairing Combine-manufactured ClanTech missile launchers with captured Davion laser technology, the 11DK represents the latest chapter in the Dervish's remarkable six-century service history.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Dorwinion
+systemmode:CHASSIS:Standard 55T
+systemmanufacturer:ENGINE:Core Tek
+systemmode:ENGINE:275
+systemmanufacturer:ARMOR:Maximillian
+systemmode:ARMOR:105
+systemmanufacturer:JUMP_JET:Swingline
+systemmode:JUMP_JET:X-100
+systemmanufacturer:COMMUNICATIONS:Achernar Electronics
+systemmode:COMMUNICATIONS:HID-21
+systemmanufacturer:TARGETING:Federated Hunter
+systemmode:TARGETING:Mk. II

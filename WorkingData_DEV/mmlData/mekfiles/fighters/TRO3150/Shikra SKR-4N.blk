@@ -1,0 +1,176 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-afcc-7056-8169-9b12201b496c
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Shikra
+</Name>
+
+<Model>
+SKR-4N
+</Model>
+
+<mul id:>
+8060
+</mul id:>
+
+<year>
+3144
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Fire Support
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+16
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+20
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+111
+83
+83
+70
+</armor>
+
+<Nose Equipment>
+ISGaussRifle
+</Nose Equipment>
+
+<Left Wing Equipment>
+Heavy PPC
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Heavy PPC
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISMediumPulseLaser
+ISChaffPod
+ISChaffPod
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Gauss Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>For a 90-ton aerospace fighter, the Shikra delivers a thrust profile that consistently surprises opponents expecting sluggish performance from a craft of its mass. The Pitban 360 XL engine provides the acceleration advantage that defines the fighter's tactical identity, and the AA Heavy Raptor 3 airframe was progressively refined during early production to handle the stresses of its heavy armor load at full combat maneuver ratings. Seventeen and a half tons of Andurien Composition 5 Heavy Ferro-Aluminum provide protection well in excess of most contemporary fighters at this weight class, giving the Shikra the ability to absorb significant punishment before its combat effectiveness meaningfully degrades.</p><p>Forward firepower is the Shikra's defining characteristic. The nose-mounted Kali Yama Weapons Industries Grand Slam Gauss rifle delivers high-velocity kinetic strikes at standoff range, while the pair of Type 9 Ultra Class 10 Autocannons in the wings add sustained, high-volume ballistic fire capable of threatening targets well beyond individual fighters. In formation, massed Shikras can bring this weight of fire to bear against DropShip-class targets effectively. Rear coverage is deliberately minimal: a single Intek Medium Pulse Laser and two Wasat Dazzle Chaff Pods defend the aft quarters. This asymmetry is a known liability, and pilots who allow an opponent to reach their six are at significant disadvantage. The Shikra also carries design quirks for difficult maintenance and non-standard parts, compounding its logistical demands wherever dedicated supply infrastructure is unavailable.</p>
+</capabilities>
+
+<overview>
+<p>Andurien AeroTech introduced the Shikra in 3101 as a heavy aerospace fighter built to pair exceptional speed with substantial forward-facing ballistic firepower. Produced at their Westover facilities, the design occupies a distinctive role in the heavy fighter category, prioritizing offensive punch in the forward arc while maintaining a speed advantage over comparably armed competitors. The Shikra earned a reputation as a capable and durable platform, able to sustain engagements against capable opponents through armor resilience and superior maneuverability where lighter contemporaries would be forced to disengage.</p><p>The type proved particularly effective in formation, where massed Shikras could concentrate fire against targets well beyond individual fighter engagements. By the Dark Age era, the Shikra had become a valued asset in Free Worlds League Military aerospace forces, its qualities reinforced by a combat record across multiple campaigns in the region's troubled decades.</p>
+</overview>
+
+<deployment>
+<p>The SKR-4N was developed for Free Worlds League Military units that needed the Shikra's performance profile without the logistical overhead of Clan-specification ammunition and maintenance for the wing autocannons. Trading those systems for heavy PPCs eliminated the ammunition dependency entirely, simplifying operations for squadrons stationed away from League supply hubs or conducting extended deployments in contested territory. The variant entered service in 3144, during the final years of the Dark Age, and saw adoption across FWLM aerospace elements as the League prioritized units capable of remaining combat-effective with reduced resupply support. The SKR-4N's energy-weapon loadout trades some volume of close-range fire for greater operational independence, a tradeoff that suited the League's strategic circumstances in the ilClan era.</p>
+</deployment>
+
+<history>
+<p>Andurien AeroTech began producing the Shikra at their Westover facilities in 3101, during a period when Westover remained politically unaffiliated with any major successor state. That independent status gave the company unusual commercial latitude, and the new fighter was sold broadly, to the remnant states of the former Free Worlds League, to mercenary commands, and to independent operators throughout the region. Early production runs experienced handling difficulties as engineers worked to reconcile the design's aggressive armor specification with its intended performance envelope. Several years of iterative refinement resolved the worst of these issues, and the Shikra entered broad service delivering on the performance its specifications had promised.</p><p>When the Free Worlds League was reestablished in the thirty-second century, Westover's political status changed accordingly. The planet joined the new League, and with it the Andurien AeroTech production line shifted from open-market sales to exclusive supply of the Free Worlds League Military. This transition helped the reconstituted FWLM rebuild its heavy aerospace assets in the wake of territorial losses sustained during the Dark Age's Wolf and Lyran incursions.</p><p>In service, the Shikra accumulated a combat record that validated its reputation for durability under pressure. During the Wolf Clan's operations against Gannett, a squadron of Shikras operating with the planetary defense force proved able to sustain engagement against Clan fighters well beyond what the disparity in numbers should have allowed, forcing the attackers to fight harder for a victory the numbers suggested should be straightforward. Star Captain Amber Lankenau, commanding the pursuing Wolf element, found the Shikra's speed and armor combination resilient enough that her pilots could not quickly resolve the engagement despite weapons range advantages. Later, in March 3145, Shikras serving with the Cumberland Missiliers struck supply formations and drew pursuit from Fourth McCarron's Armored Cavalry long enough to cover a civilian evacuation from Wernke before both fighters were lost.</p><p>As the ilClan period brought significant territorial shifts and Clan Sea Fox's integration into the League's political framework, maintaining Clan-specification autocannon ammunition and trained maintenance crews at acceptable cost grew difficult. Andurien AeroTech responded by developing the SKR-4N variant, replacing the wing-mounted autocannons with heavy PPCs to produce a model that operated entirely on Inner Sphere supply chains.</p>
+</history>
+
+<manufacturer>
+Andurien AeroTech (A Division of Free Worlds Defense Industries)
+</manufacturer>
+
+<primaryFactory>
+Westover
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Andurien AeroTech
+ENGINE:Pitban
+ARMOR:Andurien AeroTech
+COMMUNICATIONS:Unknown
+TARGETING:Wasat
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:AA Heavy Raptor 3
+ENGINE:360 XL
+ARMOR:Andurien Composition 5 Heavy Ferro-Aluminum
+COMMUNICATIONS:Lassitor-6SQ
+TARGETING:Wasat Snipe Type 2
+</systemModels>
+
+<source>
+TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+90.0
+</tonnage>
+

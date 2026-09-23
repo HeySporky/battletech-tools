@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d557-7562-b1df-c2786c175c0f
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Malice
+model:MAL-XV
+mul id:6726
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3140
+source:TR:3145:RotS,TR:DA
+published:RS:DA
+rules level:3
+role:Juggernaut
+
+
+mass:100
+engine:400 XL Engine(IS)
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:17 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:34
+RA armor:34
+LT armor:30
+RT armor:30
+CT armor:42
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:12
+RTR armor:12
+RTC armor:20
+
+Weapons:8
+Improved Heavy Medium Laser, Left Arm
+Light AC/5, Left Arm
+Improved Heavy Medium Laser, Right Arm
+Light AC/5, Right Arm
+Improved Heavy Medium Laser, Left Torso
+Light AC/5, Left Torso
+Improved Heavy Medium Laser, Right Torso
+Light AC/5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLImprovedMediumHeavyLaser
+CLImprovedMediumHeavyLaser
+Light Auto Cannon/5
+Light Auto Cannon/5
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+CLImprovedMediumHeavyLaser
+CLImprovedMediumHeavyLaser
+Light Auto Cannon/5
+Light Auto Cannon/5
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLImprovedMediumHeavyLaser
+CLImprovedMediumHeavyLaser
+Light Auto Cannon/5
+Light Auto Cannon/5
+IS Ammo LAC/5
+IS Ammo LAC/5
+IS Ammo LAC/5
+IS Ammo LAC/5
+ISCASEII
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLImprovedMediumHeavyLaser
+CLImprovedMediumHeavyLaser
+Light Auto Cannon/5
+Light Auto Cannon/5
+IS Ammo LAC/5
+IS Ammo LAC/5
+IS Ammo LAC/5
+IS Ammo LAC/5
+ISCASEII
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISC3SlaveUnit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Malice was born from an unusual partnership between Eris Enterprises Design Group on Capolla and Dynamic Ordnance and Ammunition on Galatea, entering service around 3132 just before the devastating HPG Blackout plunged the Inner Sphere into isolation. Conceived as a fast assault 'Mech for the mercenary and Republic Armed Forces markets, the hundred-ton design immediately turned heads with its remarkable speed, unusual for its weight class. Despite disruptions to its manufacturing partnership caused by the political upheavals of the Dark Age, the Malice proliferated rapidly among mercenary commands and the Galatean Defense Force, earning a formidable battlefield reputation in a remarkably short period for such a young design.</p>
+
+capabilities:<p>The defining characteristic of the Malice is speed that belies its hundred-ton frame. An LTV 400 XL engine propels the assault 'Mech to sixty-four kilometers per hour, making it one of the fastest designs in its weight class. To protect the vulnerable knee actuators at these speeds, Dynamic developed their signature "demon leg" double knee joint, a feature that has proven remarkably resilient in combat and earned the design its Protected Actuators reputation.</p><p>The primary armament of four Mydron Excel LB 5-X autocannons provides flexible engagement options, with cluster and slug ammunition allowing pilots to tailor their fire against targets ranging from battle armor to heavy vehicles. Four Diverse Optics Sunfire extended-range medium lasers supplement the autocannon battery at closer ranges. More than nineteen tons of Durallex Heavy armor plate gives the Malice excellent staying power for sustained engagements.</p><p>The design trades raw striking power for sustained volume of fire. The LB 5-X autocannons lack the devastating punch of heavier weapons, but their combined output across four barrels creates a withering hail that few opponents can comfortably endure. Twelve double heat sinks manage the thermal load adequately, allowing the pilot to maintain fire as long as ammunition holds out.</p>
+
+deployment:<p>Taking a different approach to improving the platform, this variant swaps the LB 5-X autocannons for Light AC/5s with expanded ammunition stores of eight tons and replaces the extended-range medium lasers with Improved Heavy Medium Lasers. CASE II systems in each side torso provide enhanced ammunition protection, a valuable feature for mercenary units operating far from repair facilities. A C3 slave unit in the head enables network-linked targeting with compatible lance mates, making this variant particularly well-suited for coordinated combined-arms operations. Seventeen double heat sinks manage the increased thermal demands of the Improved Heavy Medium Lasers.</p>
+
+history:<p>The Malice emerged from one of the more unusual manufacturing partnerships of the Dark Age era. Eris Enterprises Design Group, a Capolla-based firm with access to Clan technology through its trade connections, joined forces with Dynamic Ordnance and Ammunition on Galatea to create a fast assault 'Mech targeting the mercenary market. The design proved immediately popular, with Republic Armed Forces units on Capolla and mercenary commands based on and around Galatea acquiring production runs as fast as both factories could deliver.</p><p>The HPG Blackout of 3132 and subsequent formation of Fortress Republic in 3135 dramatically altered the Malice's production environment. Eris found itself sealed within the Fortress walls, its Capolla facility continuing to serve Republic military needs while cut off from its partner. Dynamic, operating independently on Galatea, pivoted entirely to mercenary sales, feeding the insatiable demand for heavy combat machines among the Galatean Defense Force and independent military contractors.</p><p>This separation inadvertently spurred variant development. Dynamic focused on practical modifications suited to mercenary needs, while Eris leveraged its Clan technology access to develop the sophisticated MAL-YZ mixed-technology variant exclusively at the Capolla plant. The Malice saw extensive action across the fractured Inner Sphere, particularly in mercenary operations near the Lyran Commonwealth and Republic border regions. In 3144, a mercenary company called the Whiskey Tangos employed their Malices in a raid on the Lyran world of Vindemiatrix, demonstrating the design's effectiveness in combined-arms operations against defended positions.</p><p>Following the fall of Fortress Republic and the subsequent ilClan era upheavals, ownership of the Capolla facility transitioned through several hands. The Republic Institute of Strategic Combat's experimental superheavy variant, developed beginning in 3146, demonstrated the platform's continued potential for evolution even as the Republic collapsed around it. A salvaged RISC Malice recovered after the fighting on Terra eventually passed into Sea Fox possession, while the Capolla facility itself returned to Capellan Confederation control. On Galatea, Dynamic continued independent production, ensuring the Malice's ongoing presence in mercenary forces across the Inner Sphere.</p>
+
+manufacturer:Dynamic Ordinance and Ammunition Corp|Eris Enterprises Design Group
+
+primaryfactory:Galatea|Capolla
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Dynamic
+systemmode:CHASSIS:Dynamic Endo Steel
+systemmanufacturer:ENGINE:LTV
+systemmode:ENGINE:LTV 400 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Durallex Heavy
+systemmanufacturer:COMMUNICATIONS:Neil
+systemmode:COMMUNICATIONS:Neil 8000
+systemmanufacturer:TARGETING:Dynatec
+systemmode:TARGETING:Dynatec 2780

@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dac7-7a4d-a09b-09c8d5b09a0e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Alpha Wolf
+model:Prime
+mul id:8440
+
+Config:Biped OmniMek
+techbase:Mixed (Clan Chassis)
+era:3150
+source:RG24
+published:RG24
+rules level:2
+role:Sniper
+
+
+mass:90
+engine:360 XL (Clan) Engine
+structure:Clan Endo-Composite
+myomer:Standard
+
+heat sinks:14 Clan Double
+base chassis heat sinks:14
+walk mp:4
+jump mp:0
+
+armor:Stealth(Inner Sphere)
+LA armor:30
+RA armor:30
+LT armor:30
+RT armor:30
+CT armor:46
+HD armor:9
+LL armor:38
+RL armor:38
+RTL armor:8
+RTR armor:8
+RTC armor:12
+
+Weapons:4
+Rotary AC/5, Left Arm
+Rotary AC/5, Right Arm
+LRM 15, Left Torso
+LRM 15, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+IS Stealth
+IS Stealth
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+CLRotaryAC5 (OMNIPOD)
+IS Stealth
+IS Stealth
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLLRM15 (OMNIPOD)
+CLLRM15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+CLRotaryAC5 Ammo (OMNIPOD)
+CLRotaryAC5 Ammo (OMNIPOD)
+CLRotaryAC5 Ammo (OMNIPOD)
+Clan Endo-Composite
+IS Stealth
+IS Stealth
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLLRM15 (OMNIPOD)
+CLLRM15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+CLRotaryAC5 Ammo (OMNIPOD)
+CLRotaryAC5 Ammo (OMNIPOD)
+CLRotaryAC5 Ammo (OMNIPOD)
+Clan Endo-Composite
+IS Stealth
+IS Stealth
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Endo-Composite
+Clan Endo-Composite
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLECMSuite
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Alpha Wolf is a 90-ton assault OmniMech introduced in 3150 by Kallon Weapon Industries for the Wolf Empire. Conceived as Clan Wolf's third totemic design (following the Stormwolf and Wulfen), the Alpha Wolf was intended to serve as the apex predator of the new Wolf touman. Development was significantly delayed as the Empire prioritized rapidly rebuilding its military forces following its conquests, with the lighter Stormwolf receiving production priority. The Alpha Wolf's design philosophy deliberately draws upon proven components from multiple Wolf chassis, streamlining development and reducing production bottlenecks. Produced at Kallon's facilities on Thermopolis, the Alpha Wolf entered full production only after the Wolf Empire had secured its core territories.</p><p>Representing a significant departure from conventional Clan military doctrine for assault-weight designs, the Alpha Wolf has quickly earned a fearsome reputation among both Wolf warriors and their adversaries as a versatile and elusive heavy combatant.</p>
+
+capabilities:<p>The Alpha Wolf was designed to blend the raw firepower expected of an assault OmniMech with an advanced stealth armor system, creating a platform capable of extended engagements against technologically sophisticated adversaries. The AW-4c Endo-Composite chassis carries a Light Force 360 XL engine, giving the ninety-ton OmniMech a respectable top speed of 64 kph, above average for its weight class. The Imstar V-Stealth armor system, integrated with a fixed Garret T11-b ECM Suite, disrupts enemy targeting systems and significantly complicates return fire at medium and long ranges. This combination allows the Alpha Wolf to leverage terrain for defensive advantage rather than relying solely on its considerable armor protection.</p><p>With 37 tons of pod space available for reconfiguration, the Alpha Wolf offers commanders substantial flexibility in tailoring loadouts to mission requirements. This generous pod allocation supports a wide range of configurations from long-range fire support to aggressive brawling, though the fixed weight dedicated to the stealth system means the Alpha Wolf carries somewhat less firepower than comparable assault OmniMechs that forgo electronic warfare capability. The reliance on ammunition-dependent weapons in several standard configurations can also limit endurance in extended campaigns.</p>
+
+deployment:<p>The Primary Configuration emphasizes sustained ranged firepower through a pair of Class-5 rotary autocannons supplemented by twin LRM-15 launchers. This combination enables the Alpha Wolf to deliver punishing volleys at range before transitioning to devastating close-range fire as engagements compress. Six tons of autocannon ammunition and four tons of missile reloads provide reasonable battlefield endurance, though the complete absence of backup weapons means pilots must carefully manage their ammunition expenditure or risk being left defenseless in prolonged engagements. The fixed ECM Suite enhances this variant's effectiveness as a fire support platform by degrading enemy targeting solutions.</p>
+
+history:<p>The Alpha Wolf's development was shaped by the political and military pressures facing the newly established Wolf Empire in the late 3140s. As Clan Wolf consolidated its conquests and transformed into a quasi-Successor State, the need to rapidly reconstitute the Wolf touman took precedence over fielding new designs. The Stormwolf entered production first to address immediate force structure needs, while the lighter Wulfen filled reconnaissance and raiding roles. The Alpha Wolf, intended as the touman's premier assault platform, was pushed back to approximately 3150 before full production began at Kallon Weapon Industries on Thermopolis.</p><p>The design's scientists used the delay productively, monitoring rival Clan developments and refining the Alpha Wolf in response. The emergence of Clan Jade Falcon's Jade Phoenix is believed to have influenced final design decisions, with Wolf engineers ensuring their totemic assault 'Mech could match or exceed any Falcon counterpart.</p><p>Pre-production Alpha Wolfs were rapidly dispersed among frontline Clusters for field testing rather than following traditional trial protocols. During the battle for Skye, two prototypes assigned to the Ninth Wolf Guard Striker Cluster tested the A configuration against Clan Jade Falcon forces. The stealth armor proved its worth repeatedly, throwing off Falcon targeting systems and negating the advantage of their fast-moving 'Mechs. The Alpha Wolfs engaged their superchargers and kept pace with lighter cavalry elements, helping the Wolves achieve a decisive pincer against the Falcons. Shortly before that engagement, the Nineteenth Wolf Strikers had defended against the Turkina Keshik, while the Ninth caught the Falcons in a rear attack, demonstrating the tactical flexibility the Alpha Wolf brought to combined-arms operations.</p><p>On Gacrux, three additional prototypes assigned to the 271st Wolf Guard Assault Cluster faced Republic of the Sphere forces during the Republic's March 3150 counterattack into Wolf Empire space. The Alpha Wolfs proved decisive in breaking the Twelfth Triarii Protectors at range, with the stealth armor degrading defensive fire as the assault 'Mechs closed. Following the rout of the Twelfth after the death of their commander, the Alpha Wolfs' combination of firepower and speed enabled the pursuit and destruction of the retreating Republic troops.</p>
+
+manufacturer:Kallon Weapon Industries
+
+primaryfactory:Thermopolis
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:AW-4c Endo-Composite
+systemmanufacturer:ENGINE:Light Force
+systemmode:ENGINE:360 XL
+systemmanufacturer:ARMOR:Imstar
+systemmode:ARMOR:V-Stealth
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T11-b with ECM Suite
+systemmanufacturer:TARGETING:Sync Tracker
+systemmode:TARGETING:(39-42071)

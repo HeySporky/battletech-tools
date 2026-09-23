@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ebc3-74fb-9232-24f9b1cb39d4
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Nishikigoi Support Aircraft
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+2288
+</mul id:>
+
+<year>
+3071
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+WiGE
+</motion_type>
+
+<transporters>
+standardseats:8.0:0:-1::-1:0
+cargobay:81.0:1:2::-1:0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+49
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+18
+18
+18
+18
+18
+16
+18
+</armor>
+
+<Body Equipment>
+AmphibiousChassis
+Advanced Fire Control
+Supercharger
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+Communications Equipment:SIZE:8.0
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+ISChaffPod
+ISChaffPod
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+ISChaffPod
+ISChaffPod
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Thunderbolt 10
+Thunderbolt 10
+Thunderbolt 10
+Thunderbolt 10
+</Turret Equipment>
+
+<barrating>
+8
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Nishikigoi's defining feature is its communication bay, which occupies the aft cargo section with eight tons of advanced electronics. The suite provides ECM and ECCM capabilities, satellite uplink, and remote sensor monitoring, giving the vehicle a battlefield awareness role far beyond what its size might suggest. Wakazashi chose commercial-grade systems to hold down cost and complexity during the Jihad period, accepting some performance limitations in exchange for field reliability and maintainability. The result covers its intended roles at less than ten percent of the cost of equivalent purpose-built systems.</p><p>The Edasich-Shinobi Waverunner XIX is a supercharged fusion engine that propels the Nishikigoi at sustained speeds of eighty-six kilometers per hour, with short bursts exceeding one hundred kilometers per hour. This speed, combined with the vehicle's two-hundred-forty-ton frame, gives it a significant performance edge over most comparably sized WiGEs.</p><p>Armament centers on four Thunderbolt 10 launchers in a dorsal turret, paired with an advanced fire control system. The damage profile at range exceeds many lighter BattleMechs. Two anti-missile systems cover the rear flanks against incoming fire, though these occupy space that critics argue would be better used for anti-personnel machine guns. The Nishikigoi's weapons are designed to deter scouts and destroy light units, not to repel infantry boarding actions or engage hardened targets. Cargo capacity is reduced to just over eighty tons.</p>
+</capabilities>
+
+<overview>
+<p>The Nishikigoi is a heavily modified Koi chassis developed as a militarized intelligence and fire support platform for the Draconis Combine. The vehicle traces its origins to an unusual arrangement between Wakazashi Enterprises and Kaumberg Enterprises, a Lyran firm, following the 3061 arson at Wakazashi's Dover facility. The prototype emerged in 3071 on Kaumberg, drawing immediate attention from ISF investigators and public conspiracy theorists alike. A production variant, the Koi configuration, entered service with the Combine in 3079 after the Jihad.</p><p>The Nishikigoi sacrifices most of the Koi's cargo capacity in favor of advanced electronics, a supercharged fusion engine, and a weapons suite optimized to screen light and medium scout units. It is the largest WiGE currently in production and one of the fastest vehicles of its class.</p>
+</overview>
+
+<deployment>
+<p>The Nishikigoi prototype was assembled and operated on Kaumberg in the Lyran Alliance under commercial registration held by Kaumberg Enterprises on behalf of Wakazashi Enterprises. The single prototype remained on Kaumberg following the legal proceedings that accompanied its exposure and has not been reported operating outside Lyran Alliance space.</p>
+</deployment>
+
+<history>
+<p>The Nishikigoi's origins lie in a corporate dispute. After the 3061 arson on Dover disrupted Koi production and inflamed Wakazashi's rivalry with Pesht Motors, Wakazashi executives concluded that sensitive development work should move off Combine territory. They reached an arrangement with Kaumberg Enterprises, a Lyran firm with manufacturing facilities on the Alliance world of Kaumberg. The project was nominally registered as a commercial transport variant. When the Nishikigoi appeared on Kaumberg in the fall of 3074, its military-grade electronics and advanced engine technology were impossible to conceal.</p><p>The ISF moved immediately. Documents allegedly fabricated by Pesht Motors claimed Wakazashi had stolen engine technology from the DCMS. Three Wakazashi executives were indicted and compelled to reveal project details. The investigation established that Kaumberg Enterprises had assembled and tested the prototype, and that Edasich Motors, a Lyran firm, had developed the supercharged engine under contract. A provision in the Edasich contract granted Wakazashi exclusivity over the design, preventing Edasich from producing the engine independently. Kaumberg Enterprises retained the prototype as compensation for their testing role.</p><p>Wakazashi's executives were acquitted. The Combine government awarded them the Watcher of the Dragon's Eye Certificates for protecting Combine industrial interests through the ordeal. The episode left Wakazashi with a tested design, a cleared legal record, and significant public notoriety. An investigative book published by journalist Heinrich Dahl in 3077 laid out the case for deliberate industrial espionage, sold poorly on release, and was dismissed as conspiracy theorizing. Surviving copies have since appreciated considerably in value.</p><p>Production of the Koi configuration began at Dover in 3079 following the worst of the Jihad's destruction. The Combine's recovering military forces found immediate use for the design's combination of speed, electronics capability, and fire support. Its ability to provide real-time sensor coverage while suppressing light opposition filled a gap that conventional scout vehicles could not address at the required scale.</p>
+</history>
+
+<manufacturer>
+Kaumberg Enterprises
+</manufacturer>
+
+<primaryFactory>
+Kaumberg
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Edasich Motors
+ARMOR:Chatham
+COMMUNICATIONS:Sony
+TARGETING:RadCom
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Shinobi Waverunner XIX
+ARMOR:Kappa no Yoroi
+COMMUNICATIONS:GAW-79
+TARGETING:G4RM-Z
+</systemModels>
+
+<source>
+XTR:Boondocks
+</source>
+
+<published>
+XTR:Boondocks
+</published>
+
+<tonnage>
+240.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

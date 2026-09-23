@@ -1,0 +1,260 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab36-7225-986a-434926937144
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Nagumo
+</Name>
+
+<Model>
+(3056)
+</Model>
+
+<mul id:>
+4694
+</mul id:>
+
+<year>
+3056
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+infantrybay:12.0:2:1:Foot:-1:0
+cargobay:2274.0:2:2::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:50.0:0:-1::-1:0
+crewquarters:168.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+55
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+2250
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+240
+150
+150
+180
+</armor>
+
+<Nose Equipment>
+(B) Autocannon/20
+ISGaussRifle
+IS Ammo AC/20:10
+IS Gauss Ammo:16
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+(B) ISMediumPulseLaser
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:15
+ISArtemisIV
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) SRM 4
+IS Ammo SRM-4 Artemis-capable:25
+ISArtemisIV
+(R) (B) Large Laser
+(R) Medium Laser
+(R) (B) LRM 15
+(R) IS Ammo LRM-15 Artemis-capable:16
+(R) ISArtemisIV
+(R) (B) ISMediumPulseLaser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) SRM 4
+IS Ammo SRM-4 Artemis-capable:25
+ISArtemisIV
+(R) (B) Large Laser
+(R) Medium Laser
+(R) (B) LRM 15
+(R) IS Ammo LRM-15 Artemis-capable:16
+(R) ISArtemisIV
+(R) (B) ISMediumPulseLaser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Autocannon/20
+IS Ammo AC/20:10
+(B) Large Laser
+Medium Laser
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:15
+ISArtemisIV
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+10
+</structural_integrity>
+
+<capabilities>
+<p>The Nagumo's primary armament features nose-mounted autocannons and a Gauss rifle as lead weapons. An AC/20 and Gauss rifle anchor the nose battery alongside an ER large laser, three medium lasers, an LRM-20 with Artemis IV fire control, a medium pulse laser, and an Artemis-guided SRM-6. Each wing mounts an AC/5, an ER large laser, three medium lasers, an Artemis-guided SRM-4, a large laser, a medium pulse laser, and an Artemis-guided LRM-15. The aft arc carries an AC/20, a large laser, a medium laser, and an Artemis-guided SRM-6. Fifty-five double heat sinks manage the thermal load.</p><p>Nearly forty-three tons of armor protect the hull, with almost a third covering the nose and the remainder distributed evenly across the other arcs. The vessel carries twelve infantry bays and 2,274 tons of cargo, with a large crew of 376. The Nagumo's one significant design flaw lies in its infantry bays. The lack of a bottom-mounted transit drive means all infantry bay fittings must be reconfigured whenever the craft enters or leaves a planet's gravity well, a lengthy process that takes several hours to complete for a full battalion of troops.</p>
+</capabilities>
+
+<overview>
+<p>The Nagumo class DropShip is a 4,200-ton Aerodyne infantry transport developed by Hinsdale Elec for the Draconis Combine Mustered Soldiery. Introduced in 3056, the vessel was designed to fill the DCMS's requirement for a modern troop carrier capable of delivering a full infantry battalion to contested landing zones. Despite its designation as an infantry transport, the Nagumo carries an impressively heavy weapons suite and substantial armor protection that belies its non-combatant role.</p><p>The design's troubled development history, including the loss of a prototype during testing, delayed the program significantly. However, the completed vessel proved to be an exceptionally well-armed and durable transport that has served the Combine's infantry forces reliably for centuries.</p>
+</overview>
+
+<deployment>
+<p>The Nagumo has served exclusively with the Draconis Combine Mustered Soldiery since its introduction. The DCMS deployed these vessels as dedicated infantry battalion transports, typically operating as part of combined arms landing forces alongside BattleMech carriers and aerospace escort craft. The vessel's heavy armament allows it to contribute meaningfully to landing zone security, and the Nagumo continued in active service with the Combine through the Dark Age.</p>
+</deployment>
+
+<history>
+<p>In early 3053, DCMS officials approached multiple DropShip manufacturers seeking a modern infantry transport. After a six-month consultation period, Hinsdale Elec received the contract despite submitting a bid considered inferior to that of BBP Industries, because BBP was already overcommitted with the construction of the Okinawa class. Hinsdale began constructing a prototype within weeks and flight trials commenced the following year.</p><p>A series of mishaps plagued the testing program. On May 11, 3055, the prototype DCS Fukushu was lost with all hands when its control thrusters failed during atmospheric reentry. Several members of the Hinsdale design department were forced to resign, and a major redesign of the control systems began. The second prototype, the DCS Kibo, commenced trials at Dover in September 3056 with far fewer problems, and DCMS officials approved the design for production shortly thereafter. The Nagumo went on to serve the Draconis Combine reliably through the Jihad era and into the thirty-second century.</p>
+</history>
+
+<manufacturer>
+Hinsdale Elec
+</manufacturer>
+
+<primaryFactory>
+Dover
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+4200.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+365
+</crew>
+
+<officers>
+5
+</officers>
+
+<gunners>
+6
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+4
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

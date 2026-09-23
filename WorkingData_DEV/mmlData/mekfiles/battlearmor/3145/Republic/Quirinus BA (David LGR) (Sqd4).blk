@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a73f-7aa1-8a03-5424d97577b4
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Quirinus Battle Armor
+</Name>
+
+<Model>
+[David](Sqd4)
+</Model>
+
+<mul id:>
+6644
+</mul id:>
+
+<year>
+3093
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+38
+</armor_type>
+
+<armor_tech>
+7
+</armor_tech>
+
+<Squad Equipment>
+BABasicManipulator:RA
+BABattleClawVibro:LA
+BADavidLightGaussRifle:LA
+CLBALightTAG:Body
+IS BA Reactive (Blazer):Body
+IS BA Reactive (Blazer):RA
+IS BA Reactive (Blazer):RA
+IS BA Reactive (Blazer):RA
+IS BA Reactive (Blazer):LA
+IS BA Reactive (Blazer):Body
+IS BA Reactive (Blazer):LA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The David Light Gauss Rifle configuration gives the Quirinus a long-range precision strike capability uncommon among medium battle armor. The rifle's ballistic reach allows troopers to engage targets at distances where most battle armor weapons fall short, while the suit's integral Light TAG designator enables effective coordination with supporting artillery and missile units. Four hundred eighty kilograms of reactive armor provide strong protection against explosive ordnance, though the suit remains more vulnerable to direct energy weapon fire. A vibro-enhanced battle claw on the right arm allows anti-BattleMech swarming attacks, and jump jets provide ninety meters of leaping mobility to offset the suit's modest ten kilometer per hour ground speed.</p><p>The Quirinus lacks an anti-personnel weapon mount, leaving troopers reliant on their primary armament and battle claw against unarmored infantry. This configuration favors engagements at range, where the David rifle and TAG coordination can soften targets before close contact becomes necessary.</p>
+</capabilities>
+
+<overview>
+<p>The Quirinus is a medium-weight Inner Sphere battle armor produced by StarCorp Industries on Terra. Entering service in 3093, the suit was designed as a general-purpose trooper platform for the open market rather than exclusive military procurement. Its medium frame balances protection and mobility, offering jump-capable movement and armor well suited to its weight class. A modular weapon mount allows field commanders to tailor the suit's primary armament to mission requirements, giving the Quirinus a generalist flexibility valued by military and mercenary organizations alike.</p>
+</overview>
+
+<deployment>
+<p>Inner Sphere military forces organize Quirinus troopers into four-trooper squads following standard infantry doctrine. Free Worlds League provincial militaries fielded David-equipped squads as long-range screening elements, using the rifle's reach and Light TAG capability to direct artillery strikes while maintaining safe standoff distances. Mercenary companies favored this configuration for reconnaissance contracts where engaging at range reduced casualties among their battle armor assets.</p>
+</deployment>
+
+<history>
+<p>StarCorp Industries developed the Quirinus at their Terra facility during the early Republic era, with the first production models entering service in 3093. Rather than restricting sales to the Republic Armed Forces, StarCorp marketed the suit broadly, finding eager buyers among the fractured provinces of the former Free Worlds League. The League's successor states, each maintaining independent military forces, welcomed a reliable medium battle armor that could fill generalist roles across varied operational environments.</p><p>Mercenary commands also proved enthusiastic customers, with some units accepting Quirinus suits as partial payment for contracts. The suit's combination of solid protection and a flexible weapon system made it attractive to organizations that needed adaptability without specialized logistics chains. By the mid-thirty-second century, the Quirinus had spread across much of the Inner Sphere's mercenary market and several provincial militaries, earning a quiet reputation as a dependable workhorse rather than a showpiece.</p>
+</history>
+
+<manufacturer>
+StarCorp Industries
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:RotS,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+8
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

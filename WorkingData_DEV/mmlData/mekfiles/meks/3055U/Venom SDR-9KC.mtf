@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c8f5-78ac-8fea-1601c376ae8a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Venom
+model:SDR-9KC
+mul id:3401
+
+Config:Biped
+techbase:Inner Sphere
+era:3066
+source:TR:3055U,TR:CI
+published:RS:CI
+rules level:2
+role:Striker
+
+quirk:difficult_eject
+quirk:nimble_jumper
+
+mass:35
+engine:280 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:11 IS Double
+walk mp:8
+jump mp:8
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:11
+RT armor:11
+CT armor:16
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:3
+Medium Pulse Laser, Left Torso
+Medium Pulse Laser, Right Torso
+Medium Pulse Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Jump Jet
+ISMediumPulseLaser
+ISC3SlaveUnit
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Jump Jet
+ISMediumPulseLaser
+ISMediumPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Venom emerged from the crucible of the Clan Invasion, when massive losses forced Draconis Combine manufacturers to dramatically increase BattleMech production. Coordinator Takashi Kurita personally ordered 'Mech manufacturers to replace fallen units, and Nimakachi Fusion Products Limited faced a critical decision. Rather than simply expanding Spider production lines (which might leave them overextended if fighting slowed) the company chose to develop a larger, more capable variant.</p><p>Drawing on newly available technology recovered from the Combine's territory, Nimakachi created a 35-ton 'Mech that replicated the Spider's exceptional mobility while mounting significantly enhanced firepower. The first Venoms rolled off the Lapida II assembly line in late December 3050, establishing a design that would earn a reputation as one of the deadliest light 'Mechs in Combine service.</p>
+
+capabilities:<p>Despite weighing five tons more than its progenitor, the Venom perfectly replicates the Spider's mobility profile. A VOX 280 XL engine provides the same 130 km/h top speed, while eight Rawlings 75 jump jets deliver identical 240-meter jump capability. The use of an extralight engine freed internal space for the Venom's significantly upgraded weapons array, four Tronel XII medium pulse lasers mounted in pairs in each side torso.</p><p>This firepower comes with inherent risks. The XL engine's side torso components create a critical vulnerability; any solid penetration of either side torso will destroy the engine and the 'Mech along with it. Three and a half tons of Kallon FWL Special ferro-fibrous armor provides only modest protection, making evasion essential for survival.</p><p>Designers have attempted to address the armor deficiency through various modifications. A Lyran light engine variant reportedly remains in development, and production variants like the SDR-9KA trade firepower for additional protection. The Venom's speed and maneuverability remain its primary defense, allowing skilled pilots to engage targets of their choosing while avoiding unfavorable matchups.</p>
+
+deployment:<p>A radical refit introduced in 3066, this variant showcases advanced Combine light 'Mech engineering. The chassis has been rebuilt with endo steel construction, and eleven double heat sinks manage thermal loads. Seven tons of ferro-fibrous armor dramatically improve protection. One medium pulse laser has been traded for a C3 slave unit, allowing the Venom to share targeting data across a networked lance.</p>
+
+history:<p>The Venom first deployed in late December 3050, initially assigned to Periphery border regions where it protected against bandit raids and pirate incursions. This relatively quiet assignment allowed Nimakachi to work out production issues while the design proved itself in combat. The Venom quickly demonstrated its value as a light 'Mech killer, and its reputation spread throughout the Draconis Combine Mustered Soldiery.</p><p>Within years, Venoms could be found in almost every Combine line regiment. The Ryuken, Genyosha, and even the elite Sword of Light incorporated the design into their tables of organization. The DCMS traditionally favored the Panther as the backbone of its light 'Mech forces, and this preference initially presented an obstacle to widespread Venom acceptance. However, the 'Mech's proven combat record overcame institutional resistance.</p><p>Nimakachi continued developing variants to address perceived weaknesses. The SDR-9KA traded firepower for armor, while the SDR-9KB incorporated anti-infantry capabilities. The SDR-9KC represented a radical refit using endo steel construction and double heat sinks, optimized for C3 network operations. Competition from newer designs such as the Kabuto and the Raptor OmniMech has emerged, but these have yet to make a serious dent in Venom deployment numbers.</p><p>The Venom's reputation extended beyond Combine borders. Various mercenary commands near the Periphery acquired examples, some falling into pirate hands. The design's combination of speed, firepower, and Combine engineering has ensured its continued production and deployment well into the thirty-second century, with the SDR-9KE representing the latest evolution of the platform for specialized deep insertion missions.</p>
+
+manufacturer:Nimakachi Fusion Products Limited|Nimakachi Fusion Products Limited
+
+primaryfactory:Lapida II|Tematagi
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Crucis-II
+systemmode:CHASSIS:Newhart Refit Endo Steel
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:280 XL
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:FWL Special Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:75
+systemmanufacturer:COMMUNICATIONS:Omicron
+systemmode:COMMUNICATIONS:4002 Networking Channel
+systemmanufacturer:TARGETING:TRSS
+systemmode:TARGETING:Eagle Eye

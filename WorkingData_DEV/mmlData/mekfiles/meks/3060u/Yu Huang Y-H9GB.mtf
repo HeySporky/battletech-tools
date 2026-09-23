@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ccdb-76cd-b0e4-71a9f75369e1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Yu Huang
+model:Y-H9GB
+mul id:3627
+
+Config:Biped
+techbase:Inner Sphere
+era:3068
+source:TR:3060
+published:RS:3060u
+rules level:2
+role:Skirmisher
+
+quirk:good_rep_1
+quirk:command_mech
+
+mass:90
+engine:360 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:15 IS Double
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:29
+RA armor:29
+LT armor:28
+RT armor:28
+CT armor:43
+HD armor:9
+LL armor:37
+RL armor:37
+RTL armor:9
+RTR armor:9
+RTC armor:14
+
+Weapons:6
+Large Laser, Left Arm
+Medium Laser, Left Arm
+Medium Laser, Left Arm
+Medium Laser, Left Arm
+Ultra AC/20, Right Arm
+LRM 10, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISUltraAC20
+ISUltraAC20
+ISUltraAC20
+ISUltraAC20
+ISUltraAC20
+ISUltraAC20
+ISUltraAC20
+ISUltraAC20
+ISUltraAC20
+ISUltraAC20
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Ultra AC/20 Ammo
+IS Ultra AC/20 Ammo
+IS Ultra AC/20 Ammo
+IS Ammo LRM-10
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 10
+LRM 10
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Yu Huang is the premier assault command BattleMech of the Capellan Confederation. Produced by Shengli Arms on Victoria and entering service with the CCAF in 3060, the ninety-ton design was intended to serve as a symbol of Capellan martial prowess and technological resurgence under Chancellor Sun-Tzu Liao's Xin Sheng movement. Named for the Jade Emperor who rules the heavenly court in the ancient Chinese pantheon, it was commissioned as both a potent battlefield weapon and a statement of Capellan independence. Like the Ti Ts'ang before it, the Yu Huang incorporates Chinese design aesthetics and cultural elements that reinforce its role as a flagship of the Confederation's modernized military.</p>
+
+capabilities:<p>Built around a Chariot Type II Endo Steel frame and powered by a Hermes 360 XL engine, the Yu Huang achieves a top speed of 65 km/h, impressive for a ninety-ton assault machine. Four Rodan 90 jump jets provide 120 meters of jump capability, granting unexpected tactical mobility. Seventeen tons of Star Shell armor give the design excellent protection, though the extralight engine remains a vulnerability if either side torso is breached.</p><p>The primary armament centers on a devastating Mydron Excel LB 20-X autocannon, capable of switching between standard slugs and cluster munitions. A Ceres Arms Warrior ER PPC and Zeus LRM-10 launcher provide effective long-range engagement capability, including indirect fire support. Two Martell medium lasers and a Raker-IV medium pulse laser round out the close-range arsenal, allowing the Yu Huang to dominate at short range while remaining competent at distance.</p><p>Thirteen double heat sinks manage the thermal load adequately, though sustained fire from all weapons simultaneously can tax the cooling system. The relatively small ammunition supply for the autocannon can leave MechWarriors carefully rationing their most powerful weapon during prolonged engagements.</p>
+
+deployment:<p>This variant was produced during the Jihad as an alternative loadout for the Yu Huang. This variant replaces the LB 20-X autocannon with a Class 20 Ultra Autocannon fed by three tons of ammunition, dramatically increasing its rate of fire at close range. The ER PPC is exchanged for a standard large laser fitted in the left arm, while the missile launcher is retained. Three standard medium lasers replace the original mix of medium and medium pulse lasers, simplifying logistics while maintaining effective short-range backup firepower.</p>
+
+history:<p>The Yu Huang's development was part of Chancellor Sun-Tzu Liao's Xin Sheng, or "New Birth," program to modernize the Capellan Confederation Armed Forces. The Victoria facility where it was built had been discovered during the Third Succession War as a subterranean Star League-era research complex. With Word of Blake technical assistance providing the resources needed for advanced component production, the first Yu Huang entered trials in late 3059, with full production beginning in January 3060. At its debut, the Chancellor declared the design would "sit in judgment over a battlefield, meting out justice to those who would transgress against us."</p><p>Early critics questioned whether Shengli Arms could independently manufacture the LB 20-X autocannon, noting the weapon's Lyran origins. However, the Victoria facility's archives and its proximity to the Victoria Academy of Arms and Technology proved sufficient. No outside shipments were necessary, demonstrating that Capellan industry had advanced considerably since the dark days of the Fourth Succession War.</p><p>The Yu Huang saw its first major deployment during the Capellan-St. Ives War, where Warrior House Hiritsu fielded the design to devastating effect. A full lance was sent directly to Warrior House Imarra, and the Confederation began distributing the assault machine across its regiments in singles and pairs. The design earned swift respect as a command platform, and Capellan officers favored it for the combination of raw firepower and the psychological weight of its imposing, culturally significant silhouette.</p><p>Production at Victoria continued through the FedCom Civil War period, but the Jihad brought catastrophe to Shengli Arms. In December 3068, Olson's Rangers, a mercenary unit stationed on Victoria, turned against the facility without warning. The resulting attack inflicted devastating damage, and the Yu Huang production line was irreversibly destroyed. Shengli suffered capital and personnel losses of 84 percent from this single attack. While the Duan Gung and Jinggau lines were eventually restored to limited production, the Yu Huang was not rebuilt. Instead, the chambers that once housed its assembly area were repurposed for the new Dola assault BattleMech.</p><p>The loss of Victoria itself followed during the Victoria War of 3104-3105, when Federated Suns forces captured the world. Shengli Arms' remaining assets were eventually acquired by Ceres Metals Industries, which converted its Ostroc production line on Capella to produce the Yu Huang beginning around 3091. These Ceres-manufactured machines are distinguished by an elaborate head crest added by the Ceres engineers, making them instantly recognizable compared to the original Shengli-built examples. Production continues on Capella into the ilClan era, ensuring the Yu Huang remains the Confederation's signature command BattleMech.</p>
+
+manufacturer:Shengli Arms|Ceres Metals Industries
+
+primaryfactory:Victoria|Capella
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Chariot
+systemmode:CHASSIS:Type II Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:360 XL
+systemmanufacturer:ARMOR:Star Shell
+systemmode:ARMOR:Standard
+systemmanufacturer:JUMP_JET:Rodan
+systemmode:JUMP_JET:90
+systemmanufacturer:COMMUNICATIONS:Dian-bao
+systemmode:COMMUNICATIONS:Comms, Standard
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:911 Targeting and Tracking System

@@ -1,0 +1,193 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-afbb-7184-b630-c877adcdd76b
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Schrack
+</Name>
+
+<Model>
+SCK-OA
+</Model>
+
+<mul id:>
+6691
+</mul id:>
+
+<year>
+3097
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<quirks>
+easy_pilot
+difficult_maintain
+non_standard
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+16
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<omnipodheatsinks>
+6
+</omnipodheatsinks>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+20
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+81
+61
+61
+45
+</armor>
+
+<Nose Equipment>
+ISGaussRifle:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISERMediumLaser:OMNI
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Gauss Ammo:OMNI
+IS Gauss Ammo:OMNI
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Schrack achieves medium-fighter speed through a Krupp 300 XL fusion engine, reaching thrust levels once associated only with lighter designs. Its Shipil SC1F airframe dedicates 30 tons to OmniPod-mounted weapons and equipment, providing significant configuration flexibility across the design's three variants. Twelve and a half tons of Fiber 15 heavy ferro-aluminum armor offers solid protection for the weight class, and ten double heat sinks provide adequate thermal management for energy-weapon loadouts. The COMSTAT 500 ATM communications system and IMB SYS 6000 targeting package complete the fixed equipment suite.</p><p>Three design quirks define the Schrack's character in service. The Easy to Pilot quirk makes it accessible to a broader range of aircrew than many comparable designs, reducing training burden and allowing Republic aerospace wings to maintain pilot proficiency even as experienced veterans became scarce during the Dark Ages. However, Non-Standard Parts and Difficult to Maintain impose real logistical costs: replacement components are harder to source and field repairs take longer than on more conventional designs. This tension between cockpit accessibility and maintenance difficulty shapes how squadron commanders employ the Schrack, favoring it for high-priority sorties over sustained high-tempo rotation schedules where component wear accumulates quickly.</p><p>All three Schrack configurations are offense-oriented. The primary and A configurations serve the interceptor and interdiction role, while the B configuration shifts to close-in dogfighting.</p>
+</capabilities>
+
+<overview>
+<p>The Schrack is a medium-class OmniFighter developed by Wangker Aerospace of Mars and introduced into service with the Republic of the Sphere's Armed Forces in 3097. Designed for speed and flexibility, the Schrack serves as a primary interceptor and interdiction platform in Republic aerospace wings, relying on its OmniPod architecture to support a range of tactical configurations across its service life.</p><p>Accessible enough for a broad pool of Republic pilots and fast enough to compete with lighter designs despite its 60-ton frame, the Schrack has been a consistent and valued component of the Republic's aerospace forces through the turbulent decades of the Dark Ages. It stands as one of Wangker Aerospace's most significant contributions to the Republic's military capability, serving fleet escort and high-priority intercept roles as the needs of the Republic's navy demanded.</p>
+</overview>
+
+<deployment>
+<p>The A configuration trades the primary's improved heavy Gauss rifle for a conventional Gauss rifle and redirects significant pod weight toward a dense array of ER medium lasers spread across both wings and the aft arc, with six additional double heat sinks to support the heavier energy weapon load. This arrangement provides broader coverage across multiple firing arcs and is favored for engagements where sustained medium-range pressure matters more than long-range anti-armor capability. The A configuration shares the interceptor role with the primary and is most commonly deployed alongside SCK-O variants in mixed squadrons, where complementary loadouts cover different threat profiles.</p>
+</deployment>
+
+<history>
+<p>The Schrack traces its origins to the Word of Blake's Spectral Series, a trio of advanced OmniFighters developed for the Manei Domini's elite forces during the Jihad. When the Republic of the Sphere consolidated control of Mars in the conflict's aftermath, Wangker Aerospace's facility there came under Republic oversight. Drawing on technical data and design principles derived from the Spectral Series, Republic engineers directed Wangker to produce a more conventional medium OmniFighter suited to standard military operations rather than the Spectral designs' focus on enhanced crew performance. The resulting Schrack entered production in 3097, retaining the speed and pod capacity advantages of the Spectral lineage while replacing exotic components with supportable Inner Sphere systems.</p><p>Following the chaos of Gray Monday in 3132 and the Republic's gradual retreat toward Fortress protocols, demand for the Schrack rose sharply within RAF aerospace wings. Wangker's Mars facility nearly doubled production under Fortress directives, funneling additional fighters into the Republic's naval forces as the territory under direct Republic control contracted around the Fortress walls.</p><p>During the Republic's withdrawal from the wider Inner Sphere in the mid-3130s, Schrack squadrons saw sustained combat. In October 3136, two Schrack squadrons covered the Republic's withdrawal from Aldebaran against Capellan aerospace forces supported by heavy assault DropShips. The squadrons fought off the attackers and forced the withdrawal of the Capellan formation, but at the cost of most of both units.</p><p>The Schrack saw further action as the Republic worked to secure its Fortress in the early 3140s. Renegade elements claiming to represent the old ComStar order attempted to destabilize the nascent Fortress Republic, and in 3140 Schrack squadrons embarked on the Republic WarShip Auspicium engaged a ComStar DropShip force at the nadir jump point of Epsilon Eridani. In a high-speed pursuit, the Schracks destroyed an Achilles-class assault DropShip, though the engagement cost the Republic all but four of the participating fighters. The Auspicium subsequently neutralized the surviving enemy JumpShips and used its functional HPG to alert Republic authorities.</p>
+</history>
+
+<manufacturer>
+Wangker Aerospace
+</manufacturer>
+
+<primaryFactory>
+Mars
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Shipil
+ENGINE:Krupp
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Shipil SC1F
+ENGINE:Krupp 300 XL
+ARMOR:Fiber 15 Heavy Ferro-Aluminum
+JUMP_JET:N/A
+COMMUNICATIONS:COMSTAT 500 ATM
+TARGETING:IMB SYS 6000
+</systemModels>
+
+<source>
+TR:3145:RotS,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

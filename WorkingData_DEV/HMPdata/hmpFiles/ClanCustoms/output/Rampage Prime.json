@@ -1,0 +1,264 @@
+{
+  "filename": "Rampage Prime.hmp",
+  "size": 4122,
+  "header_hex": "56 35 2e 30 30 04 00 08 05 48 00 00 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0005H\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 11,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 12,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 14,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 15,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 16,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 17,
+      "end": 18,
+      "text": "d"
+    },
+    {
+      "type": "len_string",
+      "start": 18,
+      "end": 1812,
+      "length": 1792,
+      "text": "\u0000Rampage\u0005\u0000Prime\u00d1\u000b\u0003\u0000\u00c0\u00c9\u00e2\u0001$\f\u0000\u0080\u00dfE\u0000\u0080\u00dfE\u0000\u0000hB\u0000\u0000TB\u0000\u0000\u0000B\u0014\u0000MA 8 6 8 8 8\u0097 3 omni\u0001\u0000\n\u0000\u0001\u0000,\u0001\u0001\u0000\u0003\u0000\u0000\u0000\u0010\u0000\u0001\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000)\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000)\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000-\u0000\u0000\u0000\n\u0000\n\u0000\u0010\u0000\u0000\u0000\u0005\u0000\u0001\u0000A\u0000\u0004\u00000\u0000\u0000\u0000\u0010\u0000Hide Stripper XX\u0001\u0000A\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0010\u0000Hide Stripper XX\u0001\u00006\u0000\u0005\u0000\u0000\u0000\u0000\u0000\u0013\u0000Thunder God Mk VIII\u0001\u0000A\u0000\u0005\u0000\u0000\u0000\u0000\u0000\u0010\u0000Hide Stripper XX\u0001\u00006\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0013\u0000Thunder God Mk VIII\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000\u00d1\u0001\b\b\u00d1\u0001\b\b\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u00006\u0000\u0000\u00006\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000\u00d1\u0001\b\b\u00d1\u0001\b\b\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u00006\u0000\u0000\u00006\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u001a\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u00d1\u0001\b\b\u00d1\u0001\b\b\u00e2\u00ff0\u0001\"\u0002    The Rampage is based off the successful Stone Rhino BattleMech. Once the scientist caste was provided with Omni technology, they imediately chose the most destructive platform to work from.\r\n     Rare is the Clan warrior who does not at least shiver at the sight of a Rampage lumbering at them on the battlefield. With its ablilty to remove over four and a half tons of armor in a single salvo it is understandable.\r\n    There are some Mechs in service that can deliver more damage, but none can match the damage to heat ratio of the Rampage.\u001f\u0002    With 19 tons of armor covering its frame the Rampage is among the best protected OmniMechs in the Clans. Its Endo-steel structure provides a strong chassis and the weight saved allowed for an unpresidented 58.5 tons of pod space.\r\n    The one weakness of the Rampage is its lack of speed. The MkIX XL fusion Engine provides a top speed of 54 km/h. This is acceptable due to Rampages reliance on long rang weapons.\r\n    The Rampage is capable of destroying a full Trinary of mixed class OmniMechs, when fighing by the rules of Zellbrigen.  \u0001\u0000 B\bPrime:\r\n  The P"
+    },
+    {
+      "type": "ascii",
+      "start": 1812,
+      "end": 3911,
+      "text": "rime is an OmniMech Identical to the venerable Stone Rhino. Equiped with 3 Hide Stripper XX Gauss Cannons and 2 Thunder God MkVIII ER Particle Projection Cannons. \r\n    The 16 Icebox 7 double heat sinks handle the tremendous heat generated admirably.\r\n    Finally the  SurShot Variable Range Targeting CPU nearly garantees the destruction of the enemy at any range.\r\nAlpha:\r\n   This variant is a hidiously acurate weapons platform. Starting with the SurShot Variable Range Targeting CPU, and replacing the Prime's ER PPCs with two Vaporizor Type X Large Pulse Lasers. The third Gauss Cannon is removed for two Harpoon LRM 15 launchers equiped with Artimis 5 FCS for the maximum number of missile hits short of a Streak system.\r\n    14 Double heat sinks keep this wepon platform cool.\r\nBeta:\r\n    The Beta has the twin arm mounted Gauss Cannons associated with the Rampage platform. These are augmented by a Deathcloud 20 StreakLRM launcher in each torso, and a Vaporizor Type X Large Pulse Laser. All linked to the SurShot Variable Range Targeting CPU.\r\n    The basic 12 Double heat sinks are all that are needed to cool this version.\r\nCharlie:\r\n   Charlie is the most laser dependant Rampage. Intended for long offenses away from supply lines, this version carries three Vaporizor Type X Large Pulse Laser and two Vaporizor Type VII Medium Pulse Lasers. Two Hide Stripper XX Gauss Cannons are also included on this variant.\r\n    A Watchdog anti ECM system sniffs out anything over the size of an Elemental, and can negate an ECM within 180 meters.\r\n    To handle the extreme heat generated by so many laser weapons, Charlie carries 19 double heat sinks. \r\nDelta:\r\n    This is probably the most dangerous Rampage to date, carrying two of the new Mountain Masher XXV Heavy Gauss Rifles a standard  Hide Stripper XX Gauss Cannon, and for close support there are three Vaporizor Type VII Medium Pulse Lasers.\r\n    What makes this variant even more fearsome is the Angel ECM Suite. Able to block all advanced targeting systems, the Angel  Suite leaves the Delta untouched in even the heaviest firefight."
+    },
+    {
+      "type": "len_string",
+      "start": 3911,
+      "end": 3914,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3914,
+      "end": 3917,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3917,
+      "end": 3920,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3920,
+      "end": 3923,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 3923,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3924,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3925,
+      "end": 3939,
+      "length": 12,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 3939,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3940,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3941,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3942,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3943,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3944,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3945,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3946,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3947,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3948,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3949,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3950,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3951,
+      "end": 3955,
+      "length": 2,
+      "text": "\u0000\u0000"
+    },
+    {
+      "type": "len_string",
+      "start": 3955,
+      "end": 3965,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 3965,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 3966,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 3967,
+      "end": 3997,
+      "length": 28,
+      "text": "Monarch Heavy Assembly Plant"
+    },
+    {
+      "type": "len_string",
+      "start": 3997,
+      "end": 4006,
+      "length": 7,
+      "text": "Monarch"
+    },
+    {
+      "type": "len_string",
+      "start": 4006,
+      "end": 4014,
+      "length": 6,
+      "text": "Mk. IX"
+    },
+    {
+      "type": "len_string",
+      "start": 4014,
+      "end": 4039,
+      "length": 23,
+      "text": "Rhinohide Compound IVX7"
+    },
+    {
+      "type": "len_string",
+      "start": 4039,
+      "end": 4067,
+      "length": 26,
+      "text": "Clan Modified Heavy Type X"
+    },
+    {
+      "type": "len_string",
+      "start": 4067,
+      "end": 4085,
+      "length": 16,
+      "text": "Series D8 CC-25X"
+    },
+    {
+      "type": "len_string",
+      "start": 4085,
+      "end": 4111,
+      "length": 24,
+      "text": "Hunter (7) Dedicated TTS"
+    },
+    {
+      "type": "ascii",
+      "start": 4111,
+      "end": 4112,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 4112,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 4113,
+      "end": 4122,
+      "text": "(Unknown)"
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d3b9-769f-9b15-39f323167292
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Koshi (Standard)
+model:2
+mul id:6548
+
+Config:Biped
+techbase:Clan
+era:3095
+source:TR:3145:Merc,TR:DA
+published:RS:DA
+rules level:2
+role:Striker
+
+
+mass:25
+engine:175 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:7
+jump mp:6
+
+armor:Ferro-Fibrous(Clan)
+LA armor:4
+RA armor:4
+LT armor:7
+RT armor:7
+CT armor:10
+HD armor:9
+LL armor:5
+RL armor:5
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:3
+Streak SRM 6, Left Arm
+Streak SRM 6, Right Arm
+Light TAG, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+Jump Jet
+Jump Jet
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+Jump Jet
+Jump Jet
+CLLightTAG
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Koshi is a 25-ton standard BattleMech developed by Clan Diamond Shark as a simplified, non-OmniMech version of the venerable Mist Lynx. Inspired by the commercial success of the Clan Hell's Horses' Black Hawk export program, the Diamond Sharks designed the Koshi specifically for sale to Inner Sphere customers, deliberately adopting the Mist Lynx's familiar Inner Sphere reporting name as a marketing strategy. This naming decision provoked considerable controversy among conservative Clan members, and the resulting political infighting delayed the design's deployment until 3093.</p><p>Once introduced, the Koshi proved an immediate commercial success. Purchased by all major Inner Sphere powers as well as several minor states, the design found particular favor with the Capellan Confederation and Republic of the Sphere militaries. Produced exclusively aboard the CSF Poseidon mobile production facility, the Koshi's use of off-the-shelf components, including Inner Sphere-produced electronics, keeps manufacturing costs low and simplifies field maintenance for its predominantly Inner Sphere operators.</p>
+
+capabilities:<p>The Koshi retains the core performance characteristics of its Mist Lynx progenitor while trading OmniMech flexibility for manufacturing simplicity and reduced cost. Built on a Type 2 Standard endo steel chassis and powered by a Type I 175 XL engine, the Koshi matches the Mist Lynx's top speed of nearly 119 kilometers per hour. Six GrandThrust Mk I jump jets provide the full 180-meter jump capability that made the original design so effective at exploiting difficult terrain. An active probe mounted in the head preserves the Mist Lynx's signature detection capability, allowing the Koshi to flush out hidden enemies and serve capably in the reconnaissance role.</p><p>Mercenaries typically employ the Koshi as a reconnaissance 'Mech, relying on its speed and active probe to detect hidden threats rather than engaging in direct firefights. The standard configuration mounts four Type I Cross Pattern SRM-4 launchers distributed across both arms, providing respectable close-range firepower fed by three tons of ammunition. A light TAG designator allows the 'Mech to spot for allied artillery and guided munitions. While the arms and legs lack sufficient armor for sustained combat, the Koshi's launchers carry enough ammunition to remain away from base for extended periods, provided MechWarriors exercise discipline in spending their time evading rather than fighting.</p>
+
+deployment:<p>Introduced in 3095, the Koshi 2 variant removes the standard SRM-4 launchers and active probe in favor of a pair of Streak SRM-6 launchers, each fed by a dedicated ton of ammunition. The Streak technology ensures that no missiles are wasted on missed shots, significantly improving ammunition efficiency compared to the standard configuration's conventional launchers. The light TAG designator is retained, preserving the variant's utility as an artillery spotter. While the loss of the active probe reduces the Koshi 2's dedicated reconnaissance capability, the increased per-volley damage output makes this variant better suited to aggressive close-range engagements where guaranteed missile hits matter more than sensor range.</p>
+
+history:<p>The Koshi's development followed the successful model established by Clan Hell's Horses with their Black Hawk BattleMech, which demonstrated that simplified, non-OmniMech versions of proven Clan designs could find a lucrative market among Inner Sphere buyers. Clan Diamond Shark, always attentive to commercial opportunity, recognized that the lightweight Mist Lynx chassis offered similar export potential. The decision to use the 'Mech's Inner Sphere codename rather than its Clan designation was a calculated marketing move, though one that generated significant opposition from traditionalists within the Clan.</p><p>Mercenaries on both sides of the Victoria War employed the Koshi to great effect. The Hilltoppers' Champion Battalion used the design's speed and active probe to devastating advantage during the battle for Jacson, sending a lance of Koshis into the Perpetual Forest to locate Capellan-allied forces. The Koshis played a major role in repelling a pirate raid on Wisconsin in 3140, where the Hateful Survivors deployed an entire battalion of BattleMechs against the world's mercenary defenders. Pandora's Box deployed three lances of Koshis to locate the pirate landing zone, and despite losing three machines while penetrating the pirates' defensive lines, the surviving reconnaissance 'Mechs successfully identified the pirate command lance of heavy and assault 'Mechs, enabling a decisive counterattack.</p><p>The Koshi's proliferation through the Inner Sphere has been driven almost entirely by the mercantile reach of Clan Sea Fox, the Diamond Sharks' successor state. Production aboard the mobile CSF Poseidon facility allows the design to be manufactured and delivered across a vast trading network, ensuring steady supply to customers in every major state. The mystery of how these 'Mechs came to their present posts has captivated the St. Ives Commonality in particular, where the design's popularity continues to grow.</p>
+
+manufacturer:CSF Poseidon Mobile Production Facility/Manufacturing Plant SFF-IT3
+
+primaryfactory:Sea Fox Factory Ship
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type 2 Standard Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Type I 175 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Forging ZM7 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:GrandThrust Mk I
+systemmanufacturer:COMMUNICATIONS:Neil
+systemmode:COMMUNICATIONS:Neil 9000
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:RCA Instatrac Mk VI

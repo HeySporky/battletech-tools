@@ -1,0 +1,205 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c770-743c-8fef-7bad982ad4c5
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Cudgel
+model:CDG-2A
+mul id:767
+
+Config:Biped
+techbase:Inner Sphere
+era:3066
+source:TR:3055U
+published:RS:3055Uu
+rules level:3
+role:Juggernaut
+
+quirk:difficult_maintain
+
+mass:80
+engine:400 XL Engine
+structure:IS Standard
+myomer:Triple-Strength
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:11 IS Double
+walk mp:5
+jump mp:0
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:26
+RA armor:26
+LT armor:26
+RT armor:26
+CT armor:38
+HD armor:9
+LL armor:34
+RL armor:34
+RTL armor:8
+RTR armor:8
+RTC armor:12
+
+Weapons:10
+ER Medium Laser, Left Torso
+ER Medium Laser, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+Medium Laser, Right Torso
+Medium Laser, Right Torso
+Small Laser, Center Torso
+Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Mace
+Mace
+Mace
+Mace
+Mace
+Mace
+Mace
+Mace
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISClaw
+ISClaw
+ISClaw
+ISClaw
+ISClaw
+ISClaw
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+ISERMediumLaser
+Medium Laser
+Medium Laser (R)
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+Triple Strength Myomer
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+ISERMediumLaser
+Medium Laser
+Medium Laser (R)
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+Triple Strength Myomer
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Small Laser (R)
+IS Light Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+Medium Laser
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Cudgel is a Solaris VII arena 'Mech originally conceived in the mid-thirty-first century by engineer Bertrum Moss for Innovative Design Concepts. Built upon surplus Charger chassis, the Cudgel was designed from the outset as a dedicated melee brawler, emphasizing devastating close-quarters physical attacks over ranged firepower. The original CDG-1B debuted in the Solaris arenas in 3053, and IDC later produced the upgraded CDG-2A in 3066 incorporating more advanced technology.</p><p>Despite its niche origins as a gladiatorial machine, the Cudgel has attracted interest from Solaris stables and independent operators seeking a purpose-built assault-weight brawler. IDC's status as one of the few Solaris design firms listed on the Lyran stock exchange has fueled ambitions to bring the Cudgel to wider military markets, though production remains extremely limited.</p>
+
+capabilities:<p>The Cudgel's design philosophy centers on close-quarters dominance. Its primary weapons are the mace and battle claw mounted on its arms, keeping the limbs free of ranged weaponry to ensure unimpeded physical attacks. An LTV 400 XL engine drives the eighty-ton chassis to a respectable 86 km/h (comparable to many medium 'Mechs) while Triple Strength Myomer pushes that speed to 97 km/h once heat levels rise sufficiently. The activated TSM also doubles the damage inflicted by the Cudgel's melee weapons, transforming already powerful strikes into bone-crushing blows capable of crippling opposing 'Mechs in a single exchange.</p><p>Ranged capability, while secondary to its melee role, is not neglected. The CDG-2A mounts nine medium-class lasers (five standard and four extended-range models) distributed across the torso and head, with a single small laser providing additional rear coverage. This all-energy loadout eliminates ammunition dependency, an important consideration in prolonged arena bouts. Durallex Light ferro-fibrous armor provides solid protection for the 'Mech's weight class.</p><p>However, the reliance on an XL engine leaves the Cudgel vulnerable to torso destruction, a significant liability for a design intended to close to point-blank range where concentrated fire is inevitable.</p>
+
+deployment:<p>Introduced in 3066, this variant represents IDC's comprehensive refurbishment of the original Cudgel concept. The upgrade replaced the CDG-1B's machine gun and missile loadout with ten lasers, exchanged MASC for Triple Strength Myomer to enhance both speed and melee damage, and added ferro-fibrous armor for improved protection. The more powerful XL engine increased baseline speed significantly, making this variant faster than many assault 'Mechs even before TSM activation.</p>
+
+history:<p>The Cudgel's history is inextricably tied to Solaris VII's gladiatorial culture and the ambitions of Innovative Design Concepts. The design originated in the early 3050s when engineer Bertrum Moss, working with IDC, converted a surplus Charger chassis into a dedicated arena brawler. Moss designed the CDG-1B specifically for the Solaris circuits, equipping the eighty-ton frame with close-range weaponry and a mace-and-claw combination intended to deliver spectacular and devastating physical attacks.</p><p>The original Cudgel found a receptive audience in the arenas of Solaris City, where the spectacle of an assault-weight 'Mech charging into melee resonated with both stable owners and fight enthusiasts. However, the rapid advance of military technology through the Clan Invasion era soon left the CDG-1B behind. Some years after its debut, IDC reacquired the original Cudgel from a retired MechWarrior and began a thorough modernization program.</p><p>The result was the CDG-2A, which debuted in 3066 during the turbulent FedCom Civil War period. The refurbished design incorporated advanced armor, an upgraded engine, and Triple Strength Myomer, technologies that had become available as military innovations trickled down to the Solaris workshops. The Oonthrax Stable became the first paying customer for the CDG-2A, and IDC subsequently produced the CDG-2B variant by converting yet another Charger chassis in 3068.</p><p>Throughout its history, Solaris VII has changed hands multiple times (passing from Free Worlds League to Lyran to Federated Commonwealth control and back) and IDC has continued operations under each successive government. The firm's small-scale, Solaris-based production has remained largely beneath the notice of the larger powers contesting the Game World, allowing the Cudgel to persist as a niche but distinctive gladiatorial design across multiple eras of conflict.</p>
+
+manufacturer:Innovative Design Concepts
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Wells
+systemmode:CHASSIS:990
+systemmanufacturer:ENGINE:LTV
+systemmode:ENGINE:400 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Light Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Tek
+systemmode:COMMUNICATIONS:BattleCom
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:HiRez II

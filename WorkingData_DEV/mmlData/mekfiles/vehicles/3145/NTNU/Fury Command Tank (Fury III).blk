@@ -1,0 +1,164 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e832-7f34-afc4-c23ccb99447c
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Fury Command Tank
+</Name>
+
+<Model>
+(Fury III)
+</Model>
+
+<mul id:>
+6801
+</mul id:>
+
+<year>
+3114
+</year>
+
+<type>
+Mixed (IS Chassis) Advanced
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+53
+43
+43
+35
+44
+</armor>
+
+<Body Equipment>
+BeagleActiveProbe
+ISC3BoostedSystemSlaveUnit
+IS Gauss Ammo
+IS Gauss Ammo
+CLRotaryAC5 Ammo
+CLRotaryAC5 Ammo
+CLRotaryAC5 Ammo
+ISCASE
+</Body Equipment>
+
+<Front Equipment>
+ISERMediumLaser
+ISERMediumLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISGaussRifle
+CLRotaryAC5
+</Turret Equipment>
+
+<capabilities>
+<p>The Fury's primary weapon is a turret-mounted Gauss rifle, offering exceptional range and hitting power for a vehicle of its size and role. The original M-9 variant was replaced in the modern revival by the Poland Main Model C, providing equivalent firepower with improved parts availability across the Federated Suns supply chain. Two tons of ammunition give the crew reasonable endurance for extended operations. The weapon's minimum effective range is a meaningful drawback: the Fury is poorly suited to close-quarters engagements, and crews must rely on supporting infantry or armor to guard against threats that close inside the rifle's dead zone. The vehicle is not intended to absorb punishment like a dedicated assault tank, and commanders who misuse it as a line vehicle accept disproportionate risk.</p><p>Fifteen tons of PyroTec ArmorSlab Standard plate provide solid protection appropriate to a command vehicle, and the Pitban 320 fusion engine delivers a road speed that keeps the Fury competitive with the mechanized formations it typically accompanies. The design's true strength lies in its command and control suite. The original Nirasaki-400X command computer gave SLDF commanders a battlefield information advantage measured in seconds per targeting solution, functioning as a primitive distributed fire control network. The Terran Hegemony's decision to restrict this system to Royal units prompted Jolassa to develop the stripped Fury II, which traded the computer for an additional forward-facing medium laser and modestly heavier side armor. Both versions retained the core vehicle platform and were tactically interchangeable in mixed formations, though unit commanders quickly learned to keep the two variants segregated to avoid coordination confusion under fire.</p>
+</capabilities>
+
+<overview>
+<p>The Fury Command Tank originated in 2637 as a purpose-built command and control vehicle for Star League Defense Force armor and infantry regiments. Produced by Jolassa Armored Vehicles on Tybalt under Terran Hegemony patronage, it was designed to serve as a mobile tactical hub rather than a frontline combatant, though its weaponry gave it the ability to contribute meaningfully to any engagement it supported. The design's defining characteristic was an advanced battlefield computer that processed and distributed tactical data at speeds previously unseen in field operations, functioning as a primitive networked fire-control system decades before such technology became common across the Inner Sphere. This capability made the Fury a coveted command asset, and it was produced in both a restricted high-capability version for SLDF Royal units and a more widely distributed variant that omitted the classified computer. Solidly built for its role, the Fury balanced reasonable protection and speed with long-range armament well suited to a command vehicle operating from the second echelon.</p>
+</overview>
+
+<deployment>
+<p>The Fury III represents JKAW's Dark Age evolution of the design, incorporating an XL fusion engine and a Clan-built rotary autocannon alongside the retained Gauss rifle. Two ER medium lasers extend fire coverage across the front arc while C3 boosted slave equipment allows coordination with widely dispersed units. A Beagle active probe adds battlefield awareness suited to the fragmented engagements common in the Dark Age. The infantry bay has been removed to free tonnage for the expanded weapons and electronics suite.</p>
+</deployment>
+
+<history>
+<p>Jolassa Armored Vehicles introduced the Fury in 2637 to meet a Star League Defense Force requirement for a robust command vehicle capable of coordinating combined-arms operations at the regimental level. The design proved popular with both SLDF regular formations and the Terran Hegemony's Great House clients, though the Nirasaki-400X command computer remained a closely guarded technology. The Hegemony refused to license the system outside SLDF Royal units, compelling Jolassa to maintain two parallel production lines. The standard Fury II served Great House armor regiments and regular SLDF formations, while the Royal-designated version equipped the elite combined-arms units that received the highest-tier Star League technology. By 2751, a further Royal variant added ferro-fibrous protection and replaced the infantry bay with a turret-mounted anti-missile system, reflecting lessons learned about the concentrated fire that enemy forces routinely directed at command vehicles.</p><p>The Fury's fortunes collapsed with the Star League itself. When the First Succession War reached Tybalt, a Draconis Combine nuclear strike destroyed Jolassa's sole remaining Fury assembly line in the opening salvos of the conflict. Without a replacement production source, the design bled away through attrition. The last confirmed Fury operating in the Inner Sphere was destroyed during the Second Succession War, and the vehicle faded into obscurity as one more casualty of the technological regression that gutted the Inner Sphere's industrial base. ComStar preserved a small number of recovered hulls following the Battle of Tukayyid in 3052, and Precentor Ashok Sethi used these surviving examples as the basis for the experimental CX-17 drone command prototype, though that program never advanced beyond a handful of test vehicles.</p><p>The Fury's revival came from an unexpected discovery. In 3068, an Interstellar Expeditions archaeological team conducting a routine dig at the original Tybalt factory site uncovered a massive underground storage vault beneath the factory's foundation. The vault, unknown even to those who had operated the facility above it, contained a full company of pristine Fury hulls alongside other Jolassa weapon systems and manufacturing data. A subsequent Word of Blake hunter-killer attack on the site failed to prevent recovery of the cache. Jolassa's corporate successor, Jolassa-Kumbold Armored Weapons, moved to exploit the find but discovered that much of the replication data provided by ComStar contained critical errors that prevented an exact recreation of the original design. Rather than pursue a dead end, JKAW rebuilt the platform around available technology: the extinct M-9 Gauss rifle was replaced with the modern Poland Main Model C cannon, and the infantry bay was retained. The rebuilt Fury entered AFFS service and was sold exclusively to the Armed Forces of the Federated Suns, with JKAW executives declining all offers from outside buyers regardless of the price offered.</p><p>JKAW continued developing the platform through the Jihad and into the Republic era, producing C3-networked variants that aligned the Fury with Federated Suns combined-arms doctrine. The C3 Slave and C3 Master variants paired together to give Davion armor commanders a native networked fire-control capability built on a proven hull. In the Dark Age, JKAW revisited the design a final time, incorporating an XL fusion engine and Clan-manufactured autocannon technology to produce the Fury III and its master counterpart, vehicles that retained the Fury's command heritage while fielding firepower appropriate to the intensified combat of the ilClan era.</p>
+</history>
+
+<manufacturer>
+Jolassa-Kumbold Armored Weapons
+</manufacturer>
+
+<primaryFactory>
+Bristol
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:XL Fusion 320
+ARMOR:Heavy Ferro-Fibrous
+COMMUNICATIONS:HIV-13
+TARGETING:Quadrant XD
+</systemModels>
+
+<source>
+TR:3145
+</source>
+
+<published>
+RS:3145-NTNU,RS:3145
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

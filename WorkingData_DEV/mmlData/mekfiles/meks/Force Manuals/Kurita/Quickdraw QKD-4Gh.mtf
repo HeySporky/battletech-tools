@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d629-79a5-909d-d7b83ec1993b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Quickdraw
+model:QKD-4Gh
+
+Config:Biped
+techbase:Inner Sphere
+era:3034
+source:FM:Kurita
+rules level:1
+role:Skirmisher
+
+quirk:exp_actuator
+quirk:hyper_actuator
+
+mass:60
+engine:300 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:13 Single
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:14
+RT armor:14
+CT armor:17
+HD armor:9
+LL armor:15
+RL armor:15
+RTL armor:7
+RTR armor:7
+RTC armor:8
+
+Weapons:4
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+LRM 10, Left Torso
+Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Jump Jet
+LRM 10
+LRM 10
+IS Ammo LRM-10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+Medium Laser (R)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Quickdraw was introduced in 2779 by Technicron Manufacturing as an intended replacement for the aging Rifleman, though the design emerged from a troubled development process that reflected Technicron's inexperience—their only prior BattleMech being the century-old Awesome. While the Quickdraw failed to supplant the Rifleman in its intended fire support role, the sixty-ton heavy 'Mech quickly proved itself as a reliable generalist throughout the Succession Wars. Combining respectable firepower with above-average speed and solid armor protection, the design earned the respect of MechWarriors across every Successor State and became a workhorse in militaries throughout the Inner Sphere.</p><p>The Quickdraw benefited from several unique engineering features that set it apart from contemporary designs. Its highly articulated ankle actuators allowed the 'Mech to maintain footing on difficult terrain and traverse gradients up to twelve degrees steeper than other machines in its weight class, while specially modified arm actuators could bend backward to provide formidable rear-arc firepower—a nasty surprise for would-be flankers.</p>
+
+capabilities:<p>Geared toward medium and short-range combat, the Quickdraw carries a Delta Dart LRM-10 launcher as its sole long-range weapon, supplemented by four Omicron 4000 medium lasers—two arm-mounted firing forward and two rear-mounted in the right torso. A Hovertec Quad SRM-4 launcher in the center torso allows pilots to exploit weakened armor at close range. The design's most distinctive tactical feature is its arm actuators' ability to bend backward, enabling all four lasers to cover the rear arc and creating exceptional protection against flanking attacks.</p><p>The Quickdraw's mobility stems from its Vlar 300 engine and five Chilton 460 jump jets, allowing it to achieve speeds of 86 kilometers per hour and leap 150 meters. However, this mobility comes at a cost. The distinctive circular rotor housings of the ankle actuators are notoriously fragile, and savvy opponents quickly learned to target the ankles with weapons fire or well-placed kicks to cripple or immobilize the 'Mech. Additionally, the original design's thirteen single heat sinks proved inadequate for sustained combat, limiting the effective use of lasers during protracted engagements or when employing jump jets frequently.</p><p>Eight tons of Riese 475 armor provides reasonable protection for a heavy 'Mech, though less than many contemporaries in its weight class carry into battle.</p>
+
+deployment:<p>The QKD-4Gh is a Draconis Combine field modification of the standard QKD-4G, developed for the Rasalhague Regulars and later KungsArmé Berserker Lances. The conversion removes the short-range missile launcher, its ammunition, and one rear-mounted medium laser to mount a hatchet in the right arm. This modification aligns the Quickdraw with Berserker Lance doctrine, which emphasizes closing with the enemy and overwhelming them through physical combat using BattleMech mass and strength.</p><p>The Quickdraw's mobility and articulated ankle actuators make it well-suited for the aggressive maneuvering Berserker tactics demand. Jump jets allow pilots to close rapidly or gain advantageous positions for melee engagements, while the reinforced ankles provide stable footing during physical attacks. The variant retains its long-range missile launcher and three medium lasers, providing suppressive fire while closing to hatchet range.</p><p>Berserker Lances fielding the QKD-4Gh typically employ it as a shock element, using the Quickdraw's speed to flank enemy formations before delivering devastating physical attacks. The design proved popular among Rasalhague units attempting to counter Lyran Hatchetman deployments during the late Succession Wars era.</p>
+
+history:<p>When SLDF losses of Riflemen reached critical levels during the Amaris Civil War, manufacturers raced to provide inexpensive alternatives. Kallon Industries won that race with the JagerMech, while Technicron's entry—the Quickdraw—emerged from a muddled development process that produced multiple competing prototypes. The QKD-4R hewed closer to the Rifleman concept with heavier forward-facing lasers and reduced speed, but the more balanced QKD-4G ultimately entered mass production in 2779, just seven years before the First Succession War would devastate the Inner Sphere's industrial capacity.</p><p>Despite failing to replace the Rifleman, the Quickdraw found its niche as a bodyguard for the very design it was meant to supplant. Its speed and maneuverability made it ideal for protecting slower, thinly-armored Riflemen from opportunistic light 'Mech attacks. This ironic partnership became common throughout the Succession Wars as both designs remained in continuous production at facilities across the Free Worlds League and Draconis Combine.</p><p>Production continued at Luthien Armor Works and Technicron Manufacturing's Savannah plant throughout the Succession Wars, with the design seeing widespread deployment in every Great House military. The Quickdraw proved particularly popular among Capellan Confederation forces, especially the less traditional or more progressive units, despite House Liao's general preference for domestically-produced designs. Lyran Commonwealth and Federated Suns forces also fielded the design in significant numbers, though never in the concentrations seen in Free Worlds League or Draconis Combine service.</p><p>The Clan Invasion spurred significant modernization efforts. Technicron's QKD-5M solved the chronic heat dissipation problems with double-strength heat sinks and upgraded armor, steadily replacing older 4G models in frontline units throughout the 3050s. Older variants were relegated to Periphery nations and second-tier mercenary commands. Luthien Armor Works responded with their own upgraded variants, while the Jihad-era chaos saw Earthwerks Incorporated on Tikonov develop experimental designs incorporating advanced technologies like stealth armor and handheld weapons.</p><p>By the thirty-second century, the Quickdraw had somewhat fallen out of favor, prompting Technicron to introduce the radical QKD-9G variant combining Clan technology with extreme mobility systems in an attempt to redefine the chassis as a dedicated skirmisher.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-04-01 17:59:50
+
+systemmanufacturer:CHASSIS:Technicron
+systemmode:CHASSIS:Type E
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Riese
+systemmode:ARMOR:475
+systemmanufacturer:JUMP_JET:Chilton
+systemmode:JUMP_JET:460
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T12E
+systemmanufacturer:TARGETING:Dynatec
+systemmode:TARGETING:2180

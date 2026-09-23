@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dbab-7bd5-818e-1a15d56a9287
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Loki Mk II
+clanname:Hel
+model:T
+mul id:9573
+
+Config:Biped OmniMek
+techbase:Clan
+era:3142
+source:RG33
+published:RG33
+rules level:2
+role:Brawler
+
+
+mass:65
+engine:260 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:14 Clan Double
+base chassis heat sinks:10
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:21
+RL armor:21
+RTL armor:7
+RTR armor:7
+RTC armor:7
+
+Weapons:5
+Ultra AC/10, Left Arm
+Improved Heavy Medium Laser, Left Arm
+Ultra AC/10, Right Arm
+Improved Heavy Medium Laser, Right Arm
+SRM 4, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLUltraAC10 (OMNIPOD)
+CLUltraAC10 (OMNIPOD)
+CLUltraAC10 (OMNIPOD)
+CLUltraAC10 (OMNIPOD)
+CLImprovedMediumHeavyLaser (OMNIPOD)
+CLImprovedMediumHeavyLaser (OMNIPOD)
+Clan Ultra AC/10 Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLUltraAC10 (OMNIPOD)
+CLUltraAC10 (OMNIPOD)
+CLUltraAC10 (OMNIPOD)
+CLUltraAC10 (OMNIPOD)
+CLImprovedMediumHeavyLaser (OMNIPOD)
+CLImprovedMediumHeavyLaser (OMNIPOD)
+Clan Ultra AC/10 Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Clan Ultra AC/10 Ammo (OMNIPOD)
+Clan Ultra AC/10 Ammo (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+Supercharger (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLSRM4 (OMNIPOD)
+Clan Ammo SRM-4 (OMNIPOD)
+Clan Ultra AC/10 Ammo (OMNIPOD)
+Clan Ultra AC/10 Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hel is a 65-ton Clan Heavy OmniMech introduced in 3121, developed by Clan Jade Falcon as a successor to the venerable Hellbringer originally designed by Clan Hell's Horses scientists in 2926. Known to the Inner Sphere as the Loki Mk II, the Hel was created in the years preceding Gray Monday to address the aging Hellbringer's longstanding deficiencies in armor protection and equipment capacity. Manufactured jointly by Olivetti Weaponry on Sudeten and Csesztreg Industriplex Alpha on Csesztreg, the design has become most common in the Jade Falcon and Hell's Horses toumans, where it serves as a versatile heavy fire platform capable of fulfilling roles ranging from long-range sniping to close-quarters brawling.</p>
+
+capabilities:<p>The Hel achieves its remarkable forty tons of pod space through a combination of engineering trade-offs that fundamentally distinguish it from its predecessor. A 260-rated XL fusion engine provides a maximum speed of only 64 kilometers per hour, a significant reduction from the Hellbringer's 86 kph top speed that has earned the design the unflattering nickname "Slowki" among Spheroid detractors. This sacrifice in mobility is offset by the installation of a small cockpit and Compound H17 ferro-fibrous armor, which together provide approximately fifty percent more protection than the notoriously thin-skinned original Hellbringer. The T-E H65 Omni chassis utilizes an endo steel internal structure to maximize available tonnage.</p><p>The Prime configuration exemplifies the design's long-range philosophy, mounting paired Gauss rifles and ER large lasers in its arms for devastating firepower at extended distances. A torso-mounted Streak SRM-4 provides limited close-range defense when engagement distances collapse. The Multi-Trac targeting system allows MechWarriors to effectively track multiple targets simultaneously, a critical advantage when exploiting the Hel's enormous weapon loadouts. While the small cockpit limits pilot comfort during extended operations, the sheer volume of pod space available ensures that configurations can be tailored to virtually any tactical requirement.</p>
+
+deployment:<p>Alternate Configuration T reworks the Prime's long-range focus into a devastating direct fire brawler. Twin ultra AC/10 autocannons, one per arm, deliver punishing burst damage at medium ranges, supplemented by an improved heavy medium laser in each arm for additional close-in firepower. A targeting computer enhances accuracy across all weapons, while a supercharger allows brief bursts of speed to help the normally ponderous Hel close to optimal engagement range. An SRM-4 in the right torso provides finishing capability against damaged opponents. The T configuration demands aggressive piloting to bring its medium-range weapons to bear, but rewards bold MechWarriors with overwhelming direct firepower.</p>
+
+history:<p>The Hel emerged from Clan Jade Falcon's recognition that the original Hellbringer, despite its iconic status as a Clan Invasion-era heavy OmniMech, suffered from fundamental design limitations that no amount of reconfiguration could overcome. Development began prior to Gray Monday in 3132, with Olivetti Weaponry on Sudeten and Csesztreg Industriplex Alpha collaborating on a design that would retain the Hellbringer's flexibility while dramatically improving survivability. The resulting chassis entered production in 3121 and spread quickly through both the Jade Falcon and Hell's Horses toumans.</p><p>The Hel saw significant combat during the Clan invasions of the Republic of the Sphere and Lyran Commonwealth in the 3140s. A notable early deployment occurred on Sargasso in July 3142, when the Ninth Talon Cluster of Clan Jade Falcon deployed a Binary of Hels fitted with B configurations to suppress resistance in the city of Salicastrum on the southern continent of Perusalem. The Long Tom cannons proved devastatingly effective against rebel positions, though a subsequent ambush by a Nova of Wolf-in-Exile forces destroyed half the Binary. The surviving Star regrouped and ultimately forced a Clan Wolf retreat, preventing the world from falling back into Commonwealth hands.</p><p>The divergence between Hell's Horses and Jade Falcon tactical philosophies became apparent during Operation Noyan on Biota in 3142, where the Eighty-Second Mechanized Cavalry under Star Colonel Waylon Mehta overran the Falcons' Fifth Mixed Cluster. Both Clans fielded Hels extensively during the engagement, with kinsmen from opposing forces dueling in extended single combat that highlighted the chassis's versatility in different doctrinal approaches.</p><p>As combat experience accumulated, the two primary operators developed the Hel along divergent paths. The Hell's Horses focused on leveraging the massive pod space for long-range firepower delivery, producing configurations emphasizing Gauss rifles, missile systems, and energy weapons optimized for standoff engagement. The Jade Falcons, meanwhile, worked to address the "Slowki" reputation by developing configurations incorporating improved jump jets and superchargers to enhance battlefield mobility. This dual development philosophy has produced a diverse stable of configurations that ensure the Hel remains a cornerstone of both toumans well into the ilClan era.</p>
+
+manufacturer:Csesztreg Industriplex Alpha|Olivetti Weaponry
+
+primaryfactory:Csesztreg|Sudeten
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:T-E
+systemmode:CHASSIS:H65 Omni
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:SF-3 260 XL
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:H17 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:CH2B
+systemmode:COMMUNICATIONS:Alpha-Com
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Version Delta-II TTS(A)

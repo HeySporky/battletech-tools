@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e79e-727b-b043-1a34a0ad924d
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Anat APC
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6245
+</mul id:>
+
+<year>
+3092
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:5.0
+</transporters>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+16
+14
+14
+13
+10
+</armor>
+
+<Body Equipment>
+ISLimitedAmphibiousChassis
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLMicroPulseLaser
+CLMicroPulseLaser
+</Turret Equipment>
+
+<capabilities>
+<p>Powered by a Fuel Cell 180 engine, the Anat achieves a maximum speed of 129 kilometers per hour, making it one of the faster armored transports in service. Its wheeled chassis provides superior cross-country performance compared to hovercraft when operating in broken or wooded terrain, while limited amphibious equipment allows the vehicle to ford rivers and shallow waterways without difficulty. These qualities make the Anat well suited for keeping attached infantry at the forefront of rapidly advancing formations.</p><p>Protection comes from three and a half tons of "Magnum" Ferro-Fibrous Composite armor, sufficient to shrug off small arms fire and light weapons but inadequate against sustained 'Mech-scale engagement. Offensive armament consists of only two turret-mounted Raid Micro Pulse Lasers, effective against unarmored infantry and soft targets but posing little threat to vehicles or BattleMechs. The five-ton infantry bay can accommodate a standard infantry platoon. These limitations mean the Anat requires escort from heavier combat assets when operating near active battlefields, a trade-off the Horses accept in exchange for its speed and versatility.</p>
+</capabilities>
+
+<overview>
+<p>The Anat is a twenty-five ton wheeled armored personnel carrier designed by Clan Hell's Horses and first produced in 3092 at Swedenborg Heavy Industries on Kirchbach. Named for an ancient Semitic war goddess, the vehicle was conceived to serve the Horses' combined-arms doctrine by delivering infantry rapidly across varied terrain. The Anat fills a tactical niche between heavier tracked transports and faster but more terrain-limited hovercraft, offering a balance of speed and cross-country capability that has proven appealing well beyond its originating Clan. Extensive trade through Clan Sea Fox merchant networks and direct exchanges with Clan Wolf-in-Exile has spread the Anat throughout the Inner Sphere, making it one of the most widely distributed Clan-origin vehicles of the Dark Age period.</p>
+</overview>
+
+<deployment>
+<p>Anats are found in nearly every garrison and second-line Cluster of Clan Hell's Horses, and regularly deploy with frontline Clusters that embraced the original pre-Malvina Mongol doctrine. They are also widely distributed around the Inner Sphere, with Clan Sea Fox acting as middlemen for Republic and mercenary purchasers. The Horses conduct their own direct trade with the Wolves-in-Exile, who have also procured Anats for their Lyran hosts. The Capellan occupation of much of the rimward Republic has brought large numbers of these APCs into Capellan hands as well.</p>
+</deployment>
+
+<history>
+<p>The Anat entered service during a period of significant expansion for the Hell's Horses, who had recently consolidated their occupation zone in former Clan Wolf territories of the Inner Sphere. Preliminary testing of the vehicle was assigned to Omega Galaxy over the course of 3094 to 3095. On Botany Bay, the Horses stumbled across a hidden base belonging to the notorious buccaneer Black Kat. Anats from the Fifth Rangers Cluster were ordered to race infantry ahead to seize the facility and prevent the pirate's escape. With support from a Star of Eponas, the Anats flanked the pirate force on the flatlands of the Solander peninsula.</p><p>Defenses at the base were rudimentary, as it had been established to conceal a Union-class DropShip rather than withstand a Clan assault. The escorting Eponas breached the outer works, and one Anat raced through the ensuing chaos to deliver its infantry Star into the loading bay of the Union. The Clan infantry quickly seized control from within, only to discover that a lance of the pirate's 'Mechs had broken away from the fighting. The Anats formed up with the surviving Eponas to charge the fleeing lance. One Anat crashed into a Fire Moth, disabling the 'Mech at the cost of the vehicle's destruction. The remaining Anats swarmed over Black Kat's own Cougar but were cut down by energy weapons fire. The charge bought time for the Clan infantry to prepare, and their resulting ambushes destroyed the last of the lance as it attempted to retake the base. The contribution of the Anats impressed the Clan leadership sufficiently to authorize full production.</p><p>Clan Sea Fox learned of the battle shortly afterward and, following Black Kat's demise, issued a Trial over an Anat prototype to evaluate its potential as an export to the Inner Sphere. The Foxes won narrowly in a hard but honorable fight in which two Anat prototypes were claimed as isorla. Shortly afterward the Fox merchant caste began negotiating a commercial contract with the Horses, opening the trade networks that would eventually spread the vehicle across the Inner Sphere.</p><p>One of the prototypes taken as isorla became something of a legend in its own right. Sardonically nicknamed "Passport" after its present commander Si-ben-bing Linda Martov, this particular Anat has repeatedly switched hands since the Blackout. Originally sold to the Republic by the Sea Foxes, it was seized by the Steel Wolves on their formation, then subsequently salvaged by the Highlanders, the Dragon's Fury, and the Stormhammers in turn. It was later traded to the Swordsworn before being captured by the Capellan Armed Forces on Tikonov. How long it remains with the First Tikonov Guards has become the subject of a battalion-wide betting pool.</p>
+</history>
+
+<manufacturer>
+Swedenborg Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+Kirchbach
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Swedenborg Heavy Industries
+ARMOR:Swedenborg Heavy Industries
+JUMP_JET:N/A
+COMMUNICATIONS:Swedenborg Heavy Industries
+TARGETING:Swedenborg Heavy Industries
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fuel Cell 180
+ARMOR:"Magnum" Ferro-Fibrous Composite
+JUMP_JET:N/A
+COMMUNICATIONS:Build 1685 Tacticom
+TARGETING:Series VI Integrated TTS
+</systemModels>
+
+<source>
+TR:3145:C,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+

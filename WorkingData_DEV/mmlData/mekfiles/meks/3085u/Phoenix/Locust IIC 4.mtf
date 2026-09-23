@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d182-708e-bec9-02880c669755
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Locust IIC
+model:4
+mul id:1917
+
+Config:Biped
+techbase:Clan
+era:3064
+source:TR:3085S,TR:PP
+published:RS:3085u-PP
+rules level:2
+role:Scout
+
+quirk:no_arms
+quirk:easy_maintain
+quirk:low_profile
+quirk:weak_legs
+
+mass:25
+engine:200 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:12 Clan Double
+walk mp:8
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:8
+RA armor:8
+LT armor:8
+RT armor:8
+CT armor:10
+HD armor:8
+LL armor:10
+RL armor:10
+RTL armor:2
+RTR armor:2
+RTC armor:2
+
+Weapons:7
+Heavy Small Laser, Left Arm
+Heavy Small Laser, Left Arm
+Heavy Small Laser, Left Arm
+Heavy Small Laser, Right Arm
+Heavy Small Laser, Right Arm
+Heavy Small Laser, Right Arm
+ER Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLHeavySmallLaser
+CLHeavySmallLaser
+CLHeavySmallLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLHeavySmallLaser
+CLHeavySmallLaser
+CLHeavySmallLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERMediumLaser
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Clan Mongoose unleashed the Locust IIC in 2832, an upgraded version of the venerable Inner Sphere Locust designed to complement the Clan's fast-strike tactics during the Golden Century. The speedy design enabled Mongoose warriors to win numerous Trials before Clan Smoke Jaguar absorbed the Mongooses and inherited the production line on Circe. Following the de facto annihilation of the Jaguars during Operation Bulldog, Clan Jade Falcon claimed the Circe facility, while Clan Wolf maintained separate production as a garrison unit. Designed for reconnaissance and fast-strike raids, the Locust IIC offered MechWarriors comparable speed to the original Locust with significantly greater protection and offensive capability.</p><p>Though rendered largely obsolete by OmniMechs for front-line service, the design's simplicity, low cost, and ease of maintenance ensured its continued place in second-line Clusters across multiple Clans. The relocation of Clan production to Inner Sphere worlds following the invasion brought renewed interest in the chassis, with facilities on Sudeten, New Oslo, Satalice, and Stewart all producing new variants to meet the demands of occupation warfare and garrison duty.</p>
+
+capabilities:<p>The original inspiration for the Locust IIC was a dwindling supply of SLDF Royal Locusts, long beloved by MechWarriors for their exceptional battlefield performance. The 'Mech that walked off the production lines on Circe boasted exponentially greater firepower and survivability over its namesake. The main armament consists of a medium pulse laser flanked by eight extended-range small lasers, allowing the Locust IIC to serve as an excellent anti-infantry platform with the capability to harass heavier 'Mechs. Powered by a standard 200-rated fusion engine, the chassis achieves a top speed of 129.6 kilometers per hour while carrying significantly more armor protection through ferro-fibrous plating over an endo steel frame. Ten double heat sinks manage the considerable waste heat generated by the energy weapon array.</p><p>The Locust IIC's larger size makes it a more durable weapon platform than the original Locust, and a far more difficult enemy to neutralize. Its narrow, low-profile silhouette complicates targeting solutions for enemy gunners, while the straightforward engineering makes field repairs manageable even with limited resources. However, the design retains the original Locust's chronic vulnerability in its leg actuators, which remain undersized relative to the stresses of high-speed maneuvering over rough terrain. Despite this weakness, the Locust IIC has proven its value repeatedly as a second-line combatant, and inner Sphere production has only expanded the design's reach and tactical flexibility.</p>
+
+deployment:<p>Almost completely redesigned for Inner Sphere production by Clan Jade Falcon, this variant replaced the extended-range small lasers with six heavy small lasers and swapped the medium pulse laser for an extended-range medium laser. Two additional double heat sinks were added to manage the increased thermal load. Produced at Olivetti Weaponry on Sudeten and at the W-7 Facilities on Weingarten, the design proved popular enough to spawn several derivative variants including the Locust IIC 6 and 7.</p>
+
+history:<p>Clan Mongoose first fielded the Locust IIC during the Golden Century, and the design served with distinction across multiple Clans as it changed hands through absorption and Trials of Possession. Clan Smoke Jaguar operated the primary facility on Circe for centuries, while production spread to Homeworld sites on Ironhold, Niles, Sheridan, Strana Mechty, and York under Jade Falcon, Hell's Horses, Star Adder, Coyote, Wolf, and Blood Spirit ownership respectively. The design's proliferation across so many Clans testified to its reliability and low cost of operation.</p><p>The Clan Invasion brought the Locust IIC to the Inner Sphere in significant numbers, and it quickly became one of the most recognizable Clan second-line designs. Locust IICs from the Wolf Empire and Clan Jade Falcon saw heavy fighting in the Lyran Commonwealth as their toumans ravaged the LCAF. While the speed and ferocity of these operations often caught LCAF forces wrong-footed, even Clan forces occasionally suffered stinging defeat under withering Lyran firepower. During the fighting on Tharkad in 3143, an overconfident Locust IIC MechWarrior in Clan Wolf's Beta Galaxy led his combined-arms recon Star too far ahead and blundered into a lightning company of the Second Royal Guards, with BattleROM footage of a Guards Gauntlet overtaking the fleeing Locust IIC becoming a fixture in Lyran propaganda holovids.</p><p>In the Deep Periphery, the Locust IIC played a part in the Scorpion Empire's conquest of the Hanseatic League in 3140. After merchant-employed mercenaries crushed the Thirty-Fifth Scorpion Cuirassiers on Königsberg, Khan Magon Scott reassigned warriors to form a Star of Locust IICs to replace OmniMech losses in scouting units. Their firepower proved devastating against League 'Mechs, and their speed enabled them to outmaneuver better-equipped mercenaries, sweeping into the rear areas of Regional Defense Force 2 and effectively ending its ability to repair damaged equipment.</p><p>Hell's Horses began producing the Locust IIC 7 from their captured facility on New Oslo in 3076, employing it in a supporting role for armor and infantry operations. During the campaign to liberate Terra from the Word of Blake, the Nova Cats' Eleventh Mechanized Cavalry fielded several Locust IIC 7s, where their targeting computer-backed AP Gauss rifles proved highly effective in the tunneled warrens of Kyoro Dome against experienced battle armor defenders. Most recently, the relocated Wolves refurbished the ancient Locust production lines on Stewart to produce the Locust IIC 10, ensuring the design will continue to serve well into the ilClan era.</p>
+
+manufacturer:Olivetti Weaponry|W-7 Facilities
+
+primaryfactory:Sudeten|Weingarten
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Olivetti
+systemmode:CHASSIS:Stage 2
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:200 Standard
+systemmanufacturer:ARMOR:Compound Alpha
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Angst
+systemmode:COMMUNICATIONS:2400
+systemmanufacturer:TARGETING:Omicron
+systemmode:TARGETING:XX

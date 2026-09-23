@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cdb0-7c2a-98f8-e92ded898350
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Bowman
+model:
+mul id:3857
+
+Config:Biped
+techbase:Clan
+era:2973
+source:TR:3067
+published:RS:3067u
+rules level:3
+role:Missile Boat
+
+quirk:stable
+quirk:fast_reload
+quirk:bad_rep_clan
+
+mass:70
+engine:350 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:14 Clan Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:29
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:5
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+Arrow IV, Right Torso
+LRM 20, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLArrowIV
+CLArrowIV
+CLArrowIV
+CLArrowIV
+CLArrowIV
+CLArrowIV
+CLArrowIV
+CLArrowIV
+CLArrowIV
+CLArrowIV
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLArrowIV
+CLArrowIV
+CLArrowIVAmmo
+CLArrowIVAmmo
+CLArrowIVHomingAmmo
+CLArrowIVHomingAmmo
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLECMSuite
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISAntiPersonnelPod
+ISAntiPersonnelPod
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISAntiPersonnelPod
+ISAntiPersonnelPod
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Bowman is a seventy-ton Clan heavy BattleMech designed and manufactured by Clan Hell's Horses at the Niles Industriplex Epsilon facility. First produced around 2923, the design was originally conceived as a dedicated artillery platform, a role virtually unique among Clan designs. However, the design's emphasis on indirect fire ran contrary to deeply held Clan warrior traditions favoring direct combat, and the Bowman earned a reputation as a vestige of a dead art in Clan-style warfare. A subsequent retrofit in 2973 made the design more palatable to Clan sensibilities by adding conventional weaponry, but the Bowman remains one of the rarest 'Mechs in Clan service, with only Clan Hell's Horses maintaining any significant numbers.</p>
+
+capabilities:<p>Weighing seventy tons with an endo-steel internal structure and a 350-rated extralight fusion engine, the Bowman achieves a respectable top speed of 86 kilometers per hour for a heavy 'Mech, allowing it to reposition between fire missions. The standard configuration retains a single Class 16 Arrow IV heavy launcher as its primary weapon, supported by four tons of interchangeable ammunition that provide flexibility across multiple munition types. A Type XX "Long Bow" LRM 20-rack supplements the artillery system, though its limited ammunition supply encourages sparing use, preferably at ranges where counter-battery fire would be difficult.</p><p>Three Series 7Ja extended-range medium lasers mounted in the arms provide the only direct-fire backup, sufficient to deter light 'Mechs and infantry but inadequate for sustained close combat. Four anti-personnel pods on the legs keep conventional infantry at bay. Twelve and a half tons of Forged Type HH34 standard armor provide solid protection, while a Pattern Iota ECM suite disrupts enemy electronics and targeting systems.</p><p>Fourteen double heat sinks manage the thermal load effectively under most combat conditions. The Bowman's combination of standoff firepower and electronic warfare capability makes it a capable support platform, though its limited close-range options leave it vulnerable if the battle line collapses.</p>
+
+deployment:<p>The standard configuration, introduced in 2973 as a retrofit of the original dual-Arrow IV design, represents Khan Darwin Lassenerra's compromise between the Horses' need for artillery support and Clan warriors' disdain for indirect warfare. Replacing one Arrow IV launcher with an LRM 20-rack and adding a trio of extended-range medium lasers, this configuration concedes to Clan battle preferences while retaining meaningful artillery capability. The addition of an ECM suite and anti-personnel pods further broadened the design's tactical utility.</p>
+
+history:<p>The Bowman's origins are rooted in one of the most significant industrial losses in Clan Hell's Horses history. When Clan Ghost Bear seized the Tokasha MechWorks complex in 2921, the Horses found themselves critically short of 'Mech production capacity. The Niles Industriplex Epsilon facility became the centerpiece of a crash program to rebuild the Horses' defensive capabilities, and the Bowman was among the first designs to emerge from this effort.</p><p>First produced around 2923 in its original dual-Arrow IV configuration, the Bowman was conceived as a dedicated artillery platform, a role virtually unique among Clan designs. This decision, while tactically sound, proved culturally disastrous. Clan society's emphasis on personal honor and direct combat meant that MechWarriors assigned to the Bowman viewed it as punishment rather than privilege. The design languished for decades, unloved and underutilized despite its considerable battlefield utility.</p><p>In 2973, Khan Darwin Lassenerra ordered a comprehensive retrofit that reduced the artillery loadout to a single Arrow IV launcher while adding an LRM rack and energy weapons. This compromise made the Bowman marginally more acceptable to Clan warriors, though it never achieved widespread popularity. Production at Niles Industriplex Epsilon continued at minimal rates, typically producing only a handful of units per year to replace combat losses or retire aging Star League-era designs.</p><p>Throughout the Clan Invasion era and the subsequent Civil War period, the Bowman remained an exclusively Hell's Horses asset, typically assigned to defensive Stars within second-line Galaxies. On rare occasions, front-line commanders requisitioned individual Bowmans for rapid artillery support missions. The design also found an unexpected niche as a training platform, used in sibkos to identify cadets with aptitude for artillery operations. Among other Clans, the Bowman is exceedingly rare, appearing primarily as kit-bashed field variants in solahma units.</p><p>Following the Wars of Reaving and Clan Hell's Horses' relocation to the Inner Sphere, the Niles facility and its production lines passed to Clan Stone Lion. The long-term fate of Bowman production under new management remains uncertain, with later era data suggesting continued but possibly diminished operations.</p>
+
+manufacturer:Niles Industriplex Epsilon
+
+primaryfactory:Niles
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Niles Industriplex Epsilon
+systemmode:CHASSIS:Type BMH-7 Endo Steel
+systemmanufacturer:ENGINE:Niles Industriplex Epsilon
+systemmode:ENGINE:Fusion 350 XL
+systemmanufacturer:ARMOR:Niles Industriplex Epsilon
+systemmode:ARMOR:Forged Type HH34 Standard with CASE
+systemmanufacturer:COMMUNICATIONS:Niles Industriplex Epsilon
+systemmode:COMMUNICATIONS:CH4M with Pattern Iota ECM Suite
+systemmanufacturer:TARGETING:Niles Industriplex Epsilon
+systemmode:TARGETING:Version Omega-IX TTS

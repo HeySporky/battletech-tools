@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa09-7c9b-8b8f-ab4b020e6444
+</UUID>
+
+<UnitType>
+ConvFighter
+</UnitType>
+
+<Name>
+Planetlifter Air Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+2544
+</mul id:>
+
+<year>
+2598
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Transport
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:20.5:1:1::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<vstol>
+1
+</vstol>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+320
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+22
+7
+7
+12
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Free Worlds League-produced Planetlifter can carry up to twenty-and-a-half tons of cargo in its lightly armored fuselage. Removable bulkheads dividing the bay allow the aircraft to adjust for heavier and bulkier loads that cannot be stored conveniently in one section.</p><p>The Planetlifter's loading procedures are unique among military transports its size. Vehicles and infantry can load in the normal manner via cargo ramps in the tail or nose. Light BattleMeks can also be quickly and safely loaded because the entire length of the upper fuselage detaches from the lower half. A Planetlifter lowers itself to ground level on its variable landing gear, detaches the lower fuselage, and rolls away. The light BattleMek to be transported lies down on the exposed cargo bay floor and is secured by the ground crew. The aircraft then rolls back over the lower fuselage, attaches itself, and is ready for takeoff. An experienced crew can land, load a Wasp, and take off again in under fifteen minutes. Several militia units in Marik space even hold Loader Contests every few years to see which crew can load a Planetlifter the fastest. VSTOL capability allows the Planetlifter to operate from unprepared fields and short runways, further enhancing its tactical flexibility.</p>
+</capabilities>
+
+<overview>
+<p>The Planetlifter is a conventional rough-field military transport aircraft manufactured by Imstar Aerospace on Marik, and a typical example of the heavy-lift planes used by military outfits across the Inner Sphere. These craft are usually assigned directly to a planetary garrison commander, allowing them to quickly shift combat assets from one battlefield to another. This strategic mobility functions effectively as a force-multiplier, allowing a garrison to be spread out for population control and as a counter to small-unit raids but still able to concentrate quickly to blunt major assaults. Unarmed and lightly armored, the Planetlifter relies on escort fighters and speed to survive in contested airspace.</p>
+</overview>
+
+<deployment>
+<p>Planetlifters can be found on practically every world within the Free Worlds League in service to the planetary militia. Imstar Aerospace saw production levels skyrocket after the battle of Autumn Wind in 3002, in which Colonel Joseph Yetti and the 751st Jump Infantry Regiment destroyed a company of Steiner BattleMeks and captured a Union-class DropShip with the aid of a fleet of Planetlifters. Because of its solid safety record and low-maintenance engines, the Planetlifter remained a popular choice for logistics officers, though Imstar began slowing production in 3036 in anticipation of servicing existing units rather than selling new ones.</p><p>Heavy air transport planes are found on most worlds across the Inner Sphere, though most are not as militarized as the Planetlifter. The Lyran Walrus II, an improvement on DMI's ancient design from the late 2300s, holds many similarities to the Planetlifter. The Combine surprisingly fields three different air transport designs, with some theorizing the three Kuritan companies are really shell corporations for Wakazashi Enterprises. The Capellan Yangtze design is often called the pucker plane by AFFS soldiers, infamous for shoddy maintenance, sudden dips, hideous yaw problems, and handling like a brick.</p>
+</deployment>
+
+<history>
+<p>The Davion SuperPelican, a licensed version of the Planetlifter, served the Federated Suns for years before being phased out in 3029 when the license was revoked during the Fourth Succession War. The most common variant of the SuperPelican, dubbed the Waddle, converts the transport into an airborne support platform mounting an SRM 6 one-shot in the nose and an autocannon/5 under each wing. However, poor ventilation tends to clog the converted bay with dense, choking smoke after a few seconds of firing, severely limiting its combat effectiveness. With the Waddle's poor performance, no other upgrades of the design were attempted.</p><p>During the Fourth Succession War, Davion pilots who flew captured Yangtzes told tales of a harrowing experience, describing sudden dips and dives, hideous yaw problems, and vehicles that handled like flying bricks. According to these men and women, flying a Yangtze was akin to stepping off a cliff with a Taurian parachute, puckering up in anticipation of possible failure. Even so, these pilots performed heroically during the invasion of the Confederation, not only moving war materiel in a timely manner but also managing to airdrop supplies to civilians caught behind enemy lines. The Planetlifter family of transports, despite their lack of glamour, proved time and again that wars are won as much by logistics as by firepower.</p>
+</history>
+
+<manufacturer>
+Imstar AeroSpace
+</manufacturer>
+
+<primaryFactory>
+Marik
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Irian UHF
+TARGETING:Unknown
+</systemManufacturers>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

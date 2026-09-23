@@ -1,0 +1,97 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b659-76f0-8b05-9d1122c08b03
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Heavy Jump Infantry
+</Name>
+
+<Model>
+Royal Gurkha Battalion
+</Model>
+
+<mul id:>
+1438
+</mul id:>
+
+<year>
+3063
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<Troopers Equipment>
+Free Worlds League Infantry Kit (3035+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Royal Gurkha Battalion of the Fourth Regulan Hussars is among the most recognized infantry formations in the Free Worlds League Military. Recruited almost exclusively from the Nepalese inhabitants of Muscida in the Principality of Regulus, the Gurkhas bring a warrior heritage that predates interstellar colonization. Each soldier wears a distinctive battle dress featuring slide-in armor plating that allows maximum customization without sacrificing protection, and carries a thirty-kilogram jump pack providing sixty meters of vertical mobility. The battalion's primary armament consists of Starfire ER laser rifles, supplemented by King David Light Gauss Rifles at the squad support level. Every Gurkha trooper also carries the traditional kukri knife, a blade that has accompanied their ancestors into battle for over a thousand years. The combined package makes the Gurkhas a formidable force on any battlefield, even without anti-BattleMech training. During the Jihad-era campaign on Diass in 3077, Gurkha infantry patrols walked the streets unarmed except for their kukris, a deliberate display of trust that helped defuse tensions between the population and the occupying Fourth Hussars.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+Laser Rifle (ER [Sunbeam Starfire])
+</Primary>
+
+<Secondary>
+Gauss Rifle, Light (King David)
+</Secondary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

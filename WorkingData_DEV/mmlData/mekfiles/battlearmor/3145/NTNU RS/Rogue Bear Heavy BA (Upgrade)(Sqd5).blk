@@ -1,0 +1,164 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a718-71a2-be63-a05b7806216a
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Rogue Bear Heavy Battle Armor
+</Name>
+
+<Model>
+(Upgrade)(Sqd5)
+</Model>
+
+<mul id:>
+8789
+</mul id:>
+
+<year>
+3108
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+38
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+CLBAMG:LA
+CLBAMG:RA
+CLBASRM2:Body
+BA-SRM2 Ammo:Body:Shots4#
+BAHeavyBattleClaw:LA
+BAHeavyBattleClaw:RA
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Upgrade configuration trades raw firepower for improved survivability. Engineers reduced the missile launcher to a two-tube system while retaining its four-shot ammunition supply, and replaced the original vibro-blade manipulators with heavy battle claws. The freed weight and volume allowed installation of reactive armor plating across the suit's frame, providing significantly better protection against missile and ballistic threats than the standard armor of the original design.</p><p>The heavy battle claws retain OmniMech transport capability while offering strong melee performance, though they lack the cutting precision of vibro-blades. The twin machine guns carry over unchanged, maintaining the suit's anti-infantry effectiveness. This configuration shifts the Rogue Bear toward a more defensive role, better suited to holding positions and absorbing fire during close-quarters engagements where the reactive armor's properties are most effective.</p>
+</capabilities>
+
+<overview>
+<p>The Rogue Bear is a Clan Ghost Bear heavy battlesuit produced at BA Facility Gamma on Mannedorf. First fielded in 3073 during the closing years of the Jihad, the design fills a rapid-response role within garrison and second-line formations, offering jump capability and fixed armament suited to patrol and security operations. Weighing 1,500 kilograms, the Rogue Bear earned a reputation for reliability and low maintenance requirements, qualities that proved valuable during a period of significant logistical strain across the Ghost Bear Dominion. Several derivative designs have since been developed from the Rogue Bear chassis.</p>
+</overview>
+
+<deployment>
+<p>Clan Points of Upgrade-equipped Rogue Bears served across Rasalhague Dominion garrison Clusters during the Dark Age. The reactive armor and heavy battle claws shifted the suit's tactical profile toward a more defensive posture, and Point commanders adapted their tactics accordingly, favoring ambush positions and prepared fighting positions over the aggressive assault doctrine typical of standard Rogue Bear Points.</p>
+</deployment>
+
+<history>
+<p>The Rogue Bear emerged from BA Facility Gamma on Mannedorf during one of the Ghost Bear Dominion's most turbulent periods. First observed in garrison forces during December 3073, the heavy battlesuit drew immediate comparisons to the Golem. Careful analysis confirmed it as an entirely new design, built along similar lines but lighter and with a different operational emphasis. The suit entered service with KungsArmé formations absorbed into the Ghost Bear touman, with the recently activated First Tyr Assault Cluster among its earliest recipients. The First Tyr, stationed on the former Free Rasalhague Republic capital of Orestes, was primarily composed of ethnic Rasalhagians retrained in Clan organization and tactics.</p><p>Following a brutal engagement against Word of Blake forces on Radstadt in 3074, Ghost Bear commanders rewarded the First Tyr's abtakha troopers with early production Rogue Bear suits. BA Facility Gamma continued production through the Jihad and into the Dark Age, with the Rasalhague Dominion fielding the design across multiple Galaxies. The 283rd Battle Cluster, also stationed on Mannedorf, maintained strong contingents and employed them effectively against Draconis Combine border raids. The chassis proved adaptable, spawning the Constable Pacification Suit and the Wraith battle armor, which was originally prototyped as a Rogue Bear variant.</p>
+</history>
+
+<manufacturer>
+BA Facility Gamma
+</manufacturer>
+
+<primaryFactory>
+Mannedorf
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145
+</source>
+
+<published>
+RS:3145-NTNU,RS:3145
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+2
+</jumpingMP>
+
+<armor>
+13
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

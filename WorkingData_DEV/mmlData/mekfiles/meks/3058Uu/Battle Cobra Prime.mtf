@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c93f-7037-b8ac-61546648954b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Battle Cobra
+model:Prime
+mul id:273
+
+Config:Biped OmniMek
+techbase:Clan
+era:2873
+source:TR:3058U,TR:CI
+published:RSFP:Wave 2
+rules level:2
+role:Sniper
+
+quirk:ext_twist
+
+mass:40
+engine:240 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:9
+walk mp:6
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:11
+RA armor:11
+LT armor:14
+RT armor:14
+CT armor:16
+HD armor:9
+LL armor:17
+RL armor:17
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:4
+Large Pulse Laser, Left Arm
+Small Pulse Laser, Left Arm
+Large Pulse Laser, Right Arm
+Small Pulse Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLSmallPulseLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLSmallPulseLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Battle Cobra emerged from Clan Steel Viper's early experiments with OmniMech technology during the Golden Century. When the Vipers successfully introduced their first OmniMech, the Crossbow, in 2870, engineers quickly recognized that an existing prototype could be adapted to incorporate the new arm-mounted weapon pod system. This redesign proved remarkably swift, and the Battle Cobra entered service in 2873 as a forty-ton medium OmniMech optimized for versatility and ease of maintenance. The design's relative simplicity and low production cost made it attractive beyond the Steel Vipers, drawing the interest of resource-strapped Clan Blood Spirit and eventually ComStar, which selected it as the basis for their own reverse-engineering efforts following the Battle of Tukayyid.</p><p>Originally produced by Clan Steel Viper, the Battle Cobra survived the destruction of its original manufacturer and has since been restored to production by Clan Jade Falcon, ensuring the venerable design continues to serve on the modern battlefield.</p>
+
+capabilities:<p>The Battle Cobra was never intended to compete with heavier or faster OmniMechs for raw combat power. Its strength lies in its longevity, simplicity, and the ease with which technicians can service its exclusively arm-mounted weapon pods. The chassis employs endo steel internal structure and ferro-fibrous armor for weight savings, paired with a standard New Kent Type 240 fusion engine that provides a top speed of ninety-seven kilometers per hour while offering superior survivability compared to more fragile extralight designs. These choices leave fourteen tons of available pod space, all concentrated in the arms.</p><p>The primary configuration exemplifies the design's laser-centric philosophy, mounting a large pulse laser and small pulse laser in each arm for accurate fire at multiple engagement ranges. Advances in laser technology over the centuries have expanded the Battle Cobra's options considerably, but its limited pod tonnage means that most configurations run hot under sustained combat conditions. Attempts to deviate from the traditional energy weapon formula with heavier ammunition-dependent systems have generally produced mediocre results, as the restricted pod capacity cannot support adequate ammunition stores alongside the weapons themselves.</p>
+
+deployment:<p>The primary configuration exemplifies the Battle Cobra's laser-focused design philosophy, mounting a large pulse laser and small pulse laser in each arm. This loadout provides accurate fire effective against both armored and unarmored targets across multiple engagement ranges, making it the most commonly encountered configuration throughout the design's long service history. Found on virtually every Steel Viper garrison world during the Clan's existence, this variant configuration remains the standard by which all other Battle Cobra loadouts are measured.</p>
+
+history:<p>The Battle Cobra first saw widespread deployment with Clan Steel Viper's front-line Clusters during the late Golden Century, establishing itself as the premier medium OmniMech of the Viper Touman. Its combination of speed, durability, and reconfigurable firepower allowed it to serve effectively across the full spectrum of Clan warfare, from formal Trials to garrison duty. The design's low cost and straightforward maintenance requirements also made it attractive to Clan Blood Spirit, whose perpetually strained resources demanded efficient military hardware.</p><p>During the Clan Invasion of the Inner Sphere, Steel Viper Battle Cobras participated in operations across multiple worlds. The design's presence on Tukayyid during the decisive battle against ComStar proved fateful for its long-term legacy, ComStar recovered a significant number of largely intact Battle Cobras from the brutal fighting in the Devil's Bath, selecting the chassis as the centerpiece of their own OmniMech reverse-engineering program.</p><p>The Wars of Reaving brought catastrophe for the original production line. When the combined Clan assault annihilated Clan Steel Viper in 3075, the Novy Minsky Armaments Plant on New Kent was destroyed along with the rest of the Viper's industrial infrastructure. The Battle Cobra faded from Clan Space entirely, its production seemingly ended.</p><p>Ironically, the design's salvation came from one of the Steel Vipers' most bitter rivals. Following Clan Jade Falcon's conquest of Arc-Royal during the Dark Age, Falcon engineers discovered the deteriorating remains of the ComStar Battle Cobra production line at Arc-Royal MechWorks. Recognizing both the design's utility and the delicious irony of the situation, the Falcons restored and upgraded the facility to full Clan specifications. The Jade Falcons now field a design originally created by a destroyed enemy, reinterpreted by a second foe, and manufactured in a factory seized from a third, a fact they find endlessly amusing.</p><p>Pockets of resistance on Arc-Royal, typically anchored by battered Arc-Royal Militia 'Mechs, continue to harass Falcon forces. Raids around the city of Denton have become legendary for their unpredictability, though Falcon Battle Cobra pilots have proven adept at exploiting the design's maneuverability to counter these guerrilla tactics.</p>
+
+manufacturer:Novy Minsky Armaments Plant|Arc-Royal MechWorks
+
+primaryfactory:New Kent|Arc-Royal
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Cobra Endo Steel
+systemmanufacturer:ENGINE:New Kent
+systemmode:ENGINE:Type 240
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Fibrous V3
+systemmanufacturer:COMMUNICATIONS:Bishop
+systemmode:COMMUNICATIONS:400 Holly-Meridian CTC
+systemmanufacturer:TARGETING:Spanke
+systemmode:TARGETING:112-A

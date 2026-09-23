@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d840-784a-a5b2-fca4c41703c3
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Peregrine
+clanname:Horned Owl
+model:3
+mul id:2474
+
+Config:Biped
+techbase:Clan
+era:3061
+source:RG11,RGv1
+published:RG11,RGv1
+rules level:2
+role:Sniper
+
+weaponquirk:stable_weapon:CT:10:CLERPPC
+
+mass:35
+engine:210 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:6
+jump mp:6
+
+armor:Ferro-Fibrous(Clan)
+LA armor:9
+RA armor:9
+LT armor:10
+RT armor:10
+CT armor:13
+HD armor:9
+LL armor:11
+RL armor:11
+RTL armor:4
+RTR armor:4
+RTC armor:6
+
+Weapons:7
+Light Machine Gun, Left Arm
+Light Machine Gun, Left Arm
+Light Machine Gun, Left Arm
+Light Machine Gun, Right Arm
+Light Machine Gun, Right Arm
+Light Machine Gun, Right Arm
+ER PPC, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLLightMG
+CLLightMG
+CLLightMG
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLLightMG
+CLLightMG
+CLLightMG
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Left Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+CLTargeting Computer
+CLTargeting Computer
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+Clan Light Machine Gun Ammo - Half
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERPPC
+CLERPPC
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Horned Owl, designated the Peregrine by Inner Sphere intelligence agencies, is a thirty-five-ton Clan light BattleMech first produced in 2835 by Clan Goliath Scorpion. Originally designed as a rugged submersible construction 'Mech intended to work alongside Water Elementals in the Pentagon Worlds, the Horned Owl was eventually rebuilt for combat during the early Homeworld settlement period. Its streamlined, non-threatening appearance made it well suited for garrison and security duties in civilian areas, a feature that frequently led observers to mistake it for a lightweight security 'Mech rather than the fully capable military platform it truly was.</p><p>Popular throughout the Clan Homeworlds and widely built for Provisional Garrison Clusters, the Horned Owl established itself as an effective harassing and dueling platform. Production expanded across multiple facilities over the centuries, with Clan Smoke Jaguar, Clan Ghost Bear, and the Rasalhague Dominion all eventually manufacturing their own versions of this versatile light design.</p>
+
+capabilities:<p>The Horned Owl is a harassing platform that lives and dies by its efficiency rather than raw firepower. Armed with a single Kolibri Delta Series large pulse laser mounted in the center torso and a Kolibri Omega Series medium pulse laser in each arm, the base design delivers devastatingly accurate fire capable of quickly dismantling other light 'Mechs. The stabilized center torso weapon allows the Horned Owl to maintain effective fire even at full speed, a critical advantage for a design that depends on mobility for survival.</p><p>Six jump jets distributed across the legs and side torsos provide a maximum jumping distance of one hundred and eighty meters, giving the Horned Owl excellent maneuverability across broken terrain. Five tons of ferro-fibrous armor offer adequate protection for a 'Mech of its weight class, though pilots must remain conscious of the design's limitations against heavier opponents. The all-energy weapon loadout of the base configuration ensures the Horned Owl can operate indefinitely without supply concerns, making it particularly well suited for extended patrol and deep raiding missions.</p><p>The Coriolis Class IIIb endo steel chassis and LightForce 210 engine drive the design to a top speed of ninety-seven kilometers per hour, striking a practical balance between speed and combat endurance that has kept the Horned Owl relevant across centuries of Clan warfare.</p>
+
+deployment:<p>The Horned Owl 3 returns to a design philosophy closer to the original but optimized for precision engagement at range. An ER PPC tied to a targeting computer replaces the center torso large pulse laser, transforming the variant into an efficient sniping platform capable of engaging targets well beyond the reach of the base model's pulse lasers. Two trios of light machine guns in the arms provide secondary anti-infantry capability, giving this Ghost Bear-produced variant versatility that the base model lacks against conventional forces.</p>
+
+history:<p>The Horned Owl traces its origins to the early settlement of the Clan Homeworlds, where Clan Goliath Scorpion designed it as a rugged submersible construction 'Mech built to work alongside Water Elementals. Produced at the Hades Industrial Complex on Dagda, the design was eventually rebuilt for combat and became a common sight in Provisional Garrison Clusters throughout the Homeworlds. When Horned Owls first appeared in the Inner Sphere, military analysts viewed the streamlined design with confusion, comparing it to security or aquatic platforms and consistently underestimating its combat capability.</p><p>Clan Smoke Jaguar produced the missile-armed Horned Owl 2 variant at the Abysmal Manufacturing Complex on Huntress, while the Horned Owl 3 emerged as an early Clan Ghost Bear effort to build the design for Inner Sphere deployment at Alshain Weapons on Jarett. In Clan trials, however, the Horned Owl was less successful against dedicated frontline designs, and the Smoke Jaguar and Goliath Scorpion offshoots used missiles to counteract this to middling effect. Modern Horned Owls have returned to their pulse laser roots, though later variants have yet to match the elegant simplicity of the original.</p><p>Following the annihilation of Clan Smoke Jaguar in 3060, the Goliath Scorpions moved quickly to seize the Abysmal continent on Huntress. This bold move netted them ProtoMech technical data and control of the long-neglected Abysmal Manufacturing Complex. The Scorpions extensively refitted the facility and introduced the radically redesigned Peregrine 4 in 3064, the first Horned Owl variant to employ Advanced Tactical Missile technology. Surprisingly, many Scorpion warriors did not receive the new design well. Instead, the Peregrine 4 found a ready market among the garrison Clusters of Clan Snow Raven's Kappa Galaxy, where its ATM launchers proved an effective counter to Clan Star Adder heavy laser platforms. The Snow Ravens also supplied Clan Blood Spirit with much-needed BattleMechs, and several Peregrines found their way into the Spirits' Iota Galaxy.</p><p>The all-energy Horned Owl 5, introduced in 3066, ironically proved more popular with Scorpion warriors than the ATM-armed variant. Its ability to operate indefinitely without ammunition resupply made it ideal for Seeker missions far from established supply lines, and it became a favorite of the newly formed Chi Galaxy. The Thirty-fifth Scorpion Hussars also received the variant, often fielding it in sparring matches with the Seventy-first Light Horse on Huntress.</p><p>The Rasalhague Dominion put the Horned Owl 6 into production at Alshain Weapons on Jarett in 3132 to serve its stillborn militia program. When the anticipated Sphere-wide conflagration in the wake of the HPG Blackout did not materialize, production was redirected into export, putting the Horned Owl into the thick of fighting against both the Falcons and the Draconis Combine. On Arc-Royal, dozens fell in Trials of Position against sibkin, while the Raven Alliance assigned the design to novice warriors in support of ProtoMechs. On the Draconis front, Horned Owls made life difficult for lighter designs, though they suffered against modern heavily armored opponents. The Horned Owl 7, dubbed the Shimafukuro and introduced around 3150, is a radical departure that sacrifices ground speed for enhanced jumping capability through a partial wing system, and despite being named for the Vega front has primarily seen action in riparian areas.</p>
+
+manufacturer:Alshain Weapons
+
+primaryfactory:Jarett
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Coriolis Class IIIb Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:LightForce 210
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:Carapace 1 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Clan Light Series Mk. II
+systemmanufacturer:COMMUNICATIONS:JNE
+systemmode:COMMUNICATIONS:Integrated
+systemmanufacturer:TARGETING:TRTTS
+systemmode:TARGETING:Mark II

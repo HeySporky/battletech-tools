@@ -1,0 +1,184 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec3a-7dab-a42d-b0c60710239b
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Korvin Tank
+</Name>
+
+<Model>
+KRV-2
+</Model>
+
+<mul id:>
+1816
+</mul id:>
+
+<year>
+2367
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Brawler
+</role>
+
+<quirks>
+hard_pilot
+easy_maintain
+obsolete:2612
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+22
+22
+22
+17
+21
+</armor>
+
+<Body Equipment>
+Advanced Fire Control
+IS Ammo MG - Full
+IS Ammo LRM-5
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Large Laser
+LRM 5
+</Turret Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Korvin's primary identity is as an energy weapon platform. The Wu Heavy Laser in the turret delivers considerable damage at medium and longer ranges without ammunition dependency, while a Longbow LRM-10 rack provides indirect fire support to engage targets beyond the laser's effective reach. Five Browning Large Caliber machine guns are positioned to cover all arcs of the vehicle, deterring infantry from closing. The Magna 250 fusion powerplant drives the 50-ton hull to a flank speed of 86 km/h, giving the Korvin the mobility to serve as a flanking unit or pursue retreating forces alongside heavier assets.</p><p>Eight tons of ProtecTech 4 armor offers reasonable protection for a medium vehicle, though it falls short of the most heavily armored vehicles in its weight class. The fusion engine, while providing a weight advantage over internal combustion rivals, proved demanding to maintain. Environmental controls and other internal systems are persistent reliability concerns, a consequence of the design's rushed development. The tank's unusual silhouette, another artifact of that rapid design process, makes it easily recognizable on the battlefield but offers no benefit in concealment.</p>
+</capabilities>
+
+<overview>
+<p>The Korvin Tank emerged in the early 2300s as the Capellan Confederation's purpose-built response to large laser technology. Constructed under the supervision of engineer Wu Han at New Hessen ArmorWorks on New Hessen, the design exploited reverse-engineered Terran Hegemony weapons to give Confederation forces a decisive edge over contemporary armored vehicles. Named in honor of explorer and philosopher Alana Korvin DeVall, the Korvin became the standard battle tank of the Capellan Confederation for much of the 24th century. A 50-ton tracked medium vehicle powered by a fusion engine, it combined energy firepower and solid speed in a package uncommon among vehicles of the era. The Korvin served Capellan forces for over two centuries across multiple production sites.</p>
+</overview>
+
+<deployment>
+<p>The KRV-2 served in the front-line armored regiments of the Capellan Confederation during the 24th century, where its large laser firepower gave it a genuine edge against the vehicles of the era. As BattleMechs came to dominate the battlefield and armor technology advanced, the KRV-2 transitioned to garrison and militia roles, serving roughly another century and a half in secondary assignments. With the introduction of the KRV-3, most surviving KRV-2s were sold to Periphery states rather than scrapped. Spare parts for the fusion reactor are now extremely scarce, and operational examples are exceptionally rare.</p>
+</deployment>
+
+<history>
+<p>The Korvin's origins trace to the Tikonov Grand Union, which spent decades contesting border systems with the Terran Hegemony. Despite numerous defeats, Tikonov engineers salvaged Hegemony technology from the battlefield and eventually replicated the large laser. Engineer Wu Han oversaw the translation of that achievement into a functional combat vehicle, producing the KRV-2 at New Hessen ArmorWorks in 2367. This second-generation design, named for the philosopher Alana Korvin DeVall, featured a lighter and more powerful fusion engine than its Hessen-series predecessor, increasing top speed by roughly thirty percent. Production later expanded to Capricorn III and Sian with the formation of Wu Industries.</p><p>The Korvin served as the backbone of Capellan armored forces through much of the 24th century. Assigned to premier regiments, it gave Confederation armor a genuine advantage in an era when few vehicles mounted adequate protection against large laser fire. The design's prominence helped shape early Capellan armored doctrine, and the tank became a symbol of Confederation military capability. As armor technology improved across the Inner Sphere, however, a single heavy laser was no longer sufficient to dominate the battlefield, and the Korvin was progressively shifted to garrison and militia duties.</p><p>Wu Industries introduced the KRV-3 in 2430, attempting to revitalize the aging design with improved performance. The new model performed adequately but could not reverse the Korvin's decline in the face of proliferating BattleMechs. Production on Capricorn III and Sian continued until Wu Industries closed its doors in 2612. Most remaining KRV-2s were sold to Periphery states rather than scrapped, while the design's influence reached even further when the Umayyad Caliphate began producing its own version on Granada in the 29th century.</p>
+</history>
+
+<manufacturer>
+New Hessen ArmorWorks|Wu Industries|Wu Industries
+</manufacturer>
+
+<primaryFactory>
+New Hessen|Capricorn III|Sian
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<notes>
+Armor exceeds point limit for 50.0-ton Tracked support vehicle: 105 points > 104.
+</notes>
+
+<source>
+XTR:Primitives III
+</source>
+
+<published>
+XTR:Primitives III
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

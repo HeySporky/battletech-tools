@@ -1,0 +1,156 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e2e3-7ffd-b16f-f2ad10b28ac6
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Packrat LRPV
+</Name>
+
+<Model>
+PKR-T5 (SRM2)
+</Model>
+
+<mul id:>
+2402
+</mul id:>
+
+<year>
+2824
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:3.0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+16
+16
+16
+16
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-2
+IS Ammo SRM-2
+</Body Equipment>
+
+<Front Equipment>
+SRM 2
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+Flamer
+</Rear Equipment>
+
+<capabilities>
+<p>The Doorman 120 fusion engine gives the Packrat a top speed of 118 km/h, providing exceptional mobility for a vehicle of its class. Eight solid rubber tires, each with independent suspension and drive systems, deliver reliable traction across varied terrain without risk of deflation. The fusion powerplant eliminates any dependence on external fuel supplies, a critical advantage for missions lasting weeks or months behind enemy lines.</p><p>The Packrat's primary armament is a Harvester 20K SRM-6 rack mounted in the front hull, supported by two tons of ammunition. An HS Flamer covers the rear, serving dual roles as an anti-infantry weapon and a concealment device capable of generating smoke screens to break contact. Four tons of StarSlab/1 armor provide respectable protection for a twenty-ton vehicle, allowing the crew to survive limited engagements that would destroy lighter scouts.</p><p>The vehicle's most significant feature is its O/P COMTES communications system, among the most powerful ever fitted to a vehicle of this size. The system provides exceptional transmission range and limited electronic countermeasures capability. A one-ton infantry bay accommodates up to ten passengers, typically intelligence specialists or infiltrators, with fold-down cots providing sleeping arrangements for extended deployments.</p>
+</capabilities>
+
+<overview>
+<p>The Packrat Long Range Patrol Vehicle entered service in 2650 as a purpose-built deep reconnaissance and raiding platform produced by Robertson Technologies. Designed to operate independently behind enemy lines for extended periods, the twenty-ton wheeled vehicle combined fusion power, generous armor protection, and a potent communications suite in a package small enough to avoid detection. Robertson Technologies originally held the production contract, but the design eventually passed to Bowie Industries and Gienah Combat Vehicles, both operating in the Lyran Commonwealth. The Packrat's combination of speed, self-sufficiency, and robust communications made it a favorite of march militias and garrison commands across the Inner Sphere, where its ability to sustain independent operations complemented the limited logistics of frontier forces.</p>
+</overview>
+
+<deployment>
+<p>Introduced in the Capellan Confederation in 2824, this variant expands the infantry bay to three tons, allowing the vehicle to carry an entire infantry platoon. The original Harvester 20K SRM-6 launcher was replaced with a lighter Hovertec twin-tube SRM-2 to make room for the expanded troop compartment, though it retained two tons of ammunition. The modification prioritizes the Packrat's transport role over its combat punch, reflecting Capellan doctrine that valued infantry insertion capability in a fast, fusion-powered platform.</p>
+</deployment>
+
+<history>
+<p>Robertson Technologies introduced the Packrat in 2650 to fill a Star League Defense Force requirement for a self-sufficient reconnaissance platform. Production centered on New Florence under Terran Hegemony patronage until the devastation of the early Succession Wars destroyed the original factory during the Third Succession War. The loss of Robertson's facility left the Packrat without a dedicated production source, and existing vehicles suffered progressive degradation as the technological decline of the Succession Wars took hold.</p><p>The most damaging consequence was the widespread stripping of fusion engines from surviving Packrats. As LosTech made fusion plants increasingly irreplaceable, field technicians pulled the Doorman engines for use in higher-priority platforms, replacing them with heavier internal combustion engines. This practice produced the common ICE variant, which sacrificed the flamer and a ton of armor to accommodate the bulkier powerplant. Other field modifications emerged across the Inner Sphere as different factions adapted the vehicle to local needs and available technology. Free Worlds League planetary militias swapped the flamer and infantry bay for paired medium lasers, while Capellan Confederation units replaced the SRM-6 with a lighter launcher to expand troop capacity.</p><p>The recovery of the Helm Memory Core in the 3030s proved a turning point for the Packrat's fortunes. Bowie Industries on Carlisle and Gienah Combat Vehicles, both in the Lyran Commonwealth, leveraged recovered technical data to restart production of fusion-powered Packrats. Gienah had barely begun building the original specification before converting its ICE production line to the fusion model in 3040. The resurgence of manufacturing spread Packrats across the Inner Sphere once more, restoring the vehicle's reputation as the preeminent long-range reconnaissance platform. The Packrat remains in widespread service, found in every major House military and several larger Periphery states, with its durability and versatility particularly prized in the Federated Suns' March Militias.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Doorman
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:O/P
+TARGETING:O/P
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:120
+ARMOR:StarSlab/1
+COMMUNICATIONS:COMTES
+TARGETING:2000JSA
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+

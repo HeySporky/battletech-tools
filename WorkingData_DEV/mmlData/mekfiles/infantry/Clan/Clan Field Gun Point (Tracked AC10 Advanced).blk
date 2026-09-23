@@ -1,0 +1,79 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-babe-78f5-a7b1-d87500c6b951
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Clan Field Gun Point
+</Name>
+
+<Model>
+(Tracked AC10 Advanced)
+</Model>
+
+<year>
+2845
+</year>
+
+<type>
+Mixed (Clan Chassis) Advanced
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<Troopers Equipment>
+Clan Armor Kit (All)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+Autocannon/10
+IS Ammo AC/10
+</Field Guns Equipment>
+
+<overview>
+<p>Most Clan infantry are solahma warriors at the end of their careers or who have failed their Trials, assigned to duties the warrior caste considers beneath notice. Field Gun Points are crew-served weapon teams that bring heavier firepower to the infantry level, towing weapons too large for individual soldiers to carry. The gun itself defines the Point's role, with lighter autocannons providing anti-infantry and anti-vehicle fire while heavier weapons can threaten even armored targets. The Point's field gun is a heavy-caliber autocannon capable of punching through vehicle armor and damaging BattleMech components, though the weapon's weight and ammunition demands limit mobility.</p>
+</overview>
+
+<notes>
+Intro date based on Clan infantry kit intro date
+</notes>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+

@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cc41-7ab3-8f1e-56bc2880c04c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Marshal
+model:MHL-X1
+mul id:2090
+
+Config:Biped
+techbase:Inner Sphere
+era:3059
+source:TR:3060
+published:RS:3060u
+rules level:2
+role:Skirmisher
+
+quirk:easy_maintain
+quirk:rugged_2
+
+mass:55
+engine:220 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:18 Single
+walk mp:4
+jump mp:4
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:18
+RA armor:18
+LT armor:20
+RT armor:20
+CT armor:26
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:7
+Medium Laser, Left Arm
+Large Laser, Right Arm
+Machine Gun, Left Torso
+Machine Gun, Left Torso
+Medium Pulse Laser, Right Torso
+LRM 5, Right Torso
+Flamer, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Large Laser
+Large Laser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Machine Gun
+Machine Gun
+IS Machine Gun Ammo - Half
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+Heat Sink
+ISMediumPulseLaser
+LRM 5
+IS Ammo LRM-5
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Flamer
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Marshal was conceived in the late 3050s following the signing of the Treaty of Taurus in 3056, which established the New Colony Region as a joint venture between the Magistracy of Canopus and the Taurian Concordat. The treaty also created the Colonial Marshals, a peacekeeping force tasked with protecting the fledgling colonies between the two Periphery states. Initially equipped with surplus BattleMechs in various states of disrepair, the Colonial Marshals lacked reliable equipment for their remote patrol duties. Protector Jeffrey Calderon commissioned Taurus Territorial Industries to develop a purpose-built medium 'Mech to address these shortcomings, resulting in the MHL-X1 Marshal.</p><p>Entering production in 3059, the fifty-five-ton design was intended to serve in both the Colonial Marshals and the Taurian Defense Force. Its emphasis on energy weaponry, ease of maintenance, and rugged construction made it ideally suited for long deployments on isolated frontier worlds far from established supply lines. The Marshal's similarity to the sixty-ton Merlin has fueled enduring rivalries between MechWarriors piloting the two Periphery-manufactured generalist designs.</p>
+
+capabilities:<p>The Marshal is built around a standard Magna 220 fusion engine providing a top speed of sixty-five kilometers per hour. Four Rawlings 55 jump jets augment this mobility, allowing the design to traverse difficult terrain with ease, a critical consideration for operations on undeveloped colony worlds. Ten tons of Durallex Medium ferro-fibrous armor provide near-maximum protection for the chassis weight, though field technicians have noted the difficulty of sourcing replacement ferro-fibrous panels on remote Periphery postings. The standard engine and rugged construction ensure that the Marshal can absorb significant punishment and remain operational, a quality prized by its Colonial Marshal operators.</p><p>The armament reflects the Marshal's intended role as an independent patrol 'Mech operating far from resupply. Energy weapons form the core of the loadout: a Sunglow Type 2 large laser provides effective fire at range, supported by a Diverse Optics Type 27 medium pulse laser and Diverse Optics Type 18 medium laser for close engagements. A Hotshot flamer serves dual purposes, clearing brush during construction work and providing anti-infantry capability. The only ammunition-dependent systems are a Delta Dart LRM-5 rack for modest long-range fire support and two SperryBrowning machine guns for crowd control and riot duty. Fully articulated hand actuators on both arms make the Marshal a capable construction vehicle during peacetime, further confirming its Colonial Marshal origins.</p>
+
+deployment:<p>The original Marshal entered production in 3059 at Taurus Territorial Industries on Taurus, with a secondary line established at Detroit Consolidated MechWorks on the colony world of Detroit. Designed as a general-purpose patrol 'Mech for the Colonial Marshals, this variant carries a balanced mix of energy weapons, machine guns for riot duty, and a modest LRM rack for long-range engagements. The design's standard fusion engine and rugged construction ensure reliability in the field, while its eighteen single heat sinks keep the predominantly energy-based arsenal running cool during extended engagements. All of the Marshal's components are manufactured in or near the Concordat, ensuring spare parts remain readily available to its frontier operators.</p>
+
+history:<p>The Marshal's origins are inextricably linked to the political developments of the late 3050s in the Periphery. The Treaty of Taurus, signed in 3056, formalized cooperation between the Taurian Concordat and the Magistracy of Canopus to jointly colonize the unclaimed worlds lying between their borders. The Colonial Marshals established under this treaty initially received whatever surplus BattleMechs their sponsor nations could spare, resulting in a motley collection of aging designs ill-suited for frontier law enforcement.</p><p>Protector Jeffrey Calderon recognized this deficiency and commissioned Taurus Territorial Industries to develop a purpose-built design. The resulting Marshal entered production in 3059, with initial units slated for delivery to both the Colonial Marshals and the Taurian Defense Force. A second production line at Detroit Consolidated MechWorks on Detroit ensured sufficient output to meet demand. Production of the MHL-X1 was expected to fully equip all Colonial Marshal units with the new BattleMech by the end of 3060, and the improved MHL-2L followed shortly after in 3063.</p><p>The creation of the independent Fronc Reaches in 3066 brought significant changes to the Marshal's operational context. As the Colonial Marshals transitioned from a joint peacekeeping force to the primary military arm of a sovereign state, the Marshal remained their signature combat platform. The design proved itself repeatedly against pirate incursions across the Reaches, and its reputation for reliability in austere conditions cemented its place in the Colonial Marshal order of battle.</p><p>The Jihad era saw both disruption and evolution for the Marshal program. Detroit's ownership shifted as the Magistracy of Canopus expanded its influence in the region, and the Magistracy developed the MHL-6MC variant to better suit their own military doctrine. Detroit Consolidated MechWorks continued producing the MHL-2L through the Jihad and into the Dark Age, while Taurus Territorial Industries' production lines on Taurus itself appear to have wound down after the Civil War era.</p><p>By the thirty-second century, the Marshal had become entrenched across multiple Periphery states. The Capellan Confederation's expanding influence over Detroit brought the production lines under Capellan control during the Late Republic period, while Colonial Tractors on Fronc developed the MHL-6FR refit specifically for the Fronc Reaches' needs. Field modifications like the TSEMP-equipped MHL-3MC further demonstrated the design's adaptability, ensuring the Marshal continued to serve its original peacekeeping role well into the ilClan era.</p>
+
+manufacturer:Taurus Territorial Industries|Detroit Consolidated Mechworks
+
+primaryfactory:Taurus|Detroit
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Earthwerk
+systemmode:CHASSIS:MHL
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:220
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Medium Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:55
+systemmanufacturer:COMMUNICATIONS:Neil
+systemmode:COMMUNICATIONS:9000-A
+systemmanufacturer:TARGETING:Octagon
+systemmode:TARGETING:Tartrac System C

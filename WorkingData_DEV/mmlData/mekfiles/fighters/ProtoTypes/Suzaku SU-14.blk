@@ -1,0 +1,185 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-acea-779b-abd3-7863cf03345e
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Suzaku
+</Name>
+
+<Model>
+SU-14
+</Model>
+
+<mul id:>
+5167
+</mul id:>
+
+<year>
+3082
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<quirks>
+atmo_flyer
+</quirks>
+
+<weaponQuirks>
+no_cooling:AFT:0:ISLaserAntiMissileSystem
+</weaponQuirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+20
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+320
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+20
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+66
+58
+58
+56
+</armor>
+
+<Nose Equipment>
+MRM 20
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISERPPC
+PPC Capacitor
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISERPPC
+PPC Capacitor
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISLaserAntiMissileSystem
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS MRM 20 Ammo
+IS MRM 20 Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>A Nissan 375 Extra Light engine drives the <em>Suzaku</em> to a breakneck top speed, allowing it to intercept or outrun comparably massed fighters with ease. To survive close engagements against the heaviest opponents, KCMC fitted the fighter with twenty tons of New Samarkand Flying Dragon Heavy Ferro-Aluminum armor, a significant protective investment for the class that allows pilots to stay in the fight against well-armed enemies.</p><p>The fighter's primary weapons are two Lord's Light 2 Extended-Range PPCs, one mounted in each wing and each paired with a PPC capacitor. When the capacitors discharge, the damage inflicted on each shot increases by fifty percent, placing the <em>Suzaku</em>'s offensive output on par with Clan-grade weapons. This capability taxes the fighter's twenty double heat sinks heavily, however, and pilots facing missile-armed opponents are advised to conserve the capacitors and avoid the attendant heat spike.</p><p>Backing up the PPCs is a Shigunga MRM 20 launcher in the nose, providing concentrated fire at medium ranges. A Diverse Optics Sunray laser anti-missile system in the aft protects against incoming ordnance, completing a weapons suite capable of addressing threats across all range bands. The combination of energy weapons and a missile rack gives commanders flexibility, though firing every system simultaneously risks pushing the heat plant beyond its reliable operating threshold.</p>
+</capabilities>
+
+<overview>
+<p>The <em>Suzaku</em> is Kurita Combine Munitions Corporation's heavy aerospace fighter, entering service with the Draconis Combine Mustered Soldiery in the early Dark Age. Designed as a dedicated heavy interceptor, the <em>Suzaku</em> is built to engage large and heavily armed opponents before they can bring their own weapons to bear, pressing the initiative against forces that would otherwise outrange or outmass it. Since entering production, the fighter has become the envy of military commanders across the Combine, spreading from elite regiments to local defense forces on regional capitals. Commanders seeking to protect high-value worlds have prioritized acquiring the type, and the Draconis Combine Admiralty Service regards the <em>Suzaku</em> as among the finest heavy aerospace assets it has fielded in a generation.</p>
+</overview>
+
+<deployment>
+<p>In the years since the <em>Suzaku</em> cleared testing and entered production, its reception across Draconis Combine Mustered Soldiery units has been enthusiastic. Pilots consistently praise the cockpit's comfort, describing it as among the most habitable in the Combine's aerospace inventory. Complaints are few and tend to center on heat buildup when all weapons are fired together at full intensity, a concern that veterans of the Jihad typically dismiss as minor compared to the hardships of that conflict.</p><p>The Sword of Light regiments count the <em>Suzaku</em> among their most valued aerospace assets, while most line units maintaining aerospace complements keep at least two in their order of battle. Local defense forces guarding regional capitals have also received the type in meaningful numbers, bolstering the Combine's capacity to shield its most politically sensitive worlds from enemy aerospace incursions.</p>
+</deployment>
+
+<history>
+<p>The <em>Suzaku</em>'s origins trace to one of the Draconis Combine's most consequential industrial recovery efforts following the Jihad. Kurita Combine Munitions Corporation had long operated manufacturing facilities on Altair, but the loss of that world forced the company to relocate its entire production infrastructure to Kajikazawa. The new site, on the continent of Kai Koshu roughly three hundred kilometers from the relocated facilities of Cosby BattleMech and Myomer Research Firm, required the conversion of a placid coastal plain into a sprawling industrial corridor. Housing for factory workers, roads to regional cities, and supply lines to component manufacturers transformed the landscape over the course of years, creating what observers described as a bustling mini-metropolis where farmland once stood.</p><p>Rather than consolidate all production in a single complex, KCMC distributed manufacturing across multiple sites on Kajikazawa. The decision was partly strategic: by positioning itself as a competitor to Wakazashi Enterprises, which had dominated Combine aerospace fighter production since Altair was lost, KCMC gave the Draconis Combine Mustered Soldiery a second industrial lever. The DCMS hoped that competition between the two companies would produce better products at lower cost, and structured its procurement accordingly.</p><p>The <em>Suzaku</em>'s missile armament introduced a separate supply challenge. The MRM rack had previously been produced on Luthien, but the destruction of those facilities during the Jihad forced production to New Samarkand. At KCMC's request, the DCMS pressed Luthien Armor Works into establishing a secondary production line on Kajikazawa, reducing shipping time and allowing warehoused stocks to buffer against future disruptions. Excess production heading off-world at a steady pace ensured the weapon would not become a bottleneck for the fighter program.</p><p>The fighter cleared testing and entered full production around 3082, approximately two years after the Kajikazawa complex reached operational capacity.</p>
+</history>
+
+<manufacturer>
+Kurita Combine Munitions Corporation
+</manufacturer>
+
+<primaryFactory>
+Kajikazawa
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Kurita Combine Munitions Corporation
+ENGINE:Nissan
+ARMOR:New Samarkand
+JUMP_JET:N/A
+COMMUNICATIONS:Duotech
+TARGETING:Chichester
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Suzaku Sleek Assault
+ENGINE:Nissan 375 Extra Light
+ARMOR:New Samarkand Flying Dragon Heavy Ferro-Aluminum
+JUMP_JET:N/A
+COMMUNICATIONS:Duotech 250
+TARGETING:Chichester ASR30
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<published>
+RS:Proto
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

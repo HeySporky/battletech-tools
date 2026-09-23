@@ -1,0 +1,86 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-be05-7722-9be9-47292f9cc12c
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Motorized Platoon (LCAF)
+</Name>
+
+<Model>
+(Sappers 2341+)
+</Model>
+
+<year>
+2341
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Demolition Charge
+Ballistic Plate, Standard
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Lyran Commonwealth's industrial wealth ensures its infantry are among the best-equipped in the Inner Sphere, fielding hardware that most armies reserve for elite formations as standard issue. Motorized platoons add light transport vehicles to standard infantry formations, giving them the speed to conduct rapid strikes, screening operations, and quick withdrawals that foot infantry cannot manage. Equipped with submachine guns optimized for close-quarters combat, these platoons trade effective range for high rates of fire at short distances, making them well-suited to urban operations and building clearance. Trained as military sappers, these troops specialize in obstacle construction, demolition, and field fortification preparation, combining engineering and combat skills to shape the battlefield.</p>
+</overview>
+
+<notes>
+Intro date based on Lyran faction start date. Ballistic plate armor chosen for damage divisor and ATOW stats and general description.
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<Primary>
+Submachine Gun
+</Primary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+
+<specialization>
+10
+</specialization>
+

@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d099-7e5c-b23a-33cccf01ba11
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Dart
+model:DRT-6T
+mul id:831
+
+Config:Biped
+techbase:Inner Sphere
+era:3077
+source:TR:3085,TR:CI
+published:RS:3085u-ONN
+rules level:2
+role:Scout
+
+quirk:ext_twist
+
+mass:25
+engine:225 Light Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:9
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:8
+RA armor:8
+LT armor:8
+RT armor:8
+CT armor:10
+HD armor:8
+LL armor:10
+RL armor:10
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:2
+Light PPC, Center Torso
+ER Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISTargeting Computer
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Light PPC
+Light PPC
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISERSmallLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Dart is a twenty-five-ton light BattleMech introduced in 3051 by Coventry Metal Works in response to a Federated Commonwealth request for ammunition-independent designs. Conceived as a fast raider and reconnaissance platform, the Dart was engineered to operate deep behind enemy lines without reliance on vulnerable supply chains. The design represented Coventry Metal Works' bid to secure a place among the Commonwealth's primary military suppliers, leveraging existing production infrastructure to keep costs low while meeting the demanding specifications of the Clan Invasion era. Fielding an all-energy weapons suite and capable of speeds exceeding one hundred fifty kilometers per hour, the Dart quickly proved its worth in Periphery patrols and border skirmishes, earning a lasting place in Lyran and Federated Suns arsenals that has endured well into the thirty-second century.</p>
+
+capabilities:<p>The Dart's primary asset is its exceptional speed, powered by a VOX 225 fusion engine that propels the twenty-five-ton chassis to a top speed of one hundred fifty-one kilometers per hour. This makes the Dart one of the fastest BattleMechs in its weight class, capable of outrunning most threats it cannot outfight. The design philosophy centers entirely on self-sufficiency and sustained independent operations, with no ammunition dependencies to limit its patrol endurance.</p><p>Armament consists of three Magna 200P small pulse lasers, providing highly accurate short-range firepower well-suited to strafing attacks against softer targets. While the damage output is modest against heavier opponents, the pulse lasers' accuracy allows the Dart to make the most of its fleeting firing windows during high-speed passes. Operating in swarms or alongside other fast light units, Darts can overwhelm slower opponents through sheer volume of attacks from multiple vectors.</p><p>The Dart's greatest vulnerability is its armor protection, with only three and a half tons of Lexington Limited plating covering the chassis. A single well-placed volley from a medium-weight opponent can cripple the design, making pilot skill and situational awareness critical survival factors. The extended torso twist capability provides some additional defensive flexibility, allowing MechWarriors to spread incoming damage more effectively during withdrawal maneuvers.</p>
+
+deployment:<p>Introduced during the Jihad in 3077, this variant stands as a fundamental rethinking of the Dart's tactical role. The variant replaces the standard fusion engine with a VOX 225 light engine and strips the original weapon suite entirely, installing a light PPC and an ER small laser linked to a targeting computer. This configuration transforms the Dart from a close-range raider into a fast sniper and harasser, capable of delivering precise long-range fire while using its speed to avoid retaliation. The targeting computer enhances the accuracy of both weapons, making this variant particularly effective at picking apart lighter targets at range. However, the expensive light fusion engine significantly increases the variant's production cost, limiting its deployment to units that can justify the investment in a specialized harassment platform.</p>
+
+history:<p>The Dart debuted during the opening years of the Clan Invasion, with the first production models seeing action in Periphery regions where they were put through their paces in relative secrecy, hunting pirates and conducting long-range patrols far from the main front lines. After the Battle of Tukayyid in 3052, the bulk of Coventry's early production runs were allocated to AFFC units stationed along the Clan border, where the Dart served as a fast raider and screening element throughout the 3050s and into the early 3060s.</p><p>Intelligence analysts believe that during this period, invading Clans captured several Darts and traded them among themselves as examples of inferior Inner Sphere technology. These captured machines were retained primarily as garrison assets, a theory supported by encounters with Darts bearing Smoke Jaguar colors during the liberation of Huntress, despite no confirmed losses to that Clan during the post-Tukayyid era.</p><p>The FedCom Civil War saw Darts deployed on both sides of the conflict, with Loyalist and Allied units alike making use of the design's speed for reconnaissance and fast-response operations. Engagements along the Lyran-Davion border frequently featured Darts in screening roles, where their speed proved invaluable for maintaining contact with enemy formations and relaying targeting data to heavier elements.</p><p>Coventry Metal Works has continued to produce the Dart and its variants throughout the Jihad and into the Dark Age, with the design remaining a staple of Lyran Commonwealth armed forces. The introduction of the DRT-6T during the Jihad expanded the Dart's tactical envelope into a sniper and harassment role, ensuring the chassis remained relevant against increasingly sophisticated opponents. Production has remained active at the Coventry facility under consistent Lyran ownership, providing a steady supply of these light raiders to frontline and garrison units across the Commonwealth.</p>
+
+manufacturer:Coventry Metal Works
+
+primaryfactory:Coventry
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Coventry Metal Works
+systemmode:CHASSIS:Model D-3
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:225 Light
+systemmanufacturer:ARMOR:Lexington Limited
+systemmode:ARMOR:Lexington Limited
+systemmanufacturer:COMMUNICATIONS:Cyclops
+systemmode:COMMUNICATIONS:14
+systemmanufacturer:TARGETING:Cyclops
+systemmode:TARGETING:Multi-Tasker 10

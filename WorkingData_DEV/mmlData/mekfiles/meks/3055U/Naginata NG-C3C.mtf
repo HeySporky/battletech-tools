@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c849-70be-8d2f-9c0973be13cb
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Naginata
+model:NG-C3C
+mul id:2255
+
+Config:Biped
+techbase:Inner Sphere
+era:3066
+source:TR:3055U
+published:RS:3055Uu
+rules level:2
+role:Missile Boat
+
+quirk:cowl
+quirk:stable
+
+mass:95
+engine:285 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:15 IS Double
+walk mp:3
+jump mp:3
+
+armor:Standard(Inner Sphere)
+LA armor:25
+RA armor:25
+LT armor:26
+RT armor:26
+CT armor:35
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:8
+RTR armor:8
+RTC armor:14
+
+Weapons:4
+ER PPC, Left Arm
+LRM 15, Right Arm
+LRM 15, Left Torso
+LRM 15, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERPPC
+ISERPPC
+ISERPPC
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+LRM 15
+LRM 15
+LRM 15
+ISArtemisIV
+-Empty-
+
+Left Torso:
+Jump Jet
+LRM 15
+LRM 15
+LRM 15
+ISArtemisIV
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+ISCASE
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+LRM 15
+LRM 15
+LRM 15
+ISArtemisIV
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+ISCASE
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+ISC3SlaveUnit
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Naginata is a ninety-five-ton assault BattleMech introduced in 3055 by Independence Weaponry of Quentin for the Draconis Combine Mustered Soldiery. Named after the traditional Japanese pole arm, the design was purpose-built around the revolutionary command/control/communications computer system that the Combine had perfected in 3050. While the C3 network offered unprecedented coordination and targeting advantages that outstripped even Clan technology, expensive and time-consuming refit programs had left the system largely unused for five years. Independence Weaponry resolved this impasse by designing a dedicated platform that integrated the C3 computer from the ground up, establishing the Naginata as the DCMS's premier command fire-support unit.</p>
+
+capabilities:<p>The heart of the Naginata is its C3 master computer, which allows the 'Mech to coordinate targeting data across an entire lance, dramatically improving the accuracy of its formidable weapons suite. Independence Weaponry built the rest of the design around this core system. Three Coventry Star Fire LRM-15 racks, each linked to an Artemis IV fire control system, provide devastating long-range missile salvos with exceptional accuracy. A Lord's Light 2 extended-range PPC mounted in the left arm delivers reliable direct-fire support at extended distances.</p><p>The Naginata's survivability is remarkable for a command platform. Fifteen tons of Durallex Heavy Special armor blanket the chassis, while CASE protects against catastrophic ammunition detonation. The use of a standard Pitban 285 fusion engine rather than an extralight design ensures the 'Mech can absorb punishing damage to the side torsos without suffering catastrophic shutdown, earning it a reputation as a zombie 'Mech that can continue fighting long after lesser designs would have fallen. Two additional double heat sinks flanking the PPC's arm mounting help manage heat buildup, though sustained fire from the full arsenal still demands careful thermal discipline from the MechWarrior.</p>
+
+deployment:<p>This variant takes the Naginata in an unusual direction by trading the C3 master computer for a C3 slave unit and removing two tons of LRM ammunition. The weight savings allow the installation of three jump jets, granting the ninety-five-ton assault 'Mech a jump capability of ninety meters. This configuration transforms the Naginata from a rear-echelon command platform into a more mobile fire-support unit that can reposition across broken terrain, making it considerably more difficult to pin down. The retention of all three LRM-15 racks and the ER PPC ensures the variant loses little offensive punch despite the reduced ammunition stores.</p>
+
+history:<p>The Naginata entered service in 3055 with priority distribution to frontline formations, including the Twelfth Dieron Regulars, Eleventh Benjamin Regulars, Seventeenth Galedon Regulars, and several Ghost Regiments. Despite this aggressive fielding, the design alone did not immediately shift the DCMS's attitude toward C3 technology. That transformation unfolded across several years through a confluence of factors.</p><p>First, the Naginata's appearance as a dedicated C3 master platform spurred a wave of field refits across the DCMS, adding C3 slave systems to proven designs like the Panther, Grand Dragon, and Atlas, and master systems to command 'Mechs such as the Hatamoto-Hi and Katana. With this groundwork in place, the DCMS committed to the first large-scale employment of C3 networks during Operation Bulldog in 3059. Against Clan Smoke Jaguar, the linked targeting data proved devastating, graphically demonstrating the system's potential on the battlefield.</p><p>The final catalyst came from Hohiro Kurita and the Genyosha, whose C3-equipped command lances from company level upward achieved spectacular victories on Kiamba and the killing fields of Schuyler. By the time of the Ghost Bear-Combine War beginning in 3062, Naginatas were deployed in nearly every regiment committed to that conflict, cementing the design's role as the backbone of DCMS command lances.</p><p>The Jihad brought upheaval to Quentin when Word of Blake forces seized the world, disrupting Independence Weaponry's production lines. Control of the facility passed to the Republic of the Sphere in the post-Jihad reorganization before eventually returning to Draconis Combine sovereignty. Despite these disruptions, the Naginata's robust standard-engine design ensured that existing frames remained serviceable across decades of conflict, and the chassis continued to serve in DCMS formations well into the thirty-second century.</p>
+
+manufacturer:Independence Weaponry
+
+primaryfactory:Quentin
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Class 101a
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:285
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Heavy Special with CASE
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T19-G with C3 Computer
+systemmanufacturer:TARGETING:Cat's Eyes
+systemmode:TARGETING:5 with Artemis IV System

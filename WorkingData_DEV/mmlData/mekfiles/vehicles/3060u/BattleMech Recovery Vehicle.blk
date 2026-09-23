@@ -1,0 +1,154 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e4c3-7964-a1b5-397675cbed34
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+BattleMech Recovery Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+304
+</mul id:>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:10.0:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<armor>
+2
+2
+2
+2
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The BattleMech Recovery Vehicle's central feature is its single-drum winch assembly, fitted with a two-centimeter cross-braided diamond monofilament cable capable of generating sufficient pulling force to drag up to sixty tons of disabled BattleMech frame onto the vehicle's flatbed. Eighteen large tires distribute this considerable load evenly along the vehicle's full length, preventing excessive stress on any single suspension point. A Generic 280 ICE power plant delivers enough horsepower to push the loaded vehicle to a top speed of approximately 54 kilometers per hour even while hauling its rated maximum. Lightweight steel panel armor protects the cab and critical winch machinery from incidental fire, and the vehicle carries no standard weapons or targeting system. Communications equipment varies by operator, as locally sourced or salvaged systems are fitted according to availability.</p>
+</capabilities>
+
+<overview>
+<p>The BattleMech Recovery Vehicle is a critical support asset found in the logistical train of virtually every military force operating across the Inner Sphere. Designed to retrieve damaged and disabled BattleMechs from combat zones and staging areas, the BMRV serves an unglamorous but indispensable role - without it, the enormous investment represented by each BattleMech would be far more vulnerable to permanent loss. Constructed from commercially available components and requiring no specialized manufacturing infrastructure, the BMRV is produced or assembled by countless facilities across the Inner Sphere and Periphery. Its straightforward design and universal utility have made it one of the most commonly encountered support vehicles on battlefields spanning centuries of continuous warfare.</p>
+</overview>
+
+<deployment>
+<p>The BattleMech Recovery Vehicle is deployed by every organized military force in the Inner Sphere and Periphery as a standard element of BattleMech support echelons. Recovery teams typically operate in pairs when retrieving heavily damaged machines from contested ground, using one vehicle to provide security while the other performs the recovery. The BMRV's lack of weapons and limited armor make it unsuitable for frontline operations, and military doctrine universally specifies that recovery vehicles operate only after the immediate battle area has been secured. Under garrison and rear-area conditions, BMRVs double as general cargo movers and towing assets.</p>
+</deployment>
+
+<history>
+<p>The BattleMech Recovery Vehicle represents an early recognition by Inner Sphere militaries that the value of a BattleMech extended well beyond its first engagement. As BattleMechs established their dominance during the Age of War and the early Star League era, the logistical infrastructure to support and recover them evolved in parallel. The BMRV was among the first purpose-built recovery platforms to enter widespread use, drawing on commercial winch technology adapted for battlefield salvage requirements.</p><p>Unlike most military vehicles, the BMRV was never manufactured by any single dominant producer. Its generic design specifications allowed virtually any capable fabrication facility to produce the necessary components, and the vehicles have been assembled, modified, and rebuilt throughout every era of Inner Sphere history. During the Succession Wars, when factory output declined and combat losses stripped many units of dedicated recovery assets, locally improvised variants using commercial truck chassis and salvaged winch equipment became common substitutes. The vehicle's reputation as unglamorous but essential has followed it through the centuries, ensuring it remains a fixture of any militarily capable force.</p>
+</history>
+
+<manufacturer>
+Various
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Various
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Generic 280 ICE
+ARMOR:Lightweight steel panels
+COMMUNICATIONS:Various
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

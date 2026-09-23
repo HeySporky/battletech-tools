@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cdec-7836-adf9-d1a3d3be1fee
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Lightray
+model:LGH-7W
+mul id:5681
+
+Config:Biped
+techbase:Inner Sphere
+era:3069
+source:TR:J
+published:RS:3067u
+rules level:2
+role:Skirmisher
+
+quirk:bad_rep_is
+quirk:exp_actuator
+quirk:hyper_actuator
+
+mass:55
+engine:385 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+walk mp:7
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:18
+RA armor:18
+LT armor:19
+RT armor:19
+CT armor:26
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:4
+Snub-Nose PPC, Right Arm
+MML 3, Left Torso
+MML 3, Left Torso
+ER Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISSNPPC
+ISSNPPC
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMML3
+ISMML3
+ISMML3
+ISMML3
+IS Ammo MML-3 LRM
+IS Ammo MML-3 SRM
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISC3iUnit
+ISC3iUnit
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISERMediumLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Lightray is a Word of Blake medium BattleMech designed by Martinson Armaments at their Australia facility on Terra. Commissioned by the Precentor Martial in the early 3060s, the fifty-five-ton design originated as a heavy scout platform capable of extreme speeds while carrying meaningful armor protection and weaponry. Martinson Armaments, already experienced with BattleMech production through the Spartan and Initiate designs, produced the first Lightrays in 3064.</p><p>The Lightray's incorporation of an advanced targeting computer, acquired through a Word of Blake intelligence operation, significantly enhanced the design's combat effectiveness and became its defining feature. Produced exclusively on Terra, the Lightray became a signature medium-weight design of the Word of Blake Militia during the late Civil War era and throughout the Jihad.</p>
+
+capabilities:<p>The Lightray's defining characteristic is its exceptional speed for a fifty-five-ton BattleMech. Powered by an enormous LTV 385 XL extralight engine (the largest that can possibly be fitted to a chassis of its weight class) the design achieves a top speed of nearly 120 kilometers per hour in open terrain. This extraordinary mobility makes it one of the fastest medium 'Mechs ever fielded, easily outpacing most designs in its weight category. The trade-off for this speed is the absence of jump jets, limiting the Lightray's maneuverability in close terrain.</p><p>The 'Mech's armament centers on a Tronel XIII large pulse laser linked to a Scope 3580 targeting computer, making it devastatingly accurate even at high speeds. Two Diverse Optics extended-range medium lasers and a single extended-range small laser supplement this primary weapon, all benefiting from the targeting computer's enhanced accuracy. While the Lightray carries fewer weapons than many medium designs, its hit rate is significantly higher than its peers. The Geometric 33B endo steel frame and over ten tons of Strasbourg Armaments ferro-fibrous armor provide solid protection, ensuring the 'Mech can survive the engagements its speed brings it into.</p>
+
+deployment:<p>Introduced during the Jihad in 3069, this variant pushes the Lightray’s design further toward networked warfare. This variant carries an improved C3 computer alongside a snub-nose PPC for close-range engagements, a single extended-range medium laser, and a pair of MML-3 launchers that provide tactical flexibility through switchable ammunition types. To accommodate this expanded equipment suite, the design incorporates an XL gyro, freeing critical internal space at the cost of reduced survivability should the gyro sustain damage. The LGH-7W represents the final evolution of the Lightray before the fall of the Word of Blake.</p>
+
+history:<p>The Lightray’s history is inextricably linked to the Word of Blake and its ultimately ill-fated campaign for dominance of the Inner Sphere. Born from the Word of Blake Militia’s need for a capable medium scout ’Mech, the design was commissioned in the early 3060s when the Precentor Martial tasked Martinson Armaments (already an established Word of Blake defense contractor operating from their Australia facility on Terra) with creating a fast, well-armored platform.</p><p>Production began in 3064, initially yielding the LGH-4Y model without the advanced targeting computer that would later define the design. Almost immediately, the intelligence operation that would transform the Lightray was underway. Taking advantage of the chaos created by the FedCom Civil War, Word of Blake ROM agents stole targeting computer technology from the Federated Suns, itself reverse-engineered from captured Clan equipment. The Precentor Martial wasted no time ordering the Lightray production lines retooled, and the LGH-4W with its integrated targeting computer became the standard production model from 3065 onward.</p><p>The Lightray saw its primary service during the Jihad, when the Word of Blake unleashed its forces across the Inner Sphere. As a Blakist-exclusive design produced solely on Terra, the Lightray equipped Militia divisions across multiple fronts, with its high speed and accurate weaponry proving well-suited to the hit-and-run tactics employed by Word of Blake forces. Later variants incorporating C3i and improved C3 computers reflected the Blakists’ emphasis on networked warfare doctrines.</p><p>The design’s fortunes declined sharply with the fall of the Word of Blake at the conclusion of the Jihad. With Martinson Armaments’ Terra-based production facilities falling under Republic of the Sphere control, Lightray production appears to have ceased entirely. The Republic showed no interest in continuing manufacture of the distinctly Blakist design, and the factory’s production lines were not reactivated for the Lightray. Surviving examples continued to serve in scattered former-Blakist units and the occasional mercenary command, but the design effectively became extinct as a production ’Mech following the establishment of the Republic.</p>
+
+manufacturer:Martinson Armaments
+
+primaryfactory:Terra
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Geometric
+systemmode:CHASSIS:33B Endo Steel
+systemmanufacturer:ENGINE:LTV
+systemmode:ENGINE:385 XL
+systemmanufacturer:ARMOR:Strasbourg Armaments
+systemmode:ARMOR:Type 4 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Blow
+systemmode:COMMUNICATIONS:107 Net (Improved)
+systemmanufacturer:TARGETING:Scope
+systemmode:TARGETING:3580

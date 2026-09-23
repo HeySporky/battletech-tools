@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d9af-748e-b052-2953700aa136
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Iron Cheetah
+model:B
+mul id:8321
+
+Config:Biped OmniMek
+techbase:Clan
+era:3054
+source:RG19
+published:RG19
+rules level:2
+role:Juggernaut
+
+
+mass:100
+engine:400 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:18 Clan Double
+base chassis heat sinks:16
+walk mp:4
+jump mp:4
+
+armor:Ferro-Fibrous(Clan)
+LA armor:34
+RA armor:34
+LT armor:32
+RT armor:32
+CT armor:48
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:10
+RTR armor:10
+RTC armor:14
+
+Weapons:9
+Large Pulse Laser, Left Arm
+Medium Pulse Laser, Left Arm
+Medium Pulse Laser, Left Arm
+Medium Pulse Laser, Left Arm
+Large Pulse Laser, Right Arm
+Medium Pulse Laser, Right Arm
+Medium Pulse Laser, Right Arm
+Medium Pulse Laser, Right Arm
+ER Small Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLLargePulseLaser (OMNIPOD)
+CLLargePulseLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERSmallLaser (OMNIPOD)
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Iron Cheetah is a 100-ton Clan assault OmniMech first produced in 3054 by Clan Smoke Jaguar at the Phan Industriplex on Huntress. Conceived during a period of dwindling Jaguar resources, the Iron Cheetah represented an ambitious effort to create the ultimate assault OmniMech, one that would supplement the venerable Dire Wolf with greater speed without sacrificing meaningful firepower. The design embodied the pinnacle of 3050s-era Clan BattleMech technology, employing advanced weight-saving construction techniques to maximize both performance and pod space. Scarce resources limited initial production to only a handful of chassis before Clan Smoke Jaguar's annihilation, and Inner Sphere forces who first encountered the design briefly dubbed it the Gojira and Kaiju, though neither nickname persisted. The Iron Cheetah's schematics survived the Clan's destruction, eventually reaching Clan Diamond Shark, which brought the OmniMech back into production during the 3080s at its Manufacturing Plant SFF-IT5 facility on Itabaiana.</p>
+
+capabilities:<p>The Iron Cheetah's defining characteristic is its 400-rated extra-light fusion engine, which propels the hundred-ton OmniMech to speeds of sixty-four kilometers per hour. While Smoke Jaguar scientists initially feared that the larger engine would excessively reduce the chassis's available payload, the improved balance of heat generation and dissipation meant little practical loss of offensive capability compared to most Dire Wolf configurations. The use of both endo steel construction and ferro-fibrous armor saves critical tonnage, yielding an impressive 39.5 tons of available pod space for weapons and equipment.</p><p>In its Primary configuration, the Iron Cheetah serves as a devastating long-range sniper. Dual extended-range PPCs paired with an Artemis IV-enhanced LRM-15 rack and a Gauss rifle allow the OmniMech to disable or destroy most opponents well before they can close to effective range. Medium pulse lasers and an ER small laser provide close-in defense, while an anti-missile system offers protection against incoming missile salvos. This configuration emphasizes the Iron Cheetah's design philosophy of bringing Dire Wolf-class firepower to the battlefield with meaningfully improved mobility, enabling MechWarriors to dictate engagement ranges with an authority that the slower Dire Wolf cannot match.</p>
+
+deployment:<p>Alternate Configuration B emphasizes precision firepower and maneuverability through an all-energy weapons suite enhanced by advanced electronics. Twin large pulse lasers and six medium pulse lasers deliver highly accurate fire even during aggressive movement, while a targeting computer further improves hit probability across the entire arsenal. Four pod-mounted jump jets grant the hundred-ton OmniMech surprising tactical mobility, allowing it to exploit terrain features and firing positions that would be inaccessible to most assault-weight machines. This configuration excels in broken terrain where its combination of accuracy, mobility, and sustained firepower without ammunition dependency makes it a persistent and dangerous opponent.</p>
+
+history:<p>The Iron Cheetah's origins lie in the final desperate months of Clan Smoke Jaguar's existence. Even as dwindling resources drove the Clan to develop ProtoMechs, Jaguar scientists found time to create one last OmniMech. The design was intended to address the Dire Wolf's most significant tactical limitation (its plodding speed) and Lincoln Osis himself commissioned the project after the Battle of Tukayyid, demanding his scientists make the Dire Wolf concept faster. The chassis was converted to endo steel within a year, though adapting the Gargoyle's SF-3 engine proved more challenging. Only a handful of Iron Cheetahs reached operational service before Operation Bulldog and the subsequent annihilation of Clan Smoke Jaguar ended any prospect of mass deployment.</p><p>The Iron Cheetah's first major blooding came during a 3054 raid on Pesht, where a Jaguar Star Captain found herself cut off by a heavy lance of the Ryuken. The engagement demonstrated both the OmniMech's raw power and its vulnerability when unsupported, as the Kuritans worked together to systematically strip armor and disable the machine despite suffering severe losses of their own. This pattern of devastating but isolated engagements characterized the Iron Cheetah's brief Jaguar service period.</p><p>The Phan Industriplex on Huntress did not survive Task Force Serpent's assault in 3060, but a handful of Jaguar technicians escaped into the populace with schematics and technical data. These plans eventually reached a canny Diamond Shark merchant, though the arduous journey to the Inner Sphere and various logistical complications prevented construction from resuming until the 3080s. The Draconis Combine also retained a few salvaged chassis from the Jaguar annihilation, awarding them to MechWarriors who had distinguished themselves in exemplary service against the Jaguars.</p><p>An unlikely buyer emerged in the Republic of the Sphere, where Devlin Stone negotiated an exclusive purchasing contract with Clan Diamond Shark, gladly paying a premium to keep the Iron Cheetah for Republic use. The Republic concentrated its Iron Cheetahs in Stone's Brigade and the enigmatic Fidelis, where they served as shadowy instruments of Republic power. Deployments during this period were sparse and often shrouded in secrecy, lending the design an almost mythical quality among military intelligence analysts.</p><p>When Stone's exclusivity clause expired in 3150 with no Republic representative available to renegotiate, the Iron Cheetah entered the open market under Clan Sea Fox's merchant arm. Sales have concentrated among Houses Steiner, Marik, and Davion, while Clan interest has remained limited given the availability of comparable assault OmniMechs already in Clan inventories. Only the Raven Alliance and the exiled Wolves have expressed serious interest, the latter drawn by the many warriors of Jaguar descent among their ranks.</p>
+
+manufacturer:Phan Industriplex|Manufacturing Plant SFF-IT5
+
+primaryfactory:Huntress|Itabaiana
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:DSAM
+systemmode:CHASSIS:Endo 4
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:400 Model SF-3 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Composite A-4 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:TJ6 "Bell" Integrated Communication System
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Series III OPT

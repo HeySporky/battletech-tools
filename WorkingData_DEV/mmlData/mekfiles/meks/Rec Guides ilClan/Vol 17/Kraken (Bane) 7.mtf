@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d96f-7e01-8634-e760f76a49c4
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Kraken
+clanname:Bane
+model:7
+mul id:8244
+
+Config:Biped
+techbase:Clan
+era:3122
+source:RG17,RGv1
+published:RG17,RGv1,RSFP:MERCS-CLAN
+rules level:2
+role:Sniper
+
+quirk:ext_twist
+quirk:pro_actuator
+
+mass:100
+engine:300 XL (Clan) Engine
+structure:Clan Endo-Composite
+myomer:Standard
+
+heat sinks:14 Clan Double
+walk mp:3
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:34
+RA armor:34
+LT armor:32
+RT armor:32
+CT armor:46
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:10
+RTR armor:10
+RTC armor:13
+
+Weapons:7
+HAG/40, Left Arm
+HAG/40, Right Arm
+Large Pulse Laser, Right Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+CLHAG40
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLLargePulseLaser
+CLLargePulseLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+Hyper-Assault Gauss Rifle/40 Ammo
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo-Composite
+Clan Endo-Composite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo-Composite
+Clan Endo-Composite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Bane, known to Inner Sphere forces by the reporting name Kraken, is a hundred-ton Clan assault BattleMech first constructed in 2827. Based on plans for a Star League prototype that never reached the production stage, the design was brought to fruition during the early years of the Clans following Operation Klondike. Originally serving as a key assault 'Mech across numerous Clan toumans, the Bane was gradually relegated to second-line and garrison duties with the advent of the OmniMech.</p><p>Despite this diminished status, the design remained a principal component of many Clan defensive formations, particularly within Clan Jade Falcon. The Falcon scientists' continued interest in the platform transformed it into a test bed for experimental technology, ensuring the venerable Bane saw more innovation and variation across its history than virtually any other Falcon second-line design.</p>
+
+capabilities:<p>The Bane's primary strength lies in its role as a long-range, direct-fire support platform. The base configuration mounts ten Ultra Autocannon/2s, providing an extraordinary volume of fire at extreme ranges that few opponents can match. This arsenal allows the Bane to stand off at distance and pepper targets with impunity, though its four ammunition bins limit the duration of sustained engagements. Four machine guns provide a deterrent against infantry and unarmored targets that manage to close inside minimum autocannon range.</p><p>A 300-rated XL engine propels this hundred-ton chassis to a respectable 54 kph, adequate for maintaining position in a defensive line. Nineteen tons of Forging C745 armor provides excellent protection for a second-line design, ensuring the Bane can absorb considerable punishment while delivering its withering long-range fire. Ten double heat sinks manage the design's modest heat output with ease.</p><p>The primary weakness of the base configuration is its dependency on ammunition and the relatively low individual damage of each autocannon round, making the Bane vulnerable to opponents that close range quickly before its massed fire can achieve cumulative effect.</p>
+
+deployment:<p>The most recent production variant, introduced around 3122, the Bane 7 derives from the Bane 6 but takes a dramatically different approach to firepower. Twin Hyper-Assault Gauss 40 rifles (one in each arm) deliver the most concentrated fire of any Bane variant, capable of devastating even heavily armored targets with each volley. A large pulse laser and four extended-range medium lasers in the right torso provide significant secondary firepower. Twelve tons of HAG ammunition divided between the torsos sustain the main weapons through moderate-length engagements. Fourteen double heat sinks handle the thermal load, while the Bane 7 sacrifices the ECM protection of its immediate predecessors in favor of raw destructive power.</p>
+
+history:<p>The Bane's origins trace to an unfinished Star League prototype that was carried into exile during the Exodus. Following Operation Klondike and the consolidation of the Pentagon Worlds, the design was first realized in 2827, entering service as an assault-weight fire support platform across multiple Clan toumans. Early production of the Bane centered on the Ironhold Alpha Complex, where the design was manufactured under Clan Jade Falcon ownership from the Late Succession Wars through the Civil War era.</p><p>Throughout its early history, the Bane remained uncommon among Jade Falcon second-line forces due to a lack of standardization and the relative ease of manufacturing competing designs such as the Jupiter. When the Jupiter shifted toward a fast brawler role in the 3090s, Banes filled the resulting heavy fire-support vacancy, becoming more prevalent than before and providing Falcon engineers with additional data for continued development. This longevity, coupled with the Falcon scientists' unusual interest in the platform, contributed to its role as a test bed for experimental technology that often found later application in other BattleMechs.</p><p>The Bane's combat record spans numerous conflicts across the Clan Invasion and beyond. The Bane 4 saw its baptism of fire during Jade Falcon strikes against Lyran forces at Blair Atholl and during subsequent strikes on Pandora between 3064 and 3065, where its close-range firepower caught Lyran defenders off guard. During Operation Noyan in 3147, Banes of the Eighteenth Falcon Regulars held the line against Hell's Horses at the Suleiman Dunes on Leskovik, demonstrating the design's enduring defensive capability.</p><p>Production of the Bane expanded beyond Ironhold to Olivetti Weaponry on Sudeten, which also operated a refit line converting existing chassis to updated specifications. The Bane 4 was additionally produced at the Tokasha MechWorks Alpha facility under successive Clan ownership, Ghost Bear, then Hell's Horses, and later Clan Stone Lion. The Olivetti facility suffered damage during the Wars of Reaving era but restored Bane production in the late 3090s, becoming the primary source of new Bane manufacture from the Dark Age onward.</p><p>The introduction of the modernized Bane 5, 6, and 7 variants from Olivetti Weaponry between 3105 and 3122 ensured the design's continued relevance well into the ilClan era, a remarkable reflection of the adaptability of a chassis first conceived before the founding of the Clans themselves.</p>
+
+manufacturer:Olivetti Weaponry
+
+primaryfactory:Sudeten
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Fusion 300 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Forging C745
+systemmanufacturer:COMMUNICATIONS:JNE
+systemmode:COMMUNICATIONS:JNE Integrated
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Series VI TTS

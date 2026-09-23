@@ -1,0 +1,296 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ecdf-7af9-926b-dee900ba2650
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Dart Light Cruiser
+</Name>
+
+<Model>
+(2305)
+</Model>
+
+<mul id:>
+4048
+</mul id:>
+
+<year>
+2305
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:6.0:2:1::-1:0
+cargobay:139159.0:2:2::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+steeragequarters:600.0:0:-1::-1:0
+1stclassquarters:450.0:0:-1::-1:0
+crewquarters:1204.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+2
+</SafeThrust>
+
+<heatsinks>
+2358
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+22437
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+101
+88
+88
+79
+88
+88
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:100
+(B) Naval Laser 45
+Naval Laser 45
+(B) Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Capital Missile Launcher (Killer Whale)
+Ammo Killer Whale:40
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:40
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:40
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:25
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:40
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:40
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:40
+(B) Naval PPC (Light)
+Naval PPC (Light)
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:40
+(B) Naval PPC (Light)
+Naval PPC (Light)
+</Right Broadsides Equipment>
+
+<structural_integrity>
+90
+</structural_integrity>
+
+<capabilities>
+<p>The Dart's design philosophy emphasized self-sufficiency above all else. Nearly nine thousand tons of fuel storage and a cargo capacity exceeding one hundred forty thousand tons allowed the class to sustain prolonged independent deployments without resupply. Six docking collars accommodated both military and civilian DropShips, while nearly twelve hundred tons of standard armor and a structural integrity rating uncommonly high for its tonnage class gave the vessel the durability needed for extended service in harsh or contested space. A crew complement of over three hundred sixty personnel, including one hundred twenty marines, reflected the expectation that the Dart would operate far from reinforcement.</p><p>The vessel's armament reflected its independent operations role, with capital weapons distributed across all firing arcs to ensure engagement capability from any quarter. The nose concentrated the heaviest firepower, pairing NAC/20 autocannons and NL45 naval lasers with four Killer Whale missile launchers for decisive forward engagement. NAC/25 batteries covered the forward, aft-quarter, and stern arcs, while the broadside positions mounted NAC/30 batteries alongside Light Naval PPCs. NL35 naval lasers provided secondary capital-grade coverage throughout. The Century 4000 maneuver drives earned legendary status among naval engineers for their reliability. Safe thrust of two and maximum thrust of three gave the Dart adequate acceleration for its displacement, though faster WarShips could outpace it in pursuit engagements.</p>
+</capabilities>
+
+<overview>
+<p>The Dart-class light cruiser was among the earliest purpose-built WarShip designs produced for the Terran Alliance, conceived to address the young nation's growing need for a capital vessel capable of operating independently across the vast distances between its colonized worlds. Commissioned in 2305 and built by Di Tron Heavy Industries at shipyards on Terra and Zebebelgenubi, the Dart combined the roles of combat WarShip, exploration vessel, and cargo carrier into a single durable hull designed to function at the furthest reaches of Alliance territory and beyond. The class earned a strong reputation for reliability and endurance, and its ability to operate without resupply for extended periods made it a valued asset for frontier patrol, convoy escort, and deep space exploration missions. As one of the foundational designs of humanity's early interstellar naval forces, the Dart established many of the operational expectations for independent-duty cruisers that persisted for centuries.</p>
+</overview>
+
+<deployment>
+<p>Few individual Darts are recorded by name in surviving naval archives, as the bulk of the class's centuries-long service predates the detailed record-keeping of later eras. The most significant appearances came at the very end of the class's existence. During the New Vandenberg revolt of 2722, Periphery separatists pressed an aged and heavily stripped Dart into combat service against the Star League Defense Force. The vessel, reduced to a fraction of its original capability, was destroyed by the Essex-class destroyer SLS Gettysburg in what the SLDF believed marked the extinction of the class.</p><p>That assessment proved premature. The RWR Conquistador, a Dart that had survived undetected within the Rim Worlds Republic's military, emerged during Stefan Amaris's coup against the Star League. The Conquistador participated in the initial stages of the uprising before meeting its end over Mars, destroyed by two squadrons of SLDF Model 96 Elephant tugs from the Twenty-third Wing. The vessel's destruction in 2766 confirmed the final loss of the Dart-class after more than four centuries of service.</p>
+</deployment>
+
+<history>
+<p>The Dart-class emerged from the Terran Alliance's recognition that its expanding sphere of colonized worlds required a WarShip capable of operating far beyond established supply lines. Di Tron Heavy Industries, one of the Alliance's premier aerospace manufacturers, received the contract and designed a hull that prioritized range, endurance, and operational flexibility over raw combat power. The result was a vessel equally capable of serving as a combat platform, exploration ship, or heavy transport depending on mission requirements, an unusual degree of flexibility for a capital WarShip.</p><p>The class entered service in 2305 and quickly became a mainstay of the Alliance navy, with Di Tron operating production facilities on both Terra and Zebebelgenubi to meet demand. The vessel's drives earned a reputation for exceptional reliability even by capital ship standards, and generous fuel and cargo allocations allowed individual vessels to operate independently for extended periods. Darts served across virtually every frontier of Alliance space, conducting patrols, escorting colony convoys, and exploring systems beyond the established jump network. As the Terran Alliance transitioned into the Terran Hegemony, the Dart continued as a workhorse design. The class served through the early consolidation of Hegemony authority, though advancing naval technology gradually rendered its combat capabilities insufficient for front-line service against newer designs entering production at rival shipyards.</p><p>After approximately two centuries of active duty, the Hegemony retired the Dart-class in favor of the more capable Avatar-class cruiser. Rather than scrap the aging but still functional hulls, the Hegemony stripped many of their weapons systems and sold them to Periphery nations at reduced prices. These demilitarized vessels found willing buyers among Periphery states that lacked the industrial capacity to build capital ships of their own, and the Darts served their new operators in cargo and transport roles through the Reunification War era and beyond. The stripped-down vessels were shadows of their original capability, but their endurance and cargo capacity remained useful even without armament. The Star League Defense Force believed the class fully extinct by 2722 following the destruction of the last known example during the New Vandenberg revolt, but the emergence of a Rim Worlds Republic vessel during the Amaris Civil War proved that assumption wrong. That vessel's destruction in 2766 marked the true end of the Dart-class, closing a chapter of naval history that had spanned over four centuries across multiple nations and countless star systems.</p>
+</history>
+
+<manufacturer>
+Di Tron Heavy Industries|Di Tron Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+Terra|Zebebelgenubi
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Di Tron Heavy Industries
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Century 4000
+ARMOR:Standard
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Light Cruiser
+</use>
+
+<length>
+703 m
+</length>
+
+<height>
+1135 m Sail
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+680000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+145
+145
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+247
+</crew>
+
+<officers>
+45
+</officers>
+
+<gunners>
+36
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+120
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+35
+</life_boat>
+
+<escape_pod>
+29
+</escape_pod>
+

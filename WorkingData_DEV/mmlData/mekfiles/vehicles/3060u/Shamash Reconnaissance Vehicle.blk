@@ -1,0 +1,160 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e552-7111-9c54-7b61853fb95c
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Shamash Reconnaissance Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+2921
+</mul id:>
+
+<year>
+2887
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+13
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+9
+7
+7
+7
+8
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+CLERSmallLaser
+</Turret Equipment>
+
+<capabilities>
+<p>The Shamash's defining advantage is its exceptional ground speed. Powered by a Fusion 60 engine, the vehicle achieves a cruising speed of 140 kilometers per hour and a top speed exceeding 200 kilometers per hour on favorable terrain, outpacing most BattleMechs, ground vehicles, and even many VTOL aircraft. That speed is its primary survival tool, allowing the vehicle to enter and exit engagement ranges faster than most opponents can respond.</p><p>Its offensive capability rests on four Series 1 extended-range small lasers mounted in a fully rotating turret. While each individual laser is modest in output, the combined fire of all four poses a genuine threat to BattleMechs at the ranges where the Shamash prefers to operate. The turret mount provides a full 360-degree field of fire, allowing the vehicle to engage targets while continuing to maneuver, a critical capability for a reconnaissance platform.</p><p>The Compound JX2 ferro-fibrous armor offers reasonable protection for a vehicle of this tonnage, providing better coverage than standard plate while keeping mass to a minimum. Nonetheless, the eleven-ton chassis cannot absorb sustained punishment, and any engagement that turns into a slugging match is likely to end badly. The single-crew design compounds this vulnerability: the driver handles reconnaissance, gunnery, navigation, and vehicle command simultaneously, degrading reaction time under fire. Blood Spirit accepted this trade-off deliberately, exchanging reduced survivability for lower production costs and the warrior-culture advantages of solo operation.</p>
+</capabilities>
+
+<overview>
+<p>The Shamash Reconnaissance Vehicle was developed by Clan Blood Spirit in the late twenty-ninth century as an economical alternative to the heavier Asshur. Facing declining planetary holdings and shrinking access to raw materials, Blood Spirit's scientist caste was pressed to create a platform that could be manufactured and fielded quickly. The result was a lightweight hover vehicle, massing roughly half of the Asshur, designed around exceptional speed and simplicity of operation. At just eleven tons, the Shamash relies on velocity rather than heavy armor or weapons to survive on the battlefield.</p><p>One of its most distinctive characteristics is its single-crew configuration, which reduces both operational costs and manufacturing complexity. That same solo arrangement granted Shamash drivers a measure of individual combat glory more commonly associated with MechWarriors, an unusual cultural distinction for a vehicle crew. Clan Diamond Shark later acquired the facility plans and brought the Shamash into Inner Sphere production, broadening its reach far beyond Blood Spirit's Touman.</p>
+</overview>
+
+<deployment>
+<p>The Shamash fills the dedicated reconnaissance role in both Clan and former Clan secondline forces. Blood Spirit originally deployed it in vehicle Stars ahead of BattleMech Stars, using its speed to screen friendly positions and probe enemy formations before committing heavier units. Its turret-mounted lasers allow the crew to engage while withdrawing, a practical capability for breaking contact after identifying a threat.</p><p>Inner Sphere Clan forces, particularly Ghost Bear and Diamond Shark contingents, deployed it similarly, extending sensor coverage across wide frontages. Its low cost and ease of maintenance made it a natural garrison vehicle for secondary systems where full BattleMech coverage was unavailable.</p>
+</deployment>
+
+<history>
+<p>The Shamash entered service with Clan Blood Spirit in 2887, a direct product of the Clan's declining fortunes in the latter part of the twenty-ninth century. The loss of Foster and repeated raiding by Clan Burrock had stripped Blood Spirit of significant planetary resources, leaving the scientist caste under pressure to develop cheaper, faster combat vehicles. Khan Boques accelerated development after learning that Clan Hell's Horses had recently commissioned a new vehicle design, reasoning that Blood Spirit needed a competitive platform it could actually produce. The Shamash emerged as that answer, commissioned from the York Vehicle Y2 Facility on York and designed to replace the Asshur in the reconnaissance role at roughly half the cost and mass.</p><p>The vehicle's single-crew arrangement had an unexpected cultural effect within Blood Spirit. Vehicles were traditionally regarded as a secondary combat arm, their crews holding lower standing than MechWarriors. But the Shamash's solo operation placed drivers in a position of individual battlefield accountability, able to win or lose honor through personal performance in a way that multi-crew vehicles did not permit. Over time, Blood Spirit began using Shamash assignments as a proving ground for promising vehicle warriors, evaluating candidates through field exercises and Trials of Position. Drivers who distinguished themselves could advance within the vehicle warrior caste in ways unusual even by Clan standards.</p><p>The Absorption War waged by Clan Star Adder and Clan Burrock eventually stripped most Shamash vehicles from Blood Spirit's Touman, dispersing them into Star Adder and Burrock forces. The design's operational legacy in the Homeworlds largely ended with Blood Spirit's collapse.</p><p>In the Inner Sphere, Clan Diamond Shark recognized the Shamash's commercial and military value. Following the outbreak of the Jihad in 3068, Diamond Shark purchased the York facility plans and established the New York Vehicle Y2 Facility on Trondheim, bringing the vehicle into Inner Sphere production the following year. Ghost Bear forces on Trondheim developed the Interdictor configuration at that facility, while Ghost Bear technicians in the field developed the Flamer refit independently. The Trondheim factory continued production through the Dark Age under Rasalhague Dominion ownership.</p>
+</history>
+
+<manufacturer>
+York Vehicle Y2 Facility|New York Vehicle Y2 Facility
+</manufacturer>
+
+<primaryFactory>
+York|Trondheim
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:York Vehicle Y2 Facility
+ARMOR:York Vehicle Y2 Facility
+COMMUNICATIONS:Consolidated
+TARGETING:Consolidated
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion 60
+ARMOR:Compound JX2 Ferro-Fibrous
+COMMUNICATIONS:Type 2M
+TARGETING:Type V TTS
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+11.0
+</tonnage>
+

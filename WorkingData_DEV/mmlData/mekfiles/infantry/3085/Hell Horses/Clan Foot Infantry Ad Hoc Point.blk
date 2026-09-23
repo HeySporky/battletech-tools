@@ -1,0 +1,93 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b649-777e-9618-1f4db4572956
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Clan Foot Infantry
+</Name>
+
+<Model>
+Ad Hoc Point
+</Model>
+
+<mul id:>
+601
+</mul id:>
+
+<year>
+2825
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Clan Armor Kit (All)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Most Clusters in Clan Hell's Horses deploy a number of ad hoc Points that lack the specialization of dedicated formations. The Forty-second BattleMech Cluster, Theta Galaxy, is typical: its ad hoc foot Points are armed with modern Gauss sub machineguns and automatic grenade launchers, making them quite capable in a firefight despite their lack of formal role assignment. Made up of tested-down warriors drawn from all branches who failed to qualify for more prestigious postings, these solahma troops are not expected to live long. They are motivated less by honor than by the chance to see combat one last time. Combat reports from the Clan Wolf Occupation Zone suggest that Wolf commanders preferred to use Elementals for headhunting missions specifically targeting the conventional support units that formations like the Forty-second's infantry routinely protect.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+5
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+Gauss Submachine Gun
+</Primary>
+
+<Secondary>
+InfantryAutoGL
+</Secondary>
+

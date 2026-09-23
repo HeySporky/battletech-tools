@@ -1,0 +1,177 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb28-7e35-923c-431fd9d1c460
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Saturn Harvester
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4977
+</mul id:>
+
+<year>
+2652
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+2ndclassquarters:21.0:3:-1::-1:0
+cargobay:21.5:1:2::-1:0
+refrigeratedcargobay:10.44:1:3::-1:0
+</transporters>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+45
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+25
+18
+18
+18
+18
+18
+</armor>
+
+<Body Equipment>
+AmphibiousChassis
+</Body Equipment>
+
+<Front Equipment>
+Combine
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+Lift Hoist/Arresting Hoist
+</Rear Equipment>
+
+<barrating>
+4
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>At 175 tons, the Saturn Harvester is a large tracked support vehicle powered by a fusion engine providing unlimited operational range. Cruise speed of 20 km/h and top speed of 30 km/h reflect the machine's priorities: sustained output over long operating cycles rather than rapid repositioning. An amphibious chassis modification allows the vehicle to cross water obstacles without halting operations, an important capability on developing worlds where bridge and road infrastructure may be years away.</p><p>Harvesting functions are split between a front-mounted combine for crop collection and a rear lift hoist for handling large agricultural loads and positioning equipment. An integrated automated food processing plant converts raw harvest into ready-to-eat or shelf-stable meals without requiring separate ground-based facilities. This all-in-one capability is the Saturn's defining operational advantage on colonies too new to have developed fixed infrastructure.</p><p>Cargo capacity totals 21.5 tons of standard storage alongside 12 tons of refrigerated cargo accessible through a rear loading door. Commercial armor at BAR 4 offers environmental protection suited to civilian operations, with no weapons carriage. A crew of three enlisted operators manages the vehicle's numerous systems.</p><p>The Saturn's practical limitation centers on its deliberate pace. In the field, its slow ground speed requires careful route planning and operational scheduling to maximize productivity across large agricultural territories. The vehicle's size also demands adequate transport infrastructure for interstellar deployment, limiting its use to well-established supply chains.</p>
+</capabilities>
+
+<overview>
+<p>The Saturn Harvester is a super-heavy agricultural support vehicle designed to deliver large-scale automated food production to planets with small populations. Introduced in 2652 by Earthwerks-FWL, Incorporated, the vehicle was built to address a fundamental challenge of the Star League's colonization programs: cultivating enough food for a growing settlement with the limited workforce available in a colony's earliest years.</p><p>By combining massive harvesting capacity with an integrated onboard food processing capability, the Saturn allowed a crew of three to match the output of a much larger conventional farming operation. Its longevity across subsequent centuries reflected how thoroughly it met that original mandate, remaining in active service on worlds it had helped establish long after the political context of its creation had changed.</p>
+</overview>
+
+<deployment>
+<p>The Saturn Harvester is deployed wherever large-scale automated agricultural production is required with minimal crew. It is most commonly found on frontier colony worlds and established agricultural planets with limited labor resources, operating in convoys or as standalone units covering territory too extensive for smaller vehicles. Its amphibious capability allows it to work across mixed terrain on developing worlds without the need for engineered crossing points. The vehicle's onboard processing capability makes it self-sufficient at the point of harvest, reducing the logistical chain required to feed colonial populations in early settlement phases.</p>
+</deployment>
+
+<history>
+<p>Earthwerks-FWL developed the Saturn Harvester in 2652 to support the colonization expansion that defined the mid-Star League period. New colonies typically lacked the population to staff conventional farming operations at sufficient scale, creating a persistent gap between the food supply a settlement needed and what its small labor force could produce. The Saturn addressed that gap directly, substituting automation for manpower at a scale previously unavailable in civilian agricultural equipment.</p><p>The vehicle first saw deployment on frontier worlds throughout the Inner Sphere, shipped alongside terraforming equipment and early colonial infrastructure packages. In operation, the Saturn often worked in convoy with smaller utility vehicles, the big machine handling primary harvesting while lighter vehicles managed staging and transport of processed output. This coordinated approach became a standard pattern in Earthwerks promotional materials, which boasted that their system could convert raw field product into packaged meals within twenty minutes of cutting.</p><p>The Saturn's survival through the Succession Wars owed principally to its civilian nature and universal utility. It represented no military threat and conferred no strategic advantage worth denying, passing through multiple political ownerships as interstellar borders shifted around it. On many worlds, individual vehicles outlasted the political entities that had originally fielded them, continuing to work the same ground regardless of which flag flew over the settlement they sustained.</p><p>By the Dark Age, the Saturn's continued service on older colonial worlds was a quiet proof of the quality of the original design. The cost-effectiveness of its automation justified maintenance costs even as newer agricultural equipment options emerged, and the planets the Saturn had helped establish rarely found reason to retire it prematurely. The Universal ownership notation across production records from the Star League through the ilClan period reflects how broadly and commercially accessible the type remained throughout the Inner Sphere's political upheavals.</p>
+</history>
+
+<manufacturer>
+Earthwerks-FWL, Inc.
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Earthwerks-FWL, Inc.
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Commercial Armor BAR 4
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+175.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

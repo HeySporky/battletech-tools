@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d36c-7ed7-85ac-243363129083
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Wendigo-VP
+model:A
+mul id:6409
+
+Config:Biped OmniMek
+techbase:Clan
+era:3150
+source:TR:3145:DC,TR:DA
+published:RS:DA
+rules level:4
+role:Skirmisher
+
+
+mass:50
+engine:250 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+cockpit:Torso-Mounted Cockpit
+gyro:Standard Gyro
+
+heat sinks:14 Clan Double
+base chassis heat sinks:10
+walk mp:5
+jump mp:8
+
+armor:Reflective(Clan)
+LA armor:16
+RA armor:16
+LT armor:16
+RT armor:16
+CT armor:22
+HD armor:8
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:8
+
+Weapons:5
+ER Large Laser, Left Arm
+AP Gauss Rifle, Left Arm
+ER Large Laser, Right Arm
+AP Gauss Rifle, Right Arm
+AP Gauss Rifle, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERLargeLaser (OMNIPOD)
+CLAPGaussRifle (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERLargeLaser (OMNIPOD)
+CLAPGaussRifle (OMNIPOD)
+Clan Reflective
+Clan Reflective
+Clan Reflective
+-Empty-
+
+Left Torso:
+Life Support
+Fusion Engine
+Fusion Engine
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Reflective
+
+Right Torso:
+Life Support
+Fusion Engine
+Fusion Engine
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Reflective
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Cockpit
+Sensors
+
+Head:
+Sensors
+Sensors
+CLAPGaussRifle (OMNIPOD)
+CLAPGaussRifle Ammo (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Wendigo-VP is the pre-production prototype of the Wendigo OmniMech, fielded in limited numbers by Clan Nova Cat during the Draconis Combine's initial invasion of the Republic of the Sphere beginning in 3134. Produced at the Avon Alpha facility, the prototype employed a smaller 250-rated XL engine that sacrificed speed for greater pod capacity, an approach that prioritized raw firepower over the mobility that Clan warriors demanded.</p><p>Though the Wendigo-VP demonstrated considerable weapons-carrying ability, the prototype was plagued by technical glitches and reliability issues that hampered its combat effectiveness. The warrior caste's dissatisfaction with the design's sluggish performance led to its rapid discontinuation in favor of the faster production Wendigo, which traded pod space for a larger engine and superior speed. The surviving VP chassis were largely relegated to storage, though some would later find new purpose as the basis for Clan Sea Fox's experimental Wendigo-XR program.</p>
+
+capabilities:<p>The Wendigo-VP shares the same Mynx Type Medium Endo Steel chassis and Gamma Special Reflective armor as its production successor, but mounts a smaller 250-rated XL engine that limits the prototype to a top speed of approximately 80 kph. While significantly slower than the production Wendigo's 97 kph, this trade-off freed additional tonnage for weapons and equipment, giving the VP a larger pod space allocation and allowing for heavier combat configurations. Ten double heat sinks manage thermal output, two fewer than the production model.</p><p>The reduced speed proved to be the prototype's fatal flaw. Clan Nova Cat warriors, accustomed to aggressive engagement doctrines that relied on rapid maneuvering and closing to preferred ranges, found the VP too slow to execute their preferred tactics. Technical glitches compounded the speed deficiency, and the design was quickly superseded by the production Wendigo. The VP's greater payload capacity, while impressive on paper, could not compensate for the tactical limitations imposed by its reduced mobility in the fast-paced combat of the Republic invasion.</p>
+
+deployment:<p>The Prototype Alternate Configuration A was designed for long-range engagement and anti-infantry operations, mounting an ER Large Laser and AP Gauss Rifle in each arm with a third AP Gauss Rifle in the head. A Targeting Computer enhanced accuracy across all weapons systems, making this configuration particularly deadly against battle armor and conventional infantry formations. The emphasis on precision fire at range partially mitigated the VP chassis's speed disadvantage, as pilots could engage effectively without needing to close rapidly.</p>
+
+history:<p>The Wendigo-VP emerged as the first tangible result of Clan Nova Cat's effort to replace the disappointing Avalanche OmniMech. Produced at the Avon Alpha facility in 3134, the prototype represented a conservative design philosophy that emphasized firepower over speed, reflecting the resource constraints facing Clan Nova Cat after the devastation of the Second Combine-Dominion War. The VP was among the first units deployed during the Combine's invasion of the Republic of the Sphere, where it saw combat alongside more established designs.</p><p>Combat experience quickly exposed the prototype's shortcomings. While its weapons loadouts were formidable, the 250-rated engine could not deliver the speed that Clan warriors demanded for their preferred engagement doctrines. Persistent technical glitches further undermined confidence in the design. The Clan's scientists ultimately acknowledged that sacrificing pod capacity for a larger engine was the correct approach, and the Wendigo-VP was rapidly discontinued in favor of the 300-rated production model. Most surviving VP chassis were placed in storage.</p><p>The Wendigo-VP gained an unexpected second life following the destruction of Clan Nova Cat in 3143. When Clan Sea Fox acquired Nova Cat assets through Trials of Possession and trade agreements with the Draconis Combine, several VP chassis were among the equipment obtained. Sea Fox scientists recognized the slower but structurally identical VP chassis as ideal test platforms for experimental technology programs, particularly the integration of recovered RISC systems from the fallen Republic of the Sphere.</p>
+
+manufacturer:Avon Alpha
+
+primaryfactory:Avon
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Mynx Type Medium Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:250 XL
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:Gamma Special Reflective
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:Sipher CommCon SCU-9
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Build 5 CAT TTS

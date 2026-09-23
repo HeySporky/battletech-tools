@@ -1,0 +1,87 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b7cf-7bb7-83d9-372c90cc7c26
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Field Artillery Platoon (CCAF)
+</Name>
+
+<Model>
+(Motorized Thumper 2367+)
+</Model>
+
+<year>
+2367
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+ISThumper
+ISThumperAmmo
+</Field Guns Equipment>
+
+<overview>
+<p>Capellan infantry serve where BattleMechs and armor cannot be spared, which in the resource-constrained CCAF means nearly everywhere. The Xin Sheng movement revitalized the infantry arm alongside every other facet of the Capellan Confederation Armed Forces, giving foot soldiers better equipment and renewed purpose. Field artillery platoons give CCAF ground commanders organic indirect fire support without requiring dedicated artillery vehicles. Operating crew-served tube or missile artillery pieces from mechanized transports, these platoons can displace and redeploy faster than vehicle-mounted artillery at the cost of lower rates of fire and less ammunition. Operating a Thumper artillery piece, these platoons provide light indirect fire support, effective for suppression and area denial against infantry and light vehicles.</p>
+</overview>
+
+<notes>
+Intro date based on start date of Capellan Confederation faction
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+Submachine Gun
+</Primary>
+
+<Secondary>
+InfantryAssaultRifle
+</Secondary>
+

@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d488-79b5-8de0-e621661453e8
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Shadow Cat II
+model:3
+mul id:6886
+
+Config:Biped
+techbase:Clan
+era:3089
+source:TR:3145
+published:RS:3145-NTNU,RS:3145
+rules level:2
+role:Skirmisher
+
+quirk:easy_maintain
+quirk:low_profile
+
+mass:60
+engine:360 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:11 Clan Double
+walk mp:6
+jump mp:6
+
+armor:Ferro-Fibrous(Clan)
+LA armor:14
+RA armor:14
+LT armor:15
+RT armor:15
+CT armor:20
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:6
+ER Large Laser, Right Arm
+Streak SRM 6, Left Torso
+Streak SRM 6, Left Torso
+Streak SRM 6, Right Torso
+Streak SRM 6, Right Torso
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLERLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo
+CLERMediumLaser
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Shadow Cat II is a sixty-ton Clan BattleMech developed by Clan Jade Falcon during the waning years of the Jihad. Rather than invest time in an entirely new design, the Falcons chose to build upon proven technology by scaling up the successful Shadow Cat OmniMech, adding fifteen tons in the manner of other successful Clan II designs such as the Ryoken II and Mad Cat Mk II. The design originated from an unfinished Homeworld prototype completed by Olivetti Weaponry on Sudeten at the direction of a merchant who recognized the opportunity to leverage existing production infrastructure.</p><p>The Shadow Cat II served as the Jade Falcons' primary testbed for hyper-assault Gauss rifle technology, which they had won exclusive production rights to through Trials. Production has remained exclusively at the Olivetti Weaponry facility on Sudeten since the design's introduction in 3076, and access to the design has been closely guarded by the Falcons against all attempts at acquisition.</p>
+
+capabilities:<p>The Shadow Cat II employs the same weight-saving technologies as its lighter predecessor, utilizing a Type 79-60 endo steel internal structure and a Type 79 360 XL extralight engine to achieve a top speed of 97 kilometers per hour despite its increased mass. Clan Standard Type A1 jump jets provide a 180-meter jumping capability, granting mobility that belies the 'Mech's heavy weight classification. Seven and a half tons of Compound H17 ferro-fibrous armor offer only marginally more protection than the lighter Shadow Cat, a deliberate trade-off that prioritizes speed and firepower over survivability.</p><p>The Shadow Cat II's primary weapon is a right-arm Type 0 Hyper-Assault Gauss 20, a devastating weapon that unleashes a spread of projectiles capable of stripping nearly two full tons of armor in a single volley. Twin Type X Short Bow LRM-10 launchers mounted in each torso extend the engagement envelope, while a Series 7Ja ER medium laser in the right torso provides minimal ammo-independent backup. The shotgun-like damage pattern of the HAG makes the Shadow Cat II exceptionally effective at exploiting already-damaged opponents, though it struggles to focus damage against heavily armored, pristine targets.</p>
+
+deployment:<p>Developed in 3089, the Shadow Cat II 3 stands as a dramatic departure from the original fire support concept. Four Streak SRM-6 launchers replace the long-range weapons suite, supplemented by a single ER large laser and ER medium laser for ranged engagement capability. This variant is explicitly designed for close-quarters combat rather than the standoff fire support role of the original, reflecting evolving Falcon tactical doctrine that called for more versatile heavy 'Mechs capable of aggressive close-range engagement.</p>
+
+history:<p>Since its introduction in 3076, the Shadow Cat II has been deployed almost exclusively by Clan Jade Falcon. The design's origins during the Jihad era reflected the Falcons' pragmatic approach to military procurement, favoring rapid development and proven technology over lengthy design cycles. The Olivetti Weaponry facility on Sudeten has served as the sole production site throughout the design's service life, with the facility's long history of Falcon control providing a stable manufacturing base.</p><p>The Jade Falcons have guarded access to the Shadow Cat II jealously. No other Inner Sphere Clan successfully won a Trial of Possession for the design during the Republic era, and Republic Intelligence noted that while the Diamond Sharks attempted to acquire production rights through trade agreements, these efforts were consistently rebuffed. This exclusivity has kept the Shadow Cat II relatively rare compared to other Clan heavy designs, but it has earned a fearsome reputation within Falcon formations.</p><p>Despite its limited distribution, the Shadow Cat II has proven itself a capable fire support platform. Its combination of speed, jumping ability, and ranged firepower allows it to maintain favorable engagement distances while supporting heavier assault elements. The introduction of several variants throughout the late Jihad and Dark Age eras demonstrates the Falcons' continued investment in the design, with each new variant exploring different tactical applications for the versatile chassis.</p>
+
+manufacturer:Olivetti Weaponry
+
+primaryfactory:Sudeten
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Type 79-60
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:Type 79
+systemmode:ENGINE:360 XL
+systemmanufacturer:ARMOR:Compound H17
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Clan Standard
+systemmode:JUMP_JET:Type A1
+systemmanufacturer:COMMUNICATIONS:JNE
+systemmode:COMMUNICATIONS:Integrated
+systemmanufacturer:TARGETING:Build 3Z CAT
+systemmode:TARGETING:TTS

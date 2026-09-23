@@ -1,0 +1,401 @@
+{
+  "filename": "Phoenix Hawk LAM IIc PHX-HK2 JF.hmp",
+  "size": 1352,
+  "header_hex": "56 35 2e 30 30 04 00 88 02 00 00 00 00 ff ff 3c",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\u0088\u0002\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 11,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 12,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "ff"
+    },
+    {
+      "type": "byte",
+      "offset": 14,
+      "hex": "ff"
+    },
+    {
+      "type": "ascii",
+      "start": 15,
+      "end": 16,
+      "text": "<"
+    },
+    {
+      "type": "byte",
+      "offset": 16,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 17,
+      "end": 18,
+      "text": "2"
+    },
+    {
+      "type": "byte",
+      "offset": 18,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 19,
+      "end": 41,
+      "length": 20,
+      "text": "Phoenix Hawk LAM IIc"
+    },
+    {
+      "type": "ascii",
+      "start": 41,
+      "end": 42,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 42,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 43,
+      "end": 53,
+      "text": "PHX-HK2 JF"
+    },
+    {
+      "type": "byte",
+      "offset": 53,
+      "hex": "ea"
+    },
+    {
+      "type": "len_string",
+      "start": 54,
+      "end": 835,
+      "length": 779,
+      "text": "\u0000\u0098\u0012Z\u0000\u00b2\t\u0000\u00c0\u00b0D\u0000\u00c0\u00b0D\u0000\u0000\u00c0A\u0000\u0000\u0080A\u0000\u0000\u0010A\u0010\u0000MM 3 4 3 3 12 5J\u0002\u0000\u0000\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u00fa\u0000\u0000\u0000\u0005\u0000\u0005\u0000\f\u0000\u0001\u0000\u0001\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0001\u0000\u000f\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0004\u0000\u0004\u0000\u0005\u0000\u0000\u0000\u0005\u0000\u0001\u0000\u00a8\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u00a8\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u00a7\u0000\u0005\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u00a7\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u00c4\u0000\u0002\u0000\u0019\u0000\b\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u00a8\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00a7\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000T\u0002\u0019\b\u00c4\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u00a8\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00a7\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000*\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u00e2\u00ff|\u0000t\u0001Clann JADE FALCON rework of the star league \r\nera PHX-HK2 PHOENIX HAWK LAM.\r\nwork carried out @ the JADE FALCON base on HUNTRESS .also known as  EV"
+    },
+    {
+      "type": "ascii",
+      "start": 835,
+      "end": 1060,
+      "text": "IL TWIN 1\r\n2 place cockpit fitted for MECHWARRIOR & AEROSPACE PILOT.revised weapon fit 2 * er large lasers  2 * er medium lasers & a  SRM 4 system .improved jump jet system also fitted.\r\n\r\nfrom the battletech novel FREEBIRTH."
+    },
+    {
+      "type": "len_string",
+      "start": 1060,
+      "end": 1063,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1063,
+      "end": 1205,
+      "length": 140,
+      "text": "After 1 battle to free warrior HORSE from the \r\nSMOKE JAGUARS the design was deemed a failure and scrapped after many years of work & tests."
+    },
+    {
+      "type": "len_string",
+      "start": 1205,
+      "end": 1208,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1208,
+      "end": 1211,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1211,
+      "end": 1214,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1214,
+      "end": 1217,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1217,
+      "end": 1220,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 1220,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1221,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1222,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1223,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1224,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1225,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1226,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1227,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1228,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1229,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1230,
+      "end": 1236,
+      "length": 4,
+      "text": "\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 1236,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1237,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1238,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1239,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1240,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1241,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1242,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1243,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1244,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1245,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1246,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1247,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1248,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1249,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1250,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1251,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1252,
+      "end": 1262,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 1262,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1263,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1264,
+      "end": 1265,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1265,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1266,
+      "end": 1276,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1276,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1277,
+      "end": 1287,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1287,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1288,
+      "end": 1298,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1298,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1299,
+      "end": 1309,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1309,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1310,
+      "end": 1320,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1320,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1321,
+      "end": 1331,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1331,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1332,
+      "end": 1342,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1342,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1343,
+      "end": 1352,
+      "text": "(Unknown)"
+    }
+  ]
+}

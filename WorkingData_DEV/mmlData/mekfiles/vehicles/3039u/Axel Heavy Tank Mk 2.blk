@@ -1,0 +1,157 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e258-7e40-9734-907f22e62ed1
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Axel Heavy Tank
+</Name>
+
+<Model>
+Mk 2
+</Model>
+
+<mul id:>
+181
+</mul id:>
+
+<year>
+3036
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<quirks>
+poor_target_short
+low_profile
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+34
+34
+34
+24
+34
+</armor>
+
+<Body Equipment>
+IS Machine Gun Ammo - Half
+IS Ammo LRM-10
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Vehicle Flamer Ammo
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+Flamer (Vehicle)
+</Rear Equipment>
+
+<Turret Equipment>
+LRM 10
+Machine Gun
+Autocannon/20
+</Turret Equipment>
+
+<capabilities>
+<p>The Axel Mk 1 and Mk 2 share the Rommel and Patton's general profile but use an ICE powerplant, which reduces top speed compared to their fusion-powered progenitors. Both variants retain the low silhouette that distinguishes the family, and both arm their turrets with machine guns in place of the lasers found on the Lyran originals. The Mk 1 carries a larger ammunition supply and a second machine gun, while the Mk 2 trades one machine gun and much of its ammunition for a vehicle flamer suited to anti-infantry work. Both mount a ten-rack missile launcher, an upgrade from the five-tube system of the originals, improving indirect-fire capability at the cost of additional ammunition management.</p><p>The Axel IIC and IIC (XL) variants are substantially more capable machines, incorporating advanced technology unavailable to the original design. The IIC uses the reconfigured Benson and Bjorn production line to produce an Inner Sphere-style main battle tank with modern electronics and improved protection. The XL variant uses an extralight engine to free mass for additional weapons and systems, intended as a command and flanking unit for armored formations. Both IIC variants carry higher costs than the original Axels, limiting overall production numbers despite improved capabilities.</p>
+</capabilities>
+
+<overview>
+<p>The Axel is the Free Rasalhague Republic's answer to the main battle tank problem, a licensed derivative of the Rommel and Patton designed to give the new state a credible heavy armor force without dependency on fusion engine supply chains the FRR could not sustain. Built by Benson and Bjorn on Spittal, the Axel trades the fusion powerplant of its Lyran progenitors for a combustion engine, accepting a reduction in sustained performance for dramatically simpler logistics. The design proved adaptable enough to remain in production through successive annexations and political upheavals, with the Clan Ghost Bear occupation eventually leading to an entirely new branch of the family using advanced technology. The Axel IIC variants represent a modern evolution of the original concept, built to equip the Kungsarme with capable front-line armor using manufacturing infrastructure that survived the Republic's end.</p>
+</overview>
+
+<deployment>
+<p>The Axel Mk 2 entered production alongside the Mk 1 at Benson and Bjorn on Spittal, offering an alternative loadout with a vehicle flamer replacing one machine gun for improved anti-infantry capability at close range. Distribution mirrored the Mk 1, with both variants serving side by side in FRR and later Clan Ghost Bear garrison formations. The Mk 2 was preferred for urban and anti-infantry operations where the flamer provided a meaningful advantage over the purely ballistic Mk 1 loadout.</p>
+</deployment>
+
+<history>
+<p>The Axel traces its origin to the founding years of the Free Rasalhague Republic, when the new state required armored vehicles it could produce and maintain without reliable access to fusion engine supply. A licensing arrangement gave the FRR access to Rommel and Patton design data, and Benson and Bjorn's engineers on Spittal adapted the chassis to combustion engines, creating a vehicle the Republic could field in meaningful numbers. Initial deliveries prioritized planetary militias on heavily populated border worlds, though frontline formations soon demanded the Axel for their own armored regiments.</p><p>The design's Lyran origins meant occasional Axel appearances in Federated Commonwealth formations through the Steiner-Davion alliance, though the vehicle remained most closely identified with Rasalhague military identity. When Clan Ghost Bear's occupation absorbed Spittal and ultimately the Free Rasalhague Republic itself, the Benson and Bjorn facility passed under Clan control. Rather than abandon the line, the Ghost Bears reconfigured it in 3074 to produce an updated vehicle for the Kungsarme, the surviving Rasalhague military force now serving within the Ghost Bear Dominion. The resulting Axel IIC used advanced technology to create a modern main battle tank deliberately aligned with Inner Sphere preferences, a concession to Rasalhague cultural and tactical identity within the occupation structure. An advanced XL-powered command variant followed shortly afterward, though cost kept numbers low. After the formation of the Rasalhague Dominion, production of both IIC variants continued on Spittal through the Dark Age.</p>
+</history>
+
+<manufacturer>
+Benson and Bjorn
+</manufacturer>
+
+<primaryFactory>
+Spittal
+</primaryFactory>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+65.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

@@ -1,0 +1,183 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-af5b-74e3-853e-7956b3335d17
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Shade
+</Name>
+
+<Model>
+S-HA-OC Comminus
+</Model>
+
+<mul id:>
+5032
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+9
+</SafeThrust>
+
+<cockpit_type>
+1
+</cockpit_type>
+
+<heatsinks>
+12
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<omnipodheatsinks>
+2
+</omnipodheatsinks>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+40
+28
+28
+20
+</armor>
+
+<Nose Equipment>
+Thunderbolt 10:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo Thunderbolt-10:OMNI
+IS Ammo Thunderbolt-10:OMNI
+ISCASE:OMNI
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Shade draws power from a Hermes 245-rated extralight engine, producing a thrust-to-weight ratio that gives this light fighter maneuverability exceeding many heavier designs. The collapsible wing structure, refined from the Striga's original system and improved further on the Rusalka, reaches its most effective expression on the Shade's lighter airframe, allowing the wings to fold to the point where the fighter resembles a small shuttle or escape pod in vacuum operations. Six and a half tons of Divine Shield-D ferro-aluminum armor provides adequate protection relative to the Shade's weight class, though it remains the most lightly armored of the three Spectrals. The fifteen and a half tons of pod space limits raw firepower compared to its siblings, a trade-off offset by the fighter's exceptional agility in dictating engagement range. As with the entire Spectral line, the minimized cockpit and Master's Voice Cel-Beta communications system restrict effective operation to Manei Domini pilots whose augmentations match the design's demanding performance envelope.</p>
+</capabilities>
+
+<overview>
+<p>The Shade is the lightest and most recently introduced of the Word of Blake's Spectral Series OmniFighters, named for a ghostly apparition in keeping with the trio's supernatural motif. Commissioned by Precentor Apollyon and designed by Precentor Vapula, the Shade entered service on Gibson approximately one year after the Striga's debut in late 3071, representing the final refinement of Vapula's Spectral concept in a light-fighter package. At thirty-five tons it is the fastest and most maneuverable of the three Spectrals, and while it carries the least armor and weapons capacity of its siblings, its extraordinary speed and the distinctive capabilities of the Spectral vectoring thrust system make it a demanding adversary for opponents unfamiliar with the series.</p>
+</overview>
+
+<deployment>
+<p>A close-quarters variant that makes full use of the Shade's exceptional thrust-to-weight ratio to press engagements at short distances where opposing fighters lose the advantage of superior firepower or armor. The Shade's speed and profile-reduction capabilities are particularly effective in close-in fighting, where the fighter's unusual silhouette creates targeting complications for conventional opponents.</p>
+</deployment>
+
+<history>
+<p>The Spectral Series emerged from the Word of Blake's campaign to equip its Manei Domini forces with purpose-built military hardware designed around the unique capabilities of its cyber-enhanced warriors. As the Jihad unfolded in the early 3070s, Precentor Apollyon commissioned a dedicated aerospace component to complement the Celestial OmniMechs already in production. The assignment fell to Precentor Vapula, the same engineer responsible for the Celestial series, who approached aerospace fighter design with the same philosophy applied to the ground machines: maximum performance for Manei Domini pilots, at the cost of any utility to conventional operators.</p><p>Production of the Spectral Series was centered on Gibson, where Brigadier Corporation's Portent factory had historically manufactured the Monarch DropShip line. The Word of Blake refurbished and rebranded those lines as Master's Wings Aerospace, retooling the facility for aerospace fighter production. The Striga, heaviest of the three designs, became the first to roll off the new lines in late 3071. The lighter Rusalka and Shade followed within the next year, each refining the collapsible wing technology and multi-directional vectoring thrust system introduced on the Striga.</p><p>From initial deployment the Spectral Series served exclusively within the Shadow Divisions, the Manei Domini formations that represented the Word of Blake's highest tier of military capability. Distribution was deliberate and tight. The Striga appeared first while the Forty-second Shadow Division conducted operations over Luthien, and the Rusalka's initial production runs were allocated to divisions that had suffered heavy losses, particularly the Forty-fifth Division following its retreat from Benjamin. The majority of later Rusalka production went to the Forty-ninth and Fifty-second Divisions on Gibson, and the WoBS Beneficence, formerly the FSS Melissa Davion, received at least two Level IIs of Rusalka fighters to replace its Avalon-class complement. The Shade entered service last, confirmed with the Fifty-second and Forty-ninth Shadow Divisions, with unverified reports placing small numbers in the Forty-fourth and Fifty-first Divisions as well.</p><p>The Shadow Divisions employed the Spectrals aggressively throughout the Jihad, conducting raids on Hall and Alphard in 3073, defending Gibson during the same period, and pursuing retreating conventional forces as the Word's grip on key systems tightened. Requests from Cameron St. Jamais for Striga allocation were reportedly refused by Precentor Apollyon, an indication of the growing internal divide between the Word's political and military leadership that would contribute to the Blakists' eventual collapse.</p><p>With the Word of Blake's defeat, production at Master's Wings Aerospace ceased and was never resumed. No Spectral fighter passed into the hands of successor states or mercenary forces in confirmed numbers, and the surviving examples were gradually lost to attrition and parts shortages. The clearest legacy of Vapula's Spectral program lived on in the Republic of the Sphere, whose Boeing Interstellar facility on Terra developed the Simurgh in the post-Jihad years, a heavy OmniFighter loosely derived from the Striga's design approach.</p>
+</history>
+
+<manufacturer>
+Master's Wings Aerospace
+</manufacturer>
+
+<primaryFactory>
+Gibson
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Master's Wings Aerospace
+ENGINE:Hermes
+ARMOR:Unknown
+COMMUNICATIONS:Master's Wings Aerospace
+TARGETING:Master's Wings Aerospace
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Spectral Series SH1F
+ENGINE:245 XL
+ARMOR:Divine Shield-D
+COMMUNICATIONS:Master's Voice Cel-Beta
+TARGETING:Master's Sight 2-Psi
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+

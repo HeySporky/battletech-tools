@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7f1-70b7-b42f-c2251834d8a9
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Sheriff Infantry Support Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6443
+</mul id:>
+
+<year>
+3098
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Brawler
+</role>
+
+<quirks>
+easy_maintain
+</quirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+42
+39
+39
+39
+39
+</armor>
+
+<Body Equipment>
+ISCASE
+IS Ammo LAC/5
+IS Ammo LAC/5
+IS Ammo LAC/5
+IS Ammo LAC/5
+</Body Equipment>
+
+<Front Equipment>
+ISBPod
+</Front Equipment>
+
+<Right Equipment>
+ISBPod
+</Right Equipment>
+
+<Left Equipment>
+ISBPod
+</Left Equipment>
+
+<Rear Equipment>
+ISBPod
+</Rear Equipment>
+
+<Turret Equipment>
+Light Auto Cannon/5
+Light Auto Cannon/5
+</Turret Equipment>
+
+<capabilities>
+<p>The Sheriff's offensive output comes from a pair of Pontiac Ultralight Light Class 5 Autocannons, positioned to provide overlapping fields of fire across the vehicle's front arc. Experienced crews alternate the ammunition feeds between standard and armor-piercing rounds, adapting to targets as the engagement shifts. The autocannons offer consistent cycling rates and ammunition flexibility without complicating the vehicle's logistics footprint, a deliberate choice for a design meant to operate alongside light infantry formations far from depot support.</p><p>Four Niu Tou B-Pods provide the Sheriff's most distinctive defensive feature. Infantry that attempt to swarm the vehicle or disable it at close range encounter these countermeasures with predictably unpleasant results. The reputation alone keeps most dismounted opponents at a cautious distance. The StarSlab/7 Heavy Ferro-Fibrous armor, backed by CASE to contain any ammunition cook-off, gives the Sheriff substantially more protection than its medium weight classification would suggest. The Magna 95 Fuel Cell plant delivers a maximum speed of 86 kilometers per hour, allowing the vehicle to accompany most motorized infantry formations and stay ahead of dismounted threats even on poor roads.</p><p>The Sheriff's primary limitation is its modest anti-armor reach. The paired autocannons struggle against heavier vehicles at extended range, and the design carries no weapons capable of reliably threatening a BattleMech at standoff distance. Commanders who deploy the Sheriff without dedicated anti-armor support accept real risk whenever enemy armor or 'Mechs enter the engagement. The fuel cell powerplant, while reliable and logistically simple, limits the vehicle's ability to power energy-intensive upgrades should future variants attempt to address this shortcoming.</p>
+</capabilities>
+
+<overview>
+<p>The Sheriff Infantry Support Tank entered service with the Magistracy of Canopus in 3098, produced by Majesty Metals and Manufacturing at their Dunianshire plant. Designed to provide armored mobile cover for infantry advancing into contested chokepoints, the Sheriff quickly found a broader role across the Capellan Confederation and its allies. Its combination of heavy protective plating, competitive road speed, and an integrated B-Pod countermeasure suite made it attractive not only to frontline combined-arms formations but to planetary militias, constabulary forces, and private security outfits. By the mid-thirty-second century, the Sheriff had become a fixture along the Periphery-border frontier zone and across the inner territories of the Confederation, valued for its reliability and the consistent deterrent effect its armored presence provides against dismounted opponents.</p>
+</overview>
+
+<deployment>
+<p>The Sheriff serves in its standard configuration throughout Magistracy of Canopus and Capellan Confederation ground forces, operating most commonly as infantry escort and security vehicle at the company and battalion level. Militia formations on Confederation border worlds maintain small numbers of Sheriffs for anti-piracy patrols and convoy protection. The design has spread to private security forces, constabulary units, and minor Periphery states within trade range of Dunianshire. It is rarely deployed as a primary armored asset against other vehicles or BattleMechs, but finds consistent employment wherever infantry require mobile armored cover and rapid response capability against dismounted threats.</p>
+</deployment>
+
+<history>
+<p>Majesty Metals and Manufacturing developed the Sheriff to address a recognized gap in the Magistracy of Canopus ground forces inventory. Existing light vehicles lacked the armor to reliably escort infantry into urban or fortified positions, while heavier designs carried logistics requirements incompatible with the Magistracy's dispersed frontier garrisons. The Sheriff entered service in 3098 and spent its early years on routine security and anti-piracy operations along the Canopian-Confederation border zone, building a reputation for dependability without yet demonstrating the combat performance that would eventually make it sought after outside the Magistracy.</p><p>That reputation changed on Candiear in 3100, when a pirate raiding force descended on the civilian population with the planetary garrison occupied elsewhere. The mayor of Lornak ordered the local constabulary to intercept the raiders. Chief Laramie Makkintyre led the constabulary's Sheriff company in a frontal assault, with three vehicles laying down suppressive autocannon fire while five accelerated directly into the enemy formation. When the Sheriffs closed to near-contact range, Makkintyre's crews rammed the legs of the raiding 'Mechs. Two enemy machines were toppled and the raiding lance withdrew, though the constabulary lost most of its vehicles in the process. Makkintyre received the Canopus Cluster for the action, and the engagement was cited repeatedly in subsequent export negotiations as evidence of what the Sheriff could accomplish when properly employed.</p><p>The design spread through Confederation-aligned forces over the following decades, with export agreements placing Sheriffs in the hands of Capellan planetary militias and allied constabulary units across the rimward frontier. The vehicle became common enough that informal sayings about it circulated among Capellan infantry, acknowledging that wherever trouble found the population, the Sheriff was rarely far behind.</p><p>A grimmer chapter unfolded on Ito in 3130, when two Sheriff crews were sent to recapture escapees from Divinity Gulag. The pursuit entered the Misty Fens during monsoon season. Both vehicles departed the road in driving rain and became mired in the marshy terrain. When the crews dismounted to assess the situation, the escapees turned on them, venting years of imprisonment in a brief and violent confrontation that cost both crews their lives. The incident was quietly noted in Magistracy operational doctrine reviews as a caution against pursuit operations in marginal terrain without infantry support.</p><p>The Sheriff appeared in strength on New Syrtis during the Capellan invasion of 3145, deployed in occupation security and population control roles alongside conventional infantry. When remnants of the planetary militia organized an assault on a Capellan prison facility at Saso, Sheriff crews defending the perimeter engaged in close-range fighting through the city streets. Picket 'Mechs forced the tanks to seek cover and maneuver through the urban terrain, where the Sheriff's speed and B-Pod suite gave defending crews a meaningful advantage against the infantry accompanying the militia assault. The fighting at Saso demonstrated both the Sheriff's strengths in the urban constabulary role and the limits of its firepower when facing armed opposition with BattleMech support.</p>
+</history>
+
+<manufacturer>
+Majesty Metals and Manufacturing
+</manufacturer>
+
+<primaryFactory>
+Dunianshire
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Magna
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:Duotech
+TARGETING:O/P
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:95 Fuel Cell
+ARMOR:StarSlab/7 Heavy Ferro-Fibrous
+COMMUNICATIONS:65
+TARGETING:911
+</systemModels>
+
+<source>
+TR:3145:CC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

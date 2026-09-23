@@ -1,0 +1,192 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ddb7-70df-a87c-4648eae40f43
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Opossum
+model:OPO-2 SalvageMech
+mul id:7847
+
+Config:Biped
+techbase:Inner Sphere
+era:3145
+source:TR:I
+published:TR:I
+rules level:2
+role:None
+
+
+mass:25
+engine:75 ICE Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:2 Single
+walk mp:3
+jump mp:0
+
+armor:Heavy Industrial(Inner Sphere)
+LA armor:5
+RA armor:5
+LT armor:5
+RT armor:5
+CT armor:8
+HD armor:6
+LL armor:5
+RL armor:5
+RTL armor:1
+RTR armor:1
+RTC armor:2
+
+Weapons:0
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Salvage Arm
+Salvage Arm
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Spot Welder
+RemoteSensorDispenser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+BeagleActiveProbe
+BeagleActiveProbe
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Opossum is a twenty-five-ton IndustrialMech produced by DiNapoli Industries on the world of Ankaa, introduced in 3110 as the company's inaugural product. Designed as a SalvageMech, the Opossum was built to fill growing market demand for affordable, reliable salvage and recovery equipment within the Republic of the Sphere. DiNapoli Industries positioned the Opossum as a cost-effective alternative to competing designs like the Fwltur, and the design gained early traction among civilian contractors and small military formations operating across Prefecture IV.</p><p>Though purely an industrial design with no combat capability in its base configuration, the Opossum's robust construction and versatile equipment suite earned it a reputation as one of the most dependable SalvageMechs in the Republic's civilian market.</p>
+
+capabilities:<p>The Opossum's design centers on its InterComBust 75 internal combustion engine, which provides a modest top speed of fifty-four kilometers per hour, adequate for its salvage recovery role but insufficient for battlefield maneuver. The IM Heavy II chassis carries StrongArm III heavy industrial armor, providing protection levels well above standard industrial grades and offering meaningful resistance to small arms and light weapons fire. The lack of jump jets limits the design's ability to navigate rough terrain, though the low ground pressure of the light chassis partially compensates in softer ground conditions.</p><p>The design's most notable feature is its Apple Churchill 2000 targeting and tracking system, paired with a Garret T10B communications suite, which together provide exceptional situational awareness for a machine of its class. In its standard configuration, the Opossum mounts a Beagle active probe linked to the Apple Churchill system, enabling detailed mapping of operational areas and identification of salvageable equipment at extended range. A DiNapoli ST7 salvage arm and spot welder round out the equipment suite, allowing field recovery and basic repairs. While the sensor package is impressive for its class, the Opossum's complete lack of weaponry leaves it entirely dependent on escorts in contested areas, a significant operational limitation.</p><p>The OPO-3 MOD variant replaces the spot welder and active probe with a Mydron Light Autocannon and advanced fire control system, trading reconnaissance and repair capability for meaningful self-defense. While this modification limits the SalvageMech's utility in its primary role, the addition of a ballistic weapon allows MOD-equipped Opossums to operate in contested environments where unmodified industrial machines would be prohibitively vulnerable.</p>
+
+deployment:<p>The base OPO-2 found particular success among civilian contractors and smaller military formations within Prefecture IV of the Republic of the Sphere, where its affordability and reliability made it the workhorse salvage platform of choice. Operators valued the design for its combination of advanced sensor capability and straightforward maintenance requirements, qualities that proved especially important for units operating far from established supply depots. Though eminently useful for salvage recovery, logistics support, and damage assessment, the OPO-2's complete lack of armament restricts its operational envelope to secure rear areas unless accompanied by armed escorts.</p>
+
+history:<p>DiNapoli Industries was founded in 3110 by Angelo DiNapoli on the world of Ankaa, within Prefecture IV of the Republic of the Sphere. The Opossum SalvageMech was the company's inaugural product, entering an industrial market that DiNapoli would come to dominate within two decades. By 3130, DiNapoli Industries had grown into the largest AgroMech manufacturer in Prefecture IV and the fifth largest within the Republic, making it the single largest employer on Ankaa. The company's rapid expansion into AgroMech production, DropShip manufacturing, and heavy ground transport overshadowed the Opossum itself, which remained a modest but steady seller in the SalvageMech market.</p><p>The political upheaval following the HPG Blackout in 3132 brought dramatic changes to both DiNapoli Industries and the Opossum's role. Jacob Bannson, the controversial industrialist behind Bannson Universal Unlimited, had attempted to acquire DiNapoli Industries as early as September 3131. Angelo DiNapoli fought the takeover through the Republic Senate and its Trade Subcommittee, but falling stock prices and a collapsed DropShip contract left the company vulnerable. Bannson completed his acquisition in June 3132, immediately restructuring the company and laying off fifteen thousand workers from subsidiary divisions on Bharat and Yangtze.</p><p>Under Bannson's ownership, the Opossum gained an unexpected second life as a paramilitary platform. When a field technician's modification to a Lancers Opossum demonstrated the SalvageMech's potential as a light combat vehicle, Bannson Universal moved quickly to commercialize the refit as a standardized kit. The OPO-3 MOD saw its combat debut with Bannson's paramilitary forces in September 3132, and the design's success in a raid against a Belyakov-Ourobouros depot on Fletcher validated the concept. Subsequent deployments across Prefectures III and IV demonstrated that even a modest ballistic weapon could transform an otherwise defenseless IndustrialMech into a viable asset for irregular formations lacking access to proper BattleMechs.</p><p>Bannson's control of the Ankaa facilities proved short-lived. In late 3132, the Steel Wolves landed on Ankaa seeking to secure DiNapoli's DropShip manufacturing capacity near the city of Anqabad. A subsequent battle between Steel Wolves and Swordsworn forces caused extensive civilian casualties, though the Steel Wolves ultimately retained control of the industrial facilities. The fate of Opossum production under these successive changes in ownership remains an enduring proof of the turbulent nature of Dark Age industrial politics.</p>
+
+manufacturer:DiNapoli Industries
+
+primaryfactory:Ankaa
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:IM Heavy II
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:InterComBust 75 ICE
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:StrongArm III Heavy Industrial
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T10B
+systemmanufacturer:TARGETING:Apple Churchill
+systemmode:TARGETING:2000

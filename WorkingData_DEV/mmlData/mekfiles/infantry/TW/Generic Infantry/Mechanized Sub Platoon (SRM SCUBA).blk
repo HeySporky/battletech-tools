@@ -1,0 +1,93 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bfeb-72eb-a9c7-5af11d0ae1ee
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Sub Platoon
+</Name>
+
+<Model>
+(SRM SCUBA)
+</Model>
+
+<year>
+2600
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Submarine
+</motion_type>
+
+<Troopers Equipment>
+Environment Suit, Marine
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Submarine mechanized SCUBA platoons use motorized underwater propulsion to deliver infantry beneath the surface at speeds faster than combat swimmers can achieve. Armed with assault rifles and two-shot SRM launchers modified for underwater operation, these platoons conduct subsurface infiltration, harbor attack, and coastal sabotage missions. The motorized sleds extend their operational range well beyond what standard SCUBA troops can cover, though the platoon must surface to engage most land targets effectively.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+InfantryStandardSRM
+</Secondary>
+
+<armordivisor>
+2.0
+</armordivisor>
+
+<spacesuit>
+true
+</spacesuit>
+
+<specialization>
+4096
+</specialization>
+

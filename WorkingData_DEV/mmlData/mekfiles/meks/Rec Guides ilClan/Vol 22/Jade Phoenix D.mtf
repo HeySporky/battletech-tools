@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-da8e-711d-baea-35e76ff1a02c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Jade Phoenix
+model:D
+mul id:8402
+
+Config:Biped OmniMek
+techbase:Clan
+era:3148
+source:RG22
+published:RG22
+rules level:3
+role:Sniper
+
+
+mass:85
+engine:340 XL (Clan) Engine
+structure:Clan Endo-Composite
+myomer:Standard
+
+heat sinks:17 Clan Double
+base chassis heat sinks:13
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:26
+RA armor:26
+LT armor:26
+RT armor:26
+CT armor:44
+HD armor:9
+LL armor:36
+RL armor:36
+RTL armor:10
+RTR armor:10
+RTC armor:10
+
+Weapons:4
+ER PPC, Left Arm
+ER PPC, Left Arm
+Gauss Rifle, Right Arm
+ER Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+Clan Endo-Composite
+Clan Endo-Composite
+Clan Endo-Composite
+Clan Endo-Composite
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLPartialWing
+CLPartialWing
+CLPartialWing
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLPartialWing
+CLPartialWing
+CLPartialWing
+Clan Gauss Ammo (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERMediumLaser (OMNIPOD)
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Jade Phoenix is an 85-ton Clan assault OmniMech introduced in 3148 by Clan Jade Falcon's CJF Factory Zone 4 on Alyina. Developed alongside the lighter Ion Sparrow and Hierofalcon, the Jade Phoenix was conceived as part of a new generation of partial wing-equipped OmniMechs designed to embody the Clan's warrior traditions. Named in honor of the legendary Falcon hero Aidan Pryde, the design was intended to inspire MechWarriors to embrace honorable combat, and its straightforward armament philosophy reflects a deliberate preference for engagements that reward individual skill.</p><p>The Jade Phoenix quickly established a reputation as a formidable assault platform, prized for its combination of heavy firepower, generous pod space, and the enhanced maneuverability granted by its distinctive partial wing assembly. Its reliable performance has sustained demand well beyond its original Jade Falcon operators.</p>
+
+capabilities:<p>The Jade Phoenix is built on a JF 8 Light Endo-Composite chassis powered by a JF 340 XL fusion engine, giving the eighty-five-ton OmniMech a respectable top speed of 64 kilometers per hour. Compound JF Ferro-Fibrous armor provides substantial protection, while a fixed Partial Wing assembly grants enhanced maneuverability that allows the design to reach positions typically inaccessible to assault-class 'Mechs. With 37 tons of available pod space, the Jade Phoenix offers commanders considerable flexibility in tailoring configurations to specific mission requirements.</p><p>The Primary configuration emphasizes long-range fire support, mounting a pair of ER PPCs alongside a devastating Hyper-Assault Gauss Rifle 30. Four pod-mounted jump jets further exploit the Partial Wing's capabilities, enabling the Jade Phoenix to seize elevated firing positions and leverage its ranged weaponry to maximum effect. Five additional double heat sinks manage the considerable thermal output of this weapons package. The straightforward armament philosophy that characterizes all configurations reflects a deliberate design choice favoring honest engagements that reward a warrior's skill over technological surprise or deception.</p><p>The XL engine represents the design's primary vulnerability, as critical hits to either side torso can prove catastrophic. However, the combination of speed, jump capability, and the Partial Wing's enhanced atmospheric performance gives skilled pilots the tools to mitigate this weakness through superior positioning.</p>
+
+deployment:<p>Alternate Configuration D is the only Jade Phoenix variant to forgo jump jets entirely, operating instead as a more conventional Clan assault platform. A Gauss rifle and twin ER PPCs are linked to a Targeting Computer that dramatically improves accuracy at all ranges, making this configuration one of the most precise long-range fire platforms in the Falcon touman. A single ER medium laser provides token close-range backup. The sacrifice of jump mobility in exchange for fire control precision reflects a different tactical philosophy from the other configurations, favoring deliberate engagement from prepared positions over the dynamic maneuvering that characterizes the Jade Phoenix's other loadouts.</p>
+
+history:<p>The Jade Phoenix emerged from CJF Factory Zone 4 on Alyina in 3148, the last of three new OmniMech designs to enter production following the Ion Sparrow in 3147 and the Hierofalcon earlier that same year. All three designs featured the distinctive partial wing systems that had become a hallmark of Alyina's engineering output, but the Jade Phoenix carried an additional burden of symbolism. Its creators, scientists and technicians of the civilian caste, took the unusual step of openly attempting to shape warrior culture by designing a 'Mech intended to reconnect Clan Jade Falcon with the heroic traditions of its past rather than the destructive impulses championed by Khan Malvina Hazen.</p><p>This philosophical stance ensured that the Jade Phoenix found its strongest support among Falcon warriors who rejected the Mongol Doctrine. The OmniMech became most commonly deployed in Clusters that favored traditional combat, particularly those within the Delta and Zeta Galaxies. Pro-Malvina elements within the Clan's touman viewed the design with open disdain, preferring the raptor-styled totem 'Mechs manufactured by Olivetti Weaponry and Eagle Craft Group that emphasized predatory aggression over noble bearing.</p><p>The Jade Phoenix proved its combat worth during the Battle of Skye in March 3150, where it demonstrated particular effectiveness in single combat during Trials of Grievance. The design's straightforward armament and superior maneuverability made it a formidable dueling platform, and traditional Falcon warriors frequently chose the Jade Phoenix for combat trials as a deliberate repudiation of the Mongol Doctrine's emphasis on overwhelming force.</p><p>Following Khan Malvina Hazen's ill-fated expedition to Terra and the subsequent upheaval within Clan Jade Falcon, the political theater surrounding the Jade Phoenix shifted dramatically. The newly formed Alyina Mercantile League assumed control of CJF Factory Zone 4, and the Jade Phoenix became available to mercenary forces hired by the League. This commercialization marked a significant departure from the design's original purpose as a symbol of Falcon honor, though the 'Mech's reputation for reliable, straightforward performance has made it an attractive acquisition for mercenary commands seeking a capable assault platform.</p>
+
+manufacturer:CJF Factory Zone 4
+
+primaryfactory:Alyina
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:CJF Factory Zone 4
+systemmode:CHASSIS:JF 8 Light Endo-Composite
+systemmanufacturer:ENGINE:CJF Factory Zone 4
+systemmode:ENGINE:JF 340 XL
+systemmanufacturer:ARMOR:CJF Factory Zone 4
+systemmode:ARMOR:Compound JF Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:CJF Factory Zone 4
+systemmode:COMMUNICATIONS:JF Integrated
+systemmanufacturer:TARGETING:CJF Factory Zone 4
+systemmode:TARGETING:Goshawk E-Series

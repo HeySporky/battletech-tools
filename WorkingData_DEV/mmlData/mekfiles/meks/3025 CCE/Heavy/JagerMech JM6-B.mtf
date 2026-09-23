@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c127-7b74-9e96-53b2cd78768e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:JagerMech
+model:JM6-B
+
+Config:Biped
+techbase:Inner Sphere
+era:2778
+source:TR:3025C
+rules level:1
+role:Missile Boat
+
+quirk:anti_air
+
+mass:65
+engine:260 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:13 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:17
+RT armor:17
+CT armor:20
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:3
+RTR armor:3
+RTC armor:5
+
+Weapons:6
+LRM 15, Left Arm
+Large Laser, Left Arm
+LRM 15, Right Arm
+Large Laser, Right Arm
+Medium Laser, Left Torso
+Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+LRM 15
+LRM 15
+LRM 15
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+LRM 15
+LRM 15
+LRM 15
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Medium Laser
+IS Ammo LRM-15
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Medium Laser
+IS Ammo LRM-15
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Heat Sink
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The JagerMech was introduced in 2774 by Kallon Industries as a dedicated anti-aircraft platform and long-range fire support unit, designed to address several critical shortcomings identified in the Rifleman. Kallon engineers reviewed the battlefield performance of the older design and found three major flaws: excessive heat generation, insufficient armor protection, and inadequate ammunition reserves. While the resulting JagerMech successfully resolved the heat and ammunition concerns, its engineers were unable to increase armor coverage despite the larger sixty-five-ton chassis. Kallon justified this compromise by noting the 'Mech's intended role as a second-line platform, where its long-ranged autocannons would allow it to engage targets well beyond effective return fire range. The design entered mass production for the Star League Defense Force and became a mainstay of fire support formations, particularly within the Armed Forces of the Federated Suns.</p>
+
+capabilities:<p>The JagerMech's defining feature is its battery of four Mydron autocannons, mounting a Model C class-five and a Model D class-two weapon in each arm. This configuration provides devastating long-range direct fire capability, with the lighter autocannons reaching out to extreme distances for suppression and anti-aircraft work while the heavier weapons deliver punishing volleys at medium range. Ammunition is carried in the torso, with two tons for the class-five autocannons split between the side torsos and a single ton for the class-twos in the center, providing twenty full-strength volleys before resupply. A pair of Magna Mk. II medium lasers mounted in the torso provide a last-ditch close defense capability.</p><p>The JagerMech shares the Rifleman's excellent Garret D2j targeting and tracking system, making it equally accurate when assigned to anti-aircraft duties. When stationary, the design can fire its entire arsenal without heat buildup thanks to ten single heat sinks, a marked improvement over the Rifleman's notorious thermal management problems. However, this efficiency comes at a steep cost: only six tons of standard armor protect the chassis, making the JagerMech dangerously vulnerable if an enemy closes to effective range. Commanders who fail to keep their JagerMechs properly screened by heavier units often learn this lesson the hard way.</p>
+
+deployment:<p>This variant is a further evolution of the JM6-A concept, developed in response to mercenary units' requests for improved mission endurance. Replacing the lighter autocannons with large lasers and adding three supplemental heat sinks, the B variant freed the design from close dependency on ammunition resupply for its primary weapons. A pair of LRM-15 launchers retained in the side torsos provided indirect fire capability and partial compensation for the extreme range lost with the removal of the autocannon/2s. The resulting configuration made this variant uniquely suited for extended operations on frontier worlds and in the Periphery, where reliable logistics chains could not be guaranteed. Particularly, this variant stands as the only standardized JagerMech variant to entirely lack the chassis's signature ballistic weapon arsenal.</p>
+
+history:<p>The JagerMech was born from Kallon Industries' analysis of early Rifleman combat performance data, which revealed that the older design's overheating issues and ammunition dependency were costing lives on the battlefield. Kallon's solution entered production in 2774, and while the Star League's collapse limited initial distribution, the design found a lasting home within the Armed Forces of the Federated Suns. During the Succession Wars, the largest concentrations of JagerMechs served House Davion and House Liao, with relatively few reaching the other Great Houses. The 'Mech became strongly identified with the Federated Suns, owing largely to its primary factory's location on the moon Talon orbiting Wernke.</p><p>Within AFFS Regimental Combat Teams, JagerMechs formed the backbone of fire support lances alongside Dervishes and Riflemen, though they also served as supporting members of attack and strike lances where their long-range firepower could cover advancing lancemates. House Liao maintained significant numbers through battlefield salvage, reconditioning captured machines for their own forces, though the large majority of operational JagerMechs remained in Davion service.</p><p>After the Fourth Succession War, Kallon contracted with Independence Weaponry on Quentin to expand JagerMech production for the AFFS. This arrangement was disrupted when the Draconis Combine captured Quentin during the War of 3039, placing the secondary production line under Kuritan control. Although the Combine was never enthusiastic about the design, JagerMechs gradually appeared in increasing numbers within the Draconis Combine Mustered Soldiery. The introduction of the upgraded JM6-DD variant, incorporating recovered lostech, came just months before the Clan Invasion. Following the Outreach Summit in late 3050, First Prince Hanse Davion agreed to share the DD's technical specifications with Coordinator Theodore Kurita, resulting in new and refitted JagerMechs seeing significant action along both flanks of the Clan advance. In the years following the invasion, virtually every BattleMech regiment in the Draconis Combine and Federated Commonwealth fielded new or upgraded JagerMechs.</p><p>Post-FedCom Civil War development of the JagerMech split along three distinct lines. The first comprised simple field refits of the JM6-DD, such as the DG and H models. The second was a complete ground-up redesign under Archon-Prince Victor Steiner-Davion's "Redesign for Davion Pride" program, producing the JagerMech III. The third was the creation of the JM7 series, built on a heavier seventy-ton chassis that retained the JagerMech name despite the significant increase in mass. The destruction of Kallon's Talon factory during the Jihad in 3069 left only the Independence Weaponry plant on Quentin to produce the original design, though Kallon's facilities on Wernke and Victoria continued development of newer variants.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Kallon
+systemmode:CHASSIS:Type XII
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:260
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:Royalstar
+systemmanufacturer:COMMUNICATIONS:Garrett
+systemmode:COMMUNICATIONS:T11-A
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:D2j

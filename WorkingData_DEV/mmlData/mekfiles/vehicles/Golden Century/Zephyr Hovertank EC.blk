@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e8f3-730a-9f62-35f07d3a1549
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Zephyr Hovertank
+</Name>
+
+<Model>
+EC
+</Model>
+
+<mul id:>
+7674
+</mul id:>
+
+<year>
+2820
+</year>
+
+<type>
+Mixed (IS Chassis) Experimental
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+35
+28
+28
+18
+35
+</armor>
+
+<Body Equipment>
+ISGuardianECMSuite
+CLImpAmmoSRM6
+CLImpAmmoSRM6
+</Body Equipment>
+
+<Front Equipment>
+Improved SRM 6
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISTAG
+CLERMediumLaserPrototype
+CLERMediumLaserPrototype
+</Turret Equipment>
+
+<capabilities>
+<p>The Zephyr's tactical value derives primarily from its Guardian ECM suite and the speed to deploy it effectively. The GM 185 fusion engine provides a cruising speed of 97 kilometers per hour and a flank speed exceeding 150 kilometers per hour, allowing the vehicle to reposition rapidly and maintain the ECM umbrella where it is most needed. Seven tons of Grumman CRT ferro-fibrous armor give the Zephyr above-average protection for its weight, sufficient to absorb glancing fire and permit high-speed disengagement when engagements turn unfavorable.</p><p>Armament is deliberately secondary to the support mission. Three medium lasers and the Alloran target acquisition gear occupy the turret, providing reliable fire support without generating significant heat. A nose-mounted SRM-6 with two tons of reloads adds short-range punch, and a rear-facing small laser discourages pursuit. Clan Invasion-era production models use Bowie Electronics lasers, a Thor SRM-6, and a Bundesweyth TAG, performing identically to their Star League predecessors with different component branding.</p><p>The Zephyr's limitations stem from its support focus. It carries no jump jets, relying on hover speed to evade threats. Against dedicated anti-vehicle platforms or sustained fire, its armor and weapons cannot sustain extended engagements. Crews train to establish the ECM umbrella, contribute fire support from medium range, and withdraw before the vehicle absorbs critical damage.</p>
+</capabilities>
+
+<overview>
+<p>Developed by Clan Blood Spirit during the Golden Century, the EC variant represents the Clan's effort to modernize the inherited Star League Zephyr design using improved early Clan technology. Beginning production around 2820, the variant was built entirely within Blood Spirit facilities, using the same 40-ton hover chassis as its Inner Sphere ancestor while integrating weapons and armor suited to the Clan's emerging tactical standards.</p><p>Unlike the original Grumman design, which prioritized electronic warfare and support roles, the EC variant takes a more direct combat approach. The replacement of the ECM suite with improved offensive weapons reflects Blood Spirit doctrine that valued self-reliant aggression over the subtle support functions that defined the Inner Sphere design. The vehicle retained the original chassis's impressive speed and fundamental reliability, qualities the Blood Spirits found too valuable to abandon in their redesign.</p>
+</overview>
+
+<deployment>
+<p>The EC variant is found almost exclusively within Clan Blood Spirit's toumans and garrison forces. Its distribution beyond Blood Spirit territory is negligible, limited to rare examples acquired through isorla by other Clans or recovered in peripheral salvage operations. The type is most commonly encountered in accounts of Blood Spirit internal exercises and the Clan's defensive operations during periods of inter-Clan conflict during the Golden Century.</p>
+</deployment>
+
+<history>
+<p>The Blood Spirit EC variant emerged from the Golden Century's tradition of Clan engineers refining inherited Star League technology. When the Blood Spirits gained access to Zephyr chassis through salvage and wartime acquisition, they recognized the vehicle's underlying quality while finding its Star League weapons suite increasingly dated against the improving standards of early Clan technology. Beginning around 2820, Blood Spirit technicians replaced the original weapons and electronics with Clan-spec systems, transitioning the design from an ECM-focused support platform to a direct-combat vehicle.</p><p>The ferro-fibrous armor upgrade was treated as essential given the more exposed role the Blood Spirits envisioned, and the shift away from Guardian ECM reflected a broader doctrinal preference for decisive engagement over indirect support. The EC variant served in Blood Spirit sibko training units before graduating to garrison and second-line toumans, where it provided a reliable if aging complement to purpose-built Clan designs. Distribution beyond Blood Spirit territory remained negligible, and the variant's presence in any other Clan's inventory resulted from the occasional isorla or peripheral exchange.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:GC
+</source>
+
+<published>
+TR:GC
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

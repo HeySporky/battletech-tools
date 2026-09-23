@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ce5f-7c21-8bce-212a153abe3a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Eyleuka
+model:EYL-45A
+mul id:1009
+
+Config:Biped
+techbase:Inner Sphere
+era:3069
+source:TR:3075
+published:RS:3075u-CE
+rules level:2
+role:Striker
+
+quirk:exp_actuator
+
+mass:55
+engine:275 XL Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Compact Gyro
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:7
+
+armor:Stealth(Inner Sphere)
+LA armor:15
+RA armor:15
+LT armor:16
+RT armor:16
+CT armor:22
+HD armor:9
+LL armor:21
+RL armor:21
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:5
+MML 9, Left Arm
+ER Large Laser, Right Arm
+ER Medium Laser, Right Arm
+TAG, Left Torso
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMML9
+ISMML9
+ISMML9
+ISMML9
+ISMML9
+IS Ammo MML-9 SRM
+IS Stealth
+IS Stealth
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+ISTAG
+IS Stealth
+IS Stealth
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+ISERMediumLaser
+IS Stealth
+IS Stealth
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+IS Ammo MML-9 LRM
+IS Ammo MML-9 LRM
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Eyleuka is a 55-ton medium BattleMech born from the Trinity Alliance's collaborative approach to military technology in the late 3060s. While the Magistracy of Canopus had long benefited from Capellan Confederation technological transfers, Canopian design teams on Detroit sought to prove they could develop a modern combat chassis independently. After nearly five years of limited progress, the project merged with a Capellan Confederation Armed Forces requirement for a dedicated commando and special operations 'Mech. The resulting design, named after a legendary Ethiopian queen, proved to be an unmistakable product of design by committee, blending Canopian mobility preferences with Capellan stealth doctrine.</p><p>Detroit Consolidated MechWorks brought the Eyleuka to production status in 3069, with the design entering service across both Magistracy and Confederation formations. Despite its compromised origins, the Eyleuka has proven an effective raider and guerrilla platform, leveraging stealth technology and exceptional jump capability to fulfill its special operations mandate.</p>
+
+capabilities:<p>The Eyleuka achieves its special operations role through a combination of stealth technology and impressive aerial mobility. Though its top ground speed of 86 kilometers per hour is merely adequate for a medium 'Mech, seven improved jump jets grant a maximum jumping distance of 210 meters, far exceeding most designs in its weight class and allowing it to exploit terrain that would stymie heavier pursuers. Nearly ten tons of Hellespont Lite stealth armor, integrated with a Guardian ECM suite, provide solid protection while making the 'Mech extremely difficult to detect or target at range.</p><p>The weapons payload centers on a Spencer Selectable MML-9 launcher that offers remarkable tactical flexibility, with three tons of ammunition allowing the MechWarrior to load specialized munitions including mine dispensers, Inferno rounds, or TAG-guided rounds to complement the onboard Diverse Optics TAG system. Long-range engagements are handled by a Diverse Optics Sunbeam ER large laser, while a pair of Diverse Optics Type II ER medium lasers provide close-range punch.</p><p>The design does carry notable compromises, however. The small cockpit leaves pilots feeling cramped, the ten double heat sinks are often insufficient during sustained engagements, and the ER Motors extra-light engine stands as a significant vulnerability if the 'Mech's torso is breached. The placement of ammunition bins flanking the cockpit adds psychological pressure on pilots, though the actual risk is no greater than comparable CASE-equipped designs.</p>
+
+deployment:<p>This variant is the primary production variant and the definitive expression of the Trinity Alliance's collaborative design effort. Combining Canopian jump jet technology with Capellan stealth systems, the 45A represents the balanced compromise between the two nations' tactical philosophies. The MML-9 launcher provides mission flexibility through its ability to switch between long-range and short-range missile configurations, while the ER large laser and paired ER medium lasers ensure reliable energy-based firepower at all engagement ranges. A Diverse Optics TAG system further extends the 'Mech's utility by enabling it to designate targets for allied artillery and guided munitions, a capability well suited to its role as a forward operating commando platform. Entering service in 3069, the 45A has seen the widest deployment of any Eyleuka variant across both Magistracy and Capellan formations.</p>
+
+history:<p>The Eyleuka's development traces back to the early 3060s, when Canopian engineers on Detroit began an ambitious effort to design a wholly indigenous medium BattleMech. The Magistracy of Canopus had long relied on secondhand Capellan and Inner Sphere designs, and the project represented an important step toward military self-sufficiency. Progress was slow, however, and after nearly five years the prototype EYL-4A had barely progressed beyond the testing stage.</p><p>The design's fortunes changed when the Capellan Confederation Armed Forces expressed a need for a modern special operations platform. The Trinity Alliance facilitated a merger of the Canopian mobility-focused prototype with Capellan stealth and weapons technology, though the resulting compromises satisfied neither party entirely. Detroit Consolidated MechWorks achieved production status for the revised EYL-45A in 3069, with manufacturing ramping up during the Jihad.</p><p>Within the Magistracy Armed Forces, the Eyleuka quickly found a home among Light Horse and Fusilier formations, where its stealth capabilities and jumping prowess proved ideal for raiding and guerrilla operations. The design first saw combat during Operation Sovereign Justice, serving as a covert raider behind enemy lines. The Capellan Confederation's elite formations (including the Death Commandos, Red Lancers, and House Imarra guard units) were among the first Confederation units to receive Eyleukas, reflecting the 'Mech's suitability for unconventional warfare.</p><p>The factory on Detroit changed hands multiple times as political control of the world shifted, passing from the New Colony Region to the Magistracy of Canopus and eventually to the Capellan Confederation during the Dark Age. Throughout these transitions, Detroit Consolidated MechWorks continued producing the Eyleuka, with the design remaining in service across multiple Periphery and Capellan formations well into the thirty-second century.</p>
+
+manufacturer:Detroit Consolidated Mechworks
+
+primaryfactory:Detroit
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Dynastic
+systemmode:CHASSIS:55-E
+systemmanufacturer:ENGINE:ER Motors
+systemmode:ENGINE:275 XL
+systemmanufacturer:ARMOR:Hellespont
+systemmode:ARMOR:Lite Stealth
+systemmanufacturer:JUMP_JET:Nike
+systemmode:JUMP_JET:Doublejet 9s
+systemmanufacturer:COMMUNICATIONS:FoxxCom
+systemmode:COMMUNICATIONS:75
+systemmanufacturer:TARGETING:FoxxFire
+systemmode:TARGETING:180

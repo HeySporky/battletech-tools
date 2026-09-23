@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c2e2-7476-8390-c772b6757cdc
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Thorn
+model:THE-S
+mul id:3195
+
+Config:Biped
+techbase:Inner Sphere
+era:3035
+source:TR:3039
+published:RS:3039u
+rules level:1
+role:Striker
+
+quirk:easy_maintain
+
+mass:20
+engine:120 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:6
+RT armor:6
+CT armor:8
+HD armor:8
+LL armor:7
+RL armor:7
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:3
+Medium Laser, Left Arm
+LRM 5, Right Arm
+Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+LRM 5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+IS Ammo LRM-5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+Heat Sink
+
+Head:
+Life Support
+Sensors
+Cockpit
+Medium Laser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Thorn is a 20-ton light BattleMech introduced in 2490 by Ford Military Limited for the Hegemony Armed Forces. Originally intended as a scout, the design generated considerable excitement but faced immediate criticism for being too slow to fulfill that role effectively, while simultaneously lacking the armor and firepower expected of heavier designs. Stiff competition from the faster Locust left the Thorn struggling to justify its existence until Ford rebuilt the chassis in 2549 as the THE-N, transforming the design into a capable light 'Mech hunter and infantry support platform whose superior ton-for-ton combat power earned it a devoted following among light 'Mech companies expecting heavy action.</p><p>Production remained exclusively at Ford Military Limited's facility on Terra throughout the design's long history, passing through Terran Hegemony, ComStar, Word of Blake, and Republic of the Sphere control across the centuries.</p>
+
+capabilities:<p>The Thorn mounts an atypical weapons suite for its weight class. A Zeus LRM-5 launcher in the right arm provides long-range fire support capability that most light 'Mechs lack, paired with two Hellion Spitfire medium lasers split between the head and left arm. This combination allows pilots to engage effectively at multiple range brackets, a significant advantage given the design's modest top speed of 97 kilometers per hour. The missile feed system in the right arm is vulnerable to damage in close combat, and a malfunction can cause missiles to become lodged in the upper arm, though the launcher itself can be replaced in a matter of hours.</p><p>The THE-N variant's Chariot Type II Endo Steel chassis is what makes the design viable, the lightweight alloy freeing enough tonnage for four and a half tons of armor protected by CASE. A GM 120 fusion engine and ten single heat sinks keep the Thorn running cool under most circumstances, though the head-mounted laser's proximity to the cockpit makes repeated firings uncomfortable for the MechWarrior. The lack of jump jets remains the design's most significant tactical limitation. The entire 'Mech is noted for its ease of maintenance, with technicians able to climb inside the limbs to perform internal repairs, a feature that contributed significantly to the design's remarkable longevity in service.</p>
+
+deployment:<p>This variant was created in 3035 when ComStar refitted Thorns for delivery to the Draconis Combine as part of Operation Rosebud. Returning to the original THE-F blueprints, ComStar's technicians stripped the endo steel chassis and CASE from the THE-N, replacing them with standard equivalents in an operation that required complete disassembly and reassembly of each 'Mech's skeleton. The heavier standard internal structure forced a reduction of half a ton of armor, primarily from the head and rear torso. ComStar also deliberately replaced the Opus I Ultrabeam communications system with the more primitive Olmstead 30 to prevent any possibility of the Combine intercepting Com Guard transmissions, though the Omicron VII targeting system proved comparable to the Orion 80 it replaced. The THE-S retains the same Zeus LRM-5 and twin Hellion Spitfire medium laser armament of the original design.</p>
+
+history:<p>Ford Military Limited unveiled the first Thorn, the THE-F, in 2490 for the Hegemony Armed Forces. Despite the fanfare surrounding its introduction, the design faced an uphill battle for acceptance against the faster and cheaper Locust produced by Bergan Industries. It was not until Ford invested heavily in upgrading the chassis in 2549, producing the THE-N with its groundbreaking endo steel internal structure, that the Hegemony Armed Forces gave the Thorn their full endorsement. The THE-N represented a technological milestone as the first production BattleMech to incorporate endo steel, and the design served capably alongside Hoplites and Hussars in Star League Defense Force formations for over two centuries. A Royal variant, the THE-Nb, further enhanced the design with an extralight engine and energy-focused armament for elite SLDF Royal divisions beginning in 2743.</p><p>The fall of the Star League proved catastrophic for the Thorn. The orbital manufacturing centers required for endo steel production were among the first casualties of the Succession Wars, and by the Second Succession War it had become impossible for the Great Houses to maintain their inherited Thorns in original condition. Ford Military Limited, now under ComStar control on Terra, attempted to restart production of the original THE-F to keep the line alive, but output was sporadic at best. By the end of the Succession Wars era, operational Thorns could only be found in any significant numbers within the secretive Com Guards.</p><p>ComStar's role in the Thorn's history took a dramatic turn in 3035 when Primus Myndo Waterly authorized Operation Rosebud, a covert program to supply the Draconis Combine with military equipment. The Thorn was among the Star League-era designs gifted to House Kurita, though ComStar stripped every example of its advanced technology before delivery. The resulting THE-S was rebuilt from the ground up with a standard chassis, its communications systems deliberately downgraded to prevent any chance of eavesdropping on ComStar transmissions. Theodore Kurita, serving as Gunji-no-Kanrei, incorporated these 'gifts' into his secret modernization program, and Combine technicians soon developed the THE-T field refit to improve the design's short-range firepower ahead of the War of 3039.</p><p>The Clan Invasion in 3049 revealed that the Clans had also preserved Thorns in large numbers within Brian Caches, though most were relegated to solahma garrison troops. The invasion spurred ComStar to develop the THE-N1, a significant upgrade mounting an ER PPC that gave the small 'Mech unprecedented hitting power. This variant received its baptism of fire at the Battle of Tukayyid in 3052, where Com Guard formations used every available asset against the Clan advance. Following the ComStar Schism, the Word of Blake seized Terra and took control of the Thorn production line at Ford Military Limited. The Blakists developed the THE-N2 in 3071, a multi-role variant incorporating a multi-missile launcher that drew inspiration from both the original THE-N and the Combine's THE-T field modification.</p><p>After the Jihad concluded, the Republic of the Sphere assumed control of Terra and the Ford Military Limited facility. While no new Thorn variants emerged under Republic stewardship, the long-serving design remained in scattered service across multiple successor states, evidence of Ford's original emphasis on maintainability and the Thorn's enduring utility as a light combatant.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Chariot Type II
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:120
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:New Samarkand Metals
+systemmode:COMMUNICATIONS:Olmstead 30
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Omicron VII

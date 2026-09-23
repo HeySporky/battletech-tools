@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cb91-7add-bc24-74e15b064dd9
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Bishamon
+model:BSN-3K
+mul id:332
+
+Config:Quad
+techbase:Inner Sphere
+era:3060
+source:TR:3060
+published:RS:3060u
+rules level:2
+role:Striker
+
+quirk:difficult_maintain
+
+mass:45
+engine:315 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:7
+jump mp:0
+
+armor:Standard(Inner Sphere)
+FLL armor:22
+FRL armor:22
+LT armor:17
+RT armor:17
+CT armor:21
+HD armor:9
+RLL armor:22
+RRL armor:22
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:5
+Medium Pulse Laser, Left Torso
+ER Medium Laser, Left Torso
+MRM 20, Right Torso
+Medium Pulse Laser, Right Torso
+ER Medium Laser, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMediumPulseLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+MRM 20
+MRM 20
+MRM 20
+ISMediumPulseLaser
+ISERMediumLaser
+IS MRM 20 Ammo
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Bishamon was introduced in 3060 by Nimakachi Fusion Products Limited for the Draconis Combine Mustered Soldiery. Following the success of the Venom light BattleMech, Combine officials approached Nimakachi about developing a larger scout design incorporating newer technologies. The result was an unconventional forty-five-ton quadrupedal BattleMech intended as a heavy scout platform. Nimakachi's designers chose the quad configuration for its inherent stability, allowing the design to fill an unusual niche as a fast, well-armed reconnaissance 'Mech.</p><p>Named for Bishamon, one of Japan's Seven Fortunes and the god of warfare and warriors, the design earned a reputation as a capable heavy scout that could hold its own in direct combat, a quality that distinguished it from lighter reconnaissance platforms of the era.</p>
+
+capabilities:<p>The Bishamon's quad chassis is built on a lightweight Fortune VII endo steel frame and powered by a GM 315 XL engine, pushing the forty-five-ton design to speeds of nearly 119 kilometers per hour. This combination of advanced internal structure and an oversized engine provides impressive speed for a medium 'Mech, though the XL engine's bulk and fragility represent a significant vulnerability. The design carries 10.5 tons of Nimakachi Type 3 armor, providing protection exceeding that of many bipedal 'Mechs in the same weight class.</p><p>The Bishamon's armament is oriented toward short- to medium-range engagements. Its primary weapon is a Shigunga MRM-20 launcher with sufficient ammunition for sustained operations, supplemented by a pair of Diverse Optics extended-range medium lasers sourced from Free Worlds League manufacturers and two highly accurate Tronel XII medium pulse lasers. This weapons suite delivers considerable firepower at close quarters, though the design suffers from a notable gap in long-range capability. The trade-off for this firepower and mobility was the complete absence of jump jets, a limitation the designers accepted in exchange for heavier armament and armor protection. The quad chassis provides exceptional stability for firing on the move, but the inherent space limitations of the four-legged configuration restrict further equipment additions.</p>
+
+deployment:<p>The base BSN-3K serves as the primary production model of the Bishamon line. In the field, the design operates as a fast striker within Combine reconnaissance lances, using its speed to flank enemy formations before delivering punishing short-range salvos. MechWarriors assigned to this variant typically employ hit-and-fade tactics, exploiting the quad chassis's stability to maintain accurate fire while moving at high speed. The lack of jump jets demands careful terrain selection, as pilots must rely on raw speed rather than vertical mobility to break contact after an engagement.</p>
+
+history:<p>The Bishamon emerged during the waning years of the Clan Invasion era, entering production in 3060 at Nimakachi Fusion Products facilities on Lapida II in the Draconis Combine and Tematagi in the Free Worlds League. The design was initially distributed exclusively to the First Sword of Light regiment, known as the "Ivory Dragon" for its representation of religious devotion. The naming of the 'Mech for the Japanese god of warfare reinforced the symbolic connection between the design and the elite regiment's cultural identity.</p><p>Production at the Tematagi facility represents an unusual cross-border manufacturing arrangement, with a Free Worlds League-based Nimakachi plant producing a design primarily intended for the Draconis Combine military. This arrangement likely facilitated the acquisition of Free Worlds League-sourced components that feature prominently in the design. The Tematagi facility remained active through the Civil War period under FWL ownership before coming under Republic of the Sphere control during the post-Jihad era, eventually returning to FWL ownership though production activity ceased.</p><p>The Bishamon saw continued development through subsequent eras. The BSN-4K C3 command variant entered production alongside the base model, expanding the design's tactical utility by enabling it to serve as a network coordinator for combined-arms formations. During the Jihad, the BSN-5KC variant emerged exclusively from the Lapida II facility, reflecting the ongoing evolution of the design under Combine sponsorship. The Bishamon's combination of speed, firepower, and the stability advantages of its unusual quad configuration ensured it remained in production into the ilClan era, with the Lapida II factory continuing to manufacture all three variants under Draconis Combine ownership.</p>
+
+manufacturer:Nimakachi Fusion Products Ltd.|Nimakachi Fusion Products Ltd.
+
+primaryfactory:Lapida II|Tematagi
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Assault Tech Industries
+systemmode:CHASSIS:Fortune VII Endo Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:315 XL
+systemmanufacturer:ARMOR:Nimakachi
+systemmode:ARMOR:Type 3
+systemmanufacturer:COMMUNICATIONS:Omicron
+systemmode:COMMUNICATIONS:5000
+systemmanufacturer:TARGETING:Eagle Eye
+systemmode:TARGETING:B-18

@@ -1,0 +1,172 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e8f9-7e9f-8ef5-1ba56493b1fe
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Generic Expandable Services Vehicle
+</Name>
+
+<Model>
+(MASH)
+</Model>
+
+<mul id:>
+9585
+</mul id:>
+
+<year>
+3066
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:2.5:1:1::-1:0:omni
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+48
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+15
+10
+10
+15
+</armor>
+
+<Body Equipment>
+SV Chassis Mod [Tractor]
+OmniChassisMod
+MASH Equipment:OMNI:SIZE:6.0
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+7
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The GESV tractor is a medium wheeled support vehicle powered by a fuel cell engine. The fuel cell system eliminates dependence on volatile liquid fuels, reducing the logistical burden in forward areas and improving fire safety when the vehicle is configured as a medical unit or command post. The engine provides sufficient speed to keep pace with most mechanized formations, and the vehicle carries enough fuel for a range of approximately 2,700 kilometers.</p><p>Two tons of commercial-grade armor rated at BAR 7 protect the crew and internal equipment against light weapons fire and battlefield debris. This protection level is adequate for a support platform operating behind the front lines, though it provides little security against direct combat engagement. The GESV carries no integral weapons, leaving defense entirely to escort forces or crew personal arms, which is a meaningful limitation in fluid operational environments.</p><p>As an OmniVehicle, the GESV dedicates eleven tons of pod space to mission equipment, enabling installation of any combination of modules within that weight limit. A crew of two operates the vehicle itself, with configuration-specific personnel added as required. The tractor can pull up to two purpose-built trailers simultaneously, substantially multiplying available support capacity without additional prime movers. The trade-off for this flexibility is entirely in the vehicle's lack of self-defense capability.</p>
+</capabilities>
+
+<overview>
+<p>The Generic Expandable Services Vehicle, commonly known as the GESV, is a multipurpose wheeled support platform developed by the Federated Suns and introduced in 3066. Built around OmniVehicle technology, the design can be rapidly reconfigured to serve virtually any rear-echelon role, from mobile command post to field kitchen to frontline medical facility. The platform serves military units, government agencies, police forces, and civilian relief organizations operating in field environments. Its purpose-built trailer extends the tractor's capabilities further, offering additional configurations for personnel housing and cargo transport. The GESV's design philosophy emphasizes adaptability over specialization, allowing any organization engaged in extended field operations to meet diverse support needs with a single standardized platform rather than a fleet of dedicated vehicles. This flexibility, combined with straightforward maintenance requirements, has made the design a common sight in Federated Suns rear-echelon formations.</p>
+</overview>
+
+<deployment>
+<p>The MASH configuration equips the GESV with a full MASH unit and six surgical theaters, supported by a medical complement of 36 personnel. It provides organic surgical capability to formations operating beyond the range of fixed medical facilities. The configuration is deployed immediately behind front-line units to minimize patient transit time, and is frequently paired with GESV Trailer bunk configurations to expand patient housing capacity.</p>
+</deployment>
+
+<history>
+<p>The GESV emerged from a Federated Suns initiative to standardize rear-echelon support infrastructure. By the mid-3060s, the complexities of operating across multiple theaters had exposed the limitations of specialized support vehicles. Different organizations fielded incompatible equipment, creating maintenance and logistics complications that impaired operational efficiency across extended campaigns.</p><p>The OmniVehicle architecture provided the engineering solution. By applying the same modular technology used in OmniMechs to a wheeled support platform, engineers produced a vehicle that could be refitted between missions to serve whichever role was most needed. The tractor's eleven tons of pod space accommodated a command post module, a field kitchen, or a MASH unit, while the companion trailer expanded capacity for bunking, cargo, or workspace needs.</p><p>Introduced in 3066, the GESV entered service during the final years of the FedCom Civil War. Its timing proved fortunate, as the conflict generated exactly the kind of extended, multi-role operational demand the design was built to address. AFFS rear-echelon units quickly adopted the platform, and its reputation for versatility spread beyond the Federated Suns. Civilian agencies, police departments, and non-governmental relief organizations operating in conflict zones began acquiring the vehicle as well.</p><p>The GESV's generic specifications and civilian-grade components allowed manufacturers across the Inner Sphere to produce the vehicle with minimal tooling investment. This distributed production base contributed to the platform's resilience during the Jihad era, when targeted industrial strikes disrupted dedicated combat vehicle lines while GESV production continued at secondary and civilian facilities with little interruption.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fuel Cell
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+HB:HD
+</source>
+
+<tonnage>
+30.0
+</tonnage>
+
+<baseChassisFireConWeight>
+0.0
+</baseChassisFireConWeight>
+
+<fuel>
+3.5
+</fuel>
+

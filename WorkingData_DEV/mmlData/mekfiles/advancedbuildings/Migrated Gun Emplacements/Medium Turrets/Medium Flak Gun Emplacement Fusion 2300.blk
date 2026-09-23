@@ -1,0 +1,111 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a162-77c4-9362-97414a07cbc3
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Medium Flak Gun Emplacement
+</Name>
+
+<Model>
+(2300) (Fusion)
+</Model>
+
+<year>
+2300
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+60
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+Autocannon/2(ST)
+Autocannon/2(ST)
+Autocannon/5(ST)
+Searchlight(ST)
+IS Flak Ammo AC/2
+IS Flak Ammo AC/2
+IS Flak Ammo AC/2
+IS Flak Ammo AC/5
+IS Flak Ammo AC/5
+FUSION PowerGenerator:SIZE:10.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The fusion-powered Medium Flak Gun Emplacement combines the AC/2 and AC/5 dual-caliber configuration with integral power generation. Fusion independence allows this medium-weight air defense position to operate from elevated terrain, ridgelines, or perimeter positions where optimal anti-aerospace coverage demands placement beyond the reach of established power infrastructure.</p><p>Medium armor provides adequate protection for sustained air defense operations. The dual autocannon armament covers multiple engagement bands, and the fusion generator ensures both weapons remain powered through any disruption of external systems. Air defense positions are high-priority targets for enemy aerospace forces precisely because they threaten flight operations, and fusion independence means silencing the position requires physically destroying it rather than cutting its power supply.</p>
+</capabilities>
+
+<overview>
+<p>The Flak Gun Emplacement is purpose-built for anti-aerospace defense, mounting weapon combinations optimized for engaging fast-moving airborne targets. These emplacements form the backbone of ground-based air defense networks, protecting critical installations from strafing runs, bombing attacks, and aerospace fighter sweeps. Their mixed armament of ballistic weapons and missile systems provides multiple engagement options against targets moving at varying speeds and altitudes.</p><p>Air defense has been a critical component of fixed fortification design since the earliest days of aerospace-capable military forces. The flak emplacement fills the essential role of denying airspace above defended positions, forcing enemy aerospace assets to either accept punishing ground fire or abandon their attack runs. Even when they fail to destroy their targets, the suppressive effect of concentrated flak fire disrupts attack profiles and degrades bombing accuracy significantly.</p>
+</overview>
+
+<history>
+<p>The evolution of aerospace threats drove corresponding advances in ground-based air defense throughout the centuries of interstellar warfare. Early fixed anti-aircraft positions relied on rapid-firing autocannons to fill the sky with shells, a brute-force approach that traded ammunition for probability of hits against fast-moving targets. As aerospace fighters grew faster and more heavily armored, the limitations of this approach became painfully apparent during the Reunification War, when Periphery air forces exploited gaps in Hegemony air defense coverage to devastating effect.</p><p>The Star League Defense Force invested heavily in improving air defense doctrine, integrating missile systems alongside traditional autocannon batteries to create layered engagement zones. LRM systems could engage incoming aerospace fighters at extreme range while autocannons provided the rapid-fire capability needed for close engagement. This combined-arms approach to air defense became standard throughout the Star League era and was reflected in the air defense components of every Castle Brian. The most sophisticated installations mounted dozens of flak positions in interlocking arcs of fire that created a near-impenetrable umbrella over the fortress complex.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+2
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+90
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e55d-7cb6-93d0-8a98742ab60f
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Enyo Strike Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4127
+</mul id:>
+
+<year>
+3063
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Skirmisher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+30
+29
+29
+29
+27
+</armor>
+
+<Body Equipment>
+Clan Streak SRM 6 Ammo
+Clan Streak SRM 6 Ammo
+Clan Machine Gun Ammo - Half
+CLCASE
+Clan Streak SRM 6 Ammo
+</Body Equipment>
+
+<Front Equipment>
+CLStreakSRM6
+CLStreakSRM6
+</Front Equipment>
+
+<Right Equipment>
+CLMG
+</Right Equipment>
+
+<Left Equipment>
+CLMG
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLStreakSRM6
+CLLargePulseLaser
+</Turret Equipment>
+
+<capabilities>
+<p>Powered by a Type 330 extralight fusion engine, the Enyo can reach a top speed of ninety-seven kilometers per hour, fast enough to keep pace with most Clan medium BattleMechs. The extralight engine's compact profile frees significant internal volume for weapons and ammunition while keeping the vehicle at a manageable weight. Seven and a half tons of Compound VM20 ferro-fibrous armor provide solid protection for the tank's weight class, supplemented by CASE in the ammunition bays to mitigate the risk of catastrophic ammunition explosions.</p><p>The primary armament is a Series 44h large pulse laser mounted in the turret, offering excellent accuracy and unlimited ammunition. Three Type VI-Bravo Streak SRM-6 launchers provide devastating short-range firepower, with each launcher fed by its own dedicated ammunition bin for respectable endurance. One launcher is turret-mounted alongside the laser, while the other two face forward. A pair of Series IX machine guns, one on each flank, offer protection against unarmored infantry. The Enyo's main limitation is its reliance on speed over heavy armor thickness, as prolonged engagements against heavier opponents can quickly overwhelm its protective envelope.</p>
+</capabilities>
+
+<overview>
+<p>The Enyo Strike Tank is a fifty-five ton tracked combat vehicle designed by Clan Hell's Horses to exploit the advantages of lightweight engine technology in a production battle tank. Commissioned by Khan Malavai Fletcher as a fast, hard-hitting cavalry support platform capable of keeping pace with medium BattleMechs, the Enyo filled a gap in the Horses' touman for a purpose-built strike tank in the medium weight class. Lighter and faster than the Clan's existing armor assets, the design was intended specifically for use in Cavalry and Strike Cluster formations where speed and maneuverability were prized over raw firepower. Entering production in 3063, the Enyo quickly proved its value and has since been manufactured at multiple facilities, spawning several production variants that reflect the Horses' continued commitment to vehicle-centric combined-arms warfare.</p>
+</overview>
+
+<deployment>
+<p>Full production of the Enyo began in 3063, with the majority of early vehicles assigned to the depleted Gamma Galaxy and the Twenty-first Mechanized Assault Cluster. Both units had suffered significant losses in the recent fighting against the Ghost Bears and received priority allocation of the new strike tanks. Several other front-line Cavalry and Strike Clusters also received Enyos, where they replaced older combat vehicles of Star League vintage. Following the transition to Kirchbach-based production, the Enyo has become a standard element of the Horses' medium vehicle formations throughout their Inner Sphere occupation zone.</p>
+</deployment>
+
+<history>
+<p>The Enyo's development traces directly to Clan Hell's Horses' tradition of integrating combat vehicles into their touman alongside BattleMechs. Khan Malavai Fletcher initiated the project after observing the success of XL-engine refits on the Mars assault vehicle, envisioning a purpose-built strike tank that could serve as a lighter, faster complement to the Horses' existing armor assets. Fletcher directed his scientists to develop a production battle tank in the medium weight class capable of outmaneuvering most Clan-built armor units while keeping pace with supporting BattleMech forces.</p><p>Fletcher's disastrous campaign against the Ghost Bears led to the ejection of the Horses from the Inner Sphere and his subsequent removal by Khan James Cobb. Though these circumstances could have ended the Enyo project, Cobb recognized the soundness of Fletcher's designs and allowed development to continue. Full production began in 3063 at Kirin Armory Plant 4, the Horses' primary armored vehicle facility in the Clan Homeworlds.</p><p>As the Hell's Horses prepared for their relocation to the Inner Sphere, production on Kirin ceased when the world was traded to Clan Coyote during the Wars of Reaving after 3070. The Horses reestablished Enyo production at the upgraded Swedenborg Heavy Industries facilities on Kirchbach, which had been captured from Clan Wolf. Swedenborg had originally been an IndustrialMech manufacturer under Combine and later Free Rasalhague Republic control before the Wolf Clan seized the world during the Clan Invasion. Under Hell's Horses ownership, the site was expanded with new production lines for vehicles, battle armor, and various components. By 3079, the facility was operating at ninety-five percent capacity. The Kirchbach plant also became the production site for the Sholef and ER Pulse variants, while the experimental XR prototype was developed separately at Provisional Testing Site Stallion on Nouveaux Paris, with only four units completed before resource constraints halted the program.</p>
+</history>
+
+<manufacturer>
+Kirin Armory Plant 4|Swedenborg Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+Kirin (Surface)|Kirchbach
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Swedenborg Heavy Industries
+TARGETING:Swedenborg Heavy Industries
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Type 330 Extralight
+ARMOR:Compound VM20 Ferro-Fibrous
+COMMUNICATIONS:Build 1750/4 Tacticom
+TARGETING:Series XLII TLS
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+55.0
+</tonnage>
+

@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d674-7641-afbe-232c45f5709b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Minsk
+model:MNK-101
+mul id:4645
+
+Config:Biped
+techbase:Mixed (Clan Chassis)
+era:2830
+source:TR:GC
+published:TR:GC
+rules level:4
+role:Sniper
+
+
+mass:70
+engine:210 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:3
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:22
+RA armor:22
+LT armor:22
+RT armor:22
+CT armor:33
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:8
+RTR armor:8
+RTC armor:9
+
+Weapons:9
+Gauss Rifle, Left Arm
+Gauss Rifle, Right Arm
+LRM 10, Left Torso
+SRM 6, Left Torso
+Small Pulse Laser, Left Torso
+Machine Gun, Left Torso
+SRM 6, Right Torso
+Small Pulse Laser, Right Torso
+Machine Gun, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Left Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLLRM10
+CLSRM6
+CLSmallPulseLaser
+CLMG
+Clan Ammo LRM-10
+Clan Ammo SRM-6
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLSRM6
+CLSmallPulseLaser
+CLMG
+Clan Machine Gun Ammo - Full
+Clan Ammo SRM-6
+BeagleActiveProbe
+BeagleActiveProbe
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Gauss Ammo
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Minsk holds the distinction of being Clan Ghost Bear's first wholly indigenous BattleMech design, conceived in the aftermath of Operation Klondike. Introduced in 2830, the seventy-ton Minsk was built to protect members of Command and Support Stars, providing heavy armor and a diverse array of weaponry capable of engaging threats at any range. Its barrel-armed silhouette recalls the ancient Hammerhands, reflecting a design philosophy that prioritized firepower density over agility.</p><p>Although the Minsk earned early acclaim for its combat prowess, the bodyguard role ultimately proved a poor fit for Clan warrior culture. The Ghost Bears retired the design after several decades of service, only returning it to production over a century later in a substantially revised form.</p>
+
+capabilities:<p>The Minsk's design philosophy centers on providing comprehensive fire support across all engagement ranges while maintaining the durability to absorb punishment intended for the units it protects. Twin Omega 12-coil Gauss Rifles serve as the primary armament, delivering devastating long-range firepower without generating waste heat. A Mk. 46 Type II LRM-10 launcher supplements this reach, allowing the pilot to sustain pressure on distant targets while the Gauss Rifles cycle.</p><p>As engagements close, each side torso mounts a weapon cluster consisting of an Mk. 22 Type III SRM-6 rack, a Chi Series Small Pulse Laser, and a Type VII Machine Gun, providing effective defense against both armored and infantry targets. This layered weapons arrangement ensures the Minsk can respond to threats at any distance without repositioning.</p><p>The cost of this firepower is mobility. A Fusion 210 engine limits the seventy-ton chassis to a cruising speed of thirty-two kilometers per hour with no jump capability, making the Minsk one of the slower heavy designs in Clan arsenals. Arcadia Compound Delta VII Ferro-Fibrous armor provides substantial protection to compensate, and a Beagle Active Probe enhances situational awareness, allowing the pilot to detect hidden threats before they can endanger the units under its watch.</p>
+
+deployment:<p>This variant represents the original production model of the Minsk, introduced in 2830 as the first BattleMech wholly designed and manufactured by Clan Ghost Bear. Mounting twin Gauss Rifles, an LRM-10, paired SRM-6 racks, Small Pulse Lasers, and Machine Guns, this variant carries an eclectic mix of newly developed Clan technology and leftover Star League Defense Force-era equipment. A Beagle Active Probe (an Inner Sphere system retained from pre-Exodus stockpiles) enhances the pilot's ability to detect hidden units and threats. The design proved effective enough to earn recognition across multiple Clans, though its assigned bodyguard role ultimately limited its appeal to glory-seeking warriors.</p>
+
+history:<p>The Minsk was born from necessity during Operation Klondike. During the fierce fighting on Arcadia in the early 2820s, Ghost Bear commanders discovered that their borrowed and captured 'Mechs left them inadequately protected as battlefield conditions shifted. The need for a dedicated protection platform led engineers at the newly established Arcadia BattleMech Plant CM-T02 to design what would become the Minsk, with production beginning in 2830.</p><p>The design first gained widespread recognition in 2835 during a Trial of Grievance between a Ghost Bear Star Captain and a Jade Falcon warrior of the Turkina Keshik. With several Khans observing during a break from Council matters, the Minsk shocked the assembled leaders by swiftly disabling the Falcon's Atlas II, earning both the design and its pilot considerable respect.</p><p>Perhaps the Minsk's most significant engagement came during the Ghost Bears' 2921 assault on the Tokasha MechWorks Alpha facility. The design's ability to provide sustained covering fire while protecting key officers proved instrumental during the hard-fought campaign to secure the valuable manufacturing complex.</p><p>Despite these proven capabilities, the Minsk fell victim to Clan warrior culture. As the Clans matured and individual combat became the preferred path to advancement, the bodyguard role grew increasingly unpopular. Few warriors willingly accepted assignment to a position that offered limited opportunities for personal glory, regardless of its tactical value. The pragmatic Ghost Bears eventually retired the design rather than continue fielding 'Mechs crewed by reluctant warriors, and focus on new OmniMech development further pushed the Minsk into obscurity.</p><p>The design remained dormant for over a century until 3149, when officers in Taiga Galaxy sought heavy fire support for their Assault Stars. Drawing on salvaged KungsArmé Warhammer chassis, they produced the Minsk 2, which first saw combat during a Jade Falcon headhunter attack on the Bear saKhan at Alshain. The successful defense prompted factory production at the Bergan Industries C-Division facility on Alshain, with new units distributed to Taiga, Tundra, and Theta Galaxies.</p>
+
+manufacturer:Arcadia BattleMech Plant CM-T02
+
+primaryfactory:Arcadia (West)
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:StarCorp
+systemmode:CHASSIS:100+
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Fusion 210
+systemmanufacturer:ARMOR:Arcadia
+systemmode:ARMOR:Compound Delta VII Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Arcadian Communications
+systemmode:COMMUNICATIONS:Pauley-Bronson Z
+systemmanufacturer:TARGETING:Eden Microelectronics
+systemmode:TARGETING:Wasat Aggressor Type B with Active Probe

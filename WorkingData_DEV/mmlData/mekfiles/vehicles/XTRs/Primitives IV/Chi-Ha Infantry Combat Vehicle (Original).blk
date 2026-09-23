@@ -1,0 +1,189 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec3c-7b20-848d-ef876a429829
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Chi-Ha Infantry Combat Vehicle
+</Name>
+
+<Model>
+(Original)
+</Model>
+
+<mul id:>
+7188
+</mul id:>
+
+<year>
+2284
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+obsolete:2350
+low_profile
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+troopspace:3.0
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+46
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+11
+10
+10
+6
+11
+</armor>
+
+<Body Equipment>
+Basic Fire Control
+Armored Chassis
+IS Ammo MG - Full
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+Machine Gun
+</Turret Equipment>
+
+<barrating>
+5
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Chi-Ha is a 22-ton tracked vehicle powered by an internal combustion engine that drives it to a maximum speed of 64 kilometers per hour across most terrain, with a range exceeding 1,000 kilometers. This combination of reasonable mobility and extended endurance suited the vehicle's original role as a military carrier across the Combine's varied worlds. Two tons of BAR 6 armor protect the crew and passengers against light arms fire, adequate for secondary support tasks but not intended for sustained engagement against armored opposition.</p><p>Three machine guns, two in a turret and one in the forward hull, share a single ton of ammunition. This arrangement provides overlapping coverage for suppressing infantry and light targets and for protecting the vehicle during troop embarkation and debarkation. The 3-ton infantry compartment accommodates a full platoon, who exit through two rear doors. The Low Profile design quirk reduces the vehicle's silhouette against incoming fire, a meaningful advantage in the urban and fortified environments where the Chi-Ha often operates.</p><p>The Original version from 2284 uses slightly reduced speed of 54 km/h and BAR 5 armor with a basic fire control system. The Standard version introduced in 2352 incorporates improved armor, advanced fire control, and the better speed rating, reflecting incremental improvements accumulated over nearly seven decades of service experience.</p>
+</capabilities>
+
+<overview>
+<p>The Chi-Ha Infantry Combat Vehicle is a primitive tracked troop transport produced by Daisho MilWorks of New Samarkand for the Draconis Combine. First entering military service in 2284, the Chi-Ha served as the primary infantry carrier for the early Combine military and was essential to the state's territorial expansion during the Age of War. Though eventually superseded by more advanced designs in front-line roles, the vehicle's simplicity and low cost kept it in Combine service through the Star League era, with limited production resuming during the Succession Wars to address persistent shortages of infantry transport capacity.</p>
+</overview>
+
+<deployment>
+<p>The Original Chi-Ha, introduced in 2284, served as the Draconis Combine Planetary Militia's primary infantry transport during the Age of War period. It carried full platoons across the terrain of Combine worlds in the campaigns that defined the young state's borders, operating wherever Shiro Kurita's forces pressed their expansion. As the 2352 Standard version entered production, the Original was progressively retired to reserve formations and training units, though some continued in remote garrison service where the improved model's advantages were less important than simple availability.</p>
+</deployment>
+
+<history>
+<p>The Chi-Ha began its existence as a civilian cargo transport operating in the territories that would form the Draconis Combine. Daisho MilWorks of New Samarkand recognized the vehicle's practical qualities and undertook its conversion to a military troop transport, delivering the first military versions to the Planetary Militia in 2284. The timing aligned with the emergence of Shiro Kurita as a military and political force, and the Chi-Ha became one of the primary vehicles used to carry Combine infantry in the campaigns that brought new worlds under Kurita authority. As Shiro's ambitions expanded, Chi-Ha production spread to four additional worlds beyond New Samarkand to meet the growing army's transportation requirements.</p><p>The vehicle's front-line service life extended through the Age of War but began declining in the late twenty-fourth century as more capable designs entered production. The Chi-Ha was progressively reassigned to garrison, support, and training roles, where its simplicity and low maintenance overhead remained valuable. An improved version entering service in 2352 incorporated better armor and fire control, extending the design's operational relevance into the Star League era under what became the standard production model.</p><p>The Succession Wars and their attendant destruction of manufacturing capacity created recurring shortages of replacement transport vehicles across the Dragon's massive military structure. Daisho MilWorks periodically resumed limited Chi-Ha production runs to partially offset these shortages, as the vehicle's well-understood construction and minimal material requirements made it one of the easier designs to restart when other options were unavailable. The Chi-Ha's name, drawing on Japanese military nomenclature rooted in Combine tradition, reflects the cultural heritage that shaped the early Draconis state, an echo of ancient Terra preserved in the designation of one of the Combine's most durable military tools.</p>
+</history>
+
+<manufacturer>
+Daisho MilWorks
+</manufacturer>
+
+<primaryFactory>
+New Samarkand
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:ICE
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Primitives IV
+</source>
+
+<published>
+XTR:Primitives IV
+</published>
+
+<tonnage>
+22.0
+</tonnage>
+
+<fuel>
+1.0
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

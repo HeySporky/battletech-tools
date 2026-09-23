@@ -1,0 +1,373 @@
+{
+  "filename": "Boomer_BMR-3R.hmp",
+  "size": 2080,
+  "header_hex": "56 35 2e 30 30 01 00 08 03 ff ff ff 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 8,
+      "length": 1,
+      "text": "\b"
+    },
+    {
+      "type": "byte",
+      "offset": 8,
+      "hex": "03"
+    },
+    {
+      "type": "byte",
+      "offset": 9,
+      "hex": "ff"
+    },
+    {
+      "type": "byte",
+      "offset": 10,
+      "hex": "ff"
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 268,
+      "length": 255,
+      "text": "\u0000\u0000\u0000\u0000d\u0000\u0006\u0000Boomer\u0006\u0000BMR-3R\u00ea\u000b\u0003\u0000\u00b6\u00bb\u00e0\u0001\u00e1\u000b\u0000\u00a8\u0085E\u0000\u00a8\u0085E\u0000\u0000\u0018B\u0000\u0000\u00e0A\u0000\u0000`A\u0018\u0000MA 8 6 6 5 31 4Jecm, c3s\u0002\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0001\u0000\u0090\u0001\u0001\u0000\u0004\u0000\u0004\u0000\n\u0000\u0001\u0000\u0001\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000*\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000*\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000.\u0000\u0000\u0000\n\u0000\n\u0000\u0010\u0000\u0000\u0000\b\u0000\u0001\u0000A\u0000\u0004\u0000 \u0000\u0000\u0000\r\u0000Rail Gun Adv.\u0001\u0000A\u0000\u0001\u0000\u0000\u0000\u0000\u0000\r\u0000Rail Gun Adv.\u0002\u00004\u0000\u0005\u0000\u0000\u0000\u0000\u0000\r\u0000Horus Model 3\u0001\u00004\u0000\r\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "ascii",
+      "start": 268,
+      "end": 269,
+      "text": "\r"
+    },
+    {
+      "type": "byte",
+      "offset": 269,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 270,
+      "end": 283,
+      "text": "Horus Model 3"
+    },
+    {
+      "type": "len_string",
+      "start": 283,
+      "end": 286,
+      "length": 1,
+      "text": "?"
+    },
+    {
+      "type": "len_string",
+      "start": 286,
+      "end": 800,
+      "length": 512,
+      "text": "\u0000\u0000\u0000\u0000\u0000\r\u0000Bender type 2\u0002\u00004\u0000\u0002\u0000\u0000\u0000\u0000\u0000\r\u0000Horus Model 3\u0001\u00004\u0000\n\u0000\u0000\u0000\u0000\u0000\r\u0000Horus Model 3\u0001\u0000\u00c6\u0000\u0007\u0000\u0000\u0000\u0000\u0000\u000e\u0000Macmicro Term.\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000\u00d1\u0001\b\b\u00d1\u0001\b\b\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000?\u0000\u0000\u0000?\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0001\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000A\u0000\u0000\u0000\u00d1\u0001\b\b\u00d1\u0001\b\b\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0000\u00004\u0000\u0001\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u00c6\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u00e2\u00ff3\u0001\u00db\u0000A need was discovered for "
+    },
+    {
+      "type": "ascii",
+      "start": 800,
+      "end": 994,
+      "text": "a fast assault unit droppable with its own jets, to reinforce sagging points in the line.  The Boomer was developed from the captured  King Crabs on Penzance during the 3rd Battle of that name.S"
+    },
+    {
+      "type": "byte",
+      "offset": 994,
+      "hex": "01"
+    },
+    {
+      "type": "ascii",
+      "start": 995,
+      "end": 1335,
+      "text": "The unit has a large supply of gauss rounds and usually serves as a fire support unit linked thru the C3 system to units further forward.  When the line sags the mech is maneuverable enough to move in with its laser barrage and maybe a death from above. The Boomer got its name due to is 2 gauss rifles and the noise it makes when landing.+"
+    },
+    {
+      "type": "byte",
+      "offset": 1335,
+      "hex": "01"
+    },
+    {
+      "type": "ascii",
+      "start": 1336,
+      "end": 1636,
+      "text": "The mech has proved useful in the refitted version.  The ground up build should perform better with a better fire control system, and the ability to reach out.  The KingCrab design, which this mech resembles, was not able to do that adequately.  The heat has to be watched, but is easily manageable.z"
+    },
+    {
+      "type": "byte",
+      "offset": 1636,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1637,
+      "end": 1759,
+      "text": "The here are several varients due to the refit development process.  The main varient drops the ECM and C3 for heat sinks."
+    },
+    {
+      "type": "len_string",
+      "start": 1759,
+      "end": 1762,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1762,
+      "end": 1894,
+      "length": 130,
+      "text": "The Primary version can be found with the Circus RCTs.  The version with upgraded Heatsinks is found in the Homestead March units."
+    },
+    {
+      "type": "len_string",
+      "start": 1894,
+      "end": 1897,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1897,
+      "end": 1900,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 1900,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1901,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1902,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1903,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1904,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1905,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1906,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1907,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1908,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1909,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1910,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1911,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1912,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1913,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1914,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1915,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1916,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1917,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1918,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1919,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1920,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1921,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1922,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1923,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1924,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1925,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1926,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1927,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1928,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1929,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1930,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1931,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1932,
+      "end": 1942,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 1942,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1943,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1944,
+      "end": 1953,
+      "length": 7,
+      "text": "Ironman"
+    },
+    {
+      "type": "len_string",
+      "start": 1953,
+      "end": 1974,
+      "length": 19,
+      "text": "Forge /KCEI(Osiris)"
+    },
+    {
+      "type": "len_string",
+      "start": 1974,
+      "end": 1980,
+      "length": 4,
+      "text": "HMC2"
+    },
+    {
+      "type": "len_string",
+      "start": 1980,
+      "end": 1997,
+      "length": 15,
+      "text": "Chobham Max-Tec"
+    },
+    {
+      "type": "len_string",
+      "start": 1997,
+      "end": 2021,
+      "length": 22,
+      "text": "GM Marauder Special MD"
+    },
+    {
+      "type": "len_string",
+      "start": 2021,
+      "end": 2051,
+      "length": 28,
+      "text": "Achernar Electronics HICS-15"
+    },
+    {
+      "type": "len_string",
+      "start": 2051,
+      "end": 2067,
+      "length": 14,
+      "text": "Cheshire Suite"
+    },
+    {
+      "type": "len_string",
+      "start": 2067,
+      "end": 2080,
+      "length": 11,
+      "text": "Chilton 600"
+    }
+  ]
+}

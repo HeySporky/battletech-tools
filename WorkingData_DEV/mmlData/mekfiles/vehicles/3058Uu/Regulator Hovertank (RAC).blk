@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e46b-73d5-b698-62d345268726
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Regulator Hovertank
+</Name>
+
+<Model>
+(RAC)
+</Model>
+
+<mul id:>
+2676
+</mul id:>
+
+<year>
+3068
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+30
+16
+16
+16
+29
+</armor>
+
+<Body Equipment>
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISTargeting Computer
+ISCASE
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISRotaryAC5
+</Turret Equipment>
+
+<capabilities>
+<p>The Regulator's design philosophy centers on delivering maximum firepower through outstanding mobility. A General Motors 170 fusion engine propels the 45-ton platform to a flank speed of 151 km/h, enabling it to outmaneuver most BattleMechs and position itself to strike exposed flanks and rear facings. The turret-mounted Inokuma Gauss rifle provides the vehicle's sole offensive weapon, but the electromagnetic accelerator's range and accuracy make that single gun genuinely dangerous to any target on the battlefield.</p><p>Hellespont Lite ferro-fibrous armor covers the hull, but the protection scheme reveals a calculated trade-off. Designers concentrated coverage heavily on the front and turret, leaving side and rear facings comparatively thin. This approach maximizes protection in head-on engagements while accepting vulnerability when enemies achieve flanking positions. The Regulator depends on its speed to prevent that outcome rather than relying on armor to absorb blows.</p><p>The advanced Virtutrack S1 targeting system provides the crew with pseudo-360-degree tracking capability for up to fifteen simultaneous targets, pairing the Gauss rifle's reach with the situational awareness needed to make the most of superior positioning. The combination makes the Regulator effective at engaging at maximum range before opponents can close to return fire, though the single-weapon configuration means a mechanical failure can completely neutralize the vehicle.</p>
+</capabilities>
+
+<overview>
+<p>The Regulator Hovertank emerged from the Capellan Confederation's systematic effort to rebuild its military-industrial base in the aftermath of the Fourth Succession War. Aldis Industries, operating from their Kingston plant on Betelgeuse, developed the design by leveraging technology recovered through the Helm Memory Core to create a fast, effective cavalry platform. Rather than compete directly with BattleMechs in sustained engagements, the Regulator was designed to overwhelm opponents through superior speed and a single, devastating weapon. Introduced in 3057, it represented the CCAF's philosophical shift toward effective conventional forces as a force multiplier for BattleMech formations. The design quickly proved its worth across multiple theaters of operation and established Aldis Industries as a premier producer of advanced hovertank platforms for the Confederation.</p>
+</overview>
+
+<deployment>
+<p>This variant emerged from battlefield improvisation during the opening years of the Jihad, when Capellan technicians in the contested Capellan March began salvaging rotary autocannons and targeting computers from disabled Davion vehicles. Aldis Industries subsequently formalized the conversion process at their Betelgeuse facility. The RAC/5 paired with a linked targeting computer delivers exceptional close-range accuracy, earning a fearsome reputation among CCAF crews who prize the combination's effectiveness in pursuit operations. CASE protection for the ammunition bins reflects the lessons learned from early examples lost to internal explosions. The variant remains relatively uncommon, as the supply of Davion-sourced components constrains production volumes.</p>
+</deployment>
+
+<history>
+<p>The Fourth Succession War left the Capellan Confederation dramatically weakened, with BattleMech production facilities lost across multiple worlds and reserve forces severely depleted. Capellan military planners recognized that rebuilding their 'Mech force to pre-war strength would take decades, and turned to advanced conventional vehicles as a faster, more economical path to restoring offensive capacity. The discovery and integration of Star League-era technology from the Helm Memory Core provided the technological baseline necessary to produce a competitive design.</p><p>Aldis Industries received the contract and developed the Regulator at their Kingston facility on Betelgeuse, introducing the vehicle in 3057. The tank first demonstrated its capabilities during Operation Guerrero the same year, when a Regulator lance engaged AFFC forces on Tsingtao and destroyed three BattleMechs, an outcome that validated the design's offensive doctrine and earned immediate attention from CCAF procurement.</p><p>The Regulator spread rapidly through both front-line and reserve formations, becoming one of the most numerous hovertank platforms in Capellan service. Its reputation grew further during the Chaos March conflicts and the St. Ives Civil War, where its speed and firepower proved effective against opponents who struggled to match the CCAF's hover cavalry tactics. Front-line and reserve units alike pressed the Regulator into service, treating it as an essential component of combined-arms operations.</p><p>During the FedCom Civil War, Dynasty Guard cavalry formations deployed Regulators extensively against Blackwind Lancer forces on Chesterton. Working alongside Hell's Black Aces units, Guard armor used the tanks' superior speed to spring flanking ambushes, trapping Lancer elements between converging forces and preventing them from leveraging their BattleMech advantages effectively. The vehicle's ruggedness and reliability in sustained operations across these campaigns further cemented its reputation as the premier hovertank of the Confederation Armed Forces.</p>
+</history>
+
+<manufacturer>
+Refit - Aldis Industries
+</manufacturer>
+
+<primaryFactory>
+Betelgeuse
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Hellespont Industrials
+ENGINE:GM
+ARMOR:Hellespont Industrials
+COMMUNICATIONS:Olmstead
+TARGETING:Virtutrack
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:170 Fusion
+ARMOR:Lite Ferro-Fibrous
+COMMUNICATIONS:37
+TARGETING:S1
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-I
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

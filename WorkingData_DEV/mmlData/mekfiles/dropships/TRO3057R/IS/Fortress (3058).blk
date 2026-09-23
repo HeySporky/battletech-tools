@@ -1,0 +1,279 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab01-71e1-a1a1-133843f9aafb
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Fortress
+</Name>
+
+<Model>
+(3058)
+</Model>
+
+<mul id:>
+4180
+</mul id:>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+mekbay:12.0:1:-1::-1:0
+heavyvehiclebay:12.0:2:2::-1:0
+infantrybay:3.0:1:3:Foot:-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:70.0:0:-1::-1:0
+crewquarters:252.0:0:-1::-1:0
+cargobay:353.0:1:7::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+112
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+12000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+220
+210
+210
+156
+</armor>
+
+<Nose Equipment>
+(B) ISERPPC
+ISERPPC
+(B) ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:32
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISLongTom
+ISLongTomAmmo:125
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISERPPC
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:24
+ISArtemisIV
+ISArtemisIV
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+(R) (B) ISERPPC
+(R) (B) Autocannon/20
+(R) Autocannon/5
+(R) IS Ammo AC/20:15
+(R) IS Ammo AC/5:20
+(R) (B) LRM 10
+(R) LRM 10
+(R) IS Ammo LRM-10 Artemis-capable:36
+(R) ISArtemisIV
+(R) ISArtemisIV
+(R) (B) SRM 6
+(R) SRM 6
+(R) IS Ammo SRM-6 Artemis-capable:45
+(R) ISArtemisIV
+(R) ISArtemisIV
+(R) (B) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISERPPC
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:24
+ISArtemisIV
+ISArtemisIV
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+(R) (B) ISERPPC
+(R) (B) Autocannon/20
+(R) Autocannon/5
+(R) IS Ammo AC/20:15
+(R) IS Ammo AC/5:20
+(R) (B) LRM 10
+(R) LRM 10
+(R) IS Ammo LRM-10:36
+(R) ISArtemisIV
+(R) ISArtemisIV
+(R) (B) SRM 6
+(R) SRM 6
+(R) IS Ammo SRM-6 Artemis-capable:45
+(R) ISArtemisIV
+(R) ISArtemisIV
+(R) (B) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+15
+</structural_integrity>
+
+<capabilities>
+<p>The 3058 upgrade replaces the original single heat sinks with fewer but more efficient double heat sinks, freeing tonnage for a comprehensive weapons overhaul and structural improvements. Several conventional weapons systems are removed to make room for upgrading the remaining armament with Star League-era technology, including extended-range particle projector cannons and large lasers, pulse-technology medium lasers, and Artemis IV fire control systems for the missile launchers. The vessel's structural integrity is significantly strengthened.</p><p>The new drive system replaces the succession of inadequate substitutes that had plagued post-war production, restoring performance characteristics closer to the original specification. The overall effect is a marked improvement in the Fortress's combat effectiveness, with greater engagement range, improved accuracy, and better heat management than the original design. The transport capacity remains identical to the base model, preserving the combined-arms battalion configuration that defines the class, though cargo capacity is slightly reduced to accommodate the upgraded systems.</p>
+</capabilities>
+
+<overview>
+<p>The Fortress-class assault DropShip is one of the most feared ground combat vessels ever produced, combining devastating firepower and heavy armor with the ability to carry a full combined-arms battalion of BattleMechs, armor, and infantry. First launched in 2613 during the Star League era, the Fortress earned an immediate reputation as one of the few craft capable of independently securing its own landing zone, deploying its forces under hostile fire, and providing direct artillery support to ground units operating kilometers from the vessel. Though plagued throughout its long service life by a persistent tendency toward systems failures rooted in its complex and over-engineered design, the Fortress remains one of the premier assault DropShips in the Inner Sphere, equally effective as the immovable anchor of a defensive line or as the heavily armed and armored spearhead of a planetary assault force.</p>
+</overview>
+
+<deployment>
+<p>The upgraded Fortress entered production in 3058 at Semier Data Tron's refurbished manufacturing facility on Tharkad, initially serving the Federated Commonwealth and its successor states. The improved weapons range and reliability of the upgraded variant have allowed commanders to employ these vessels more aggressively than their aging predecessors, returning the Fortress closer to its original intended role as a frontline assault craft capable of independently securing its own landing zone. The upgraded drive system has also substantially reduced the maintenance burden that plagued the post-war production models fitted with undersized substitute drives, restoring the operational flexibility that had been gradually lost over decades of compromise.</p>
+</deployment>
+
+<history>
+<p>The Fortress entered service in 2613, conceived as a vessel that could independently secure a hostile landing zone and support the forces it deployed. The design's combination of heavy weapons, substantial armor, and combined-arms transport capacity was unprecedented at the time, establishing a new standard for assault DropShip operations. However, even from its earliest days the Fortress gained a reputation for being over-engineered and maintenance-intensive, with its computer and fire control systems considered particularly unreliable.</p><p>The Succession Wars took a heavy toll on the Fortress fleet. As advanced components became increasingly difficult to replace, many vessels had their original systems substituted with inferior parts, further degrading reliability. Between 2974 and 3027, fewer than two dozen new Fortresses were constructed, and by the early thirty-first century the last known production facility had closed due to a shortage of critical components. The design appeared destined for extinction.</p><p>The alliance between the Federated Suns and the Lyran Commonwealth proved to be the Fortress's salvation. Semier Data Tron secretly constructed twenty Fortresses for Archon Katrina Steiner in the six years preceding the Fourth Succession War, rebuilding the class in a single dramatic production surge. These vessels played a critical role in the conflict, most especially when six Fortresses from the Elvidner garrison sealed the passes through the Greerson Mountains, trapping and destroying the Second Sword of Light in one of the war's decisive engagements.</p><p>Following the Fourth Succession War, Semier reduced production to an average of two vessels per year through 3047. This slower production rate reflected both the craft's high cost and a critical shortage of the original drive system, forcing Semier to substitute a smaller, less efficient drive that consumed fuel at a significantly faster rate. Tharkad Aerospace Group also produced Fortresses during this period, fitting their vessels with surplus drives from other production lines. Neither alternative matched the performance of the original powerplant.</p><p>Semier closed its Fortress manufacturing center for refurbishment in the late 3040s, resuming production in early 3051. Alongside continued output of the original model, the company began development of an upgraded variant incorporating advanced weapons technology and a new drive system. This upgraded Fortress entered full-scale production in 3058, marking the first fundamental redesign of the class in over four centuries and ensuring the venerable design's continued relevance well into the thirty-first century and beyond.</p>
+</history>
+
+<manufacturer>
+Semier Data Tron
+</manufacturer>
+
+<primaryFactory>
+Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Piper C1-5
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+6000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+247
+</crew>
+
+<officers>
+7
+</officers>
+
+<gunners>
+9
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+2
+</life_boat>
+
+<escape_pod>
+10
+</escape_pod>
+

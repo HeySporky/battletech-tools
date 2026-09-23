@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c8be-7bbc-a7f7-05e70c278ed8
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Scarabus
+model:SCB-9T
+mul id:2814
+
+Config:Biped
+techbase:Inner Sphere
+era:3054
+source:TR:3055U,TR:CI
+published:RS:CI
+rules level:2
+role:Scout
+
+quirk:rugged_1
+
+mass:30
+engine:300 XL Engine
+structure:IS Endo Steel
+myomer:Triple-Strength
+
+heat sinks:10 Single
+walk mp:10
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:9
+RA armor:9
+LT armor:10
+RT armor:10
+CT armor:12
+HD armor:9
+LL armor:13
+RL armor:13
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:5
+Medium Laser, Left Arm
+Medium Laser, Left Arm
+Small Laser, Left Arm
+Small Laser, Left Arm
+TAG, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Medium Laser
+Medium Laser
+Small Laser
+Small Laser
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+Triple Strength Myomer
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Hatchet
+Hatchet
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+Triple Strength Myomer
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+Triple Strength Myomer
+Triple Strength Myomer
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+Triple Strength Myomer
+Triple Strength Myomer
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISTAG
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Scarabus was introduced in 3053 as a light scout and forward observer for the Armed Forces of the Federated Commonwealth. Originally designed by the Solaris VII-based Vining Engineering and Salvage Team, the innovative firm lacked the production capacity to meet military demand. Coventry Metal Works acquired a manufacturing license and brought the design into full-scale production at their facilities on Coventry.</p><p>Intended to outperform the ubiquitous Locust in both speed and firepower, the Scarabus stands as a new generation of light reconnaissance 'Mechs built with recovered Star League technology. Its advanced construction allows it to achieve extraordinary speed for its weight class while carrying a respectable weapons loadout and dedicated electronic warfare systems.</p>
+
+capabilities:<p>The Scarabus achieves its remarkable performance through the pairing of a Vlar 300 XL extralight engine with a Small Bug-B endo steel frame, driving the thirty-ton 'Mech to a maximum speed of 162 kilometers per hour. This makes it one of the fastest BattleMechs in service, capable of outrunning even the venerable Locust. Five and a half tons of Valiant Gauntlet ferro-fibrous armor provide reasonable protection for a design of its size, though pilots must still exercise caution against concentrated fire.</p><p>Armament consists of a distinctive "quad-pod" laser array mounted on the left arm, comprising two Defiance B3M medium lasers and two Defiance B3S small lasers. Restricting the weapons loadout to beam-technology weapons ensures extended operational endurance during the isolated patrols typical of reconnaissance duty. A two-ton hatchet mounted on the right arm provides a last-resort melee capability, originally included as a nod to the Solaris VII arena culture from which the design emerged.</p><p>The Scarabus's true value as a scout lies in its electronic warfare suite. A CherrySeed Guardian ECM system shields the 'Mech from advanced detection, while the CherrySeed Bullseye TAG designates targets for Arrow IV artillery strikes, a capability that grew increasingly valuable with the introduction of the Thunder Hawk artillery platform. The complex power coupling for the quad-pod laser arrangement, however, is prone to jarring loose under rough conditions, making field repairs difficult and sometimes requiring complete fusion of the coupling to stabilize the unit.</p>
+
+deployment:<p>This variant incorporates triple-strength myomer technology, enhancing the 'Mech's already impressive speed to a maximum of 183.6 kilometers per hour when operating at optimal heat levels. The myomer upgrade also significantly increases the damage potential of the hatchet in close combat, making the Scarabus a surprisingly dangerous opponent at melee range. No other significant changes were made to the base design, preserving the proven electronics suite and laser armament. Originally developed as a Federated Commonwealth field conversion, the upgraded variant proved popular with both Loyalist and Secessionist forces during the FedCom Civil War.</p>
+
+history:<p>The Scarabus traces its origins to the Solaris VII gladiatorial arenas, where the Vining Engineering and Salvage Team had built a reputation for innovative designs. When the Armed Forces of the Federated Commonwealth issued requirements for advanced light BattleMechs incorporating recovered Star League technology, VEST submitted the Scarabus as a candidate. The small firm's limited production capabilities, however, proved insufficient for military-scale manufacturing.</p><p>Coventry Metal Works, seeking to expand their light 'Mech portfolio, purchased a production license and began manufacture on Coventry in 3053. The timing proved fortuitous, as the post-Tukayyid arms buildup created significant demand for new designs capable of matching Clan technology.</p><p>The first Scarabus production runs were immediately dispatched to units facing the Clan occupation zones. Federated Suns commands embraced the design enthusiastically, valuing its speed and electronic warfare capabilities for reconnaissance operations against Clan forces. Lyran units were particularly less receptive, with many shuffling their Scarabus allocations to militia forces in exchange for heavier designs more aligned with Commonwealth military doctrine.</p><p>VEST designers continued experimenting with the platform on Solaris VII, testing various melee weapon configurations including vibroblades, shields, and spikes to capitalize on the arena circuit's growing fascination with close-combat weaponry. None of these prototypes entered mass production.</p><p>The FedCom Civil War brought both disruption and opportunity for the Scarabus program. Damage to Coventry Metal Works facilities during the conflict temporarily interrupted production, creating shortages that affected units on both sides. The Thorin Freedom Theater Militia became an unintentional beneficiary, receiving several Scarabus 'Mechs that had been diverted from their original destinations. Operating as part of the Thorin FTM during the Civil War, these 'Mechs proved effective in both scouting and raider roles across dozens of engagements against both Loyalist and Jade Falcon forces.</p><p>Production resumed after the conflict, with Coventry continuing to ship the majority of its output to Federated Suns buyers and mercenary commands rather than the Lyran Alliance Armed Forces, reflecting the persistent preference gap between the two successor states.</p>
+
+manufacturer:Refit - Coventry Metal Works|Refit - Vining Engineering & Salvage Team
+
+primaryfactory:Coventry|Solaris VII
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Small Bug-B
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Valiant Gauntlet Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Wilson
+systemmode:COMMUNICATIONS:Silicon Siren
+systemmanufacturer:TARGETING:Winston
+systemmode:TARGETING:Coral Snake with CherrySeed Bullseye TAG

@@ -1,0 +1,419 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ee7a-71f6-b7f1-20860a303d54
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+New Syrtis Carrier
+</Name>
+
+<Model>
+(2557)
+</Model>
+
+<mul id:>
+4712
+</mul id:>
+
+<year>
+2557
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:60.0:3:1::-1:0
+smallcraftbay:12.0:1:2::-1:0
+asfbay:60.0:3:3::-1:0
+smallcraftbay:12.0:1:4::-1:0
+cargobay:50310.0:4:6::-1:0
+cargobay:50310.0:4:7::-1:0
+dockingcollar
+dockingcollar
+crewquarters:5313.0:0:-1::-1:0
+1stclassquarters:1930.0:0:-1::-1:0
+2ndclassquarters:420.0:0:-1::-1:0
+steeragequarters:2850.0:0:-1::-1:0
+infantrybay:10.0:2:13:Foot:-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+2451
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+50000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+80
+80
+80
+70
+80
+80
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:60
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20:60
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:200
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:40
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:40
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20:60
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:200
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:40
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:40
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20:60
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:200
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:40
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20:60
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:200
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:40
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:40
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20:60
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:200
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:40
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:40
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20:60
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:200
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:60
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20:60
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:200
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:60
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20:60
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:200
+</Right Broadsides Equipment>
+
+<structural_integrity>
+60
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 920,000 tons, the New Syrtis was designed to dominate local space through sheer aerospace superiority. Six full wings of aerospace fighters, totaling one hundred and twenty craft, operated from two massive flight decks supported by four squadrons of small craft. The vessel maintained two complete flight crews for every fighter and small craft aboard, enabling continuous flight operations around the clock. The carrier's fuel bunkers provided more than eight days of sustained combat operations, ensuring endurance during prolonged engagements. A four-platoon marine company served as the vessel's permanent security detachment, with berthing capacity for an additional battalion of marines or combat engineers.</p><p>Though primarily a fighter platform, the New Syrtis mounted substantial defensive armament in recognition that the vessel could not always remain beyond the reach of hostile fire. Capital-grade naval autocannons and particle projector cannons formed the backbone of broadside batteries, while naval lasers and missile launchers provided long-range engagement capability. Every firing arc carried layered close-defense batteries of missiles, lasers, and rapid-fire weapons designed to shred inbound fighters and assault craft. Two docking collars and over one hundred thousand tons of cargo capacity supported extended independent operations. The vessel's acceleration of two gravities standard was adequate for a vessel of its displacement, though the class relied on its fighter screen rather than speed for protection.</p>
+</capabilities>
+
+<overview>
+<p>The New Syrtis-class carrier was commissioned by the Federated Suns in the mid-twenty-sixth century to address a critical gap in House Davion's naval capability. Built by Challenge Systems of Galax, the class was designed around a then-radical concept: a WarShip whose primary offensive power came not from its own guns but from massed aerospace fighter formations launched from its flight decks. At 920,000 tons, the carrier dwarfed most vessels in the Federated Suns fleet and demanded enormous shipyard resources to construct, yet the investment was considered justified by the overwhelming aerospace superiority a single vessel could project across an entire star system. The New Syrtis earned a reputation as the backbone of Davion naval power, anchoring task forces wherever House Davion's interests required a decisive show of force.</p>
+</overview>
+
+<deployment>
+<p>The FSS Chesterton fell victim to one of the most notable ambushes of the Reunification War. During Case AMBER at Panpour in late 2577, Taurian Concordat forces caught the carrier with most of her crew and her entire aerospace group off-ship. The surprise attack left the vessel effectively defenseless, and the Chesterton was captured intact, a humiliating loss that however demonstrated the vulnerability of even the most powerful vessels when caught unprepared.</p><p>The FSS Midale fought her final engagement at the Battle of Clovis in May 2787, during the opening months of the First Succession War. Alongside a pair of Davion-class destroyers, the carrier held off Coordinator Minoru Kurita's invasion flotilla for six hours near Clovis' lunar orbit, crippling one enemy destroyer and damaging a carrier before being overwhelmed and destroyed. The sacrifice bought precious time for the planet's ground defenders.</p><p>The FSS Novaya Zemlya was lost during the desperate AFFS naval offensive of 2790, as Admiral Kenneth Jones led his fleet toward the fateful engagement at Cholame. The campaign succeeded in destroying six Draconis Combine WarShips, but the Novaya Zemlya was among four AFFS vessels that did not survive the fighting.</p><p>The FSS New Syrtis herself served as flagship of Admiral Mark Creuset's Coreward Fleet in the Capellan March by 2765, leading a substantial squadron that included cruisers, destroyers, a frigate, and a corvette. The lead ship's ultimate fate remains unrecorded.</p><p>The FSS Pleiades earned the distinction of being the last New Syrtis-class carrier to remain in service. The vessel survived the First Succession War and continued to serve into the Second, but her career ended not through enemy action but structural failure. During a jump into the Novaya Zemlya system, the vessel literally broke its back, forcing its retirement and marking the end of the class.</p>
+</deployment>
+
+<history>
+<p>The New Syrtis-class carrier entered service in 2557 as the culmination of First Prince Alexander Davion's post-Civil War naval modernization program. Challenge Systems of Galax constructed the vessels alongside the Block II Davion-class destroyer and the Robinson-class transport, all part of a broader effort to rebuild the Federated Suns' naval capability from the ground up. The concept of a dedicated fighter carrier was revolutionary. Despite centuries of naval combat demonstrating that aerospace superiority often decided battles, no state had previously committed to building a WarShip around that principle. Fleets had instead relied on converted DropShips to supplement the modest fighter complements carried by their capital ships.</p><p>The class received its baptism of fire during the Reunification War's Case AMBER operations against the Taurian Concordat. Of the five vessels that saw combat, one was destroyed, one scuttled, and a third captured, yet the class was considered to have performed admirably. The carriers demonstrated their ability to project overwhelming aerospace superiority while proving capable of withstanding prolonged exposure to directed naval gunfire. The capture of one vessel during a surprise attack highlighted the importance of maintaining security protocols even in supposedly rear areas, a lesson that resonated through subsequent Federated Suns naval doctrine.</p><p>Four New Syrtis carriers remained in service by 2765, distributed across the Federated Suns Navy's fleet structure. The Crucis Fleet maintained two carriers as its core striking power, while the remaining pair were assigned to separate fleet commands. These vessels served as the flagships around which task forces were organized, their massive fighter complements providing the aerospace umbrella under which the rest of the fleet operated.</p><p>The First Succession War devastated the surviving carriers along with the rest of the Inner Sphere's naval assets. The class fought in several engagements during the Draconis Combine's invasion of the Federated Suns, where their fighter wings proved invaluable in contested orbital spaces. Attrition steadily reduced their numbers through the brutal fighting of the late twenty-eighth century. The final vessel endured into the Second Succession War before mechanical failure brought its long career to an end, closing a chapter of Federated Suns naval history that had spanned more than two centuries of continuous service.</p>
+</history>
+
+<manufacturer>
+Challenge Systems
+</manufacturer>
+
+<primaryFactory>
+Galax
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Challenge Systems
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Standard
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Carrier
+</use>
+
+<length>
+718 m
+</length>
+
+<height>
+1600 m Sail
+</height>
+
+<source>
+His:RW
+</source>
+
+<tonnage>
+920000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+145
+145
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+1572
+</crew>
+
+<officers>
+173
+</officers>
+
+<gunners>
+125
+</gunners>
+
+<passengers>
+530
+</passengers>
+
+<marines>
+120
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+200
+</life_boat>
+
+<escape_pod>
+90
+</escape_pod>
+

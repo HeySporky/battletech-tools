@@ -1,0 +1,210 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-c0d5-72c0-899a-adca1cb635b7
+</UUID>
+
+<UnitType>
+Jumpship
+</UnitType>
+
+<Name>
+Scout JumpShip
+</Name>
+
+<Model>
+(2895)
+</Model>
+
+<mul id:>
+4998
+</mul id:>
+
+<year>
+2895
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:1.0:1:1::-1:0
+cargobay:486.5:1:2::-1:0
+cargobay:486.5:1:3::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+crewquarters:126.0:0:-1::-1:0
+dockingcollar
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+158
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+460
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+6
+6
+6
+4
+5
+5
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Front Side Equipment>
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+</Right Front Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>Scout-class JumpShips are equipped with a large and modern bridge, and an extensive computer network for complex navigational calculations. Its shortened Kearny-Fuchida drive allows for 80% shorter charging, while its small size additionally means its damage resistant jump sail unfolds more rapidly than is the case in other JumpShips. The reduced drive and its comperatively small mass of 87000 tons allows the Scout-class a difficult to detect jump signature. As the design prioritises independent operation, its 18 strong crew has access to extensive recreation facilities, as well as a highly equipped medbay for up to four emergency cases and life support systems featuring backup generators. A necessary concession due to its size does mean the Scout-class lacks a grav deck, being limited to gravity maneuvring to sustain the crew its health. This is rounded out by 1037,5 tons of storage and a single small craft bay. A final strength of the design is that due to its reinforced docking collar the vessel has the rare ability to accelerate with a DropShip attached.</p>
+</capabilities>
+
+<overview>
+<p>Developed for independent operations, the Scout-class JumpShip is a specialized, military-grade vessel that prioritizes speed and stealth over raw transport capacity. It is the smallest JumpShip found travelling the stars, with a low mass, single docking collar, and negligible jump signature, while sporting extensive facilities for its small crew.</p>
+</overview>
+
+<history>
+<p>The most famous modification is the Capellan Quetzalcoatl, named after the namesake vessel its docking collar was damaged during a boarding action. This variant removes the docking collar entirely and replaces it with a specialized fighter bay capable of launching and recovering up to 20 heavy AeroSpace Fighters, effectively turning the tiny Scout into a pocket carrier.</p>
+</history>
+
+<manufacturer>
+Alliance Aerospace Group, Irian Technologies, Ioto Galactic Enterprises, Dharma HyperSpace
+</manufacturer>
+
+<notes>
+This Clan built version of the Scout-class holds the addition of a Mobile HPG array, further increasing its value as and independent reconnaissance vessel.
+</notes>
+
+<use>
+Exploration/Transport
+</use>
+
+<length>
+273m
+</length>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+90000.0
+</tonnage>
+
+<sail>
+1
+</sail>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+26
+</crew>
+
+<officers>
+4
+</officers>
+
+<gunners>
+0
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+4
+</escape_pod>
+

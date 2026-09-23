@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eab7-7393-aaa2-212bbb5a8a3a
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Whitestreak Jetski
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5407
+</mul id:>
+
+<year>
+2320
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Naval
+</motion_type>
+
+<transporters>
+pillionseats:2.0:0:-1::-1:0
+cargobay:0.009:1:2::-1:0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+43
+</armor_type>
+
+<armor_tech_rating>
+2
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+0
+0
+0
+0
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+2
+</barrating>
+
+<structural_tech_rating>
+2
+</structural_tech_rating>
+
+<engine_tech_rating>
+2
+</engine_tech_rating>
+
+<capabilities>
+<p>The Whitestreak JetSki achieves a cruise speed of 70 kilometers per hour and a flank speed of 110 kilometers per hour. These figures are modest compared to the Speedboat, but they are more than sufficient for recreational use and represent genuine performance for a craft of the JetSki's scale. The electric fuel cell drive system provides 256 kilometers of range, particularly more than the heavier Speedboat, a result of the compact engine's lower power draw and the JetSki's substantially reduced mass.</p><p>The design seats two people, a pilot and one pillion passenger, with a combined load allowance of 50 kilograms for seated occupants beyond the pilot. A rear cargo compartment provides nine kilograms of storage, making the JetSki practical for camping and river travel where small amounts of gear need to be carried. Armor protection matches the Speedboat at BAR 2, sufficient to resist water spray and minor impacts but nothing more. Like its sibling design, the JetSki carries no weapons and has no meaningful defensive capability. Its lighter weight and tighter turning radius give it better maneuverability than the Speedboat in confined waterways, which partially compensates for the speed disadvantage in situations where open-water escape is not an option.</p>
+</capabilities>
+
+<overview>
+<p>The Whitestreak JetSki is a lightweight personal watercraft produced by Whitestreak, Inc. on Marantha in the Magistracy of Canopus. Introduced in 2320, it predates the company's better-known Speedboat by two years and represents Whitestreak's original and most accessible product. At 100 kilograms, the JetSki is designed for a broader consumer market than the racing-focused Speedboat, prioritizing ease of use, two-person capacity, and range over outright speed. It has sold in large numbers across the Magistracy, introducing tens of thousands of Canopian citizens to high-speed water recreation. Comparable personal watercraft are available from other manufacturers throughout the Inner Sphere, but the Whitestreak JetSki remains the best-known product of its type within the Magistracy of Canopus.</p>
+</overview>
+
+<deployment>
+<p>The standard Whitestreak JetSki is the most widely distributed of Whitestreak's product line, found on waterways and coastlines throughout the Magistracy of Canopus. Private ownership is widespread on Canopian worlds with significant water coverage, with the design equally common in urban recreational settings and remote river environments. The rear cargo capacity drives much of the latter use, as campers and river travelers rely on the craft for transporting gear to otherwise inaccessible locations. Limited export examples have reached non-Canopian worlds where comparable products from other manufacturers are unavailable or too expensive for general civilian use.</p>
+</deployment>
+
+<history>
+<p>Whitestreak, Inc. launched the JetSki in 2320 as its founding product, establishing the company's identity as a manufacturer of high-speed Canopian pleasure craft before the larger Speedboat followed two years later. The JetSki was designed to be affordable and broadly accessible, aimed at ordinary Canopian citizens rather than the competitive racing community that would later embrace the Speedboat. Its commercial success helped fund the development and production of the more expensive Speedboat and cemented Whitestreak's position in the Magistracy's recreational watercraft market.</p><p>The JetSki found a strong following among Marantha's adventure tourism sector, particularly with campers and river enthusiasts who valued the rear cargo compartment for carrying gear upriver. The craft became a common sight on the planet's rivers and along its coastlines, and its reputation spread to other Canopian worlds with comparable water environments. The design's extended range relative to its size made it especially valued on frontier worlds where refueling infrastructure was limited.</p><p>Unlike its sibling the Speedboat, the JetSki never developed a military or intelligence association. Its two-person capacity and minimal cargo space made it unsuitable for the kind of special operations use attributed to the Speedboat, and it remained a civilian product throughout its production history. It was occasionally pressed into service for emergency transportation and light logistics on water-rich worlds where better options were unavailable, but these uses were incidental rather than intentional. The JetSki's legacy is as a consumer product, one of the most widely distributed pleasure craft the Magistracy of Canopus has ever produced.</p>
+</history>
+
+<manufacturer>
+Whitestreak, Inc.
+</manufacturer>
+
+<primaryFactory>
+Marantha
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Electric (Fuel Cell)
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+0.1
+</tonnage>
+
+<fuel>
+0.001
+</fuel>
+

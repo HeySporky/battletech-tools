@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e834-7dd7-b53b-0458e41bc925
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Glory Heavy Fire Support Vehicle
+</Name>
+
+<Model>
+(3090 Upgrade)
+</Model>
+
+<mul id:>
+6803
+</mul id:>
+
+<year>
+3090
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+90
+50
+50
+37
+60
+</armor>
+
+<Body Equipment>
+BeagleActiveProbe
+ISC3SlaveUnit
+ISGuardianECMSuite
+ISTargeting Computer
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISCASE
+</Body Equipment>
+
+<Front Equipment>
+ISERMediumLaser
+ISERMediumLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+LRM 15
+LRM 15
+ISRotaryAC5
+ISArtemisIV
+ISArtemisIV
+</Turret Equipment>
+
+<capabilities>
+<p>The Glory's offensive load centers on a Mydron Tornado Rotary Autocannon/5, which delivers a high volume of fire at medium range, capable of suppressing infantry and lighter vehicles with sustained bursts. Two Coventry Star Fire LRM-15 racks provide the long-range indirect fire capability that defines the vehicle's fire support role, and Artemis IV guidance integration via the BlazeFire Ranging System Type 3 improves cluster spread and hit probability at extended distances. Two Diverse Optics Extended Range Medium Lasers round out the armament, offering reliable energy-based backup that does not depend on ammunition supply.</p><p>The Strand 255 Fusion engine delivers a flank speed of 54 km/h, adequate for repositioning between fire positions but insufficient to disengage from a determined pursuit. Durallex Heavy Ferro-Fibrous armor provides solid frontal and side protection for an 85-ton vehicle. The CommuTech Multichannel communications suite incorporates a Guardian ECM system, adding an electronic warfare layer that degrades enemy targeting and offers limited protection against missile guidance systems.</p><p>The Glory's primary tactical limitation is its short-range vulnerability. With no weapons optimized for close engagement and modest mobility, the vehicle relies on escort elements to keep enemy units at a distance. Its cost, while substantially lower than comparable OmniVehicles, remains a point of criticism given these defensive gaps.</p>
+</capabilities>
+
+<overview>
+<p>The Glory Heavy Fire Support Vehicle is a tracked combat vehicle designed and produced by Johnston Industries on New Syrtis. Developed in the early 3060s at the request of Armed Forces of the Federated Commonwealth High Command, the Glory was conceived to address fire support shortfalls emerging in armor brigades depleted by escalating border conflicts. Johnston based the design on its established Goblin Infantry Support Vehicle, adapting the familiar hull for a dedicated long-range suppression role rather than troop transport. Development was approved and testing was underway when the FedCom Civil War intervened, forcing the company to suspend the program in favor of existing production lines. The first vehicles reached assembly in 3067, entering service at the tail end of hostilities.</p>
+</overview>
+
+<deployment>
+<p>The 3090 Upgrade applies structural reinforcements first developed for the Arrow IV refit program to the standard fire support configuration. The weapons loadout and electronics remain unchanged from the original model, but the improved chassis integration provides greater durability in sustained combat. Johnston Industries transitioned its primary Glory production to this variant from 3090 onward, with older standard models refitted where resources allowed. The 3090 Upgrade is found across a range of Federated Suns commands, serving alongside the Arrow IV configuration in both frontline and garrison roles through the ilClan era.</p>
+</deployment>
+
+<history>
+<p>Johnston Industries began formal design work on the Glory in 3061, responding to AFFC procurement requests for affordable fire support alternatives to the expensive Manteuffel and Ajax OmniVehicle platforms. The company leveraged its familiarity with the Goblin chassis to accelerate development, repurposing the proven hull geometry while redesigning the superstructure and turret ring for the heavier weapons suite. Initial testing at New Syrtis proceeded without significant problems, and High Command placed provisional orders to fill out depleted armor regiments.</p><p>The FedCom Civil War erupted in 3062 before the Glory could complete its evaluation phase. Johnston, like many manufacturers on New Syrtis, redirected factory capacity to spare parts and replacement vehicles for existing designs rather than continuing development of new ones. The Glory program was placed in suspension, with engineering staff reassigned to other priorities. Johnston returned to active testing only in early 3067, and the first production vehicles reached the Syrtis Fusiliers just as the civil war drew to a close.</p><p>The vehicle saw limited Jihad-era service before Word of Blake operations against New Syrtis disrupted Johnston's facilities. The factory struggled through the worst years of the Jihad, with Glory production falling sharply and eventually halting. During the Dark Age, Johnston rebuilt its manufacturing infrastructure and retooled the Glory line to support an Arrow IV artillery configuration, with interim refitting conducted at a Benet III facility until New Syrtis production fully resumed. Structural improvement work in 3090 applied lessons from the Arrow IV refit to the standard fire support variant, producing a tougher vehicle that continued in Federated Suns service through the ilClan era, even as ownership of New Syrtis itself changed hands between factions during the turbulent Dark Age decades.</p>
+</history>
+
+<manufacturer>
+Johnston Industries
+</manufacturer>
+
+<primaryFactory>
+New Syrtis
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Strand
+ARMOR:Durallex
+COMMUNICATIONS:CommuTech
+TARGETING:BlazeFire
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:255
+ARMOR:Heavy Ferro-Fibrous
+COMMUNICATIONS:Multichannel
+TARGETING:Ranging System Type 3
+</systemModels>
+
+<source>
+TR:3145
+</source>
+
+<published>
+RS:3145-NTNU,RS:3145
+</published>
+
+<tonnage>
+85.0
+</tonnage>
+

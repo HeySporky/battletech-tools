@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df41-7a37-9094-27dbef3746bf
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Whitworth
+model:WTH-5S
+mul id:3544
+
+Config:Biped
+techbase:Inner Sphere
+era:3074
+source:XTR:Boondocks
+published:XTR:Boondocks
+rules level:4
+role:Brawler
+
+quirk:weak_legs
+quirk:rugged_1
+
+mass:40
+engine:160 XL Engine
+structure:IS Composite
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:12
+RT armor:12
+CT armor:16
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:4
+Medium X-Pulse Laser, Left Arm
+Medium X-Pulse Laser, Right Arm
+Streak SRM 6, Left Torso
+Streak SRM 6, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMediumXPulseLaser
+ISAES
+ISAES
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISMediumXPulseLaser
+ISAES
+ISAES
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISStreakSRM6
+ISStreakSRM6
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISStreakSRM6
+ISStreakSRM6
+IS Streak SRM 6 Ammo
+ISCASEII
+Supercharger
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Whitworth was first manufactured in 2610 as a medium BattleMech intended to fill the weight gap between the lighter Wasp and heavier Phoenix Hawk designs. Originally conceived as a missile support platform for scout and strike lances, the Whitworth emerged from the Whitworth Company's design bureau on Dieron as a competent if unremarkable machine. Known colloquially as the "Tin Woodsman" among both critics and admirers, the design offered respectable firepower and adequate armor protection for its intended fire support role.</p><p>Despite an enduring reputation for mechanical unreliability in its lower actuator systems, the Whitworth proved serviceable enough to see widespread deployment across the Star League and its successor states, earning a place as a rugged if ungainly workhorse in armies throughout the Inner Sphere.</p>
+
+capabilities:<p>The Whitworth's primary armament consists of two Longbow-10 LRM launchers mounted in the torsos, providing substantial long-range firepower for a medium 'Mech. These weapons are slaved to the Garret D2J targeting system (the same anti-aircraft tracking system employed by the Rifleman and Quickdraw) giving respectable accuracy against aerial and ground targets alike. Three Intek medium lasers provide adequate close-range defense when enemies close the distance.</p><p>The design's most significant limitation is its slow maximum speed of 64 km/h, over 30 km/h slower than the Wasps and Phoenix Hawks it was designed to support. Four Whitworth Jetlift jump jets split between the legs partially compensate for this deficiency. Eight tons of Durallex Light armor provide reasonable protection, distributed heavily around the legs to protect the design's notorious weak point, a faulty actuator system in the hips and legs that can cause limbs to tear loose during aggressive maneuvering. Houses have been known to replace failed legs with those salvaged from other 'Mech designs, creating bizarre but functional hybrids.</p>
+
+deployment:<p>An experimental variant produced by the Spillman Provincial Refit Facility on Acrux beginning in 3074, this variant incorporates multiple cutting-edge technologies into the aging Whitworth chassis for evaluation by the Kaumberg Archonette. A composite internal structure and supercharged XL engine allow brief speed bursts approaching 90 km/h, while paired Streak SRM-6 launchers, Medium X-Pulse lasers with actuator enhancement systems, CASE II protection, and a Guardian ECM suite provide formidable combat capability in forested and urban terrain. The glacial production pace of roughly one refit per ten months severely limits availability.</p>
+
+history:<p>The Whitworth's origins trace to the Reunification War era, when the Whitworth Company on Dieron sought to create a medium fire support platform for Star League forces. The original WTH-1S model carried Harpoon-6 SRM launchers that encouraged pilots to engage in close-range combat for which the design was poorly suited, resulting in heavy losses. By 2689, Star League defense planners mandated the replacement of these weapons with Longbow-10 LRM launchers, creating the WTH-1 that would become the standard production model.</p><p>During the Star League era, the Whitworth served in both SLDF scout units and mobile strike lances, often deployed alongside Wolverines and Phoenix Hawks for reconnaissance-in-force missions, or providing fire support to heavier formations of Riflemen and Warhammers. The Rim Worlds Republic also fielded Whitworths, including the infamous WTH-0 variant used to devastating effect during the Amaris Civil War, where Republic forces employed inferno missiles and flamers to raze entire cities.</p><p>The destruction of the Whitworth Company's Dieron facility in 2776 during the Amaris Crisis eliminated the primary source of spare parts, condemning surviving Whitworths to gradual attrition throughout the Succession Wars. By the end of this era, fewer than three hundred remained operational, mostly in the hands of MechWarrior families who had passed the machines down through generations. The design earned the unflattering nickname "Worthless" among Federated Suns and Draconis Combine pilots, though the 'Mechs themselves continued to serve their units well.</p><p>The situation changed in 3035 when Whitworth Specialty Manufacturing was incorporated on Benjamin, reportedly with ComStar assistance as part of aid offered to Theodore Kurita. This company began producing spare parts and later developed upgrade kits following the Clan Invasion. Despite these efforts, most Whitworths were decommissioned from Great House militaries by the mid-3050s, finding new homes among mercenary companies and Periphery nations like the Taurian Concordat and Outworlds Alliance.</p><p>The Jihad prompted renewed interest in the platform, with both the Federated Suns and Draconis Combine developing C3-equipped variants to counter Blakist improved C3 technology. More recently, Marian Arms Inc. on Alphard has begun producing an improved variant that has spread throughout the Inner Sphere via salvage and Draconis Combine contracts, ensuring the Whitworth's continued presence on battlefields across known space.</p>
+
+manufacturer:Spillman Provincial Refit Facility
+
+primaryfactory:Acrux
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Coventry Metal Works
+systemmode:CHASSIS:Composite
+systemmanufacturer:ENGINE:LTV
+systemmode:ENGINE:LTV 160 XL with Supercharger
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Standard
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Neil
+systemmode:COMMUNICATIONS:Unknown with Guardian ECM
+systemmanufacturer:TARGETING:Unknown

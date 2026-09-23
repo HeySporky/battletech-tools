@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a6a2-70ba-ac21-3478366a1598
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Marauder Battle Armor
+</Name>
+
+<Model>
+(Sqd4)
+</Model>
+
+<mul id:>
+6525
+</mul id:>
+
+<year>
+3110
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+easy_maintain
+</quirks>
+
+<weaponQuirks>
+accurate:Squad:2:CLBALight Recoilless Rifle
+</weaponQuirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+ISBASupportPPC:RA
+ISBASupportPPC:LA
+CLBALight Recoilless Rifle:Body
+CLBALightTAG:Body
+BAAPMount:RA
+InfantryAssaultRifle:APM:RA
+BAAPMount:LA
+InfantryAssaultRifle:APM:LA
+BA-Magnetic Clamp:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<capabilities>
+<p>Weighing 1,500 kilograms, the Marauder is built around delivering punishing firepower at the expense of both speed and protection. Each arm mounts a Support PPC paired with an Anti-Personnel Weapon Mount, while a Light Recoilless Rifle sits on the body. A Light TAG unit rounds out the loadout, allowing troopers to designate targets for Arrow IV missiles and semi-guided long-range munitions.</p><p>Ground speed is limited to just 11 km/h, making the Marauder one of the slower suits in active service. Magnetic clamps partially offset this limitation by allowing troopers to ride friendly vehicles or BattleMechs into the fight. Armor protection sits at roughly half that of the Ravager, a conscious trade-off that has drawn criticism from field commanders. The open chassis design does make the suit easy to service, earning it high marks from maintenance crews who appreciate the accessibility of internal systems.</p>
+</capabilities>
+
+<overview>
+<p>The Marauder is a heavy battle armor suit developed by Marian Arms, Incorporated for the Marian Hegemony Armed Forces. Introduced in 3110 as the Hegemony's second indigenous battle armor design, the Marauder takes a markedly different approach from its predecessor. Where the Ravager emphasized survivability, the Marauder prioritizes offensive output and fire support capability. The suit takes its name from the iconic Marauder BattleMech, and its weapon layout pays deliberate homage to that venerable design. The Marauder has earned a solid reputation among Periphery military forces and the mercenary commands they employ.</p>
+</overview>
+
+<deployment>
+<p>Marian Hegemony legions field the Marauder in four-trooper squads, the standard formation size for Inner Sphere battle armor. Marian commanders typically employ squads in a fire support role, using the suit's target designation capability to call in indirect fire while engaging at range. Taurian militia units and Periphery mercenary commands also operate the suit in this configuration.</p>
+</deployment>
+
+<history>
+<p>The Marauder grew out of the Marian Hegemony's expanding battle armor program, which began with Dr. Dafyyd Rou's development of the Ravager on Horatius in the mid-3080s. Building on lessons learned from their first suit, Marian Arms engineers pursued a lighter design that prioritized offensive capability over raw durability. The result entered service in 3110, drawing its name and weapon configuration from the iconic Marauder BattleMech.</p><p>The suit saw its first major combat deployment during the Landfall rebellion of 3117, when Free Leaguer dissidents seized large portions of the planet. II Legio deployed Marauder squads during the bloody street fighting in New Erewhon, where the suits proved decisive against rebel BattleMechs. The capture of the rebel leader during that engagement was broadcast across the Hegemony, bringing the Marauder to widespread public attention.</p><p>Marian Arms licensed the design to Pinard Protectorates Limited in the Taurian Concordat, and both nations sell the suit freely to mercenaries in their employ.</p>
+</history>
+
+<manufacturer>
+Marian Arms, Inc.|Pinard Protectorates Limited
+</manufacturer>
+
+<primaryFactory>
+Horatius|Macleod's Land
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:Merc,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+9
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

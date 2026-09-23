@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e9ad-7a07-88bf-974e04857305
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Hawk Hover Tank
+</Name>
+
+<Model>
+(LTV-4)
+</Model>
+
+<mul id:>
+5587
+</mul id:>
+
+<year>
+2470
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Striker
+</role>
+
+<quirks>
+ramshackle
+</quirks>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+24
+16
+16
+16
+16
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-4
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+PPC
+SRM 4
+</Turret Equipment>
+
+<capabilities>
+<p>The Hawk's primary armament is a particle cannon that provides reliable long-range direct fire well suited to engaging lightly armored vehicles and suppressing infantry at standoff range. A single short-range missile rack supplements this main weapon with close-quarters capability when engagements close to shorter distances, though the limited ammunition supply encourages conservative fire discipline during extended engagements. Hover propulsion enables the Hawk to cross water obstacles, swamps, and broken terrain that would stop tracked or wheeled vehicles, allowing it to reposition across ground that heavier pursuers cannot follow. This combination of long-range firepower and terrain-crossing mobility suits the Hawk to screening, harassment, and fire support missions rather than direct assault roles where sustained exposure to return fire would be fatal.</p><p>ProtecTech Light armor provides baseline crew protection against small arms and glancing fire but cannot absorb concentrated weapons fire from combat vehicles or BattleMechs. Basix 200 communications and OptiSight-12 targeting equipment handle fire control and coordination adequately for the vehicle's intended mission profile. The ICE powerplant keeps fuel and maintenance requirements within reach of backwater logistics infrastructure, a practical advantage for the peripheral militias forming the Hawk's primary market, though it constrains operational range when the vehicle operates far from established resupply points.</p>
+</capabilities>
+
+<overview>
+<p>The Hawk Hover Tank represents the modern commercial revival of an ancient light combat vehicle originally fielded by the Terran Hegemony in 2464 under the designation LTV-4. General Mechanics of Mars developed the original design as a fast, affordable platform licensed broadly to Star League member states across the Inner Sphere. After the Succession Wars erased most of that production network, Quikscell Company reintroduced the design in the early thirty-first century under the Hawk designation. Quikscell markets the Hawk as a companion to the faster Falcon, offering buyers a slower but harder-hitting variant optimized for long-range direct fire rather than the close-range tactics favored by its sibling. The vehicle appeals to militia commanders and peripheral governments seeking affordable long-range fire support without the cost of fusion-powered combat vehicles.</p>
+</overview>
+
+<deployment>
+<p>The Hawk appears in militia and mercenary inventories throughout the Inner Sphere, typically fielded in screening, long-range harassment, and fire support roles. Its particle cannon allows engagement at distances beyond the reach of most light vehicle adversaries, while hover mobility enables positioning on flanks and across terrain that challenges wheeled and tracked pursuit. Commanders pair the Hawk with Falcons when available, using its range to suppress enemy formations while faster vehicles maneuver for close-range attacks. Peripheral militias favor it as the most affordable long-range fire option available through Quikscell's distribution network.</p>
+</deployment>
+
+<history>
+<p>General Mechanics produced the LTV-4 on Mars for the Terran Hegemony, and licensed production spread the design across Star League member states during the twenty-fifth and twenty-sixth centuries. Amaris Armored Vehicles assembled it on Erdvynn and Timbuktu during the Rim Worlds Republic's later years, though both facilities were presumably destroyed during the Amaris Coup. Buda Imperial Vehicles produced the type for the Draconis Combine from Dabih until that factory's destruction in 2883. Veridian Dynamics operated a Federated Suns production line on Torrence until 2989, and Cyclops Incorporated maintained a licensed Lyran line on Skye that collapsed during the Succession Wars. Exeter Organization retooled its Keystone plant to manufacture the Pegasus Hovertank in 2791 rather than continue LTV-4 output. Brooks Incorporated assembled units at Suzano under Capellan license during the Star League era, though that facility was destroyed before 3000. The LTV-4 designation itself gradually faded from common usage as the production network dissolved.</p><p>Quikscell Company revived the design in the early 3020s, rebranding it the Hawk to complement the Falcon they had just introduced. The company sold the Hawk through the same partially assembled kit system applied across all Quikscell products, packaging the vehicle in crates of components with assembly instructions. Buyers on frontier worlds frequently lacked the technical staff to assemble the kits without assistance, requiring contracted mercenary technicians to complete installation. This persistent complaint failed to dent the Hawk's commercial appeal, as its low acquisition price remained difficult to match among comparable long-range combat vehicles.</p>
+</history>
+
+<manufacturer>
+Amaris Armored Vehicles|Amaris Armored Vehicles|Brooks Incorporated|Buda Imperial Vehicles|Cyclops, Incorporated|Exeter Organization|General Mechanics|Lucas Technologies|Quikscell Company|Various|Veridian Dynamics
+</manufacturer>
+
+<primaryFactory>
+Erdvynn|Timbuktu|Suzano|Dabih|Skye|Keystone|Mars|Outreach|Richvale|Various|Torrence
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:ProtecTech
+COMMUNICATIONS:Basix
+TARGETING:OptiSight
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Light
+COMMUNICATIONS:200
+TARGETING:12
+</systemModels>
+
+<notes>
+Experimental until 2470. Originally known as the LTV-4 Hover Tank in XTR: Primitives Vol 2.
+</notes>
+
+<source>
+RG27,XTR:Primitives II
+</source>
+
+<published>
+RG27
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

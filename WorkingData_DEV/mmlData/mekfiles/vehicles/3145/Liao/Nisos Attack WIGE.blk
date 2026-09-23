@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7eb-79fb-a6d5-c08ab7e2f303
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Nisos Attack WIGE
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6438
+</mul id:>
+
+<year>
+3122
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<quirks>
+easy_maintain
+</quirks>
+
+<weaponQuirks>
+mod_weapons:TU:0:ISPlasmaRifle
+mod_weapons:TU:1:SRM 6
+</weaponQuirks>
+
+<motion_type>
+WiGE
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+28
+22
+22
+22
+25
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-6
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISPlasmaRifle
+SRM 6
+</Turret Equipment>
+
+<capabilities>
+<p>The Nisos is powered by a Nissan 200 XL fusion engine, giving it an impressive top speed of over 150 kilometers per hour. Six tons of Hellespont Heavy Ferro-Fibrous armor provide excellent protection for a vehicle in its weight class, allowing it to survive engagements that would destroy lighter reconnaissance craft. The primary armament consists of a turret-mounted Ceres Arms Crusher plasma rifle supported by a Harpoon-6 SRM launcher, providing both direct-fire suppression and close-range striking power. Two tons of plasma rifle ammunition and one ton of missile reloads sustain the vehicle through extended engagements, though the reliance on ammunition limits operational endurance without resupply.</p><p>Quikscell invested considerable effort in crew accommodations. Both the driver and gunner benefit from comprehensive controls built to ultramodern ergonomic standards, while the commander's station is unusually spacious and comfortable. All three crew stations feature personal storage compartments and adjustable five-point restraints, reducing fatigue during long sorties. The weapon bays use modular construction, allowing field technicians to reconfigure armament loadouts with minimal downtime and support requirements, much like an OmniVehicle but at a fraction of the cost. Despite these advantages, the Nisos remains a light vehicle, and sustained fire from heavier opponents can quickly overwhelm its defenses.</p>
+</capabilities>
+
+<overview>
+<p>The Nisos Attack WiGE is a 35-ton wing-in-ground-effect combat vehicle introduced in 3122 by the Quikscell Company at their factory on Ares. Named for a figure from classical Terran mythology who helped place Aegeus on the throne of Athens, the vehicle was designed to fill the gap between traditional scout units and heavier dragoon formations. Quikscell deliberately targeted the advanced reconnaissance market, building the Nisos to outperform comparable units in the interdictor role. The vehicle quickly became a favorite among Capellan Confederation Armed Forces scout and cavalry battalions, where its combination of speed, firepower, and crew comfort gave it a reputation for reliability unusual among Quikscell products.</p>
+</overview>
+
+<deployment>
+<p>The standard Nisos configuration mounts a Ceres Arms Crusher plasma rifle and a Harpoon-6 SRM launcher in a single turret, providing a balanced mix of energy suppression and missile striking power. This loadout makes the base variant well-suited for its intended role as an interdictor, capable of engaging both armored vehicles and infantry in the open. Two tons of plasma rifle ammunition and one ton of SRM reloads ensure adequate endurance for extended reconnaissance patrols. The Nisos serves primarily with CCAF scout and cavalry formations, where its speed allows it to screen advancing forces or pursue retreating enemies across varied terrain.</p>
+</deployment>
+
+<history>
+<p>Quikscell Company developed the Nisos on Ares to meet growing Capellan Confederation demand for fast, versatile reconnaissance platforms in the early thirty-second century. The Ares facility had suffered devastating losses during the Jihad, with 85 percent capital and personnel casualties reducing operations to barely half capacity. By the 3120s, the plant had recovered sufficiently to launch new product lines, and the Nisos represented a departure from Quikscell's traditional focus on inexpensive, disposable combat vehicles.</p><p>The Nisos proved its worth during the Capellan invasion of Palos in 3134. Elements of Warrior House Dai Da Chi and McCarron's Armored Cavalry clashed with the Principes Guards south of the planetary capital, Xer, in the Grael River Delta. The terrain was a labyrinth of seasonal flooding, quicksand, and dense undergrowth that grounded conventional aerial reconnaissance assets and hampered infantry operations. Heavy rain and strong winds kept Capellan aerial recon units grounded for days at a time. A Capellan screening force of VTOLs and conventional fighters moved into the bayou, followed by a battalion of CCAF BattleMechs. The Guards deployed along the only passable stretch of terrain and inflicted heavy casualties in the first hour, giving up only two kilometers.</p><p>After the Guards' aerospace fighters sortied from Xer and scattered the Capellan air support, a platoon of Nisoses split from the main Capellan force and made a flanking advance through the marsh. The WiGEs bypassed the bayou's natural obstacles with ease, outmaneuvering the heavier defending forces while aerial defenders were temporarily absent. Within two hours, the Guards were in disarray. The Nisos platoon struck from behind, then melted back into the swamp before the defenders could regroup. Major Ruth Janson ordered defending units to withdraw and regroup farther into the bayou, but the Nisoses continued their harassing actions and raced toward the Guards' supply depot. The withdrawal became a rout as the Guards scrambled to protect their supplies. By the end of the day, the Capellans had crossed the bayou and gained access to the M7 Expressway. The Guards were forced to retreat 100 kilometers to the planetary capital. The Capellans conquered Palos three weeks later.</p>
+</history>
+
+<manufacturer>
+Quikscell Company
+</manufacturer>
+
+<primaryFactory>
+Ares
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Nissan
+ARMOR:Hellespont
+COMMUNICATIONS:Endicott
+TARGETING:Dwyerson
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:200 XL
+ARMOR:Heavy Ferro-Fibrous
+COMMUNICATIONS:Type 6G Microwave Projector
+TARGETING:Mark IV
+</systemModels>
+
+<source>
+TR:3145:CC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+

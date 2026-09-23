@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ea97-7e69-b5a0-da6c266d4fb4
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Deusenberg VIP Luxury Hovercar
+</Name>
+
+<Model>
+(Original)
+</Model>
+
+<mul id:>
+4073
+</mul id:>
+
+<year>
+3024
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+1stclassquarters:10.0:1:-1::-1:0
+cargobay:6.05:1:2::-1:0
+standardseats:0.45:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+51
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+16
+13
+13
+12
+</armor>
+
+<Body Equipment>
+Armored Chassis
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+10
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Deusenberg VIP Luxury Hovercar rides on a medium hover platform massing fifty tons, powered by a fusion powerplant that delivers a cruise speed of roughly seventy-five kilometers per hour and a flank speed approaching one hundred twenty kilometers per hour. This combination places it among the faster vehicles in its weight class, allowing the vehicle to clear most threat environments quickly without direct confrontation. The chassis carries an Armored Chassis Modification alongside just over three and a half tons of BAR 10 armor, providing meaningful protection against small arms and fragmentation while offering limited resistance to direct weapons fire. Frontal protection is prioritized, reflecting the assumption that the vehicle will typically be advancing toward or withdrawing from a threat rather than absorbing fire from multiple angles simultaneously.</p><p>Ten tons of first-class passenger quarters provide accommodations appropriate to royalty or senior military leadership, supported by six passenger seats for a security detail or accompanying staff. The remaining 6.05 tons of cargo capacity handles luggage, personal communications equipment, and mission-essential supplies. The original configuration carries no weapons, relying entirely on speed and armored protection for survivability. An Equipment Rating of D/X-F-D reflects the use of high-quality Federated Suns military-grade components, accessible to well-funded operators but not requiring cutting-edge technological infrastructure to maintain.</p>
+</capabilities>
+
+<overview>
+<p>The Deusenberg VIP Luxury Hovercar is a fifty-ton civilian hover transport commissioned by First Prince Hanse Davion of the Federated Suns in 3024. Conceived to provide Davion royalty and senior court personnel with a protected executive transport capable of operating in close proximity to military operations, the design blends first-class passenger accommodations with an armored chassis far exceeding ordinary civilian vehicle standards. Produced on New Avalon, the Deusenberg became the prestige conveyance of the Davion court and is perhaps best remembered for its central role in events surrounding the Fourth Succession War. Its unarmed configuration relies on speed and protection rather than firepower, prioritizing the survival of its occupants over independent combat capability.</p>
+</overview>
+
+<deployment>
+<p>The original Deusenberg VIP Luxury Hovercar served throughout its operational life as the designated executive transport for Federated Suns and, after 3028, Federated Commonwealth senior leadership. Without weapons and with accommodations scaled for VIP passengers rather than military personnel, the design saw no front-line combat service, appearing instead in command-zone convoys, planetary capital circuits, and high-security installations where its combination of speed and armored protection made it a credible executive vehicle without demanding dedicated military escort. The design's Obsolete quirk, triggered in 3068, reflects its formal retirement from production as newer variants and alternative designs entered the Federated Suns executive fleet.</p>
+</deployment>
+
+<history>
+<p>The Deusenberg VIP Luxury Hovercar traces its origins to 3024, when First Prince Hanse Davion of the Federated Suns quietly commissioned a new class of armored limousine intended to impress the nobility of his entourage while providing genuine protection for senior personnel he planned to bring within range of active military operations. Davion was at the time preparing what would become the Fourth Succession War, and he understood that managing the Federated Suns and Lyran Commonwealth aristocracy accompanying him, none of them trained MechWarriors, would require a vehicle capable of surviving battlefield proximity without demanding military expertise from its occupants. Produced on New Avalon, the Deusenberg entered court service before hostilities commenced.</p><p>The vehicle became inseparably associated with the events of 3028, when Hanse Davion wed Melissa Steiner at a ceremony that also marked the opening of the Fourth Succession War. At this ceremony, Davion made his legendary declaration to his bride, announcing that his wedding gift to her was the Capellan Confederation itself. His words, "In honor of our marriage... I give you a vast prize. I give you the Capellan Confederation!", were destined to ring throughout history as a symbol of the age. Davion was well aware of the tempest he was inciting, and the Deusenberg's protective capabilities were not merely decorative during those dangerous years.</p><p>The most celebrated individual example of the type, designated the Deusenberg One, served as the First Prince's personal limousine from its commissioning until the vehicle's loss in the Jihad era. Hauptmann Gershvin Jackson served as its driver and caretaker until his death in 3051, considering his position and duties a matter of personal honor despite never having met the Prince directly. Following Hauptmann Jackson's death, the vehicle was modified during the 3050s to add enhanced electronics and active anti-personnel defenses suited to the elevated threat environment of the post-Clan Invasion era. After Katherine Steiner-Davion's assumption of power on New Avalon, the Deusenberg One fell into disrepair and was subsequently lost. It was last reported as of late 3062, its whereabouts unknown. The original configuration of the design was declared obsolete in 3068 as the Federated Suns' vehicle fleet modernized during the Jihad.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+New Avalon
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:N/A
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion (unspecified)
+ARMOR:Unknown (BAR 10, 3.5 tons)
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

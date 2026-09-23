@@ -1,0 +1,916 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eead-70ee-b060-e9b1ab92653e
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Leviathan III Battleship
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7394
+</mul id:>
+
+<year>
+3150
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:60.0:5:1::-1:0
+smallcraftbay:10.0:2:2::-1:0
+cargobay:14712.5:12:3::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:1700.0:0:-1::-1:0
+crewquarters:4900.0:0:-1::-1:0
+2ndclassquarters:1575.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+10000
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+37500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+12
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+1000
+1000
+1000
+1000
+1000
+1000
+</armor>
+
+<Nose Equipment>
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:300
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo:600
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis V-capable:504
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12:504
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLAMS Ammo:1008
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:300
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis V-capable:504
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12:600
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLAMS Ammo:1008
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:300
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis V-capable:504
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12:600
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLAMS Ammo:1008
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo:600
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis V-capable:504
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12:500
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLAMS Ammo:1008
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:300
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis V-capable:600
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12:600
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLAMS Ammo:1008
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:300
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis V-capable:600
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12:600
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLAMS Ammo:1008
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Sub-Capital Missile Launcher (Stingray)
+Sub-Capital Missile Launcher (Stingray)
+Sub-Capital Missile Launcher (Stingray)
+Ammo Stingray:150
+(B) Sub-Capital Missile Launcher (Stingray)
+Sub-Capital Missile Launcher (Stingray)
+Sub-Capital Missile Launcher (Stingray)
+Ammo Stingray:150
+(B) CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+PPC Capacitor
+PPC Capacitor
+PPC Capacitor
+PPC Capacitor
+PPC Capacitor
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis V-capable:900
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12:900
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Sub-Capital Missile Launcher (Stingray)
+Sub-Capital Missile Launcher (Stingray)
+Sub-Capital Missile Launcher (Stingray)
+Ammo Stingray:150
+(B) Sub-Capital Missile Launcher (Stingray)
+Sub-Capital Missile Launcher (Stingray)
+Sub-Capital Missile Launcher (Stingray)
+Ammo Stingray:150
+(B) CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+PPC Capacitor
+PPC Capacitor
+PPC Capacitor
+PPC Capacitor
+PPC Capacitor
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis V-capable:900
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+CLArtemisV
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12:900
+</Right Broadsides Equipment>
+
+<structural_integrity>
+150
+</structural_integrity>
+
+<capabilities>
+<p>The Leviathan III mounts an exceptionally comprehensive weapons suite built around heavy naval Gauss rifles, heavy naval PPCs, naval autocannons, and banks of naval laser fifty-fives in every arc. Capital missile launchers and sub-capital Stingray missiles on the broadsides provide flexible engagement options at varying ranges. The conventional weapons fit features upgraded systems including LRM-20 batteries with Artemis V fire control, ATM-12 launchers with multiple ammunition types, ER PPCs with PPC capacitors, and extensive arrays of extended-range lasers and pulse lasers. Both conventional and laser anti-missile systems provide redundant point-defense coverage across most arcs, a direct response to the nuclear-armed attacks that threatened earlier Leviathan-class vessels during the Jihad.</p><p>The most significant structural change from the Leviathan II is the dramatic expansion of docking capacity to twenty DropShip collars, shifting the primary aerospace complement responsibility to carried DropShips rather than internal fighter bays. The vessel still accommodates sixty aerospace fighters and ten small craft internally, serving primarily as a screening element. Five thousand three hundred seventy-three tons of Lamellor Ferro-Carbide armor provides exceptional protection, a substantial increase over earlier Leviathan designs. Ten thousand double heat sinks manage the massive thermal output of the weapons suite. Structural integrity of one hundred fifty matches the Leviathan II's reinforced construction. A lithium-fusion battery and mobile HPG round out the vessel's strategic capabilities.</p>
+</capabilities>
+
+<overview>
+<p>The Leviathan III Battleship is the latest evolution of the Leviathan design lineage, developed by the Rasalhague Dominion as its premier capital WarShip for the ilClan era. Built at the Alshain Naval Yards, the class maintains the same massive two million four hundred thousand ton displacement as its predecessors while adopting a fundamentally different force projection philosophy. Where the Leviathan II emphasized internal aerospace capacity, the Leviathan III was designed to serve as a mobile base for DropShip-borne combined-arms formations alongside its direct combat role. The class entered production during a period when few powers possessed the resources or industrial will to construct new capital WarShips, making even a single hull of such magnitude a strategic asset of the first order. The Leviathan III carries the Dominion's tradition of fielding the largest and most heavily armed WarShips in existence into a new generation of interstellar conflict.</p>
+</overview>
+
+<deployment>
+<p>No named vessels of the Leviathan III class have been identified in open intelligence reports. The first hull is attributed a production year of 3150, though the vessel's precise designation and operational deployment remain classified. Outside analysts initially misread Dominion shipyard activity during the 3130s and 3140s as routine DropShip fleet expansion, only recognizing the scale of the construction program after Dominion sources disclosed the existence of a new Leviathan derivative. Whether additional hulls have been laid down at the Alshain Naval Yards or elsewhere remains unknown. The completed vessel presumably assumed the role of fleet flagship from the CGB Rasalhague, the last surviving Leviathan II, serving as the cornerstone of the Dominion's naval order of battle during the ilClan era.</p>
+</deployment>
+
+<history>
+<p>The Leviathan III class emerged from the Rasalhague Dominion's hard-won recognition during the Jihad that heavy battleships remained indispensable for achieving orbital supremacy despite their enormous cost and vulnerability to concentrated attack. The Dominion's successful assaults on key worlds during Operation SCOUR had relied heavily on the presence of Leviathan-class vessels, while operations conducted without such capital assets met with measurably greater resistance and higher casualty rates among the assault formations. This operational experience drove Dominion strategists to conclude that a successor to the Leviathan II was essential once industrial capacity recovered sufficiently to support such an ambitious undertaking.</p><p>The Second Combine-Dominion War and the broader instability of the early thirty-second century delayed any serious development effort for years. It was not until after the disruptions caused by Gray Monday in the 3130s that the Dominion began quietly expanding its aerospace training programs and naval infrastructure in preparation for new capital construction. The Alshain Naval Yards, which had maintained the sole surviving Leviathan II through decades of service, possessed both the institutional knowledge and the physical capacity to undertake a new program of this scale. Construction proceeded under extensive secrecy, with the true nature of the shipyard activity concealed behind what appeared to be routine DropShip fleet expansion.</p><p>The design philosophy evolved significantly from the Leviathan II. Dominion naval architects recognized that DropShip-borne formations offered greater tactical flexibility than a massive internal fighter wing and reduced the risk of losing an entire aerospace complement if the mothership sustained critical damage. The Leviathan III was accordingly designed around a dramatically expanded docking capacity, with the internal aerospace component reduced to a screening role. This shift allowed the vessel to function as both a direct combatant and a mobile staging base for combined-arms operations, a dual role that the Leviathan II had never been configured to fill.</p><p>The armament drew on the latest Clan technologies available to the Dominion, with upgraded fire control, enhanced energy weapons, and redundant defensive systems reflecting the hard lessons of the Jihad. Armor protection increased substantially over the Leviathan II, further enhancing the vessel's survivability against the kinds of concentrated fire that had destroyed two of the three earlier battleships. Rumors of collaboration with the Raven Alliance surfaced during the construction period, with reports of activity at the Quatre Belle facility suggesting the Dominion had sought outside naval expertise. Such a partnership would echo the original Ghost Bear-Snow Raven cooperation that produced the first Leviathan decades earlier, combining the Dominion's industrial capacity with the Alliance's deep knowledge of naval architecture.</p><p>The Leviathan III entered service in an era when the construction of new capital WarShips was an extraordinary rarity. Most powers had long since exhausted the industrial capacity and political will required to build vessels of such immense scale. The Dominion's ability to produce a successor to the Leviathan II, decades after the Jihad had devastated the Inner Sphere's naval yards, confirmed the Rasalhague Dominion's commitment to maintaining a naval capability that no neighboring state could match. Whether additional vessels followed the first hull remains unknown, but the existence of the class ensured that the Dominion would continue to field the largest and most heavily armed WarShips in the Inner Sphere well into the ilClan period.</p>
+</history>
+
+<manufacturer>
+Alshain Naval Yards
+</manufacturer>
+
+<primaryFactory>
+Alshain
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Alshain Naval Yards
+ENGINE:Unknown
+ARMOR:Valiant
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Lamellor Ferro-Carbide
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Battleship
+</use>
+
+<length>
+1623 m
+</length>
+
+<height>
+1560 m Sail
+</height>
+
+<source>
+XTR:RotS 3
+</source>
+
+<tonnage>
+2400000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+185
+185
+95
+95
+95
+95
+95
+95
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+1040
+</crew>
+
+<officers>
+170
+</officers>
+
+<gunners>
+216
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+225
+</battlearmor>
+
+<life_boat>
+150
+</life_boat>
+
+<escape_pod>
+150
+</escape_pod>
+

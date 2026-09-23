@@ -1,0 +1,93 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b64d-75ec-9461-16929ed702b1
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Ceremonial Guard
+</Name>
+
+<Model>
+Otomo Guard
+</Model>
+
+<mul id:>
+531
+</mul id:>
+
+<year>
+2350
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Neo-Chainmail
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Otomo serve as the Palace Household Guard of the Draconis Combine, tasked with the defense of Unity Palace, the Coordinator, and the Coordinator's family. Slightly more than a regiment in size, the Otomo draw their members exclusively from Sword of Light regiments and district regular units, accepting only the most highly skilled soldiers in the DCMS. Seeking appointment is considered self-aggrandizing; instead, one is chosen, with the Coordinator assembling a list of candidates who are then investigated by the Internal Security Force. The Otomo's infantry companies carry vibro-katanas and wear neo-chainmail armor crafted to evoke centuries of Combine samurai tradition. A handful of auto-rifles provide ranged fire support for each platoon, though such weapons are rarely needed. Assignment to the Otomo ranks among the highest honors available to infantry in service of the Dragon.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Blade (Vibro-katana)
+</Primary>
+
+<Secondary>
+InfantryAssaultRifle
+</Secondary>
+

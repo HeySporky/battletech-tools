@@ -1,0 +1,258 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ac22-7284-aab8-6d0ed35bb660
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Achilles
+</Name>
+
+<Model>
+(3088)
+</Model>
+
+<mul id:>
+6820
+</mul id:>
+
+<year>
+3088
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:2.0:1:1::-1:0
+asfbay:2.0:1:2::-1:0
+battlearmorbay:1.0:1:4::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:50.0:0:-1::-1:0
+crewquarters:161.0:0:-1::-1:0
+steeragequarters:0.0:0:-1::-1:0
+cargobay:108.0:1:8::-1:0
+</transporters>
+
+<SafeThrust>
+8
+</SafeThrust>
+
+<heatsinks>
+117
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+9000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+20
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+451
+375
+375
+291
+</armor>
+
+<Nose Equipment>
+(B) Heavy PPC
+Heavy PPC
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:24
+ISArtemisIV
+ISArtemisIV
+(B) ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Heavy PPC
+(B) ISGaussRifle
+ISUltraAC20
+IS Gauss Ammo:16
+IS Ultra AC/20 Ammo:20
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:24
+ISArtemisIV
+ISArtemisIV
+(R) (B) ISERPPC
+(R) (B) ISERLargeLaser
+(R) (B) ISGaussRifle
+(R) IS Gauss Ammo:16
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Heavy PPC
+(B) ISGaussRifle
+ISUltraAC20
+IS Gauss Ammo:16
+IS Ultra AC/20 Ammo:20
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:24
+ISArtemisIV
+ISArtemisIV
+(R) (B) ISERPPC
+(R) (B) ISERLargeLaser
+(R) (B) ISGaussRifle
+(R) IS Gauss Ammo:16
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISGaussRifle
+IS Gauss Ammo:16
+(B) ISERMediumLaser
+ISERMediumLaser
+</Aft Equipment>
+
+<Hull Equipment>
+ISNC3
+</Hull Equipment>
+
+<structural_integrity>
+16
+</structural_integrity>
+
+<capabilities>
+<p>The (3088) variant represents the most comprehensive modernization of the Achilles design to date. The armament was dramatically upgraded with four heavy PPCs and five Gauss rifles providing devastating long-range striking power, supported by twin ultra-class AC/20s for close combat. Six LRM-20 racks with Artemis IV fire control, three ER large lasers, twin ER PPCs, and four ER medium lasers round out a weapons suite that vastly exceeds the firepower of any previous variant.</p><p>Ferro-aluminum armor was applied at nearly 1,500 points of total coverage, far exceeding any earlier configuration. The infantry bay was converted to accommodate a squad of battle armor, reflecting evolving boarding doctrine. The most significant addition is a naval C3 computer system that allows the Achilles to coordinate fire with friendly vessels, greatly enhancing its effectiveness in fleet engagements. Double heat sinks manage the enormous thermal load. Cargo capacity was reduced to 103 tons to accommodate the additional equipment.</p>
+</capabilities>
+
+<overview>
+<p>The Achilles class Assault DropShip is one of the most feared space combat vessels in the Inner Sphere. First launched in 2582 by Galileo Instruments on Schuyler, this 4,500-ton Aerodyne was designed exclusively for operations in the vacuum of space, sacrificing all atmospheric capability to maximize its combat performance against other DropShips and aerospace fighters. An enormously powerful drive system comprising more than half the vessel's mass gives the Achilles performance rivaling heavy aerospace fighters, making it a uniquely lethal threat in orbital engagements.</p><p>The Achilles has always been a rare and coveted asset. Few construction facilities have ever possessed the capability to build or maintain such a sophisticated vessel, and the design's complexity has ensured that operational numbers have remained low throughout its service history. Despite this scarcity, the Achilles earned a fearsome reputation as one of the deadliest assault DropShips ever fielded, and it has served with virtually every major military power in known space.</p>
+</overview>
+
+<deployment>
+<p>The (3088) variant was developed by the Draconis Combine Admiralty as part of a fleet-wide modernization initiative following the Jihad. The networked fire coordination capability transformed the Achilles from an independent assault platform into a coordinated fleet combat asset, and these heavily upgraded vessels now serve as the centerpiece of Combine naval assault squadrons. They frequently deploy alongside Nekohono'o and Okinawa class vessels in combined fleet operations.</p>
+</deployment>
+
+<history>
+<p>The Achilles class assault DropShip was born from the Star League Defense Force's need for a dedicated space superiority vessel capable of clearing orbital approaches ahead of planetary assault forces. Galileo Instruments developed the design at their Matabushi facility on Schuyler, and it entered service in 2582. Every major Star League-era military adopted the Achilles, with the Armed Forces of the Federated Suns incorporating pairs into their standard naval defense formations alongside Leopard CVs and Intruders.</p><p>During the Star League era, the Achilles typically deployed in the vanguard of planetary assault fleets, working alongside fighter escorts to neutralize orbital defenses before heavier transport vessels committed to atmospheric entry. The marines carried aboard specialized in boarding disabled enemy vessels via combat buses launched from the aft small craft bays, giving the Achilles a secondary role in prize-taking operations.</p><p>The Succession Wars proved devastating for the Achilles fleet. Attrition rates consistently exceeded replacement production, and the complexity of the vessel and its drive system meant that fewer facilities could maintain the class as general technological capability declined. The Draconis Combine emerged as the single largest operator, leveraging its control of the Galileo Instruments facility on Schuyler to maintain a dwindling but potent fleet. As the other Successor States began to decipher the secrets of the Gray Death memory core, military planners anticipated that Achilles production capability might eventually be restored beyond Combine territory.</p><p>The Clan Invasion of 3049 struck a critical blow when Clan Smoke Jaguar seized Schuyler, capturing the only remaining Achilles production line in the Inner Sphere. The Clans favored the military vessel over the Monarchs and Behemoths the Galileo lines could also produce, and Achilles production was likely accelerated under the garrison of the Twelfth Jaguar Regulars. The planet was recaptured during Operation BULLDOG in 3059, but the interruption further reduced the already scarce supply of operational vessels.</p><p>The surprise appearance of newly-built Capellan Achilles variants in 3055 partially offset the loss of Schuyler production. Under chairman Riley Doh, Rashpur-Owens Incorporated had doubled production on every hull they constructed by 3056, and back-channel deals had secured the plans and molds necessary to produce the Achilles for the Capellan admiralty. Following the Jihad, new planetary yards on Schuyler resumed Achilles production for the Draconis Combine, and the DCA initiated a comprehensive modernization program for its surviving fleet. Despite its enduring rarity, the Achilles remains one of the most respected assault DropShips in service.</p>
+</history>
+
+<manufacturer>
+Galileo Instruments
+</manufacturer>
+
+<primaryFactory>
+Schuyler
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Xevex-12
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145
+</source>
+
+<published>
+RS:3145-NTNU,RS:3145
+</published>
+
+<tonnage>
+4500.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+43
+</crew>
+
+<officers>
+5
+</officers>
+
+<gunners>
+11
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+6
+</escape_pod>
+

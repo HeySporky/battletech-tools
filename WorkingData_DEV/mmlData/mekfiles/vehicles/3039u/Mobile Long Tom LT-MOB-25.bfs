@@ -1,0 +1,48 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid: "019f5efd-5a93-787d-97da-498515a8b986"
+linkedUnitId: "019f583e-e2d3-70be-af0d-5de4c64bcc99"
+chassis: "Mobile Long Tom Artillery"
+model: "LT-MOB-25"
+assetType: "Vehicle"
+cardTitle: "Mobile Long Tom"
+cardSubtitle: "LT-MOB-25"
+year: 2602
+techBase: "IS"
+source: "TR:3039"
+role: "MISSILE_BOAT"
+movement:
+  mp: 2
+  mode: "TRACKED"
+tmm: 0
+range:
+- -1
+- -1
+- -1
+skill:
+  standard: 8
+damage:
+  perHit: 0
+  hits: 0
+destroyCheck: 7
+threshold: 5
+cost:
+  standard: 66
+specials:
+- "Artillery (LT)"
+- "No Turret"

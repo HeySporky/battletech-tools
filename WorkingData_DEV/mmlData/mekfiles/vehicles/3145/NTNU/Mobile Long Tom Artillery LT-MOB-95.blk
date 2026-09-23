@@ -1,0 +1,175 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e846-7a21-a33b-bfdea3a4656a
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Mobile Long Tom Artillery
+</Name>
+
+<Model>
+LT-MOB-95
+</Model>
+
+<mul id:>
+8044
+</mul id:>
+
+<year>
+3097
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+4
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+24
+24
+24
+24
+24
+</armor>
+
+<Body Equipment>
+ISLongTomAmmo
+ISLongTomAmmo
+ISLongTomAmmo
+ISLongTomAmmo
+ISLongTomAmmo
+ISLongTomAmmo
+ISLongTomAmmo
+ISLongTomAmmo
+ISLongTomAmmo
+ISLongTomAmmo
+ISCASE
+IS Ammo MG - Full
+Communications Equipment:SIZE:5.0
+ISGuardianECMSuite
+</Body Equipment>
+
+<Front Equipment>
+ISLongTom
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>The Mobile Long Tom achieves its destructive power through extreme range and raw hitting power rather than any pretension toward survivability. The convoy's centerpiece is the Armstrong Industries Long Tom Rifle Mobile Chassis System, an artillery piece with a reach measured in kilometers that is equally suited to destroying fixed fortifications, disrupting massed formations, and systematically demolishing urban terrain. Four SperryBrowning machine guns provide minimal close-range defense against infantry but offer no meaningful protection against combat vehicles or BattleMechs. The crew depends entirely on supporting arms for anti-aircraft and anti-armor coverage.</p><p>Power comes at a significant cost in mobility. The Robel 110 ICE engine provides road movement capability but precludes cross-country travel when the full convoy is assembled, and the ICE power plant demands constant refueling. Three ammunition carriages carry approximately seventy-five rounds in total, enough for just over four minutes of continuous fire before the battery must reposition to await resupply. StarSlab/1 armor protects the crew from small arms and artillery fragments but cannot withstand dedicated anti-vehicle fire. A single pass by a hostile aerospace fighter or an unsupported flanking BattleMech can destroy the entire system. The Mobile Long Tom's survivability depends entirely on concealment, distance, and the vigilance of its escorts.</p>
+</capabilities>
+
+<overview>
+<p>The Mobile Long Tom stands among the most feared indirect-fire weapons in the Inner Sphere, a rolling siege battery capable of reducing fortifications and destroying armored formations from distances that place its crews entirely beyond the reach of retaliation. Built by Rebel Industrial Technologies, Inc. of Mars and introduced in 2602, the design was conceived for the Star League Defense Force as a mobile decisive fire-support option capable of breaking any fixed defense without exposing assault troops to unnecessary risk.</p><p>Taking the form of a convoy of up to six tracked vehicles centered on an Armstrong Industries Long Tom Rifle Mobile Chassis System, the Mobile Long Tom converts a weapon of immense destructive power into a self-sufficient mobile battery that can relocate after firing to deny counterbattery response. When the Star League collapsed and these systems passed to Successor States forces, their fearsome reputation only grew during the brutal wars that followed. Few weapons have so consistently shaped the calculus of defensive warfare across three centuries of Inner Sphere conflict.</p>
+</overview>
+
+<deployment>
+<p>The LT-MOB-95 eliminates the convoy requirement entirely, integrating the Long Tom's weapons, ammunition, and control systems into a single tracked chassis. Introduced by the Federated Suns and produced by Kallon Weapon Industries on Kirklin, this variant is substantially more mobile and easier to maintain than legacy convoy systems. The elimination of trailer dependencies removes the road restriction and logistical burden that constrained its predecessors, allowing LT-MOB-95 batteries to operate in terrain and conditions that would have been impractical for the wagon-train design. Production remains within the Federated Suns sphere of influence.</p>
+</deployment>
+
+<history>
+<p>The Mobile Long Tom predates the height of the Star League itself. Rebel Industrial Technologies introduced the design in 2602 at their Mars facility, constructing it as a mobile fire support platform for the Star League Defense Force's expanding campaign requirements. While most armies fielded conventional artillery in fixed emplacements or towed configurations, the SLDF demanded a weapon capable of relocating after firing, denying counterbattery response and maintaining offensive momentum during extended campaigns. The resulting LT-MOB-25 satisfied that demand by concentrating everything necessary for sustained bombardment into a convoy of tracked vehicles that could be broken apart, moved independently, and reassembled within hours.</p><p>The Mobile Long Tom found its first major institutional role as part of the Terran Hegemony's Main Guardian Defense System. Rather than station permanent SLDF ground forces on every world lacking a Space Defense System, the Hegemony equipped major population centers with networks of automated Guardian drone tanks controlled by central computers, supported by Mobile Long Tom batteries to provide the decisive firepower those drones could not carry. When the SLDF undertook its liberation campaign during the Amaris Civil War, those computers and their drone complements were methodically destroyed to prevent the enemy from recapturing them. The Mobile Long Tom batteries survived, left behind as isolated fire support assets whose doctrinal purpose had been eliminated along with the systems they once supported.</p><p>When the Star League dissolved and the Exodus stripped the Inner Sphere of its finest military minds and most advanced technology, the Mobile Long Tom proved both too valuable and too simple to abandon. Rebel Industrial Technologies continued production on Mars through the first century of the Succession Wars under successive periods of Rim Worlds Republic and later ComStar stewardship, keeping artillery batteries operational across every major power. The system's simplicity was its principal advantage: ICE power plants, conventional munitions, and uncomplicated electronics that could be maintained with Succession Wars-era industrial capacity.</p><p>The history of the Mobile Long Tom is written in the rubble of the cities it has bombarded. In 2888, Draconis Combine forces raiding the Davion world of Errai discovered that two Mobile Long Toms firing from an urban position could neutralize an entire raiding force before it could establish a defensive perimeter, their rounds dismantling cover and forcing a withdrawal rather than face sustained bombardment. On Berenson, a prolonged engagement between House Marik and House Liao saw each side's batteries hunting the other for nearly a week, with espionage and sabotage ultimately determining the outcome. In 3002, a Marik strike against Treth in the Lyran Commonwealth turned on the defenders' decision to use a single Mobile Long Tom to simulate a larger battery, successfully deceiving the attackers into a premature withdrawal before their objectives were secured.</p><p>These engagements reinforced a doctrine that placed Mobile Long Tom batteries at the core of garrison and defensive planning across all major powers. Batteries of four to six units attached to regimental battle groups controlled the ground around any fixed position with the implicit threat of fire from kilometers in any direction. The psychological weight of artillery is disproportionate to its mechanical specifications. Soldiers unable to see what is destroying them, hearing only the distant concussion before impact, fight differently than those facing direct fire.</p><p>The LT-MOB-25F, introduced in 2695, extended the system's capabilities with ferro-fibrous armor, CASE protection, and a more powerful engine that improved road speed. Multiple manufacturers took on production, including Bithinian Ballistics, Lycomb-Davion IntroTech, Austen-Armstrong Industries, and Taurus Territorial Industries, dispersing the design's production base across multiple factions. When the Jihad silenced the Mars facility, those dispersed production lines ensured continuity. The 3132 Blackout demonstrated that indirect fire remained among the few weapons capable of neutralizing the agile OmniMechs favored by raiders, driving a post-Blackout production revival across the Inner Sphere. The LT-MOB-95, introduced by the Federated Suns in 3097, rationalized the entire system into a single compact chassis through Kallon Weapon Industries, eliminating the convoy requirement and the logistical burden it had always imposed while preserving the Long Tom's fundamental destructive reach.</p>
+</history>
+
+<manufacturer>
+Kallon Weapon Industries
+</manufacturer>
+
+<primaryFactory>
+Kirklin
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Kallon Weapon Industries
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+95.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

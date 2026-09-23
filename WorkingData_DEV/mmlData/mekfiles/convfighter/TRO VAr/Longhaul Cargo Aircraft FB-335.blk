@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa32-77f4-80c4-337e126dcfc0
+</UUID>
+
+<UnitType>
+FixedWingSupport
+</UnitType>
+
+<Name>
+Longhaul Cargo Aircraft
+</Name>
+
+<Model>
+FB-335
+</Model>
+
+<mul id:>
+4158
+</mul id:>
+
+<year>
+3054
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<quirks>
+atmo_flyer
+difficult_maintain
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:105.05:4:1::-1:0
+troopspace:1.95
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+760
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+49
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+32
+26
+26
+16
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Body Equipment>
+STOLChassisMod
+FieldKitchen
+</Body Equipment>
+
+<barrating>
+8
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>Intended for both military and civilian markets, the Longhaul has a strong hull capable of withstanding small-arms fire and even surviving heavier hits. It incorporates heavy-duty landing gear for rough-field operations, and four powerful fusion-turbine engines with thrust reversers for short field takeoffs and landings. Due to the high ground pressure of its compact landing gear, the Longhaul cannot use a completely unprepared field, though it does not take much for an engineering unit to clear and prepare a landing strip. These impressive qualities may not be required by civilian customers, but they ensure an aircraft capable of heavy use with few maintenance problems.</p><p>It is the Longhaul's cargo capacity that makes it such a valuable asset. Its mammoth cargo bay, with drive-on/drive-off loading ramps at front and back along with side personnel entry doors, has a capacity of one hundred tons. During prototype trials, it carried two Vedette tanks with support personnel, three Pegasus hovertanks that literally drove out of the rear as it rolled down the runway, and even an Atlas -- though the latter required significant effort to remove before it could walk off.</p>
+</capabilities>
+
+<overview>
+<p>In the modern age, when the average person thinks of cargo transport, they likely picture a Mule or similar cargo DropShip. The DropShip is but one link in the extensive transport chain, however -- the only way to move cargo from one world to another. On-world, deepwater cargo ships, barges, trains, and trucks all play their parts, carrying heavy loads across long distances at a relatively slow rate. When cargoes must be delivered rapidly without resorting to the rare DropShip, conventional aircraft are the choice. The Federated-Boeing Longhaul represents the high end of mid-sized conventional cargo aircraft, the product of literally centuries of aerospace engineering experience from one of the largest corporations in the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>On the strength of documented test footage showing all three of those remarkable prototype flights, local cargo companies on dozens of Federated Suns worlds purchased their own Longhauls. Military units frequently call on the craft to transport personnel or serve as a mobile command post. Dedicated Longhaul units typically maintain different modules that can rapidly convert the cavernous cargo hold into a multi-level configuration, carrying some seven hundred passengers while still having room for more than fifty tons of palletized gear.</p>
+</deployment>
+
+<history>
+<p>The Longhaul has seen quite a few variations over the years. Most cargo hauler companies use it solely for freight, though military Longhauls are often called on to transport personnel or serve as mobile command posts. Federated-Boeing's painstaking documentation of every prototype test established the aircraft's reputation for reliability and capacity that competitors have struggled to match.</p><p>The Longhaul is a rugged design, but it is not indestructible, as accidents over the years have proven -- though most have been due to pilot error or misuse. Cargo must be secured properly or dangerous shifts can rip open the fuselage or destroy flight controls. The aircraft cannot constantly operate from short, temporary airfields with maximum cargo loads without regular heavy maintenance, or the landing gear will eventually collapse and the engines may fail on takeoff or landing. Steep landings are also problematic, and while the Longhaul can take to the air on a short runway, it still requires a fair amount of distance before reaching enough airspeed for a steep climb. These limitations are well understood by experienced crews, and the Longhaul's impressive overall service record speaks to the professionalism of those who fly and maintain it.</p>
+</history>
+
+<manufacturer>
+Federated-Boeing Interstellar|Federated-Boeing Interstellar
+</manufacturer>
+
+<primaryFactory>
+Galax|Tiber (FWL)
+</primaryFactory>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+200.0
+</tonnage>
+

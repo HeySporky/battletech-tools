@@ -1,0 +1,731 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-edb8-7ac5-a05c-d1049fe101e1
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Thera Carrier
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5221
+</mul id:>
+
+<year>
+3060
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:108.0:4:1::-1:0
+smallcraftbay:4.0:1:4::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+asfbay:108.0:4:7::-1:0
+smallcraftbay:4.0:1:8::-1:0
+crewquarters:8400.0:0:-1::-1:0
+1stclassquarters:4640.0:0:-1::-1:0
+2ndclassquarters:2268.0:0:-1::-1:0
+cargobay:61699.0:1:12::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+5633
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+3500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+12
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+300
+297
+297
+292
+284
+284
+</armor>
+
+<Nose Equipment>
+(B) Naval Laser 35
+Naval Laser 55
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:25
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:96
+ISArtemisIV
+ISArtemisIV
+(B) SRM 6
+SRM 6
+IS Ammo SRM-6 Artemis-capable:240
+ISArtemisIV
+ISArtemisIV
+(B) ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:60
+IS LB 10-X AC Ammo:60
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 55
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:20
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:96
+ISArtemisIV
+ISArtemisIV
+(B) SRM 6
+SRM 6
+IS Ammo SRM-6 Artemis-capable:240
+ISArtemisIV
+ISArtemisIV
+(B) ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:60
+IS LB 10-X AC Ammo:60
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 55
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:20
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:96
+ISArtemisIV
+ISArtemisIV
+(B) SRM 6
+SRM 6
+IS Ammo SRM-6 Artemis-capable:240
+ISArtemisIV
+ISArtemisIV
+(B) ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:60
+IS LB 10-X AC Ammo:60
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 35
+Naval Laser 55
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:25
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:20
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:96
+ISArtemisIV
+ISArtemisIV
+(B) SRM 6
+SRM 6
+IS Ammo SRM-6 Artemis-capable:240
+ISArtemisIV
+ISArtemisIV
+(B) ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:60
+IS LB 10-X AC Ammo:60
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 35
+Naval Laser 55
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:20
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:96
+ISArtemisIV
+ISArtemisIV
+(B) SRM 6
+SRM 6
+IS Ammo SRM-6 Artemis-capable:240
+ISArtemisIV
+ISArtemisIV
+(B) ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:60
+IS LB 10-X AC Ammo:60
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 35
+Naval Laser 55
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:20
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:96
+ISArtemisIV
+ISArtemisIV
+(B) SRM 6
+SRM 6
+IS Ammo SRM-6 Artemis-capable:240
+ISArtemisIV
+ISArtemisIV
+(B) ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:60
+IS LB 10-X AC Ammo:60
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Laser 35
+Naval Laser 55
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:25
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:25
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:25
+(B) Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:50
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:96
+ISArtemisIV
+ISArtemisIV
+(B) SRM 6
+SRM 6
+IS Ammo SRM-6 Artemis-capable:240
+ISArtemisIV
+ISArtemisIV
+(B) ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:60
+IS LB 10-X AC Ammo:60
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Laser 35
+Naval Laser 55
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:25
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:25
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:25
+(B) Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:50
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:96
+ISArtemisIV
+ISArtemisIV
+(B) SRM 6
+SRM 6
+IS Ammo SRM-6 Artemis-capable:240
+ISArtemisIV
+ISArtemisIV
+(B) ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:60
+IS LB 10-X AC Ammo:60
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:300
+</Right Broadsides Equipment>
+
+<structural_integrity>
+90
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 960,000 tons across 1,130 meters of hull, the Thera was built around its enormous fighter capacity rather than ship-to-ship firepower. Two massive bays each housed 108 aerospace fighters organized into four regiments of fifty-four, with eight additional small craft providing utility transport. One hundred battle armor marines served as the final line of anti-boarding defense, while three gravity decks and personal staterooms for all officers provided crew comfort on extended deployments.</p><p>Every arc carried an identical conventional weapons battery of eight ER large lasers, eight large pulse lasers, eight medium pulse lasers, eight small pulse lasers, four anti-missile systems, paired LRM-20 and SRM-6 launchers with Artemis IV guidance, and two LB 10-X autocannons, providing layered anti-fighter and anti-DropShip defense. Capital weapons varied by arc: the broadsides were heaviest with two NAC/40s, two NAC/30s, and a Heavy Naval Gauss Rifle alongside NL35 and NL55 naval lasers. Forward and aft quarters mounted NAC/25s and Barracuda missile launchers.</p><p>Nearly 1,700 tons of lamellor ferro-carbide armor and 5,633 double heat sinks protected the vessel. A lithium-fusion battery enabled rapid successive jumps, while a mobile HPG provided independent communications. For all its strengths, the Thera paid for its fighter capacity with relatively modest capital armament compared to dedicated battlecruisers of similar tonnage, leaving it dependent on its escorts and fighter wings to engage peer-class combatants.</p>
+</capabilities>
+
+<overview>
+<p>The Thera-class super-carrier is the most powerful WarShip ever produced by the Free Worlds League, designed from the ground up to establish total aerospace fighter superiority over any star system it enters. Constructed at the Illium Naval Yard above Ionus by Illium Naval Engineering, the vessel carried an unmatched fighter complement that dwarfed every other carrier design of the modern era. Commissioned in 3060, the Thera gave the League a capital ship capability that no Successor State had fielded since the fall of the Star League. Its sheer scale forced neighboring powers to reassess their own naval strategies, and the carrier quickly earned a reputation as the centerpiece of Free Worlds League naval doctrine. Few WarShip classes have inspired as much strategic anxiety among rival nations as the Thera, a vessel whose presence in a system could tip the balance of an entire campaign.</p>
+</overview>
+
+<deployment>
+<p>The Free Worlds League organized its Thera carriers into battle groups, each escorted by two Eagle-class frigates and flotillas of Hamilcar, Achilles, and Merlin-class attack DropShips. The FWLS Santorini, first of class, was stationed at Oriente with escorts Galahad and Lancelot. The FWLS Sardis, the first Thera to see combat, deployed to Arcadia in 3063 to rescue survivors of Kristen's Krushers, achieving aerospace superiority with minimal losses. The FWLS Corinth guarded Atreus with escorts Gawain and Mordred, while the FWLS Delphi covered Andurien with Bors and Kay.</p><p>The Jihad devastated the fleet. The Delphi was destroyed outright. The Corinth and its escort Mordred sided with the Word of Blake during the naval battle at Atreus in October 3068, while the Sardis defected from Tamarind shortly after, firing on colleagues as it fled. Loyalist forces scuttled the unfinished Thessaly in dock to prevent its capture. Only the Santorini remained loyal, successfully defending Oriente against a Regulan invasion in April 3071. A Word of Blake raid in March 3079 crippled the Santorini's jump drive, leaving the carrier stranded in orbit around Oriente as a permanent system defense platform.</p><p>The Sardis was captured by Clan Snow Raven at the Battle of Dieron in 3077 and renamed SRS Raven's Nest, serving in the Conqueror Naval Star through the 3140s. The Corinth continued operating under Blakist control, last confirmed at Jouques in 3079, and was likely the vessel that destroyed an Interstellar Expeditions group near McEvedy's Folly in 3095. The fifth hull, FWLS Delos, escaped Blakist capture and fell under Regulan control; as RPS Delos it led the task force responsible for the cobalt nuclear destruction of Poulsbo and Circinus before vanishing with the entire Regulan fleet.</p>
+</deployment>
+
+<history>
+<p>The Thera-class super-carrier traced its origins to the 3040s, when the Free Worlds League Military and SAFE created a covert shell corporation called Illium Naval Engineering to develop a secret shipyard at the L1 point of the Ionus system. Though legally independent, the firm was owned almost entirely by the Free Worlds government, its corporate structure designed to circumvent Parliamentary budgetary oversight. Word of Blake technical assistance proved instrumental in accelerating the program, and Ionus hosted the largest Blakist population in the League outside Gibson. The yard began by renovating recovered Star League WarShips in 3054 before turning to original construction.</p><p>Six hulls were planned, and the first five reached various stages of completion. The FWLS Santorini entered service in 3060 as the first of class, followed by the Sardis in 3062, the Corinth in 3063, and the Delphi around 3067. The Delos and Thessaly were still under construction when the Jihad erupted. Each carrier was organized into a battle group with two Eagle-class frigate escorts and a flotilla of attack DropShips, giving the Free Worlds League a power projection capability unmatched among the Successor States.</p><p>The Word of Blake's intimate involvement with the Ionus shipyard proved catastrophic when the Jihad began. Two carriers defected to the Blakists, one was destroyed outright, and loyalist forces scuttled one unfinished hull to prevent its capture. Only a single vessel remained under loyal Free Worlds control, while the fifth escaped to fall under Regulan authority. The class that had promised the League naval supremacy instead scattered across multiple successor factions and rogue states, each vessel following its own divergent path through the chaos of the Jihad and its aftermath.</p><p>By the mid-thirty-second century, at least three Theras survived in various states of operational capability, proof of both the soundness of the design and the fractured state of the former Free Worlds League. The Ionus shipyard itself continued to operate at a fraction of its former capacity, remaining one of the few Successor State facilities still capable of WarShip-scale work.</p>
+</history>
+
+<manufacturer>
+Illium Naval Engineering
+</manufacturer>
+
+<primaryFactory>
+Ionus
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Illium Naval Engineering
+ENGINE:Unknown
+ARMOR:Valiant
+JUMP_JET:Mycenae
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Thera
+ENGINE:Unknown
+ARMOR:Lamellor Ferro-Carbide
+JUMP_JET:44000
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Carrier
+</use>
+
+<length>
+1130 m
+</length>
+
+<height>
+1020 m Sail
+</height>
+
+<source>
+TR:3067,JTP:AtreusBC
+</source>
+
+<tonnage>
+960000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+130
+130
+110
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+1912
+</crew>
+
+<officers>
+240
+</officers>
+
+<gunners>
+100
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+100
+</battlearmor>
+
+<life_boat>
+70
+</life_boat>
+
+<escape_pod>
+70
+</escape_pod>
+

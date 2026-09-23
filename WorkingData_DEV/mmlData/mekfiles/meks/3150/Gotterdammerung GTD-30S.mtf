@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d59a-7eea-ac68-5dbd46434619
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Götterdämmerung
+model:GTD-30S
+mul id:8062
+
+Config:Biped
+techbase:Inner Sphere
+era:3138
+source:TR:3145:LC,TR:3150
+published:RS:3150
+rules level:2
+role:Brawler
+
+
+mass:75
+engine:300 Compact Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Torso-Mounted Cockpit
+gyro:Compact Gyro
+
+heat sinks:14 IS Double
+walk mp:4
+jump mp:0
+
+armor:Heavy Ferro-Fibrous(Inner Sphere)
+LA armor:24
+RA armor:24
+LT armor:24
+RT armor:24
+CT armor:36
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:6
+ER PPC, Right Arm
+Medium Pulse Laser, Center Torso
+Medium Pulse Laser, Center Torso
+Medium Pulse Laser, Center Torso
+ER Flamer, Center Torso
+SRM 6, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Left Torso:
+Life Support
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Heavy Ferro-Fibrous
+
+Right Torso:
+Life Support
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Heavy Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Cockpit
+Sensors
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ER Flamer
+IS Heavy Ferro-Fibrous
+
+Head:
+Sensors
+Sensors
+SRM 6
+SRM 6
+IS Ammo SRM-6
+IS Heavy Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Götterdämmerung is a seventy-five-ton heavy BattleMech first fielded by the Lyran Commonwealth in 3138. Designed by Blackstone BattleMechs on Inarcs, the ’Mech (whose German name translates to “Twilight of the Gods”) was explicitly intended as a modern replacement for the ancient Thunderbolt. Blackstone drew upon lessons learned from over six centuries of Thunderbolt service to create a design that prioritized survivability above all else, incorporating a torso-mounted cockpit, compact engine, and heavy ferro-fibrous armor.</p><p>The Götterdämmerung quickly earned a mixed reputation upon entering service. Its durability became legendary, making it a common sight in half a dozen LCAF frontline regiments and numerous mercenary commands. However, its complex ejection system made the ’Mech notoriously difficult to escape from when downed, a trade-off that MechWarriors have regarded with understandable ambivalence.</p>
+
+capabilities:<p>The Götterdämmerung’s remarkable survivability stems from multiple complementary design choices. Layers of StarSlab/4 heavy ferro-fibrous armor provide exceptional protection per ton, while the Blackstone ETG Endo Steel chassis saves weight for additional systems. The Edasich 300 compact fusion engine and compact gyro occupy less critical internal volume than standard equivalents, meaning that even severe structural damage is less likely to disable the ’Mech’s motive systems. This combination gives the Götterdämmerung the same sixty-four kilometer per hour top speed as its Thunderbolt predecessor while being substantially harder to put down.</p><p>Offensively, a Defiance 1001 extended-range PPC in the right arm provides the primary long-range punch. A Coventry StarFire LRM-15 launcher is mounted in the head, an unusual placement that keeps the ammunition in the most protected location on the chassis. Five Defiance Model XII extended-range medium lasers clustered in the center torso deliver devastating close-range firepower that is extremely difficult for an opponent to neutralize without a center torso kill. The torso-mounted cockpit enhances pilot protection but introduces a complex ejection sequence involving retractable combat shrouds and explosive bolts, making escape from a downed Götterdämmerung a harrowing prospect. MechWarriors must also guard against losing side torsos, as the life support systems are split between them.</p>
+
+deployment:<p>A factory variant offered by Blackstone BattleMechs alongside the standard GTD-20S, the GTD-30S draws inspiration from modern Thunderbolt variants to modify the base design’s engagement profile. The head-mounted LRM-15 is exchanged for an SRM-6 launcher, shifting the secondary weapons capability from long-range indirect fire to close-range brawling. The five ER medium lasers give way to three medium pulse lasers and an ER flamer, improving accuracy at close range while adding an anti-infantry and heat-building capability. This configuration transforms the Götterdämmerung from a versatile all-range combatant into a more focused close-quarters assault platform.</p>
+
+history:<p>Blackstone BattleMechs introduced the Götterdämmerung in 3138 from their facilities on Inarcs, entering a market long dominated by the venerable Thunderbolt. The design was conceived specifically to succeed the aging T-Bolt in Lyran Commonwealth service, and Blackstone’s engineers incorporated every survivability enhancement available to ensure the new chassis would live up to its predecessor’s legendary toughness.</p><p>The Götterdämmerung’s reputation was cemented during the Nineteenth Battle of Hesperus II, where the Schachtebich Jägers’ Götterdämmerung units demonstrated extraordinary resilience against Clan Wolf opponents. In one notable engagement in the Sulden Uplands of North Whitman, a Jäger Götterdämmerung engaged multiple Clan Wolf ’Mechs, absorbing catastrophic damage. It lost its head, left arm, left torso, and three of its medium lasers, yet continued fighting. Even with its offensive capability severely degraded, the ’Mech managed to eliminate a Point of battle armor before a second Point finally brought it down. This performance so impressed Clan Sea Fox’s Tiburon Khanate that they began selling upgrade kits consisting of Clan-grade weapons and Ferro-Lamellor armor to mercenary units with sufficient funds.</p><p>The Götterdämmerung has since become a fixture in LCAF frontline regiments and among well-funded mercenary commands. Rumors persist that the Tiburon Khanate is exploring the possibility of a full factory-produced Clan-tech variant, which would represent a significant evolution of Blackstone’s original design philosophy.</p>
+
+manufacturer:Blackstone BattleMechs, Ltd.
+
+primaryfactory:Inarcs
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Blackstone
+systemmode:CHASSIS:ETG Endo Steel
+systemmanufacturer:ENGINE:Edasich
+systemmode:ENGINE:300 Compact
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:4 Heavy Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:CommuTech
+systemmode:COMMUNICATIONS:High Band 14
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac Mark X

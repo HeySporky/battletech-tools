@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eaaf-7c92-b5ff-4b6f4765efb3
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Atlantia Luxury Yacht
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3748
+</mul id:>
+
+<year>
+2890
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Naval
+</motion_type>
+
+<transporters>
+cargobay:7.0:1:1::-1:0
+1stclassquarters:70.0:7:-1::-1:0
+2ndclassquarters:14.0:2:-1::-1:0
+steeragequarters:35.0:7:-1::-1:0
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+44
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+25
+16
+16
+10
+</armor>
+
+<Body Equipment>
+FieldKitchen
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+Lifeboat (Maritime)
+</Right Equipment>
+
+<Left Equipment>
+Lifeboat (Maritime)
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+3
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Atlantia is built around a high-strength polymer hull with equally resilient decking and paneling, designed to handle Oriente's harsh equatorial storms without compromising passenger comfort. Many buyers opt for Oriente caoba timber overlays on the decking and interior panels, providing a warm aesthetic without sacrificing structural strength. At 190 tons, the vessel achieves a top speed of approximately 55 kilometers per hour under standard configuration, with sustained cruising at just over 30 kph. BAR 3 protection is distributed across all facings, with the heaviest concentration forward where storm and wave impact is greatest.</p><p>The standard powerplant is an internal combustion engine providing a range of 1,153 kilometers on a full fuel load, sufficient for extended coastal and archipelago cruising. Hamilton Consortium offers fusion powerplant alternatives at significant additional cost, and enhanced-engine planing-hull configurations have demonstrated speeds exceeding 100 kph in private commission builds. The vessel carries nine crew in addition to seven luxury passenger berths, with custom orders able to adjust these capacities in exchange for speed or range. The bridge is outfitted with satellite navigation and communications equipment keeping the vessel connected regardless of location. Optional appointments include top-deck jacuzzis, fishing decks, a sliding roof over the dining salon, and exterior trim packages.</p>
+</capabilities>
+
+<overview>
+<p>The Atlantia Luxury Yacht is a prestige naval vessel produced by the Hamilton Consortium on Oriente for the high-end leisure market of the Free Worlds League. Introduced in 2890 during the Late Succession Wars, the design was aimed at the wealthy civilians and merchant class who continued to prize luxury and exclusivity even during a period of broader interstellar conflict. Each thirty-meter vessel is built to order from a core design schematic, with the construction fee of 575,000 C-bills covering the development of unique custom features for every hull, meaning no two Atlantias are exactly alike. A two-year waiting period from order to delivery became a hallmark of the line, reinforcing its status as a symbol of affluence throughout the League and in export markets beyond it.</p>
+</overview>
+
+<deployment>
+<p>The Atlantia is deployed almost exclusively by private civilian owners throughout the Free Worlds League and export markets. Its Equipment Rating of D/X-D-C reflects its open civilian availability, practically constrained by cost and the two-year order queue. The vessel serves as a private yacht, corporate transport, and executive retreat platform for the League's wealthiest citizens. A small number of fusion-powered configurations have been built for buyers requiring higher performance. No formal military applications are on record, though the vessel's communications suite and extended range make it a practical courier or liaison platform in permissive environments. Production has continued through multiple political transitions on Oriente, remaining active under Free Worlds League, Duchy of Oriente, and Oriente Protectorate oversight before returning to FWL control in the ilClan era.</p>
+</deployment>
+
+<history>
+<p>The Hamilton Consortium developed the Atlantia series in 2890 to serve the wealthy civilian market that persisted through the Late Succession Wars on Oriente and across the broader Free Worlds League. The design filled a gap for buyers who wanted a vessel that combined genuine seagoing capability with the luxury appointments expected by affluent clients, and the built-to-order production model ensured that exclusivity was baked into every hull from the outset. The combination of the 575,000 C-bill construction fee and the two-year waiting period transformed ownership of an Atlantia into a visible marker of status among League nobility and the merchant class.</p><p>Export contracts extended the Atlantia's reach beyond the League, and Hamilton steadily built a reputation for delivering resilient, well-appointed vessels that could handle Oriente's demanding equatorial conditions. The line gained broader recognition in 3065 when a custom high-performance variant built for media mogul Elliot Ikegami competed in the Halberstan endurance race on New Olympia. Ikegami placed third, but his vessel's demonstrated capability at over 100 kph drew considerable attention to the platform's engineering flexibility and generated a new wave of orders for the Consortium.</p><p>Production on Oriente continued through the Jihad and into the Dark Age, persisting under Duchy of Oriente ownership during the early Republic period before transitioning to Oriente Protectorate oversight through the DA-LR, DA-1, and DA-2 eras. The MUPL corrections log flags DA-2 Protectorate ownership as potentially suspect, noting that the Oriente Protectorate formally ended in 3139 while some records still reflect Protectorate control at the 3145 snapshot. The factory returned to Free Worlds League control by the ilClan era. Throughout these political transitions, the built-to-order civilian production model kept the line active and the Hamilton Consortium's order books filled.</p>
+</history>
+
+<manufacturer>
+Hamilton Consortium
+</manufacturer>
+
+<primaryFactory>
+Oriente
+</primaryFactory>
+
+<systemManufacturers>
+COMMUNICATIONS:Unknown
+</systemManufacturers>
+
+<systemModels>
+COMMUNICATIONS:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+190.0
+</tonnage>
+
+<fuel>
+3.0
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

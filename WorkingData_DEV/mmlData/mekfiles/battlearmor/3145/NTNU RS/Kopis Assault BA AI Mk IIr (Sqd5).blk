@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a6f4-7448-9036-f8aeaf2d2545
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Kopis Assault Battle Armor
+</Name>
+
+<Model>
+(AI Mk IIr)(Sqd5)
+</Model>
+
+<mul id:>
+8799
+</mul id:>
+
+<year>
+3117
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+38
+</armor_type>
+
+<armor_tech>
+5
+</armor_tech>
+
+<Squad Equipment>
+BAHeavyBattleClaw:LA
+BAHeavyBattleClaw:RA
+CLBAHeavyGrenadeLauncher:LA
+CLBAHeavyGrenadeLauncher:RA
+CLBAMedium Recoilless Rifle:Body
+CLBAMedium Recoilless Rifle:Body
+ISImprovedSensors:Body
+IS BA Reactive (Blazer):LA
+IS BA Reactive (Blazer):Body
+IS BA Reactive (Blazer):LA
+IS BA Reactive (Blazer):LA
+IS BA Reactive (Blazer):RA
+IS BA Reactive (Blazer):RA
+IS BA Reactive (Blazer):RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<capabilities>
+<p>A refinement of the AI Mk II, this variant downgrades the heavy recoilless rifles to medium recoilless rifles, freeing weight and volume for reactive armor plating. The reactive armor significantly improves survivability against missile and ballistic attacks, addressing one of the original Mk II's weaknesses against concentrated fire. Heavy grenade launchers and heavy battle claws carry forward from the Mk II, maintaining the configuration's ballistic-focused anti-personnel capability.</p><p>The shift to medium recoilless rifles reduces per-shot damage output but preserves the suit's ability to engage infantry and light vehicles at range. The addition of reactive armor was inspired by the successful integration of similar protection on the Xiphos battle armor, giving the Mk IIr greater staying power in prolonged engagements where sustained incoming fire would have degraded the original Mk II's combat effectiveness.</p>
+</capabilities>
+
+<overview>
+<p>The Kopis is an assault-class battle armor suit developed by StarCorps Industries for the Free Worlds League. Entering service in 3077 during the final years of the Jihad, the suit was designed as a heavy urban combatant capable of sustained engagements without the ammunition constraints common to missile-armed assault suits. Built at StarCorps' Emris IV facility, the Kopis earned the nickname "The Dark Alley" for its lethality in confined urban terrain, where its heavy armament and thick armor protection more than compensated for limited ground speed. The design became a mainstay of Free Worlds League and Oriente Province battle armor formations.</p>
+</overview>
+
+<deployment>
+<p>Five-trooper Kopis Mk IIr Points appeared primarily among Clan forces operating in former Republic space, where battlefield salvage provided a steady supply of the reactive-armored suits. The enhanced armor protection made the slow-moving Kopis more viable in open-field engagements where Clan warriors would otherwise dismiss the design's limited mobility.</p>
+</deployment>
+
+<history>
+<p>The Kopis emerged from a crisis in Free Worlds League battle armor production. When suspected Word of Blake operatives sabotaged Etna Foundries' Longinus factory on Oriente, Thomas Halas recognized the League's vulnerability and turned to StarCorps Industries on Emris IV. StarCorps had manufacturing infrastructure from its Gorilla industrial exoskeleton line but lacked military-grade powered armor expertise. Duchess Alys Rousset-Marik brokered a solution, leveraging her resistance network to recruit Dr. Hyram Sundahar, a scientist who had fled Blakist-controlled Irian BattleMechs. Armed with Blakist technical documents obtained through the resistance, Sundahar adapted an Irian assault suit prototype into what became the Kopis.</p><p>The first suits reached the field in late 3077, assigned to the Twelfth Atrean Dragoons under Rousset-Marik's command. They proved themselves during the liberation of Outreach, where eight Kopis suits ambushed a retreating Widowmaker company and destroyed eighty percent of the mercenary force at a cost of only three suits. The Kopis participated in the Liberation of Terra in significant numbers and became the backbone of Marik and Oriente battle armor formations in the postwar period. Oriente later leveraged its Kopis production as a diplomatic tool, trading suits to The Republic of the Sphere in exchange for access to Achileus and Phalanx designs.</p>
+</history>
+
+<manufacturer>
+StarCorps Industries
+</manufacturer>
+
+<primaryFactory>
+Emris IV
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<published>
+RS:3145-NTNU
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+10
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+4
+</weightclass>
+

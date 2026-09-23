@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ceaa-7e72-aa21-55cb6d449eb3
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Jupiter
+model:
+mul id:1725
+
+Config:Biped
+techbase:Clan
+era:3068
+source:TR:3075,TR:DA
+published:RS:DA
+rules level:2
+role:Sniper
+
+quirk:imp_target_long
+quirk:fine_manipulators
+quirk:imp_sensors
+
+mass:100
+engine:300 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:17 Clan Double
+walk mp:3
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:34
+RA armor:34
+LT armor:32
+RT armor:32
+CT armor:46
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:10
+RTR armor:10
+RTC armor:16
+
+Weapons:8
+Ultra AC/5, Left Arm
+Ultra AC/5, Left Arm
+Ultra AC/5, Right Arm
+Ultra AC/5, Right Arm
+ER PPC, Left Torso
+LRM 15, Left Torso
+ER PPC, Right Torso
+LRM 15, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLUltraAC5
+CLUltraAC5
+CLUltraAC5
+CLUltraAC5
+CLUltraAC5
+CLUltraAC5
+Clan Endo Steel
+Clan Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLUltraAC5
+CLUltraAC5
+CLUltraAC5
+CLUltraAC5
+CLUltraAC5
+CLUltraAC5
+Clan Endo Steel
+Clan Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERPPC
+CLERPPC
+CLLRM15
+CLLRM15
+Clan Ultra AC/5 Ammo
+Clan Ultra AC/5 Ammo
+Clan Ammo LRM-15
+Clan Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERPPC
+CLERPPC
+CLLRM15
+CLLRM15
+Clan Ultra AC/5 Ammo
+Clan Ultra AC/5 Ammo
+Clan Ammo LRM-15
+Clan Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Jupiter was developed by Clan Jade Falcon during the waning years of the Civil War era, intended to serve as a cost-effective complement to the Turkina assault OmniMech. Khan Pryde directed the Falcon's Scientist and Technician Castes to design a new second-line assault 'Mech that could form the backbone of garrison Clusters, with a mandate for resource efficiency and rapid deployment. The design emerged from CJF Factory Zone 4 on Erewhon with suspicious speed, fueling rumors that the Scientist Caste had been developing the 'Mech covertly before revealing it to the warrior caste in late 3067.</p><p>Production began in 3068, with Jupiters appearing in large quantities along the Periphery border almost immediately. Built entirely from locally available components, the Jupiter proved a rugged and easily maintained assault platform, qualities that would later see it spread beyond Jade Falcon forces into mercenary and House armies throughout the post-Jihad Inner Sphere.</p>
+
+capabilities:<p>The Jupiter is a 100-ton assault 'Mech designed around a long-range fire paradigm that allows its pilots to engage targets well before closing to direct combat range. The heart of this philosophy is a weapon suite combining two Type XX Extended Range PPCs with four Type DL Ultra-5 autocannons, providing a devastating volume of fire at extended distances. Two Series IV LRM-15 launchers add indirect fire capability and sustained pressure on advancing enemies. The "spike collar" Goshawk E-Series sensor suite, which can be raised or lowered depending on battlefield conditions, gives the Jupiter enhanced targeting data that makes the most of its ranged weaponry.</p><p>A Gorvachs 300 XL engine propels the massive design to a top speed of 54 km/h, trading speed for the ability to carry nineteen and a half tons of Raydient Series 5 armor, protection rivaled by few other designs in its weight class. The reliance on an extralight engine does create vulnerability to flanking attacks, but the Jupiter's arsenal ensures that few opponents survive long enough to exploit this weakness at range.</p><p>The design's deliberate emphasis on locally sourced, commonly available components gives it a logistical advantage that many more complex assault 'Mechs cannot match, allowing field technicians to keep Jupiters operational with minimal supply chain dependencies.</p>
+
+deployment:<p>The standard Jupiter carries the original long-range weapons suite that defined the chassis from its introduction, combining heavy energy weapons with rapid-firing ballistic autocannons and missile launchers to create a devastating engagement platform at extended distances. The retractable sensor suite gives pilots enhanced targeting data to make the most of this arsenal. Jade Falcon garrison Clusters equipped with the standard Jupiter found it ideally suited to defensive operations where the design could exploit its weapons reach from prepared positions, delivering punishing fire on approaching enemies long before they could close to effective range.</p>
+
+history:<p>The Jupiter's development traces back to the eve of the Jihad, when Clan Jade Falcon sought to bolster its garrison forces with a capable assault 'Mech that could be produced without straining already-committed supply lines. CJF Factory Zone 4 on Erewhon was tasked with the design, and production commenced in 3068 with the 'Mech appearing along the Falcon's Periphery borders in significant numbers. The timing proved fortuitous, as second-line warriors defending Falcon worlds eagerly adopted the design.</p><p>The Jupiter's first major test came during the Hellion Tantrum of 3071–3072, when Clan Ice Hellion launched its ill-fated invasion of the Jade Falcon Occupation Zone. Before the assault, Jupiters had been concentrated among garrison Clusters, but the conflict demonstrated the design's combat effectiveness so convincingly that demand surged across all Falcon forces. Provisional Garrison Clusters equipped with Jupiters saw their firepower increase dramatically, delivering devastating defensive fire that helped break the Hellion advance.</p><p>Throughout the Jihad era, the Jupiter remained primarily a Jade Falcon weapon. The Clan successfully defended its exclusive possession through Trials of Possession, though reports from August 3073 placed Jupiters among Clan Hell's Horses forces during an attack on Thule, an acquisition the Falcons vigorously denied sanctioning. How the Horses obtained the assault design remains a matter of speculation among intelligence analysts.</p><p>The factory on Erewhon continued production through the early Dark Age, with newer variants entering service to keep the design relevant against evolving battlefield threats. In 3144, the factory was relocated from Erewhon to Alyina, though whether production continued uninterrupted at the new site remains uncertain. By the ilClan era, Clan Hell's Horses had assumed control of the facility, ensuring the Jupiter's continued service even as its original Falcon stewards saw their fortunes change dramatically.</p><p>The design's rugged construction and relatively simple logistics have also seen it spread beyond Clan forces, with mercenary commands and House armies acquiring examples through battlefield salvage and the post-Jihad arms trade. This proliferation stands as reflection of the Falcon Scientist Caste's original mandate: build something tough, effective, and easy to keep running.</p>
+
+manufacturer:CJF Factory Zone 4
+
+primaryfactory:Erewhon
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Olivetti
+systemmode:CHASSIS:Stage 9
+systemmanufacturer:ENGINE:Gorvachs
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Raydient
+systemmode:ARMOR:Series 5
+systemmanufacturer:COMMUNICATIONS:Raptor
+systemmode:COMMUNICATIONS:X-T Type iii
+systemmanufacturer:TARGETING:Goshawk
+systemmode:TARGETING:E-Series

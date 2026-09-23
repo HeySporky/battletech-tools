@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dfdb-7d30-8347-5a8c2f52afb1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Mackie
+model:MSK-5S
+mul id:1972
+
+Config:Biped
+techbase:Inner Sphere
+era:2439
+source:XTR:Primitives I
+published:RSFP:Proliferation
+rules level:4
+role:Sniper
+
+quirk:oversized
+quirk:easy_maintain
+quirk:rugged_1
+quirk:pro_actuator
+
+mass:100
+engine:360 Fusion Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Primitive Cockpit
+gyro:Standard Gyro
+
+heat sinks:17 Single
+walk mp:3
+jump mp:0
+
+armor:Primitive(Inner Sphere)
+LA armor:24
+RA armor:24
+LT armor:20
+RT armor:20
+CT armor:31
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:10
+RTR armor:10
+RTC armor:10
+
+Weapons:3
+Primitive Prototype PPC, Left Arm
+AC/5, Right Arm
+Large Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Primitive Prototype PPC
+Primitive Prototype PPC
+Primitive Prototype PPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+IS Ammo AC/5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Large Laser
+Large Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Mackie holds the singular distinction of being the first true BattleMech ever constructed. Developed by the Terran Hegemony under Director-General Jacob Cameron during the Age of War, the one-hundred-ton assault design was the product of a massive military development project that drew on over twenty of Terra's finest weapons firms. Based on Professor Gregory Atlas's groundbreaking myomer research, the Mackie transformed the familiar IndustrialMech into a revolutionary armored combat vehicle capable of dominating any battlefield. First tested at the Yakima Firing Center on Terra in 2439, the prototype obliterated its test targets and ushered in a new age of warfare. The production contract was awarded to Skobel MechWorks, which manufactured the Mackie on Terra for centuries.</p><p>Though the Mackie's technological monopoly lasted only sixteen years before the Lyran Commonwealth stole the blueprints from Hesperus II in 2455, the design held such symbolic importance to the Hegemony that production continued until the Amaris Civil War. Remarkably, some Mackies survived for nearly seven centuries, and the design was even briefly revived during the Jihad as a RetroTech production option.</p>
+
+capabilities:<p>At the time the Mackie was designed, its technology was largely unproven, and its systems were considerably less efficient than those on later BattleMechs. The standard production MSK-6S mounted a Ford Super H QWA3X chassis and was powered by a Hermes 360 primitive fusion engine, providing a top speed of only fifty-four kilometers per hour. The oversized cockpit weighed five tons, and the primitive armor, while totaling twenty tons, provided less protection per ton than standard armor developed in later centuries. Despite these limitations, the sheer mass and firepower of the Mackie made it virtually unstoppable against the conventional forces of its era.</p><p>The Mackie's armament centered on a PPC and an Autocannon/10, which provided complementary range and damage profiles for engaging armored targets at medium to long range. Two medium lasers offered close-range defense. While crude by modern standards, this weapons package was devastating against the tanks and infantry formations that constituted military forces before the proliferation of BattleMech technology. The boxy chassis proved remarkably adaptable, readily accepting upgraded engines, weapons, and armor as technology advanced, which contributed to the Mackie's extraordinary longevity on the battlefield.</p><p>The design's protected actuators and inherently rugged construction made it easy to maintain in the field, a critical advantage for Hegemony militia units operating far from major repair facilities. However, the Mackie's slow speed and oversized profile made it vulnerable to more mobile designs that emerged in subsequent decades.</p>
+
+deployment:<p>This variant was the original battlefield prototype, carrying a slightly different weapons load than the production model. Mounting an Autocannon/5 in the right arm instead of the AC/10 and a Large Laser in the center torso rather than twin medium lasers, the 5S also carried two additional heat sinks to manage its energy weapon output. Twenty tons of primitive armor provided substantial protection, though the heavier primitive plating offered less coverage per ton than later armor types. The 5S was tested in its famous combat trial at Yakima in 2439 and subsequently deployed with frontline Hegemony units. Within decades of the MSK-6S entering full production, most 5S prototypes were scrapped, with a few surviving as museum exhibits until the fall of the Star League.</p>
+
+history:<p>The Mackie's history is inseparable from the history of BattleMech warfare itself. The massive military development project that produced it was instigated by Director-General Jacob Cameron of the Terran Hegemony, who poured enormous resources into transforming IndustrialMech technology into a weapon of war. Over twenty of Terra's best weapons firms and support companies collaborated at the Hegemony's top-secret weapons development center on New Earth, and following successful trials at the Yakima test range on Terra, the production contract was awarded to the Skobel Corporation. The prototype MSK-5S put through its paces in 2439 obliterated its test targets, and the Hegemony immediately began deploying the new weapon.</p><p>The Mackie first saw real combat in 2443, when a lance of the machines repelled a Draconis Combine heavy armor company raiding the Hegemony world of Styx. The new weapon's effectiveness was so dramatic that the Hegemony's rivals scrambled to acquire the technology. In 2455, Lyran Commonwealth commandos raided the Hesperus II manufacturing plant and stole the plans for the BattleMech. The Lyrans fielded their first Mackies by 2459, and the Federated Suns acquired the technology through negotiation shortly after. The Draconis Combine obtained their own plans through a commando raid on the Lyran factory at Coventry in 2461, and within decades every Great House possessed BattleMech manufacturing capability.</p><p>Despite the rapid proliferation of newer, domestically designed BattleMechs, the Hegemony remained fiercely proud of the Mackie and kept it in continuous production. Hegemony militia units made extensive use of the design, and their ongoing operational experience drove a steady series of upgrades from the original MSK-6S production model through the MSK-7 series and ultimately to the MSK-9H militia standard. The Mackie's simple construction, wide availability of components, and extensive aftermarket support kept hundreds in service well into the twenty-eighth century. Skobel MechWorks periodically manufactured small quantities on secondary production lines for its remaining Hegemony militia customers.</p><p>The Mackie's fortunes took a dark turn during the Amaris Civil War. Hegemony militia units equipped with Mackies were among the first defenders against Stefan Amaris's forces in 2766, and they fought stubbornly on the front lines. Amaris personally detested the ancient machines and ordered their destruction. Heavy losses meant that Aleksandr Kerensky could locate barely one hundred Mackies to take on the Exodus, and half of those were scrap. With the only surviving factories on Terra and virtually no operable Mackies in House service, the design did not remain in production through the Succession Wars.</p><p>Remarkably, some Mackies survived for nearly seven centuries. The First Fusiliers of Oriente operated one until 3042, when it was relocated to the Covington 'Mech Museum on Atreus. A partial Mackie was preserved in the BattleMech museum on Solaris, and Clan Wolf gifted another taken from a Rasalhague military museum to Clan Goliath Scorpion in 3057. During the desperate defense of Robinson against Combine forces in 3062, the Robinson Battle Academy deployed every serviceable machine it possessed, including a Mackie with only a PPC still functional. Production was briefly revived during the Jihad, when the need for easily manufactured RetroTech designs led Harmony MetalWorks on Harmony and Edasich Motors on Aur to begin producing new Mackies alongside other primitive designs. Later, Defiance Industries hand-built five Mackies as part of a ceremony celebrating the seven hundredth anniversary of the BattleMech's invention.</p>
+
+manufacturer:Edasich Motors|Hegemony Research and Development Department (Weapons Division)|Oriente Weapon Works|Skobel MechWorks|Unknown
+
+primaryfactory:Aur|New Earth|Oriente|Terra|Unknown
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Ford
+systemmode:CHASSIS:Super H QWA3X (Primitive)
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:360 (Primitive)
+systemmanufacturer:ARMOR:Maximillian
+systemmode:ARMOR:Primitive Armor
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

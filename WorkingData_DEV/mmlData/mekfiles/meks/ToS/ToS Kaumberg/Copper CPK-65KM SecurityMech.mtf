@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-de1e-7d61-ab32-b3948db58797
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Copper
+model:CPK-65KM SecurityMech
+mul id:7465
+
+Config:Biped
+techbase:Inner Sphere
+era:3065
+source:TtS:Kaumberg
+published:TtS:Kaumberg
+rules level:2
+role:Ambusher
+
+
+mass:25
+engine:100 Fuel Cell Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:3 Single
+walk mp:4
+jump mp:0
+
+armor:Heavy Industrial(Inner Sphere)
+LA armor:7
+RA armor:7
+LT armor:8
+RT armor:8
+CT armor:10
+HD armor:6
+LL armor:10
+RL armor:10
+RTL armor:4
+RTR armor:4
+RTC armor:6
+
+Weapons:2
+SRM 2, Left Arm
+SRM 2, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+SRM 2
+IS Ammo SRM-2
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+SRM 2
+IS Ammo SRM-2
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Searchlight
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Searchlight
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Copper is a light SecurityMech produced by Coventry Metal Works that has served law enforcement and private security forces across the Inner Sphere since the Star League era. First introduced in 2619 as the CPK-19, the design was conceived as an affordable alternative to true BattleMechs for civilian policing and riot control duties, built to the standards of the SecurityMech Treaty of 2613. Drawing heavily on components from the Commando BattleMech, the Copper costs roughly half as much as its military cousin while remaining effective in its intended role. The design anchors Coventry Metal Works' Peacekeeper series of SecurityMechs and has become arguably the most widely proliferated SecurityMech in the Inner Sphere, found in service with civilian police departments, corporate security forces, noble estates, and private agencies throughout the Lyran state and beyond.</p>
+
+capabilities:<p>The Copper is built on a Coventry Peacekeeper Series IndustrialMech chassis and powered by a Coventry Hybrid 100-rated fuel cell engine, giving it a respectable top speed of 64 kph for urban patrol work. The design mounts eighty points of Lexington Limited heavy industrial armor, providing reasonable protection against small arms and light weapons while keeping costs manageable. An industrial cockpit and the absence of jump jets reflect the design's civilian orientation, though the Cyclops 8B UrbanTrak targeting system with advanced fire control gives it accuracy that belies its non-military pedigree.</p><p>The CPK-65's armament is tailored for crowd control and security operations. Two Coventry Light Autogun machine guns in the right arm are typically loaded with rubber bullets, while a Coventry Twin-Tube SRM-2 launcher in the left arm usually carries tear gas munitions. Twin searchlights allow for effective night operations. This loadout makes the Copper highly effective at dispersing riots and subduing civilian unrest without excessive lethality, though the weapons can be loaded with standard ammunition when genuine threats arise. The lack of environmental sealing is a notable weakness, forcing pilots to rely on personal protective equipment when deploying tear gas or operating in hazardous atmospheres, a compromise that keeps production costs low but limits operational flexibility.</p>
+
+deployment:<p>Produced by Wechsel Royal Industrial Repair and Heavy Machining on Kaumberg, this variant emerged from retrotech production lines restarted after the Gray Monday communications blackout. The CPK-65KM replaces the standard model's machine guns and ammunition with a second SRM-2 launcher and an additional ton of missile ammunition, doubling the design's tear gas delivery capacity at the cost of losing its anti-infantry ballistic capability. This loadout reflects the particular security needs of Kaumberg's post-Gray Monday environment, where crowd dispersal took priority over conventional policing.</p>
+
+history:<p>The Copper's lineage traces back to the SecurityMech Treaty of 2613, which codified the regulations governing armed IndustrialMechs for police use. Coventry Metal Works developed the original Peacekeeper SecurityMech within a decade of the treaty's ratification, but that fusion-powered design proved too capable for genuine police work yet too weak for military service. The downgraded CPK-19, first sold in 2619, replaced the fusion plant with an internal combustion engine and simplified the weapons fit, creating a far more commercially successful platform that became the true flagship of the Peacekeeper series.</p><p>Throughout the Succession Wars, the Copper remained in continuous production at Coventry, serving police forces, corporate security detachments, and noble households across the Lyran Commonwealth. The design's low cost, shared Commando components, and easy maintenance made it an attractive option for organizations that needed an armed 'Mech presence but could not justify or afford true BattleMechs. By interstellar law, SecurityMechs remained rare, but the Copper carved out a steady niche that kept Coventry Metal Works' SecurityMech Division operating profitably for centuries.</p><p>The CPK-65 model, introduced in 3065, modernized the platform with a fuel cell engine and an updated weapons configuration that replaced two of the original's machine guns with an SRM-2 launcher. This variant became the new standard production model, finding particular concentration among the larger civilian security forces of the Lyran Alliance's Coventry Province. During the Jihad, the Word of Blake seized control of the Coventry production lines for a time, though the facilities survived the conflict intact and resumed normal operations afterward.</p><p>The Copper's commercial success inspired Irian Technologies to license the original Peacekeeper design and develop the Peacemaker PoliceMech, while other manufacturers across the Inner Sphere produced their own competing SecurityMech designs. As of the Dark Age, the Copper remains in active production and is widely considered the standard by which all other SecurityMechs are measured, proof of a design philosophy that has prioritized affordability and practicality for over four centuries.</p>
+
+manufacturer:Refit - Wechsel Royal Industrial Repair & Heavy Machining
+
+primaryfactory:Kaumberg
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Coventry
+systemmode:CHASSIS:Peacekeeper Series
+systemmanufacturer:ENGINE:Coventry
+systemmode:ENGINE:Hybrid 100 Fuel Cell
+systemmanufacturer:ARMOR:Lexington Limited
+systemmode:ARMOR:Heavy Industrial
+systemmanufacturer:COMMUNICATIONS:Cyclops
+systemmode:COMMUNICATIONS:P7 Dispatcher
+systemmanufacturer:TARGETING:Cyclops
+systemmode:TARGETING:8B UrbanTrak (Advanced Fire Control)

@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-e048-7683-a0f3-cad30e451aa7
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Goshawk II
+model:RISC
+mul id:7376
+
+Config:Biped
+techbase:Mixed (Clan Chassis)
+era:3136
+source:XTR:RotS 3
+published:XTR:RotS 3
+rules level:4
+role:Striker
+
+quirk:nimble_jumper
+quirk:flawed_cooling
+quirk:combat_computer
+quirk:imp_life_support
+quirk:prototype
+
+mass:45
+engine:315 XXL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:11 Clan Double
+walk mp:7
+jump mp:7
+
+armor:Ferro-Fibrous(Clan)
+LA armor:12
+RA armor:12
+LT armor:16
+RT armor:16
+CT armor:20
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:3
+Plasma Cannon, Left Arm
+Streak LRM 10, Right Arm
+Improved Heavy Large Laser, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLPlasmaCannon
+CLPlasmaCannonAmmo
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLStreakLRM10
+CLStreakLRM10
+Clan Streak LRM 10 Ammo
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+CLImprovedHeavyLargeLaser
+CLImprovedHeavyLargeLaser
+CLImprovedHeavyLargeLaser
+Clan Endo Steel
+Clan Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+ISRISCEmergencyCoolantSystem
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Goshawk II is a forty-five-ton Clan medium BattleMech developed by Clan Snow Raven in the mid-3080s, drawing inspiration from the heavier Vapor Eagle that the Ravens had long operated. Produced at Snow Raven Industrial Complex Alpha on the Inner Sphere world of Dante, the Goshawk II was designed specifically as a second-line combat platform for exclusive use by Raven Alliance forces. Ten tons lighter than its progenitor, the Goshawk II compensates with significantly greater speed and agility, incorporating an ECM suite to counter the increasingly sophisticated electronic warfare capabilities encountered in Inner Sphere service. Clan Sea Fox later began producing their own variant at facilities in the Chain Cluster, expanding the design's availability beyond its original Raven Alliance exclusivity.</p>
+
+capabilities:<p>Built on a weight-saving GS-2E endo steel chassis, the Goshawk II mounts a 315-rated extralight fusion engine that pushes the forty-five-ton 'Mech to an impressive 118.8 km/h, substantially faster than the Vapor Eagle it descends from. Seven jump jets provide an equally impressive leap capability of two hundred and ten meters, exceeding even its larger ancestor's mobility. Nine tons of standard armor offer adequate protection for a design intended to operate at high speed, and an integral ECM suite helps neutralize the electronic warfare advantages that Inner Sphere opponents increasingly bring to the battlefield.</p><p>The Goshawk II's armament centers on a right-arm ER large laser as its sole long-range weapon, capable of engaging targets at significant distances with precision. Close-range firepower comes from a pair of small pulse lasers and six micro pulse lasers distributed across the arms and head, all guided by a targeting computer that maximizes their effectiveness. This energy-only configuration eliminates ammunition dependency, granting extended operational endurance well suited to the Raven Alliance's expeditionary doctrine. The design excels in high-speed slashing attacks, closing rapidly to deliver precise fire before withdrawing beyond effective retaliation range.</p>
+
+deployment:<p>Designated the Goshawk II RISC, this experimental variant was created in 3136 by the Republic Institute of Strategic Combat using Sea Fox-sourced Goshawk II 4 airframes. RISC engineers attempted to address the base variant's heat management problems by installing an experimental emergency coolant system, but this required removing a heat sink from the already thermally challenged design. While the ECS performed well in controlled testing, live-fire trials proved catastrophic. Three of four test units were destroyed within three months, two from explosive ruptures in the coolant lines that went undetected as the ECS initially masked rising temperatures behind reassuring readouts. The project was permanently shelved, and Sea Fox component markings on recovered wreckage successfully obscured the Republic's involvement.</p>
+
+history:<p>The Goshawk II's development reflects Clan Snow Raven's pragmatic approach to rebuilding their military strength following their relocation to the Outworlds Alliance. Having operated the larger Vapor Eagle since before the Clan Invasion, Raven engineers leveraged their deep familiarity with the design to produce a lighter, faster derivative better suited to their new operational reality as a Clan operating within the Inner Sphere. Production began at Snow Raven Industrial Complex Alpha on Dante in 3086, with the design designated exclusively for Raven second-line formations.</p><p>The Ravens' close commercial relationship with Clan Sea Fox eventually brought the design to wider distribution. Sea Fox merchants, recognizing the Goshawk II's export potential, began manufacturing their own variant at Manufacturing Plant SFF-AL1 on Alnabog in the Chain Cluster. This Sea Fox-produced Goshawk II 4 incorporated more advanced technology including an XXL engine, and was marketed to various buyers including the Republic of the Sphere.</p><p>The Republic's acquisition of Sea Fox-built Goshawk IIs led directly to the experimental RISC variant. In 3136, the Republic Institute of Strategic Combat at their Sandhurst proving grounds on Terra attempted to install an experimental emergency coolant system into the platform. The project yielded only four converted test units before disastrous field trials ended the program. Three of four test units were destroyed within three months, including two from catastrophic coolant system failures that went undetected due to falsely reassuring temperature readouts. RISC shelved the project permanently, and Sea Fox component codes found on recovered wreckage successfully deflected media scrutiny away from the Republic's covert involvement.</p>
+
+manufacturer:Refit - Republic Institute of Strategic Combat Proving Ground Egalité
+
+primaryfactory:Terra
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:315 XXL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

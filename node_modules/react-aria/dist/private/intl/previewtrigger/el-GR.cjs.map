@@ -1,0 +1,1 @@
+{"mappings":"AAAA,iBAAiB;IAAG,oBAAoB,CAAC,sVAAsD,CAAC;AAChG","sources":["packages/react-aria/intl/previewtrigger/el-GR.json"],"sourcesContent":["{\n  \"longPressMessage\": \"Πατήστε παρατεταμένα για να ανοίξετε την προεπισκόπηση\"\n}\n"],"names":[],"version":3,"file":"el-GR.cjs.map"}

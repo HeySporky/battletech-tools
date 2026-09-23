@@ -1,0 +1,230 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-c0db-7afe-b579-bba28bb8e196
+</UUID>
+
+<UnitType>
+Jumpship
+</UnitType>
+
+<Name>
+Chimeisho JumpShip
+</Name>
+
+<Model>
+(3056)
+</Model>
+
+<mul id:>
+3949
+</mul id:>
+
+<year>
+3056
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:4.0:2:1::-1:0
+cargobay:362.5:1:2::-1:0
+cargobay:362.0:1:3::-1:0
+1stclassquarters:50.0:0:-1::-1:0
+crewquarters:175.0:0:-1::-1:0
+dockingcollar
+dockingcollar
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+122
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+3000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+7
+5
+5
+6
+5
+5
+</armor>
+
+<Nose Equipment>
+(B) ISERLargeLaser
+ISERLargeLaser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) ISLargePulseLaser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) ISLargePulseLaser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) ISERLargeLaser
+ISERLargeLaser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) ISLargePulseLaser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) ISLargePulseLaser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>The Chimeisho-class has a traditional needle-like shape featurings a spherical command section at one end, a blocky drive at the other, with twin docking collars located midway along the body. Unlike most Inner Sphere JumpShips, it carries offensive weapons comparable to a middling aerospace fighter, primarily pulse lasers and extended-range lasers. Despite its weapons, it is lightly armored compared to a DropShip and cannot sustain heavy damage. The 30 crew members live in cramped, well-equipped dual-occupancy cabins located below the bridge. Only senior officers have private shower and toilet facilities. A spacious recreation area with modern entertainment systems is provided to compensate for the small cabins. A spacious hangar in the command section provides facilities for up to four small craft, typically two light aerospace fighters and two ST-46 shuttles. Technicians and pilots have staterooms directly above the hangar, on the same deck as the life-support system.</p>
+</capabilities>
+
+<overview>
+<p>The Chimeisho-class JumpShip is a product of the Draconis Combines technological renaissance, marking the reactivation of the Izumi JumpShip yards at Altair by the Kurita Combine Munitions Corporation. Operated by a crew of thirty who live in cramped yet technologically advanced quarters, the Chimeisho was initially produced exclusively for the Draconis Combine Mustered Soldiery (DCMS) to bolster their strategic interstellar capabilities in the mid-3050s.</p>
+</overview>
+
+<history>
+<p>The Chimeisho is produced following the reactivation of the Izumi JumpShip yards at Altair, which had been derelict since the start of the Succession Wars. After the War of 3039, the Kurita Combine Munitions Corporation (KCMC) used state grants to reconstruct the yard. Only two have been produced to date, both purchased by the DCMS. The DCMS has also purchased all units scheduled through 3062, with KCMC taking new orders for 3063.</p>
+</history>
+
+<manufacturer>
+Kurita Combine Munitions Corporation
+</manufacturer>
+
+<primaryFactory>
+Izumi JumpShip yards|Altair
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Kurita Combine Munitions Corporation
+ENGINE:Kurita Combine Munitions Corporation
+ARMOR:Kurita Combine Munitions Corporation
+COMMUNICATIONS:Kurita Combine Munitions Corporation
+TARGETING:Kurita Combine Munitions Corporation
+</systemManufacturers>
+
+<use>
+Transport
+</use>
+
+<length>
+645m
+</length>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+245000.0
+</tonnage>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+50
+</grav_decks>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+50
+</crew>
+
+<officers>
+5
+</officers>
+
+<gunners>
+2
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+5
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

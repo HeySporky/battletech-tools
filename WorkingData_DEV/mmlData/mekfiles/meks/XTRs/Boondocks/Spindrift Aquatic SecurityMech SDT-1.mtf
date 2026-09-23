@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df3e-711c-b961-a192a04894b9
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Spindrift Aquatic SecurityMech
+model:SDT-1
+mul id:3021
+
+Config:Biped
+techbase:Inner Sphere
+era:3069
+source:XTR:Boondocks
+published:XTR:Boondocks
+rules level:4
+role:Ambusher
+
+
+mass:30
+engine:120 Fusion Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:4
+jump mp:0
+
+armor:Patchwork
+LA armor:IS Reactive(Inner Sphere):8
+RA armor:IS Reactive(Inner Sphere):8
+LT armor:IS Reflective(Inner Sphere):6
+RT armor:IS Reflective(Inner Sphere):6
+CT armor:IS Heavy Industrial(Inner Sphere):10
+HD armor:IS Heavy Industrial(Inner Sphere):5
+LL armor:IS Heavy Industrial(Inner Sphere):7
+RL armor:IS Heavy Industrial(Inner Sphere):7
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:2
+ER Small Laser, Left Torso
+SRT 6, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+UMU
+ISERSmallLaser
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+UMU
+SRT 6
+SRT 6
+IS Ammo SRTorpedo-6
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS HarJel
+Environmental Sealing (Mech)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Environmental Sealing (Mech)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+UMU
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+UMU
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Spindrift is a thirty-ton aquatic SecurityMech produced by Bowie Industries at their Carlisle facility. Born from the company's long-standing employee suggestion program, the design emerged in the late 3060s as a purpose-built underwater security platform based on a heavily modified Iroquois Harvester AgroMech chassis, with the refined SDT-1A production model entering service in 3083. The Spindrift fills a niche that few manufacturers have explored, providing armed underwater patrol and facility defense capabilities in an IndustrialMech package.</p><p>While its highly specialized nature limits broader adoption, the design has seen steady sales throughout the Lyran Commonwealth, particularly on water-rich worlds needing coastal and subsea facility security.</p>
+
+capabilities:<p>The Spindrift excels in underwater operations thanks to four Bowie-designed Piscis Volans underwater maneuvering units positioned in each side torso and leg. These UMUs provide exceptional submerged mobility, achieving speeds of up to 43 kph underwater with one-meter positioning accuracy in the hands of a trained operator. A full set of arm actuators, including the Quince-Jones hand actuator, gives the design excellent articulation for underwater manipulation and salvage tasks.</p><p>Offensively, the Spindrift relies on a Sea Harvester short range six-tube torpedo launcher for underwater engagements out to 270 meters, supplemented by a single Diverse Optics extended range small laser. The Sea Harvester offers faster cycle times than comparable launchers and features a modular ammunition storage bin for quick reloading above water. An advanced Dalban Trident targeting system tracks up to fifteen independent underwater targets, feeding the MechWarrior constant depth, speed, displacement, and propulsion data.</p><p>On land, the Spindrift's limitations become starkly apparent. A top speed of only 64 kph and no jump capability make it slow for its weight class, while the Dalban's overland tracking is reduced to just five targets. Battle armor groups pose the greatest surface threat, as the single light laser provides minimal defense against swarming infantry. The lack of an ejection system is a notable concern, prompting most MechWarriors to carry supplemental oxygen systems and survival equipment as standard practice.</p>
+
+deployment:<p>This variant prototype began development in 3069 as Bowie Industries explored underwater SecurityMech concepts using a heavily modified Iroquois Harvester AgroMech chassis. Twelve prototypes were constructed featuring experimental patchwork armor combining heavy industrial, laser reflective, and reactive types, along with a BattleMech HarJel system to protect the fusion engine from hull breaches. These experimental configurations proved problematic in field testing, with the specialized armor types offering little advantage in subsea combat conditions and the HarJel system proving too scarce and expensive to procure at scale. By 3077, Bowie had deployed two lances of SDT-1 units for operational evaluation in Lyran coastal waters, gathering the performance data that would shape the simplified SDT-1A production model.</p>
+
+history:<p>The Spindrift's origins trace to Bowie Industries' employee suggestion program, a tradition first implemented over thirty years before the design's debut. Each year from 1 October through 30 November, Bowie solicits ideas from its workforce, with voting opening on 15 December and results announced on 20 March. The best suggestions in the 'Mech development category receive full workups and presentation to the board of directors. The Spindrift concept emerged from this process, proposing an underwater security platform based on the widely available Harvester AgroMech chassis.</p><p>Prototyping began in 3069 at Bowie's prototype fabrication lines on Carlisle, with the project designated SDT-1. The initial design proved ambitious, incorporating experimental patchwork armor, a BattleMech HarJel system, environmental sealing, and four underwater maneuvering units on a sealed industrial chassis. Twelve prototypes were constructed through the late 3070s, undergoing extensive testing in Lyran waters.</p><p>Jihad-era field evaluations revealed both promise and problems. The underwater maneuvering system performed exceptionally well, but the experimental armor configurations proved unreliable in combat conditions. Laser reflective armor failed repeatedly against torpedo strikes, and reactive armor offered little advantage in subsea engagements. More critically, Bowie's attempts to negotiate with Clan Diamond Shark for HarJel production rights stalled entirely. When Bowie announced the removal of HarJel at a stockholders' conference in late 3082, company shares fell two percent, reflecting investor disappointment at the loss of the advanced sealing technology.</p><p>The SDT-1A production configuration was finalized and entered service in 3083, featuring simplified but more reliable systems. Sales concentrated within the Lyran Commonwealth, particularly on water-rich worlds requiring coastal and subsea facility security. The design's environmental sealing attracted additional buyers needing vacuum-capable security platforms, expanding the Spindrift's market beyond its original aquatic niche. Unsanctioned aftermarket modifications have become common, with independent shops removing the torpedo launcher and UMUs to refit the chassis for conventional ground security roles.</p><p>Despite its specialized nature, the Spindrift has maintained continuous production at Bowie's Carlisle plant from the early Dark Age through the ilClan era. The design occupies a unique market position with virtually no direct competitors in the underwater SecurityMech category, ensuring continued demand from worlds with significant aquatic infrastructure.</p>
+
+manufacturer:Bowie Industries
+
+primaryfactory:Carlisle
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:SDA Harvester Industrial
+systemmanufacturer:ENGINE:Doorman
+systemmode:ENGINE:120 Fusion
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Patchwork (Heavy Industrial/Laser Reflective/Reactive)
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:T-300 Dual Wave
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:Trident

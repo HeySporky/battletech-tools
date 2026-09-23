@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e849-73f1-9c9c-e2ef90bad9f3
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Padilla Tube Artillery Tank
+</Name>
+
+<Model>
+(AMS)
+</Model>
+
+<mul id:>
+8045
+</mul id:>
+
+<year>
+3101
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+4
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+28
+25
+25
+20
+22
+</armor>
+
+<Body Equipment>
+ISThumperAmmo
+ISThumperAmmo
+ISGuardianECMSuite
+IS Ammo SRM-6
+IS Ammo SRM-6
+ISAMS Ammo
+ISAMS Ammo
+IS Ammo SRM-6
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISThumper
+ISAntiMissileSystem
+ISAntiMissileSystem
+SRM 6
+SRM 6
+</Turret Equipment>
+
+<capabilities>
+<p>The Padilla Tube Artillery Tank's primary armament is a Sniper artillery piece, mounted to deliver accurate indirect fire against targets at significant range. Backed by two tons of ammunition, the Sniper allows the Padilla to engage targets well beyond the reach of most direct-fire weapons while the vehicle itself remains outside effective counter-battery range. For shorter-range fire support, the Padilla carries two LRM-5 launchers with two tons of shared ammunition, a bay large enough to accommodate mixed loadouts. Padilla crews have on occasion loaded Thunder LRMs to create quick minefields, using the indirect capability to delay pursuing forces while the vehicle withdraws from close contact. Two small pulse lasers deter conventional and battle-armored infantry that close to short range.</p><p>All production variants benefit from the wheeled chassis's superior road speed compared to the original tracked Padilla Heavy, allowing faster repositioning between firing positions. Seven and a half tons of Star Slab/3 armor protect a vehicle that is well-armored for its size, a necessary investment given the relatively low top speed that could otherwise make it an easy target for fast-moving units or airstrikes. The (LTC) variant replaces one LRM launcher and a ton of ammunition with a Long Tom Cannon and adds a Guardian ECM Suite for self-protection, trading close-range defensive firepower for substantially greater artillery range. The (Thumper) variant substitutes a Thumper artillery piece for the Sniper, replaces the small pulse lasers with medium pulse lasers, and adds four MML-3 launchers for flexible close-range capability, producing a loadout especially better equipped for direct engagement than the base configuration. An Aldis TTS 7 targeting suite and COMSET 9c communications system complete the standard electronics fit.</p>
+</capabilities>
+
+<overview>
+<p>The Padilla Tube Artillery Tank entered service in 3077 as a Word of Blake design, commissioned by Precentor Martial Cameron St. Jamais and built by Aldis Industries on Terra. Though it shares the Padilla name and general fire support role with Leopard Armor's Star League-era Padilla Heavy Artillery Tank, the Tube Artillery Tank is a substantially different vehicle: wheeled rather than tracked, twenty tons lighter, and armed with conventional tube artillery rather than the Arrow IV missile system. Designed to provide a more logistically supportable artillery platform than the Arrow IV-dependent Padilla Heavy, the Tube Artillery Tank draws on a far broader munitions supply chain and requires none of the specialized support equipment the older design demanded. When the Republic of the Sphere inherited Terra after the Jihad, it adopted the Aldis Industries design as its primary conventional artillery support platform, a role the vehicle continues to fill across Principes Guard and Standing Guard formations into the Dark Age.</p>
+</overview>
+
+<deployment>
+<p>The (AMS) field refit converts the tube artillery system to a McArthur III Advanced Point Defense System, creating a dedicated anti-missile escort vehicle suited to accompanying high-value convoys or artillery formations under persistent missile threat. Found in specialized Republic formations where the operational threat from missile-heavy opponents justifies a dedicated point defense asset. Shares tactical doctrine with the Padilla Anti-Missile Tank and can operate alongside it in formations that require overlapping coverage.</p>
+</deployment>
+
+<history>
+<p>The Padilla Tube Artillery Tank's development history begins not with the Republic of the Sphere but with the Word of Blake. Precentor Martial Cameron St. Jamais commissioned Aldis Industries to design and produce the vehicle during the Jihad era, creating a conventional tube artillery platform for Blakist forces that was simpler to supply and maintain than the scarce Arrow IV-equipped Padilla Heavy. The resulting design borrowed the Padilla name and conceptual role from Leopard Armor's Star League original while departing significantly from its chassis architecture, adopting a wheeled configuration and conventional Sniper artillery in place of the older design's tracked hull and Arrow IV launcher. Aldis Industries, established on Terra with both civilian and military manufacturing capability, completed the design and began production in 3077.</p><p>When the Republic of the Sphere emerged from the Jihad's aftermath, it inherited the Aldis Industries facility along with the Padilla Tube Artillery Tank design, adopting the vehicle as its primary conventional artillery support platform. Republic military planners found the design well-suited to their combined-arms doctrine, and the vehicle's wheeled chassis and standard-caliber artillery munitions integrated smoothly with Republic supply chains. The (LTC) variant, introduced alongside the base configuration in 3077 with its Long Tom Cannon and Guardian ECM Suite, offered extended-range fire support for formations tasked with interdiction and counter-battery missions. The (Thumper) variant followed in 3082, substituting the widely supported Thumper artillery system for the Sniper piece and adding improved close-defense weapons, and quickly became the most logistically flexible of the three configurations.</p><p>Principes Guard and Standing Guard formations across the Republic's military districts received the Padilla Tube as their standard artillery vehicle, its wheeled mobility favored in garrison roles where road infrastructure was reliable. The (AMS) field refit emerged in 3101 from operational experience with missile-heavy opponents, converting the tube artillery system to a MainFire Point Defense anti-missile configuration backed by Harpoon-6 SRM-6 racks for close defense. Production of this variant was shared by Cyclops Incorporated alongside Aldis Industries, expanding manufacturing capacity beyond the original Terra facility. This refit served as the direct operational precursor to the more sophisticated Padilla Anti-Missile Tank that Aldis Industries would develop in the following decades.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:Unknown
+TARGETING:Aldis Industries
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Leenex 145
+ARMOR:Star Slab/3
+COMMUNICATIONS:COMSET 9c
+TARGETING:Aldis TTS 7
+</systemModels>
+
+<source>
+TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+55.0
+</tonnage>
+

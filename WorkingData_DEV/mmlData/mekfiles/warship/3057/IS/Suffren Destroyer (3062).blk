@@ -1,0 +1,343 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ed2f-79b6-8663-e136dcdd9732
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Suffren Destroyer
+</Name>
+
+<Model>
+(3062)
+</Model>
+
+<mul id:>
+5159
+</mul id:>
+
+<year>
+3062
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:8.0:1:1::-1:0
+cargobay:91458.0:1:2::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+steeragequarters:1260.0:0:-1::-1:0
+1stclassquarters:420.0:0:-1::-1:0
+crewquarters:1456.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+486
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+10000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+13
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+80
+63
+63
+70
+60
+60
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:100
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:100
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:64
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:100
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:100
+(B) ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:64
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:200
+(B) Naval PPC (Medium)
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:200
+(B) Naval PPC (Medium)
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Right Broadsides Equipment>
+
+<structural_integrity>
+60
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 540,000 tons across 590 meters of hull, the Suffren is unusually heavy for a destroyer, with armor protection comparable to vessels twice its classification. Nearly 600 tons of improved ferro-aluminum plating provide substantial coverage, while a lithium-fusion battery system enables rapid successive jumps for strategic mobility. The nose and aft arcs each mount a pair of NAC/40 super-heavy naval autocannons alongside two Gauss rifles, four ER large lasers, twin Artemis-guided LRM-20 racks, and three small pulse lasers, giving the vessel devastating forward and rear firepower. Three Heavy Naval PPCs in the nose provide additional capital-scale striking power. Each broadside carries two NAC/20 naval autocannons and a Medium Naval PPC with Artemis-guided LRM-20s, while the forward and aft quarters mount batteries of three NL45 naval lasers and four ER large lasers each.</p><p>The design carries no fighters, instead dedicating bay space to eight small craft and a full marine battalion of 252 personnel. This reflects ComStar's emphasis on boarding actions and orbital security rather than fleet carrier doctrine. An integral mobile HPG provides independent communications capability, and four docking collars support DropShip operations. Over 91,000 tons of cargo capacity gives the class remarkable logistical endurance for extended deployments. The absence of a fighter screen, however, leaves the Suffren dependent on escort vessels for anti-aerospace defense.</p>
+</capabilities>
+
+<overview>
+<p>The Suffren-class destroyer was ComStar's first purpose-built WarShip in over a century, commissioned through the Titan Yards orbiting Saturn's moon under the direction of O'Neil Yards. Laid down in the early 3060s as part of the Reformation-era naval modernization program, the Suffren was designed to anchor Com Guard fleet operations with heavy armament and substantial protection disproportionate to its destroyer classification. The design reflected ComStar's doctrinal preference for boarding actions and orbital security over carrier-based operations, producing a vessel that prioritized close-range lethality and marine capacity over fighter superiority. Though the class carried high expectations as the foundation of a renewed Com Guard navy, the Suffren's service life proved tragically brief, and the destroyer earned a somber reputation as the embodiment of ComStar's unfulfilled naval ambitions.</p>
+</overview>
+
+<deployment>
+<p>The CSV Anastasius Focht, lead vessel and namesake of the Precentor Martial who initiated the program, was assigned to the Com Guard First Fleet based at Luyten 68-28. The CSV Manchester, the second and only other vessel completed, served with the Com Guard Second Fleet based at Ross 248, having previously been transported within the Faslane-class yardship Plymouth at a fleet holding facility. Both destroyers were still operational by 3067.</p><p>In March 3068, both Suffrens participated in the catastrophic Case White assault on Terra, when ComStar's combat navy attempted to strike at Word of Blake positions in the Sol system. The operation destroyed nearly the entire Com Guard combat fleet. The Anastasius Focht was lost outright, but the Word of Blake partially restored the Manchester from Case White salvage and pressed it into defensive service. In August 3078, the Blakist-restored Manchester fought its final engagement defending the Titan Yards against Task Force CRONUS during Operation SCOUR, where the vessel was destroyed.</p>
+</deployment>
+
+<history>
+<p>The Suffren-class destroyer emerged from the intersection of ComStar's Reformation and the urgent need to modernize a fleet that had stagnated for over a century. Precentor Martial Anastasius Focht, the architect of the Tukayyid victory, recognized that ComStar's naval arm could not sustain its mission with aging vessels. The fleet's most modern WarShip, a Dante-class frigate, was approaching its hundred and tenth year of service when Focht initiated the Suffren program. The Titan Yards orbiting Saturn's moon were upgraded for WarShip production, with the first keel expected in early 3058.</p><p>The design process itself broke new ground. Virtual-reality technology, descended from the systems that had coordinated Tukayyid's complex multi-front battle, allowed up to two hundred personnel to simulate operations aboard the vessel before construction began. This testing revealed design flaws that were corrected in simulation, saving the enormous expense of physical prototyping and allowing the program to skip the prototype stage entirely. The Titan Yards complex also supported Dante-class frigate construction and Triumph-class DropShip production, making it one of the most significant naval facilities in the Inner Sphere during this period.</p><p>Only two vessels were completed before the Jihad engulfed the Inner Sphere. Both were operational by 3067, representing the only modern WarShips in a Com Guard fleet otherwise composed of Star League-era relics. The broader Com Guard naval modernization program had envisioned additional hulls, but the Word of Blake seizure of the Titan Yards during the Clan Invasion era, and the subsequent Jihad, ensured that no further keels would be laid down. Both vessels were lost during the Jihad, rendering the class extinct within sixteen years of its commissioning. The Suffren program demonstrated ComStar's ambition to build a credible modern navy, but the organization's internal fracture and the Blakist schism destroyed that vision before it could mature beyond a single class of two vessels.</p>
+</history>
+
+<manufacturer>
+O'Neil Yards - Titan Yards
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:O'Neil Yards
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Fleur de Lis
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Suffren
+ENGINE:Unknown
+ARMOR:Improved Ferro-Aluminum
+JUMP_JET:90k
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Destroyer
+</use>
+
+<length>
+590 m
+</length>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+540000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+125
+115
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+290
+</crew>
+
+<officers>
+42
+</officers>
+
+<gunners>
+33
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+252
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+150
+</life_boat>
+
+<escape_pod>
+100
+</escape_pod>
+

@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cac6-7543-b620-9e5c58ccc50e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Raptor
+model:RTX1-OB
+mul id:2649
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3052
+source:TR:3058U,TR:CI
+published:RS:CI
+rules level:2
+role:Striker
+
+quirk:easy_maintain
+
+mass:25
+engine:175 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+base chassis heat sinks:7
+walk mp:7
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:5
+RA armor:5
+LT armor:7
+RT armor:7
+CT armor:8
+HD armor:6
+LL armor:6
+RL armor:6
+RTL armor:2
+RTR armor:2
+RTC armor:2
+
+Weapons:4
+SRM 6, Left Torso
+SRM 6, Right Torso
+Small Laser, Right Torso
+SRM 6, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 6 (OMNIPOD)
+SRM 6 (OMNIPOD)
+IS Ammo SRM-6 (OMNIPOD)
+IS Ammo SRM-6 (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 6 (OMNIPOD)
+SRM 6 (OMNIPOD)
+Small Laser (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 6 (OMNIPOD)
+SRM 6 (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Raptor holds the distinction of being the first Inner Sphere OmniMech ever produced. Designed by Luthien Armor Works as a proof of concept after months of studying Clan OmniMech salvage recovered from the Battle of Luthien in 3052, the twenty-five ton design validated that Inner Sphere engineers could replicate the modular technology that had given the Clans such a decisive advantage during the invasion. The Raptor filled the role of a light reconnaissance and fast strike platform, where its ability to rapidly reconfigure loadouts between missions proved invaluable to Draconis Combine commanders adjusting to the new reality of the Clan threat.</p><p>Though initially regarded with skepticism by traditionalists within the DCMS, Luthien Armor Works stood behind the design and eventually won over even its harshest critics. The Raptor became the premier light OmniMech of the Combine, and its prolific production saw it spread beyond Combine borders to become one of the most widely fielded Inner Sphere OmniMechs of its era.</p>
+
+capabilities:<p>The Raptor is built on an Alshain Type KR140 endo steel chassis powered by a weight-saving Omni 175 XL engine, giving the design a top speed of just under 119 kilometers per hour. This speed is the Raptor's primary defense, as three and a half tons of StarSlab/4 armor provides only modest protection against sustained fire. The trade-off is deliberate, maximizing the eleven and a half tons of pod space available for mission-specific loadouts, which represents an impressive proportion of the chassis's total mass.</p><p>The Prime configuration reflects a versatile combat philosophy, mounting three LRM-5 launchers for long-range harassment alongside two medium lasers and two small lasers for closer engagements. A pair of machine guns provides anti-infantry capability. This mix allows the Prime to contribute meaningfully at multiple range brackets while maintaining the speed to disengage when outmatched.</p><p>With seven distinct factory configurations and additional field variants, the Raptor demonstrates the flexibility that makes OmniMech technology so valued. Loadouts range from pure energy builds for extended operations to electronic warfare packages and even an underwater combat configuration, ensuring the Raptor can be tailored to virtually any light 'Mech mission profile.</p>
+
+deployment:<p>Alternate Configuration B is purpose-built for close-quarters combat, carrying three SRM-6 launchers backed by a single small laser. This heavy short-range missile load makes the Raptor B particularly effective in a vehicle-hunting role, where its speed allows it to close rapidly and deliver devastating volleys of missiles before withdrawing. The configuration also excels in mop-up operations where surviving enemy forces must be engaged at close range.</p>
+
+history:<p>The Raptor's origins trace directly to the Battle of Luthien in January 3052, when the combined defense of the Combine capital against Clan Smoke Jaguar and Clan Nova Cat yielded significant quantities of Clan salvage. Luthien Armor Works engineers studied the captured OmniMech technology intensively, and by May 3052, just months after the battle, the first Raptors walked off the production line at the OmniMech Production Facility on Luthien. The very first units were assigned to the Dragon's Claws for testing, with additional Raptors sent to the Sword of Light, Genyosha, and Ghost regiments for further evaluation.</p><p>Acceptance within the DCMS was gradual. Many Combine soldiers, steeped in tradition, were slow to appreciate the advantages of an OmniMech that could swap its weapons between engagements. It took years for the standard Combine soldier to recognize the tactical flexibility the Raptor offered, but its performance during Operation Bulldog in 3059 and the Combine-Dominion War proved decisive in cementing the design's reputation. By the early 3060s, the Raptor was found in the regiments of every top-rated command within the Combine.</p><p>The Raptor's success saw it proliferate beyond Combine boundaries, becoming available to allied states and even appearing in mercenary commands. The design's "Easy to Maintain" reputation made it popular with units that lacked dedicated OmniMech maintenance facilities, as the Raptor proved more forgiving of improvised repair work than many of its contemporaries.</p><p>Production at Luthien Armor Works continued through the Civil War era, but the facility ceased Raptor production during the Jihad when the Word of Blake's assault on Luthien devastated much of the planet's industrial capacity. While LAW survived and eventually resumed other production lines, Raptor manufacturing was not restarted, leaving surviving units increasingly reliant on salvage and aftermarket parts to remain operational.</p>
+
+manufacturer:Luthien Armor Works
+
+primaryfactory:Luthien
+
+fluffdate:2026-02-18 20:22:52
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Type KR140 Endo Steel
+systemmanufacturer:ENGINE:Omni
+systemmode:ENGINE:175 XL
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:StarSlab/4
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:CommCon SCU-9
+systemmanufacturer:TARGETING:Matabushi
+systemmode:TARGETING:Stalker

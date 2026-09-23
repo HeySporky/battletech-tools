@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cfd5-7114-98a4-f42cc70be9ee
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Orochi
+model:OR-2I
+mul id:2343
+
+Config:Biped
+techbase:Inner Sphere
+era:3084
+source:TR:DA
+published:RS:DA
+rules level:2
+role:Missile Boat
+
+quirk:no_arms
+
+mass:90
+engine:360 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:30
+RA armor:30
+LT armor:28
+RT armor:28
+CT armor:44
+HD armor:9
+LL armor:38
+RL armor:38
+RTL armor:10
+RTR armor:10
+RTC armor:14
+
+Weapons:5
+Thunderbolt 20, Left Arm
+Streak SRM 4, Left Arm
+Thunderbolt 20, Right Arm
+Streak SRM 4, Right Arm
+ER Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Thunderbolt 20
+Thunderbolt 20
+Thunderbolt 20
+Thunderbolt 20
+Thunderbolt 20
+ISStreakSRM4
+IS Streak SRM 4 Ammo
+IS Ammo Thunderbolt-20
+IS Ammo Thunderbolt-20
+IS Ammo Thunderbolt-20
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Thunderbolt 20
+Thunderbolt 20
+Thunderbolt 20
+Thunderbolt 20
+Thunderbolt 20
+ISStreakSRM4
+IS Streak SRM 4 Ammo
+IS Ammo Thunderbolt-20
+IS Ammo Thunderbolt-20
+IS Ammo Thunderbolt-20
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISERSmallLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Orochi is a ninety-ton assault BattleMech introduced in 3084 by Victory Industries on Marduk. Conceived as a modern successor to the venerable Longbow, the design emerged from the Draconis Combine Mustered Soldiery's post-Jihad recovery efforts as both a practical military need and a symbolic statement of the Combine's industrial resilience.</p><p>Though never produced in large numbers, the Orochi earned a reputation as a potent fire support platform capable of delivering concentrated strikes at range. Its presence in frontline formations signaled the Combine's continued investment in advanced assault-class designs despite the losses suffered during the Jihad and the formation of the Republic of the Sphere.</p>
+
+capabilities:<p>The Orochi builds upon the Longbow's fire support legacy while embracing a fundamentally different approach to indirect warfare. Where its predecessor relied on massed LRM volleys for area saturation, the Orochi mounts a pair of Telos ThunderShot Thunderbolt 20 launchers, each fed by three tons of ammunition. These weapons trade the Longbow's broad suppressive capability for concentrated, armor-penetrating strikes capable of threatening even the heaviest targets at range. The Thunderbolt missiles prove far more compact than equivalent Arrow IV artillery systems while delivering comparable focused damage.</p><p>Complementing the main armament, two Telos TargetLok-4 Streak SRM-4 launchers provide efficient close-range defense, ensuring no ammunition is wasted on missed shots. A single Victory 12E extended range small laser rounds out the weapon suite as a last-resort backup. The ninety-ton frame rides on a Hermes 360 XL engine, achieving a respectable sixty-four kilometers per hour for an assault 'Mech, though the extralight powerplant creates a significant vulnerability to side torso damage. Seventeen and a half tons of Starshield A armor provide substantial protection, while Longbow-derived shoulder actuators enable the iconic arm-flipping capability that maximizes the Orochi's firing arcs.</p>
+
+deployment:<p>As the original production model introduced in 3084, this variant established the Orochi's role within the DCMS order of battle. Initial deployment prioritized the Sword of Light regiments and other elite formations, with limited production ensuring the design remained a prestige assignment throughout the early Republic era. Maintenance demands associated with the primary missile systems further constrained the number of units fielded, though those formations equipped with this variant consistently demonstrated the platform's value in dedicated fire support operations.</p>
+
+history:<p>The Orochi's development is inseparable from the Draconis Combine's broader post-Jihad industrial recovery. The Word of Blake's devastating campaign had shattered much of the Combine's military-industrial base, and the subsequent formation of the Republic of the Sphere stripped away several of its most productive worlds. Quentin alone cost the DCMS several modern and highly prized designs. The high command, anticipating these territorial losses even before the Republic's formal establishment, began shifting production capacity to surviving facilities across the realm.</p><p>Marduk's Victory Industries plant (formerly Norse BattleMech Works) had served the Combine for centuries, assembling Griffin and Wolverine variants along with components shipped across DCMS space. The factory received massive investment to expand its capabilities, with vast sums of money and labor directed toward necessary improvements. The Orochi was among the first new designs to emerge from the revitalized facility, a sign of the engineering talent Victory assembled on Marduk.</p><p>Initial fielding saw the Orochi distributed primarily to elite formations. The Sword of Light regiments received priority allocation as the design entered service, followed by other loyal formations such as the Dieron Regulars and Arkab legions. The design's high maintenance requirements and the specialized nature of its Thunderbolt launchers meant that overall production numbers remained modest, limiting the number of Orochi encountered in the field throughout the early Republic period.</p><p>The Combine's aggressive expansion into Federated Suns territory during the 3140s brought renewed strategic importance to the Orochi program. Victory Industries responded with the OR-3K variant, tailored for the evolving battlefield conditions of the Dark Age. As the ilClan era dawned and the political arena of the Inner Sphere continued to shift, the Orochi remained a visible symbol of Combine industrial capability, its presence in frontline units signaling both military investment and enduring technological ambition.</p>
+
+manufacturer:Victory Industries (formerly Norse BattleMech Works)
+
+primaryfactory:Marduk
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Class 98c
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:360 XL
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:A
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:CommSys 4b
+systemmanufacturer:TARGETING:Matabushi
+systemmode:TARGETING:Sentinel

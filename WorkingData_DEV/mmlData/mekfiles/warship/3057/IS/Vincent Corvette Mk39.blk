@@ -1,0 +1,264 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ed42-75d6-b25f-45605124faea
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Vincent Corvette
+</Name>
+
+<Model>
+Mk 39
+</Model>
+
+<mul id:>
+5351
+</mul id:>
+
+<year>
+2432
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:4.0:1:1::-1:0
+asfbay:6.0:2:2::-1:0
+cargobay:97141.0:1:3::-1:0
+1stclassquarters:280.0:0:-1::-1:0
+cargobay:100.0:1:5::-1:0
+crewquarters:917.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+493
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+5000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+11
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+16
+19
+19
+16
+19
+19
+</armor>
+
+<Nose Equipment>
+(B) Capital Missile Launcher (Barracuda)
+Capital Missile Launcher (Barracuda)
+Ammo Barracuda:20
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:50
+(B) Large Laser
+Large Laser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:50
+(B) Large Laser
+Large Laser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:50
+(B) Large Laser
+Large Laser
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:50
+(B) Large Laser
+Large Laser
+</Right Broadsides Equipment>
+
+<structural_integrity>
+40
+</structural_integrity>
+
+<capabilities>
+<p>At 420,000 tons and 402 meters, the Vincent is a medium-weight corvette optimized for sustained patrol operations and fleet screening. Two Howser 2G2 Hotfire engines deliver two gravities of sustained acceleration with a three-gravity burst capability, enabling the ship to keep pace with most DropShips and outmaneuver all but the most modern WarShips. The primary armament consists of four Luxor-10 Series NAC/10 naval autocannons distributed across the forward quarters and broadsides, providing overlapping fields of fire without exposing the vessel's flanks. A pair of nose-mounted Barracuda capital missile launchers supply long-range striking power. Conventional weaponry includes eight large lasers spread across the same arcs for anti-fighter defense. Four hundred and ninety-three single heat sinks manage the thermal load across all weapon systems. One hundred and four tons of Delhi 9800 ferro-carbide armor protect the Mk 39 hull, while the Ulsop Robotics AI Surveillance Computer provides twice the detection range of the earlier Mk 38 system, making the Vincent an excellent picket and reconnaissance platform. A single 60-meter gravity deck supports the crew of approximately one hundred and eighty-five during extended deployments, with accommodations considered unusually well-equipped for a patrol craft. Six aerospace fighters and four small craft provide organic screening capability. The Mk 42 Clan refit replaces the original large lasers with extended-range models, upgrades to 76 tons of lamellor ferro-carbide armor, and adds a lithium-fusion battery system for double-jump capability. HarJel-based hull sealant technology enables the Mk 42 to continue operating after sustaining significant damage, while a mobile HPG and small naval comm scanner suite enhance communications and intelligence gathering. Fighter capacity expands to ten craft.</p>
+</capabilities>
+
+<overview>
+<p>The Vincent-class corvette is among the most widely produced WarShip designs in human history. Introduced in 2432 by Delhi WarShips as a replacement for the aging Bonaventure and Vigilant corvettes, the Vincent was designed from the outset as a fast, maneuverable patrol craft and fleet screening vessel for the Terran Hegemony's navy. The class earned a reputation for exceptional longevity and adaptability, ultimately serving in every Great House fleet and eventually in Clan navies as well. Few WarShip classes could match the Vincent's operational lifespan or the breadth of its service record, reflecting the soundness of Delhi's original engineering. As the smallest dedicated combat vessel in most fleets that operated it, the corvette's combination of speed, adequate firepower for its tonnage, and capable sensor systems made it a natural choice for reconnaissance patrols, convoy escort, and picket duty across centuries of interstellar conflict.</p>
+</overview>
+
+<deployment>
+<p>The DCS Kaiten participated in the Battle of Schedar in May 2788 during the First Succession War. Operating alongside two Lola I-class destroyers, the DCS Minekaze and DCS Shiokaze, the Kaiten coordinated the defense against a Federated Suns counteroffensive launched under Operation SOLAR SHIELD. The Combine forces engaged and destroyed two AFFS WarShips, including the FSS Robespierre, leaving only two companies of the 28th Avalon Hussars to reach the surface. The engagement proved a costly disaster for the Federated Suns and demonstrated the Vincent's effectiveness when operating as part of a combined naval screen.</p><p>The WoBS Blake's Redemption had a far longer and more turbulent career. Originally an SLDF vessel abandoned in the Inner Sphere, the corvette was salvaged and restored by the Free Worlds League and Word of Blake beginning in 3054, entering Blakist service by 3057. The Blake's Redemption raided ComStar fleet bases at Luyten 68-28 and Ross 248, and engaged the CSV Narbonne during Operation ODYSSEUS in 3058. During the Jihad, the vessel conducted destructive raids on Donegal in 3068 and maintained a blockade through 3070, repelling Lyran Alliance relief attempts. The Blake's Redemption served through the entire Jihad before being destroyed in the Circinus system on 2 April 3081 by a task force from the Principality of Regulus.</p>
+</deployment>
+
+<history>
+<p>The Vincent-class corvette entered service in 2432, designed by Delhi WarShips to provide the Terran Hegemony with a fast, efficient patrol craft capable of replacing the older Bonaventure and Vigilant corvettes. The design emphasized upgradeability through a modular systems architecture that Delhi termed "smart modularity," allowing components to be swapped and improved as technology advanced without requiring extensive structural overhaul. This approach would prove remarkably prescient, as the class remained in active production for over three centuries.</p><p>Delhi WarShips maintained production lines at two facilities: the primary yard above Carver V and a secondary facility on Capella. Over the course of three hundred years, these yards produced more than five hundred Vincent-class hulls, making it one of the most numerous WarShip classes ever constructed. The design's modular architecture proved equally attractive to the Great Houses, and surplus Vincents regularly found their way into House navies through military surplus sales and approved transfers.</p><p>During the Reunification War, ten Vincents deployed as part of Case AMBER, screening the Star League task force during operations against the Taurian Concordat at Tentativa. The class served extensively in reconnaissance and picket squadrons, where its advanced sensor suite proved invaluable for intelligence gathering along the Periphery frontier. By the Star League's peak in 2765, Vincents served in every major Inner Sphere navy. The Federated Suns operated five across its fleet groups, the Lyran Commonwealth maintained five as part of its sixty-two-vessel Vacuum Fleet, the Draconis Combine fielded four, the Capellan Confederation three, and the Free Worlds League one assigned to the Duchy of Andurien. Even the Taurian Concordat possessed a single Vincent, the only Periphery state to operate the class.</p><p>The Amaris Coup of 2766 triggered events that shaped the Vincent's later career. With Carver V under siege by Rim Worlds forces, Delhi personnel smuggled the Vincent and Essex construction plans to their Capellan yards, restarting production in defiance of protests from both Amaris and Kerensky. New-build Vincents entered Capellan service before the Succession Wars began, giving the Confederation a WarShip production capability that most Houses would soon lose entirely. During the Liberation of Terra, at least two SLDF Vincents were destroyed when a squadron of eighteen M-3 drones launched from a hidden hangar on Terra's moon and struck the fleet's lighter escorts.</p><p>The First Succession War inflicted devastating losses on all WarShip fleets, and the Vincent was no exception. At Schedar in May 2788, Combine and Federated Suns forces clashed during Operation SOLAR SHIELD, one of many engagements where former allies turned these patrol vessels against one another. The destruction of shipyard infrastructure across the Inner Sphere meant that combat losses could not be replaced, and attrition steadily reduced operational numbers through each successive conflict. Despite this, the class's durable construction and modular design kept individual vessels in service far longer than their contemporaries. Salvaged and restored hulls continued to appear in fleet rosters as late as the Jihad era, when the Word of Blake fielded at least one refurbished Vincent against Coalition forces, centuries after the last Inner Sphere production lines had fallen silent.</p><p>Vincents accompanied Kerensky's Exodus to the Deep Periphery, where Clan engineers developed the Mk 42 variant in 2997. The upgrade incorporated advanced Clan drive technology for improved strategic mobility, enhanced damage control systems, and upgraded weaponry suited to Clan doctrine. The Mk 42 served across the Homeworlds for centuries and eventually deployed to the Inner Sphere during the Clan Invasion era. Clan Vincents participated in operations ranging from garrison patrol to major fleet actions, including the desperate fighting around Terra during the Jihad. The Wars of Reaving consumed many surviving Clan examples alongside much of the Homeworld Clans' naval power, though scattered vessels endured in diminished fleets well into the late thirty-first century.</p>
+</history>
+
+<manufacturer>
+Delhi WarShips|Delhi WarShips
+</manufacturer>
+
+<primaryFactory>
+Carver V / Liberty|Capella
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Delhi WarShips
+ENGINE:Howser
+ARMOR:Delhi
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Ulsop Robotics
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Vincent
+ENGINE:2G2 Hotfire
+ARMOR:9800 Ferro-Carbide
+JUMP_JET:Compact
+COMMUNICATIONS:Unknown
+TARGETING:AI Surveillance Computer
+</systemModels>
+
+<use>
+Corvette
+</use>
+
+<length>
+402 m
+</length>
+
+<height>
+1005 m Sail
+</height>
+
+<source>
+TR:3057r,JTP:Luthien
+</source>
+
+<tonnage>
+420000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+60
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+191
+</crew>
+
+<officers>
+28
+</officers>
+
+<gunners>
+24
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+8
+</escape_pod>
+

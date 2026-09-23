@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e99f-75a3-8be8-1c40dd4ef846
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Buzzard Hover Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+9342
+</mul id:>
+
+<year>
+3076
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<quirks>
+ramshackle
+</quirks>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+24
+16
+16
+16
+16
+</armor>
+
+<Body Equipment>
+IS Ammo MML-7 LRM
+IS Ammo MML-7 LRM
+IS Ammo MML-7 SRM
+IS Ammo MML-7 SRM
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Light PPC
+ISMML7
+ISMML7
+</Turret Equipment>
+
+<capabilities>
+<p>The Buzzard's fuel cell powerplant replaces the Falcon's ICE engine, freeing sufficient mass for a particle cannon and multi-missile launchers. This weapon combination extends the vehicle's effective engagement range well beyond the Falcon's short-range missile loadout. The particle cannon delivers precision direct fire against armored targets at extended ranges, while the multi-missile launchers accept both short and long-range ammunition, allowing crews to adapt their fire to the tactical situation. Trading top speed for this heavier armament makes the Buzzard more dependent on terrain selection and pre-positioning than the Falcon, as reduced hover speed limits the crew's ability to disengage rapidly from unfavorable engagements.</p><p>ProtecTech Light armor matches the Falcon's protection standard, keeping the Buzzard within the light combat vehicle class despite its heavier armament. The partially assembled kit distribution model introduced variable build quality into early Buzzard production, with hastily assembled vehicles exhibiting reliability issues that factory-finished examples did not share. Commanders typically pair Buzzards with faster Falcons and Hawks to screen their reduced escape speed while the Buzzard's weapons engage targets at range.</p>
+</capabilities>
+
+<overview>
+<p>The Buzzard Hover Tank entered production in 3076 as Quikscell Company's response to client demand for a fire support variant of the Falcon platform better suited to standoff engagements than close-range combat. Introduced during the late Jihad at the Richvale facility, the Buzzard trades the Falcon's exceptional top speed for a heavier armament suite capable of reaching targets at longer ranges. An alternative powerplant design provides the energy profile that makes the heavier weapons load practical while keeping costs within reach of cash-strapped buyers. Like all Quikscell products, the Buzzard reached isolated planetary governments and militia forces as a partially assembled kit through the same distribution network that sustained the Hawk and Falcon through decades of production. The design filled a genuine gap for forces needing standoff fire support at hovercraft prices rather than BattleMech costs.</p>
+</overview>
+
+<deployment>
+<p>The Buzzard serves as the fire support element in mixed formations alongside Falcons and Hawks, using its heavier armament to engage threats at distances the faster but lighter-armed companions cannot reach. Militia commanders position it in concealed or elevated firing locations where its reduced speed poses less risk of surprise contact, relying on Falcon and Hawk partners to screen approaches. Peripheral forces favor it as an affordable alternative to fusion-powered fire support vehicles for planetary defense and anti-raider operations where budget constraints rule out BattleMech-class assets.</p>
+</deployment>
+
+<history>
+<p>Quikscell Company introduced the Buzzard in 3076, near the conclusion of the Jihad, targeting markets on worlds stripped of combat vehicle inventories during years of fighting. The Richvale facility designed the Buzzard to complement rather than replace the Falcon, providing a standoff fire platform affordable to the same militia clients that had kept the Falcon in production for over fifty years. Distribution proceeded through the partially assembled kit network that had defined Quikscell's commercial approach across all their products. Some clients fielded Buzzards before final assembly was complete, suffering mechanical failures during combat that undermined the vehicles' early operational reputation.</p><p>In 3148, the Moriguchi Militia deployed Buzzards alongside Falcons against Rim Territories slavers operating south of Settsu on Galedon V. The Buzzards provided the longer-range fire support that the faster but lighter-armed Falcons could not deliver, engaging bandit BattleMechs at distances that prevented the raiders from closing to their preferred fighting range. The combined formation proved effective, with the slavers unable to bring their larger units to bear before concentrated hovercraft fire degraded their combat effectiveness.</p><p>The Buzzard achieved more modest commercial success compared to the Falcon, with militia commanders generally preferring the faster original when both were available. The design nonetheless filled a real tactical niche as a dedicated standoff fire vehicle priced within reach of forces unable to afford fusion-powered alternatives. Through the ilClan period, the Buzzard remained available through Quikscell's distribution network as the long-range complement in mixed hovercraft formations.</p>
+</history>
+
+<manufacturer>
+Quikscell Company
+</manufacturer>
+
+<primaryFactory>
+Richvale
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:ProtecTech
+COMMUNICATIONS:Basix
+TARGETING:OptiSight
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Light
+COMMUNICATIONS:200
+TARGETING:12
+</systemModels>
+
+<source>
+RG27
+</source>
+
+<published>
+RG27
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

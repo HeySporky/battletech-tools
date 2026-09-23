@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a622-7879-bbc4-9761e28d65e9
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Fusilier Battle Armor
+</Name>
+
+<Model>
+(Upgrade)(Sqd5)
+</Model>
+
+<mul id:>
+8735
+</mul id:>
+
+<year>
+3135
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<weaponQuirks>
+accurate:Squad:1:CLBALightMG
+</weaponQuirks>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+37
+</armor_type>
+
+<armor_tech>
+5
+</armor_tech>
+
+<Squad Equipment>
+ISBAPlasmaRifle:RA
+CLBALightMG:Body
+BAArmoredGlove:LA
+InfantryAssaultRifle:APM:LA
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):LA
+IS BA Laser Reflective (Reflec/Glazed):LA
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):Body
+IS BA Laser Reflective (Reflec/Glazed):Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The upgraded Fusilier trades the Magshot Gauss Rifle for a Man-Portable Plasma Rifle with twenty rounds of ammunition, giving the suit a significant increase in close-range thermal output at the cost of the Magshot's precision. The Jump Booster is downgraded to accommodate the heavier weapon system, reducing effective jump range from sixty meters to thirty. The body-mounted Light Machine Gun and left-arm Armored Glove carry over from the original design unchanged.</p><p>The most significant modification is the replacement of Basic Stealth armor with Reflective Armor. While reflective plating offers improved resistance against energy weapons, it proves considerably more fragile under physical impacts and ballistic threats. The trade-off sacrifices the original's sensor-masking capability and structural resilience for a specialized defense that only pays dividends against energy-heavy opponents, narrowing the suit's operational flexibility.</p>
+</capabilities>
+
+<overview>
+<p>The Fusilier is an assault-class battle armor suit manufactured by General Motors at their Salem facility for the Armed Forces of the Federated Suns. Introduced in the early 3120s, the design was intended to fill a frontline combat role alongside other heavy suits in AFFS battle armor battalions. Often described as the most unremarkable suit in AFFS service, the Fusilier earned a grudging respect for its consistent performance and solid construction in a role where dependability mattered more than distinction.</p>
+</overview>
+
+<deployment>
+<p>Clan Points operating captured upgraded Fusiliers found the revised armament more appealing than the original configuration, though the suit's fragile armor remained a significant liability by Clan standards. Five-trooper Points assigned to raiding or border skirmish duties occasionally fielded the upgrade when salvage made it available, but the design saw no widespread Clan adoption.</p>
+</deployment>
+
+<history>
+<p>General Motors began manufacturing the Fusilier at their Salem plant in the early 3120s, producing a suit that filled no particular gap in the AFFS order of battle. The Department of the Quartermaster yet procured the design, and GM continued production for over a decade before introducing an upgraded variant after the Blackout. The Fusilier drew on design elements from both the Grenadier and the Sea Fox, producing a competent if unremarkable assault suit that earned a reputation for solid construction rather than any defining tactical specialty.</p><p>Capellan March Militia units developed a marked preference for the original model over the upgrade. A 3139 raid conducted by a New Syrtis CMM detachment on the training world of Nihal demonstrated the reason clearly: when both variants came under fire inside a collapsing structure, the upgraded suits crumpled under falling debris while the original models completed the mission and escaped. The incident reinforced a broader reluctance among frontline units to adopt the newer variant. Warrior House Ijori also acquired captured Fusiliers and employed them on raids across formerly Davion worlds, proving the suit capable even in Capellan hands.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Salem
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:FS
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+1
+</jumpingMP>
+
+<armor>
+15
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+4
+</weightclass>
+

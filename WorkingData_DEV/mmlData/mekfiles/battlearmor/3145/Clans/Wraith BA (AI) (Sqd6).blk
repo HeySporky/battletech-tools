@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a614-7d76-8038-6d9961fd878e
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Wraith Battle Armor
+</Name>
+
+<Model>
+(Anti-Infantry)(Sqd6)
+</Model>
+
+<mul id:>
+9089
+</mul id:>
+
+<year>
+3116
+</year>
+
+<type>
+Mixed (Clan Chassis) Advanced
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+distracting
+</quirks>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+38
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+BABattleClawVibro:LA
+BABattleClawVibro:RA
+CLImprovedSensors:Body
+ISBAFireDrakeNeedler:LA
+ISBAFireDrakeNeedler:RA
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Anti-Infantry configuration replaces the standard Wraith's machine guns with a Firedrake Support Needler in each arm, weapons optimized for suppressing and eliminating unarmored personnel. Reactive Armor replaces the Basic Stealth system, trading electronic concealment for improved resistance to explosive ordnance and missile fire. An Improved Sensor suite allows troopers to detect hidden or camouflaged units, making this configuration well suited for sweep-and-clear operations.</p><p>The shift from stealth to reactive protection reflects a different tactical philosophy. Where the standard Wraith relies on avoiding detection to close with targets, the Anti-Infantry variant expects to operate in direct contact with enemy forces and prioritizes survivability under fire. The vibro-claws and jump capability carry over from the base design, preserving the suit's close-quarters lethality. The trade-off leaves this configuration more exposed to detection at range, a limitation that commanders must account for during approach planning.</p>
+</capabilities>
+
+<overview>
+<p>The Wraith is a medium battle armor suit developed by the Rasalhague Dominion at BA Facility Gamma on Mannedorf. Entering service in 3116, the design descended from extensive testing of the earlier Rogue Bear prototype and was built to support conventional infantry forces and conduct infiltration operations. The Wraith's mixed Clan and Inner Sphere technology base reflected the Dominion's hybrid military culture. Offered in a variety of frame sizes uncommon for Clan battle armor, the suit became a practical workhorse for both garrison and frontline Dominion formations.</p>
+</overview>
+
+<deployment>
+<p>Garrison and security commands occasionally organize Anti-Infantry Wraiths into six-trooper formations to maximize coverage during area denial and pacification operations. The larger unit size compensates for the configuration's reduced stealth by providing overlapping sensor coverage and sustained suppressive fire across a wider frontage, an approach favored in rear-echelon and occupation duty assignments.</p>
+</deployment>
+
+<history>
+<p>The Wraith traces its lineage to the Rogue Bear, a heavy battle armor prototype first fielded by Clan Ghost Bear garrison forces in the early 3070s. Decades of iterative refinement at BA Facility Gamma on Mannedorf transformed the concept into the production Wraith, which entered Rasalhague Dominion service in 3116. Unlike most Clan battle armor, the Wraith was engineered around interchangeable form factors to accommodate the Dominion's mixed Clan-freeborn military, where standardized Elemental-proportioned suits excluded many otherwise capable warriors from powered armor duty. Quartermasters complained that the variety of frame sizes created a logistical burden, but field commanders valued the expanded recruitment pool.</p><p>The Wraith earned its reputation during operations in the late 3130s. In 3137, Rasalhague Dominion forces launched border raids against the Draconis Combine while the Combine struggled with the death of Theodore Kurita. On Schuyler, elements of the Fourth Bear Regulars dropped a Star of battle armor onto the Kurokawa motor pool before dawn and fought building to building for three hours against three companies of conventional infantry. Separately, during Clan-on-Clan skirmishes over worlds vacated by Clan Wolf, two Points of Wraiths directed a flanking assault against the Hell's Horses' 666th Mechanized Assault Cluster on New Oslo, intercepting and eliminating the Cluster's command staff during a withdrawal.</p>
+</history>
+
+<manufacturer>
+BA Facility Gamma
+</manufacturer>
+
+<primaryFactory>
+Mannedorf
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:C
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+10
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

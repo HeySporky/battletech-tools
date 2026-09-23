@@ -1,0 +1,244 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ac4a-7ae3-9b26-bf230d81c344
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Vampire
+</Name>
+
+<Model>
+II
+</Model>
+
+<mul id:>
+5611
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+battlearmorbay:4.0:4:1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:0.0:0:-1::-1:0
+crewquarters:0.0:0:-1::-1:0
+steeragequarters:90.0:0:-1::-1:0
+cargobay:8.0:1:6::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+94
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+2660
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+150
+151
+151
+113
+</armor>
+
+<Nose Equipment>
+(B) Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISLargeXPulseLaser
+ISLargeXPulseLaser
+(B) ISLaserAntiMissileSystem
+ISLaserAntiMissileSystem
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISLargeXPulseLaser
+ISLargeXPulseLaser
+(B) ISLaserAntiMissileSystem
+ISLaserAntiMissileSystem
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISERLargeLaser
+ISERLargeLaser
+</Aft Equipment>
+
+<Hull Equipment>
+Communications Equipment:SIZE:0.0
+</Hull Equipment>
+
+<structural_integrity>
+7
+</structural_integrity>
+
+<capabilities>
+<p>The Vampire II is a heavier 600-ton variant created specifically for battle armor infantry deployment. The design replaces the original's jump infantry compartments with four Battle Armor bays and eight tons of cargo. The weapons suite is entirely energy-based, eliminating ammunition dependency. Four Heavy PPCs mounted in the nose provide devastating long-range firepower, while each wing carries two Large X-Pulse Lasers and two Laser Anti-Missile Systems for close defense. The aft arc mounts two ER large lasers.</p><p>Communications equipment in the hull supports coordination with deployed battle armor forces. With ninety-four double heat sinks managing the all-energy weapons load, the Vampire II can sustain fire effectively. The vessel's safe thrust of four is lower than the original's six, reflecting the increased mass, but 565 points of armor provide substantially greater protection. A crew of forty-eight operates the vessel.</p>
+</capabilities>
+
+<overview>
+<p>The Vampire is one of the smallest DropShips ever to see combat, a tiny 400-ton Aerodyne so fast and well-armed that it is frequently mistaken for a heavy aerospace fighter. Conceived as the fastest jump infantry carrier in existence, the Vampire was designed to minimize the time its embarked troops were exposed to enemy interceptors by matching the performance of non-interceptor fighters it might encounter.</p><p>The vessel's distinctive combat profile involves high-speed, low-altitude passes over targets, during which jump infantry deploy through specialized ventral drop hatches. At long range, this gives the Vampire the appearance of a fighter on a bombing run, a deliberate deception that has proven highly effective at sowing confusion among defenders expecting ordnance rather than infantry. This combination of speed, firepower, and tactical surprise has made the Vampire a prized asset for special operations forces.</p>
+</overview>
+
+<deployment>
+<p>The Vampire II entered production in 3070, created specifically for the AFFS Rabid Foxes special operations unit for battle armor infantry deployment. These vessels operate in the same high-speed insertion role as the original Vampire, substituting armored infantry for jump troops while maintaining the design's signature ability to be mistaken for aerospace fighters during approach runs.</p>
+</deployment>
+
+<history>
+<p>The Vampire was developed by Markesan Astronautics for the Federated Suns, entering service in 2715 as a specialized jump infantry delivery platform. The design proved highly effective during the Border War between the Federated Suns and the Capellan Confederation, where defending troops were thrown into confusion when jump infantry began raining down from what they assumed were fighter bombing runs. Federated Suns Special Forces became particularly fond of the Vampire for its ability to achieve tactical surprise.</p><p>However, the Vampire's high performance came at a significant cost. Its powerful drive system had a relatively short operational lifespan and required maintenance far exceeding that of comparable DropShip engines. When Markesan Astronautics' manufacturing facilities were destroyed during the Draconis Combine's First Succession War thrust toward New Avalon, the several dozen surviving Vampires were gradually grounded and eventually scrapped as their engines failed without replacement parts available.</p><p>The design was considered lost until the recovery of the Hegemony Memory Core during the Jihad enabled Jalastar Aerospace to revive the Vampire. The company began producing updated versions for the AFFS's special forces, incorporating modern weapons technology while retaining the original design's core philosophy of speed and deception. Subsequent variants expanded the concept to include battle armor delivery alongside the traditional jump infantry role.</p>
+</history>
+
+<manufacturer>
+Jalastar Aerospace
+</manufacturer>
+
+<primaryFactory>
+Panpour
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Donovan XVIII
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Troop Carrier
+</use>
+
+<length>
+42 m
+</length>
+
+<width>
+28 m
+</width>
+
+<height>
+8.5 m
+</height>
+
+<source>
+XTR:Phantoms
+</source>
+
+<published>
+XTR:Phantoms
+</published>
+
+<tonnage>
+600.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+42
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+3
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

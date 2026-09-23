@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb8b-70e8-877b-15354dc10ae1
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Simca Ambulance
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5064
+</mul id:>
+
+<year>
+2607
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:0.136:1:1::-1:0
+standardseats:7.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+43
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+0
+0
+0
+0
+</armor>
+
+<Body Equipment>
+Paramedic Equipment
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+Paramedic Equipment
+</Right Equipment>
+
+<Left Equipment>
+Paramedic Equipment
+</Left Equipment>
+
+<Rear Equipment>
+Paramedic Equipment
+</Rear Equipment>
+
+<barrating>
+2
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Simca is a small-class wheeled vehicle propelled by an internal combustion engine to a cruise speed of 75 km/h, achieving a top speed of approximately 118 km/h. It mounts no weapons and carries only minimal barrier armor rated at BAR 2, providing negligible protection against anything beyond environmental hazards. Its medical capability is carried in four sets of paramedic equipment providing life support, diagnostic, and stabilization capability for patients in transit. Six passenger seats allow the vehicle to carry a driver alongside two paramedics and up to five patients, though the practical patient capacity in a trauma scenario is typically limited by the need for stretcher space.</p><p>A siren and strobe lighting package is standard, allowing the vehicle to signal priority transit in populated areas. Cargo capacity of 136 kg accommodates supplemental medical supplies, specialized tools, and consumables. Rear bay doors facilitate rapid loading and unloading of patients. A petrochemical fuel supply provides 845 km of operating range, sufficient to cover regional response areas on most inhabited worlds. The vehicle's key limitation is its near-total lack of protection, making it entirely dependent on operating in environments where emergency vehicles are recognized and respected.</p>
+</capabilities>
+
+<overview>
+<p>The Simca ambulance is a lightweight wheeled support vehicle introduced during the early Star League period, designed to provide rapid pre-hospital emergency medical care and patient transport for communities throughout the Inner Sphere. The vehicle's design philosophy emphasizes speed and patient capacity over protection, reflecting the expectation that ambulances operate in relatively secure environments. At 2.5 tons, it is one of the smaller wheeled support vehicles in common use, optimized for maneuvering through the streets and corridors of inhabited areas. The Simca has been a fixture of Inner Sphere civilian infrastructure since its introduction in 2607, and vehicles of its type are encountered on virtually every inhabited world regardless of faction or political status.</p>
+</overview>
+
+<deployment>
+<p>The Simca ambulance is deployed universally in civilian emergency medical services across the Inner Sphere. It serves in urban emergency response networks, rural community medical programs, industrial facility first-response teams, and military garrison medical support roles where full field hospital equipment is not required. Its compact size and high top speed make it well-suited to initial response and patient transport in densely populated areas. The Simca is not equipped for frontline medical operations and is not expected to function in active combat environments. Military organizations typically employ this vehicle type in rear-area support and base medical functions rather than in forward combat zones.</p>
+</deployment>
+
+<history>
+<p>The Simca ambulance was introduced in 2607, near the midpoint of the Star League era. Emergency medical transport had always been a necessity on inhabited worlds, but the Star League period brought increased investment in civilian infrastructure that included standardization of emergency vehicle types. The Simca emerged from this environment as a straightforward, utilitarian design intended to meet the needs of small communities and secondary urban areas that could not support a more complex medical transport fleet.</p><p>Like the Saurer-Bucher Fire Engine with which it is catalogued in the Vehicle Annex, the Simca did not carry the strategic significance that made military vehicles prime targets during the Succession Wars. Civilian ambulances continued to be manufactured and operated throughout the most destructive periods of Inner Sphere history, though manufacturing quality and maintenance standards varied considerably as industrial capacity declined. Many planets produced local variants or substitutes using the Simca specifications as a starting point, resulting in a wide range of vehicles that shared the design's basic configuration while differing in construction quality and component sourcing.</p><p>The Star League period saw relatively standardized production with consistent equipment quality. After the Exodus and the beginning of the Succession Wars, production fragmented among regional and local manufacturers. The vehicle increasingly became a class designation rather than a single manufacturer's product. Successive generations of emergency medical personnel trained on vehicles using the Simca's configuration regardless of the specific planet of manufacture, and its specifications became a de facto standard for light wheeled ambulances across the Inner Sphere.</p><p>The vehicle's basic form remained largely unchanged across the centuries, as the technology involved, an ICE-powered lightweight wheeled platform with paramedic equipment, was simple enough to manufacture without advanced industrial infrastructure. This ensured production continuity even during the worst periods of technological decline in the Succession Wars era, and the Simca remained available to communities that could no longer afford or produce more sophisticated medical equipment.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:ICE
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+2.5
+</tonnage>
+
+<fuel>
+0.042
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

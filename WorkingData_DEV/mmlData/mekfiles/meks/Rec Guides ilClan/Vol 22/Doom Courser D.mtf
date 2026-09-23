@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-da7c-718c-940b-19a11197ad03
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Doom Courser
+model:D
+mul id:8397
+
+Config:Quad OmniMek
+techbase:Clan
+era:3147
+source:RG22
+published:RG22
+rules level:3
+role:Sniper
+
+quirk:exp_actuator
+quirk:imp_com
+
+mass:70
+engine:280 Fusion (Clan) Engine
+structure:Clan Endo-Composite
+myomer:Standard
+
+heat sinks:12 Clan Double
+base chassis heat sinks:11
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+FLL armor:30
+FRL armor:30
+LT armor:23
+RT armor:23
+CT armor:31
+HD armor:9
+RLL armor:30
+RRL armor:30
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:2
+HAG/40, Left Torso
+ER PPC, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo-Composite
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo-Composite
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLHAG40 (OMNIPOD)
+CLHAG40 (OMNIPOD)
+CLHAG40 (OMNIPOD)
+CLHAG40 (OMNIPOD)
+CLHAG40 (OMNIPOD)
+CLHAG40 (OMNIPOD)
+CLHAG40 (OMNIPOD)
+CLHAG40 (OMNIPOD)
+CLHAG40 (OMNIPOD)
+CLHAG40 (OMNIPOD)
+
+Right Torso:
+CLERPPC (T) (OMNIPOD)
+CLERPPC (T) (OMNIPOD)
+Hyper-Assault Gauss Rifle/40 Ammo (OMNIPOD)
+Hyper-Assault Gauss Rifle/40 Ammo (OMNIPOD)
+Hyper-Assault Gauss Rifle/40 Ammo (OMNIPOD)
+Hyper-Assault Gauss Rifle/40 Ammo (OMNIPOD)
+Hyper-Assault Gauss Rifle/40 Ammo (OMNIPOD)
+ISQuadTurret
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo-Composite
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo-Composite
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Doom Courser is a seventy-ton heavy quadrupedal OmniMech introduced in 3147 by Clan Hell's Horses. Produced at the Csesztreg Industriplex Alpha, the design was purpose-built to serve as an anchor point for the Horses' QuadVee and mixed vehicle Stars, a role that few quadrupedal BattleMechs had successfully filled. The Doom Courser emerged from the Horses' unique embrace of the Mongol Doctrine, which prizes combined-arms formations where heavy fire support platforms operate under the protection of faster escorts. While most Clans dismiss quad 'Mechs as the unwanted sibkin of their touman, the Horses recognized that a well-protected four-legged chassis could serve as a formation's rallying point, absorbing punishment while delivering devastating long-range firepower through its signature turret-mounted weapon systems.</p>
+
+capabilities:<p>The Doom Courser's foundation rests on a Csesztreg Quad 70.1 Endo-Composite chassis powered by a standard Clan 280-rated fusion engine, propelling the heavy 'Mech to a maximum speed of sixty-four kilometers per hour. Twelve tons of Compound H17 Ferro-Fibrous armor provide exceptional battlefield endurance for a design intended to hold its ground as lighter elements maneuver around it. The lack of jump jets reflects the design's doctrinal role as a steadfast fire support platform rather than a mobile striker.</p><p>The Doom Courser's defining feature is its BattleMech turret, capable of mounting up to fifteen tons of weaponry with a full three-hundred-sixty-degree firing arc. This turret effectively negates the primary weakness of quadrupedal designs by eliminating the torso-twist limitations that typically hamper four-legged 'Mechs. With twenty-eight tons of total pod space, all configurations exploit this advantage by mounting heavy, long-range weapons in the turret while secondary systems occupy the torso hardpoints.</p><p>The CH3V Series Integrated communications system, mounted in the Doom Courser's stylized tail assembly, represents advanced command-grade equipment capable of cutting through most common forms of electronic jamming and linking directly into planetary communications networks. This capability makes the Doom Courser a natural choice for Star Captains and ranking officers, though this tendency has made the design a frequent target for headhunting attacks. The Horses have adapted to this predictable tactic, using their Doom Coursers as bait to draw in aggressive opponents and spring carefully prepared traps.</p>
+
+deployment:<p>Alternate Configuration D mounts the heaviest individual weapons available to the Doom Courser chassis. An ER PPC in the turret provides long-range energy firepower, while the left torso houses a Hyper-Assault Gauss Rifle 40, one of the most devastating ballistic weapons fielded by any Clan design. Five tons of ammunition feed the massive Gauss system, though MechWarriors must exercise ammunition discipline during protracted campaigns. The combination of these two weapons creates a fire support platform capable of crippling or destroying most targets in just a few volleys, making the D configuration the preferred choice for engagements where overwhelming alpha strikes are prioritized over sustained fire.</p>
+
+history:<p>Quadrupedal BattleMechs have long occupied an uncomfortable position within Clan military culture. Most Clans regard them as curiosities at best and liabilities at worst, lacking the flexibility and prestige of their bipedal counterparts. The Hell's Horses, ever ingenious in their approach to the Mongol Doctrine, recognized that quad 'Mechs in their purest form allow vulnerable flanks to be easily protected by nimbler escorts. The Doom Courser was conceived specifically to exploit this synergy, serving as the backbone around which QuadVee Stars and mixed vehicle formations could operate with confidence.</p><p>The Battle of New Oslo during Operation Noyan provided the Doom Courser's first large-scale field test. A Star of Doom Coursers supported by two Stars of QuadVees engaged elements of the Ghost Bears' Fifty-Fifth Provisional Garrison Cluster among the broken crags of Helvetesport Crater. When the Bears attempted to use the rocky terrain to negate the Horses' mobility advantage and force a close-range slugging match, the Doom Coursers demonstrated their intelligence-gathering capabilities by establishing an uplink to an orbiting weather satellite, revealing the exact disposition of the Bear ambush force. The QuadVees exploited this intelligence to flank the Ghost Bear positions from multiple directions, while the Doom Coursers maintained withering turret fire from elevated positions. The engagement ended with the Ghost Bear commander requesting hegira for the surviving warriors.</p><p>Beyond the major Clan engagements, individual Doom Coursers have appeared in more remote theaters. At least one has been reported operating in the Republic of the Barrens, believed to be attached to the Hell's Horses Watch, where it has been observed defending frontier settlements against pirate bands from the New Oberon Confederation and Star's End. On the world of Paulus Prime, a Doom Courser was observed carrying Elementals and systematically dismantling a pirate band that had seized the settlement of Blank Slate, defeating their Revival-era 'Mechs with methodical precision before departing without accepting any reward from the grateful townspeople.</p><p>The Doom Courser's greatest challenge may be cultural rather than tactical. QuadVees and quad 'Mechs continue to struggle for acceptance within the broader Clan touman, regarded by many traditionalists as dishonorable tools beneath a true warrior's dignity. More pragmatic warriors within the Horses counter that honor derives not from the tool employed but from how it is used and the victories it achieves. The Doom Courser's battlefield record, particularly its success as a command platform in combined-arms operations, has begun to shift this perception, leading some Horse warriors to view assignment to a Doom Courser as a mark of tactical sophistication rather than a consolation prize.</p>
+
+manufacturer:Csesztreg Industriplex Alpha
+
+primaryfactory:Csesztreg
+
+fluffdate:2026-02-10 14:00:04
+
+systemmanufacturer:CHASSIS:Csesztreg
+systemmode:CHASSIS:Quad 70.1 Endo-Composite
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Clan Standard 280 series
+systemmanufacturer:ARMOR:Csesztreg Industriplex Alpha
+systemmode:ARMOR:Compound H17 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:CH3V Series Integrated
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Version Kappa-III TTS

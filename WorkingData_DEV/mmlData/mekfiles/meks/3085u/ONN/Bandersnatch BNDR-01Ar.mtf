@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d060-7a70-aa10-d4beb8cc41ec
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Bandersnatch
+model:BNDR-01Ar
+mul id:218
+
+Config:Biped
+techbase:Inner Sphere
+era:3071
+source:TR:3085
+published:RS:3085u-ONN
+rules level:2
+role:Brawler
+
+quirk:stable
+quirk:ubiquitous_is
+
+mass:75
+engine:300 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:18
+RA armor:18
+LT armor:23
+RT armor:23
+CT armor:23
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:10
+LB 10-X AC, Left Arm
+Medium Laser, Left Arm
+Medium Laser, Left Arm
+LB 10-X AC, Right Arm
+Medium Laser, Right Arm
+Medium Laser, Right Arm
+LRM 5, Left Torso
+ER Small Laser, Right Torso
+LRM 5, Right Torso
+LRM 5, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+Medium Laser
+Medium Laser
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+Medium Laser
+Medium Laser
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 5
+IS Ammo LRM-5
+IS LB 10-X AC Ammo
+IS LB 10-X Cluster Ammo
+ISCASE
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERSmallLaser (R)
+LRM 5
+IS Ammo LRM-5
+IS LB 10-X AC Ammo
+IS LB 10-X Cluster Ammo
+ISCASE
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+LRM 5
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Bandersnatch is a 75-ton heavy BattleMech first produced in 3052 by Bander BattleMechs, a small manufacturer on Terra Firma founded by Felifious Bander, a former chief technician of the Twelfth Star Guard. Conceived as an affordable and effective platform for mercenary commands left equipment-poor in the wake of the Clan Invasion, the Bandersnatch was the first original design offered by Bander's company after years of performing upgrades and refits on older BattleMechs using recovered technology.</p><p>Deliberately modeled on the popular Marauder to ensure a large supply of compatible replacement parts, the Bandersnatch offers a versatile heavy weapons platform at a fraction of the cost of frontline assault designs. The design has earned a solid reputation among mercenary commands and independent worlds for its reliability, affordability, and ease of maintenance.</p>
+
+capabilities:<p>The Bandersnatch's weapons array is built around the armament configurations most frequently requested by Bander's mercenary clientele. A pair of Armstrong Class-B ClusterGuns LB 10-X autocannons serve as the primary striking weapons, capable of firing both solid slugs for concentrated damage and cluster munitions effective against lighter targets and conventional aircraft. Three Holly LRM-5 racks provide sustained long-range fire support, while six Magna Mk II medium lasers (four forward-firing and two rear-mounted) ensure comprehensive close-range coverage. CASE-protected ammunition bins in both torsos mitigate the risk posed by the considerable stores of autocannon and missile reloads.</p><p>Powered by a Vlar 300 XL engine, the Bandersnatch achieves a respectable cruising speed of 43 kilometers per hour, adequate for its intended fire support role though insufficient for rapid repositioning. Eleven tons of Valiant Chainmail armor provide solid protection without maximizing the chassis's potential capacity, a deliberate cost-saving measure that however leaves the design well-protected for its weight class. Double heat sinks allow the heavy weapons loadout to fire without significant thermal buildup, though sustained alpha strikes still demand careful heat management. Early production models exhibited a design flaw where the rear-firing lasers melted their heat jackets, requiring the weapons to be raised and ongoing field monitoring of the affected components.</p>
+
+deployment:<p>Developed around 3071 during the Jihad, the 01Ar is a straightforward field refit designed to counter the Word of Blake's widespread use of the C3i networking system. The modification strips nearly all rear-arc defenses, retaining only a single ER small laser, to free tonnage and space for a Guardian ECM suite mounted in the center torso. This electronic warfare capability proved invaluable for mercenary and coalition units operating against Blakist formations, disrupting the coordination advantages that C3i-equipped lances relied upon. The simplicity of the conversion made it accessible to field technicians and independent repair shops as well as to Bander's own facility, and the refit saw broad adoption among Bandersnatch operators engaged in anti-Blakist operations.</p>
+
+history:<p>The Bandersnatch emerged from the chaos and desperation that followed the Clan Invasion of 3049. Felifious Bander, a veteran chief technician of the Twelfth Star Guard, leveraged his reputation and connections to recruit fellow mercenary technicians left without employment after the Clans destroyed their parent units. His company, Bander BattleMechs, began by performing upgrades on aging BattleMechs using technology recovered in the wake of the invasion, building expertise and capital before attempting an original design. The Bandersnatch, which first rolled off the assembly floor in 3052, was the culmination of that effort, a heavy 'Mech deliberately designed to be built with limited industrial resources.</p><p>Early production was extremely limited, with each machine requiring months of painstaking hand assembly. Barely a half-dozen existed by 3055, making the Bandersnatch more curiosity than contender on the mercenary market. The partnership with Kressly WarWorks on Epsilon Eridani proved transformative, as Kressly's interest in a heavy design simple enough for small-scale production opened the door to expanded manufacturing. This collaboration gave the Bandersnatch access to broader distribution networks and the industrial base of the Chaos March.</p><p>The Bandersnatch found its strongest customer base among mercenary commands and the independent worlds of the Chaos March, where its affordability and reliance on widely available Marauder-compatible components made it particularly attractive. The design's growing presence in the region drew attention from the Capellan Confederation and Trinity Alliance, who viewed the armed independence of Chaos March worlds with increasing concern.</p><p>The Jihad brought both opportunity and crisis to Bander BattleMechs. During the early years of the conflict, the company supported the Word of Blake's rule over Terra Firma, viewing the Blakists as a source of stability and profiting from 'Mech sales to their forces. This relationship soured as the full extent of Blakist atrocities became known, and the founder's own son defied his father to join the anti-Blakist resistance. The 01Ar refit variant, developed specifically to counter Blakist C3i networks, became one of the design's most widely adopted configurations during this period. Following the Jihad, the Bandersnatch continued to serve as a mainstay of mercenary and periphery forces, its reputation for reliability and affordability ensuring steady demand even as larger manufacturers competed for market share in the post-war rebuilding era.</p>
+
+manufacturer:Bander BattleMechs|Field Refit
+
+primaryfactory:Terra Firma|Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Bander
+systemmode:CHASSIS:Custom 1
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Valiant
+systemmode:ARMOR:Chainmail
+systemmanufacturer:COMMUNICATIONS:Winston
+systemmode:COMMUNICATIONS:Mega Boozee Mark IX
+systemmanufacturer:TARGETING:Winston
+systemmode:TARGETING:Sidewinder

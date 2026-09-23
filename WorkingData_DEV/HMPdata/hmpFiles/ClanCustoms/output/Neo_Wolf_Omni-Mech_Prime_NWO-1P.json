@@ -1,0 +1,319 @@
+{
+  "filename": "Neo_Wolf_Omni-Mech_Prime_NWO-1P.hmp",
+  "size": 2227,
+  "header_hex": "56 35 2e 30 30 04 00 08 05 40 30 d0 00 01 80 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0005@0"
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 221,
+      "length": 208,
+      "text": "\u0001\u0080\u0000\u00002\u0000\u0018\u0000Neo Wolf Omni-Mech Prime\u0006\u0000NWO-1P\u00f4\u000b\u0003\u0000\u001c\u00ea\u00c1\u0002$\b\u0000p\bE\u0000p\bE\u0000\u0000\u00b0A\u0000\u0000pA\u0000\u0000\u00e0@\u001e\u0000MM 4 2 4 2 2\u0097 6Jomni, tag, prb\u0002\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0001\u0000\u0001\u0000\u0001\u0000\n\u0000\u0001\u0000,\u0001\u0002\u0000\u0006\u0000\u0006\u0000\u0010\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0001\u0000\u0012\u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\u0018\u0000\u0000\u0000\u0006\u0000\u0006\u0000\b\u0000\u0002\u0000\u0005\u0000\u0001\u00006\u0000\u0004\u0000\u0000\u0000\u0000\u0000\r\u0000Cl"
+    },
+    {
+      "type": "ascii",
+      "start": 221,
+      "end": 232,
+      "text": "an Mk. XVII"
+    },
+    {
+      "type": "len_string",
+      "start": 232,
+      "end": 235,
+      "length": 1,
+      "text": "W"
+    },
+    {
+      "type": "len_string",
+      "start": 235,
+      "end": 749,
+      "length": 512,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u000e\u0000Tracker Series\u0001\u0000Z\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0014\u0000Hellion Class Homing\u0001\u00004\u0000\b\u0000\u0000\u0000\u0000\u0000\f\u0000Series Mk. 3\u0001\u0000[\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000+\u0000\u0000\u0000+\u0000\u0000\u0000+\u0000\u0000\u0000+\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000W\u0000\u0000\u0000Z\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u00006\u0000\u0000\u00006\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0017\u0000\u0000\u0000\u0017\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u001a\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u00004\u0000\u0000\u0000[\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u00f6\u00ff\u00a9\u0000\u00ab\u0001Fast, agile and just ent"
+    },
+    {
+      "type": "ascii",
+      "start": 749,
+      "end": 1152,
+      "text": "ering production, the NeoTech NWM-1N is the first mech produced by NeoTech, Inc, a Clan Wolf in Exile company.\r\n\r\nThe NeoWolf is designed as a multi-role mech.  With the Active Probe and the TAG unit, it can seek out shutdown mechs and equipment and call down a rain of fire upon them.   The ER-PPC gives it Sniper ability, while the claw and the Medium Pulse Laser allow it to get close and brawl.   \r\n"
+    },
+    {
+      "type": "len_string",
+      "start": 1152,
+      "end": 1616,
+      "length": 462,
+      "text": "The NeoWolf is a jack-of-all-trades, good at a lot of things, but excelling in nothing.    It's not fast enough to be a scout mech, and not as well armed as most medium Mechs.  Meant to be able to adapt at a moments notice, the NeoWolf is also well armored, giving it survivablility.  The MASC give it the ability to sprint up to it's opponant, unleash a barrage from it's PPC and pulse laser, then take a good swipe with it's claws, then get out of there again."
+    },
+    {
+      "type": "len_string",
+      "start": 1616,
+      "end": 1762,
+      "length": 144,
+      "text": "No battle history so far for this mech.  Trials are doing well with the Wolves in Exile and the FC.  Primarily used as a sniper with both groups"
+    },
+    {
+      "type": "ascii",
+      "start": 1762,
+      "end": 1763,
+      "text": "5"
+    },
+    {
+      "type": "byte",
+      "offset": 1763,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1764,
+      "end": 1817,
+      "text": "Four official Variants Currently in production phase."
+    },
+    {
+      "type": "len_string",
+      "start": 1817,
+      "end": 1820,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 1820,
+      "end": 1821,
+      "text": "c"
+    },
+    {
+      "type": "byte",
+      "offset": 1821,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1822,
+      "end": 1921,
+      "text": "Currently only deployed on a trial basis with the Clan Wolf in Exile and the Federated Commonwealth"
+    },
+    {
+      "type": "len_string",
+      "start": 1921,
+      "end": 1942,
+      "length": 19,
+      "text": "Still working on it"
+    },
+    {
+      "type": "len_string",
+      "start": 1942,
+      "end": 1945,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 1945,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1946,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1947,
+      "end": 1961,
+      "length": 12,
+      "text": "\u0000\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 1961,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1962,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1963,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1964,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1965,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1966,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1967,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1968,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1969,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1970,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1971,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1972,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 1973,
+      "end": 1977,
+      "length": 2,
+      "text": "\u0000\u0000"
+    },
+    {
+      "type": "ascii",
+      "start": 1977,
+      "end": 1978,
+      "text": ")"
+    },
+    {
+      "type": "byte",
+      "offset": 1978,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1979,
+      "end": 2020,
+      "text": "D:\\GMud\\Battletech\\werewolfmechColor2.jpg"
+    },
+    {
+      "type": "byte",
+      "offset": 2020,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2021,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2022,
+      "end": 2042,
+      "length": 18,
+      "text": "NeoTech Industries"
+    },
+    {
+      "type": "ascii",
+      "start": 2042,
+      "end": 2043,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2043,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2044,
+      "end": 2053,
+      "text": "Arc-Royal"
+    },
+    {
+      "type": "len_string",
+      "start": 2053,
+      "end": 2075,
+      "length": 20,
+      "text": "NeoTech Hellfire XXL"
+    },
+    {
+      "type": "len_string",
+      "start": 2075,
+      "end": 2100,
+      "length": 23,
+      "text": "TechFibrous Ferro Armor"
+    },
+    {
+      "type": "ascii",
+      "start": 2100,
+      "end": 2101,
+      "text": "\""
+    },
+    {
+      "type": "byte",
+      "offset": 2101,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2102,
+      "end": 2136,
+      "text": "Neotech Medium Composite MechFrame"
+    },
+    {
+      "type": "len_string",
+      "start": 2136,
+      "end": 2152,
+      "length": 14,
+      "text": "Wolf Howl 500c"
+    },
+    {
+      "type": "ascii",
+      "start": 2152,
+      "end": 2153,
+      "text": "0"
+    },
+    {
+      "type": "byte",
+      "offset": 2153,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2154,
+      "end": 2202,
+      "text": "NeoTech Canid20A Sensory Package w/ MultiTrac II"
+    },
+    {
+      "type": "len_string",
+      "start": 2202,
+      "end": 2227,
+      "length": 23,
+      "text": "Hi-Vault Base Jump Jets"
+    }
+  ]
+}

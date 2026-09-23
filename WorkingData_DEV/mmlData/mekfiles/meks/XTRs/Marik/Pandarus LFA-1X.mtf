@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dfa0-79b2-a62c-d652a7c2d2e6
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Pandarus
+model:LFA-1X
+mul id:2412
+
+Config:Biped
+techbase:Inner Sphere
+era:3078
+source:XTR:Marik
+published:XTR:Marik
+rules level:4
+role:Missile Boat
+
+
+mass:75
+engine:300 Fusion Engine
+structure:IS Composite
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:21
+RA armor:21
+LT armor:22
+RT armor:22
+CT armor:32
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:10
+RTR armor:10
+RTC armor:9
+
+Weapons:4
+Extended LRM 10, Left Arm
+ER Medium Laser, Right Arm
+Extended LRM 10, Left Torso
+Extended LRM 10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Extended LRM 10
+Extended LRM 10
+Extended LRM 10
+Extended LRM 10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Extended LRM 10
+Extended LRM 10
+Extended LRM 10
+Extended LRM 10
+IS Ammo Extended LRM-10
+IS Ammo Extended LRM-10
+IS Ammo Extended LRM-10
+ISCASEII
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Extended LRM 10
+Extended LRM 10
+Extended LRM 10
+Extended LRM 10
+IS Ammo Extended LRM-10
+IS Ammo Extended LRM-10
+IS Ammo Extended LRM-10
+ISCASEII
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Pandarus is a seventy-five-ton heavy BattleMech developed by Kali Yama Weapons Industries on Kendall as a specialized extended-range missile platform. Named for the legendary archer of the mythical Battle of Troy, the design entered prototype testing as the LFA-1X in 3078 during the final years of the Jihad, with the production LFA-1A following in 3083.</p><p>Built on a foundation shared with the venerable Orion chassis, the Pandarus fills a niche as a dedicated fire support asset capable of engaging targets at extreme distances. Its specialist nature has limited its appeal to commands that can support a pure artillery platform, but those that field the Pandarus value its unmatched engagement range.</p>
+
+capabilities:<p>The Pandarus is a dedicated missile boat built around a triplet of Kali Yama Weapons Industries Type IIIE Extended LRM 10 launchers, giving the 'Mech an engagement envelope that nearly doubles the range of conventional LRM systems. This extraordinary reach allows the Pandarus to engage targets at distances most other weapons platforms cannot hope to match, making it an exceptionally effective artillery asset when deployed behind friendly lines. The three launchers are fed by six tons of ammunition, providing eighteen volleys per launcher before exhausting its stores.</p><p>This extreme-range capability comes with significant trade-offs. The ELRM launchers are heavy and bulky, restricting the Pandarus to the throw weight of lighter missile platforms despite its seventy-five-ton frame. More critically, the launchers are almost completely unable to engage targets at close range, leaving the 'Mech dangerously vulnerable if enemies close inside two hundred meters. A single Diverse Optics extended-range medium laser provides only token defense against such threats. Kali Yama representatives strongly recommend treating the Pandarus as a specialist artillery unit that must be supported by other 'Mechs to cover its weaknesses.</p><p>The standard Vlar 300 engine provides a moderate cruising speed of forty-three kilometers per hour, and thirteen tons of Valiant Lamellor armor give the Pandarus respectable protection for its weight class. Effective CASE II systems in each torso ammunition bin provide critical protection against catastrophic ammunition detonations, a welcome feature given the substantial missile stores carried aboard.</p>
+
+deployment:<p>This variant is the original experimental prototype of the Pandarus, first demonstrated in 3078 during the closing years of the Jihad. Built on mothballed ON1-K Orion chassis frames, the prototype used a fragile composite internal structure in place of the endo steel that the design team originally desired, as weight problems and the unavailability of endo steel forced a painstaking rebuild of the Orion's GM Marauder frame. While the composite structure made this variant much more fragile than a conventional heavy 'Mech, it successfully demonstrated the viability of a dedicated ELRM platform. Only a limited number of prototypes were constructed, tested primarily at Kali Yama's proving grounds before prospective investors. The impressive results ultimately led to the production LFA-1A, though Kali Yama also considered bringing this variant to production with internal funds if outside investment for the full OmniMech concept fell through.</p>
+
+history:<p>The Pandarus traces its origins to testing conducted on the ON3-MX Orion variant during the Jihad era. Kali Yama engineers working with the Extended LRM technology that had become available since 3050 recognized an opportunity to create a purpose-built ELRM platform. the Kali Yama design team initially proposed an OmniMech concept capable of deploying a wealth of missile systems, but Kali Yama's management balked at the cost of building an entirely new OmniMech chassis with custom omnipods. The strained budgets of the Jihad era forced the team to scale back to a non-Omni prototype built on spare ON1-K chassis frames that had been collecting dust in Kendall warehouses.</p><p>The resulting LFA-1X prototype faced an immediate engineering challenge: without access to endo steel, the design team was forced to painstakingly rebuild the Orion's GM Marauder chassis frame using fragile composite internal structure to free sufficient mass for the heavy ELRM payload. Despite this compromise, the prototype performed well enough during live-fire demonstrations at Kali Yama's proving grounds to sustain interest from prospective investors and military buyers.</p><p>Kali Yama's investment in an endo steel refinery in Kendall orbit in 3081 proved the turning point for the Pandarus program, enabling the production LFA-1A to replace the fragile composite frame with proper endo steel construction. Sales started well in the early 3080s, with the Pandarus frequently sold in combination with Orion variants to create mixed fire support formations that simplified logistics through shared components. The commonality of parts between the Pandarus and the ON3-M Orion eased quartermaster duties considerably.</p><p>However, contracts declined in the latter part of the decade as government spending across the former Free Worlds League shifted toward post-Jihad civilian reconstruction and debt repayment. The dissolution of the Free Worlds League into independent states during the early Republic era further complicated Kali Yama's market access, with the Kendall facility operating independently for a period before the League's eventual reconstitution. The oft-promised OmniMech variant, designated the LFA-2OX, was ultimately shelved when outside investment could not be secured, though by 3090 Kali Yama's successful aerospace ventures had encouraged the company to explore diversification beyond traditional BattleMech production.</p>
+
+manufacturer:Kali Yama/Alphard Trading Corp.
+
+primaryfactory:Kendall
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Kali Yama
+systemmode:CHASSIS:LFA Composite
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Valiant
+systemmode:ARMOR:Lamellor with CASE II
+systemmanufacturer:COMMUNICATIONS:Irian
+systemmode:COMMUNICATIONS:Orator-5K
+systemmanufacturer:TARGETING:Wasat
+systemmode:TARGETING:Aggressor Type 5

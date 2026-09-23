@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eaa2-7bd2-93a2-4c8ebd3527eb
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Lewis Skimmer Bus
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4503
+</mul id:>
+
+<year>
+3026
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+cargobay:18.05:1:1::-1:0
+standardseats:86.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+45
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+11
+9
+9
+9
+9
+10
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+4
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Lewis Skimmer Bus is built on a large hover chassis and weighs 80 tons fully equipped. Its fuel cell electric power plant provides clean, quiet operation well suited to enclosed transit environments and urban areas with air quality restrictions. The plant delivers enough power to push the vehicle to flank speeds exceeding 160 km/h, making it one of the faster large hover transports in civilian service. Cargo is accessed through a rear door, with 18.05 tons of standard cargo capacity available alongside seating for 86 passengers.</p><p>The vehicle is crewed by three personnel: a driver and two stewards who manage passengers and cargo. BAR 4 commercial armor covers the exterior, providing protection against minor collisions and road hazards. The Lewis carries no armament. The primary operational constraints are its large footprint, which limits access to narrow urban streets and passages, and its weight class, which requires dedicated maintenance facilities capable of servicing large support vehicles. A small number of plainclothes security personnel can be placed among the passengers when valuable cargo requires discreet protection.</p>
+</capabilities>
+
+<overview>
+<p>The Lewis Skimmer Bus is a large civilian hover transport produced by S. L. Lewis, Incorporated, introduced in 3026 near the close of the Third Succession War. Built as the company's first entry into the civilian passenger market after the success of the Savannah Master hovercraft, the Lewis offers high capacity passenger transport with meaningful cargo flexibility. Its large hover chassis provides terrain adaptability beyond what wheeled or tracked alternatives can offer, and its fuel cell powertrain made it an appealing option for transit operators concerned with air quality and fuel availability. The vehicle's introduction coincided with a modest period of economic recovery in the Lyran Commonwealth, where renewed interest in civilian infrastructure created demand for capable and cost-effective mass transit platforms.</p>
+</overview>
+
+<deployment>
+<p>The Lewis Skimmer Bus operates primarily on high-capacity civilian transit routes in urban and metropolitan areas across the Lyran Commonwealth and former Federated Commonwealth territories. Transit authorities deploy it on high-density inter-district routes and as connectors between population centers where large passenger volumes justify the vehicle's size and maintenance requirements. The rear cargo bay makes the Lewis attractive for mixed passenger-and-freight operators on routes where dedicated freight vehicles are impractical. When carrying high-value cargo, operators may deploy plainclothes security personnel among the passengers, allowing protection without any outward military appearance. Deployment is generally limited to regions with maintenance facilities equipped for large support vehicles.</p>
+</deployment>
+
+<history>
+<p>S. L. Lewis, Incorporated was established in or shortly after 3017 by Samuel Laurence Lewis, a former warrant officer who recovered a large cache of Omni 25 fusion engines from an abandoned Star League supply depot found while serving aboard the JumpShip Winnetka. Rather than liquidating the salvage, Lewis used the engines to found a manufacturing company and develop the Savannah Master hovercraft for the Lyran Commonwealth Armed Forces. The military vehicle proved successful, and the company expanded into engine production and later the civilian market.</p><p>The Lewis Skimmer Bus entered production on Carlisle in 3026, representing the company's first civilian product. Shortly after its introduction, commanders on Severn pressed available Lewis buses into service as improvised infantry transports, ferrying troops to and from the front lines as the Third Succession War wound down and dedicated APCs ran short. The episode showed that the large hover platform could serve adequately in auxiliary military roles despite having no such intent in its design.</p><p>The vehicle found commercial success in the Lyran Commonwealth and beyond. During the FedCom era, the Carlisle facility operated under Federated Commonwealth ownership and continued production through the Clan Invasion. Following the breakup of the Federated Commonwealth, ownership reverted to the Lyran Alliance, and the Lewis remained in production through the Jihad and into the Republic era. S. L. Lewis, Inc. diversified over time, expanding its manufacturing footprint and developing the Edasich Omni 25 engine in partnership with Edasich Motors to sustain its vehicle lines when the original salvaged engine supply was exhausted.</p>
+</history>
+
+<manufacturer>
+S. L. Lewis, Inc.
+</manufacturer>
+
+<primaryFactory>
+Carlisle
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+80.0
+</tonnage>
+
+<fuel>
+4.0
+</fuel>
+

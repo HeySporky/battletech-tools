@@ -1,0 +1,398 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ee10-74df-8bf1-7e2cca0f9123
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Defender Battlecruiser
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6988
+</mul id:>
+
+<year>
+2360
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:20.0:10:1::-1:0
+cargobay:67892.0:2:2::-1:0
+dropshuttlebay:2.0:1:3::1:0
+dropshuttlebay:2.0:1:4::2:0
+dropshuttlebay:2.0:1:5::4:0
+dropshuttlebay:2.0:1:6::5:0
+1stclassquarters:600.0:0:-1::-1:0
+crewquarters:1890.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+900
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+7500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+60
+60
+60
+50
+50
+50
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:60
+(B) Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:80
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:80
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:60
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:60
+(B) Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:60
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:60
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:60
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:60
+(B) Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:60
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:60
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:200
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:200
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:200
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:200
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:200
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:200
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:60
+(B) Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:80
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:80
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:60
+(B) Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:80
+(B) Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5:80
+</Right Broadsides Equipment>
+
+<structural_integrity>
+40
+</structural_integrity>
+
+<capabilities>
+<p>The Defender's defining feature was its enormous maneuvering drive, unsurpassed in sheer size until the launch of the massive Farragut-class decades later. This powerplant granted the battlecruiser a safe thrust of five gravities and a maximum of eight, enabling it to outmaneuver the slower Dreadnought-class vessels it was specifically designed to engage. The ship's primary armament centered on a formidable battery of naval autocannons, with NAC/20s and NAC/35s concentrated in the nose, fore, and broadside arcs to deliver devastating firepower during approach and beam engagements. Eighty-two conventional autocannons and nearly fifty machine guns provided additional firepower and point defense coverage throughout the vessel. However, the massive drive consumed so much internal volume that the aft quarter and stern arcs mounted only those conventional autocannon batteries and machine guns, entirely lacking capital-grade weaponry and leaving the vessel critically vulnerable to pursuit from astern. This significant gap in capital weaponry covering the aft-facing arcs required Defender crews to rely constantly on their superior speed and agile maneuvering to keep their strongest weapons bearing on the enemy at all times, a tactical constraint that shaped every engagement the class fought throughout its long career.</p>
+</capabilities>
+
+<overview>
+<p>The Defender-class battlecruiser holds the distinction of being the Federated Suns' first indigenous WarShip design. Commissioned from the Challenge Systems yards on Galax in 2360, the nearly million-ton vessel was conceived to challenge the Terran Hegemony's naval dominance through superior speed and concentrated firepower rather than sheer tonnage. The design centered on an enormous maneuvering drive that granted acceleration figures unmatched by any contemporary capital vessel, giving Federated Suns naval commanders a WarShip fast enough to dictate the terms of engagement against heavier opponents. As a pre-docking collar design, the Defender carried its attached craft in internal shuttle bays rather than on external hardpoints, reflecting the shipbuilding conventions of its era. The ambitious program marked the Federated Suns' emergence as a credible naval power and established Challenge Systems as a premier shipbuilder in the Davion sphere.</p>
+</overview>
+
+<deployment>
+<p>The FSS Golden Lion remains the most celebrated vessel of the class, serving as flagship of the Federated Suns Navy's Crucis Fleet under Fleet Admiral Alexi Viscoff as late as 2765. When the First Succession War erupted, the ancient battlecruiser was pressed into action under Admiral Kenneth Jones, leading a naval task force that struck behind enemy lines with devastating effect. Jones's fleet hit eleven Kurita-occupied systems from Imbrial III to New Valencia in quick succession, sowing chaos across the Draconis Combine's rear areas. The Golden Lion met its end at the Battle of Cholame in 2790, when Admiral Jones unwittingly selected the system as a rendezvous point only to discover that the Combine's invasion armada had chosen the same location as its own staging ground. The resulting six-week battle destroyed nearly three-quarters of Jones's fleet, though the Davion forces took an equal number of Kurita WarShips with them before the end.</p>
+</deployment>
+
+<history>
+<p>The Defender program emerged from the shock that gripped the Inner Sphere following James McKenna's bombardment of Strand Rock on 2 June 2315, which demonstrated the devastating power of the Terran Hegemony's battleships. While the nascent Great House states scrambled to establish the infrastructure needed to build their own WarShip fleets, the Federated Suns embarked on an ambitious program to construct a vessel capable of engaging the Hegemony's Dreadnought-class on favorable terms. The resulting design pushed contemporary technology to its limits, building a battlecruiser around a drive system of unprecedented size.</p><p>The designers achieved their goal of producing a ship that could take on and defeat the best the Hegemony had to offer, but their triumph was short-lived. Within a decade, and before the second Defender had even slipped its moors, the Hegemony launched its Monsoon-class, which employed far heavier armor and weaponry as well as the newly matured docking collar technology that would come to dominate WarShip design. Between the Monsoon and Aegis classes, and the Hegemony's far greater production capacity for both, the big Davion battlecruisers found themselves outnumbered and outclassed by the 2380s.</p><p>The half-dozen Defenders built would nonetheless live long service lives despite their early obsolescence. Several were lost during the Reunification War, and the entire class was demobilized multiple times as the costs of maintaining their aging hulls continued to increase. The few surviving ships were reactivated one final time just before the Amaris Coup, destined to continue serving into the Succession Wars. By 2765, only two Defenders remained operational, forming part of the Federated Suns Navy's venerable Crucis Fleet. None of these ancient WarShips survived the carnage and nuclear devastation of the First Succession War, their centuries-long careers finally ending in the fires that consumed the Star League's legacy and reshaped the Inner Sphere forever.</p>
+</history>
+
+<manufacturer>
+Challenge Systems
+</manufacturer>
+
+<primaryFactory>
+Galax
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Standard
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Battlecruiser
+</use>
+
+<length>
+870 m
+</length>
+
+<height>
+1300 m Sail
+</height>
+
+<source>
+FR:2765-AFFS
+</source>
+
+<tonnage>
+960000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+120
+120
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+430
+</crew>
+
+<officers>
+60
+</officers>
+
+<gunners>
+70
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+35
+</life_boat>
+
+<escape_pod>
+35
+</escape_pod>
+

@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e4d5-7e09-b7cb-089b6a3ef8bd
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Donar Assault Helicopter
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+906
+</mul id:>
+
+<year>
+3017
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+16
+14
+14
+11
+2
+</armor>
+
+<Body Equipment>
+Clan Streak SRM 2 Ammo
+CLCASE
+</Body Equipment>
+
+<Front Equipment>
+CLERLargeLaser
+CLStreakSRM2
+CLStreakSRM2
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Donar seats a crew of two in a tandem cockpit arrangement, with the forward position dedicated to the copilot/gunner and the rear station serving as the primary pilot's position. Both stations share sensor readouts and weapons access, providing a degree of operational redundancy, though the forward station carries the primary weapons interface and targeting controls. The configuration is sized for Clan aerospace warriors, and the cramped crew positions limit the practical utility of that redundancy for personnel from other backgrounds.</p><p>Three tons of Compound A2F ferro-fibrous armor protects the airframe against small arms and light weapons fire, and the rotor assembly is reinforced to remain operational after impacts up to 40mm caliber. Structural bracing throughout the fuselage improves crew survivability in low-speed and low-altitude rotor failures. The Fusion 50 powerplant delivers a flanking speed of 151 kilometers per hour, making the Donar one of the faster Clan support assets available to ground commanders.</p><p>The primary weapon is a Series 7J Extended Range Large Laser, capable of engaging targets at up to 750 meters. Two Pattern J2 Streak-2 SRM launchers supplement the laser at closer ranges, allowing the crew to follow an opening strike with a precision missile barrage that exploits already-inflicted damage. CASE protects the missile ammunition from internal detonation. All weapon systems operate through the HT9 Target and Tracking System, a look-hit interface that correlates pilot eye movements with electronic sensor data to identify and lock onto targets. The HT9 is highly effective for skilled crews but carries a steep learning curve that significantly limits its performance in the hands of inexperienced operators.</p>
+</capabilities>
+
+<overview>
+<p>The Donar Assault Helicopter is a Clan VTOL combat aircraft introduced in 3017, designed to provide Clan toumans with a fast and capable fire support platform. Conceptually comparable to the Inner Sphere's Warrior attack helicopter, the Donar benefits from superior Clan technology, delivering greater speed, protection, and firepower in a similar rotary-wing concept. Manufactured across multiple Clan facilities in the Homeworlds and later in the Inner Sphere, the design has become one of the most widely produced Clan combat vehicles, serving in the frontline and second-line forces of nearly every Clan. Commissioned to fill a recognized gap in rotary-wing fire support capability, the Donar has proven adaptable to scouting, anti-armor, infantry support, and spotting roles across more than a century of continuous operation.</p>
+</overview>
+
+<deployment>
+<p>The Donar sees use in nearly every Clan touman, though operational roles vary significantly by Clan. Clan Hell's Horses most aggressively exploit the design's direct firepower, deploying the helicopter as a cavalry anti-armor platform and fire support vehicle to complement their combined-arms doctrine. Clan Steel Viper fields the type in second-line clusters as mobile fire support for infantry formations. Most other Clans default to the Donar as a fast scout and general support aircraft, leveraging its speed and long-range reach for forward reconnaissance and rapid fire support missions. Clan Goliath Scorpion and Clan Ice Hellion are among those known to employ the standard configuration specifically in the scouting role.</p>
+</deployment>
+
+<history>
+<p>The Donar entered service in 3017 as a response to a recognized capability gap in Clan touman vehicle formations. Clan combat doctrine had long prioritized fast-moving, hard-hitting units, and the Donar was commissioned to bring those qualities to rotary-wing aviation. Within two years a dedicated reconnaissance variant was in production, reflecting immediate adoption of the design and rapid identification of additional operational requirements beyond the fire support role. Production was distributed across multiple Homeworld facilities from the outset, with factories on Barcella, Niles, Ironhold, New Kent, Bearclaw, Hector, Homer, and Roche all contributing to overall output. This distributed manufacturing ensured the Donar remained available to virtually every Clan regardless of political shifts within the Homeworlds.</p><p>The Donar traveled to the Inner Sphere alongside Clan invasion forces in 3050, appearing in the armies of multiple Clans. When the Second Star League launched Operation BULLDOG against Clan Smoke Jaguar in 3059, Inner Sphere forces captured intact Donar units from Smoke Jaguar facilities, providing hands-on access to the design for the first time. The SLDF deployed these captured aircraft alongside their own forces, though the Donar did not enter broad Inner Sphere licensed production.</p><p>During the Jihad, engineers developed the Close Support variant in 3066. This redesign retained only the armor and powerplant from the original airframe while incorporating advanced technology and a revised weapons suite, reflecting decades of operational experience with the baseline chassis. The same period saw production begin at the converted Gorton, Kingsley and Thorpe Enterprises plant on Rasalhague, which had been retooled from its pre-Invasion industrial base to support Clan equipment manufacture. Clan Wolf and Clan Nova Cat were particularly excluded from sales from that facility due to political tensions of the era.</p><p>The Donar has remained in continuous service into the Dark Age and ilClan periods, supported by surviving production facilities across former Homeworld and Inner Sphere territories. Its long operational lifespan reflects both the soundness of the original design and the manufacturing depth that distributed production provided.</p>
+</history>
+
+<manufacturer>
+Barcella Gamma|Csesztreg Industriplex Beta|Ghost Bear Facility Gamma-1|Gorton, Kingsley & Thorpe Enterprises|Ironhold Plant 7|Mercer Foundries|Niles Industriplex Beta
+</manufacturer>
+
+<primaryFactory>
+Barcella|Csesztreg|Bearclaw|Rasalhague|Ironhold|New Kent (Celebes)|Niles
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion 50
+ARMOR:Compound A2F
+JUMP_JET:N/A
+COMMUNICATIONS:Unit 2J "Boxer"
+TARGETING:HT9 TTS
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+21.0
+</tonnage>
+

@@ -1,0 +1,454 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ed8f-7c91-bfae-421a21c851dd
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Avalon Cruiser
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3757
+</mul id:>
+
+<year>
+3061
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:6.0:2:1::-1:0
+smallcraftbay:6.0:2:2::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+2ndclassquarters:448.0:0:-1::-1:0
+1stclassquarters:590.0:0:-1::-1:0
+crewquarters:1484.0:0:-1::-1:0
+cargobay:13855.5:4:12::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+937
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+25000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+12
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+344
+310
+310
+275
+302
+302
+</armor>
+
+<Nose Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:100
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:30
+Ammo AR10 Barracuda:30
+(B) Screen Launcher
+Ammo Screen:10
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:180
+(B) LRM 15
+LRM 15
+LRM 15
+IS Ammo LRM-15 Artemis-capable:152
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:50
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:36
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:40
+Ammo AR10 Barracuda:40
+(B) Large Laser
+Large Laser
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:120
+(B) LRM 15
+LRM 15
+LRM 15
+IS Ammo LRM-15 Artemis-capable:144
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:50
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:36
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:40
+Ammo AR10 Barracuda:40
+(B) Large Laser
+Large Laser
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:120
+(B) LRM 15
+LRM 15
+LRM 15
+IS Ammo LRM-15 Artemis-capable:144
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/40)
+Ammo NAC/40:50
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:180
+(B) LRM 15
+LRM 15
+LRM 15
+IS Ammo LRM-15 Artemis-capable:136
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:50
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:36
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:20
+Ammo AR10 Barracuda:20
+(B) Large Laser
+Large Laser
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISAntiMissileSystem
+ISAMS Ammo:60
+(B) LRM 15
+LRM 15
+LRM 15
+IS Ammo LRM-15 Artemis-capable:144
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:50
+(B) Naval Gauss (Medium)
+Ammo Medium N-Gauss:36
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:20
+Ammo AR10 Barracuda:20
+(B) Large Laser
+Large Laser
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISAntiMissileSystem
+ISAMS Ammo:60
+(B) LRM 15
+LRM 15
+LRM 15
+IS Ammo LRM-15 Artemis-capable:144
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:50
+(B) Naval Gauss (Medium)
+Naval Gauss (Medium)
+Ammo Medium N-Gauss:78
+(B) Screen Launcher
+Ammo Screen:10
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:240
+(B) ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:125
+IS LB 10-X AC Ammo:125
+(B) LRM 15
+LRM 15
+LRM 15
+LRM 15
+IS Ammo LRM-15 Artemis-capable:168
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:50
+(B) Naval Gauss (Medium)
+Naval Gauss (Medium)
+Ammo Medium N-Gauss:78
+(B) Screen Launcher
+Ammo Screen:10
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:240
+(B) ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:125
+IS LB 10-X AC Ammo:125
+(B) LRM 15
+LRM 15
+LRM 15
+LRM 15
+IS Ammo LRM-15 Artemis-capable:168
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Right Broadsides Equipment>
+
+<structural_integrity>
+120
+</structural_integrity>
+
+<capabilities>
+<p>Displacing seven hundred and seventy thousand tons, the Avalon mounted fourteen capital missile tubes as its primary armament, a configuration that evolved from the Admiralty's decision to transform the original energy-weapon design into a dedicated missile cruiser. These tubes could deliver a variety of capital missile payloads at extreme range, supported by naval autocannon, naval laser batteries, naval gauss rifles, and an extensive array of anti-missile systems for close defense. Over seventeen hundred tons of advanced ferro-carbide armor sheathed the hull, providing a level of protection that exceeded many vessels of considerably greater displacement.</p><p>The class carried five times the standard fuel capacity of a comparable WarShip, enabling extended independent operations and the ability to sustain an entire task force's fuel requirements on long-range deployments. A lithium-fusion battery system provided a critical second jump capability without recharging, further extending the vessel's strategic reach. Six docking collars accommodated the substantial DropShip escort required by AFFC doctrine, which mandated no fewer than twelve assault DropShips per Avalon deployment, a tactical necessity that reflected the vessel's optimization for ranged combat over close-quarters engagements. The vessel's acceleration was impressive for a cruiser of this displacement. Twelve fighters provided organic screening capability, while sixty-four battle armor marines gave the class a formidable boarding action capacity. Two gravity decks of differing sizes served the crew's living requirements.</p>
+</capabilities>
+
+<overview>
+<p>The Avalon-class cruiser was designed and constructed at the James McKenna Shipyards above Kathil for the Armed Forces of the Federated Commonwealth, entering service in 3061 as the centerpiece of the realm's renewed naval construction program. The Federated Commonwealth intended the design to anchor a modern capital WarShip capability, harnessing the industrial resources of Kathil's extensive shipbuilding infrastructure to produce a vessel capable of meeting the evolving strategic threats of the thirty-first century.</p><p>Classified as a cruiser, the Avalon nonetheless carried an armament and protection scheme that led many naval officers to regard it as a battlecruiser in all but designation. The class earned a reputation as one of the most formidable WarShips fielded by any Successor State during the era of its introduction. Its combination of advanced armor protection, sustained operational endurance, and overwhelming ranged firepower established a new standard for modern cruiser construction.</p>
+</overview>
+
+<deployment>
+<p>The FCS Melissa Davion, lead vessel of the class, entered service during operations along the Capellan border in 3061 before becoming embroiled in the FedCom Civil War. The vessel departed Federated space in 3063 and later led the assault on New Avalon in November 3066. Captured by the Word of Blake in 3069 and recommissioned as the WoBS Beneficence, she served under Blakist colors until her destruction at Circinus in 3081.</p><p>The FCS Simon Davion was seized by Free Skye forces at Hesperus II in 3064 and later conducted orbital bombardment operations before returning to Federated service after the Civil War. The vessel was destroyed at Kathil in May 3070 during a nuclear attack on the shipyards. The FCS Robert Davion never completed fitting out, destroyed at Kathil in December 3062 when rammed by an unmanned DropShip in one of the war's earliest casualties. The FCS Hanse Davion was rushed from the yards and destroyed at New Syrtis in October 3065 alongside the corvette FCS Covenant in a mutual destruction engagement. The FCS Alexander Davion fell during the assault on New Avalon when an enemy corvette activated its KF drive at close range, annihilating both vessels. The FCS Andrew Davion vanished during the Civil War and was never confirmed to have entered operational service.</p><p>The FCS Lucien Davion proved the longest-lived of the class, surrendering after the Battle of New Avalon and subsequently serving as flagship for senior Federated Suns leaders for nearly eight decades. Her destruction at the Palmyra Disaster in 3144 at the hands of McFadden's Sky Storm marked the final extinction of the Avalon class.</p>
+</deployment>
+
+<history>
+<p>The Avalon program originated in the early 3050s, when the AFFC Admiralty commissioned designs for a new cruiser class to strengthen the Federated Commonwealth's naval forces. Construction delays caused by the enormous costs of postwar rebuilding pushed the program back several years, though the AFFC invested heavily in upgrading the naval yards at Galax, Kathil, and New Syrtis to support the project. The first keel was laid at Kathil's James McKenna Shipyards in early 3057, with Kathil Shipworks and Universal Air contributing manufacturing expertise for the hull and drive systems respectively. The lead vessel entered service in 3061, and additional hulls followed in rapid succession, with seven vessels either completed or under construction by late 3062.</p><p>The FedCom Civil War proved catastrophic for the class. Vessels divided between loyalist and allied factions found themselves on opposing sides of a fratricidal conflict, and the war consumed the class with remarkable speed. Multiple vessels were lost in fleet actions at New Avalon, New Syrtis, and Kathil, with additional hulls destroyed before completion or lost under circumstances that were never fully accounted for. Only three Avalons survived the Civil War intact, and one of those had been captured by a hostile power.</p><p>The Jihad further reduced the class. The captured vessel served under enemy colors until destroyed in 3081, while another fell to enemy action during an assault on the Kathil shipyards in 3070. The sole surviving vessel served the Federated Suns as an irreplaceable flagship for decades, its continued existence evidence of both the design's robustness and the impossibility of replacing it as the shipyards at Kathil had been rendered incapable of producing new hulls. The last Avalon-class cruiser was destroyed in 3144, marking the extinction of what had been intended as the cornerstone of Federated naval power for generations. From seven hulls laid down, none survived to see the ilClan era, a sobering illustration of how quickly even the most capable WarShips could be consumed by the scale and intensity of Inner Sphere conflicts.</p>
+</history>
+
+<manufacturer>
+Kathil Shipworks - McKenna Shipyards|Universal Air
+</manufacturer>
+
+<primaryFactory>
+Kathil|Kathil
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Universal Air
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Goliath LV9
+ARMOR:Lamellor Ferro-Carbide
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<notes>
+Unit as constructed in TRO: is 4 tons overweight. Removed 4 tons of Cargo to make unit legal.
+</notes>
+
+<use>
+Cruiser
+</use>
+
+<length>
+812 m
+</length>
+
+<height>
+1375 m Sail
+</height>
+
+<source>
+TR:3067
+</source>
+
+<tonnage>
+770000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+145
+210
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+311
+</crew>
+
+<officers>
+42
+</officers>
+
+<gunners>
+52
+</gunners>
+
+<passengers>
+20
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+64
+</battlearmor>
+
+<life_boat>
+15
+</life_boat>
+
+<escape_pod>
+35
+</escape_pod>
+

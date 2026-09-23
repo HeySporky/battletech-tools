@@ -1,0 +1,157 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e2b3-7f70-938f-76be5f510146
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+J-27 Ordnance Transport
+</Name>
+
+<Model>
+K-27 'Killjoy'
+</Model>
+
+<mul id:>
+1647
+</mul id:>
+
+<year>
+2847
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+8
+4
+4
+8
+8
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-4
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+Hitch
+</Rear Equipment>
+
+<Turret Equipment>
+SRM 4
+</Turret Equipment>
+
+<capabilities>
+<p>The J-27 divides its eleven tons of cargo capacity between a three-ton internal bay in the tractor and eight tons carried on the open trailer. A half-ton of StarSlab armor protects the cab from small-arms fire and light weapons, though the exposed trailer offers no such protection to its volatile cargo. The tractor's 50-rated internal combustion engine provides a top speed of 86 kilometers per hour, though most forces have installed governors limiting it to around 50 kph for safety. Special authorization from a commander is required to deactivate these limiters.</p><p>A single turret-mounted SperryBrowning machine gun provides token self-defense, though critics note it adds little to the vehicle's survivability against anything heavier than hostile infantry. The trailer can only be manually detached from the cab, a task typically falling to the third crewmember. This design limitation means the J-27 cannot quickly jettison its explosive payload when threatened. Communications are handled through a Tandy A-100 system, while the vehicle lacks any dedicated targeting equipment. The J-27's greatest practical strength is its simplicity, as its low-technology design can be manufactured and maintained by virtually any industrial base.</p>
+</capabilities>
+
+<overview>
+<p>The J-27 Ordnance Transport is the most widely produced ammunition carrier in the history of modern warfare. Originally manufactured by Acme Widgets on Zollikofen for the Star League Defense Force, the small tracked vehicle entered service during the mid-twenty-seventh century as the SLDF's primary munitions transport unit. Consisting of a tractor and wheeled trailer operated by a three-person crew, each J-27 can carry eleven tons of munitions, enough to resupply a typical lance of BattleMechs. The design's extraordinarily low licensing fees ensured that every military in the Inner Sphere and much of the Periphery eventually adopted the vehicle. Cheap to build, easy to maintain, and universally available, the J-27 has served in every major conflict since the Star League. Its ubiquity is matched only by its notorious reputation among the crews unlucky enough to be assigned to it.</p>
+</overview>
+
+<deployment>
+<p>The K-27 'Killjoy' is a Federated Suns combat variant introduced in 2847, designed to look like a typical J-27 while concealing an SRM-4 missile launcher and additional armor. The Federated Suns produces a few dozen each year, intended to make enemies think twice about attacking what appears to be an ordinary ordnance transport.</p>
+</deployment>
+
+<history>
+<p>Acme Widgets began production of the J-27 on Zollikofen during the Star League era, selling tens of thousands of units primarily to the SLDF. The company's impossibly low licensing fees made illegal reverse-engineering economically pointless, and within decades every major military in the Inner Sphere operated large fleets of the vehicles. For reasons that remain unclear, Acme Widgets discontinued its Zollikofen manufacturing center in 2763, ending original production. By that point, however, the licensing terms had allowed virtually every arms manufacturer in the Inner Sphere to produce the J-27 independently, ensuring the design's survival long after its creator ceased operations.</p><p>The Succession Wars transformed the J-27 from a mundane logistics vehicle into a byword for misery. Ordnance transport is grueling, dangerous work under the best conditions, and the combination of explosive cargo, thin armor, and an exposed trailer made every mission a gamble with a crew's life. Stress levels among J-27 operators were enormous, with illness rates and mortality figures far exceeding those of any other military vehicle class. Studies confirmed that J-27 crew mortality was over triple that of comparable vehicle operators, a statistic that did nothing to improve morale.</p><p>The Draconis Combine became particularly notorious for staffing its J-27 fleets with criminals from penal units. Given the choice between a death sentence and J-27 duty, many convicts chose death. This was initially dismissed as hyperbole until studies confirmed the preference was genuine. The Free Worlds League adopted a similar penal assignment policy, a practice eventually emulated by most other Great Houses. Houses Steiner and Davion maintained that their munitions handlers should be more reliable than criminals, but both still used J-27 duty as punishment for soldiers who had fallen out of favor.</p><p>The most famous of these penal formations was the 125th Deadman Ordnance Carriers, serving the Capellan Confederation. During fighting on New Hessen, the unit carried over a thousand times its own mass in munitions to keep Capellan forces supplied in a defensive position. When convoys came under fire from Davion BattleMechs, the crews chose to fight rather than flee. They dismounted missiles from their cargo and improvised firing positions, driving off the attackers after several hours of combat. The surviving crews received pardons and promotions, though some elected to remain with the unit.</p><p>Despite its grim reputation, the J-27 remained in universal service through the Clan Invasion, the Civil War, and the Jihad. Its sheer simplicity guaranteed availability even on the most resource-starved worlds. Among smaller Periphery realms and lawless border regions, the vehicle was considered a rare commodity worth stealing, its cargo often more valuable than the transport itself. Frontline units frequently scavenged J-27 machine gun ammunition, a practice owners grudgingly accepted as useful enough to justify maintaining the full ammunition supply.</p><p>The Republic of the Sphere brought renewed interest to the aging platform when the Republic Institute of Strategic Combat selected the J-27's spacious chassis as a carrier for experimental viral jammer technology around 3142. The vehicle's ubiquity made it an ideal disguise for the jammers, which could be positioned at strategic bottlenecks to cripple enemy electronics. These modified transports and their powered trailers saw action during Operation Mercury, proving effective against Clan electronic systems. The J-27 endures into the ilClan era as it has for centuries, unchanged in its essential design and unenviable in its essential purpose.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Tandy
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:50 ICE
+ARMOR:Unknown
+COMMUNICATIONS:A-100
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+10.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

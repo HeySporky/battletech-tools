@@ -1,0 +1,186 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ae0c-7e2f-a035-b05f611fe275
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Jagatai
+</Name>
+
+<Model>
+E
+</Model>
+
+<mul id:>
+4386
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+15
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+320
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+65
+50
+50
+46
+</armor>
+
+<Nose Equipment>
+CLERMediumLaser:OMNI
+CLHAG20:OMNI
+CLCASE
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLERMediumLaser:OMNI
+CLHAG20:OMNI
+CLCASE
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLERMediumLaser:OMNI
+CLHAG20:OMNI
+CLCASE
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+Hyper-Assault Gauss Rifle/20 Ammo:OMNI
+Hyper-Assault Gauss Rifle/20 Ammo:OMNI
+Hyper-Assault Gauss Rifle/20 Ammo:OMNI
+Hyper-Assault Gauss Rifle/20 Ammo:OMNI
+Hyper-Assault Gauss Rifle/20 Ammo:OMNI
+Hyper-Assault Gauss Rifle/20 Ammo:OMNI
+</Fuselage Equipment>
+
+<capabilities>
+<p>Built around an Eden Compact 90 frame, the Jagatai mounts a 280-rated XL fusion engine that provides a safe thrust of six and maximum thrust of nine. While this yields only average maneuverability for its weight class, the design compensates through superior protection and endurance. Eleven tons of Eden Composition IV ferro-aluminum armor provides more coverage than comparable fighters such as the aging Visigoth or the newer Sabutai, and its four-ton fuel capacity allows the Jagatai to linger on station longer than either rival. With 39 tons of available pod space, the design can mount firepower rivaling many assault-weight fighters while retaining the tactical flexibility inherent to OmniFighter technology.</p><p>Heat management represents the Jagatai's most notable weakness. With only fifteen double heat sinks fixed to the base chassis, energy-heavy configurations must either exercise fire discipline or dedicate precious pod tonnage to additional cooling. The K55 communications system and Wolf's Eye 7 targeting and tracking system round out the fixed electronics package. In its Prime configuration, the fighter mounts an LRM-20 with two tons of ammunition in the nose, supported by wing-mounted ER PPCs and large pulse lasers, with a rear-firing large pulse laser discouraging pursuit.</p>
+</capabilities>
+
+<overview>
+<p>The Jagatai is a seventy-ton Clan heavy OmniFighter designed and produced by Wolf Armorworks on the Clan world of Eden. Prototyped in 3016 and entering full-scale production three years later, the design was commissioned to fill Clan Wolf's need for a versatile air-superiority platform capable of sustained frontline operations. The Jagatai has since spread throughout most Clan toumans, earning a strong reputation as a dependable and well-protected heavy fighter suited to a wide range of aerospace combat roles. The Ghost Bears represent the primary exception to this widespread adoption, as they have traditionally preferred the heavier Jengiz in the air-superiority role.</p>
+</overview>
+
+<deployment>
+<p>A Jihad-era introduction, the E configuration centers its firepower around three HAG/20s distributed across the nose and wings, backed by three ER medium lasers. Six tons of CASE-protected ammunition sustains the hyper-assault Gauss weapons through extended engagements. This configuration excels in the anti-DropShip and heavy fighter roles, where concentrated ballistic firepower can overwhelm even well-armored aerospace targets.</p>
+</deployment>
+
+<history>
+<p>The Jagatai's origins trace to the early thirty-first century, when Clan Wolf identified the need for a dedicated heavy OmniFighter to complement its expanding aerospace forces. Wolf Armorworks on Eden began developing the design around a modular airframe concept, and prototype Jagatais first entered combat during Trials of Possession in 3016. The Wolves' opponents during these initial engagements, including elements of the Smoke Jaguars and Nova Cats, consistently underestimated the new fighter's versatility. The Wolf Khan was sufficiently impressed by prototype performance to order full-scale production to commence in 3019.</p><p>Over the following decades, the Jagatai became the backbone of Clan Wolf's frontline aerospace forces. Its combination of heavy armor, substantial pod capacity, and operational endurance made it well-suited to the extended patrol and interdiction missions that characterize Clan aerospace doctrine. As surplus production exceeded Clan Wolf's immediate needs, the design was traded to other Clans through the normal mechanisms of Clan commerce and Trials, steadily expanding its presence across multiple toumans.</p><p>By the time of Operation Revival in 3049, the Jagatai had established itself throughout the Clan military hierarchy, serving in a variety of air-superiority and ground-attack roles during the invasion of the Inner Sphere. The largest concentration remained within Clan Wolf, though virtually every other Clan fielded fair numbers of the design. Following the Great Refusal, the Crusader Wolves' rejection of the agreement to end the Inner Sphere invasion prompted the development of new configurations reflecting their evolving combat philosophy. The Jihad era saw further evolution with the introduction of configurations incorporating advanced electronics and experimental weaponry for the increasingly complex battlefield environment.</p><p>Production has remained consistent through multiple eras, with the original Wolf Armorworks facility on Eden serving as the primary manufacturing center through the Civil War. The Jihad and Wars of Reaving brought significant upheaval to Clan Homeworld production, disrupting several secondary manufacturing sites. The Clan Wolf-in-Exile's establishment of an aerospace production annex on Arc-Royal brought Jagatai manufacturing to the Inner Sphere's industrial base during the post-Jihad period, ensuring continued availability of the design even as the political arena of Clan space shifted dramatically toward the ilClan era.</p>
+</history>
+
+<manufacturer>
+Wolf Armor Works|Aerospace Plant CM-T72673|WC Aerospace Annex|DS Aero Assembly Site Alpha|Kindraa Payne-Beyl-Grant Main Production Facility|Mercer Foundries|Sheridan LA-TF7
+</manufacturer>
+
+<primaryFactory>
+Eden (Abaddon)|Marshall (Waushaura)|Arc-Royal|Babylon (Callandra)|Shadow|New Kent (Celebes)|Sheridan
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Eden
+ENGINE:Unknown
+ARMOR:Eden
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Compact 90
+ENGINE:280 XL
+ARMOR:Composition IV Ferro-aluminum
+COMMUNICATIONS:K55
+TARGETING:Wolf's Eye 7
+</systemModels>
+
+<source>
+TR:3055U
+</source>
+
+<published>
+RS:3055Uu
+</published>
+
+<tonnage>
+70.0
+</tonnage>
+

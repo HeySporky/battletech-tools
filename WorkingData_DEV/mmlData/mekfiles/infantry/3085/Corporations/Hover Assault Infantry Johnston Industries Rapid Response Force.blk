@@ -1,0 +1,93 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b630-7cac-81a8-7e96ad1f2ee5
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Hover Assault Infantry
+</Name>
+
+<Model>
+Johnston Industries Rapid Response Force
+</Model>
+
+<mul id:>
+1549
+</mul id:>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Johnston Industries, one of the Federated Suns' largest military manufacturers, relies on Rapid Response Forces as its first line of reinforcement for factory security. Riding small, lightly armored hover bikes, RRF troopers combine speed with dismounted flexibility, able to cover the sprawling factory complexes that span dozens of kilometers across worlds like New Syrtis and Benet III. Armed with assault rifles and infantry LRM launchers, these platoons can respond to incursions faster than conventional garrison troops while delivering both direct and indirect fire support. The hover bikes trade protection for mobility, leaving troopers vulnerable if forced into sustained engagements, but Johnston's security doctrine emphasizes rapid reinforcement over static defense.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+InfantryLRM
+</Secondary>
+

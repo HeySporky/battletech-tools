@@ -1,0 +1,89 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ba31-708f-a2a2-3860794eceba
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Hover Platoon (ComStar)
+</Name>
+
+<Model>
+(SRM)
+</Model>
+
+<mul id:>
+2137
+</mul id:>
+
+<year>
+2825
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<Troopers Equipment>
+ComStar Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>ComStar's infantry served across the Inner Sphere in garrison and security roles, stationed on HPG compound worlds where they provided protection for the Order's most critical infrastructure while maintaining the facade of a purely defensive force. Mechanized hover platoons are among the fastest conventional infantry formations fielded, using hovercraft transports that can cross water and open terrain at speeds that wheeled and tracked vehicles cannot match. ComStar favored hover-mechanized infantry for rapid response assignments where speed of deployment outweighed the need for heavy protection. Equipped with infantry-portable short-range missile launchers that provide anti-armor capability beyond what personal weapons can achieve, these troops can threaten light vehicles and battle armor at close range.</p>
+</overview>
+
+<source>
+TW,TM
+</source>
+
+<squad_size>
+4
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+InfantryHeavySRM
+</Secondary>
+

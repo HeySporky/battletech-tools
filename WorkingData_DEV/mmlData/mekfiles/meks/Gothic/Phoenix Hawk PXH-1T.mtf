@@ -1,0 +1,183 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6b5-71f7-bd91-4a85c8a2efd4
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Phoenix Hawk
+model:PXH-1T
+
+Config:Biped
+techbase:Inner Sphere
+era:3150
+source:Gothic
+published:RS:Gothic
+rules level:5
+role:Skirmisher
+
+quirk:command_mech
+quirk:ubiquitous_clan
+quirk:ubiquitous_is
+quirk:imp_com
+weaponquirk:jettison_capable:RA:6:Sword
+
+mass:45
+engine:270 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:6
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:18
+RT armor:18
+CT armor:23
+HD armor:6
+LL armor:15
+RL armor:15
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:5
+Medium Laser, Left Arm
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+Medium Laser, Right Arm
+SRM 6, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+Medium Laser
+Sword
+Sword
+Sword
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+IS Ammo SRM-6
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 6
+SRM 6
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Terre Noire's answer to the "Hammer Hawk," the PXH-1T is known as the "Sword Hawk" for its signature melee weapon. Particularly, it uses Star League-era endo steel internal structure, one of the few technological edges left in the UniStar Ascendency's arsenal. It retains the original Phoenix Hawk's mobility while trading the trademark large laser rifle for additional forearm-mounted medium lasers and a centerline SRM system.</p>
+
+capabilities:<p>Retains the full speed and agility of the original Phoenix Hawk, making it effective in running engagements and flanking maneuvers. The medium lasers and SRM rack favor close-range brawling over the original's stand-off style. Pilots should use mobility to close distance quickly, deliver a sword strike, and disengage before the enemy can respond. The endo steel frame keeps weight in check despite the added melee weapon.</p>
+
+fluffdate:2026-03-12 17:00:46
+

@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cc00-7dde-bd30-35fa4e40a633
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hauptmann
+model:HA1-OA
+mul id:1421
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3060
+source:TR:3060,TR:J
+published:RS:J
+rules level:2
+role:Juggernaut
+
+quirk:ext_twist
+quirk:easy_maintain
+
+mass:95
+engine:285 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:17 IS Double
+base chassis heat sinks:11
+walk mp:3
+jump mp:3
+
+armor:Standard(Inner Sphere)
+LA armor:32
+RA armor:32
+LT armor:30
+RT armor:30
+CT armor:45
+HD armor:9
+LL armor:40
+RL armor:40
+RTL armor:10
+RTR armor:10
+RTC armor:15
+
+Weapons:7
+SRM 6, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+SRM 6, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+Gauss Rifle, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+SRM 6 (OMNIPOD)
+SRM 6 (OMNIPOD)
+ISArtemisIV (OMNIPOD)
+ISERMediumLaser (OMNIPOD)
+ISERMediumLaser (OMNIPOD)
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+SRM 6 (OMNIPOD)
+SRM 6 (OMNIPOD)
+ISArtemisIV (OMNIPOD)
+ISERMediumLaser (OMNIPOD)
+ISERMediumLaser (OMNIPOD)
+
+Left Torso:
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+ISDoubleHeatSink (OMNIPOD)
+
+Right Torso:
+ISGaussRifle (OMNIPOD)
+ISGaussRifle (OMNIPOD)
+ISGaussRifle (OMNIPOD)
+ISGaussRifle (OMNIPOD)
+ISGaussRifle (OMNIPOD)
+ISGaussRifle (OMNIPOD)
+ISGaussRifle (OMNIPOD)
+IS Gauss Ammo (OMNIPOD)
+IS Gauss Ammo (OMNIPOD)
+IS Ammo SRM-6 Artemis-capable (OMNIPOD)
+IS Ammo SRM-6 Artemis-capable (OMNIPOD)
+ISCASE
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hauptmann is the Lyran Alliance's first domestically designed and manufactured OmniMech, introduced in 3060 by Coventry Metal Works. Drawing inspiration from captured Clan Dire Wolf OmniMechs and leveraging experience gained through licensed production of the Draconis Combine-designed Firestarter OmniMech, Coventry's engineers created a ninety-five-ton assault platform intended to serve as a frontline command machine for Lyran Alliance Armed Forces officers. Archon Katrina Steiner named the design to honor the hauptmanns (company-grade commanders who represent the highest-ranking officers to consistently see combat) reinforcing loyalty within the newly restructured LAAF.</p><p>Despite having ample room for an extralight engine, the Hauptmann deliberately employs a standard fusion powerplant, a design choice that reduced manufacturing costs while dramatically improving battlefield survivability. With forty-three tons of available pod space and a robust chassis, the Hauptmann provides field commanders with a flexible and durable platform capable of adapting to virtually any tactical scenario.</p>
+
+capabilities:<p>The Hauptmann's Coventry HAI III chassis mounts a Pitban 285 standard fusion engine, providing a top speed of fifty-four kilometers per hour. While this makes the design one of the slower assault OmniMechs in the Inner Sphere, the standard engine ensures the 'Mech cannot be destroyed by a side torso hit, a critical survivability advantage over designs relying on extralight powerplants. Eighteen and a half tons of Glasgow Limited armor provide excellent protection for a design of its weight class, while CASE fixed in the right torso mitigates the risk of catastrophic ammunition explosions. Eleven fixed double heat sinks provide a solid thermal baseline for all configurations.</p><p>The Prime configuration exemplifies the Hauptmann's versatility. Paired ER large lasers deliver effective long-range fire, while an LB 20-X autocannon provides devastating close-range firepower capable of exploiting armor breaches with cluster munitions. Medium pulse lasers, an ER small laser, and Streak SRM-2 launchers complete the close-range arsenal. A Guardian ECM suite disrupts enemy targeting and communications, enhancing the survivability of the Hauptmann and nearby friendly units. Six additional double heat sinks allow the Prime to manage its weapons load with reasonable efficiency, though sustained engagement with the full arsenal still generates problematic heat levels.</p>
+
+deployment:<p>Alternate Configuration A shifts the Hauptmann to a close-combat role, mounting four ER medium lasers and paired SRM-6 launchers linked to an Artemis IV fire control system for devastating short-range engagements. A Gauss rifle provides a reliable long-range striking capability for closing with an enemy. Three jump jets grant ninety meters of jumping distance (remarkable mobility for a ninety-five-ton machine) allowing pilots to exploit terrain and outmaneuver heavier opponents. The ER medium lasers were especially sourced from Free Worlds League manufacturers, reflecting the cross-border trade that characterized the pre-Civil War era. Six additional double heat sinks manage the configuration's heat load effectively.</p>
+
+history:<p>The Hauptmann emerged in 3060 as the culmination of the Lyran Alliance's drive to develop indigenous OmniMech production capability. Following the Clan Invasion, the Lyran state recognized the critical need for flexible assault platforms to counter Clan OmniMechs on more equal terms. Coventry Metal Works, which had gained valuable experience producing the Draconis Combine-designed Firestarter OmniMech under a technology-sharing arrangement, leveraged data from captured Clan Dire Wolf OmniMechs to create an entirely Lyran design.</p><p>Archon Katrina Steiner's decision to name the design after the LAAF's company-level commanders was a calculated political move, reinforcing loyalty within the newly restructured military. The first production models were distributed to hauptmanns serving in the showpiece Bolan, Skye, Donegal, Coventry, and Alarion Jaegers regiments, units that embodied the reformed Lyran Alliance Armed Forces. Additional Hauptmanns reached Skye Rangers formations, while Coventry Metal Works retained several units for factory defense and assigned others to garrison forces on Coventry.</p><p>The Hauptmann served throughout the FedCom Civil War, where its durability and flexibility proved valuable in the bitter fighting between Lyran loyalist and Federated Suns-aligned forces. The design's standard engine and heavy armor made it particularly resilient in the attritional campaigns that characterized the conflict. Production continued at the Coventry Metal Works facility through the Civil War era.</p><p>The Word of Blake Jihad devastated the Lyran military-industrial complex, and Coventry's factories suffered under the upheaval. Production of the Hauptmann ceased in the wake of the Jihad and Devlin Stone's subsequent military reduction programs. As the Republic of the Sphere era gave way to the renewed conflicts of the Dark Age, Coventry Metal Works explored reviving the design with upgraded Clan-grade double heat sink technology, only to be rebuffed by overstretched domestic Lyran ClanTech manufacturers. Clan Sea Fox's ilKhanate eventually learned of these difficulties through the Chatterweb and brokered a deal under Project Reynard between CMW, Free Worlds League-based Technicron Manufacturing, and Clan Sea Fox to produce the Regent, a ninety-ton purely Clan-technology OmniMech intended as the Hauptmann's spiritual successor.</p><p>Despite the Regent's development, the Hauptmann itself remained in service with Lyran units that had maintained their existing machines through decades of conflict. New configurations incorporating mixed Inner Sphere and Clan technology continued to appear during the Dark Age and into the ilClan era, demonstrating the enduring adaptability of Coventry Metal Works' original design.</p>
+
+manufacturer:Coventry Metal Works
+
+primaryfactory:Coventry
+
+fluffdate:2026-02-13 17:59:30
+
+systemmanufacturer:CHASSIS:Coventry
+systemmode:CHASSIS:HAI III
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:285
+systemmanufacturer:ARMOR:Glasgow Limited
+systemmode:ARMOR:Glasgow Limited with CASE
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Muse 54-58S
+systemmanufacturer:TARGETING:Cyclops
+systemmode:TARGETING:9c

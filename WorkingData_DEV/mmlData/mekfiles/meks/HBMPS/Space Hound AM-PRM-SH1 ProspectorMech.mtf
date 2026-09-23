@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6c1-7b56-9dfa-97c5b43241c4
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Space Hound
+model:AM-PRM-SH1 ProspectorMech
+mul id:5101
+
+Config:Biped
+techbase:Inner Sphere
+era:3047
+source:HB:MPS
+published:HB:MPS
+rules level:2
+role:None
+
+
+mass:40
+engine:160 Fusion Engine
+structure:IS Industrial
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:4
+jump mp:1
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:10
+RT armor:10
+CT armor:12
+HD armor:8
+LL armor:13
+RL armor:13
+RTL armor:6
+RTR armor:6
+RTC armor:6
+
+Weapons:1
+Small Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+MiningDrill
+MiningDrill
+MiningDrill
+MiningDrill
+Small Laser
+Heat Sink
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+
+Left Torso:
+Cargo:SIZE:1.0
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+Jump Jet
+Heat Sink
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Searchlight
+Environmental Sealing (Mech)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Environmental Sealing (Mech)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Space Hound AM-PRM-SH1 ProspectorMech was introduced in 3047 by Alliance Motors, Limited as a radical derivative of the successful Rock Hound prospecting platform. Where the Rock Hound was designed for planetary surface operations, the Space Hound was purpose-built for microgravity and vacuum environments, enabling prospectors to work asteroid fields, derelict spacecraft, and airless moons that the standard design could never reach.</p><p>Though visually similar to the Rock Hound right down to the centerline searchlight, the Space Hound serves as a fundamentally different machine beneath its familiar exterior. Alliance Motors replaced the fuel cell powerplant with a fusion engine, added jump jets and environmental sealing, and completely reworked the weapons and equipment loadout for zero-gravity operations. The result is a specialized prospecting platform that fills a niche no other IndustrialMech in the Periphery can match.</p>
+
+capabilities:<p>The most significant change from the Rock Hound is the replacement of the Alliance 160 fuel cell with a fusion engine of the same rating, a necessary upgrade to support the Space Hound's expanded operational envelope. This powerplant drives a pair of jump jets and provides the energy needed for environmental sealing, allowing the ProspectorMech to operate in hard vacuum and microgravity conditions. Two tons of reaction mass support sustained maneuvering in zero-gravity environments where conventional locomotion is impossible.</p><p>The weapons and equipment suite has been completely reworked for the Space Hound's specialized role. The twin SRM-4 launchers and lift hoists of the base Rock Hound are gone, replaced by a small laser and a mining drill mounted on the right arm for cutting through hull plating and asteroid rock. A single-ton cargo bay in the left torso allows for recovery of small salvage items. The ejection seat has also been removed to make room for the environmental systems, a trade-off that leaves pilots reliant on the chassis' military-grade StarSlab/6 armor for protection. Communications and targeting remain the same Garret T10B and O/P 911-C systems used across the Rock Hound family.</p>
+
+deployment:<p>No factory variants of the Space Hound are produced. The AM-PRM-SH1 remains the sole configuration offered by Alliance Motors, reflecting the highly specialized nature of the design's microgravity prospecting role. Buyers seeking different operational profiles typically choose from the broader Rock Hound family of surface-based variants instead.</p>
+
+history:<p>Alliance Motors introduced the Space Hound in 3047, five years after the original Rock Hound first entered production. The design emerged from growing demand among deep-space prospecting operations for a platform capable of working in environments that the fuel-cell-powered Rock Hound simply could not reach. Asteroid mining concerns, deep salvage firms, and Interstellar Expeditions teams operating far from habitable worlds all expressed interest in a vacuum-capable derivative of the proven Rock Hound chassis.</p><p>The transition from fuel cell to fusion power represented a significant engineering challenge for Alliance Motors, as the Outworlds Alliance's industrial base had limited experience with fusion engine production. The resulting AM-PRM-SH1 was different enough from its parent design that MechTechs and logistics personnel treated it as a separate chassis entirely, despite the strong visual resemblance to the standard Rock Hound.</p><p>Production volumes of the Space Hound have always been lower than its planetary counterparts, reflecting the smaller market for microgravity prospecting equipment. The design has nonetheless found steady buyers among Periphery mining consortiums, Interstellar Expeditions, and independent operators working the asteroid belts and debris fields that litter former battlegrounds across the Inner Sphere. Following the formation of the Raven Alliance in 3083, the Sevon facility continued producing the Space Hound alongside the rest of the Rock Hound family under Clan Snow Raven oversight.</p>
+
+manufacturer:Alliance Motors Ltd.
+
+primaryfactory:Sevon
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alliance Motors, Limited
+systemmode:CHASSIS:AML IndySteel PrM Series
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:160 Fusion
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:StarSlab/6
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:Garret T10B
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:O/P 911-C

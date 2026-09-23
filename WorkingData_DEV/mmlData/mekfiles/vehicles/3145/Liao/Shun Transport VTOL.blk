@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7f2-79fb-9d16-22063f79e7a0
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Shun Transport VTOL
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6440
+</mul id:>
+
+<year>
+3122
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<quirks>
+variable_range_targeting
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+troopspace:12.0
+</transporters>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+22
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+24
+23
+23
+24
+2
+</armor>
+
+<Body Equipment>
+IS Vehicular Stealth
+ISGuardianECMSuite
+ISTargeting Computer
+ISMagshotGR Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISMagshotGR
+ISMagshotGR
+ISTAG
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Shun's defining capability is its stealth armor, which allows it to operate in contested airspace where conventional transport VTOLs would draw immediate fire. The system is effective enough for a Shun flight to infiltrate defended areas, deliver up to three squads of battle armor, and withdraw before defenders can mount a coordinated response. A Guardian ECM suite complements the stealth plating, degrading enemy targeting and communications systems in the vicinity and further reducing the risk of detection during the most dangerous phases of an insertion.</p><p>Two Mydron Mini Magshot Gauss Rifles give the crew a meaningful self-defense capability, sufficient to discourage pursuit and suppress light ground targets during ingress and egress. TAG designation equipment and a targeting computer extend the Shun's utility beyond pure transport, allowing it to support indirect fire missions by designating targets for artillery and aerospace assets operating in the same battlespace. VTOL mobility allows the Shun to bypass terrain obstacles that would stop conventional transports entirely, making it effective in jungle, urban, and other environments that restrict ground movement.</p><p>The design has meaningful limitations. Stealth armor reduces overall payload compared to an unprotected airframe of equivalent mass, and the Shun is not built to absorb sustained punishment. If detection occurs and an adversary brings dedicated anti-aircraft systems to bear, the VTOL's protection quickly becomes inadequate. Mission success depends heavily on crew discipline and thorough pre-mission planning, as much as on the vehicle's technology.</p>
+</capabilities>
+
+<overview>
+<p>The Shun Transport VTOL takes its name from the Chinese word for shield, a designation that reflects its purpose in Capellan Confederation doctrine. Produced by Tengo Aerospace on Sarna and introduced in 3122, the Shun was developed to provide Confederation ground forces with a capable and survivable platform for delivering battle armor to contested areas. Where earlier transport VTOLs lacked the protection and sophistication to operate effectively in defended airspace, the Shun addressed those deficiencies directly by incorporating advanced stealth technology alongside capable self-defense systems. The design quickly became the preferred battle armor transport in Capellan service, valued for its ability to insert infantry assets into areas that heavier or less capable platforms could not reach, and it has remained a fixture of Confederation combined-arms operations into the ilClan era.</p>
+</overview>
+
+<deployment>
+<p>The base Shun serves as the primary battle armor insertion platform in Confederation combined-arms formations. It is typically deployed in pairs or small flights to complicate anti-aircraft targeting, with each aircraft assigned to a specific battle armor unit. Crews and infantry work closely together to develop insertion plans matched to the terrain and defenses of each target. The design excels in jungle, urban, and other environments that restrict conventional ground transport, where VTOL mobility allows it to bypass obstacles entirely. First fielded in 3122, it has seen continuous service on the Capellan-Republic frontier and in the wider conflicts of the mid-Dark Age.</p>
+</deployment>
+
+<history>
+<p>Tengo Aerospace delivered the first Shun Transport VTOLs to Confederation ground forces in 3122, filling a gap in Capellan combined-arms doctrine that had persisted for decades. The Confederation's frontier with the Republic of the Sphere had never been entirely stable, and by the 3120s low-intensity raids and proxy operations using hired mercenaries had become a regular feature of border life. The Shun proved well-suited to this environment, capable of inserting battle armor covertly and supporting operations that required precision rather than mass.</p><p>The design's battlefield value was demonstrated on Corey in 3130. When a Republic-sponsored mercenary unit raided the Hollis Industries plant, the Sixth Confederation Reserve Cavalry scrambled a flight of Shuns to intercept before the regiment's heavier elements could respond. Flying low over the jungle canopy, the Shuns delivered battle armor directly onto the raiders' DropShip hull. The battlesuits swiftly overpowered the surprised crew and secured the vessel, ending the incursion before the mercenaries could escape with their stolen equipment.</p><p>Not every mission has ended so cleanly. During the CCAF invasion of Demeter in 3144, a Shun flight from the Third Tikonov Guards flew directly into prepared anti-aircraft defenses protecting New Demeter City. Relying solely on stealth to safeguard the flight from detection, the overconfident flight leader ordered the pair straight into heavy defensive coverage. Accurate anti-aircraft fire annihilated both aircraft before the battle armor aboard could be deployed, a costly lesson in the limits of stealth when pilots become overconfident in their equipment.</p><p>In other operations, skilled Shun crews demonstrated what the platform could accomplish in experienced hands. During Confederation campaigns into Federated Suns space, pilots assigned to Dynasty Guard formations repeatedly flew through intense defensive fire to deliver their charges against prepared positions. Sang-wei Andrea Hamann of Hamann's Harassers earned a notable reputation during the assault on Taygeta, driving Shun operations deep into Syrtis Fusilier defensive lines to insert battle armor against positions the enemy considered secure. On Corey, Sao-wei Lei Gwok developed unconventional methods during Operation GREAT FLOOD, using creative delivery techniques that kept Republic defenders off-balance across multiple engagements. Their approaches became case studies in how the Shun could be employed beyond the boundaries of standard doctrine.</p>
+</history>
+
+<manufacturer>
+Tengo Aerospace
+</manufacturer>
+
+<primaryFactory>
+Sarna
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:Hellespont Armor
+COMMUNICATIONS:Endicott
+TARGETING:Dwyerson
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:95 XL
+ARMOR:Lite Stealth
+COMMUNICATIONS:Type 11 Microwave Projector with Guardian ECM Suite
+TARGETING:Mark XX with TAG and Targeting Computer
+</systemModels>
+
+<source>
+TR:3145:CC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

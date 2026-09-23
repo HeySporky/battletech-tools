@@ -1,0 +1,160 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a691-774a-afaf-cdacfdaed858
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Xiphos Assault Battle Armor
+</Name>
+
+<Model>
+A(Sqd4)
+</Model>
+
+<mul id:>
+6484
+</mul id:>
+
+<year>
+3116
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<quirks>
+imp_com
+</quirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+38
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+CLBALight Recoilless Rifle:RA
+ISBAMagshotGaussRifle:LA
+BABasicManipulator:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Xiphos mounts close to a full ton of reactive armor, providing assault-class protection with particular resistance to explosive munitions and indirect fire. A basic manipulator on the right arm allows limited object handling, while modular weapon mounts on both arms give the suit configuration flexibility. The left arm mount carries the greater weapon capacity. An improved communications system allows battlefield coordination even under active electronic countermeasures, a critical advantage for formations operating beyond BattleMech support range.</p><p>Configuration A pairs a light recoilless rifle with a Magshot gauss rifle, offering a balanced ballistic loadout effective against both infantry and light vehicles. The recoilless rifle provides dependable antipersonnel firepower, while the Magshot delivers accurate ranged fire with minimal ammunition weight. At two thousand kilograms, the Xiphos sacrifices speed for durability. Its twenty-two kilometer per hour ground speed limits tactical mobility, but the suit’s protection and firepower make it well-suited to defensive positions and deliberate assaults where staying power matters more than agility.</p>
+</capabilities>
+
+<overview>
+<p>The Xiphos, named for an ancient Greek double-edged sword, was developed by Irian Technologies for the Marik-Stewart Commonwealth. Entering service in 3116, the assault-class battle armor was designed to protect infantry against artillery bombardment, one of the most effective countermeasures against powered armor formations. Weighing two thousand kilograms, the Xiphos carries specialized protective plating and an advanced communications suite resistant to electronic countermeasures. Three standard weapon configurations offer flexibility ranging from ballistic firepower to thermal detection and area denial. The suit earned a strong reputation for durability and reliable performance across both defensive and offensive operations.</p>
+</overview>
+
+<deployment>
+<p>Marik-Stewart Commonwealth forces organized their Xiphos troopers into standard four-trooper squads, integrating them into combined-arms formations alongside BattleMech lances and conventional infantry platoons. The A configuration’s balanced ballistic loadout made it a favored general-purpose assignment for garrison and defensive units, with squads frequently paired to provide mutual fire support during territorial defense operations.</p>
+</deployment>
+
+<history>
+<p>The Xiphos grew out of Irian Technologies’ efforts to address artillery bombardment, one of powered infantry’s oldest and deadliest vulnerabilities. Commissioned by the Marik-Stewart Commonwealth, the suit entered production in 3116 at facilities on both Irian and Washburn. Its reactive armor gave troopers meaningful protection against indirect fire for the first time, filling a long-standing capability gap in battle armor design.</p><p>Commonwealth forces put the Xiphos to effective use across numerous engagements during the Dark Age. Militia units on Laureles proved the suit’s communications resilience under electronic warfare conditions in 3118. The Eighth Free Worlds Legionnaires employed Xiphos troopers in a covert 3125 raid on Corey, dropping them directly into Hollis Incorporated’s facilities to seize Catapult spare parts. During the Wolf Empire’s invasion of the former Free Worlds League, Commonwealth defenders repeatedly ambushed Wolf artillery positions using helicopter-delivered Xiphos formations on Autumn Wind and several other contested worlds. The tactic proved effective until the battle for Washburn, where prepared Wolf forces overwhelmed the defenders with battle armored troops positioned behind their own artillery. Washburn’s fall brought one production line under Clan Wolf control, and Wolf warriors quickly adopted the suit for their own formations.</p>
+</history>
+
+<manufacturer>
+Irian Technologies|Irian Technologies
+</manufacturer>
+
+<primaryFactory>
+Irian|Washburn
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:FWL,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+15
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+4
+</weightclass>
+

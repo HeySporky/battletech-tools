@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d98a-786a-88f9-8ac59fcae6bb
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Kingfisher
+model:I
+mul id:8262
+
+Config:Biped OmniMek
+techbase:Clan
+era:3137
+source:RG18
+published:RG18
+rules level:2
+role:Brawler
+
+quirk:rugged_1
+
+mass:90
+engine:360 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:19 Clan Double
+base chassis heat sinks:14
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:30
+RA armor:30
+LT armor:28
+RT armor:28
+CT armor:44
+HD armor:9
+LL armor:38
+RL armor:38
+RTL armor:10
+RTR armor:10
+RTC armor:13
+
+Weapons:3
+Improved Heavy Large Laser, Left Arm
+Improved Heavy Large Laser, Left Arm
+Gauss Rifle, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+CLGaussRifle (OMNIPOD)
+Clan Gauss Ammo (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Gauss Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Kingfisher is an early Clan assault OmniMech first produced by Clan Snow Raven in 2887, making it one of the pioneering second-generation OmniMech designs. Based upon the chassis of the powerful but controversial Pulverizer (a BattleMech tainted by its Clan Wolverine origins) Snow Raven scientists transformed the reliable assault platform into a versatile OmniMech that many Clan historians consider the father of the modern assault OmniMech. The design's combination of speed, maneuverability, and rugged durability has kept it in frontline service across multiple Clans for centuries, even as newer and more sophisticated designs have entered production. Unlike many contemporary assault OmniMechs, the Kingfisher employs a conventional fusion engine rather than the weight-saving extralight models, a deliberate choice that contributes to its legendary survivability. Multiple Clans have maintained production lines for the Kingfisher, with facilities on Strana Mechty, Dante, Arcadia, Lum, and Priori ensuring a steady supply of this venerable assault platform.</p>
+
+capabilities:<p>The Kingfisher does not excel in any single tactical role but instead delivers reliable performance across a broad spectrum of combat scenarios. At ninety tons, the design mounts nearly the maximum possible armor protection on an Endo Steel frame, sheathed in Ferro-Fibrous plate that provides exceptional resilience without excessive weight. The decision to retain a standard fusion engine rather than an extralight model significantly enhances the Kingfisher's ability to absorb punishment that would cripple lighter-engined designs, though this choice limits available pod space to twenty-four tons.</p><p>Seventeen fixed double heat sinks provide a solid thermal management foundation that most configurations exploit by mounting energy-heavy weapon loadouts. The primary configuration exemplifies this philosophy, pairing Large and Medium Pulse Lasers with a Streak SRM-6 and LRM-10 launcher to create a versatile combatant effective across all engagement ranges. The pulse laser array offers exceptional accuracy that compensates for less experienced MechWarriors, while the Streak system ensures efficient ammunition usage. Newer configurations have expanded the Kingfisher's tactical repertoire, incorporating advanced weapons such as Hyper-Assault Gauss Rifles, Improved Heavy Lasers, and targeting computers that give this venerable chassis renewed relevance on the modern battlefield.</p>
+
+deployment:<p>Alternate Configuration I combines long-range precision with devastating close-range energy firepower. A Gauss Rifle with two tons of ammunition provides accurate, heat-neutral striking power at extended ranges, while twin Improved Heavy Large Lasers deliver punishing damage when engagements close. Nineteen double heat sinks help manage the thermal demands of the heavy laser array, though MechWarriors must still exercise careful heat management when firing all weapons simultaneously.</p>
+
+history:<p>The Kingfisher traces its lineage to the Golden Century, when Clan Snow Raven scientists sought to transform their proven assault chassis into an OmniMech platform. The design they chose as the foundation (the Pulverizer) was a sturdy and capable assault 'Mech, though one carrying the stigma of its Clan Wolverine origins. Despite the political controversy, the Snow Ravens recognized the Pulverizer's potential and used it as the basis for what would become one of the most enduring assault OmniMechs in Clan history. First rolling off assembly lines in 2887, the Kingfisher quickly proved itself a reliable and versatile platform.</p><p>The design's rugged construction and ease of maintenance attracted the attention of other Clans, most especially Clan Ghost Bear, which secured production rights and established a manufacturing line at their Strana Mechty enclave. Clan Star Adder and Clan Diamond Shark also maintained production facilities, ensuring the Kingfisher remained widely available across multiple Clan toumans. This widespread adoption reflected the design's reputation for dependability rather than any single outstanding characteristic.</p><p>During the Battle of Tukayyid in 3052, Kingfisher configurations appeared among Ghost Bear forces fighting at Spanac and Luk, and among Smoke Jaguar forces in the Dinju Mountains and Racice Delta. While not fielded in the numbers of more prominent designs like the Gladiator or Masakari, the Kingfisher consistently proved its worth as a durable companion to speedier assault OmniMechs such as the Executioner.</p><p>The Wars of Reaving brought significant upheaval to the Kingfisher's production network. The Diamond Shark facility on Priori was eventually absorbed by Clan Star Adder, while the Snow Raven's original production line on Lum ceased operations as the Clan shifted its focus to the Inner Sphere. The Strana Mechty production facility continued under Ghost Bear and later Star League control.</p><p>The Kingfisher's reputation grew further during the Great Reaving, where the design demonstrated its legendary durability in dramatic fashion. In one notable Trial, a Kingfisher piloted by a former Wolf-in-Exile destroyed four opponents (including a brand new Warwolf) to earn a Bloodright propagation, absorbing punishment that would have destroyed lesser designs. Following the Snow Raven migration to the Inner Sphere and the formation of the Raven Alliance, a new production line was established at the Snow Raven Industrial Complex Alpha on Dante, giving the Kingfisher a renewed presence in the Inner Sphere. When the Snow Ravens annexed the Inner End in 3144, Kingfishers of the 100th Raven Battle Cluster were instrumental in operations against the Federated Suns National Guard, demonstrating that centuries of service had done nothing to diminish the design's battlefield effectiveness. The introduction of new configurations from the ilClan era (including the advanced T, F, G, I, and X variants) ensured the Kingfisher remained competitive alongside newer designs like the Deimos and Omen rolling off Snow Raven assembly lines.</p>
+
+manufacturer:Strana Mechty 'Mech Production Facility Beta|Snow Raven Industrial Complex Alpha|Arcadia BattleMech Plant CM-T15|Industrial Complex Raven Alpha|Constantin Assembly Plant M27A-E
+
+primaryfactory:Strana Mechty|Dante|Arcadia|Lum|Priori
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:SL YT-A Endo
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Star League Standard 360
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Forging Z5 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Model 74/129.3 TCS
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:S438 Mk. III Mod. 7 TTS

@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cdc7-7066-8015-cde35f9fd6e2
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Spirit
+model:2
+mul id:5665
+
+Config:Biped
+techbase:Clan
+era:3068
+source:TR:3067
+published:RS:3067u
+rules level:2
+role:Striker
+
+
+mass:35
+engine:245 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:7
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:11
+RA armor:11
+LT armor:11
+RT armor:11
+CT armor:12
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:5
+RTR armor:5
+RTC armor:8
+
+Weapons:2
+ATM 12, Left Arm
+ER Large Laser, Left Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLERLargeLaser
+Clan Ammo ATM-12 HE
+Clan Ammo ATM-12
+Clan Ammo ATM-12 ER
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLTargeting Computer
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Spirit emerged in 3063 as the culmination of a ten-year upgrade and revitalization program at the Olivetti Weapons facility on Sudeten. The first Clan-tech BattleMech to walk off its production lines, the Spirit represented Clan Jade Falcon's commitment to integrating Occupation Zone populations and rebuilding the industrial capacity of their Inner Sphere holdings. A fusion of Clan technology and Inner Sphere manufacturing methods, the thirty-five ton design was built to maximize combat potential through aggressive weight savings, packing considerable firepower into a compact and efficient chassis.</p><p>Designed as a versatile light 'Mech capable of serving in both reconnaissance and training roles, the Spirit's relatively straightforward construction made it easy to produce locally, ensuring a steady supply for the Falcon Touman's second-line and training formations during a critical period of rebuilding.</p>
+
+capabilities:<p>The Spirit is built around a Magna 245 XL fusion engine that propels the thirty-five ton 'Mech to speeds approaching 120 kilometers per hour, making it well-suited for deep reconnaissance operations far from friendly supply lines. The Olivetti S1 endo steel chassis provides structural savings that allow the design to carry an impressive weapons array for its weight class, while eleven double-strength heat sinks manage the thermal load from an energy-heavy weapons suite.</p><p>The primary armament centers on a Series 6b extended-range large laser mounted in the left arm, giving the Spirit considerable reach. A General Systems heavy medium laser and heavy small laser in the torso provide close-in punch, while a Pattern JX Streak SRM-4 launcher uses advanced targeting to conserve ammunition. The inclusion of an Mk 46 LRM-10 with Artemis IV fire control proved controversial among Falcon warriors, as the ammunition dependency conflicted with the Spirit's emphasis on independent operation, though many pilots appreciated the added long-range firepower.</p><p>Six tons of Compound Alpha ferro fibrous armor provide reasonable protection for a light 'Mech. An integrated ECM suite complicates enemy targeting solutions and makes the Spirit difficult to track with advanced weapon systems, a feature that earned the design its evocative name.</p>
+
+deployment:<p>Introduced in 3068, the Spirit 2 trades versatility for focused lethality. The LRM-10 launcher and its Artemis IV fire control system are replaced by an ATM-12, dramatically increasing the 'Mech's missile firepower and providing ammunition flexibility through standard, extended-range, and high-explosive munitions. The heavy medium and heavy small lasers are removed in favor of a targeting computer linked to the extended-range large laser, significantly improving the weapon's accuracy. This reconfiguration transforms the Spirit from a generalist scout into a more specialized striker capable of delivering precise, devastating fire at multiple engagement ranges. The factory on Sudeten was destroyed before full production could begin, but the Spirit 2 has remained available through refit programs since the Jihad era.</p>
+
+history:<p>The Spirit emerged from the Olivetti Weapons facility on Sudeten in 3063, the culmination of a decade-long effort to bring Clan-level manufacturing technology to the Jade Falcon Occupation Zone's industrial base. Khan Pryde personally attended the facility's rededication ceremony, serving as Oathmaster in the Trial of Possession for the first production model and emphasizing the design's significance to the Falcon leadership's integration strategy.</p><p>Initial production models were allocated to the Sudeten-based Falcon Guard for field evaluation, where the Spirit demonstrated solid performance in its intended roles. The design quickly spread to second-line clusters and training formations throughout the Occupation Zone and Clan Space, becoming a cornerstone of the Falcon Touman's rebuilding program. The six Freeborn and second-line clusters raised under Khan Pryde's expansion initiative all incorporated Spirits into their tables of organization.</p><p>The Spirit saw its first significant combat during the Jade Falcon incursions into the Lyran Alliance. The design performed admirably in engagements on Melissia and Hot Springs, where its speed and electronic warfare capabilities proved valuable in running battles against Inner Sphere defenders and forces of Clan Wolf-in-Exile. However, the debacle on Twycross severely damaged the Spirit's reputation, and no front-line Falcon formation adopted the design afterward.</p><p>Production at Olivetti Weaponry was cut short when the facility was destroyed during the Jihad, ending the Spirit's manufacturing run after only a few years of active output. The Spirit 2 variant, introduced in 3068, never entered full factory production as a result. Despite this loss, surviving Spirits continued to serve in Falcon training and garrison formations, and the Spirit 2 configuration eventually became available through field refit programs from the Jihad era onward, ensuring the design's continued presence in the Falcon Touman well beyond the destruction of its sole factory.</p>
+
+manufacturer:Olivetti Weaponry|Field Refit
+
+primaryfactory:Sudeten|Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Olivetti
+systemmode:CHASSIS:S1 Endo Steel
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:245 XL
+systemmanufacturer:ARMOR:Olivetti Weapons
+systemmode:ARMOR:Compound Alpha Ferro Fibrous
+systemmanufacturer:COMMUNICATIONS:Angst
+systemmode:COMMUNICATIONS:2400 with ECM Suite
+systemmanufacturer:TARGETING:Omicron
+systemmode:TARGETING:XX

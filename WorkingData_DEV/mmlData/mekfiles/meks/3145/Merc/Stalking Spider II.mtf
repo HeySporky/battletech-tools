@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d3c8-78a7-ae64-d874fae56e71
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Stalking Spider II
+model:
+mul id:6553
+
+Config:Quad
+techbase:Clan
+era:3110
+source:TR:3145:Merc,TR:DA
+published:RS:DA
+rules level:3
+role:Skirmisher
+
+weaponquirk:ammo_feed_problems:RT:5:CLSRM4
+weaponquirk:ammo_feed_problems:RT:6:CLSRM4
+
+mass:45
+engine:225 Fusion (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:13 Clan Double
+walk mp:5
+jump mp:5
+
+armor:Standard(Clan)
+FLL armor:20
+FRL armor:20
+LT armor:15
+RT armor:15
+CT armor:20
+HD armor:9
+RLL armor:20
+RRL armor:20
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:5
+Heavy Machine Gun, Left Torso
+Heavy Machine Gun, Left Torso
+Heavy Large Laser, Right Torso
+SRM 4, Right Torso
+SRM 4, Right Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLHeavyMG
+CLHeavyMG
+Clan Heavy Machine Gun Ammo - Half
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLHeavyLargeLaser (T)
+CLHeavyLargeLaser (T)
+CLHeavyLargeLaser (T)
+CLSRM4 (T)
+CLSRM4 (T)
+Clan Ammo SRM-4
+ISQuadTurret
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Stalking Spider II represents Clan Sea Fox's effort to introduce classic Clan equipment to the Inner Sphere market through an accessible and commercially appealing package. Produced since approximately 3110 at Manufacturing Plant SFF-TU1 on Tukayyid, a former ComStar facility handed over to the merchant Clan and refurbished for production, the redesigned quad 'Mech brought lucrative rewards to its creators. At forty-five tons, the Stalking Spider II is slightly lighter than its Cloud Cobra predecessor, trading some mass for a more cost-effective design philosophy.</p><p>With the Cloud Cobras and the rest of the Clan Homeworlds silent for decades, Clan Sea Fox's decision to redesign and offer for sale a modified Stalking Spider filled a niche in the Inner Sphere market for affordable Clan-technology quad 'Mechs. The Stalking Spider II has proven a popular purchase with second-line and defensive battalions across the Inner Sphere.</p>
+
+capabilities:<p>The most notable feature of the Stalking Spider II is its quad BattleMech turret, which houses the 'Mech's primary armament and grants a full 360-degree firing arc for its main weapons. The turret mounts a Series 4D-2 heavy large laser alongside a pair of Type I Cross Pattern SRM-4 launchers, providing a mix of direct-fire and missile capability that can engage targets in any direction without repositioning the chassis. A pair of Series XIV heavy machine guns in the left torso provide close defense against infantry and light vehicles.</p><p>However, the turret design has proven problematic. Problems with the ammunition feeding mechanism of the missile launchers have been noted, with the SRM ammunition feed occasionally causing explosions into the turret. While built-in CASE minimizes the damage from such events, some pilots have opted to disable the turret entirely rather than risk the malfunction. The Sea Foxes have been unwilling to sacrifice the turret to fix the issue, as it represents the design's primary selling point.</p><p>Protected by nine and a half tons of standard armor and driven by a 225-rated standard fusion engine, the Stalking Spider II achieves a maximum speed of 86 km/h. Clan Standard 14X Series jump jets provide 150 meters of jump capability, maintaining the aerial mobility that characterized the original Stalking Spider. Thirteen double heat sinks manage the thermal load from the heavy laser and other systems.</p>
+
+deployment:<p>The Stalking Spider II has no factory variants. The single production model combines a turreted heavy large laser with paired SRM-4 launchers and heavy machine guns, intended as a versatile defensive platform. Its 360-degree turret firing arc makes it well suited for defensive positions, convoy escort, and urban combat where threats can emerge from any direction. The design's popularity with second-line and militia forces across the Inner Sphere reflects its straightforward tactical value despite the known ammunition feed problems.</p>
+
+history:<p>The Stalking Spider II emerged from Clan Sea Fox's commercial ambitions in the early thirty-second century. The Manufacturing Plant SFF-TU1 on Tukayyid, formerly the ComStar Omega-Epsilon Facility X, had passed through several owners before reaching the Sea Foxes. Originally a Lyran world, Tukayyid's facilities changed hands through the Draconis Combine and the Free Rasalhague Republic before ComStar's famous stand against the Clans in 3052. The planet later fell under Clan Ghost Bear control during the Jihad era before Clan Diamond Shark, later renamed Clan Sea Fox, acquired and refurbished the facility for their own purposes.</p><p>The Stalking Spider II saw its first recorded combat in 3112 when pirates suspected of being Capellan military units in disguise attacked Shiro III in the Duchy of Andurien. The main attack targeted Shimgata, the planetary capital, in an attempt to draw defenders away from nearby 'Mech production facilities. The Shimgata militia's two Stalking Spider IIs proved instrumental in repelling the attack, using their jump capability and omnidirectional turret fire to harry the attackers from multiple angles. Though the pirates withdrew with some stolen equipment, the militia salvaged enough materiel from fallen pirate units to offset their losses.</p><p>In 3124, elements of the Forty-fourth Benjamin Regulars raided the Rasalhague Dominion world of Mannedorf. The defenders had recently excavated an underground headquarters to coordinate their defenses. When the Regulars found the headquarters, they deployed a Stalking Spider II supported by battle armor to eliminate it. The 'Mech's extreme firing arc made it ideal for clearing the facility's vehicle bays in short order, and with their central command destroyed, the Rasalhagian defenders fell into disarray.</p><p>During the battle for Tharkad in 3143, Lyran forces used a full lance of Stalking Spider IIs as a versatile response unit to cover fighting retreats. Two 'Mechs held the front while the other two covered the flanks, a tactic that proved quite successful until an ammunition feed malfunction in one Stalking Spider II caused its launchers to explode, opening a gap in the Lyran flank that opposing forces quickly exploited.</p>
+
+manufacturer:Manufacturing Plant SFF-TU1
+
+primaryfactory:Tukayyid
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type QX745-50 Mod. III
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Fusion 225 Standard
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:Forging ZK11 Standard
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Clan Standard 14X Series Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:S9R Beta Series Communications
+systemmanufacturer:TARGETING:Bergan Industries
+systemmode:TARGETING:Able-Seven Sensor Suite

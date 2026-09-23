@@ -1,0 +1,89 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ba87-7985-8a3b-7a0f8efb115f
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Tracked Platoon (ComStar)
+</Name>
+
+<Model>
+(SRM)
+</Model>
+
+<mul id:>
+2143
+</mul id:>
+
+<year>
+2825
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<Troopers Equipment>
+ComStar Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Blessed Order maintained conventional infantry formations equipped with preserved Star League-era weapons and personal armor, fielding platoons that were better armed than most Successor State infantry throughout the late Succession Wars. Mechanized tracked platoons ride armored personnel carriers that provide all-terrain mobility and meaningful protection against small arms and shrapnel. The tracked transport allows these platoons to keep pace with armor formations across broken ground where wheeled vehicles would bog down. Equipped with infantry-portable short-range missile launchers that provide anti-armor capability beyond what personal weapons can achieve, these troops can threaten light vehicles and battle armor at close range.</p>
+</overview>
+
+<source>
+TW,TM
+</source>
+
+<squad_size>
+6
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+InfantryHeavySRM
+</Secondary>
+

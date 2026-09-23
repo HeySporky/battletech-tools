@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eaa3-7d11-b1a0-aec3057334d2
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Routemaster Hover Shuttle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4944
+</mul id:>
+
+<year>
+2770
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+cargobay:0.085:1:1::-1:0
+standardseats:14.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+44
+</armor_type>
+
+<armor_tech_rating>
+2
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+1
+1
+1
+1
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+3
+</barrating>
+
+<structural_tech_rating>
+2
+</structural_tech_rating>
+
+<engine_tech_rating>
+2
+</engine_tech_rating>
+
+<capabilities>
+<p>The Routemaster is built on a small hover chassis, weighing only 3,800 kilograms. Its ICE power plant propels the vehicle to flank speeds exceeding 150 km/h, allowing it to keep pace with urban expressway traffic and respond efficiently across large service areas. The hover system eliminates the need for dedicated roadbed infrastructure, as the vehicle can operate on paved surfaces, unpaved terrain, and even open water, making it adaptable to a wide range of environments.</p><p>The Routemaster carries thirteen passengers alongside a single driver, with a modest 85-kilogram cargo capacity for luggage. Commercial BAR 3 armor covers the hull, appropriate for road debris and minor impacts but not meaningful against military weapons. The vehicle carries no armament. Its operating and maintenance costs are substantially lower than rail alternatives, which makes it competitive for budget-conscious transit operators. The primary limitation is its small passenger capacity, requiring high service frequency to achieve the throughput of larger transit systems.</p>
+</capabilities>
+
+<overview>
+<p>The Routemaster Hover Shuttle is a small civilian hover transport produced by Defiance Industries' civilian manufacturing division, introduced in 2770. Designed to provide affordable, flexible public transit in urban environments, the Routemaster operates on dedicated roadways and public thoroughfares without requiring heavy fixed infrastructure. Its hover technology allows it to cross a wide variety of terrain, including waterways, giving it flexibility that traditional wheeled or rail-based vehicles cannot match. Cheaper to build and maintain than equivalent rail systems, the Routemaster became an attractive transit solution for municipalities across the Inner Sphere. Its distinctive red livery became especially iconic in Tharkad City, where the vehicles grew into a recognized and beloved feature of the capital's urban identity across generations of continuous service.</p>
+</overview>
+
+<deployment>
+<p>The Routemaster Hover Shuttle serves as a public transit vehicle in urban and suburban environments across the Inner Sphere. Individual units operate in large municipal fleets on fixed routes, with high service frequency compensating for the vehicle's modest per-unit capacity. The hover system allows deployment in communities with limited paved infrastructure, broadening its market beyond developed urban cores. In emergency situations the Routemaster has been pressed into civilian evacuation roles and used to shuttle personnel during urban military operations when dedicated transport assets were unavailable. Its low cost and wide distribution make it a practical fallback option whenever rapid civilian transport is needed on short notice.</p>
+</deployment>
+
+<history>
+<p>The Routemaster Hover Shuttle entered production in 2770, commissioned through Defiance Industries' civilian division as part of a broader push to develop affordable urban mobility solutions during the late Star League era. Rapid urban growth across the Inner Sphere had strained traditional transit networks, and the hover shuttle concept offered a low-infrastructure alternative that could be deployed quickly across a variety of metropolitan environments.</p><p>The vehicle spread widely through commercial export and the strength of its manufacturer's reputation. In Tharkad City, the Routemaster became a celebrated fixture of street life, its red fleet a visual signature of the capital. That attachment proved enduring. During Archon Katherine Steiner-Davion's tenure in the 3050s and 3060s, her administration moved to repaint the Tharkad City fleet in Steiner blue. The proposal was met with a significant public groundswell of opposition from city residents, and the Archon eventually abandoned the plans.</p><p>The Succession Wars disrupted civilian production for many vehicle types, but the Routemaster's simple ICE powertrain and near-universal maintenance familiarity helped it outlast more technologically complex competitors. Basic mechanical skills were sufficient for field maintenance, and parts were widely available throughout the Inner Sphere. The design remained in production through the Succession Wars and continued to serve municipal fleets well into the Dark Age, proof of the fundamental soundness of the original concept.</p>
+</history>
+
+<manufacturer>
+Defiance Industries
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+3.8
+</tonnage>
+
+<fuel>
+0.08
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

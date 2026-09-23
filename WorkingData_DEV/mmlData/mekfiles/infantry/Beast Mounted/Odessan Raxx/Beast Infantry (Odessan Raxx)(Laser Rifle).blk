@@ -1,0 +1,70 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b79f-7dae-b8be-3ee6266bb1cd
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Beast Infantry (Odessan Raxx)
+</Name>
+
+<Model>
+(Laser Rifle)
+</Model>
+
+<year>
+2340
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Beast:Odessan Raxx
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+AntiMekGear
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Odessan raxx is a massive six-legged reptile native to the Lyran world of Odessa, rivaling a Terran elephant in size. Despite their imposing bulk, raxx are remarkably docile and highly intelligent, traits that made them ideal pack animals and riding beasts. Their most extraordinary quality is endurance: a raxx can survive without food or water for up to two weeks, making them invaluable on worlds with scarce resources or harsh conditions. These qualities led to their export across countless Inner Sphere worlds, where they serve as mounts, draft animals, and military beasts of burden. Raxx-mounted infantry benefit from their animals' durability and calm temperament under fire, though the creatures become fiercely aggressive when defending their young. Military formations mounted on raxx can operate far from supply lines for extended periods, a significant advantage on the frontier worlds where they are most commonly employed.</p>
+</overview>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<Primary>
+Laser Rifle
+</Primary>
+

@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ce8a-7c40-9cc1-113cfcdfc51a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Highlander
+model:HGN-732b
+mul id:1516
+
+Config:Biped
+techbase:Inner Sphere
+era:2598
+source:TR:3075
+published:RS:3075u-AW
+rules level:2
+role:Sniper
+
+quirk:difficult_eject
+quirk:cowl
+quirk:command_mech
+quirk:reinforced_legs
+
+mass:90
+engine:270 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:3
+jump mp:3
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:30
+RA armor:30
+LT armor:28
+RT armor:28
+CT armor:40
+HD armor:9
+LL armor:38
+RL armor:38
+RTL armor:10
+RTR armor:10
+RTC armor:16
+
+Weapons:6
+SRM 6, Left Arm
+Gauss Rifle, Right Arm
+LRM 20, Left Torso
+Medium Laser, Right Torso
+Medium Laser, Right Torso
+Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+SRM 6
+SRM 6
+ISArtemisIV
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Jump Jet
+LRM 20
+LRM 20
+LRM 20
+LRM 20
+LRM 20
+ISArtemisIV
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+IS Ammo SRM-6 Artemis-capable
+ISCASE
+IS Ferro-Fibrous
+
+Right Torso:
+Jump Jet
+Medium Laser
+Medium Laser
+Medium Laser
+IS Gauss Ammo
+IS Gauss Ammo
+ISCASE
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Highlander is one of the most iconic assault BattleMechs in the history of the Inner Sphere, first entering service with the Star League Defense Force in 2592. Designed by StarCorps Industries as a dedicated city and installation defender, the ninety-ton design combined a versatile weapons mix, heavy ferro-fibrous armor protection, and an unusual feature for an assault chassis: jump jets that granted it tactical mobility unmatched by its peers. This agility proved so effective that within decades of its introduction, nearly every Regular and Royal Army BattleMech regiment featured Highlanders in their ranks.</p><p>Perhaps more than any other single design, the Highlander is defined by the infamous "Highlander Burial", a death-from-above attack in which the 'Mech leaps onto a lighter opponent and literally drives it into the ground. So popular was this devastating tactic that StarCorps reengineered the Highlander's legs specifically to withstand repeated such attacks, transforming a desperation move into a signature combat technique feared across every battlefield in the Inner Sphere and beyond.</p>
+
+capabilities:<p>The Highlander carries a weapons mix optimized for ranged engagements that remains effective when ranges close. The primary weapon of the original HGN-732 is an M-7 Gauss rifle capable of delivering devastating kinetic impacts at extreme range, backed by a Holly LRM-20 launcher for sustained long-range fire support. At closer distances, a Holly SRM-6 rack and a pair of Harmon Starclass medium lasers provide significant short-range firepower. Two tons of ammunition for each launcher system and the Gauss rifle provide excellent battlefield endurance, while CASE protects the MechWarrior from catastrophic ammunition explosions.</p><p>Fifteen and a half tons of Grumman-3 ferro-fibrous armor make the Highlander exceptionally well protected for its class, while three HildCo Model 10 jump jets grant it a mobility advantage that most assault 'Mechs cannot match. This combination of firepower, protection, and mobility allows the Highlander to control engagement ranges, pursue fleeing opponents, and execute the feared Highlander Burial with devastating effect. The design's relatively low heat output allows pilots to maintain a near-continuous barrage, though sustained use of all weapons systems simultaneously still demands thermal discipline.</p>
+
+deployment:<p>This variant is an exclusive upgrade of the original 732 built for SLDF Royal units during the Star League era. This variant drops two heat sinks and a ton of SRM ammunition to add Artemis IV fire control to both the LRM and SRM launchers, while the remaining heat sinks are upgraded to double-strength models. An additional medium laser in the right torso provides extra close-range firepower. Originally produced at Son Hoa, the 732b became available as a field refit following the recovery of the New Dallas Memory Core during the Jihad, allowing commanders to upgrade surviving 732 chassis to Royal specifications.</p>
+
+history:<p>Designed for the Star League Defense Force in 2592, the Highlander was an instant success with both Regular and Royal regiments. Its wide variety of weapons and jump jets allowed it to take on any situation, and the design rapidly became one of the most common assault 'Mechs in the SLDF order of battle. The Highlander saw extensive service through the final decades of the Star League era, and many accompanied General Aleksandr Kerensky on the Exodus, where Clan scientists would eventually upgrade surviving chassis into the formidable Highlander IIC using advanced Clan technology.</p><p>The Succession Wars devastated Highlander production in the Inner Sphere. StarCorps' factory on Son Hoa was destroyed toward the end of the Second Succession War, driving the original HGN-732 to virtual extinction. An agreement between Hollis Incorporated and StarCorps to rebuild destroyed chassis from scratch using readily available technology produced the downgraded HGN-733, which Hollis continued to custom-build on Corey until the Fourth Succession War when the licensing arrangement was revoked. By the mid-3030s, StarCorps had managed to restart limited production on Son Hoa, producing barely a dozen new 'Mechs per year.</p><p>Throughout the Succession Wars, ComStar secretly maintained a large stock of original Highlanders inherited from the Star League. During the War of 3039, ComStar provided both HGN-733s and a few advanced HGN-732s to the Draconis Combine, shocking Lyran forces who encountered what they believed to be extinct Star League-era technology. The Northwind Highlanders also maintained a disproportionate number of operational Highlanders through the Succession Wars, many with original Star League-era components, and their skill with the Highlander Burial became legendary.</p><p>By 3057, StarCorps' Son Hoa factory had returned to full production, producing original-specification HGN-732 Highlanders for Lyran units of the Federated Commonwealth. The FedCom Civil War spurred the development of multiple advanced variants, including the urban-combat focused HGN-734 and the ComStar-enhanced HGN-736. The HGN-734's debut in 3062 also had an unexpected civilian legacy: the production changeover left a surplus of older-specification components, which StarCorps repurposed to create the St. Florian FireMech, one of the most advanced IndustrialMechs introduced since the fall of the Star League. Post-Civil War production continued to diversify, with the HGN-738 introducing Heavy Gauss Rifle technology and the experimental HGN-641-X-2 pushing the boundaries of what the venerable chassis could accommodate.</p><p>The Word of Blake Jihad severely disrupted Highlander production when Blakist forces attacked the Son Hoa factories in 3074, rendering them temporarily inoperable. Meanwhile, Clan Wolf had established its own Highlander legacy on Weingarten, converting salvaged Inner Sphere chassis into Highlander IICs at the W-7 Facilities, an operation that would eventually pass to Clan Hell's Horses when they captured the planet in 3142. Production of new Inner Sphere variants eventually resumed on Son Hoa, and designs such as the HGN-740 continued to emerge well into the Dark Age. The Highlander's long and distinguished service record, combined with its association with the famed Northwind Highlanders mercenary brigade, has cemented its place as one of the most recognized and respected assault 'Mechs in the history of mechanized warfare.</p>
+
+manufacturer:StarCorps Industries|Field Refit
+
+primaryfactory:Son Hoa|Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:StarCorps Industries
+systemmode:CHASSIS:Star League XT
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:GM 270
+systemmanufacturer:ARMOR:Grumman
+systemmode:ARMOR:Grumman-3 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:HildCo
+systemmode:JUMP_JET:HildCo Model 10
+systemmanufacturer:COMMUNICATIONS:Hartford
+systemmode:COMMUNICATIONS:Hector VII
+systemmanufacturer:TARGETING:Hartford
+systemmode:TARGETING:Starlight LX-1

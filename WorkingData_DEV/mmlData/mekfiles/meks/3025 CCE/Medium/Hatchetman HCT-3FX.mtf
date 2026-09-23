@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c16f-7b9b-8f64-88a26959b9c4
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hatchetman
+model:HCT-3FX
+
+Config:Biped
+techbase:Inner Sphere
+era:3021
+source:TR:3025C
+rules level:1
+role:Brawler
+
+quirk:anti_air
+
+mass:45
+engine:180 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:14 Single
+walk mp:4
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:14
+RT armor:14
+CT armor:14
+HD armor:6
+LL armor:11
+RL armor:11
+RTL armor:4
+RTR armor:4
+RTC armor:4
+
+Weapons:3
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+AC/10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Heat Sink
+Heat Sink
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ammo AC/10
+IS Ammo AC/10
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hatchetman was introduced in 3023 as the first completely new BattleMech design produced in the Inner Sphere in over a century. Designed by the enigmatic Dr. B. Banzai of Team Banzai and manufactured by Defiance Industries on Hesperus II, the forty-five-ton medium 'Mech was conceived as a dedicated urban combat platform for the Lyran Commonwealth. The design was notable for several firsts: it was the first production BattleMech to mount a 'Mech-sized hatchet as a melee weapon, and the first to incorporate a full-head ejection system. As a product of collaboration between Lyran and Federated Suns engineers, the Hatchetman also served as a potent symbol of the growing alliance between the two Successor States.</p><p>Originally limited to garrison duty in major Lyran cities, the Hatchetman's early combat successes earned it a fearsome reputation as an urban ambush predator. Demand eventually outstripped a single factory's capacity, requiring additional production lines to meet the needs of the growing Federated Commonwealth.</p>
+
+capabilities:<p>The Hatchetman excels in the close confines of urban terrain, where its combination of ranged firepower and devastating melee capability makes it a formidable ambush predator. Its primary ranged weapon, a Defiance Killer autocannon mounted in the right torso, provides reliable firepower at medium range, fed by twenty rounds organized into two ten-shot magazines, a design feature borrowed from the Federated Suns' Enforcer. Two Defiance B3M medium lasers, one in each arm, supplement the autocannon for close-range engagements, while the Hatchetman's signature three-ton hatchet allows the 'Mech to cleave through enemy armor at point-blank range.</p><p>Four Luxor 2/Q jump jets provide a 120-meter jump capability, granting the agility needed to navigate urban environments and set up ambushes despite a pedestrian top speed of only 64 kilometers per hour. The versatile TharHes Ares-8a targeting system is particularly adept at tracking aerospace fighters, providing effective anti-air coverage from the armored sensor globe mounted on the head. The design also incorporates an innovative Full-Head Ejection System that launches the entire head assembly on rocket motors, significantly improving pilot survivability when the 'Mech is in an upright position.</p><p>The Hatchetman's primary weakness lies in its light armor protection (only six and a half tons of Durallex Medium plating) and thin leg armor that leaves it dangerously vulnerable in open terrain where faster 'Mechs can exploit its lack of speed.</p>
+
+deployment:<p>This variant represents Dr. Banzai's original prototype configuration for the Hatchetman. The design incorporated heat sinks directly into the hatchet blade, intending the melee weapon to serve double duty as a heat dissipation surface. However, the structural reinforcement required to make the hatchet combat-effective consumed more mass than anticipated, forcing a reduction from fourteen heat sinks to eleven. This configuration was ultimately refined into the production HCT-3F, with the hatchet-mounted heat sink concept abandoned in favor of a more practical weapon design.</p>
+
+history:<p>The Hatchetman's origins trace to the early 3020s, when Dr. B. Banzai of Team Banzai designed the 'Mech in collaboration with the New Avalon Institute of Science. Despite the designer's Federated Suns connections, Defiance Industries on Hesperus II secured the manufacturing contract, and the first Hatchetmen rolled off the production line in 3023. A self-destruct system was fitted to the first thirty production examples but quickly abandoned when it was discovered the mechanism would only trigger under conditions (such as an ammunition explosion) that rendered it redundant.</p><p>The Hatchetman received its baptism of fire when elements of Kurita's Fourth Proserpina Hussars raided the Lyran planet of Sevren. A battalion of the Twenty-sixth Lyran Guards, heavily equipped with the new design, lured the attacking forces into a huge industrial park filled with towers, alleys, and dark hiding places. Amidst the complex, the Hatchetmen earned their fearsome reputation, ambushing enemy 'Mechs at point-blank range with autocannon fire or cleaving them apart with their hatchets. The engagement demonstrated the design's devastating effectiveness in urban terrain and cemented its place in Lyran doctrine.</p><p>Initially limited to garrisoning large Lyran cities, the Hatchetman's early successes inspired broader deployment. The design soon appeared in Federated Suns units, particularly the Crucis Lancers and First Kathil Uhlans. Following the Fourth Succession War and the creation of the Federated Commonwealth, the Hatchetman was selected as one of the AFFC's standard designs. Demand soon outstripped Defiance Industries' capacity, even after tripling output from Hesperus II, prompting a contract with Johnston Industries to establish a second production line on New Syrtis.</p><p>The recovery of lostech in the late 3040s allowed Defiance Industries to create the upgraded HCT-5S in 3049, incorporating an extralight engine, ferro-fibrous armor, and an LB 10-X autocannon. Johnston Industries followed with their own variants after the secession of the Lyran Alliance, including the HCT-5D in 3062 and the fast-moving HCT-6D. The Draconis Combine managed to capture several Hatchetmen following the War of 3039, but Kuritan samurai considered the hatchet a barbaric weapon and the initial program was canceled. Independence Weaponry eventually salvaged the project by replacing the hatchet with a more elegant sword, creating the HCT-5K in 3075.</p><p>In the Periphery, mercenaries integrating with the Taurian Defense Forces brought their HCT-3Fs to the Concordat's attention. Protector Thomas Calderon ordered Taurus Territorial Industries to reverse-engineer the design, which they accomplished after much delay by 3054. Production continued until 3066 when the Fighting Urukhai destroyed TTI's facilities. During the Jihad, Johnston's New Syrtis plant was rendered temporarily unusable by Blakist forces, prompting collaboration with Defiance on the HCT-7S, a radical redesign replacing the traditional autocannon with multi-missile launchers developed from Battle Magic mercenary company technology.</p><p>The Hatchetman continued to evolve through the Dark Age and into the ilClan era. The Republic of the Sphere fielded its own variant, the HCT-7R, designed at Johnston's relocated Addicks facility under Dr. Bartholomew Banzai II. Defiance Industries responded with the HCT-8S, incorporating Clan-grade technology into the proven platform. During the Free Worlds League's early Jihad campaigns, captured Lyran Hatchetmen were refitted into the HCT-6M, seeing service with the Duchy of Oriente and Principality of Regulus. Throughout its long service history, the Hatchetman has remained a potent urban combat platform, its distinctive silhouette and fearsome hatchet inspiring both respect and dread across the Inner Sphere.</p>
+
+manufacturer:Defiance Industries
+
+primaryfactory:Hesperus II
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Chariot
+systemmode:CHASSIS:Type II
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:180
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Medium
+systemmanufacturer:JUMP_JET:Luxor
+systemmode:JUMP_JET:2/Q
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Thalia HM-22
+systemmanufacturer:TARGETING:TharHes
+systemmode:TARGETING:Ares-8a

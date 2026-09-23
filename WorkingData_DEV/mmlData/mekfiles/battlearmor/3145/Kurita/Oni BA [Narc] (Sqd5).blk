@@ -1,0 +1,176 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a641-7b49-a662-6e0d0713730e
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Oni Battle Armor
+</Name>
+
+<Model>
+[Narc](Sqd5)
+</Model>
+
+<mul id:>
+8739
+</mul id:>
+
+<year>
+3134
+</year>
+
+<type>
+Mixed (IS Chassis)
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+fast_reload
+non_standard
+</quirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+35
+</armor_type>
+
+<armor_tech>
+12
+</armor_tech>
+
+<Squad Equipment>
+BAHeavyBattleClawVibro:LA
+BABasicManipulator:RA
+BAExtendedLifeSupport:Body
+IS BA ECM:Body
+Clan BA Fire Resistant:LA
+Clan BA Fire Resistant:LA
+Clan BA Fire Resistant:LA
+Clan BA Fire Resistant:Body
+Clan BA Fire Resistant:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+CLBACompactNarc:RA
+BA-Compact Narc Ammo:RA:Shots4#
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+CLBACompactNarc:RA
+BA-Compact Narc Ammo:RA:Shots4#
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+CLBACompactNarc:RA
+BA-Compact Narc Ammo:RA:Shots4#
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+CLBACompactNarc:RA
+BA-Compact Narc Ammo:RA:Shots4#
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+CLBACompactNarc:RA
+BA-Compact Narc Ammo:RA:Shots4#
+</Trooper 5 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Narc configuration fits a Compact Narc Launcher with four missile packs onto the modular weapon mount, shifting the Oni's role from direct combatant to target designator. Narc beacons attached to enemy units guide friendly missile fire with improved accuracy, making this variant valuable in combined-arms operations despite its limited ammunition count. The left-arm Heavy Vibro Claw provides a backup melee capability, while the right-arm basic manipulator supports mechanized transport.</p><p>Three hundred and fifty kilograms of Clan fire-resistant armor keeps troopers protected during the dangerous approach runs required to place beacons at effective range. An ECM suite and extended life support complete the electronics fit. Ground speed of thirty-two kilometers per hour and the absence of jump jets make closing with targets a challenge, placing a premium on coordination with faster friendly units.</p>
+</capabilities>
+
+<overview>
+<p>Produced by Luthien Armor Works for the Draconis Combine Mustered Soldiery, the Oni is a medium battlesuit that entered service in 3134 as a replacement for the aging Raiden. The one-ton humanoid design employs mixed Inner Sphere and Clan technology, incorporating advanced protective plating to improve operator survivability. Intended as a flexible line unit, the Oni fills multiple battlefield roles through interchangeable weapon loadouts rather than any single specialization. The suit's name translates from Japanese as "ogre," a designation its operators have found grimly appropriate given the design's imposing but graceless silhouette.</p>
+</overview>
+
+<deployment>
+<p>Five-trooper Points carrying the Compact Narc Launcher provided Clan-organized Combine formations with an organic target designation capability. The additional trooper improved survivability during the dangerous approach runs needed to place beacons, as the Point could suppress enemy positions while individual troopers closed to effective Narc range.</p>
+</deployment>
+
+<history>
+<p>The DCMS commissioned Luthien Armor Works to develop a Raiden replacement during the early 3130s. Engineers drew on data from evaluations of the Clan Nova Cat Thunderbird suit, adapting several design principles for Inner Sphere production. The Oni entered service in 3134, with manufacturing lines on both Luthien and Savinsville.</p><p>Reception within the DCMS was poor. The Combine's warrior culture prizes honor and prestige, and the Oni's unremarkable capabilities and ungainly appearance earned it few admirers. The Procurement Department reinforced the suit's low standing by assigning it to garrison commands and units out of favor. Supply difficulties compounded these problems, as the Department shipped weapon loadouts based on its own assessments rather than unit requests. Quartermasters across the New Samarkand and Dieron Military Districts developed an informal gray market for trading modular weapon packs among themselves.</p><p>The suit's first recorded action came during the Combine's push to reclaim former Dieron Military District holdings. Positions fielding the Oni showed measurably higher survivability rates among defending personnel, and within a year the suit had been distributed to every planetary garrison across both districts. Heavy protective plating proved its strongest selling point, keeping troopers alive long enough to shift opinions among pragmatic field commanders.</p>
+</history>
+
+<manufacturer>
+Luthien Armor Works|Luthien Armor Works
+</manufacturer>
+
+<primaryFactory>
+Luthien|Savinsville
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:DC
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+10
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

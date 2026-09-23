@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c861-7142-b8f6-3de1db16ae1e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Paladin
+model:PAL-2
+mul id:2409
+
+Config:Biped
+techbase:Inner Sphere
+era:3068
+source:TR:3055U
+published:RS:3055Uu
+rules level:4
+role:Skirmisher
+
+quirk:difficult_maintain
+quirk:non_standard
+
+mass:60
+engine:360 XXL Engine
+structure:IS Composite
+myomer:Triple-Strength
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:11 IS Double
+walk mp:6
+jump mp:6
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:21
+RT armor:21
+CT armor:30
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:4
+Rotary AC/2, Left Arm
+Medium X-Pulse Laser, Right Arm
+Streak SRM 6, Left Torso
+Streak SRM 4, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISRotaryAC2
+ISRotaryAC2
+ISRotaryAC2
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISMediumXPulseLaser
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+ISStreakSRM6
+ISStreakSRM6
+ISStreakSRM4
+IS Light Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+ISRotaryAC2 Ammo
+IS Streak SRM 4 Ammo
+IS Streak SRM 6 Ammo
+ISCASE
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Paladin is a sixty-ton heavy BattleMech designed by Innovative Design Concepts for the Solaris VII arena circuit. First entering the heavy 'Mech weight class in the mid-3050s with the unconventional PAL-1, IDC later completely reimagined the design as the PAL-2, completed in 3068, building it around experimental technology including an XXL engine and triple-strength myomer. The Paladin fills the role of a fast, hard-hitting arena combatant that leverages cutting-edge prototype systems to outperform conventionally equipped opponents. Though IDC harbored ambitions of entering mainstream military production, the Paladin remains primarily associated with the Solaris arena circuit, where its combination of speed, firepower, and melee lethality has earned it a devoted following.</p>
+
+capabilities:<p>The PAL-2 Paladin is built around GM's experimental Super-Lite 360 XXL fusion engine, an ambitious powerplant that allegedly delivers comparable output to a standard engine at roughly a third of the weight. This extraordinary weight savings allowed IDC engineers to incorporate a Crusis-III Deluxe composite internal structure, Durallex light ferro-fibrous armor, and HildCo Model 10 jump jets providing one hundred eighty meters of jump capability. The design's most distinctive feature is its triple-strength myomer system, which dramatically increases physical attack damage and provides a significant burst of speed when heat levels reach optimal activation thresholds. Eleven double heat sinks are carefully calibrated to maintain the heat window necessary to engage the myomer system.</p><p>The Paladin's primary armament is the Mydron Tornado rotary autocannon, sourced through IDC's contacts in the Federated Suns. Capable of delivering withering suppressive fire at ranges far exceeding the original design's machine guns, the rotary autocannon is supplemented by Harpoon-series Streak SRM-6 and SRM-4 launchers for close-range punch and an ExoStar medium X-pulse laser. CASE protection safeguards the ammunition bays against catastrophic detonation. However, the reliance on experimental technology gives the Paladin a reputation for being difficult to maintain, with non-standard parts that challenge even experienced technicians.</p>
+
+deployment:<p>This variant serves as a complete ground-up redesign of the Paladin concept, replacing virtually every system from the original. The shift to an XXL engine and composite structure freed considerable tonnage for jump jets and the signature triple-strength myomer system, transforming a plodding arena brawler into an agile striker. The Mydron Tornado rotary autocannon replaced the machine gun battery, providing effective suppressive fire at medium to long ranges while the Streak missile launchers ensure devastating accuracy at closer distances. IDC built this variant specifically to showcase advanced prototype technology, and its test pilots were preparing to debut the design on the main Solaris fighting circuit when it was completed in 3068.</p>
+
+history:<p>Innovative Design Concepts first entered the heavy 'Mech market in 3053 with the PAL-1, a design that drew inspiration from the ubiquitous Hunchback but took a decidedly unconventional approach to firepower. The original Paladin's seven-machine-gun armament was a bold design choice that drew considerable attention in the Solaris arenas, delivering impressive volumes of fire with minimal heat generation. The prototype earned the fearsome nickname "Eviscerator" as it tore through opponents in exhibition matches. However, the design's limitations became apparent when the Eviscerator was ultimately destroyed in combat against a Marauder, exposing the machine gun battery's inability to deal with heavier opponents at range.</p><p>IDC shelved the Paladin project for several years following this setback, during which the company continued its primary work customizing existing designs like the Daedalus and Longshot for Solaris competitors. The firm's fortunes shifted when it acquired advanced prototype equipment, including access to GM's experimental XXL engine technology and Durallex's newly developed light ferro-fibrous armor. These components allowed IDC to completely reimagine the Paladin as the PAL-2, a far more sophisticated machine completed in 3068.</p><p>As one of the many design firms operating on Solaris VII, IDC occupied a unique position in the Lyran Alliance industrial environment. The company was the only Solaris arena 'Mech manufacturer listed on the Lyran stock exchange, a reflection of its leadership's ambitions to transition from arena customization into mainstream military production. Despite these aspirations, the Paladin remained primarily a Solaris design, lacking the manufacturing scale and logistical support networks necessary to compete with established military manufacturers.</p><p>IDC survived the devastation of the Jihad, but the postwar period proved challenging as the company struggled to compete against larger, more technologically advanced manufacturers. The Paladin's reliance on experimental and non-standard components, while impressive in the arena setting, limited its appeal to military procurement officers seeking reliable, maintainable designs for frontline service. The design's difficult maintenance requirements and non-standard parts further hindered any prospects for mass adoption beyond the Solaris VII arena circuit.</p>
+
+manufacturer:Innovative Design Concepts
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Crusis
+systemmode:CHASSIS:Crusis-III Deluxe Composite
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:Super-Lite 360 XXL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Light Ferro-Fibrous
+systemmanufacturer:JUMP_JET:HildCo
+systemmode:JUMP_JET:Model 10
+systemmanufacturer:COMMUNICATIONS:Omicron
+systemmode:COMMUNICATIONS:4002 Networking Channel
+systemmanufacturer:TARGETING:TRSS
+systemmode:TARGETING:Eagle Eye Advanced T&T FCS

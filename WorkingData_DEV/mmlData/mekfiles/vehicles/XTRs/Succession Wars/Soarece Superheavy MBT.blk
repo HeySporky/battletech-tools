@@ -1,0 +1,188 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec82-72d3-9cf2-54264e8173d8
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Soarece Superheavy MBT
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5778
+</mul id:>
+
+<year>
+2881
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<quirks>
+difficult_maintain
+obsolete:2915
+non_standard
+poor_performance
+</quirks>
+
+<weaponQuirks>
+accurate:TU:1:Autocannon/2
+</weaponQuirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+110
+92
+92
+92
+92
+60
+110
+</armor>
+
+<Body Equipment>
+IS Ammo AC/10
+ISLimitedAmphibiousChassis
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/20
+IS Ammo AC/10
+IS Ammo AC/10
+IS Ammo AC/2
+IS Ammo AC/2
+IS Ammo MG - Full
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Autocannon/10
+Autocannon/2
+Autocannon/20
+</Turret Equipment>
+
+<capabilities>
+<p>The Şoarece is a super-heavy tracked vehicle displacing 175 tons, among the heaviest ground combat units ever fielded in the Inner Sphere. Its core offensive battery centers on three classes of autocannons mounted primarily in a fully traversing turret. The Imperator Zeta Class 20 autocannon delivers the killing blow against BattleMechs and heavily armored vehicles at close range. An AC/10 handles mid-range engagements against a wide variety of targets. A Smoothie-2 Class 2 autocannon handles the anti-aircraft role, and a forward-facing machine gun covers lighter infantry threats. A Limited Amphibious Equipment package extends the vehicle's operational reach across water obstacles that would otherwise halt it entirely.</p><p>The Şoarece runs on a specially developed 350-rated fuel cell powerplant. The fuel cell eliminates fusion plant explosion risk and simplifies field maintenance, but limits available power severely and imposes a punishing restriction on speed. Cruise speed barely qualifies the vehicle as mobile, limiting it to a crawl over open ground and making rapid redeployment essentially impossible. The armor distribution is formidable, with the front arc and turret face capable of absorbing punishment from most battlefield weapon systems. The Şoarece carries several design quirks stemming from its experimental origins, including a reputation for mechanical difficulty and poor overall performance that reflects the tradeoffs made to reach the army's weight and firepower requirements. The sheer mass of the vehicle also restricts deployment to ground capable of supporting it.</p>
+</capabilities>
+
+<overview>
+<p>The Şoarece Superheavy Main Battle Tank emerged from a crisis in Free Worlds League vehicle manufacturing. The Second Succession War stripped the League of its last reliable battle tank production capability, and Captain-General Philippa Marik turned to Earthwerks Incorporated on Keystone to answer the need. Commissioned in 2881, the project set out to produce a non-fusion armored vehicle simpler and more survivable than a BattleMech, yet capable of matching one in firepower and protection. The design evolved through nearly two decades of revision before reaching production, growing far beyond initial specifications. Designers quietly abandoned the original Romanian name for mouse in favor of a vehicle that was anything but small. Earthwerks brought the Şoarece to limited production in the early thirtieth century, and though the tank never achieved the mass deployment Philippa Marik envisioned, it stood as evidence of the League's determination to defend itself through the darkest years of the Succession Wars.</p>
+</overview>
+
+<deployment>
+<p>The Şoarece Superheavy MBT was produced in strictly limited numbers, with slightly over one hundred units completed before the production line was cancelled. Deployed exclusively within the Free Worlds League, these vehicles were assigned to defensive garrison formations on worlds the League judged in greatest need of heavy direct-fire support. The Şoarece's extreme mass and poor ground speed made it poorly suited for mobile operations or offensive campaigns, but it excelled in static defensive positions, chokepoints, and urban fortification roles where its massive frontal armor and multi-autocannon battery could be fully exploited. The experimental nature of the design and the non-standard fuel cell powerplant made sustained field maintenance a persistent challenge. Surviving examples remained in service in diminishing numbers into the Late Succession Wars period, eventually replaced by the Ontos tanks whose availability had originally ended the Şoarece's production run.</p>
+</deployment>
+
+<history>
+<p>The Şoarece project was born from desperation. The Second Succession War devastated the Free Worlds League's industrial base in ways the First had only begun, stripping Bainsville of the Vickers-Shellingford Armor Company and ending production of the reliable Tiger medium tank. With vehicle manufacturing collapsing and concerns mounting that BattleMech engineering knowledge might not survive another generation of attrition, Captain-General Philippa Marik directed Earthwerks Incorporated to develop a combat vehicle capable of filling the gap. The parameters were demanding: twice the frontal armor of any existing design, a non-fusion powerplant accessible to League technicians, sufficient firepower to threaten enemy BattleMechs, and a design simple enough for rapid mass production.</p><p>Earthwerks began design work on Keystone in 2881. The original prototype, named Soarece in honor of the mythic chariot of Helios, disappointed League procurement officials immediately. The pair of Class 5 autocannons in its turret were respectable, but the vehicle fell well short of the firepower and durability the LCCC demanded. For the next two decades, Earthwerks revised the design repeatedly, each iteration adding mass and capability until the accepted vehicle bore no resemblance to the original. The Romanian word for mouse had quietly become a running joke among the design team, who had long since abandoned any expectation that the vehicle would be small.</p><p>The final design entered limited production around 2904 at the Earthwerks facility on Keystone. Over one hundred units were completed before circumstances brought the program to an end. House Marik's forces captured Shiro III and its Grumman Amalgamated factory, which produced the considerably more capable Ontos tank. Orders for the Şoarece collapsed almost immediately. The League no longer needed an expensive experimental superheavy when a proven heavy vehicle was now accessible from a newly captured source. Production was cancelled within a few years of the Shiro III capture. The limited number of Şoarece tanks already in service continued in defensive garrison roles within the League until they were worn out or replaced by more capable designs.</p>
+</history>
+
+<manufacturer>
+Earthwerks Incorporated
+</manufacturer>
+
+<primaryFactory>
+Keystone
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Earthwerks Incorporated
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:350 Fuel Cell
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:SW
+</source>
+
+<published>
+XTR:SW
+</published>
+
+<tonnage>
+175.0
+</tonnage>
+

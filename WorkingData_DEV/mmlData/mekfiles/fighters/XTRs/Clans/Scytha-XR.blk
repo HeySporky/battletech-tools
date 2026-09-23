@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-afe0-7fd7-bab7-4b16df3f0b0c
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Scytha
+</Name>
+
+<Model>
+XR
+</Model>
+
+<mul id:>
+5004
+</mul id:>
+
+<year>
+3076
+</year>
+
+<type>
+Clan Level 4
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<quirks>
+atmo_flyer
+prototype
+</quirks>
+
+<weaponQuirks>
+mod_weapons:NOS:0:CLRotaryAC5
+mod_weapons:NOS:1:CLLargePulseLaser
+mod_weapons:LWG:0:CLImprovedHeavyLargeLaser
+mod_weapons:RWG:0:CLImprovedHeavyLargeLaser
+mod_weapons:AFT:0:CLERMediumLaser
+mod_weapons:AFT:1:CLERMediumLaser
+</weaponQuirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+26
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+16
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+8
+</armor_tech_level>
+
+<armor>
+76
+72
+72
+67
+</armor>
+
+<Nose Equipment>
+CLRotaryAC5
+CLLargePulseLaser
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLImprovedHeavyLargeLaser
+CLCASE
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLImprovedHeavyLargeLaser
+CLCASE
+</Right Wing Equipment>
+
+<Aft Equipment>
+CLERMediumLaser
+CLERMediumLaser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+CLRotaryAC5 Ammo
+CLRotaryAC5 Ammo
+CLRotaryAC5 Ammo
+CLCASE
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Scytha mounts a 360-rated extralight engine and only fourteen tons of Ironhold Series III ferro-aluminum armor; well below what most designers would consider adequate for a ninety-ton fighter. This deliberate trade-off frees an exceptional 42.5 tons of pod space, giving the Scytha a loadout flexibility few aircraft of any weight class can match. Four tons of fuel and twenty double heat sinks round out the fixed equipment, providing reasonable endurance if not outstanding heat management in energy-intensive configurations.</p><p>The Prime configuration arms the nose with a heavy ultra-class autocannon and large lasers, with paired energy weapons covering the aft arc. The A configuration is a missile boat that sustains fire across multiple ranges using paired long-range launchers and a Narc missile beacon. The B configuration replaces all weapons with five large pulse lasers slaved to an advanced targeting computer, excelling at strafing and space superiority, with an anti-missile system and rear medium pulse lasers rounding out the load. The C configuration favors long-range engagements, pairing Gauss rifles and extended-range particle cannons on each wing. The D configuration blends a Gauss rifle with advanced heavy lasers and extended-range lasers for sustained mixed engagement. The E configuration adds electronic warfare equipment and active probing systems alongside hyper-assault Gauss rifles for Jihad-era operations. The F configuration pairs improved heavy large lasers and a large autocannon with a comprehensive countermeasures suite and targeting computer. The experimental X configuration pushes five improved heavy large lasers to the operational limit, relying on an extensive array of coolant pods to manage the heat burden.</p>
+</capabilities>
+
+<overview>
+<p>When Clan Jade Falcon commanders demanded a super-heavy OmniFighter capable of standing against Clan Ghost Bear's formidable Kirghiz, they turned to Complex VI on Ironhold to deliver an answer. The result, first fielded in 2968, was the Scytha: a 90-ton heavy OmniFighter that traded heavy armor for speed and exceptional weapons payload. By accepting lighter protection than most designs of comparable tonnage, the Scytha offered pilots a weapons variety few aircraft could match. Despite its origins as a Jade Falcon prestige asset, small numbers eventually spread beyond the Falcons, earning a fearsome reputation across Clan aerospace command structures and among the Inner Sphere states that faced the invaders in repeated engagements.</p>
+</overview>
+
+<deployment>
+<p>The Scytha-XR is an experimental static-configuration refit created by Clan Snow Raven at the Crest Foundries facility on Quatre Belle during the Jihad. It replaces the OmniFighter's modular systems with a fixed weapons array and significantly heavier ferro-lamellor armor protection. A rotary autocannon and large pulse laser occupy the nose, improved heavy large lasers arm each wing, and paired extended-range medium lasers cover the rear arc. Only four confirmed examples existed as of 3081, leaving the program's future uncertain.</p>
+</deployment>
+
+<history>
+<p>The Scytha entered Clan Jade Falcon service in 2968 as a direct response to Clan Ghost Bear's development of the massive Kirghiz. Falcon commanders, unwilling to concede the heavy fighter role to their rivals, authorized Complex VI to produce a competing design on Ironhold. The new fighter was not the heavily armored juggernaut the Ghost Bears had delivered; it instead emphasized flexibility and combat reach, accepting lighter protection in exchange for superior weapons variety. Until Clan Ghost Bear began fielding the Jengiz, the Scytha stood as a unique statement of Jade Falcon aerospace philosophy, and the three designs coexisted only grudgingly as their operators sized each other up across contested airspace.</p><p>The Jade Falcons treated the Scytha as a proprietary asset and showed little interest in Trials or exchange arrangements that would spread the type to other Clans. Combat losses during the Trials preceding the Inner Sphere invasion, and broader attrition during and after the Great Refusal, eventually dispersed small numbers to other Clans, particularly the Nova Cats and both Wolves factions. The Jade Falcon reluctance to share was confirmed by the slow pace of that distribution. Inner Sphere pilots, particularly in the Lyran Alliance, developed a considerable respect for the fighter after repeated encounters, learning that even lighter air-to-air weapons struggled to breach its skin when approaching from unexpected angles.</p><p>During the Jihad, Clan Snow Raven undertook an experimental refit program at the Crest Foundries facility on Quatre Belle, transforming captured Scytha airframes into a static-configuration variant designated the Scytha-XR. The refit traded the OmniFighter's modular flexibility for significantly enhanced armor protection using experimental ferro-lamellor plating and a fixed weapons array tailored to the Ravens' local maintenance and supply situation. Only four confirmed XR-type aircraft were documented by 3081, leaving the program's future and whether it represented a path to new construction or simply a stopgap measure an open question.</p>
+</history>
+
+<manufacturer>
+Refit - Crest Foundries
+</manufacturer>
+
+<primaryFactory>
+Quatre Belle
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Complex VI
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Falcon Hollowbone
+ENGINE:360 XL
+ARMOR:Ferro-Lamellor (prototype)
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Clans
+</source>
+
+<published>
+XTR:Clans
+</published>
+
+<tonnage>
+90.0
+</tonnage>
+

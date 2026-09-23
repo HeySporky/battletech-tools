@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e89c-7747-9392-8166b3b92d26
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Kelswa Assault Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6604
+</mul id:>
+
+<year>
+3105
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+70
+41
+41
+41
+45
+</armor>
+
+<Body Equipment>
+ISCASE
+IS Gauss Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+IS Heavy Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+ISERMediumLaser
+ISERMediumLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISGaussRifle
+ISGaussRifle
+Heavy Machine Gun
+Heavy Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>A Pitban 285 fusion engine propels the Kelswa to a maximum speed of 54 km/h, making it somewhat slow by modern standards. This modest mobility is an accepted trade-off, as the engine's reliability and the mass savings it provides allow for heavier armor and armament. Twelve tons of ArcShield heavy ferro-fibrous armor protect the hull, with roughly thirty percent concentrated in the frontal arc to absorb incoming fire during direct assaults. CASE protects the crew from catastrophic ammunition detonation.</p><p>The Kelswa's primary armament consists of twin turret-mounted Grizzard Model 200 Gauss rifles, giving the tank exceptional long-range striking power. Two Defiance Model XII extended range medium lasers provide ammunition-independent firepower from fixed front mounts, while a pair of Coventry Heavy Autogun machine guns in the turret handle infantry and light vehicle threats. Forty rounds of Gauss ammunition and a half-ton of machine gun rounds give the tank reasonable endurance in sustained engagements.</p><p>The Kelswa's limited weapon variety is its chief shortcoming. Without missiles or specialized munitions, the tank lacks the tactical flexibility of more diversely armed competitors. Crews must rely on their Gauss rifles for nearly every engagement profile, from long-range bombardment to close-quarters brawling.</p>
+</capabilities>
+
+<overview>
+<p>The Kelswa Assault Tank is a ninety-five ton tracked combat vehicle produced by Arcturan Arms for the Lyran Commonwealth's armed forces. Named after House Kelswa, one of the most prominent noble families in Lyran history, the tank entered production in 3105 at the company's factories on Arcturus and Buena. Designed as a frontline assault vehicle, the Kelswa was conceived to fill the Lyran military's persistent demand for heavy armor formations capable of anchoring defensive positions and supporting BattleMech operations.</p><p>The tank earned a reputation for reliability and devastating firepower that spread well beyond Lyran borders. Exports and battlefield salvage carried the Kelswa into service with military forces across the Inner Sphere, and even into the toumans of at least two Clans. Veteran NCOs and platoon commanders prize the tank for its hard-hitting weapons and ease of maintenance, qualities that make it a natural fit for shock and garrison formations alike.</p>
+</overview>
+
+<deployment>
+<p>The Kelswa sees service across the Inner Sphere in a wide variety of military organizations. Lyran Commonwealth garrison and shock units remain the largest operators, with the tank frequently assigned to veteran NCOs and platoon commanders who appreciate its straightforward combat role. The tank's popularity extends to at least two Clan toumans, where salvaged or purchased examples supplement conventional vehicle Stars.</p><p>Mercenary commands also favor the Kelswa for its low maintenance requirements and devastating alpha strike capability. All-armor formations find it particularly useful as a fire support anchor, where its twin Gauss rifles can suppress enemy positions while faster vehicles maneuver for advantage. The tank's slow speed limits its utility in mobile operations, but in defensive or positional warfare, few vehicles of comparable tonnage deliver as much raw firepower.</p>
+</deployment>
+
+<history>
+<p>Arcturan Arms introduced the Kelswa in 3105, during a period of renewed military investment across the Lyran Commonwealth. The company's factories on Arcturus and Buena both took up production, ensuring a steady supply to the LCAF and its export customers. The tank's combination of heavy armor and dual Gauss rifles proved immediately popular with armor officers, who valued its ability to deliver punishing fire from defensive positions.</p><p>The political upheavals of the Dark Age carried the Kelswa's production facilities through multiple changes in ownership. Clan Wolf's conquest of Arcturus in 3128 placed that factory under Clan control, and subsequent Clan Jade Falcon occupation in 3142 continued production for their own forces. The Buena plant remained under Lyran authority throughout these transitions, ensuring uninterrupted supply to Commonwealth units. Following the ilClan era's upheavals, the Arcturus facility fell under the nascent Tamar Pact's authority.</p><p>The Kelswa saw significant combat during the turbulent 3140s. At Calipee Pass on Hesperus II in 3145, a pair of Kelswas served as the backbone of a heavy tank company composed primarily of Schmitt tanks. When a Clan Jade Falcon Raptor Keshik Trinary engaged the company, the Kelswas operated from the center echelon behind the Schmitts, using cover to deliver devastating Gauss fire. The concentrated impacts tore through the Falcons' armor and contributed to forcing the Trinary's withdrawal, though both tanks were subsequently disabled and abandoned.</p><p>Kelswas also served with Halsten's Brigade, a mercenary all-armor outfit contracted to defend Venaria. In mid-3142, a platoon of Kelswas responded to a pirate attack on a militia outpost in the Candrell badlands. Though they arrived too late to prevent the outpost's destruction, the platoon intercepted the retreating raiders and engaged a mixed force of BattleMechs and battle armor. Despite lacking the speed to pursue, the Kelswas' concentrated fire amputated limbs and stripped armor from the fleeing pirates, denying them most of their plunder.</p>
+</history>
+
+<manufacturer>
+Arcturan Arms|Arcturan Arms
+</manufacturer>
+
+<primaryFactory>
+Arcturus|Buena
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Pitban
+ARMOR:Cyclops Incorporated
+COMMUNICATIONS:Arc-Signal
+TARGETING:Angst
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:285
+ARMOR:ArcShield Heavy Ferro-Fibrous
+COMMUNICATIONS:A75
+TARGETING:Clear View 2A
+</systemModels>
+
+<source>
+TR:3145:LC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+95.0
+</tonnage>
+

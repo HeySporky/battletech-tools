@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c99c-7eba-9667-31a2de8f1b71
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Cestus
+model:CTS-6Z
+mul id:534
+
+Config:Biped
+techbase:Inner Sphere
+era:3058
+source:TR:3058U
+published:RS:3058Uu-C
+rules level:2
+role:Brawler
+
+
+mass:65
+engine:260 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:16 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:22
+RT armor:22
+CT armor:32
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:6
+PPC, Left Arm
+Large Laser, Left Arm
+Medium Laser, Left Arm
+PPC, Right Arm
+Large Laser, Right Arm
+Medium Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+PPC
+PPC
+PPC
+Large Laser
+Large Laser
+Medium Laser
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+PPC
+PPC
+PPC
+Large Laser
+Large Laser
+Medium Laser
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Cestus is a sixty-five-ton heavy BattleMech originally designed for the Star League Defense Force as a medium fire-support platform. Introduced by General Motors at their Kathil facility in 2603, the design underwent a significant armament revision before entering full SLDF production in 2766, just as the Amaris Civil War began to engulf the Inner Sphere. Production continued at Kathil under Federated Suns control following the Star League's collapse, until the factory was destroyed at the start of the Second Succession War.</p><p>Both General Motors and Blue Shot Weapons of Solaris VII restarted Cestus production in the mid-3050s, returning the design to frontline service. Known for its heavy armor, reliable firepower, and the retention of full hand actuators that make it a capable physical combatant, the Cestus has earned a solid reputation as a dependable fire-support platform across the Federated Suns and Lyran Alliance.</p>
+
+capabilities:<p>Powered by a GM 260 XL engine, the Cestus achieves a top speed of sixty-four kilometers per hour, placing it on the slower end for a heavy 'Mech but providing adequate battlefield mobility for its intended fire-support role. The design compensates for this modest speed with thirteen and a half tons of Durallex Special Heavy armor, giving the Cestus exceptional durability for its weight class and allowing it to absorb significant punishment before critical systems are threatened.</p><p>The torso-mounted Poland Main Model A Gauss rifle serves as the design's centerpiece, delivering devastating long-range firepower without generating waste heat. A pair of Defiance B3L large lasers mounted in each arm supplement this primary weapon, providing combined damage output equivalent to the Gauss rifle itself at medium to long ranges. Two ChisComp 39 medium lasers round out the armament for close-range engagements. The retention of full hand actuators in both arms gives the Cestus additional close-combat capability, allowing pilots to grip or strike opponents when necessary. Twelve double heat sinks manage the thermal output efficiently, and the combination of cool-running ballistic weapons with energy backup systems makes the Cestus a remarkably sustainable combatant during prolonged engagements. The design's primary vulnerability lies in its reliance on ammunition for the Gauss rifle, a significant logistical concern during extended operations far from supply lines.</p>
+
+deployment:<p>Representing a return to the original SLDF energy-weapons concept, this variant became viable through the recovery of double heat sink technology. Replacing the Gauss rifle with two particle projector cannons while adding four additional double heat sinks to manage the increased thermal load, the design sacrifices the cool-running efficiency of the base model for the significant tactical advantage of operating independently of ammunition supplies. This characteristic makes the variant particularly popular with commands deployed to the Periphery or other regions where resupply is infrequent, and it has seen widespread adoption by units that prize operational endurance over raw firepower. Both General Motors and Blue Shot Weapons produce this configuration.</p>
+
+history:<p>The Cestus has a production history defined by interruption and revival. The original CTS-6X prototype emerged from General Motors' Kathil plant in 2603 under SLDF contract specifications calling for a medium fire-support BattleMech. When the initial all-energy design proved impractical due to crippling heat issues, a revised model incorporating a Gauss rifle entered full production in 2766, just before the Amaris Civil War plunged the Star League into chaos.</p><p>Following the Star League's collapse, the Cestus remained in service with the Armed Forces of the Federated Suns, its Kathil production line continuing under new political realities. This continuity ended abruptly when Capellan Confederation raiders destroyed the General Motors facility at the beginning of the Second Succession War, halting production entirely. As the Succession Wars ground on, surviving Cestus chassis became increasingly rare, and many had their Gauss rifles replaced with heavy autocannons as ammunition supplies dwindled and lostech components proved irreplaceable. A small number of Cestus 'Mechs also found their way into Clan hands during the Exodus, with Clan Fire Mandrill especially upgrading captured examples with Clan-manufactured weapons during the Golden Century.</p><p>The Clan Invasion and the subsequent technological renaissance created the conditions for the Cestus to return. General Motors rebuilt production capability at Kathil, while Blue Shot Weapons on Solaris VII obtained a manufacturing license and began producing the design under Lyran Alliance oversight. The Cestus quickly found favor across the Federated Commonwealth, with General Motors ensuring every major AFFS command received at least one. Blue Shot Weapons found a ready market along the Lyran border with the Jade Falcon occupation zone, selling to Lyran Alliance units as well as diverse mercenary commands including the Kell Hounds and the Dioscuri. In 3063, Archon Katherine Steiner-Davion gifted a mixed lance of Cestus variants to the Mobile Fire mercenary command.</p><p>Despite its popularity in the Draconis March proving tepid, the Cestus established itself firmly in the Capellan March and the rimward Combat Zones of the Crucis March. Blue Shot Weapons continued to experiment with the chassis, developing close-combat and autocannon-based configurations to broaden the design's market appeal, particularly within the gladiatorial arenas of Solaris VII where the Cestus's hand actuators made it a crowd favorite.</p>
+
+manufacturer:General Motors|Blue Shot Weapons
+
+primaryfactory:Kathil|Solaris VII
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:GM
+systemmode:CHASSIS:Heavy CVA
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:260 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Special Heavy
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Thalia HM-22
+systemmanufacturer:TARGETING:Salamander Systems
+systemmode:TARGETING:CommPhase Unit

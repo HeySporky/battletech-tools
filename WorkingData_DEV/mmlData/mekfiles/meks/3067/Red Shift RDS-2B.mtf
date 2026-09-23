@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cd7a-7a3f-bdd8-a2bd64640745
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Red Shift
+model:RDS-2B
+mul id:4907
+
+Config:Biped
+techbase:Inner Sphere
+era:3063
+source:TR:3067,TR:J
+published:RS:J
+rules level:2
+role:Striker
+
+quirk:bad_rep_is
+quirk:low_profile
+quirk:imp_com
+weaponquirk:accurate:HD:3:ISTAG
+
+mass:20
+engine:180 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:9
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:8
+RT armor:8
+CT armor:9
+HD armor:9
+LL armor:8
+RL armor:8
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:3
+Medium Pulse Laser, Left Arm
+Medium Pulse Laser, Right Arm
+TAG, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISMediumPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISMediumPulseLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+BeagleActiveProbe
+BeagleActiveProbe
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISTAG
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Red Shift was introduced in 3062 as the first BattleMech produced by Leopard Armor, a venerable Terran vehicle manufacturer that transitioned to BattleMech production under the Word of Blake. Primarily conceived as a TAG spotter for combined-arms formations reliant on Arrow IV artillery, the twenty-ton design filled a critical tactical niche within the Word of Blake Militia. The Red Shift's development was driven by the need to complement Leopard Armor's own Padilla Heavy Artillery Tank, creating an integrated targeting and fire support partnership. Despite its narrow specialization, the Red Shift proved effective enough to see widespread distribution across the Militia, establishing Leopard Armor as a capable BattleMech manufacturer.</p>
+
+capabilities:<p>The Red Shift's design philosophy centers entirely around its TAG targeting system, making it one of the few light BattleMechs purpose-built as an artillery spotter. A GM 180 XL extralight engine drives the twenty-ton chassis to speeds exceeding 150 kilometers per hour, giving it the agility to reach forward observation positions and evade enemy fire. The Leopard Mark I endo steel frame saves critical weight that is allocated to four tons of StarSlab/1 ferro-fibrous armor, providing impressive protection for a design in its weight class.</p><p>The Guardian ECM suite serves a dual purpose, shielding both the Red Shift and the Padilla artillery vehicles it supports from advanced electronic warfare systems such as Artemis IV and C3 networks. For self-defense, two Tronel XII medium pulse lasers provide accurate close-range firepower, their enhanced tracking capability proving particularly effective against other fast-moving light 'Mechs and vehicles. Ten double heat sinks manage waste heat efficiently, allowing the MechWarrior to fire both lasers while maintaining full speed.</p><p>The design's primary weakness lies in its narrow mission profile, as the Red Shift contributes relatively little direct firepower to engagements where artillery support is unavailable or unnecessary.</p>
+
+deployment:<p>Introduced in 3063, this variant trades the Guardian ECM suite for a Beagle Active Probe, shifting the design toward a more dedicated reconnaissance role. This modification allows the variant to detect hidden enemy units, including those employing stealth or electronic concealment systems, while retaining the TAG and medium pulse laser armament of the base model. Approximately two out of every five Red Shifts produced were completed as this variant, and the Word of Blake Militia frequently deployed them as replacements for aging Mongoose scouts.</p>
+
+history:<p>The Red Shift's origins are deeply intertwined with the Word of Blake's consolidation of power on Terra. When the Blakists seized control of the Terran system from ComStar in the late 3050s, Leopard Armor, a venerable vehicle manufacturer based in North Africa, simply transferred its contracts to the new regime. The company had maintained a long history of producing combat vehicles for both the Terran Hegemony and ComStar, including the Demon, Rhino, and Padilla Heavy Artillery Tank.</p><p>Following the restart of Padilla production for the Word of Blake Militia around 3058, Leopard Armor's design team undertook the ambitious challenge of developing a BattleMech specifically to complement the heavy artillery tank. The result was the Red Shift, which entered production in 3062 as the company's first foray into BattleMech manufacturing. The design's emphasis on TAG spotting for Arrow IV artillery systems reflected a deliberate effort to recreate combined-arms tactics dating back to the original Star League era.</p><p>The Red Shift saw rapid deployment across the Word of Blake Militia, with every division receiving at least some examples of the design. During the Jihad, Red Shifts served on numerous fronts, often operating in tandem with Padilla batteries. On Outreach in 3068, a Red Shift gained notoriety harassing Wolf's Dragoons guerrilla forces during the Second Battle of Outreach, directing artillery fire and leading defenders into ambushes throughout the campaign.</p><p>Production of all Red Shift variants ceased with the destruction of the Word of Blake during the Jihad's conclusion. The Leopard Armor facility on Terra subsequently fell under Republic of the Sphere control, but Red Shift production was not resumed. Surviving examples became increasingly rare in the post-Jihad era, though the design's specialized nature meant few operators had reason to seek them out without access to Arrow IV-equipped support vehicles.</p>
+
+manufacturer:Leopard Armor
+
+primaryfactory:Terra
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Leopard
+systemmode:CHASSIS:Leopard Mark I Endo Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:180 XL
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:StarSlab/1 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Teldon
+systemmode:COMMUNICATIONS:Teldon 33
+systemmanufacturer:TARGETING:Scope
+systemmode:TARGETING:Scope 85 RDNST with TAG

@@ -1,0 +1,218 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d330-7829-bf50-3ac88af93c3b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Scarecrow
+model:UCU-F4
+mul id:6336
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3099
+source:TR:3145:FS,TR:DA
+published:RS:DA
+rules level:4
+role:Brawler
+
+quirk:bad_rep_is
+quirk:difficult_maintain
+quirk:no_arms
+
+mass:40
+engine:200 XL Engine(IS)
+structure:IS Endo-Composite
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Compact Gyro
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:3
+
+armor:Standard(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:14
+RT armor:14
+CT armor:18
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:19
+Anti-BattleArmor Pods (B-Pods), Left Leg
+Anti-BattleArmor Pods (B-Pods), Right Leg
+ER Medium Laser, Left Arm
+Medium Pulse Laser, Left Arm
+Light Machine Gun, Left Arm
+Light Machine Gun, Left Arm
+Light Machine Gun, Left Arm
+Light Machine Gun, Left Arm
+Light Machine Gun Array, Left Arm
+ER Medium Laser, Right Arm
+Medium Pulse Laser, Right Arm
+Light Machine Gun, Right Arm
+Light Machine Gun, Right Arm
+Light Machine Gun, Right Arm
+Light Machine Gun, Right Arm
+Light Machine Gun Array, Right Arm
+ER Medium Laser, Center Torso
+ER Flamer, Center Torso
+ER Flamer, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLERMediumLaser
+ISMediumPulseLaser
+CLLightMG
+CLLightMG
+CLLightMG
+CLLightMG
+CLLMGA
+IS Endo-Composite
+IS Endo-Composite
+Chameleon Light Polarization Shield
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLERMediumLaser
+ISMediumPulseLaser
+CLLightMG
+CLLightMG
+CLLightMG
+CLLightMG
+CLLMGA
+IS Endo-Composite
+IS Endo-Composite
+Chameleon Light Polarization Shield
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+BloodhoundActiveProbe
+IS Endo-Composite
+Chameleon Light Polarization Shield
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Jump Jet
+Clan Light Machine Gun Ammo - Half
+ISCASEII
+IS Endo-Composite
+IS Endo-Composite
+Chameleon Light Polarization Shield
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+CLERMediumLaser
+ER Flamer
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+ER Flamer
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISBPod
+Chameleon Light Polarization Shield
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISBPod
+Chameleon Light Polarization Shield
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Scarecrow is a rare, mixed-technology medium BattleMech introduced in 3099 by Corean Enterprises at their Augusta facility. Designed exclusively for the Armed Forces of the Federated Suns, the Scarecrow was purpose-built for a single grim mission: the eradication of enemy infantry. Combining advanced technology from multiple sources, including Clan-specification weapons manufactured under license, the design is a deliberate and controversial approach to anti-infantry warfare that has drawn both praise from military planners and condemnation from humanitarian organizations. Few Scarecrows are known to exist, and the design has never been observed outside Federated Suns service.</p>
+
+capabilities:<p>Built on a Corean Model 000 endo-composite chassis and powered by a GM 200 XL engine, the Scarecrow achieves a top speed of 86 kph, supplemented by three Rawlings 80 jump jets providing 90 meters of jump capability. While not fast by medium BattleMech standards, the Scarecrow is more than quick enough to run down any conventional infantry formation. A compact gyroscope frees internal volume for the design's extensive weapons suite and electronic warfare systems.</p><p>The Scarecrow carries an impressive anti-infantry arsenal. Three ExoStar Pinnacle Clan-specification extended-range medium lasers provide accurate fire at range, while two Omicron 950 medium pulse lasers deliver punishing close-range salvos. Eight GM Ultralight Clan light machine guns, paired in two Corean Bulletstorm machine gun arrays, shred unarmored infantry with devastating efficiency. Two Zippo Longtorch extended-range flamers flush entrenched troops from cover, and two Federated Mantrap anti-battle armor pods ensure even armored infantry cannot safely close. Eight tons of StarGuard III armor with CASE II protection provides adequate survivability, while a Chameleon Light Polarization Shield and Bloodhound Active Probe allow the Scarecrow to hunt its prey undetected.</p><p>The Scarecrow's extreme specialization is also its greatest weakness. The design carries no weapons effective against hardened targets, leaving it dangerously vulnerable in any engagement against other BattleMechs or combat vehicles. Its armor, sufficient to shrug off small arms fire, offers little protection against autocannon or PPC fire, and the reliance on an XL engine means that a single unlucky torso hit can end the engagement. Pilots assigned to the Scarecrow must rely entirely on stealth and mobility to avoid enemy heavy assets, and any breakdown in situational awareness can prove fatal.</p>
+
+deployment:<p>The base UCU-F4 Scarecrow is fielded exclusively by specialized AFFS anti-infantry formations, typically operating in pairs or lances attached to larger combined-arms task forces. These units are deployed to contested worlds where enemy infantry concentrations threaten supply lines, forward bases, or civilian populations. The Scarecrow's stealth systems allow it to operate ahead of friendly lines, identifying and eliminating infantry formations before they can entrench or disperse. Field commanders value the design for its ability to clear urban districts and dense terrain that would otherwise require costly infantry-on-infantry operations, though its complete dependence on friendly units for protection against armored threats limits its independent operational range.</p>
+
+history:<p>The Scarecrow emerged from a classified Corean Enterprises program in the late thirty-first century, entering production in 3099. Incorporating both Clan and Inner Sphere technology, including Clan-specification weapons manufactured under license by Corean and General Motors, the design pushed the boundaries of what the AFFS was willing to field. The AFFS deliberately kept the design secret, officially denying its existence for over four decades. This secrecy reflected the political sensitivity surrounding a BattleMech designed explicitly to kill infantry, a role that attracted criticism from humanitarian organizations and foreign governments alike.</p><p>The most storied, if unverified, deployment of the Scarecrow took place on McComb over a fifteen-year period. Draconis Combine Mustered Soldiery infantrymen deployed to raid the world propagated the legend of the Dragon of Gorman Heights, a spectral figure of fire and steel said to appear and annihilate entire platoons of foot soldiers. While never officially confirmed, most analysts believe repeated Scarecrow deployments designed to attack DCMS infantry on a psychological scale reinforced this legend.</p><p>When the AFFS finally acknowledged the Scarecrow in the 3140s, humanitarian agencies condemned its deployment, arguing that a BattleMech designed solely to kill infantry crossed ethical boundaries. The AFFS largely dismissed these complaints, with defenders of the program citing the long history of anti-infantry designs stretching back to machines like the Piranha and the Stinger. Reports place Scarecrows along the Periphery March border, suggesting the AFFS intends to use them to dissuade pirate attacks, though the pressures of Capellan and Combine incursions make broader deployment likely only a matter of time.</p>
+
+manufacturer:Corean Enterprises
+
+primaryfactory:Augusta
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Corean
+systemmode:CHASSIS:Model 000 Endo-Composite
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:200 XL
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:III with CASE II
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:80
+systemmanufacturer:COMMUNICATIONS:Achernar Electronics
+systemmode:COMMUNICATIONS:HID-13 Tight Channel
+systemmanufacturer:TARGETING:Federated Stalker
+systemmode:TARGETING:with Bloodhound Active Probe

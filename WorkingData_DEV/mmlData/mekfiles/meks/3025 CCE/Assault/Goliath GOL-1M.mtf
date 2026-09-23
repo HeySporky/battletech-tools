@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c11f-754d-ba30-8b8dc7ecba60
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Goliath
+model:GOL-1M
+
+Config:Quad
+techbase:Inner Sphere
+era:3025
+source:TR:3025C
+rules level:1
+role:Missile Boat
+
+quirk:exp_actuator
+quirk:multi_trac
+
+mass:80
+engine:320 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:13 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+FLL armor:24
+FRL armor:24
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+RLL armor:30
+RRL armor:30
+RTL armor:13
+RTR armor:13
+RTC armor:19
+
+Weapons:4
+LRM 10, Left Torso
+PPC, Right Torso
+LRM 10, Right Torso
+LRM 10, Center Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+LRM 10
+LRM 10
+IS Ammo LRM-10
+IS Ammo LRM-10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+PPC
+PPC
+PPC
+LRM 10
+LRM 10
+IS Ammo LRM-10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 10
+LRM 10
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Goliath is an eighty-ton quad assault BattleMech introduced in 2652 by Brigadier Corporation. Designed as a larger, more capable successor to the troubled Scorpion, the Goliath overcame the engineering challenges that had plagued earlier four-legged designs to become a quality fire-support platform. Despite its proven performance, the Goliath struggled to find buyers during the Star League era, as the stigma of earlier quad designs made it a hard sell to procurement officers accustomed to bipedal chassis. Production remained limited for over a century before the design earned renewed respect, with multiple manufacturers producing updated variants from the late 3060s onward.</p>
+
+capabilities:<p>The Goliath is a steady fire-support unit, with a PPC and dual LRM racks providing good ranged firepower. At 64 kph, it can keep up with heavy units and some lighter 'Mechs, while almost fifteen tons of armor let it take quite a beating. One of the strongest points of the Goliath is the number of heat sinks that allows it to keep up almost a constant rate of fire. Up close, the Goliath suffers. Dual machine guns might be good at fending off infantry, but against armored units they are almost useless, while the long-ranged weaponry is inaccurate.</p><p>The quad chassis provides superior stability when firing on the move, reducing the accuracy penalties that plague bipedal designs traversing rough terrain. This makes the Goliath an exceptional platform for sustained bombardment from elevated positions, where its wide stance keeps the weapons array level even on uneven ground. However, the quad layout limits the design's ability to mount arm-based weapons, forcing engineers to concentrate firepower in the torso and head locations. The lack of hands also means the Goliath cannot engage in melee combat or manipulate objects, a significant limitation during urban operations where versatility is prized.</p>
+
+deployment:<p>The only documented variant of the original Goliath was an attempt to increase the 'Mech's armor past 18 tons by dropping four heat sinks. Ultimately, the torsos were already armored to their structural maximum, so the machine guns were replaced by a third LRM launcher to create this variant. The result trades anti-infantry capability for additional long-range missile firepower, making it a more dedicated fire-support platform.</p>
+
+history:<p>Brigadier Corporation developed the Goliath in 2652 as the second of their quad BattleMech designs, building on lessons learned from the unsuccessful Scorpion and the Xanthos. While the Scorpion was not a good design, it also had to contend with the fundamental challenges of a four-legged chassis. By learning from their failures, Brigadier's engineers were not only able to overcome many of the problems that the Scorpion suffered from but also to produce a quality design. The questionable reputation of the Scorpion made the Goliath a hard sell, however, and the Star League passed on the design. After over a century of good but limited service in the Periphery and House armies, the League inquired about purchasing some Goliaths, but the deal fell through as the Amaris Coup and the dissolution of the Star League occurred.</p><p>The Goliath weighs in at 80 tons, allowing it to carry a much heavier weapons payload and armor than the Scorpion at the cost of mobility. Very few Goliaths remain from the original production run, and most of those are split between Lyran units and the Free Worlds League. The Lyran Commonwealth put a priority on maintaining their Goliaths while Corean manufactures a few new Goliaths each year. Defiance Industries makes spare parts for the Goliath and has discussed manufacturing it, but held out for an upgraded design before beginning production.</p><p>Despite the rarity of the 'Mech, it has been involved in many important battles. In a 2901 battle for Sirius, a Marik Goliath was the centerpiece in their attack on a Liao position, disabling a BattleMaster and a pair of Shadow Hawks and pushing the Capellan line back forty kilometers. During the Fourth Succession War, Captain Andrew Redburn's Delta Company annihilated the Fifth Capellan Chargers - 'Cochraine's Goliaths' - on St. Andre.</p><p>In the late 3060s the Goliath saw renewed production and renewed popularity and has since become a powerful and respected assault 'Mech. In 3143, the Corean Enterprises - MacAdams-Suharno plant on Stewart was captured by Clan Wolf, and its GOL-6M variant production line was converted to produce a Clan version of the 'Mech.</p>
+
+manufacturer:Brigadier Corporation|Corean Enterprises - MacAdams-Suharno
+
+primaryfactory:Oliver|Stewart
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Corean
+systemmode:CHASSIS:VIII
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:320
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:/3
+systemmanufacturer:COMMUNICATIONS:Corean
+systemmode:COMMUNICATIONS:TransBand-J9
+systemmanufacturer:TARGETING:Corean
+systemmode:TARGETING:B-Tech

@@ -1,0 +1,274 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab6a-7440-92d0-4848f33d55fa
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Arcadia
+</Name>
+
+<Model>
+(3066)
+</Model>
+
+<mul id:>
+3716
+</mul id:>
+
+<year>
+3066
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+ProtoMekBay:1.0:1:1::-1:0
+ProtoMekBay:1.0:1:2::-1:0
+ProtoMekBay:1.0:1:3::-1:0
+crewquarters:91.0:0:-1::-1:0
+steeragequarters:0.0:0:-1::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+2ndclassquarters:630.0:0:-1::-1:0
+cargobay:197.5:2:8::-1:0
+</transporters>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<heatsinks>
+214
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+6000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+351
+211
+211
+261
+</armor>
+
+<Nose Equipment>
+(B) CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+(B) CLATM12
+CLATM12
+Clan Ammo ATM-12 ER:10
+Clan Ammo ATM-12 HE:10
+Clan Ammo ATM-12:10
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+(B) CLUltraAC20
+CLUltraAC20
+Clan Ultra AC/20 Ammo:40
+(B) CLATM9
+CLATM9
+Clan Ammo ATM-9 ER:14
+Clan Ammo ATM-9 HE:14
+Clan Ammo ATM-9:14
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+(B) CLUltraAC20
+CLUltraAC20
+Clan Ultra AC/20 Ammo:40
+(B) CLATM9
+CLATM9
+Clan Ammo ATM-9 ER:14
+Clan Ammo ATM-9 HE:14
+Clan Ammo ATM-9:14
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:45
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+11
+</structural_integrity>
+
+<capabilities>
+<p>The Arcadia mounts an impressive arsenal of advanced Clan weaponry across all firing arcs, taking full advantage of the newest technology available. The nose concentrates four Heavy Large Lasers, five Heavy Medium Lasers, and a pair of ATM-12 launchers, providing devastating firepower at multiple range bands. Each broadside carries three Heavy Large Lasers, five Heavy Medium Lasers, two Ultra AC/20s, and two ATM-9 racks. The aft arc is defended by five Heavy Medium Lasers and three Streak SRM-6 launchers. Two hundred fourteen double heat sinks manage the substantial thermal output of this weapons suite.</p><p>The vessel carries bay space for three Points of ProtoMechs along with nearly two hundred tons of cargo capacity. A crew of one hundred fourteen operates the vessel. With a safe thrust of six and structural integrity of eleven, the Arcadia matches or exceeds the maneuverability of most Clan aerospace fighters while carrying armor protection totaling over a thousand points across all arcs.</p>
+</capabilities>
+
+<overview>
+<p>The Arcadia class assault DropShip is a dedicated ProtoMech transport developed through a rare cooperative venture between two Clans in the mid-3060s. Named after a recently reclaimed enclave on a Pentagon world, this 3,000-ton Aerodyne was purpose-built to deliver Clan forces for Trials of Possession rather than large-scale invasions. Exceptionally fast for its size, the Arcadia is one of the most agile DropShips in any Clan fleet, capable of outrunning most other DropShips and matching the speed of many aerospace fighter designs.</p><p>The design's compact size and devastating armament allow it to evade superior forces when safcon is denied while still possessing enough firepower to overwhelm anything that attempts to intercept it. This combination of speed, firepower, and specialized transport capability makes the Arcadia an ideal tool for a resource-limited Clan seeking to maximize the impact of every engagement.</p>
+</overview>
+
+<deployment>
+<p>The original Arcadia entered service exclusively with Clan Blood Spirit in 3066, operating from their limited holdings in the Clan Homeworlds. These vessels were employed to prosecute Trials of Possession against neighboring Clans, delivering ProtoMech forces to contested objectives with speed and precision. The Arcadia's exceptional agility allowed Blood Spirit commanders to choose their engagements carefully, avoiding unfavorable encounters with superior naval forces while striking at objectives of opportunity.</p>
+</deployment>
+
+<history>
+<p>The Arcadia class originated from a proposal made in early 3064, when Clan Blood Spirit approached Clan Snow Raven with an unusual bargain. In exchange for full disclosure of the Blood Spirits' advanced ProtoMech expertise and pilot training program, the Snow Ravens would design and build a new DropShip tailored to Blood Spirit needs. The Blood Spirits had pursued ProtoMech technology with greater dedication than any other Clan, and their knowledge represented a significant prize. The Snow Ravens, aware of the Blood Spirits' chronically limited resources, ensured the design used components the Spirits already had on hand and could maintain independently.</p><p>The resulting vessel entered service in 3066, giving the Blood Spirits a uniquely capable platform for prosecuting their Trials of Possession. No other Clan had developed a dedicated ProtoMech transport DropShip, and the Arcadia gave the Blood Spirits a tactical advantage that partially offset their material shortcomings. Clan Blood Spirit remained the only known operator of the class, fielding them alongside their limited naval assets in the Clan Homeworlds.</p><p>Following the devastating Wars of Reaving that consumed the Homeworld Clans, no further information regarding the disposition of the Arcadia class or its operators became available to Inner Sphere intelligence agencies. The fate of both the Blood Spirits and their unique DropShip fleet remains unknown.</p>
+</history>
+
+<manufacturer>
+Rumiko Yards|United Outworlders Corporation
+</manufacturer>
+
+<primaryFactory>
+Lum|Ramora
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+3000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+103
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+8
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+2
+</escape_pod>
+

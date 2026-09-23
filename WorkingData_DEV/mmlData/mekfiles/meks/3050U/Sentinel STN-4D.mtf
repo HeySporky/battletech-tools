@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c691-7ed2-aebe-513f2e50cdf4
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Sentinel
+model:STN-4D
+mul id:2863
+
+Config:Biped
+techbase:Inner Sphere
+era:3063
+source:TR:3050,TR:3050U
+published:RS:3050Uu-C
+rules level:2
+role:Striker
+
+quirk:imp_com
+
+mass:40
+engine:240 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:15
+RT armor:15
+CT armor:19
+HD armor:9
+LL armor:14
+RL armor:14
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:2
+Rotary AC/5, Left Arm
+ER Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Sentinel is a forty-ton medium BattleMech designed by Defiance Industries as a dedicated infantry support and installation defense platform. Introduced in 2651 under an exclusive contract for the Lyran Commonwealth, the design became embroiled in Star League politics almost immediately when a League Council amendment the following year allowed the Star League Defense Force to purchase a significantly more advanced variant. Houses Steiner, Marik, and Davion, along with the SLDF itself, all acquired variants of the Sentinel for use as low-cost garrison and infantry support units.</p><p>The Sentinel suffered badly during the Succession Wars as technological decline stripped away its most capable systems, and production was discontinued entirely in 3014. The design was unexpectedly revived through ComStar stockpiles and the recovery of lostech, ensuring that the Sentinel remained an active, if unglamorous, presence on battlefields well into the thirty-second century.</p>
+
+capabilities:<p>Sitting at the light end of the medium weight class, the Sentinel mounts a Pitban 240 fusion engine that propels the chassis to a respectable top speed of just under one hundred kilometers per hour. Five and a half tons of Valiant Lamellor standard armor provides adequate protection against infantry weapons and light vehicle fire, well suited to the design's intended infantry support role. The chassis carries no jump jets, relying instead on its speed for tactical repositioning.</p><p>The Star League era STN-3L variant, which serves as the design's baseline, pairs a Kawabata Weapons Industries Ultra Autocannon/5 with a Defiance Streak SRM-2 launcher and a small laser. The ultra autocannon's ability to fire at double the normal rate makes the Sentinel surprisingly dangerous at range for its tonnage, while the Streak launcher ensures efficient missile expenditure. However, a chronic ammunition feed problem plaguing the SRM system, caused by a repositioned ammo feed mechanism after the swap from the A-1 to B-1A small laser, has proven one of the design's most persistent weaknesses. MechWarriors discovered they could clear a jam by thumping the chest with the right fist, but opponents quickly learned to concentrate fire on any Sentinel performing this maneuver.</p><p>The StarLink/Benicia Model AS829G communications system and Targa-7, Vid-Com-17 targeting and tracking system are especially capable for a design of this size, making the Sentinel well suited for long-range patrols and mobile observation duties where maintaining contact with supporting artillery and command elements is critical.</p>
+
+deployment:<p>Introduced in the early 3060s, this variant is a radical Federated Suns-oriented redesign of the Sentinel. Endo-steel internal structure, ferro-fibrous armor, and double heat sinks allowed for a substantial increase in armor protection while completely revamping the weapons suite. The autocannon was replaced with a devastating Rotary Autocannon/5, and an ER medium laser provides backup firepower. The combination of improved protection and the rotary autocannon's withering rate of fire makes the 4D a far more dangerous opponent than its predecessors, though it remains limited by the same speed and mobility profile.</p>
+
+history:<p>The Sentinel's origins lie in a 2651 contract between the Lyran Commonwealth and Defiance Industries, then a largely Terran Hegemony-controlled corporation operating on Lyran soil. House Steiner commissioned the design as an infantry support platform, and Lyran diplomats successfully argued that the arrangement was mutually beneficial to both Star League realms. However, a Star League Council amendment in 2652 opened the door for SLDF procurement, and Defiance quickly produced a far more advanced variant for the League military. The upgraded SLDF Sentinels were slow to reach LCAF buyers due to contractual stipulations from Defiance's original deal with House Steiner, a slight that was not lost on the Lyran leadership.</p><p>The Succession Wars proved devastating for the Sentinel program. Defiance Industries gradually lost the ability to manufacture the design's advanced weapon systems, forcing production of the downgraded STN-3K variant with its standard autocannon and conventional missile launcher. Changing LCAF procurement priorities favoring heavier BattleMechs further reduced demand, and the combination of parts shortages and declining interest led Defiance to shut down the Sentinel line entirely in 3014. The factory was later retooled to produce the Hatchetman. The few remaining Sentinels were often consigned to backwater garrisons or stripped for components to maintain more favored designs, and many believed the design would simply fade into obsolescence.</p><p>The Sentinel's fortunes shifted dramatically with the revelation of the Com Guards and Ghost Regiments within the Draconis Combine. ComStar had maintained a substantial stockpile of SLDF-era materiel and provided modified Sentinels to the Combine as part of Operation ROSEBUD. The War of 3039 saw nearly a hundred new machines appear in the ranks of the Ghost Regiments, some even bearing their original rapid-fire autocannons, shocking both Davion and Steiner forces who had assumed the design was effectively extinct. The hereditary BattleMech philosophy, in which increasingly rare machines were passed from one generation of a family to the next, also kept scattered Sentinels operational across the Inner Sphere.</p><p>The discovery of the Helm Memory Core and the gradual unlocking of Star League technology allowed Defiance Industries to reintroduce the original Star League-specification Sentinel in the mid-3050s. New variants emerged during the 3060s, including the Federated Suns-oriented STN-4D with its rotary autocannon and the Combine's C3-equipped STN-C. The Jihad saw Defiance Industries' Hesperus II facilities fall under Word of Blake control, and the occupiers produced the STN-5WB variant with its light fusion engine and enhanced weapons array before the factory was eventually liberated.</p><p>In the Dark Age era, the Sentinel continued to evolve. The STN-6S variant incorporated Clan-specification technology including a Clan XL engine, which ironically made the design a target for salvagers seeking to repurpose the valuable powerplant for larger chassis such as Riflemen and Awesomes. Despite its troubled history and modest reputation, the Sentinel has endured across nearly five centuries of conflict, a sign of the fundamental soundness of its infantry support role even as the specifics of its implementation have changed repeatedly.</p>
+
+manufacturer:Defiance Industries
+
+primaryfactory:Hesperus II
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Defiance Industries
+systemmode:CHASSIS:Unknown (Endo Steel)
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:240
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Ferro-Fibrous)
+systemmanufacturer:COMMUNICATIONS:StarLink/Benicia
+systemmode:COMMUNICATIONS:Model AS829G
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Targa-7, Vid-Com-17

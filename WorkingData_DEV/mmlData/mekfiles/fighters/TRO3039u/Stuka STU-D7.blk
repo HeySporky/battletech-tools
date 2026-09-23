@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad7c-700c-9b09-3f95893d8d51
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Stuka
+</Name>
+
+<Model>
+STU-D7
+</Model>
+
+<mul id:>
+3107
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+21
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+80
+45
+45
+46
+</armor>
+
+<Nose Equipment>
+LRM 20
+ISArtemisIV
+SRM 6
+ISArtemisIV
+SRM 6
+ISArtemisIV
+ISERMediumLaser
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISRotaryAC5
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISRotaryAC5
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISERMediumLaser
+ISERMediumLaser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+IS Ammo SRM-6 Artemis-capable
+IS Ammo SRM-6 Artemis-capable
+IS Ammo SRM-6 Artemis-capable
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Stuka is built around resilience and sustained firepower. At one hundred tons, it sits at the upper limit of heavy aerospace fighter classification, its Lycomb 11 frame designed to carry that mass in structural load capacity. A GM 300ATF power plant drives the craft to respectable speeds for its weight class, while the Monitor 200 guidance system (integrated with the O/P 9000AT communications suite and O/P 2500TGFD targeting system) provides atmospheric maneuverability that belies the fighter's bulk.</p><p>The STU-K5's weapons loadout spans multiple ranges. The nose mounts a Simpson LRM-20 rack and Holly SRM-4 with a Martell medium laser, while each wing carries two Exostar large lasers providing the primary striking power at range. Two rear-facing Martell medium lasers deter pursuit. Fifteen tons of AeroScale Plus armor give the Stuka the durability to weather engagements that would destroy lighter designs, and thirty single heat sinks manage the wing laser heat load with reserve capacity for extended operations.</p><p>The trade-off is offensive punch relative to weight. A well-armed medium fighter can often outgun the Stuka at comparable ranges, and pilots are expected to compensate through superior durability and endurance rather than raw firepower. The design's strengths lie in its ability to absorb damage, remain on station, and sustain weapons output long after lighter opponents are forced to disengage.</p>
+</capabilities>
+
+<overview>
+<p>The Stuka entered service with the Terran Hegemony in 2530, developed by Lycomb IntraTechnologies as a heavy aerospace fighter purpose-built for sustained combat operations. Where lighter designs trade armor for speed, the Stuka was engineered to endure, a ground attack platform capable of absorbing punishment as readily as it delivers it. When the newly formed Star League Defense Force demanded expanded production to support the Reunification War, the type proved its worth quickly, and the SLDF's investment in the design established a production legacy that would outlast the Star League itself. Federated Suns forces have long maintained a monopoly on its manufacture, a strategic advantage that shaped aerospace doctrine across the Inner Sphere for centuries. The fighter's silhouette became synonymous with Davion air supremacy, and its reputation for durability secured its place as one of the Inner Sphere's most recognizable and enduring heavy fighters.</p>
+</overview>
+
+<deployment>
+<p>The D7 uses the D6 as its foundation, introducing technology developed in the aftermath of the FedCom Civil War. LRM launchers are replaced by RAC/5 rotary autocannons, and the large laser batteries give way to ER medium lasers distributed across the nose, wings, and aft arc. Artemis IV fire control enhances the remaining missile launchers, and twenty-one double heat sinks manage the considerable heat generated by the combined loadout. Produced at New Avalon, the D7 becomes the primary long-term Stuka production variant, remaining in continuous manufacture through the Dark Age and ilClan eras. It serves across a wide range of Federated Suns formations and sees limited distribution to allied commands.</p>
+</deployment>
+
+<history>
+<p>Lycomb IntraTechnologies developed the Stuka in 2530 under contract to the Terran Hegemony, producing the initial run from facilities on Terra. The design proved capable enough that when the newly formed Star League Defense Force sought a heavy ground attack platform for the Reunification War, the Stuka was the natural choice. To meet SLDF demand, Lycomb opened a second production line on Demeter; a world that would prove central to the fighter's survival across the centuries that followed.</p><p>As the Star League fractured and the Amaris Civil War consumed the Inner Sphere, the Terra facility was destroyed during the Coup. The Federated Suns had quietly acquired control of the company's assets during the First Succession War and, acting on sound military foresight, had already begun duplicating the Demeter production infrastructure on New Avalon. When House Liao struck the Demeter facilities in 2795, hoping to deny the Armed Forces of the Federated Suns a critical supplier, the Capellan strike destroyed the factory but missed its strategic goal entirely. The New Avalon line was nearly complete. Within years, the renamed Lycomb-Davion IntroTech held the only active Stuka production in the Inner Sphere, a monopoly the Federated Suns would guard for generations.</p><p>The Stuka's combat record through the Succession Wars carved its reputation in stone. In 2899, a fighter wing of Stukas was at the center of the Fifteenth Sword of Light's combat drop over Quentin. The operation ended in disaster for the DCMS: the Stukas tore through the heavily laden Kurita DropShips as they struggled to maneuver in Quentin's upper atmosphere, and the Fifteenth was struck from the rolls. The battle carries an enduring historical mystery. The DCMS never publicly clarified which regiment the Fifteenth actually was, and the ISF apparently saw no reason to correct the record. Given that the DCMS had reduced its twelve Sword of Light regiments to five in 2740, the identity of the obliterated unit remains a deliberate gap in official history.</p><p>By 2930, Stukas were carrying out more conventional ground support operations. Avalon Hussars fighters employed them to bomb and strafe Liao defenders during the fighting on Lee, pressing Davion advances and contributing to the Federated Suns' capture of that world. The engagement became a textbook example of the Stuka's ground attack doctrine in practice.</p><p>In 2999, the type played a central role in a Davion intelligence operation. False information planted by House Davion agents lured a DCMS strike force into position at Kesai IV. When Kurita fighters returned from ground attack missions (low on fuel and ammunition) a waiting Stuka wing sprang the ambush and decimated the formation. Actions like this cemented the Stuka's reputation in Kurita military doctrine as a threat demanding dedicated countermeasures.</p><p>The Stuka's association with Wolf's Dragoons added an unusual chapter to its history. When the Draconis Combine attempted to forcibly absorb the mercenary command following the expiration of their contract, Stuka pilots loyal to the Dragoons flew escort for the evacuation of Dragoon dependents to the Federated Suns. One of the handful of non-Davion pilots operating the type flew an all-black Stuka that went on to destroy more Kurita fighters during the evacuation fighting than many Davion units had managed in prior engagements combined - a result the DCMS found particularly galling.</p><p>The Jihad brought significant damage to the New Avalon facilities. Lycomb-Davion IntroTech was operating at roughly one third of pre-war efficiency by 3079. Recovery came through the Castle Avalon reconstruction program, which directed substantial funding toward New Avalon's manufacturing base. With Johnston Industries struggling to restore full Dagger OmniFighter output, the AFFS prioritized the Stuka lines as a compensating measure. The later dissemination of the New Dallas Memory Core allowed the Royal STU-K5b (long lost with the Star League) to re-enter production, expanding the line's capabilities for the first time in generations.</p>
+</history>
+
+<manufacturer>
+Lycomb-Davion IntroTech
+</manufacturer>
+
+<primaryFactory>
+New Avalon
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Lycomb-Davion IntroTech
+ENGINE:General Motors
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Lycomb 11
+ENGINE:300 XL
+ARMOR:AeroScale Plus
+JUMP_JET:N/A
+COMMUNICATIONS:O/P 9000AT
+TARGETING:O/P 2500TGFD
+</systemModels>
+
+<notes>
+This variant is unique to the MUL as it has the ER PPCs. But I've adjusted the dates to make things work.
+</notes>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+100.0
+</tonnage>
+

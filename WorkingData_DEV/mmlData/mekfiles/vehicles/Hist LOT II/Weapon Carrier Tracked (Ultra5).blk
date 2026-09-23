@@ -1,0 +1,157 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e926-7b44-a1e5-e5cc74833e5e
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Weapon Carrier (Tracked)
+</Name>
+
+<Model>
+(Ultra/5)
+</Model>
+
+<mul id:>
+6777
+</mul id:>
+
+<year>
+2775
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Sniper
+</role>
+
+<quirks>
+trailer_hitch
+difficult_maintain
+poor_work
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+35
+35
+35
+11
+</armor>
+
+<Body Equipment>
+IS Ammo LRM-5
+IS Ultra AC/5 Ammo
+IS Ultra AC/5 Ammo
+IS Ultra AC/5 Ammo
+IS Ultra AC/5 Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISUltraAC5
+ISUltraAC5
+ISUltraAC5
+LRM 5
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Ultra/5 variant mounts three Ultra AC/5 autocannons, providing sustained medium-range fire support with the option to double the rate of fire at the risk of weapon jams. A single LRM-5 launcher supplements the autocannon battery. Four tons of Ultra AC/5 ammunition provide adequate endurance for extended engagements.</p><p>The same GM 180 fusion engine, Aldis Heavy Ferro-Fibrous armor, Initrode Widecom communications, and RCA Instatrac Mark VI targeting equip this variant. The Ultra/5 was considered the least successful of the three configurations, lacking both the devastating alpha strike of the AC/20 variant and the versatile ammunition options of the LB-X model.</p>
+</capabilities>
+
+<overview>
+<p>The Weapon Carrier is a sixty-ton tracked combat vehicle designed by SLDF engineers during the Star League Civil War as a rapidly produced fire support platform. Based on earlier Age of War primitive weapons carriers, the design was manufactured by Drago, Ltd. of Skye as one of many companies mass-producing vehicles to replace losses during the Amaris Coup. Unlike the Quikscell carrier family built around internal combustion engines and minimal protection, the Weapon Carrier utilized a fusion powerplant and ferro-fibrous armor, providing substantially greater survivability at the cost of higher production complexity.</p>
+</overview>
+
+<deployment>
+<p>The Ultra/5 variant saw the least widespread adoption of the three configurations, as commanders generally preferred the concentrated firepower of the AC/20 or the versatility of the LB-X model. Few examples survived the technology losses of the Succession Wars.</p>
+</deployment>
+
+<history>
+<p>The Weapon Carrier emerged during the Star League Civil War in 2775, when SLDF engineers needed rapidly deployable fire support vehicles to replace catastrophic losses suffered during the fighting against Amaris forces. Drago, Ltd. on Skye produced all three variants from a common chassis, each mounting different autocannon configurations to fill specific tactical roles. The LB-10X variant served as the baseline design, with the AC/20 version fulfilling an ambush role and the Ultra/5 providing sustained fire support.</p><p>The design's reliance on Star League-era technology proved its undoing. As the Succession Wars destroyed the industrial base needed to produce ferro-fibrous armor and advanced autocannon systems, production ceased during the early First Succession War. The Weapon Carrier was replaced in service by the cruder but more easily manufactured Quikscell carrier family, and surviving examples became increasingly rare battlefield finds. Design quirks including difficult maintenance requirements and poor workmanship from wartime rush production contributed to the type's rapid disappearance.</p>
+</history>
+
+<manufacturer>
+Drago, Ltd.
+</manufacturer>
+
+<primaryFactory>
+Skye
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:GM
+ARMOR:Aldis
+COMMUNICATIONS:Initrode
+TARGETING:RCA
+</systemManufacturers>
+
+<systemModels>
+ENGINE:180 Fusion
+ARMOR:Heavy Ferro-Fibrous
+COMMUNICATIONS:Widecom
+TARGETING:Instatrac Mark VI
+</systemModels>
+
+<source>
+His:LoT2
+</source>
+
+<tonnage>
+60.0
+</tonnage>
+

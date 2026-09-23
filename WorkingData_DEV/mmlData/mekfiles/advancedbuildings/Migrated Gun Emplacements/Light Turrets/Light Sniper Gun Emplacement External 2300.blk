@@ -1,0 +1,111 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a147-713e-8230-ed42f95617fe
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Light Sniper Gun Emplacement
+</Name>
+
+<Model>
+(2300) (External)
+</Model>
+
+<year>
+2300
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+20
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+Autocannon/2(ST)
+Autocannon/2(ST)
+Machine Gun(ST)
+Machine Gun(ST)
+Searchlight(ST)
+IS Ammo MG - Full
+IS Ammo AC/2
+IS Ammo AC/2
+IS Ammo AC/2
+EXTERNAL PowerGenerator:SIZE:4.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The Light Sniper Gun Emplacement in its original configuration mounts a single Autocannon/2 supported by a machine gun for close defense. The AC/2 provides effective harassment fire at long range, capable of engaging targets at distances exceeding 700 meters where heavier weapons cannot reach. This makes the emplacement well suited for observation posts and forward screening positions where early warning fire matters more than raw stopping power.</p><p>The external power dependency limits this variant to positions with reliable grid access or dedicated generator support. While this constrains deployment flexibility, it reduces the emplacement's logistical footprint and construction cost considerably. The machine gun provides a measure of anti-infantry defense, though the light armor protection means crews must rely on the emplacement's low profile and concealment rather than absorbing sustained return fire.</p>
+</capabilities>
+
+<overview>
+<p>The Sniper Gun Emplacement represents one of the oldest and most widely deployed fixed defensive structures in the Inner Sphere. Designed to provide sustained ballistic fire support from a fortified position, these emplacements serve as the backbone of perimeter defense networks around military installations, supply depots, and population centers. Their simple construction and reliance on proven autocannon technology make them accessible to any military force capable of pouring ferrocrete and mounting a turret.</p><p>Gun emplacements of this type trace their lineage to the earliest days of interstellar warfare, when border garrisons needed affordable, reliable defensive works that could be constructed with local materials and maintained by small crews. The fundamental design has changed remarkably little over the centuries, proof of the enduring utility of placing a well-protected gun behind thick walls.</p>
+</overview>
+
+<history>
+<p>The story of fixed fortifications in the BattleTech universe begins not with the great Castle Brians or the sprawling Star League defense networks, but with the humble gun emplacement. During the Age of War, when the Terran Hegemony first extended its borders and the Great Houses carved their nascent realms from the stars, the need for affordable static defenses became immediately apparent. Not every world could afford a garrison of BattleMechs, and not every strategic asset warranted the expense of a full military base. What they could afford were reinforced positions with autocannons and clear fields of fire.</p><p>The earliest standardized gun emplacements appeared along the Hegemony border worlds in the twenty-fourth century. These were spartan affairs built from local stone and ferrocrete, mounting surplus autocannons stripped from decommissioned vehicles. They proved their worth during the border skirmishes that characterized the Age of War, where a single well-placed emplacement could channel an attacking force into prepared kill zones. The design philosophy was straightforward: deny the enemy easy passage and buy time for mobile reserves to respond. It was a doctrine born of necessity and refined through bitter experience on dozens of contested worlds.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+1
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+30
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

@@ -1,0 +1,208 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-e07c-7c53-be4a-8ed7029c2c2e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hunchback
+model:HBK-LGN-Pin 'Anastasia'
+mul id:8374
+
+Config:Biped FrankenMek
+techbase:Mixed (IS Chassis)
+era:3138
+source:XTR:Royal Fantasy
+published:XTR:Royal Fantasy
+rules level:4
+role:Juggernaut
+
+quirk:ext_twist
+quirk:stable
+quirk:prototype
+quirk:non_standard
+
+mass:50
+engine:200 Fusion Engine(IS)
+structure:Hybrid
+LA structure:Clan Endo Steel:50
+RA structure:Clan Endo Steel:50
+LT structure:IS Endo Steel:50
+RT structure:Standard:50
+CT structure:Standard:50
+HD structure:Clan Endo Steel:50
+LL structure:IS Endo Steel:50
+RL structure:IS Endo Steel:50
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:14
+RA armor:14
+LT armor:16
+RT armor:20
+CT armor:26
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:6
+RTR armor:4
+RTC armor:5
+
+Weapons:2
+Heavy Large Laser, Right Arm
+AC/20, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+CLTargeting Computer
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Right Torso:
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+IS Ammo AC/20
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The HBK-LGN-Pin Ugly Stepsister Anastasia is a fifty-ton mixed-technology BattleMech fielded by the Solaris dueling stable Team Godmother during the Dark Age. Like its twin, it was not designed so much as assembled, pieced together from the salvaged remains of three unrelated 'Mechs into a single hybrid frame. The team presented it as one half of a matched pair of arena brawlers, cast in the role of a wicked stepsister to fit the stable's Cinderella theme.</p><p>Anastasia took the slower and heavier of the two roles. It is a deliberate close-range bruiser, trading speed and finesse for raw stopping power, and trusts thick protection to carry it into knife-fighting range against flashier opponents.</p>
+
+capabilities:<p>Anastasia is built around a single overwhelming alpha strike. A heavy large laser pairs with an autocannon/20 to deliver a punishing volume of damage at close range, and a targeting computer tightens the accuracy of both weapons so that those hits land where the pilot intends. Ten double heat sinks comfortably manage the energy weapon's heat, leaving the machine free to fire on the move without risk of shutdown.</p><p>The trade-offs are severe and deliberate. A standard two-hundred-rated fusion engine limits the 'Mech to a walking pace, making it one of the slower mediums in any arena and easy for nimbler opponents to circle. The autocannon carries only a single ton of ammunition, so its heaviest punch is exhausted quickly. Standard armor over the salvaged hybrid frame is generous for the tonnage but offers no special protection, leaving Anastasia reliant on closing the distance before its limited speed and ammunition become liabilities.</p>
+
+deployment:<p>Within Team Godmother, Anastasia filled the anchor role, the heavy that opponents had to respect before committing. In the close confines of a Solaris arena its lack of speed mattered less, and its ability to cripple or kill with a single exchange made it dangerous to any duelist drawn into a brawl. Crowds knew it as the brute of the pair.</p>
+
+history:<p>The two machines that became the Ugly Stepsisters began as scrap. Around 3138, technicians working for what would later be organized as Team Godmother cannibalized three very different donor 'Mechs, a Hunchback dating to the early 3050s, an early-production Legionnaire, and a Clan-built Pinion, and recombined their salvageable sections into a matched pair of fifty-ton hybrids. The result honored none of the original designs and instead followed the team's theatrical conceit, a Solaris dueling stable themed around the Cinderella story, with the two brawlers cast as the wicked stepsisters Anastasia and Drizella.</p><p>Team Godmother was a newcomer to the Solaris VII circuit, assembled and trained for the 3146 Royal Fantasy Tournament after several quieter years of preparation. The stable carried no permanent owner of record and was widely understood to be backed by the Federated Suns, fielding three contracted independent gladiators rather than a roster of house pilots. On a world where reputation is won in the arena rather than on the battlefield, the Stepsisters provided the team's heavy muscle, deliberately unlovely machines built to punish opponents who underestimated cobbled-together salvage.</p>
+
+manufacturer:Team Godmother
+
+primaryfactory:Solaris VII
+
+notes:Source: XTRO: Royal Fantasy p.8; Sarna (Anastasia FrankenMech / Team Godmother). FrankenMech assembled from Hunchback + Legionnaire + Pinion donors; Non-Standard Parts quirk. Component manufacturers undocumented in source, left Unknown (engine/armor type preserved). No MUPL row (queried MUL 8374, 0 rows); Factory_Data derived. Overview/Deployment near or below min word count due to sparse source - expected.
+
+fluffdate:2026-05-21 12:18:22
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Standard/Endo Steel Hybrid
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:200 Fusion
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Unknown

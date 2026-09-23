@@ -1,0 +1,93 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b671-7e07-88ae-4f4c3195d856
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Special Forces
+</Name>
+
+<Model>
+Stone's Trackers
+</Model>
+
+<mul id:>
+3000
+</mul id:>
+
+<year>
+3082
+</year>
+
+<type>
+Clan Level 4
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<Troopers Equipment>
+Clan Armor Kit (All)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Stone's Trackers trace their origins to the 212th Nova Cat Headhunter Binary, a clandestine Clan Nova Cat unit formed during the Jihad for missions too dishonorable for conventional Clan warriors. The 212th joined Devlin Stone's coalition in 3071 and spent the remainder of the war conducting high-risk assassination, sabotage, and counterinsurgency operations against the Word of Blake. Inner Sphere personnel filled the ranks alongside the original Clanners as casualties mounted, creating a hybrid unit that embraced unconventional tactics regardless of cultural origin.</p><p>After the Jihad, the 212th was officially transferred to the Republic Armed Forces and rechristened the 212th Special Operations Battalion. The transfer stripped the unit of its BattleMech and battle armor elements over the objections of its founding commander, making the Trackers a purely infantry formation. Stone's Peace left few opportunities to maintain combat readiness, and many veteran operators retired. The Capellan Crusades provided the first real test of the rebuilt unit, and the Trackers saw heavy action during border skirmishes with the Confederation. The fighting crippled the battalion, and the 212th was officially disbanded following the Crusades. Surviving operators were reportedly distributed across RAF SpecOps Command to spread their headhunting expertise throughout the Republic's special operations community.</p>
+</overview>
+
+<source>
+TR:3085S
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Laser Rifle (Mauser IIC IAS)
+</Primary>
+
+<Secondary>
+Support Laser (ER Heavy, Clan)
+</Secondary>
+

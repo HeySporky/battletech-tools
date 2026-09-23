@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cb8d-77e2-884f-56c7d3366281
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Beowulf
+model:BEO-14
+mul id:328
+
+Config:Biped
+techbase:Inner Sphere
+era:3075
+source:TR:3060,TR:J
+published:RS:3060u
+rules level:3
+role:Skirmisher
+
+quirk:ext_twist
+quirk:exp_actuator
+quirk:command_mech
+
+mass:45
+engine:270 XL Engine
+structure:IS Standard
+myomer:Triple-Strength
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:6
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:14
+RA armor:14
+LT armor:17
+RT armor:17
+CT armor:21
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:6
+Medium VSP Laser, Left Arm
+Medium VSP Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Small Laser, Left Torso
+Small Laser, Left Torso
+ER Small Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMediumVSPLaser
+ISMediumVSPLaser
+ISMediumVSPLaser
+ISMediumVSPLaser
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+Sword
+Sword
+Sword
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+ISERSmallLaser
+Small Laser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+ISERSmallLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+BeagleActiveProbe
+BeagleActiveProbe
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISC3SlaveUnit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Beowulf is a forty-five-ton medium BattleMech introduced in 3059 by Odin Manufacturing as a ComStar initiative to replace the aging Mongoose reconnaissance platform. Nearly twice the mass of its predecessor, the Beowulf represented a deliberate shift toward a heavier, more capable scout that could address the older design's chronic shortcomings in firepower and survivability. Designed for extended independent operations behind enemy lines, the Beowulf filled a critical gap in ComStar's force structure at a time when the organization was rebuilding its military capabilities following the loss of Terra. First entering service with the Com Guards, the Beowulf proved successful enough that its chassis eventually formed the basis for several variants and the Clan-technology Beowulf IIC produced for the Ghost Bear Dominion.</p>
+
+capabilities:<p>The Beowulf achieves its reconnaissance mission through a combination of speed, advanced electronics, and sufficient firepower to fight its way out of contact. A GM 270 XL engine drives the chassis to speeds approaching one hundred kilometers per hour, while a MASC system can push that to nearly one hundred and thirty in short bursts, allowing the Beowulf to keep pace with most light 'Mechs. Six Odin Type II jump jets provide one hundred and eighty meters of jump capability for navigating rough terrain, giving the design excellent tactical flexibility.</p><p>The Beowulf's electronics suite is particularly noteworthy for a medium scout. A Beagle active probe detects hidden units while a TAG system allows the 'Mech to designate targets for Arrow IV artillery strikes, making it as much a force multiplier as a direct combatant. Primary armament consists of a Blankenburg large pulse laser supported by two Diverse Optics extended-range medium lasers, providing accurate firepower at medium ranges. Eight and a half tons of Wall Type 6 ferro-fibrous armor offer respectable protection for a medium scout, though the XL engine remains the design's most significant vulnerability, concentrated torso damage can disable the 'Mech far more quickly than its armor coverage might suggest.</p>
+
+deployment:<p>Introduced during the Jihad, this variant stands as a significant departure from the original scout-focused design, reconfiguring the Beowulf for close-quarters combat. The large pulse laser and one extended-range medium laser give way to a pair of medium variable speed pulse lasers and a combination of extended-range small lasers, a standard small laser, and a 'Mech-scale sword. Triple Strength Myomer replaces the MASC system, providing both enhanced melee capability and a speed boost when the 'Mech runs hot. A C3 slave unit integrates the variant into network-centric formations, while the deliberate reduction in heat sink capacity helps the TSM activate more readily. This variant was produced through the Arcturan Arms Refit Facility on Arcturus.</p>
+
+history:<p>The Beowulf's origins trace directly to ComStar's loss of Terra in 3058. When the Word of Blake seized humanity's homeworld, ComStar's entire inventory of Mongoose reconnaissance 'Mechs was either destroyed or captured. The Precentor Martial's decision to commission a purpose-built replacement rather than source existing designs reflected both the urgency of the need and ComStar's confidence in its growing manufacturing capability within the Free Rasalhague Republic.</p><p>Odin Manufacturing's facility on Orestes had been among several small production sites that ComStar began upgrading into full 'Mech factories after the Clan defeat on Tukayyid. The Beowulf was the first new 'Mech design to emerge from this investment. Initial production was split between the Com Guards and the Rasalhague KungsArmé, with the 321st Division of the Com Guards and the Fourth Kavalleri of the KungsArmé among the first units to receive the new 'Mech.</p><p>The Jihad and its aftermath dramatically altered the Beowulf's trajectory. As Clan Ghost Bear absorbed the Free Rasalhague Republic to form the Ghost Bear Dominion, Odin Manufacturing's relationship with the Clan deepened. This led to increasingly ambitious Clan-technology refits of the Beowulf chassis during the 3070s, though persistent electronics incompatibilities between Inner Sphere and Clan systems plagued these early hybrid designs. Meanwhile, Lyran interests produced the BEO-14 melee variant through the Arcturan Arms Refit Facility on Arcturus, while ComStar pursued the experimental BEO-X-7a stealth prototype using partially assembled Odin chassis. Odin's increasing focus on Clan-technology production ultimately culminated in the purpose-built Beowulf IIC, effectively superseding the original Inner Sphere design within the Dominion's touman.</p>
+
+manufacturer:Refit - Arcturan Arms Refit Facility
+
+primaryfactory:Arcturus
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Beowulf 3
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:270 XL
+systemmanufacturer:ARMOR:Wall
+systemmode:ARMOR:Type 6 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Odin
+systemmode:JUMP_JET:Type II
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Dash-2 Standard
+systemmanufacturer:TARGETING:Unknown

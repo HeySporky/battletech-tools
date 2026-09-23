@@ -1,0 +1,82 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b5eb-7bd9-9bf1-de53d870c097
+</UUID>
+
+<UnitType>
+HandheldWeapon
+</UnitType>
+
+<Name>
+ER Medium Laser Weapon
+</Name>
+
+<Model>
+
+</Model>
+
+<year>
+3145
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+0
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+8
+</armor>
+
+<Gun Equipment>
+ISERMediumLaser
+</Gun Equipment>
+
+<capabilities>
+<p>The ER Medium Laser Weapon is a six-and-a-half-ton handheld weapon package, one of several configurations introduced in 3074 alongside the AXM-6X Axman. It mounts a single extended-range medium laser supported by five heat sinks, with a half-ton of armor protecting the assembly. The five heat sinks are necessary to manage the considerable thermal output of the ER medium laser, which generates significantly more waste heat than a standard medium laser in exchange for extended effective range. As an energy weapon, it requires no ammunition, giving this package unlimited endurance.</p>
+</capabilities>
+
+<overview>
+<p>Handheld weapons are heavy equipment built on firearm-like mounts scaled for BattleMech use. The concept spent centuries as little more than an idea. Early Terran Hegemony efforts to create portable weapon mounts for designs like the Griffin and Phoenix Hawk produced only jettison-capable weapons, failing due to weight and bulk issues as well as the lack of safeguards to prevent hostile units from seizing them in combat. Federated Commonwealth researchers revived the concept in 3050, producing the first true handheld weapon prototypes by 3055 in the wake of the Clan Invasion. Even so, the technology struggled to gain acceptance and leave the testing stage until the 3080s. Handheld weapon packages have since been developed in a range of sizes and configurations, from simple one-ton tools built for IndustrialMechs to twelve-ton weapon systems designed for frontline BattleMechs equipped with triple strength myomer.</p>
+</overview>
+
+<source>
+TR:Proto
+</source>
+
+<tonnage>
+6.5
+</tonnage>
+

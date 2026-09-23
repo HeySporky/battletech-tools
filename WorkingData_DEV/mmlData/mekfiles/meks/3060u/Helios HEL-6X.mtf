@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cc13-7529-9b21-405cf8e57c31
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Helios
+model:HEL-6X
+mul id:1466
+
+Config:Biped
+techbase:Inner Sphere
+era:3072
+source:TR:3060,TR:J
+published:RS:3060u
+rules level:3
+role:Skirmisher
+
+quirk:easy_maintain
+
+mass:60
+engine:300 Light Engine
+structure:IS Endo Steel
+myomer:Triple-Strength
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:15
+RA armor:15
+LT armor:18
+RT armor:18
+CT armor:22
+HD armor:9
+LL armor:15
+RL armor:15
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:5
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+Heavy PPC, Right Arm
+Medium VSP Laser, Left Torso
+Medium VSP Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISMediumVSPLaser
+ISMediumVSPLaser
+ISC3iUnit
+ISC3iUnit
+IS Endo Steel
+IS Endo Steel
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISMediumVSPLaser
+ISMediumVSPLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+Triple Strength Myomer
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Helios was developed in the late 3050s by Ceres Metals Industries on behalf of the St. Ives Compact, a small but prosperous state that relied heavily on expensive assault BattleMechs like the Emperor, Pillager, and Victor. Military planners recognized the need for a dedicated bodyguard design capable of keeping pace with its heavier charges while providing meaningful fire support at comparable engagement ranges. The result was a sixty-ton heavy 'Mech purpose-built to complement and protect the Compact's most valuable assets on the battlefield.</p><p>The design's straightforward construction and reliance on Compact-sourced components earned it a reputation for ease of maintenance, a quality prized by logisticians across multiple successor states. Though closely associated with the St. Ives Compact and later the Capellan Confederation, the Helios has seen service with ComStar, the Word of Blake, and the Republic of the Sphere over its long production history.</p>
+
+capabilities:<p>Built almost entirely from St. Ives Compact-sourced components, the Helios offers respectable mobility for a heavy 'Mech. Its Pitban 240 fusion engine drives it to a top speed of just under sixty-five kilometers per hour, while four Swingline X-1200 jump jets provide a hundred and twenty meters of jump capability. This combination allows the Helios to keep pace with the assault 'Mechs it escorts and reposition quickly when threats emerge. Nine tons of Taijian StarShield II armor provides adequate protection for its skirmisher role, though it cannot sustain prolonged engagements against heavier opponents.</p><p>The Helios centers its firepower around a MilDouglas "Emperor Bones" series Gauss rifle, giving it the reach to engage targets at the same distances as the assault designs it guards. Two BlazeFire Longshot extended-range medium lasers and a pair of MilDouglas "Duke" SRM-6 launchers round out the armament, providing effective close-range defense against anything that slips past the main battle line.</p>
+
+deployment:<p>A Word of Blake refit developed during the Jihad, this variant replaces the standard Pitban 240 with a larger 300-rated light fusion engine, significantly increasing the 'Mech's speed. Triple strength myomer bundles further enhance its physical combat capability when the 'Mech runs hot, a state easily achieved given the heat-intensive weapons loadout. The original Gauss rifle gives way to a heavy PPC, supplemented by medium variable speed pulse lasers in each torso and the retained ER medium lasers. A C3i computer integrates the design into Blakist Level II formations. The excessive heat generation appears to have been an intentional design choice rather than a flaw, maximizing the benefits of the triple strength myomer system.</p>
+
+history:<p>The Helios emerged from the unique military circumstances of the St. Ives Compact during the Clan Invasion era. When Duchess Candace Liao broke her realm away from the Capellan Confederation in 3029, her military inherited a force heavy on prestigious but costly assault 'Mechs. For years, the Compact supplemented its limited domestic production with purchases from the Federated Commonwealth, but the Clan Invasion in 3049 changed the strategic calculus entirely. As HildCo and StarCorps scrambled to revive Star League-era designs, Ceres Metals engineers worked with St. Ives Military Command officers to create something new: a purpose-built escort and fire support platform tailored to the Compact's doctrine.</p><p>The first two production runs were reserved exclusively for the St. Ives Military Command, placing the Helios in every SIMC regiment. Half of the third production run was allocated to ComStar, helping the Com Guards recoup losses sustained against Clan Smoke Jaguar during Operation BULLDOG. Around 3060, trade agreements between Duchess Candace Liao and the Draconis Combine opened the door for new variants incorporating Combine technology. These models were intended both to strengthen the SIMC and to generate export revenue through potential sales to the DCMS.</p><p>The reabsorption of the St. Ives Compact by the Capellan Confederation following the Capellan-St. Ives War brought the Helios and its production facilities back under Capellan control. The Capellan Confederation Armed Forces continued to field the design, recognizing its value as a versatile escort platform. During the Jihad, the Word of Blake developed its own variant using captured or salvaged chassis, incorporating advanced technologies like triple strength myomer and improved C3 networking into the proven frame.</p><p>The Helios saw renewed interest during the Dark Age, with Ceres Metals introducing an updated model from its St. Ives facility featuring modernized electronics and weapons. The Republic of the Sphere's secretive Republic Institute of Strategic Combat also took interest in the design, producing an experimental variant built on the Blakist-derived chassis for covert operations against Capellan-held worlds. These specialized units, disguised to resemble standard Capellan Helios variants, were used in cross-Wall raids during the late 3130s and 3140s before the fall of the Republic. The ultimate fate of the surviving RISC Helios units remains unknown.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:300 Light
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

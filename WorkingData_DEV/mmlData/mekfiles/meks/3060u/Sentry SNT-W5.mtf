@@ -1,0 +1,205 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cc79-7ccd-80bc-b77e1caaa7e7
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Sentry
+model:SNT-W5
+mul id:2867
+
+Config:Biped
+techbase:Inner Sphere
+era:3072
+source:TR:3060
+published:RS:3060u
+rules level:3
+role:Skirmisher
+
+quirk:easy_pilot
+quirk:easy_maintain
+quirk:rugged_1
+quirk:ubiquitous_is
+
+mass:40
+engine:200 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Heavy Duty Gyro
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:5
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:15
+RT armor:15
+CT armor:18
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:5
+Large VSP Laser, Left Arm
+Magshot, Left Arm
+Magshot, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISLargeVSPLaser
+ISLargeVSPLaser
+ISLargeVSPLaser
+ISLargeVSPLaser
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR Ammo
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Light Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Sentry was developed in 3056 by Robinson Standard BattleWorks under pressure from the Draconis and Capellan March commands for a more technologically advanced border defense 'Mech than the Watchman could provide. Built on a modified version of the Watchman chassis using the same engine, armor, and jump jets, the Sentry incorporates endo steel construction and double heat sinks to create a more capable forty-ton platform. Like its predecessor, the Sentry was designed for maximum parts interchangeability with existing Enforcer-family designs, and its weapons suite was assembled primarily from surplus components to keep production costs low while delivering meaningfully improved combat performance over the Watchman.</p>
+
+capabilities:<p>The Sentry is built on a Dorwinion Hyperactive 3 endo steel chassis that provides weight savings over the Watchman's standard frame, permitting heavier armament without sacrificing mobility. The Nissan 200 engine and five HildCo Model 12 jump jets carry over directly from the Watchman, maintaining the same 86 km/h top speed and 150-meter jump capability. Eight and a half tons of Starshield A armor with CASE provides solid protection for the design's weight class, with the CASE system safeguarding against catastrophic ammunition detonation.</p><p>The Sentry's diverse weapons suite reflects its origins in surplus parts allocation. A Parti-Kill Heavy Cannon PPC (sourced from surplus Manticore tank upgrades) serves as the primary anti-'Mech weapon, delivering powerful long-range energy fire. Two Magna 200P small pulse lasers provide accurate close-range firepower effective against both 'Mechs and infantry, while four Sperry Browning machine guns and a Zippo flamer (the former from Vulcan overstock, the latter from Berserker surplus) give the Sentry exceptional anti-infantry capability. This versatility makes the Sentry well-suited to the varied demands of border garrison duty, from conventional 'Mech engagements to riot suppression and counterinsurgency operations.</p>
+
+deployment:<p>Introduced during the Jihad, this advanced technology variant stands as a comprehensive modernization of the Sentry platform. A light fusion engine replaces the standard Nissan 200 for improved survivability over XL designs, while a heavy-duty gyro enhances stability at the cost of additional weight. Light ferro-fibrous armor provides marginally improved protection. The entire weapons suite is replaced: a large variable speed pulse laser and pair of Magshots occupy the left arm, while two ER medium lasers are mounted in the right arm. CASE protection is retained for the Magshot ammunition. This configuration trades the original's anti-infantry specialization for improved anti-'Mech capability, reflecting the escalating threats faced by garrison formations in the Jihad era.</p>
+
+history:<p>The Sentry's creation was driven by the same Draconis March political dynamics that produced the Watchman, but with a more ambitious mandate. March leaders demanded more advanced technology than the Watchman offered, and First Prince Victor Steiner-Davion authorized a new wing to be added to the Robinson Standard BattleWorks factory to accommodate production. The Sentry entered service in 3056, just one year after the Watchman, demonstrating the efficiency of building new designs around proven components and shared manufacturing infrastructure.</p><p>The allocation of Sentry production became a source of political friction within the Federated Suns. Production was divided evenly among the Draconis, Capellan, and Crucis Marches, a decision that particularly annoyed Duke Sandoval of Robinson, who felt that his March (which hosted the factory and faced the most immediate threat from the Draconis Combine) deserved priority access. The surplus components strategy proved its worth during the FedCom Civil War, when the ready availability of Zippo flamers, Sperry Browning machine guns, Parti-Kill PPCs, and Magna pulse lasers ensured production could continue even as conventional supply chains were disrupted by the conflict.</p><p>The Jihad spurred development of the SNT-W5 variant, which incorporated advanced technology including a light fusion engine, heavy-duty gyro, and light ferro-fibrous armor. This upgrade replaced the entire weapons suite with more modern systems, reflecting the increasing technological sophistication expected of even garrison-class designs in the post-Jihad era. The Sentry's role in the broader Enforcer family lineage (bridging the gap between the simple Watchman and the more specialized Cuirass) ensured its continued relevance in AFFS force structures throughout the thirty-first and into the thirty-second century.</p>
+
+manufacturer:Robinson Standard BattleWorks
+
+primaryfactory:Robinson
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Dorwinion
+systemmode:CHASSIS:Dorwinion Hyperactive 3 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Light Fusion Engine
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Light Ferro-Fibrous
+systemmanufacturer:JUMP_JET:HildCo
+systemmode:JUMP_JET:HildCo Model 12
+systemmanufacturer:COMMUNICATIONS:Achernar Electronics
+systemmode:COMMUNICATIONS:HICS-15
+systemmanufacturer:TARGETING:Federated Hunter
+systemmode:TARGETING:Federated Hunter Type 3

@@ -1,0 +1,278 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aac2-71d3-a8da-be4a532e31b6
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Noruff
+</Name>
+
+<Model>
+(3056)
+</Model>
+
+<mul id:>
+4735
+</mul id:>
+
+<year>
+3056
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+1stclassquarters:30.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:70.0:0:-1::-1:0
+cargobay:92.0:1:4::-1:0
+</transporters>
+
+<SafeThrust>
+8
+</SafeThrust>
+
+<heatsinks>
+96
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+10000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+450
+252
+252
+350
+</armor>
+
+<Nose Equipment>
+(B) CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLStreakSRM6
+Clan Streak SRM 6 Ammo:15
+(B) CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo:32
+(B) CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:36
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+(B) CLUltraAC20
+Clan Ultra AC/20 Ammo:20
+(B) CLStreakSRM6
+Clan Streak SRM 6 Ammo:15
+(R) (B) CLERMediumLaser
+(R) CLERMediumLaser
+(R) (B) CLMediumPulseLaser
+(R) (B) CLLRM15
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:16
+(R) CLArtemisIV
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+(B) CLUltraAC20
+Clan Ultra AC/20 Ammo:20
+(B) CLStreakSRM6
+Clan Streak SRM 6 Ammo:15
+(R) (B) CLERMediumLaser
+(R) CLERMediumLaser
+(R) (B) CLMediumPulseLaser
+(R) (B) CLLRM15
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:16
+(R) CLArtemisIV
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) CLERLargeLaser
+(B) CLLargePulseLaser
+CLMediumPulseLaser
+(B) CLGaussRifle
+Clan Gauss Ammo:16
+(B) CLLRM20
+CLLRM15
+Clan Ammo LRM-20 (Clan) Artemis-capable:12
+Clan Ammo LRM-15 (Clan) Artemis-capable:16
+CLArtemisIV
+CLArtemisIV
+(B) CLStreakSRM6
+Clan Streak SRM 6 Ammo:15
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+16
+</structural_integrity>
+
+<capabilities>
+<p>The Noruff's massive drive unit displaces just under 930 tons, and combined with 250 tons of fuel tankage, the propulsion system comprises over sixty percent of the vessel's total mass. This investment produces exceptional performance: a cruise thrust of 4g and maximum thrust of 6g, making the Noruff faster and more maneuverable than most fighters. Ninety-six double heat sinks manage the vessel's considerable thermal output. Nearly sixty tons of armor provide robust protection for the compact hull.</p><p>The nose concentrates a large pulse laser, three medium pulse lasers, two ER large lasers, four ER medium lasers, a Streak SRM-6, two Gauss rifles, and three Artemis IV-equipped LRM-20 racks. Each wing mounts an ER large laser, four ER medium lasers, two large pulse lasers, a medium pulse laser, an Ultra AC/20, a Streak SRM-6, and an Artemis IV-equipped LRM-15. The aft arc carries an ER large laser, a large pulse laser, a medium pulse laser, a Gauss rifle, and Artemis IV-equipped LRM-20 and LRM-15 racks plus a Streak SRM-6. The vessel's snug cockpit-like bridge seats four: pilot, co-pilot, commander, and communications officer. A sophisticated targeting computer assists the co-pilot and commander with weapons allocation. The crew of ten occupies a small quarters section with a dual-purpose mess and recreation area. The vessel carries approximately 92 tons of cargo.</p>
+</capabilities>
+
+<overview>
+<p>The Noruff class is one of the most powerful compact DropShips ever designed, developed by Clan Steel Viper as a fast and agile assault platform. This 1,900-ton aerodyne vessel carries devastating firepower for its size and possesses extraordinary speed and maneuverability, consistent with the Steel Viper tradition of favoring swift, agile vessels. Launched as a prototype in 3056, the Noruff is an extremely rare design, with information about its capabilities and deployment remaining scarce. Its combination of advanced Clan weaponry, heavy armor protection, and exceptional thrust performance makes the Noruff a fearsome opponent that outperforms most fighters in raw maneuverability.</p>
+</overview>
+
+<deployment>
+<p>The prototype Noruff was assigned to Jabuka in the Steel Viper occupation zone following its trial period, providing direct support to the First and Second Viper Guards. The vessel had not yet seen combat against Inner Sphere forces as of initial deployment, and its extreme rarity meant that enemy commanders had little intelligence on its capabilities or tactical doctrine.</p>
+</deployment>
+
+<history>
+<p>The Noruff was developed by Clan Steel Viper as a compact, high-performance assault vessel incorporating the latest Clan technology. The prototype launched in June 3056 and underwent a brief trial period before being assigned to operational duty in the Steel Viper occupation zone. The vessel's design reflects the Vipers' traditional emphasis on speed and agility, pushing the boundaries of what was possible in DropShip propulsion technology.</p><p>As of initial reporting, only the single prototype Noruff was operational, assigned to support the First and Second Viper Guards at Jabuka in the Steel Viper occupation zone. The scarcity of information about the design suggests that production remained extremely limited, and much of the performance data available was based on computer predictions rather than observed combat results. Despite the limited numbers produced, the Noruff represented a significant advancement in Clan DropShip design philosophy, demonstrating that a vessel could achieve fighter-grade performance while carrying capital-ship-grade armament and protection.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+1900.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+13
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+8
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+2
+</escape_pod>
+

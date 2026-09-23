@@ -1,0 +1,371 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab7c-7afe-ad56-9c26989b27f9
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Conquistador
+</Name>
+
+<Model>
+(3063)
+</Model>
+
+<mul id:>
+3992
+</mul id:>
+
+<year>
+3063
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+mekbay:24.0:4:-1::-1:0
+asfbay:18.0:2:2::-1:0
+heavyvehiclebay:12.0:1:3::-1:0
+battlearmorbay:20.0:0:4::-1:0
+infantrybay:16.0:0:5:Foot:-1:0
+1stclassquarters:50.0:0:-1::-1:0
+2ndclassquarters:280.0:0:-1::-1:0
+crewquarters:217.0:0:-1::-1:0
+cargobay:753.5:1:9::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+259
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+15000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+462
+410
+410
+350
+</armor>
+
+<Nose Equipment>
+(B) ISGaussRifle
+ISGaussRifle
+ISRotaryAC5
+ISRotaryAC5
+IS Gauss Ammo:80
+ISRotaryAC5 Ammo:480
+(B) ISGaussRifle
+ISGaussRifle
+ISRotaryAC5
+ISRotaryAC5
+IS Gauss Ammo:80
+ISRotaryAC5 Ammo:480
+(B) ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X Cluster Ammo:160
+(B) ISERPPC
+ISERPPC
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:144
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:504
+</Nose Equipment>
+
+<Left Side Equipment>
+ISArtemisIV
+ISArtemisIV
+(B) ISGaussRifle
+ISGaussRifle
+ISRotaryAC5
+ISRotaryAC5 Ammo:240
+IS Gauss Ammo:80
+(B) ISGaussRifle
+ISGaussRifle
+ISRotaryAC5
+ISRotaryAC5 Ammo:240
+IS Gauss Ammo:80
+(B) ISLBXAC10
+IS LB 10-X Cluster Ammo:40
+(B) ISERPPC
+ISERPPC
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:72
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:336
+(R) (B) ISGaussRifle
+(R) ISRotaryAC5
+(R) ISRotaryAC5 Ammo:240
+(R) IS Gauss Ammo:40
+(R) (B) ISLBXAC10
+(R) IS LB 10-X Cluster Ammo:40
+(R) (B) ISLargePulseLaser
+(R) ISLargePulseLaser
+(R) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+(R) (B) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAMS Ammo:504
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISGaussRifle
+ISGaussRifle
+ISRotaryAC5
+IS Gauss Ammo:80
+ISRotaryAC5 Ammo:240
+(B) ISGaussRifle
+ISGaussRifle
+ISRotaryAC5
+IS Gauss Ammo:80
+ISRotaryAC5 Ammo:240
+(B) ISERPPC
+ISERPPC
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:72
+ISArtemisIV
+ISArtemisIV
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:336
+(R) (B) ISGaussRifle
+(R) ISRotaryAC5
+(R) IS Gauss Ammo:40
+(R) ISRotaryAC5 Ammo:240
+(R) (B) ISLBXAC10
+(R) IS LB 10-X Cluster Ammo:40
+(R) (B) ISLargePulseLaser
+(R) ISLargePulseLaser
+(R) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+(R) (B) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAntiMissileSystem
+(R) ISAMS Ammo:504
+(B) ISLBXAC10
+IS LB 10-X Cluster Ammo:40
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:80
+(B) ISERPPC
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:168
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+30
+</structural_integrity>
+
+<capabilities>
+<p>The Conquistador carries an RCT command group into battle, consisting of twenty-four BattleMechs, twelve heavy vehicles, twenty Points of Battle Armor, sixteen infantry platoons, and a full wing of eighteen aerospace fighters, along with over seven hundred fifty tons of cargo. Two entire decks forward of the cargo bays house computer consoles, communications equipment, and holo projectors for directing planet-wide assault operations. After unloading, the cargo bays and infantry quarters convert into a full-service combat hospital.</p><p>The ship's armament is devastating. The nose alone carries four Gauss rifles, four Rotary AC/5s, four LB-X AC/10s, two ER PPCs, two large pulse lasers, six medium pulse lasers, four Artemis-equipped LRM-20 racks, and six anti-missile systems. Each broadside carries comparable firepower including additional Gauss rifles, Rotary AC/5s, ER PPCs, large and medium pulse lasers, LRM-20s, and extensive AMS coverage. The aft mounts Gauss rifles, an ER PPC, pulse lasers, and AMS. Two hundred fifty-nine double heat sinks manage the thermal load. Armor protection totals 1,632 points across all arcs, and the vessel's structural integrity of thirty is exceptional.</p>
+</capabilities>
+
+<overview>
+<p>The Conquistador class command DropShip was developed to provide the Armed Forces of the Federated Commonwealth with a next-generation command platform capable of directing planet-wide assault operations. At 17,400 tons, this massive Aerodyne was designed to replace aging command vessels that had become outmoded in the face of evolving battlefield requirements. Built by one of the Inner Sphere's most established aerospace manufacturers, the Conquistador combines enormous transport capacity with sophisticated command and control facilities.</p><p>The vessel's highly automated systems allow a relatively small crew to operate what is effectively a mobile military headquarters. Its advanced combination drive system serves as a significant engineering achievement, vectoring thrust differently for maneuvering versus interplanetary transit. The Conquistador's versatility extends beyond its primary command role, as its cargo bays and troop quarters can be rapidly converted into field hospitals after delivering their primary cargo.</p>
+</overview>
+
+<deployment>
+<p>The standard Conquistador entered service in 3063 as the primary command ship for key AFFC Regimental Combat Teams. These vessels served as mobile headquarters for planetary assault operations, coordinating the actions of entire task forces from their advanced command centers. The design saw extensive service during the turbulent post-Civil War era, where its ability to rapidly deploy a combined-arms command group proved invaluable.</p>
+</deployment>
+
+<history>
+<p>For years, the Armed Forces of the Federated Commonwealth had sought a more capable class of command DropShip to assign to their key Regimental Combat Teams. While vessels such as the Fortress and Command Overlord had served admirably in previous decades, advances in technology and changes in battlefield doctrine had rendered them increasingly outdated. The AFFC turned to Federated-Boeing, a company that had supplied DropShips to the Federated Suns for centuries, to develop a replacement.</p><p>The resulting Conquistador entered service in 3063, immediately becoming one of the most capable command platforms in the Inner Sphere. The design incorporated the latest available technologies, including an innovative combination drive system and extensive automation. Its ability to carry an entire RCT command group while simultaneously serving as a planetary assault coordination center made it invaluable to Federated Commonwealth military planners.</p><p>The class saw several specialized configurations developed to meet specific operational requirements. A carrier variant optimized for aerospace operations was produced, while the chaos of the Jihad era prompted development of a high-speed configuration designed to punch through hostile blockades. These variants demonstrated the fundamental soundness of the Conquistador platform and its adaptability to diverse mission profiles.</p>
+</history>
+
+<manufacturer>
+Federated-Boeing Interstellar - Port Simon Shipyards|Federated-Boeing Interstellar Ltd. (Formerly Universal Air)
+</manufacturer>
+
+<primaryFactory>
+Galax|Delavan
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+17400.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+779
+</crew>
+
+<officers>
+5
+</officers>
+
+<gunners>
+15
+</gunners>
+
+<passengers>
+40
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+12
+</life_boat>
+
+<escape_pod>
+12
+</escape_pod>
+

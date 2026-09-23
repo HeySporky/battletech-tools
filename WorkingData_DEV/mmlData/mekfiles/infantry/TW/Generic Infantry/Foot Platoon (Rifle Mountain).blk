@@ -1,0 +1,85 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bfdb-72c8-bc6f-125d01990f37
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Platoon
+</Name>
+
+<Model>
+(Rifle Mountain)
+</Model>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Mountain rifle platoons are trained for high-altitude combat in thin atmospheres, carrying Imperator assault rifles and heavy mortars suited to the steep terrain and long engagement ranges of mountain warfare. These troops traverse vertical terrain at three times the rate of standard infantry and operate effectively in conditions that exhaust conventional soldiers. The heavy mortars provide organic indirect fire capability that is particularly valuable in mountainous terrain where line-of-sight weapons cannot reach defilade positions.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+Rifle (Imperator AX-22 Assault)
+</Primary>
+
+<Secondary>
+InfantryHeavyMortar
+</Secondary>
+
+<specialization>
+128
+</specialization>
+

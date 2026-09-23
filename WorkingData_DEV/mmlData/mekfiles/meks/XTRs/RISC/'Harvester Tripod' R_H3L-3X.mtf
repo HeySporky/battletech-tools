@@ -1,0 +1,212 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-e016-73b2-a749-31e72db5a634
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:'Harvester Tripod'
+model:R/H3L-3X
+
+Config:Tripod
+techbase:Mixed (IS Chassis)
+era:3136
+source:XTR:RISC
+published:XTR:RISC
+rules level:4
+role:Sniper
+
+quirk:difficult_maintain
+quirk:no_arms
+quirk:distracting
+quirk:prototype
+
+mass:90
+engine:270 Fusion Engine(IS)
+structure:IS Standard
+myomer:Standard
+cockpit:Tripod Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 IS Double
+walk mp:3
+jump mp:0
+
+armor:Ferro-Lamellor(Clan)
+LA armor:10
+RA armor:10
+LT armor:23
+RT armor:23
+CT armor:25
+HD armor:9
+LL armor:21
+RL armor:21
+CL armor:21
+RTL armor:10
+RTR armor:10
+RTC armor:20
+
+Weapons:2
+Plasma Cannon, Left Arm
+Plasma Cannon, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLPlasmaCannon
+CLPlasmaCannonAmmo
+CLPlasmaCannonAmmo
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLPlasmaCannon
+CLPlasmaCannonAmmo
+CLPlasmaCannonAmmo
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+
+Left Torso:
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+
+Right Torso:
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+Cargo:SIZE:12.0
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+RISC Viral Jammer (Decoy)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Lamellor
+Clan Ferro-Lamellor
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The R/H3L-3X, known among conspiracy theorists as the "Harvester Tripod," was the largest and most enigmatic of the three Helix-series experimental tripedal BattleMechs proposed during the earliest stages of the Republic of the Sphere's Rhodes Project around 3132. Designed at Rhodes Foundry on Devil's Rock by the mysterious engineer W. Orson, the ninety-ton assault-class machine was unique among the Helix designs for its incorporation of industrial lift hoists and internal cargo bays, suggesting a recovery and deployment role beyond conventional combat. Official records claim the Helix series never progressed past the concept stage, but the Harvester's reported appearances on worlds within the Fortress Republic tell a far more disturbing story. Its combination of heavy plasma weaponry, advanced electronic warfare systems, and the apparent ability to deploy battle armor or autonomous drones made it the most unsettling of the three designs.</p>
+
+capabilities:<p>The Harvester Tripod carries a pair of Clan-specification plasma cannons, one mounted in each arm location, providing devastating thermal and kinetic damage at medium range. These weapons double as area-denial tools, superheating terrain and structures in ways that complement the design's apparent terror-oriented mission profile. The 'Mech's most distinctive feature, however, is its cargo and recovery system: twin lift hoists equipped with electromagnetic winches are mounted beneath the side turrets, enabling the Harvester to load and unload cargo bays installed in both side torsos. Witness accounts describe these bays deploying what appeared to be battle armored troopers or exotic drones that assisted the 'Mech in searching buildings and recovering unspecified materials during raids on civilian settlements.</p><p>The Harvester mounts the most advanced electronic warfare suite of any Helix-series design, combining a Guardian ECM suite with an experimental RISC Viral Jammer in decoy configuration. This system is capable of disabling enemy advanced sensors and ECM suites, creating a zone of electronic blindness around the 'Mech that proved extremely difficult for defenders to counter. A standard 270-rated fusion engine provides modest mobility for a ninety-ton machine, reflecting the design's emphasis on survivability and operational capability over speed. Clan ferro-lamellor armor provides exceptional protection across the chassis, though the lack of articulated arms limits the Harvester's ability to engage in physical combat despite its assault-class tonnage.</p>
+
+deployment:<p>The sole known configuration of the Harvester Tripod distributes its Clan plasma cannons and lift hoists symmetrically across both arm locations, with ammunition for each cannon stored alongside its respective weapon. Cargo bays occupy both side torsos, providing substantial internal capacity for deploying or recovering personnel and equipment. The RISC Viral Jammer sits in the head, while the Guardian ECM suite occupies the center torso, creating overlapping layers of electronic warfare coverage. At least two Harvester Tripods were reported among the raiding force during the 3138 Bryant incident, where witnesses described them searching buildings and loading unidentified cargo while the smaller Scout and Battle Tripods provided screening and fire support. The Harvesters' activities on Bryant and Fletcher generated the most alarm among military analysts, as their apparent ability to deploy autonomous assets and recover materials suggested a level of operational sophistication far beyond simple field testing.</p>
+
+history:<p>The Harvester Tripod was the largest and, by all accounts, the strangest of the three Helix-series concepts developed at Rhodes Foundry on Devil's Rock around 3132. Like its siblings, it was the brainchild of an engineer identified only by the signature on recovered design files as W. Orson. Unfortunately, corruption in records recovered from Rhodes Foundry and interviews with the organization's personnel have failed to conclusively identify this individual or determine what became of them after 3135, deepening the mystery surrounding the entire Helix program.</p><p>Where the Scout and Battle Tripods fulfilled recognizable military roles, the Harvester's purpose was more ambiguous. Its combination of heavy weaponry, cargo capacity, and deployment systems suggested something between a combat asset and an operational support platform. The lift hoists and cargo bays were incapable of replicating the full functionality of proper arms, but they provided a means of loading and unloading personnel and equipment in the field, a capability with unsettling implications given the circumstances of the machine's alleged deployments.</p><p>The Harvester's most prominent reported appearance was during the 3138 Bryant raid, where at least two of these machines were identified among the attacking force. Witnesses provided confused accounts of the Harvesters deploying armored troopers or perhaps autonomous drones from their cargo bays, which then assisted in searching buildings and recovering unspecified materials from the targeted communities. The Harvesters were also reported to have been present during similar raids on Fletcher and other worlds, though details of these incidents are even more fragmentary.</p><p>One Battle Tripod was allegedly downed during the Bryant engagement, but witnesses claim its remains were subsequently obliterated or recovered by one of the Harvester-type machines, preventing any forensic analysis. This deliberate evidence destruction, combined with the use of stealth-enhanced drop pods and unidentified DropShips, strongly suggests the raids were conducted by a sophisticated organization with significant resources and an interest in concealing both the tripods' capabilities and their origins. The Harvester Tripod remains one of the most mysterious and troubling weapons systems to emerge from the Dark Age era.</p>
+
+manufacturer:Rhodes Foundry
+
+primaryfactory:Devil's Rock
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Rhodes Foundry
+systemmode:CHASSIS:Prototype Hybrid Tripod
+systemmanufacturer:ENGINE:Consolidated Fusion
+systemmode:ENGINE:270 Standard
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Lamellor (Clan)
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

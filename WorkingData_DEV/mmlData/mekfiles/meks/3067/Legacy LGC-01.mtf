@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cd44-7a97-94ea-879add52c43f
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Legacy
+model:LGC-01
+mul id:4488
+
+Config:Biped
+techbase:Inner Sphere
+era:3064
+source:TR:3067,TR:J
+published:RS:J
+rules level:2
+role:Juggernaut
+
+quirk:bad_rep_is
+quirk:directional_torso_mount:LT RT
+
+mass:80
+engine:240 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:3
+jump mp:3
+
+armor:Standard(Inner Sphere)
+LA armor:26
+RA armor:26
+LT armor:27
+RT armor:27
+CT armor:40
+HD armor:9
+LL armor:34
+RL armor:34
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:6
+ER Small Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+Ultra AC/10, Left Torso
+Ultra AC/10, Right Torso
+Streak SRM 4, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERSmallLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+ISC3iUnit
+ISC3iUnit
+ISCASE
+
+Right Torso:
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISUltraAC10
+ISStreakSRM4
+IS Streak SRM 4 Ammo
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+ISCASE
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Legacy is an eighty-ton assault BattleMech developed by Skobel MechWorks on Terra at the behest of Word of Blake Precentor Martial Cameron St. Jamais. Introduced in 3064, the design was conceived as a testbed to showcase the combined potential of Ultra-class autocannons and networked computer systems. Skobel's engineers drew inspiration from the Rising Star, a failed Star League-era assault 'Mech, reimagining its robust chassis with modern electronics and weaponry.</p><p>The Legacy entered full production at Skobel's facilities in Russia on Terra, where it was manufactured exclusively for the Word of Blake Militia throughout the Jihad era. The design earned a reputation as a powerful networked fire-support platform, though its strong association with the Blakist military would later limit its adoption by successor states.</p>
+
+capabilities:<p>Built around the original Rising Star's robust Skobel Template 8 endo steel frame and Pitban 240 standard fusion engine, the Legacy prioritizes survivability over speed. Its maximum velocity of just fifty-four kilometers per hour makes it one of the slower designs in its weight class, though six CurtissJet 80 jump jets compensate with ninety meters of jumping capability, allowing the 'Mech to traverse difficult terrain and maintain tactical flexibility despite its ponderous ground speed.</p><p>The Legacy's primary armament consists of twin Mydron Excel Ultra Type 10 autocannons, weapons capable of delivering devastating salvos at a prodigious rate of fire. The C³i computer links up to six units into a seamless targeting network, dramatically improving the accuracy of these already potent weapons. Backing the autocannons are two Diverse Optics extended-range medium lasers, a single extended-range small laser, and a Guided Technologies Streak SRM-4 launcher, though these secondary systems are widely acknowledged as insufficient should the autocannons fall silent.</p><p>Heavy Aldis Plate armor paired with CASE ammunition protection gives the Legacy exceptional durability, allowing it to absorb considerable punishment while its standard fusion engine ensures the 'Mech can sustain critical damage without catastrophic shutdown. However, the design's near-total reliance on ammunition-fed weaponry remains its most significant vulnerability.</p>
+
+deployment:<p>The base LGC-01 model epitomizes the Legacy's design philosophy as a networked fire-support platform. Its twin Mydron Excel Ultra AC/10s deliver tremendous firepower at medium ranges, coordinated through the C³i system to maximize accuracy across an entire Level II formation. The combination of heavy armor, CASE protection, and a standard fusion engine gives this variant excellent staying power, though pilots are trained to withdraw if both autocannons jam or ammunition runs critically low, as the backup laser and missile armament cannot sustain the 'Mech in a prolonged engagement against comparable opponents.</p>
+
+history:<p>The Legacy traces its lineage to the Rising Star, an assault 'Mech produced in limited numbers during the original Star League era. The Rising Star proved deeply disappointing in service, hampered by a targeting system that later analysis revealed to be fundamentally flawed. Production was halted after only a short run, and the design faded into obscurity as little more than a cautionary footnote in BattleMech development history.</p><p>Centuries later, when Skobel MechWorks completed work on the Vanquisher, the Word of Blake directed the design team toward a new project. Precentor Martial St. Jamais sought an assault platform that could demonstrate the combined potential of Ultra-class autocannons and the C³i networked computer system. The Skobel engineers looked to historical assault designs for a suitable foundation and rediscovered the Rising Star. Simulations confirmed that replacing the original's defective targeting system and incorporating the C³i computer would transform the failed design into a viable combat platform. With two Ultra autocannons replacing the original standard models, the Rising Star was reborn as the Legacy in 3064.</p><p>The Legacy was distributed across every division of the Word of Blake Militia, though the First and Sixth Divisions received the largest allocations of the new 'Mechs. As the Jihad intensified, Skobel MechWorks expanded the Legacy line with several new variants optimized for different combat roles, introducing models with heavier energy weapons, enhanced mobility systems, and improved survivability features between 3070 and 3073.</p><p>Following the liberation of Terra and the dissolution of the Word of Blake, Skobel MechWorks fell under the authority of the Republic of the Sphere. However, active production of the Legacy ceased, and the design's strong association with the Blakist military contributed to a lingering stigma that limited its adoption by successor states in the post-Jihad era.</p>
+
+manufacturer:Skobel MechWorks
+
+primaryfactory:Terra
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Skobel
+systemmode:CHASSIS:Template 8 Endo Steel
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:240
+systemmanufacturer:ARMOR:Aldis
+systemmode:ARMOR:Plate with CASE
+systemmanufacturer:JUMP_JET:CurtissJet
+systemmode:JUMP_JET:80
+systemmanufacturer:COMMUNICATIONS:Skobel
+systemmode:COMMUNICATIONS:Wave VII Comm with C³i Computer
+systemmanufacturer:TARGETING:Falcon
+systemmode:TARGETING:15 Watcher

@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c186-7da5-9562-b597c2684962
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Assassin
+model:ASN-21
+mul id:127
+
+Config:Biped
+techbase:Inner Sphere
+era:2676
+source:TR:3039,TR:SW
+published:RS:SW
+rules level:1
+role:Scout
+
+quirk:cramped_cockpit
+quirk:easy_maintain
+quirk:poor_life_support
+quirk:non_standard
+
+mass:40
+engine:280 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:7
+jump mp:7
+
+armor:Standard(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:10
+RT armor:10
+CT armor:12
+HD armor:8
+LL armor:6
+RL armor:6
+RTL armor:2
+RTR armor:2
+RTC armor:4
+
+Weapons:3
+Medium Laser, Right Arm
+SRM 2, Left Torso
+LRM 5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+SRM 2
+IS Ammo SRM-2
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+Jump Jet
+LRM 5
+IS Ammo LRM-5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Assassin was introduced in 2676 as the product of corporate ambition rather than military necessity. Maltex Corporation successfully lobbied the Star League to purchase the design as a replacement for the lighter Wasp and Stinger reconnaissance 'Mechs, achieving this through over-hyped performance statistics, fudged budget approximations, and political maneuvering. Despite this inauspicious origin, the forty-ton Assassin proved itself a capable light 'Mech hunter with impressive speed and jumping capability, and its modular design and ease of maintenance allowed it to persist through centuries of warfare long after Maltex's own fortunes had faded. Hellespont 'Mech Works revived the chassis in the late Jihad era, ensuring the Assassin remains a common sight in Capellan and Periphery forces.</p>
+
+capabilities:<p>The Assassin combines respectable mobility with adequate firepower for its intended role as a reconnaissance platform and light 'Mech hunter. Its VOX 280 fusion engine propels the forty-ton chassis to speeds of 118 kilometers per hour, while seven Lox Lift Series 1 jump jets provide an impressive 210-meter jumping distance that allows pilots to exploit terrain advantages against heavier opponents.</p><p>The weapons suite centers on a Holly-5 LRM-5 launcher for long-range harassment, supplemented by a Holly-2 SRM-2 rack and arm-mounted Martell medium laser for close engagements. This combination provides flexibility across engagement ranges, though the design's limited ammunition capacity of just seventy-four total rounds restricts extended operations without resupply. The SRM launcher's ammunition feed system is also prone to jamming in high-heat situations, a persistent concern that has led many operators to adopt conservative firing disciplines during sustained engagements.</p><p>The Assassin's most significant weakness lies in its cockpit design. Maltex's cost-cutting measures produced one of the most cramped cockpits in the Inner Sphere, limiting pilot endurance to half that of comparable designs and causing many veterans to develop chronic back problems. Despite numerous redesign attempts over four centuries, this fundamental flaw has never been adequately addressed in standard production models.</p>
+
+deployment:<p>This variant served as the standard production Assassin for nearly four centuries and remains the most widely encountered variant. Originally distributed to Star League Defense Force garrison commands and Periphery postings, the base model found its greatest concentration in Free Worlds League service, where House Marik adopted it enthusiastically for rear-area security and raiding operations. Smaller numbers filtered into Lyran and Davion militia forces through battlefield salvage and gray-market sales. The ASN-21's straightforward maintenance requirements made it a favorite of independent commands and mercenary units operating far from established supply lines, though operators quickly learned to manage the cockpit's ergonomic limitations through shortened patrol rotations and frequent crew swaps.</p>
+
+history:<p>The Assassin's troubled history began when Maltex Corporation secured Star League Defense Force contracts through aggressive lobbying rather than superior design. Only several hundred units were produced before quality control investigations slowed production to a crawl, and the design was quietly shuffled to Periphery garrisons and militia markets. The primary manufacturing facility on Errai was destroyed in 2835 during the Second Succession War, further limiting the chassis's availability.</p><p>House Marik became the Assassin's most enthusiastic user during the Third Succession War. The 'Mech's impressive performance during the Battle of Rochelle in 2980, where it excelled in muddy conditions that hampered heavier designs, led to widespread adoption in Free Worlds League garrison forces. Marik commanders frequently assigned Assassins to rear-area raiding parties, where their speed and jump capability proved invaluable for hit-and-run operations.</p><p>The Capellan Confederation exhausted its Assassin inventory by 3025, and spare parts shortages plagued operators across the Inner Sphere. By 3058, most surviving Assassins had been phased out of frontline service, with the remaining examples typically serving as family heirlooms passed down through MechWarrior dynasties, often sporting extensive field modifications.</p><p>The Assassin's fortunes reversed dramatically in late 3067 when Hellespont 'Mech Works acquired the design from Maltex Corporation. Distracted by Jihad-era chaos, tax evasion charges, and suspected Word of Blake connections, Maltex readily surrendered control. Hellespont began producing upgraded variants for the Capellan Confederation Armed Forces, Taurian Defense Force, and Magistracy Armed Forces, using the chassis as an economical means to rebuild shattered formations. The design's shared components with the Raven II further simplified logistics for Capellan operators.</p><p>Defiance Industries' attempt to produce the ASN-30 variant for Lyran forces during the FedCom Civil War proved largely unsuccessful, with the radical redesign failing to win acceptance. However, Hellespont's more conservative upgrades have ensured the Assassin remains a common sight in Capellan and Periphery forces well into the thirty-second century.</p>
+
+manufacturer:Maltex Corporation
+
+primaryfactory:Errai
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Maltex
+systemmode:CHASSIS:Maltex 40
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:VOX 280
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:100 AFVTA
+systemmanufacturer:JUMP_JET:Lox Lift
+systemmode:JUMP_JET:Lox Lift Series 1
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:Garret T15 B
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:Garret 500S

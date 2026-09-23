@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-acda-75bc-b3b4-1d97bbe8f8b8
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Zero
+</Name>
+
+<Model>
+ZRO-116b
+</Model>
+
+<mul id:>
+3637
+</mul id:>
+
+<year>
+2707
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+61
+42
+42
+43
+</armor>
+
+<Nose Equipment>
+ISLargePulseLaser
+ISMediumPulseLaser
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISMediumPulseLaser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISMediumPulseLaser
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Zero's armament pairs a Holly LRM-10 for standoff engagement with two Blow/Hookson Technologies laser systems: the Blow Mark III large laser and the Blow Mark II medium laser. The Mark III features an adjustable focus beam operable in flight, ranging from a wide-angle burst that disrupts enemy targeting electronics to a precisely focused armor-penetrating strike. The Mark II and comparable lasers can only be adjusted by ground crew and are typically set for maximum coherence. Ten single heat sinks manage the weapons' combined thermal load adequately, though pilots running all three systems simultaneously must remain disciplined about heat buildup.</p><p>The Bangkock 140 fusion engine provides strong acceleration for the type's thirty-five-ton mass. The wing assembly mounts ahead of the cockpit alongside the engine cooling systems, providing meaningful shielding against ground fire during assault runs. The wings can fold rearward to save hangar space, and in atmosphere allow for an acceleration burst in a dive or a controlled atmospheric skip when deployed at the interface. Ten tons of SlabPanzer V standard armor protects the airframe.</p><p>The Zero's principal weakness is its dispersed fuel system: five separate tanks connect through a network of fuel lines, and battle damage to any connection can drain the fighter's reserves rapidly. Pilots must remain alert to this vulnerability throughout sustained engagements.</p>
+</capabilities>
+
+<overview>
+<p>When the Star League Defense Force issued requirements for a new light aerospace fighter in the early 28th century, most manufacturers declined to bid. The challenge called for heavy firepower effective at multiple combat ranges, protection exceeding comparable light designs, and competitive speed; criteria that seemed mutually exclusive at that mass. Blow/Hookson Technologies of New Earth accepted the contract, and in under twenty months produced a flying prototype that met every specification. The Zero entered service in 2703 as one of the finest light fighters of the Star League era, earning a reputation for reliability and combat effectiveness that endured for generations. Its distinctive forward-mounted wing configuration (designed to shield the pilot and engine cooling systems from ground fire) became one of the most recognizable silhouettes in aerospace history.</p>
+</overview>
+
+<deployment>
+<p>Developed for SLDF Royal commands, the ZRO-116b served as the elite variant of the Zero family during the Star League era, with distribution restricted to units afforded Royal command access to advanced technology. The pulse laser battery and improved powerplant made it a substantially more demanding opponent than the baseline model, while the upgrade to ferro-aluminum armor increased survivability against the weapons common to the period. After surviving the Succession Wars in ComStar custody, the ZRO-116b remained in service with Com Guard units alongside other variants, its Royal command origins making it among the more prized examples in ComStar's aerospace inventory.</p>
+</deployment>
+
+<history>
+<p>When Blow/Hookson Technologies of New Earth accepted the SLDF's light fighter contract in the early 28th century, most of the aerospace industry had already declined to bid. The stated requirements (firepower effective at all ranges, above-average armor, and competitive speed in a light airframe) seemed to demand contradictory compromises, and most manufacturers concluded the mathematics could not work. Blow/Hookson disagreed. Their design team produced a flying prototype in under twenty months, and the Zero entered SLDF service in 2703 as one of the most capable light fighters the Defense Force had ever commissioned.</p><p>The new design did not wait long for its first test. Later that same year, SLDF elements responded to Rim Worlds Republic forces conducting covert raids along the Capellan and Federated Suns borders, striking civilian targets on New Roland under false identities. General Gaffa Pardoe's Third RCT engaged the raiders, who fielded WarShips including a Dart-class cruiser. Zero fighters executed a sweeping flank while Pardoe's capital ships held the enemy's attention, tearing through the formation and destroying the flagship. The raider force broke and fled, and the Rim Worlds Republic immediately disavowed the entire incident. The Zero had announced itself in decisive fashion.</p><p>Impressed by the fighter's performance, the SLDF fielded the Zero across a wide range of commands through the Star League era. In 2707, a variant entered production for SLDF Royal units, replacing the original weapons with a pulse laser battery, upgrading to double heat sinks, fitting a lighter XL engine for improved acceleration, and adopting ferro-aluminum armor for greater protection. The Zero had grown into a family of designs, with its most capable examples reserved for the SLDF's elite formations.</p><p>The Succession Wars destroyed Blow/Hookson's production base. The New Earth facility was burned out in 2775, and with the factory went new production capacity. As the decades of attrition ground down Star League-era equipment across the Inner Sphere, the Zero gradually disappeared from the arsenals of the Successor States. By the mid-Succession Wars, the design had effectively vanished from any force not backed by ComStar's technological preservation program. It was ComStar's maintenance of surviving examples on Terra, serviced across the centuries, that kept the Zero from extinction entirely.</p><p>At the Battle of Tukayyid in 3052, ComStar's maintained fighters faced Clan aerospace forces and demonstrated the enduring value of the design. The Zero's effectiveness against Clan OmniFighter formations (aircraft from a tradition that had evolved independently for over a century) vindicated ComStar's investment in the older type. That outcome spurred ComStar technicians to develop an upgraded variant in 3055, replacing the original missile launcher and large laser with an extended-range PPC and short-range missile launchers, adapting the Zero's engagement profile to match Clan combat methods more closely.</p><p>Through the Chaos March conflicts following the formation of the Second Star League, both ComStar and the Word of Blake deployed their Zero forces with effect. Fighter screens proved their worth in brutal actions across the region; at Tall Trees, Zero pilots held open an escape corridor against Blakist aerospace forces, allowing a Com Guards division to withdraw its DropShips against heavily committed opposition. The Word of Blake, which had acquired Zeros through the Schism, deployed the type in their own Chaos March and later Jihad operations.</p><p>The Clans had maintained a small number of Zeros through the centuries since the Exodus, treating the type as appropriate equipment for solahma warriors and disreputable second-line formations whose status did not merit access to OmniFighter assets. That the design remained capable enough to serve in those roles after three centuries of service spoke to the fundamental soundness of what Blow/Hookson had built.</p><p>Late in the Jihad, ComStar's research program produced a prototype variant, adding a capacitor to the upgrade model's extended-range PPC for increased peak output and replacing its short-range missile launchers with an Enhanced LRM system for greater standoff range. The project was tested several times with positive results before the work came to an abrupt end under unclear circumstances. Whether prototype examples or technical documentation survived the upheaval of the Jihad remained unconfirmed following the war's conclusion.</p>
+</history>
+
+<manufacturer>
+Blow/Hookson Technologies
+</manufacturer>
+
+<primaryFactory>
+New Earth
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Saroyan
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Orbitcom
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Cavalier
+ENGINE:XL 140
+ARMOR:Ferro-Aluminum
+JUMP_JET:N/A
+COMMUNICATIONS:Model 11
+TARGETING:PS/1/12
+</systemModels>
+
+<source>
+His:OK
+</source>
+
+<published>
+RS:OK
+</published>
+
+<tonnage>
+35.0
+</tonnage>
+

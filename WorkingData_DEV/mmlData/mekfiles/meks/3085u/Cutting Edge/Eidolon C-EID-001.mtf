@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf8a-7c38-bc55-c2fa21acad75
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Eidolon
+model:C-EID-001
+mul id:943
+
+Config:Biped
+techbase:Inner Sphere
+era:3077
+source:TR:3085,TR:3085S
+published:RS:3085u-CE
+rules level:2
+role:Striker
+
+quirk:non_standard
+
+mass:55
+engine:275 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:7
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:18
+RA armor:18
+LT armor:20
+RT armor:20
+CT armor:28
+HD armor:9
+LL armor:23
+RL armor:23
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:2
+Snub-Nose PPC, Right Arm
+Snub-Nose PPC, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISSNPPC
+ISSNPPC
+ISSNPPC
+ISSNPPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISC3iUnit
+ISC3iUnit
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Eidolon was a fifty-five-ton medium BattleMech conceived during the final years of the Jihad as an improvised design assembled from surplus Celestial series OmniMech components. First appearing in December 3077, the design was produced by the Martinson Armaments facility on Liberty, built to serve as a broken terrain and urban combat spotter for Word of Blake conventional formations. A true FrankenMech in every sense, the Eidolon reflected the desperate improvisation of the crumbling Blakist Protectorate rather than any coherent long-term development program.</p><p>Never more than a stopgap measure, the Eidolon saw extremely limited production, with no more than a single example appearing at any given time. The design's significance ultimately lay not in its own battlefield record but in providing the foundation for the Capellan Confederation's Yao Lien program.</p>
+
+capabilities:<p>The Eidolon was designed as a broken terrain and urban combat spotter, leveraging improved jump jets to provide an impressive two-hundred-ten-meter jump capability that compensated for its relatively modest ground speed of eighty-six kilometers per hour. While slightly slower than many classic fifty-five-ton designs, the enhanced jump range gave it exceptional tactical mobility in cluttered urban environments and rough terrain.</p><p>The 'Mech's armament reflected its grab-bag construction philosophy, mounting a pair of Donal snub-nose PPCs as its sole weaponry. While limited in variety, these weapons provided respectable close-range firepower suitable for the urban engagements the Eidolon was intended to support. Ten tons of medium ferro-fibrous armor provided reasonable protection for a design in its weight class, while ten double heat sinks managed the thermal load of its particle projection cannons adequately. The reliance on surplus components also meant that field maintenance was a persistent challenge, as the hodgepodge of Celestial-derived parts created unique logistical demands that frontline technicians struggled to meet.</p><p>The Eidolon's most tactically significant feature was its improved C3 computer, which allowed it to share targeting data with other Blakist units in a network immune to electronic countermeasures. This C3i system made the Eidolon a valuable force multiplier despite its otherwise unremarkable weapons loadout, enabling it to serve as an effective spotter for heavier formations operating in broken terrain.</p>
+
+deployment:<p>This variant is the sole production variant of the Eidolon, equipped with an improved C3 computer and a pair of Donal snub-nose PPCs. Produced in extremely limited numbers at the Martinson Armaments facility on Liberty, the variant was designed to serve as a networked spotter for conventional Blakist formations operating in broken terrain. The design's reliance on surplus Celestial components made each example essentially unique in its maintenance requirements, ensuring the Eidolon remained a rare and logistically demanding asset throughout its brief service life.</p>
+
+history:<p>The Eidolon's brief history is inextricably linked to the internal politics of the Word of Blake during the final years of the Jihad. By late 3077, the Blakist Protectorate was crumbling under the combined onslaught of Stone's Coalition forces, and Cameron St. Jamais recognized the urgent need for additional combat assets. The Celestial OmniMech program had produced more chassis than Apollyon's Manei Domini could crew, yet the cybernetic fanatic refused to release them to conventional formations. St. Jamais found his workaround through the Martinson Armaments facility on Liberty, secretly diverting excess Celestial components to construct a new design from leftover parts.</p><p>The Eidolon first appeared in December 3077, though it remained an exceedingly rare sight on the battlefield. Salvaged examples were nearly nonexistent outside Capellan hands, with most recovered units being stripped for parts rather than returned to service. Even before the Confederation began formal production of its successor, the CCAF had amassed the largest collection of salvaged Eidolons, though the design was still considered highly unusual.</p><p>The design's true legacy emerged during Operation SCOUR, when Free Worlds Task Force II landed on Liberty. The Capellan Confederation, having already discovered the existence of the hidden Martinson facility during the Jihad, dispatched Warrior House Imarra and supporting forces to secure the planet. After violent clashes with the Free Worlds League's Home Guard and a daring hot drop to seize the island outpost of Quantico, Capellan forces negotiated a ceasefire and later mediation of the planet's ownership.</p><p>When House Imarra eventually withdrew, they took with them the true prize: the dismantled remains of the Martinson factory and its BattleMech production lines, which had been hidden among the ruins of a former Star League Defense Force Marine base on Quantico. Capellan intelligence operatives successfully spirited the entire facility away before Coalition forces realized its significance, relocating the production equipment to Ceres Metals Industries on Capella, where the Eidolon would be reborn as the Yao Lien.</p>
+
+manufacturer:Martinson Armaments
+
+primaryfactory:Carver V / Liberty
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Celestial Prototype BD1Y
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:275
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Medium Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Improved Jump Jets
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Unknown (with C3i)
+systemmanufacturer:TARGETING:Unknown

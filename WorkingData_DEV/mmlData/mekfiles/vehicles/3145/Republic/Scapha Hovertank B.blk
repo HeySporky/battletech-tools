@@ -1,0 +1,166 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e87a-7efc-85fc-1cfcc84d9296
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Scapha Hovertank
+</Name>
+
+<Model>
+B
+</Model>
+
+<mul id:>
+6660
+</mul id:>
+
+<year>
+3123
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+11
+</cruiseMP>
+
+<engine_type>
+3
+</engine_type>
+
+<armor_type>
+3
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+30
+20
+20
+20
+30
+</armor>
+
+<Body Equipment>
+IS Light Gauss Ammo:OMNI
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISLightGaussRifle:OMNI
+</Turret Equipment>
+
+<capabilities>
+<p>The Scapha's most defining feature is its Strand 265 XXL fusion engine, which generates exceptional mobility at the cost of significant engine bulk. The vehicle's base cruising speed reaches 118 km/h, with a maximum of 183 km/h. The Primary Configuration adds a supercharger that pushes maximum speed past 220 km/h, placing the Scapha among the fastest medium vehicles in service. This performance comes from the expensive and space-intensive XXL powerplant, which constrains internal volume despite leaving thirteen tons of pod space for reconfigurable weapons and equipment.</p><p>Protecting the hull is 7.5 tons of Grumman CRR Reflective armor. This armor excels at reducing damage from energy weapons, dissipating the heat of lasers and PPCs across its composite surface. The trade-off is comparatively weaker performance against ballistic and missile threats. Commanders relying on the Scapha must account for this vulnerability when facing autocannon-heavy or missile-equipped opponents, as the reflective plating provides less protection in those engagements than an equivalent mass of standard armor would.</p><p>The base electronics suite pairs a TransComm 44 communications system with the Bundesweyth FlexTrak targeting and tracking system, providing reliable all-environment sensor and communications performance suited to both independent operations and integrated combined-arms missions. The combined cost of the XXL engine, reflective armor, and advanced electronics makes the Scapha one of the more expensive vehicles in its weight class, restricting distribution to elite and priority formations rather than widespread deployment.</p>
+</capabilities>
+
+<overview>
+<p>The Scapha Hovertank is a medium Hover OmniVehicle developed by Grumman Industries at their Terra facility, introduced in 3123 exclusively for the Armed Forces of the Republic of the Sphere. Grumman won one of the last major combat vehicle contracts placed before the HPG Blackout, designing the Scapha around the best available technologies of the thirty-second century. The result is a hovertank built around the OmniVehicle concept, capable of being reconfigured for an extraordinary range of battlefield roles.</p><p>Offered solely to the Republic Armed Forces in its early years, the Scapha became a fixture of both Stone's Brigade cavalry formations and the Republic's prefecture-level Standing Guard units. Its combination of extreme speed, reconfigurable weaponry, and specialized reflective armor made it one of the most versatile ground assets in the RAF inventory, serving with distinction across dozens of contested worlds throughout the Dark Age period.</p>
+</overview>
+
+<deployment>
+<p>The B Configuration is a long-range precision strike platform built around a single Light Gauss Rifle with one ton of ammunition. The limited ammunition load means this configuration is not suited for prolonged engagements. Instead, the B relies on the Scapha's extreme speed to move into firing position, deliver accurate long-range shots against high-value targets, and disengage before the enemy can respond effectively. The configuration pairs well with reconnaissance assets that can identify and designate priority targets.</p>
+</deployment>
+
+<history>
+<p>The Scapha emerged from a competitive bid process that Grumman Industries won several years before the HPG Blackout of 3132, cementing the company's relationship with the Republic of the Sphere as the RAF worked to upgrade and consolidate its conventional ground forces. Introduced in 3123, the design was a deliberate departure from standard fixed-configuration hovertanks, reflecting Republic doctrine of flexible rapid-response forces capable of adapting to a wide variety of threats across the Republic's diverse prefectures.</p><p>The Scapha's OmniVehicle nature quickly proved its value during the peacetime era following its introduction. Stone's Brigade and the Standing Guard formations that received the vehicle praised its adaptability, and Grumman maintained steady production at Terra throughout the late Republic period. The design's popularity extended to the highest levels of RAF planning, with combined-arms cavalry platoons and rapid-reaction companies built specifically around the Scapha's ability to shift roles between engagements.</p><p>When the Blackout descended and the Republic began to fracture after 3132, the Scapha proved its worth in ways the original specifications had not anticipated. Standing Guard formations throughout the contested prefectures found the OmniVehicle nature critical to their survival. Units cut off from resupply could reconfigure their vehicles to whatever loadout was supportable with available ammunition and pods, maintaining combat effectiveness long after fixed-configuration vehicles in the same formations had been sidelined. The design earned a reputation for enabling small, isolated Republic forces to delay numerically superior invaders at far greater cost than expected.</p><p>The most striking demonstration of this capacity occurred on Arboris, where a Capellan Confederation invasion quickly overran the planet's main Standing Guard defenses. A single Scapha crew, working with pre-positioned materiel caches and undercover technical teams, used their vehicle's reconfigurability as a guerrilla weapon, identifying targets through local intelligence networks and reconfiguring pod loadouts for each strike before vanishing into Arboris's vast agricultural terrain. Despite a dedicated Capellan counterintelligence campaign to locate and neutralize the vehicle, the crew remained at large as of early 3144, their Scapha still operational nearly twelve years after the planet's fall.</p>
+</history>
+
+<manufacturer>
+Grumman Industries
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Grumman Industries
+ENGINE:Strand
+ARMOR:Grumman
+COMMUNICATIONS:TransComm
+TARGETING:Bundesweyth
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:265 XXL
+ARMOR:CRR Reflective
+COMMUNICATIONS:44
+TARGETING:FlexTrak
+</systemModels>
+
+<source>
+TR:3145:RotS,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+
+<baseChassisTurretWeight>
+1.5
+</baseChassisTurretWeight>
+

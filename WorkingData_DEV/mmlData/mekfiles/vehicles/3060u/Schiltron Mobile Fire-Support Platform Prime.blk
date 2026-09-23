@@ -1,0 +1,182 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e54f-7f74-941f-88a1f91391ba
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Schiltron Mobile Fire-Support Platform
+</Name>
+
+<Model>
+Prime
+</Model>
+
+<mul id:>
+2821
+</mul id:>
+
+<year>
+3059
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+46
+34
+34
+25
+40
+</armor>
+
+<Body Equipment>
+ISArrowIVAmmo:OMNI
+ISArrowIVHomingAmmo:OMNI
+ISArrowIVAmmo:OMNI
+ISArrowIVHomingAmmo:OMNI
+ISArrowIVAmmo:OMNI
+ISArrowIVHomingAmmo:OMNI
+ISArrowIVAmmo:OMNI
+ISArrowIVHomingAmmo:OMNI
+ISC3MasterUnit
+ISGuardianECMSuite
+</Body Equipment>
+
+<Front Equipment>
+ISArrowIV:OMNI
+ISArrowIV:OMNI
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Medium Laser:OMNI
+Medium Laser:OMNI
+Small Laser:OMNI
+Small Laser:OMNI
+Small Laser:OMNI
+Small Laser:OMNI
+</Turret Equipment>
+
+<capabilities>
+<p>The Schiltron's pod weapons system can accommodate over forty tons of interchangeable weapon bays, giving it firepower comparable to the heaviest Inner Sphere OmniMechs in several configurations. All configurations share the C3 master computer fixed to the base chassis, enabling the vehicle to act as a fire-control hub for a networked lance. A Guardian ECM suite is also fitted as standard, providing protection against enemy electronic countermeasures and giving the Schiltron utility in contested electronic environments.</p><p>Propelled by a DAV 220 XL fusion engine, the vehicle reaches a top speed of 54 km/h. This is adequate for a rear-area fire-support role, but it leaves the design exposed when enemy forces close to direct-fire range faster than supporting infantry or BattleMechs can respond. The ten tons of ferro-fibrous armor fitted to the base chassis is the design's most significant shortcoming. For a vehicle of its mass, this protection level is considered thin, and field commanders must position the Schiltron carefully to avoid direct engagement.</p><p>Production costs remain among the highest in the DCMS vehicle inventory, a consequence of the XL fusion engine, the OmniPod interface system, and the C3 master hardware. These factors have limited procurement numbers relative to conventional heavy vehicles. Despite these drawbacks, the combination of C3 integration, Guardian ECM, and exceptional weapons flexibility makes the Schiltron a valuable command platform when kept beyond the reach of enemy direct fire.</p>
+</capabilities>
+
+<overview>
+<p>The Schiltron Mobile Fire-Support Platform entered service with the Draconis Combine Mustered Soldiery in 3059, the product of a joint development effort between Bulldog Enterprises of Proserpina and Cosara Weaponries of Northwind. Commissioned to fill a critical gap in the DCMS vehicle arsenal, the Schiltron was the first OmniVehicle produced by an Inner Sphere Successor State, applying the modular pod technology pioneered through Clan OmniMech reverse-engineering to an eighty-ton wheeled fire-support platform.</p><p>Designed to leverage the Combine's growing investment in C3 networking doctrine, the Schiltron carries a C3 master computer as standard equipment in every configuration, enabling it to coordinate targeting data across an entire lance from any position on the battlefield. Its modular weapons bays allow rapid reconfiguration to suit a range of fire-support roles, from long-range artillery to close-range missile saturation. The design was immediately recognized as a significant step forward for the DCMS vehicle arm, though its relatively light armor and high production costs attracted criticism from the outset.</p>
+</overview>
+
+<deployment>
+<p>The Primary Configuration mounts a pair of Arrow IV artillery systems in forward-facing pods, supported by eight tons of mixed munitions including homing rounds. Two medium lasers and four small lasers in a turret mount provide minimal close-defense capability. All configurations retain the base chassis C3 master computer and Guardian ECM suite. This configuration is intended to operate well behind the front line, using homing artillery rounds designated by forward C3 network members to engage targets far outside visual range. It is the most purely indirect-fire of the Schiltron's configurations and is entirely dependent on friendly screening forces for protection against direct assault.</p>
+</deployment>
+
+<history>
+<p>The origins of the Schiltron lie in the DCMS High Command's desire to complement its growing BattleMech strength with a capable wheeled fire-support platform that could leverage the Combine's investment in C3 network doctrine. Following the success of the Tokugawa heavy tank, a joint product of Bulldog Enterprises and Buda Imperial Vehicles, the High Command tasked Bulldog with developing a successor design that could bring modular weapon flexibility to the vehicle arm. The Draconis Combine had already invested heavily in reverse-engineering Clan OmniMech pod technology for its BattleMech programs, and the High Command saw an opportunity to apply the same approach to combat vehicles.</p><p>Bulldog Enterprises was simultaneously in negotiations with Cosara Weaponries of Northwind, which was expanding its production facilities and seeking a major manufacturing contract. The DCMS commission became the foundation of a formal joint venture between the two companies, with Bulldog leading engineering and Cosara contributing production capacity under license. After several months of collaborative design work, the two firms submitted the Schiltron for DCMS approval.</p><p>The High Command's interest was immediate, partly for technical reasons and partly political. Combine strategists were aware of the Northwind Highlanders' intention to establish an exclusive licensing relationship with Cosara, and they recognized that assigning the Highlanders as the Schiltron's initial test unit served dual purposes: it would yield genuine field data from an experienced vehicle formation, and it would deepen the productive working relationship between the Combine and the mercenary regiment. The Combine was on favorable terms with the Highlanders following Stirling's Fusiliers' successful Deep Periphery contract with the Dragon in 3058, making the arrangement straightforward to conclude.</p><p>The first operational deployment came during Operation Bulldog in 3059, the Inner Sphere coalition offensive against the Smoke Jaguar Occupation Zone. Schiltrons assigned to the Second and Third Battalions of Stirling's Fusiliers and to MacLeod's Regiment performed well under combat conditions. The after-action reports from the campaign were favorable, and orders to both Bulldog Enterprises and Cosara Weaponries increased substantially following the operation. The Northwind production line came online during the Civil War period as Cosara completed its facility expansion, extending the supply chain beyond Proserpina.</p><p>Later configurations expanded the Schiltron's weapons envelope in response to evolving battlefield requirements. The D Configuration, introduced in 3063, incorporated Federated Suns rotary autocannon technology, reflecting the weapons diversity available to Combine procurement channels during the late Civil War period. The E and F Configurations, both introduced during the Jihad, adapted the vehicle for the fragmented supply environment and advanced threat landscape of that conflict, incorporating Multi-Missile Launchers and experimental advanced-technology weapon systems. Despite the upheaval of the Jihad era, production at both facilities continued under Republic of the Sphere oversight following the conflict's conclusion.</p>
+</history>
+
+<manufacturer>
+Bulldog Enterprises|Cosara Weaponries
+</manufacturer>
+
+<primaryFactory>
+Proserpina|Northwind
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:DAV
+ARMOR:Unknown
+COMMUNICATIONS:Sipher
+TARGETING:TargiTrack
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:220 XL
+ARMOR:Protec 12
+COMMUNICATIONS:CommSys 1
+TARGETING:717
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+
+<baseChassisTurretWeight>
+2.0
+</baseChassisTurretWeight>
+

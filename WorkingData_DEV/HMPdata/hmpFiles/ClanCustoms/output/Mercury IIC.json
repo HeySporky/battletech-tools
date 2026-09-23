@@ -1,0 +1,403 @@
+{
+  "filename": "Mercury IIC.hmp",
+  "size": 4193,
+  "header_hex": "56 35 2e 30 30 04 00 08 03 ff ff 3f 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0003\u00ff\u00ff"
+    },
+    {
+      "type": "ascii",
+      "start": 11,
+      "end": 12,
+      "text": "?"
+    },
+    {
+      "type": "byte",
+      "offset": 12,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 14,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 15,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 16,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 17,
+      "end": 39,
+      "length": 20,
+      "text": "\u0007\u0000Mercury\u0003\u0000IIC\u00be\n\u0002\u0000\u00e0\u0007"
+    },
+    {
+      "type": "ascii",
+      "start": 39,
+      "end": 40,
+      "text": "\""
+    },
+    {
+      "type": "byte",
+      "offset": 40,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 41,
+      "end": 794,
+      "length": 751,
+      "text": "\u0000\u0080\u00c4C\u0000\u0080\u00c4C\u0000\u0000@A\u0000\u0000\u0000A\u0000\u0000\u0080?\u0013\u0000ML 2 2 2 1 \u0097\u0097 8 prb\u0001\u0000\u0000\u0000\u0001\u0000\u00a0\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\u0002\u0000\u0002\u0000\u0004\u0000\u0002\u0000\u0003\u0000\u0001\u00004\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000W\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00004\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000W\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0000\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0017\u0000\u0000\u00004\u0000\u0000\u0000\u00e2\u00ffE\u0000h\u0004    The unveiling of the Mercury was heralded as the dawn in a new age of BattleMech design. Billed as an obvious successor to the aging Stinger and Wasp, the Mercury answered man"
+    },
+    {
+      "type": "ascii",
+      "start": 794,
+      "end": 1743,
+      "text": "y dreams of scout lance pilots. Initial specifications called for the light 'Mech to be faster and better armed than any other in its class, all without a reduction in armor.\r\n    Displayed for the first time in 2742, the Mercury was an electronic marvel, the showpiece of the Star League Defense Forces. At the unveiling, Mitchell Vehicles spokesmen described multiple breakthrough systems only in general terms, and none of the new 'Mechs was allowed outside the direct control of the Regular Army. [EDITOR'S NOTE: Just before the Exodus, the new Mercury 'Mechs remained with units stationed on Terra and at the factory on Graham IV. These all left with General Kerensky. The highest concentration to remain behind were with the Eighth Recon Battalion of the Third Regimental Combat Team, known as the Eridani Light Horse, which became a renowned mercenary unit. The Eighth lost all twelve of its Mercury 'Mechs during fighting on Sendai in 2798.]"
+    },
+    {
+      "type": "byte",
+      "offset": 1743,
+      "hex": "c6"
+    },
+    {
+      "type": "byte",
+      "offset": 1744,
+      "hex": "08"
+    },
+    {
+      "type": "ascii",
+      "start": 1745,
+      "end": 3991,
+      "text": "    The heart of the Mercury is the Myomer Accelerator Signal Circuitry (MASC) system. Acting as a \"turbocharger\" for the myomer bundles in the legs, The MASC system allows the Mercury to reach speeds of up to 172 kph in short bursts. The special circuitry sends shorter but stronger signals to the myomer bundles, effectively doubling the Mercury's walking speed. Long-term use can damage the 'Mech's actuators, but timely use in critical situations can mean the difference between life and death.\r\n    With its high speed and energy weapons, the Mercury is an ideal scout and raider, capable of remaining in the field for as long as the pilot is able to take the stresses of battle.\r\n    The few critics of the design point out the Mercury's lack of jump jets. Despite this drawback, the Mercury is well accepted by the Star League commanders. Though comparable in weight to the Stinger or Wasp, the Mercury can survive longer in battle because of its heavier weapons and the stronger Ferro-Fibrous armor.\r\n    The energy-dissipation system is a marvel of Star League technology. Automated heat sinks monitor themselves and channel excess heat away from the reactor and cockpit.\r\n    The Hessen IX Small Lasers in the head and center torso are a matched pair. The lasers are slipped into place, bolted down, and connected in three places to the power circuits and cooling feeds. If the lasers are damaged or destroyed, the bolts can be removed and the entire system replaced, usually in minutes. [EDITOR'S NOTE: This modular replacement system was expected to revolutionize the logistical support of field units, but the Exodus and First Succession War put an end to any radical departure from standard military procedure.]\r\n    Though both Martell Medium Lasers use the same type of barrel and targeting feeds, they do differ greatly in their power systems. The right arm laser diffuses the power all along the upper and lower arm, housing redundant systems in both sections to provide backup capabilities should one part of the arm be damaged. The torso mount, however, clusters the entire system into a compact area. Any damage to the torso, other than a direct hit on the power system, is likely to pass through, missing the laser entirely."
+    },
+    {
+      "type": "len_string",
+      "start": 3991,
+      "end": 3994,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3994,
+      "end": 3997,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 3997,
+      "end": 4000,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 4000,
+      "end": 4003,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 4003,
+      "end": 4004,
+      "text": "'"
+    },
+    {
+      "type": "byte",
+      "offset": 4004,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 4005,
+      "end": 4044,
+      "text": "Design by Chris Mc Intosh (Duke Royal)."
+    },
+    {
+      "type": "len_string",
+      "start": 4044,
+      "end": 4047,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 4047,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4048,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4049,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4050,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4051,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4052,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4053,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4054,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4055,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4056,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4057,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4058,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4059,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4060,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4061,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4062,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4063,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4064,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4065,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4066,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4067,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4068,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4069,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4070,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4071,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4072,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4073,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4074,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4075,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4076,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4077,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4078,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 4079,
+      "end": 4089,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 4089,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 4090,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 4091,
+      "end": 4110,
+      "length": 17,
+      "text": "Mitchell Vehicles"
+    },
+    {
+      "type": "ascii",
+      "start": 4110,
+      "end": 4111,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 4111,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 4112,
+      "end": 4121,
+      "text": "(Unknown)"
+    },
+    {
+      "type": "len_string",
+      "start": 4121,
+      "end": 4126,
+      "length": 3,
+      "text": "LTV"
+    },
+    {
+      "type": "len_string",
+      "start": 4126,
+      "end": 4140,
+      "length": 12,
+      "text": "Mitchell-091"
+    },
+    {
+      "type": "len_string",
+      "start": 4140,
+      "end": 4154,
+      "length": 12,
+      "text": "Bergan MX II"
+    },
+    {
+      "type": "len_string",
+      "start": 4154,
+      "end": 4168,
+      "length": 12,
+      "text": "DataTech 401"
+    },
+    {
+      "type": "len_string",
+      "start": 4168,
+      "end": 4182,
+      "length": 12,
+      "text": "Skyhunter IV"
+    },
+    {
+      "type": "ascii",
+      "start": 4182,
+      "end": 4183,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 4183,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 4184,
+      "end": 4193,
+      "text": "(Unknown)"
+    }
+  ]
+}

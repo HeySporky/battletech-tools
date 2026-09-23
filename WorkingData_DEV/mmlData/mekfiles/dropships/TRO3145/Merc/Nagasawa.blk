@@ -1,0 +1,289 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ac1f-75a4-aebc-376562b403ef
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Nagasawa
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6580
+</mul id:>
+
+<year>
+3115
+</year>
+
+<type>
+Mixed (Clan Chassis) Experimental
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+easy_maintain
+unstreamlined
+</quirks>
+
+<weaponQuirks>
+mod_weapons:NOS:1:PPC Bay
+mod_weapons:NOS:7:AC Bay
+mod_weapons:LS:1:Laser Bay
+mod_weapons:LS:6:LRM Bay
+mod_weapons:LS:11:AMS Bay
+mod_weapons:RS:1:Laser Bay
+mod_weapons:RS:6:LRM Bay
+mod_weapons:RS:11:AMS Bay
+mod_weapons:AFT:1:Laser Bay
+mod_weapons:AFT:5:Pulse Laser Bay
+mod_weapons:AFT:9:AMS Bay
+</weaponQuirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:1.0:1:1::-1:0
+cargobay:207.0:1:2::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:70.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+8
+</SafeThrust>
+
+<heatsinks>
+160
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+7500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+740
+550
+550
+400
+</armor>
+
+<Nose Equipment>
+(B) CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+(B) ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5 Ammo:600
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis V-capable:60
+(B) CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLArtemisV
+CLArtemisV
+CLArtemisV
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis V-capable:60
+(B) CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLArtemisV
+CLArtemisV
+CLArtemisV
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+(B) CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+CLLaserAntiMissileSystem
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+20
+</structural_integrity>
+
+<capabilities>
+<p>The Nagasawa is a military DropShip that combines transport capacity with credible defensive armament in a hull designed to operate in the contested environment of the thirty-second century battlefield. Its weapons suite provides coverage across all arcs, with emphasis on forward-facing batteries for approach and landing phases. Armor protection reflects the Combine's post-Jihad design philosophy of building transports that can survive contested orbital insertions without dedicated WarShip escort, mounting heavier protection than previous-generation Combine transports. The drive system provides standard military-grade acceleration, allowing the Nagasawa to maintain formation with combat escorts while executing the evasive maneuvers necessary during approach to defended worlds. Internal bay configurations are designed for the efficient transport and rapid deployment of ground forces, with loading and unloading systems optimized to minimize the vessel's time on the ground during opposed landings. The design balances its combat and transport capabilities effectively, providing enough firepower to suppress ground-based aerospace defenses during landing operations while maintaining sufficient bay capacity to deliver a meaningful ground force in a single drop.</p>
+</capabilities>
+
+<overview>
+<p>The Nagasawa is a military DropShip developed for the Draconis Combine's naval forces during the early thirty-second century. Designed as part of the Combine's ongoing military modernization following the devastation of the Jihad and subsequent conflicts with the Rasalhague Dominion, the Nagasawa addresses specific operational requirements identified during those campaigns. The design provides the Draconis Combine Mustered Soldiery with a domestically developed vessel tailored to their tactical doctrine and strategic needs. The class has become an increasingly common component of Combine naval formations along the coreward frontier.</p>
+</overview>
+
+<deployment>
+<p>The standard Nagasawa serves in its baseline military transport configuration, delivering Combine ground forces to planetary surfaces during both routine deployments and contested landing operations. These vessels operate as integral components of Draconis Combine Mustered Soldiery naval task groups along the Dominion border and throughout the Combine's coreward territories.</p>
+</deployment>
+
+<history>
+<p>The Nagasawa was developed as part of the Draconis Combine's sustained effort to rebuild and modernize its military transport fleet following the Jihad. The Word of Blake's systematic targeting of Combine naval assets and shipyard facilities had left the DCMS critically short of transport capacity, a deficiency that was brutally exposed during the early clashes with the Rasalhague Dominion.</p><p>Combine naval planners recognized that simply replacing lost tonnage with older designs was insufficient. The emerging threat environment, characterized by advanced weapons systems, Pocket WarShips, and sophisticated aerospace defenses, demanded a new generation of transports built to higher survivability standards. The Nagasawa program was initiated to meet this requirement, drawing on combat data from the Jihad and subsequent border conflicts to inform its design specifications.</p><p>Production commenced at Combine shipyards, with initial deliveries prioritized for formations stationed along the volatile border with the Rasalhague Dominion. The Nagasawa saw its first combat deployments during the ongoing tensions that periodically flared into open conflict between the two powers. The class has since become a standard component of DCMS naval formations, gradually replacing older transports as production capacity allows. Its domestically developed systems also reduce the Combine's dependence on foreign suppliers for critical military transport capability.</p>
+</history>
+
+<manufacturer>
+Fox's Warren Naval Yard
+</manufacturer>
+
+<primaryFactory>
+Tukayyid
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:Merc,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+3000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+15
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+5
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+4
+</escape_pod>
+

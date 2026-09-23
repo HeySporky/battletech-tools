@@ -1,0 +1,264 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab18-76d1-a873-984eb8132efd
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Intruder
+</Name>
+
+<Model>
+(3056)
+</Model>
+
+<mul id:>
+4369
+</mul id:>
+
+<year>
+3056
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+infantrybay:3.0:1:1:Foot:-1:0
+asfbay:2.0:2:2::-1:0
+cargobay:850.0:2:3::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:50.0:0:-1::-1:0
+crewquarters:175.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+100
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+9000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+360
+340
+340
+232
+</armor>
+
+<Nose Equipment>
+(B) ISERPPC
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+(B) ISUltraAC5
+IS Ultra AC/5 Ammo:60
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISERPPC
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+(B) ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(R) (B) ISERPPC
+(R) ISERPPC
+(R) (B) ISGaussRifle
+(R) IS Gauss Ammo:16
+(R) (B) SRM 6
+(R) SRM 6
+(R) IS Ammo SRM-6 Artemis-capable:45
+(R) ISArtemisIV
+(R) ISArtemisIV
+(R) (B) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISERPPC
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+(B) ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(R) (B) ISERPPC
+(R) ISERPPC
+(R) (B) ISGaussRifle
+(R) IS Gauss Ammo:16
+(R) (B) SRM 6
+(R) SRM 6
+(R) IS Ammo SRM-6 Artemis-capable:45
+(R) ISArtemisIV
+(R) ISArtemisIV
+(R) (B) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+(R) ISMediumPulseLaser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+ISArtemisIV
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISMediumPulseLaser
+ISMediumPulseLaser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+22
+</structural_integrity>
+
+<capabilities>
+<p>The 3056 upgrade replaces the entire weapons array with advanced technology equivalents. PPCs become ER PPCs throughout, while the nose AC/5 is replaced with an Ultra AC/5 and the broadside autocannons give way to Gauss rifles. All LRM-20 and SRM-6 racks receive Artemis IV fire control systems for improved accuracy. Standard large lasers are replaced with a mix of large pulse lasers and ER large lasers, and all sixteen medium lasers become medium pulse lasers. The switch to one hundred double heat sinks from the original's one hundred thirteen single sinks dramatically improves sustained-fire capability.</p><p>Infantry capacity drops from four platoons to three, but the additional cargo space of 850 tons slightly exceeds the original's 844. The crew complement decreases from 159 to 130 through improved automation. Fighter bays, medical facilities, command center, and the distinctive hull-flush landing system remain unchanged from the original design.</p>
+</capabilities>
+
+<overview>
+<p>The Intruder class assault DropShip is designed to carry out raiding and assault operations independently, from intelligence gathering to securing footholds during planetary invasions. Though smaller than the common Union class, the 3,000-ton Spheroid is more heavily armed, making it ideal for high-risk combat situations where BattleMech support is not a primary requirement.</p><p>Equally capable in space and on the ground, the Intruder features a unique hull-flush landing profile that makes it exceptionally difficult to sabotage when grounded. The vessel's comprehensive onboard facilities including medical bays, marine quarters, training areas, and a sophisticated command center allow it to conduct extended independent operations far from friendly supply lines.</p>
+</overview>
+
+<deployment>
+<p>The upgraded Intruder entered production at Andurien AeroTech in 3056 and has seen service primarily with the Free Worlds League and its successor states. The advanced weapons and electronics package made these vessels particularly effective in the post-Clan Invasion threat environment, and the design has remained in active service through the Dark Age era.</p>
+</deployment>
+
+<history>
+<p>The Intruder entered service in 2655 as a Star League-era assault craft and was subsequently adopted by multiple Successor States. Andurien AeroTech, a division of Free Worlds Defense Industries, became the largest producer of the design. However, production was badly disrupted when the Andurien facility suffered severe damage during the Andurien Secession of the 3030s, forcing a complete halt to Intruder manufacturing.</p><p>The Free Worlds League reconstructed the Andurien AeroTech facility and resumed Intruder production in 3046. Initially the yard simply continued building the standard configuration, but the recovery of lostech spurred the development of an upgraded variant that began trials in the mid-3050s and entered production in 3056. The upgraded version incorporated advanced weapons and electronics throughout, dramatically increasing the vessel's combat effectiveness.</p><p>BBP Industries and Tharkad Aerospace Group also maintained Intruder production lines, ensuring the design remained available across multiple states. Following the Jihad, Andurien AeroTech announced its intention to separate from its parent company in 3078. The upgraded variant continues to see use primarily within the former and reconstituted Free Worlds League states, while older configurations remain in service across the Inner Sphere.</p>
+</history>
+
+<manufacturer>
+Andurien AeroTech (A Division of Free Worlds Defense Industries)|Tharkad Aerospace Group
+</manufacturer>
+
+<primaryFactory>
+Andurien|Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Movem-XL Drive
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+3000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+118
+</crew>
+
+<officers>
+5
+</officers>
+
+<gunners>
+7
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+6
+</escape_pod>
+

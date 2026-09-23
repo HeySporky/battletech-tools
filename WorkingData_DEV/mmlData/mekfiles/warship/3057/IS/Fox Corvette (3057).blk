@@ -1,0 +1,337 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ecee-7ba1-842d-2e105e2ec6d7
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Fox Corvette
+</Name>
+
+<Model>
+(3057)
+</Model>
+
+<mul id:>
+4183
+</mul id:>
+
+<year>
+3057
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:2.0:1:1::-1:0
+asfbay:12.0:6:2::-1:0
+cargobay:15110.0:1:3::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:220.0:0:-1::-1:0
+crewquarters:714.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+338
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+29600
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+13
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+70
+67
+67
+64
+54
+54
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:40
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+(B) Machine Gun
+IS Ammo MG - Full:200
+(B) ISAntiMissileSystem
+ISAMS Ammo:12
+ISAMS Ammo:12
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) Naval Laser 55
+Naval Laser 45
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISLargePulseLaser
+(B) Machine Gun
+IS Ammo MG - Full:200
+(B) ISAntiMissileSystem
+ISAMS Ammo:12
+ISAMS Ammo:12
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) Naval Laser 55
+Naval Laser 45
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISLargePulseLaser
+(B) Machine Gun
+IS Ammo MG - Full:200
+(B) ISAntiMissileSystem
+ISAMS Ammo:12
+ISAMS Ammo:12
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:40
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+(B) Machine Gun
+IS Ammo MG - Full:200
+(B) ISAntiMissileSystem
+ISAMS Ammo:12
+ISAMS Ammo:12
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) Naval Laser 45
+Naval Laser 55
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISLargePulseLaser
+(B) Machine Gun
+IS Ammo MG - Full:200
+(B) ISAntiMissileSystem
+ISAMS Ammo:12
+ISAMS Ammo:12
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) Naval Laser 45
+Naval Laser 55
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISLargePulseLaser
+(B) Machine Gun
+IS Ammo MG - Full:200
+(B) ISAntiMissileSystem
+ISAMS Ammo:12
+ISAMS Ammo:12
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISLargePulseLaser
+ISLargePulseLaser
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:10
+(B) ISLargePulseLaser
+ISLargePulseLaser
+</Right Broadsides Equipment>
+
+<structural_integrity>
+100
+</structural_integrity>
+
+<capabilities>
+<p>At 240,000 tons, the Fox was remarkably well armed and protected for a corvette, capable of outgunning Star League-era destroyers nearly three times its size. The hull carried 394.5 tons of improved ferro-aluminum armor, quadruple the protection of many comparable corvettes and a match for vessels of significantly greater displacement. This exceptional survivability gave the Fox a decisive edge against overconfident opponents who underestimated the small vessel's resilience.</p><p>The weapons suite combined ten NAC/10 naval autocannons with eight Barracuda capital missile launchers and eight Naval Lasers in 45 and 55 classes, providing a versatile response capability across all firing arcs. Anti-fighter defense relied on sixteen Large Pulse Lasers backed by six anti-missile systems and six machine guns for close-in protection. Five docking collars gave the Fox substantial DropShip escort capacity for a vessel of its size, making it an ideal command vessel for small strike forces. A lithium-fusion battery enabled consecutive interstellar jumps without recharging, a rare and expensive capability that proved essential for border patrol and raiding missions where rapid ingress and egress were critical. The design's primary concession was crew comfort, with four personnel assigned to each of twenty-six cabins and recreational facilities limited to a single small lounge and two mess halls.</p>
+</capabilities>
+
+<overview>
+<p>The Fox-class corvette was the first WarShip constructed by the Federated Commonwealth and the first new combat vessel produced by any Inner Sphere power in over two hundred years. Commissioned by Federated-Boeing Interstellar at their Port Simon yards orbiting Galax during the early 3050s, the Fox was designed as a fast, heavily armed patrol corvette capable of screening larger fleet formations and conducting independent strike missions along contested borders. Despite its modest displacement, the class earned a reputation for punching well above its weight, combining exceptional armor protection with a broad-spectrum armament that allowed it to engage vessels of significantly greater tonnage. The Fox became a cornerstone of both the Federated Suns and Lyran Alliance naval rebuilding programs, filling a critical gap in Inner Sphere fleet capability that had persisted since the Succession Wars.</p>
+</overview>
+
+<deployment>
+<p>The FCS Invincible was the lead vessel of the class. The FCS Antrim and FCS Rostock deployed with Task Force Serpent, engaging Clan Smoke Jaguar forces at the Battle of Huntress in March 3060. The Rostock was destroyed during the engagement.</p><p>During the FedCom Civil War, the FCS Intrepid served as Field Marshal Ardan Sortek's command vessel. At the Battle of New Avalon in November 3066, the FCS Kentares activated its K-F drive alongside the Avalon-class cruiser FCS Alexander Davion, annihilating both vessels in an unprecedented act that ended the battle.</p><p>The Jihad devastated the Federated Suns Fox fleet. The FSS Antrim and FSS Bryceland conducted suicidal ramming attacks against the Blakist Aegis-class WoBS Herald of Justice at New Avalon in late 3067, with all crew posthumously recommended for the Diamond Sunburst. The FSS Fox and FCS Intrepid were both lost defending the Galax shipyards in April 3069. During Operation SCOUR at Terra in 3078, the FCS Indomitable and FSS Admiral Michael Saille lost their missile defense coverage when Vice Admiral Walker Clay disobeyed orders to pursue a Blakist vessel. The Indomitable was destroyed with roughly ninety percent casualties. Clay was subsequently court-martialed and executed. The Admiral Michael Saille survived, damaged but operational, to become the last Federated Suns WarShip by the mid-thirty-second century.</p><p>The Lyran Alliance operated its own Fox corvettes from Alarion. The LAS Katrina Steiner, commissioned in April 3060, was destroyed during Operation SCOUR at Terra. The LAS Ian McQuiston fell in January 3072 during the liberation of Tharkad, overwhelmed by nuclear missiles while screening the assault force. The LAS Robert Marsden participated in the capture of the Titan Yards and survived the Jihad as one of only two operational Lyran Fox corvettes.</p>
+</deployment>
+
+<history>
+<p>Design work on the Fox began in mid-3050, with the vessel reaching its final configuration by late 3051. Originally designated the RX-78 during development, the class was renamed in honor of First Prince Hanse Davion following his death in 3052, two months before the keel-laying ceremony for the lead vessel. First Prince Davion had personally approved the design and contracted Federated-Boeing Interstellar to produce the class at the Port Simon yards orbiting Galax. Construction of the lead vessel proceeded steadily until mid-3055, when ComStar imposed an embargo on Rolls Royce-produced interplanetary engine components, causing a sixteen-month delay. Terrorist attacks against the Federated-Boeing facilities at Galax further disrupted the program, pushing the first launch to 3058.</p><p>Despite these setbacks, production expanded rapidly across multiple yards. Federated-Boeing's Port Simon facility at Galax served as the primary construction site for the Federated Suns, while the Lyran Alliance established a parallel production line at the Port Sydney Naval Shipyards on Alarion under Ioto Galactic Enterprises. Universal Air also contributed to the program at Galax. Over twenty Fox-class corvettes were ultimately produced between the two nations, making it one of the most numerous WarShip designs in the Inner Sphere.</p><p>The FedCom Civil War proved a crucible for the class. Multiple Fox corvettes fought on both sides of the conflict, with the Battle of New Avalon in November 3066 serving as the decisive naval engagement. The battle ended when one Fox activated its K-F drive in close proximity to an Avalon-class cruiser, destroying both vessels in an unprecedented act that shocked both factions and effectively ended the fighting. Twelve Fox corvettes survived the Civil War in Federated Suns service, while the Lyran Alliance retained four operational vessels with two more under construction.</p><p>The Word of Blake Jihad devastated the Fox fleet. Two corvettes sacrificed themselves in suicidal ramming attacks to destroy a Blakist cruiser at New Avalon in late 3067. The Galax shipyards fell to Blakist attack in 3069, with two more Fox corvettes lost defending the facility. Additional vessels were destroyed at Hesperus, Tharkad, and during the liberation of Terra. Some were captured by the Word of Blake and turned against their former allies. By the end of the Jihad, only four Fox corvettes remained across both nations. Attrition continued in subsequent decades until a single vessel remained as the last operational WarShip in the Federated Suns navy by the mid-thirty-second century.</p>
+</history>
+
+<manufacturer>
+Federated-Boeing Interstellar - Port Simon Shipyards|Ioto Galactic Enterprises - Port Sydney Naval Yards|Universal Air
+</manufacturer>
+
+<primaryFactory>
+Galax|Alarion|Galax
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Federated-Boeing Interstellar
+ENGINE:Rolls Royce
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Improved Ferro-Aluminum
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Corvette
+</use>
+
+<length>
+440 m
+</length>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+240000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+112
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+158
+</crew>
+
+<officers>
+22
+</officers>
+
+<gunners>
+31
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+12
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

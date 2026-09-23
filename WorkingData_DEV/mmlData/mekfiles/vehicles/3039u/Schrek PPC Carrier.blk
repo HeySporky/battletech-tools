@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e304-70d6-8795-f750054374a2
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Schrek PPC Carrier
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+2827
+</mul id:>
+
+<year>
+2813
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Sniper
+</role>
+
+<quirks>
+low_profile
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+24
+20
+20
+20
+28
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+PPC
+PPC
+PPC
+</Turret Equipment>
+
+<capabilities>
+<p>Three turret-mounted Magna Hellstar PPCs give the Schrek a combined firepower output rivaling many heavy BattleMechs. Unlike comparable designs that must stagger fire to manage thermal buildup, the Schrek carries enough heat sinks to sustain all three weapons simultaneously, making it an ideal stationary bombardment platform. When deployed in prepared hull-down positions, the design can hold its fire line indefinitely, pouring particle bolts into approaching formations at ranges that leave most opponents unable to respond effectively. Because the PPCs have a minimum range that prevents effective close-in fire, the Schrek is rarely deployed without dedicated escorts.</p><p>This firepower advantage carries significant costs. With only seven tons of ArcShield VII Mk 5 armor, the Schrek is dangerously thin-skinned for a vehicle of its mass, and its top speed of 54 kph leaves it unable to reposition quickly when flanked or encircled. The reliance on a fusion engine restricts the Schrek to well-resourced units, as both procurement and maintenance costs exceed those of comparable ICE-powered designs. The complete absence of anti-infantry weapons is a persistent tactical liability, making dedicated escort assignments nearly mandatory for sustained operations.</p>
+</capabilities>
+
+<overview>
+<p>The Schrek PPC Carrier emerged in 2813 as Aldis Industries' answer to the persistent heat management problems that plagued their popular Demolisher heavy tank. Rather than persisting with the Demolisher's massive autocannons, Aldis engineers replaced the entire weapons philosophy with a trio of particle projection cannons backed by enough heat sinks to sustain continuous fire. The result was a long-range fire support platform without equal among tracked assault vehicles, capable of walking steady particle volleys into enemy formations without pause or ammunition constraint.</p><p>Produced at Aldis facilities on Terra and Betelgeuse alongside New Samarkand Metals' plant on New Samarkand, the Schrek quickly became a fixture in well-equipped armor units throughout the Inner Sphere. Its combination of devastating firepower and freedom from ammunition dependency made it the natural companion to the close-quarters Demolisher, the two designs complementing each other's limitations across centuries of warfare.</p>
+</overview>
+
+<deployment>
+<p>Typically deployed in supporting fire roles behind heavier armor formations, the standard Schrek excels when positioned in prepared emplacements or hull-down behind terrain. The configuration operates best in open terrain where its long engagement ranges can be exploited and enemy counterfire minimized. Found in armor-heavy formations across the Inner Sphere from the early Succession Wars through the ilClan era, most commonly paired with Demolisher heavy tanks or similar close-range assets.</p>
+</deployment>
+
+<history>
+<p>Aldis Industries introduced the Schrek in 2813, building on lessons from years of Demolisher production to address its greatest flaw: the inability to sustain fire without crippling heat buildup. Replacing the twin Autocannon/20s with particle projection cannons and an enlarged heat sink array required significant investment in the expensive GoreTex 240 fusion engine, but it produced a vehicle capable of extended bombardment without the tactical pauses that Demolisher crews endured constantly.</p><p>The Succession Wars proved difficult for the Schrek. Fusion engine production declined sharply during the early wars, and the cost to procure and maintain a functioning GoreTex powerplant climbed steadily as manufacturing capacity contracted across the Inner Sphere. By the Third Succession War, Schreks had become a relatively rare sight outside elite armor formations. Many intact Schreks were cannibalized to supply PPCs and fusion engines to BattleMech repair programs. Some technicians salvaged the remaining hulls by stripping the energy weapons, installing ICE powerplants and autocannons in their place, producing the improvised autocannon carriers that began circulating during this period.</p><p>The revival of advanced technology following the War of 3039 eased the worst pressures, and New Samarkand Metals maintained consistent production throughout the Clan Invasion period, keeping the design available to Draconis Combine forces. The Free Rasalhague Republic acquired a number of Schreks through an arrangement with Aldis Industries of Terra in the years before the Clan Invasion, with both sides benefiting from the exchange of equipment and battlefield data. The Jihad and subsequent ilClan era brought new variants tailored to emerging tactical doctrines, from C3 command vehicles to hardened-armor anti-tank platforms. Aldis and New Samarkand Metals have continued iterating on the design for over three hundred years, keeping the Schrek relevant across shifting eras of warfare.</p>
+</history>
+
+<manufacturer>
+Aldis Industries|Aldis Industries|Alphard Trading Corporation|New Samarkand Metals
+</manufacturer>
+
+<primaryFactory>
+Terra|Betelgeuse|Leximon|New Samarkand
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GoreTex
+ARMOR:ArcShield
+COMMUNICATIONS:Olmstead
+TARGETING:Omicron
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:240
+ARMOR:VII Mk 5
+COMMUNICATIONS:3000
+TARGETING:IX
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u,RSFP:Battlefield
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

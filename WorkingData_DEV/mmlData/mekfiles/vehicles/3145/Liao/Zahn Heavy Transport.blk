@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7f3-7f13-aa55-171f6317b1c7
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Zahn Heavy Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6444
+</mul id:>
+
+<year>
+3108
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<quirks>
+low_profile
+</quirks>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:8.0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+50
+40
+40
+28
+25
+25
+</armor>
+
+<Body Equipment>
+IS Ammo MML-7 LRM
+IS Ammo MML-7 LRM
+IS Ammo MML-7 SRM
+IS Vehicle Flamer Ammo
+IS Vehicle Flamer Ammo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rear Turret Equipment>
+ISMML7
+ISTAG
+</Rear Turret Equipment>
+
+<Front Turret Equipment>
+Flamer (Vehicle)
+Flamer (Vehicle)
+</Front Turret Equipment>
+
+<capabilities>
+<p>The Zahn's 65-ton frame is powered by a Ceres Motors 305 Fuel Cell engine, giving it a top speed of 86 km/h, respectable for a vehicle of its size and combat load. The chassis carries over ten tons of Durallex Heavy Ferro-Fibrous armor, providing substantial protection for both crew and infantry passengers against most battlefield threats.</p><p>Its offensive capabilities are divided between twin turrets. The forward turret mounts a pair of Ceres Fire Flower Conventional Flamers, each loaded with forty rounds, making the Zahn exceptionally dangerous against infantry and light structures in close terrain. The rear turret combines a Doombud 7-Tube Multi-Missile Launcher with a TAG designator. The multi-missile system draws from a three-ton magazine and accepts both short and long-range munitions, allowing crews to engage targets at varying distances. The integrated TAG system enables the Zahn to designate targets for artillery and Arrow IV missile support, extending its battlefield influence well beyond its direct-fire armament.</p><p>The design has meaningful limitations. Wheeled mobility restricts off-road performance compared to tracked alternatives, and the flamers are effective only at close range. Against heavily armored targets, the Zahn relies on missile fire and called artillery rather than direct lethality. Crews must also manage flamer fuel carefully in sustained engagements, as the conventional fuel supply is finite.</p>
+</capabilities>
+
+<overview>
+<p>The Zahn Heavy Transport is a wheeled combat vehicle introduced by Ceres Metals Industries in 3108, developed jointly for the Capellan Confederation and the Magistracy of Canopus. Designed as a dual-purpose platform, the Zahn carries a substantial complement of infantry in protective comfort while providing significant direct fire and fire-support capabilities. Its heavy armor and offensive weaponry set it apart from conventional troop carriers, establishing it as a combat asset rather than a simple personnel mover. Republic Armed Forces troops dubbed it the "wheeled devil" during the Capellan Crusades for its low profile and fire-based armament, and the nickname spread across both sides of the conflict. Despite a fearsome and sometimes controversial reputation, the design has proliferated widely across Capellan military formations, Magistracy units, and mercenary battalions operating throughout the Periphery and Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Zahn Heavy Transport serves in frontline infantry transport and fire-support roles across the Capellan Confederation Armed Forces and Magistracy of Canopus Armed Forces. Elite Capellan and Magistracy regiments rely on it to move troops into contested positions, depending on its heavy armor to absorb fire that would destroy lighter carriers. Its paired flamers and multi-missile launcher make it effective at suppressing defensive infantry while disembarking troops, and its TAG capability integrates the Zahn naturally into formations supported by artillery or Arrow IV missile batteries.</p><p>Mercenary battalions operating in Capellan and Periphery space also field the type, drawn by its combination of protection and indirect fire-support value. The wheeled drivetrain limits the Zahn's utility in broken ground and wilderness terrain, making it most effective in urban and road-network operational environments. Some commanders deliberately deploy Zahns prominently to exploit their fearsome reputation, using the psychological impact of their presence to anchor defensive positions or divert enemy attention from more critical assets.</p>
+</deployment>
+
+<history>
+<p>Ceres Metals Industries introduced the Zahn Heavy Transport in 3108, producing it simultaneously for the Capellan Confederation Armed Forces and the Magistracy of Canopus Armed Forces. The design drew on Ceres' long experience supplying military equipment to both states, filling a gap for a heavily armored, offensively capable troop carrier suited to the operational styles of both factions.</p><p>The vehicle's infamy spread rapidly during the Capellan Crusades. In 3111, during the Night of Screams on Liao, Capellan forces used Zahn heavy transports to infiltrate disguised among civilian traffic, disgorging assault troops who turned the vehicles' paired flamers and incendiary munitions against the population. The psychological impact on Republic Armed Forces personnel was severe. Survivors described the Zahns' cab windows glowing red as sheets of flame swept through city streets, an image that became a defining symbol of the Capellan Crusades in RAF accounts.</p><p>Republic commanders responded with anti-Zahn operations they called "devil hunting," directing forces to engage any Zahn on contact regardless of tactical context. Capellan field commanders adapted quickly, using TAG-equipped Zahns to draw pursuing RAF infantry into ambushes covered by Arrow IV missile batteries and long-range artillery, converting the enemy's hatred into a targeting tool.</p><p>Not all Zahn service was defined by atrocity. During the same period, the First Capellan Machineguns fielded a dedicated Zahn support company known as the Fire Breathers. Raiding along the Republic's border for nearly two years, the Fire Breathers struck RAF logistics lines and accumulated stockpiles of war materiel that sustained Capellan operations throughout the Crusades. Despite repeated attempts by devil hunting units to end their raiding, the Fire Breathers evaded destruction throughout the conflict. Several of their crews later served as instructors at Capellan academies, spreading the lessons they learned from both the Zahn's strengths and the cost of fighting under its dark reputation.</p>
+</history>
+
+<manufacturer>
+Ceres Metals Industries|Ceres Metals Industries
+</manufacturer>
+
+<primaryFactory>
+Lockton|Menke
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Ceres Motors
+ARMOR:Durallex
+COMMUNICATIONS:CeresCom
+TARGETING:Ceres
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:305 Fuel Cell
+ARMOR:Heavy Ferro-Fibrous
+COMMUNICATIONS:Model 74-N
+TARGETING:Maladev 5 with TAG
+</systemModels>
+
+<source>
+TR:3145:CC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+65.0
+</tonnage>
+

@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d315-7cec-a07d-a94d283240e9
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Atlas III
+model:AS7-D3
+mul id:6358
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3137
+source:TR:3145:FS,TR:DA
+published:RS:DA
+rules level:4
+role:Juggernaut
+
+quirk:distracting
+quirk:command_mech
+quirk:pro_actuator
+weaponquirk:jettison_capable:RA:4:ISRotaryAC2
+
+mass:100
+engine:300 Fusion Engine(IS)
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:12 IS Double
+walk mp:3
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:34
+RA armor:34
+LT armor:32
+RT armor:32
+CT armor:50
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:10
+RTR armor:10
+RTC armor:12
+
+Weapons:7
+Medium X-Pulse Laser, Left Arm
+Medium X-Pulse Laser, Left Arm
+Rotary AC/2, Right Arm
+Streak SRM 6, Left Torso
+Medium X-Pulse Laser, Left Torso
+Medium X-Pulse Laser, Left Torso
+Streak LRM 20, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+ISSmallShield
+ISSmallShield
+ISSmallShield
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISRotaryAC2
+ISRotaryAC2
+ISRotaryAC2
+ISRotaryAC2 Ammo
+ISRotaryAC2 Ammo
+ISSmallShield
+ISSmallShield
+ISSmallShield
+
+Left Torso:
+ISStreakSRM6
+ISStreakSRM6
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+IS Streak SRM 6 Ammo
+Radical Heat Sink System
+Radical Heat Sink System
+Radical Heat Sink System
+ISCASEII
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+CLStreakLRM20
+CLStreakLRM20
+CLStreakLRM20
+CLStreakLRM20
+CLStreakLRM20
+Clan Streak LRM 20 Ammo
+Clan Streak LRM 20 Ammo
+ISCASEII
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAngelECMSuite
+ISAngelECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit (ARMORED)
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Atlas is perhaps the most recognizable BattleMech in the Inner Sphere. It appears on more recruiting posters, more propaganda films, and in the boxes of more children's toys than any other 'Mech. More than a dozen variants have appeared over the centuries, and Robinson's Atlas III, introduced in 3100, is only the most recent to join the lineage. Rebuilt with cutting-edge technology by Robinson Standard BattleWorks and General Motors, the Atlas III stands as the AFFS' premier assault 'Mech, integrating advanced Clan-specification components into the proven hundred-ton chassis. It serves as a reflection of the enduring dominance of the Death's Head design.</p>
+
+capabilities:<p>The Atlas III represents the most advanced weapons integration ever fitted to an Atlas chassis. A Mydron rotary AC/2 provides sustained suppressive fire at range, while a Clan-specification Streak LRM-20 and Streak SRM-6 ensure that every missile fired finds its target, eliminating the wasteful volleys that plague conventional launchers. Four medium X-pulse lasers deliver punishing close-range damage with improved accuracy, and the entire weapons suite is managed by a radical heat sink flush system that allows the pilot to rapidly shed accumulated heat in controlled bursts.</p><p>An Angel ECM suite disrupts enemy targeting and communications, while an armored cockpit provides the pilot with additional survivability befitting the design's intended role as a senior officer's command platform. Custom small shields mounted on each arm offer supplemental protection during close-quarters engagements.</p><p>These advantages come at a cost. The rotary AC/2, while versatile, lacks the raw destructive power of the autocannons mounted on earlier Atlas models, forcing pilots to rely on sustained volume of fire rather than single devastating strikes. The radical heat sink flush system, though effective, is mechanically complex and difficult to service in the field. Units operating far from Robinson or El Dorado have reported extended downtime when the flush system requires maintenance. The Atlas III also retains the family's characteristic lack of speed, and the design's heavy reliance on advanced Clan-specification components makes it exceptionally expensive to produce and maintain.</p>
+
+deployment:<p>Produced jointly by General Motors on El Dorado and Robinson Standard BattleWorks on Robinson, this variant remains a rare machine reserved for senior commanders. Atlas IIIs are assigned to battalion and regimental commanders in the AFFS and RAF, with Exarch Jonah Levin's personal machine among the most prominent examples. Production numbers remain low due to the design's reliance on advanced Clan-specification components and the proprietary radical heat sink system. When the Capellan Confederation attacked Tikonov in force, several Atlas IIIs were among the defenders, and each was specifically targeted by the Capellans for capture, reflecting their desperation to reverse-engineer the flush system for their own use.</p>
+
+history:<p>The Atlas III entered service as the most technologically advanced member of the Atlas family, incorporating cutting-edge equipment that pushed the boundaries of what an assault 'Mech could carry. Robinson Standard BattleWorks and General Motors collaborated on the design, producing it at their Robinson and El Dorado facilities respectively. Still rare, Atlas IIIs were reserved for battalion and regimental commanders in the AFFS and RAF, including the personal 'Mech of Exarch Jonah Levin.</p><p>The Atlas III earned its reputation in blood during the Capellan assault on Tikonov. Several Atlas IIIs were among the Davion defenders on-planet, and each was targeted by the Capellans for capture, desperate to acquire the design's advanced heat management technology. One of these machines, piloted by Leftenant Nathan Marlowe, fought its way into legend. Attacked outside the city of Salat by a reinforced lance of Capellan 'Mechs, Marlowe called for reinforcements and went on the defensive, engaging at long range with his ballistic weapons. As the Capellans flanked him with their swifter machines, he added his missile systems to the fight, disabling two Anubises and crippling an Agrotera before they could close to effective range. Marlowe continued his fighting retreat, alternating laser fire with heat flushes until only a Vandal and a Lu Wei Bing remained. When the Lu Wei Bing's autocannon disabled his primary ballistic weapon, Marlowe jettisoned the ruined system. Capellan battleROMs clearly show the young warrior flexing the Atlas' great hands and advancing, steam issuing from almost every seam in the 'Mech's armor.</p><p>By the time relief arrived from Salat, all the 'Mechs were destroyed. The corpse of Leftenant Marlowe's Atlas was found draped across the broken body of the Capellan Vandal, the Lu Wei Bing lying nearby with its head crushed by the Atlas' fists. Marlowe was found inside his cockpit, killed by an autocannon submunition. He received the Medal Excalibur posthumously, and his name was inscribed on the wall of honor in the hall of the Order of Davion. Marlowe's last stand at Tikonov became an instant recruiting legend for the AFFS and cemented the Atlas III's place in the storied lineage of the Death's Head.</p>
+
+manufacturer:General Motors|Robinson Standard BattleWorks
+
+primaryfactory:El Dorado|Robinson
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Foundation
+systemmode:CHASSIS:12X Endo Steel
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Starshield
+systemmode:ARMOR:Special Heavy with CASE II
+systemmanufacturer:COMMUNICATIONS:Rander
+systemmode:COMMUNICATIONS:Comm-Marshal with Angel ECM Suite
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:HiRez V

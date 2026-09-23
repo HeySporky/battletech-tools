@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c8c1-7133-acaa-cc82cfed3373
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Silver Fox
+model:SVR-5X
+mul id:2944
+
+Config:Biped
+techbase:Inner Sphere
+era:3065
+source:TR:3055U
+published:RS:3055Uu
+rules level:4
+role:Striker
+
+quirk:weak_head_1
+quirk:non_standard
+
+mass:35
+engine:315 XXL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:9
+jump mp:0
+
+armor:Reflective(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:10
+RT armor:10
+CT armor:15
+HD armor:9
+LL armor:15
+RL armor:15
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:8
+Magshot, Left Arm
+Magshot, Left Arm
+Magshot, Left Arm
+Magshot, Left Arm
+Magshot, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR
+ISMagshotGR
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+ISERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMagshotGR Ammo
+IS Reflective
+IS Reflective
+IS Reflective
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAngelECMSuite
+ISAngelECMSuite
+IS Reflective
+IS Reflective
+IS Reflective
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISTargeting Computer
+ISTargeting Computer
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISERSmallLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Reflective
+IS Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Reflective
+IS Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Silver Fox is a thirty-five ton light BattleMech designed by Innovative Design Concepts for the Solaris VII arena circuit. First entering production in 3065, the design was purpose-built to dominate the Class Two fight circuit through a combination of exceptional speed, advanced electronics, and specialized armor. Distinctive styling and highly reflective armor plating made the Silver Fox an immediate standout on Solaris VII, and the design quickly took the fight circuit by storm after marching out of IDC's workshops.</p><p>As one of several arena-focused designs produced by IDC, the Silver Fox represents the firm's emphasis on leveraging advanced and salvaged Clan technology to create specialized combat platforms. Production of the Silver Fox remained limited, consistent with its niche role as a Solaris arena competitor rather than a battlefield design.</p>
+
+capabilities:<p>Emphasizing speed above all else, the Silver Fox mounts an Edasich Motors 315 XXL engine that propels the thirty-five ton chassis to a top speed of 151 kilometers per hour. This extraordinary speed comes at a cost, as the enormous engine leaves little tonnage for heavy armament. IDC compensated by incorporating advanced fire-control systems borrowed heavily from salvaged Clan technology, tying a cluster of five Poland Main Model C Magshot gauss weapons and two Diverse Optics extended-range medium lasers into a two-ton targeting computer. A single Diverse Optics extended-range small laser rounds out the weapons array. While the Silver Fox lacks the knockout punch of a PPC, Gauss rifle, or autocannon, it achieves kills through finesse rather than brute force.</p><p>Defensively, the Silver Fox is among the first 'Mechs to employ ArcShield reflective armor, which significantly degrades the effectiveness of energy weapons. Seven tons of this specialized plating make the design an exasperating opponent for any laser-reliant adversary. A CherrySeed Angel ECM suite further enhances survivability by disrupting Artemis IV, Streak, and Narc fire control systems. Against opponents relying primarily on energy weapons, the Silver Fox can be remarkably difficult to bring down. However, the reflective armor offers no additional protection against ballistic or missile weapons, and opponents who bring autocannons or conventional missile systems to bear can exploit this limitation effectively.</p>
+
+deployment:<p>This variant is the original Silver Fox as IDC designed it, representing the full expression of the firm's arena combat philosophy. Introduced in 3065, the 5X was built exclusively for the Solaris VII Class Two fight circuit. Arena stables quickly recognized the design's potential against energy-weapon-heavy opponents, and this variant became a sought-after chassis among stables specializing in the light 'Mech divisions. Its limited production numbers and high cost kept the 5X out of general military service, with nearly all examples remaining on Solaris VII in the hands of arena competitors and their patron stables.</p>
+
+history:<p>The Silver Fox emerged from Innovative Design Concepts' workshops on Solaris VII in 3065, during a period of intense technological innovation on the Game World. IDC had carved out a niche among the planet's many 'Mech design firms by aggressively incorporating salvaged Clan technology and cutting-edge Inner Sphere developments into purpose-built arena combatants. The Silver Fox represented the pinnacle of this design philosophy, pairing an experimental engine with specialized armor and advanced electronics that were still rare on most Inner Sphere battlefields. IDC was especially the only Solaris 'Mech design firm listed on the Lyran Alliance stock exchanges as of 3067, lending the company a degree of financial stability unusual among arena workshops.</p><p>The design proved itself almost immediately on the Class Two circuit. In its debut match at the Coliseum, the Silver Fox demonstrated how thoroughly its specialized armor could neutralize energy-heavy opponents, as a Wolfhound's all-laser loadout proved virtually ineffective against the reflective plating. The Silver Fox's pilot used the 'Mech's superior speed to maintain distance in the Coliseum's wide-open expanses, wearing down the opposition with a steady stream of accurate fire. The match established the Silver Fox as a serious contender in the light 'Mech divisions.</p><p>Not every arena environment favored the design, however. In a notable match in the Jungle, a Silver Fox pilot found the thick foliage negated the 'Mech's critical speed advantage. Facing an opponent in a Succession Wars-era Javelin armed with primitive SRM launchers, neither the specialized armor nor the electronic warfare suite could interfere with the simple missile systems. The ensuing fight became one of the closest bouts witnessed on the circuit in a decade, with the Silver Fox ultimately falling to a final missile salvo. The engagement highlighted the design's vulnerability when denied room to maneuver and facing opponents armed with weapons that bypassed its defensive specialization.</p><p>Solaris VII itself changed hands multiple times over the centuries, with ownership passing from the Free Worlds League to the Lyran state, through the Federated Commonwealth period, and back to Lyran control. By the ilClan era, Clan Wolf had absorbed Solaris VII into its occupation zone. Whether IDC continued Silver Fox production through these political transitions remains unclear, as the design's limited production run and specialized arena role meant it never achieved widespread distribution beyond the Game World.</p>
+
+manufacturer:Innovative Design Concepts
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:IDC
+systemmode:CHASSIS:IDC Fox 1
+systemmanufacturer:ENGINE:Edasich Motors
+systemmode:ENGINE:Edasich Motors 315 XXL
+systemmanufacturer:ARMOR:ArcShield
+systemmode:ARMOR:ArcShield Reflective
+systemmanufacturer:COMMUNICATIONS:Cyclops
+systemmode:COMMUNICATIONS:Cyclops 20 with CherrySeed Angel ECM
+systemmanufacturer:TARGETING:Cyclops
+systemmode:TARGETING:Cyclops 9b with advanced targeting module

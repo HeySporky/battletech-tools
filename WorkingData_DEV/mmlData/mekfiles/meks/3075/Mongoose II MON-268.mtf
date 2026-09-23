@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cee6-7973-a244-561502c38216
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Mongoose II
+model:MON-268
+mul id:2218
+
+Config:Biped
+techbase:Inner Sphere
+era:3076
+source:TR:3075
+published:RS:3075u-CE
+rules level:2
+role:Striker
+
+quirk:command_mech
+quirk:imp_com
+
+mass:40
+engine:320 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:8
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:14
+RT armor:14
+CT armor:16
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:4
+RTR armor:4
+RTC armor:6
+
+Weapons:4
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+C3 Computer (Master), Right Torso
+ER Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+BeagleActiveProbe
+BeagleActiveProbe
+ISMASC
+ISMASC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISC3MasterUnit
+ISC3MasterUnit
+ISC3MasterUnit
+ISC3MasterUnit
+ISC3MasterUnit
+ISTargeting Computer
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Mongoose II is a forty-ton medium BattleMech born from the chaos of the Jihad, designed as a replacement for ComStar's devastating losses of Mongoose scout assets. When Luthien Armor Works' original upgrade project was disrupted by fighting on Luthien in the early years of the Jihad, ComStar financed a partnership with Defiance Industries and Arc-Royal MechWorks to bring the design to production. Despite sharing a name with its twenty-five-ton predecessor, the Mongoose II is a fundamentally different machine: heavier, faster in absolute terms thanks to its powerful Pitban 320 XL engine, and laden with an electronics suite that makes it one of the most capable scout platforms in the Inner Sphere.</p><p>Production began in 3073, split between Arc-Royal MechWorks and Defiance's manufacturing annex on Kwangjong-ni, with ComStar receiving two-thirds of initial output. The design's emphasis on electronic warfare over raw firepower reflects ComStar's doctrine of information superiority, carrying the Mongoose legacy forward into a new era of warfare.</p>
+
+capabilities:<p>The Mongoose II is built on an Alshain Type 69-40S chassis powered by a Pitban 320 XL engine that propels the forty-ton design to a base speed of 129 kph, matching the original Mongoose's ground performance despite carrying fifteen additional tons of equipment. A MASC system allows brief sprints up to 172 kph, giving the Mongoose II the ability to disengage from virtually any threat. Seven tons of Starshield armor provide solid protection for the chassis and its vulnerable XL engine.</p><p>Where the Mongoose II truly excels is in its electronics suite. A Nashan-built Beagle Active Probe feeds targeting data to a sophisticated C3i computer, while a Guardian ECM suite provides electronic countermeasures against enemy sensors. The Nashan Comm-i U-284 communications system and Trac V-102 targeting system tie these components together into an integrated reconnaissance and command package. The sole ranged weapon is a Diverse Optics Sunbeam ER large laser, providing ammunition-independent firepower at extended range. While this leaves the design undergunned for direct combat, the Mongoose II's speed and electronic warfare capabilities allow it to choose its engagements carefully and serve as an effective force multiplier for allied units.</p>
+
+deployment:<p>Still undergoing testing in 3075, this variant is designed as a command variant that trades the Guardian ECM suite and C3i computer for a C3 master computer, allowing it to serve as the hub of a C3 lance network. Ferro-fibrous armor replaces the standard Starshield plating for improved protection, and the ER large laser gives way to three Ramtech ER medium lasers guided by a targeting computer. While sacrificing some of the base model's electronic warfare capability, this variant provides superior command and control functionality for formations that depend on C3 coordination.</p>
+
+history:<p>The Mongoose II's origins trace to the early Jihad, when ComStar found itself facing catastrophic losses of scout 'Mechs in the fighting against the Word of Blake. Luthien Armor Works had been developing an upgraded Mongoose for ComStar when the conflict on Luthien disrupted the project. Rather than abandon the initiative, ComStar redirected funding to the Lyran Alliance, where Defiance Industries was retooling an old Rim Worlds Republic factory on Kwangjong-ni. The success of new Zeus and Banshee variants walking off that line prompted ComStar to finance further upgrades to the facility, and Defiance agreed to sell two-thirds of initial Mongoose II production to ComStar for the first two years.</p><p>Since Luthien Armor Works had completed most of the chassis development, Defiance turned to Nashan Diversified to outfit the electronics suite. Arc-Royal MechWorks simultaneously began production at their facility on Arc-Royal, and by 3073 both lines were delivering units to the Com Guards. The Mongoose II quickly proved its worth in the intelligence-gathering role, with its combination of speed, ECM, and C3i capability making it a cornerstone of ComStar's reconstituted scout formations.</p><p>The base MON-266 saw its production discontinued at both factories following the Jihad due to the C3i computer falling out of favor, though existing units continued to serve. The MON-267 variant, adapted for Lyran Alliance C3 networks with stealth armor, proved more enduring and has been widely distributed to Alliance elite units and formations equipped with Firestarter OmniMechs in C3-linked scout lances. The Lyran Alliance and its successor states have maintained production of the MON-267 and MON-268 variants through the Dark Age and into the ilClan era, ensuring the Mongoose II's continued presence on battlefields across the Inner Sphere.</p>
+
+manufacturer:Arc-Royal MechWorks|Defiance Manufacturing Annex
+
+primaryfactory:Arc-Royal|Kwangjong-ni
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Type 69-40S
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:320 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Nashan
+systemmode:COMMUNICATIONS:Comm-i U-284
+systemmanufacturer:TARGETING:Nashan
+systemmode:TARGETING:Trac V-102 with Active Probe

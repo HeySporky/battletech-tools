@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c32e-736a-9279-33d0b393bb46
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Wolfhound
+model:WLF-1
+mul id:3560
+
+Config:Biped
+techbase:Inner Sphere
+era:3028
+source:TR:3039,TR:SW
+published:RSFP:Wave 2,RSFP:KH
+rules level:2
+role:Striker
+
+quirk:good_rep_1
+quirk:easy_maintain
+
+mass:35
+engine:210 Fusion Engine
+structure:IS Standard
+myomer:Standard
+ejection:Full Head Ejection System
+
+heat sinks:10 Single
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:11
+RT armor:11
+CT armor:16
+HD armor:9
+LL armor:16
+RL armor:16
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:5
+Large Laser, Right Arm
+Medium Laser, Left Torso
+Medium Laser, Right Torso
+Medium Laser, Center Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Large Laser
+Large Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Medium Laser (R)
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Wolfhound was introduced in 3028 as a dedicated hunter-killer designed to address a critical shortcoming of the Lyran Commonwealth Armed Forces. Ordered by Archon Katrina Steiner following the success of the Hatchetman program, TharHes Industries was tasked with producing a light 'Mech specifically intended to hunt down and destroy the Draconis Combine's Panther and Jenner designs, which had long embarrassed the top-heavy LCAF. The Kell Hounds mercenary unit, selected for their loyalty to House Steiner, were the first to field-test the prototype alongside Wolf's Dragoons in early 3028. Built as an all-energy weapons platform with maximum armor for its weight class and standard components to keep costs low, the Wolfhound's design philosophy centered on operational endurance and logistical independence. Production was initially handled by TharHes Industries on Tharkad, with Arc-Royal MechWorks later licensed to produce the design, ensuring a steady supply across Lyran and Federated Commonwealth military forces.</p>
+
+capabilities:<p>The Wolfhound is designed for extended independent operations, armed entirely with energy weapons that free it from reliance on ammunition resupply. The WLF-2 variant mounts a Cyclops XII extended-range large laser in its right arm, providing effective striking power at ranges approaching six hundred meters, well beyond the engagement envelope of most opposing light 'Mechs. Four Defiance B3M medium lasers provide devastating close-range firepower, with three split across the torso locations and a fourth mounted in the center-rear to discourage pursuit by faster enemies.</p><p>Ten double heat sinks manage the thermal load effectively, though sustained fire from all weapons simultaneously can tax the cooling system. Competent MechWarriors manage this by rotating weapon groups based on engagement range. Seven and a half tons of Durallex Medium armor provide the maximum protection possible for a thirty-five-ton chassis, making the Wolfhound remarkably durable for a light 'Mech.</p><p>A critical feature inherited from the Hatchetman program is the full-head ejection system, which allows safe pilot ejection in hostile environments. While lacking jump jets limits the Wolfhound's tactical flexibility in rough terrain, its 97 kph top speed provides adequate mobility for its intended role as a Panther and Jenner killer.</p>
+
+deployment:<p>The original Wolfhound production model entered service in 3028, armed with a Setanta large laser as its primary weapon and four Defiance B3M medium lasers for close-range engagements. Ten standard heat sinks kept the thermal burden manageable, though they proved less efficient than the double heat sinks fitted to later models. The WLF-1 established the Wolfhound's reputation as a lethal hunter-killer during the Fourth Succession War and continued in frontline service through the War of 3039. Production at both TharHes Industries and Arc-Royal MechWorks ceased with the introduction of the upgraded WLF-2 in 3052.</p>
+
+history:<p>The Wolfhound's combat debut during the Fourth Succession War in 3028 exceeded all expectations. Field testing with the Kell Hounds and Wolf's Dragoons demonstrated the design's effectiveness against its intended prey, and the Wolfhound quickly proved itself capable of outperforming both the Jenner and Panther in their respective roles. Against the Jenner, the Wolfhound's superior range allowed it to deliver punishing fire before the lighter 'Mech could effectively respond. Against the Panther, skilled Wolfhound pilots closed rapidly to exploit the PPC's minimum range limitations, bringing their medium lasers to bear at distances where the Combine design was most vulnerable.</p><p>Following the successful conclusion of the Fourth Succession War, the newly formed Federated Commonwealth ordered Wolfhounds in substantial numbers for both halves of the alliance. During the War of 3039, the design suffered remarkably few casualties compared to other 'Mech types deployed in the campaign, and only a handful fell into Kuritan hands. The Draconis Combine, impressed with the Wolfhound's capabilities but too proud to copy an enemy's design, instead dissected captured examples and used the intelligence to develop the Wolf Trap as a dedicated counter.</p><p>The recovery of the Helm Memory Core and the subsequent technological renaissance enabled TharHes Industries and Arc-Royal MechWorks to develop the upgraded WLF-2 model, incorporating double heat sinks and an extended-range large laser. The retooling process took longer than anticipated, and the WLF-2 did not enter production until 3052, too late to significantly impact the initial Clan Invasion. Manufacturing remained concentrated in Lyran space, with TharHes on Tharkad and Arc-Royal MechWorks serving as the two primary producers. The vast majority of Wolfhounds were stationed with units in the Steiner realm, both House and mercenary alike.</p><p>The creation of the Lyran Alliance as an independent state prompted TharHes to develop the WLF-3S, which was shipped exclusively to units loyal to the Lyran government. This variant saw action throughout the FedCom Civil War on the side of the Lyran state. Arc-Royal MechWorks continued producing the WLF-2 and developed the WLF-4W as a medium-range brawler variant during the Jihad, along with the electronic warfare WLF-4WA configuration.</p><p>The Word of Blake's devastating assault on Tharkad during the Jihad critically damaged TharHes Industries' production facilities, effectively shutting down Wolfhound manufacturing on the Lyran capital. Orbital bombardments and subsequent ground invasions left the factory unable to produce BattleMechs for years. In response, Arc-Royal MechWorks ramped up production to compensate for the loss, introducing the faster WLF-5 model in 3079, which incorporated a larger XL engine and MASC to achieve speeds previously unattainable for the chassis.</p><p>The experimental WLF-2X program, initiated in 3072 by Arc-Royal MechWorks, explored advanced technologies including a heavy PPC with capacitor, reflective armor, and a supercharger. While only approximately five prototypes were constructed by 3078, the lessons learned informed the subsequent WLF-2H production model that entered service in 3082, which retained the heavy PPC and supercharger while substituting more practical standard armor.</p><p>Following the HPG blackout and the Republic's splintering, TharHes Industries hastily reopened its Wolfhound production line on Tharkad, introducing the WLF-6S in the early 3130s. This Dark Age variant draws on the WLF-5's technological foundation while incorporating TharHes's own design sensibilities, mounting a large re-engineered laser as its primary weapon. The Wolfhound remains a mainstay of Lyran military forces into the ilClan era, with both TharHes and Arc-Royal continuing production to meet ongoing demand.</p>
+
+manufacturer:Arc-Royal MechWorks|TharHes Industries
+
+primaryfactory:Arc-Royal|Tharkad
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Arc-Royal
+systemmode:CHASSIS:KH/3
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:210
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Medium
+systemmanufacturer:COMMUNICATIONS:O/P
+systemmode:COMMUNICATIONS:Com-22/H47
+systemmanufacturer:TARGETING:Digital
+systemmode:TARGETING:Scanlok 347

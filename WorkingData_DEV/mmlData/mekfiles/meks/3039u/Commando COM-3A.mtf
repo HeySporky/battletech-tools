@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c1e2-7ad8-bbd7-faf3f52c7bd5
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Commando
+model:COM-3A
+mul id:672
+
+Config:Biped
+techbase:Inner Sphere
+era:3025
+source:TR:3039,TR:SW
+published:RSFP:Wave 1,RS:GoAC
+rules level:1
+role:Striker
+
+quirk:exp_actuator
+quirk:low_profile
+
+mass:25
+engine:150 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:4
+RA armor:4
+LT armor:4
+RT armor:4
+CT armor:6
+HD armor:4
+LL armor:6
+RL armor:6
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:4
+Medium Laser, Left Arm
+SRM 6, Right Arm
+Flamer, Right Arm
+SRM 6, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+SRM 6
+SRM 6
+Flamer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+IS Ammo SRM-6
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 6
+SRM 6
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>First tested in 2463 by the Coventry Defense Conglomerate, the Commando is a twenty-five ton light BattleMech designed for reconnaissance and raiding. One of the Lyran Commonwealth's earliest homegrown designs, the primitive COM-1A gave way to the definitive COM-2D in 2486, transforming the Commando into a deadly close-range striker that has remained in continuous production for over six centuries.</p><p>Manufactured primarily by Coventry Metal Works, the Commando earned a fearsome reputation as a fast, hard-hitting scout capable of punching well above its weight class when deployed in groups. Its widespread production and countless field variants have made it one of the most recognizable light 'Mechs in the Inner Sphere.</p>
+
+capabilities:<p>The standard COM-2D Commando mounts paired short-range missile launchers providing ten tubes of firepower, complemented by an arm-mounted medium laser. This armament allows the twenty-five ton 'Mech to deliver devastating barrages effective against even assault-class machines when deployed in groups. The dual missile system prevents a single lucky hit from disabling all offensive capability, and pilots can concentrate fire on one target or split between two.</p><p>This firepower comes at significant cost. Each launcher draws from its own ammunition bin and cannot share reserves, meaning the Commando often exhausts its missiles within minutes of sustained combat. The four tons of armor equals that of lighter scouts, creating fatal vulnerability against heavier opponents. Without jump jets, the design struggles to disengage in rough terrain and cannot escape determined pursuit by larger 'Mechs.</p><p>The Commando excels in hit-and-run strikes, scouting in pairs to pin down enemy reconnaissance units, and rapid flanking maneuvers. Against the Draconis Combine's Panther, however, that heavier machine's superior range and jump capability proved an effective counter to Commando hunter-killer groups.</p>
+
+deployment:<p>Appearing in 3025, this variant carries twin SRM-6 launchers, a medium laser, and a flamer at the cost of one ton of armor. This configuration became the most common variant to receive official support from Lyran commanders, who valued its devastating short-range firepower for ambush operations and hunting other light units. The very limited ammunition supply handicaps the design in all but the quickest skirmishes, requiring careful shot discipline from pilots. Lyran forces deploy the 3A methodically, using its overwhelming firepower in situations where brief, violent engagements favor its strengths.</p>
+
+history:<p>The Commando's development was driven by desperation. After Operation Prometheus gave the Lyran Commonwealth stolen Terran Hegemony BattleMech technology in 2455, Kurita raiders struck Coventry in 2461 and secured enough data to jumpstart the Combine's own program. The following year, disgruntled Alarion workers defected to the Free Worlds League with additional plans. Knowing its enemies would soon field their own 'Mechs, the Commonwealth rushed the COM-1A into service in 2463, followed by the definitive COM-2D in 2486 after the original's cooling problems proved insurmountable.</p><p>The Commando became a cornerstone of Lyran reconnaissance forces and remained exclusively Commonwealth property for centuries. The Star League attempted repeatedly to acquire the design, but Lyran officials employed clever stalling and subtle deception to keep it from foreign hands. This changed during the Amaris Civil War when Lyran volunteers, disaffected by their government's neutrality, brought Commandos into Star League service with the Loyalist forces that liberated Terra. Some of these 'Mechs accompanied General Kerensky into exile, eventually becoming the basis for the Clan Commando IIC.</p><p>The Succession Wars spread the Commando throughout the Inner Sphere as mercenary units acquired examples and developed numerous field modifications. These "dash-seven" variants emerged from refit bays across known space, with Mech-it-Lube franchises becoming particularly associated with Commando modifications. The creation of the Federated Commonwealth finally broke the Lyran monopoly, making the Commando the standard light 'Mech alongside the Valkyrie. Vandenberg Mechanized Industries received license to produce the COM-2D for the Taurian Defense Force, while the Marian Hegemony developed its own rocket-armed COM-4H variant.</p><p>Task Force Serpent's campaign against Huntress in 3060 saw extensive use of upgraded dash-seven variants, prompting Coventry Metal Works to dedicate factory space for official recreations of these successful field modifications. The Word of Blake's occupation of Coventry from 3068 to 3074 resulted in the COM-7B variant optimized for hunting Lyran resistance fighters, including the Bradford family forces that continued to defy Blakist rule. The technological recovery of the thirty-first and thirty-second centuries brought further refinements, including the C3-equipped COM-8S spotter and the paradigm-shifting COM-9S long-range harasser.</p>
+
+manufacturer:Coventry Metal Works
+
+primaryfactory:Coventry
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Coventry Metal Works
+systemmode:CHASSIS:Standard
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:150
+systemmanufacturer:ARMOR:Lexington Limited
+systemmode:ARMOR:Standard
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Crystal Flower RG-2
+systemmanufacturer:TARGETING:TharHes
+systemmode:TARGETING:Star Shark

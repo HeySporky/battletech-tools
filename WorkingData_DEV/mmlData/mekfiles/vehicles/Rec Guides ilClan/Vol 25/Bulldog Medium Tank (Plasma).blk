@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e987-78b9-9679-d6440ecd6418
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Bulldog Medium Tank
+</Name>
+
+<Model>
+(Plasma)
+</Model>
+
+<mul id:>
+9258
+</mul id:>
+
+<year>
+3115
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+40
+32
+32
+32
+32
+</armor>
+
+<Body Equipment>
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+IS Streak SRM 4 Ammo
+IS Heavy Machine Gun Ammo - Half
+ISCASE
+</Body Equipment>
+
+<Front Equipment>
+Heavy Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISPlasmaRifle
+ISStreakSRM4
+ISStreakSRM4
+</Turret Equipment>
+
+<capabilities>
+<p>The Bulldog is an honest but unexceptional combat vehicle. Its internal combustion engine propels the sixty-ton tracked chassis to a cruising speed of forty-three kilometers per hour, reaching sixty-four kilometers per hour at maximum effort, placing it within the typical performance envelope of medium tanks of its era without excelling in any particular quality. Bulldog Standard armor provides adequate protection across the hull, sufficient to withstand infantry weapons and light anti-vehicle fire, though it offers no particular advantage against dedicated anti-armor systems.</p><p>The primary armament is a single Bulldog large laser, providing reliable energy fire at extended range without ammunition dependency. A pair of Hovertec Quad SRM-4 launchers supplements the laser at shorter distances, adding considerable throw weight during engagements where the enemy has closed within a few hundred meters. A forward-mounted machine gun provides anti-infantry coverage and harassment fire capability.</p><p>What the Bulldog lacks in raw performance, it compensates for in mechanical simplicity. Designers deliberately selected standardized, widely available components throughout the vehicle, ensuring technicians can source replacement parts from salvaged hulls across virtually any Inner Sphere battlefield. Many Bulldogs written off as unrecoverable have returned to service under opposing colors within days, a reliable indicator of how interchangeable the design's components have become across the Inner Sphere.</p>
+</capabilities>
+
+<overview>
+<p>The Bulldog Medium Tank traces its origins to Bulldog Enterprises, a civilian vehicle manufacturer that sought to expand into the Star League Defense Force market in the twenty-seventh century. Introduced in 2673, the sixty-ton tracked design was conceived as a low-cost, easily maintainable combat vehicle suitable for fielding in battalion and regimental strength without straining the logistics of planetary militias and conventional army formations. While the tank's performance never distinguished itself among competing designs of the era, its competitive price point drove substantial sales, and Bulldog Enterprises licensed production to Quikscell Company on Ares in 2700 to better serve Capellan Confederation markets. The Draconis Combine and Capellan Confederation became the primary operators of the type, and both states continued to adapt and modernize the design across successive eras, producing updated variants suited to the technological capabilities of each period.</p>
+</overview>
+
+<deployment>
+<p>Optimized for operations against conventional infantry and lightly armored vehicles, this Capellan variant replaces the ERLL with a plasma rifle whose extreme heat and incendiary effects are particularly effective against targets with limited thermal protection. Capellan strategists developed the variant in response to the proliferation of conventional infantry threats within their operational territory during the Dark Age, where maintaining infantry suppression without committing heavy BattleMechs became a priority. Produced on Ares, the Plasma variant is most commonly encountered in Capellan interior operations where conventional ground forces represent the primary opposing threat.</p>
+</deployment>
+
+<history>
+<p>When Bulldog Enterprises introduced its first military vehicle in 2673, the design attracted tepid reviews from procurement officers accustomed to more capable equipment. The tank's armament and protection compared adequately against existing designs but offered nothing to justify displacing established suppliers from lucrative Star League contracts. Sales grew gradually as the company cultivated relationships with planetary militias and low-budget garrison commands, positioning the vehicle as the affordable option for formations that could not justify premium prices. By 2700, Bulldog Enterprises licensed manufacturing rights to Quikscell Company on Ares, establishing a second production center oriented toward Capellan Confederation customers and cementing the Draconis Combine-Capellan industrial partnership that would sustain the design across centuries of conflict.</p><p>The Succession Wars fundamentally changed the Bulldog's role in the Inner Sphere order of battle. As more capable designs were destroyed faster than industry could replace them and high-technology components grew increasingly scarce, the tank's manageable maintenance requirements and easily sourced parts transformed from liabilities into genuine advantages. House Davion recognized this reality early, stockpiling large numbers in anticipation of prolonged attrition warfare. Supply eventually proved finite, and by the midpoint of the Third Succession War even Davion reserves had been substantially worn down. Surviving hulks remained repairable long past their expected service lives, however, and the Bulldog persisted across the Inner Sphere's depleted arsenals.</p><p>During a major Roughriders raid into Draconis Combine territory at Sternwerde in 3035, Bulldog tanks proved their worth in mass formation operations against a superior defending force. Targeting inbound DropShips during the landing phase, crews using inferno missiles triggered catastrophic detonations among troops and equipment not yet clear of the vessels, destroying three DCMS regiments before they could deploy to the battlefield.</p><p>The Capellan production facility on Ares proved difficult to defend during the years following the Fourth Succession War. Successive Davion raids stripped the planet of assembled vehicles and finished stocks, with the defending garrison too demoralized and outmatched to mount effective resistance as long as the raiders avoided the BattleMech repair facilities. Production eventually stabilized, and the Ares plant continued supplying Capellan conventional forces through the Jihad and into the Dark Age period.</p><p>Modernization efforts during the Republic era produced the extended-range laser variant, substantially improving the design's firepower and protection. Subsequent modifications by both the Draconis Combine and Capellan Confederation addressed specific operational gaps in their conventional force structures, and by the ilClan era the Bulldog had outlasted contemporaries far more capable on paper, proof of the enduring value of availability and affordability in sustained conventional warfare.</p>
+</history>
+
+<manufacturer>
+Quikscell Company
+</manufacturer>
+
+<primaryFactory>
+Ares
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:N/A
+ENGINE:Bulldog Enterprises
+ARMOR:ProtecTech
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:N/A
+ENGINE:Bulldog 240 Fuel Cell
+ARMOR:ProtecTech 19 Heavy Ferro-Fibrous with CASE
+JUMP_JET:N/A
+COMMUNICATIONS:Xilex-2000
+TARGETING:Xilex-2000 with Artemis IV FCS
+</systemModels>
+
+<source>
+RG25
+</source>
+
+<published>
+RG25,RSFP:Battlefield
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

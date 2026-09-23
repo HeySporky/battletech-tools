@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a889-7560-8e9c-16d0b90d6ef1
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+HeavyHauler Exoskeleton
+</Name>
+
+<Model>
+(Sqd6)
+</Model>
+
+<mul id:>
+9002
+</mul id:>
+
+<year>
+3052
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+easy_pilot
+</quirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+-1
+</armor_tech>
+
+<Squad Equipment>
+BACargoLifter:RA:SIZE:2.5
+BACargoLifter:LA:SIZE:2.5
+BACuttingTorch:Body
+BASearchlight:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The HeavyHauler is built around a single design principle: raw lifting power. Its paired cargo lifter manipulators can hoist a full two and a half metric tons and maneuver loads into precise positions, making it one of the most capable loader exoskeletons available. A cutting torch allows operators to open sealed containers and cut through packing materials, while an integrated searchlight supports work in poorly lit cargo holds and nighttime loading operations.</p><p>These advantages come at a cost. The suit moves at a slow walking pace, limiting its utility in time-sensitive logistics environments. More significantly, the HeavyHauler provides no armor protection beyond its basic structural frame, leaving operators exposed to workplace hazards. GM deliberately accepted these trade-offs to maximize the suit's carrying capacity within the 400-kilogram weight limit, producing a design that excels at sustained heavy lifting but demands careful operational planning to keep its operators safe.</p>
+</capabilities>
+
+<overview>
+<p>The HeavyHauler is an industrial exoskeleton designed by General Motors for heavy cargo handling. Introduced in 3052 from GM's Kathil manufacturing complex, the 400-kilogram humanoid suit was purpose-built to give its operator exceptional lifting power in commercial and military logistics environments. Though not the first loader exoskeleton to reach the market, the HeavyHauler quickly became one of the most widely adopted, earning a reputation as a reliable workhorse across spaceports, warehouses, and DropShip loading bays throughout the Inner Sphere. GM's extensive manufacturing and distribution network ensured broad availability, making the design a natural choice for cartage companies and large-scale industrial operations.</p>
+</overview>
+
+<deployment>
+<p>ComStar and Word of Blake logistics commands organized HeavyHauler operators into six-trooper Level I formations, consistent with their broader military organizational structure. These larger work teams proved well suited to the high-volume cargo throughput demanded by HPG compound supply operations and major garrison resupply efforts, where the additional two operators per team reduced shift rotation frequency.</p>
+</deployment>
+
+<history>
+<p>General Motors brought the HeavyHauler to market not as the first loader exoskeleton, but as the most commercially successful. GM's reputation and extensive distribution network gave the design a decisive advantage over earlier, generic competitors. The company put the suit into active service at each of its factories, allowing potential customers to observe and test the design under realistic working conditions. This hands-on approach won GM numerous long-term purchase contracts and established the HeavyHauler's position as the industry standard.</p><p>Alongside Waytani's PowerLoader, the HeavyHauler became one of two benchmark designs in the loader exoskeleton market. Both suits featured proprietary lifter arm designs that competitors attempted to replicate, prompting GM and Waytani to pursue legal action in courts across the Free Worlds League and Federated Commonwealth. Judicial rulings consistently favored the original manufacturers, with significant damages awarded against imitators. Despite the emergence of newer loader designs, the HeavyHauler remained a common sight at transfer stations, spaceports, cargo vessels, and loading docks throughout the Inner Sphere.</p>
+</history>
+
+<manufacturer>
+General Motors|Albion Advanced Technologies and Products
+</manufacturer>
+
+<primaryFactory>
+Kathil|New Avalon
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<exoskeleton>
+true
+</exoskeleton>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+0
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

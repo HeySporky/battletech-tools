@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa17-7bdc-96b2-4b3f70a16ab0
+</UUID>
+
+<UnitType>
+ConvFighter
+</UnitType>
+
+<Name>
+Raubvogel Aerobomber
+</Name>
+
+<Model>
+AB-18C
+</Model>
+
+<mul id:>
+4903
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+8
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+320
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+9
+8
+8
+7
+</armor>
+
+<Nose Equipment>
+Large Laser
+SRM 2
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISStreakSRM4
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISStreakSRM4
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo SRM-2
+IS Streak SRM 4 Ammo
+</Fuselage Equipment>
+
+<capabilities>
+<p>The AB-18C mounts a nose-mounted large laser as its primary weapon, backed by a nose-mounted SRM 2 and a pair of wing-mounted Streak SRM 4 launchers. The large laser provides reliable strafing capability against armored targets without ammunition constraints, while the Streak missile systems ensure that every launched missile finds its mark--a critical efficiency for a bomber that must make the most of each attack pass. The ICE powerplant limits the fighter's speed to a safe thrust of four, making it slower than most competitors but adequate for ground-attack profiles.</p><p>Armor protection is distributed across all facings with emphasis on the nose and wings, reflecting the fighter's expected approach angles during bombing runs. Eight heat sinks manage the thermal load from the large laser. External hardpoints are the Raubvogel's greatest tactical asset--commanders commonly fit the AB-18C with an external TAG unit and four one-ton laser-guided bombs for precision close support missions, transforming the bomber into a highly effective designator-striker platform.</p>
+</capabilities>
+
+<overview>
+<p>The Raubvogel--roughly translated as "bird of prey" in the archaic German favored by Lyran military tradition--is one of the most widely deployed conventional bomber designs in Lyran service. Produced by Lockheed/CBM Corporation, the AB-18 series has gone through numerous iterations since its initial introduction, with the AB-18C variant representing the current standard configuration as of 3064. The forty-five-ton ICE-powered design fills the atmospheric close support role that heavier aerospace fighters are often considered too valuable to perform, providing ground commanders with responsive and affordable fire support at a fraction of the cost of committing a dedicated strike aerospace fighter to the same mission.</p>
+</overview>
+
+<deployment>
+<p>The Raubvogel is ubiquitous in the Lyran Alliance and has spread extensively into the Federated Suns through the legacy of the Federated Commonwealth. Planetary militias, garrison commands, and even some frontline regiments employ the AB-18C for atmospheric ground support duties that do not warrant committing aerospace fighters. The bomber's straightforward maintenance requirements and use of widely available components make it a favorite of logisticians on budget-constrained garrison worlds.</p>
+</deployment>
+
+<history>
+<p>Lockheed/CBM Corporation has produced the AB-18 series for decades, iterating through multiple variants as available technology advanced and new weapons systems entered widespread production. The AB-18C emerged during the early 3060s as Lockheed/CBM integrated Streak missile technology into the proven airframe, replacing earlier conventional SRM systems that wasted ammunition on near-misses during the high-speed attack runs typical of bomber operations. The improved hit rate more than justified the increased cost per missile for budget-conscious garrison commands.</p><p>The Federated Commonwealth era proved enormously beneficial for the Raubvogel's market reach. Lyran production facilities supplied the design to both halves of the combined state, establishing maintenance infrastructure and spare parts networks across the Federated Suns. Even after the FedCom Civil War fragmented those supply chains, the bomber's established logistics footprint ensured it remained in widespread Davion service. The Raubvogel's remarkable longevity is proof of Lockheed/CBM's philosophy of incremental improvement rather than radical redesign--each new variant built on the proven reliability of its predecessor while incorporating the latest field-tested technologies.</p>
+</history>
+
+<manufacturer>
+Lockheed/CBM Corp.
+</manufacturer>
+
+<primaryFactory>
+Donegal
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:180 Turbine
+ARMOR:Standard
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+HB:HS
+</source>
+
+<tonnage>
+45.0
+</tonnage>
+

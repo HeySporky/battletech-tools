@@ -1,0 +1,175 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-af0a-7df7-8ee1-f611cd7422ea
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Eagle
+</Name>
+
+<Model>
+EGL-R9
+</Model>
+
+<mul id:>
+4111
+</mul id:>
+
+<year>
+2601
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+26
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+80
+52
+52
+40
+</armor>
+
+<Nose Equipment>
+Medium Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+PPC
+Medium Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+PPC
+Medium Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+Medium Laser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Eagle is built on an ImStar Alpha airframe powered by a Vlar 300-rated fusion engine, giving the seventy-five-ton fighter respectable thrust performance for its weight class. Fourteen tons of StarSlab/2 armor provide generous protection, allowing the Eagle to absorb considerable weapons fire before being forced to disengage. A Datacom 26 communications system and Dynatec 990 targeting and tracking system handle sensor and coordination duties.</p><p>The fighter's armament consists entirely of Magna-brand lasers. Three Magna Mk III large lasers serve as the primary weapons, with one mounted in the nose and one in each wing, providing solid ranged firepower across all forward engagement arcs. Four Magna Mk II medium lasers supplement the main battery, three mounted forward for close-range engagements and one facing aft to discourage pursuit. Twenty-five single heat sinks manage the thermal load, allowing the pilot to fire most of the weapons suite in volley with manageable heat buildup. The all-laser loadout eliminates any dependence on ammunition, granting the Eagle exceptional endurance during extended patrols or prolonged engagements. While its acceleration cannot match dedicated Star League heavy fighters, the Eagle compares favorably to most Great House designs of equivalent tonnage.</p>
+</capabilities>
+
+<overview>
+<p>The Eagle is the first heavy aerospace fighter developed by the Free Worlds League, with origins stretching back to a primitive prototype first flown in 2324. ImStar Aerospace of Atreus produced the definitive EGL-R6 model beginning in 2501, establishing the Eagle as a rugged and dependable fighter intended for extended operations far from established supply lines. At seventy-five tons, the Eagle fills the role of an all-laser interceptor and interdiction platform, relying entirely on energy weapons to eliminate the logistical burden of ammunition resupply. Its straightforward design philosophy and use of widely available components earned the Eagle a reputation as one of the yardsticks against which modern heavy aerospace fighters are measured. Multiple manufacturers across the Inner Sphere have produced the design over its centuries-long service history, ensuring that it remains one of the most widely encountered heavy fighters in operation.</p>
+</overview>
+
+<deployment>
+<p>Introduced in 2601, the R9 reconfigures the Eagle for an anti-DropShip role. The wing-mounted large lasers are replaced with paired Magna Hellstar PPCs, substantially increasing striking power at range, while an additional heat sink partially offsets the increased thermal demands. The R9 is primarily used in orbital facilities as a defense against hostile DropShips, where its ability to threaten larger craft at extended range proves invaluable.</p>
+</deployment>
+
+<history>
+<p>The Eagle's lineage traces to 2324, when ImStar Aerospace flew the first prototype as a primitive heavy fighter design. Though crude by later standards, the concept proved sound enough to justify continued development. ImStar refined the design through several iterations over the following centuries, producing transitional models that incorporated incremental improvements in armor and avionics. The definitive EGL-R6 model entered production in 2501 at the company's facilities on Atreus. The Eagle quickly became the backbone of the Free Worlds League Military's heavy fighter contingent, with ImStar's marketing during the first half of the 2600s directed at the poorer provinces of the League, which valued the fighter's egalitarian component base and straightforward maintenance requirements.</p><p>During the Star League era, the Eagle saw widespread adoption by League military and provincial militia forces alike. The design's reliability and ease of maintenance made it particularly popular with garrison units operating far from major industrial centers. Wangker Aerospace on Axton and Lockheed/CBM on Gibbs both produced the R6 model, broadening the manufacturing base beyond Marik space. Field refits tailored the Eagle for specialized roles, including an anti-DropShip configuration mounting paired PPCs in 2601 and a ground-attack variant optimized for strafing runs in 2684. The Star League Defense Force also recognized the Eagle's potential, commissioning a Royal variant equipped with pulse laser technology and an extralight engine for service with SLDF Royal divisions beginning in 2765.</p><p>The destruction of ImStar's Atreus assembly line during the First Succession War in 2811 proved a devastating blow to Eagle production within the Free Worlds League. Since that time, the number of Eagles in Marik service has steadily declined as attrition took its toll without a local production line to replace losses. The Eagle's survival as a viable combat platform owes much to House Davion's intelligence services. Davion spies successfully stole the Eagle's production plans from ImStar just prior to the Atreus factory's destruction, leading to unsubstantiated rumors of sabotage. The Federated Suns put the Eagle into production at the Wangker Aerospace plant on Axton during the Second Succession War, giving the design a second lease on life in Davion space. The Armed Forces of the Federated Commonwealth most commonly employed the Eagle as a second-line fighter, a role that suited the design's excellent endurance and robust construction. The design specifications were subsequently shared with Lockheed/CBM Corporation on Gibbs, establishing a Lyran production line that has continued uninterrupted into the modern era.</p><p>The Jihad era saw renewed interest in the Eagle platform. A mercenary field refit incorporating modern technology proved successful enough that Lockheed/CBM adopted it for formal production at Gibbs around 3071. Meanwhile, ImStar Aerospace came under pressure to convert one of its Cheetah fighter production lines within the Marik Commonwealth to Eagle manufacture. ImStar completed this conversion at Atreus by 3084, restoring the Royal variant to active production for the first time since the First Succession War. During the Republic era, the Atreus facilities operated under Marik-Stewart Commonwealth oversight before reverting to Free Worlds League control following the League's reformation. With active production lines on both Atreus and Gibbs, the Eagle's seven-century service record stands as proof of ImStar's original design philosophy of building a simple, rugged fighter that can remain combat effective far from established supply lines.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:ImStar Aerospace
+ENGINE:Vlar
+ARMOR:StarSlab
+JUMP_JET:N/A
+COMMUNICATIONS:Datacom
+TARGETING:Dynatec
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:ImStar Alpha
+ENGINE:Vlar 300
+ARMOR:StarSlab/2
+JUMP_JET:N/A
+COMMUNICATIONS:Datacom 26
+TARGETING:Dynatec 990
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

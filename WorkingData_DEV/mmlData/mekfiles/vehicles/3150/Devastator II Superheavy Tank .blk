@@ -1,0 +1,183 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e8a9-7832-8227-e6b2f1d99586
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Devastator II Superheavy Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+8037
+</mul id:>
+
+<year>
+3143
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+4
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+40
+30
+30
+30
+30
+20
+</armor>
+
+<Body Equipment>
+ISCASE
+ISAMS Ammo
+ISAMS Ammo
+ISImprovedHeavyGauss Ammo
+ISImprovedHeavyGauss Ammo
+ISImprovedHeavyGauss Ammo
+ISImprovedHeavyGauss Ammo
+ISImprovedHeavyGauss Ammo
+ISImprovedHeavyGauss Ammo
+ISImprovedHeavyGauss Ammo
+ISImprovedHeavyGauss Ammo
+ISImprovedHeavyGauss Ammo
+ISImprovedHeavyGauss Ammo
+IS Ammo SRM-4
+SponsonTurret
+IS Vehicle Flamer Ammo
+IS Light Machine Gun Ammo - Full
+</Body Equipment>
+
+<Front Equipment>
+ISImprovedHeavyGaussRifle
+ISImprovedHeavyGaussRifle
+ISAntiMissileSystem
+Flamer (Vehicle)
+Small Laser
+</Front Equipment>
+
+<Front Right Equipment>
+ISERMediumLaser(ST)
+Light Machine Gun
+</Front Right Equipment>
+
+<Front Left Equipment>
+ISERMediumLaser(ST)
+Light Machine Gun
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+SRM 4
+</Rear Equipment>
+
+<capabilities>
+<p>The Devastator II mounts two improved heavy Gauss rifles in a heavily armored fixed superstructure that provides a limited forward firing arc. Each weapon delivers devastating kinetic impacts at range, and both firing together can threaten even the most heavily armored BattleMechs or fortification structures. The restricted arc is a deliberate trade, concentrating armor mass that would otherwise support a full rotating turret into the superstructure itself. A 320-rated fusion engine drives the vehicle's four-track propulsion to a maximum speed barely above a walking pace.</p><p>Point defense weapons distributed across the hull and faux turret provide coverage against infantry, battle armor, and light vehicles attempting to exploit the main guns' limited arc. The hardened armor package makes the Devastator II extraordinarily resilient to conventional weapons fire, particularly ballistic and missile attacks, with each armor point absorbing double the punishment of standard plate. The vehicle's central tactical weakness is its near-total lack of mobility. Commands employing the type must account for this from the outset, positioning it to cover expected approach vectors rather than reacting to a developing engagement.</p>
+</capabilities>
+
+<overview>
+<p>The Devastator II is Aldis Industries' superheavy evolution of the Demolisher line, introduced in 3143 as the Inner Sphere's political environment fractured in the Dark Age. Weighing 160 tons, it represents the most extreme expression of the philosophy that drove the original Demolisher: mount the heaviest possible weapons on the most heavily armored hull the battlefield can support. Aldis revived the Devastator name deliberately, connecting the new design to the company's heritage of premium fusion-powered Demolisher variants while signaling that this was not an incremental upgrade but a generational departure. The vehicle's fixed superstructure and exceptional armor made it unsuitable for mobile operations, but as a fortress defender or breakthrough assault vehicle the Devastator II presented opponents with a problem that few conventional combined arms formations could answer at acceptable cost.</p>
+</overview>
+
+<deployment>
+<p>The Devastator II served exclusively in the late Dark Age and ilClan periods, deployed by Republic of the Sphere garrison forces at fortified installations and high-value urban centers. Its extreme weight and minimal mobility made transport and rapid redeployment impractical, so commands assigned the type to prepared positions rather than mobile reserves. When the ilClan period brought renewed conflict to former ROS territory, surviving Devastator IIs became anchor points in defensive lines, used to channel attacker movement and force engagements on the defender's terms. Operational presence remained concentrated near the Aldis facility on Terra and adjacent strategically critical worlds.</p>
+</deployment>
+
+<history>
+<p>Aldis Industries began developing the Devastator II in the early 3130s as the Republic of the Sphere entered the period historians would call the Dark Age. The HPG Blackout had severed communication bonds across the Inner Sphere, triggering cascading military actions that placed new demands on defensive infrastructure. Aldis identified a need for a vehicle that could hold a position against combined arms assault without the logistical burden of an equivalent BattleMech force, a self-contained fortress that required no resupply to execute its mission.</p><p>The design program was deliberately conservative on mobility, accepting a near-stationary movement profile as a fundamental characteristic rather than a limitation to be engineered around. Aldis engineers concentrated development resources on the armor package and main armament, fielding hardened plating across the entire hull and housing the paired improved heavy Gauss rifles in a fixed superstructure that emphasized protection over traverse. The result bore more resemblance to a tracked bunker than a conventional tank, an impression reinforced by the blunt frontal profile and faux-turret construction that contemporary observers found disorienting on first contact.</p><p>The Devastator II entered production in 3143 and was adopted by Republic of the Sphere heavy garrison forces, which deployed the type at key installations on high-priority worlds. The design never spread widely, constrained by its cost, weight, and the practical challenges of positioning 160 tons of tracked armor. Units that saw combat in the ilClan period demonstrated that it fulfilled its purpose: few conventional combined arms formations could engage and reliably destroy one at acceptable cost, and those that tried typically paid for the attempt.</p>
+</history>
+
+<manufacturer>
+Aldis Industries
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Aldis Industries
+COMMUNICATIONS:Omicron
+TARGETING:Omicron
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:320 Fusion
+ARMOR:ArcShield Nimbus I Hardened
+COMMUNICATIONS:Omicron 5000
+TARGETING:Omicron VII
+</systemModels>
+
+<source>
+TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+160.0
+</tonnage>
+

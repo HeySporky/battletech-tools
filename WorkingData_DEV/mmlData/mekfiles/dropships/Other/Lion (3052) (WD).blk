@@ -1,0 +1,373 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa8d-7b38-ab6c-ead9284b0f8a
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Lion
+</Name>
+
+<Model>
+(3052) (WD)
+</Model>
+
+<mul id:>
+4527
+</mul id:>
+
+<year>
+3052
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+mekbay:10.0:2:-1::-1:0
+cargobay:1641.0:1:2::-1:0
+1stclassquarters:140.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:364.0:0:-1::-1:0
+heavyvehiclebay:10.0:1:6::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+113
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+6300
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+220
+191
+191
+166
+</armor>
+
+<Nose Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+CLArtemisIV
+CLArtemisIV
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLAntiMissileSystem
+CLAMS Ammo:24
+CLAMS Ammo:24
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+CLArtemisIV
+CLArtemisIV
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLAntiMissileSystem
+CLAMS Ammo:24
+CLAMS Ammo:24
+(R) (B) CLLRM15
+(R) CLLRM15
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) CLArtemisIV
+(R) CLArtemisIV
+(R) (B) CLLargePulseLaser
+(R) CLLargePulseLaser
+(R) CLMediumPulseLaser
+(R) CLMediumPulseLaser
+(R) (B) CLStreakSRM6
+(R) CLStreakSRM6
+(R) Clan Streak SRM 6 Ammo:15
+(R) Clan Streak SRM 6 Ammo:15
+(R) Clan Streak SRM 6 Ammo:15
+(R) Clan Streak SRM 6 Ammo:15
+(R) (B) CLAntiMissileSystem
+(R) CLAMS Ammo:24
+(R) CLAMS Ammo:24
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+Clan Ammo LRM-20 (Clan) Artemis-capable:6
+CLArtemisIV
+CLArtemisIV
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLAntiMissileSystem
+CLAMS Ammo:24
+CLAMS Ammo:24
+(R) (B) CLLRM15
+(R) CLLRM15
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) Clan Ammo LRM-15 (Clan) Artemis-capable:8
+(R) CLArtemisIV
+(R) CLArtemisIV
+(R) (B) CLLargePulseLaser
+(R) CLLargePulseLaser
+(R) CLMediumPulseLaser
+(R) CLMediumPulseLaser
+(R) (B) CLStreakSRM6
+(R) CLStreakSRM6
+(R) Clan Streak SRM 6 Ammo:15
+(R) Clan Streak SRM 6 Ammo:15
+(R) Clan Streak SRM 6 Ammo:15
+(R) Clan Streak SRM 6 Ammo:15
+(R) (B) CLAntiMissileSystem
+(R) CLAMS Ammo:24
+(R) CLAMS Ammo:24
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) CLLRM15
+CLLRM15
+Clan Ammo LRM-15 (Clan) Artemis-capable:8
+Clan Ammo LRM-15 (Clan) Artemis-capable:8
+Clan Ammo LRM-15 (Clan) Artemis-capable:8
+Clan Ammo LRM-15 (Clan) Artemis-capable:8
+Clan Ammo LRM-15 (Clan) Artemis-capable:8
+Clan Ammo LRM-15 (Clan) Artemis-capable:8
+Clan Ammo LRM-15 (Clan) Artemis-capable:8
+Clan Ammo LRM-15 (Clan) Artemis-capable:8
+CLArtemisIV
+CLArtemisIV
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:15
+Clan Streak SRM 6 Ammo:15
+Clan Streak SRM 6 Ammo:15
+Clan Streak SRM 6 Ammo:15
+(B) CLAntiMissileSystem
+CLAMS Ammo:24
+CLAMS Ammo:24
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+14
+</structural_integrity>
+
+<capabilities>
+<p>Following the Battle of Luthien, most Dragoon Lions are believed to have been returned closer to their original Clan specifications. This variant carries ten BattleMechs, ten heavy vehicles, and over 1,640 tons of cargo. The weapons suite uses full Clan technology: ER large lasers, large pulse lasers, medium pulse lasers, Artemis IV-enhanced LRM-20s and LRM-15s, Streak SRM-6 launchers, and anti-missile systems across all arcs. Armor returns to the original Star League standard of 768 points, and one hundred thirteen single heat sinks manage the thermal load. The crew of 189 operates the vessel and its vehicle complement.</p>
+</capabilities>
+
+<overview>
+<p>The Lion class DropShip is one of the oldest designs still in active service, originally introduced in 2595 as a Star League combined-arms transport. This 7,300-ton Spheroid was designed from the outset to carry BattleMechs, vehicles, and cargo in a single hull, making it a true multi-role transport capable of deploying balanced ground forces.</p><p>Unlike the Clan Union and Overlord vessels, which are essentially new craft sharing a name with Inner Sphere designs, all surviving Lion class vessels are refitted originals constructed during the twenty-seventh century. No new Lions have ever been built, making each surviving example an irreplaceable relic of the Star League era.</p>
+</overview>
+
+<deployment>
+<p>Following the Battle of Luthien in 3052, the Dragoons openly adopted Clan-style organization and are believed to have restored most of their Lions to full Clan specifications. The Dragoons' secrecy regarding their fleet prevented outside observers from confirming the exact number of converted vessels or their precise specifications.</p>
+</deployment>
+
+<history>
+<p>The Lion entered service in 2595 as a combined-arms transport for the Star League Defense Force. The design served throughout the Inner Sphere until the Amaris Civil War, when many were destroyed or damaged. The surviving Lions were divided between those that accompanied the Exodus Fleet and the handful that remained in the Inner Sphere, where centuries of Succession War fighting reduced their numbers to a mere fraction of the original production run.</p><p>The Clans extensively refitted their Lions to match their revised military organization, expanding the Mech bays from two lances to two Stars and replacing all weapons with advanced Clan technology. An attempt to convert the vehicle bay for battle armor proved unfeasible, and the space was instead configured for an infantry Binary. This compromise relegated the Lion to service with freeborn and dezgra units, who continued to use it in its intended combined-arms role.</p><p>When Wolf's Dragoons returned to the Inner Sphere in 3005, they brought several Lion class vessels, which they expected would be inconspicuous. They did not realize that only a handful of Lions remained in Successor State fleets, and their presence immediately aroused suspicion. The Dragoons stripped most advanced technology from their Lions before arriving and restricted them to carrying eight BattleMechs to avoid further scrutiny. After the Fourth Succession War, the Dragoons adopted the five-unit Clan organization openly, and following the Battle of Luthien in 3052, most of their Lions are believed to have been returned to full Clan specifications.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Troop Carrier
+</use>
+
+<length>
+92 meters
+</length>
+
+<width>
+92 meters
+</width>
+
+<height>
+95 meters
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+7300.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+166
+</crew>
+
+<officers>
+14
+</officers>
+
+<gunners>
+9
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+10
+</escape_pod>
+

@@ -1,0 +1,205 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf7e-7af0-ab26-67beb21152e4
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Deimos
+model:Prime
+mul id:856
+
+Config:Biped OmniMek
+techbase:Clan
+era:3085
+source:TR:3085S,TR:J
+published:RS:J
+rules level:2
+role:Sniper
+
+quirk:anti_air
+
+mass:85
+engine:255 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:14 Clan Double
+base chassis heat sinks:10
+walk mp:3
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:24
+RA armor:24
+LT armor:28
+RT armor:28
+CT armor:36
+HD armor:9
+LL armor:28
+RL armor:28
+RTL armor:8
+RTR armor:8
+RTC armor:11
+
+Weapons:11
+Ultra AC/2, Left Arm
+Ultra AC/2, Left Arm
+Ultra AC/2, Left Arm
+Ultra AC/2, Right Arm
+Ultra AC/2, Right Arm
+Ultra AC/2, Right Arm
+LRM 15, Left Torso
+ER Medium Laser, Left Torso
+LRM 15, Right Torso
+ER Medium Laser, Right Torso
+Anti-Missile System, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLUltraAC2 (OMNIPOD)
+CLUltraAC2 (OMNIPOD)
+CLUltraAC2 (OMNIPOD)
+CLUltraAC2 (OMNIPOD)
+CLUltraAC2 (OMNIPOD)
+CLUltraAC2 (OMNIPOD)
+Clan Ultra AC/2 Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLUltraAC2 (OMNIPOD)
+CLUltraAC2 (OMNIPOD)
+CLUltraAC2 (OMNIPOD)
+CLUltraAC2 (OMNIPOD)
+CLUltraAC2 (OMNIPOD)
+CLUltraAC2 (OMNIPOD)
+Clan Ultra AC/2 Ammo (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLLRM15 (OMNIPOD)
+CLLRM15 (OMNIPOD)
+CLERMediumLaser
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLLRM15 (OMNIPOD)
+CLLRM15 (OMNIPOD)
+CLERMediumLaser
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ultra AC/2 Ammo (OMNIPOD)
+CLMASC
+CLMASC
+CLMASC
+Clan Endo Steel
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLAMS Ammo
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLAntiMissileSystem
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Deimos is a Clan Snow Raven assault OmniMech that spent over two decades in development before being formally unveiled to the Inner Sphere. First reports of the eighty-five-ton design emerged from the Kerensky Cluster world of Lum during the mid-3060s, where rumors described a massive machine built to the Ravens' exacting aerospace technology standards. Designed to support naval and aerospace operations while maintaining formidable ground combat capability, the Deimos represented the Snow Ravens' ambition to field a heavy assault platform worthy of their aerospace-centric doctrine. The Jihad and the subsequent White Out severed intelligence channels from the Homeworlds, and the project faded from Inner Sphere awareness. It was not until 3085 that the Snow Ravens formally revealed the Deimos, now in production at the Snow Raven Industrial Complex Alpha on Dante, establishing it as a source of considerable Clan pride.</p>
+
+capabilities:<p>The Deimos features a broad-shouldered, digitigrade frame comparable to designs such as the Ghost Bears' Bruin, the Hell's Horses' Hellstar, and the Wolves' Night Wolf and Blood Reaper. The broad foot assembly provides enhanced stability in motion and under fire, with particular benefits for accuracy when engaging aerospace targets. Electromagnetic grippers integrated into the feet allow the Deimos to secure itself to DropShip hulls, reflecting the Snow Ravens' emphasis on naval integration.</p><p>A Type 255 extralight engine provides adequate speed for the eighty-five-ton chassis, a powerplant shared with the Omen second-line assault 'Mech in a nod to Clan efficiency principles. Rather than mounting jump jets, engineers installed a MASC system to provide short-term speed boosts beyond its base fifty-four kilometer per hour cruising speed. The chassis is protected by fourteen and a half tons of Longanecker PlastiSteel standard armor, providing solid protection across all arcs.</p><p>The Deimos offers forty-three tons of pod space, making it one of the most capacious OmniMech designs in service. Fixed armament includes two extended-range medium lasers in the side torsos and a head-mounted anti-missile system, ensuring baseline defensive capability regardless of configuration. The Prime configuration emphasizes the design's anti-aerospace role with six Class 2 Ultra autocannons and paired LRM-15 launchers, leveraging the chassis' inherent anti-aircraft targeting characteristics.</p>
+
+deployment:<p>This variant configuration establishes the Deimos as a dedicated anti-aerospace platform, mounting six Class 2 Ultra autocannons split across both arms alongside paired fifteen-tube long-range missile launchers in the side torsos. This combination provides sustained high-volume fire capable of engaging fast-moving aerospace targets at extended ranges, complementing the chassis' inherent anti-aircraft targeting characteristics. Three tons of autocannon ammunition and three tons of missile reloads sustain combat operations, though this variant must remain within reach of supply lines during extended engagements.</p>
+
+history:<p>The Deimos project originated on the Kerensky Cluster world of Lum during the mid-3060s, where Snow Raven engineers undertook the ambitious task of creating an assault OmniMech that embodied their Clan's aerospace-centric combat philosophy. Early intelligence reports filtering back to the Inner Sphere described a formidable new design capable of supporting flight operations while engaging ground targets with devastating effect.</p><p>The onset of the Jihad and the subsequent White Out that descended over communications between the Pentagon and Kerensky Clusters silenced all further reports of the project. For nearly two decades, the Deimos remained nothing more than an unconfirmed rumor in Inner Sphere intelligence files. Between the opening shots of the Jihad and the veil of silence that settled over the Homeworlds, the Snow Ravens' ambitious assault OmniMech project was all but forgotten.</p><p>The Snow Ravens' migration to the Inner Sphere and subsequent formation of the Raven Alliance with the Outworlds Alliance brought the Deimos out of obscurity. Production facilities were established at the Snow Raven Industrial Complex Alpha on Dante, and in February of 3085 the Snow Ravens formally unveiled the design. The initial production run was substantial, with at least one Deimos assigned to every cluster within the Raven touman, emphasizing the design's importance to Snow Raven military doctrine.</p><p>The Deimos quickly established itself as a symbol of Raven technological capability and Clan pride. While it may not have been the most devastating assault 'Mech ever produced, the combination of massive pod space, aerospace integration features, and the Snow Ravens' characteristic engineering precision made it a distinctive addition to the post-Jihad battlefield. Armed Forces of the Federated Suns intelligence later identified evidence of a non-OmniMech variant believed to be based on the original pre-Omni test bed, suggesting the design's development history was even longer than initially understood.</p><p>Subsequent configurations developed through the Republic and Dark Age eras expanded the Deimos's tactical flexibility well beyond its original anti-aerospace role, with variants optimized for ground assault, space operations, and advanced combined-arms warfare. The design's continued evolution reflects both the Snow Ravens' commitment to their signature platform and the broader trend toward multi-role assault OmniMechs in the post-Jihad era.</p>
+
+manufacturer:Snow Raven Industrial Complex Alpha
+
+primaryfactory:Dante
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Model MHO-14E Endo-Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Type 255 Extralight
+systemmanufacturer:ARMOR:Longanecker
+systemmode:ARMOR:PlastiSteel
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:TDWS-37 Mk. 2.2
+systemmanufacturer:TARGETING:Hermes
+systemmode:TARGETING:CT-44

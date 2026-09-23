@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e4b5-7cd2-a120-b18061f9e059
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Ares Medium Tank
+</Name>
+
+<Model>
+(Plasma)
+</Model>
+
+<mul id:>
+108
+</mul id:>
+
+<year>
+3069
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+19
+17
+17
+16
+17
+</armor>
+
+<Body Equipment>
+Clan Ammo LRM-15 (Clan) Artemis-capable
+Clan Ammo LRM-15 (Clan) Artemis-capable
+CLPlasmaCannonAmmo
+CLPlasmaCannonAmmo
+CLCASE
+</Body Equipment>
+
+<Front Equipment>
+CLLRM15
+CLArtemisIV
+CLLRM15
+CLArtemisIV
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLPlasmaCannon
+</Turret Equipment>
+
+<capabilities>
+<p>The Ares fields three complementary weapon systems. The primary weapon is a Series 7Ja Extended Range Large Laser mounted in the turret, providing accurate long-range fire with no ammunition dependency. Hull-mounted armament consists of a Type X "Short Bow" LRM-10 and a Type XV "Crossbow" LRM-15, each equipped with an Artemis IV Fire Control System that improves cluster hit accuracy. The missile launchers can deliver indirect fire with spotter support, allowing the crew to engage targets masked by terrain. Clantech guidance packages arm at close range, making the missiles effective even against enemies who press the engagement, a meaningful advantage over Inner Sphere equivalents. Limited missile ammunition forces most crews to rely primarily on the laser, using the missile racks as situational supplements rather than primary weapons.</p><p>Four and a half tons of Compound G5 Ferro-Fibrous armor protects the hull and its three-man crew, a modest allocation that emphasizes the design's preference for standoff engagement over sustained close combat. CASE protects the ammunition bays, giving crews a reasonable chance of survival in the event of a catastrophic internal explosion. The Ares cruises at 54 km/h and can push to a maximum of 86 km/h, competitive for a fire support vehicle of its class.</p>
+</capabilities>
+
+<overview>
+<p>The Ares Medium Tank is a Clan fire support vehicle that entered service in 2842, produced by multiple Clan manufacturers to fill the need for a fast, long-range combat platform. Designed to engage enemies from standoff distances, the Ares pairs respectable speed for its weight class with a focused offensive loadout that rewards careful positioning over aggressive advances. Its relatively modest armor encourages crews to maintain range and leverage their weapons rather than trading shots up close. The design became a common fixture of Clan second-line forces across most major Clans, with Clan Coyote and Clan Wolf historically maintaining the largest inventories. The tank's balance of firepower, speed, and proven utility makes it well suited for garrison duty alongside heavier frontline assets.</p>
+</overview>
+
+<deployment>
+<p>The Plasma variant is produced at the Weingarten facility in Clan Wolf's Occupation Zone, entering service during the Jihad. Replacing the extended-range laser with a plasma cannon and adding a second fifteen-tube missile launcher, the variant is designed to deter enemy BattleMechs from closing with Ares formations. The plasma cannon's ability to impose heat on targets makes it especially effective against high-heat designs attempting to engage at close range. Like the standard model it serves primarily in a garrison role. Control of Weingarten transferred to Clan Hell's Horses after the Jihad, who continued producing the variant through the Dark Age and into the ilClan era.</p>
+</deployment>
+
+<history>
+<p>The Ares Medium Tank traces its origins to the early post-Exodus period, entering service in 2842 as the Clans consolidated their military infrastructure across the homeworlds. Several Clans established independent production lines reflecting the design's broad utility as a garrison and second-line asset. Clan Coyote operated a major facility on Tamaron, while Clan Wolf ran a production line on Tranquil. Other Clans maintained lines on Lum, Ironhold, Bearclaw, Huntress, Shadow, and Albion. Ownership of these facilities shifted across the centuries as Clan politics and territorial conflicts redistributed manufacturing assets.</p><p>The design's presence expanded significantly following the Clan Invasion, as occupying forces introduced Ares formations to garrison worlds across the Inner Sphere Occupation Zones. The vehicle proved reliable in the role, and most occupying Clans continued fielding it as a backbone garrison asset through the Civil War era. During this period several homeworld facilities changed hands: the Bearclaw plant passed from Ghost Bear to Snow Raven control and eventually to Stone Lion, while the Huntress facility cycled through multiple owners including Star Adder and Clan Coyote as Abjuration and homeworld conflicts reshuffled Clan territories.</p><p>The Jihad brought increased stress to second-line formations across the Occupation Zones. Clan Wolf consolidated Ares production at Weingarten after the Tamar facility became unviable, and Wolf scientists developed a plasma cannon variant at that site to address rising threats to their garrison forces. Following the Jihad, control of Weingarten passed to Clan Hell's Horses, who continued production of both variants into the Dark Age period.</p>
+</history>
+
+<manufacturer>
+W-7 Facilities
+</manufacturer>
+
+<primaryFactory>
+Weingarten
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion 200
+ARMOR:Compound G5 Ferro-Fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:2SH C3
+TARGETING:Build 4 JVJ TTS with Artemis IV FCS
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

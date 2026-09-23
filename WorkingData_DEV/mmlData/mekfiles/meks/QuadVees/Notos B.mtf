@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d7a5-7d29-888b-d53aaf565ae0
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Notos
+model:B
+mul id:7372
+
+Config:QuadVee OmniMek
+techbase:Clan
+era:3145
+source:XTR:RotS 3
+published:XTR:RotS 3
+rules level:3
+role:Skirmisher
+
+
+mass:60
+engine:300 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+motive:Wheel
+cockpit:QuadVee Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 Laser
+base chassis heat sinks:10
+walk mp:5
+jump mp:0
+
+armor:Standard(Clan)
+FLL armor:24
+FRL armor:24
+LT armor:21
+RT armor:21
+CT armor:30
+HD armor:8
+RLL armor:24
+RRL armor:24
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:4
+LRM 15, Left Torso
+LRM 15, Right Torso
+ER Medium Laser, Center Torso
+ER Medium Laser, Center Torso
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Conversion Gear
+QuadVee Wheels
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Conversion Gear
+QuadVee Wheels
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLLRM15 (OMNIPOD)
+CLLRM15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLLRM15 (OMNIPOD)
+CLLRM15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Ammo LRM-15 (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Cockpit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Conversion Gear
+QuadVee Wheels
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Conversion Gear
+QuadVee Wheels
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Notos is a 60-ton production OmniQuadVee introduced in 3145 by Clan Hell's Horses at the Csesztreg Industriplex Alpha Annex on Csesztreg. Named for the Greek god of the south wind, the Notos represents the culmination of over a decade of QuadVee development under Technician Factor Matthew, whose earlier Boreas prototype first demonstrated the hybrid 'Mech-vehicle concept. Unlike its predecessor, the Notos was built from the ground up as a finished production machine rather than a testbed, featuring Endo Steel internal structure, an extralight engine, and most distinctively, wheels rather than tracks.</p><p>This shift from tracked to wheeled locomotion grants the Notos significantly enhanced speed on paved surfaces, reflecting a maturing tactical doctrine that emphasizes rapid redeployment between battlefields. With only an estimated twenty units produced as of its introduction, the Notos remains rare, but its existence confirms that the Hell's Horses have not abandoned the QuadVee concept.</p>
+
+capabilities:<p>The Notos rides on a 300-rated extralight fusion engine paired with Endo Steel internal structure, achieving walking speeds typical of most Clan heavyweights in 'Mech mode. The critical innovation is its wheeled locomotion system, which replaces the tracks used by all previous QuadVees. In vehicle mode, the Notos achieves significantly higher speeds on paved surfaces, becoming twenty percent faster and gaining the ability to dart behind cover with agility more typical of hovercraft and scout 'Mechs. On spaceport tarmac or urban roadways, the wheeled Notos can match speeds found only in dedicated reconnaissance platforms.</p><p>As an OmniQuadVee, the Notos offers 9.5 tons of pod space for weapons customization across its configurations. The Prime configuration leverages this flexibility with five medium pulse lasers and a targeting computer for precise, heat-efficient engagement at medium ranges, supplemented by a supercharger that boosts 'Mech-mode speed in brief bursts. The design retains the dual cockpit and rotating turret-torso standard to all QuadVees, and its sleeker, more refined appearance compared to earlier models reflects the maturation of the production process. Armor protection stands at 12.5 tons, adequate for sustained combat but still below that of dedicated Clan heavy OmniMechs.</p>
+
+deployment:<p>Alternate Configuration B serves as a dedicated long-range fire support platform, mounting twin LRM-15 launchers fed by four tons of ammunition distributed across both side torsos. The paired launchers provide substantial indirect fire capability, allowing the Notos to support advancing formations from behind cover while using its wheeled mobility to maintain optimal engagement distances. A pair of extended-range medium lasers provides self-defense capability at shorter ranges.</p>
+
+history:<p>The Notos emerged in 3145 as the latest iteration of Technician Factor Matthew's QuadVee program, which had begun over fifteen years earlier with the Boreas prototype. Where the Boreas was an experimental testbed and the 3136 production models represented a first generation of viable combat platforms, the Notos was designed from inception as a polished weapon system. Its sleeker profile, refined engineering, and switch from tracked to wheeled locomotion signal a program that has evolved beyond proof of concept into genuine operational maturity.</p><p>The transition to wheels represents perhaps the most significant tactical evolution in the QuadVee program. On paved surfaces such as spaceport tarmacs, urban streets, and prepared roads, the wheeled Notos achieves speeds that transform the QuadVee from a novel curiosity into a genuinely effective rapid-response platform. This capability has secured the design a place in several of the Hell's Horses' Ranger and Cavalry Clusters, units whose operational doctrine emphasizes swift redeployment between contested areas.</p><p>Production remains extremely limited, with estimates suggesting only twenty or so Notos units have rolled off the Csesztreg Industriplex Alpha Annex's factory lines. This scarcity reflects both the complexity of OmniQuadVee manufacturing and continued debate within the Horses' leadership about the concept's long-term strategic value. However, the Notos's existence demonstrates that the QuadVee program continues to receive resources and attention, and the Jade Falcons have reportedly taken note of the Horses' persistence with the technology.</p><p>The Notos's battlefield impact remains to be fully assessed, but its evolution from the crude Boreas prototype to a polished production OmniMech suggests that the QuadVee concept, once dismissed as little more than a gimmick, may yet prove to be a lasting contribution to Clan warfare.</p>
+
+manufacturer:Csesztreg Industriplex Alpha Annex
+
+primaryfactory:Csesztreg
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Unknown (Endo Steel)
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:300 XL Fusion
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:CH2 Series
+systemmode:COMMUNICATIONS:Integrated
+systemmanufacturer:TARGETING:Version
+systemmode:TARGETING:Gamma-V TTS

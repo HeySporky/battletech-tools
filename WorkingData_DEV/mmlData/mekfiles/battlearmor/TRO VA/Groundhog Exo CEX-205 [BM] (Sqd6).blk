@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a86c-74f9-810b-2427c5439a39
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Groundhog Exoskeleton
+</Name>
+
+<Model>
+CEX-205 [Basic Manipulator](Sqd6)
+</Model>
+
+<mul id:>
+9172
+</mul id:>
+
+<year>
+3062
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<quirks>
+imp_com
+</quirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+-1
+</armor_tech>
+
+<Squad Equipment>
+BASearchlight:Body
+BABasicManipulator:LA
+BABasicManipulator:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The Basic Manipulator configuration mounts standard dexterous manipulators on both arms, providing operators with the fine motor control needed for general-purpose field work. Like all Groundhog configurations, the suit weighs four hundred kilograms and carries one hundred kilograms of standard armor, sufficient against small arms fire but inadequate against battlefield weapons. Ground speed reaches thirty kilometers per hour with no jump capability.</p><p>The Basic Manipulator loadout retains the ability to conduct swarm and leg attacks against BattleMechs and can employ standard infantry weapons, making it functionally similar to the Armored Glove configuration in combat situations. Where the two diverge is in utility: the Basic Manipulator's articulated fingers excel at tasks requiring precision handling, from field repairs to equipment setup. The integrated searchlight and mission equipment bay round out the configuration's support capabilities. The lack of specialized tooling makes this the most general-purpose of the Groundhog's standard configurations, trading task-specific efficiency for broad adaptability.</p>
+</capabilities>
+
+<overview>
+<p>The CEX-205 Groundhog is a combat engineering exoskeleton produced by Blue Shot Weapons on Solaris VII. Introduced in 3062, the Groundhog was designed as a field-ready engineering platform capable of supporting military and mercenary operations through a modular manipulator system that allows rapid reconfiguration for different tasks. The suit's interchangeable tool mounts accept a wide range of equipment, from armored gloves suitable for light combat duties to specialized industrial tools for heavy labor, mine clearance, and salvage work. An integrated searchlight and onboard mission equipment storage further extend the Groundhog's operational utility. Heavily armored for an exoskeleton, the Groundhog earned a reputation as one of the first truly battlefield-ready engineering exoskeletons available on the open market.</p>
+</overview>
+
+<deployment>
+<p>Word of Blake and ComStar Level I formations equipped with Basic Manipulator Groundhogs served as general engineering support within garrison commands. Six-trooper formations provided sufficient personnel to handle field maintenance, communications equipment setup, and logistics coordination tasks. The configuration saw common assignment to Militia units tasked with infrastructure support during the Jihad.</p>
+</deployment>
+
+<history>
+<p>Blue Shot Weapons had long served a niche market on Solaris VII, producing industrial exo-suits primarily sold to arena management companies for routine maintenance and emergency MechWarrior extractions. The CEX-205 Groundhog, introduced in 3062, marked a deliberate shift in the company's ambitions. Drawing on advances in Inner Sphere battle armor technology, Blue Shot designed the Groundhog as their first truly field-ready combat engineering exoskeleton, offering military and mercenary units a rugged, modular platform far beyond their earlier commercial-grade offerings.</p><p>Blue Shot marketed the full line of manipulator configurations in paired sets, emphasizing the suit's adaptability for diverse field operations. Arena operators on Solaris VII also adopted the Groundhog for "tunnel rat" operations during the FedCom Civil War, using the suit's improved communications equipment and searchlight for underground engagements.</p><p>The Word of Blake invasion of Solaris VII in 3068 dealt a severe blow to Blue Shot Weapons. The company's production facilities suffered catastrophic damage during the fighting, with capacity reportedly falling below ten percent. By 3071, the damage proved insurmountable, and the Groundhog was officially discontinued. Persistent rumors of a jump-capable variant designated the CEX-250 Leapfrog had circulated for some time, but with the Blue Shot plant in ruins, the design never reached production.</p>
+</history>
+
+<manufacturer>
+Blue Shot Weapons
+</manufacturer>
+
+<primaryFactory>
+Solaris VII
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<exoskeleton>
+true
+</exoskeleton>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

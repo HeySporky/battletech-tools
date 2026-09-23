@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cade-7e2a-920a-bea315f842a8
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Shootist
+model:ST-8C
+mul id:2940
+
+Config:Biped
+techbase:Inner Sphere
+era:3062
+source:TR:3058U,TR:SW
+published:RS:SW
+rules level:2
+role:Brawler
+
+quirk:command_mech
+
+mass:70
+engine:280 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:13 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:22
+RA armor:22
+LT armor:24
+RT armor:24
+CT armor:34
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:5
+RTR armor:5
+RTC armor:10
+
+Weapons:4
+AC/20, Left Arm
+ER Medium Laser, Right Arm
+ER Large Laser, Right Torso
+ER Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+Autocannon/20
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Ammo AC/20
+IS Ammo AC/20
+ISCASE
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERLargeLaser
+ISERLargeLaser
+ISC3iUnit
+ISC3iUnit
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Shootist was introduced in 2621 by Mitchell Vehicles as a command 'Mech for the SLDF's Royal BattleMech regiments stationed within the Terran Hegemony. Originally intended to serve as an electronic warfare-capable battlefield command platform, the seventy-ton design was eclipsed in that role just ten years later by the BattleMaster. The Star League Army reassigned the Shootist to serve as a close-combat juggernaut for heavy lances and as a personal bodyguard for battlefield commanders. The design's balanced mix of firepower, speed, and heavy armor protection proved well suited to both roles.</p><p>Production was never prolific, and the devastation of the Succession Wars reduced the Shootist to near extinction. Since that era, the design has been found almost exclusively in ComStar and Word of Blake formations, supplemented by rare examples recovered from Clan Brian Caches.</p>
+
+capabilities:<p>The Shootist was designed to prioritize armor protection over raw firepower, a philosophy stemming from the design's original role as a battlefield command platform. The 'Mech carries twelve tons of MV ferro-fibrous armor on a standard frame, and the inclusion of CASE allows the Shootist to survive a catastrophic ammunition explosion that would cripple or destroy most other Star League-era designs.</p><p>While firepower was not the primary design consideration, the Shootist carries a formidable arsenal. The Blankenburg extended-range large laser serves as the design's primary long-range weapon, engaging targets at nearly six hundred meters. At closer ranges, the devastating Deathgiver autocannon/20 dominates, capable of crippling light 'Mechs and staggering heavier opponents in a single salvo. Two Blankenburg medium pulse lasers and a Dinatech Mark III small laser round out the arsenal for close-in defense. Pulse technology had only recently been perfected when the Shootist entered production, and its designers took full advantage.</p><p>The combination of a standard engine and CASE provides exceptional battlefield survivability, allowing the Shootist to absorb punishment that would disable XL-equipped designs of similar tonnage.</p>
+
+deployment:<p>Introduced around 3062 after the Word of Blake reopened the Mitchell Vehicles production lines on Terra, this variant removes the small laser and upgrades the medium pulse lasers to a pair of extended-range medium lasers. The freed tonnage accommodates a C3i computer, allowing the Shootist to share targeting data with up to five other similarly equipped units. This modification proved especially effective in the tightly coordinated Word of Blake Militia formations, where networked lance-level fire dramatically increased collective accuracy. Many surviving Shootists in ComStar and Word of Blake service received this upgrade as a field refit at installations throughout the Inner Sphere.</p>
+
+history:<p>The Shootist's origins trace to 2621, when Mitchell Vehicles developed the design for the Star League Defense Force's Royal BattleMech regiments stationed within the Terran Hegemony. Initially conceived as an electronic warfare-capable command 'Mech, the design was reassigned to a close-combat juggernaut role after the BattleMaster proved superior in the command niche. The Shootist found its place as a heavy lance anchor and commander's bodyguard, roles that suited its balanced mix of armor, speed, and firepower.</p><p>Production of the Shootist was never substantial. Even during the height of Star League manufacturing, output barely kept pace with combat losses. Mitchell Vehicles operated facilities on both New Earth and Terra, but the New Earth plant was destroyed during the Amaris Civil War. The remaining Terra facility fell under ComStar's control in the wake of the Star League's dissolution, and Jerome Blake ordered the production lines mothballed as a precaution against future aggression by the Successor Lords.</p><p>Throughout the Succession Wars, the Shootist dwindled toward extinction. Those few surviving examples were jealously hoarded by ComStar, kept in storage facilities against future need. The Com Guards deployed the Shootist almost exclusively with heavy and command Level IIs, where its survivability and firepower anchored defensive formations. Particularly paranoid commanders were known to assign a Shootist as a personal battlefield bodyguard, and the SLDF had long recognized that Shootists worked well together in pairs, though their limited availability prohibited such concentrations.</p><p>The brutal fighting on Tukayyid in 3052 took a heavy toll on ComStar's Shootist inventory, and the subsequent schism that formed the Word of Blake further divided the remaining numbers. The Word of Blake reopened the Mitchell Vehicles plant on Terra after securing the world, placing upgraded variants into production by 3062. Despite these efforts, violent clashes between Com Guard and Blakist forces in the Chaos March only accelerated attrition for this classic Star League design.</p><p>By the late 3060s, fewer than fifty Shootists remained in the Inner Sphere, and unless the Word of Blake's renewed production could keep pace with losses, experts predicted the current conflict would spell the end for the redoubtable Shootist. The Jihad confirmed those fears, as Coalition forces struck the Mitchell Vehicles plant on Terra with devastating effect. In the post-Jihad era, the Republic of the Sphere assumed control of the facility and eventually resumed limited production, though the Shootist remains one of the rarest BattleMech designs still in service.</p>
+
+manufacturer:Mitchell Vehicles|Field Refit
+
+primaryfactory:Terra|Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Dennenbach-Mitchell
+systemmode:CHASSIS:Mark IV
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:280
+systemmanufacturer:ARMOR:Mitchell Vehicles
+systemmode:ARMOR:Ferro-Fibrous with CASE
+systemmanufacturer:COMMUNICATIONS:Domman
+systemmode:COMMUNICATIONS:Echo II
+systemmanufacturer:TARGETING:Wayne
+systemmode:TARGETING:Marksman

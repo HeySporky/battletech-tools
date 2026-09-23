@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-caf8-7637-9468-3819342337c2
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Strider
+model:SR1-OB
+mul id:3086
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3057
+source:TR:3058U,TR:CI
+published:RS:CI
+rules level:2
+role:Missile Boat
+
+quirk:easy_pilot
+
+mass:40
+engine:240 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Single
+base chassis heat sinks:9
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:14
+RT armor:14
+CT armor:15
+HD armor:9
+LL armor:14
+RL armor:14
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:2
+LRM 10, Left Arm
+LRM 10, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+LRM 10 (OMNIPOD)
+LRM 10 (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+LRM 10 (OMNIPOD)
+LRM 10 (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+IS Ammo LRM-10 (OMNIPOD)
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+IS Ammo LRM-10 (OMNIPOD)
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Strider was introduced in 3057 as one of the earliest Inner Sphere OmniMechs to reach the battlefield. Developed by Luthien Armor Works, the design was considered by many critics to be something of a disappointment, primarily due to LAW's decision to base the new OmniMech on the chassis of the venerable Cicada. Proponents of the original design noted that while the Strider sacrificed the Cicada's exceptional speed for improved armor and firepower, this loss meant the 'Mech could not escape without serious support if outmatched by heavier opponents.</p><p>Despite initial criticism, the Strider proved itself a capable platform for the Draconis Combine Mustered Soldiery. By the time of the Word of Blake Jihad, the design had become commonplace among elite Kuritan commands, often serving as a light lance command 'Mech or reconnaissance unit for heavier formations. Irian BattleMechs Unlimited secured a production license by 3067, expanding the Strider's availability to Free Worlds League forces as well.</p>
+
+capabilities:<p>The Strider is built on an Alshain Type KR240 endo-steel chassis powered by a GM 240 fusion engine, reducing maximum speed to 97 kilometers per hour compared to the Cicada's 129. This trade-off provides seven and a half tons of StarSlab/4 armor with CASE protection, making the Strider considerably more durable than its progenitor. Twelve tons of pod space allow for significant weapons and equipment variety across different configurations.</p><p>A notable limitation stems from LAW's decision to employ standard heat sinks rather than double-capacity models, restricting the thermal efficiency of most configurations. Consequently, nearly every standardized loadout features arm-mounted missile pods supported by lasers or electronic equipment in the torso bays. The Prime configuration exemplifies this approach with twin Artemis-enhanced SRM-6 launchers, a Beagle active probe for reconnaissance duties, and a small laser for emergency defense. The F configuration, nicknamed the "Grand Jenner" by DCMS pilots for its similarity to that famous light 'Mech, combines Streak SRM-4 launchers with medium lasers and jump jets, and is widely considered the most effective standard configuration.</p>
+
+deployment:<p>Alternate Configuration B provides straightforward long-range fire support through twin LRM-10 launchers with dedicated ammunition bins. This simple but effective loadout allows the Strider to contribute meaningful firepower to engagements beyond normal medium 'Mech range, softening targets before friendly units close to decisive distance. The configuration lacks sophisticated electronics, relying on the base chassis' standard targeting systems to guide its missile volleys.</p>
+
+history:<p>Luthien Armor Works developed the Strider as part of the Draconis Combine's effort to field domestically-produced OmniMechs following the Clan Invasion. Rather than attempt a clean-sheet design, LAW engineers chose to adapt the proven Cicada chassis, accepting reduced speed in exchange for the flexibility inherent to OmniMech technology. The resulting design entered service in 3057, with the DCMS rushing several production runs to front-line units despite mixed initial reviews.</p><p>The Strider's reputation improved steadily as pilots learned to exploit its versatility rather than lamenting its reduced mobility. By the late 3050s, the design had found its niche as a light lance command platform and reconnaissance asset for heavier formations. Several production runs were sold to the Federated Commonwealth during the final months of that nation's existence, with deliveries continuing to both successor states for several years afterward.</p><p>Irian BattleMechs Unlimited began licensed production on Shiro III by 3067, expanding the Strider's reach to Free Worlds League commands. The design saw extensive service during the Jihad on multiple fronts, with some configurations adapted to incorporate captured Clan technology during Operation Bulldog. Post-Jihad production has introduced configurations utilizing advanced C3 networks and Clan-specification missile systems, ensuring the Strider remains relevant to modern combined-arms doctrine.</p>
+
+manufacturer:Luthien Armor Works (OmniMech Production Facility)|Irian BattleMechs Unlimited
+
+primaryfactory:Luthien|Shiro III
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Alshain Type KR240 Endo-Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:GM 240
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:StarSlab/4 with CASE
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:Sipher CommCon SCU-9
+systemmanufacturer:TARGETING:Matabushi
+systemmode:TARGETING:Matabushi Stalker

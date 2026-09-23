@@ -1,0 +1,537 @@
+{
+  "filename": "Dire_Wolf_(Daishi)_E_(MNA).hmp",
+  "size": 2758,
+  "header_hex": "56 35 2e 30 30 01 00 08 05 00 00 00 00 01 80 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 8,
+      "length": 1,
+      "text": "\b"
+    },
+    {
+      "type": "len_string",
+      "start": 8,
+      "end": 15,
+      "length": 5,
+      "text": "\u0000\u0000\u0000\u0001\u0080"
+    },
+    {
+      "type": "byte",
+      "offset": 15,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 16,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 17,
+      "end": 18,
+      "text": "d"
+    },
+    {
+      "type": "byte",
+      "offset": 18,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 19,
+      "end": 39,
+      "length": 18,
+      "text": "Dire Wolf (Daishi)"
+    },
+    {
+      "type": "len_string",
+      "start": 39,
+      "end": 48,
+      "length": 7,
+      "text": "E (MNA)"
+    },
+    {
+      "type": "byte",
+      "offset": 48,
+      "hex": "ea"
+    },
+    {
+      "type": "len_string",
+      "start": 49,
+      "end": 574,
+      "length": 523,
+      "text": "\u0000|\u00d1\u00ab\u0001\b\u000b\u0000\u00a0\u0002F\u0000\u00a0\u0002F\u0000\u0000\u0082B\u0000\u0000HB\u0000\u0000\u00a8A\u0014\u0000MA 8 611 8 31 3 omni\u0001\u0000\n\u0000\u0000\u0000,\u0001\u0001\u0000\u0003\u0000\u0000\u0000\u0018\u0000\u0001\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000)\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000)\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000/\u0000\u0000\u0000\n\u0000\n\u0000\u000e\u0000\u0000\u0000\u0004\u0000\u0003\u0000<\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0006\u0000=\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000@\u0000\u0005\u0000H\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000@\u0000\u0007\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000\u0012\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000<\u0000\u0000\u0000<\u0000\u0000\u0000<\u0000\u0000\u0000<\u0000\u0000\u0000<\u0000\u0000\u0000<\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000@\u0000\u0000\u0000\u00d0\u0001\u0018\b\u00d0\u0001\u0018\b\u00d0\u0001\u0018\b\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000@\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 574,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 575,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 576,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 577,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 578,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 579,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 580,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 581,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 582,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 583,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 584,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 585,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 586,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 587,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 588,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 589,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 590,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 591,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 592,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 593,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 594,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 595,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 596,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 597,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 598,
+      "end": 615,
+      "length": 15,
+      "text": "\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010"
+    },
+    {
+      "type": "byte",
+      "offset": 615,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 616,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 617,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 618,
+      "end": 636,
+      "length": 16,
+      "text": "\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 636,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 637,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 638,
+      "end": 639,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 639,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 640,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 641,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 642,
+      "end": 643,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 643,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 644,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 645,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 646,
+      "hex": "e2"
+    },
+    {
+      "type": "byte",
+      "offset": 647,
+      "hex": "ff"
+    },
+    {
+      "type": "ascii",
+      "start": 648,
+      "end": 649,
+      "text": "0"
+    },
+    {
+      "type": "byte",
+      "offset": 649,
+      "hex": "01"
+    },
+    {
+      "type": "len_string",
+      "start": 650,
+      "end": 1108,
+      "length": 456,
+      "text": "    Supposedly christened Daishi (Great Death) by a member of the Draconis Combine's criminal underground, this \"Mech seems particularly aptly named. Though the left-shoulder mounted long-range missiles augment the 'Mech's firepower, it is the bundles of lasers, autocannons, and other weapons in the arm pods that make the Daishi most fearsome. Slow but lethal, the Daishi is an assault 'Mech in the purest sense, able to wade through almost any defenses."
+    },
+    {
+      "type": "len_string",
+      "start": 1108,
+      "end": 2165,
+      "length": 1055,
+      "text": "    The main configuration, by far the most common, features an LRM-10 rack in the left torso. In addition, each arm carries a bundle of death-an Ultra-5 autocannon, two extended-range large lasers, and two medium pulse lasers. Double heat sinks enable it to handle the heat generated by its multiple laser weapons.\r\n    The most common alternative configuration carries the huge Gauss rifle in its left arm, along with plenty of ammunition. The right arm holds three large pulse lasers. Dual Streak SRM-6 racks replace the long-range missile launcher in the left torso, and an anti-missile system protects the 'Mech against enemy attacks.\r\n    Configuration B has a turret-like assembly on the left shoulder instead of the missile launcher. This boxy apparatus contains four Ultra-2 autocannons, with a complicated ammunition feed to the shells stored in the torso below. The left arm has a pair of medium pulse lasers and a pair of extended-range particle projection cannons arranged in an X-pattern. Mounted on the right arm is an LB 10-X autocannon.\r\n"
+    },
+    {
+      "type": "len_string",
+      "start": 2165,
+      "end": 2168,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2168,
+      "end": 2171,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2171,
+      "end": 2194,
+      "length": 21,
+      "text": "Victor Stiener-Davion"
+    },
+    {
+      "type": "len_string",
+      "start": 2194,
+      "end": 2620,
+      "length": 424,
+      "text": "    The Daishi is a favorite 'Mech among Clan Smoke Jaguar forces, who have used it to break through Kurita defenses time and again. According to dubious but persistent rumors, the Draconis Combine has managed to capture a Daishi intact. How Inner sphere MechWarriors could seize such a war machine is a mystery, sort of the defection of a Clan MechWarrior - an impossible act, from all that we know of these warlike people."
+    },
+    {
+      "type": "len_string",
+      "start": 2620,
+      "end": 2623,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2623,
+      "end": 2626,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 2626,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2627,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2628,
+      "end": 2645,
+      "length": 15,
+      "text": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 2645,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2646,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2647,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2648,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2649,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2650,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2651,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2652,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2653,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2654,
+      "end": 2657,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 2657,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2658,
+      "end": 2668,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 2668,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2669,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2670,
+      "end": 2671,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2671,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2672,
+      "end": 2682,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2682,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2683,
+      "end": 2693,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2693,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2694,
+      "end": 2704,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2704,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2705,
+      "end": 2715,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2715,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2716,
+      "end": 2726,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2726,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2727,
+      "end": 2737,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2737,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2738,
+      "end": 2748,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2748,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2749,
+      "end": 2758,
+      "text": "(Unknown)"
+    }
+  ]
+}

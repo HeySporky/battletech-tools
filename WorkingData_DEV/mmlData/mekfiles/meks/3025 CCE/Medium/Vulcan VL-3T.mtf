@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c174-759d-9708-84df3d3f37ba
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Vulcan
+model:VL-3T
+
+Config:Biped
+techbase:Inner Sphere
+era:2978
+source:TR:3025C
+rules level:1
+role:Scout
+
+quirk:low_profile
+
+mass:40
+engine:200 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:11 Single
+walk mp:5
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:10
+RT armor:10
+CT armor:10
+HD armor:8
+LL armor:12
+RL armor:12
+RTL armor:4
+RTR armor:4
+RTC armor:6
+
+Weapons:4
+Machine Gun, Left Arm
+SRM 2, Right Arm
+Medium Laser, Left Torso
+AC/5, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heat Sink
+Machine Gun
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heat Sink
+SRM 2
+IS Ammo SRM-2
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Jump Jet
+Jump Jet
+Medium Laser
+IS Ammo MG - Full
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Jump Jet
+Jump Jet
+Autocannon/5
+Autocannon/5
+Autocannon/5
+Autocannon/5
+IS Ammo AC/5
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Vulcan was designed in 2775 as a dedicated anti-infantry BattleMech during the final years of the Amaris Civil War. As Star League Defense Force troops fought Republican soldiers in the urban centers of the Terran Hegemony, conventional 'Mechs proved vulnerable to dug-in infantry formations. MatherTechno Incorporated of Northwind answered this tactical need by creating a 'Mech specifically equipped to eliminate infantry concentrations while maintaining exceptional mobility in confined city streets.</p><p>General Aleksandr Kerensky personally ordered MatherTechno's newly liberated production lines converted to manufacture the Vulcan, recognizing the urgent need for such a specialized platform. The design's distinctive narrow profile earned it the nickname "Scarecrow" among MechWarriors, proof of its ungainly but effective silhouette. Production continued at Northwind until the factory's destruction early in the First Succession War, after which the Lyran Commonwealth and Free Worlds League maintained limited manufacturing through Coventry Metal Works and Nimakachi Fusion Products respectively.</p>
+
+capabilities:<p>The Vulcan carries an unusual weapons array optimized for anti-personnel operations rather than 'Mech-to-'Mech combat. Its primary armaments are a Firestorm flamer and Sperry Browning machine gun, both devastating against unarmored troops and capable of clearing buildings with brutal efficiency. The Armstrong Autocannon/2, while originally intended to provide anti-'Mech capability, proved more effective as an anti-building weapon given its limited stopping power against armored targets. A Randell medium laser serves as backup when the autocannon's ammunition runs dry.</p><p>The Vulcan's true strength lies in its exceptional mobility for urban operations. Six rear-mounted jump jets, specially vented to reduce heat buildup, provide 180 meters of jumping capability, allowing pilots to rapidly reposition across rooftops and obstacles. A top speed of 97 kilometers per hour complements this agility, making the Vulcan difficult to pin down in close terrain.</p><p>However, the design carries significant limitations. With only five tons of armor, the Vulcan cannot sustain prolonged engagements against heavier opponents and is rarely deployed without support from larger BattleMechs. The absence of manipulative hands further restricts close combat options, though this limitation proves minor given the 'Mech's intended role of infantry suppression rather than dueling.</p>
+
+deployment:<p>This variant represented MatherTechno's first attempt to address the Vulcan's limited anti-'Mech capability by replacing the Armstrong Autocannon/2 with a larger caliber weapon. The experiment proved unsuccessful, the heavier autocannon stressed the chassis without providing sufficient improvement in stopping power to justify the trade-offs in ammunition capacity and weight distribution. Though widely considered a failure, the variant's development provided valuable engineering data that would eventually inform later successful upgrades.</p>
+
+history:<p>The Vulcan's combat debut came during Operation Liberation, the SLDF's final campaign to free Terra from Stefan Amaris in 2779. Serving with the Volunteer Regiments, the design quickly established its reputation as a fearsome urban fighter, its flamers and machine guns proving devastatingly effective against Republican holdouts in Terra's cities. By the Star League's dissolution, every Great House had acquired a sizable inventory of Vulcans.</p><p>The First Succession War brought catastrophe when MatherTechno's Northwind facility was destroyed within months of the conflict's outbreak. The Lyran Commonwealth and Free Worlds League salvaged the design specifications, awarding production rights to Coventry Metal Works and Nimakachi Fusion Products Limited respectively. Other Houses maintained their Vulcans through salvage and careful husbandry of remaining spare parts. The Federated Suns especially employed their Vulcans during the reconquest of Kentares IV, where the 'Mechs' flamers devastated Kuritan infantry positions in the cities of Amishton and Davisbury. House Kurita's own Vulcan contingent achieved notoriety during a 3020 raid on Dobson that decimated key Davion aerospace fighter installations.</p><p>House Liao suffered the greatest losses, having concentrated most of their Vulcans on Sappho when that world fell to House Marik during the Second Succession War. The Capellan Confederation consequently fielded the fewest Vulcans of any Great House throughout the remaining Succession Wars era.</p><p>The recovery of Star League technology enabled Nimakachi to introduce the upgraded VT-5M in 3052, scaling production to twenty units monthly before the Word of Blake's destruction of their Tematagi plant in 3069. Coventry Metal Works developed their own modernized variant, the VT-5S, which saw extensive service during the FedCom Civil War as part of Victor Steiner-Davion's Allied forces. The Word of Blake acquired numerous Vulcans both through purchase and seizure, finding the design invaluable for policing Protectorate cities during the Jihad.</p><p>By the thirty-second century, collapsing sales prompted an unprecedented collaboration between Coventry and Nimakachi, resulting in the VT-7T variant that combined the strengths of both manufacturing traditions. This joint venture restored the Vulcan's market position, reaffirming its status as the premier urban combat 'Mech.</p>
+
+manufacturer:MatherTechno Incorporated
+
+primaryfactory:Northwind
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Mather Tech
+systemmode:CHASSIS:500
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:240
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:I
+systemmanufacturer:JUMP_JET:Pitban
+systemmode:JUMP_JET:Model 9
+systemmanufacturer:COMMUNICATIONS:Hartford
+systemmode:COMMUNICATIONS:200S
+systemmanufacturer:TARGETING:Hartford
+systemmode:TARGETING:TA10

@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cd9b-75b4-8674-fba5fdbf9fa6
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Tessen
+model:TSN-1C
+mul id:5208
+
+Config:Biped
+techbase:Inner Sphere
+era:3061
+source:TR:3067
+published:RS:3067u
+rules level:2
+role:Skirmisher
+
+quirk:bad_rep_is
+
+mass:50
+engine:300 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:11 IS Double
+walk mp:6
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:18
+RT armor:18
+CT armor:25
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:4
+iNarc, Left Arm
+ER PPC, Right Arm
+Medium Pulse Laser, Right Arm
+TAG, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISImprovedNarc
+ISImprovedNarc
+ISImprovedNarc
+ISiNarc Pods
+ISiNarc Pods
+ISiNarc Pods
+ISiNarc Pods
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+ISMediumPulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISC3iUnit
+ISC3iUnit
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISTAG
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Named for the traditional Japanese war fan, the Tessen is a fifty-ton medium BattleMech originally conceived through a joint venture between the Draconis Combine Mustered Soldiery and ComStar's Com Guard. Begun in the early 3050s, the project was meant to create a fast, well-armored heavy scout capable of operating deep behind enemy lines. Philosophical and technological differences between the two partners led to the project's abandonment in 3055, and the design languished unfinished until ComStar revived it as a platform for their improved C3 computer system. Certified combat-ready in 3061, the Tessen entered full-scale production at Independence Weaponry on Quentin.</p><p>Despite its networking capabilities, the Tessen earned a reputation for being overspecialized, drawing criticism from analysts who questioned its suitability for independent scouting operations. The design has nonetheless served with distinction in formations that leverage its force-multiplying potential, from ComStar's Com Guards through the Republic Armed Forces era and beyond.</p>
+
+capabilities:<p>Built on a lightweight Endo Steel chassis and powered by a Vlar 300 XL engine, the Tessen achieves a top speed of 97 km/h, making it one of the faster medium 'Mechs in its weight class. Nine tons of Durallex ferro-fibrous armor provide respectable protection for a scout platform, while CASE protects against catastrophic ammunition explosions. The design's defining feature is its improved C3 computer, which allows the Tessen to share targeting data with up to five other C3i-equipped units, forming a powerful networked combat element.</p><p>The Tessen's armament reflects its role as a spotter and force multiplier rather than a standalone combatant. A Lord's Light extended-range PPC provides long-range striking power, while a single Diverse Optics medium pulse laser serves as backup for close engagements. The Series II Pragma improved Narc missile beacon allows the Tessen to designate targets for missile-equipped lancemates, and an integrated TAG laser designator enables it to call in Arrow IV artillery strikes. This sensor and targeting suite makes the Tessen lethal as part of a coordinated unit, though critics note the light weapons loadout and absence of jump jets leave it vulnerable when operating independently.</p>
+
+deployment:<p>The base production model carries the design's signature improved C3 computer alongside a Lord's Light extended-range PPC, Diverse Optics medium pulse laser, Series II Pragma improved Narc missile beacon, and TAG laser designator. This configuration epitomizes the Tessen's role as a networked spotter, trading standalone firepower for the ability to dramatically enhance the combat effectiveness of an entire C3i-connected lance. Nine tons of Durallex ferro-fibrous armor with CASE provide solid protection for a medium scout, though the absence of jump jets limits the 'Mech's tactical flexibility in broken terrain.</p>
+
+history:<p>The Tessen's origins reflect the brief period of cooperation between the Draconis Combine and ComStar following the Battle of Tukayyid in 3052. Inspired in part by the success of the Phoenix Hawk PXH-1bC's energy weapon and Narc beacon combination during that decisive engagement, engineers from both factions envisioned a purpose-built heavy scout that could leverage emerging network-centric warfare technologies. Work proceeded at Independence Weaponry on Quentin, but fundamental disagreements over technology compatibility, particularly regarding command-and-control systems, caused the project to collapse in 3055.</p><p>ComStar revived the design in the late 3050s when their technicians completed the improved C3 computer. Seeking a test platform for the new system, they returned to the unfinished Tessen, constructing six prototypes for extensive field trials. These trials took place on Tukayyid against a wide variety of simulated Clan opponents and tactics, and by June 3061 the design was certified combat-ready. Production began at Independence Weaponry, with the DCMS offered half the initial production run. The Combine declined, arguing that ComStar's C3 improved technology was incompatible with the standard C3 systems already deployed throughout their forces. This led directly to the development of the TSN-C3 variant fitted with a conventional C3 slave.</p><p>The Tessen's most notable early deployment came with ComStar's Eighty-third Division based on Bryant, known as the White Cyclones. This unit employed Tessens as scouts and harassers, using the 'Mech's networking capabilities to devastating effect against Blakist raiding parties, forcing the enemy to withdraw. The fall of Quentin to the Word of Blake during the Jihad disrupted production significantly, and the factory's eventual liberation saw it pass to Republic of the Sphere control.</p><p>The TSN-1Cr field refit, originally developed in 3069 using captured Blakist equipment, was later formalized as a production variant to replace the increasingly scarce C3i components. Independence Weaponry continued Tessen production through the Republic era and into the Dark Age, with the factory eventually returning to Draconis Combine ownership as the Republic contracted. The chassis also attracted the attention of Solaris VII arena stables, where custom variants appeared in gladiatorial combat by the 3130s.</p>
+
+manufacturer:Independence Weaponry
+
+primaryfactory:Quentin
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Ferro Fibrous with CASE
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T-22 with C3i
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:D2J (I) with TAG

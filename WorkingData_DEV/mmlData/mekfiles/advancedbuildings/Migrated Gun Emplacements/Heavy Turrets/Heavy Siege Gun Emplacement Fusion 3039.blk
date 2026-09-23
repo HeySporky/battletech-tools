@@ -1,0 +1,107 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a127-7ca0-99cc-0c49ac7987fe
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Heavy Siege Gun Emplacement
+</Name>
+
+<Model>
+(3039) (Fusion)
+</Model>
+
+<year>
+3039
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+80
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+ISERPPC(ST)
+ISERPPC(ST)
+ISERPPC(ST)
+ISERPPC(ST)
+Searchlight(ST)
+FUSION PowerGenerator:SIZE:13.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The fusion-powered advanced Heavy Siege Gun Emplacement combines the ER PPC with fusion independence and heavy armor, creating one of the most formidable standalone defensive positions available. The ER PPC's 690-meter range allows the position to dominate vast engagement zones while the fusion plant eliminates all external dependencies and heavy armor ensures sustained survivability.</p><p>This variant represents the apex of the heavy siege emplacement line. No ammunition, no power grid, no supply chain, and heavy enough armor to endure concentrated counter-fire. The ER PPC reaches further and hits just as hard as the standard model, and the fixed mounting provides a stable platform that improves accuracy at extreme range. For positions defending critical approaches where a heavy energy weapon must remain operational regardless of external conditions, this variant delivers certainty.</p>
+</capabilities>
+
+<overview>
+<p>The Siege Gun Emplacement houses heavy direct-fire energy weapons designed to engage the most heavily armored targets at significant range. Mounting Particle Projection Cannons or Gauss Rifles, these positions deliver devastating single-shot damage capable of crippling BattleMechs and destroying combat vehicles with individual strikes. They serve as the primary anti-armor component of fixed defensive networks, providing the killing power that lighter emplacements lack.</p><p>Siege emplacements occupy positions of prominence within defensive architectures, typically sited to cover the most likely avenues of armored approach. Their heavy weapons demand respect from any attacker, as a single well-placed shot can end a BattleMech's advance permanently. The combination of devastating firepower with the stability and protection of a fixed emplacement creates weapons platforms that punch well above what their weight class might suggest.</p>
+</overview>
+
+<history>
+<p>The Succession Wars transformed the Inner Sphere's relationship with military technology in ways that reverberate through every aspect of defensive construction. As the great conflicts between the Successor States consumed the industrial capacity that had sustained the Star League's military machine, the technology base began an inexorable decline. Factories that had produced advanced weapons were destroyed, and the knowledge to rebuild them was lost along with the engineers who held it. LosTech became the defining feature of an era where military forces fought with increasingly degraded equipment.</p><p>Fixed fortifications suffered alongside everything else, but they also benefited from a grim advantage: they did not need to move. While BattleMechs and combat vehicles required advanced materials and manufacturing processes that were becoming scarce, gun emplacements needed only weapons, armor, and a foundation. Garrison commanders across the Successor States found that Particle Projection Cannons and other heavy weapons stripped from irreparably damaged BattleMechs could be mounted in fixed positions, preserving their killing power even when the platforms that once carried them could no longer be maintained. What survived the Succession Wars were the weapons that had been bolted to ferrocrete rather than to chassis that could be destroyed in the field.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+3
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+120
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

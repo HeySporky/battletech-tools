@@ -1,0 +1,188 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b02f-725f-afa4-f34984b1353c
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Battle Taxi
+</Name>
+
+<Model>
+NL-43
+</Model>
+
+<mul id:>
+5610
+</mul id:>
+
+<year>
+3074
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<quirks>
+non_standard
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+troopspace:16.0
+cargobay:2.0:1:1::-1:0
+</transporters>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+18
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<omnipodheatsinks>
+8
+</omnipodheatsinks>
+
+<fuel>
+880
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+22
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+105
+55
+55
+105
+</armor>
+
+<Nose Equipment>
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+ISGuardianECMSuite
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISMediumXPulseLaser
+ISMediumXPulseLaser
+</Right Wing Equipment>
+
+<Aft Equipment>
+IS Vehicular Stealth
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The NL-43 employs a four-hundred-rated extra-light engine driving it to a safe thrust of six gravities, with a peak acceleration of nine gravities. Stub lifting wings and substantial atmospheric thrust give the craft extended flight performance in atmosphere, enabling planetary infantry deployments that the space-focused NL-42 could never achieve. The aerodyne configuration sacrifices the older design's VTOL capability but gains the ability to carry external ordnance.</p><p>Stealth armor is the NL-43's most distinctive feature, allowing the craft to approach targets with a significantly reduced sensor signature. A Guardian ECM suite mounted in the aft section supplements the stealth systems. Armament is modest by fighter standards, consisting of six medium X-pulse lasers distributed across the wings and aft arc, weapons suited more for strafing landing zones and suppressing defenders than for sustained dogfighting. The infantry compartment accommodates sixteen battle armored troopers or nearly six platoons of conventional foot infantry, with an additional two tons of cargo space for munitions and supplies to support deployed forces. The primary drawback is protection. Despite impressive total armor mass, actual coverage is a fraction of the NL-42's, with the stealth coating expected to compensate for the thinner plating.</p>
+</capabilities>
+
+<overview>
+<p>The NL-43 Battle Taxi is a one-hundred-ton experimental aerospace fighter developed by Andurien AeroTech on Lopez for the Duchy of Andurien. Introduced in 3074, the craft is described as only a spiritual successor to the larger NL-42 small craft, representing a fundamentally different approach to the battle taxi concept. Where the NL-42 was designed for ship-to-ship boarding operations in space, the NL-43 was built as a stealthy atmospheric troop transport capable of delivering infantry directly to planetary surfaces. The shift from small craft to aerospace fighter format reflected both industrial limitations at the Lopez facility and new tactical requirements emerging from the Jihad.</p>
+</overview>
+
+<deployment>
+<p>The NL-43 exists solely as an experimental prototype configuration. Its combination of stealth armor, X-pulse laser technology, and Guardian ECM represents cutting-edge Duchy of Andurien engineering adapted from technologies that were still maturing during the Jihad period. Production at the Lopez facility was extremely limited, with the craft's massive XL engine proving particularly troublesome to manufacture reliably.</p>
+</deployment>
+
+<history>
+<p>The NL-43 emerged from a convergence of industrial realities and shifting tactical needs within the Duchy of Andurien during the Jihad. Andurien AeroTech's Lopez facility found it considerably easier to construct an aerospace fighter than a small craft, and new requirements for delivering troops directly to planetary surfaces favored an aerodyne format over the NL-42's spheroid hull. The availability of stealth armor technology, which could not be mounted on a small craft, provided the final impetus for the redesign.</p><p>The Duchy rolled out the first NL-43 in tandem with computer-generated graphics of the XF-78, suggesting a greater strategic plan linking the two stealthy craft. The exact nature of this plan remains obscure, though intelligence assessments suggest the two vehicles were intended to operate together in combined boarding and planetary assault scenarios. More charitable analysts noted the pairing made tactical sense, as the NL-43's stealth approach capabilities complemented the XF-78's own role in ways that conventional transports could not match.</p><p>Production proved difficult from the outset. The four-hundred-rated XL engine, described ironically as a proven design plagued by manufacturing problems, severely limited output at the Lopez plant. The NL-43 became the rarer of the two craft in the Andurien stealthy vehicle program, with most examples remaining concentrated within Duchy forces. The experimental nature of the design, combined with the political isolation of the newly independent Duchy during the final years of the Jihad, meant that the NL-43 saw only limited distribution beyond Andurien space. Production records indicate the Lopez line was active only during the Jihad era, with no continuation into the post-war Republic period.</p>
+</history>
+
+<manufacturer>
+Andurien AeroTech (A Division of Free Worlds Defense Industries)
+</manufacturer>
+
+<primaryFactory>
+Lopez
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:400 XL
+ARMOR:Stealth
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Phantoms
+</source>
+
+<published>
+XTR:Phantoms
+</published>
+
+<tonnage>
+100.0
+</tonnage>
+

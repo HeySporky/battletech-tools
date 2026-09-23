@@ -1,0 +1,170 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e9fd-7a32-babb-df82c9932a7e
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Behemoth Heavy Tank
+</Name>
+
+<Model>
+(Kurita Upgrade)
+</Model>
+
+<mul id:>
+9458
+</mul id:>
+
+<year>
+3140
+</year>
+
+<type>
+Mixed (IS Chassis) Advanced
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+26
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+45
+38
+38
+38
+45
+</armor>
+
+<Body Equipment>
+ISCASE
+ISTargeting Computer
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+IS Ultra AC/10 Ammo
+Clan Streak SRM 6 Ammo
+Clan Streak SRM 6 Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISERMediumLaser
+ISERMediumLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISUltraAC10
+ISUltraAC10
+CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+</Turret Equipment>
+
+<capabilities>
+<p>The centerpiece of the Behemoth's armament is a pair of turret-mounted SarLon MaxiCannon Autocannon/10s, weapons heavy enough to threaten assault-class BattleMechs in sustained engagement. Four LongFire Light LRM 5 launchers extend the vehicle's effective range and provide area suppression, while paired Harvester SRM 6 and SRM 2 racks deliver concentrated close-range firepower against anything that survives the initial salvos. Four MainFire Minigun machine guns discourage infantry assaults and strip away light vehicles attempting to use the tank's low speed against it.</p><p>Protection comes from thirteen tons of ArcShield Maxi II armor distributed across the hull, providing resilience that consistently surprises opponents expecting conventional vehicles to fold under 'Mech-scale fire. The original internal combustion engine keeps the design simple and maintainable across the full spectrum of Inner Sphere logistical conditions, though it limits the Behemoth to a top speed of 32 kph. This mobility shortfall is the design's most persistent tactical weakness, making the Behemoth heavily dependent on terrain selection and fire position to avoid encirclement. Commanders who respect this constraint typically deploy the vehicle in hull-down positions or urban environments where its firepower concentration can be maximized and faster opponents denied maneuvering room.</p><p>The Cirxese BallistaCheck targeting system, paired with the Cirxese RokeCheck suite, provides reliable fire control across the vehicle's diverse weapon mix, though the platform is not designed for rapid target transitions. The Olmstead 30 communications system is straightforward and compatible with standard Inner Sphere command infrastructure.</p>
+</capabilities>
+
+<overview>
+<p>The Behemoth Heavy Tank has been a fixture of Inner Sphere armored doctrine since its introduction in 2952, when Aldis Industries and General Motors delivered the first production vehicles to the Federated Suns Armed Forces. Conceived during a period when the role of conventional armor on a 'Mech-dominated battlefield was genuinely in doubt, the Behemoth resolved the question with characteristic bluntness: it carries enough guns to threaten anything that moves and enough armor to absorb punishment in return. Military planners who considered a tracked vehicle too slow and unmaneuverable to matter were repeatedly shown otherwise when Behemoths held prepared positions against BattleMech-equipped opponents. The design has since spread to every major Successor State military, and its presence in armored formations across the Inner Sphere remains as common today as it was during the height of the Succession Wars.</p>
+</overview>
+
+<deployment>
+<p>New Samarkand Metals' most advanced Behemoth configuration mounts Clan-grade Streak launchers and Ultra-class autocannons alongside a targeting computer, placing it firmly in the company of dedicated tank destroyers. Fielded exclusively by DCMS elite armored formations from the mid-Dark Age onward, the Kurita Upgrade variant has seen action in the border skirmishes and major campaigns that have defined the Dark Age period.</p>
+</deployment>
+
+<history>
+<p>Aldis Industries received the original AFFS commission in the early twenty-ninth century, tasked with producing a tracked vehicle capable of challenging BattleMechs at close range without requiring the speed of a hovercraft or the prestige budget of a heavy 'Mech. The resulting design prioritized firepower and armor at the deliberate expense of mobility, a trade-off that proved divisive among Davion military planners but ultimately vindicated in field use. General Motors licensed production rights and established a second line at Salem within a decade of the initial introduction, and within a generation the Behemoth had found its way into nearly every Successor State military through capture, sale, and licensed production agreements.</p><p>The Fourth Succession War produced one of the design's most-cited engagements. During the fighting for Tikograd, AFFS Behemoths from the Fifth Crucis Lancers encountered Capellan Demolisher tanks of the Home Guard inside the city. The Demolishers held early advantages in firepower and speed, pushing the Behemoths into defensive street positions. A running engagement developed through Tikograd's side streets before a pair of cornered Behemoths coordinated their short-range missile racks in a single concentrated barrage, holing both opponents through their lighter flank armor. The outcome prompted revisions to Davion armored doctrine, formally elevating the Behemoth's missile armament from secondary deterrent to primary anti-vehicle asset in close-terrain operations.</p><p>New Samarkand Metals had operated a Kurita-licensed production line since the early Succession Wars era, and their 3062 upgrade introduced a factory-built fusion engine variant with an autocannon and missile battery more suited to Combine tactical preferences. That design was later licensed to General Motors, who adapted it further for Federated Suns service with Gauss rifles and extended-range energy weapons. The Behemoth's cultural standing received a quiet boost from decades of documented engagements where the vehicle's crews held positions that conventional wisdom suggested were untenable, earning a grudging respect from MechWarriors who had personally found their advances blunted by a tank they expected to brush aside.</p>
+</history>
+
+<manufacturer>
+New Samarkand Metals
+</manufacturer>
+
+<primaryFactory>
+New Samarkand
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:New Samarkand Metals
+TARGETING:New Samarkand Metals
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Olmstead 30
+TARGETING:Cirxese BallistaCheck with Cirxese RockeCheck
+</systemModels>
+
+<source>
+RG31
+</source>
+
+<published>
+RG31,RSFP:Battlefield
+</published>
+
+<tonnage>
+100.0
+</tonnage>
+

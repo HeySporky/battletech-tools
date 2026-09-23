@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d053-787c-9888-09c51ae17b6c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Arctic Fox
+model:AF1U
+mul id:98
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3072
+source:TR:3085,TR:3060
+published:RS:3085u-ONN
+rules level:4
+role:Sniper
+
+quirk:weak_head_1
+
+mass:30
+engine:180 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+base chassis heat sinks:7
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:11
+RT armor:11
+CT armor:15
+HD armor:9
+LL armor:10
+RL armor:10
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:2
+Light PPC, Left Arm
+LRT 10, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Light PPC (OMNIPOD)
+Light PPC (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+LRT 10 (OMNIPOD)
+LRT 10 (OMNIPOD)
+ISArtemisIV (OMNIPOD)
+IS Ammo LRTorpedo-10 Artemis-capable (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+UMU (OMNIPOD)
+UMU (OMNIPOD)
+UMU (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+UMU (OMNIPOD)
+UMU (OMNIPOD)
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISMASS (OMNIPOD)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Arctic Fox is a 30-ton Inner Sphere OmniMech introduced in 3059 by Arc-Royal MechWorks. Reverse-engineered from salvaged Clan Kit Fox chassis recovered during the Clan Invasion, the Arctic Fox was the first Inner Sphere OmniMech produced outside of a major Successor State's military-industrial complex. Built exclusively with Inner Sphere components despite the availability of Clan technology, the design fills a unique niche as an affordable, reconfigurable light OmniMech. The Arctic Fox earned a strong reputation within mercenary and garrison commands of the Arc-Royal Defense Cordon, where its flexibility and ease of maintenance made it a valued asset for units lacking access to heavier or more advanced platforms.</p>
+
+capabilities:<p>Structurally modeled on the Kit Fox, the Arctic Fox achieves a respectable top speed of 97.2 kilometers per hour through its GM 180 XL fusion engine, though this powerplant's vulnerability to side torso destruction is a calculated risk inherent to the design. The chassis trades the Kit Fox's four tons of Clan ferro-fibrous armor for six tons of Royal-7 standard plate, providing especially superior protection for a light OmniMech and partially offsetting the XL engine's fragility. Ten fixed double heat sinks manage thermal loads across most configurations, with pod space available for additional sinks when needed.</p><p>The Arctic Fox's fourteen tons of pod space, while two tons less than its Clan progenitor, prove adequate for a diverse range of Inner Sphere weapon loadouts. The Prime configuration exemplifies the design's intended role as a skirmisher, mounting an extended-range PPC for long-range engagement capability supported by two medium lasers and paired SRM-4 launchers for close-range finishing power. Rather than attempting to replicate Clan weapon configurations directly, the Arctic Fox's standardized loadouts are designed to exploit Inner Sphere weapon strengths within the chassis's weight constraints, creating a versatile light OmniMech that fills a unique niche on the battlefield.</p>
+
+deployment:<p>Alternate Configuration U serves as a specialized underwater combat package introduced in 3085. Five Underwater Maneuvering Units propel the 'Mech at 54 kilometers per hour beneath the surface, while a MechWarrior Aquatic Survival System protects the pilot in the event of a hull breach. Armament consists of a light PPC and an Artemis IV-enhanced LRT-10 launcher optimized for torpedo delivery. This highly specialized configuration fills an extremely narrow tactical niche but provides capabilities that few other light 'Mechs can match in littoral and submarine warfare operations.</p>
+
+history:<p>The Arctic Fox traces its origins to the Clan Invasion of 3049-3052, when the Kell Hounds gained firsthand experience against OmniMech technology on multiple fronts. The decisive moment came during the Battle of Luthien in 3052, where Kell Hound salvage teams recovered several Kit Fox OmniMechs from the battlefield. Grand Duke Morgan Kell recognized the tactical value of reconfigurable 'Mechs and directed that captured specimens be sent to Arc-Royal MechWorks with orders to produce an Inner Sphere clone.</p><p>The project encountered significant technical hurdles, and it was not until the arrival of Phelan Kell and Clan Wolf-in-Exile on Arc-Royal that the final engineering obstacles were overcome. Wolf-in-Exile technical advisors provided crucial assistance in completing the design, and the first production Arctic Fox rolled off the line in 3059. Despite access to Clan technology through the Exiled Wolves, the Kell Hounds mandated the design be built exclusively with Inner Sphere components, a deliberate logistical and strategic decision that preserved scarce Clan materiel for maintaining captured OmniMechs while ensuring the design remained affordable for units within the Arc-Royal Defense Cordon. In an unusual cultural adoption, the Kell Hounds followed Clan naming convention, referring to the 'Mech by name rather than model number, with configurations designated alphabetically rather than by numeric model codes.</p><p>The Arctic Fox saw its earliest and most concentrated deployment within the Kell Hound regiments, where it quickly proved its worth as a flexible light combatant. The design spread to other mercenary commands, most particularly the Blue Star Irregulars and the Dioscuri, who valued the OmniMech's reconfigurability. Several Clan Wolf-in-Exile garrison warriors also adopted the Arctic Fox, preferring the flexibility of even an Inner Sphere OmniMech over the fixed-configuration second-line Clan 'Mechs available to them.</p><p>Production at Arc-Royal MechWorks continued through the FedCom Civil War, the Jihad, and into the Dark Age, with the facility remaining active under Lyran Alliance and later Arc-Royal Liberty Coalition control. Newer configurations including the Jihad-era E and F loadouts and the specialized underwater U configuration reflect the design's ongoing evolution to meet changing battlefield requirements across more than seven decades of continuous production.</p>
+
+manufacturer:Arc-Royal MechWorks
+
+primaryfactory:Arc-Royal
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:AR-3 Endo Steel
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:GM 180 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Royal-7 Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:K9 Communications System
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Type IV Bloodhound T&T System

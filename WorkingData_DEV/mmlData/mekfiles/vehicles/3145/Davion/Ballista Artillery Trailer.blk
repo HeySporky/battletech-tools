@@ -1,0 +1,193 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7a8-7143-8855-aa89c2439f30
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Ballista Artillery Trailer
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6330
+</mul id:>
+
+<year>
+3100
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+4
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+30
+30
+30
+30
+32
+</armor>
+
+<Body Equipment>
+ISC3SlaveUnit
+Communications Equipment:SIZE:4.0
+ISGuardianECMSuite
+ISCASE
+ISAMS Ammo
+ISAMS Ammo
+ISAMS Ammo
+ISAMS Ammo
+ISArrowIVHomingAmmo
+ISArrowIVHomingAmmo
+ISArrowIVHomingAmmo
+ISArrowIVHomingAmmo
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVAmmo
+IS Light Machine Gun Ammo - Full
+SponsonTurret
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+ISAntiMissileSystem
+Light Machine Gun(ST)
+Light Machine Gun(ST)
+</Right Equipment>
+
+<Left Equipment>
+ISAntiMissileSystem
+Light Machine Gun(ST)
+Light Machine Gun(ST)
+</Left Equipment>
+
+<Rear Equipment>
+Hitch
+ISAntiMissileSystem
+Light Machine Gun
+Light Machine Gun
+</Rear Equipment>
+
+<Turret Equipment>
+ISAntiMissileSystem
+ISERMediumLaser
+ISERMediumLaser
+ISArrowIV
+ISArrowIV
+</Turret Equipment>
+
+<capabilities>
+<p>The Ballista is built around a pair of Arrow IV artillery launchers mounted in its turret, with forty rounds of ammunition protected by CASE to guard against catastrophic detonations. These launchers extend the combined Destrier-Ballista system's reach to extreme indirect-fire ranges, allowing the pair to engage hardened facilities and armored formations well before direct combat is joined. Two extended range medium lasers in the turret provide a close-defense capability when artillery is inappropriate or ammunition is depleted.</p><p>The Ballista mirrors the Destrier's defensive anti-infantry arrangement, with six light machine guns distributed in pairs across all sides, the flanking weapons again mounted in sponson turrets. Four anti-missile systems guard against incoming guided munitions in a configuration matching the parent vehicle's own. A standard fusion engine powers the trailer's weapons and electronics despite providing no motive capability, and a four-ton infantry compartment allows the Ballista to contribute to its own close-in defense.</p><p>The trailer's most distinctive feature is its four-ton communications suite, considerably larger than the Destrier carries, giving the combined system significantly enhanced battlefield coordination capability. A Guardian ECM suite and C3 slave unit complement the communications package, allowing the Ballista to serve as a mobile command node while its artillery engages distant targets.</p>
+</capabilities>
+
+<overview>
+<p>The Ballista Artillery Trailer is a purpose-built companion to the Destrier Siege Vehicle, designed and manufactured by General Motors on Salem and introduced alongside it in the early thirty-second century. The Ballista functions as a mobile indirect-fire platform and communications hub, extending the combined system's effective engagement range to distances that can strike targets before they come within visual range of the parent vehicle. As a trailer without independent propulsion, the Ballista relies entirely on the Destrier's engine to reach the battlefield. This dependency allows the hundred-ton trailer to devote its entire mass budget to weapons, armor, and electronics rather than a drive system, producing a highly resilient artillery platform that transforms the Destrier into a true combined-arms system capable of threatening enemy forces across multiple range bands simultaneously.</p>
+</overview>
+
+<deployment>
+<p>The Ballista operates exclusively in conjunction with a Destrier, and the two units are inseparable in tactical planning. Its Arrow IV launchers provide the combined system with indirect fire support capable of targeting facilities and armored formations well beyond direct-fire range, while its enhanced communications suite coordinates with broader force elements throughout the engagement. Without its carrier, the Ballista cannot reposition and becomes a fixed emplacement dependent entirely on its armor and organic infantry for protection. AFFS commanders assign the trailer to the same pre-planned operations as the Destrier, typically using it to engage targets beyond the horizon while the Destrier handles any direct threats to the combined position.</p>
+</deployment>
+
+<history>
+<p>The Ballista was developed in parallel with the Destrier at General Motors' Salem facility, the two designs conceived from the outset as a unified system rather than independent vehicles. General Motors' engineers updated the traditional towed-artillery concept for the Dark Age, protecting the trailer with Hardened Armor comparable to the parent vehicle and integrating advanced electronics to make it a genuine force multiplier rather than simply a mobile gun mount.</p><p>The Ballista entered service alongside the Destrier in 3100 and saw its first significant operational use during the Victoria War. Functioning as the indirect-fire element in ambush packages and siege operations, the trailer's artillery capability forced enemy units to maneuver under fire, creating the exposure that Destrier crews exploited with direct fire. On Spica in 3104, Ballista launchers provided the suppression fire that shaped the Third McCarron's Armored Cavalry's approach into prepared killing grounds.</p><p>During the Draconis Combine invasions of the 3140s, the Ballista shared the Destrier's role as a last-stand platform, its substantial communications capacity making it a useful coordination node even as vehicles were committed to holding actions with little expectation of recovery. At Barlow's End, Ballista launchers designated and engaged Combine aerospace assets while Destrier crews held the perimeter, demonstrating the trailer's value as both a fire support asset and a battlefield communications center in the same engagement.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Salem
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:General Motors
+ENGINE:Unknown
+ARMOR:Johnston
+COMMUNICATIONS:Achernar Electronics
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown (standard fusion engine)
+ARMOR:Unknown (Hardened/CASE)
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:FS,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+100.0
+</tonnage>
+
+<trailer>
+1
+</trailer>
+

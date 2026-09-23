@@ -1,0 +1,363 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-edd4-7d7f-8430-8ab1257b7285
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Zechetinu II Corvette
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5434
+</mul id:>
+
+<year>
+3059
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:6.0:2:1::-1:0
+dockingcollar
+1stclassquarters:200.0:0:-1::-1:0
+crewquarters:700.0:0:-1::-1:0
+cargobay:7004.5:1:5::-1:0
+cargobay:7004.5:1:6::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+1873
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+10000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+12
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+24
+21
+21
+20
+20
+20
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:41
+(B) Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Ammo White Shark:20
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:30
+ISArtemisIV
+(B) ISLBXAC10
+IS LB 10-X Cluster Ammo:20
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 45
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:13
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLBXAC10
+IS LB 10-X Cluster Ammo:20
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 45
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:13
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLBXAC10
+IS LB 10-X Cluster Ammo:20
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Capital Missile Launcher (White Shark)
+Capital Missile Launcher (White Shark)
+Ammo White Shark:20
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:30
+ISArtemisIV
+(B) ISLBXAC10
+IS LB 10-X Cluster Ammo:20
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 55
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:12
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLBXAC10
+IS LB 10-X Cluster Ammo:20
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 55
+(B) Capital Missile Launcher (Barracuda)
+Ammo Barracuda:12
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLBXAC10
+IS LB 10-X Cluster Ammo:20
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:42
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:30
+ISArtemisIV
+(B) ISLBXAC10
+IS LB 10-X Cluster Ammo:20
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/20)
+Ammo NAC/20:42
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:30
+ISArtemisIV
+(B) SRM 6
+IS Ammo SRM-6 Artemis-capable:30
+ISArtemisIV
+(B) ISLBXAC10
+IS LB 10-X Cluster Ammo:20
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Right Broadsides Equipment>
+
+<structural_integrity>
+25
+</structural_integrity>
+
+<capabilities>
+<p>At 180,000 tons and 440 meters, the Zechetinu is one of the smallest WarShips of its era but packs a disproportionate punch. The Block I mounts three NAC/20 naval autocannons across nose and broadside arcs, six NL35 and two NL45 naval lasers in the forward and aft arcs, and two NL55 naval lasers covering the aft quarters. Sixteen ER large lasers provide sustained anti-fighter firepower across all arcs, supported by thirty-two small lasers for point defense. Four LRM 20 launchers with Artemis IV fire control, four SRM 6 launchers with Artemis IV, and eight LB 10-X autocannons round out the conventional armament. The Block II replaces the fore and aft NL35 batteries with White Shark capital missiles and adds Barracuda launchers to the forward and aft quarters, exchanging sustained laser damage for long-range missile striking power. One thousand eight hundred seventy-three double heat sinks manage the enormous thermal load. Ninety tons of lamellor ferro-carbide armor provide relatively light protection, a deliberate tradeoff for the design's exceptional speed. A lithium-fusion battery enables rapid successive jumps. The Block I uniquely carries a mobile HPG, a rare piece of equipment on non-Clan vessels. One docking collar, six aerospace fighters, a single 88-meter gravity deck, and approximately 15,000 tons of cargo complete the design.</p>
+</capabilities>
+
+<overview>
+<p>The Zechetinu-class corvette, nicknamed the 'Zec' by its crews, is a fast and maneuverable escort WarShip built by Illium Naval Engineering at their Illium Yard on Ionus for the Free Worlds League Military. Commissioned in 3058, the Zechetinu was designed to operate as an independent convoy raider, picket ship, or escort vessel, filling a critical gap in the FWLM's naval order of battle that had persisted since the Succession Wars. The class earned a reputation for punching well above its weight, mounting a broadside capability that led many fleet officers to consider it more akin to a destroyer than a true corvette. Its compact hull and exceptional acceleration made it one of the most agile capital vessels of its generation, well suited to the raiding and screening roles the League demanded.</p>
+</overview>
+
+<deployment>
+<p>The FWLS Scorpion was the first Zechetinu II corvette, launched between 3059 and 3067 as the lead ship of the Block II production run. Unlike many of her sister ships, the Scorpion remained loyal to the Free Worlds League government when Word of Blake sleeper agents seized other vessels during the Jihad. The Scorpion participated in the Battle of Atreus on 25 October 3068, where loyalist and Blakist-aligned FWL WarShips clashed in a devastating engagement. Blakist forces included the Nueva Badajoz, Corinth, Mordred, Xanthos, Aeneas, and Impavido. Only the FWLS Acari and FWLS Raven escaped the loyalist defeat, and the Scorpion was presumed lost in the battle.</p>
+</deployment>
+
+<history>
+<p>The Zechetinu-class corvette was born from the Free Worlds League's determination to rebuild its naval arm in the wake of the Clan Invasion. Illium Naval Engineering on Ionus received the contract and produced a compact, fast escort design that entered service in 3058. The first vessel's outstanding performance in mock battle exercises led to an expanded production order of ten additional hulls, establishing the Zechetinu as a cornerstone of the FWLM's naval expansion program.</p><p>Production soon shifted to a revised Block II standard that traded the original sustained-fire capital weapons for a missile-oriented armament, providing greater flexibility at extended range. By 3067, four Block I vessels and multiple Block II corvettes were in active service across Free Worlds League space, patrolling trade routes and serving as picket elements for heavier fleet formations. Crew life aboard the Zechetinu was austere even by WarShip standards, with exceedingly cramped quarters necessitating monthly port visits to maintain morale. The vessel's corridors and cargo bays commonly served as exercise areas, supplementing the single small gravity deck. Despite these hardships, the corvette's crews developed a fierce pride in their vessel's speed and firepower, and the 'Zec' earned a loyal following within the FWLM fleet.</p><p>The Jihad proved catastrophic for the class. More than half of all Zechetinus in Free Worlds League service had been secretly infiltrated by Word of Blake personnel, and those vessels promptly defected to the Blakists. The simmering conflict erupted at the Battle of Atreus on 25 October 3068, where a devastating engagement between loyalist and Blakist-aligned League WarShips shattered the loyalist fleet. In the broader Jihad that followed, every remaining Zechetinu was destroyed in combat, seized in internecine fighting between League factions, or lost to the wilds of the Periphery with crews who chose flight over surrender. The class was entirely extinct by the war's end, a cautionary tale of how quickly a promising naval program could be undone by infiltration and civil war.</p>
+</history>
+
+<manufacturer>
+Illium Naval Engineering
+</manufacturer>
+
+<primaryFactory>
+Ionus
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Illium Naval Engineering
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Zechetinu
+ENGINE:Unknown
+ARMOR:Lamellor Ferro-Carbide
+JUMP_JET:Compact
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Corvette
+</use>
+
+<length>
+440 m
+</length>
+
+<height>
+502 m Sail
+</height>
+
+<source>
+TR:3067,TR:3057r
+</source>
+
+<tonnage>
+180000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+88
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+131
+</crew>
+
+<officers>
+20
+</officers>
+
+<gunners>
+28
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+8
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

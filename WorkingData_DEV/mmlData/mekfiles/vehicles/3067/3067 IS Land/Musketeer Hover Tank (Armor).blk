@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e59b-7a60-a780-c4d5e5b490ce
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Musketeer Hover Tank
+</Name>
+
+<Model>
+(Armor)
+</Model>
+
+<mul id:>
+4687
+</mul id:>
+
+<year>
+3068
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+51
+34
+34
+23
+28
+</armor>
+
+<Body Equipment>
+ISRotaryAC2 Ammo
+ISRotaryAC2 Ammo
+ISRotaryAC2 Ammo
+IS Streak SRM 2 Ammo
+ISCASE
+</Body Equipment>
+
+<Front Equipment>
+ISTAG
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISRotaryAC2
+ISStreakSRM2
+ISStreakSRM2
+</Turret Equipment>
+
+<capabilities>
+<p>The Musketeer is built around a single turret-mounted Mydron Tornado Rotary AC/5, fed by a substantial three-ton magazine that sustains fire well in excess of one minute at maximum rate. This endurance distinguishes the Musketeer from lighter autocannon designs and gives it exceptional battlefield persistence. For close-range engagements, a pair of Holly Mark II Streak SRM 2-Packs provide accurate secondary fire without wasting ammunition on missed shots. A forward-fixed TAG designator rounds out the weapon suite, allowing the crew to direct guided artillery support onto targets without closing to weapon range.</p><p>Propulsion comes from a GM 115-rated internal combustion engine, enabling a top speed approaching 120 kilometers per hour on flat terrain with a cruising range of nearly 1,500 kilometers on standard combustible fuels. Seven tons of StarGuard CIV ferro-fibrous armor provide protection sufficient to withstand a hit from the heaviest standard autocannon. An integrated CASE system shields the crew from catastrophic detonation of ammunition or fuel, addressing the particular vulnerability of ICE-powered vehicles to internal fires.</p><p>The Musketeer's primary limitation is its dependence on the single RAC main gun. A jam or mechanical failure at a critical moment leaves the vehicle with only the Streak launchers for close-in defense. The hover chassis, while fast on open ground, loses much of its mobility advantage in heavily wooded terrain, dense rubble, or steep gradients, restricting the design's effectiveness in urban and forested environments.</p>
+</capabilities>
+
+<overview>
+<p>The Musketeer Hover Tank was developed by Corean Enterprises of New Avalon and entered service with the Armed Forces of the Federated Suns in 3065. Designed as a dedicated rotary autocannon platform, it arrived during a period of intense interest in RAC-based weapons systems across the Federated Suns. Corean engineers prioritized speed, sustained firepower, and operational economy, producing a hover tank capable of delivering rapid, concentrated damage across a wide range of engagements. Its combination of high cross-terrain mobility, continuous autocannon output, and solid crew protection made it attractive for both offensive strike roles and screening operations. The Musketeer became one of the first production vehicles to fully exploit RAC technology at scale, establishing Corean Enterprises as a leading supplier for the AFFS ground forces and earning a reputation as a cost-effective frontline combat vehicle.</p>
+</overview>
+
+<deployment>
+<p>The (Armor) variant replaces the standard model's RAC/5 with a lighter RAC/2 system and divides the recovered tonnage between additional ferro-fibrous armor protection and expanded ammunition storage. The extended range and improved ammunition efficiency of the RAC/2 make this configuration well-suited for extended operations away from established supply lines. Unit commanders who prioritize vehicle survivability and operational endurance over burst-fire output generally favor this variant, and it is frequently assigned to missions where resupply cannot be guaranteed.</p>
+</deployment>
+
+<history>
+<p>The Musketeer emerged from the Federated Suns' rapid embrace of rotary autocannon technology following its development in the early 3060s. As RAC weapons spread through the Inner Sphere, manufacturers throughout the Federated Suns moved quickly to incorporate the new systems into both BattleMech and vehicle designs. Corean Enterprises secured the contract for the Musketeer in 3065, introducing the design to the AFFS as political tensions within the Federated Commonwealth were reaching a critical threshold.</p><p>The timing proved consequential. The Musketeer entered full production only months before the FedCom Civil War erupted, and the design found itself in combat on both sides of the conflict almost immediately. Corean Enterprises' facility on New Avalon placed it at the center of the fighting, with Musketeer units participating in the final battles for the planet itself. This early combat exposure on both sides of the Civil War cemented the design's battlefield reputation and generated significant demand for expanded production.</p><p>Following the Civil War, the AFFS moved to consolidate control over the Musketeer's production run, securing an exclusive five-year contract with Corean Enterprises and prioritizing militia units on worlds facing the Draconis Combine and Capellan Confederation. An armor-enhanced configuration, the (Armor) variant, entered service in 3068, offering commanders the option of trading burst-fire capability for improved vehicle survivability. By the time of the Jihad the Musketeer had become a well-established element of Federated Suns ground forces, deployed across multiple commands and proving itself effective in the sustained attritional combat of that era.</p><p>A further modernization produced the (3080 Upgrade) configuration, refining the design's systems based on accumulated field experience from both the Civil War and Jihad. The upgrade extended the Musketeer's operational life into the Dark Age period. Production of all variants continued on New Avalon under Federated Suns ownership through most of the Republic era, with the New Avalon facility eventually transitioning to Draconis Combine control following the collapse of the Republic of the Sphere.</p>
+</history>
+
+<manufacturer>
+Corean Enterprises
+</manufacturer>
+
+<primaryFactory>
+New Avalon
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:Unknown
+COMMUNICATIONS:Corean
+TARGETING:Corean
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:115 ICE
+ARMOR:StarGuard CIV
+COMMUNICATIONS:Transband-J9
+TARGETING:B-Tech with TAG
+</systemModels>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

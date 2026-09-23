@@ -1,0 +1,260 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-abd0-733d-bb48-b9bca3229c78
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Aurora
+</Name>
+
+<Model>
+(Gunship)
+</Model>
+
+<mul id:>
+3755
+</mul id:>
+
+<year>
+3062
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+cargobay:9.5:1:1::-1:0
+cargobay:9.5:1:2::-1:0
+asfbay:1.0:1:3::-1:0
+asfbay:1.0:1:4::-1:0
+1stclassquarters:20.0:0:-1::-1:0
+crewquarters:70.0:0:-1::-1:0
+cargobay:169.0:1:7::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+50
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+5000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+180
+150
+150
+125
+</armor>
+
+<Nose Equipment>
+(B) ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:40
+(B) ISERMediumLaser
+ISERMediumLaser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISERPPC
+ISERPPC
+ISERPPC
+ISERPPC
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+(B) ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGauss Ammo:40
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:96
+(B) ISAntiMissileSystem
+ISAMS Ammo:72
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISERPPC
+ISERPPC
+ISERPPC
+ISERPPC
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+(B) ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGauss Ammo:40
+(B) LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:96
+(B) ISAntiMissileSystem
+ISAMS Ammo:72
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:40
+(B) ISLargePulseLaser
+ISLargePulseLaser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+8
+</structural_integrity>
+
+<capabilities>
+<p>The Gunship configuration dramatically increases the Aurora's combat capability. While retaining two aerospace fighter bays and 188 tons of cargo, the standard weaponry is substantially upgraded. The nose retains its twin Gauss rifles and ER medium lasers, but each wing mounts four ER PPCs, two heavy Gauss rifles, three Artemis IV-enhanced LRM-20 racks, and an anti-missile system. The aft arc retains its Gauss rifles and large pulse lasers. One hundred double heat sinks manage the tremendous thermal output of this weapons array, double the standard configuration's capacity. A crew of twenty-one operates this heavily armed variant, which serves as a dedicated fire support platform.</p>
+</capabilities>
+
+<overview>
+<p>The Aurora class DropShip began as a joint civilian light freighter project between two prominent Inner Sphere aerospace manufacturers, one based in the Federated Suns and the other in the Lyran Alliance. First introduced in 3062, this 1,600-ton Aerodyne was originally shelved when political upheaval split its sponsoring nations, only to be revived when military planners recognized a need for a more flexible light transport than existing designs could provide.</p><p>The Aurora's defining feature is its modular cargo bay system, a holdover from the original civilian design that grants unprecedented mission flexibility. This adaptability has made the vessel popular with both state militaries and mercenary commands seeking a single hull capable of filling multiple roles, from troop transport to armed merchant to dedicated gunship.</p>
+</overview>
+
+<deployment>
+<p>The Gunship variant serves as a dedicated fire support platform, typically operating alongside standard Aurora transports to provide covering fire during planetary assault and extraction operations. Its heavy weapons load makes it a formidable opponent for enemy DropShips and aerospace fighters, though its limited cargo capacity restricts independent operations.</p>
+</deployment>
+
+<history>
+<p>The Aurora class originated as a joint civilian freighter project between Dynamico Ltd. of Delavan and Shipil Company of Skye, begun in 3056. The secession of the Lyran half of the Federated Commonwealth brought progress to an abrupt halt. However, after-action reports from Operation Bulldog revealed that the venerable Leopard lacked the flexibility needed in a modern light military transport, prompting both the LAAF and AFFC to call for new DropShip designs. Dusting off the Aurora's blueprints, Dynamico and Shipil modified the civilian freighter into a military vessel.</p><p>Initial orders for evaluation prototypes were placed in 3061. Dynamico delivered the first vessels just before the outbreak of the FedCom Civil War, a conflict in which the Aurora proved its worth during the fighting on Kentares IV and New Avalon. Shipil's prototype launch was delayed repeatedly, first by minor technical problems and then by the Civil War itself, until late 3067. Production at major yards was subsequently disrupted by Blakist operations during the Jihad, but because of the Aurora's humble civilian origins, the design could be produced by merchant yards and upgraded repair facilities more easily than other military DropShips. Additional production lines at BBP Industries and Cal-Boeing of Dorwinion further expanded the Aurora's availability across the Inner Sphere.</p>
+</history>
+
+<manufacturer>
+BBP Industries|Cal-Boeing of Dorwinion|Dynamico Ltd.|Lockheed/CBM Corp.|Shipil Company
+</manufacturer>
+
+<primaryFactory>
+Luthien|Lackland|Delavan|Furillo|Skye
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+1600.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+14
+</crew>
+
+<officers>
+2
+</officers>
+
+<gunners>
+5
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+3
+</escape_pod>
+

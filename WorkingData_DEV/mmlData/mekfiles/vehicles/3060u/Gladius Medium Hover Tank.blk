@@ -1,0 +1,155 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e4ee-776b-bdb2-5cd95e0cc723
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Gladius Medium Hover Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+1214
+</mul id:>
+
+<year>
+3042
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+30
+24
+24
+18
+</armor>
+
+<Body Equipment>
+IS Ammo AC/10
+IS Ammo AC/10
+</Body Equipment>
+
+<Front Equipment>
+Autocannon/10
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Gladius derives its combat effectiveness from a combination of speed and heavy armor rarely seen together at its weight class. Propelled by a 145-rated internal combustion engine, the hovertank reaches a flank speed of 130 kilometers per hour, giving crews the initiative to dictate engagement angles, break contact, or pursue fleeing opponents with ease. Six tons of Marian Arms Standard armor provides protection equivalent to many medium BattleMechs, making the Gladius a resilient platform capable of absorbing significant punishment before being disabled.</p><p>The single autocannon is mounted deep within the forward hull, where the chassis shields it from battle damage. The primary tactical limitation of the design is the complete absence of a turret. Gladius crews can fire only at targets ahead of the vehicle, a constraint that makes flanking attacks and rear-quarter pursuits genuinely dangerous. In open terrain, the hovertank's speed usually compensates for this weakness, allowing crews to keep threats in their forward arc. In cities, canyons, or other confined environments, the inability to traverse the main gun independently forces crews to maneuver the entire vehicle to track a target, a costly compromise against faster or more numerous opponents. The weight saved by omitting a turret is reinvested in the vehicle's armor, a trade-off the original designers judged acceptable given the Gladius's intended role as an aggressive, forward-operating raider.</p>
+</capabilities>
+
+<overview>
+<p>The Gladius Medium Hover Tank is a fast and rugged combat vehicle developed for the Marian Hegemony in 3042, commissioned by Imperator Marius O'Reilly as a more capable alternative to lighter hover platforms then in service. Designed with the Hegemony's doctrine of rapid raiding and aggressive line combat in mind, the Gladius prioritizes speed, armor protection, and simplicity over weapons versatility. Nearly all of the vehicle's components were manufactured at the Marian Arms, Inc. facility on the Hegemony capital of Alphard, with the sole exception of its main armament, which was obtained through a notable trade arrangement with a neighboring Periphery state.</p><p>The design's name reflects the Hegemony's deeply held Roman imperial identity, drawing from the legionnaire's primary sidearm. Straightforward to operate and maintain, the Gladius became the defining combat vehicle of the Marian Legions and one of the Periphery's more capable indigenous hover tank designs.</p>
+</overview>
+
+<deployment>
+<p>The Gladius served across the Marian Legions as both a raiding vehicle and a line combat asset, deployed in mixed armor formations alongside tracked and wheeled vehicles. Under the terms of the original trade agreement, a portion of each production run was allocated directly to the Taurian Concordat, whose commanders positioned Gladius units along the Federated Commonwealth border. Following the severing of trade relations with the Concordat, operational numbers declined through attrition, and the Gladius's once-prominent role in Hegemony armor formations diminished until production resumed.</p>
+</deployment>
+
+<history>
+<p>The Gladius emerged from Imperator Marius O'Reilly's desire to equip the Marian Legions with a domestically produced hover platform capable of both raiding operations and line combat. To arm the vehicle, the Hegemony negotiated an unusual arrangement with the Taurian Concordat: autocannons produced in the Concordat would be supplied to the Marian Arms factory on Alphard, in exchange for a standing allocation of twenty-five percent of completed Gladius vehicles delivered to the Concordat's armed forces. This agreement bound the two states' defense industries together and gave the Taurian Concordat a direct material interest in continued Gladius production.</p><p>Through the reign of Caesar Sean O'Reilly, production at Alphard expanded steadily. More than a hundred Gladius units entered service with the Marian Legions. Protector Thomas Calderon of the Taurian Concordat valued the vehicle highly, stationing Concordat Gladius units along the Federated Commonwealth border in anticipation of Davion aggression that never materialized. The partnership seemed durable, and the tank became a symbol of the practical alliance between the two Periphery states.</p><p>The arrangement collapsed when Protector Jeffrey Calderon severed ties with the Marian Hegemony. Without the autocannon supply, Marian Arms halted production at Alphard. Operational counts across both states declined through attrition and combat losses over the following years. The hiatus ended with the ascension of Protector Grover Shraplen, whose more pragmatic leadership restored trade between the two states and restarted the autocannon supply line.</p><p>With production resumed, Marian Hegemony engineers developed a substantially revised variant. Observed in action on Bromhead in 3073, the Mk II replaced the heavy autocannon with a lighter model, freeing mass for a machine gun array and a battery of disposable rocket pods. The revised loadout made the Mk II a considerably more dangerous city-fighting platform, capable of threatening both armored opponents and infantry formations with equal effectiveness.</p>
+</history>
+
+<manufacturer>
+Marian Arms, Inc.
+</manufacturer>
+
+<primaryFactory>
+Alphard (MH)
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Marian Arms, Inc.
+COMMUNICATIONS:Garret
+TARGETING:O/P
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Omni 145
+ARMOR:Standard
+COMMUNICATIONS:T10B
+TARGETING:911
+</systemModels>
+
+<source>
+TR:3060
+</source>
+
+<published>
+RS:3060u
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

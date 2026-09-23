@@ -1,0 +1,301 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa6f-702f-88d5-f3e890357efe
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Drone
+</Name>
+
+<Model>
+M-3
+</Model>
+
+<mul id:>
+7147
+</mul id:>
+
+<year>
+2698
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+2ndclassquarters:0.0:0:-1::-1:0
+cargobay:28.0:1:4::-1:0
+</transporters>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<heatsinks>
+200
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+18000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+368
+323
+323
+278
+</armor>
+
+<Nose Equipment>
+(B) PPC
+PPC
+PPC
+PPC
+(B) ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:96
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:96
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) PPC
+PPC
+(B) ISGaussRifle
+IS Gauss Ammo:24
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+(R) (B) PPC
+(R) (B) ISERLargeLaser
+(R) ISERLargeLaser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) (B) LRM 20
+(R) IS Ammo LRM-20 Artemis-capable:18
+ISArtemisIV
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) PPC
+PPC
+(B) ISGaussRifle
+IS Gauss Ammo:24
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:48
+ISArtemisIV
+ISArtemisIV
+(R) (B) PPC
+(R) (B) ISERLargeLaser
+(R) ISERLargeLaser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) Medium Laser
+(R) (B) LRM 20
+(R) IS Ammo LRM-20 Artemis-capable:18
+ISArtemisIV
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) PPC
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+ImprovedCasparDroneControlSystem
+SDSSelfDestructSystem
+</Hull Equipment>
+
+<structural_integrity>
+21
+</structural_integrity>
+
+<capabilities>
+<p>The M-3 is built on a new-construction hull based on the Pentagon class assault DropShip, sharing its general dimensions and structural layout but optimized for unmanned operation. With no crew quarters, life support, or personnel facilities required, the M-3 dedicates its entire internal volume to combat systems and propulsion. The vessel achieves a remarkable safe thrust of seven, giving it exceptional speed and maneuverability for a 4,000-ton hull.</p><p>The M-3 carries 1,292 points of armor protection across its hull, providing substantial survivability against concentrated fire. Two hundred double heat sinks manage the thermal output from its weapons systems, allowing sustained high-intensity fire without degradation. The nose arc mounts double the firepower of a crewed Pentagon, enabling devastating head-on attack runs. A minimal twenty-six person crew complement is listed for maintenance and pre-deployment operations, though the vessel operates autonomously in combat. Only twenty-eight tons of cargo space is allocated, sufficient for onboard maintenance equipment and spare parts.</p>
+</capabilities>
+
+<overview>
+<p>The M-3 Drone was the first purpose-built autonomous combat DropShip produced for the Terran Hegemony's Space Defense System. Entering production in 2698 at the O'Neil Shipyards, this 4,000-ton Spheroid was designed from the keel up as an unmanned weapons platform rather than a conversion of existing crewed designs. Building on lessons learned from the earlier M-1 small craft drone and the Hector-based M-2 conversion program, the M-3 represented a significant leap in autonomous warship capability.</p><p>Carrying no crew, the M-3 matched the exceptional combat performance of its Pentagon-class basis hull while mounting substantially heavier forward armament. The design was a credible threat to corvette and destroyer class WarShips and capable of devastating alpha strikes that could destroy any DropShip in a single engagement.</p>
+</overview>
+
+<deployment>
+<p>M-3 drones were deployed across the majority of Terran Hegemony star systems as a core component of the Space Defense System, providing autonomous system defense alongside the larger M-5 Caspar drones. The M-3 was found in far greater numbers than its successor and formed the bulk of the SDS combat drone fleet. During the Amaris Crisis and the subsequent liberation campaign, M-3 squadrons contested SLDF forces at multiple points throughout Hegemony space, with the final engagement occurring above Terra itself.</p>
+</deployment>
+
+<history>
+<p>The M-3 entered production in 2698 as part of the Terran Hegemony's massive Space Defense System buildup. Produced initially at O'Neil Shipyards, the program eventually expanded to at least six different manufacturing locations across the Hegemony. Despite being one of the most numerous SDS assets deployed, the M-3 was frequently overshadowed by its much larger and more dramatic M-5 Caspar successor, which captured greater public attention and strategic focus.</p><p>During the Terran Campaign to liberate Terra from the Amaris Empire, squadrons of M-3 drones proved to be credible threats to the forces of General Kerensky. Many were either overlooked in favor of the more prominent M-5 drones or confused with crewed Pentagon class vessels, leading to their omission from numerous after-action reports. In the final stages of the campaign, a hidden lunar base launched the last eighteen drones of the SDS network in a desperate counterattack. These M-3s inflicted heartbreaking losses, destroying several assault DropShips, two Vincent class corvettes, and the last Luxor class heavy cruiser before the invasion of Terra could begin.</p>
+</history>
+
+<manufacturer>
+Nicholas Spacecraft/Ulsop Robotics|Refit - Ulsop Robotics|Ulsop Robotics/O'Neil Shipyards
+</manufacturer>
+
+<primaryFactory>
+New Earth|Various|Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<notes>
+Will show Invalid as it has to validate with crew.
+</notes>
+
+<use>
+SDS Drone
+</use>
+
+<length>
+89 meters
+</length>
+
+<width>
+75 meters
+</width>
+
+<height>
+75 meters
+</height>
+
+<source>
+His:LoT1
+</source>
+
+<tonnage>
+4000.0
+</tonnage>
+
+<bv>
+21351
+</bv>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+14
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+9
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

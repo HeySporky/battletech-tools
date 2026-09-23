@@ -1,0 +1,89 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bcae-71ec-9fbd-bbc262be3d80
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Tracked Platoon (FWLM)
+</Name>
+
+<Model>
+(ER Laser Heavy 3059+)
+</Model>
+
+<year>
+3059
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<Troopers Equipment>
+Free Worlds League Infantry Kit (3035+)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Free Worlds League's fractious politics have always made centralized BattleMech procurement difficult, pushing the FWLM toward heavy investment in conventional infantry to fill the gaps. Tracked mechanized platoons sacrifice road speed for all-terrain capability, carrying their infantry across ground that would halt wheeled vehicles. The FWLM assigns these formations to worlds where rough terrain or poor infrastructure demands mobility that wheels cannot provide. Armed with heavy extended-range laser rifles that combine punishing energy output with extended reach, these platoons deliver devastating firepower at ranges that outstrip most personal infantry weapons.</p>
+</overview>
+
+<notes>
+Intro date based on production date of ER IS support laser
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Laser Rifle
+</Primary>
+
+<Secondary>
+Support Laser (ER, IS)
+</Secondary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+

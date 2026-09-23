@@ -1,0 +1,179 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ad40-7e01-9bb2-fc3bb838f18e
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Samurai
+</Name>
+
+<Model>
+SL-26
+</Model>
+
+<mul id:>
+2791
+</mul id:>
+
+<year>
+2620
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+7
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+18
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+640
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+53
+33
+33
+33
+</armor>
+
+<Nose Equipment>
+Medium Laser
+Medium Laser
+Medium Laser
+Small Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISERLargeLaser
+Small Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISERLargeLaser
+Small Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+Medium Laser
+Small Laser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>For its mass, the Samurai carries substantial protection and achieves speeds sufficient to engage similarly sized opponents on its own terms or withdraw from heavier threats. Its weapon arrangement dedicates the bulk of firepower to anti-ground strafing while retaining meaningful self-defense against other fighters. Against surface targets, the forward battery delivers punishment that most light ground defenses cannot absorb, and the addition of the remaining weapons on a closer pass amplifies that firepower by nearly forty percent. Against other aerospace fighters, the design performs best at close range, where the full complement can be brought to bear, and less well at longer distances where its weapons lose effectiveness. The Samurai compensates for this limitation through speed, using velocity to close with peer opponents or disengage from superior ones. A rearward-facing laser battery protects the tail from sniping, a practical concession to the hazards of extended close engagements. The design carries no expendable ammunition in its base configuration, and its fuel capacity exceeds that of most contemporaries, allowing the Samurai to sustain ground support operations far longer without returning to base for resupply.</p>
+</capabilities>
+
+<overview>
+<p>The Samurai is a medium aerospace fighter commissioned by the Terran Hegemony during the Age of War to address a critical gap in its ground support capabilities. Designed and built by Fairchild Dornier on Mizar, the craft was developed to threaten enemy ground forces directly, trading some air-superiority capability for concentrated strafing power against surface targets. The design served through the Star League era, accompanying SLDF units on numerous campaigns and earning a reputation as a reliable, if specialized, ground attack platform. Its emphasis on anti-ground firepower came at a cost in peer air combat, where more versatile or dedicated fighters could exploit its limited engagement range. Despite this trade-off, the Samurai remained valued wherever ground commanders needed dependable close air support, and the type persisted in service across multiple successor states long after its original manufacturer ceased full production.</p>
+</overview>
+
+<deployment>
+<p>The SL-26 was produced in limited numbers for SLDF units during the Star League era and was not widely distributed outside that force. Its advanced technologies placed it beyond the production capabilities of most member-state facilities, and the type did not spread significantly into successor-state inventories before the Second Succession War eliminated the last surviving examples. No SL-26 is known to have survived that conflict.</p>
+</deployment>
+
+<history>
+<p>The Samurai's early service with the Terran Hegemony confirmed the value of dedicated ground attack fighters, and Fairchild Dornier continued developing the type through the Star League era. An upgraded mark introduced during that period incorporated advanced propulsion and armament technologies suited to SLDF standards, seeing active service before the Second Succession War destroyed the last surviving examples, their advanced components impossible to maintain as industrial infrastructure collapsed across the Inner Sphere.</p><p>The Amaris Coup brought lasting damage to the Fairchild Dornier facility on Mizar. Combat operations on the planet struck the plant so severely that full aerospace production was not recoverable, and the company was reduced to manufacturing civilian aircraft for an extended period. Samurais already in service continued operating through the Succession Wars in declining numbers, their crews improvising replacement parts by hand as factory-sourced spares became unavailable.</p><p>The distribution of Samurais that survived into the late Succession Wars era reflects the type's earlier history. The Outworlds Alliance retained a disproportionate share of surviving examples, a legacy of the losses the Alliance had suffered when SLDF Samurais operated against their forces during the Reunification War. These fighters proved their worth in 3020, when a large pirate force struck the Alliance. Samurais were instrumental in breaking the incursion, their ground attack capabilities helping Alliance forces defeat the invaders and cancel the raid.</p><p>During the Jihad, Fairchild Dornier rebuilt a production line on Mizar, funded by civilian revenues and direct subsidies from the Lyran Alliance and ComStar. The resulting variant adapted the Samurai's proven design to later weapons technology, and Lyran interest in the type was driven in part by production disruptions affecting other fighter programs. Production remained limited, keeping the revived line from reaching wide distribution.</p>
+</history>
+
+<manufacturer>
+Fairchild Dornier
+</manufacturer>
+
+<primaryFactory>
+Mizar
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Fairchild Dornier
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Fairchild Dornier
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:FD 50-12
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:FD 205
+TARGETING:Scope 115F
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

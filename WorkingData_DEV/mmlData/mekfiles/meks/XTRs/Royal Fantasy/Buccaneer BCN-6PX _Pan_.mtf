@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-e06f-73d1-8948-ec31555f92dd
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Buccaneer
+model:BCN-6PX 'Pan'
+mul id:8379
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3120
+source:XTR:Royal Fantasy
+published:XTR:Royal Fantasy
+rules level:3
+role:Skirmisher
+
+quirk:bad_rep_is
+quirk:imp_target_short
+
+mass:55
+engine:330 XL Engine(IS)
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:9
+
+armor:Ferro-Fibrous(Clan)
+LA armor:16
+RA armor:16
+LT armor:19
+RT armor:19
+CT armor:26
+HD armor:9
+LL armor:23
+RL armor:23
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:3
+Medium Re-engineered Laser, Left Arm
+Medium Re-engineered Laser, Left Arm
+ER Medium Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Re-engineered Laser
+Medium Re-engineered Laser
+Medium Re-engineered Laser
+Medium Re-engineered Laser
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERMediumLaser
+ISSmallVibroblade
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+CLPartialWing
+CLPartialWing
+CLPartialWing
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+CLPartialWing
+CLPartialWing
+CLPartialWing
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Buccaneer emerged from the Word of Blake's urgent need for BattleMechs following its schism from ComStar in 3052. Originally a prototype ComStar design that had never entered production on Terra, the fifty-five-ton Buccaneer was swiftly adapted by Precentor Martial Trent Arian to use materials produced in the Free Worlds League, where the nascent order had established its base of operations. Gibson Federated BattleMechs, a division of Free Worlds Defense Industries, rushed the modified design through an accelerated trial program, and the Buccaneer entered production in late 3055.</p><p>Filling a medium-weight close combat role, the Buccaneer was purpose-built to close with opponents and overwhelm them at short range. This emphasis on melee engagement distinguished the design from most contemporary 'Mechs and earned it a fearsome reputation among opponents forced to face it within arm's reach.</p>
+
+capabilities:<p>Built around a compact VOX 330 XL engine, the Buccaneer achieves above-average maneuverability for its weight class, reaching speeds of ninety-seven kilometers per hour. Faced with weight restrictions that forced a choice between jump jets and additional weapons and armor, Gibson's engineers chose the latter approach, creating a sturdy opponent on the battlefield. The chassis mounts an impressive ten tons of Kallon FWL Special ferro-fibrous armor, the maximum the frame can carry, providing excellent protection for a medium 'Mech intended for close-quarters fighting.</p><p>The Buccaneer's most fearsome weapon is its four-ton hatchet, built around an ultra-dense core of depleted uranium that allows it to inflict devastating damage on opponents within arm's reach. Supporting this primary melee weapon at medium to close ranges are four Diverse Optics Type 18 medium lasers and a highly accurate Starflash medium pulse laser, while an Irian Weapon Works 60mm SRM-6 launcher equipped with an Artemis IV fire control system provides additional close-in firepower with enhanced missile accuracy. A single Diverse Optics Sunbeam extended-range large laser serves as the Buccaneer's only long-range striking capability, though its demanding heat output makes overheating a concern during prolonged engagements at speed.</p>
+
+deployment:<p>First appearing on the Solaris VII arena circuit in 3140, this custom variant trades raw firepower for exceptional agility. The original hatchet is replaced by a small vibroblade styled as a 'Mech-scale parrying dagger, while a collapsible Clan-technology partial wing assembly with distinctive rounded-tip wings dramatically enhances the 'Mech's aerial profile. Combined with improved jump jets, these wings allow this Buccaneer to clear up to three hundred thirty meters in a single bound. Armament is reduced to just three lasers (two medium re-engineered lasers capable of penetrating virtually any armor type with equal hitting power, and a single Inner Sphere ER medium laser) all protected by Clan ferro-fibrous armor. The limited firepower means sustained engagements are not viable; this machine relies entirely on agility and precise strikes to overcome its opponents.</p>
+
+history:<p>The Buccaneer's combat debut came during Operation Odysseus in 3058, when Word of Blake forces used the newly produced 'Mechs during the seizure of Nestor, the home base of the 21st Centauri Lancers. Blake Militia forces disguised as the Lancers deployed the Buccaneer in their first confirmed engagement, defeating the real Lancers in a campaign that marked the beginning of the Word of Blake's takeover of Terra. The design would see its most significant early testing during the subsequent Terra campaign, where several Buccaneers were deployed across multiple task forces during the intensive fighting that secured the Terran system for the Word of Blake.</p><p>Through the late 3050s and 3060s, the Buccaneer remained primarily a Word of Blake design, produced exclusively at Gibson Federated BattleMechs' facilities on Gibson. The Word of Blake also provided several Buccaneers to the Free Worlds League as part of ongoing technology exchanges, though the majority remained in Blakist service. Gibson Federated continued developing new variants as the Word of Blake's tactical doctrine evolved, introducing the radically redesigned BCN-5W around 3069 to serve as a dedicated urban combatant incorporating advanced Blakist networking technology.</p><p>The onset of the Jihad cemented the Buccaneer's association with the Word of Blake. As Blake forces spread across the Inner Sphere, captured or salvaged Buccaneers began appearing in the hands of opposing forces. Mercenary units working with salvaged Word of Blake chassis created their own field refits, most especially the BCN-6W missile boat variant that emerged around 3073, fundamentally reimagining the design for indirect fire support rather than the close-combat role it was originally intended for.</p><p>Following the destruction of the Word of Blake during the Coalition campaigns, production at Gibson ceased entirely. The Buccaneer survived in limited numbers with various successor state forces and mercenary commands who had acquired the design during the Jihad, with field refits continuing to appear in service well into the Dark Age. The chassis even found an unlikely second life on the Solaris VII arena circuit, where custom variants exploited the design's sturdy frame and inherent ruggedness for entertainment combat.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Standard
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:330 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Clan Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Chilton
+systemmode:JUMP_JET:Improved
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

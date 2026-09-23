@@ -1,0 +1,517 @@
+{
+  "filename": "Jabberwock_JBR-3K.hmp",
+  "size": 2902,
+  "header_hex": "56 35 2e 30 30 01 00 08 03 ff ff ff 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 8,
+      "length": 1,
+      "text": "\b"
+    },
+    {
+      "type": "byte",
+      "offset": 8,
+      "hex": "03"
+    },
+    {
+      "type": "byte",
+      "offset": 9,
+      "hex": "ff"
+    },
+    {
+      "type": "byte",
+      "offset": 10,
+      "hex": "ff"
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 268,
+      "length": 255,
+      "text": "\u0000\u0000\u0000\u0000d\u0000\n\u0000Jabberwock\u0006\u0000JBR-3K\u00d1\u000b\u0003\u0000\u00be*\u00f1\u0001\u00fe\u000b\u00008\u0085E\u00008\u0085E\u0000\u0000\u0000B\u0000\u0000\u00a8A\u0000\u0000@A\u0010\u0000MA 8 6 5 3 24 4J\u0002\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0001\u0000\u0090\u0001\u0001\u0000\u0004\u0000\u0004\u0000\u0010\u0000\u0001\u0000\u0000\u0000\u0000\u0000!\u0000\u0000\u0000\u0000\u0000\u001f\u0000\u0000\u0000\u0000\u0000)\u0000\u0000\u0000\u0000\u0000!\u0000\u0000\u0000\u0001\u0000\u001f\u0000\u0000\u0000\u0000\u0000)\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000.\u0000\u0000\u0000\n\u0000\n\u0000\u000f\u0000\u0001\u0000\u0007\u0000\u0002\u00003\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00003\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00003\u0000\u0005\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0002\u00004\u0000\u0002\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u00b1\u0001\b"
+    },
+    {
+      "type": "byte",
+      "offset": 268,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 269,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 270,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 271,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 272,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 273,
+      "end": 274,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 274,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 275,
+      "end": 284,
+      "text": "(Unknown)"
+    },
+    {
+      "type": "len_string",
+      "start": 284,
+      "end": 287,
+      "length": 1,
+      "text": "\u00b0"
+    },
+    {
+      "type": "len_string",
+      "start": 287,
+      "end": 1058,
+      "length": 769,
+      "text": "\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u00af\u0001\u0006\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0011\u0000\u0000\u0000\u0011\u0000\u0000\u0000\u0011\u0000\u0000\u0000\u0011\u0000\u0000\u0000\u0011\u0000\u0000\u0000\u0011\u0000\u0000\u0000\u0011\u0000\u0000\u00003\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u00b0\u0001\u0000\u0000\u000b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u00003\u0000\u0000\u00003\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u00003\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u0016\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\u000b\u0000\u0000\u0000\u00af\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0000\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u00b1\u0001\u0000\u0000\u00b1\u0001\u0000\u0000\u00f6\u00ff$\u0001\u00ba\u0000The Jabberwock is the Circus's Special operation mech.  It also shows up on the battlefield to the horror of many. The mech greatly resembles an Atlas, which its chassis is derived from.q\u0001This mech is designed with independant operation in mind.  The armor is almost at weight limits and all of the weapons are energy based.  The mech is equi"
+    },
+    {
+      "type": "ascii",
+      "start": 1058,
+      "end": 1273,
+      "text": "pped with Probe and ECM technology, and is jump capable.  This mech is also equipped with an axe.  All of this combines to produce a very lethal mech.  Most of the warriors piloting this mech are elite and proven.  "
+    },
+    {
+      "type": "len_string",
+      "start": 1273,
+      "end": 1700,
+      "length": 425,
+      "text": "This mech seems to be at its best as an ambusher, or sniper.  The pilots typically fire the 4 large lasers at range, followed by various combinations designed to maintain the myomers in the optimum range.  A final volley is used as cover as the mech uses its axe.  This mech has been seen to sever arms from heavy mechs with a single blow.  Some of the pilots have been known to take down whole lances in a couple of minutes."
+    },
+    {
+      "type": "ascii",
+      "start": 1700,
+      "end": 1701,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 1701,
+      "hex": "01"
+    },
+    {
+      "type": "ascii",
+      "start": 1702,
+      "end": 1967,
+      "text": "Ther is a legend of a Jabberwock that also mounts a Gauss rifle and appears and dissappears like a ghost.  There is yet tyo be any proof of its existance.\r\n\r\nSeveral verified varients are equipped with different melee weapons at the preference of the mechwarrior.  "
+    },
+    {
+      "type": "len_string",
+      "start": 1967,
+      "end": 1970,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 1970,
+      "end": 1971,
+      "text": ";"
+    },
+    {
+      "type": "byte",
+      "offset": 1971,
+      "hex": "01"
+    },
+    {
+      "type": "ascii",
+      "start": 1972,
+      "end": 2287,
+      "text": "These are exteremely expensive and therefore rare mechs.  They are piloted by the best warriors, so chances are the mech is both an award and privately owned vehicle.  There are aproximately a lace assigned to each Circus.  There are two wearing KE livery, and a smattering thru all the other homestead march units."
+    },
+    {
+      "type": "len_string",
+      "start": 2287,
+      "end": 2461,
+      "length": 172,
+      "text": "There is the Zeta Version with 4 PPC's, 3 ERmedium lasers, and a JGauss rifle with 3 tons of ammo.  The ferro and XL spaces are freed up for this, new armor and Zeta engine"
+    },
+    {
+      "type": "len_string",
+      "start": 2461,
+      "end": 2464,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 2464,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2465,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2466,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2467,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2468,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2469,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2470,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2471,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2472,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2473,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2474,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2475,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2476,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2477,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2478,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2479,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2480,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2481,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2482,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2483,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2484,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2485,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2486,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2487,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2488,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2489,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2490,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2491,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2492,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2493,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2494,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2495,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2496,
+      "end": 2506,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "len_string",
+      "start": 2506,
+      "end": 2511,
+      "length": 3,
+      "text": "\u0006\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 2511,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2512,
+      "end": 2522,
+      "length": 8,
+      "text": "Adv. DHS"
+    },
+    {
+      "type": "len_string",
+      "start": 2522,
+      "end": 2525,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2525,
+      "end": 2528,
+      "length": 1,
+      "text": "2"
+    },
+    {
+      "type": "len_string",
+      "start": 2528,
+      "end": 2531,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 2531,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2532,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2533,
+      "end": 2791,
+      "length": 256,
+      "text": "\u00000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0080?\u0001\u0000\u0010'\u00a0\u0086\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0015\u0000000000000000000000000\u0003\u0000\u0004\u00003050\u0001\u0000\u0000\u0000\u0000\u0000\u0006\u0000\u0000\u0000\b\u0000Adv. DHS\u0001\u0000 \u0001\u00002\u0001\u0000\u0000\u0000\u0000\u0000\u0001\u00000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0080?\u0001\u0000\u0010'\u00a0\u0086\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0015\u0000000000000000000000000\u0003\u0000\u0004\u00003050\u0001\u0000\u0000\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u000e\u0000Cheshire Suite\u0001\u0000 \u0001\u00000\u0001\u0000\u0000\u0000\u0000\u0000\u0001\u00000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u000e\u0000\u000e\u0000\u0000\u0000\u0000@\u0002\u0000\u0010'\u00e0\u0093\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0015\u0000000000000000"
+    },
+    {
+      "type": "ascii",
+      "start": 2791,
+      "end": 2800,
+      "text": "000000000"
+    },
+    {
+      "type": "len_string",
+      "start": 2800,
+      "end": 2805,
+      "length": 3,
+      "text": "\u0004\u00003"
+    },
+    {
+      "type": "ascii",
+      "start": 2805,
+      "end": 2808,
+      "text": "050"
+    },
+    {
+      "type": "len_string",
+      "start": 2808,
+      "end": 2811,
+      "length": 1,
+      "text": "\u009c"
+    },
+    {
+      "type": "len_string",
+      "start": 2811,
+      "end": 2814,
+      "length": 1,
+      "text": "\u0000"
+    },
+    {
+      "type": "ascii",
+      "start": 2814,
+      "end": 2815,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2815,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2816,
+      "end": 2826,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2826,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2827,
+      "end": 2837,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2837,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2838,
+      "end": 2848,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2848,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2849,
+      "end": 2859,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2859,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2860,
+      "end": 2870,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2870,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2871,
+      "end": 2881,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2881,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2882,
+      "end": 2892,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2892,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2893,
+      "end": 2902,
+      "text": "(Unknown)"
+    }
+  ]
+}

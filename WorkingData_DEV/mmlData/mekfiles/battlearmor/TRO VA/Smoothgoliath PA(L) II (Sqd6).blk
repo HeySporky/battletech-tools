@@ -1,0 +1,155 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a8dd-70d4-95b8-a697e09591ac
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Smoothgoliath PA(L)
+</Name>
+
+<Model>
+II(Sqd6)
+</Model>
+
+<mul id:>
+9040
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+-1
+</armor_tech>
+
+<Squad Equipment>
+BAArmoredGlove:LA
+BAArmoredGlove:RA
+BACuttingTorch:RA
+BASearchlight:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The Smoothgoliath II doubles the Smoothdavid's armor protection to 100 kilograms of standard plating, giving operators meaningful resistance against fragmentation, blast overpressure, and incidental weapons fire. This added protection comes at the cost of both anti-personnel weapon mounts, which are replaced by a cutting torch on the right arm and a heat sensor on the left. The cutting torch allows operators to breach containers, sever wiring, and access sealed compartments during disposal operations. The heat sensor provides thermal detection capability for locating concealed devices and monitoring chemical reactions.</p><p>A searchlight and armored glove manipulators are retained from the base Smoothdavid design. Cargo capacity drops to 140 kilograms to accommodate the heavier armor shell. The suit maintains the same ground speed as the Smoothdavid II, ensuring disposal teams can keep pace with their security escorts. The Smoothgoliath lacks any offensive armament, making it wholly dependent on escort suits or conventional security personnel for protection during field operations.</p>
+</capabilities>
+
+<overview>
+<p>The Smoothgoliath is a light personal armor suit produced by TharHes Industries as a dedicated explosives disposal and hazardous environment companion to the Smoothdavid. Introduced alongside the Smoothdavid in 3064, the design trades all offensive capability for substantially increased armor protection and specialized sensor equipment. Government agencies and emergency services across the Lyran Alliance adopted the suit for bomb disposal, hazardous materials response, and industrial safety roles where operator survival outweighed the need for armament.</p>
+</overview>
+
+<deployment>
+<p>ComStar and Word of Blake technical security teams fielded Smoothgoliath suits in six-trooper Level I formations for HPG facility maintenance and emergency response. The suit's heat sensor and cutting torch proved particularly useful for investigating equipment malfunctions and responding to fire or chemical hazards within the complex machinery of hyperpulse generator stations.</p>
+</deployment>
+
+<history>
+<p>TharHes Industries developed the Smoothgoliath alongside the Smoothdavid as a specialized companion suit optimized for explosives disposal and hazardous environment work. Where the Smoothdavid prioritized versatility and modular weapon capability, the Smoothgoliath sacrificed offensive armament entirely in favor of doubled armor protection and dedicated detection equipment. The two suits were marketed together from their 3064 introduction, intended to operate as complementary halves of a security response team.</p><p>Demand for the Smoothgoliath proved steadier than its more visible sibling. While the Smoothdavid attracted attention through Solaris VII arena appearances and high-profile security contracts, the Smoothgoliath filled a quieter but persistent need across government agencies, emergency services, and industrial concerns throughout the Lyran Alliance. Bomb disposal teams, hazardous materials responders, and mining safety crews all found the suit's combination of heavy protection and sensor capability well suited to their requirements. The reduced cargo capacity compared to the Smoothdavid was an acceptable trade-off for operators who valued survival over loadout flexibility.</p>
+</history>
+
+<manufacturer>
+TharHes Industries
+</manufacturer>
+
+<primaryFactory>
+Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

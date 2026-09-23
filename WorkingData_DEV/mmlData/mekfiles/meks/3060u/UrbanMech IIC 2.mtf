@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ccbc-7872-bf1f-78417589d0e3
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:UrbanMech IIC
+model:2
+mul id:3362
+
+Config:Biped
+techbase:Clan
+era:3070
+source:TR:3060
+published:RS:3060u
+rules level:2
+role:Sniper
+
+quirk:ext_twist
+quirk:no_arms
+quirk:low_profile
+
+mass:30
+engine:90 Fusion (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:3
+jump mp:3
+
+armor:Standard(Clan)
+LA armor:10
+RA armor:10
+LT armor:8
+RT armor:8
+CT armor:11
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:4
+RTR armor:4
+RTC armor:8
+
+Weapons:2
+Flamer, Left Arm
+HAG/20, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLFlamer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLHAG20
+CLHAG20
+CLHAG20
+CLHAG20
+CLHAG20
+CLHAG20
+Hyper-Assault Gauss Rifle/20 Ammo
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Jump Jet
+Hyper-Assault Gauss Rifle/20 Ammo
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Heat Sink
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The UrbanMech IIC represents Clan Coyote's Golden Century upgrade of the original Inner Sphere design, developed around 2849 while Coyote scientists were pioneering OmniMech technology. Technicians studied battle data from the Amaris Civil War to understand the design's limitations and potential, ultimately deciding that the UrbanMech required refinement rather than radical redesign. By upgrading key components to Clan standards, they increased ground speed by more than fifty percent and improved jumping capability to ninety meters.</p><p>The UrbanMech was never popular among Inner Sphere MechWarriors, and its Clan successor found a similar niche in second-line and freeborn units rather than front-line Clusters. Clan Coyote remains the sole manufacturer, producing the design at Beta Plant 2W, though the 'Mech has spread to several other Clans through combat salvage and inter-Clan trade.</p>
+
+capabilities:<p>The UrbanMech IIC improves upon its predecessor through systematic component upgrades rather than fundamental redesign. The original Leenex 60 engine was replaced with a Model XT4 90 series powerplant, increasing maximum speed to 54 kilometers per hour, a more than fifty percent improvement that makes the design considerably more viable in varied terrain. The Light Series Mk. II jump jets extend jumping range to ninety meters, enhancing the 'Mech's ability to exploit urban terrain and access elevated positions.</p><p>The primary armament was upgraded to a Type 9 Ultra Autocannon/10, allowing the 'Mech's main gun to fire at double the rate of its Inner Sphere predecessor. This dramatically increases damage potential during brief engagements, though MechWarriors must carefully manage ammunition consumption. A Series 1 Extended-Range small laser provides backup capability when ammunition runs dry. CASE protection in the right torso shields the pilot from ammunition explosions.</p><p>Particularly, the Coyote engineers retained the original's six tons of standard armor and ten single heat sinks rather than upgrading to Clan-standard double heat sinks. This cost-saving measure reflects the design's intended role as an inexpensive second-line unit rather than a front-line combatant, keeping production costs manageable while still delivering meaningful capability improvements.</p>
+
+deployment:<p>Introduced in 3070 during the Jihad era, the UrbanMech IIC 2 replaces the ultra autocannon and ER small laser with a Class 20 Hyper-Assault Gauss Rifle and two tons of ammunition. A flamer provides backup capability for anti-infantry work. The HAG/20 delivers devastating close-range firepower through rapid-fire gauss slugs, making this variant even more lethal in the confined urban terrain the design was built to dominate. The modification maintains the improved speed and jumping capability of the standard IIC while significantly increasing short-range lethality.</p>
+
+history:<p>The UrbanMech IIC emerged during the Golden Century as Clan Coyote's technician caste sought to upgrade existing 'Mech designs while their scientist caste developed revolutionary OmniMech technology. The UrbanMech was selected as the first such project, with engineers reviewing battlevids from the Amaris Civil War to establish a comprehensive picture of the design's strengths and limitations. The resulting upgrade retained the original's urban combat philosophy while addressing its most critical deficiency, ground speed.</p><p>The newly christened UrbanMech IIC proved its worth during a Clan Burrock raid on the Coyote genetic repository on Tamaron. When Burrock warriors attempted to seize genetic material, they were intercepted by the Eighteenth Assault Cluster of Lambda Galaxy in the close confines of Mecca City. Fighting in terrain ideally suited to their capabilities, the UrbanMech IICs repeatedly rounded corners of buildings, fired on the Burrock 'Mechs, and jumped away before their opponents could effectively respond. After a drawn-out engagement, the Burrock warriors withdrew without reaching the repository.</p><p>Production has remained exclusively with Clan Coyote at Beta Plant 2W, though the design has spread to other Clans over the centuries. Both Omicron and Nu Galaxies of Clan Coyote field several units equipped with the UrbanMech IIC. Clans Snow Raven, Ice Hellion, and Hell's Horses also maintain small numbers in their second-line formations. During the Jihad era, Coyote engineers introduced the UrbanMech IIC 2 variant in 3070, replacing the ultra autocannon with a Hyper-Assault Gauss Rifle for even greater close-range devastation.</p>
+
+manufacturer:Beta Plant 2W
+
+primaryfactory:Tamaron
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Mk. VI Standard Light Chassis
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Model XT4 90
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:Forging ZK11 Standard
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Light Series Mk. II
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Build 1685 Tacticom
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:HT9 TTS

@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c9c9-77b0-80d2-11f1e25df4ec
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Emperor
+model:EMP-6A
+mul id:964
+
+Config:Biped
+techbase:Inner Sphere
+era:2612
+source:TR:3058U,TR:SW
+published:RS:SW,RSFP:SLDF2
+rules level:2
+role:Juggernaut
+
+quirk:command_mech
+weaponquirk:imp_cooling:LA:9:Large Laser
+weaponquirk:imp_cooling:RA:9:Large Laser
+
+mass:90
+engine:270 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:12 IS Double
+walk mp:3
+jump mp:3
+
+armor:Standard(Inner Sphere)
+LA armor:30
+RA armor:30
+LT armor:30
+RT armor:30
+CT armor:48
+HD armor:9
+LL armor:38
+RL armor:38
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:7
+LB 10-X AC, Left Arm
+Large Laser, Left Arm
+LB 10-X AC, Right Arm
+Large Laser, Right Arm
+Medium Pulse Laser, Left Torso
+Medium Pulse Laser, Right Torso
+Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+Large Laser
+Large Laser
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+Large Laser
+Large Laser
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMediumPulseLaser
+IS LB 10-X AC Ammo
+IS LB 10-X Cluster Ammo
+ISCASE
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMediumPulseLaser
+IS LB 10-X AC Ammo
+IS LB 10-X Cluster Ammo
+ISCASE
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Medium Laser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Emperor is one of the oldest assault BattleMech designs in existence, with roots stretching back to 2442 when Quarry Arms of Terra first fielded a primitive prototype designated the EMP-1A. Conceived as a heavy fire support platform marrying paired autocannon with energy weapons on a heavily armored ninety-ton frame, the Emperor was among the earliest 'Mechs to push beyond the eighty-ton threshold. Despite a troubled development plagued by engineering setbacks, the design saw limited production through 2472 before Quarry Arms shelved the project. StarCorps Industries later acquired the design rights and introduced the landmark EMP-6A in 2612, making the Emperor the first BattleMech to integrate an XL engine, LB 10-X autocannon, double heat sinks, and CASE into a single chassis. Distributed exclusively to Star League Defense Force Royal units, the Emperor earned a reputation as a prestigious command 'Mech favored by senior officers for its combination of firepower, durability, and jump capability, a rare trait for a ninety-ton design.</p>
+
+capabilities:<p>The Emperor's defining characteristic is its unusual agility for an assault-class platform. Powered by a PlasmaStar 270 XL engine, the 'Mech achieves a respectable top speed of 54 km/h, while Pitban LFT-50 jump jets grant ninety meters of jump capability, making it the first 'Mech above ninety tons to mount jump jets, predating the Highlander by decades. This mobility allows the Emperor to exploit terrain and reposition far more effectively than most assault 'Mechs, giving MechWarriors tactical options typically unavailable at this weight class.</p><p>The primary armament consists of twin Imperator Code Red LB 10-X autocannon capable of firing both standard and cluster munitions, the latter enabling the Emperor to serve in an anti-aircraft role or exploit breaches in enemy armor. Two Magna Mk III large lasers provide energy firepower at comparable ranges, while a pair of Defiance P5M medium pulse lasers and a single Phototech 806c medium laser offer effective close-range defense. Seventeen and a half tons of ArcShield VII Mk 5 armor provide excellent protection, with CASE shielding the ammunition bays from catastrophic detonation, though a magazine hit would still effectively mission-kill the 'Mech. Twelve double heat sinks manage the considerable thermal load, though sustained fire from all weapons can still push the Emperor into dangerous heat levels.</p>
+
+deployment:<p>The definitive Emperor variant, this variant was introduced by StarCorps Industries in 2612 as the most technologically advanced assault 'Mech of its era. The first BattleMech to combine an XL engine, LB 10-X autocannon, double heat sinks, and CASE on a single platform, the -6A was issued exclusively to Star League Defense Force Royal units. The twin Imperator Code Red LB 10-X autocannon provide versatile firepower through standard and cluster munitions, while the energy weapon array and Pitban jump jets give the design remarkable tactical flexibility for its tonnage. Following the Succession Wars production hiatus, StarCorps resumed manufacturing this variant in 3057 and it remains the baseline configuration from which all modern Emperor variants derive.</p>
+
+history:<p>The Emperor's origins lie in the earliest days of BattleMech development. Quarry Arms, part of the original consortium that designed the Mackie, envisioned the Emperor as the Hegemony's next great assault 'Mech. Dr. Octavi Lang began sketching the concept before Mackie production commenced, but neither he nor the Quarry Arms board appreciated the engineering complexity involved. The first prototypes in 2442 suffered crippling problems, balance failures, electromagnetic interference, and cascading electronics faults left them barely functional. Improved prototypes followed in 2452, but the Hegemony Armed Forces ultimately selected General Mechanics' lighter Orion instead. A limited emergency production run between 2464 and 2472 produced the last EMP-1A units, which served in support roles where their heavy armor compensated for limited firepower. The Emperor was formally declared obsolete before its production run was even complete.</p><p>StarCorps Industries transformed the Emperor's fortunes with the EMP-6A in 2612, incorporating an XL engine, LB 10-X autocannon, double heat sinks, and CASE, technologies never before combined on a single chassis. Exclusively issued to SLDF Royal units, the Emperor became a prestigious command platform produced across StarCorps facilities on Son Hoa, St. Ives, Fletcher, and Terra. The fall of the Star League brought near-extinction: Marik forces obliterated the Son Hoa plant with nuclear weapons during the Second Succession War, and surviving factories gradually lost the ability to manufacture the design's advanced components. Remaining Emperors became increasingly rare prizes throughout the Succession Wars as their irreplaceable systems degraded.</p><p>StarCorps' rebuilding of Son Hoa in 3057 marked the Emperor's return, and the timing proved fortuitous, the Clan Invasion had demonstrated an urgent need for capable assault 'Mechs. StarCorps unveiled five House-specific variants, with production distributed across Son Hoa, Menke, St. Ives, Crofton, and Emris IV. The Emperor found favor with Houses Steiner, Davion, Liao, and Marik, as well as prominent mercenary commands including the HeavyHell Raisers and Screaming Eagles. McCarron's Armored Cavalry leveraged access to StarCorps' Menke production through the McCarron's Trading Company. Word of Blake forces deployed Emperors during their Jihad-era assaults on Tharkad and New Avalon.</p><p>The Emperor's reach extended beyond the Inner Sphere during the Golden Century, when Clan Star Adder warriors recovered chassis from Brian Caches and refitted them with mixed Clan and Star League technology. Though eventually supplanted by Highlander variants, the Emperor's presence in Clan space underscored how widely the design had been distributed. In the Dark Age, the Capellan Confederation continued investing in the platform with the EMP-8L upgrade, while the Republic of the Sphere developed the radical EMP-6X "Phantom Emperor", an experimental psychological warfare platform coated in golden electroplate to exploit the legend of Sun-Tzu Liao's famous golden Emperor. The design's survival across nearly seven centuries of warfare testifies to the soundness of its fundamental concept.</p>
+
+manufacturer:StarCorps Industries|StarCorps Industries|StarCorps Industries|StarCorps Industries|StarCorps Industries|Marian Arms Inc.
+
+primaryfactory:Son Hoa|Menke|St. Ives|Fletcher (TH)|Terra|Alphard (MH)
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Titan Super
+systemmode:CHASSIS:TZ-7EA
+systemmanufacturer:ENGINE:PlasmaStar
+systemmode:ENGINE:270 XL
+systemmanufacturer:ARMOR:ArcShield
+systemmode:ARMOR:VII Mk 5
+systemmanufacturer:JUMP_JET:Pitban
+systemmode:JUMP_JET:LFT-50
+systemmanufacturer:COMMUNICATIONS:Telestar
+systemmode:COMMUNICATIONS:Model XTD-67A1
+systemmanufacturer:TARGETING:Starlight
+systemmode:TARGETING:Seeker LX-4X

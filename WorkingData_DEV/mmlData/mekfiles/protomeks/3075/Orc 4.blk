@@ -1,0 +1,174 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e0f7-768d-ba3e-49d454113a4e
+</UUID>
+
+<UnitType>
+ProtoMek
+</UnitType>
+
+<Name>
+Orc
+</Name>
+
+<Model>
+4
+</Model>
+
+<mul id:>
+4753
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Biped
+</motion_type>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<interface_cockpit>
+false
+</interface_cockpit>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+42
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+3
+5
+2
+2
+4
+</armor>
+
+<Body Equipment>
+Clan Ammo SRM-3 (3)
+Clan Machine Gun Ammo - Proto (12)
+EIInterface
+</Body Equipment>
+
+<Head Equipment>
+</Head Equipment>
+
+<Torso Equipment>
+CLSRM3
+</Torso Equipment>
+
+<Right Arm Equipment>
+CLMG
+</Right Arm Equipment>
+
+<Left Arm Equipment>
+CLMG
+</Left Arm Equipment>
+
+<Legs Equipment>
+</Legs Equipment>
+
+<capabilities>
+<p>The Orc is built for speed and close-range saturation fire. A thirty-six-rated fusion engine drives the four-ton frame to a cruising speed of sixty-four kilometers per hour, allowing it to keep pace with most Clan medium Meks. The quartet of single-tube SRM launchers, distributed between both arms and the torso, provides excellent missile coverage against multiple target types. Each arm launcher carries five rounds while the torso pair shares a ten-round magazine, giving the Orc twenty total missile salvos before exhausting its ammunition supply.</p><p>Twenty points of armor provide solid protection for a four-ton design, roughly equivalent to the five-ton Centaur and sufficient to survive several light weapon hits before structural compromise. The SRM-heavy loadout makes the Orc particularly effective against vehicles and infantry, where the cluster munitions can exploit weak armor coverage and suppression effects. Against heavier targets, a Point of Orcs can concentrate fire to achieve meaningful damage, though individual machines lack the punch to threaten heavy armor alone. The design lacks jump jets, limiting its tactical flexibility in broken terrain but keeping manufacturing costs and maintenance requirements low, consistent with the Horses' doctrine of fielding large numbers of combined-arms assets.</p>
+</capabilities>
+
+<overview>
+<p>The Orc is a four-ton second-generation ProtoMek designed by Clan Hell's Horses as their first homegrown ProtoMek design. Unveiled in 3066 after the Horses confirmed the value of first-generation ProtoMeks assimilated from the fallen Smoke Jaguars, the Orc was built with the Horses' unique combined-arms battle philosophy firmly in mind. Mounting four single-tube SRM launchers spread across the arms and torso, the Orc was specifically designed for anti-vehicle and anti-infantry work, the tactical roles the Hell's Horses have championed for centuries. The design quickly became a fixture in the Clan's frontline formations as a special attachment to every Cluster.</p>
+</overview>
+
+<deployment>
+<p>The Orc 4 stands as a compromise between the long-range Orc 2 and the close-combat Orc 3. A three-tube SRM launcher in the torso provides meaningful close-range punch, while machine guns in each arm handle anti-infantry work with sustained fire capability from a shared twelve-round ammunition supply. This combination gives the Orc 4 the most versatile engagement profile of any variant, capable of engaging infantry with machine gun fire, light vehicles with SRM volleys, and providing suppressive fire at multiple range bands. Armor drops to sixteen points, matching the Orc 3. Ground speed remains at sixty-four kilometers per hour cruising.</p>
+</deployment>
+
+<history>
+<p>The Orc emerged from the Hell's Horses' post-Refusal War revitalization program under Khan James Cobb. After the Clan's initial failure to secure an Inner Sphere foothold, Cobb launched a comprehensive program to recover damaged morale and prepare the touman for an eventual return to the Occupation Zones. ProtoMek technology, initially adopted on a probationary basis following the Jaguar Annihilation, was gradually integrated into the Horses' combined-arms doctrine during this period. By 3066, the Clan's scientists had accumulated enough experience with first-generation designs to unveil a ProtoMek built from the ground up to complement the Horses' signature infantry and vehicle formations.</p><p>The Orc found immediate acceptance within the Horse touman. Every ProtoMek Star assigned to the Clan's Alpha and Beta Galaxies fielded as many as two Orcs alongside older first-generation designs. Entire Stars and even Binaries of ProtoMeks were deployed as special attachments to every frontline Cluster, with the Orc serving as the backbone of these formations. The design's emphasis on anti-vehicle and anti-infantry firepower made it a natural complement to the Horses' Elemental forces, and the two unit types quickly developed cooperative tactics that leveraged their respective strengths.</p><p>The Horses' success with the Orc drew unwanted attention. Recent observations have shown a sharp decline in ProtoMek deployment across the Horses' entire touman following a rash of raids by unidentified Clan forces in and around their Occupation Zone. The mysterious invaders, fielding ProtoMeks of their own, focused their attacks on lesser objectives the Horses commonly assigned only a few Points to garrison. It is largely presumed that many of the Horses' own ProtoMeks fell victim to these attackers, who appeared to be Homeworld Clans eager to capitalize on the Horses' success and the chaos of the Jihad for their own ends.</p><p>Despite these losses, the Hell's Horses continued developing Orc variants throughout the late 3060s and into the Jihad era. The Orc 2 entered production in 3067 as a long-range fire support variant, while the Orc 3 and Orc 4 represented different approaches to maximizing close-range firepower. The design remains central to the Horses' ProtoMek doctrine, and replacement production at the Industriplex Upsilon on Niles has maintained steady output to offset combat losses.</p>
+</history>
+
+<manufacturer>
+Csesztreg Industriplex Epsilon|Industriplex Upsilon
+</manufacturer>
+
+<primaryFactory>
+Csesztreg|Niles
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:CH5-Baker
+TARGETING:EI-Pattern J
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Standard 4-O
+ENGINE:36 Fusion
+ARMOR:Standard
+COMMUNICATIONS:Series Augmented
+TARGETING:Series 2.1
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+4.0
+</tonnage>
+

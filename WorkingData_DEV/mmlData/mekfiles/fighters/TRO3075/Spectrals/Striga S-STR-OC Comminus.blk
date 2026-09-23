@@ -1,0 +1,192 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-af68-72a6-9cd8-479137ae74a0
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Striga
+</Name>
+
+<Model>
+S-STR-OC Comminus
+</Model>
+
+<mul id:>
+5151
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+6
+</SafeThrust>
+
+<cockpit_type>
+1
+</cockpit_type>
+
+<heatsinks>
+19
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<omnipodheatsinks>
+6
+</omnipodheatsinks>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+100
+76
+76
+70
+</armor>
+
+<Nose Equipment>
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISStreakSRM6:OMNI
+ISStreakSRM6:OMNI
+ISStreakSRM6:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISStreakSRM6:OMNI
+ISStreakSRM6:OMNI
+ISStreakSRM6:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISERMediumLaser:OMNI
+ISERMediumLaser:OMNI
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+ISCASE:OMNI
+IS Streak SRM 6 Ammo:OMNI
+IS Streak SRM 6 Ammo:OMNI
+IS Streak SRM 6 Ammo:OMNI
+IS Streak SRM 6 Ammo:OMNI
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Striga's defining characteristic is its Perdition 340-rated extralight engine driving a multi-positional thrust system capable of achieving nearly five gravities of acceleration in space, a performance level that rivals even Clan-made heavy fighters. This exceptional thrust is paired with eighteen tons of Divine Shield-D ferro-aluminum armor, providing near-record protection while still leaving more than half of the Striga's eighty-five ton frame available for pod-based weaponry. The collapsible wing structure, engineered primarily to improve vector thrust behavior in vacuum, produces a secondary effect of dramatically reducing the fighter's radar profile, allowing it to pass for a shuttle or escape pod at range. This combination of extreme thrust, heavy protection, and visual deception comes at a significant cost in accessibility: the unparalleled maneuverability imposes accelerative stresses that only the neurological and physical augmentations of Manei Domini warriors can reliably tolerate. The minimized cockpit further restricts the design to the Blakists' elite, making the Striga effectively unavailable to conventional pilots.</p>
+</capabilities>
+
+<overview>
+<p>The Striga is the first and heaviest of the Word of Blake's Spectral Series OmniFighters, a trio of aerospace craft designed exclusively for the Manei Domini and their cyber-enhanced pilots. Named for vampiric, transformed spirits of ancient lore and commissioned by Precentor Apollyon, the Striga represents Precentor Vapula's initial foray into aerospace fighter design following his work on the Celestial OmniMechs. Drawing from engineering principles found in the Free Worlds League Military's Shiva, the Striga introduced the multi-directional vectoring thrust system and minimized cockpit that would define the entire Spectral line. Rolling off refurbished production lines at Master's Wings Aerospace on Gibson in late 3071, it served as the template for the lighter Rusalka and Shade that followed, establishing the collapsible wing design that became the Spectrals' hallmark.</p>
+</overview>
+
+<deployment>
+<p>A close-range specialist configuration that exploits the Striga's extreme thrust-to-weight ratio to force engagements at short distances unfavorable to conventional opponents. Manei Domini pilots in this configuration press aggressively into melee range, where the Striga's maneuverability and heavy armor provide significant advantages over lightly armored adversaries.</p>
+</deployment>
+
+<history>
+<p>The Spectral Series emerged from the Word of Blake's campaign to equip its Manei Domini forces with purpose-built military hardware designed around the unique capabilities of its cyber-enhanced warriors. As the Jihad unfolded in the early 3070s, Precentor Apollyon commissioned a dedicated aerospace component to complement the Celestial OmniMechs already in production. The assignment fell to Precentor Vapula, the same engineer responsible for the Celestial series, who approached aerospace fighter design with the same philosophy applied to the ground machines: maximum performance for Manei Domini pilots, at the cost of any utility to conventional operators.</p><p>Production of the Spectral Series was centered on Gibson, where Brigadier Corporation's Portent factory had historically manufactured the Monarch DropShip line. The Word of Blake refurbished and rebranded those lines as Master's Wings Aerospace, retooling the facility for aerospace fighter production. The Striga, heaviest of the three designs, became the first to roll off the new lines in late 3071. The lighter Rusalka and Shade followed within the next year, each refining the collapsible wing technology and multi-directional vectoring thrust system introduced on the Striga.</p><p>From initial deployment the Spectral Series served exclusively within the Shadow Divisions, the Manei Domini formations that represented the Word of Blake's highest tier of military capability. Distribution was deliberate and tight. The Striga appeared first while the Forty-second Shadow Division conducted operations over Luthien, and the Rusalka's initial production runs were allocated to divisions that had suffered heavy losses, particularly the Forty-fifth Division following its retreat from Benjamin. The majority of later Rusalka production went to the Forty-ninth and Fifty-second Divisions on Gibson, and the WoBS Beneficence, formerly the FSS Melissa Davion, received at least two Level IIs of Rusalka fighters to replace its Avalon-class complement. The Shade entered service last, confirmed with the Fifty-second and Forty-ninth Shadow Divisions, with unverified reports placing small numbers in the Forty-fourth and Fifty-first Divisions as well.</p><p>The Shadow Divisions employed the Spectrals aggressively throughout the Jihad, conducting raids on Hall and Alphard in 3073, defending Gibson during the same period, and pursuing retreating conventional forces as the Word's grip on key systems tightened. Requests from Cameron St. Jamais for Striga allocation were reportedly refused by Precentor Apollyon, an indication of the growing internal divide between the Word's political and military leadership that would contribute to the Blakists' eventual collapse.</p><p>With the Word of Blake's defeat, production at Master's Wings Aerospace ceased and was never resumed. No Spectral fighter passed into the hands of successor states or mercenary forces in confirmed numbers, and the surviving examples were gradually lost to attrition and parts shortages. The clearest legacy of Vapula's Spectral program lived on in the Republic of the Sphere, whose Boeing Interstellar facility on Terra developed the Simurgh in the post-Jihad years, a heavy OmniFighter loosely derived from the Striga's design approach.</p>
+</history>
+
+<manufacturer>
+Master's Wings Aerospace
+</manufacturer>
+
+<primaryFactory>
+Gibson
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Master's Wings Aerospace
+ENGINE:Perdition
+ARMOR:Unknown
+COMMUNICATIONS:Master's Wings Aerospace
+TARGETING:Master's Wings Aerospace
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Spectral Series ST1F
+ENGINE:340 XL
+ARMOR:Divine Shield-D
+COMMUNICATIONS:Master's Voice Cel-Beta
+TARGETING:Master's Sight 2-Psi
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+85.0
+</tonnage>
+

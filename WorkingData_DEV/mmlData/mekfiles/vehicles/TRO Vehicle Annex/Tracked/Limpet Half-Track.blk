@@ -1,0 +1,178 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb0e-7b5f-afa0-b120634189cc
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Limpet Half-Track
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3869
+</mul id:>
+
+<year>
+2715
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+standardseats:3.0:0:-1::-1:0
+troopspace:1.0
+cargobay:1.112:1:2::-1:0
+</transporters>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+49
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+3
+3
+3
+2
+1
+</armor>
+
+<Body Equipment>
+Armored Chassis
+Advanced Fire Control
+</Body Equipment>
+
+<Front Equipment>
+HHSearchlight
+</Front Equipment>
+
+<Right Equipment>
+InfantryAssaultRifle(PT):SIZE:10.0
+PintleTurret
+</Right Equipment>
+
+<Left Equipment>
+InfantryAssaultRifle(PT):SIZE:10.0
+PintleTurret
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+InfantryStandardSRM:SIZE:1.0
+</Turret Equipment>
+
+<barrating>
+8
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Limpet shares the Rock Rover's basic layout and performance characteristics, including its half-track drivetrain, electric fuel cell engine, and BAR 8 rated armor protection. The vehicle's small size and tracked rear section allow it to traverse difficult terrain while maintaining a low profile suitable for urban operations.</p><p>The primary difference between the Limpet and its Taurian counterpart lies in the turret armament. Where the Rock Rover mounts a support laser, the Limpet substitutes a short-range missile launcher. This change reflects Combine infantry doctrine's preference for missile-based fire support at close range, trading sustained laser fire for greater impact per volley. The two pintle-mounted auto-rifles and advanced fire control system are retained from the original design. The Limpet carries the same infantry compartment as the Rock Rover, accommodating a full squad of infantry with their equipment through a rear-mounted door. The fuel cell powerplant provides adequate range for garrison patrol and convoy escort duties without the logistical burden of more complex engine types.</p>
+</capabilities>
+
+<overview>
+<p>The Limpet is a four-ton infantry half-track produced by Buda Imperial Vehicles for the Draconis Combine. Introduced in 2715, the design is a near-exact copy of the Taurian Concordat's Rock Rover, adapted to meet Combine procurement requirements. Buda Imperial Vehicles, an established military vehicle manufacturer for the Draconis Combine Mustered Soldiery, made minimal modifications to the proven Rock Rover platform. The Limpet fills the same infantry transport and fire support niche as its Taurian predecessor, providing mechanized infantry formations with a small, durable platform for urban and rough terrain operations. The vehicle has seen widespread service across Combine garrison forces, valued for its simplicity and ease of maintenance.</p>
+</overview>
+
+<deployment>
+<p>The Limpet serves Draconis Combine mechanized infantry formations as a light transport and fire support platform. Its SRM armament provides close-range punch suited to the urban and garrison operations typical of its deployment profile. The vehicle is most commonly found in planetary militia and second-line units throughout the Combine's interior worlds.</p>
+</deployment>
+
+<history>
+<p>Buda Imperial Vehicles introduced the Limpet in 2715, drawing heavily from Pinard Electric Motors' successful Rock Rover design. The decision to produce what amounted to a near-copy reflected the pragmatic approach common among Combine military manufacturers during the Star League era, when proven designs were often adapted rather than developed from scratch.</p><p>Production was centered at Buda Imperial Vehicles' facilities on Luthien, ensuring steady output under direct Combine oversight. The vehicle served DCMS garrison and militia forces through the Star League period and across the Succession Wars, providing a reliable infantry transport for second-line formations. The Limpet's simple construction and use of readily available components helped it weather the technological decline of the Succession Wars better than more sophisticated designs.</p><p>Manufacturing continued through the Clan Invasion and Civil War eras before ceasing around the onset of the Jihad. Buda Imperial Vehicles' Luthien facilities suffered damage during the Jihad along with most major defense industries on the planet, though they were eventually restored. The Limpet's long production run and widespread distribution across Combine garrison forces ensured that existing vehicles remained in service well beyond the end of new production.</p>
+</history>
+
+<manufacturer>
+Buda Imperial Vehicles
+</manufacturer>
+
+<primaryFactory>
+Luthien
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Buda Imperial Vehicles
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Electric (Fuel Cell)
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<notes>
+Extra ammo:
+</notes>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+4.0
+</tonnage>
+
+<fuel>
+0.018
+</fuel>
+

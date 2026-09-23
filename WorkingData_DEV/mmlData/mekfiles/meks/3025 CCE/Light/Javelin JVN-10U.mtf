@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c13a-761c-bf7c-de514bedc49d
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Javelin
+model:JVN-10U
+
+Config:Biped
+techbase:Inner Sphere
+era:2751
+source:TR:3025C
+rules level:1
+role:Striker
+
+quirk:unbalanced
+
+mass:30
+engine:180 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:6
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:6
+RA armor:6
+LT armor:8
+RT armor:8
+CT armor:8
+HD armor:6
+LL armor:8
+RL armor:8
+RTL armor:2
+RTR armor:2
+RTC armor:2
+
+Weapons:2
+SRT 6, Left Torso
+SRT 6, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+SRT 6
+SRT 6
+IS Ammo SRTorpedo-6
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+SRT 6
+SRT 6
+IS Ammo SRTorpedo-6
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Javelin was introduced in 2751 by Stormvanger Assemblies as a light reconnaissance 'Mech designed for export to Star League member states. Built as a compromise between speed and firepower, the thirty-ton design proved fast enough to avoid heavier opponents while carrying sufficient weaponry to discourage pursuit. The Javelin's exceptional maneuverability made it equally adept at conducting ambushes, earning it the widespread reputation of appearing almost out of nowhere and giving rise to the phrase "sneaky as a Javelin."</p><p>Though production on Caph ended when the factory was destroyed during the Amaris Civil War in 2774, the Federated Suns (the design's largest customer) successfully incorporated the Javelin into virtually all of their BattleMech regiments. The design's continued popularity prompted Jalastar Aerospace to begin new production in 3055, ensuring the Javelin's service well into the thirty-second century.</p>
+
+capabilities:<p>The Javelin mounts a pair of Arrowlite SRM-6 launchers in its torso, providing devastating close-range firepower capable of exploiting breaches in enemy armor. With one ton of ammunition per launcher, the design carries sufficient missile stores for most engagements, though extended guerrilla operations can strain supply lines. The placement of these launchers so far forward in the torso creates a front-heavy center of gravity, giving the Javelin a distinctive forward lean when running at full speed. Pilots unfamiliar with this characteristic often struggle to keep the 'Mech upright in difficult terrain, though experienced MechWarriors learn to compensate for this tendency.</p><p>A GM 180 fusion engine propels the Javelin to speeds of ninety-seven kilometers per hour, while six Rawlings 95 jump jets provide a jumping distance of one hundred eighty meters. This mobility allows the Javelin to dictate engagements, closing rapidly to deliver its missile payload before withdrawing. However, with only four tons of StarGuard I armor, the design is ill-suited for prolonged firefights or hand-to-hand combat, and commanders typically withdraw their Javelins once ammunition is expended.</p>
+
+deployment:<p>A straightforward field modification popular on water-rich worlds, the 10U replaces the standard SRM-6 racks with torpedo-armed SRT-6 launchers. This variant especially saw action during the Second Battle of Cylene II in 3002, where Javelins equipped with this configuration lay in ambush beneath the waters of Waterhole Number Nine before surfacing to devastate Kurita assault 'Mechs at point-blank range.</p>
+
+history:<p>Stormvanger Assemblies introduced the Javelin in 2751 as an export design for Star League member states seeking a capable light reconnaissance platform. The Federated Suns emerged as the largest customer, and House Davion took particular interest in the design's development. By the opening shots of the First Succession War, the Javelin had been integrated into most Federated Suns regiments, its sudden battlefield appearances catching many enemy combatants off guard.</p><p>The Javelin earned its reputation for ambush tactics during numerous engagements throughout the Succession Wars. During the long Battle of Kentares, a lance of Javelins and a Wasp from the Second Crucis Lancers executed a devastating rear attack against Kurita forces, destroying a Phoenix Hawk and damaging several other 'Mechs before using leapfrogging tactics to withdraw to friendly lines. The Second Battle of Cylene II in December 3002 demonstrated even more innovative usage, when recon lances composed mostly of Javelins hid beneath thirty meters of water in Waterhole Number Nine. When Kurita assault regiments entered the lake, the concealed Javelins surfaced and unleashed devastating point-blank missile barrages, contributing to the Combine's subsequent withdrawal from the planet.</p><p>The destruction of Stormvanger's Caph factory in 2774 during the Amaris Civil War ended original production. Despite this, the Javelin remained in widespread service, particularly with the Armed Forces of the Federated Suns. During the War of 3039, elements of the Tenth Deneb Light Cavalry on Marduk employed Javelins in aggressive anti-armor tactics, charging through Combine Demolisher formations while delivering full salvos of missiles.</p><p>Following the Clan Invasion, the Federated Commonwealth initiated upgrade programs incorporating recovered lostech. Jalastar Aerospace began producing new Javelins in 3055 at the behest of AFFC High Command, with the JVN-11D becoming the primary production variant during the Jihad era. The ilClan period has seen Jalastar return the Javelin to its classic missile-armed striker role with the JVN-12N, now featuring Clan-specification weaponry and enhanced mobility for continued service alongside Stingers and Wasps in AFFS reconnaissance lances.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Duralyte
+systemmode:CHASSIS:246
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:180
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:I
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:95
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T10B
+systemmanufacturer:TARGETING:Dynatec
+systemmode:TARGETING:128C

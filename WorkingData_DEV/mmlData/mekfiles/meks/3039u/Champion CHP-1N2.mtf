@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c1c7-77f7-9332-0e0fdb47cf28
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Champion
+model:CHP-1N2
+mul id:549
+
+Config:Biped
+techbase:Inner Sphere
+era:2667
+source:TR:3039
+published:RS:3039u
+rules level:2
+role:Skirmisher
+
+quirk:no_arms
+
+mass:60
+engine:300 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:18
+RT armor:18
+CT armor:24
+HD armor:9
+LL armor:15
+RL armor:15
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:6
+SRM 6, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+LB 10-X AC, Right Torso
+Small Laser, Center Torso
+Small Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+SRM 6
+SRM 6
+ISArtemisIV
+Medium Laser
+Medium Laser
+IS Ammo SRM-6 Artemis-capable
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X AC Ammo
+IS LB 10-X Cluster Ammo
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Small Laser
+Small Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Champion was introduced in 2602 by Bergan Industries as a heavy BattleMech dedicated to fast strike operations and heavy reconnaissance. Bergan's second BattleMech design after the highly successful Locust, the Champion beat out a competing bid from Earthwerks Incorporated based on a modified Griffin, winning an initial order of two hundred machines for the Star League Defense Force. Despite criticism that the design was too large, underarmed, and underarmored for its weight class, the Champion proved popular during the era of small skirmishes and duels known as the Hidden Wars, where its unusual speed for a heavy 'Mech gave it a decisive tactical edge. Though production was interrupted for centuries following the fall of the Star League, the Champion's speed and adaptability ensured its continued presence on battlefields across the Inner Sphere.</p>
+
+capabilities:<p>The Champion's defining characteristic is its Vlar 300 fusion engine, which occupies nearly a third of the 'Mech's total mass but propels the sixty-ton machine to speeds exceeding eighty-five kilometers per hour, a pace normally reserved for far lighter designs. This emphasis on speed comes at the cost of both firepower and protection, a trade-off that has drawn criticism throughout the design's long service history.</p><p>The primary armament centers on a Lubalin Ballistics LB 10-X autocannon, complemented by a Harpoon-6 SRM launcher mated to an Artemis IV fire control system. Two Magna Mk II medium lasers and a pair of Martell small lasers round out the weapons array. While this combination provides effective engagement capability across multiple range brackets, the overall firepower is considered modest for a heavy 'Mech. The StarSlab/2 ferro-fibrous armor provides only marginal protection, leaving the Champion vulnerable to concentrated fire.</p><p>Heat management proves similarly problematic, as the design mounts only ten single heat sinks, a cost-cutting measure by Bergan that forces careful fire discipline when employing all weapons simultaneously. The Champion's versatility paradoxically works against it, as commanders frequently struggle to assign it a definitive tactical role, leaving many machines rotating between lance assignments rather than fulfilling a dedicated mission.</p>
+
+deployment:<p>First appearing around 2667, this variant serves as a common but unofficial field modification of the base Champion. Recognizing the design's chronic heat management problems, many field technicians undertook the difficult process of replacing the standard heat sinks with double-strength models. Despite the widespread popularity of this modification, Bergan Industries never authorized it as an official factory variant, likely unwilling to publicly acknowledge a fundamental weakness in their own design.</p>
+
+history:<p>The Champion served prominently in many of the Star League Defense Force's independent BattleMech regiments throughout the twenty-seventh and twenty-eighth centuries. During the Hidden Wars era, the design's speed and tactical flexibility made it an asset in the small-scale engagements and positional duels that characterized the period. As newer and more capable designs entered service, the SLDF began distributing surplus Champions to the member states' house armies.</p><p>The destruction of Bergan Industries' New Earth factory during the Amaris Civil War in 2776 effectively ended Champion production for over two centuries. The Succession Wars proved devastating to the remaining Champion population. The loss of advanced technology, particularly the ferro-fibrous armor and LB 10-X autocannon, forced field technicians to downgrade surviving machines with standard components. By the end of the Third Succession War, only a handful of Champions remained operational across the Great Houses, with the Capellan Confederation maintaining a slight numerical advantage followed by the Lyran Commonwealth.</p><p>House Liao made repeated attempts to obtain technical data on the Champion's advanced systems from ComStar, but the secretive organization consistently refused such requests, leaving the Capellans to attempt their own reverse-engineering efforts through the 3040s.</p><p>ComStar preserved a number of original Champions in their hidden stockpiles, which were later used to equip the Com Guards. The Clans also maintained the design in their garrison forces, bringing examples along during the Clan Invasion. Prior to the decisive Battle of Tukayyid in 3052, ComStar upgraded several Champions as part of the informal Clanbuster program. Production of new Champions eventually resumed at the rebuilt Bergan Industries facilities on New Earth in the late 3050s, yielding updated variants for ComStar and, following the ComStar Schism, the Word of Blake.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Bergan Industries
+systemmode:CHASSIS:Bergan XI
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:Vlar 300
+systemmanufacturer:ARMOR:StarSlab
+systemmode:ARMOR:StarSlab/2 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Garrett
+systemmode:COMMUNICATIONS:Garrett T-11 C
+systemmanufacturer:TARGETING:Mercury
+systemmode:TARGETING:Mercury-IV with Artemis IV FCS

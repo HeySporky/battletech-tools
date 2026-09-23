@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cd4d-717a-8dd6-58a008fefac4
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Lobo
+model:
+mul id:4528
+
+Config:Biped
+techbase:Clan
+era:3059
+source:TR:3067
+published:RS:3067u
+rules level:2
+role:Striker
+
+quirk:ext_twist
+quirk:difficult_maintain
+weaponquirk:direct_torso_mount:HD:3:CLAntiMissileSystem
+
+mass:40
+engine:240 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:6
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:12
+RA armor:12
+LT armor:15
+RT armor:15
+CT armor:18
+HD armor:9
+LL armor:19
+RL armor:19
+RTL armor:5
+RTR armor:5
+RTC armor:5
+
+Weapons:7
+Heavy Medium Laser, Left Arm
+Heavy Medium Laser, Right Arm
+ATM 6, Left Torso
+Heavy Small Laser, Left Torso
+ATM 6, Right Torso
+ER Large Laser, Right Torso
+Anti-Missile System, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+CLAMS Ammo
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLHeavyMediumLaser
+CLHeavyMediumLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLATM6
+CLATM6
+CLATM6
+Clan Ammo ATM-6 ER
+Clan Ammo ATM-6
+CLHeavySmallLaser
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLATM6
+CLATM6
+CLATM6
+Clan Ammo ATM-6 HE
+Clan Ammo ATM-6
+CLERLargeLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLAntiMissileSystem
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Lobo was conceived in the late 3050s by Clan Wolf as a lighter, faster companion to the venerable Timber Wolf. Introduced around 3059, the forty-ton medium BattleMech was designed to complement Clan Wolf's frontline OmniMechs with a focus on missile and energy firepower. The incorporation of newly acquired Advanced Tactical Missile technology drove the design's development, though the cost of these systems necessitated weight-saving measures throughout the chassis. At forty tons, the Lobo fills the role of a fast skirmisher capable of outpacing the Timber Wolf, aligning with Clan Wolf's shift toward faster, harder-hitting designs during the late thirty-first century.</p>
+
+capabilities:<p>Built on a Type-A endo steel chassis and powered by a General Systems 240 XL engine, the Lobo achieves a top speed of ninety-seven kilometers per hour, making it one of the faster medium 'Mechs in Clan Wolf's touman. The design mounts a single Volt-7 extended range large laser in the chest for long-range jousting, while twin CC 6-rack Advanced Tactical Missile launchers provide exceptional flexibility through standard, extended-range, and high-explosive munition types. Paired General Systems heavy medium lasers and a single heavy small laser deliver devastating close-range firepower. Four tons of ATM ammunition supply adequate stores for sustained engagements.</p><p>Defensively, seven tons of Type-1 ferro-fibrous armor provide reasonable protection for the weight class, supplemented by a Shield-3 anti-missile system that offers some defense against incoming missile fire. However, the Lobo suffers from significant heat management problems. With only ten double heat sinks, the design cannot sustain fire from its full arsenal without risking shutdown. MechWarriors have adapted by employing an aggressive hit-and-fade doctrine, engaging at full output before withdrawing to dissipate accumulated heat during weapons-free cooling periods.</p>
+
+deployment:<p>Deployed exclusively within Clan Wolf's touman following its introduction in 3059, the Lobo saw action primarily in border skirmishes against Clan Jade Falcon and Clan Ghost Bear during the Civil War era. A notable distance-strike engagement against Clan Wolf-in-Exile and several probing attacks against ComStar positions provided additional combat data. The design earned commendable marks in these engagements, though encounters with ComStar forces revealed a tendency toward vulnerability in prolonged combat where the constrained heat management forced MechWarriors into extended cooling periods. However, the Lobo's heavy laser armament consistently allowed it to prevail when pilots managed their thermal profile effectively.</p>
+
+history:<p>The Lobo's development traces directly to Khan Vladimir Ward's dissatisfaction with the Linebacker OmniMech, a design championed by his predecessors Natasha Kerensky and Phelan Ward. Seeking a 'Mech that better aligned with his vision for Clan Wolf's evolving tactical doctrine, Ward directed his scientists to develop a lighter, faster companion to the Timber Wolf that emphasized missile firepower over the Linebacker's generalist pod-based approach. Early prototypes proved disappointing until Clan Coyote unveiled the Advanced Tactical Missile system, which Khan Ward secured through a brief and bloody batchall, neatly solving the design's primary weapons dilemma.</p><p>Production of the Lobo began at W-7 Facilities on Tranquil around 3059, establishing the design as Clan Wolf's primary ATM testbed. The Lobo quickly demonstrated its worth in border skirmishes during the Civil War era, engaging Jade Falcon and Ghost Bear forces along the Occupation Zone boundaries. Its combination of speed and flexible missile loadout proved particularly effective in the rapid strike-and-fade operations favored by Wolf commanders. Engagements against Clan Wolf-in-Exile and probing attacks on ComStar positions further validated the design, though extended combat revealed the heat management limitations inherent in its weapons configuration.</p><p>The Word of Blake's devastating nuclear attack on Tamar in 3070 crippled much of Clan Wolf's industrial infrastructure. Production continued at the Tranquil facility through the Civil War period, and around 3075, the newly established W-8 Facilities on Tamar began assembling Lobos from components shipped from the W-7 plants on Weingarten. This expansion coincided with the introduction of two new variants specifically developed for the anti-infantry and anti-battle armor roles that had become critical during the Jihad campaigns.</p><p>The Lobo continued to serve in Clan Wolf's touman through the Republic era and into the Dark Age. When Clan Hell's Horses seized portions of the former Wolf Occupation Zone, control of the Tamar production facility eventually transferred to the Horses, who maintained Lobo production alongside their own designs. Despite its origins as a Clan Wolf exclusive and Khan Ward's ambitions to develop it into an OmniMech platform, the Lobo ultimately remained a standard BattleMech, one whose practical battlefield performance ensured its continued relevance even as it passed into new hands.</p>
+
+manufacturer:W-7 Facilities|W-8 Facilities
+
+primaryfactory:Tranquil|Tamar
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:W-7 Facilities
+systemmode:CHASSIS:Type-A Endo Steel
+systemmanufacturer:ENGINE:General Systems
+systemmode:ENGINE:240 XL
+systemmanufacturer:ARMOR:W-7 Facilities
+systemmode:ARMOR:Type-1 Ferro Fibrous
+systemmanufacturer:COMMUNICATIONS:W-7 Facilities
+systemmode:COMMUNICATIONS:Howler 79
+systemmanufacturer:TARGETING:W-7 Facilities
+systemmode:TARGETING:Model 92 "Stalker"

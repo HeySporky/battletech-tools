@@ -1,0 +1,78 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bff0-7969-b597-e57c72e070a5
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Motorized Platoon
+</Name>
+
+<Model>
+(Fieldworks)
+</Model>
+
+<year>
+3045
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Vibro-Shovel
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Motorized fieldworks platoons are combat engineers transported by light vehicles for rapid deployment to defensive preparation sites. Armed with Gunther MP-20 submachine guns for close defense, these engineers dig trenches and construct ad-hoc field fortifications that provide cover for friendly infantry, turning open ground into defensive positions. The motorized transport allows them to reach forward positions quickly and begin construction before the enemy can contest the ground.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<Primary>
+SMG (Gunther MP-20)
+</Primary>
+
+<specialization>
+32
+</specialization>
+

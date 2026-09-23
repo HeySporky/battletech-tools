@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-daef-7721-bcbf-8860753b9f27
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Pouncer
+model:T
+mul id:9262
+
+Config:Biped OmniMek
+techbase:Mixed (Clan Chassis)
+era:3142
+source:TR:3055U,RG25
+published:RG25,RS:AS
+rules level:2
+role:Scout
+
+quirk:weak_head_2
+
+mass:40
+engine:240 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:12 Clan Double
+base chassis heat sinks:9
+walk mp:6
+jump mp:5
+
+armor:Ferro-Fibrous(Clan)
+LA armor:12
+RA armor:12
+LT armor:11
+RT armor:11
+CT armor:12
+HD armor:9
+LL armor:13
+RL armor:13
+RTL armor:7
+RTR armor:7
+RTC armor:8
+
+Weapons:3
+Plasma Rifle, Left Arm
+Plasma Rifle, Right Arm
+ER Small Laser, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+ISPlasmaRifle (OMNIPOD)
+ISPlasmaRifle (OMNIPOD)
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+ISPlasmaRifle (OMNIPOD)
+ISPlasmaRifle (OMNIPOD)
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLERSmallLaser (OMNIPOD)
+ISPlasmaRifleAmmo (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+Jump Jet
+ISPlasmaRifleAmmo (OMNIPOD)
+ISPlasmaRifleAmmo (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Pouncer is a 40-ton Clan OmniMech introduced in 3050 on the orders of ilKhan Ulric Kerensky of Clan Wolf. Recognizing that greater mobility was essential to succeed against the more numerous Inner Sphere forces during the Clan Invasion, Kerensky directed his technicians to resurrect an old testbed OmniMech and upgrade it to full combat specifications. The resulting design was essentially an enlarged version of the 35-ton Adder, adding five tons to incorporate permanently mounted jump jets and additional heat dissipation capacity. Produced primarily at WC Primary Facility 5 on Tiber for Clan Wolf, production later expanded to Clan Star Adder and Clan Sea Fox facilities. With 15.5 tons of available pod space, the Pouncer carries a diverse array of weapon configurations suited to virtually any tactical role.</p>
+
+capabilities:<p>The Pouncer is built on a lightweight DSAM Endo 4 endo steel chassis powered by a 240-rated extra-light fusion engine, giving it a top speed of just over 97 kilometers per hour. Five Grandthrust Mk. 4 jump jets provide a jumping distance of 150 meters, granting the Pouncer exceptional maneuverability in rough terrain and the ability to reach elevated firing positions that ground-bound opponents cannot easily contest. Six tons of Forging ZM15 ferro-fibrous armor provide reasonable protection, though the Pouncer carries the same armor tonnage as the lighter Adder, leaving it somewhat vulnerable for a medium OmniMech. The design is further hampered by especially thin head armor, a persistent weakness that has claimed more than one unwary MechWarrior.</p><p>In its Primary configuration, the Pouncer closely mirrors its Adder progenitor, mounting a pair of extended-range PPCs linked to an advanced targeting computer for devastating long-range precision fire. A single extended-range small laser provides token close-range defense. This combination makes the Prime configuration a feared sniper platform, though pilots must carefully manage heat buildup when firing both primary weapons simultaneously. The generous pod space allows field commanders to rapidly reconfigure the Pouncer for roles ranging from fire support bombardment to close-quarters brawling.</p>
+
+deployment:<p>The Tiburon Khanate configuration of the Pouncer stands as a growing Clan willingness to incorporate Inner Sphere technology where it provides tactical advantages. Mounting an Inner Sphere-manufactured plasma rifle in each arm, the T configuration can suppress enemy heat management while dealing respectable damage at medium ranges. Three tons of ammunition feed the twin plasma weapons, with a single extended-range small laser providing minimal backup firepower should the ammo bins run dry. The configuration's reliance on ammunition makes resupply a critical concern during extended campaigns.</p>
+
+history:<p>The Pouncer traces its origins to the early years of the Clan Invasion, when ilKhan Ulric Kerensky assessed that Clan Wolf needed jump-capable OmniMechs to counter the Inner Sphere's fondness for exploiting terrain advantages. Rather than commission an entirely new design, Kerensky ordered the revival of an ancient testbed OmniMech, ensuring its jump jets were permanently mounted and directing mass production at WC Primary Facility 5 on Tiber. The Pouncer entered service shortly before the Battle of Tukayyid in 3052, though Kerensky was killed soon after. His Crusader successors considered the project a waste of resources, but the grievous losses suffered against the Jade Falcons during the Refusal War necessitated its continued production. As a result, Adders and Pouncers came to serve side by side throughout Clan Wolf's touman.</p><p>Following the Refusal War, Clan Wolf-in-Exile found itself flush with Pouncer designs but strained for manufacturing resources. The exiled Wolves eventually traded the plans for this redundant OmniMech to the Sea Foxes, who leveraged their sprawling trade network to spread the Pouncer to forces that previously lacked the agile firepower it provided. Clan Jade Falcon became a notable adopter, with the Falcons in particular embracing the design's versatility.</p><p>In the Clan Homeworlds, the last Nova production facilities on Sheridan were converted to Pouncer lines following the Wars of Reaving, placing the design in Clan Star Adder service. This expanded the Pouncer's manufacturing base beyond its original Wolf origins and ensured continued production even as political upheaval reshaped the Homeworld Clans.</p><p>By the Dark Age era, the Pouncer had achieved widespread distribution among the Inner Sphere Clans, mercenary formations, and even the Scorpion Empire. The Sea Fox mobile factory ship CSF Titanic continued producing Pouncers for trade, ensuring a steady supply reached disparate factions across the Inner Sphere. The design saw notable action during the fighting on Leskovik in June 3147, where Jade Falcon garrison forces equipped Pouncers with melee-oriented configurations and successfully repelled a Hell's Horses assault during Operation Noyan, demonstrating the chassis's continued adaptability centuries after its introduction.</p>
+
+manufacturer:WC Primary Facility 5|Sheridan LM-TA 8-10|Manufacturing Plant SFF-TW2/CSF Titanic Mobile Production Facility
+
+primaryfactory:Tiber (Clan)|Sheridan|Sea Fox Factory Ship
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:DSAM Endo 4
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Fusion 240 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Forging ZM15 Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Grandthrust Mk. 4
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Megaband System 21
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Dtrac Suite 4

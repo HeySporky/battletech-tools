@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a85f-7088-a52a-4e58f44a5070
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Gorilla Exoskeleton
+</Name>
+
+<Model>
+'Falcata'(Sqd6)
+</Model>
+
+<mul id:>
+9069
+</mul id:>
+
+<year>
+3075
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+30
+</armor_type>
+
+<armor_tech>
+11
+</armor_tech>
+
+<Squad Equipment>
+BAHeavyBattleClaw:LA
+BAHeavyBattleClaw:RA
+ISBASmallLaser:Body
+IS BA Advanced:RA
+IS BA Advanced:RA
+IS BA Advanced:Body
+IS BA Advanced:LA
+IS BA Advanced:LA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The Falcata strips away the Gorilla's civilian tooling and replaces it with combat equipment. Both arms mount heavy battle claws capable of rending light armor, while a small laser provides ranged firepower. Armor protection doubles to 100 kilograms of standard plating, giving the operator significantly better survivability than the base model.</p><p>These improvements come at the cost of the Gorilla's industrial utility. The Falcata retains the same 400-kilogram frame and limited top speed, leaving it vulnerable to faster opponents and restricting its effective combat role to close-quarters engagements. The heavy battle claws make it dangerous in tight spaces where it can close to melee range, but the suit lacks the mobility and firepower of true battle armor. The Falcata fills a narrow niche as an armed exoskeleton for operators who need basic self-defense capability without the expense of a dedicated combat suit.</p>
+</capabilities>
+
+<overview>
+<p>The PEX-2B Gorilla is an industrial exoskeleton produced by StarCorps Industries across four factory worlds. Designed as an affordable alternative to high-end powered suits, the Gorilla brought exoskeleton technology within reach of smaller companies and civilian operators who could not justify the expense of premium models. StarCorps marketed the suit aggressively, positioning it as a practical workhorse for labor-intensive industries. The approach proved enormously successful, establishing the Gorilla as one of the most widely distributed exoskeletons in the Inner Sphere and near Periphery.</p>
+</overview>
+
+<deployment>
+<p>Word of Blake Militia units organized Falcata operators into six-trooper Level I formations for urban security operations during the Jihad. The suit's heavy battle claws proved useful for breaching barricades and clearing rubble in occupied cities. ComStar's Com Guards showed less interest in the design, preferring to invest in more capable battle armor for their frontline formations.</p>
+</deployment>
+
+<history>
+<p>StarCorps Industries developed the Gorilla during the mid-thirty-first century, capitalizing on rediscovered Star League technology that accompanied the emergence of battle armor. Rather than pursuing the military market, StarCorps targeted budget-conscious civilian firms, investing additional time in perfecting the design and launching an aggressive marketing campaign across thirty worlds. The gamble paid off. Tens of thousands of Gorillas in the company's signature bright orange and yellow livery entered service across the Inner Sphere and near Periphery within a few years.</p><p>The exoskeleton found its greatest following in the construction trades, where operators valued the combination of low cost and enhanced strength for hazardous work. Military and freelance reclamation teams also adopted the Gorilla for battlefield salvage, though limited speed and thin protection made it poorly suited to that role. StarCorps eventually addressed those shortcomings with the purpose-built Salrilla. During the Jihad, survivors of Wolf's Dragoons purchased large numbers of Gorillas through the Arc-Royal Theater between 3068 and 3069, later traced to reconstruction efforts on Outreach. A combat-oriented variant, the Falcata, also emerged during this period.</p>
+</history>
+
+<manufacturer>
+StarCorps Industries
+</manufacturer>
+
+<primaryFactory>
+Emris IV
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

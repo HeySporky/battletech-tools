@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cb13-7dd0-85f1-ee3e5a62d246
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Sunder
+model:SD1-O
+mul id:3123
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3056
+source:TR:3058U,TR:CI
+published:RS:CI
+rules level:2
+role:Brawler
+
+quirk:ext_twist
+
+mass:90
+engine:360 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:15 IS Double
+base chassis heat sinks:14
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:30
+RA armor:30
+LT armor:28
+RT armor:28
+CT armor:41
+HD armor:9
+LL armor:33
+RL armor:33
+RTL armor:10
+RTR armor:10
+RTC armor:12
+
+Weapons:8
+AC/20, Left Arm
+Large Laser, Right Arm
+Large Laser, Right Arm
+Medium Laser, Left Torso
+Medium Laser, Right Torso
+SRM 4, Center Torso
+SRM 4, Center Torso
+SRM 4, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Autocannon/20 (OMNIPOD)
+Autocannon/20 (OMNIPOD)
+Autocannon/20 (OMNIPOD)
+Autocannon/20 (OMNIPOD)
+Autocannon/20 (OMNIPOD)
+Autocannon/20 (OMNIPOD)
+Autocannon/20 (OMNIPOD)
+Autocannon/20 (OMNIPOD)
+Autocannon/20 (OMNIPOD)
+Autocannon/20 (OMNIPOD)
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Large Laser (OMNIPOD)
+Large Laser (OMNIPOD)
+Large Laser (OMNIPOD)
+Large Laser (OMNIPOD)
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser (OMNIPOD)
+IS Ammo AC/20 (OMNIPOD)
+IS Ammo SRM-4 (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser (OMNIPOD)
+IS Ammo AC/20 (OMNIPOD)
+IS Ammo SRM-4 (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 4 (OMNIPOD)
+SRM 4 (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+SRM 4 (OMNIPOD)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Sunder is a ninety-ton Inner Sphere OmniMech developed by the Draconis Combine as the assault class component of the DCMS first generation of domestically produced OmniMechs. Introduced in 3056, the design was born from the intensive study of captured Clan Hellbringer and Summoner chassis following the Battle of Luthien in 3052. Draconis Combine engineers at Luthien Armor Works determined the leg assemblies of both progenitor designs could support twenty additional tons of mass, though overcoming catastrophic actuator burnout in prototypes and resolving caustic exhaust fouling from torso-mounted pod bays delayed the Sunder's entry into service, making it among the last of the first-generation DCMS OmniMechs to reach full production.</p><p>Though initially a Combine-exclusive design, the Sunder's proven chassis attracted interest from multiple successor states, and licensed production eventually spread the assault OmniMech to militaries across the Inner Sphere. This broad manufacturing base has kept the Sunder in continuous service from the Clan Invasion era through the ilClan period.</p>
+
+capabilities:<p>The Sunder is built around a Hermes 360 XL engine that propels the ninety-ton chassis to a top speed of sixty-four kilometers per hour. The bulky engine forced designers to relocate the torso OmniPod bays above the cockpit, an arrangement that contributed to early exhaust fouling problems but provides thirty-six tons of available pod space. Sixteen and a half tons of Mitchell Argon armor give the Sunder respectable protection for an assault 'Mech, while fifteen fixed double heat sinks manage the thermal load across most configurations.</p><p>In its Prime configuration, the Sunder is built for devastating close-range engagements. An Autocannon/20 forms the core of its firepower, supported by two large lasers for medium-range engagement, a trio of SRM-4 launchers, and two medium lasers. This loadout makes the Prime variant most lethal at short ranges, though the large lasers provide adequate reach to engage enemies closing on its position.</p><p>While thirty-six tons of pod space theoretically make the Sunder a powerful combatant, its reduced ground speed and reliance on less efficient Inner Sphere weaponry leave it at a disadvantage compared to many Clan assault OmniMechs. The widespread use of salvaged Clan OmniPods during Operation Bulldog finally allowed the Sunder to compete on more equal footing with designs such as the Warhawk and Executioner.</p>
+
+deployment:<p>The Prime configuration represents the Sunder's baseline assault loadout, concentrating nearly all of its thirty-six tons of pod space on short-range firepower. An Autocannon/20 provides devastating close-range punch, supported by a trio of SRM-4 launchers and two medium lasers to exploit any armor breaches. Two large lasers offer medium-range engagement capability, giving the Prime configuration adequate reach while remaining most lethal at close quarters. This conservative but effective weapons array made the Prime a common sight in DCMS assault lances during the Clan Invasion and Civil War eras.</p>
+
+history:<p>The Sunder's origins lie in the aftermath of the Battle of Luthien in 3052, when Draconis Combine forces captured examples of the Clan Hellbringer and Summoner OmniMechs. Combine engineers at Luthien Armor Works began an ambitious program to reverse-engineer these designs for domestic manufacture, selecting the assault weight class as one of several parallel development efforts alongside the Avatar and other first-generation OmniMechs. Prototype Sunders suffered from catastrophic actuator failure as the heavier chassis overstressed components designed for lighter Clan machines, and additional problems with caustic exhaust residue from torso-mounted weapons fouling the cockpit canopy and sensor arrays required extensive rework before full production could begin in 3056.</p><p>Initial deployment saw Sunders assigned to assault lances stationed along the Clan border, where they played a significant role during Operation Bulldog. The DCMS authorization for widespread use of salvaged Clan weaponry in OmniPods proved transformative, as Sunders equipped with Clan-grade weapons could finally compete favorably against Clan Warhawk and Executioner OmniMechs. Many Sunders also served as the anchor point of DCMS command networks, with dedicated C3 configurations enabling lance and company-level coordination that proved its effectiveness during the conflict.</p><p>StarCorps Industries recognized the Sunder's potential and licensed production from Luthien Armor Works in the early 3060s, establishing manufacturing lines at their plants on Crofton, Loburg, Son Hoa, and St. Ives. This licensing arrangement proved fortuitous when the Word of Blake Jihad devastated the DCMS's industrial base. Luthien Armor Works' OmniMech production facility was destroyed during the opening stages of the Jihad, cutting off the Combine's primary source of Sunders. StarCorps continued production for the Federated Suns, Lyran Alliance, and Capellan Confederation, ensuring the design survived even as the DCMS lost access to new production.</p><p>The Sunder continued to see combat during the tensions surrounding the Lyons Thumb and throughout the First Combine-Dominion War, where its role as a C3 network anchor proved particularly valuable. In the Dark Age era, new configurations incorporating Clan-spec weaponry and advanced electronics such as C3 boosted slave units and TSEMP cannons demonstrated the chassis's continued relevance. StarCorps facilities on Crofton and Loburg maintained production into the ilClan era, keeping the Sunder in service across multiple successor states long after its original Combine-only production had ended.</p>
+
+manufacturer:Luthien Armor Works - OmniMech Production Facility|StarCorps Industries|StarCorps Industries|StarCorps Industries|StarCorps Industries
+
+primaryfactory:Luthien|Crofton|Loburg|Son Hoa|St. Ives
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Class 98 Omni
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:360 XL
+systemmanufacturer:ARMOR:Mitchell
+systemmode:ARMOR:Argon
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:Security Plus
+systemmanufacturer:TARGETING:Matabushi
+systemmode:TARGETING:Sentinel

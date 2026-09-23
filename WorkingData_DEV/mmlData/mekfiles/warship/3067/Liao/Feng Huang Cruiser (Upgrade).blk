@@ -1,0 +1,387 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eda3-72d3-9acd-f7ec6cfea702
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Feng Huang Cruiser
+</Name>
+
+<Model>
+(Upgrade)
+</Model>
+
+<mul id:>
+4161
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:26.0:6:1::-1:0
+asfbay:123.0:7:3::-1:0
+cargobay:27255.0:1:4::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:540.0:0:-1::-1:0
+crewquarters:3941.0:0:-1::-1:0
+2ndclassquarters:3661.0:0:-1::-1:0
+cargobay:39639.0:1:13::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+2440
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+7500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+12
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+310
+293
+293
+280
+285
+285
+</armor>
+
+<Nose Equipment>
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+(B) ISERPPC
+ISERPPC
+ISERPPC
+ISERPPC
+(B) Naval Laser 35
+Naval Laser 35
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 45
+Naval Laser 45
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Light)
+Naval PPC (Light)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+(B) ISERPPC
+ISERPPC
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 45
+Naval Laser 45
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Light)
+Naval PPC (Light)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+(B) ISERPPC
+ISERPPC
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+(B) ISERPPC
+ISERPPC
+ISERPPC
+ISERPPC
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 45
+Naval Laser 45
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Light)
+Naval PPC (Light)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+(B) ISERPPC
+ISERPPC
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 45
+Naval Laser 45
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Light)
+Naval PPC (Light)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+(B) ISERPPC
+ISERPPC
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Light)
+Naval PPC (Light)
+Naval PPC (Medium)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+(B) ISERPPC
+ISERPPC
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Light)
+Naval PPC (Light)
+Naval PPC (Medium)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+(B) ISERPPC
+ISERPPC
+</Right Broadsides Equipment>
+
+<structural_integrity>
+90
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 970,000 tons, the Feng Huang was among the larger cruiser-weight vessels in service during the post-Succession Wars era. The hull carried 1,692 tons of Lamellor Ferro-Carbide armor, providing exceptional protection for its displacement class and reflecting the design emphasis on survivability over raw striking power. A compact Kearny-Fuchida drive provided interstellar mobility, supplemented by a lithium-fusion battery system that permitted consecutive jumps without recharging. Standard thrust reached a safe four gravities with a maximum of six, giving the class above-average acceleration for its tonnage.</p><p>The Feng Huang mounted an exclusively energy-based weapons suite, eliminating ammunition dependency entirely and enabling extended operations far from supply lines. Naval PPCs in light, medium, and heavy configurations formed the backbone of the capital battery alongside Naval Lasers in multiple calibers, with the heaviest concentration in the broadside arcs. Anti-fighter defense relied on ER Large Lasers, Large Pulse Lasers, and ER PPCs distributed across all firing arcs. Six DropShip docking collars, twenty-six small craft bays, and over 116,000 tons of cargo space supported sustained autonomous deployments. A crew of 57 officers, 182 enlisted personnel, 52 gunners, and 130 bay personnel operated the vessel, supplemented by a marine complement of 96 battle armor troopers. The energy-only armament, while freeing the vessel from ammunition concerns, limited its ability to deliver the concentrated alpha strikes that missile and autocannon-equipped WarShips could achieve, leaving the class reliant on sustained engagements rather than decisive opening volleys.</p>
+</capabilities>
+
+<overview>
+<p>The Feng Huang-class cruiser holds the distinction of being the first WarShip designed and constructed entirely by the Capellan Confederation. Commissioned during the Xin Sheng national revitalization movement under the direct orders of Chancellor Sun-Tzu Liao, the class was assembled at the Aris Memorial Yards in the Necromo system. Designated as a cruiser, the Feng Huang adopted a design philosophy that prioritized survivability and defensive resilience over concentrated offensive striking power, setting it apart from most contemporary WarShip designs of similar tonnage. The class name translates as Phoenix, a deliberate reflection of Capellan ambitions to reclaim lost military stature among the Great Houses. The program marked a turning point for the Confederation, proving that the smallest of the Successor States could develop and field capital naval assets independently after generations of dependence on cooperative ventures with other powers.</p>
+</overview>
+
+<deployment>
+<p>The Upgrade configuration, introduced in 3070, substantially expanded the capital weapons batteries across the quarter arcs and broadside positions and increased fighter capacity to one hundred twenty-three aerospace craft. The CCS Aleisha Kris and CCS IIsa Hyung were among the vessels refitted to this configuration before the loss of the Necromo yards redirected all subsequent refit work to the Rashpur Owens facility at Capella. Both cruisers fought in the defense of Sian in 3074 during the Word of Blake's assault on the Capellan homeworld, where they played a critical role in holding the system. The CCS Aleisha Kris survived the Jihad and all subsequent conflicts to become the last operational WarShip in the Capellan navy by the ilClan era, carefully preserved and withheld from major deployments as an irreplaceable national asset.</p>
+</deployment>
+
+<history>
+<p>The Feng Huang program grew out of the cooperative WarShip development effort between the Capellan Confederation and the Free Worlds League, which had already produced the Impavido-class destroyer. While the joint program continued, Chancellor Sun-Tzu Liao anticipated an eventual confrontation with the League and secretly authorized development of a larger, more capable vessel. Working through covert channels with the Word of Blake, the Confederation established a classified construction facility at the Aris Memorial Yards in the Necromo system, situated at the L4 Trojan point between Necromo and Acorna. The yard operated under extreme security protocols, with only intensely loyal workers permitted access and all communications strictly censored.</p><p>Construction of the lead vessel began in the late 3050s, with five hulls planned for the initial production run. The first cruiser entered service in 3058 but was immediately beset by serious mechanical problems that forced an extended overhaul before it could return to active duty. The remaining four vessels followed into service over subsequent years, though one suffered a catastrophic engineering explosion attributed to sabotage by the Free Capella dissident movement. Despite these setbacks, all five cruisers eventually achieved operational status, each named for a distinguished Capellan Chancellor.</p><p>The Jihad proved catastrophic for the program. In 3071, Word of Blake forces assaulted the Necromo system and systematically destroyed every industrial asset present, including the Aris Memorial Yards. The destruction was so thorough that nothing remained to salvage, permanently ending any possibility of constructing additional hulls or producing major replacement components. An upgraded configuration had been introduced shortly before the attack, but the loss of Necromo forced all subsequent refit work to the Rashpur Owens facility at Capella.</p><p>The class saw heavy combat during the defense of the Capellan homeworld in the closing years of the Jihad. Attrition from that conflict and the decades that followed steadily reduced the Capellan WarShip fleet until only a single Feng Huang remained in service by the ilClan era. Preserved as the last operational WarShip in the Capellan navy, the surviving vessel was deliberately withheld from major engagements due to its irreplaceable nature.</p>
+</history>
+
+<manufacturer>
+Refit - Aris Memorial Yards|Refit - Rashpur Owens, Inc.
+</manufacturer>
+
+<primaryFactory>
+Necromo|Capella
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Aris Memorial Yards
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Lamellor Ferro-Carbide
+JUMP_JET:Compact
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Cruiser
+</use>
+
+<length>
+1155 m
+</length>
+
+<height>
+1025 m Sail
+</height>
+
+<source>
+TR:3067
+</source>
+
+<tonnage>
+970000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+90
+90
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+705
+</crew>
+
+<officers>
+54
+</officers>
+
+<gunners>
+80
+</gunners>
+
+<passengers>
+523
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+288
+</battlearmor>
+
+<life_boat>
+110
+</life_boat>
+
+<escape_pod>
+110
+</escape_pod>
+

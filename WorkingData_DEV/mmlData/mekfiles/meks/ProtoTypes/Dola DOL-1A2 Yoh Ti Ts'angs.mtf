@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d764-7fd4-853f-273f2e1aa65b
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Dola
+model:DOL-1A2 'Yoh Ti Ts'angs'
+mul id:4087
+
+Config:Biped
+techbase:Inner Sphere
+era:3083
+source:TR:Proto,TR:DA
+published:RS:DA
+rules level:4
+role:Scout
+
+weaponquirk:jettison_capable:RA:4:ISSmallVibroblade
+
+mass:30
+engine:240 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:8
+jump mp:8
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:9
+RA armor:9
+LT armor:10
+RT armor:10
+CT armor:13
+HD armor:9
+LL armor:9
+RL armor:9
+RTL armor:3
+RTR armor:3
+RTC armor:5
+
+Weapons:3
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+TAG, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERMediumLaser
+ISERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISSmallVibroblade
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Jump Jet
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Jump Jet
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISTAG
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Dola is a thirty-ton light BattleMech introduced in the early 3080s by Shengli Arms on Victoria. Named for the protective spirits of ancient Terran mythology that embody human fate, the Dola was conceived as a rapid-response skirmisher for the Capellan Confederation Armed Forces. With the CCAF's light 'Mech forces devastated during the Jihad, the Confederation desperately needed a design suited for raiding and screening operations, and Shengli's engineers answered with a chassis that prioritized speed, electronic warfare capability, and a credible close-range threat.</p><p>The Dola filled a critical gap in the CCAF's cavalry doctrine, earning a warm reception among rebuilding Capellan units. Production has continued through multiple manufacturing transitions, ensuring the design remains available to the CCAF and its allies into the ilClan era.</p>
+
+capabilities:<p>The production Dola is built around a Ceres Motors 240 XL engine, giving this thirty-ton 'Mech a top speed of 129 kilometers per hour, supplemented by Chilton 360s jump jets for a jump capacity of 240 meters. Six tons of Hellespont Lite ferro-fibrous armor provide solid protection for the weight class. Unlike most Capellan light 'Mechs built around reconnaissance and infantry suppression, the Dola is designed to engage enemy 'Mechs directly, learning from the Sphere-wide trend toward higher mobility, accuracy, and hitting power as a means to make smaller chassis effective.</p><p>The Dola's offensive punch comes from a pair of Firmir improved extended-range medium lasers in the left arm and a sword mounted on the right arm. While some critics question mounting a melee weapon on so small a frame, the sword is a simple component to craft and easy for even novice MechWarriors to employ effectively. More importantly, using a sword means the Dola does not suffer overheating issues during prolonged close-quarters combat.</p><p>The heart of the design is Shengli's Angel ECM suite, integrated into the Dian-bao Comms Advanced system. With the proliferation of advanced sensor networks and Boosted C3 systems threatening House Liao's traditional electronic warfare dominance, the Dola's excellent mobility allows it to reach and interdict enemy electronics anywhere on the battlefield. This combination of speed, jamming capability, and a credible close-range threat makes the Dola an ideal raider and cavalry unit.</p>
+
+deployment:<p>This popular field refit emerged from units fielding multiple Dolas in combined operations. With the DOL-1A1 already providing electronic warfare coverage through its Angel ECM suite, lance-mates found it more tactically valuable to sacrifice the ECM and standard sword in favor of TAG and a light vibroblade. This configuration allows the modified Dola to designate targets for artillery and semi-guided munitions while retaining a potent melee capability that actually exceeds the standard sword in cutting power. Nicknamed Yoh Ti Ts'angs by their pilots, these refits have proven extremely popular among the Warrior Houses, where aggressive close-quarters tactics make the light vibroblade's enhanced lethality more tactically valuable. The refit was eventually adopted into formal production at both Shengli Arms and later Bergan Industries.</p>
+
+history:<p>The genesis of the Dola lies in the catastrophic events of December 3068, when the mercenary unit Olson's Rangers betrayed their Capellan employers and launched a devastating sabotage campaign against Shengli Arms on Victoria. The coordinated attack collapsed ceilings, sealed entryways, and damaged numerous assembly lines, inflicting capital and personnel losses of eighty-four percent on the company. While limited production of the Duan Gung and Jinggau was restored in relatively short order, the Yu Huang assault 'Mech line was irreparably crushed by debris, a sobering blow for the Confederation.</p><p>Rather than rebuild the lost assault 'Mech line, Shengli Arms' leadership made a strategic decision driven by battlefield reality. The CCAF was already well served by assault 'Mechs such as the Pillager and Emperor, but the Jihad's brutal attritional combat had devastated the Confederation's light 'Mech forces. Recon and cavalry units suffered appalling losses as 'Mechs ill-suited to frontline combat were repeatedly thrown into ambushes, last stands, and frontal assaults. The CCAF chewed through light 'Mechs at a voracious rate, creating a critical shortage of units suitable for raiding and screening operations. Development of the Dola began in the former Yu Huang production chambers, with prototyping commencing in 3079 and production volume restored to sixty-three percent by that year.</p><p>The Dola entered formal production at Shengli Arms' Victoria facility during the early Republic era. However, production on Victoria proved short-lived. During the Victoria War, as Federated Suns forces threatened to capture the world, the CCAF made the difficult decision to destroy Shengli Arms rather than allow the facility and its advanced technologies to fall into enemy hands. Victoria was subsequently occupied by the Federated Suns through much of the Dark Age period.</p><p>The loss of Victoria did not end Dola production. The design was sold to Bergan Industries on Ares, which established a new production line beginning active manufacture during the Late Republic era. Under Capellan Confederation ownership, Bergan has continued producing both the DOL-1A1 and the formalized DOL-1A2 variant through the Dark Age and into the ilClan era, ensuring the Dola remains available to the CCAF and its allies. Victoria itself was eventually recaptured by the Confederation, though the Shengli Arms facility had been destroyed beyond salvage.</p>
+
+manufacturer:Shengli Arms|Bergan Industries
+
+primaryfactory:Victoria|Ares
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Tianshi I-S
+systemmanufacturer:ENGINE:Ceres Motors
+systemmode:ENGINE:240 XL
+systemmanufacturer:ARMOR:Hellespont
+systemmode:ARMOR:Lite Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Chilton
+systemmode:JUMP_JET:360s
+systemmanufacturer:COMMUNICATIONS:Dian-bao
+systemmode:COMMUNICATIONS:Comms Advanced
+systemmanufacturer:TARGETING:Dynatec
+systemmode:TARGETING:990

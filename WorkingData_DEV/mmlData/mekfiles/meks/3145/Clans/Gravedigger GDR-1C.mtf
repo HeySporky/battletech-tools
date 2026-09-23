@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d2d4-73c9-a5ca-1b32090d0d12
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Gravedigger
+model:GDR-1C
+mul id:6265
+
+Config:Biped
+techbase:Inner Sphere
+era:3102
+source:TR:3145:C,TR:DA
+published:RS:DA
+rules level:3
+role:Brawler
+
+quirk:pro_actuator
+
+mass:50
+engine:200 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:19
+RT armor:19
+CT armor:25
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:3
+Large Laser, Left Arm
+Rotary AC/5, Right Arm
+LRM 15, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Large Laser
+Large Laser
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+ISRotaryAC5
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 15
+LRM 15
+LRM 15
+IS Ammo LRM-15
+IS Ammo LRM-15
+ISRotaryAC5 Ammo
+ISRotaryAC5 Ammo
+ISCASEII
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Gravedigger is a fifty-ton mixed-technology BattleMech introduced by Odin Manufacturing on Orestes in 3102. Designed to be manufactured quickly and sold broadly using primarily Inner Sphere components, the Gravedigger delivers respectable medium-weight firepower at a price point attractive to mercenary commands and garrison forces alike. Born from the near-destruction of Odin's production facilities during the Second Combine-Dominion War, the design prioritized rapid producibility and supply chain simplicity over cutting-edge performance. The design's combination of heavy armor protection and solid weapons integration has earned it a reputation as a reliable and affordable workhorse across the Inner Sphere, serving with forces from the Rasalhague Dominion to the Periphery.</p>
+
+capabilities:<p>Drawing comparisons to the venerable Hunchback, the Gravedigger prioritizes protection and firepower over speed. Built on a Kallon Type VII endo steel chassis and powered by a Nissan 200 XL engine, the design trades mobility for durability, managing only sixty-four kilometers per hour at a flat sprint. This pedestrian pace is partially offset by eleven tons of Compound 12A1 standard armor, granting the Gravedigger exceptional protection for its weight class. The reinforced leg actuators further enhance survivability against infantry swarming attacks, a common threat given the 'Mech's inability to simply outrun ground forces.</p><p>Across its variants, the Gravedigger platform supports both Inner Sphere and Clan-specification weapons suites, with configurations ranging from high-burst rotary autocannon loadouts to extended-range energy and missile combinations. The common thread is a focus on direct-fire support at medium to long range, complemented by missile systems for sustained bombardment. Limited ammunition capacity across most configurations demands careful fire discipline during prolonged engagements. Select variants incorporate advanced electronics including Angel ECM and active probe systems, expanding the platform's role from straightforward brawler to a more versatile multi-role combatant.</p>
+
+deployment:<p>The original Gravedigger variant, this variant was introduced in 3102 as Odin Manufacturing's first post-war product. Designed entirely with Inner Sphere technology to maximize production speed and minimize costs, this variant mounts a rotary AC/5 as its primary weapon, supported by a standard LRM-15 and a large laser. Two tons of ammunition feed both the autocannon and missile launcher, providing adequate sustained firepower for extended engagements. Lacking the Angel ECM suite and active probe of its successor, this variant sacrifices electronic warfare capability for raw firepower, with the rotary autocannon providing devastating burst damage at close range. Its affordability and straightforward maintenance make it a favorite among mercenary units and garrison forces, and this variant remains the more commonly encountered Gravedigger on the battlefield.</p>
+
+history:<p>The Gravedigger's origins are inseparable from the near-destruction of Odin Manufacturing during the Second Combine-Dominion War. In late April 3099, the Second Legion of Vega launched a raiding force against Odin's main facilities on the Clytemnestra continent of Orestes. What began as an intended lightning strike devolved into a week-long siege as Combine forces cut off maglev lines and surface roads between the factory and the primary spaceport, subjecting the manufacturing complex to sustained artillery bombardment. By the time the attackers withdrew ahead of Ghost Bear reinforcements, much of the facility lay in ruins. Only one production line producing Shadow Hawk BattleMechs survived the onslaught intact, along with the defending First Kavalleri Cluster.</p><p>The devastation left Odin Manufacturing facing potential bankruptcy. The company channeled its remaining resources into developing the Gravedigger, a design that prioritized producibility and broad market appeal. Using primarily Inner Sphere components already available through existing supply chains, Odin brought the GDR-1C to market in 3102, remarkably quickly given the state of the factory. Mercenary commands across the Inner Sphere proved eager customers, purchasing the new medium 'Mech as fast as Odin could produce them. The remarkable sales not only saved the company from insolvency but funded reconstruction of the damaged production lines on Orestes.</p><p>By 3105, Odin had recovered sufficiently to develop the upgraded GDR-1D incorporating Clan weapons and electronics. The Rasalhague Dominion initially restricted sales of the Clan-equipped variant to Dominion forces and non-Clan allied buyers, limiting external customers to the Inner Sphere GDR-1C model. This restriction gradually eased as the Dominion's own military rebuilt its strength following the war.</p><p>The Gravedigger saw significant action during the Victoria War, when mercenary commands including the Pharaoh's Arrows fielded their machines along the Capellan border during Duchess Hasek's offensive. In February 3145, a Trinary from the Seventy-third Battle Cluster of the Rasalhague Dominion's Alpha Galaxy encountered resistance during a raid on Kanowit, clashing with militia forces across the Sarawak Fields. The engagement demonstrated the Gravedigger's effectiveness in combined-arms actions, with the design's fire support capabilities proving decisive. By the mid-thirty-second century, the GDR-1C has established itself throughout the Inner Sphere in far greater numbers than the restricted GDR-1D, cementing Odin Manufacturing's recovery and the Gravedigger's reputation as a reliable and affordable medium combatant.</p>
+
+manufacturer:Odin Manufacturing
+
+primaryfactory:Orestes
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Kallon
+systemmode:CHASSIS:Type VII Endo Steel
+systemmanufacturer:ENGINE:Nissan
+systemmode:ENGINE:200 XL
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:Compound 12A1 Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Dash-2
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Blade 12

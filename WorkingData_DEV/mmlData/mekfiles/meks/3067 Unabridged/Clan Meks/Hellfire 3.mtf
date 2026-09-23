@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cdb6-7238-a6a1-e762fa5a08e2
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Hellfire
+model:3
+mul id:5685
+
+Config:Biped
+techbase:Clan
+era:3072
+source:TR:J
+published:RS:3067u
+rules level:3
+role:Skirmisher
+
+quirk:difficult_maintain
+
+mass:60
+engine:240 XL (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:15 Clan Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:20
+RA armor:20
+LT armor:21
+RT armor:21
+CT armor:29
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:10
+Plasma Cannon, Left Arm
+Plasma Cannon, Left Arm
+ER Flamer, Left Arm
+Flamer, Left Arm
+Plasma Cannon, Right Arm
+Plasma Cannon, Right Arm
+ER Flamer, Right Arm
+Flamer, Right Arm
+SRM 6, Left Torso
+SRM 6, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLPlasmaCannon
+CLPlasmaCannon
+CLERFlamer
+CLFlamer
+CLPlasmaCannonAmmo
+CLPlasmaCannonAmmo
+Clan Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLPlasmaCannon
+CLPlasmaCannon
+CLERFlamer
+CLFlamer
+CLPlasmaCannonAmmo
+CLPlasmaCannonAmmo
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLSRM6
+Clan Ammo SRM-6
+Clan Ferro-Fibrous
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLSRM6
+Clan Ammo SRM-6
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLMASC
+CLMASC
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ammo SRM-6
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hellfire is a sixty-ton heavy BattleMech produced by Clan Star Adder, entering service in 3058. Built on refitted Lupus OmniMech chassis, the design was created to showcase newly developed heavy laser technology while simultaneously rebuilding the Clan's depleted military strength. Manufactured at Arcadia BattleMech Plant CM-T4, the Hellfire serves primarily in second-line Galaxies, filling shock and defensive roles.</p><p>Though constrained by the finite supply of viable Lupus chassis, the Hellfire earned a reputation as a devastating close-to-medium range combatant. The design has seen service with both Clan Star Adder and their Snake Alliance partners in Clan Cloud Cobra, with smaller numbers passing to other Clans through battlefield salvage.</p>
+
+capabilities:<p>The Hellfire carries a devastating array of heavy laser technology married to conventional missile support. A Series 4D-2 Heavy Large Laser serves as the primary weapon at medium range, backed by paired Series 7JA ER Medium Lasers. At closer quarters, two Series 6A Heavy Medium Lasers and two Series 14 k. II Heavy Small Lasers deliver punishing damage. Three "Longbow" III LRM-10 launchers, absent from the original prototypes but added to the production model, provide much-needed ranged firepower to compensate for the heavy lasers' inherent inaccuracy and limited effective range.</p><p>This formidable arsenal required significant design trade-offs. The original Lupus mounted a 300-rated engine, but the officer overseeing the Hellfire's development within Kappa Provisional Galaxy insisted on a smaller 240-rated standard fusion engine, arguing that a defensive platform needed firepower over speed. The resulting top speed of just 64 kilometers per hour is supplemented by a MASC system providing brief bursts up to 85 kph. Nine tons of ferro-fibrous armor provide adequate protection, while the standard engine grants the Hellfire exceptional survivability against critical damage. However, seventeen double heat sinks prove woefully inadequate for the weapons suite, and the heavy lasers' electromagnetic interference degrades targeting accuracy. More troubling, battlefield reports document heavy laser focusing tubes rupturing catastrophically and a fifteen percent higher MASC failure rate than comparable systems.</p>
+
+deployment:<p>Entering production around 3072, this radical reimagining abandons the heavy laser suite entirely in favor of an incendiary weapons philosophy. A 240-rated XL engine maintains the chassis's baseline speed of 64 kilometers per hour with MASC providing brief sprints to 86 kph. Each side torso mounts an SRM-6 launcher for close-range punch, while each arm carries an ER flamer, a standard flamer, and a pair of plasma cannons. This configuration transforms the Hellfire into a devastating close-range combatant specializing in thermal warfare, capable of overwhelming enemy 'Mechs through sheer heat saturation. Fifteen double heat sinks struggle to manage the enormous heat generation of the plasma cannons and flamers, demanding careful fire discipline.</p>
+
+history:<p>The Hellfire's story begins not with its own creation but with the political upheaval that made it necessary. The Absorption of Clan Burrock in 3059, while ultimately strengthening Clan Star Adder's territorial holdings, came at tremendous cost to the Adder touman. Facing the need to rapidly rebuild military strength, Star Adder leadership turned to their reserves of mothballed equipment. The Lupus (a first-generation OmniMech developed by Clan Coyote during the Golden Century) had long served as a capable second-line design before being relegated to Brian Cache storage as newer OmniMechs supplanted it.</p><p>The convergence of necessity and innovation proved fortuitous. Star Adder scientists developing heavy laser technology needed a suitable test platform, and the stockpiled Lupus chassis provided an ideal candidate. When the initial prototypes exceeded expectations, full-scale conversion was authorized, and Arcadia BattleMech Plant CM-T4 began systematically transforming cached Lupus OmniMechs into dedicated Hellfire BattleMechs beginning in 3058. The conversion sacrificed the Lupus's OmniMech technology in favor of a fixed weapons configuration, whether for expediency, cost reduction, or to better showcase the heavy lasers remains a matter of debate among Clan historians.</p><p>Since entering service, the Hellfire has operated primarily within Clan Star Adder's second-line Galaxies, filling shock and defensive roles. Originally fielded exclusively by Star Adder forces, the design was also refitted for Snake Alliance partner Clan Cloud Cobra beginning in late 3059. Through the Wars of Possession and subsequent conflicts in Clan space, a moderate number of Hellfires have passed to other Clans through battlefield salvage, though Clan Star Adder continues to field the vast majority.</p><p>The Hellfire's combat record, while generally positive, has been marked by persistent reliability issues. The electromagnetic interference generated by the heavy lasers, the potential for catastrophic tube failures, and the elevated MASC malfunction rate have earned it a reputation as a maintenance-intensive design requiring skilled technician support. Despite these challenges, the sheer destructive potential of its weapons array has made the Hellfire a feared opponent in Clan space engagements throughout the Civil War and Jihad eras. The design's long-term viability remains inherently constrained by the finite supply of viable Lupus chassis, a limitation that has kept production numbers modest compared to purpose-built designs.</p>
+
+manufacturer:Arcadia BattleMech Plant CM-T4
+
+primaryfactory:Arcadia (Rechlan)
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Lupus
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:240 XL
+systemmanufacturer:ARMOR:Arcadia BattleMech Plant CM-T4
+systemmode:ARMOR:Mk. VI Ferro-Fibrous with CASE
+systemmanufacturer:COMMUNICATIONS:Hector
+systemmode:COMMUNICATIONS:CC-22E
+systemmanufacturer:TARGETING:Brim
+systemmode:TARGETING:CT-37 Mk. XII

@@ -1,0 +1,344 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ede7-7ed3-a809-74387c62440c
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Samarkand Carrier
+</Name>
+
+<Model>
+(Block I)
+</Model>
+
+<mul id:>
+4970
+</mul id:>
+
+<year>
+2579
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:36.0:4:1::-1:0
+smallcraftbay:12.0:1:2::-1:0
+asfbay:36.0:3:3::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:350.0:0:-1::-1:0
+crewquarters:1015.0:0:-1::-1:0
+steeragequarters:150.0:0:-1::-1:0
+cargobay:46754.0:4:10::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<heatsinks>
+950
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+6562
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+48
+38
+38
+40
+38
+38
+</armor>
+
+<Nose Equipment>
+(B) Naval PPC (Medium)
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20:54
+(B) Medium Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) LRM 10
+LRM 10
+LRM 10
+LRM 10
+IS Ammo LRM-10:72
+(B) SRM 4
+SRM 4
+SRM 4
+IS Ammo SRM-4:50
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) LRM 10
+LRM 10
+LRM 10
+LRM 10
+IS Ammo LRM-10:72
+(B) SRM 4
+SRM 4
+SRM 4
+IS Ammo SRM-4:50
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 45
+Naval Laser 45
+(B) Medium Laser
+Medium Laser
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:100
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:100
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Laser 35
+Naval Laser 35
+(B) Large Laser
+Large Laser
+Medium Laser
+Medium Laser
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:100
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval PPC (Light)
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:100
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval PPC (Light)
+(B) Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+Machine Gun
+IS Ammo MG - Full:100
+</Right Broadsides Equipment>
+
+<structural_integrity>
+71
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 350,000 tons across 501 meters of hull, the Samarkand is built around its fighter operations. The carrier accommodates seventy-two aerospace fighters in two bays of thirty-six, supported by twelve small craft for utility and search-and-rescue operations. Three docking collars accommodate DropShip attachments, while over 46,000 tons of cargo capacity provides logistical depth for extended deployments. Twin gravity decks measuring 150 and 60 meters allow comfortable crew rotation across its complement of officers, enlisted personnel, gunners, and a thirty-strong marine detachment.</p><p>The capital armament centers on a single Medium Naval PPC in the nose and a Light Naval PPC on each broadside, supplemented by a NAC/10 naval autocannon in each forward quarter. Naval laser batteries of NL35s and NL45s cover the flanks and aft, while extensive conventional weapons including LRM and SRM racks, lasers, and machine guns provide layered anti-aerospace defense. A known vulnerability exists near the large engine mounts in the lower rear, creating limited aft firing arcs that skilled opponents learned to exploit. The carrier's armor protection, while adequate for its intended screening role, left little margin for error when engaged by heavier combatants at close range.</p>
+</capabilities>
+
+<overview>
+<p>The Samarkand-class carrier was the Draconis Combine's first purpose-built fleet carrier, conceived as a mobile aerospace platform capable of projecting fighter superiority across entire star systems. Commissioned at the personal direction of the Coordinator during a period of escalating military tension, the class was rushed into production to meet an urgent strategic need for dedicated carrier capability. Unlike multi-role WarShips that balanced transport and combat, the Samarkand was optimized around its massive internal fighter bays, with defensive weapons and armor serving primarily to protect the vessel long enough for its aerospace wings to dominate the battlespace. The design philosophy emphasized speed and fighter capacity over raw firepower, making the Samarkand dependent on escort WarShips for protection against capital-class opponents. The class earned a reputation as the backbone of the Combine's carrier arm, though its effectiveness hinged entirely on proper fleet coordination.</p>
+</overview>
+
+<deployment>
+<p>The DCS Samarkand, first-of-class vessel launched in 2579, alongside her sister ship DCS Benjamin loaded full fighter complements and jumped into combat against the Outworlds Alliance in June 2581 during the Reunification War, becoming the first Combine carrier WarShips to see action. By 2585, the DCS Dieron and DCS Alshain had joined the fleet, serving through the remainder of the Periphery campaigns. One Block I vessel was lost during the Outworlds campaign.</p><p>The DCS Hagiwawa served as flagship of the Draconis Combine Admiralty's Third Fleet by 2765, and participated in the invasion of the Federated Suns during the First Succession War. At the Battle of Clovis in May 2787, the Hagiwawa's flotilla was engaged by AFFS WarShips for six brutal hours, suffering heavy damage before prevailing against the defenders. The DCS Togura earned the distinction of being the sole Samarkand-class carrier to survive the Succession Wars in the Inner Sphere. By the thirty-first century, the Togura had deteriorated into a barely functional museum piece in orbit above New Samarkand, a silent monument to the Combine's once-formidable carrier fleet.</p>
+</deployment>
+
+<history>
+<p>The Samarkand-class carrier was born from Coordinator Hehiro Kurita's vision of a dedicated fleet carrier that would give the Draconis Combine independent aerospace superiority across its vast borders. Launched from the yards of Tengoku no Ken Master Shipwrights Ltd. on Mizunami in 2579, the class was fast-tracked into production as the Reunification War became inevitable. The first vessels proved the carrier concept during the Periphery campaigns against the Outworlds Alliance, validating the Coordinator's investment in dedicated carrier capability.</p><p>In peacetime, the surviving carriers assisted Combine colonial expansion and performed ceremonial duties, including escorting Coordinator Sanethia to Luthien in 2619. In 2668, Coordinator Urizen II authorized the Block II upgrade, incorporating significantly heavier capital weapons and improved armor protection. Multitudes of both blocks were built before the end of the Star League era, with many serving as escorts for SLDF operations.</p><p>By 2765, eight Samarkands operated across the Third and Fourth Fleets of the DCMS naval arm. The class carried a known vulnerability in its aft firing arcs that opponents learned to exploit. More damaging was the tactical misuse of Samarkands as assault vanguards, a role they were never designed to fill. Without adequate escort WarShips, the carriers were easily overcome by heavier opponents, and the Combine lost several vessels to this doctrinal error.</p><p>The Liberation of Terra campaign destroyed most of the class, though a handful of vessels survived to join General Kerensky's Operation Exodus. During the First Succession War, remaining Combine Samarkands were posted along the Lyran Commonwealth and Federated Suns borders, where attrition gradually consumed the survivors. The shipyard at Mizunami was destroyed during the Second Succession War, eliminating any possibility of building replacements or maintaining the surviving hulls. Only one vessel survived to the modern era, deteriorating into a barely functional orbital museum above New Samarkand, the last relic of the Combine's once-formidable carrier fleet.</p>
+</history>
+
+<manufacturer>
+Tengoku no Ken Master Shipwrights Ltd.
+</manufacturer>
+
+<primaryFactory>
+Mizunami
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Tengoku no Ken Master Shipwrights Ltd.
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Samarkand
+ENGINE:Unknown
+ARMOR:Standard
+JUMP_JET:Standard
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<notes>
+Unit as constructed in TRO: is 2 tons overweight. Removed 2 tons of Cargo to make unit legal.
+</notes>
+
+<use>
+Carrier
+</use>
+
+<length>
+501 m
+</length>
+
+<height>
+967 m Sail
+</height>
+
+<source>
+TR:3075
+</source>
+
+<tonnage>
+350000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+150
+60
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+384
+</crew>
+
+<officers>
+35
+</officers>
+
+<gunners>
+35
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+30
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+25
+</escape_pod>
+

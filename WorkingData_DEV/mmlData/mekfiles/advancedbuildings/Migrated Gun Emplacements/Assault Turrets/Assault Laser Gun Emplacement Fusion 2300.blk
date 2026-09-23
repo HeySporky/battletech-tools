@@ -1,0 +1,111 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a0d7-7bc1-afbf-91ffaf1b386c
+</UUID>
+
+<UnitType>
+BuildingEntity
+</UnitType>
+
+<Name>
+Assault Laser Gun Emplacement
+</Name>
+
+<Model>
+(2300) (Fusion)
+</Model>
+
+<year>
+2300
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<armor>
+150
+</armor>
+
+<Level 0 0.0,0.0,0.0 Equipment>
+Large Laser(ST)
+Large Laser(ST)
+Medium Laser(ST)
+Medium Laser(ST)
+Medium Laser(ST)
+Medium Laser(ST)
+Small Laser(ST)
+Small Laser(ST)
+Searchlight(ST)
+FUSION PowerGenerator:SIZE:16.0
+</Level 0 0.0,0.0,0.0 Equipment>
+
+<capabilities>
+<p>The fusion-powered Assault Laser Gun Emplacement represents the ultimate expression of the energy weapons fortification concept: maximum armor protection, unlimited ammunition through energy weapons, and complete power independence via fusion generation. The large laser, medium laser, and small laser draw from the integral reactor, enabling indefinite combat operations without any external support of any kind.</p><p>This variant is designed to be the last position standing when everything else has fallen. Assault-weight armor resists concentrated fire, energy weapons never run dry, and the fusion plant keeps everything operational regardless of what happens to the surrounding infrastructure. The investment in both assault construction and fusion power makes this among the most expensive emplacement variants to build, but for positions defending irreplaceable assets or serving as the final fallback in a defense plan, the cost is justified by the certainty of continued operation.</p>
+</capabilities>
+
+<overview>
+<p>The Laser Gun Emplacement provides fortified positions with energy-based direct fire capability, eliminating the ammunition dependency that limits ballistic emplacements during prolonged engagements. These structures mount varying combinations of laser weapons that can sustain fire indefinitely as long as power is available, making them particularly valued for positions expected to endure extended siege conditions or where resupply is uncertain.</p><p>Energy weapon emplacements have been a staple of defensive architecture since the earliest days of laser weaponry. Their ability to deliver precise, consistent damage without requiring ammunition convoys makes them a favorite of garrison commanders tasked with holding positions on worlds far from major supply lines. The absence of ammunition stores also eliminates the risk of catastrophic secondary explosions that have historically destroyed otherwise survivable fortifications.</p>
+</overview>
+
+<history>
+<p>The integration of energy weapons into fixed defensive works accelerated dramatically during the Star League era, when the Terran Hegemony's engineering corps began incorporating laser emplacements into the vast network of Castle Brian fortifications that would become the hallmark of Star League military power. Director-General Brian Cameron's vision of an impregnable network of fortresses demanded defensive systems that could sustain fire for weeks or months during a siege, and energy weapons answered that requirement perfectly.</p><p>Within the Castle Brians, laser emplacements served as the inner ring of defense, positioned to cover approaches that had already been narrowed by outer perimeter weapons. The Star League Defense Force recognized that any attacking force capable of reaching the inner defensive works would have already expended considerable resources, and the unlimited endurance of laser weapons ensured that the castle's defenders could outlast even the most determined assault. By the height of the Star League, over one hundred and twenty Castle Brians housed thousands of such emplacements across the Inner Sphere and Periphery, forming a defensive network of unprecedented scale and capability.</p>
+</history>
+
+<manufacturer>
+Unknown
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<height>
+1
+</height>
+
+<building_class>
+3
+</building_class>
+
+<building_type>
+4
+</building_type>
+
+<height>
+1
+</height>
+
+<cf>
+150
+</cf>
+
+<coords>
+0.0,0.0,0.0
+</coords>
+

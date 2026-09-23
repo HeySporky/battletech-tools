@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cda0-7caf-aa6d-c8a7abf6acc3
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Uziel
+model:UZL-2S
+mul id:5331
+
+Config:Biped
+techbase:Inner Sphere
+era:3063
+source:TR:3067,TR:J
+published:RS:J
+rules level:2
+role:Striker
+
+quirk:bad_rep_is
+quirk:cowl
+quirk:exp_actuator
+
+mass:50
+engine:300 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:14
+RT armor:14
+CT armor:17
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:4
+RTR armor:4
+RTC armor:6
+
+Weapons:5
+PPC, Left Arm
+PPC, Right Arm
+Machine Gun, Left Torso
+Machine Gun, Right Torso
+SRM 6, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+PPC
+PPC
+PPC
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+PPC
+PPC
+PPC
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Machine Gun
+IS Machine Gun Ammo - Half
+IS Ammo SRM-6
+BeagleActiveProbe
+BeagleActiveProbe
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Machine Gun
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 6
+SRM 6
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Uziel is a fifty-ton medium BattleMech introduced in 3065 by Defiance Industries at their Furillo manufacturing plant. The design was commissioned by Duke Thelonius Gracchi, the general manager of the Furillo facility, who sought to elevate the reputation of his plant and boost morale among its workforce. Despite producing equipment every bit as capable as the prestigious Hesperus II factories, the Furillo division was widely considered second-rate within Defiance and the Lyran Alliance Armed Forces alike. Gracchi personally championed the Uziel, selling it directly to units within both the LAAF and the Armed Forces of the Federated Commonwealth.</p><p>Designed as a fast, mobile harassment platform that combines jump capability with a diverse weapons mix, the Uziel is not a groundbreaking design compared to other Hesperus-born creations, but it has nonetheless earned a solid combat reputation across multiple theaters of war.</p>
+
+capabilities:<p>The Uziel is designed for harassment and skirmishing, using its top speed of 97 kilometers per hour and six Rawlings 50 jump jets to stay mobile on the battlefield. Its primary long-range weapon, the Defiance Shredder LB 2-X autocannon, allows it to reach out and engage targets at extreme distances. While the autocannon deals modest damage, it excels at hit-and-fade tactics, drawing enemy attention and herding opponents into unfavorable positions.</p><p>The Uziel is not primarily a ranged combatant, however. The bulk of its firepower is concentrated at shorter ranges, where a TharHes Thunderbolt 12 large pulse laser and a Defiance Model XII extended-range medium laser deliver accurate fire at medium distances. For close engagements, two Diverse Optics extended-range small lasers and a Harvester 20K SRM-6 launcher provide a punishing short-range barrage that is difficult for opponents of similar weight to match.</p><p>Protected by eight tons of Maximillian 100 armor and equipped with eleven double heat sinks, the Uziel carries adequate protection for its role, though prolonged engagements against heavier opponents will quickly expose its limitations. The design carries the Cowl quirk, offering some additional cockpit protection, but its exposed arm actuators remain a persistent vulnerability.</p>
+
+deployment:<p>Based on the original Uziel prototype completed in 3063, this variant predates the refined 3S production model and takes a markedly different approach to the chassis. It replaces the diverse weapon mix of the 3S with a pair of standard PPCs as primary armament, giving it considerably more ranged firepower at the cost of the LB 2-X autocannon's extreme reach. A Harvester 20K SRM-6 launcher provides close-range punch, while twin machine guns offer anti-infantry capability. A Beagle Active Probe rounds out the loadout, allowing the 2S to detect hidden units and protect against ambush, making this variant well-suited to aggressive reconnaissance and skirmishing roles where awareness of the surrounding battlefield is as important as raw firepower.</p>
+
+history:<p>The Uziel emerged from the internal politics of Defiance Industries as much as from any military requirement. Duke Thelonius Gracchi, frustrated by the perception that his Furillo plant produced inferior equipment, commissioned the design in the early 3060s to prove that Furillo could compete with Hesperus II. The original prototype was completed in 3063, with the refined UZL-3S entering full production by 3065. Gracchi personally marketed the new design to LAAF and AFFC commanders, securing initial orders through sheer persistence and political connections rather than any organic demand from the military.</p><p>The Uziel received its baptism of fire during the FedCom Civil War, where the design proved far more capable than its detractors had predicted. The Fifteenth Battle for Hesperus proved particularly significant for the Uziel and its Furillo birthplace. With the fighting raging just two jumps from Furillo, forces on both sides of the conflict clamored for reinforcements. Defiance's board of directors pressured Gracchi to send as many newly built machines as possible to support the defense of their Hesperus facilities, and more than one newscast from the period featured Uziels standing guard at the entrances to Defiance's mountain fortresses. The irony of the overlooked Furillo plant rushing to defend its more prestigious sister facility was not lost on observers.</p><p>The Civil War's disruptions scattered Uziels far beyond their intended Lyran recipients. Like many BattleMechs produced during that turbulent period, the Uziel found its way into dozens of different units, many of which had never requested or expected to receive the design. Some units within the Lyran Regulars also acquired Uziels, though this was attributed more to the chaos of wartime logistics than any deliberate procurement decision.</p><p>Production of the primary UZL-3S model continued through the Civil War but appears to have tapered off in the years that followed, with the MUPL indicating limited ongoing production. The UZL-2S, based on the earlier prototype configuration, maintained steady production through the Jihad and into the Dark Age. The Jihad also prompted development of the UZL-8S, a more specialized variant that entered production around 3075 and has continued alongside the 2S into the ilClan era, ensuring the Uziel's continued presence on battlefields across the Inner Sphere.</p>
+
+manufacturer:Defiance Industries
+
+primaryfactory:Furillo
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:Foundation
+systemmode:CHASSIS:E50 Endo Steel
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Maximillian
+systemmode:ARMOR:100
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:50
+systemmanufacturer:COMMUNICATIONS:Neil
+systemmode:COMMUNICATIONS:6000-g
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac Mark XXII

@@ -1,0 +1,97 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bc80-7924-8d0c-f467f16d4a67
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Platoon (FWLM)
+</Name>
+
+<Model>
+(Laser XCT 2880+)
+</Model>
+
+<year>
+2880
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Environment Suit, Hostile
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Conventional infantry within the FWLM serve as the backbone of provincial defense across a patchwork of semi-autonomous states, each maintaining its own military traditions and equipment preferences. Foot infantry platoons form the garrison backbone of the League's provincial militaries, assigned to hold ground on worlds that BattleMech forces cannot permanently occupy. Quality varies with provincial investment, but even modest foot platoons benefit from the FWLM's tradition of equipping infantry with reliable, standardized kit. Equipped with laser rifles that offer superior range and armor penetration compared to ballistic weapons, these platoons field one of the most effective personal arms available to conventional infantry, though the weapons are significantly more expensive and require soldiers to carry additional power packs. These Xenoplanetary Condition Troops are trained and equipped for combat in hostile environments where standard infantry cannot operate effectively, carrying specialized survival gear for extreme temperatures, toxic atmospheres, or unusual gravity conditions.</p>
+</overview>
+
+<notes>
+The Intek Laser Rifle is the standard laser long arm of the FWLM. Intro date based on production date of Intek Laser Rifle.
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+Laser Rifle (Intek)
+</Primary>
+
+<Secondary>
+Support Laser (Semi-Portable)
+</Secondary>
+
+<encumberingarmor>
+true
+</encumberingarmor>
+
+<spacesuit>
+true
+</spacesuit>
+
+<specialization>
+2048
+</specialization>
+

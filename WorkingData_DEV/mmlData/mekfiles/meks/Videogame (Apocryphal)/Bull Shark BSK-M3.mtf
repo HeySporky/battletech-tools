@@ -1,0 +1,178 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-deba-79b9-8f1d-c47065baa9e1
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Bull Shark
+model:BSK-M3
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3035
+source:Apocryphal (Videogame)
+rules level:3
+
+quirk:distracting
+
+mass:95
+engine:285 XL Engine(IS)
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 Single
+walk mp:3
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:32
+RA armor:32
+LT armor:31
+RT armor:31
+CT armor:45
+HD armor:9
+LL armor:40
+RL armor:40
+RTL armor:9
+RTR armor:9
+RTC armor:15
+
+Weapons:12
+Improved Autocannon/5, Left Arm
+AC/10, Left Arm
+Improved Autocannon/5, Right Arm
+AC/10, Right Arm
+LRM 5, Left Torso
+LRM 5, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+LRM 5, Right Torso
+LRM 5, Right Torso
+Medium Laser, Right Torso
+Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Improved Autocannon/5
+Improved Autocannon/5
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Improved Autocannon/5
+Improved Autocannon/5
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+Autocannon/10
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 5
+LRM 5
+Medium Laser
+Medium Laser
+IS Ammo LRM-5
+CLIMPAmmoAC5
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 5
+LRM 5
+Medium Laser
+Medium Laser
+IS Ammo LRM-5
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ammo AC/10
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ammo AC/10
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+

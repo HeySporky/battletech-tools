@@ -1,0 +1,161 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e6d7-7ee2-a61a-992f2d296dd5
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Giggins APC
+</Name>
+
+<Model>
+(Fire Support)
+</Model>
+
+<mul id:>
+1195
+</mul id:>
+
+<year>
+3085
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Skirmisher
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+34
+28
+28
+30
+28
+</armor>
+
+<Body Equipment>
+IS Ammo MML-5 LRM
+IS Ammo MML-5 SRM
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISERMediumLaser
+ISERMediumLaser
+ISMML5
+</Turret Equipment>
+
+<capabilities>
+<p>The most distinctive feature of the Giggins is its armor distribution. Where conventional armored personnel carriers concentrate protection toward the front, the Giggins applies a more balanced arrangement across all facings. The rationale reflects the vehicle's mission profile: battle armor troops dismount slowly, and the carrier must sustain fire not only during the approach but while halted at the point of debarkation, surrounded by active combat.</p><p>To support this demanding role, Duncan Enterprises installed a standard fusion powerplant rather than a lighter alternative, accepting the cost premium in exchange for a top speed exceeding ninety kilometers per hour. This places the Giggins among the faster vehicles in its weight class. The eight-ton infantry bay accommodates two full squads of battle armor, though operators frequently use the space for mechanized infantry or foot platoons, with capacity remaining for additional supplies and equipment.</p><p>Defensive armament consists of a pair of heavy machine guns, effective against unarmored infantry within roughly one hundred meters. An integrated ECM suite disrupts enemy command and control networks in the immediate area, adding a layer of protection beyond the vehicle's armor. Critics within the RAF have raised concerns that aggressive C³ denial tactics could lead commanders to sacrifice a Giggins and its passengers purely as a jamming asset. Supporters counter that integrated RAF doctrine makes such misuse unlikely in practice, though the debate remains open among theorists.</p>
+</capabilities>
+
+<overview>
+<p>The Giggins APC represents the Republic of the Sphere's effort to field a purpose-built battle armor transport suited to the needs of the Republic Armed Forces. With battle armor resurgent on the modern battlefield, the RAF recognized that dedicated carriers were a necessity, not a luxury. Duncan Enterprises of Moore was selected to develop the vehicle, the world itself transferred to the Republic through negotiations with the Coordinator of the Draconis Combine. The Coordinator's sole condition was that the new design honor the memory of Draconis Combine soldiers who died during the Infamous Day of Fire. The resulting vehicle carries the name of Sho-sa Charles Giggins, and it has entered RAF service as a capable, if expensive, addition to the Republic's transport inventory.</p>
+</overview>
+
+<deployment>
+<p>The fire support variant sacrifices half of the standard Giggins' infantry capacity and its ECM suite in exchange for a flexible direct-fire and indirect-fire weapons package. Extended-range medium lasers replace the heavy machine guns, providing reliable anti-armor capability without ammunition concerns. A five-tube multi-missile launcher adds range versatility: operators may load standard short-range missiles and inferno rounds for close-quarters engagements, or long-range missiles and Thunder munitions for standoff fire between built-up areas. Two tons of missile ammunition allow mission-specific loadouts. The fire support Giggins is fielded at a ratio of one vehicle per three standard APC variants, providing local suppressive fire and direct support while companion vehicles deliver their battle armor passengers to the objective.</p>
+</deployment>
+
+<history>
+<p>The Giggins takes its name from Sho-sa Charles Giggins, a Draconis Combine MechWarrior killed during the Infamous Day of Fire. When the Republic of the Sphere contracted Duncan Enterprises to develop a battle armor transport, the Coordinator negotiated the production site on Moore as part of a broader diplomatic arrangement and stipulated that the vehicle commemorate fallen DCMS personnel. The name chosen was that of Sho-sa Giggins, a figure the Coordinator considered representative of the sacrifice that shaped the new political order.</p><p>The naming decision proved contentious almost immediately. Two of Charles Giggins' children, John and Kelly, welcomed the honorific publicly, viewing it as recognition of their father's service. His other two children, Jill and Sabrina, filed suit to claim royalties on the commercial use of the Giggins name, arguing the Coordinator had no authority to attach a private citizen's identity to a production vehicle without compensation. Litigation was ongoing at the time of the vehicle's introduction, and the resolution of Charles Giggins' legacy remained uncertain.</p><p>Beyond the naming dispute, the Giggins entered service at a moment of careful political balancing between the Republic of the Sphere and the Draconis Combine. Moore's prior history under Combine administration left a distinct institutional culture at the Duncan Enterprises facility, and the vehicle's development reflected the cooperation, and occasional friction, between Combine traditions and Republic priorities. Early production was split between RAF operational units and symbolic diplomatic assignments, reinforcing the Republic's investment in the Combine relationship that had made the project possible.</p>
+</history>
+
+<manufacturer>
+Duncan Enterprises
+</manufacturer>
+
+<primaryFactory>
+Moore
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:DAV
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:Exeter
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:220
+ARMOR:StarSlab/7 Heavy Ferro-Fibrous
+COMMUNICATIONS:LongScan with ECM
+TARGETING:SmarTrack
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<tonnage>
+40.0
+</tonnage>
+

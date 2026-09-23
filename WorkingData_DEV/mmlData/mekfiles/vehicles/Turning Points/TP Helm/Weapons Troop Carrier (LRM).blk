@@ -1,0 +1,159 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ebb5-7b81-b882-32b442895807
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Weapons-Troop Carrier
+</Name>
+
+<Model>
+(LRM)
+</Model>
+
+<mul id:>
+8304
+</mul id:>
+
+<year>
+3025
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Skirmisher
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+troopspace:1.5
+</transporters>
+
+<cruiseMP>
+8
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+8
+6
+6
+4
+8
+</armor>
+
+<Body Equipment>
+IS Ammo LRM-10
+IS Ammo LRM-10
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+LRM 10
+</Turret Equipment>
+
+<capabilities>
+<p>The Weapons-Troop Carrier mounts a single LRM-10 launcher with two tons of ammunition, supplemented by a 1.5-ton infantry compartment. An internal combustion engine provides adequate speed on the twenty-ton hover chassis, though operational range is limited by fuel capacity. Thirty-two points of standard armor provide minimal protection.</p><p>The LRM-10 provides indirect fire capability at ranges beyond most light vehicles, while the small infantry compartment allows transport of a half-squad for reconnaissance or security operations. The field refit nature of the design means individual vehicles may vary significantly in component quality and configuration.</p>
+</capabilities>
+
+<overview>
+<p>The Weapons-Troop Carrier is a twenty-ton hover vehicle combining a single LRM-10 launcher with limited infantry transport capacity. A field refit design documented in Turning Points: Helm, it represents the kind of ad-hoc military improvisation common to garrison forces operating far from established supply chains. The internal combustion engine and minimal armor reflect its origins as a hasty conversion rather than a purpose-built combat vehicle.</p>
+</overview>
+
+<deployment>
+<p>The Weapons-Troop Carrier is documented in the Helm scenario context, representing the type of improvised vehicle fielded by garrison forces during the Succession Wars. The MUPL designates it as a field refit produced by various manufacturers, confirming limited and ad-hoc production rather than organized manufacturing.</p>
+</deployment>
+
+<history>
+<p>The Weapons-Troop Carrier appeared in Turning Points: Helm, documented as a field refit combining fire support and infantry transport roles. The MUPL lists the manufacturer as 'Various' with a 'Refit - field' designation, confirming its status as an improvised design rather than a factory product. The vehicle reflects the resourcefulness of garrison forces making do with available hardware during the Succession Wars era.</p>
+</history>
+
+<manufacturer>
+Various
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+ENGINE:ICE
+ARMOR:Standard
+</systemModels>
+
+<source>
+TP:Helm
+</source>
+
+<published>
+TP:Helm
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dbc7-74a7-bc4e-c449cfa7141d
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Thresher Mk II
+model:
+mul id:7502
+
+Config:Biped
+techbase:Clan
+era:3149
+source:RG04
+published:RG04
+rules level:4
+role:Skirmisher
+
+quirk:ramshackle
+quirk:imp_target_med
+
+mass:60
+engine:300 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:13 Clan Double
+walk mp:5
+jump mp:5
+
+armor:Reflective(Clan)
+LA armor:14
+RA armor:14
+LT armor:17
+RT armor:17
+CT armor:22
+HD armor:9
+LL armor:21
+RL armor:21
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:5
+ER PPC, Left Arm
+SRM 4, Left Arm
+Flamer, Right Arm
+Large Pulse Laser, Left Torso
+LRM 15, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLERPPC
+CLERPPC
+CLSRM4
+Clan Ammo SRM-4
+CLCASEII
+Clan Endo Steel
+Clan Reflective
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLFlamer
+Clan Endo Steel
+Clan Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet
+Jump Jet
+CLLargePulseLaser
+CLLargePulseLaser
+CLMASC
+CLMASC
+Clan Reflective
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+CLLRM15
+CLLRM15
+Clan Ammo LRM-15
+Clan Ammo LRM-15
+Supercharger
+CLCASEII
+Clan Reflective
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Reflective
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Thresher Mk II is a 60-ton heavy BattleMech introduced in 3149, representing a radical refit of the venerable Thresher commissioned by Clan Wolf. The design came about when Clan Sea Fox found an unsold production run of original Threshers during the Dark Age and negotiated a bulk sale to Khan Alaric Ward, contingent on extensive modifications to meet Wolf tactical requirements. The resulting changes proved so comprehensive that the design warranted an entirely new designation. Produced at Trellshire Heavy Industries on Twycross, the Thresher Mk II was purpose-built to counter the Republic of the Sphere's combined-arms combat doctrine, trading the original's garrison role for a fast skirmisher profile optimized against energy-heavy opponents.</p>
+
+capabilities:<p>The Thresher Mk II retains the original's 300-rated extralight engine and five jump jets but adds both MASC and a supercharger, allowing the 60-ton 'Mech to reach speeds of 140 kilometers per hour, performance normally associated with much lighter machines. This remarkable mobility makes the design a potent skirmisher capable of dictating engagement ranges. Nine and a half tons of Gamma Special reflective armor provides strong protection against energy weapons, a deliberate choice to counter the Republic Armed Forces' reliance on energy-heavy loadouts, though this comes at the cost of increased vulnerability to ballistic and artillery fire. CASE II protects the right torso from ammunition explosions.</p><p>The weapons loadout features a Type 22 extended-range PPC and a Type XV Crossbow LRM-15 for long-range engagement, with two tons of ammunition allowing for specialty munitions. A Series 44h large pulse laser, Mk. 22 Type II SRM-4, and DuPont Ultra PM flamer provide effective short-range firepower, creating a versatile armament mix suited to combined-arms battles. The rushed nature of its development is reflected in reported targeting system reliability issues during early combat trials, though these have not significantly diminished the design's overall combat effectiveness. The addition of hand actuators gives the 'Mech close-combat options absent from its predecessor.</p>
+
+deployment:<p>The sole configuration of the Thresher Mk II serves as a ground-up redesign rather than an incremental upgrade. The reflective armor and speed-enhancing systems create a fast, energy-resistant skirmisher well suited to closing rapidly on defenders relying on energy weapon loadouts. MechWarriors are encouraged to load their missile racks with specialty munitions, including Inferno rounds that have proven effective against fortified positions. Despite early reports of targeting system inconsistency, the design has performed well enough in its intended role to justify continued production.</p>
+
+history:<p>The Thresher Mk II emerged from a convergence of Clan Sea Fox mercantile ambitions and Clan Wolf's strategic needs. During the Dark Age, Sea Fox merchants sensed an opportunity to sell older, dependable Clan designs to the remilitarizing Inner Sphere. They restarted production of the original Thresher at their facilities, expecting strong demand for a cheap garrison 'Mech. Instead, the entire production run sat unsold, as buyers preferred either cutting-edge OmniMechs or inexpensive Inner Sphere designs.</p><p>Khan Alaric Ward saw an opportunity to acquire 'Mechs cheaply as part of his arrangements with the Sea Fox merchants, agreeing to purchase the surplus provided they were refitted to Clan Wolf standards. The resulting redesign was rushed through with minimal scientist caste involvement, relying primarily on the technician caste to meet tight deadlines at Trellshire Heavy Industries on Twycross. Early production was plagued by quality issues, including targeting system shutdowns that frustrated Wolf warriors during live-fire testing.</p><p>The Thresher Mk II first saw combat on Chertan in 3149 when the Ninth Wolf Assault Cluster engaged the Third Principes Guards of the Republic Remnant. Republic forces dug into defensive positions along ridgelines near the Ontario Sea, relying on artillery and massed LRM barrages to slow the Wolf advance. The Thresher Mk II's speed enhancements allowed Wolf warriors to close rapidly, overrunning Republic positions while suppressing defenders with energy weapons and Inferno-loaded missiles. On Pollux, Wolf warriors employed a more restrained approach, engaging Republic Armed Forces defenders with the intent to capture rather than destroy, a strategy that showcased the Thresher Mk II's versatility in different operational contexts.</p><p>Despite strong combat performance during the Battle of Terra and the ilClan Trial, the Thresher Mk II was not expected to remain in Clan Wolf's permanent arsenal. The Wolves viewed it as a stopgap measure, useful for the Terra campaign but unlikely to survive the inevitable post-war reorganization of the ilClan Touman.</p>
+
+manufacturer:Trellshire Heavy Industries
+
+primaryfactory:Twycross
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:DSHM Endo 2.4
+systemmanufacturer:ENGINE:JF
+systemmode:ENGINE:300 Extralight
+systemmanufacturer:ARMOR:Kallon Weapon Industries
+systemmode:ARMOR:Gamma Special Reflective with CASE II
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Grandthrust Mk. 3
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Crossband System 20
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Dtrac Suite 1

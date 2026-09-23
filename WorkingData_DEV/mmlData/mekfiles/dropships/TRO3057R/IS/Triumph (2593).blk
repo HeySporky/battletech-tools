@@ -1,0 +1,235 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab55-7a74-b415-842cef811eeb
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Triumph
+</Name>
+
+<Model>
+(2593)
+</Model>
+
+<mul id:>
+5295
+</mul id:>
+
+<year>
+2593
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+heavyvehiclebay:45.0:1:1::-1:0
+infantrybay:4.0:1:2:Foot:-1:0
+lightvehiclebay:8.0:1:3::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+crewquarters:84.0:0:-1::-1:0
+cargobay:751.5:1:7::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+112
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+11490
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+150
+140
+140
+125
+</armor>
+
+<Nose Equipment>
+(B) PPC
+(B) Autocannon/10
+IS Ammo AC/10:20
+(B) LRM 20
+IS Ammo LRM-20:18
+(B) Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) LRM 15
+IS Ammo LRM-15:16
+(B) Large Laser
+Medium Laser
+Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) LRM 15
+IS Ammo LRM-15:16
+(B) Large Laser
+Medium Laser
+Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Medium Laser
+Medium Laser
+(B) LRM 10
+IS Ammo LRM-10:12
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+11
+</structural_integrity>
+
+<capabilities>
+<p>The original Triumph carries a full battalion of forty-five heavy combat vehicles across three massive bays located on the vessel's two lowest decks. A pair of oversized doors on the craft's flanks provides excellent access for rapid offloading, while eight additional light vehicle slots and four infantry bays round out its troop transport capability. The aft section of the lowest deck houses the transit drive, landing gear, one main bay, and two supplementary cargo bays totaling over 750 tons of additional capacity. Though these auxiliary bays have restricted floor space limiting them to roughly four vehicles each, they prove ideal for storing BattleMeks or Mek cubicles when needed.</p><p>Defensively, the Triumph mounts a modest weapons array centered on autocannons, PPCs, and laser batteries spread across all firing arcs, supplemented by LRM racks for long-range deterrence. With 112 single heat sinks managing thermal load and only 36.5 tons of standard armor, the design prioritizes cargo capacity over combat survivability. A crew of over 530 personnel operates and maintains the vessel, reflecting the extensive support requirements of its embarked vehicle battalion. The Delano 1070 drive system provides a safe thrust of 1.5 gravities, adequate for a vessel of this size though insufficient for evasive maneuvering under fire.</p>
+</capabilities>
+
+<overview>
+<p>The Triumph class DropShip stands as one of the largest aerodyne military transports ever produced and among the most common still in active service across the Inner Sphere. First launched in 2593, this venerable design was purpose-built to deliver an entire armor battalion onto the battlefield, and its remarkable versatility has kept it in continuous production for over four and a half centuries. Though lacking the glamour of dedicated Mek carriers such as the Union or Overlord, the Triumph earned its reputation through sheer reliability and adaptability, with large numbers remaining in the fleets of every Great House.</p><p>The vessel's distinctive squat profile was born of a deliberate effort to balance aerodynamic maneuverability with rapid vehicle offloading, and its highly adaptable cargo bays have seen Triumphs modified to carry everything from aerospace fighters and BattleMeks to surface naval craft. Few aerodyne designs have achieved such universal adoption or demonstrated such longevity in continuous front-line service.</p>
+</overview>
+
+<deployment>
+<p>The original Triumph served as the primary aerodyne vehicle carrier for the Star League Defense Force from 2593 onward, and continued in that role with all five Successor States following the Star League's dissolution. Every Great House operated significant numbers throughout the Succession Wars, relying on the Triumph to deliver armored formations to contested worlds across the Inner Sphere. Production was maintained at facilities including the Rashpur-Owens shipyards on Capella and Aldis Industries plants, though output declined steadily as the conflicts ground on. The design's vulnerability in hostile landing zones led most commanders to deploy Triumphs only with substantial fighter and assault DropShip escort, a doctrine that became standard practice across all Successor State militaries.</p>
+</deployment>
+
+<history>
+<p>The Triumph class entered service in 2593 during the height of the Star League era, designed to meet the Star League Defense Force's need for a large-capacity aerodyne vehicle transport. The design proved immediately successful, offering rapid vehicle deployment capabilities that no spheroid transport could match. The SLDF adopted the Triumph in significant numbers, and its production spread to multiple facilities across the Inner Sphere. When the Star League collapsed, the Triumph's relatively simple construction and robust engineering ensured that production continued even as technological capabilities declined.</p><p>Throughout the Succession Wars, the Triumph remained the primary aerodyne vehicle carrier for all five Great Houses. The design's large, adaptable cargo bays proved invaluable during this period, as commanders frequently modified their Triumphs to carry aerospace fighters, BattleMeks, and even surface naval craft when the mission demanded it. However, the class suffered heavily in contested landings, where its thin armor and modest weaponry left it vulnerable to concentrated fire. Countless Triumphs were lost attempting to reach their landing zones under hostile conditions, reinforcing the conventional wisdom that the design required substantial escort support.</p><p>By the mid-3050s, production had slowed dramatically, with Rashpur-Owens Incorporated on Capella managing only a single new hull per year. This scarcity prompted BBP Industries of Luthien to unveil a comprehensive redesign in 3057 that reduced total mass to 6,000 tons while incorporating recovered Star League technology. The redesigned interior featured improved bay access and added Mek transport capability alongside the traditional vehicle bays, representing a significant evolution beyond a simple weapons upgrade.</p><p>The Word of Blake's capture of the Titan Yards on Terra in 3062 led to the development of the Assault Triumph, a heavily armed and armored variant that transformed the venerable transport into a combined-arms assault platform. This radical departure from the original concept carried Meks, vehicles, aerospace fighters, and battle armor in a single hull, backed by firepower that could suppress ground defenses during contested landings. A further refinement in 3082 expanded the Assault Triumph's Mek capacity and added improved defensive systems, ensuring the class would continue to serve well into the post-Jihad era.</p>
+</history>
+
+<manufacturer>
+BBP Industries|Rashpur-Owens Inc.
+</manufacturer>
+
+<primaryFactory>
+Luthien|Capella
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Delano 1070
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+8600.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+527
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+3
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+3
+</life_boat>
+
+<escape_pod>
+4
+</escape_pod>
+

@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cc47-738a-b215-d5815bc71f40
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Men Shen
+model:MS1-O
+mul id:2160
+
+Config:Biped OmniMek
+techbase:Inner Sphere
+era:3060
+source:TR:3060,TR:J
+published:RS:J
+rules level:2
+role:Striker
+
+quirk:exp_actuator
+quirk:imp_sensors
+quirk:imp_com
+
+mass:55
+engine:330 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+base chassis heat sinks:10
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:17
+RA armor:17
+LT armor:20
+RT armor:20
+CT armor:26
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:5
+Medium Pulse Laser, Left Arm
+Medium Pulse Laser, Left Arm
+Medium Pulse Laser, Right Arm
+Medium Pulse Laser, Right Arm
+LRM 15, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISMediumPulseLaser (OMNIPOD)
+ISMediumPulseLaser (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISMediumPulseLaser (OMNIPOD)
+ISMediumPulseLaser (OMNIPOD)
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMASC
+ISMASC
+ISMASC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 15 (OMNIPOD)
+LRM 15 (OMNIPOD)
+LRM 15 (OMNIPOD)
+ISArtemisIV (OMNIPOD)
+IS Ammo LRM-15 Artemis-capable (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+BeagleActiveProbe
+BeagleActiveProbe
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Men Shen holds the distinction of being the first OmniMech produced entirely within the Capellan Confederation, introduced in 3060 by Hellespont Industrials on Sian. As Inner Sphere OmniMechs rapidly proliferated following the Clan Invasion, the Confederation found itself largely shut out of domestic OmniMech production, relying on exported examples from Free Worlds League manufacturers. Hellespont, which also produced the successful Raven electronic warfare 'Mech, acquired the necessary OmniPod technology through trade agreements with Kali Yama Weapons Industries. Drawing heavily on the Raven as its design basis, the resulting fifty-five-ton OmniMech was named by Chancellor Sun-Tzu Liao himself at its unveiling, comparing it to the <i>men shen</i>, the divine guardian spirits of doors and gates in Chinese folk religion.</p><p>Considered a prestige design, the initial production run went exclusively to elite CCAF formations, with a lance delivered to each of the Capellan Warrior Houses and the remainder reaching the Death Commandos. Subsequent production expanded to border defense units, fulfilling the design's intended role as a guardian of Capellan territory.</p>
+
+capabilities:<p>The Men Shen is built on a lightweight endo steel chassis powered by a 330-rated XL engine, giving the fifty-five-ton design a top speed exceeding ninety-seven kilometers per hour. A MASC system pushes this to nearly one hundred thirty kilometers per hour in short bursts, making it one of the fastest medium OmniMechs fielded by any Inner Sphere power. Eleven tons of standard armor provide respectable protection for its weight class, though the extralight engine leaves the design vulnerable to flanking attacks that breach either side torso.</p><p>A fixed Beagle Active Probe on the base chassis ensures the Men Shen excels in reconnaissance regardless of its pod configuration, a direct inheritance from its Raven lineage. With seventeen tons of available pod space, the chassis supports a wide range of mission profiles from long-range sniping to close-quarters brawling. In its Primary configuration, four medium pulse lasers deliver devastating close-range firepower with enhanced accuracy, complemented by an Artemis IV-guided LRM-15 for both direct and indirect fire support. Several Free Worlds League weapon systems appear across various configurations, reflecting the trade relationships that made the design possible, while the newer Capellan-made LB-X Type 2 autocannon debuted on this platform.</p>
+
+deployment:<p>The Primary configuration pairs four medium pulse lasers with an Artemis IV-guided LRM-15 launcher, creating an effective all-range combatant. The pulse lasers provide enhanced accuracy in close engagements, while the missile system enables both direct fire support and indirect bombardment for lance-mates. Combined with the fixed Beagle Active Probe, this configuration serves as an ideal reconnaissance lance leader, capable of detecting hidden enemies and engaging them with precise firepower before they can effectively respond.</p>
+
+history:<p>The Men Shen emerged from the Capellan Confederation's determined effort to achieve parity with other Inner Sphere powers in OmniMech production during the late 3050s. While Ceres Metals Industries had manufactured the OmniMech Blackjack under license from Luthien Armor Works, only the St. Ives Compact branch possessed this capability, with production flowing to the St. Ives Military Command and the Armed Forces of the Federated Commonwealth rather than the CCAF. Reduced to fielding exported examples from Irian BattleMechs Unlimited, the Confederation's Strategios placed high priority on developing indigenous OmniMech production.</p><p>Hellespont Industrials, already one of the most advanced BattleMech manufacturers in the Capellan state thanks to its work on the Raven, secured trade agreements with Kali Yama Weapons Industries that provided access to OmniPod technology. The Men Shen entered service in 3060 as a symbol of Capellan technological resurgence under Chancellor Sun-Tzu Liao's Xin Sheng movement, and its initial deployment to Warrior Houses and the Death Commandos reinforced its prestige status.</p><p>The design truly proved its worth during the retaliatory invasion of the Federated Suns' Capellan March following George Hasek's abortive Operation Sovereign Justice. With supply lines in chaos, the Men Shen's OmniMech flexibility meant it was rarely out of service, and the fighting spawned two new configurations. The E configuration emerged as a devastating city-fighter, decimating AFFS infantry teams on Relevow and Taygeta with massed light machine guns and a plasma rifle. The F configuration proved equally effective as a hunter-killer, pairing dual snub-nose PPCs with a targeting computer for precision strikes against heavier opponents.</p><p>The Jihad inflicted significant damage on the Hellespont plant on Sian, reducing operating capacity to roughly eighty-two percent, though the facility survived intact, a fortunate outcome compared to many Inner Sphere industrial sites. Production continued through the Dark Age and into the ilClan era, with newer configurations incorporating advanced technologies such as the TSEMP cannon and underwater maneuvering units, ensuring the Men Shen remains a relevant and flexible asset in the CCAF's arsenal.</p>
+
+manufacturer:Hellespont 'Mech Works
+
+primaryfactory:Sian
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Hellespont
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:330 XL
+systemmanufacturer:ARMOR:Hellespont Industries
+systemmode:ARMOR:Series 9
+systemmanufacturer:COMMUNICATIONS:Ceres Metals
+systemmode:COMMUNICATIONS:Model 666
+systemmanufacturer:TARGETING:Apple Churchill
+systemmode:TARGETING:Unknown with Beagle Active Probe

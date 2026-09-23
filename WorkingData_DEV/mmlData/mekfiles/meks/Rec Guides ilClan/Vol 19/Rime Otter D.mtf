@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d9ca-774d-b236-11e458963cb0
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Rime Otter
+model:D
+mul id:8313
+
+Config:Biped OmniMek
+techbase:Clan
+era:3146
+source:RG19
+published:RG19
+rules level:2
+role:Scout
+
+quirk:difficult_maintain
+quirk:rugged_1
+quirk:imp_sensors
+
+mass:55
+engine:275 XL (Clan) Engine
+structure:Clan Reinforced
+myomer:Standard
+
+heat sinks:10 Clan Double
+base chassis heat sinks:10
+walk mp:5
+jump mp:8
+
+armor:Ferro-Fibrous(Clan)
+LA armor:18
+RA armor:18
+LT armor:19
+RT armor:19
+CT armor:28
+HD armor:9
+LL armor:25
+RL armor:25
+RTL armor:7
+RTR armor:7
+RTC armor:7
+
+Weapons:6
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+SRM 6, Right Arm
+Narc, Right Arm
+Light TAG, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLSRM6 (OMNIPOD)
+CLNarcBeacon (OMNIPOD)
+ISNarc Pods (OMNIPOD)
+ISNarc Pods (OMNIPOD)
+Clan Ammo SRM-6 (Clan) Narc-capable (OMNIPOD)
+CLLightTAG (OMNIPOD)
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+CLMASC
+CLMASC
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Improved Jump Jet (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLLightActiveProbe (OMNIPOD)
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Rime Otter is a 55-ton medium Clan OmniMech introduced in 3146 by Jötunn BattleWorx for the Rasalhague Dominion. Designed to fill the role of a heavy medium support unit, the Rime Otter was conceived to operate alongside specialist designs within the Dominion's front-line Clusters, providing a rugged anchor for lighter formations or screening heavier assault Stars. Jötunn BattleWorx drew heavily on its experience developing the Grizzly (particularly that design's reinforced internal structure) to create an OmniMech that could absorb punishment far beyond what its weight class would suggest. Built exclusively at the company's facilities on Goito, the Rime Otter represents the Dominion's effort to develop indigenous OmniMech designs rather than relying solely on established Clan Ghost Bear production lines.</p>
+
+capabilities:<p>The Rime Otter is built around a RUFM XL 275 extralight engine augmented by a fixed MASC system, giving it a cruising speed of 54 kph that can be pushed to a sprinting speed of 108 kph in short bursts. This combination allows the design to keep pace with lighter machines such as the Fire Moth while retaining the structural integrity to stand alongside heavier units like the Mastodon. The chassis itself uses a Type 56-55C Modified reinforced internal structure, granting exceptional survivability for a medium OmniMech, the Rime Otter can continue fighting through damage that would cripple less robust designs.</p><p>The trade-off for this durability is a relatively modest 18.5 tons of pod space, comparable to many 45-ton designs. This limitation has drawn criticism from MechWarriors who would prefer the firepower of established Sea Fox or WarBear-produced alternatives. IceSheet ferro-fibrous armor provides solid protection for the weight, while a Garret T10B communications suite and GC Heimdallr System Type 1 targeting system round out the electronics package. The Rime Otter's Prime configuration leans into a brawler role, mounting paired large pulse lasers in the arms alongside an Artemis V-guided LRM-10 with CASE II ammunition protection, a loadout that rewards aggressive pilots willing to close to effective range rather than trade fire at distance.</p>
+
+deployment:<p>Alternate Configuration D reconfigures the Rime Otter for a scouting and target-designation role, mounting improved jump jets alongside a light active probe and light TAG system. The primary offensive weapons include a NARC launcher with two tons of homing pods in the right arm and an SRM-6 with one ton of ammunition, allowing the 'Mech to mark targets for supporting missile formations. Three ER medium lasers in the left arm provide self-defense capability when the 'Mech is caught in close quarters. This configuration leverages the Rime Otter's improved sensors design quirk to maximum effect, making it an effective spotter despite its medium weight class.</p>
+
+history:<p>Rime Otter production began in 3146 at Jötunn BattleWorx on Goito, making it one of the newer OmniMech designs to enter service with the Rasalhague Dominion. The design emerged from the Dominion's broader effort to field indigenous military hardware rather than depending entirely on legacy Clan Ghost Bear production lines or purchases from Clan Sea Fox merchants. Jötunn BattleWorx, already known for the Grizzly, leveraged its experience with reinforced structures to create a medium-weight OmniMech that could serve as the backbone of mixed-weight formations.</p><p>The Rime Otter's integration into front-line Clusters proved uneven at first, as warriors accustomed to established designs required time to adapt to the new machine's particular strengths and limitations. Early deployments revealed that some units struggled to employ the design effectively. On Ganshoren, the 300th Battle Cluster's encounter with the Second Falcon Dragoons nearly ended in disaster when warriors used their Rime Otters as shields for Mad Dog Mk III fire-support units, absorbing punishing fire in a role better suited to dedicated heavy 'Mechs. While the Rime Otter's reinforced structure allowed many to survive the engagement, the tactic proved costly and unsustainable.</p><p>Other formations found more success by embracing the design's intended role. When the Crater Cobras raided Soverzene, a lone Rime Otter serving with the Sixth Bear Regulars repeatedly absorbed damage from the raiding force's screening elements, using its reinforced chassis to shrug off hits that would have disabled lighter scouts. The 'Mech returned to harass the frustrated Cobras day after day, demonstrating the design's exceptional durability in extended operations. Less traditionalist Clusters have learned to employ the Rime Otter judiciously, committing the design to battle only when the full weight of a formation can be brought to bear.</p><p>Among Dominion commanders, a Rime Otter that holds its ground and fights rather than withdrawing has become a recognized signal that a formation is fully committed to an engagement and that reinforcements are imminent. Jötunn BattleWorx has continued to refine the design, and it has slowly spread through the Dominion's Clusters as warriors grow more familiar with its capabilities. The company would go on to carry the Rime Otter's signature reinforced structure forward into the Mastodon assault OmniMech, further establishing Jötunn BattleWorx as a key supplier to the Dominion's military.</p>
+
+manufacturer:Jötunn BattleWorx
+
+primaryfactory:Goito
+
+fluffdate:2026-02-10 14:00:04
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type 56-55C Modified Reinforced
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:RUFM XL 275
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:IceSheet Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:Garret T10B
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:GC Heimdallr System Type 1

@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c90a-7124-9f86-6ddec6a10367
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Werewolf
+model:WER-LF-004
+mul id:3535
+
+Config:Biped
+techbase:Inner Sphere
+era:3056
+source:TR:3055U
+published:RS:3055Uu
+rules level:2
+role:Striker
+
+quirk:non_standard
+
+mass:40
+engine:200 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:16 IS Double
+walk mp:5
+jump mp:4
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:15
+RT armor:15
+CT armor:16
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:6
+Medium Pulse Laser, Left Arm
+SRM 6, Right Arm
+Small Pulse Laser, Left Torso
+Small Pulse Laser, Right Torso
+Machine Gun, Center Torso
+Machine Gun, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMediumPulseLaser
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+SRM 6
+SRM 6
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISSmallPulseLaser
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISSmallPulseLaser
+IS Ammo SRM-6
+IS Ammo MG - Full
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Machine Gun
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Machine Gun
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Werewolf is a forty-ton medium BattleMech introduced in 3056 by O'Neil BattleMechs of Solaris VII. Purpose-built for the gladiatorial arenas of the Game World, the Werewolf was designed from the outset as an ambush platform suited to close-quarters arena combat. O'Neil, a small manufacturer with limited production capacity, found an eager market among independent MechWarriors and fighting stables seeking an edge in the dense terrain arenas. The design exists in two distinct variants, each offering a different approach to arena dominance. The Werewolf has earned a reputation as one of the more dangerous Solaris machines of its era, with an improved model further raising its profile among the Game World's competitive stables.</p>
+
+capabilities:<p>Both Werewolf models share a common forty-ton chassis driven by a Nissan 200 XL engine, reaching a respectable eighty-six kilometers per hour. The XL engine saves considerable weight but leaves the design vulnerable to torso breaches, a tradeoff deemed acceptable for arena machines that fight in single engagements rather than sustained campaigns. Eight tons of armor provide reasonable protection for the weight class.</p><p>The original WER-LF-004 mounts a large pulse laser as its primary weapon, supported by a standard SRM-6 launcher, paired small pulse lasers, and twin machine guns. Four Rawlings 75 jump jets give the older model strong aerial mobility, well-suited to repositioning attacks and Death From Above strikes. The improved WER-LF-005 introduced a Star League-era null signature system reverse-engineered from a salvaged Specter, rendering the 'Mech nearly invisible to sensors when the temperamental system functions properly. The WER-LF-005 trades the original's conventional weapons for a Sutel Precision Line large X-pulse laser, a Harpoon Streak SRM-6 launcher, and twin Poland Main Model C Magshot gauss weapons, while thirteen double heat sinks manage the increased thermal output. Jump capability was halved to two jets to accommodate the stealth system and upgraded armament. Both models are effective ambush platforms, though the older variant offers reliability where the newer one gambles on technological superiority.</p>
+
+deployment:<p>The original WER-LF-004 remains in limited production alongside its improved successor, appealing to arena fighters who prefer dependable performance over the gamble of an unreliable stealth system. With twice the jump capability of the newer model, this variant gives pilots significantly more options for repositioning and launching aerial attacks, while a slight edge in armor protection further compensates for the lack of stealth capability. Several Solaris stables maintain at least one WER-LF-004 in their rosters as a reliable fallback when arena conditions favor straightforward aggression over subtlety.</p>
+
+history:<p>The Werewolf's origins lie in the competitive arena circuit of Solaris VII, where O'Neil BattleMechs carved out a niche producing specialized gladiatorial designs during the 3050s. The original WER-LF-004 debuted in 3056 and quickly proved popular in the dense terrain arenas, where its combination of speed, jump capability, and solid close-range firepower made it a competitive platform for MechWarriors who preferred an aggressive fighting style.</p><p>The crucial moment in the Werewolf's development came when the Banshees stable approached O'Neil with a request for modifications ahead of an upcoming contest in the Hartford Gardens arena. O'Neil proposed incorporating a stealth system along with upgraded weaponry and experimental technology. The resulting WER-LF-005, introduced around 3060, proved a significant leap forward, though its effectiveness varied dramatically from fight to fight depending on whether the stealth system cooperated.</p><p>O'Neil BattleMechs has struggled to expand beyond the Solaris market. Unlike some arena manufacturers who successfully licensed their designs to major producers, O'Neil has been unable to secure a partnership with a larger firm for mass production. The company continues to fill orders for both variants, though production rates remain low. Marketing efforts have focused on Solaris VII itself, where several stables have purchased the improved model following the Banshees' success in Hartford Gardens.</p><p>The Werewolf's reliance on experimental and non-standard components has limited its appeal outside the arena circuit. Military buyers have shown little interest in a design whose signature technology is unreliable, and whose weapons loadout, while effective in arena conditions, offers limited versatility on an open battlefield. The Werewolf remains a distinctly Solarian design, its fortunes tied to the continued health of the Game World's combat sports industry.</p>
+
+manufacturer:O'Neal's BattleMechs
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:O'Neil
+systemmode:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Nissan
+systemmode:ENGINE:200 XL
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:JUMP_JET:Rawlings
+systemmode:JUMP_JET:75
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Lynx-shur
+systemmanufacturer:TARGETING:Eagle Eye
+systemmode:TARGETING:400XX

@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a94d-709a-951a-ec810734da8a
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Void Medium Battle Armor
+</Name>
+
+<Model>
+Caltrop(Sqd6)
+</Model>
+
+<mul id:>
+8962
+</mul id:>
+
+<year>
+3078
+</year>
+
+<type>
+Mixed (IS Chassis)
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+33
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Squad Equipment>
+BAHeavyBattleClaw:LA
+BAHeavyBattleClaw:RA
+CLBAERSmallLaser:RA
+Clan BA Stealth (Improved):LA
+Clan BA Stealth (Improved):LA
+Clan BA Stealth (Improved):LA
+Clan BA Stealth (Improved):Body
+Clan BA Stealth (Improved):RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+ISBAMineDispenser:Body
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+ISBAMineDispenser:Body
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+ISBAMineDispenser:Body
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+ISBAMineDispenser:Body
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+ISBAMineDispenser:Body
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+ISBAMineDispenser:Body
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Caltrop is an experimental prototype developed in secret at Ishikawajima-Harima, incorporating a mix of Inner Sphere and Clan technology gleaned from captured Blakist documents and Nova Cat exchanges. A Clan-specification ER small laser replaces the support PPC, offering doubled damage potential at shorter range with improved accuracy. A torso-mounted mine dispenser provides area denial capability, giving the variant its namesake. Heavy battle claws on both arms make the Caltrop lethal in close combat, compensating for its single ranged weapon. Mechanical jump boosters replace the standard jump system, reducing jump distance but adding ground speed through more efficient leg articulation. Clan improved stealth armor increases protection by roughly forty percent over the original while maintaining the Void's signature-dampening properties. As a prototype incorporating multiple experimental systems, the Caltrop had not undergone full field testing at the time of its discovery, and concerns about reliability and the unauthorized nature of its development cast doubt on its near-term production prospects.</p>
+</capabilities>
+
+<overview>
+<p>The Void is a medium battle armor design produced by Ishikawajima-Harima Battle Armor Industries for the Draconis Combine Mustered Soldiery. Entering service in 3067, the suit was purpose-built as a scout and light assault platform capable of accommodating operators of varying physical sizes, including the larger frames of Clan Elemental warriors. Built on a heavily modified Kage chassis, the Void carries improved stealth armor that masks its signature from both visual detection and electronic sensors, granting it considerable infiltration capability. Jump boosters provide mobility comparable to lighter designs despite the Void's one-thousand-kilogram mass. The suit earned gradual acceptance within the DCMS after an initially lukewarm reception, becoming a valued component of Combine powered infantry doctrine.</p>
+</overview>
+
+<deployment>
+<p>No six-trooper Level I formations are known to have operated the Caltrop prototype. The variant's experimental nature and restricted availability within IHBAI's test program precluded distribution to ComStar or Word of Blake forces, leaving the Level I configuration as a theoretical organizational option only.</p>
+</deployment>
+
+<history>
+<p>The Void emerged from a prolonged Draconis Combine battle armor development program. Following successes with the Kage, Raiden, and Kanazuchi, the DCMS committed to expanding powered infantry capability, but resistance to non-BattleMech units delayed progress. Operation Bulldog and the Combine-Ghost Bear War forced resource allocation, yet the first prototype did not appear until 3067, five years behind schedule.</p><p>Combine scientists built the Void on the Kage platform, modifying it so extensively the two designs bore little resemblance. Accommodation for Elemental-sized operators enabled partnership with Clan Nova Cat, and production authorization followed once the High Command recognized the tactical potential. Ishikawajima-Harima BAI manufactured the suit at Luthien, with additional plants on Agematsu and Loysville opening in 3066. Full production coincided with the December 3067 Black Dragon coup, during which the Otomo and First Genyosha deployed Voids across Imperial City.</p><p>The Word of Blake blockade complicated logistics, but outlying factories continued throughout the Jihad. The Luthien plant's dispersed layout on Shizuoka's coastal flats helped it survive the Blakist occupation, and it became the first battle armor factory to resume production after liberation, reaching full capacity by 3079. The Void became standard among DCMS elite commands but remained nearly exclusive to the Combine. The Procurement Department's decision to withhold Minelayer variants from Nova Cat enclaves reflected deteriorating relations with their Clan allies.</p>
+</history>
+
+<manufacturer>
+Ishikawajima-Harima BAI
+</manufacturer>
+
+<primaryFactory>
+Luthien
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Kurita
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+1
+</jumpingMP>
+
+<armor>
+7
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

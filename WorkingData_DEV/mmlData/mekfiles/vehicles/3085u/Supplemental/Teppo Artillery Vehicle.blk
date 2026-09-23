@@ -1,0 +1,186 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e798-785b-ad84-ef985b4ec148
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Teppō Artillery Vehicle
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+5207
+</mul id:>
+
+<year>
+3086
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+60
+60
+60
+60
+60
+59
+57
+</armor>
+
+<Body Equipment>
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISArrowIVAmmo
+ISGuardianECMSuite
+ISCASE
+ISAMS Ammo
+ISAMS Ammo
+ISSniperAmmo
+ISSniperAmmo
+ISSniperAmmo
+IS Light Machine Gun Ammo - Half
+Communications Equipment:SIZE:3.0
+</Body Equipment>
+
+<Front Equipment>
+ISArrowIV
+ISArrowIV
+ISAntiMissileSystem
+Light Machine Gun
+</Front Equipment>
+
+<Front Right Equipment>
+ISAntiMissileSystem
+</Front Right Equipment>
+
+<Front Left Equipment>
+ISAntiMissileSystem
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+Light Machine Gun
+Hitch
+</Rear Equipment>
+
+<Turret Equipment>
+ISSniper
+</Turret Equipment>
+
+<capabilities>
+<p>The Teppō rides a super-heavy wheeled chassis massing fifty tons more than a Behemoth, with ground mobility intentionally limited to short tactical repositioning. Strategic movement relies on DropShip or conventional aircraft transport. Its offensive power centers on an Ikazuchi Type 2 Sniper artillery piece mounted on a reinforced turret capable of rapid traverse across uneven terrain. Two Shigunga Arrow IV missile systems supplement the primary battery, typically loaded with homing and FASCAM munitions. When a supporting TAG-equipped unit designates a target, the Arrow IV launchers can concentrate strike power equivalent to an assault BattleMech's weapons suite against a target a full kilometer distant.</p><p>Twenty tons of New Samarkand Royal Heavy Ferro-Fibrous armor resist direct fire that would disable lighter vehicles. Three Yori Flyswatter anti-missile systems ring the hull, a Sipher Battlesys 11.6 ECM suite disrupts incoming targeting locks, and CASE-protected ammunition bays ensure crew survivability even if the vehicle sustains a catastrophic ammunition strike. Two Sperry Browning light miniguns provide suppressive fire against infantry. The Teppō's integrated towing system accommodates two specially-built seventy-five ton trailers simultaneously, connecting the artillery platform with the Bokkusu repair trailer and Tenmaku command trailer to form a self-sufficient combined arms system capable of sustained independent operations.</p>
+</capabilities>
+
+<overview>
+<p>The Teppō is a super-heavy wheeled artillery system developed by Pesht Motors for the Draconis Combine Mustered Soldiery, introduced in 3086 as the centerpiece of a combined arms package designed to modernize DCMS support doctrine. The system pairs the artillery vehicle with the Tenmaku command trailer and Bokkusu logistics trailer, forming an integrated platform that allows senior commanders to direct engagements from a protected position rather than from the front line. The design reflects lessons drawn from the Ryuken regiments' wartime survival record, which demonstrated that protecting command and logistics staff through combined arms coordination produced more durable formations than traditional doctrines demanding front-line leadership. Each Teppō is assembled by hand at Pesht Motors' Unity facility, requiring several months of construction per vehicle and limiting availability to small numbers of systems.</p>
+</overview>
+
+<deployment>
+<p>The Teppō's hand-built construction at Pesht Motors' Unity facility limits production to small numbers of vehicles, each requiring several months of assembly. The first completed systems were assigned to the Ryuken-san for field evaluation, with broader DCMS adoption planned contingent on operational results. The Combine intended to assign at least one Teppō system to each major combat formation if the evaluation proved favorable. Due to its extreme mass and limited independent ground mobility, the Teppō is transported to operational areas by DropShip or conventional aircraft, where it functions as a semi-static fire support and command platform. External interest from the Republic of the Armed Forces indicated potential distribution beyond Combine borders.</p>
+</deployment>
+
+<history>
+<p>The Teppō system emerged from an institutional reckoning within the DCMS conducted during the closing years of the Jihad. Fifteen years of sustained Clan warfare, followed by the calculated brutality of the Jihad, had inflicted losses on the Combine's officer corps that extended far beyond battlefield casualties. Experienced command and logistics staff proved especially difficult to replace, with their loss eroding unit cohesion in ways that surviving combat records made impossible to ignore.</p><p>Analysis of surviving units identified a consistent pattern. Regiments with robust command-and-control structures and willingness to integrate conventional forces alongside their BattleMech assets showed higher survival rates among their command and logistics staff than comparably engaged units following traditional doctrine. The Ryuken regiments embodied this pattern most clearly. Long dismissed within the DCMS for their Dragoon-influenced philosophy of combined arms coordination over BattleMech supremacy, the Ryuken endured the Jihad's worst sustained fighting with their institutional knowledge largely intact, even as their combat strength was ground toward ineffectiveness. The DCMS drew a practical conclusion: the Ryuken's approach was not a cultural eccentricity to be tolerated but a doctrine worth systematizing.</p><p>Pesht Motors received the development contract, tasked with producing a platform allowing senior commanders to direct large engagements from a protected position rather than from the line of fire. The resulting Teppō system translated the Ryuken's informal combined arms approach into purpose-built equipment. Initial deployment assigned the first completed vehicles to the Ryuken-san, whose institutional heritage had directly shaped the system's design philosophy. The Combine anticipated that successful field evaluation would prompt broader assignment across major combat formations, with the Republic of the Armed Forces monitoring the program closely and expressing interest in acquiring units or negotiating design rights.</p>
+</history>
+
+<manufacturer>
+Pesht Motors
+</manufacturer>
+
+<primaryFactory>
+Unity
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Nissan
+ARMOR:New Samarkand Metals
+JUMP_JET:N/A
+COMMUNICATIONS:Sipher
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:280 Fuel Cell
+ARMOR:New Samarkand Royal Heavy Ferro-Fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:Battlesys 11.6 with ECM
+TARGETING:Neko Megame 9
+</systemModels>
+
+<source>
+TR:3085S
+</source>
+
+<tonnage>
+150.0
+</tonnage>
+

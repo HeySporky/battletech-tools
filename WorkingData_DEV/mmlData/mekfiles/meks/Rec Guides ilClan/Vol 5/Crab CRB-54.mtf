@@ -1,0 +1,195 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dbdb-7ecd-afa3-2d4b1250ca94
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Crab
+model:CRB-54
+mul id:7510
+
+Config:Biped
+techbase:Inner Sphere
+era:3144
+source:RG05
+published:RG05
+rules level:4
+role:Skirmisher
+
+quirk:easy_maintain
+
+mass:50
+engine:350 XXL Engine
+structure:IS Composite
+myomer:Standard
+
+heat sinks:15 IS Double
+walk mp:7
+jump mp:0
+
+armor:Heavy Ferro-Fibrous(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:17
+RT armor:17
+CT armor:21
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:6
+RTR armor:6
+RTC armor:6
+
+Weapons:4
+Plasma Rifle, Left Arm
+Plasma Rifle, Right Arm
+ER Medium Laser, Center Torso
+ER Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISPlasmaRifle
+ISPlasmaRifle
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISPlasmaRifle
+ISPlasmaRifle
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISPlasmaRifleAmmo
+ISPlasmaRifleAmmo
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISPlasmaRifleAmmo
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERMediumLaser
+Supercharger
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISERSmallLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Heavy Ferro-Fibrous
+IS Heavy Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Crab was introduced in 2719 as one of the final BattleMech designs produced for the Star League Defense Force before the Amaris Civil War brought an end to that golden age. Designed by Cosara Weaponries on Northwind, the fifty-ton medium 'Mech was built as a raider and guerrilla fighter capable of operating far behind enemy lines without resupply. The design philosophy emphasized reliability and ease of maintenance above all else, using proven off-the-shelf components wherever possible. This approach proved so successful that technicians coined the term "Crabwalk" to describe easy duty, as the Crab required less than half the maintenance time of comparable medium 'Mechs.</p><p>So popular was the design that many within the SLDF believed the Crab would become the standard medium BattleMech of the Star League's military forces. Unfortunately, fewer than one thousand units had been produced when the Succession Wars began, and large-scale production would not resume for centuries.</p>
+
+capabilities:<p>The Crab's all-energy weapons loadout makes it ideally suited for extended operations without logistical support. Twin RAMTech 1200 large lasers mounted in the distinctive claw-like arm housings provide substantial firepower at medium and long ranges, while a Ceres Arms medium laser beneath the cockpit and an Exostar small laser in a head-mounted turret round out the armament. The weapons are deliberately simple and rugged, though the large lasers' focusing mirrors can be knocked out of alignment during physical combat, requiring field adjustments from within the arm assembly.</p><p>The original CRB-27 mounted the sophisticated Dalban Series K communications system with an integrated 650 RND targeting-tracking system. This advanced electronics suite could monitor all radio and short-wave bands to determine the 'Mech's exact location and track friendly and enemy units without satellite support, even predicting enemy movements. However, the system proved fragile and difficult to maintain, and most surviving Crabs eventually had these systems replaced with more robust Garret components. Nine tons of ferro-fibrous armor provides solid protection for a machine of its weight class, with even the weakest armor locations capable of surviving a PPC strike.</p>
+
+deployment:<p>Cosara's latest Crab variant takes inspiration from the King Crab's design philosophy, wrapping a fragile composite chassis in heavy armor. Twin plasma rifles provide devastating close-range firepower, while a supercharged 350-rated XXL engine allows this variant to reach speeds of 140 kilometers per hour in short bursts. Extended-range medium and small lasers provide backup firepower once the plasma rifles' ammunition is exhausted. Unlike its larger cousin, this Crab carries extended-range lasers to cover its retreat when ammunition runs low or armor is breached.</p>
+
+history:<p>The Crab's history is one of promise cut short by the fall of the Star League. Cosara Weaponries' factory on Northwind was among the strategic targets destroyed in the opening salvos of the First Succession War in 2786. Though dedicated technicians managed to keep portions of the assembly line operational as a refit and repair facility, the advanced technology required for the original's ferro-fibrous armor and Dalban electronics was soon lost. The surviving machines were gradually downgraded to CRB-20 specifications, trading their advanced systems for readily available components.</p><p>By the end of the Fourth Succession War, approximately one hundred Crabs remained active in the Inner Sphere, all of them CRB-20 models. Unknown to the Great Houses, ComStar had secreted away stockpiles of original CRB-27 Crabs along with other Star League relics. When the organization formed the Com Guards, these pristine machines equipped their forces while downgraded CRB-20s were gifted to the Draconis Combine during the War of 3039 as part of Operation Rosebud.</p><p>The discovery of the Helm Memory Core in 3028 eventually enabled the refit line on Northwind to begin upgrading surviving Crabs back to their original specifications. Cosara Weaponries resumed full production of the CRB-27 in the 3050s, and new variants incorporating C3 technology soon followed. The Word of Blake's capture of the Northwind factory during the Jihad led to the development of the radical CRB-45 variant, though the facility was eventually liberated. Today, Crabs serve with numerous factions across the Inner Sphere, from the Com Guards and their Word of Blake successors to the Draconis Combine and various mercenary commands.</p>
+
+manufacturer:Cosara Weaponries
+
+primaryfactory:Northwind
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Coventry Metal Works
+systemmode:CHASSIS:Composite
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:350 XXL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Heavy
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

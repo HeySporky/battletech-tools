@@ -1,0 +1,174 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e5de-788a-9071-5ba49255af1a
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+DI Morgan Assault Tank
+</Name>
+
+<Model>
+(LRM)
+</Model>
+
+<mul id:>
+899
+</mul id:>
+
+<year>
+3075
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+57
+41
+41
+28
+41
+</armor>
+
+<Body Equipment>
+ISC3SlaveUnit
+ISCASE
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+IS Ammo LRM-20 Artemis-capable
+</Body Equipment>
+
+<Front Equipment>
+ISERMediumLaser
+ISERMediumLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+LRM 20
+ISArtemisIV
+LRM 20
+ISArtemisIV
+LRM 20
+ISArtemisIV
+LRM 20
+ISArtemisIV
+</Turret Equipment>
+
+<capabilities>
+<p>The DI Morgan mounts three Defiance 1001 extended-range particle projection cannons in the turret, delivering formidable firepower at long range across all arcs. A GM 300 XL fusion engine provides a cruising speed of 32 kilometers per hour and a flank speed of 54 kilometers per hour, adequate for a vehicle of its mass. Two Coventry Light Autogun machine guns supplement the primary battery for close-range defense against infantry threats.</p><p>The ER PPCs impose a severe thermal burden, and more than a third of the tank's total weight is devoted to managing heat under sustained fire. This thermal management requirement forced Defiance's engineers to accept comparatively light armor protection for a vehicle of this size. The hull compensates through the use of Durallex Super Ferro-Fibrous composites, extracting better protection per ton than standard plating. The Neil 6000V communications suite and Angst Clear View 2AV targeting system provide reliable battlefield coordination and fire control, with the targeting system enabling effective engagement at the extended ranges where the ER PPCs perform best. The combination of precision electronics and heavy energy weapons makes the DI Morgan a formidable but demanding platform to crew and maintain effectively.</p>
+</capabilities>
+
+<overview>
+<p>The DI Morgan Assault Tank is a 100-ton tracked assault vehicle developed by Defiance Industries and Defiance Motors during the Word of Blake Jihad, entering service in 3073. Conceived as a replacement for the aging Schrek PPC Carrier, the design prioritizes overwhelming long-range firepower, giving Lyran Alliance armored formations a capable heavy platform to fill the void left by years of devastating losses. Named in honor of Morgan Hasek-Davion at the insistence of the design's program manager, the tank carries the memory of one of the few Federated Suns figures held in genuine high regard within the Lyran Alliance. Despite its considerable unit cost, the DI Morgan has earned a receptive audience among experienced armored crews who see the arrival of a purpose-built assault tank as evidence that the Lyran war effort is beginning to stabilize.</p>
+</overview>
+
+<deployment>
+<p>The LRM variant reconfigures the DI Morgan as an indirect fire support platform, replacing the extended-range particle projection cannons and most of the heat management hardware with four Artemis IV-enhanced LRM-20 launchers, supported by a pair of ER medium lasers for closer-range engagement. CASE protects the crew against the risk of ammunition detonation, and a C3 slave unit enables integration with networked formations for coordinated bombardment. The variant is marketed primarily to formations seeking a replacement for the Sturmfeur in the indirect fire role. While ferro-fibrous armor partially compensates for weight devoted to the launcher battery and ammunition supply, the LRM configuration offers modestly reduced protection compared to the standard model, a trade-off accepted in exchange for sustained missile firepower the energy-intensive primary configuration cannot provide.</p>
+</deployment>
+
+<history>
+<p>The DI Morgan's development originated from a set of partial schematics for a Word of Blake heavy tank smuggled off Hesperus II during the Blakist occupation. With armored vehicle losses mounting across the Lyran front, Defiance assigned its remaining development staff to complete the design as quickly as possible. The Defiance Motors division on Tharkad produced the first prototypes in late 3073. The program manager, a native of Blair Atholl rescued during the fighting, had a deep personal admiration for Morgan Hasek-Davion and chose to name the tank in his honor. Though a faction within the design team argued for a name with stronger Lyran cultural identity, no compelling alternative emerged, and the name was officially adopted.</p><p>Morgan Hasek-Davion occupied an unusual place in Lyran public opinion, one of the few prominent figures from the Federated Suns side of the former Federated Commonwealth to remain genuinely admired within the Alliance after the civil war. Killed while leading the ill-fated Clan homeworld campaign, his legacy was left untarnished by the fratricidal conflict that followed. His memory carried particular weight on worlds near the Jade Falcon Occupation Zone, where his efforts to defend local populations against Clan incursions had left a lasting impression.</p><p>Following the liberation of Hesperus II from Word of Blake forces in 3074, Defiance Industries found its conventional vehicle production lines largely intact while the BattleMech facilities bore the brunt of the fighting and occupation damage. The company moved quickly to accelerate output, rolling out DI Morgans to replenish the armored assets consumed in years of brutal warfare across the Lyran front. The two specialized configurations, a Gauss sniper variant and an LRM carrier, entered production shortly after the standard model, broadening the design family's utility across different tactical roles.</p><p>Among the early formations equipped with the DI Morgan was the EisenJäger, an ad hoc armored company assembled on Tharkad during the Blakist occupation to target high-value enemy commanders. The unit gained recognition for eliminating a particularly ruthless Blakist Precentor but suffered severe casualties in the process and was forced to disband. Archon Adam Steiner subsequently reformed the EisenJäger as an independent company, drawing on survivors from that engagement, and dispatched them to join Devlin Stone's growing anti-Blakist coalition. Before their departure from Hesperus II, the Archon gifted the reformed unit a pair of Gauss-variant DI Morgans, an early indication that the new design was earning trust at the highest levels of the Lyran Alliance command structure.</p>
+</history>
+
+<manufacturer>
+Defiance Industries|Defiance Motors
+</manufacturer>
+
+<primaryFactory>
+Hesperus II|Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:General Motors
+ARMOR:Durallex
+JUMP_JET:N/A
+COMMUNICATIONS:Neil
+TARGETING:Angst
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:300 XL
+ARMOR:Super Ferro-Fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:6000V
+TARGETING:Clear View 2AV
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+100.0
+</tonnage>
+

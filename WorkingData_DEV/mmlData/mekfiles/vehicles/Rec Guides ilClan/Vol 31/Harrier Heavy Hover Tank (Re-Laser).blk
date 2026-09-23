@@ -1,0 +1,153 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ea07-710f-abbd-6bb987ed0c36
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Harrier Heavy Hover Tank
+</Name>
+
+<Model>
+(Re-Laser)
+</Model>
+
+<mul id:>
+9455
+</mul id:>
+
+<year>
+3149
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<cruiseMP>
+10
+</cruiseMP>
+
+<engine_type>
+4
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+30
+20
+20
+19
+</armor>
+
+<Body Equipment>
+ISCASE
+IS Streak SRM 6 Ammo
+</Body Equipment>
+
+<Front Equipment>
+Large Re-engineered Laser
+ISStreakSRM6
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+Medium Laser
+</Rear Equipment>
+
+<capabilities>
+<p>The Harrier's most significant attribute is its hover mobility. At cruising speeds exceeding 100 kilometers per hour and capable of bursts approaching 160, it can outrun virtually any comparable fighting vehicle and dictate the terms of most engagements. This speed is the vehicle's primary defense, and crews are trained to exploit terrain and movement to compensate for armor that is adequate but not exceptional for a vehicle of its class.</p><p>The weapons fit has evolved substantially across the design's production history. The original configuration paired a large laser with a short-range missile launcher, providing flexible firepower at standoff ranges. The Federated Commonwealth replaced these with a particle projector cannon in the early thirty-first century, accepting a loss of dual-weapon flexibility in exchange for heavier hitting power suited to striker operations. The current Re-Laser variant represents the most significant redesign, pairing a large re-engineered laser capable of degrading advanced composite armor with a Streak SRM launcher and a medium laser for close engagement. Heavy ferro-fibrous armor with CASE protection reflects an improved protection philosophy in the modern build, though speed remains the platform's fundamental survival strategy across all configurations.</p>
+</capabilities>
+
+<overview>
+<p>The Harrier Heavy Hover Tank entered service with the Star League Defense Force in 2749, commissioned by Brooks Incorporated at their facility on Carver V. Designed to support BattleMech operations and provide fast cavalry capability, the Harrier distinguished itself early through a combination of exceptional ground speed and dependable firepower. Commanders quickly adapted the vehicle to reconnaissance and flanking roles beyond its original brief, finding its hover drive ideal for rapid exploitation of gaps in enemy formations. A light fusion engine shielded the design from the component stripping that gutted most hovercraft during the Succession Wars, allowing hulls to survive long after the production lines fell silent. Brooks Incorporated maintained a long relationship with the design across multiple eras and factory relocations, refining and upgrading the platform as each generation of conflict demanded new capabilities.</p>
+</overview>
+
+<deployment>
+<p>The Re-Laser variant entered Republic of the Sphere service in 3149, deployed primarily in formations tasked with countering Draconis Combine armor advances. The re-engineered laser's effectiveness against modern composite armor made it a natural choice for fast cavalry elements, and the Streak SRM launcher provided reliable close-in capability without the ammunition waste that plagued earlier short-range systems. Capellan Confederation forces assumed control of Carver V production during the ilClan period, redirecting output to CCAF formations. The Elektrougli facility supplies variants to Free Worlds League units, with reports of the vehicle appearing alongside older configurations in formations such as the Oriente Hussars, reflecting independent re-engineered laser production capacity in that region.</p>
+</deployment>
+
+<history>
+<p>Brooks Incorporated received the Star League Defense Force contract for the Harrier in 2749 and built the vehicle on Carver V throughout the late Star League period. The design proved popular across SLDF armor formations, valued for its speed over more heavily armed contemporaries. When the Star League collapsed and the Succession Wars began stripping Inner Sphere industry, the Harrier's light fusion engine became both its salvation and its production liability. Because the Vlar powerplant was associated primarily with the civilian sector, it escaped the systematic military salvage operations that claimed most hover vehicle engines, allowing Harrier hulls to remain operational long after Brooks shuttered the production line in the mid-thirtieth century. Capellan Confederation control of Carver V did not extend to reviving the costly factory, and the design faded from active production.</p><p>The Harrier returned to production following the Fourth Succession War. Federated Commonwealth capture of Carver V brought Brooks back under contract, and the reopening of the line coincided with the introduction of the PPC variant, which exchanged the original laser armament for a heavier gun better suited to the longer engagement ranges preferred by FC armor doctrine. The Tikonov Free Republic, which controlled Carver V briefly during the post-Fourth Succession War political reshuffling, operated the factory and contributed to the vehicle's spread through the former Tikonov Commonality. The FC variant found broad commercial success with mercenary units as a fast raider platform, and political changes at Carver V across the Clan Invasion and Civil War eras kept it in continuous if sometimes disrupted production.</p><p>The Re-Laser variant emerged from Republic of the Sphere weapons development in the 3140s, incorporating re-engineered laser technology provided by Julian Davion as part of his coordination with Devlin Stone before the closure of the Fortress Wall. Republic engineers paired the new weapon with upgraded armor and Streak technology to produce a platform capable of meeting Draconis Combine BattleMechs on favorable terms. Brooks produced the Re-Laser variant on Carver V, while the Elektrougli facility, under successive Free Worlds League and Independent operators, developed its own production capacity for both the PPC and Re-Laser variants during the late Dark Age. The Capellan Confederation, which acquired Carver V during the ilClan period, continues Harrier production into the current era.</p>
+</history>
+
+<manufacturer>
+Brooks Incorporated|Brooks Incorporated
+</manufacturer>
+
+<primaryFactory>
+Carver V|Elektrougli
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Strand
+ARMOR:Durallex
+COMMUNICATIONS:Maxell
+TARGETING:Maxell
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:265 Light
+ARMOR:Special Heavy Ferro-Fibrous
+COMMUNICATIONS:600b
+TARGETING:AT70
+</systemModels>
+
+<source>
+RG31
+</source>
+
+<published>
+RG31
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+

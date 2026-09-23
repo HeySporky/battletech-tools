@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c8d1-7ef4-9af5-792fbddeaab6
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Stealth
+model:STH-2D2
+mul id:3056
+
+Config:Biped
+techbase:Inner Sphere
+era:3062
+source:TR:3055U,TR:J
+published:RS:J
+rules level:2
+role:Striker
+
+quirk:imp_sensors
+
+mass:45
+engine:315 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:7
+jump mp:7
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:17
+RT armor:17
+CT armor:21
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:4
+Streak SRM 6, Left Torso
+ER Medium Laser, Left Torso
+ER Medium Laser, Right Torso
+TAG, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+ISStreakSRM6
+ISStreakSRM6
+ISERMediumLaser
+IS Streak SRM 6 Ammo
+ISMASC
+ISMASC
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+ISERMediumLaser
+BeagleActiveProbe
+BeagleActiveProbe
+IS Endo Steel
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISTAG
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The 45-ton Stealth was introduced in 3054 as General Motors' entry into the new generation of reconnaissance BattleMechs developed in the wake of the Clan Invasion. Produced at GM's Kathil facilities for the Armed Forces of the Federated Commonwealth, the Stealth was designed as a heavy scout, one of the most capable dedicated reconnaissance platforms of its era. The design emphasizes speed, agility, and advanced sensor capability over raw firepower, combining burst-speed capability and jump jets with a sophisticated sensor suite that allows it to locate hidden units and map enemy positions with remarkable precision. GM's exhaustive pre-production testing and AFFC certification ensured the design met the exacting standards required for deep-penetration reconnaissance operations behind enemy lines.</p>
+
+capabilities:<p>The Stealth's GM 315 XL engine propels the forty-five-ton 'Mech to a cruising speed of 76 kph, while its MASC system allows burst speeds exceeding 150 kph. Six jump jets provide a 210-meter jump capability, making the Stealth exceptionally agile for a medium-weight design. The heart of the 'Mech's mission profile is its Cyclops-Beagle Sensory active probe, paired with an advanced sensor and mapping suite that makes it an ideal deep-penetration reconnaissance platform.</p><p>The Stealth's weapons loadout is often misunderstood. Its single SRM-6 rack and Streak SRM-2 launcher, backed by twin medium lasers, are not designed for sustained combat. Instead, this armament serves to discourage pursuit and provide enough firepower for pilots assigned to deep raids to wreak havoc in an enemy's rear areas. The Durallex Medium armor provides substantial protection for a scout 'Mech, though after more than a decade of service, some Stealths have developed serious stress defects in their endo steel structures, a flaw GM has been reluctant to publicly acknowledge. Despite this structural concern, the combination of speed, sensors, and adequate protection makes the Stealth one of the premier reconnaissance designs in the Inner Sphere.</p>
+
+deployment:<p>Another field modification of the STH-2D emerging around 3062, this variant replaces one extended-range medium laser with a TAG target designator. This allows the Stealth to designate targets for Arrow IV artillery bombardments, leveraging the 'Mech's speed and sensor suite to paint high-value targets for indirect fire support. Combined with the active probe, the TAG-equipped Stealth serves as an exceptional forward observer platform.</p>
+
+history:<p>The Stealth received its baptism of fire shortly after entering production, when a trial unit was deployed to the world of Ambergrist during a 3054 Capellan raid into the St. Ives Compact. The attacking Capellans had spread out expecting little opposition, unaware that Stealths were operating on-world. The reconnaissance 'Mechs tracked the raiders' every movement until the Illician Lancers' Fifty-ninth Striker arrived to reinforce the defenders. Guided by the Stealths' sensor data, FedCom forces called in devastating air and artillery strikes on the Capellan positions, demonstrating the design's potential as a force multiplier.</p><p>Since that early engagement, the Stealth has become the keystone recon 'Mech for both the Armed Forces of the Federated Suns and the Lyran Alliance Armed Forces. The largest concentration of Stealth units has historically been found among formations assigned to the Capellan March, where the 'Mech's deep-penetration capabilities are valued along the tense Capellan border. Persistent rumors have circulated that the AFFS formed an elite commando team equipped almost exclusively with Stealths, though official deployment records do not support these claims. Unconfirmed sightings of such a unit did surface during the FedCom Civil War, reported operating on Capellan worlds.</p><p>General Motors continued to develop the platform throughout the 3060s, producing the upgraded STH-2D with improved weaponry and later the STH-3S, which incorporated reverse-engineered stealth armor technology to create a dedicated sniper variant. The design also attracted the attention of Blue Shot Weapons on Loxley, which produced an experimental hybrid refit designated the STH-5X in 3076. Using battlefield salvage and Clan-specification equipment, Blue Shot created two prototype chassis incorporating a Chameleon Light Polarization Shield, though the experimental nature of the project made mass production unlikely.</p><p>Despite structural concerns with some early production frames, the Stealth remains a valued reconnaissance asset across multiple successor states. The special operations and reconnaissance roles the design was built for have ensured steady demand, particularly among commands operating along the Capellan and Draconis borders where intelligence gathering is a constant priority.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:General Motors
+systemmode:CHASSIS:GM Stealth Endo Steel
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:GM 315 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Durallex Medium
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:100AFVTA
+systemmanufacturer:COMMUNICATIONS:Dalban
+systemmode:COMMUNICATIONS:Dalban Micronics
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:Dalban HiRez

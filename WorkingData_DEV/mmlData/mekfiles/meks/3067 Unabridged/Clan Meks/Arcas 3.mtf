@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cda9-77c0-a759-976caf983129
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Arcas
+model:3
+mul id:5686
+
+Config:Biped
+techbase:Clan
+era:3078
+source:TR:J
+published:RS:3067u
+rules level:2
+role:Skirmisher
+
+quirk:pro_actuator
+
+mass:65
+engine:325 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:15 Clan Double
+walk mp:5
+jump mp:7
+
+armor:Ferro-Fibrous(Clan)
+LA armor:14
+RA armor:20
+LT armor:23
+RT armor:23
+CT armor:30
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:7
+RTR armor:7
+RTC armor:8
+
+Weapons:4
+Heavy Large Laser, Right Arm
+Medium Pulse Laser, Left Torso
+Streak SRM 4, Right Torso
+Medium Pulse Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+CLHeavyLargeLaser
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+CLMediumPulseLaser
+CLTargeting Computer
+CLTargeting Computer
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+Improved Jump Jet
+CLStreakSRM4
+CLMediumPulseLaser
+Clan Streak SRM 4 Ammo
+Clan Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Arcas is a 65-ton Clan heavy BattleMech introduced in 3061 by Clan Ghost Bear as a symbolic expression of a new era for the Clan following its mass exodus to the Inner Sphere and the establishment of the Ghost Bear Dominion. Named for a figure from ancient Greek mythology who became the constellation Ursa Minor, the Arcas was produced by Bergan Industries on Alshain and conceived as a sophisticated second-line garrison design. Expensive for its intended role, the Arcas nonetheless earned a solid reputation among the Dominion's military as a capable and well-rounded heavy combatant, with production continuing through the Rasalhague Dominion era and into the ilClan period.</p>
+
+capabilities:<p>The Arcas is exceptionally mobile for its weight class. A 325-rated XL fusion engine propels the chassis to speeds of 86 kph, comparable to many medium 'Mechs, while five Clan Standard Type A3 jump jets provide a jump capacity of 150 meters. This combination of ground speed and jump capability gives the Arcas tactical flexibility uncommon among heavy BattleMechs, allowing it to exploit terrain and outmaneuver heavier opponents. The reliance on an extralight engine does carry risk, however, as catastrophic damage to either side torso will destroy the engine and disable the 'Mech entirely. Backing up this impressive mobility is thirteen and a half tons of Compound 12A1 standard armor on an endo steel frame, the maximum protection a chassis of its tonnage can carry.</p><p>The Arcas carries an array of weaponry effective at all ranges. A pair of Series 7K extended range large lasers mounted in the arms serve as the primary long-range armament, capable of sniping targets or adding firepower to devastating short-range salvos. Two Kolibri Delta Series medium pulse lasers and three Smartshot Mk. V Streak SRM-4 launchers provide lethal close-range firepower, with the Streak technology ensuring no missile is wasted. The design carries only a single ton of missile ammunition, a genuine constraint in prolonged engagements that forces pilots to exercise fire discipline or risk running dry at a critical moment. Fifteen double heat sinks manage the thermal load, though sustained alpha strikes will still generate uncomfortable levels of waste heat.</p>
+
+deployment:<p>Introduced in 3078, the Arcas 3 is a significant departure from the original design philosophy, emphasizing enhanced mobility and precision fire over the balanced multi-range approach of its predecessors. The variant replaces the standard jump jets with seven improved jump jets, extending the jump capacity to an impressive 210 meters and granting the pilot exceptional tactical repositioning capability. The primary armament centers on a heavy large laser paired with a targeting computer to offset the weapon's inherent inaccuracy, providing devastating precision strikes at medium to long range. A single Streak SRM-4 launcher and pair of medium pulse lasers round out the armament for close engagements. This configuration transforms the Arcas into a highly mobile precision striker, well suited to rapid flanking maneuvers and hit-and-run tactics against heavier opponents.</p>
+
+history:<p>The Arcas emerged from a deliberate effort by Clan Ghost Bear leadership to create cultural touchstones marking the Clan's transition to an Inner Sphere power. Following the completion of the mass exodus and the establishment of the Ghost Bear Dominion, Khan Bjorn Jorgensson determined that new symbols were needed to define this era. The first such symbol was a massive bronze sculpture of a Leviathan-class WarShip, designated the Great Work, commissioned in late 3060 from a group of recently passed trothkin and placed on display at Alshain with a dedicated viewing center built around it.</p><p>The second symbol was more militant in nature: a new second-line BattleMech built at the Bergan Industries facility on Alshain that also produced the Ursus. Loremaster Laurie Tseng named the design after a figure from ancient Greek mythology who became the constellation Ursa Minor, a reminder of where the Clan had chosen to settle, as the constellation was visible nowhere in Clan space. The Arcas stepped off the production line in 3061 and was quickly battle-tested in Trials of Possession with Clan Wolf for the worlds of Leoben, Skandia, and Radstadt. These early engagements validated the design's combat effectiveness and demonstrated the Ghost Bear Dominion's industrial capacity to produce sophisticated new 'Mechs on Inner Sphere soil.</p><p>Produced in fairly large numbers, the Arcas was distributed across the Ghost Bear Dominion's military. All of the Ghost Bears' second-line Galaxies received Arcases, with the largest concentration assigned to the Third Bear Regulars Cluster of Theta Galaxy. The design also attracted attention from beyond the Dominion's borders; the Tenth Garrison Cluster of the Nova Cats' Chi Provisional Galaxy acquired an Arcas through a Trial of Possession, demonstrating the design's desirability among allied Clans.</p><p>The Bergan Industries facility on Alshain has continued Arcas production through subsequent eras, with ownership of the factory transitioning from Clan Ghost Bear to the Rasalhague Dominion as the political entity evolved. The factory has maintained active production lines for the design from 3061 through the ilClan era, ensuring a steady supply of this capable second-line heavy 'Mech.</p>
+
+manufacturer:Bergan Industries - Alshain Weapons(formerly GK&T owned)
+
+primaryfactory:Alshain
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Bergan
+systemmode:CHASSIS:Version 6.3 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:325 XL
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:Compound 12A1 Standard
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Improved Jump Jets
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:L15
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac Version 8

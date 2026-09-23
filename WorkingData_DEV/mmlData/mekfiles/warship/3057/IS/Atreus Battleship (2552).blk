@@ -1,0 +1,393 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ecc4-746b-a025-38c9a02b9dcf
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Atreus Battleship
+</Name>
+
+<Model>
+(2552)
+</Model>
+
+<mul id:>
+3751
+</mul id:>
+
+<year>
+2552
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:24.0:6:1::-1:0
+cargobay:166634.5:10:2::-1:0
+dockingcollar
+dockingcollar
+steeragequarters:250.0:0:-1::-1:0
+1stclassquarters:1240.0:0:-1::-1:0
+crewquarters:2695.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+3500
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+6630
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+13
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+203
+183
+183
+165
+183
+183
+</armor>
+
+<Nose Equipment>
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:20
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:20
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:20
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Autocannon (NAC/20)
+Naval Autocannon (NAC/20)
+Ammo NAC/20:20
+(B) Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+Naval Laser 35
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:20
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:20
+(B) Large Laser
+Large Laser
+Large Laser
+Large Laser
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:20
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:20
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:20
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+Naval Laser 45
+(B) Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+Small Laser
+</Right Broadsides Equipment>
+
+<structural_integrity>
+80
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 1.1 million tons, the Atreus was a formidably armed vessel whose broadside batteries combined naval autocannon, naval lasers, and heavy naval particle projection cannon across multiple firing arcs. The class relied heavily on naval autocannon for its primary striking power, supplemented by laser batteries and a substantial number of heavy capital particle weapons that provided devastating close-range firepower. This weapons mix gave the Atreus considerable punch in fleet engagements, though the magazines carried an especially limited supply of only ten rounds per autocannon, a recognized constraint that demanded quick resolution of any engagement before the vessel's primary armament ran dry.</p><p>The hull carried approximately seventeen hundred and fifty tons of ferro-aluminum armor, providing respectable but not exceptional protection for a vessel of battleship tonnage. Acceleration was noteworthy for a capital vessel of this displacement, with the class capable of sustained thrust well above that of many contemporaries, lending it a degree of tactical agility unusual for a battleship. The Atreus carried four squadrons of fighters and mounted two docking collars for DropShip attachment, complemented by an enormous cargo capacity exceeding one hundred and sixty thousand tons. Two gravity decks of unequal size provided simulated gravity for the crew, though living conditions aboard were widely regarded as cramped and uncomfortable, with even officer quarters offering minimal privacy, making Atreus postings among the least sought-after assignments in the League fleet.</p>
+</capabilities>
+
+<overview>
+<p>The Atreus-class battleship was designed and constructed by Technicron Manufacturing at its Tamarind Yards for the Free Worlds League, entering service in 2552 during the final decades of the Age of War. Conceived as a statement of the League's naval ambition and industrial capability, the Atreus was the heaviest WarShip class operated exclusively by the Free Worlds League, serving as the backbone of League battlegroups for over two centuries.</p><p>The class anchored fleet formations with raw firepower and considerable displacement, earning respect as a credible deterrent along the League's extensive borders. Crew opinion of the vessel was more divided, as certain design compromises left those who served aboard with strong reservations about life at the posting, but the Atreus-class remained a significant achievement in League shipbuilding.</p>
+</overview>
+
+<deployment>
+<p>The FWLS Atreus served as the flagship of the First Fleet in 2765, based at the Dieudonne system with anchorage at the Technicron Manufacturing shipyards at Savannah. As the likely lead vessel of her class, the vessel occupied a position of considerable prestige within the fleet hierarchy, though relatively little combat was recorded along the First Fleet's patrol route near the Hegemony border during this period.</p><p>The FWLS Sorunda, assigned to the Second Fleet, distinguished herself during the invasion of the Second Chance system in February 2787. Engaging the Capellan Du Shi Wang-class battleship Mica Liao, the Sorunda employed her forward batteries and broadside armament to devastating effect, while nuclear-armed fighters from her bays inflicted the killing blows on the enemy capital vessel. The vessel subsequently conducted a seven-minute orbital bombardment of Sweethaven spaceport, destroying ground forces and DropShips in a demonstration of the class's power projection capability.</p><p>The FWLS Majestic participated alongside her sister vessel FWLS Kanata in retaliatory operations against the Capellan Confederation in August 2788, conducting firebombing operations over New Canton. The Majestic met her end during the defense of Andurien in October 2838, engaging a Capellan invasion fleet alongside other League WarShips. Though the defending force claimed significant enemy losses, the Majestic was destroyed in the engagement, her wreckage remaining in orbit until atmospheric decay consumed it in 2843. Additional vessels including the FWLS Agrippa and FWLS Ragusa were lost in separate actions at Corey and Wazan during the First Succession War, confirming the relentless attrition that consumed the class.</p>
+</deployment>
+
+<history>
+<p>Technicron Manufacturing laid down the first Atreus-class keels at the Tamarind Yards in the mid-twenty-sixth century, with the class entering service in 2552 as the Free Worlds League sought to establish a credible naval force during the closing decades of the Age of War. The design matched or exceeded contemporary battleships fielded by rival states including the Lyran Commonwealth and Capellan Confederation, ceding supremacy only to the Terran Hegemony's largest capital vessels introduced in the following century. Production continued through 2681, establishing a substantial fleet of capital WarShips that formed the foundation of the League's naval power for generations.</p><p>By 2765, at least twenty Atreus-class battleships remained in active service, distributed across the Free Worlds League Navy's five standing fleets with four battleships assigned to each fleet group. The class served as the nucleus around which each fleet's order of battle was constructed, supported by heavy cruisers, destroyers, and provincial naval squadrons. This organizational structure gave the League one of the most powerful and evenly distributed naval forces among the Successor States, enabling the FWLN to project credible force along its extensive borders with the Lyran Commonwealth and Capellan Confederation.</p><p>The Succession Wars exacted a devastating toll on the class. During the First Succession War, Atreus-class vessels championed League offensive operations against the Capellan Confederation, engaging enemy capital ships in several decisive naval actions and supporting ground campaigns through orbital bombardment operations. The attrition proved severe on both sides, with multiple vessels lost in engagements where Capellan forces counterattacked League positions with their own capital WarShips. The inability to replace losses at the Tamarind Yards, where production had ceased nearly a century earlier, gradually eroded the League's battleship strength beyond recovery.</p><p>Surviving vessels continued to serve through the Second Succession War, participating in defensive operations against continued Capellan incursions into League territory. The last Atreus-class battleship fell to Lyran aerospace fighters in 2809, marking the extinction of the class and ending the Free Worlds League's indigenous battleship capability. Approximately two-thirds of all vessels constructed had survived to the beginning of the Succession Wars, a figure that spoke to both the durability of the design and the relative restraint of the Star League era, but sustained warfare without replacement proved insurmountable. The loss of the Atreus class left a void in the League's naval order of battle that would endure for centuries.</p>
+</history>
+
+<manufacturer>
+Technicron Manufacturing Corp. Tamarind Yards
+</manufacturer>
+
+<primaryFactory>
+Tamarind
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Battleship
+</use>
+
+<length>
+1100 m
+</length>
+
+<height>
+1200 m Sail
+</height>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+1100000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+95
+55
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+533
+</crew>
+
+<officers>
+100
+</officers>
+
+<gunners>
+87
+</gunners>
+
+<passengers>
+24
+</passengers>
+
+<marines>
+50
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+25
+</life_boat>
+
+<escape_pod>
+25
+</escape_pod>
+

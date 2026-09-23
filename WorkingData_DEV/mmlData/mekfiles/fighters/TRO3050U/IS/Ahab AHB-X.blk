@@ -1,0 +1,183 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ada1-7928-855b-0012279d515c
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Ahab
+</Name>
+
+<Model>
+AHB-X
+</Model>
+
+<mul id:>
+20
+</mul id:>
+
+<year>
+2697
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+18
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+84
+59
+59
+46
+</armor>
+
+<Nose Equipment>
+Large Laser
+Medium Laser
+Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+LRM 20
+SRM 6
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+LRM 20
+SRM 6
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo LRM-20
+IS Ammo LRM-20
+IS Ammo LRM-20
+IS Ammo SRM-6
+IS Ammo LRM-20
+IS Ammo LRM-20
+IS Ammo LRM-20
+IS Ammo SRM-6
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Ahab's primary striking power comes from its twin Delta Dart LRM-20 launchers, each supplied with three tons of ammunition, providing extended-range fire support capable of saturating a target area across multiple passes. At closer ranges, two Federated-6 SRM-6 launchers with two tons of shared ammunition deliver concentrated follow-up strikes. An Apple Churchill Guiding Light NARC missile beacon, added in the 2703 production revision, dramatically improves missile accuracy by painting targets for coordinated squadron fire. A single Thunderbolt 2C large laser serves primarily as a backup weapon when ammunition stores are depleted, while two rear-mounted Ceres Arms medium lasers provide modest deterrence against pursuers.</p><p>The PlasmaStar 270 fusion engine provides adequate thrust for the Ahab's ninety-ton mass but produces a noticeably low acceleration rate. Pilots have compared the fighter's handling to a "floundering moose in molasses," noting the critical seconds required to reach operational speed. This sluggishness represents the design's most significant tactical weakness, making the Ahab vulnerable during approach runs in contested airspace. Fifteen and a half tons of Force Plus armor provide substantial protection across most arcs, though lighter coverage in the rear is a concern for pilots performing precision strikes in heavily defended territory. The Wakazashi Heavy Unlimited frame carries the entire weapons suite on a robust airframe designed to absorb punishment at the expense of agility.</p>
+</capabilities>
+
+<overview>
+<p>The Ahab is a ninety-ton heavy aerospace fighter originally developed by Harvard Company, Inc. during the height of the Star League era. Debuting as a prototype in 2697, the design was conceived as a dedicated missile platform capable of overwhelming heavily armored targets through sheer volume of fire. A full squadron of Ahabs could engage light and medium-class DropShips in a single pass, establishing the fighter as one of the most destructive aerospace platforms ever fielded. The definitive production model entered service in 2703, and though hampered by notoriously sluggish acceleration, the Ahab's devastating firepower and heavy armor made it a prized asset for SLDF task forces and Great House militaries throughout the Star League period.</p>
+</overview>
+
+<deployment>
+<p>The original Ahab prototype, the AHB-X predates the definitive AHB-443 by six years. This version mounts three medium lasers in the nose and additional heat sinks in place of the NARC missile beacon added in the later production model. Though some records indicated the AHB-X had not been seen in active service for nearly two centuries, many surviving Ahabs were actually downgraded to this configuration during the Succession Wars as NARC technology became increasingly difficult to maintain. A small number of operators continued fielding this variant through the opening of the Jihad.</p>
+</deployment>
+
+<history>
+<p>Harvard Company, Inc. originally produced the Ahab at facilities on both Terra and Epsilon Eridani beginning in 2697, with the initial prototype featuring additional medium lasers in the nose rather than the NARC beacon system incorporated into the later production model. The definitive AHB-443 entered production in 2703 and saw widespread distribution across SLDF forces and Great House militaries. Commanders with Ahab squadrons assigned to their task forces used the fighters to devastating effect against heavily fortified installations, and it was common for a full squadron to engage light and medium-class DropShips in a single coordinated pass.</p><p>Harvard Company went bankrupt in the early 3000s due to financial malfeasance, and production rights transferred to Bannock-Braigh Aerospace on Terra. BBA initially concentrated on manufacturing spare parts and minor upgrade packages rather than building new airframes in significant numbers. Critically, BBA sold its limited output exclusively to ComStar and deliberately neglected to provide parts or support to other military customers. As a result, Ahabs serving with the Great House militaries gradually fell into disuse and disrepair over the following decades. Many surviving airframes were downgraded to the earlier prototype configuration as advanced components like the NARC beacon became impossible to maintain.</p><p>Following the Word of Blake's seizure of Terra in 3058, Bannock-Braigh's longstanding ComStar contract became untenable, and the company's future shifted to its new masters. In 3061, BBA began manufacturing two new variants under Word of Blake direction. Though BBA was also producing parts and upgrade packages for the reconstituted SLDF and other House militaries during this period, the new Ahab variants were reserved exclusively for Blakist forces. The Free Worlds League fields the largest number of older Ahabs among the House militaries, with the League Admiralty assigning most of these heavy fighters to nadir and zenith jump point stations for system defense.</p><p>During the Jihad, Ahab squadrons featured prominently in some of the Word of Blake's most violent campaigns. Several squadrons proved instrumental in cracking the three main fortresses on Dieron during the Blakist siege of that world, helping turn the tide against the Combine's defenders. Newer variants appeared primarily among Protectorate Militia forces, and some mercenary commands employed by the Word of Blake were also observed fielding updated models alongside Protectorate units.</p>
+</history>
+
+<manufacturer>
+Harvard Company, Inc|Field Refit
+</manufacturer>
+
+<primaryFactory>
+Terra|Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Wakazashi
+ENGINE:PlasmaStar
+ARMOR:Force Plus
+COMMUNICATIONS:MyComm
+TARGETING:Antron
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Heavy Unlimited
+ENGINE:270
+ARMOR:Unknown
+COMMUNICATIONS:LVR
+TARGETING:7
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+90.0
+</tonnage>
+

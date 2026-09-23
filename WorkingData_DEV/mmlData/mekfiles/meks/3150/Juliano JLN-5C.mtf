@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d59e-7fd5-98c4-1783002a27fd
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Juliano
+model:JLN-5C
+mul id:8065
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3146
+source:TR:DA
+published:RS:DA
+rules level:2
+role:Brawler
+
+quirk:combat_computer
+
+mass:90
+engine:360 XL Engine(IS)
+structure:IS Endo-Composite
+myomer:Standard
+
+heat sinks:16 IS Double
+walk mp:4
+jump mp:0
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:30
+RA armor:30
+LT armor:30
+RT armor:30
+CT armor:47
+HD armor:9
+LL armor:38
+RL armor:38
+RTL armor:8
+RTR armor:8
+RTC armor:11
+
+Weapons:10
+Streak SRM 6, Left Arm
+Streak SRM 6, Left Arm
+Medium Pulse Laser, Left Arm
+Streak SRM 6, Right Arm
+Streak SRM 6, Right Arm
+Medium Pulse Laser, Right Arm
+ER Large Laser, Left Torso
+ER Large Laser, Right Torso
+ER Large Laser, Center Torso
+Medium Pulse Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+CLMediumPulseLaser
+Clan Streak SRM 6 Ammo
+Clan Streak SRM 6 Ammo
+ISCASEII
+IS Endo-Composite
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+CLMediumPulseLaser
+Clan Streak SRM 6 Ammo
+Clan Streak SRM 6 Ammo
+ISCASEII
+IS Light Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+CLERLargeLaser
+IS Endo-Composite
+IS Endo-Composite
+IS Endo-Composite
+IS Endo-Composite
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+CLERLargeLaser
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERLargeLaser
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit (ARMORED)
+CLMediumPulseLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo-Composite
+IS Endo-Composite
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Juliano was the Marik-Stewart Commonwealth's signature assault BattleMech, introduced in 3116 as the culmination of that realm's longstanding ambition to develop a native assault-weight design. Named after Juliano Marik, the first Captain-General of the Free Worlds League, the ninety-ton 'Mech was produced by Irian BattleMechs Unlimited at their Angell II facility. Designed as an all-purpose combatant capable of filling virtually any tactical role demanded of an assault 'Mech, the Juliano employs a distinctive mix of Inner Sphere and Clan technologies to achieve an excellent balance of firepower, protection, and mobility. Following twenty years of distinguished service as the signature unit of the Marik-Stewart Commonwealth, the Juliano was inherited by the reformed Free Worlds League Military, where it has become a mainstay of assault lances across the League's front-line formations.</p>
+
+capabilities:<p>The Juliano achieves its versatility through an Irian Tonans Endo-Composite chassis powered by a Hermes 360 XL engine, giving the ninety-ton machine a respectable top speed of 64 kph for its weight class. Protection comes from over sixteen tons of Durallex Guardian II Light Ferro-Fibrous armor supplemented by CASE II equipment in both arms, ensuring ammunition detonations do not prove fatal. Engineers further reinforced the cockpit armor to improve pilot survivability in prolonged engagements.</p><p>The 'Mech's primary firepower centers on three Diverse Optics Sunbeam Extended-Range Large Lasers distributed across the torso sections, providing devastating long-range striking power. These are complemented by three Diverse Optics Sunfire Extended-Range Medium Lasers for intermediate engagements and four arm-mounted Clan-specification Pattern J6 Streak SRM-6 launchers that deliver punishing close-range salvos with exceptional ammunition efficiency. A specialized combat computer was installed on the advice of prototype test pilots to manage the significant heat generated by the laser battery, though inexperienced MechWarriors can still push the design to critical overheat by firing too aggressively. This combination of weapons allows the Juliano to remain effective across all engagement ranges and continue fighting long after ammunition-dependent opponents have exhausted their stores.</p>
+
+deployment:<p>Introduced alongside the JLN-5B in 3146, this variant takes the opposite approach by upgrading the entire weapons suite to Clan specifications. The three Extended-Range Large Lasers are replaced with their superior Clan-grade equivalents, while the Extended-Range Medium Lasers give way to Clan Medium Pulse Lasers for improved accuracy at close range. The Clan Streak SRM-6 launchers are retained from the base model. The result is the most devastating variant in the Juliano family, a reflection of Irian BattleMechs Unlimited's growing capability to produce full Clan-technology weapon systems for the reformed Free Worlds League.</p>
+
+history:<p>The Juliano's history is inextricably linked to the political fortunes of the Free Worlds League's successor states. Development began in the early thirty-second century within the Marik-Stewart Commonwealth, one of several states that emerged following the dissolution of the Free Worlds League during the Jihad. The Commonwealth's leadership sought to establish military self-sufficiency by producing a native assault BattleMech, and Irian BattleMechs Unlimited's facility on Angell II was tasked with the project.</p><p>Production commenced around 3116, and the Juliano quickly earned its place as the signature 'Mech of the realm. The Commonwealth jealously guarded its new creation, forbidding all export of the design. For roughly twenty years, the Juliano served as a symbol of Marik-Stewart military power and was deployed exclusively within Commonwealth forces.</p><p>The reformation of the Free Worlds League in the early 3140s brought the Juliano into broader service. The new FWLM inherited the design and maintained the export ban while assigning new-build Julianos to front-line formations, particularly the Tamarind Regulars tasked with operations along the Lyran border. The Eighth Tamarind Regulars particularly received large numbers of the design, pairing them with Awesomes in assault lance formations.</p><p>The Fourth Battle of Tamarind in 3142 provided the Juliano's first major combat debut under League colors. During fighting along the Zanzibar River at Point Bravo, a mixed assault lance of the Eighth Regulars equipped with Julianos engaged a Lyran Guards assault lance whose 'Mechs had already expended much of their ammunition in sustained combat. The engagement demonstrated the Juliano's defining tactical advantage: its ability to sustain combat long after ammunition-dependent opponents had spent their stores, tearing apart the Lyran formation in a devastating combination of laser and missile fire.</p><p>Beyond the League, Clan Wolf acquired a limited number of Julianos as salvage during its invasion of Marik-Stewart territory, assigning these captured machines to second-line Clusters. The introduction of the JLN-5B and JLN-5C variants in 3146 expanded the Juliano family, with Irian BattleMechs Unlimited demonstrating both the ability to simplify the design for increased production and to push it to its technological limits with full Clan-specification armament.</p>
+
+manufacturer:Irian BattleMechs Unlimited
+
+primaryfactory:Angell II
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Irian
+systemmode:CHASSIS:Tonans Endo-Composite
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:360 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Guardian II Light Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Irian
+systemmode:COMMUNICATIONS:HMR 35s
+systemmanufacturer:TARGETING:Omicron
+systemmode:TARGETING:Alert

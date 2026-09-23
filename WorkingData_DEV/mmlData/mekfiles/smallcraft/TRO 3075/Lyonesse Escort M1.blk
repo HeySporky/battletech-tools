@@ -1,0 +1,229 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e162-712e-a394-d84012f02ba7
+</UUID>
+
+<UnitType>
+SmallCraft
+</UnitType>
+
+<Name>
+Lyonesse Escort
+</Name>
+
+<Model>
+M1
+</Model>
+
+<mul id:>
+4552
+</mul id:>
+
+<year>
+3073
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:0.0:0:-1::-1:0
+crewquarters:0.0:0:-1::-1:0
+steeragequarters:30.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+19
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+165
+133
+133
+101
+</armor>
+
+<Nose Equipment>
+LRM 20
+IS Ammo LRM-20
+IS Ammo LRM-20
+SRM 6
+IS Ammo SRM-6
+IS Ammo SRM-6
+</Nose Equipment>
+
+<Left Side Equipment>
+Heavy PPC
+ISERMediumLaser
+ISERMediumLaser
+(R) ISERMediumLaser
+</Left Side Equipment>
+
+<Right Side Equipment>
+Heavy PPC
+ISERMediumLaser
+ISERMediumLaser
+(R) ISERMediumLaser
+</Right Side Equipment>
+
+<Aft Equipment>
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERSmallLaser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+7
+</structural_integrity>
+
+<capabilities>
+<p>The Lyonesse is a 175-ton military aerodyne built for close-range engagements in near-orbit and atmospheric border regions. Its primary long-range weapon is a nose-mounted LRM-20, supplemented by a nose SRM-6 for close work, with both launchers fed by two tons of ammunition each. The craft's wings carry four medium lasers, two per side, providing sustained energy firepower at typical escort engagement ranges. The aft arc is defended by three medium lasers and a small laser, giving the Lyonesse unusually strong rear-quarter coverage against trailing threats.</p><p>The Lyonesse's defining strength is the density of its close-in firepower relative to its mass. Against threats that have closed to medium or short range, the full energy battery can be brought to bear with concentrated effect. However, the design has a notable weakness in endurance: five tons of fuel is modest even by small craft standards, making the Lyonesse heavily dependent on nearby tender support for extended operations. With safe thrust of 3g and maximum thrust of 5g, the Lyonesse is less agile than the Aquarius but still considerably faster than most of the DropShips it escorts. Its thirty-five heat sinks manage the sustained energy loadout comfortably in most engagements.</p>
+</capabilities>
+
+<overview>
+<p>The Lyonesse Escort was Andurien AeroTech's first foray into the escort small craft market, introduced in 2513 as a near-planet protection platform for DropShips and WarShips operating in a system's inner orbits. Designed for short-range, high-intensity combat, the Lyonesse carried armor protection comparable to many light DropShips of its era and packed a formidable close-in weapons array. Its immediate success prompted Andurien AeroTech to develop the larger Aquarius two years later. While the Lyonesse was eventually eclipsed in sales by its sister ship, it maintained a strong reputation for close-in defensive work throughout the Star League era. Like the Aquarius, the Lyonesse was phased out after the formation of Free Worlds Defense Industries, and both designs were briefly revived during the Jihad with updated variants from the Free Worlds League and the Word of Blake.</p>
+</overview>
+
+<deployment>
+<p>Produced for the Free Worlds League at Gibson during the Jihad, the M1 upgraded the Lyonesse's laser suite to extended-range equivalents and added PPCs in the wing sections, giving the traditionally close-range platform significantly greater offensive reach. This shift made the M1 better suited to the nature of Jihad-era space combat, where engagements routinely opened at ranges that would have left the original Lyonesse at a disadvantage. Like all Jihad-era revival variants, M1 production ended with the collapse of the League's central government, leaving surviving examples distributed across the successor factions.</p>
+</deployment>
+
+<history>
+<p>When Andurien AeroTech introduced the Lyonesse in 2513, there was no established template for what a dedicated surface-to-orbit escort should be. The Inner Sphere had aerospace fighters for combat and DropShips for transport, but nothing purpose-built to bridge the gap, to ride alongside a DropShip from jump point to atmosphere and back, absorbing fire and returning it. The Lyonesse created that role. Its combination of heavy close-in firepower and armor protection comparable to light DropShips of the era gave convoy commanders a genuine defensive option in near-orbit space for the first time.</p><p>The concept proved viable almost immediately. Sales were strong enough that Andurien AeroTech expanded on it just two years later with the larger Aquarius. The Lyonesse and its sister ship became the defining escort small craft of the Star League era, each filling a distinct niche, the Lyonesse as the close-in guardian and the Aquarius as the longer-range interceptor. Together they established what a fleet escort small craft was supposed to be, a standard that would not be seriously challenged or revisited for centuries.</p><p>That standard began to erode after Gibson Federated BattleMechs merged with Andurien AeroTech in 2562 to form Free Worlds Defense Industries. Heavier aerospace fighters and some newer DropShip designs had assumed many of the escort roles the Lyonesse and Aquarius had pioneered, and the dedicated escort market was contracting. Both lines were phased out, and by the late twenty-sixth century the escort small craft role the Lyonesse had invented was effectively extinct in most major powers. Surviving examples scattered to Periphery hands and mercenary inventories as their operational lives stretched beyond reasonable support.</p><p>The Jihad briefly reversed that trajectory. The Free Worlds League produced the M1 at Gibson, upgrading the laser suite to extended-range models and adding wing-mounted PPCs. The Word of Blake's W1 took a more radical approach, replacing much of the weapons load with an Arrow IV artillery battery. Both lines closed when the Jihad ended. The role the Lyonesse had invented would not find a permanent successor until Nimakachi introduced the Condottiere eighty years later.</p>
+</history>
+
+<manufacturer>
+Gibson Federated BattleMechs (A Division of Free Worlds Defense Industries)
+</manufacturer>
+
+<primaryFactory>
+Gibson
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+175.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+6
+</crew>
+
+<officers>
+2
+</officers>
+
+<gunners>
+3
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

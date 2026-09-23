@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c718-7ab5-bdf5-06358a66df40
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Wolf Trap (Tora)
+model:WFT-C
+mul id:3559
+
+Config:Biped
+techbase:Inner Sphere
+era:3060
+source:TR:3050,TR:CI
+published:RS:CI
+rules level:2
+role:Striker
+
+quirk:bad_rep_is
+quirk:bad_rep_clan
+
+mass:45
+engine:270 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:13
+RT armor:13
+CT armor:17
+HD armor:9
+LL armor:15
+RL armor:15
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:3
+LB 10-X AC, Right Arm
+Medium Laser, Left Torso
+LRM 10, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+ISC3SlaveUnit
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS LB 10-X Cluster Ammo
+IS LB 10-X AC Ammo
+IS Ammo LRM-10
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+ISCASE
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 10
+LRM 10
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Wolf Trap, originally designated the Tora by its designers at Luthien Armor Works, is a 45-ton medium BattleMech introduced in 3051 as a direct counter to the Lyran Wolfhound. Making full use of recovered Star League technology, LAW's engineers designed the chassis to achieve respectable speed and payload capacity for its weight class. The Draconis Combine Mustered Soldiery intended the Wolf Trap to complement existing Dragon and Grand Dragon formations as a fast striker with long-range firepower.</p><p>Despite adequate performance on paper, the design quickly fell out of favor with Combine MechWarriors due to critical vulnerabilities that became apparent in combat. The DCMS formally ended procurement in 3061, and LAW sold remaining surplus on the mercenary market, though the Jihad would later force the design back into production out of sheer necessity.</p>
+
+capabilities:<p>The Wolf Trap carries a weapons loadout comparable to the versatile Centurion, allowing it to engage across multiple range brackets. The Imperator Code Red LB 10-X autocannon serves as the primary weapon, offering selectable solid and cluster ammunition that makes the 'Mech effective against both conventional armor and airborne targets. A Shigunga LRM 10 rack provides supplementary fire at long range, useful for disrupting enemy formations and forcing opponents into disadvantageous positions. Two Victory 23R medium lasers round out the arsenal for close-range engagements.</p><p>Powered by its Hermes 270 XL engine, the Wolf Trap achieves a top speed of just over 97 kilometers per hour, keeping pace with many lighter designs. However, the design suffers from critical vulnerabilities that undermined its battlefield reputation. The extra-light engine occupies space in both side torsos alongside ammunition bins for the autocannon and missile system, and the standard Durallex Special Medium armor provides only modest protection for a 45-ton chassis.</p><p>Enemy warriors, particularly Clan Smoke Jaguar pilots, quickly learned to target the torso sections, where a single well-placed hit could detonate the ammunition stores and cripple the engine, often destroying the 'Mech outright. CASE protection mitigates some risk to the pilot but cannot save the powerplant from collateral damage.</p>
+
+deployment:<p>A common field modification rather than a factory-produced variant, this variant removes one of the two medium lasers to make room for a C3 slave unit. This modification allows the Wolf Trap to share targeting telemetry with other C3-equipped units, significantly enhancing the accuracy of lance-mates at the cost of some close-range firepower. The modification became widespread among DCMS formations during the Civil War era and beyond, as field technicians found the swap straightforward to implement on existing Wolf Trap frames.</p>
+
+history:<p>The Wolf Trap's origins trace to the aftermath of the Fourth Succession War, when the DCMS suffered disproportionate losses to the Lyran Commonwealth's new Wolfhound light BattleMech. Stung by the effectiveness of these 30-ton machines against Combine Jenners and Panthers, Luthien Armor Works was tasked with developing a dedicated counter. Working with captured Wolfhound examples, LAW produced the Tora, a 45-ton design sharing the Wolfhound's speed profile but mounting heavier armament. Production began on Luthien in 3051, with the first units reaching frontline formations during the height of the Clan Invasion.</p><p>The Wolf Trap's combat debut proved disappointing. While technically capable, the design's reputation was poisoned by its ammunition vulnerability. Clan Smoke Jaguar warriors facing the new design on the Draconis Combine border quickly identified the weakness, targeting the 'Mech's torso-mounted ammunition bays at range and triggering catastrophic explosions. Word spread rapidly through the DCMS, and pilots began refusing assignments to Wolf Trap formations when possible. LAW executives continued marketing the Tora as the ideal complement to Dragon and Grand Dragon lances, but the stigma proved insurmountable. By 3061, the DCMS had formally ended Wolf Trap procurement, and LAW sold off remaining surplus stock on the Galatean and Fletcher mercenary markets.</p><p>The design might have faded into obscurity entirely had the Jihad not intervened. When the Word of Blake devastated the major LAW manufacturing complexes on Dieron, Luthien, Quentin, Al Na'ir, and Benjamin during the opening stages of the conflict, the Combine's production capacity collapsed virtually overnight. Desperate corporate executives struck clandestine deals with other Inner Sphere corporations to fund a new BattleMech factory on the quiet world of Abiy Adi in the Ningxia Prefecture. With the DCMS hemorrhaging 'Mechs faster than they could be replaced, LAW authorized the refitting and reintroduction of the hundreds of mothballed Wolf Traps languishing in storehouses across Combine space.</p><p>The Jihad-era WFT-2 upgrade program at Abiy Adi addressed many of the original design's flaws, replacing the ammunition-hungry autocannon with a plasma rifle and modernizing the weaponry. This pragmatic approach gave the Combine an upgraded medium 'Mech at minimal cost during a period of desperate need. Meanwhile, intelligence reports from the Dieron front indicated that the Word of Blake was producing its own Wolf Trap variant on captured LAW production lines, using the WFT-B as a networked combat platform with improved C3 integration.</p><p>Following the Jihad, Luthien Armor Works expanded operations to New Samarkand, where the WFT-2B variant entered production for DCMS cadre and garrison forces. The New Samarkand facility also served as a testbed for experimental technologies, with the prototype WFT-2X "Bear Trap" mounting a silver bullet Gauss rifle and medium X-pulse lasers during the mid-Jihad period. The production WFT-2B subsequently replaced the experimental weapons with standard logistics-friendly alternatives, ensuring the Wolf Trap's continued, if unglamorous, service in the Combine's second-line formations well into the Dark Age.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Alshain
+systemmode:CHASSIS:Class 580 Endo Steel
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:270 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Special Medium with CASE
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:Security Plus 2
+systemmanufacturer:TARGETING:Eagle Eye
+systemmode:TARGETING:400 XX

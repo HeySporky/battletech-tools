@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c1af-7c48-802a-2fcdf9225759
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Blackjack
+model:BJ-1X
+mul id:376
+
+Config:Biped
+techbase:Inner Sphere
+era:2756
+source:TR:3039,TR:SW
+published:RS:SW
+rules level:1
+role:Skirmisher
+
+quirk:bad_rep_is
+
+mass:45
+engine:225 Fusion Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:18 Single
+walk mp:5
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:15
+RT armor:15
+CT armor:18
+HD armor:9
+LL armor:17
+RL armor:17
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:8
+Medium Laser, Left Arm
+Flamer, Left Arm
+Flamer, Left Arm
+Medium Laser, Right Arm
+Flamer, Right Arm
+Flamer, Right Arm
+Medium Laser, Left Torso
+Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Medium Laser
+Flamer
+Flamer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Medium Laser
+Flamer
+Flamer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Heat Sink
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Blackjack was designed by General Motors in 2757 under a Star League Defense Force contract calling for a medium BattleMech with anti-insurgency and fire-support capabilities. The original prototype featured flamers and a larger engine for greater speed, but the production model substituted autocannons and a lighter powerplant supplemented by jump jets. Despite meeting all contract specifications, the design suffered from unsubstantiated claims of brittle armor and unstable footpads that destroyed its reputation before it had a chance to prove itself. The Star League rejected the Blackjack, and General Motors cancelled production on Kathil after only a few years.</p><p>The forty-five-ton 'Mech languished in obscurity for centuries, assigned to garrison and militia formations across the Successor States, until the crucial Battle of Xhosa VII in 3022 began a long and ultimately successful rehabilitation of the design's reputation.</p>
+
+capabilities:<p>The Blackjack's primary armament consists of twin Whirlwind-L autocannons mounted in each arm, providing sustained long-range direct fire support against soft targets and light armor. While effective against insurgent forces and vehicles, these light autocannons lack the hitting power to seriously threaten heavier BattleMechs at range. The 'Mech's close-range punch comes from four Intek medium lasers distributed across the arms and side torsos, which when concentrated by a full lance can deliver devastating firepower. Four Whitworth Jetlift jump jets provide 120 meters of jumping capability, added late in development to compensate for the slower GM 180 engine and granting the chassis welcome tactical flexibility in urban and rough terrain.</p><p>Eight and a half tons of StarGuard II armor provides adequate protection for a forty-five-ton design, though the persistent myth of the armor's brittleness (thoroughly disproven by Federated Suns engineers after 3022) haunted the Blackjack for centuries. Eleven single heat sinks manage the thermal load adequately under normal conditions. The design's one genuine mechanical weakness is a tendency for its arm joints to attract shell impacts, a vulnerability shared with General Motors' heavier Marauder design.</p>
+
+deployment:<p>The original Blackjack prototype differed significantly from the eventual production model. Armed with twin GM Flashpoint flamers in place of autocannons and powered by a larger VOX 225 engine providing greater speed, the design lacked the jump jets that would become a defining feature of the production Blackjack. Additional heat sinks compensated for the flamers' thermal output, and the prototype's higher top speed reflected General Motors' initial vision for a fast anti-insurgency platform before Star League requirements steered development toward the final configuration.</p>
+
+history:<p>The Blackjack entered service with the Star League Defense Force in 2757 but political fallout from its damaged reputation saw most units relegated to Terran Hegemony militia formations or distributed to the Member States. When the Star League dissolved and the Succession Wars began, the General Motors production line on Kathil was destroyed in 2796, ending what little production remained.</p><p>While all Successor States possessed some number of Blackjacks, the majority ended up with the Capellan Confederation and Federated Suns through territorial inheritance. The Confederation treated the design with open contempt, and Liao commanders refused to assign Blackjacks to frontline combat units. The Federated Suns similarly relegated the 'Mech to March Militia formations, though Davion technicians who continued to service the design discovered that the reputed claims about its flaws were entirely without foundation.</p><p>The myth of the Blackjack's inferiority received a mortal blow on the ice world of Xhosa VII in 3022. When Kuritan forces attempted the infamous "Horde" tactics (sending waves of light 'Mechs against the local Davion garrison) the garrison's Blackjacks bore the brunt of the assault, destroying wave after wave of attackers on the frozen Plain of Swords. The battle earned the Blackjack renewed attention from other Davion formations, and First Prince Hanse Davion personally ordered all existing BJ-1s examined for frontline service. The breakaway St. Ives Compact, unable to share the Confederation's disdain for the design, adopted the Blackjack and experimented with recovered technology during the 3030s. Their work with prototype double heat sinks and Ceres Arms Smasher PPCs produced the BJ-3, among the first production 'Mechs in centuries to mount double-efficiency heat dissipation as standard equipment.</p><p>General Motors restarted limited production at Talcott in 3054 with the BJ-2, an upgraded model featuring extended-range large lasers and Streak missile launchers. The success of the BJ-2 provided the template for Luthien Armor Works' OmniMech conversion in 3057. Development continued through the FedCom Civil War era with the BJ-4, while the Jihad and its aftermath scattered production rights across multiple manufacturers. By the thirty-second century, General Motors had reopened the Talcott line for the BJ-5, and the once-maligned Blackjack had finally overcome centuries of unearned contempt to become a respected workhorse across the Inner Sphere.</p>
+
+manufacturer:General Motors
+
+primaryfactory:Kathil
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:GM
+systemmode:CHASSIS:BJ-1
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:225
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:II
+systemmanufacturer:COMMUNICATIONS:Dalban
+systemmode:COMMUNICATIONS:Micronics
+systemmanufacturer:TARGETING:Dalban
+systemmode:TARGETING:AQ

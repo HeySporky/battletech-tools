@@ -1,0 +1,216 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-e07f-77f8-b68c-2d7c382a0bcb
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hunchback
+model:HBK-LGN-Pin 'Drizella'
+mul id:8375
+
+Config:Biped FrankenMek
+techbase:Mixed (IS Chassis)
+era:3138
+source:XTR:Royal Fantasy
+published:XTR:Royal Fantasy
+rules level:4
+role:Striker
+
+quirk:ext_twist
+quirk:stable
+quirk:prototype
+quirk:non_standard
+
+mass:50
+engine:350 XL Engine(IS)
+structure:Hybrid
+LA structure:Standard:50
+RA structure:Standard:50
+LT structure:Clan Endo Steel:50
+RT structure:Clan Endo Steel:50
+CT structure:IS Endo Steel:50
+HD structure:IS Endo Steel:50
+LL structure:Standard:50
+RL structure:Standard:50
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:7
+jump mp:6
+
+armor:Standard(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:15
+RT armor:15
+CT armor:20
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:7
+RTR armor:7
+RTC armor:7
+
+Weapons:8
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+Medium Pulse Laser, Left Torso
+Micro Pulse Laser, Left Torso
+Micro Pulse Laser, Left Torso
+Medium Pulse Laser, Right Torso
+Micro Pulse Laser, Right Torso
+Micro Pulse Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+CLMediumPulseLaser
+CLMicroPulseLaser
+CLMicroPulseLaser
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+CLMediumPulseLaser
+CLMicroPulseLaser
+CLMicroPulseLaser
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Endo Steel
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The HBK-LGN-Pin Ugly Stepsister Drizella is a fifty-ton mixed-technology BattleMech built for the Solaris dueling stable Team Godmother during the Dark Age. It is the twin counterpart to Anastasia, assembled from the same salvaged trio of donor 'Mechs and presented as the second of the team's wicked stepsisters under the stable's Cinderella theme.</p><p>Where its sister leans on mass and armor, Drizella takes the opposite approach. It is fast and light on its feet, built around mobility and a dense battery of short-range energy weapons rather than a single heavy punch. The design trades reach and durability for speed, aiming to close quickly and overwhelm a single opponent before the crowd has time to settle.</p>
+
+capabilities:<p>Drizella is a saturation brawler designed to bury a single target under a wall of short-range fire. Its mixed battery combines a pair of medium lasers, two Clan medium pulse lasers, and four Clan micro pulse lasers, a loadout that produces enormous damage at point-blank range while contributing almost nothing past a short reach. A three-hundred-fifty-rated extralight engine drives the machine to highway speeds, and jump jets let it cover nearly its full running distance in a single bound, giving it the agility to dictate range against slower foes.</p><p>That speed and firepower come at a cost. Fourteen double heat sinks struggle to keep pace with the full array, so the pilot must choose which weapons fire on any given pass or risk building dangerous heat. The extralight engine saves weight but spreads vulnerable components into the side torsos, and the short effective range of every weapon means a faster or longer-ranged opponent can simply refuse the close fight Drizella needs.</p>
+
+deployment:<p>Drizella was Team Godmother's aggressor, using its speed and jump capability to chase down and corner single opponents in the arena. The machine excelled in the kind of fast, brutal, short-ranged duel its loadout was tuned for, swarming a target with overlapping fire before a bout could turn into a long-range contest. Spectators came to recognize it as the faster, flashier half of the Stepsister pairing.</p>
+
+history:<p>The two machines that became the Ugly Stepsisters began as scrap. Around 3138, technicians working for what would later be organized as Team Godmother cannibalized three very different donor 'Mechs, a Hunchback dating to the early 3050s, an early-production Legionnaire, and a Clan-built Pinion, and recombined their salvageable sections into a matched pair of fifty-ton hybrids. The result honored none of the original designs and instead followed the team's theatrical conceit, a Solaris dueling stable themed around the Cinderella story, with the two brawlers cast as the wicked stepsisters Anastasia and Drizella.</p><p>Team Godmother was a newcomer to the Solaris VII circuit, assembled and trained for the 3146 Royal Fantasy Tournament after several quieter years of preparation. The stable carried no permanent owner of record and was widely understood to be backed by the Federated Suns, fielding three contracted independent gladiators rather than a roster of house pilots. On a world where reputation is won in the arena rather than on the battlefield, the Stepsisters provided the team's heavy muscle, deliberately unlovely machines built to punish opponents who underestimated cobbled-together salvage.</p>
+
+manufacturer:Team Godmother
+
+primaryfactory:Solaris VII
+
+notes:Source: XTRO: Royal Fantasy pp.8-9; Sarna (Drizella FrankenMech / Team Godmother). FrankenMech assembled from Hunchback + Legionnaire + Pinion donors; Non-Standard Parts quirk. Comms/TTS/jump-jet makers listed Unspecified/Unknown in source, left Unknown. No MUPL row (queried MUL 8375, 0 rows); Factory_Data derived.
+
+fluffdate:2026-05-21 12:20:05
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Standard/Endo Steel Hybrid
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:350 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Standard
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Unknown

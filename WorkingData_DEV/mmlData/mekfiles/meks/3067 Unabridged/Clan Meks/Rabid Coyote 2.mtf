@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cdbe-7b72-bda1-92fd00d6da96
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Rabid Coyote
+model:2
+mul id:5682
+
+Config:Biped
+techbase:Clan
+era:3071
+source:TR:3067
+published:RS:3067u
+rules level:2
+role:Skirmisher
+
+quirk:bad_rep_clan
+quirk:imp_target_short
+
+mass:55
+engine:275 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:15 Clan Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:18
+RA armor:18
+LT armor:20
+RT armor:20
+CT armor:27
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:6
+RTR armor:6
+RTC armor:9
+
+Weapons:10
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ATM 3, Left Torso
+ATM 3, Left Torso
+ATM 3, Left Torso
+ATM 3, Right Torso
+ATM 3, Right Torso
+ATM 3, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERMediumLaser
+CLERMediumLaser
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLERMediumLaser
+CLERMediumLaser
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLATM3
+CLATM3
+CLATM3
+CLATM3
+CLATM3
+CLATM3
+Clan Ammo ATM-3
+Clan Ammo ATM-3 ER
+Clan Ammo ATM-3 HE
+Clan Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLATM3
+CLATM3
+CLATM3
+CLATM3
+CLATM3
+CLATM3
+Clan Ammo ATM-3
+Clan Ammo ATM-3 ER
+Clan Ammo ATM-3 HE
+Clan Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLActiveProbe
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLECMSuite
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Rabid Coyote is a 55-ton Clan second-line BattleMech designed by Clan Coyote scientists to address a critical mobility gap in their touman. Entering service in 3066, the design emerged from the Clan's urgent crash development programs following a series of defeats in the inter-Clan fighting that erupted after the Great Refusal in 3060. Built as a cost-conscious second-line design, the Rabid Coyote was intended to serve as an escort and pursuit complement to the Clan's heavier assault formations.</p><p>Produced at the Ashton 'Mech Production Complex on Foster, the Rabid Coyote was among the last original BattleMech designs Clan Coyote would field before the devastation of the Wars of Reaving. The design earned a mixed reputation, proving tactically effective but culturally controversial among warriors who viewed its escort role as beneath their honor.</p>
+
+capabilities:<p>The Rabid Coyote was designed around the Advanced Tactical Missile system, built with conflicting considerations of cost and mobility in mind. Employing a standard 275-rated fusion engine rather than a more expensive extralight model, the 'Mech achieves a top speed of 86 kph. This is adequate for its intended escort role alongside heavier designs like the Canis and Savage Coyote, though considered barely sufficient for a medium-weight chassis by Clan standards. Endo-steel construction and ferro-fibrous armor keep the design's weight manageable while providing solid protection with eight and a half tons of Compound CL20 armor plating.</p><p>The centerpiece of the armament is the Remer Series Alpha Deuce ATM-12, the largest Advanced Tactical Missile launcher available. Fed by four tons of ammunition, this system provides approximately three minutes of sustained fire and the flexibility to select standard, extended-range, or high-explosive munitions based on engagement distance. Four Kolibri Series medium pulse lasers, two mounted in each arm, deliver punishing close-range accuracy as secondary weapons.</p><p>An integrated ECM suite built into the TJ7 "Siren" communications system provides electronic warfare capability, helping shield both the Rabid Coyote and nearby friendly units from enemy sensor networks and guided munitions. The design's primary weaknesses are its limited ammunition endurance, which forces careful shot discipline during prolonged engagements, and the absence of jump jets, which restricts tactical flexibility in rough terrain. The standard engine, while more durable than an extralight model, imposes a heavier weight penalty that limits the design's overall payload capacity compared to what a lighter powerplant could have allowed.</p>
+
+deployment:<p>Introduced in 3071 during the chaos of the Wars of Reaving, this variant stands as a significant reworking of the original chassis. Engineers replaced the standard fusion engine with an extralight model, freeing considerable weight for expanded capabilities. The original missile launcher and pulse lasers give way to six ATM-3 launchers, three mounted in each side torso, fed by six tons of ammunition. These are paired with four extended-range medium lasers in the arms. An active probe supplements the retained ECM suite, enhancing electronic warfare and reconnaissance capability. Though the ferro-fibrous armor was exchanged for standard plating, overall protection actually increased thanks to weight savings from the engine swap. This variant was likely among the last produced at the Ashton facility before it changed hands during the Wars of Reaving.</p>
+
+history:<p>The Rabid Coyote emerged during one of Clan Coyote's darkest periods. Once dominant in the Clan homeworlds and credited with the invention of the OmniMech, the Coyotes had spent decades in decline by the early 3060s. The inter-Clan fighting that erupted following the Great Refusal in 3060 exposed a critical weakness in the touman's heavy reliance on assault-weight designs, which proved devastating in direct engagements but left the Clan unable to effectively pursue or respond to faster opponents.</p><p>With the Clan's resources dwindling and its leadership desperate to reverse the decline, a new development program was launched at the Ashton 'Mech Production Complex on Foster. The result was the Rabid Coyote, which entered service in 3066. The design prominently featured Clan Coyote's proprietary Advanced Tactical Missile technology, a system that had proven a valuable asset to the Coyotes and their few remaining allies. Ultimately, however, it failed to provide enough of an edge to halt the Clan's slide toward irrelevance.</p><p>The fate of the Rabid Coyote became intertwined with the devastating Wars of Reaving. In 3071, Clan Goliath Scorpion launched a Trial of Possession against the Ashton facility on Foster, where Clan Coyote's Lambda Galaxy was stationed. The Scorpions successfully claimed the Rabid Coyote production line along with a ProtoMech facility. Clan Coyote's Delta Galaxy later struck back, damaging or destroying the complex by March 3073. Despite this destruction, production eventually resumed under new management.</p><p>MUPL records indicate that Clan Goliath Scorpion controlled the facility during the Jihad era before ownership passed to Clan Cloud Cobra in the early Republic period. The facility's continued operation beyond 3085 remains uncertain, with Clan Cloud Cobra's control marked as provisional in later records. The Rabid Coyote thus stands as a reflection of Clan Coyote's ingenuity in the face of decline, a practical and effective design that outlived the Clan that conceived it, continuing to serve under successive owners in the Clan homeworlds.</p>
+
+manufacturer:Ashton 'Mech Production Complex
+
+primaryfactory:Foster (Gregoire)
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Medium Series
+systemmode:CHASSIS:MVV Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:TJ7 "Siren"
+systemmode:COMMUNICATIONS:ICS with ECM Suite
+systemmanufacturer:TARGETING:TRTTS
+systemmode:TARGETING:Mark II-beta CWS

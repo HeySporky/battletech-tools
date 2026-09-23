@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cbb4-7f01-9ace-c44e943f4cea
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Cobra
+model:CBR-03
+mul id:656
+
+Config:Biped
+techbase:Inner Sphere
+era:3075
+source:TR:3060,TR:J
+published:RS:3060u
+rules level:2
+role:Missile Boat
+
+quirk:pro_actuator
+
+mass:45
+engine:225 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:0
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:12
+RA armor:11
+LT armor:14
+RT armor:14
+CT armor:17
+HD armor:9
+LL armor:18
+RL armor:18
+RTL armor:4
+RTR armor:4
+RTC armor:6
+
+Weapons:4
+LRM 15, Left Arm
+ER Medium Laser, Left Arm
+LRM 15, Right Arm
+ER Medium Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+LRM 15
+LRM 15
+LRM 15
+ISArtemisIV
+ISERMediumLaser
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+LRM 15
+LRM 15
+LRM 15
+ISArtemisIV
+ISERMediumLaser
+IS Endo Steel
+IS Endo Steel
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Cobra is a 45-ton medium BattleMech introduced around 3060 by Defiance Industries of Hesperus II. Commissioned by the Lyran Alliance Armed Forces to provide an indigenous fire-support platform, the Cobra was designed to fill a critical gap in the Lyran order of battle without reliance on foreign manufacturing. Its development was a direct response to the Free Worlds League's refusal to export its own missile-centric designs to the newly independent Lyran state. Dubbed the Cobra for its distinctive hood-like targeting array, the design has served as a dependable and affordable missile boat in Lyran formations from its inception through the ilClan era, providing consistent indirect fire capability to commands that might otherwise lack dedicated fire-support assets.</p>
+
+capabilities:<p>The Cobra is purpose-built for the fire-support role, mounting a pair of Coventry Star Fire LRM-15 launchers as its primary armament. Defiance engineers borrowed the Zeus's missile arrangement philosophy, positioning the launcher tubes around and set back from a solid torso core. This configuration allows the Cobra to deliver punishing volleys while maintaining the ability to engage targets across a nearly three-hundred-sixty-degree field of fire through torso rotation, and permits the MechWarrior to throw punches without risking damage to the missile racks. Two Defiance B3M medium lasers mounted in the arms provide adequate close-range self-defense against lighter opponents.</p><p>The use of a standard VOX 225 fusion engine keeps production costs down and significantly improves survivability compared to designs relying on extralight powerplants, allowing the Cobra to absorb considerable punishment before losing mobility. However, the design carries notable compromises. Despite using Lexington Ltd. High Grade ferro-fibrous armor, the Cobra's six and a half tons of protection is considered inadequate for a forty-five-ton 'Mech, sacrificing defensive capability for speed. More critically, the design lacks any form of Cellular Ammunition Storage Equipment, making the large ammunition magazine a significant vulnerability that has led some pilots to regard the Cobra as a potential deathtrap.</p>
+
+deployment:<p>Introduced during the Jihad by Defiance Industries' Furillo plant, this variant stands as a comprehensive upgrade addressing the original Cobra's most criticized weaknesses. A VOX 225 light fusion engine and an extralight gyro free sufficient mass for meaningful improvements while maintaining the same top speed. The standard ferro-fibrous armor is replaced with light ferro-fibrous composite, and the freed weight allows the addition of CASE protection for both ammunition bays, directly answering the most common complaint against the CBR-02. The weapons suite receives significant enhancements: both LRM-15 racks gain Artemis IV fire control systems for improved accuracy, and the standard medium lasers are upgraded to Martell extended-range models, improving the Cobra's defensive reach.</p>
+
+history:<p>The Cobra's genesis traces directly to the Marik-Liao invasion of the Lyran Alliance in 3057. Lyran commanders, initially caught off guard by the coordinated assault, took careful note of the Free Worlds League Military's fire-support doctrine, particularly the effectiveness of the Apollo BattleMech in suppressing Lyran positions with sustained long-range missile bombardment. When Earthwerks Incorporated refused to sell the Apollo to the Lyran Alliance, extending their Federated Commonwealth embargo to the newly independent Lyran state, the LAAF sought an alternative.</p><p>Defiance Industries at Hesperus II eagerly accepted the commission, retaining the Apollo's proven missile-centric philosophy while developing a lighter, faster chassis built around a standard fusion engine to reduce costs and improve survivability. Production of the CBR-02 began around 3060. The design was initially assigned to the Third Donegal Guards for operational testing, and LAAF officials signaled their confidence by authorizing full production even before the testing period concluded. The Free Rasalhague Republic expressed interest in purchasing the design, though neither the Federated Commonwealth nor the St. Ives Compact were expected to receive export authorization.</p><p>The Cobra saw service through the Civil War period as a staple of Lyran fire-support lances, but the Jihad brought severe disruption. When the Word of Blake seized control of Hesperus II, production of the CBR-02 halted entirely. Defiance Industries' Furillo facility stepped forward to continue the Cobra line, introducing the improved CBR-03 model that addressed many of the original's shortcomings while maintaining its core fire-support mission.</p><p>The CBR-03 has remained in continuous production at Furillo from the Jihad era through the Dark Age and into the ilClan period, ensuring the Cobra's continued presence in Lyran Commonwealth Armed Forces formations. While never achieving the ubiquity of designs like the Zeus or Atlas, the Cobra has carved out a reliable niche as an affordable, effective fire-support platform within the Lyran military-industrial complex.</p>
+
+manufacturer:Defiance Industries
+
+primaryfactory:Furillo
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Defiance
+systemmode:CHASSIS:450 Endo Steel
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:225 Light
+systemmanufacturer:ARMOR:Lexington Ltd.
+systemmode:ARMOR:High Grade Light Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Calliope 270
+systemmanufacturer:TARGETING:TharHes
+systemmode:TARGETING:Ares LM with Artemis IV FCS

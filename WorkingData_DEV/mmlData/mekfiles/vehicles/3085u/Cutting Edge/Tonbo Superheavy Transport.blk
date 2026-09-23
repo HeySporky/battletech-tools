@@ -1,0 +1,179 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e727-7a8f-9e84-a4b0c69276a5
+</UUID>
+
+<UnitType>
+SupportVTOL
+</UnitType>
+
+<Name>
+Tonbo Superheavy Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3275
+</mul id:>
+
+<year>
+3059
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<transporters>
+troopspace:12.0
+</transporters>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+48
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+18
+15
+15
+10
+2
+</armor>
+
+<Body Equipment>
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+Communications Equipment:SIZE:7.0
+</Body Equipment>
+
+<Front Equipment>
+Searchlight
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+Searchlight
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<barrating>
+7
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Tonbo is built around four lift hoists that together can move over 112 tons of external cargo, allowing it to recover even the heaviest Clan equipment from a battlefield. At maximum load, the fusion engine holds the vehicle to roughly 64 km/h, though the Tonbo can reach 90 km/h when running light. These performance figures reflect the fundamental trade-off in the design: raw cargo capacity was prioritized over speed and maneuverability.</p><p>The vehicle carries 2.5 tons of BAR 7 commercial armor, which provides modest protection against small arms and light fire but little resistance to dedicated anti-vehicle weapons. The Tonbo was never intended as a frontline combat vehicle, and its armor reflects that reality. Two searchlights, mounted on the nose and rear, support operations in low-visibility conditions.</p><p>Over seven tons of communications equipment allows the Tonbo to serve as a mobile command and control relay, a role that proved as valuable as its lift capability during extended operations. An internal infantry transport bay can carry over 12 tons of troops, giving commanders the option to deploy combat engineers or armored infantry directly from the vehicle when it is grounded. The absence of any dedicated weapons systems leaves the Tonbo entirely dependent on escort elements in contested airspace.</p>
+</capabilities>
+
+<overview>
+<p>The Tonbo Superheavy Transport is a large support VTOL developed by Wakazashi Enterprises for the Draconis Combine in 3059. Born from a classified DCMS directive, the Tonbo was purpose-built to recover Clan salvage from contested battlefields, a mission no standard vehicle in the Inner Sphere arsenal could adequately perform. Its immense lift capacity and infantry transport capability gave the Combine a decisive logistical edge during Operation Bulldog, and its existence remained a closely guarded secret for nearly two decades. After the Jihad revealed the vehicle to the broader Inner Sphere, Wakazashi opened commercial sales, transforming a covert military asset into one of the company's most successful products. The Tonbo represents an unconventional approach to battlefield logistics, marrying industrial heavy-lift capability with a military transport role that few Inner Sphere designs have matched.</p>
+</overview>
+
+<deployment>
+<p>The base Tonbo served exclusively with Draconis Combine units throughout Operation Bulldog, deployed in company-sized groups with modified Rose DropShips providing the heavy-lift infrastructure for their operations. During the Jihad, the vehicle saw its most publicly documented service in the European theater of the Terra campaign, where its cargo capacity allowed coalition forces to bypass defended terrain entirely. Following Wakazashi's decision to offer the Tonbo on the open market after the Jihad, the vehicle spread to mercenary commands, planetary governments, and industrial operators across the Inner Sphere. Its combination of heavy lift, infantry transport, and command relay capability makes it attractive to any organization requiring large-scale equipment recovery or rapid troop insertion, though its commercial armor and lack of weaponry limit its utility in contested airspace without escort support.</p>
+</deployment>
+
+<history>
+<p>The Tonbo's development originated from a classified DCMS directive in the years leading up to Operation Bulldog, the 3059 Inner Sphere campaign to liberate worlds held by Clan Smoke Jaguar. Wakazashi Enterprises designed the vehicle from DCMS specifications that called for a unit capable of recovering Clan salvage in any terrain. Working from a modified Rose DropShip platform as its operational base, the Tonbo was deployed in company-sized formations during the campaign, attached to major Kurita units conducting salvage operations on liberated worlds. A single company of Tonbos could strip a significant quantity of Clan equipment from contested areas before opposing forces could respond.</p><p>The vehicle's existence was kept strictly secret throughout Bulldog and the turbulent decades that followed. Rumors circulated in the 3060s and 3070s, fed by occasional holographic imagery and soldier accounts of insectoid VTOLs lifting Mars assault tanks near hovering airships, but Combine intelligence kept the full story contained. Only the chaos of the Jihad finally brought the Tonbo into the open. When the allied coalition launched Operation SCOUR and began driving toward Terra in 3078, Combine forces committed Tonbo units to the European campaign. The vehicles proved invaluable, allowing coalition forces to circumvent natural obstacles by airlifting troops and materiel over the Alps rather than fighting through defended mountain passes. The Tonbo's demonstrated performance during those operations made continued secrecy impossible.</p><p>After the Jihad, Wakazashi faced a choice: continue to restrict sales of a design now widely observed by other Inner Sphere powers, or profit from an open market. The company chose the latter. By 3085, the Tonbo had become one of Wakazashi's best-selling products, finding buyers among mercenary commands, planetary militias, and industrial operators who valued its extraordinary lift capacity. Its transition from classified military asset to commercial success story is unusual even by the standards of Inner Sphere defense procurement.</p>
+</history>
+
+<manufacturer>
+Wakazashi Enterprises
+</manufacturer>
+
+<primaryFactory>
+New Samarkand
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Commercial Armor BAR 7
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<tonnage>
+56.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

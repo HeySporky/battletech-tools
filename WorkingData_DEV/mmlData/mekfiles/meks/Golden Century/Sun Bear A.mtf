@@ -1,0 +1,208 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d691-71f2-9728-3aa40fe9636e
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Sun Bear
+model:A
+mul id:7624
+
+Config:Biped OmniMek
+techbase:Clan
+era:2966
+source:TR:GC
+published:TR:GC
+rules level:2
+role:Skirmisher
+
+quirk:difficult_eject
+quirk:easy_maintain
+quirk:rugged_1
+
+mass:55
+engine:275 XL (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:23 Clan Double
+base chassis heat sinks:11
+walk mp:5
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:17
+RA armor:17
+LT armor:20
+RT armor:20
+CT armor:28
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:12
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+ER Medium Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Sun Bear is best known as the progenitor design of the Stooping Hawk, though it holds historical significance in its own right as one of Clan Ghost Bear's early OmniMech development efforts. Originally designated Prototype A during its construction and testing phases, the design was developed by Ghost Bear scientists to compete with the Stormcrow and Mad Dog as a primary medium OmniMech for the Bear touman. Introduced around 2966, the Sun Bear took a distinctly different engineering approach from its competitors, eschewing advanced structural materials in favor of an XL engine to maximize pod space.</p><p>Only five Sun Bears were ever constructed, and the design was ultimately passed over by the Ghost Bear leadership in favor of the Mad Dog. Despite its limited production, the Sun Bear earned a fierce reputation among its pilots, who were invariably among the most aggressive MechWarriors in the Ghost Bear touman. The surviving examples became prized possessions passed between generations of bold warriors until attrition and Trials of Possession claimed them all.</p>
+
+capabilities:<p>The Sun Bear's design philosophy prioritized pod space and ease of maintenance over advanced construction materials. Where other Clan OmniMechs of the era incorporated endo steel frames and ferro-fibrous armor, the Ghost Bear scientists fitted the Prototype A with a conventional Type 56-45C Modified chassis and standard Compound 12A2 armor plate. The critical weight savings instead came from a 275-rated XL fusion engine, a choice that provided twenty-four tons of pod space (slightly more than the Stormcrow, though less than the Mad Dog) at the cost of increased vulnerability to torso damage.</p><p>The primary configuration demonstrates the aggressive combat philosophy the design encouraged, mounting a devastating Ultra Autocannon/20 as its centerpiece weapon. Three tons of ammunition feed the massive autocannon, while paired ER Medium Lasers and Medium Pulse Lasers in the arms provide supplementary firepower. Two additional pod-mounted double heat sinks bring the total to fourteen, necessary to manage the thermal demands of the weapons suite. Ten and a half tons of standard armor provide reasonable protection for the fifty-five ton chassis, though the XL engine means torso breaches carry catastrophic consequences.</p><p>The design's maintenance-friendly construction proved a significant practical advantage. Unconstrained by bulky endo steel or ferro-fibrous materials, technicians could return Prototype A units to the field faster than their more advanced competitors, with the accommodating internal structure supporting a wide range of configuration options.</p>
+
+deployment:<p>Alternate Configuration A takes the Sun Bear's aggressive reputation to its extreme, mounting six ER Medium Lasers across both arms for devastating close-range alpha strikes. Eleven pod-mounted double heat sinks bring the total to an impressive twenty-three, necessary to manage the enormous heat generated by firing all six lasers simultaneously. This all-energy configuration eliminates ammunition dependency entirely, allowing sustained combat operations limited only by the pilot's heat management discipline.</p>
+
+history:<p>The Sun Bear emerged during the Golden Century as Clan Ghost Bear's bid to develop a competitive medium OmniMech. Designated Prototype A during testing, the design was built at the Tokasha MechWorks Alpha facility to compete directly with the Stormcrow and Mad Dog for a place as a primary OmniMech in the Bear touman. While the Prototype A performed well in trials (outperforming its competitors in maintenance turnaround and configuration flexibility) it was recognized as both slower and less durable than the Stormcrow, with less pod space than the Mad Dog. The Ghost Bear leadership ultimately selected the Mad Dog, and the five completed Prototype A units entered service under the name Sun Bear.</p><p>Despite being passed over for mass production, the Sun Bear developed an outsized reputation within Clan Ghost Bear. The design was assigned by name to selected ristars, and the MechWarriors who piloted the rare machines became known across the Clan for their victories, or their deaths in the cockpit. The aggressive pilots who gravitated toward the Sun Bear maintained an assault-first mentality, and the design served as the OmniMech of choice for bold young warriors. This tradition perpetuated itself, with Sun Bear pilots bequeathing their machines to like-minded successors, creating a legacy that entranced rather than deterred new volunteers despite the high casualty rate.</p><p>Attrition steadily claimed the small Sun Bear fleet over the centuries. One was destroyed during testing, and another was lost to Clan Blood Spirit in the Trial of Possession that would eventually lead to the Stooping Hawk's creation. Of the remaining three, one was destroyed on Tukayyid during the hard fighting outside the city of Luk after defeating the Twenty-Second Rasalhagian Free Company on Vipaava, and another was lost defending a Ghost Bear asteroid mining facility from a Dark Caste raid. The final Sun Bear participated in Operation Revival itself before being taken as isorla by Clan Goliath Scorpion during the second round of the Operation Revival trials. The Scorpions continued the tradition of assigning the Sun Bear to aggressive pilots, and Second Star League records indicate the machine participated in numerous trials against their embassy on Huntress before communication was lost during the Jihad. The Goliath Scorpion Sun Bear was last reported in action during the absorption of the Seventy-First Light Horse Regiment of the Eridani Light Horse.</p>
+
+manufacturer:Tokasha Mechworks Alpha
+
+primaryfactory:Tokasha
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type 56-45C Modified
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:275 Fusion XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Compound 12A2
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T10B
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Series VI KITT

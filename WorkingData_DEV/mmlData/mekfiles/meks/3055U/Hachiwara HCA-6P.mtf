@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c7cf-7636-b6e6-b203b31db30e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Hachiwara
+model:HCA-6P
+mul id:1363
+
+Config:Biped
+techbase:Inner Sphere
+era:3069
+source:TR:3055U
+published:RS:3055Uu
+rules level:4
+role:Juggernaut
+
+quirk:difficult_maintain
+
+mass:70
+engine:350 XL Engine
+structure:IS Endo Steel
+myomer:Triple-Strength
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:0
+
+armor:Hardened(Inner Sphere)
+LA armor:21
+RA armor:21
+LT armor:22
+RT armor:22
+CT armor:33
+HD armor:9
+LL armor:27
+RL armor:27
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:6
+ER PPC, Left Arm
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Right Torso
+Medium Laser, Right Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+PPC Capacitor
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Lance
+IS Lance
+IS Lance
+IS Lance
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Medium Laser
+Spikes
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+Triple Strength Myomer
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Medium Laser
+Spikes
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+Triple Strength Myomer
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Spikes
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Triple Strength Myomer
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Hachiwara is a seventy-ton heavy BattleMech introduced in 3064, purpose-built for the arena combat circuits of Solaris VII. Commissioned by the Silver Dragon Stables and designed by the Crosby BattleMech Research firm (the same engineers responsible for the celebrated No-Dachi) the Hachiwara was conceived as a dedicated gladiatorial platform optimized for the close-quarters violence of the Solaris arenas. Manufactured by Silver Wyrm, Ltd., the production arm of the Silver Dragon Stables, the design drew heavily on the No-Dachi's proven chassis philosophy while incorporating key modifications suited to arena fighting.</p><p>The Hachiwara represented a significant cultural milestone for the Draconis Combine's warrior subculture on Solaris VII. For centuries, mainstream Combine society had largely ignored the Solaris arena scene, viewing it as beneath the honor of true samurai. The rise of Coordinator Theodore Kurita began eroding that stigma, and the Hachiwara's debut marked a visible stride toward the Combine's acceptance of its Solaris MechWarriors.</p>
+
+capabilities:<p>Built on a Mithril Wyrm Endo-2 chassis and powered by a Super Magna 350 XL fusion engine, the Hachiwara achieves a respectable cruising speed of 54 kph with a top speed of 86 kph. A supercharger pushes the 'Mech to bursts of 108 kph, giving pilots the ability to close rapidly with opponents in the confined arena environment. Unlike its progenitor the No-Dachi, the Hachiwara forgoes triple-strength myomer, freeing the pilot to focus on combat rather than heat management.</p><p>The design's primary weapon is an experimental Mithril Wyrm Vibroblade, a devastating melee weapon that delivers tremendous damage at close range without requiring the heat-dependent activation of triple-strength myomer. Supporting the vibroblade at range is a Mydron Excel Ultra Type 10 autocannon mounted in the left forearm, backed by two torso-mounted BrightBloom extended-range medium lasers. Four ES-MRT "Boomstick II" M-Pods provide additional close-in hitting power for the initial pass. Three tons of autocannon ammunition are protected by CASE in the left torso, providing a degree of survivability against ammunition explosions.</p><p>Twelve tons of Starshield A armor give the Hachiwara respectable protection for a heavy 'Mech, though the design's reliance on an extralight engine means that a torso breach carries severe consequences. The lack of jump jets limits the Hachiwara's tactical flexibility in open terrain, though in the arena environment this is a calculated trade-off for the additional tonnage devoted to weapons and speed.</p>
+
+deployment:<p>The most radical Hachiwara variant, this variant existed only on paper when the Jihad destroyed Silver Wyrm's production capabilities. Designed in 3069, it represented a fundamentally different combat philosophy from the base model. The HCA-6P retains the supercharger but adds the No-Dachi's triple-strength myomer, reconnecting the design to its progenitor's roots. The entire weapons loadout is replaced: an extended-range PPC with a capacitor system provides devastating ranged firepower, five medium lasers offer sustained close-range output, torso-mounted spikes discourage physical counterattacks, and a lance in the right arm gives the design a potent charging weapon. Hardened armor replaces the standard plating, significantly increasing the 'Mech's ability to absorb punishment at the cost of additional weight. The HCA-6P would have represented a shift from the Hachiwara's original speed-and-slash philosophy toward a more durable brawler role, but the destruction of Silver Wyrm's facilities ensured it never progressed beyond the design stage.</p>
+
+history:<p>The Hachiwara's origins are rooted in the complex relationship between mainstream Draconis Combine society and the warrior subculture of Solaris VII. For centuries, the Combine's ruling class dismissed the arena fighting on Kobe as beneath the dignity of true samurai, even as the lower classes followed the matches through underground holovids and bootleg recordings. The government refused to permit its citizens to openly watch the Solaris games, viewing the spectacle as a corruption of the warrior ideal. This began to change with the rise of Theodore Kurita, whose reforms slowly opened the door for the Combine's Solaris MechWarriors to gain a measure of official recognition.</p><p>Silver Dragon Stables, having secured approval from the highest levels of the Combine government, contracted with Crosby BattleMech Research to design a follow-up to the successful No-Dachi. After two years of development, the first prototype Hachiwara arrived on Solaris VII in March of 3064, where Silver Wyrm, Ltd. began fabricating production models. The timing proved fortuitous, the first machines were completed just as the FedCom Civil War spilled into the Solaris arenas, providing a dramatic stage for the new design to prove itself.</p><p>The Hachiwara quickly gained notoriety through a series of spectacular arena victories. A widely circulated holovid showing two 'Mechs supported by a No-Dachi beheading two Seventeenth Arcturan Guards BattleMechs and destroying nine more that attempted to intervene generated enormous publicity throughout the Inner Sphere. Silver Wyrm was overwhelmed with orders as the Hachiwara became one of the most sought-after arena designs on Solaris.</p><p>The Jihad brought an abrupt end to the Hachiwara's production history. The fighting that engulfed the Inner Sphere during the Word of Blake's campaign devastated Solaris VII's industrial infrastructure, and Silver Wyrm's manufacturing facilities were destroyed by 3079. The most ambitious variant, the HCA-6P, had existed only on paper when the factory was lost, and it never entered production. While surviving Hachiwaras continued to see service in arenas and occasionally on the battlefield, no new production has resumed. The design remains evidence of the brief but intense period when the Draconis Combine fully embraced its Solaris warrior tradition.</p>
+
+manufacturer:Silver Wyrm, Ltd.
+
+primaryfactory:Solaris VII
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Mithril Wyrm
+systemmode:CHASSIS:Endo-2
+systemmanufacturer:ENGINE:Super Magna
+systemmode:ENGINE:350 Extralight
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Hardened
+systemmanufacturer:COMMUNICATIONS:Garret
+systemmode:COMMUNICATIONS:T11-A
+systemmanufacturer:TARGETING:Garret
+systemmode:TARGETING:D5j

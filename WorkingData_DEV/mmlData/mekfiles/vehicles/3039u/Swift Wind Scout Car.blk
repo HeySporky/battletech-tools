@@ -1,0 +1,153 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e322-7d62-b21b-2fda10c3e9c3
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Swift Wind Scout Car
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3145
+</mul id:>
+
+<year>
+2817
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:0.5:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+10
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+6
+6
+6
+6
+</armor>
+
+<Body Equipment>
+Communications Equipment:SIZE:2.0
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Swift Wind's mobility comes from six independently powered, Tablar-lined radial wheels with independent suspension and high ground clearance. A GM 60 fusion engine pushes the car to a top speed of 162 kph, fast enough to outrun most tracked and wheeled opponents. A scaled-down neurohelmet allows the driver to use their sense of balance for high-speed corrections while also providing wide-angle vision and infrared capability. One and a half tons of StarSlab/1 armor absorbs moderate fire long enough to disengage, but the Swift Wind cannot survive sustained contact. It carries no weapons.</p><p>The real payload is the CeresCom Recon Model 12k, two full tons of communications equipment capable of satellite uplink and direct transmission to JumpShips at standard jump points. A Swift Wind can scout any point on a planet without the enemy locating the parent force, and it serves as a forward observer for artillery and aerospace assets from far beyond direct-fire range. The system intercepts and triangulates enemy transmissions, compiling combined data into a three-dimensional holomap on the dashboard. A handheld remote unit allows the scout to operate up to 1,200 meters away while retaining comms capability at line-of-sight. Any direct engagement serves as a failure of mission planning. Speed and concealment are its only defenses, and a commander who deploys a Swift Wind in the main battle line has misunderstood the design entirely.</p>
+</capabilities>
+
+<overview>
+<p>The Swift Wind Scout Car is a dedicated reconnaissance vehicle produced by Ceres Metals Industries at their Indicass facility for the Capellan Confederation Armed Forces. Where competing manufacturers submitted inexpensive and conventional designs, Ceres Metals pursued a different philosophy and won the contract by incorporating advanced communications technology that set the vehicle apart from anything else in its class. Fast, light, and unarmed, the Swift Wind is built around the idea that information delivered quickly is worth more than firepower delivered slowly. Its primary value lies in its long-range communications suite, which allows a single scout to relay intelligence from deep inside enemy territory directly to command elements or even to JumpShips waiting at a system's jump points. Since its introduction during the early Succession Wars period, Ceres has kept the design current by updating its components, while the fundamental architecture has remained largely unchanged.</p>
+</overview>
+
+<deployment>
+<p>Assigned to reconnaissance and forward observer duties in Capellan Confederation Armed Forces combined-arms formations, the Swift Wind operates ahead of main armored and infantry columns to locate enemy positions and call in fire support from artillery and aerospace assets. Small numbers were issued to mercenary units serving the Confederation under long-term contracts. The design found particular application in anti-piracy operations along the Confederation's outer borders, where its planetary-scale communication capability allowed scouts to coordinate responses without revealing a main force's position.</p>
+</deployment>
+
+<history>
+<p>The Swift Wind entered service during the Second Succession War as Ceres Metals' answer to a Capellan Confederation Armed Forces requirement for a capable reconnaissance platform. Rather than submit a conventional and inexpensive design, Ceres invested in communications technology that no competitor could match at the time. The vehicle quickly became the CCAF's standard scout car and remained one of the few such designs whose fundamental concept was not significantly degraded by the technological regression afflicting the rest of the Inner Sphere. The Indicass facility continued producing and updating the design through multiple generations of the Succession Wars, maintaining steady supply to Capellan armor and infantry regiments.</p><p>The Swift Wind's distribution remained tightly controlled within the Confederation and, later, within the short-lived St. Ives Compact. Outside these borders only a few dozen examples were ever observed, most belonging to mercenary units with long-standing ties to the Confederation. The secession of St. Ives from the Capellan state in the late 3020s created an unusual situation in which the same vehicle served both sides of the conflict. On contested worlds, St. Ives Compact Swift Winds tracked Capellan units while Capellan Swift Winds hunted them in return. The communication advantages that made the design so valuable in conventional operations became a liability in this environment. Both sides quickly learned to home in on the distinctive signal patterns of the opposing scouts. Engagements deteriorated into a game of overlapping triangulations, with each side calling in support while simultaneously fleeing the forces their own transmissions attracted. The town of Peking on Milos became famous for one such encounter, when two Swift Winds abandoned electronic sparring and turned a wheat field into a demolition arena trying to destroy each other directly.</p><p>The Indicass facility sustained only minimal damage during the Jihad and returned to full production capacity within a few years. The design remained in active service through the Dark Age, though it gradually faded from front-line CCAF inventories as more capable platforms became available. Examples continued to serve with militia formations and minor Periphery states that valued its proven reliability and low maintenance requirements.</p>
+</history>
+
+<manufacturer>
+Ceres Metals Industries
+</manufacturer>
+
+<primaryFactory>
+Indicass
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:CeresCom
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:60
+ARMOR:StarSlab/1
+COMMUNICATIONS:Recon Model 12k
+TARGETING:I-Bal Mark 3
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+8.0
+</tonnage>
+

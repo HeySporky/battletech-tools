@@ -1,0 +1,81 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-c0a6-7626-9ea4-67e73ab6be87
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Mechanized Wheeled Platoon (Taurian)
+</Name>
+
+<Model>
+(Rifle)
+</Model>
+
+<mul id:>
+9301
+</mul id:>
+
+<year>
+2335
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Taurian infantry reflect the Concordat's citizen-soldier tradition, with national service requirements ensuring that most adults have received basic military training before ever donning a uniform. Mechanized wheeled platoons offer a balance of speed and economy, their wheeled transports being cheaper to maintain than hover or tracked alternatives. For a military that must stretch limited resources across a significant number of garrison worlds, this cost efficiency matters as much as tactical performance.</p><p>Armed with standard ballistic assault rifles, the most common and affordable infantry weapon in the Inner Sphere, these platoons deliver reliable short-range firepower and can be equipped and resupplied from almost any garrison stockpile.</p>
+</overview>
+
+<source>
+TW,TM
+</source>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+

@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a936-7380-aa92-17a328c15fde
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Gladiator Exoskeleton
+</Name>
+
+<Model>
+'The Spider'(Sqd5)
+</Model>
+
+<mul id:>
+8516
+</mul id:>
+
+<year>
+3076
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+difficult_maintain
+</quirks>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+BA-Magnetic Clamp:Body
+BABattleClawVibro:LA
+BAArmoredGlove:RA
+InfantryAssaultRifle:APM
+BAMechanicalJumpBooster:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>Abasi Oteke's personal exoskeleton pushes the Gladiator platform to its limits. At 400 kilograms, 'The Spider' is twice the mass of the standard model, with that additional weight devoted to specialized combat systems. A battle vibro-claw on the right arm delivers significant melee damage, while the left arm retains an armored glove for grappling and weapon handling. Magnetic clamps fitted to the suit's elbows and knees allow the pilot to adhere to metal surfaces, a feature that initially puzzled opponents until its purpose became clear. Prototype mechanical jump boosters, downscaled from BattleMech-grade systems by Solaris Arms, provide short vertical leaps that combine with the magnetic clamps to turn overhead structures into ambush positions. Standard armor protection keeps the suit's defensive profile modest. The configuration's weakness is its extreme specialization. 'The Spider' was built for one pilot's fighting style in one specific arena environment, and its effectiveness diminishes outside that context.</p>
+</capabilities>
+
+<overview>
+<p>The Gladiator is a combat exoskeleton produced by Solaris Arms for the Class One fighting circuit on Solaris VII. Introduced in 3056, the 200-kilogram suit was designed to give pit fighters a sturdy, affordable platform capable of mounting a wide range of melee weaponry and handheld infantry arms. Its rugged construction and ease of maintenance made it well-suited to the brutal demands of arena competition, where fighters operated on tight budgets and equipment took constant punishment. The Gladiator earned a reputation as the workhorse of the Class One circuit, with its distinctive armored profile becoming a familiar sight in the lower tiers of Solaris competition.</p>
+</overview>
+
+<deployment>
+<p>'The Spider' has no Clan deployment history. The five-trooper Point configuration is a theoretical organizational option only. The suit's extreme specialization for Solaris arena combat, combined with its experimental mechanical jump boosters, made it wholly impractical for any operational force structure outside its original context.</p>
+</deployment>
+
+<history>
+<p>The Gladiator exoskeleton emerged from the competitive arena manufacturing scene on Solaris VII, where Solaris Arms had been producing BattleMechs and equipment for the Game World's stables since the mid-thirty-first century. Introduced in 3056, the Gladiator was purpose-built for the Class One fighting circuit, where exoskeleton-clad pit fighters battled for small purses and the faint hope of catching a talent scout's attention. Solaris Arms designed the suit to be tough and easy to service, qualities essential for fighters operating on thin margins in the lowest tier of Solaris competition.</p><p>Beyond the arena, Solaris Arms harbored ambitions of military contracts. The company demonstrated the Gladiator's potential in anti-BattleMech infantry roles, hoping to attract interest from Inner Sphere militaries. The effort fell flat. Every major power concluded that funding dedicated battle armor programs offered better returns than investing in armed exoskeletons, leaving the Gladiator confined to Solaris.</p><p>The suit found an unlikely champion in Ilsa Laszlo, a newcomer to the Game World who agreed to pilot a prototype Gladiator. Laszlo's string of victories in the Class One circuit drew the attention of a freelance talent scout, earning her a contract with Gemini Stables. Her success brought the Gladiator into the spotlight, and sales of Solaris Arms exoskeletons climbed steadily through the late 3050s and 3060s.</p><p>The Jihad shattered that trajectory. When the Word of Blake occupied Solaris VII, the concept of organized pit fighting was still relatively young. Many of the hard-luck combatants who scraped by in the Class One circuit found themselves conscripted into Erik Gray's Solaris Home Defense League, pressed into service as guards and forward scouts against Blakist infantry and the corrupted planetary police. Their exoskeletons, designed for arena bouts, proved barely adequate for real combat.</p><p>Solaris Arms suffered catastrophic losses during the occupation. Blakist forces burned the company's main manufacturing facilities to the ground in 3071, and much of its remaining inventory was seized by the SHDL. The company never recovered. After Solaris was liberated, Solaris Arms' technical data and remaining assets were sold to StarCorps Industries, which also hired Abasi Oteke, one of the SHDL's most recognized pit fighters. Oteke, who had lost his left leg during the final push into the International Zone, proved instrumental in helping StarCorps adapt the Gladiator design for continued production at their facility in Heatherton on Emris IV.</p><p>Under StarCorps ownership, the Gladiator remained a niche product. The company acknowledged that armed exoskeletons could not compete with true battle armor for frontline military use, and chose to limit production rather than flood a small market. Sales followed a pay-per-unit model, with each suit tailored to the buyer's specifications before assembly and delivery. This approach found traction among smaller mercenary commands and corporate garrison forces operating in semi-hostile environments, where the Gladiator's low cost and minimal training requirements offered an affordable alternative to battle armor.</p>
+</history>
+
+<manufacturer>
+Solaris Arms
+</manufacturer>
+
+<primaryFactory>
+Solaris VII
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Gladiators
+</source>
+
+<published>
+XTR:Gladiators
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

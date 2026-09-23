@@ -1,0 +1,336 @@
+{
+  "filename": "Dire Wolf (Daishi) PUL-OSO.hmp",
+  "size": 2827,
+  "header_hex": "56 35 2e 30 30 04 00 08 05 ff ff 3f 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 11,
+      "length": 4,
+      "text": "\b\u0005\u00ff\u00ff"
+    },
+    {
+      "type": "ascii",
+      "start": 11,
+      "end": 12,
+      "text": "?"
+    },
+    {
+      "type": "byte",
+      "offset": 12,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 13,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 14,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 15,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 16,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 17,
+      "end": 18,
+      "text": "d"
+    },
+    {
+      "type": "byte",
+      "offset": 18,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 19,
+      "end": 39,
+      "length": 18,
+      "text": "Dire Wolf (Daishi)"
+    },
+    {
+      "type": "len_string",
+      "start": 39,
+      "end": 48,
+      "length": 7,
+      "text": "PUL-OSO"
+    },
+    {
+      "type": "byte",
+      "offset": 48,
+      "hex": "ea"
+    },
+    {
+      "type": "len_string",
+      "start": 49,
+      "end": 830,
+      "length": 779,
+      "text": "\u0000\u00ac\u00e09\u0002\u00d6\n\u0000\u0004\u0013F\u0000\u0004\u0013F\u0000\u0000\u009aB\u0000\u0000XB\u0000\u0000\u0098A\u0019\u0000MA 8 611 9 3\u0097 3 omni, tag\u0001\u0000\n\u0000\u0000\u0000,\u0001\u0001\u0000\u0003\u0000\u0000\u0000\u001d\u0000\u0001\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0000\u0000 \u0000\u0000\u0000\u0000\u0000)\u0000\u0000\u0000\u0000\u0000\"\u0000\u0000\u0000\u0001\u0000 \u0000\u0000\u0000\u0000\u0000)\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000/\u0000\u0000\u0000\n\u0000\n\u0000\u000e\u0000\u0000\u0000\b\u0000\u0001\u0000<\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0002\u0000=\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000<\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0003\u0000=\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000Z\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000<\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000=\u0000\b\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000=\u0000\u0007\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000<\u0000\u0000\u0000<\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000=\u0000\u0000\u0000Z\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000<\u0000\u0000\u0000<\u0000\u0000\u0000=\u0000\u0000\u0000=\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000=\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000<\u0000\u0000\u0000<\u0000\u0000\u0000 \u0000\u0000\u0000=\u0000\u0000\u0000\u00e2\u00ff0\u0001\u00c8\u0001    Supposedly christened Daishi (Great Death) by a member of the Draconis Combine's crim"
+    },
+    {
+      "type": "ascii",
+      "start": 830,
+      "end": 1197,
+      "text": "inal underground, this \"Mech seems particularly aptly named. Though the left-shoulder mounted long-range missiles augment the 'Mech's firepower, it is the bundles of lasers, autocannons, and other weapons in the arm pods that make the Daishi most fearsome. Slow but lethal, the Daishi is an assault 'Mech in the purest sense, able to wade through almost any defenses."
+    },
+    {
+      "type": "len_string",
+      "start": 1197,
+      "end": 2254,
+      "length": 1055,
+      "text": "    The main configuration, by far the most common, features an LRM-10 rack in the left torso. In addition, each arm carries a bundle of death-an Ultra-5 autocannon, two extended-range large lasers, and two medium pulse lasers. Double heat sinks enable it to handle the heat generated by its multiple laser weapons.\r\n    The most common alternative configuration carries the huge Gauss rifle in its left arm, along with plenty of ammunition. The right arm holds three large pulse lasers. Dual Streak SRM-6 racks replace the long-range missile launcher in the left torso, and an anti-missile system protects the 'Mech against enemy attacks.\r\n    Configuration B has a turret-like assembly on the left shoulder instead of the missile launcher. This boxy apparatus contains four Ultra-2 autocannons, with a complicated ammunition feed to the shells stored in the torso below. The left arm has a pair of medium pulse lasers and a pair of extended-range particle projection cannons arranged in an X-pattern. Mounted on the right arm is an LB 10-X autocannon.\r\n"
+    },
+    {
+      "type": "len_string",
+      "start": 2254,
+      "end": 2257,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2257,
+      "end": 2260,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2260,
+      "end": 2263,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2263,
+      "end": 2689,
+      "length": 424,
+      "text": "    The Daishi is a favorite 'Mech among Clan Smoke Jaguar forces, who have used it to break through Kurita defenses time and again. According to dubious but persistent rumors, the Draconis Combine has managed to capture a Daishi intact. How Inner sphere MechWarriors could seize such a war machine is a mystery, sort of the defection of a Clan MechWarrior - an impossible act, from all that we know of these warlike people."
+    },
+    {
+      "type": "len_string",
+      "start": 2689,
+      "end": 2692,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 2692,
+      "end": 2695,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 2695,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2696,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2697,
+      "end": 2714,
+      "length": 15,
+      "text": "\u0000\u0000\u0001\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+    },
+    {
+      "type": "byte",
+      "offset": 2714,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2715,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2716,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2717,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2718,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2719,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2720,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2721,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2722,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2723,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2724,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2725,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2726,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2727,
+      "end": 2737,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 2737,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2738,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2739,
+      "end": 2740,
+      "text": "\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2740,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2741,
+      "end": 2751,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2751,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2752,
+      "end": 2762,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2762,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2763,
+      "end": 2773,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2773,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2774,
+      "end": 2784,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2784,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2785,
+      "end": 2795,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2795,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2796,
+      "end": 2806,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2806,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2807,
+      "end": 2817,
+      "text": "(Unknown)\t"
+    },
+    {
+      "type": "byte",
+      "offset": 2817,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2818,
+      "end": 2827,
+      "text": "(Unknown)"
+    }
+  ]
+}

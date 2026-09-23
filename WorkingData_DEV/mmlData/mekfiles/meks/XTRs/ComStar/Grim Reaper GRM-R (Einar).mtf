@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df67-78ab-b0b7-d79246e55d3e
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Grim Reaper
+model:GRM-R (Einar)
+mul id:5550
+
+Config:Biped
+techbase:Mixed (IS Chassis)
+era:3073
+source:XTR:Comstar
+published:XTR:Comstar
+rules level:4
+role:Missile Boat
+
+quirk:poor_sealing
+quirk:difficult_maintain
+quirk:easy_maintain
+quirk:non_standard
+quirk:pro_actuator
+
+mass:55
+engine:275 XL (Clan) Engine
+structure:IS Reinforced
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:18
+RA armor:18
+LT armor:18
+RT armor:18
+CT armor:26
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:5
+ER Large Laser, Right Arm
+ER Medium Laser, Right Arm
+Light TAG, Left Torso
+LRM 20, Right Torso
+Laser AMS, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERLargeLaser
+CLERMediumLaser
+ISModularArmor
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLLightTAG
+ISModularArmor
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLArtemisV
+CLArtemisV
+Clan Ammo LRM-20 (Clan) Artemis V-capable
+Clan Ammo LRM-20 (Clan) Artemis V-capable
+ISModularArmor
+CLCASEII
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISModularArmor
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLLaserAntiMissileSystem
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Grim Reaper is a fifty-five-ton medium BattleMech introduced in 3052 as part of ComStar's crash program to rebuild the Com Guards following the devastating Battle of Tukayyid. The staggering losses sustained during that critical engagement, compounded by defections to the nascent Word of Blake, forced ComStar to establish new BattleMech production capabilities for the first time. Produced at Blankenburg Technologies' plant on Terra, the Grim Reaper was designed as a versatile medium trooper capable of contributing across multiple mission profiles. The design saw service in moderate numbers across both Com Guard and Word of Blake Militia formations throughout its production run.</p>
+
+capabilities:<p>The Grim Reaper's greatest asset is its balanced weapons array, designed to engage effectively at multiple range brackets. A Blankenburg extended-range large laser and Holly LRM-20 rack provide potent long-range firepower, allowing the design to soften targets at distance or deliver indirect fire support. At closer ranges, a Holly SRM-6 and Blankenburg medium pulse laser deliver concentrated damage, making the Grim Reaper dangerous in brawling engagements. A McArthur II anti-missile system provides an additional layer of protection against incoming missile fire, a valuable defensive asset for a design expected to operate in the thick of combat.</p><p>The design achieves respectable mobility through a Core Tek 275 XL extralight engine, propelling the chassis to a top speed of eighty-six kilometers per hour. This speed, combined with over ten tons of StarGuard ferro-fibrous armor, gives the Grim Reaper reasonable survivability for its weight class. However, the use of an extralight engine serves as a significant vulnerability, as a critical hit to either side torso will disable the 'Mech entirely. The absence of jump jets further limits tactical flexibility, leaving the design dependent on speed and firepower rather than terrain exploitation.</p><p>Ammunition for both missile systems is stored in a CASE-protected left torso, mitigating the risk of catastrophic ammunition explosions.</p>
+
+deployment:<p>This experimental hybrid refit, initiated in 3073, represents an extreme modification of the standard Grim Reaper chassis. The entire weapons suite is replaced with salvaged Clan technology, including a Clan extended-range large laser, Clan extended-range medium laser, and a Clan LRM-20 enhanced with Artemis V fire control. A Clan laser anti-missile system replaces the standard McArthur II unit. The original Inner Sphere extralight engine is swapped for a larger Clan-built extralight powerplant, while the chassis frame is rebuilt with reinforced internal structure for dramatically improved survivability. Four tons of modular armor provide additional protection that can be replaced in the field between engagements. Clan CASE II protects the missile ammunition bay, and a light TAG unit enables artillery and semi-guided munition coordination. The mixed Inner Sphere and Clan technology base, combined with experimental components, makes this variant extremely difficult to maintain and nearly impossible to replicate in a factory setting.</p>
+
+history:<p>The Grim Reaper's origins are inseparable from the political upheaval that fractured ComStar following the Battle of Tukayyid in 3052. For centuries, ComStar had maintained its military strength through carefully preserved Star League-era equipment stored in hidden depots across the Inner Sphere. The massive losses suffered during the Tukayyid campaign, while ultimately a strategic victory, exposed the fundamental fragility of this approach. When the Word of Blake Schism further depleted Com Guard strength through defections, ComStar was compelled to establish indigenous BattleMech production for the first time.</p><p>Blankenburg Technologies' facility on Terra was selected as the cornerstone of this rebuilding effort. The plant, which had served ComStar in various capacities throughout the Succession Wars, was retooled for full BattleMech production, with the Grim Reaper among the first designs to roll off the new lines. Production commenced in 3052, and the design quickly proved itself a reliable and effective trooper 'Mech.</p><p>The few recorded combat actions featuring the Grim Reaper demonstrated its versatility. During Operation Odysseus, remnants of the Com Guards' 201st Division encountered elements of the Shadow Lancers' Alpha Battalion in Central Africa. The engagement showcased the design's mixed-range capability, with multiple Grim Reapers engaging enemy BattleMechs across varying distances while supporting combined-arms operations alongside armor and infantry formations.</p><p>The Word of Blake's seizure of Terra transferred control of the Blankenburg facility to Blakist authority. Rather than discontinue production, the Word of Blake expanded the Grim Reaper program. In late 3065, Precentor Cameron St. Jamais contracted Vicore Industries (the design firm that had gained prominence through the Project Phoenix initiative) to develop upgraded variants. Production of the new PR30 and PR31 models began in early 3066, with the original PR29 continuing in production primarily for sale to mercenary commands. By the summer of 3067, the upgraded variants were expected to fully replace older models in frontline Word of Blake Militia formations.</p><p>All Com Guard and Word of Blake divisions deployed moderate numbers of Grim Reapers during this period, establishing the design as a common sight in both organizations' orders of battle. The Jihad saw continued Grim Reaper deployment across Blakist operations, with field-modified variants appearing as the conflict's desperate conditions drove increasingly creative adaptations of the base chassis. Following the liberation of Terra and the fall of the Word of Blake, the Blankenburg facility passed to Republic of the Sphere authority, though active Grim Reaper production appears to have ceased.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Reinforced
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:280 XL (Clan)
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:3056 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

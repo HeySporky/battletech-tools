@@ -1,0 +1,160 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a907-7b02-9eee-b943703bb61f
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Tunnel Rat IV Mining Exoskeleton
+</Name>
+
+<Model>
+[Battle Claw/GL](Sqd4)
+</Model>
+
+<mul id:>
+7216
+</mul id:>
+
+<year>
+3079
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+5
+</armor_tech>
+
+<Squad Equipment>
+BABattleClaw:LA
+BABattleClaw:RA
+BAExtendedLifeSupport:Body
+BASearchlight:Body
+CLBAHeavyGrenadeLauncher:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Battle Claw with Grenade Launcher configuration replaces one armored glove with a battle claw, adding a rudimentary close-combat capability to the exoskeleton's defensive options. The grenade launcher provides ranged firepower, while the battle claw can engage threats at contact distance or serve as a heavy-duty manipulator for rough material handling. Jump jets push the suit's mobility to sixty meters per leap, and the standard Tunnel Rat III armor and life support systems provide baseline protection. The combination of claw and launcher makes this the most tactically flexible of the Tunnel Rat IV variants, though it sacrifices the fine manipulative ability of the armored glove configurations.</p>
+</capabilities>
+
+<overview>
+<p>The Tunnel Rat IV is an armed derivative of the Tunnel Rat III, developed by General Motors during the Jihad. While retaining its predecessor's mining-grade chassis, the Tunnel Rat IV mounted light weaponry alongside its manipulators, filling a niche for mine site security and perimeter defense during a period of widespread instability. Multiple configurations offered different combinations of manipulators and light armament. Despite this added capability, the Tunnel Rat IV remained a civilian-grade exoskeleton at its core, lacking the protection and firepower of true battle armor.</p>
+</overview>
+
+<deployment>
+<p>Mining concerns operating in the most dangerous frontier regions adopted the Battle Claw with Grenade Launcher configuration for crews expected to face direct physical threats. The battle claw provided both a heavy-duty material handling tool and a close-combat option, backed by the grenade launcher for ranged deterrence.</p>
+</deployment>
+
+<history>
+<p>The Tunnel Rat IV emerged during the Jihad, when the widespread disruption of interstellar commerce and the breakdown of local security forced mining operations across the Inner Sphere to provide their own protection. GM responded by adapting the Tunnel Rat III chassis to accept light weapons alongside its standard mining equipment. The result was a family of armed configurations that gave mine site operators a basic defensive capability without requiring the purchase of dedicated military hardware.</p><p>Production centered at GM's Kathil facility, and the Tunnel Rat IV found a ready market among mining concerns operating in contested or lawless regions. The armed variants were no substitute for true battle armor in a genuine military engagement, but they deterred bandits, pirates, and opportunistic raiders effectively enough to keep extraction operations running through the worst years of the Jihad and into the post-war recovery.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Kathil
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<published>
+RS:VA
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+2
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

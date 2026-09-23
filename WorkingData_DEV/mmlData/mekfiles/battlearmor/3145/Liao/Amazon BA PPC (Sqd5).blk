@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a652-7ce2-acf4-4abc13e27a4c
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Amazon Battle Armor
+</Name>
+
+<Model>
+[Support PPC](Sqd5)
+</Model>
+
+<mul id:>
+8744
+</mul id:>
+
+<year>
+3101
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+easy_pilot
+</quirks>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+30
+</armor_type>
+
+<armor_tech>
+11
+</armor_tech>
+
+<Squad Equipment>
+BABattleClaw:LA
+ISBASupportPPC:RA
+IS BA Advanced:Body
+IS BA Advanced:LA
+IS BA Advanced:Body
+IS BA Advanced:LA
+IS BA Advanced:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>This configuration replaces the ballistic option with a support particle projector cannon on the right arm's modular weapon mount. The energy weapon eliminates ammunition dependency entirely, giving troopers sustained firepower during extended operations without the logistical burden of resupply. The left arm retains the standard battle claw for anti-BattleMech attacks and OmniMech transport capability.</p><p>The support PPC generates considerably more heat than the recoilless rifle alternative, and its effective range profile differs, favoring engagements at closer distances where the particle bolt's damage potential is maximized. Troopers must manage their rate of fire more carefully to avoid overheating the suit. The same advanced armor and 90-meter jump capability found in the ballistic configuration apply here, giving identical survivability and mobility regardless of weapon selection. For commanders anticipating prolonged engagements where resupply may be uncertain, the energy weapon configuration offers a self-sufficient alternative at the cost of sustained volume of fire.</p>
+</capabilities>
+
+<overview>
+<p>The Amazon is a medium battle armor suit developed by Foxx Infantry Systems for the Magistracy of Canopus. Introduced in 3101, the design builds on a proven lineage of Inner Sphere battle armor platforms, emphasizing improved protection and mobility over technological novelty. Tougher and better armed than many of its contemporaries, the Amazon has earned a reputation as one of the strongest middleweight contenders fielded by any Inner Sphere power. Its adoption by the Capellan Confederation through the Trinity Alliance partnership further broadened the suit's operational reach, establishing it as a common sight on battlefields across the Capellan March and the near Periphery.</p>
+</overview>
+
+<deployment>
+<p>Clan-organized formations fielding the Amazon in five-trooper Points occasionally select the energy weapon configuration for extended patrol and raiding operations. The support PPC's independence from ammunition supply chains suits the self-sufficient operational tempo expected of Clan garrison clusters, though the weapon's heat management demands additional training for troopers.</p>
+</deployment>
+
+<history>
+<p>The Amazon emerged from a Magistracy of Canopus program to develop a next-generation medium battle armor suit capable of competing with designs fielded by the Great Houses. Foxx Infantry Systems on Royal Foxx drew heavily on the proven Inner Sphere Standard platform, refining its protective qualities and mobility while retaining the simplicity that made the original so widely adopted. The suit entered service in 3101.</p><p>The Amazon's first operational test came during a bandit raid in the Bass system, where two squads tracked and destroyed an isolated Awesome through the streets of Nortown. Three suits were lost in the engagement, but the suit's ability to absorb punishment while pressing an attack validated the design philosophy.</p><p>The Capellan Confederation quickly adopted the Amazon through the Trinity Alliance partnership. During a raid on Sirdar in 3110, Capellan Amazons proved decisively superior to the Cavalier suits fielded by the Armed Forces of the Federated Suns. Deployed from Yùn aerospace fighters directly into the engagement zone, the Amazons overwhelmed opposing battle armor and contributed to a successful counterattack against Davion armored forces. By 3145, the Amazon had become one of several Magistracy designs forming a significant portion of the CCAF's battle armor inventory alongside the Longinus and Achileus.</p>
+</history>
+
+<manufacturer>
+Foxx Infantry Systems
+</manufacturer>
+
+<primaryFactory>
+Royal Foxx
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:CC
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+10
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

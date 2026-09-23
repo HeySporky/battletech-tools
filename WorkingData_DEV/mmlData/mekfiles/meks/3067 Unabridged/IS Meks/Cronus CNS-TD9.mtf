@@ -1,0 +1,196 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cdd8-76bb-8b40-ad574f630fd3
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Cronus
+model:CNS-TD9
+mul id:5680
+
+Config:Biped
+techbase:Inner Sphere
+era:3072
+source:TR:3067
+published:RS:3067u
+rules level:3
+role:Striker
+
+quirk:easy_maintain
+
+mass:55
+engine:330 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:Compact Gyro
+
+heat sinks:11 IS Double
+walk mp:6
+jump mp:0
+
+armor:Stealth(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:14
+RT armor:14
+CT armor:20
+HD armor:9
+LL armor:14
+RL armor:14
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:3
+Small VSP Laser, Left Arm
+Small VSP Laser, Right Arm
+Small VSP Laser, Left Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISSmallVSPLaser
+ISClaw
+ISClaw
+ISClaw
+ISClaw
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISSmallVSPLaser
+ISClaw
+ISClaw
+ISClaw
+ISClaw
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISSmallVSPLaser
+ISGuardianECMSuite
+ISGuardianECMSuite
+IS Stealth
+IS Stealth
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMASC
+ISMASC
+ISMASC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Stealth
+IS Stealth
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISC3iUnit
+ISC3iUnit
+ISTargeting Computer
+ISTargeting Computer
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Cronus is a fifty-five-ton medium BattleMech designed by retired Free Worlds League Military MechWarrior Angus Gilmour on the planet Talitha. The original CNS-3M emerged during the final years of the Third Succession War, when Gilmour's family repair business, Gilmour MilTech, began hand-building 'Mechs from battlefield scrap and salvaged components. Conceived as an affordable alternative for cash-strapped mercenary commands and small Periphery defense units, the design incorporates popular features drawn from various fifty-five-ton chassis commonly encountered on the battlefield.</p><p>The Cronus has since grown from a small-batch curiosity into a respected production design, with its reputation for easy maintenance and low cost making it particularly attractive to independent operators with limited logistical support. Available in both budget-friendly standard-technology and advanced upgraded configurations, the Cronus occupies a reliable niche among commands that value ruggedness and serviceability over cutting-edge performance.</p>
+
+capabilities:<p>The CNS-5M Cronus is built on a lightweight Earthwerks SHD II endo steel chassis powered by a VOX 330 extra-light fusion engine, providing a top speed of just over ninety-seven kilometers per hour. Six Northrop 12000 jump jets grant a jump range of one hundred eighty meters, giving the design excellent tactical mobility for a medium chassis. Protection comes from ten and a half tons of Maximillian 43 armor with CASE, offering solid survivability while mitigating the catastrophic risk of ammunition explosion.</p><p>The primary weapon is a Magna Sunspot extended-range PPC, capable of delivering punishing fire across all range brackets. Close-range engagements are handled by a pair of Diverse Optics extended-range medium lasers and a single extended-range small laser, while a Harpoon-4S Streak SRM-4 launcher exploits gaps in damaged enemy armor with unerring accuracy. Fourteen double heat sinks manage the considerable heat output of this weapons suite, though sustained alpha strikes can still tax the cooling system.</p><p>The most distinctive feature of the Cronus is the inclusion of a C3 slave unit integrated into the Cipher ComSys 1-C communications system. While the module can be removed, the great majority of customers choose to retain it in expectation of building their own C3 network, viewing the lance-level data sharing as a significant force multiplier for mercenary formations operating without dedicated electronic warfare assets.</p>
+
+deployment:<p>This variant is a radical departure from standard Cronus configurations, apparently commissioned by the Word of Blake around 3072 during the Jihad. This variant replaces the Cronus's conventional armament entirely, mounting three small variable-speed pulse lasers and a pair of claws in place of standard hand actuators to create a dedicated close-combat design. Stealth armor powered by a Guardian ECM suite renders the TD9 extremely difficult to detect and target at range, while a MASC system allows it to reach speeds of one hundred twenty kilometers per hour in short bursts, enabling rapid closure with unsuspecting targets. An improved C3 computer and targeting computer further enhance its lethality within Blakist combined-arms formations. The TD9 stands as a specialized tool built for a specific tactical doctrine, sacrificing the Cronus's traditional ranged engagement capability entirely in favor of electronic warfare superiority and devastating melee attacks. Production appears to have been extremely limited, confined to the Word of Blake's brief control of Talitha.</p>
+
+history:<p>The history of the Cronus is inseparable from the story of Gilmour MilTech and the planet Talitha. After retiring from the Free Worlds League Military during the final years of the Third Succession War, Angus Gilmour returned to Talitha to manage the moderate repair shop his father had established decades earlier. Over the following years, Gilmour transformed the modest operation into the leading maintenance contractor for the planet's militia, hiring the best ex-military technicians he could find and reinvesting every credit of profit into expanding facilities and capabilities. During this growth period, Gilmour's technicians began constructing small numbers of the CNS-3M Cronus in their spare time, using components salvaged from wrecked fifty-five-ton 'Mechs. Production never exceeded roughly two dozen units per year, but the affordable and easy-to-maintain design found a reliable niche among mercenaries and small Periphery commands who could not afford new factory 'Mechs.</p><p>Talitha's sovereignty shifted multiple times across the centuries, from the Terran Hegemony through various Succession Wars-era allegiances, including a period under the Federated Commonwealth when Gilmour MilTech first began active Cronus production. Following Operation GUERRERO, Talitha returned to Free Worlds League control, and the company seized the opportunity to expand. By 3060, Gilmour MilTech had grown into a billion-credit enterprise that not only maintained and rebuilt military equipment but had opened a new manufacturing facility financed in part by Hollings-Dupre, Ltd. This partnership enabled the production and distribution of the upgraded CNS-5M to mercenary concerns throughout the Inner Sphere.</p><p>The Word of Blake's seizure of Talitha during the Jihad brought both opportunity and disruption. The Blakists commissioned the specialized CNS-TD9 variant around 3072, a radical close-combat configuration that bore little resemblance to the original design philosophy. Production of this variant appears to have been extremely limited. Meanwhile, Gilmour MilTech adapted to wartime conditions, benefiting from the surging demand for military hardware among factions cut off from larger manufacturers. The distribution of the Hegemony Memory Core further enabled the company to expand into RetroTech production lines, meeting the desperate need for any functional combat equipment.</p><p>Following the Jihad, Talitha passed through the Republic of the Sphere's jurisdiction before eventually returning to Free Worlds League sovereignty. Through all of these political transitions, the Cronus has remained in production. Its reputation for affordability, ruggedness, and ease of maintenance has ensured continued demand from mercenary commands and smaller military formations across the Inner Sphere, precisely the market Angus Gilmour envisioned when he first began assembling 'Mechs from battlefield scrap on Talitha decades ago.</p>
+
+manufacturer:Gilmour Miltech
+
+primaryfactory:Talitha
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Earthwerks
+systemmode:CHASSIS:SHD II Endo Steel
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:330 ExtraLight
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Stealth with Guardian ECM
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

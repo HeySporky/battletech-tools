@@ -1,0 +1,889 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e1a5-7960-a463-b342acc3e46f
+</UUID>
+
+<UnitType>
+SpaceStation
+</UnitType>
+
+<Name>
+M-9 SDS Battle Station
+</Name>
+
+<Model>
+'Pavise'
+</Model>
+
+<mul id:>
+7150
+</mul id:>
+
+<year>
+2720
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:10.0:1:1::-1:0
+artsasfbay:144.0:21:2::-1:0
+artsnavalrepairpressurized:800000.0:1:3:f3
+artsnavalrepairpressurized:100000.0:1:4:f0
+cargobay:50000.0:2:5::-1:0
+1stclassquarters:200.0:0:-1::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+2ndclassquarters:4606.0:0:-1::-1:0
+cargobay:158662.0:1:20::-1:0
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+7000
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+12500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+11
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+550
+550
+550
+550
+550
+550
+</armor>
+
+<Nose Equipment>
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:500
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:100
+Ammo AR10 White Shark:100
+Ammo AR10 Barracuda:100
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+PPC
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:160
+(B) ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X AC Ammo:160
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:144
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:500
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:100
+Ammo AR10 White Shark:100
+Ammo AR10 Barracuda:100
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+PPC
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:160
+(B) ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X AC Ammo:160
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:144
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:500
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:100
+Ammo AR10 White Shark:100
+Ammo AR10 Barracuda:100
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+PPC
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:160
+(B) ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X AC Ammo:160
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:144
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:500
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:100
+Ammo AR10 White Shark:100
+Ammo AR10 Barracuda:100
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+PPC
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:160
+(B) ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X AC Ammo:160
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:144
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:500
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:100
+Ammo AR10 White Shark:100
+Ammo AR10 Barracuda:100
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+PPC
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:160
+(B) ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X AC Ammo:160
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:144
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+Naval PPC (Heavy)
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/35)
+Naval Autocannon (NAC/35)
+Ammo NAC/35:200
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:500
+(B) Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Killer Whale:100
+Ammo AR10 White Shark:100
+Ammo AR10 Barracuda:100
+(B) PPC
+PPC
+PPC
+PPC
+PPC
+PPC
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+ISERLargeLaser
+(B) ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISLargePulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+ISMediumPulseLaser
+(B) ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:160
+(B) ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS LB 10-X AC Ammo:160
+(B) LRM 20
+LRM 20
+LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:144
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+ISArtemisIV
+(B) ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ImprovedCasparDroneControlSystem
+ISLargeNavalCommScannerSuite
+AutoTacticalAnalysisComputer:SIZE:300.0
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>The Pavise's offensive capability was built around identical weapon clusters across all six firing arcs, each mounting heavy naval gauss cannon batteries, heavy naval particle cannon arrays, naval laser banks, naval autocannons in two calibers, and AR-10 bearings-launched capital missile launchers capable of engaging targets at extreme range. Complementing these capital-scale weapons, each arc also fielded layered conventional point defense: particle projector cannons, extended-range large lasers, large pulse lasers, medium pulse lasers, Gauss rifles, LB-X autocannons, LRM batteries with Artemis fire control, and small pulse lasers. This layered architecture ensured the station could engage threats from WarShips to individual fighters across any approach vector with equal lethality, while 7,000 heat sinks provided sufficient thermal management for sustained combat operations.</p><p>Four thousand one hundred twenty-five tons of Ferro-Carbide armor distributed at 550 points across every arc provided protection comparable to the most heavily armored WarShips of the era. The station's Improved Caspar Drone Control System, coordinated by a Large Naval Comm-Scanner Suite and an Autonomous Tactical Analysis Computer rated for up to 300 simultaneous drones, allowed the Pavise to direct an entire SDS fleet without human intervention. Two pressurized naval repair bays (one rated for vessels up to 800,000 tons, one for vessels up to 100,000 tons) provided full repair and rearming capability for DropShip and WarShip-class SDS drones. Twelve docking collars accommodated active vessel traffic, while a dedicated fighter bay for 144 drone craft and a small craft complement of ten rounded out the station's operational capacity.</p><p>The station's inherent limitation was its total immobility. With no meaningful thrust, the Pavise could not maneuver to exploit tactical opportunities or withdraw when threatened. Its defensive automated systems contributed 251 Marine Points of internal protection, but the station's survival ultimately depended on its attendant drone fleet and the firepower advantage that fleet and station together could impose before any attacker could close to decisive range.</p>
+</capabilities>
+
+<overview>
+<p>The M-9 "Pavise" was the Star League Defense Force's apex weapons platform; the largest and most formidable member of the M-Series drone program ever deployed. Commissioned in 2720 under First Lord Jonathan Cameron's directive to provide unbreakable automated defense for the Terran Hegemony's most critical star systems, the Pavise served simultaneously as a battle station, SDS command hub, and repair facility for the entire drone fleet. At 1.5 million tons and stretching a kilometer in length with a 200-meter beam, the station was essentially immovable - a deliberate design choice that concentrated its enormous mass entirely into firepower and support capacity. Incoming vessels would often detect it at range as a dim, irregular mass against the stars, its silhouette difficult to categorize until its transponder resolved the contact as something considerably more dangerous than a small moon.</p>
+</overview>
+
+<deployment>
+<p>The Pavise was positioned as a permanent installation at jump points and in orbit around the most strategically critical worlds throughout the Terran Hegemony. Its placement at standard transit points ensured any vessel entering a protected system would immediately enter the station's detection envelope and, if identified as hostile, its weapons coverage. In high-priority systems, multiple Pavise stations covered all known jump points simultaneously, with Terra itself protected by five stations. The station's fully autonomous operation made it suitable for deployment in distant or sparsely populated systems where maintaining a conventional garrison was logistically impractical, as its automated repair infrastructure allowed the attending drone fleet to sustain itself indefinitely without relying on planetary resupply.</p>
+</deployment>
+
+<history>
+<p>The M-9 "Pavise" entered service in 2720, representing the culmination of decades of development within the M-Series SDS drone program. The station's introduction followed the establishment of the M-5 Caspar drone fleet and the M-3 support vessels, and the Pavise was designed as the central node around which entire SDS networks would be organized. Built by Nicholas Spacecraft and Ulsop Robotics at various facilities across the Hegemony, the stations were positioned at jump points and in high orbit around the most strategically vital worlds, with Terra itself eventually protected by five of the stations covering each principal approach vector.</p><p>In operation, each Pavise served as the administrative and technical heart of its assigned SDS network, coordinating hundreds of drone vessels and providing the maintenance infrastructure that kept them operational across years of continuous deployment. The stations were genuinely self-sufficient, their automated systems could maintain both the attending drone fleet and their own operational requirements without human intervention, though small crews monitored the SDS computer network and provided judgment for situations outside the system's programmed parameters. The station's habitable section, positioned above its paired grav decks, could also accommodate visitors and serve as a space traffic control center for the surrounding volume of space.</p><p>When Stefan Amaris launched his coup against the Cameron family in 2767, the Pavise stations under Amaris-aligned garrison forces became some of the most formidable obstacles General Aleksandr Kerensky faced in his campaign to retake the Hegemony. Their combination of overwhelming firepower, complete automation, and near-indestructibility made direct assault prohibitively costly. The SLDF was forced to develop creative operational approaches to neutralize or bypass Amaris-occupied stations rather than risk conventional engagement, and the price of each such obstacle was measured in lost vessels and personnel across engagements spanning the entire liberation campaign. The stations had done precisely what they were designed to do: hold against any attacker willing to pay the cost of forcing them.</p><p>Following Kerensky's departure with the bulk of the SLDF in 2784, surviving Pavise stations became contested assets of enormous strategic value. The Successor States inheriting pieces of the Hegemony recognized that these stations represented irreplaceable force multipliers, capable of denying entire star systems to enemy fleets without the massive naval commitments conventional defense would require. However, the same immobility that made the stations effective as defensive platforms made them equally vulnerable to a force willing to absorb the cost of attack; without a fleet capable of intercepting aggressors well outside engagement range, a Pavise could not protect itself from massed assault.</p><p>The Succession Wars were devastating to the class. Stations that could be taken intact were coveted prizes, but those that could not be held were destroyed to deny them to rivals. The technical expertise required to maintain the drone control systems and automated repair capacity was also among the most specialized knowledge in the Inner Sphere, and as that expertise dispersed and vanished over the course of the Succession Wars, even physically intact Pavise stations became progressively less capable. No new production has been documented after the fall of the Star League. The Pavise's legacy endured longer than any individual station, standing as one of the most complete demonstrations in SLDF history of what a truly autonomous defense platform could achieve - and of what such a system required to remain viable across the span of human conflict.</p>
+</history>
+
+<manufacturer>
+Nicholas Spacecraft/Ulsop Robotics
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<notes>
+That's no moon. Remade with current rules, cargo weights adjusted from TRO:
+</notes>
+
+<use>
+SDS Command Center
+</use>
+
+<length>
+1000 meters
+</length>
+
+<width>
+200 meters
+</width>
+
+<source>
+His:LoT2,His:LoT1
+</source>
+
+<tonnage>
+1500000.0
+</tonnage>
+
+<bv>
+396697
+</bv>
+
+<sail>
+0
+</sail>
+
+<grav_decks>
+450
+450
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+683
+</crew>
+
+<officers>
+106
+</officers>
+
+<gunners>
+276
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+25
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+90
+</escape_pod>
+

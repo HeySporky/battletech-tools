@@ -1,0 +1,162 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a7d2-73e8-b1c9-d3e88fab36ae
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Rhino Battle Armor
+</Name>
+
+<Model>
+(Sqd6)
+</Model>
+
+<mul id:>
+9201
+</mul id:>
+
+<year>
+2871
+</year>
+
+<type>
+Clan Level 4
+</type>
+
+<role>
+Skirmisher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+6
+</armor_tech>
+
+<Point Equipment>
+BAHeavyBattleClaw:RA
+CLBASmallPulseLaser:LA
+CLBASRM2:Body
+BA-SRM2 Ammo:Body:Shots4#
+BA-SRM2 Ammo:Body:Shots2#
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Rhino's armament and equipment bear a superficial resemblance to its descendant, the Gnome, but fall short in nearly every measurable category. The suit mounts a small pulse laser and an SRM 2 launcher, both with significantly shorter effective range than their modern equivalents. Ground speed is roughly half that of the Gnome, leaving troopers vulnerable to faster opponents who can dictate engagement distance.</p><p>The suit's one genuine strength is its armor protection, which rivals the Gnome's coverage and far exceeds what the contemporary Elemental carried. The SRM system, while straightforward to operate and reload, suffered from a critical flaw in its ammunition feed mechanism. Rounds tended to lock between the launch tube and storage rack, and jammed rounds could detonate inside the suit, causing catastrophic damage to both the armor and the pilot inside. Hell's Horses engineers never resolved this defect before the design was shelved.</p>
+</capabilities>
+
+<overview>
+<p>The Rhino was one of the earliest battle armor designs developed by Clan Hell's Horses during the Golden Century. Conceived as a heavy infantry platform, the suit reflected the Horses' longstanding commitment to combined-arms doctrine and their conviction that properly equipped infantry could remain relevant on a battlefield dominated by BattleMechs. Drawing on early powered exoskeleton research, Horse scientists created a heavily armored suit intended for close-range engagement. Though the design never matched the success of the Elemental that would eventually replace it, the Rhino earned its place in battle armor history as a precursor to the more capable heavy designs that followed.</p>
+</overview>
+
+<deployment>
+<p>No ComStar or Word of Blake forces operated the Rhino. The suit was retired from Clan Hell's Horses service well before either organization developed battle armor capability, and the six-trooper formation size remains a theoretical configuration only.</p>
+</deployment>
+
+<history>
+<p>Clan Hell's Horses developed the Rhino during the Golden Century as one of the earliest attempts to field true battle armor. Horse scientists, longstanding proponents of infantry in combined-arms warfare, sought a heavy suit that could leverage their breeding programs and tactical doctrine. The design entered limited production on Niles, where it served with select Horse formations for field evaluation.</p><p>The Rhino's combat debut proved disastrous. During an attack on Atreus in 2879, a Star of Rhinos attempted to infiltrate behind Clan Smoke Jaguar lines. Two Points of Elemental battle armor intercepted them, and the faster, more agile Elementals exploited the Rhinos' limited mobility to devastating effect. Only a single Point of Rhinos survived the engagement, claiming just three Jaguar suits in return. The defeat, combined with ongoing reliability concerns that had plagued the design since its introduction, triggered a leadership crisis within the Horses. Within a year the suit was retired from front-line formations and production assets were redirected to Elemental lines. The design languished in storage for over a century until Hell's Horses scientists revisited its heavy armor concept as the foundation for the Gnome in the mid-3050s.</p>
+</history>
+
+<manufacturer>
+Clan Hell's Horses
+</manufacturer>
+
+<primaryFactory>
+Niles
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:GC
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+1
+</jumpingMP>
+
+<armor>
+14
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

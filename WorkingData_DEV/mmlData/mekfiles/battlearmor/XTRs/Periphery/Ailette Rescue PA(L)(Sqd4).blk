@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a971-7b35-944f-6323671a2f84
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Ailette Rescue PA(L)
+</Name>
+
+<Model>
+(Sqd4)
+</Model>
+
+<mul id:>
+5579
+</mul id:>
+
+<year>
+3080
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+easy_pilot
+prototype
+</quirks>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Squad Equipment>
+ISImprovedSensors:RA
+ISBASpaceOperationsAdaptation:Body
+BAExtendedLifeSupport:Body
+BAMechanicalJumpBooster:Body
+BASalvageArm:LA
+BAArmoredGlove:RA
+InfantryAssaultRifle:APM:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Rescue variant upgrades the Ailette from an industrial exoskeleton to a light power armor classification. Ground speed doubles to 20 km/h, and a mechanical jump booster provides limited mobility in environments where conventional propulsion would cause unacceptable damage. The jump booster uses high-strength myomer and specialized components to generate thrust without reaction mass, though the system cannot be steered once engaged, demanding careful trajectory planning from operators.</p><p>Improved sensors in the right arm enhance the ability to locate casualties within debris fields or damaged spacecraft. The left arm mounts a salvage arm for clearing wreckage and extracting personnel during rescue operations. Space operations adaptation gear and extended life support carry over from the engineering model, as does the 50 kilograms of standard armor. The Rescue retains the easy-to-pilot characteristics that made the original Ailette accessible to non-military operators, though its experimental jump booster marks it as a prototype system requiring additional training.</p>
+</capabilities>
+
+<overview>
+<p>The Ailette is an engineering exoskeleton developed by Federated-Boeing Interstellar for zero-gravity construction and maintenance work. Introduced in 3056, the suit was designed to improve the performance and safety of orbital laborers working in the hazardous conditions of open space. Taurus Territorial Industries later produced a licensed version from its facilities in the Taurian Concordat, and subsequently developed a rescue variant upgraded to light power armor specifications. The Ailette family has earned a reputation for reliability and ease of use among both civilian and military operators.</p>
+</overview>
+
+<deployment>
+<p>Taurian search and rescue teams deploy the Ailette Rescue in four-trooper squads, the standard Inner Sphere formation for powered infantry operations. Each squad typically operates from a dedicated SAR DropShip or station, responding to accidents and emergencies across Taurian space.</p>
+</deployment>
+
+<history>
+<p>The Ailette was developed by Federated-Boeing Interstellar for workers at the Port Simon Naval Shipyards orbiting Galax. Drawing on Clan-derived technology, the exoskeleton entered service in 3056 and quickly became a common sight among orbital construction and maintenance crews across the Federated Commonwealth. The suit's combination of life support systems, reinforced construction, and strength-enhancing servos made it well suited to the demanding conditions of zero-gravity labor.</p><p>When Blakist forces destroyed Galax in 3069, Federated-Boeing's primary production facility was lost. Taurus Territorial Industries had already secured a license for the design and began manufacturing the Ailette from its facilities on Sterope, ensuring continued availability throughout the Periphery.</p><p>In 3073, a training accident in the Taurian Concordat claimed the life of Lance Sergeant Julia Wilson after search and rescue teams lacked proper extraction equipment for her damaged Seydlitz fighter. The resulting public outcry led to a comprehensive review of all Taurian SAR protocols. Anticipating the review's conclusions, TTI began work on a dedicated rescue variant based on the Ailette chassis before the two-year investigation concluded. The Ailette Rescue entered limited production in 3074, earning strong marks from the Concordat government.</p>
+</history>
+
+<manufacturer>
+Taurus Territorial Industries
+</manufacturer>
+
+<primaryFactory>
+Sterope
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Periphery
+</source>
+
+<published>
+XTR:Periphery
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+1
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

@@ -1,0 +1,90 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bf92-7b66-9b2e-2fcc4b12458e
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Clan Motorized Point
+</Name>
+
+<Model>
+(MG)
+</Model>
+
+<mul id:>
+639
+</mul id:>
+
+<year>
+2815
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Clan Armor Kit (All)
+AntiMekGear
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Clan motorized Points mount five warriors on light vehicles for rapid repositioning between garrison posts. Faster than foot Points and less resource-intensive than mechanized formations, motorized elements handle patrol routes, perimeter screening, and quick-response duties across Clan occupation zones. The vehicles provide speed but minimal protection, and warriors must dismount to fight. Clan commanders value motorized Points for their ability to cover ground quickly on worlds where the garrison force cannot afford dedicated armored transports for every infantry element.</p>
+</overview>
+
+<source>
+TW,TO:AUE
+</source>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+5
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+Machine Gun (Portable)
+</Secondary>
+

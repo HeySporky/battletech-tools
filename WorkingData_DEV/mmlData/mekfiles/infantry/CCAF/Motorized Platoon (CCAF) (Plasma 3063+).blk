@@ -1,0 +1,85 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b91a-799f-9b2f-d54a74e3aeff
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Motorized Platoon (CCAF)
+</Name>
+
+<Model>
+(Plasma 3063+)
+</Model>
+
+<year>
+3063
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Capellan Confederation Armor Kit (3050)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The CCAF fields conventional infantry in larger numbers than its limited industrial base might suggest, drawing on the Confederation's deep tradition of citizens' militia service. Capellan soldiers learn to fight with fewer resources and less support than their counterparts in wealthier states, compensating with resourcefulness and ideological commitment. Motorized platoons provide the CCAF with faster-moving infantry that can reposition between garrison posts or screen advancing forces along road networks. Their motorcycle and light vehicle transports sacrifice protection for speed, making them best suited to patrol and rapid-response roles. Plasma rifle sections carry one of the most advanced man-portable energy weapons available, delivering devastating thermal damage that can threaten light vehicles and battle armor at close range.</p>
+</overview>
+
+<notes>
+Intro date based on prototype date of Plasma Rifle (Man Portable) weapon
+</notes>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Rifle (Striker Carbine)
+</Primary>
+
+<Secondary>
+Plasma Rifle (Man-Portable)
+</Secondary>
+

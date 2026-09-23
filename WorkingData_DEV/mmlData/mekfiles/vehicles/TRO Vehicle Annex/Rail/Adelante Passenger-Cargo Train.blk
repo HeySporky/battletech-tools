@@ -1,0 +1,180 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eaba-77cc-bbc6-e0ce02cb8ced
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Adelante Passenger/Cargo Train
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3669
+</mul id:>
+
+<year>
+2919
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Rail
+</motion_type>
+
+<transporters>
+2ndclassquarters:7.0:1:-1::-1:0
+2ndclassquarters:7.0:1:-1::-1:0
+2ndclassquarters:7.0:1:-1::-1:0
+2ndclassquarters:7.0:1:-1::-1:0
+2ndclassquarters:7.0:1:-1::-1:0
+cargobay:28.0:1:6::-1:0
+</transporters>
+
+<cruiseMP>
+12
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+48
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+40
+35
+35
+35
+35
+20
+</armor>
+
+<Body Equipment>
+SV Chassis Mod [Tractor]
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+7
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>Powered by a fusion engine generating enough output to move its considerable mass at a cruise speed of twelve rail movement points and a flank speed of eighteen, the Adelante is among the fastest heavy rail tractors in the Inner Sphere. Its six-hundred-ton frame accommodates twenty-eight tons of standard cargo space alongside five second-class crew quarters, providing berths for the three-person operating crew with room for additional personnel during extended hauls. The tractor chassis modification allows it to couple with any compatible trailer, though the design was purpose-built around the TGV Omni Railcar system.</p><p>Protection comes in the form of BAR 7 armor distributed across the hull, with heavier plating concentrated on the front and flanks where collision and combat damage are most likely. While not designed for direct combat, this level of protection provides adequate resistance against small arms fire and light anti-vehicle weapons, a practical consideration for operations in contested areas. The Adelante mounts no weapons of its own, relying instead on escort vehicles or the military configurations of its attached trailers for defensive capability. Its Equipment Rating of D/X-E-D reflects the advanced fusion powerplant and specialized tractor systems that can make sourcing replacement parts challenging outside of major industrial centers.</p>
+</capabilities>
+
+<overview>
+<p>The Adelante is a six-hundred-ton rail tractor developed jointly by Alstom Rail Corporation and Blackwell Corporation in the early 3060s. Conceived as the driving force behind an innovative modular rail system, the Adelante replaced centuries of inefficient switchyard coupling operations with a streamlined approach to long-distance ground transportation. Powered by a massive fusion engine, the tractor hauls one or more of Alstom's interchangeable TGV Omni Railcar trailers across continental rail networks at impressive speeds. Its combination of raw hauling power and compatibility with the omni-configured trailer system made the Adelante an immediate commercial success, attracting buyers across the Inner Sphere. Both civilian freight operators and military logistics commands recognized the platform's potential, leading to widespread adoption that has kept the design in continuous service for decades.</p>
+</overview>
+
+<deployment>
+<p>The Adelante serves as the sole tractor configuration in the Alstom rail system, designed exclusively to haul TGV Omni Railcar trailers across continental distances. With twenty-eight tons of onboard cargo space and crew quarters for its three-person complement, the tractor can operate independently for extended periods between major rail depots. Most Adelante units spend their service lives hauling passenger and freight configurations in commercial service, though military operators have found the platform equally valuable for rapid logistical support and force deployment along established rail corridors.</p>
+</deployment>
+
+<history>
+<p>Alstom Rail Corporation's partnership with Blackwell Corporation began in the early 3060s as both companies recognized growing demand for faster, more efficient ground logistics across the Inner Sphere. Conventional rail operations still relied on coupling and decoupling individual cars at switchyard junctions, a process largely unchanged for millennia that created significant bottlenecks during high-volume shipping periods. The Adelante tractor and its companion TGV Omni Railcar trailer were designed together as an integrated solution, using omni-technology applied to the trailer component to cut cargo turnaround times in half while dramatically improving operational flexibility.</p><p>The system's military potential was demonstrated during the FedCom Civil War on New Avalon. Operating from the Alsace depot, the Davion Heavy Guards used the Adelante rail system to rapidly transport battle armor squads and light hovercraft to the outskirts of Avalon City. This rapid deployment blocked a key flanking maneuver by Loyalist forces during the fighting for the Federated Suns' capital world. The Heavy Guards further exploited the rail network by fitting a modified mobile command base into a TGV trailer, allowing their command staff to remain mobile across the continent's extensive rail infrastructure. Even after repeated air strikes targeted the rail lines, enough track survived that the Heavy Guards continued to deliver strike groups and supplies across roughly sixty percent of the planet's landmass.</p><p>The success on New Avalon brought widespread attention to the platform's military applications, complementing its already established commercial role. Production has continued under universal availability, with the Adelante seeing service across multiple successor states and commercial operators throughout the Inner Sphere well into the Dark Age and beyond.</p>
+</history>
+
+<manufacturer>
+Alstom Rail Corporation / Blackwell Corporation
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Rail (Large)
+ENGINE:Fusion
+ARMOR:BAR 7
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+600.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

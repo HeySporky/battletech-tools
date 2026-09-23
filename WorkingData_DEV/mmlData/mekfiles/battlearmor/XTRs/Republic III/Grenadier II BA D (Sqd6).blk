@@ -1,0 +1,164 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a9c3-7b88-86e6-0ccb63e1a952
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Grenadier II Battle Armor
+</Name>
+
+<Model>
+D(Sqd6)
+</Model>
+
+<mul id:>
+9196
+</mul id:>
+
+<year>
+3137
+</year>
+
+<type>
+Mixed (IS Chassis) Advanced
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<quirks>
+difficult_maintain
+</quirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+32
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Squad Equipment>
+ISBAFireDrakeNeedler:LA
+ISBATubeArtillery:Body
+ISBATubeArtilleryAmmo:Body:Shots4#
+ISBATubeArtilleryAmmo:Body:Shots4#
+Clan BA Stealth (Standard):LA
+Clan BA Stealth (Standard):LA
+Clan BA Stealth (Standard):RA
+Clan BA Stealth (Standard):RA
+BABasicManipulator:RA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>Exclusive to Republic of the Sphere forces, Configuration D pairs a Firedrake support needler on the left arm mount with a tube artillery system and eight-round magazine in the body. The tube artillery gives individual troopers organic indirect fire capability, a rare asset at the battle armor scale. Troopers can deliver area bombardment without relying on external fire support assets, making the configuration self-sufficient in suppression and area denial roles. The Firedrake needler provides close-range anti-personnel defense. This configuration's experimental technology classification reflects its cutting-edge systems, and the maintenance challenges shared by all Grenadier II variants are compounded by the artillery system's complexity. The tube artillery's limited magazine and minimum range restrict its usefulness in close-quarters engagements.</p>
+</capabilities>
+
+<overview>
+<p>The Grenadier II is a heavy-class battlesuit produced by General Motors as an evolution of the original Grenadier design. Incorporating Clan-specification armor technology on an Inner Sphere chassis, the suit achieves comparable protection to its predecessor at a reduced weight of fifteen hundred kilograms. This lighter mass enables OmniMech transport, a capability the heavier Grenadier lacks. The suit features dual modular weapon mounts accommodating a wide variety of loadout configurations and a basic manipulator for environmental interaction. Mixed Inner Sphere and Clan technology gives the Grenadier II a competitive edge in firepower and protection, though the hybrid construction carries a maintenance burden that field technicians have found challenging to manage.</p>
+</overview>
+
+<deployment>
+<p>Six-trooper Configuration D formations represented the Republic's heaviest organic battle armor artillery capability. These reinforced squads were assembled for deliberate bombardment missions where sustained indirect fire was required. RAF commanders on Marlette reportedly employed oversized Configuration D teams to confuse Capellan intelligence about the source of artillery fire during border operations, as the self-supporting suits left no vehicle-scale signatures for enemy sensors to identify as conventional artillery positions.</p>
+</deployment>
+
+<history>
+<p>General Motors developed the Grenadier II at their Talcott facility as a lighter evolution of the original Grenadier already fielded by the AFFS. The suit entered service in 3137, taking advantage of Clan-specification components made available through Republic of the Sphere trade channels. The AFFS had long proven resistant to fielding heavy battle armor, preferring either the raw power of assault-weight suits or the greater mobility of medium designs. The Grenadier II's reduced mass and mixed-technology construction addressed both concerns, earning acceptance where the heavier original had faced reluctance.</p><p>The Republic Armed Forces also acquired the design through Republic-friendly agencies in the Federated Suns. The First Davion Guards were among the earliest units to field the Mk. II, pairing them with Ziblers from the Eighteenth Shibata Recon Regiment as quick reaction forces against Senate rebels. The RAF reserved one configuration exclusively for Republic use, equipping it with indirect fire systems for self-supporting artillery capability. The Republic later exploited this configuration for covert raids beyond the Fortress walls, using what appeared to be Davion equipment to divert suspicion from Republic involvement in border operations.</p>
+</history>
+
+<manufacturer>
+General Motors
+</manufacturer>
+
+<primaryFactory>
+Talcott
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:RotS 3
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+12
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

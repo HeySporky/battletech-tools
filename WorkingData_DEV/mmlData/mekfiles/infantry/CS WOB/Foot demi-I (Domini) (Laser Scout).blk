@@ -1,0 +1,103 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ba10-7708-98d8-b07208951e16
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot demi-I (Domini)
+</Name>
+
+<Model>
+(Laser Scout)
+</Model>
+
+<year>
+3067
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+AntiMekGear
+Sneak Suit (Camo/IR/ECM)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Manei Domini infantry squads operate in small, heavily augmented formations where every trooper carries cybernetic enhancements tailored to their combat role, from enhanced optics and communicator implants to dermal armor and prosthetic weapon mounts. Domini foot infantry operate as small, self-contained kill teams whose cybernetic enhancements compensate for their reduced squad sizes. Each trooper carries augmentations that make them individually more dangerous than a full squad of conventional soldiers. Equipped with compact laser weapons optimized for reconnaissance operations, these troops trade raw firepower for a lighter loadout that supports extended independent patrols behind enemy lines.</p>
+</overview>
+
+<squad_size>
+6
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+Laser Rifle (ER [Sunbeam Starfire])
+</Primary>
+
+<Secondary>
+Laser Rifle (Mauser 1200 LSS)
+</Secondary>
+
+<sneakcamo>
+true
+</sneakcamo>
+
+<sneakir>
+true
+</sneakir>
+
+<sneakecm>
+true
+</sneakecm>
+
+<specialization>
+512
+</specialization>
+
+<augmentation>
+enh_mm_implants
+dermal_armor
+</augmentation>
+

@@ -1,0 +1,185 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-acdd-7f08-920d-15afb8c2aef3
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Corax
+</Name>
+
+<Model>
+C
+</Model>
+
+<mul id:>
+4000
+</mul id:>
+
+<year>
+3081
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<quirks>
+bad_rep_clan
+</quirks>
+
+<weaponQuirks>
+mod_weapons:NOS:0:CLStreakLRM15
+mod_weapons:LWG:0:CLERMediumLaser
+mod_weapons:RWG:0:CLERMediumLaser
+</weaponQuirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+9
+</SafeThrust>
+
+<cockpit_type>
+1
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+46
+34
+34
+30
+</armor>
+
+<Nose Equipment>
+CLStreakLRM15
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLERMediumLaser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLERMediumLaser
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+Clan Streak LRM 15 Ammo
+Clan Streak LRM 15 Ammo
+CLCASE
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Corax C retains the UOC Light Spec 3 frame of the original but swaps the GM 210 XL engine for a 210 Raven XL, a Clan-manufactured powerplant that maintains the same thrust profile while offering Clan-grade reliability. The fighter is fast, capable of seven Gs of acceleration should it be needed. The most significant upgrade is the replacement of standard armor with seven and a half tons of POE ferro-aluminum, providing substantially better protection while freeing internal mass for heavier weapons.</p><p>The primary armament consists of a StarTek fifteen-tube Streak LRM launcher in the nose, ensuring that every missile fired connects with its target, backed by two tons of ammunition for extended engagements. Wing-mounted Series 5b ER medium lasers provide accurate fire at ranges comparable to a standard large laser, giving the fighter effective reach at multiple engagement distances. The Outworlds Advanced 6ai communications system carries over from the base Corax, while an upgraded Multiplatform T12e targeting and tracking system improves sensor performance. The adoption of a cramped small cockpit, similar to designs seen in Blakist-era fighters, restricts pilot comfort and currently limits the design to Clan-trained aerospace pilots.</p>
+</capabilities>
+
+<overview>
+<p>The Corax C is a dedicated Clan aerospace fighter variant of the Corax OmniFighter, produced by the United Outworlders Corporation on Ramora for Clan Snow Raven garrison forces. Introduced during the early years of the Raven Alliance, the design represents the Snow Ravens' effort to build their own fixed-configuration version of the successful OmniFighter platform. While based on the same UOC Light Spec 3 frame as its Omni predecessor, the Corax C incorporates several Clan-grade upgrades that distinguish it as a purpose-built garrison fighter rather than a simple field refit. The design's cramped cockpit and association with second-line duty have given it a poor reputation among pilots, but its upgraded armor and potent armament make it a more capable combatant than its garrison assignment might suggest.</p>
+</overview>
+
+<deployment>
+<p>Being a second-line fighter assigned to garrison duty, the Corax C is typically issued to lower-priority pilots within the Raven Alliance touman. The cramped cockpit compounds the assignment's stigma, as even experienced Clan aerospace pilots find the quarters restrictive. Few pilots consider a Corax C assignment desirable, though many within the broader Alliance military have noted that the fighter's superior protection and powerful armament more than compensate for its uncomfortable accommodations, and interest has grown as integration between Clan and Alliance personnel continues.</p>
+</deployment>
+
+<history>
+<p>The Corax C grew out of Clan Snow Raven's desire to produce a dedicated garrison fighter leveraging the proven Corax airframe. Aggressive Draconis Combine pilots were among the first to encounter the new design, initially mistaking it for a modified OmniFighter configuration. Engineering experts scoffed at early pilot reports describing a Corax variant with large lasers and long-range missiles, only to discover that the Ravens had indeed been building their own version of the fighter all along.</p><p>The fighter quickly found its place in the Raven Alliance's second-line garrison forces, where it served alongside older conventional fighters in defensive roles. Border skirmishes with Combine aerospace assets provided the Corax C with its first real combat tests. These engagements proved inconclusive, with neither side managing to disable opposing fighters, leading both factions to treat the encounters as live-fire training exercises rather than serious military confrontations. Combine pilots demonstrated superior training and their more mobile Sholagars could get position on the Clan opponents, but their weapons proved mediocre against the Corax C's thicker armor protection, while the Raven fighters' weapons punched effectively through Combine craft despite recent armor upgrades.</p><p>Despite reports of designers considering modifications that would swap the missile armament for a Clan large pulse laser and additional equipment, the Snow Ravens expressed satisfaction with the existing configuration and showed no urgency to field alternative variants.</p>
+</history>
+
+<manufacturer>
+United Outworlders Corporation
+</manufacturer>
+
+<primaryFactory>
+Ramora
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:UOC
+ENGINE:Raven
+ARMOR:POE
+JUMP_JET:N/A
+COMMUNICATIONS:Outworlds
+TARGETING:Multiplatform
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Light Spec 3
+ENGINE:210 XL
+ARMOR:Ferro-Aluminum
+JUMP_JET:N/A
+COMMUNICATIONS:Advanced 6ai
+TARGETING:T12e
+</systemModels>
+
+<source>
+TR:Proto
+</source>
+
+<published>
+RS:Proto
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

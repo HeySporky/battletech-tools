@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a775-7bda-8557-b3c8a90a8fb5
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Fenrir II Assault Battle Armor
+</Name>
+
+<Model>
+(Med. Laser)(Sqd4)
+</Model>
+
+<mul id:>
+6589
+</mul id:>
+
+<year>
+3119
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<quirks>
+distracting
+</quirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+30
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+ISBAMediumLaser:TU
+IS BA Advanced:Body
+IS BA Advanced:Body
+IS BA Advanced:Body
+IS BA Advanced:Body
+IS BA Advanced:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<capabilities>
+<p>The medium laser configuration mounts a single medium laser in the Fenrir II's modular turret, providing reliable anti-armor firepower backed by thirty rounds of ammunition. The two-ton quad chassis moves at roughly thirty-two kilometers per hour, slower than the original Fenrir but protected by 680 kilograms of advanced armor capable of absorbing hits that would destroy lighter suits. The turret's field of fire and the laser's consistent damage output make this a dependable general-purpose loadout. The quad design prevents anti-BattleMech swarming and OmniMech transport. The Fenrir II's deliberately menacing appearance has a documented psychological effect on opposing forces, causing hesitation and morale disruption in combat. The medium laser provides a balanced combination of range and hitting power, making it one of the most commonly fielded Fenrir II configurations across LCAF formations.</p>
+</capabilities>
+
+<overview>
+<p>The Fenrir II Assault Battle Armor was an assault-class quadruped battlesuit manufactured by TharHes Industries on Tharkad for the Lyran Commonwealth Armed Forces. Introduced in 3119 as a successor to the original Fenrir, the two-ton design prioritized protection over speed, mounting nearly three times the armor of its predecessor while preserving comparable firepower through Clan-manufactured weapons. Its deliberately intimidating appearance and heavy durability made it one of the most popular battlesuits in Lyran service, quickly displacing the older Fenrir across most frontline formations.</p>
+</overview>
+
+<deployment>
+<p>Medium laser-equipped Fenrir IIs formed the backbone of LCAF battle armor squads across frontline regiments. Four-trooper squads favored the reliable energy weapon for general-purpose operations, and the configuration saw heavy use during the defense of Hesperus II against Jade Falcon incursions, where squads held defensive positions along approach corridors leading to the factory complex.</p>
+</deployment>
+
+<history>
+<p>The Fenrir II Assault Battle Armor originated, according to popular account, from a wager between Archon Adam Steiner and Duke Vedet Brewer of Hesperus II. Brewer envisioned "a monstrous wolf straight from the nightmares of our ancestors," and the contract fell to TharHes Industries on Tharkad. Engineers there put considerable effort into giving the suit an imposing, menacing form that would unsettle opponents on the battlefield. The resulting design entered service in 3119 and quickly became one of the most widely adopted battlesuits in the Lyran Commonwealth Armed Forces.</p><p>The Fenrir II addressed the most persistent criticism of the original Fenrir: its fragile armor protection. Lyran troopers had long referred to the older suit as the "TTV," grim shorthand for "Ticket to Valhalla," acknowledging the vulnerability that came with its speed-over-protection philosophy. The Fenrir II reversed that equation, trading top speed for nearly triple the armor coverage while retaining comparable firepower through Clan-manufactured weapon systems. The heavier protection proved immediately popular, and the Fenrir II displaced the original across most frontline formations within a few years of its introduction.</p><p>The suit's early combat record came during the Clan attacks on Hesperus II, where Fenrir II formations played a significant role in defending the planet's critical industrial infrastructure. During the nineteenth battle for the world, Lyran forces including substantial Fenrir II contingents opposed Jade Falcon advances along the Defiance Highway corridor. Defensive actions in the mountainous terrain surrounding the factory complex demonstrated the suit's ability to hold ground against Clan OmniMech formations, with Lyran battle armor units inflicting meaningful casualties despite facing heavier opposition. The campaign dispelled any remaining skepticism about the design's effectiveness.</p><p>TharHes Industries maintained steady production at their Tharkad facility throughout the Dark Age and into the ilClan era. The Fenrir II's combination of heavy protection, flexible armament, and the psychological effect of its deliberately intimidating appearance established it as a mainstay of Lyran battle armor doctrine for a generation.</p>
+</history>
+
+<manufacturer>
+TharHes Industries
+</manufacturer>
+
+<primaryFactory>
+Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:LC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<chassis>
+quad
+</chassis>
+
+<turret>
+Modular:6
+</turret>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+17
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+4
+</weightclass>
+

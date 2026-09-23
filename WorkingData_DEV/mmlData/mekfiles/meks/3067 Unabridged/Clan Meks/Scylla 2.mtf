@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cdc3-7f96-a70f-2e5ba0ec974a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Scylla
+model:2
+mul id:5723
+
+Config:Biped
+techbase:Clan
+era:3079
+source:TR:3067
+published:RS:3067u
+rules level:2
+role:Brawler
+
+quirk:oversized
+
+mass:100
+engine:400 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:17 Clan Double
+walk mp:4
+jump mp:4
+
+armor:Ferro-Fibrous(Clan)
+LA armor:32
+RA armor:32
+LT armor:33
+RT armor:33
+CT armor:45
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:9
+RTR armor:9
+RTC armor:11
+
+Weapons:7
+HAG/20, Left Arm
+HAG/20, Right Arm
+ER Medium Laser, Left Torso
+Medium Pulse Laser, Left Torso
+ER Medium Laser, Right Torso
+Medium Pulse Laser, Right Torso
+Small Pulse Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLHAG20
+CLHAG20
+CLHAG20
+CLHAG20
+CLHAG20
+CLHAG20
+Hyper-Assault Gauss Rifle/20 Ammo
+Hyper-Assault Gauss Rifle/20 Ammo
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLHAG20
+CLHAG20
+CLHAG20
+CLHAG20
+CLHAG20
+CLHAG20
+Hyper-Assault Gauss Rifle/20 Ammo
+Hyper-Assault Gauss Rifle/20 Ammo
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLERMediumLaser
+CLMediumPulseLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLERMediumLaser
+CLMediumPulseLaser
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLSmallPulseLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Scylla is a Clan Steel Viper assault BattleMech introduced in 3062, created by extensively refitting the Golden Century-era Storm Giant with new weapons and electronics. Named after the sea monster of Greek mythology, the Scylla emerged during a period of aggressive Steel Viper expansion following their ejection from the Inner Sphere. The pressing need for equipment drove the Vipers to turn to their stockpiles of aging Storm Giants stored in Brian Caches, rebuilding them into a highly mobile assault platform with jump capability. Produced at the Novy Minsky Armaments Plant on New Kent, the Scylla served the Steel Vipers during their final years of existence before the Clan's annihilation in 3075, after which surviving examples were captured and refitted by other Clans.</p>
+
+capabilities:<p>The Scylla retains the Storm Giant's New Kent Type 50 XL 400 engine, giving it a top speed of approximately 65 kilometers per hour, remarkable for a 100-ton assault 'Mech. The addition of four Pryzhok WM15 jump jets allows the Scylla to leap up to 120 meters, a capability that stuns opponents who do not expect such maneuverability from a design of this mass. This agility comes at a cost, however, as the Scylla's weapons array is especially lighter than those of comparable assault 'Mechs.</p><p>The primary armament consists of twin Type XX "Great Bow" LRM-20 launchers, providing devastating mid-to-long-range firepower but with limited ammunition. A Type KOV LB 10-X autocannon supplements the missiles with versatile cluster or solid shot capability. A head-mounted Series 7K extended-range large laser provides additional long-range reach, though many pilots avoid using it due to heat buildup near the cockpit despite the 'Mech's otherwise efficient heat dissipation system. A pair of torso-mounted Series 2c ER medium lasers round out the arsenal for close and medium range engagements. Fifteen and a half tons of Compound V9 ferro-fibrous armor provide solid protection across the Viper NK12 Endo Steel frame, and seventeen double heat sinks manage the design's thermal load.</p>
+
+deployment:<p>Introduced around 3079 following the annihilation of Clan Steel Viper, the Scylla 2 is a refit attributed to Clan Hell's Horses. This variant replaces the entire standard weapons suite with a pair of arm-mounted Hyper-Assault Gauss 20 rifles, providing devastating long-range ballistic firepower. Supporting weapons include a medium pulse laser and an ER medium laser in the side torsos, with a small pulse laser mounted in the head. The design retains the jump jets and overall chassis configuration of the base Scylla while shifting to a heavier ballistic focus suited to the Hell's Horses' combined-arms doctrine.</p>
+
+history:<p>The Scylla's origins lie in the turbulent period following Clan Steel Viper's ejection from the Inner Sphere occupation zones. Returning to the Kerensky Cluster bitter and aggressive, the Steel Vipers embarked on a campaign of territorial expansion against neighboring Clans. The internal political upheaval wracking the Clan since 3060, including Khan Perigard Zalman's decision to integrate freeborn warriors, created an urgent demand for war materiel that existing production could not meet.</p><p>The solution came from the Vipers' Brian Caches, where stocks of Golden Century-era Storm Giants awaited reactivation. Beginning in 3062, the Novy Minsky Armaments Plant on New Kent began pulling these ancient assault 'Mechs from storage and extensively refitting them with upgraded electronics, new weapons systems, and jump jets. The resulting Scylla retained the Storm Giant's proven engine and frame while transforming it into a highly mobile assault platform.</p><p>The Scylla saw immediate combat deployment with the Tenth Assault Cluster, proving effective against Clan Ice Hellion incursions on New Kent. The design's unexpected agility for its tonnage repeatedly caught opponents off guard, particularly during the 3064 offensive across the Shandrake Massif that routed the Hell's Horses' 175th Assault Cluster. The Ice Hellions' formal complaint to the Grand Council, and the dismissive response from other Clans, underscored both the Scylla's effectiveness and the Steel Vipers' growing reputation for aggressive, unconventional warfare.</p><p>The Scylla's service with the Steel Vipers ended abruptly with the Clan's annihilation during the Wars of Reaving in 3075. Surviving examples were claimed as isorla by victorious Clans, most particularly Clan Hell's Horses and Clan Jade Falcon. Both Clans subsequently developed their own refits of the captured 'Mechs, the Hell's Horses producing the Scylla 2 with its distinctive hyper-assault Gauss rifles around 3079, and the Jade Falcons introducing the heavier-armed Scylla 3 by 3082. These post-Viper variants reflect each Clan's distinct combat philosophies applied to the same robust chassis.</p>
+
+manufacturer:Unknown
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Viper NK12 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:New Kent Type 50 Fusion XL 400
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Compound V9 Ferro Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:Pryzhok WM15
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Mercer 973
+systemmanufacturer:TARGETING:GEG
+systemmode:TARGETING:Pattern 492/1

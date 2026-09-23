@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c986-799d-ab39-4800bbc6c3e5
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Bushwacker
+model:BSW-S2
+mul id:448
+
+Config:Biped
+techbase:Inner Sphere
+era:3056
+source:TR:3058U,TR:CI
+published:RS:CI
+rules level:2
+role:Sniper
+
+quirk:low_profile
+weaponquirk:stable_weapon:CT:10:ISERLargeLaser
+
+mass:55
+engine:275 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:11 IS Double
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:11
+RA armor:11
+LT armor:22
+RT armor:22
+CT armor:26
+HD armor:9
+LL armor:22
+RL armor:22
+RTL armor:4
+RTR armor:4
+RTC armor:8
+
+Weapons:5
+SRM 4, Left Arm
+LB 10-X AC, Right Arm
+SRM 4, Left Torso
+Anti-Missile System, Left Torso
+ER Large Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+SRM 4
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 4
+ISAntiMissileSystem
+IS Ammo SRM-4
+ISCASE
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAMS Ammo
+IS LB 10-X AC Ammo
+IS LB 10-X Cluster Ammo
+ISCASE
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISERLargeLaser
+ISERLargeLaser
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Bushwacker is a fifty-five-ton medium BattleMech developed by TharHes Industries on Tharkad. Its designers pursued an ambitious goal: a 'Mech with a low-slung, narrow torso intended to present a minimal target profile. While the prototype's speed and firepower impressed evaluators, the cramped internal layout generated chronic electronic interference between the fusion engine and sensor systems that defied every attempted solution. The design appeared destined for cancellation until captured Clan technical data provided the breakthrough needed to resolve these problems.</p><p>Full-scale production began in 3053 following the Truce of Tukayyid, and the Bushwacker quickly established itself as a reliable long-range combat platform. Its distinctive narrow profile remains one of its most recognizable and tactically valuable features, and the design has been exported widely across the Inner Sphere.</p>
+
+capabilities:<p>The Bushwacker is first and foremost a long-range combat platform. Twin Federated 5-Shot LRM launchers provide indirect fire capability and the ability to deploy specialized munitions including minefields, while a BlazeFire Sweetshot ER large laser and Mydron Model B autocannon deliver punishing direct fire at extended ranges. A pair of Johnston MiniGuns mounted forward offer limited defense against infantry anti-'Mech teams, though they serve as the design's only close-range armament. This weapons configuration encourages pilots to maintain standoff distance, leveraging the Bushwacker's respectable top speed of eighty-six kilometers per hour to dictate engagement range.</p><p>Nine tons of Kallon Unity Weave ferro-fibrous armor with CASE provides adequate protection for sustained ranged engagements, though it falls short of what many medium 'Mech designs carry. The inclusion of CASE mitigates the risk of ammunition explosion, a meaningful consideration given the Hermes 275 XL engine's vulnerability to side torso damage. Standard tactical doctrine pairs three Bushwackers with a fast light 'Mech acting as a spotter, using cooperative tactics and terrain to maintain effective range while the lance's combined LRM fire wears down approaching enemies. The Bushwacker's distinctive narrow profile, a legacy of its troubled development history, remains one of its most valuable defensive assets on the battlefield.</p>
+
+deployment:<p>Introduced in 3056, this variant reconfigures the Bushwacker for effectiveness across short to medium ranges. An LB 10-X autocannon replaces the standard Model B, providing versatility through both slug and cluster ammunition options. Two SRM-4 launchers take the place of the LRM racks, dramatically increasing close-combat lethality, while the ER large laser is retained for ranged engagement during the approach. An anti-missile system provides additional defensive capability, partially compensating for the aggressive engagement ranges this configuration demands.</p>
+
+history:<p>The Bushwacker's origins trace to a pre-Clan Invasion development program at TharHes Industries that sought to break with conventional BattleMech design philosophy. The resulting prototype featured a revolutionary low-slung torso but suffered crippling electronic interference between its fusion engine and sensor systems. It was only after the Armed Forces of the Federated Commonwealth captured Clan technical data during a raid on Twycross that TharHes engineers found their solution, adapting internal layout techniques from captured Vulture schematics to resolve the interference problems.</p><p>Full production began on Tharkad in 3053, though preproduction models had already reached FedCom units serving on the Clan frontlines during the initial invasion. This early distribution meant the Bushwacker was initially most numerous along the Clan border and within Lyran Alliance commands following the secession of the Federated Commonwealth. By the conclusion of the FedCom Civil War, however, the design had spread to nearly every first echelon unit in both successor states. The Bushwacker became an inexplicable favorite among MechWarriors serving in the Draconis and Capellan Marches of the Federated Suns, far from its Lyran origins.</p><p>The Jihad proved a turning point for the design's manufacturing history. Word of Blake forces occupied Tharkad and badly damaged TharHes Industries' production facilities. Desperate for capital to rebuild, TharHes sold the Bushwacker's plans to Coventry Metal Works, which used them as the foundation for the Gauntlet OmniMech. Rather than ending the Bushwacker's production run, this arrangement proved mutually beneficial: modern Bushwacker models share a similar frame and various components with the Gauntlet, allowing both manufacturers to reduce costs through economies of scale.</p><p>The Bushwacker also served as the basis for the Barghest, a seventy-ton quad BattleMech developed by TharHes at the direction of Archon Katrina Steiner-Davion. TharHes modified the Bushwacker's chassis by repositioning the legs forward and adding a second pair to the rear, increasing overall mass by fifteen tons. Unlike the Gauntlet, the Bushwacker is not restricted to Lyran service and continues to be exported throughout the Inner Sphere, maintaining a strong presence within the Armed Forces of the Federated Suns well into the Dark Age.</p>
+
+manufacturer:TharHes Industries
+
+primaryfactory:Tharkad
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Earthwerks
+systemmode:CHASSIS:BSW
+systemmanufacturer:ENGINE:Hermes
+systemmode:ENGINE:275 XL
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:Unity Weave Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Euterpe HM-14
+systemmanufacturer:TARGETING:TharHes
+systemmode:TARGETING:Ares-8a

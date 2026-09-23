@@ -1,0 +1,169 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a616-7aa1-bd5e-6ba1b804a857
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Wraith Battle Armor
+</Name>
+
+<Model>
+(Sqd5)
+</Model>
+
+<mul id:>
+8725
+</mul id:>
+
+<year>
+3116
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+distracting
+</quirks>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+1
+</cruiseMP>
+
+<armor_type>
+31
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+BABattleClawVibro:LA
+BABattleClawVibro:RA
+CLBAMG:LA
+CLBAMG:RA
+Clan BA Stealth (Basic):Body
+Clan BA Stealth (Basic):LA
+Clan BA Stealth (Basic):RA
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The standard Wraith mounts a single machine gun in each arm, supplemented by vibro-claws for close combat, anti-BattleMech attacks, and boarding actions. Basic Stealth armor conceals the suit from electronic detection, while jump jets provide a ninety-meter leap range. At one thousand kilograms, the suit falls in the medium weight class with respectable mobility for its protection level.</p><p>The Wraith's heads-up display incorporates an automated threat prioritization system that assigns targeting icons of varying size, color, and shape based on target type and range. Ten user-customizable presets allow troopers to tailor the display to their preferred engagement style. An exchangeable ammunition magazine similar to OmniMech pod technology significantly reduces field reloading time. The absence of modular weapon mounts limits loadout flexibility compared to some competing designs, forcing configuration changes at the factory level rather than in the field.</p>
+</capabilities>
+
+<overview>
+<p>The Wraith is a medium battle armor suit developed by the Rasalhague Dominion at BA Facility Gamma on Mannedorf. Entering service in 3116, the design descended from extensive testing of the earlier Rogue Bear prototype and was built to support conventional infantry forces and conduct infiltration operations. The Wraith's mixed Clan and Inner Sphere technology base reflected the Dominion's hybrid military culture. Offered in a variety of frame sizes uncommon for Clan battle armor, the suit became a practical workhorse for both garrison and frontline Dominion formations.</p>
+</overview>
+
+<deployment>
+<p>Rasalhague Dominion frontline formations deploy the Wraith in standard five-trooper Clan Points, the most common organization for the suit. Wraith Points operate within Stars alongside OmniMechs or other battle armor, leveraging the suit's stealth capability to screen flanks, scout enemy positions, and execute surgical strikes against high-value targets before withdrawing under concealment.</p>
+</deployment>
+
+<history>
+<p>The Wraith traces its lineage to the Rogue Bear, a heavy battle armor prototype first fielded by Clan Ghost Bear garrison forces in the early 3070s. Decades of iterative refinement at BA Facility Gamma on Mannedorf transformed the concept into the production Wraith, which entered Rasalhague Dominion service in 3116. Unlike most Clan battle armor, the Wraith was engineered around interchangeable form factors to accommodate the Dominion's mixed Clan-freeborn military, where standardized Elemental-proportioned suits excluded many otherwise capable warriors from powered armor duty. Quartermasters complained that the variety of frame sizes created a logistical burden, but field commanders valued the expanded recruitment pool.</p><p>The Wraith earned its reputation during operations in the late 3130s. In 3137, Rasalhague Dominion forces launched border raids against the Draconis Combine while the Combine struggled with the death of Theodore Kurita. On Schuyler, elements of the Fourth Bear Regulars dropped a Star of battle armor onto the Kurokawa motor pool before dawn and fought building to building for three hours against three companies of conventional infantry. Separately, during Clan-on-Clan skirmishes over worlds vacated by Clan Wolf, two Points of Wraiths directed a flanking assault against the Hell's Horses' 666th Mechanized Assault Cluster on New Oslo, intercepting and eliminating the Cluster's command staff during a withdrawal.</p>
+</history>
+
+<manufacturer>
+BA Facility Gamma
+</manufacturer>
+
+<primaryFactory>
+Mannedorf
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:C,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+10
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

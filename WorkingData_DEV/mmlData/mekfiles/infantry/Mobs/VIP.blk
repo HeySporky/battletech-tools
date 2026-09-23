@@ -1,0 +1,78 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-09-10
+<UUID>
+01a08cd4-2aae-7cad-a7e6-effe1fa7e8e6
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+VIP
+</Name>
+
+<Model>
+
+</Model>
+
+<year>
+2400
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Ablative/Flak, Concealed
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+They're very important to someone...
+</overview>
+
+<source>
+Apocryphal
+</source>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+1
+</squadn>
+
+<Primary>
+Auto-Pistol
+</Primary>
+
+<icon>
+iVBORw0KGgoAAAANSUhEUgAAAFQAAABICAYAAABof9IhAAAAdUlEQVR4Xu3TSwqAIBRA0VbrntyTezKMnoQ1yHDQ4Bx4+MHRBbcNAAAAAAAAAAAAAIBndbxgTgvYJ+cceyb1iKHtBf2ullJuQeNueMsLR7xLwPHMpP692xrTzucwaQwo5AIRsKaUBF1MTAAAAAAAAAAAAP5jB5GXWdqQAkc9AAAAAElFTkSuQmCC
+</icon>
+
+

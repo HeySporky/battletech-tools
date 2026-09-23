@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d753-7422-8df8-7d9c1dd6d4b8
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Sling
+model:SL-1H
+mul id:2968
+
+Config:Biped
+techbase:Inner Sphere
+era:2766
+source:His:OK
+published:RS:OK
+rules level:2
+role:Striker
+
+quirk:cramped_cockpit
+
+mass:25
+engine:175 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:12 Single
+walk mp:7
+jump mp:6
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:8
+RA armor:8
+LT armor:9
+RT armor:9
+CT armor:12
+HD armor:9
+LL armor:12
+RL armor:12
+RTL armor:3
+RTR armor:3
+RTC armor:4
+
+Weapons:4
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+Medium Pulse Laser, Center Torso
+TAG, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Medium Laser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Medium Laser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Heat Sink
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Jump Jet
+Heat Sink
+IS Endo Steel
+IS Endo Steel
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Heat Sink
+ISMediumPulseLaser
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISTAG
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>Mountain Wolf BattleMechs' Sling was still in the prototype phase of development when the Amaris Coup erupted in 2766. A handful had been deployed to commands in the Periphery for field testing, but as the campaign to liberate the Hegemony dragged on, the Lyran government turned a blind eye as the manufacturer continued to supply limited numbers to the Star League Defense Force. Unlike the militaries of the other Great Houses, the SLDF could afford the luxury of fielding highly specialized designs, and the Sling was one such example.</p><p>A revolutionary concept for its era, the light 'Mech was designed as a dedicated minelayer using Thunder munitions, filling a niche that few other designs even attempted. Produced in limited numbers and serving briefly before the collapse of the Star League, the Sling nonetheless earned a reputation for tactical ingenuity that far outstripped its modest production run.</p>
+
+capabilities:<p>Speed and mobility were the defining characteristics of the Sling. Never intended to stand toe to toe with an opponent, the 'Mech was expected to skirt around hostile forces or retreat before the enemy could close after it deployed its mines. The GM 175 XL engine gave it a top speed of 119 kilometers per hour, while Lexington Heavy Lifters jump jets provided 180 meters of jump capability, making the Sling one of the more agile platforms in the SLDF's inventory. Consequently, armor protection was merely adequate, with Star Shield light ferro-fibrous plating providing only enough coverage to survive a brief exchange of fire.</p><p>The standard operating procedure called for the Sling to carry a full load of Thunder missiles in its three Coventry LRM-5 launchers, saturating target areas with minefields to deny terrain or disrupt enemy logistics. In practice, many SLDF MechWarriors assigned to the Sling quietly swapped out one ton of Thunder munitions for conventional LRMs, giving them a limited direct fire capability. The inclusion of a TAG spotting laser in the head broadened the Sling's utility considerably, allowing it to designate targets for semi-guided artillery and serve double duty as an artillery spotter alongside its primary minelaying mission.</p>
+
+deployment:<p>Designed for a more traditional combat role, this variant replaced all three LRM-5 launchers with a pair of SunGlow medium lasers and a single medium pulse laser, transforming the Sling from a dedicated minelayer into a light skirmisher. The removal of ammunition freed tonnage for two additional single heat sinks and an increase in armor protection to five tons, giving the variant noticeably improved survivability in close-quarters engagements. The TAG spotting laser was retained, preserving the 'Mech's value as an artillery spotter even in its new combat configuration. Extremely rare even by the standards of the Sling program, one SL-1H was encountered by the Nova Cats on Circe during Operation KLONDIKE, but this single example was destroyed beyond salvaging, possibly the last of its kind.</p>
+
+history:<p>The Sling's history is brief but significant, spanning from its prototype introduction during the final days of the Star League through its service in the Pentagon Worlds during Operation KLONDIKE. Mountain Wolf BattleMechs, a Lyran manufacturer based on Vendrell, developed the design in the mid-twenty-eighth century as a specialized minelaying platform for the SLDF. Production had barely begun when the Amaris Coup threw the Inner Sphere into chaos in 2766, but enough examples were completed to see combat during the liberation of the Terran Hegemony.</p><p>When Aleksandr Kerensky led the SLDF into exile during Operation Exodus, several Slings accompanied the fleet. These machines found their way into the nascent touman of Clan Smoke Jaguar, where they saw extensive service during Operation KLONDIKE. Jaguar MechWarriors largely eschewed the Sling's intended minelaying role, instead pressing the light 'Mechs into service as scouts and light vehicle hunters, using their superior mobility and range advantage to pick apart targets. On several occasions, Slings were called upon to fulfill their original spotter role, directing Jaguar artillery strikes against static defenses.</p><p>The Clans also found themselves on the receiving end of the Sling's minelaying capabilities. During the Amur campaign, rebel forces used their own Slings to penetrate Smoke Jaguar supply lines, seeding transport routes with mines that repeatedly disrupted logistics operations. The Jaguars were forced to pull back their own Slings to hunt down and neutralize the raiders. Elsewhere, the Brotherhood used Slings to frustrate Jade Falcon efforts to breach the defenses of the Black Brian by replenishing minefields the Clans thought had been cleared. The Jade Falcons blundered into several regenerated minefields before establishing high-altitude aerospace patrols to detect and eliminate the Slings.</p><p>Back in the Inner Sphere, the Sling's fate was far less dramatic. The destruction of Mountain Wolf BattleMechs' Vendrell production facility during the Succession Wars, combined with the loss of the advanced manufacturing techniques needed to construct the design, ensured the Sling became one of many Star League-era 'Mechs that faded into obscurity. The Successor States, unable to replicate the design's advanced construction, turned instead to more conventional and maintainable designs like the Valkyrie to fill the light fire support role.</p><p>Though the Sling itself was lost to history, its innovative chassis would prove influential. Clan Smoke Jaguar later used it as the starting point for the development of the Mist Lynx OmniMech, while centuries later the Capellan Confederation drew upon recovered Sling design data to develop the Duan Gung light BattleMech.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Telstar
+systemmode:CHASSIS:Model 7W
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:175 XL
+systemmanufacturer:ARMOR:Star Shield
+systemmode:ARMOR:Light Ferro-Fibrous
+systemmanufacturer:JUMP_JET:Lexington
+systemmode:JUMP_JET:Heavy Lifters
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Kr-A P/comm
+systemmanufacturer:TARGETING:RCA
+systemmode:TARGETING:Instatrac XI with TAG

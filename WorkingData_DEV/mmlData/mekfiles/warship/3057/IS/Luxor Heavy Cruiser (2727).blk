@@ -1,0 +1,332 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ed09-7dd5-b703-1896eb98006e
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Luxor Heavy Cruiser
+</Name>
+
+<Model>
+(2727)
+</Model>
+
+<mul id:>
+4550
+</mul id:>
+
+<year>
+2727
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:12.0:6:1::-1:0
+cargobay:53966.5:1:2::-1:0
+smallcraftbay:4.0:4:3::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:620.0:0:-1::-1:0
+crewquarters:2051.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+3250
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+12500
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+13
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+153
+151
+151
+145
+151
+151
+</armor>
+
+<Nose Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:50
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:50
+(B) Naval Gauss (Medium)
+Naval Gauss (Medium)
+Ammo Medium N-Gauss:50
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:50
+(B) Naval Gauss (Medium)
+Naval Gauss (Medium)
+Ammo Medium N-Gauss:50
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:50
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:50
+(B) Naval Gauss (Medium)
+Naval Gauss (Medium)
+Ammo Medium N-Gauss:50
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/25)
+Naval Autocannon (NAC/25)
+Ammo NAC/25:50
+(B) Naval Gauss (Medium)
+Naval Gauss (Medium)
+Ammo Medium N-Gauss:50
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:50
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:50
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:50
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:50
+</Right Broadsides Equipment>
+
+<structural_integrity>
+80
+</structural_integrity>
+
+<capabilities>
+<p>Displacing 890,000 tons and measuring 975 meters in length, the Luxor-class is built around an all direct-fire armament philosophy that eschews missile systems entirely. The vessel's primary striking power comes from twenty-six Medium Naval PPCs distributed across all firing arcs, providing devastating energy weapon coverage at medium range. These are supplemented by fifteen Naval Laser 55 batteries concentrated in the nose, broadside, and aft arcs for sustained damage delivery. For close-range engagements, twelve Naval Autocannon/25 batteries cover the fore, aft, and flanking arcs, while eight Naval Autocannon/30 batteries mounted exclusively on the broadsides provide punishing broadside salvos. Eight Medium Naval Gauss Rifles on the flanking arcs round out the heavy armament, offering precise long-range kinetic strikes.</p><p>The Luxor carries 1,423 tons of Improved Ferro-Aluminum armor over a structural integrity rating of 80, providing excellent protection for sustained fleet engagements. A Lithium-Fusion Battery enables rapid successive jumps, giving fleet commanders considerable strategic flexibility. The vessel's 3,250 double heat sinks manage the immense thermal load generated by its energy-heavy arsenal. Despite its formidable capital armament, the Luxor is particularly vulnerable to attack by aerospace fighters and small craft, carrying only two squadrons of fighters and four small craft for self-defense. Four DropShip docking collars, two 95-meter gravity decks, and a cargo capacity of 53,966.5 tons round out the vessel's support capabilities, though its emphasis on firepower means the Luxor carries considerably less cargo than other heavy cruisers of similar displacement.</p>
+</capabilities>
+
+<overview>
+<p>The Luxor-class heavy cruiser was conceived by Mitchell Vehicles Interstellar as a replacement for the aging Avatar-class cruiser in Star League Naval Command service. Although Mitchell Vehicles had developed the preliminary design well before the official request for proposals was issued, the company refined its existing work to meet the stated project requirements. The resulting WarShip was a massive vessel intended to serve as a dedicated capital ship killer, optimized for engaging enemy WarShips at medium to close range rather than fulfilling independent patrol or carrier duties.</p><p>Constructed at the Mitchell Vehicles shipyards above Graham IV, the Luxor served exclusively with the Star League Defense Force throughout its operational history and was never exported to any member state navy. The class earned a fearsome reputation among SLDF fleet commanders for the sheer weight of fire it could deliver in a broadside engagement, and its dedicated combat focus made it one of the most dangerous capital combatants of its era.</p>
+</overview>
+
+<deployment>
+<p>The SLS Black Rock served as flagship of the Thirteenth Fleet under Admiral Oliver Finch, operating from bases in the Lyran Commonwealth and Free Worlds League to suppress bandit forces before deploying to the Magistracy of Canopus region at the start of the Periphery Uprising. The SLS Fearless and SLS Houten formed the Thirty-fourth Cruiser Flotilla within the 203rd Pursuit Squadron of the Twentieth Fleet, where under Commodore Vicenzo Herras they consistently outperformed their squadron mates by repeatedly engaging and destroying larger, faster opponents in training exercises.</p><p>The SLS Rhodan holds the distinction of being the last Luxor-class vessel ever constructed, leaving the Mitchell Vehicles shipyards above Graham IV in 2765 only to be destroyed during the Amaris Civil War. The SLS Van der Bergh served as flagship of Commodore Altran Serdamba's convoy escort flotilla stationed at New Earth, where in December 2766 it helped repel an attack by twenty Rim Worlds Republic WarShips at the system nadir point, with the combined SLDF forces crippling fourteen enemy vessels while losing eight of their own. The SLS Van Gogh earned the grim distinction of being the last Luxor destroyed, surviving over a decade of continuous warfare before being rammed and destroyed by three squadrons of M-3 Caspar drones launched from a hidden lunar hangar during the Liberation of Terra in 2777.</p><p>The SLS Van Speijk was reported lost in 2765 after executing an emergency jump from the Zebululuskai system to escape an Outworlds Alliance Pinto-class wolfpack, but was secretly rediscovered and restored to operational service by a Clan Snow Raven Deep Periphery exploration team centuries later. The recovered vessel was spotted passing through the Epsilon Eridani system in February 3152 under Raven Alliance colors, confirming the remarkable survival of a WarShip class long considered extinct.</p>
+</deployment>
+
+<history>
+<p>The Luxor-class heavy cruiser originated in the Mitchell Vehicles Interstellar design bureau on Graham IV well before the Star League Naval Command issued its formal request for a replacement for the venerable Avatar-class cruiser. When the competition was announced, Mitchell Vehicles adapted its existing preliminary design to meet the stated requirements, entering it against the Soyal-class heavy cruiser proposed by Delhi WarShips' Nicholas Shipyards division. The selection process was marred by corruption when Craig Kovac, the Chief Executive Officer of Blue Nose Clipperships and a longstanding political ally of Mitchell Vehicles' leadership, applied substantial pressure to ensure the Soyal design was rejected in favor of the Luxor. Whether the Luxor would have won on its own merits remains a matter of historical debate, but the political interference guaranteed Mitchell Vehicles the contract.</p><p>Construction began at the Mitchell Vehicles shipyards above Graham IV in 2727, and the class entered Star League Defense Force service as an exclusively military asset. The first operational deployment came in response to First Lord Richard Cameron's Taxation Edict of 2763 and the resulting New Vandenberg Uprising, with Luxors assigned to convoy protection duties escorting troop ferries during the SLDF's redeployment to pacify the Periphery. This role was somewhat below the class's designed mission profile as a capital ship killer, but demonstrated the vessel's strategic value as a fleet presence.</p><p>The Amaris Civil War proved catastrophic for the Luxor-class. When Stefan Amaris seized the Terran Hegemony and activated the Caspar Space Defense System network against the SLDF, the automated drone WarShips identified Luxor-class vessels as priority threats and concentrated their attacks accordingly. This targeting priority made every engagement disproportionately dangerous for Luxor crews. Recognizing this grim reality, SLDF fleet commanders began deploying Luxors as decoys to draw drone fire away from transport convoys and lighter WarShips. These assignments were effectively suicide missions, trading irreplaceable heavy cruisers and their crews to ensure the survival of larger fleet formations and the completion of critical transport operations.</p><p>One by one, the limited number of Luxor hulls was whittled down through these sacrificial deployments. The last vessel completed was destroyed during the civil war along with most of her sisters, and the final surviving hull met its end during the Liberation of Terra in 2777. With that vessel's loss, the Luxor-class was believed entirely extinct.</p><p>This assessment proved premature by nearly four centuries. One vessel, lost during the Periphery Uprising and long presumed destroyed, was secretly recovered deep in the Periphery by Clan Snow Raven explorers and returned to active service during the ilClan era. The discovery confirmed that the Luxor-class had not been entirely eradicated, and gave the Raven Alliance an unexpected addition to their naval order of battle.</p>
+</history>
+
+<manufacturer>
+Mitchell Vehicles
+</manufacturer>
+
+<primaryFactory>
+Graham IV
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Mitchell Vehicles
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Improved Ferro-Aluminum
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Heavy Cruiser
+</use>
+
+<length>
+975 meters
+</length>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+890000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+95
+95
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+399
+</crew>
+
+<officers>
+62
+</officers>
+
+<gunners>
+83
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+35
+</life_boat>
+
+<escape_pod>
+30
+</escape_pod>
+

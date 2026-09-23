@@ -1,0 +1,160 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e6f7-78e6-92b8-650d5fc11b68
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Moltke MBT
+</Name>
+
+<Model>
+M1
+</Model>
+
+<mul id:>
+2205
+</mul id:>
+
+<year>
+3076
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+62
+47
+47
+32
+50
+</armor>
+
+<Body Equipment>
+IS Light Gauss Ammo
+IS Light Gauss Ammo
+IS Light Gauss Ammo
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISLightGaussRifle
+ISLightGaussRifle
+ISERLargeLaser
+</Turret Equipment>
+
+<capabilities>
+<p>The Moltke is powered by a Vlar 300 XL fusion engine, reaching a top speed of approximately sixty-four kilometers per hour and reducing crew requirements to five compared to the Augustus A-3's ten. StarSlab/7 Heavy Ferro-Fibrous armor provides substantial protection for its weight class. A Maxell 650 communications system paired with a Maxell TA 85 targeting computer incorporating TAG allows the Moltke to serve as an artillery spotter in addition to its direct-fire role, giving combined-arms formations a vehicle capable of directing indirect fire assets from the front line.</p><p>The M1's turret carries a Diverse Optics Sunbeam extended-range laser flanked by two Imperator Automatic Weaponry light Gauss rifles, concentrating long-range precision firepower in the triangular mount inherited from the Augustus. Three tons of rifle ammunition support sustained engagements. The M2 trades this long-range combination for close-support capability, replacing the main laser with a Snub-Nose PPC and adding five multi-missile launchers at the vehicle's front with six tons of ammunition, providing exceptional short-range saturation fire and ammunition flexibility. The M3 retains the triangular turret but replaces the light Gauss rifles with a pair of Kali Yama Weapons Industries LB 10-X autocannons with cluster and standard ammunition options, supplemented by a FlameTech Inferno plasma rifle for anti-infantry and anti-stealth work and TAG for artillery coordination. The M3's biggest weakness, shared across all variants, is a lack of dedicated anti-infantry weapons beyond the plasma rifle's area effect.</p>
+</capabilities>
+
+<overview>
+<p>The Moltke Main Battle Tank is a seventy-five-ton fusion-powered tracked combat vehicle developed by Brooks Incorporated for the Duchy of Andurien during the Jihad, entering production in 3076. Commissioned directly by the Duchy to address critical equipment shortfalls without relying on outside suppliers, the Moltke was designed to provide local armored forces with a capable frontline vehicle drawing on the structural philosophy of the ancient Augustus A-3. Brooks retained the Augustus's distinctive triple-turret arrangement and sloping track guards while replacing the old diesel powerplant with an extralight fusion engine and fitting the design with modern heavy ferro-fibrous armor and advanced electronics. The result was a tank that offered considerably greater speed, firepower, and survivability than its Age of War ancestor while maintaining a visual continuity that tied the new design to the Duchy's established manufacturing identity. The Moltke rapidly became the Duchy's primary armored asset during and after the Jihad period.</p>
+</overview>
+
+<deployment>
+<p>The M1 entered service as the Duchy of Andurien's primary frontline armor, distributed among militia formations and Free Worlds League units garrisoning Duchy territory. Its long-range fire combination proved well suited for engaging at maximum distance, while the integrated TAG allowed it to call in artillery strikes on fortified positions. M1 units were among the first Molkes exported to Duchy-aligned states following the Jihad, and they remain the most widely distributed variant in former League space.</p>
+</deployment>
+
+<history>
+<p>The Moltke's development began as a direct response to the pressures of the Jihad, when the Duchy of Andurien found itself stretched by the demands of sustaining forces without reliable access to outside supply chains. The Word of Blake's disruption of interstellar commerce and the broader chaos of the conflict left many smaller powers scrambling for indigenous solutions, and the Duchy turned to Brooks Incorporated to produce a modern heavy tank that could be built and maintained entirely within Duchy space. Brooks drew on the legacy of their Age of War Augustus A-3, retaining its structural character while bringing the design fully into the modern technological era.</p><p>The M1 entered production at Andurien in 3076, with initial output distributed among militia forces and Free Worlds League regulars stationed in the Duchy. Outside parties inquired early about purchasing the Moltke for their own forces, and Brooks forwarded these requests to Duchy government offices for approval, establishing a pattern of controlled export that would define the tank's distribution through the Jihad period. The M2 variant followed in 3077, intended to complement the M1's long-range precision fire with heavier short-range capability, giving combined-arms formations a more flexible armored component. The M3 arrived in 3080, incorporating lessons from Jihad-era engagements, particularly the value of TAG designation for artillery coordination and anti-infantry systems in an environment increasingly complicated by battle armor and stealth-equipped infantry.</p><p>Following the Jihad's conclusion, distribution expanded cautiously beyond Duchy forces. Sales opened to the Principality of Regulus and the Duchy of Oriente, with the M1 and M2 seeing the broadest export uptake. The Duchy declined to authorize sales outside former League worlds that were not politically aligned with Andurien interests, keeping the Moltke's distribution concentrated within the remnants of the Free Worlds League sphere. The tank's single production facility at Andurien remained active through the Dark Age under Duchy of Andurien oversight, sustaining output for a design that had become the backbone of Duchy armored formations.</p>
+</history>
+
+<manufacturer>
+Brooks Incorporated
+</manufacturer>
+
+<primaryFactory>
+Andurien
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Vlar
+ARMOR:StarSlab
+JUMP_JET:N/A
+COMMUNICATIONS:Maxell
+TARGETING:Maxell
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:300 XL
+ARMOR:StarSlab/7 Heavy Ferro-Fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:Maxell 650
+TARGETING:Maxell TA 85 with TAG
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+

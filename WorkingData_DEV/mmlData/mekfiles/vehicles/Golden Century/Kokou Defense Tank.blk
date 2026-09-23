@@ -1,0 +1,164 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e8ee-7229-9640-58b03df9f9d5
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Kokou Defense Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7672
+</mul id:>
+
+<year>
+2843
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+45
+30
+30
+22
+36
+</armor>
+
+<Body Equipment>
+Clan Ammo LRM-10
+CLCASE
+</Body Equipment>
+
+<Front Equipment>
+CLLRM10
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+</Turret Equipment>
+
+<capabilities>
+<p>Powered by a 140-rated fusion engine, the Kokou inherits its ancestor's emphasis on firepower and protection over speed. Three Kolibri Delta Series Large Pulse Lasers provide accurate, high-rate fire well suited to the static and hull-down defense roles at which the vehicle excels. A Mk. 46 Type II LRM-10 launcher complements the pulse laser battery with area suppression and ranged engagement capability against lighter targets. Arcadia Compound Delta VII ferro-fibrous armor gives the Kokou robust protection appropriate to its role as a garrison support vehicle.</p><p>The Build 1685/3 Tacicom communications system and Build 2 JRD TTS targeting and tracking system provide reliable electronic capability for its defensive operations. Like its Burke ancestor, the Kokou performs best in fixed or improved positions where its poor maneuverability is not a liability, and it is frequently imperiled by faster opponents in open maneuvering engagements. Tacticians consistently recommend flanking support and enfilade fire positions when deploying the Kokou, using its excellent rate of fire to punish opponents who commit to crossing its engagement zone rather than exposing it to the kind of fast-moving assaults that quickly overcome its limited agility.</p>
+</capabilities>
+
+<overview>
+<p>The Kokou Defense Tank is a seventy-ton tracked vehicle developed by Clan Star Adder during the vehicular arms race of the 2840s. Albion Armor Works Beta on Albion built the design from salvaged Royal Burke hulls discovered in the Kerensky Cluster, following orders from Khan Clancy Truscott to create an inexpensive garrison vehicle from available Star League legacy materials. Despite a chaotic first production run that left its initial combat performance below expectations, the Kokou recovered to become one of Clan Star Adder's most popular combat vehicles. Its pulse laser armament and ferro-fibrous protection made it a reliable defensive platform, and the design achieved near-ubiquitous distribution across the Star Adder touman before gradually ceding ground to more maneuverable successors. A few Kokous can be found in nearly every Clan touman, traded and dispersed through decades of inter-Clan transfers.</p>
+</overview>
+
+<deployment>
+<p>The Kokou serves primarily in garrison and resource protection roles, deployed in fixed defensive positions where its pulse laser armament's high rate of fire can be maximized and its limited mobility is not a tactical liability. Star Adder commanders assigned it to planetary garrisons and resource security tasks, using its reliable firepower to hold territory without committing more capable frontline assets. As the vehicle spread through inter-Clan trading and the Hell's Horses Block B production, its deployment profile broadened across multiple toumans in similar second-line garrison roles. Tacticians recommend pairing the Kokou with faster screening forces to protect against the flanking maneuvers that the vehicle's limited speed makes difficult to counter.</p>
+</deployment>
+
+<history>
+<p>The Kokou traces its origin to the Star Adder discovery of Royal Burke vehicle caches in the years following the Pentagon Civil War. Khan Clancy Truscott directed Albion Armor Works Beta to develop a production vehicle from these Star League hulls, seeing in the Royal Burke's armament and protection the foundation of a capable and inexpensive garrison design. The resulting initial production run, designated Block A, was so rushed and error-prone that mechanics and engineers considered it remarkable that the first tank reached operational status at all.</p><p>Early combat results did little to vindicate the program. A pair of Clan Mongoose 'Mechs easily defeated four points of Kokous in open engagement, and word spread quickly that the new Adder vehicle lacked credibility as a combat threat. Despite this criticism, the Star Adders continued deploying the Kokou for resource security tasks, and six months later the design's record began to improve dramatically. Kokous accumulated a string of Trial victories against Clan Mongoose, eventually reaching nineteen victories without a single loss in that campaign, decisively reversing the design's reputation within Star Adder sibkos and command circles.</p><p>The Hell's Horses later challenged the Star Adders for the Kokou production schematics, bidding a full Star to compete against four Adder points in an open terrain engagement. The Star Commander leading the Hell's Horses force made expert use of the open field to disable opposing transports and pick apart the slower Adder vehicles one at a time, emerging without casualties and securing the schematics for Horse production. The resulting Block B production vehicles extended the Kokou's reach across a second major Clan touman.</p><p>The design gradually faded from frontline use as more maneuverable vehicles became available, but it remained a staple of garrison forces across the Clan homeworlds. By the Dark Age, a few Kokous could be found in nearly every Clan touman, reflecting decades of inter-Clan transfers and trading. Rumors in the ilClan era suggested that new production had begun on Twycross, indicating continued demand for the venerable design.</p>
+</history>
+
+<manufacturer>
+Albion Armor Works Beta|Trellshire Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+Albion (Junction City)|Twycross
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Arcadia Compound
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:140 Fusion
+ARMOR:Delta VII Ferro-Fibrous
+JUMP_JET:N/A
+COMMUNICATIONS:Build 1685/3 Tacicom
+TARGETING:Build 2 JRD TTS
+</systemModels>
+
+<source>
+TR:GC
+</source>
+
+<published>
+TR:GC
+</published>
+
+<tonnage>
+70.0
+</tonnage>
+

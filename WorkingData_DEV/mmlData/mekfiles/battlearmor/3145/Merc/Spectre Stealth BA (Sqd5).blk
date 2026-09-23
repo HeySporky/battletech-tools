@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a6ab-71d5-a7b5-cf8818eed632
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Spectre Stealth Battle Armor
+</Name>
+
+<Model>
+(Sqd5)
+</Model>
+
+<mul id:>
+8761
+</mul id:>
+
+<year>
+3097
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<quirks>
+imp_com
+</quirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+33
+</armor_type>
+
+<armor_tech>
+1
+</armor_tech>
+
+<Squad Equipment>
+BADavidLightGaussRifle:LA
+BA-Magnetic Clamp:Body
+BAMechanicalJumpBooster:Body
+BABattleClawVibro:RA
+IS BA Stealth (Improved):Body
+IS BA Stealth (Improved):Body
+IS BA Stealth (Improved):RA
+IS BA Stealth (Improved):RA
+IS BA Stealth (Improved):LA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<capabilities>
+<p>Weighing 750 kilograms, the Spectre relies on its Calderon Shield improved stealth armor to avoid detection rather than survive sustained fire. The thin protective shell offers minimal resistance to direct hits, making concealment the trooper's primary defense. Ground speed is respectable for a humanoid design, and a mechanical jump booster provides limited vertical mobility, though it falls short of true jump jet performance. Magnetic clamps adapted from the Fa Shih allow the suit to ride OmniMechs or other carriers into the combat zone, extending operational range considerably.</p><p>Offensive capability centers on a "David" light gauss rifle paired with a battle vibro-claw for close-quarters work. This loadout gives the Spectre more striking power than older stealth designs, but troopers remain badly outmatched against heavier battle armor in a standup fight. The suit excels in its intended role of scouting and raiding, where avoiding engagement matters more than winning one.</p>
+</capabilities>
+
+<overview>
+<p>The Spectre Stealth Battle Armor is a light reconnaissance suit developed by Protectorate Arms Conglomerate on Diik for the Calderon Protectorate. Introduced in 3097, the design fills a scout and raider role long neglected by Periphery infantry doctrine. Built around an advanced stealth armor system, the Spectre prioritizes concealment and speed over durability, accepting significant armor limitations in exchange for a low sensor profile. The suit has spread well beyond its origins, reaching allied Periphery states and numerous mercenary commands across the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The Raven Alliance adopted the Spectre in significant numbers, organizing operators into five-trooper Points consistent with Clan military doctrine. Alliance Clusters deployed Spectre Points for reconnaissance along the Periphery border, where the suit's stealth capabilities complemented the Alliance's intelligence-gathering focus. The pairing of Clan organizational discipline with the Spectre's infiltration profile gave Alliance commanders a capable light scouting element without the logistical burden of maintaining heavier Clan-produced designs.</p>
+</deployment>
+
+<history>
+<p>Protectorate Arms Conglomerate developed the Spectre by basing the design on plans acquired from various other battlesuit programs, allowing the company to bypass many of the obstacles that typically delayed new armor development. The Calderon Protectorate fielded the first production units in 3097, and the design spread quickly through Periphery trade networks. Early shipments reached the Protectorate's Filtvelt allies, while the Raven Alliance adopted the suit in significant numbers for its own reconnaissance needs. Mercenary commands purchasing the Spectre further accelerated proliferation across the Inner Sphere.</p><p>The suit's relatively simple construction and accessible technology base made it attractive to smaller military forces lacking the industrial capacity to produce heavier designs. Its stealth profile addressed a reconnaissance gap that many Periphery states had struggled to fill with conventional forces alone. By the mid-thirty-second century, the Spectre had become one of the more common light battle armor designs operating along the Periphery frontier, though its fragility in direct combat limited adoption among major Inner Sphere powers to specialist scouting roles.</p>
+</history>
+
+<manufacturer>
+Protectorate Arms Conglomerate
+</manufacturer>
+
+<primaryFactory>
+Diik
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:Merc,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+6
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+1
+</weightclass>
+

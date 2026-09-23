@@ -1,0 +1,179 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb81-779a-91c5-b60821553625
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Prairie Schooner Land Train
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7334
+</mul id:>
+
+<year>
+3058
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:17.0:1:1::-1:0
+2ndclassquarters:21.0:3:-1::-1:0
+</transporters>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+34
+30
+30
+30
+30
+30
+</armor>
+
+<Body Equipment>
+SV Chassis Mod [Tractor]
+ISOffRoadChassis
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Prairie Schooner tractor is built on a heavy wheeled large vehicle chassis with tractor and off-road modifications, enabling reliable mobility across the rough terrain typical of frontier worlds. Its fusion powerplant provides an effectively unlimited operational range, which is its most significant advantage over petrochemical competitors. The trade-off is cost: at roughly half a million C-bills for a complete land train, the Prairie Schooner is well outside the budget of smaller operators who can manage with less capable alternatives.</p><p>The tractor carries 17 tons of cargo in its main bay, accessible through a single rear door, and the bay serves as a warm hold by default for general freight. Its self-righting technology allows the vehicle to recover from rollovers in all but the most severe accidents, a feature that adds operational confidence on uneven ground. Operator quarters accommodate a second crew member for extended journeys without resupply stops.</p><p>Six and a half tons of light composite armor provide protection against environmental hazards and minor threats common on undeveloped worlds, though the tractor carries no weapons from the factory. Customers on worlds with significant predator populations frequently add remotely operated light weapon blisters, typically armed with small arms or light support weapons. The Prairie Schooner is not designed to withstand military-grade weapons fire, and operators are advised to withdraw well before combat reaches their position.</p>
+</capabilities>
+
+<overview>
+<p>The Prairie Schooner Land Train is a large wheeled support vehicle produced by Johnston Industries on New Syrtis, introduced in 3058. Johnston engineers drew on manufacturing data recovered from the Helm Memory Core to develop the design, including the techniques needed to build its fusion powerplant. Conceived for developing worlds lacking reliable rail or air networks, the ninety-ton tractor connects with up to three modular trailer units to form a complete land train capable of moving bulk cargo across hundreds of kilometers of undeveloped terrain. It quickly established itself as a commercial workhorse across the Capellan March, linking remote agricultural and mining communities to regional distribution centers. While not a military design, the Prairie Schooner's carrying capacity and cross-country mobility have occasionally drawn it into logistics support roles during wartime.</p>
+</overview>
+
+<deployment>
+<p>Prairie Schooner Land Train tractors operate across frontier and underdeveloped worlds throughout the Inner Sphere, with the heaviest concentrations in the Capellan March and adjacent regions. Civilian operations focus on bulk cargo transport between isolated settlements and regional hubs, with common payloads including grain, ore, manufactured goods, and construction materials.</p><p>Military logistics units in multiple factions have conscripted or contracted Prairie Schooners for rear-echelon supply work, particularly in operational areas where road infrastructure is limited and refueling is impractical. Operators on hostile worlds routinely add light weapon systems to their tractors for defense against wildlife and low-level bandit threats.</p>
+</deployment>
+
+<history>
+<p>Johnston Industries began development of the Prairie Schooner in the mid-3050s, leveraging production data recovered from the Helm Memory Core by the New Avalon Institute of Science. Among the most valuable pieces of that recovered data were the manufacturing methods for fusion drive systems, which Johnston applied directly to the Prairie Schooner's powerplant. The design entered production at their New Syrtis facility in 3058, debuting as one of the more technically sophisticated civilian transport vehicles of the era.</p><p>Commercial uptake was strong across underdeveloped worlds throughout the Capellan March. Agricultural communities valued the Prairie Schooner's ability to haul refrigerated and bulk cargo over long distances without concern for fuel supply, while resource extraction operations used standard cargo configurations to move ore from remote mine sites to processing centers. Johnston Industries marketed the system aggressively in the region, and the Prairie Schooner became closely associated with the March's frontier economy.</p><p>Though civilian in purpose, the design attracted military attention almost immediately. The Word of Blake's 31st Division pressed Prairie Schooner trains into service on New Avalon at the outset of the Jihad, using them as part of their supply chain during their occupation of the Federated Suns capital. This was not an isolated incident. Commanders across multiple factions found that large land trains were practical logistics platforms when air transport was unavailable or at risk, and Prairie Schooners appeared in rear-echelon supply columns across several major campaigns.</p><p>The New Syrtis plant suffered severe damage during the Jihad. Taurian Concordat raids in 3076 struck the facility directly, and radiation contamination from those attacks rendered much of the production floor unusable for years afterward. Johnston Industries responded by upgrading their existing component facility on Benet III to a full production line, maintaining Prairie Schooner output throughout the disruption. The New Syrtis plant's recovery was slow, complicated by the broader devastation of the capital world and ongoing contamination cleanup efforts that extended well into the Republic era.</p><p>Production continued on Benet III through the Dark Age and into the ilClan period, with New Syrtis eventually returning to production as conditions stabilized. The design remained largely unchanged across its production run, its original specifications proving durable enough that major revisions were never pursued.</p>
+</history>
+
+<manufacturer>
+Johnston Industries
+</manufacturer>
+
+<primaryFactory>
+New Syrtis
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Johnston Industries
+ENGINE:Johnston Industries
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr,TP:Irian
+</source>
+
+<published>
+TR:VAr,TP:Irian
+</published>
+
+<tonnage>
+90.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

@@ -1,0 +1,190 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e653-7a8c-a667-4b6b66b73922
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+Dromedary Water Transport
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4099
+</mul id:>
+
+<year>
+2562
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:4.0:1:1::-1:0
+LiquidCargoBay:45.5:1:2::-1:0
+</transporters>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+46
+</armor_type>
+
+<armor_tech_rating>
+2
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+15
+15
+15
+15
+15
+15
+10
+</armor>
+
+<Body Equipment>
+IS Machine Gun Ammo - Half
+ISSVDuneBuggyChassis
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+</Turret Equipment>
+
+<barrating>
+5
+</barrating>
+
+<structural_tech_rating>
+2
+</structural_tech_rating>
+
+<engine_tech_rating>
+2
+</engine_tech_rating>
+
+<capabilities>
+<p>The Dromedary's dune buggy derived chassis gives it the ability to traverse harsh desert terrain that would strand conventional wheeled transports. Its oversized suspension and broad wheelbase distribute the vehicle's considerable weight across loose sand and broken ground, though this capability comes at the cost of speed. A top velocity of only 32 kilometers per hour makes the Dromedary one of the slower vehicles in its class, a trade-off the designers accepted given that the treacherous terrain it regularly crosses rarely permits faster travel regardless of a vehicle's theoretical performance.</p><p>The internal combustion engine is deliberately simple, requiring minimal maintenance and allowing field repairs with basic tools. A single fuel load provides a range exceeding 2,500 kilometers, enabling the Dromedary to make extended journeys between remote settlements without refueling. The primary cargo consists of a 50-ton liquid tank capable of carrying approximately 45 kiloliters of water, supplemented by four tons of standard cargo space for spare parts and crew supplies. Defensive provisions are minimal, limited to a turret-mounted machine gun and four tons of commercial-grade armor rated at BAR 5. This protection can deflect small arms fire and deter opportunistic bandits, but offers little resistance against military-grade weapons, forcing operators to rely on armed escorts when traversing particularly dangerous routes.</p>
+</capabilities>
+
+<overview>
+<p>The Dromedary Water Transport is a large wheeled support vehicle designed by New Vandenberg Autoworks for the Taurian Concordat during the Age of War. Introduced in 2562, the 150-ton vehicle serves as a bulk water tanker for arid Periphery worlds where reliable freshwater infrastructure does not exist. Built around a modified dune buggy chassis scaled up to commercial proportions, the Dromedary prioritizes ruggedness and simplicity over speed or sophistication. Its deliberately uncomplicated engineering has earned it a reputation as one of the most dependable civilian transports operating on the fringe of settled space, a workhorse valued precisely because it demands so little from its operators.</p>
+</overview>
+
+<deployment>
+<p>The standard Dromedary serves as a dedicated water hauler, ferrying bulk freshwater to communities that lack wells, rivers, or functioning purification systems. Most operate along established trade routes connecting settlements to water sources, though the vehicle's off-road capability allows it to reach sites well beyond maintained roads. Operators frequently customize their vehicles, with some installing secondary tanks for transporting specialty liquids, industrial chemicals, or refined fuels. These modifications have expanded the Dromedary's commercial appeal beyond simple water delivery, though the standard water transport configuration remains by far the most common.</p>
+</deployment>
+
+<history>
+<p>New Vandenberg Autoworks created the Dromedary in 2562 to address a persistent logistics problem across the Taurian Concordat's more remote holdings. Many Periphery worlds are arid planets where surface water is scarce or nonexistent, and settlements depend entirely on water shipped in from off-world or hauled overland from distant sources. Previous attempts to establish reliable ground transport across these desert environments had failed repeatedly, with conventional tanker vehicles becoming mired in loose sand or breaking down in the punishing conditions. NVA's solution was to adapt proven dune buggy suspension technology to a large-scale commercial vehicle, creating a transport that could handle the worst terrain the Periphery had to offer.</p><p>The design proved so effective that NVA never found reason to significantly alter it. Over half a millennium of continuous production has seen only minor refinements to the basic platform, proof of how well the original engineering matched the operating environment. The Dromedary's rusted-out hulks dot trade routes across the Periphery, marking where older vehicles finally succumbed to corrosion and neglect after years of service. Despite this attrition, steady production from New Vandenberg has kept the vehicle in widespread use.</p><p>The Dromedary's most celebrated individual vehicle is the Traveling Oasis, a water hauler operating on Atreus Prime in the Taurian Concordat. Primarily tasked with delivering water to uranium miners in the Dry Gulch Wastes, the Traveling Oasis also serves double duty as a militia supply vehicle. When pirates threaten the region, the vehicle accompanies local militia forces into the desert, providing logistical support while the militia hunts down the raiders. The troops stationed with the Traveling Oasis have developed a tradition of using whatever water remains after a mission to create an improvised swimming hole, a small luxury that has made the vehicle a favorite assignment among Atreus Prime's defenders.</p>
+</history>
+
+<manufacturer>
+New Vandenberg Autoworks
+</manufacturer>
+
+<primaryFactory>
+New Vandenberg
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-AW
+</published>
+
+<tonnage>
+150.0
+</tonnage>
+
+<fuel>
+7.5
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

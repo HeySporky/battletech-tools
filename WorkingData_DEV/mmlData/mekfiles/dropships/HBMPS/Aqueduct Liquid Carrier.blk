@@ -1,0 +1,221 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aa5b-72d1-a5c1-4741e3705940
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Aqueduct Liquid Carrier
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3712
+</mul id:>
+
+<year>
+2638
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+smallcraftbay:2.0:2:1::-1:0
+mekbay:2.0:1:-1::-1:0
+cargobay:2850.0:2:7::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+steeragequarters:100.0:0:-1::-1:0
+crewquarters:224.0:0:-1::-1:0
+1stclassquarters:60.0:0:-1::-1:0
+LiquidCargoBay:6500.0:0:8::-1:0
+LiquidCargoBay:6500.0:0:9::-1:0
+LiquidCargoBay:6500.0:0:10::-1:0
+LiquidCargoBay:6500.0:0:11::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+118
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+6000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+73
+62
+62
+53
+</armor>
+
+<Nose Equipment>
+(B) Large Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(R) (B) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(R) (B) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Large Laser
+(B) Machine Gun
+Machine Gun
+IS Ammo MG - Full:200
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+30
+</structural_integrity>
+
+<capabilities>
+<p>The Aqueduct is a civilian spheroid DropShip optimized entirely for liquid cargo transport. Its hull is dominated by sealed storage tanks designed to carry water, industrial chemicals, fuel, or other liquid commodities in bulk quantities. The vessel mounts only minimal defensive armament, reflecting its purely commercial role and the expectation that it will operate along established trade routes or under military escort when venturing into contested space. Armor protection is correspondingly light, sufficient to ward off opportunistic pirate attacks but inadequate against determined military opposition. The Aqueduct's drive system provides modest acceleration typical of civilian transports, prioritizing fuel efficiency and operational range over speed. Internal systems include specialized pumping equipment, environmental controls to maintain cargo at required temperatures, and contamination prevention measures that allow the vessel to carry potable water and hazardous chemicals in separate tank systems during the same voyage. The design's emphasis on reliability over performance has proven well-suited to its role, with individual ships often serving for decades with minimal refit requirements.</p>
+</capabilities>
+
+<overview>
+<p>The Aqueduct Liquid Carrier is a specialized civilian DropShip designed for the bulk transport of liquid cargo between worlds. Purpose-built to carry water, fuel, and other essential liquids to colonies and industrial installations lacking local supplies, the Aqueduct fills a critical but unglamorous niche in interstellar commerce. The design has been produced by multiple manufacturers across the Inner Sphere, reflecting the universal demand for reliable liquid transport capacity. While lacking the prestige of military vessels or passenger liners, the Aqueduct has earned a reputation as a dependable workhorse among merchant fleets and colonial support operations.</p>
+</overview>
+
+<deployment>
+<p>The standard Aqueduct serves in its baseline liquid cargo carrier configuration, transporting water, fuel, and industrial chemicals between worlds. These vessels are most commonly found supporting colonial development operations, orbital construction projects, and military supply chains where bulk liquid transport is required.</p>
+</deployment>
+
+<history>
+<p>The Aqueduct emerged from the practical necessity of supporting human expansion across the stars. As colonies spread beyond worlds with readily accessible water supplies, the need for dedicated liquid transport vessels became acute. Early attempts to convert standard cargo DropShips for liquid carriage proved inefficient, prompting the development of a purpose-built design with integrated tank systems and specialized handling equipment.</p><p>Multiple manufacturers across the Inner Sphere have produced the Aqueduct over the centuries, with production driven by regional demand rather than centralized military procurement. The design has seen periodic updates to its systems and construction standards, but its fundamental layout has remained largely unchanged, evidence of the soundness of the original concept. During the Succession Wars, Aqueducts became critical military assets despite their civilian origins, as armies discovered that controlling water supplies could be as strategically decisive as controlling territory.</p><p>The Jihad disrupted many established trade routes, increasing demand for Aqueducts capable of reaching isolated worlds cut off from regular commerce. In the post-Jihad era, the design continues to serve across all major factions, with no single power able to claim a monopoly on production or operation.</p>
+</history>
+
+<manufacturer>
+Alshain Naval Yards (Civilian)|Krester Ship Construction|Krester Ship Construction|Krester Ship Construction|Krester Ship Construction
+</manufacturer>
+
+<primaryFactory>
+Alshain|Keid|Terra Firma|Thorin|Yorii
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+HB:MPS
+</source>
+
+<tonnage>
+45000.0
+</tonnage>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+46
+</crew>
+
+<officers>
+6
+</officers>
+
+<gunners>
+2
+</gunners>
+
+<passengers>
+20
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+6
+</escape_pod>
+

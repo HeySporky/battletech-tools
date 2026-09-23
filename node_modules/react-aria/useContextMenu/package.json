@@ -1,0 +1,5 @@
+{
+  "main": "../dist/exports/useContextMenu.cjs",
+  "module": "../dist/exports/useContextMenu.js",
+  "types": "../dist/types/exports/useContextMenu.d.ts"
+}

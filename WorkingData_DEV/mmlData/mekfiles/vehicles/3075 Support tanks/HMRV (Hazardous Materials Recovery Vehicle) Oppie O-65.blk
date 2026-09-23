@@ -1,0 +1,188 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e656-7f3e-8c83-5133b1d91814
+</UUID>
+
+<UnitType>
+LargeSupportTank
+</UnitType>
+
+<Name>
+HMRV (Hazardous Materials Recovery Vehicle)
+</Name>
+
+<Model>
+'Oppie' O-65
+</Model>
+
+<mul id:>
+4739
+</mul id:>
+
+<year>
+2822
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+LiquidCargoBay:22.91:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+49
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+100
+40
+40
+40
+40
+40
+</armor>
+
+<Body Equipment>
+Paramedic Equipment
+Environmental Sealing
+SV Chassis Mod [Tractor]
+</Body Equipment>
+
+<Front Equipment>
+ISMineSweeper
+Bulldozer
+Searchlight
+</Front Equipment>
+
+<Front Right Equipment>
+Manipulator (Non-Mech/Non-Battle Armor)
+Searchlight
+</Front Right Equipment>
+
+<Front Left Equipment>
+Manipulator (Non-Mech/Non-Battle Armor)
+Searchlight
+</Front Left Equipment>
+
+<Rear Right Equipment>
+Manipulator (Non-Mech/Non-Battle Armor)
+Tank Sprayer
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+Manipulator (Non-Mech/Non-Battle Armor)
+Tank Sprayer
+</Rear Left Equipment>
+
+<Rear Equipment>
+Backhoe
+Searchlight
+</Rear Equipment>
+
+<barrating>
+8
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Oppie carries no conventional armament, relying entirely on its working equipment and environmental systems to fulfill its mission. The tractor unit mounts a minesweeper, bulldozer, and backhoe combination for clearing debris and performing earthmoving work without crew exposure, supplemented by four manipulator arms that provide reach and grip for extracting wreckage from unstable terrain. Two sprayers dispense decontaminants or suppression agents across work areas, and four searchlights provide illumination in smoke, fog, and night conditions. Twenty tons of liquid storage accommodate decontaminants, water, or other mission-critical fluids. The tractor also carries 250 kilograms of paramedic equipment, a practical inclusion given the conditions in which salvage crews typically operate.</p><p>The Oppie's fusion powerplant provides modest cruise speed suited to deliberate recovery work rather than rapid tactical movement. Its primary limitation is operational vulnerability: the vehicle carries no defensive systems, requiring escort or protected operating environments when threats are present. The working equipment demands skilled operators, and Brown-Corning recommended specialized training for all crew assigned to the vehicle.</p>
+</capabilities>
+
+<overview>
+<p>The Oppenheimer Hazardous Material Recovery Vehicle, universally shortened to "Oppie," was developed by Brown-Corning, Limited on Caph in direct response to the catastrophic use of thermonuclear, chemical, and biological weapons during the First Succession War. Designed to support recovery teams operating in contaminated hot zones, the Oppie is a massive 150-ton environmentally sealed crawler built to work where unprotected personnel cannot survive. The design leveraged the existing Chieftain Mobile Headquarters chassis to accelerate development and production. Its combination of environmental sealing, specialized working equipment, and cargo capacity gave salvage units a platform capable of recovering BattleMech and vehicle wreckage from areas otherwise permanently inaccessible. The Oppie quickly became one of the most recognizable non-combat vehicles of the Succession War period, valued wherever NBC contamination required sustained recovery operations.</p>
+</overview>
+
+<deployment>
+<p>The O-65 entered service in 2822 as the initial production variant of the Oppie family. Distinguished from the later O-66 by the absence of a fully sealed infantry bay, the O-65 instead carries 18 tons of liquid storage capacity. It was suited to recovery operations where crew remained aboard during hazardous work rather than dismounting into contaminated areas. No O-65 units are known to have survived the Succession Wars, and the design represents an early chapter in the Oppie's history rather than an ongoing operational platform.</p>
+</deployment>
+
+<history>
+<p>Brown-Corning, Limited developed the Oppie in direct response to the NBC weapon use that marked the opening years of the First Succession War. Building on the proven chassis of the Chieftain Mobile Headquarters, the company produced the O-65 variant beginning in 2822 to meet immediate demand from forces engaged in cleanup operations across contaminated worlds. The O-65 lacked a sealed infantry bay, instead carrying 18 tons of liquid storage, reflecting the urgency of initial production over later refinements.</p><p>Production ended violently when a Draconis Combine raiding party struck the Brown-Corning facility on Caph. Mistaking the Oppie assembly complex for a BattleMech manufacturing facility, the raiders first deployed chemical weapons that killed the plant staff and residents of surrounding neighborhoods, then destroyed the physical facility. Without replacement production, existing Oppies declined through attrition across the subsequent decades.</p><p>The Word of Blake's interest in Caph as a Protectorate world revived both the planet and the company. Blakist forces spent two years decontaminating the Brown-Corning site and rebuilding its assembly lines, then presented Raymond Brown, a direct descendant of the company's last CEO, with the original engineering blueprints. Production resumed in 3068 as the upgraded O-66, incorporating a fully sealed infantry bay and other improvements over the original design.</p>
+</history>
+
+<manufacturer>
+Brown-Corning, Limited
+</manufacturer>
+
+<primaryFactory>
+Caph
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+150.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

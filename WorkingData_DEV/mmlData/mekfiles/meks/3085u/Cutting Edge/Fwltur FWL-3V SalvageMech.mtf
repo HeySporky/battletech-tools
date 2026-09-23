@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cf9d-7ef3-8b87-ee153dfad12f
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Fwltur
+model:FWL-3V SalvageMech
+mul id:1163
+
+Config:Biped
+techbase:Inner Sphere
+era:3085
+source:TR:3085,TR:3085S
+published:RS:3085u-CE
+rules level:4
+role:None
+
+
+mass:35
+engine:105 Fusion Engine
+structure:IS Industrial
+myomer:Standard
+cockpit:Industrial Cockpit
+gyro:Standard Gyro
+
+heat sinks:10 Single
+walk mp:3
+jump mp:0
+
+armor:Commercial(Inner Sphere)
+LA armor:7
+RA armor:7
+LT armor:10
+RT armor:10
+CT armor:16
+HD armor:8
+LL armor:10
+RL armor:10
+RTL armor:6
+RTR armor:6
+RTC armor:6
+
+Weapons:0
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heat Sink
+Salvage Arm
+Salvage Arm
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heat Sink
+Salvage Arm
+Salvage Arm
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+Heat Sink
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Heat Sink
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+Lift Hoist/Arresting Hoist (R)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+MechanicalJumpBooster:SIZE:2.0
+MechanicalJumpBooster:SIZE:2.0
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+MechanicalJumpBooster:SIZE:2.0
+MechanicalJumpBooster:SIZE:2.0
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Fwltur is a 35-ton light IndustrialMech introduced in 3081 by the New Earth Trading Company. Named after the Welsh word for vulture, one of the most notorious scavengers in Terra's animal kingdom, the Fwltur was purpose-built to reach salvageable material in locations that conventional recovery teams could not access. The design quickly established itself as the premier salvage platform for hazardous environment operations, earning a strong reputation among both corporate salvage firms and independent owner-operators across the Inner Sphere. Few competing designs match the Fwltur's combination of environmental sealing, underwater capability, and cargo handling, making it the default choice for operators who need a single platform capable of working in virtually any conditions.</p>
+
+capabilities:<p>The defining feature of the Fwltur is its extraordinary environmental versatility. Full environmental sealing protects the pilot from hazardous atmospheres, vacuum conditions, and underwater pressures, correcting the vulnerabilities that plague most IndustrialMechs operating outside standard conditions. Three BattleMech-scale underwater maneuvering units allow the Fwltur to cross submerged chasms and scale underwater cliffs that would otherwise be impassable, making it one of the few IndustrialMechs capable of true underwater salvage operations.</p><p>A pair of StarCorps salvage arms mounted in each arm provide the primary recovery tools, while a rear-mounted NETC lift hoist handles heavier cargo transport. A Beagle active probe, typically found in military scouting units, assists in locating hidden or buried salvage, with a searchlight supplementing operations in low-visibility environments. Even when the pilot cannot retrieve everything in a single trip, the probe's data can be used to retrace routes back to salvageable material.</p><p>Powered by a Victory 105-rated fusion engine, the Fwltur manages a modest top speed of 54 km/h, adequate for reaching remote sites without urgency. Three and a half tons of BAR 5-grade commercial armor provides reasonable protection against environmental hazards and minor accidents, though a particle cannon or heavy autocannon would quickly disable this non-combatant design.</p>
+
+deployment:<p>Introduced in 3085, the FWL-3V trades the underwater and sensor capabilities of the base model for enhanced terrestrial salvage capacity. Jump boosters provide terrain mobility over obstacles that would otherwise require lengthy detours, while additional lifting equipment improves raw hauling power. The variant appeals to operators working primarily in land-based environments where underwater capability is unnecessary but difficult terrain and heavy wreckage are constant challenges.</p>
+
+history:<p>The Jihad left a trail of destruction across the Inner Sphere that took decades to fully assess, let alone recover from. While recovery teams quickly stripped accessible wreckage, vast quantities of valuable salvage remained in locations that were difficult or dangerous to reach. The New Earth Trading Company, recognizing the market opportunity, commissioned the Fwltur as a purpose-built solution for these challenging recovery operations.</p><p>Initial production began at the company's Terra facility during the early years of the Republic of the Sphere. The design proved commercially successful almost immediately, with sales extending to nearly all governments of the Inner Sphere and Periphery, as well as mercenary outfits and large salvage companies. Individual entrepreneurs looking to enter the IndustrialMech owner-operator salvage business also placed orders, and for those who could not justify the full purchase price, NETC maintained a private fleet of Fwlturs available for rent.</p><p>The Fwltur received some of its best publicity from operations conducted in NETC's own backyard on New Earth. Three of the new IndustrialMechs were used to recover the remains of a destroyed mercenary command from beneath the north polar ice cap, an operation that generated significant media attention and directly contributed to increased sales. The destroyed unit had been annihilated in 3073 after attempting to break contract with the Word of Blake, and NETC recovered ten of eleven 'Mechs along with the remains of eight MechWarriors from the site.</p><p>While no official factory variants were produced, NETC offered customization services for customers requiring specialized configurations. Common requests included additional lifting equipment, heavier armor, and jump boosters, with options limited only by the customer's budget and the engineering capabilities of the NETC staff. Production continued through the Republic era and beyond, with the New Earth facility coming online after 3090 to supplement the original Terra production line.</p>
+
+manufacturer:New Earth Trading Company
+
+primaryfactory:New Earth
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:FWL Industrial
+systemmanufacturer:ENGINE:Victory
+systemmode:ENGINE:Fusion 105
+systemmanufacturer:ARMOR:IndiPlate
+systemmode:ARMOR:Type 7 Commercial
+systemmanufacturer:COMMUNICATIONS:NETC
+systemmode:COMMUNICATIONS:COMSET 3.2
+systemmanufacturer:TARGETING:TargiTrack
+systemmode:TARGETING:717

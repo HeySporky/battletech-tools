@@ -1,0 +1,205 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d133-7af6-86b9-a3cc26fda1f6
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:BattleMaster
+model:BLR-2C
+mul id:290
+
+Config:Biped
+techbase:Inner Sphere
+era:2850
+source:RG03,RGv1
+published:RG03,RGv1
+rules level:3
+role:Brawler
+
+quirk:command_mech
+quirk:weak_head_1
+
+mass:85
+engine:340 Fusion Engine
+structure:IS Standard
+myomer:Standard
+cockpit:Command Console
+gyro:Standard Gyro
+
+heat sinks:17 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:24
+RA armor:24
+LT armor:28
+RT armor:28
+CT armor:40
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:8
+RTR armor:8
+RTC armor:11
+
+Weapons:7
+Anti-Missile System, Left Arm
+ER PPC, Right Arm
+SRM 6, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+Medium Laser, Right Torso
+Medium Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISAntiMissileSystem
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Heat Sink
+SRM 6
+SRM 6
+Medium Laser
+Medium Laser
+IS Ammo SRM-6
+ISAMS Ammo
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Heat Sink
+Medium Laser
+Medium Laser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+BeagleActiveProbe
+BeagleActiveProbe
+
+Head:
+Life Support
+Sensors
+Cockpit
+Cockpit
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Heat Sink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The BattleMaster is one of the most iconic assault 'Mechs in the history of the Inner Sphere, first rolling off the production lines of Hollis Industries on Corey in 2633. Originally commissioned by the Star League as a powerful frontline command platform for non-Royal unit commanders, the eighty-five-ton design combined devastating close-range firepower with the sophisticated cockpit electronics necessary to coordinate company- and battalion-level operations. The sheer cost and complexity of the BattleMaster limited production to a handful of worlds, yet those fortunate enough to pilot one quickly discovered a 'Mech whose reputation for reliability, survivability, and raw combat presence was well earned. Affectionately dubbed the "Beemer" by generations of MechWarriors, the BattleMaster has endured centuries of warfare, serving in the arsenals of every Great House and beyond, its production sustained by a distributed network of factories from Keystone to Twycross to Pandora.</p>
+
+capabilities:<p>The heart of the BattleMaster lies not in its weaponry but in its cockpit. The lavish command and control systems the Star League designed into the chassis (a roomy cockpit with space for advanced electronics) have saved the design from obsolescence through centuries of technological regression. Even during the darkest years of the Succession Wars, the BattleMaster's generous cockpit provided sufficient gear to make it a preferred ride for unit commanders at every level. All modern variants preserve this key feature, and numerous configurations exploit the available space with command consoles, C3 master computers, or enhanced sensor suites.</p><p>In its classic BLR-1G configuration, the BattleMaster carries a Donal PPC in a detachable rifle-style mount for long-range engagement, backed by six Martell medium lasers, four forward-firing surrounding the cockpit and two rear-mounted to discourage flanking attacks. A Holly SRM-6 on the left shoulder and twin SperryBrowning machine guns on the left wrist provide close-range punch and anti-infantry capability. Fourteen and a half tons of StarGuard IV armor give the BattleMaster excellent protection for its weight class, and the VOX 340 fusion engine drives the design at a respectable sixty-four kilometers per hour. The primary weakness of the design is heat management: sustained fire from the full weapons array can overwhelm the eighteen single heat sinks, forcing MechWarriors to exercise fire discipline during prolonged engagements.</p>
+
+deployment:<p>Dating to 2925, this ComStar-exclusive command variant represents one of the few advanced BattleMaster configurations maintained through the Succession Wars. The machine guns are replaced with a SureFire Defender anti-missile system, while a Beagle Active Probe is integrated with the upgraded Nirasaki Inciteful Vision targeting system, providing superior sensor capability. A command console occupies the secondary cockpit station and the rear-firing medium lasers are retained. The Draconis Combine received at least one fully functional BLR-2C through ComStar, and it proved an effective command platform during the War of 3039. This variant was rarely seen outside the ranks of ComStar and later the Word of Blake.</p>
+
+history:<p>The BattleMaster's origins trace to the early twenty-seventh century, when the Star League required a robust, relatively simple assault 'Mech to serve as a comparatively low-technology command platform for non-Royal unit commanders. Hollis Industries answered the call, and by 2633 the first BattleMasters rolled off production lines on Corey. During the great peace of the Star League era, the new design had little opportunity to distinguish itself and was often overlooked in favor of flashier Royal-grade machines. When the Star League crumbled under the ambitions of the Council Lords, however, the sturdy BattleMaster proved its worth while more technologically dependent designs faded into extinction.</p><p>The First Succession War devastated Hollis Industries' main factories on Corey, destroying the production lines and scattering finished machines among the competing House forces. Production was sustained through alternative manufacturers, Earthwerks Incorporated on Keystone built for the Free Worlds League, Trellshire Heavy Industries on Twycross served the Lyran Commonwealth, and Red Devil Industries on Pandora eventually joined the production network. Never produced in great numbers, the BattleMaster nonetheless became a common sight across the Inner Sphere as technicians went to extraordinary lengths to keep damaged units operational. Houses Steiner and Marik maintained the largest inventories thanks to their functional production lines, while House Liao fielded a substantial fleet until the Fourth Succession War delivered many into Federated Suns hands.</p><p>The Draconis Combine acquired a windfall of advanced BattleMasters through a fortuitous ComStar shipping error, machines intended for Com Guard units arriving instead at Combine depots. These served as excellent command vehicles during the War of 3039. New models incorporating recovered Star League technology were introduced in time for the Clan Invasion, with the Free Worlds League's BLR-3M and the Federated Commonwealth's BLR-3S representing the first major upgrades. The fall of Twycross to Clan Jade Falcon disrupted Trellshire's production, though the world's recapture allowed a brief resumption before the Clan Steel Viper ended BattleMaster manufacturing there to make room for Phoenix Hawk IIC production.</p><p>The FedCom Civil War era saw renewed investment in the design. Red Devil Industries on Pandora, long plagued by the planet's corrupt nobility and a haphazard factory layout, finally received refurbishment funds from Archon Katherine Steiner-Davion. A partnership with J.B. BattleMechs Incorporated produced the BLR-4S, though the second Jade Falcon Incursion in 3064 captured Pandora and its new BattleMasters. The Falcons would eventually produce their own Clan-tech variant from the captured factory. Meanwhile, Blankenburg Technologies on Soul began producing Kuritan command variants, and J.B. BattleMechs' own facility on Storfors introduced the revolutionary BLR-10S during the Jihad, emphasizing survivability through a compact engine and heavy-duty gyroscope.</p><p>In the post-Jihad era and beyond, the BattleMaster remains in active production across multiple successor states. General Motors on El Dorado builds advanced variants for the Federated Suns, Hollis Industries has resumed limited production on Corey for the Capellan Confederation, and Earthwerks continues output on Keystone. Clan Sea Fox produces its own variant on Twycross, while the Jade Falcon legacy on Pandora persists under changing ownership. Tao MechWorks on Styk has added Capellan production capacity, and the Free Worlds League's Venkateswara facility on Tamarind keeps Marik-spec BattleMasters in service. After nearly five centuries of continuous production and combat deployment, the BattleMaster endures as a sign of the virtue of rugged, practical military engineering.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+notes:The units introdate is moving up to 2850 to account for the Extinction of the Command Console
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Hollis
+systemmode:CHASSIS:Mark X
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:340
+systemmanufacturer:ARMOR:StarGuard
+systemmode:ARMOR:IV
+systemmanufacturer:COMMUNICATIONS:HarfordCo
+systemmode:COMMUNICATIONS:COM 4000
+systemmanufacturer:TARGETING:Nirasaki
+systemmode:TARGETING:Inciteful Vision

@@ -1,0 +1,206 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c6b4-7d05-8675-d2528b764280
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Thor
+clanname:Summoner
+model:D
+mul id:3177
+
+Config:Biped OmniMek
+techbase:Clan
+era:2872
+source:TR:CI
+published:RS:CI
+rules level:2
+role:Sniper
+
+quirk:ubiquitous_clan
+quirk:imp_com
+
+mass:70
+engine:350 XL (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:20 Clan Double
+base chassis heat sinks:14
+walk mp:5
+jump mp:5
+
+armor:Ferro-Fibrous(Clan)
+LA armor:17
+RA armor:17
+LT armor:22
+RT armor:22
+CT armor:27
+HD armor:9
+LL armor:23
+RL armor:23
+RTL armor:7
+RTR armor:7
+RTC armor:8
+
+Weapons:8
+ER Large Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Large Laser, Right Arm
+ER Medium Laser, Right Arm
+Machine Gun, Left Torso
+Anti-Missile System, Left Torso
+Machine Gun, Right Torso
+Anti-Missile System, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERLargeLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+Clan Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERLargeLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+Clan Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLMG (OMNIPOD)
+CLAntiMissileSystem (OMNIPOD)
+Clan Machine Gun Ammo - Full (OMNIPOD)
+CLAMS Ammo (OMNIPOD)
+CLAMS Ammo (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLMG (OMNIPOD)
+CLAntiMissileSystem (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Summoner, designated Thor by Inner Sphere forces, is a 70-ton Clan OmniMech introduced in 2872 by Clan Jade Falcon. The design emerged shortly after the Jade Falcons became the first Clan to win OmniMech technology from Clan Coyote in 2863, making the Summoner one of the earliest second-generation OmniMechs ever produced. Jade Falcon engineers combined technology derived from the Coyote Warlock OmniMech with captured Thresher BattleMech chassis to create a versatile heavy platform capable of filling multiple battlefield roles.</p><p>Produced primarily by the Eagle Craft Group and other Clan manufacturers, the Summoner became a signature design of the Jade Falcon touman and one of the most widely recognized Clan OmniMechs in the Inner Sphere. Its combination of speed, firepower, and jump capability has kept it in continuous production for nearly three centuries, earning it the distinction of being one of the longest-serving OmniMechs in existence.</p>
+
+capabilities:<p>The Summoner achieves its remarkable versatility through a balanced combination of speed, firepower, and protection. Powered by a Redline 350 XL engine, the seventy-ton chassis reaches speeds of just over eighty-six kilometers per hour, while five permanently mounted JF Standard jump jets provide a jump capability of one hundred and fifty meters. This combination of ground speed and jump capability gives the Summoner mobility that rivals many medium OmniMechs, allowing it to dictate engagement ranges and exploit terrain to an unusual degree for a heavy design.</p><p>Nine and a half tons of J63-3E Ferro Fibrous armor provide respectable protection for the chassis weight, though the design sacrifices maximum armor coverage to preserve its generous twenty-two and a half tons of pod space. In its Primary configuration, the Summoner carries an ER PPC in the right arm for devastating long-range strikes, an LB 10-X Autocannon in the left arm for flexible direct fire, and an LRM-15 in the left torso for indirect fire support. This combination of energy, ballistic, and missile weaponry allows a single Summoner to engage effectively across all range brackets.</p><p>The fixed jump jets represent both a strength and a design constraint. While they ensure every configuration benefits from superior tactical mobility, they consume tonnage and critical space that cannot be reallocated, limiting the pod space available compared to competing heavy OmniMechs that mount jump jets as pod equipment. This trade-off has proven acceptable in practice, as the Summoner's consistent mobility across all configurations remains one of its defining tactical advantages.</p>
+
+deployment:<p>Alternate Configuration D emphasizes precision over raw firepower. A pair of ER Large Lasers linked to an advanced Targeting Computer deliver highly accurate fire at extended ranges, supported by two ER Medium Lasers for closer engagements. Twin anti-missile systems provide layered defense against incoming missiles, while a pair of Machine Guns handle anti-infantry duties. Six additional heat sinks manage the thermal load of the all-energy arsenal. The TRO designation of the D as one of the most efficient configurations reflects its ability to sustain accurate fire indefinitely without ammunition concerns.</p>
+
+history:<p>The Summoner's history is inextricably linked to the rise of Clan Jade Falcon as a military power. When the Jade Falcons won OmniMech technology from Clan Coyote in 2863, they moved quickly to develop their own designs. The Summoner was among the first results, entering production at Eagle Craft Group facilities on Ironhold and rapidly becoming the backbone of Falcon heavy OmniMech forces. St. Louis MechWorks on Niles, operating under Clan Hell's Horses control, established a parallel production line that ensured the design's availability beyond Falcon territory. Kindraa Kline of Clan Fire Mandrill also maintained limited production at their facility on Dagda, though in far smaller numbers.</p><p>During Operation REVIVAL, the Summoner was three times as common in Jade Falcon units as in any other Clan's forces, and it was during this campaign that Victor Steiner-Davion assigned the reporting name Thor after his personal encounter with the design on Trellwan. The name proved fitting, the combination of a PPC's lightning and an autocannon's thunder made an indelible impression on Inner Sphere commanders. A Clan Coyote adage born of the Invasion warned that encountering a Falcon outside a Summoner, Hellbringer, or Kit Fox warranted doubling one's caution, sign of how thoroughly the design defined Jade Falcon tactical doctrine.</p><p>The Wars of Reaving reshaped the Summoner's production sphere dramatically. The Ghost Bear facility on Bearclaw, which had produced Summoners since the design's early years, passed to Clan Snow Raven and later to Clan Stone Lion as alliances and absorptions shifted Clan territories. The Fire Mandrill facility on Dagda fell under Clan Goliath Scorpion and then Clan Star Adder control. Meanwhile, the Jade Falcon factory on Vantaa was destroyed when the planet was rendered uninhabitable during fighting between the Hell's Horses and Ice Hellions in 3072.</p><p>In the Inner Sphere occupation zones, the Jade Falcons expanded Summoner production through Eagle Craft Group operations on Erewhon and mobile factory assets, while Olivetti Weaponry on Sudeten briefly hosted a production line during the Jihad era. The Hell's Horses, having long maintained production on Niles through St. Louis MechWorks, added a new line at Svarstaad Industriplex Gamma after capturing that world. This proved prescient, as the Jade Falcons increasingly shifted their heavy OmniMech production to the Grand Summoner during the Dark Age, leaving the Hell's Horses as the primary champions of the original design.</p><p>By 3150, the Summoner had served continuously for nearly three centuries, an almost unmatched record for any OmniMech. Clan Hell's Horses embraced the design for both training and front-line service, introducing new configurations that incorporated modern weapons technology while retaining the chassis's proven mobility and reliability. The Hell's Horses' continued investment ensured that the Summoner remained a relevant battlefield presence well into the ilClan era, even as newer designs increasingly dominated the rosters of other Clans.</p>
+
+manufacturer:Eagle Craft Group|Eagle Craft Group|Eagle Craft Group|St. Louis MechWorks|Olivetti Weaponry|Svarstaad Industriplex Gamma|Ghost Bear Facility Beta-1|Kindraa Kline Primary Production Facility|Unknown
+
+primaryfactory:Ironhold|Erewhon|Jade Falcon Mobile Factories|Niles|Sudeten|Svarstaad|Bearclaw|Dagda (Salò)|Vantaa
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:JFS-703
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Redline 350 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:J63-3E Ferro Fibrous
+systemmanufacturer:JUMP_JET:Unknown
+systemmode:JUMP_JET:JF Standard
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Model J-D 067
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Hawkeye 58

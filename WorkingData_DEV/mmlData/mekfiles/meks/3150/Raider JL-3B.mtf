@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d5a8-7d90-8374-ffc501232ebf
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Raider
+model:JL-3B
+mul id:8071
+
+Config:Biped
+techbase:Inner Sphere
+era:3138
+source:TR:DA
+published:RS:DA
+rules level:2
+role:Brawler
+
+
+mass:50
+engine:200 ICE Engine
+structure:IS Standard
+myomer:Triple-Strength
+
+heat sinks:4 IS Double
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:18
+RT armor:18
+CT armor:25
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:6
+RTR armor:6
+RTC armor:7
+
+Weapons:5
+Light PPC, Right Arm
+Medium Laser, Left Torso
+Medium Laser, Left Torso
+ER Small Laser, Right Torso
+Small Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Retractable Blade
+Retractable Blade
+Retractable Blade
+Retractable Blade
+IS Ferro-Fibrous
+Triple Strength Myomer
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+Light PPC
+Light PPC
+IS Ferro-Fibrous
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Medium Laser
+Medium Laser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+ISERSmallLaser
+Small Laser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Triple Strength Myomer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Raider is a fifty-ton medium BattleMech introduced in 3134 by Bannson Universal Unlimited. Conceived as part of the controversial "Project Jacob's Ladder," the design was an attempt by Republican industrialist Jacob Bannson to produce a cheap yet combat-capable 'Mech built entirely from in-house components. Powered by an internal combustion engine rather than a fusion plant, the Raider occupies an unusual niche among medium BattleMechs, trading conventional performance expectations for dramatically lower manufacturing costs.</p><p>Despite falling short of its original design goals, the Raider proved a commercial success on the open market. Its low production cost and straightforward construction made it attractive to smaller mercenary commands and planetary garrisons unable to afford conventional BattleMechs, and the design's continued proliferation across the Inner Sphere has ensured its presence on battlefields well into the ilClan era.</p>
+
+capabilities:<p>The Raider's defining characteristic is its Bannson Spark 200 internal combustion engine, a feature that sets it apart from virtually all contemporary medium BattleMechs. While this powerplant limits the design to a maximum speed of sixty-four kilometers per hour and prevents the mounting of energy weapons without auxiliary power amplifiers, it dramatically reduces manufacturing costs. The incorporation of military-grade Triple Strength Myomer partially compensates for the engine's limitations, boosting the Raider's top speed to over eighty-six kilometers per hour and enhancing close-combat effectiveness when heat levels are properly managed.</p><p>The base armament consists of a pair of BUU Quarrel-10 MRM launchers in the right torso, fed by a single ton of ammunition, and a BUU SuperCutter dual saw mounted on the left arm. This loadout is functional but limited, with the MRM launchers suffering from inherent inaccuracy and the dual saw restricting the 'Mech to close-range engagements. Seven tons of BUU MechStandard armor provides protection that exceeds most IndustrialMechs but falls well short of what a conventional fifty-ton BattleMech would carry, leaving the Raider vulnerable to sustained fire from dedicated combat designs.</p>
+
+deployment:<p>This variant is widely considered the most successful of the third-party Raider variants. This configuration replaces the original MRM launchers and dual saw with an all-energy weapons suite consisting of a light PPC, two medium lasers, an extended-range small laser, and a standard small laser, all powered by auxiliary power amplifiers that overcome the ICE engine's inability to generate electrical power for energy weapons. A retractable blade replaces the bulky dual saw for close combat, and double heat sinks provide adequate cooling for the expanded energy arsenal. Ferro-fibrous armor offers improved protection over the original BUU MechStandard plating. The JL-3B's versatile loadout makes it a significantly more capable combatant than the base JL-1, though it remains limited by the Raider's fundamental chassis constraints.</p>
+
+history:<p>The Raider's origins lie in Jacob Bannson's ambition to build a private military force capable of operating independently of Republic oversight. Project Jacob's Ladder began as an attempt to produce a fully functional BattleMech using only Bannson Universal Unlimited's in-house manufacturing capabilities. When the company's engineers failed to develop a viable fusion engine after years of effort, the project pivoted to an ICE-powered design. The resulting 'Mech was christened the Raider by Bannson's marketing department and entered production in 3134 at the company's facilities on Tybalt and St. Andre.</p><p>The Raider saw its earliest combat service with Bannson's personal mercenary force, Bannson's Raiders, also known as the Scourge. Few warriors assigned the design were enthusiastic about it, and the 'Mech was frequently given to the newest recruits as an assessment tool before they could be assigned more capable machines. This practice meant that Raider pilots were often the first casualties in any engagement, though some experienced warriors learned to exploit the design's low cost and expendability to compensate for its shortcomings through sheer aggression and numbers.</p><p>Following the collapse of Bannson Universal in the late 3140s, the Raider's legacy was carried forward by the numerous companies to whom Bannson had licensed the design specifications. Simcox Industrials of Mandalas introduced their own production line using these plans, and the design became increasingly popular among smaller mercenary forces working the Coreward Periphery. The low cost of production and ease of construction ensured the Raider's continued manufacture even as it was recognized as wildly outclassed by virtually every medium BattleMech produced since the early Succession Wars. By the ilClan era, Simcox and the remnants of Bannson's manufacturing network continue to sell the Raider to planetary garrisons, budget-conscious mercenary units, and paramilitary organizations of questionable standing.</p>
+
+manufacturer:Bannson Universal Unlimited|Bannson Universal Unlimited|Simcox Industrials
+
+primaryfactory:St. Andre|Tybalt|Mandalas
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:BUU
+systemmode:CHASSIS:Standard Medium
+systemmanufacturer:ENGINE:Bannson
+systemmode:ENGINE:Spark 200 ICE
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Unknown (Ferro-Fibrous)
+systemmanufacturer:COMMUNICATIONS:BUU
+systemmode:COMMUNICATIONS:FarSweep Comms
+systemmanufacturer:TARGETING:BUU
+systemmode:TARGETING:AccuTrack 3000

@@ -1,0 +1,253 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-c0e5-781d-9d33-7becadcb06f1
+</UUID>
+
+<UnitType>
+Jumpship
+</UnitType>
+
+<Name>
+Magellan JumpShip
+</Name>
+
+<Model>
+(2960)
+</Model>
+
+<mul id:>
+4567
+</mul id:>
+
+<year>
+2960
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+smallcraftbay:1.0:1:1::-1:0
+infantrybay:1.0:0:4:Foot:-1:0
+2ndclassquarters:28.0:0:-1::-1:0
+1stclassquarters:70.0:0:-1::-1:0
+crewquarters:182.0:0:-1::-1:0
+cargobay:127.5:1:6::-1:0
+cargobay:127.0:1:7::-1:0
+dockingcollar
+</transporters>
+
+<SafeThrust>
+0
+</SafeThrust>
+
+<heatsinks>
+110
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+6000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+8
+8
+8
+7
+7
+7
+</armor>
+
+<Nose Equipment>
+ISArtemisIV
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:24
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:24
+(B) ISERLargeLaser
+(B) ISLargePulseLaser
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:24
+(B) ISERLargeLaser
+(B) ISLargePulseLaser
+</Right Front Side Equipment>
+
+<Aft Equipment>
+ISArtemisIV
+(B) LRM 20
+IS Ammo LRM-20 Artemis-capable:12
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:24
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:24
+(B) ISERLargeLaser
+(B) ISLargePulseLaser
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) ISAntiMissileSystem
+ISAntiMissileSystem
+ISAMS Ammo:24
+(B) ISERLargeLaser
+(B) ISLargePulseLaser
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+MASH Equipment:SIZE:1.0
+ISMobileHPG
+</Hull Equipment>
+
+<structural_integrity>
+1
+</structural_integrity>
+
+<capabilities>
+<p>Massive fuel tanks allow the Magellan-Class to operate for over 600 days and travel 2,500 light-years before requiring refueling. The class is one of the most well-armored JumpShips in existence, carrying 75 tons of armor and a formidable array of lasers, LRM missile racks (nose and stern), and anti-missile guns in every arc. The command section houses an advanced medical facility with an operating theater and isolation ward, utilizing technology not seen outside ComStar since the fall of the Star League. The ship accommodates 20 crew members in luxurious quarters and an additional 28 staterooms for a marine platoon. The Magellan-class is notable as one of the few JumpShips designed with a Lithium-Fusion Battery as standard. Explorer Corps policy sees the Magellanreserve this charge for an "escape jump" in case of unexpected hostilities. The Magellan-class its most striking feature however is a sophisticated Hyperpulse Generator (HPG) for faster-than-light communications with any other HPG within 50 light-years. As downside the ship lacks a grav deck due to the necessary space being taken up by its other features. This requires the captain to use acceleration to generate gravity, necessitating a careful balance between crew health and fuel conservation.</p>
+</capabilities>
+
+<overview>
+<p>Commissioned by Primus Adrienne Sims and in service since 2960, the Magellan-class has become a mainstay of the ComStar fleet. Produced at the O'Neil yards at Terra, it is specifically designed for impressive long-range missions, true to the naming of the class. Until the dissemination of HPG technology following Operation Scorpion, the security of these vessels was so vital that ComStar preferred the loss of a ship and crew over its technology falling into non-ComStar hands.</p>
+</overview>
+
+<history>
+<p>Produced for ComStar at the O'Neil Yards in the Terran system, the Magellan-class was commissioned by Primus Adrienne Sims for the Explorer Corps. Becoming the backbone of the ComStar JumpShip fleet and Explorer Corps thanks to its impressive capacity for long-range missions.</p>
+</history>
+
+<manufacturer>
+O'Neil Yards
+</manufacturer>
+
+<primaryFactory>
+O'Neil Yards|Terra orbit
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:O'Neil Yards
+ENGINE:O'Neil Yards
+ARMOR:O'Neil Yards
+COMMUNICATIONS:O'Neil Yards
+TARGETING:O'Neil Yards
+</systemManufacturers>
+
+<use>
+Explorer
+</use>
+
+<length>
+590m
+</length>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+175000.0
+</tonnage>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<designtype>
+0
+</designtype>
+
+<crew>
+65
+</crew>
+
+<officers>
+6
+</officers>
+
+<gunners>
+2
+</gunners>
+
+<passengers>
+5
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<life_boat>
+8
+</life_boat>
+
+<escape_pod>
+0
+</escape_pod>
+

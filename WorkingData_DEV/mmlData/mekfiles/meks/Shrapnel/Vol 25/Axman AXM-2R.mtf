@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dd18-7457-9c3b-a8f358f88f5c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Axman
+model:AXM-2R
+
+Config:Biped
+techbase:Inner Sphere
+era:3049
+source:Shrap25
+published:Shrap25
+rules level:2
+role:Skirmisher
+
+quirk:pro_actuator
+
+mass:65
+engine:260 XL Engine
+structure:IS Standard
+myomer:Standard
+ejection:Full Head Ejection System
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:4
+
+armor:Ferro-Fibrous(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:24
+RT armor:24
+CT armor:34
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:5
+Large Pulse Laser, Left Arm
+Medium Pulse Laser, Right Arm
+Medium Pulse Laser, Right Arm
+SRM 6, Left Torso
+SRM 6, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISLargePulseLaser
+ISLargePulseLaser
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISMediumPulseLaser
+ISMediumPulseLaser
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+Hatchet
+IS Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 6
+SRM 6
+ISArtemisIV
+IS Ammo SRM-6 Artemis-capable
+IS Ammo SRM-6 Artemis-capable
+ISCASE
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+SRM 6
+SRM 6
+ISArtemisIV
+BeagleActiveProbe
+BeagleActiveProbe
+ISGuardianECMSuite
+ISGuardianECMSuite
+IS Ferro-Fibrous
+IS Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ferro-Fibrous
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Axman was introduced in 3048 as the heavy counterpart to the successful Hatchetman, developed by Team Banzai as a dedicated close-combat BattleMech for the newly formed Federated Commonwealth. Weighing sixty-five tons, the design was conceived from the outset as a 'Mech killer, built around a massive five-ton hatchet capable of cleaving through even the thickest armor plating. Johnston Industries on New Syrtis and Defiance Industries on Furillo shared production responsibilities, deliberately sourcing components from across the Federated Suns, Lyran Commonwealth, and former Capellan space as a symbol of the alliance's unity.</p><p>This deliberate supply chain strategy proved to be the Axman's greatest vulnerability when the Federated Commonwealth fractured in 3057, nearly rendering the design extinct as cross-border component shipments ceased. Both manufacturers were forced to develop new variants using locally sourced parts, ultimately splitting the Axman line into distinct Davion and Lyran branches that have continued to evolve independently.</p>
+
+capabilities:<p>The original AXM-1N centers its combat doctrine around devastating close-range engagements. Its primary armament pairs the iconic five-ton hatchet with a Luxor Devastator-20 autocannon, giving the Axman the ability to strip over a ton of armor from an opponent with a single volley before closing to deliver punishing melee strikes. A Sutel Precision Line large pulse laser and three Intek medium lasers provide accurate supporting fire at short to intermediate ranges, ensuring targets that evade the hatchet's reach still face withering energy fire.</p><p>The chassis rides on a Magna 260 XL engine providing a respectable top speed of sixty-four kilometers per hour, augmented by HildCo Model 12 jump jets that grant the Axman the ability to exploit urban terrain and close on opponents who attempt to maintain distance. Ten tons of Kallon Unity Weave ferro-fibrous armor provides substantial protection for a 'Mech of its weight class, while ten double heat sinks manage the considerable thermal load of its combined weapons systems.</p><p>Like the Hatchetman before it, the Axman incorporates a full-head ejection system to protect its MechWarrior during the high-risk close-quarters engagements the design was built to pursue. This safety feature has proven invaluable given the violent nature of hatchet combat, though the XL engine remains a significant vulnerability that later variants have sought to address through alternative powerplant configurations.</p>
+
+deployment:<p>Fielded across the Crucis and Sarna Marches, the 2R reworked the Axman for close-quarters lethality. Where other variants reached for range, this configuration traded missile racks for paired short-range missile launchers tied to an Artemis fire-control system, then filled the freed tonnage with electronic warfare gear and additional armor. A Beagle active probe and a Guardian ECM suite let the 2R root out hidden opponents and blind enemy targeting, while pulse lasers and the hatchet did the killing at point-blank range. Federated Suns commanders paired the 2R with 1N Axmans for urban and jungle fighting, using the autocannon-armed 1N to break open an enemy's armor and the 2R to destroy what lay inside.</p>
+
+history:<p>The Axman emerged during a period of intense military cooperation between the Federated Suns and Lyran Commonwealth following the formation of the Federated Commonwealth. Team Banzai's design was deliberately conceived as both a weapon system and a political statement, with its component supply chain spanning both halves of the realm and drawing from former Capellan territory as well. Johnston Industries on New Syrtis and Defiance Industries on Furillo established parallel production lines, with Defiance adding a specialized AXM-2N variant line in the late 3050s.</p><p>The FedCom Civil War and the preceding secession of the Lyran Alliance in 3057 devastated Axman production. With component contracts spread across the fragmenting nation, both factories were reduced to working off surplus stores while their engineers scrambled to develop locally sourced alternatives. This crisis ultimately proved transformative, as each manufacturer developed distinct variant lines tailored to their respective nation's doctrine and industrial capabilities. Defiance Industries produced the LB 20-X armed AXM-3S as a purely Lyran machine, while Johnston Industries developed the AXM-4D to reduce reliance on foreign suppliers for the Federated Suns.</p><p>During the Jihad era, Defiance Industries pursued an ambitious experimental program on Furillo, developing the AXM-6X prototype beginning in 3074. This technology demonstrator explored handheld modular weapons systems as a cost-effective alternative to true OmniMech technology, earning the nickname "poor man's OmniMech." Although only six prototypes were constructed by 3080, the concept proved viable enough for Defiance to develop the production-grade AXM-6T, which entered service in 3083 with an Inner Sphere XL engine replacing the costly Clan-specification powerplant of the prototype.</p><p>Johnston Industries' facilities on New Syrtis weathered the Capellan occupation and subsequent Davion reconquest, expanding production to support the Federated Suns military with the AXM-5N beginning around 3148. This variant represented a significant technological leap, incorporating Clan Sea Fox supplied weapons systems and triple-strength myomers that transformed the Axman from a simple brawler into a sophisticated multi-range combatant. The Axman's continued evolution on both sides of the former Federated Commonwealth demonstrates the enduring value of the original Team Banzai concept, even as the political alliance that inspired it has long since dissolved.</p>
+
+manufacturer:Field Refit
+
+primaryfactory:Various
+
+fluffdate:2026-06-10 16:40:48
+
+systemmanufacturer:CHASSIS:Dorwinion
+systemmode:CHASSIS:AXM Standard
+systemmanufacturer:ENGINE:Magna
+systemmode:ENGINE:260 XL
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:Unity Weave Ferro-Fibrous
+systemmanufacturer:JUMP_JET:HildCo
+systemmode:JUMP_JET:Model 12
+systemmanufacturer:COMMUNICATIONS:Johnston
+systemmode:COMMUNICATIONS:Wide Band
+systemmanufacturer:TARGETING:Rander
+systemmode:TARGETING:Pinpoint-HY

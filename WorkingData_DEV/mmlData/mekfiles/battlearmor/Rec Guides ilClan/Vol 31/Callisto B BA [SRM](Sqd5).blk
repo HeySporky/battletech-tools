@@ -1,0 +1,156 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a842-7ffa-86a2-d5ea2756a756
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Callisto Battle Armor
+</Name>
+
+<Model>
+B [SRM](Sqd5)
+</Model>
+
+<mul id:>
+9450
+</mul id:>
+
+<year>
+3147
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+CLBAERSmallLaser:RA
+CLBASRM4:SSWM:Body
+BA-SRM4 Ammo:SSWM:Body:Shots4#
+BABattleClaw:LA
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<capabilities>
+<p>The SRM 4 variant of Configuration B mounts the heaviest squad support weapon available to the Callisto. An ER Small Laser in the main weapon position provides baseline ranged capability, while the SRM 4 system in the squad support mount delivers a significant salvo of short-range missiles. The Battle Claw on the left arm maintains anti-BattleMech attack capability.</p><p>Ground speed compensates for the absence of jump jets on the Elemental-derived frame, and the suit's armor sits below the Elemental standard. The SRM configuration offers the most raw firepower per salvo of any Callisto loadout, making it effective against hardened targets and vehicle formations. The missile system's limited ammunition and minimum effective range are notable drawbacks, requiring troopers to close quickly and make each volley count. Coordinated salvos from a full formation can overwhelm targets that would shrug off individual trooper fire.</p>
+</capabilities>
+
+<overview>
+<p>The Callisto is a medium Clan battle armor suit developed by the Rasalhague Dominion in the mid-thirty-second century. Built upon the foundation of the proven Elemental battlesuit, the Callisto retains a familiar profile that allows warriors to transition between designs with minimal retraining. Its modular weapon mounting system gives infantry commanders the flexibility to tailor each formation's loadout to the mission. Produced at facilities on Alshain and Stewart, the suit has spread across the Dominion, the Wolf Empire, and Clan Sea Fox merchant networks, earning a reputation as a practical complement to longer-established battle armor designs.</p>
+</overview>
+
+<deployment>
+<p>Clan Points carrying the SRM configuration deliver the highest per-salvo damage of any Callisto formation. Wolf Empire assault Clusters and Dominion frontline Galaxies employ these Points in shock assault roles, riding OmniMechs to close range before dismounting to unleash coordinated missile fire against hardened targets.</p>
+</deployment>
+
+<history>
+<p>The Callisto originated as a project by Galaxy Commander Ramiel Bekker of Clan Ghost Bear, who sought to address a gap in the Rasalhague Dominion's infantry capabilities. Named for a nymph in the Terran constellation of Ursa Major, the design was roughly half complete when Wolf Khan Alaric Ward took Bekker as a bondsman in 3146. The Dominion's engineers finished the suit independently, while Bekker brought his plans to Clan Wolf and oversaw completion there. This parallel development produced two functionally identical battlesuits distinguishable only by manufacturing marks and serial numbers, though both factions claimed their version as the original.</p><p>The Callisto saw its first major combat during the Wolf Empire's assault on Marcus in March 3150, where elements of the 328th Wolf Assault Cluster deployed the new suits against the Eighth Triarii Protectors. During the Rasalhague Dominion's invasion of Lambrecht the following month, Third Bear Regulars used the suits to locate and scatter hidden militia infantry before engaging heavier formations from the Third An Ting Legion. Clan Sea Fox secured a manufacturing agreement with the Wolf Empire, further spreading the design across the Inner Sphere.</p>
+</history>
+
+<manufacturer>
+Bergan Industries BA Annex|Corean Enterprises - MacAdams-Suharno
+</manufacturer>
+
+<primaryFactory>
+Alshain|Stewart
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+RG31
+</source>
+
+<published>
+RG31
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+7
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+2
+</weightclass>
+

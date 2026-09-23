@@ -1,0 +1,77 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bd29-7248-9952-9a090102e85e
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Motorized Platoon
+</Name>
+
+<Model>
+(Flechette)
+</Model>
+
+<year>
+3064
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Motorized
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Lyran Commonwealth Armed Forces leverage their considerable industrial wealth to equip infantry formations with specialized flechette weapon systems that most armies could not afford to field at the platoon level. These troops carry Zeus Heavy Rifles as their primary arm, a heavier-caliber ballistic weapon that delivers greater stopping power than standard rifles, paired with Support Needlers that saturate target areas with razor-sharp flechette darts. The combination is devastating against unarmored personnel and light-skinned vehicles, making these platoons well suited to the urban security operations and facility defense duties common on the Commonwealth's wealthy, developed worlds. Typical of the Lyran approach, the equipment is first-rate. Effective tactical employment depends, as always, on the quality of the officers commanding them.</p>
+</overview>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+Rifle (Zeus Heavy)
+</Primary>
+
+<Secondary>
+Needler, Support (Firedrake)
+</Secondary>
+

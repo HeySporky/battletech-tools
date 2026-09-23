@@ -1,0 +1,197 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d385-783e-aed0-d5c86eec5598
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Tian-Zong
+model:TNZ-N2
+mul id:6470
+
+Config:Biped
+techbase:Inner Sphere
+era:3096
+source:TR:3145:CC,TR:DA
+published:RS:DA
+rules level:3
+role:Sniper
+
+quirk:command_mech
+
+mass:75
+engine:300 XL Engine
+structure:IS Endo-Composite
+myomer:Standard
+
+heat sinks:12 IS Double
+walk mp:4
+jump mp:0
+
+armor:Stealth(Inner Sphere)
+LA armor:24
+RA armor:24
+LT armor:24
+RT armor:24
+CT armor:34
+HD armor:9
+LL armor:26
+RL armor:26
+RTL armor:8
+RTR armor:8
+RTC armor:9
+
+Weapons:4
+ER Large Laser, Left Arm
+ER Large Laser, Right Arm
+Light Gauss Rifle, Left Torso
+Light Gauss Rifle, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERLargeLaser
+ISERLargeLaser
+IS Endo-Composite
+IS Endo-Composite
+IS Endo-Composite
+IS Stealth
+IS Stealth
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISERLargeLaser
+ISERLargeLaser
+IS Endo-Composite
+IS Endo-Composite
+IS Endo-Composite
+IS Stealth
+IS Stealth
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+IS Light Gauss Ammo
+IS Stealth
+IS Stealth
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+ISLightGaussRifle
+IS Light Gauss Ammo
+IS Stealth
+IS Stealth
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISAngelECMSuite
+ISAngelECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo-Composite
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Stealth
+IS Stealth
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Tian-Zong was introduced in 3090 as a dedicated command BattleMech for the Capellan Confederation Armed Forces. Developed by Hellespont 'Mech Works on Sian in cooperation with the Capellan Science Foundation, the design was originally intended as a mobile fire support platform for the Confederation's shadow lances. Combining potent Gauss-based firepower with sophisticated stealth technology and an advanced command and control suite, the Tian-Zong quickly exceeded its intended role. Its exceptional electronics allow battalion-level coordination while its stealthy profile makes it difficult to engage at range, earning it a reputation as one of the most dangerous heavy command 'Mechs in the Inner Sphere.</p><p>The design became the preferred mount of elite formations including the Death Commandos and Warrior Houses, serving as the Capellan Confederation's premier command 'Mech for over half a century. Ongoing production at Hellespont 'Mech Works has ensured a steady supply of upgraded variants incorporating the latest advances in Capellan military science.</p>
+
+capabilities:<p>The Tian-Zong's combination of stealth armor, electronic warfare capabilities, and devastating firepower makes it a formidable opponent at any range. Its Hellespont Lite II stealth armor works in concert with an Angel ECM suite, rendering the 'Mech extremely difficult to detect and target. This is a critical advantage for a design meant to operate on the flanks and behind enemy lines with shadow lances. The paired Mydron Concussor Gauss rifles deliver crushing long-range firepower without generating appreciable heat, while the Ceres Arms Striker light particle projection cannons provide accurate medium-range support. This weapons mix allows sustained engagement without taxing the 'Mech's heat management systems, leaving its pilot free to concentrate on battlefield coordination.</p><p>The Rawlings 300 XL engine propels the seventy-five-ton chassis to a respectable top speed of 64 kph, adequate for keeping pace with medium 'Mech formations. The endo-composite internal structure saves weight allocated to the heavy armor protection and weapons payload. However, the design's reliance on an extralight engine creates vulnerability in the side torsos, and its lack of jump jets limits tactical flexibility in close terrain. The small cockpit fitted to later production variants also increases pilot fatigue during prolonged engagements.</p>
+
+deployment:<p>Introduced in 3096, this variant takes a markedly different approach to the Tian-Zong's fire support role. Replacing the standard Gauss rifles with a pair of light Gauss rifles and swapping the energy weapons for extended-range large lasers, it trades raw hitting power for a more versatile engagement envelope. The lighter Gauss weapons reduce the severity of ammunition explosions while still delivering accurate long-range fire, and the extended-range large lasers provide sustained energy firepower without ammunition dependency. Like the original, it retains the standard cockpit and stealth armor suite.</p>
+
+history:<p>The Tian-Zong entered production in 3090 at Hellespont 'Mech Works on Sian, quickly earning its place as the Capellan Confederation's foremost command 'Mech. Originally conceived for shadow lance operations, its combination of stealth, firepower, and command electronics made it irresistible to elite formations. The Death Commandos and Warrior Houses adopted the design almost immediately, and within a decade the Tian-Zong had become synonymous with Capellan heavy command assets.</p><p>During the siege of Victoria by Armed Forces of the Federated Suns, Warrior House Kamata demonstrated the Tian-Zong's devastating potential. Using stolen encryption keys, a force comprised principally of Tian-Zongs slipped behind enemy lines during a unit rotation between battered elements of the Sixth Syrtis Fusiliers and the reconstituted Forty-second Avalon Hussars. The Warrior House maneuvered two companies of shadow lances into a gap in the Davion lines, catching the AFFS regiments mid-rotation. Their combined volley felled a full company of 'Mechs, while a second volley disabled or destroyed another dozen. Both regiments broke and ran before regrouping for a counterattack, by which time the Warrior House had withdrawn behind cover.</p><p>On Arboris, elements of the First McCarron's Armored Cavalry used the Tian-Zong to delay a company of Hastati Sentinels. Commanding a single shadow lance and a platoon of light tanks, a Capellan officer used convenient weather and varying engagement ranges to repeatedly ambush the Sentinels' patrols, throwing them off-guard each time. This resourceful use of the Tian-Zong's stealth and command capabilities tied down a significantly larger force for weeks until additional Capellan troops arrived.</p><p>During Operation Tiamat in 3149, the Fifth McCarron's Armored Cavalry teamed with Warrior House Imarra to capture Liberty. On the island of Dendez, Tian-Zong pilots of the Fifth MAC held defensive positions against a Republic Armed Forces unit identified as Stone's Fury. Despite being surprised by advanced RISC weaponry, the Tian-Zong's firepower proved decisive in several engagements, with Silver Bullet Gauss rifle shards piercing enemy cockpits at close range.</p><p>By the ilClan era, Hellespont 'Mech Works had introduced a new generation of Tian-Zong variants leveraging the Capellan Confederation's success in replicating the Star League-era Chameleon light polarization shield. These newer models traded stealth armor for lighter protection combined with the Chameleon system, freeing weight for heavier weaponry and, in some variants, jump capability. The acquisition of Clan-grade weapons through trade with the Skate Khanate further expanded the Tian-Zong's tactical versatility, ensuring the design's continued relevance on the battlefields of the thirty-second century.</p>
+
+manufacturer:Hellespont 'Mech Works
+
+primaryfactory:Sian
+
+fluffdate:2026-02-20 17:30:00
+
+systemmanufacturer:CHASSIS:Hellespont
+systemmode:CHASSIS:Type TZ Endo Composite
+systemmanufacturer:ENGINE:Rawlings
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Hellespont
+systemmode:ARMOR:Lite II Stealth
+systemmanufacturer:COMMUNICATIONS:Ceres Metals
+systemmode:COMMUNICATIONS:Model 777 with Angel ECM Suite
+systemmanufacturer:TARGETING:Radcom
+systemmode:TARGETING:TXXII

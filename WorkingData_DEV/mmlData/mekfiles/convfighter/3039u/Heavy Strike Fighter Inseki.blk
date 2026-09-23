@@ -1,0 +1,173 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a9e7-7bda-b693-32d4d74df234
+</UUID>
+
+<UnitType>
+ConvFighter
+</UnitType>
+
+<Name>
+Heavy Strike Fighter
+</Name>
+
+<Model>
+Inseki
+</Model>
+
+<mul id:>
+1444
+</mul id:>
+
+<year>
+2683
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+480
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+12
+10
+10
+8
+</armor>
+
+<Nose Equipment>
+Autocannon/10
+</Nose Equipment>
+
+<Left Wing Equipment>
+SRM 4
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+SRM 4
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+IS Ammo AC/10
+IS Ammo SRM-4
+IS Ammo SRM-4
+</Fuselage Equipment>
+
+<capabilities>
+<p>Though it has become the standard by which heavy strike fighters are defined, the Meteor, like Andurien Aerotek's Angel, is unusual for its fusion-based design, which saved tonnage but produced a higher initial price tag. Price was only a minor concern to Hegemony buyers when the Meteor debuted, and the asking price allowed Jalastar to provide a fighter with respectable airspeed and maneuverability while leaving room for heavy weapons and respectable armor for a conventional fighter.</p><p>The centerpiece of the Meteor's arsenal is its nose-mounted Mydron B heavy autocannon, boasting two tons of munitions for sustained medium-range firepower. A single hit from the weapon can down most conventional fighters and even cripple lighter aerospace fighters foolish enough to tempt their fate against it. Backing this weapon is a pair of wing-mounted Holly SRM 4 packs, particularly ideal in anti-ground attack runs against vehicles or when targeting low-flying VTOLs. Even with this formidable array, most Meteors were often billed as bomber-fighters and frequently flew into battle laden with enough external ordnance to threaten small concentrations of ground forces, including BattleMek and armor companies.</p>
+</capabilities>
+
+<overview>
+<p>During the heyday of the Star League, Andurien Aerotek and Imstar Aerospace, both notable Free Worlds-based aerospace companies, debuted conventional fighters that became standards known far and wide across human-occupied space. Not to be outdone, the Federated Suns claimed a piece of that same military niche when Jalastar Aerospace of Panpour introduced its for-export conventional fighter concept, the Meteor Heavy Strike Fighter. Rather than mimicking the aggressive international sales approach used by its Free Worlds competitors, Jalastar took a more direct marketing strategy and aimed their strike fighter at customers in the Terran Hegemony, a decision that would ultimately shape the Meteor's distribution across the Inner Sphere for centuries to come.</p>
+</overview>
+
+<deployment>
+<p>Jalastar's Terran-directed marketing campaign ended up having the same effect on Meteor sales as Andurien Aerotek's and Imstar Aerospace's Sphere-wide approach did with the Angel and Defender strike fighters. Third-party sales prior to the fall of the Star League saw the Meteor exported to planetary garrisons across human-occupied space. When the Star League fell, the Great Houses claimed scores of these fighters as each seized its respective slice of Hegemony territory. The widely available specs allowed for a boom in homegrown production, making the Meteor the template by which all heavy strike fighters would be known.</p>
+</deployment>
+
+<history>
+<p>House Kurita produced both a carbon copy Meteor, dubbed the Inseki ("Meteorite"), and an after-market upgrade variant, the Inseki II, that took full advantage of the fusion plant by trading the fighter's weapons for a nose-mounted Hellstar PPC, a pair of wing-mounted Telos DecaCluster LRM 10 racks, and a tail-mounted machine gun to deter close pursuit. The Taurian Concordat produced the Bat Hawk variant, using a locally manufactured 225-rated turbine engine in place of the more expensive fusion plant while retaining the nose-mounted heavy autocannon. The wing-mounted SRMs were deleted in favor of the heavier engine and replaced by a single nose-mounted Harvester SRM twin-pack.</p><p>In 3060, Gutierrez Aerospace on Trellisane introduced a Free Worlds-made upgrade of the Meteor designated the Meteor-G. Made available for export sale despite misgivings among the Free Worlds League's LCCC, this variant trades the older Mydron Model B for a Corean Light Gauss Rifle and replaces the Holly 4 packs with more efficient Guided Technologies 2nd Gen Streak SRM 4 launchers. These changes forced the designers to reduce the Meteor-G's range by one third.</p><p>The Federated Suns also fielded an upgraded variant known as the Meteor-U, which upgrades the Mydron B to an Ultra series and replaces each wing-mounted SRM launcher with a pair of Intek medium lasers, adding two heat sinks to handle the load. Like the Meteor-G, this variant sacrifices endurance but nearly doubles its offensive punch in combat.</p>
+</history>
+
+<manufacturer>
+Wakazashi Enterprises
+</manufacturer>
+
+<primaryFactory>
+Chatham
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Jalastar Aerospace
+ENGINE:GM
+ARMOR:StarGuard
+COMMUNICATIONS:O/PR
+TARGETING:TargiTrak
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:JA-MTR-Airframe
+ENGINE:225 Atmo-Fusion
+ARMOR:II
+COMMUNICATIONS:Janxiir
+TARGETING:700
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:3039u
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

@@ -1,0 +1,203 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d54b-7403-89e3-381b31d13793
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Lament
+model:LMT-2R
+mul id:6676
+
+Config:Biped
+techbase:Inner Sphere
+era:3126
+source:TR:3145:RotS,TR:DA
+published:RS:DA,RSFP:SLDF3
+rules level:3
+role:Brawler
+
+quirk:difficult_maintain
+quirk:non_standard
+quirk:multi_trac
+quirk:pro_actuator
+
+mass:65
+engine:325 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:XL Gyro
+
+heat sinks:15 IS Double
+walk mp:5
+jump mp:0
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:22
+RT armor:22
+CT armor:33
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:8
+RTR armor:8
+RTC armor:9
+
+Weapons:5
+Heavy PPC, Left Arm
+Heavy PPC, Right Arm
+ER Medium Laser, Left Torso
+ER Medium Laser, Right Torso
+ER Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERMediumLaser
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERMediumLaser
+Radical Heat Sink System
+Radical Heat Sink System
+Radical Heat Sink System
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISERMediumLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Lament is a sixty-five-ton heavy BattleMech developed by Skobel MechWorks on Terra for the Republic Armed Forces. Presented to the RAF a few brief years before Devlin Stone's retirement and the subsequent Blackout, the design was intended as a powerful main-line combatant for Stone's Brigade regiments. RAF procurement slipped the 'Mech into the 3127 appropriations, and the Senate approved its adoption shortly thereafter.</p><p>At its core an energy-weapon platform built for sustained engagements, the Lament is frequently compared to venerable designs like the Warhammer and the heavier Awesome. The design quickly earned a fearsome reputation within the Republic's armed forces, ensuring its presence in every regiment of Stone's Brigade.</p>
+
+capabilities:<p>The Lament's arsenal centers on a pair of Magna Supernova Heavy Particle Projection Cannons, one mounted in each arm, delivering punishing firepower at medium and long ranges. Three Diverse Optics Sunfire Extended-Range Medium Lasers distributed across both side torsos and the head provide supplementary firepower for closer engagements. The all-energy loadout eliminates ammunition dependency, allowing the Lament to sustain operations far longer than many contemporaries.</p><p>Managing the tremendous heat output of this arsenal is a Radical Heat Sink System working in concert with fifteen double heat sinks. This advanced system allows a MechWarrior to flush excess heat rapidly, enabling sustained alpha strikes that would overwhelm conventional cooling systems. The radical system's complexity contributes to the Lament's reputation as a maintenance-intensive design, however, and technicians unfamiliar with the technology often struggle with its upkeep.</p><p>A VOX 325 XL engine propels the sixty-five-ton chassis to a respectable 86 kilometers per hour, while 12.5 tons of Krupp 205 Light Ferro-Fibrous armor provides solid protection. Weight savings from an endo steel internal structure and XL gyro ensure adequate protection without sacrificing the design's offensive focus.</p>
+
+deployment:<p>The base production model, this variant entered service with the Republic Armed Forces following its approval in the 3127 appropriations cycle. Serving as the backbone of the Lament family, this variant carries the standard loadout of paired Heavy PPCs and three ER Medium Lasers, managed by the signature Radical Heat Sink System. Its blend of firepower, speed, and protection has made it a staple of Stone's Brigade lances, where it typically anchors offensive formations as a dedicated strike platform.</p>
+
+history:<p>The Lament's history is tightly bound to the Republic of the Sphere and its tumultuous final decades. Entering production at Skobel MechWorks on Terra around 3126, the design was one of several new weapons systems intended to modernize the Republic Armed Forces during a period of growing instability. RAF procurement pushed the design through the 3127 appropriations cycle, and the Senate's approval ensured that Laments would soon be marching in every Stone's Brigade regiment.</p><p>The onset of Gray Monday in 3132 and the subsequent collapse of the HPG network threw the Republic into crisis. As Fortress Republic was activated and the Republic retreated behind its protective barriers, Laments found themselves divided between forces inside the Fortress and Remnant units operating beyond its walls. Those serving with the Remnant became prized assets, often assigned to spearhead counterassaults against encroaching factions seeking to exploit the Republic's contraction.</p><p>Remnant Laments saw significant action against Clan Wolf raiding forces during the 3140s. During one notable engagement at Dubhe, a lance from the III Principes Guards challenged a Wolf vehicle Trinary defending a landing zone. Invoking Trial of Possession protocols, the Republic MechWarriors engaged a mixed Star of tanks and armored vehicles, hammering through heavy armor with sustained PPC fire. The Radical Heat Sink Systems were pushed to their limits as the pilots fired again and again, overstressing their cooling systems with repeated emergency flushings. The defenders eventually withdrew from the Circle of Equals, and the Republic forces seized a Wolf DropShip before the raiding force could respond.</p><p>Within the Fortress, Skobel MechWorks continued refining the design throughout the Dark Age, producing several variants including the triple-ER-PPC-armed LMT-3C and LMT-3R models, the Clan-technology-enhanced LMT-4RC, and the experimental drone-capable LMT-2D. The willingness to incorporate Clan weaponry and experimental systems reflects the Republic's pragmatic approach to maintaining technological superiority during its period of isolation.</p><p>The Lament remains an active production line as the ilClan era unfolds, with Skobel MechWorks on Terra continuing to produce the design for whatever authority controls humanity's homeworld. Its relatively short but intense service history has cemented the Lament's reputation as one of the Republic's most capable heavy 'Mech designs.</p>
+
+manufacturer:Skobel MechWorks
+
+primaryfactory:Terra
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Skobel
+systemmode:CHASSIS:Template 10 Endo Steel
+systemmanufacturer:ENGINE:VOX
+systemmode:ENGINE:325 XL
+systemmanufacturer:ARMOR:Krupp
+systemmode:ARMOR:205 Light Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Skobel
+systemmode:COMMUNICATIONS:Wave VII Comm
+systemmanufacturer:TARGETING:Falcon
+systemmode:TARGETING:15 Watcher

@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cd18-76c4-8ab3-456d1df247b4
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Fafnir
+model:FNR-5
+mul id:4152
+
+Config:Biped
+techbase:Inner Sphere
+era:3063
+source:TR:3067,TR:J
+published:RS:J
+rules level:2
+role:Juggernaut
+
+quirk:no_arms
+weaponquirk:stable_weapon:LT:0:ISHeavyGaussRifle
+weaponquirk:stable_weapon:RT:0:ISHeavyGaussRifle
+
+mass:100
+engine:300 Fusion Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:3
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:34
+RA armor:34
+LT armor:32
+RT armor:32
+CT armor:46
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:10
+RTR armor:10
+RTC armor:16
+
+Weapons:5
+ER Medium Laser, Left Arm
+ER Medium Laser, Right Arm
+Heavy Gauss Rifle, Left Torso
+Heavy Gauss Rifle, Right Torso
+Medium Pulse Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISERMediumLaser
+ISHeavyGauss Ammo
+ISHeavyGauss Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISERMediumLaser
+ISHeavyGauss Ammo
+ISHeavyGauss Ammo
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISCASE
+
+Right Torso:
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISHeavyGaussRifle
+ISCASE
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISGuardianECMSuite
+ISGuardianECMSuite
+
+Head:
+Life Support
+Sensors
+Cockpit
+ISMediumPulseLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISHeavyGauss Ammo
+ISHeavyGauss Ammo
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+ISHeavyGauss Ammo
+ISHeavyGauss Ammo
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Fafnir is a hundred-ton assault BattleMech introduced in 3063 by Defiance Industries on Hesperus II. Conceived as a replacement flagship design after the ill-fated Defiance was tarnished by its association with Brandal Gareth's abortive revolt in 3057, the Fafnir was developed to demonstrate the full breadth of Defiance Industries' engineering capabilities during the Inner Sphere's technological renaissance. Prototypes entered field service in late 3061, with full-scale production commencing from the Myoo Mountains facility in early 3063. Built around the largest non-artillery ballistic weapons in the Inner Sphere at the time, the Fafnir embodies the traditional Lyran philosophy of overwhelming firepower and heavy armor protection. Exclusively produced at the Defiance Industries complex on Hesperus II, the design earned the nickname "Mugger" from Lyran Armed Forces pilots for its brutal simplicity and devastating lethality.</p>
+
+capabilities:<p>Borrowing heavily from the Atlas, also produced on Hesperus, the Fafnir epitomizes the Lyran doctrine of size and strength over finesse. Massing a hundred tons with nearly twenty tons of Durallex Special Heavy V2 armor, the design is impervious to all but the heaviest concentrated fire. A Foundation Type 220 Endo Steel chassis supports this massive payload while keeping structural weight manageable, and a Guardian ECM Suite provides electronic warfare protection against enemy targeting and communications systems.</p><p>The Fafnir's principal armament is a pair of Defiance Hammerfist Heavy Gauss Rifles, nicknamed "Thor's Hammer," representing the largest non-artillery weapons fielded in the Inner Sphere. Four tons of ammunition per rifle keep the weapons well supplied during extended engagements. The design's greatest criticism lies in its over-reliance on the Hammerfists, backup armament consists of only two ER Medium Lasers and a single Medium Pulse Laser, leaving the 'Mech dangerously vulnerable if ammunition stores are depleted.</p><p>A Vlar 300 standard fusion engine provides a top speed of fifty-four kilometers per hour. While this engine is twice the mass of the Atlas's power plant, the decision to forgo an XL variant significantly improves survivability by eliminating the risk of engine destruction from side-torso hits. CASE systems in both side torsos further mitigate the catastrophic risk of ammunition explosions from the heavy Gauss rifles' volatile munitions.</p>
+
+deployment:<p>The base FNR-5 entered prototype service in late 3061, achieving full production by early 3063. Deployed primarily to pro-Katherine units throughout the Lyran Alliance, the Fafnir quickly replaced older assault designs such as the Banshee and Zeus in front-line formations. The design found a natural home among assault units tasked with breaching enemy lines and fortifications, where its twin Heavy Gauss Rifles could deliver devastating strikes against hardened positions. Pilots throughout the LAAF rapidly adopted the Fafnir as a premier line-breaking platform, though even its massive firepower was not always sufficient to prevent heavy losses during the intense fighting of the FedCom Civil War.</p>
+
+history:<p>The Fafnir's origins lie in the aftermath of Brandal Gareth's failed revolt in 3057, which exposed critical design flaws in the Defiance BattleMech that Defiance Industries had originally intended as its new flagship design. Rather than allowing this setback to undermine confidence in the company, Defiance's engineers immediately began work on a replacement that would showcase the full extent of the firm's capabilities during the Inner Sphere's technological renaissance. The result was the Fafnir, a design built around the then-new Hammerfist Heavy Gauss Rifle that entered prototype service in late 3061 and achieved full production by early 3063.</p><p>Initial deployment saw the Fafnir distributed to pro-Katherine units throughout the Lyran Alliance, where it quickly replaced aging assault designs like the Banshee and Zeus in front-line formations. The Third Lyran Guards' Valiant Stormier company on Graceland was among the first formations to receive the design, and their successful employment of the Fafnir against Clan Jade Falcon raiders demonstrated its effectiveness against even Clan opponents. Despite this success, the engagements also revealed the design's limitations, its devastating firepower alone was insufficient to prevent the unit from sustaining severe casualties when facing determined opposition.</p><p>The FedCom Civil War both proved and challenged the Fafnir. Heavy combat demand for the Hammerfist rifles outstripped Defiance Industries' supply capacity, leading to the development of the FNR-5B variant mounting standard Gauss Rifles as a field expedient. The fall of Hesperus II to the Word of Blake during the Jihad had catastrophic consequences for Fafnir production. By 3070, Blakist forces controlled the planet, and while they briefly produced their own FNR-5WB variant equipped with Improved C3 computers and Plasma Rifles, the Fafnir production lines were destroyed before the planet was liberated. By 3079, the Fafnir was no longer in production on Hesperus II.</p><p>Recovery came gradually in the post-Jihad era. The experimental FNR-5X, originally developed as a field refit mounting Improved Heavy Gauss Rifles, proved successful enough for Defiance Industries to restore full production at the rebuilt Hesperus II complex, reportedly at the cost of the Goliath production line. The FNR-5X saw distinguished service with the Skye Guards during the Coalition's liberation of Terra. The FNR-6U, a comprehensive redesign mounting twin Ultra Autocannon/20s and Light PPCs powered by a Light Fusion Engine, also entered production as Defiance Industries rebuilt its Hesperus II facilities, ensuring the Fafnir's continued service in the Lyran Commonwealth Armed Forces well into the Dark Age and beyond.</p>
+
+manufacturer:Defiance Industries
+
+primaryfactory:Hesperus II
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Foundation
+systemmode:CHASSIS:Type 220
+systemmanufacturer:ENGINE:Vlar
+systemmode:ENGINE:300
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Special Heavy V2
+systemmanufacturer:COMMUNICATIONS:Angst
+systemmode:COMMUNICATIONS:Discom
+systemmanufacturer:TARGETING:Angst
+systemmode:TARGETING:Accuracy

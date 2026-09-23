@@ -1,0 +1,82 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-c03c-73c3-8e76-50bae1847af5
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Jump Squad
+</Name>
+
+<Model>
+(MG)
+</Model>
+
+<year>
+2025
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Jump
+</motion_type>
+
+<Troopers Equipment>
+Generic Infantry Kit
+AntiMekGear
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>Jump infantry squads are squad-strength formations equipped with personal jump packs for vertical mobility. Smaller than a full jump platoon, these squads operate as reconnaissance elements, rooftop security teams, and rapid insertion forces where a compact footprint and three-dimensional movement matter more than sustained combat power. Their reduced numbers limit staying power in prolonged engagements, but the combination of small size and jump capability makes them difficult to pin down or predict.</p>
+</overview>
+
+<source>
+TW
+</source>
+
+<squad_size>
+7
+</squad_size>
+
+<squadn>
+1
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+Machine Gun (Portable)
+</Secondary>
+

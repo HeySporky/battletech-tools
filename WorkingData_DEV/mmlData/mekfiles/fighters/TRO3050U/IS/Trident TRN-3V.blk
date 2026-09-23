@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ade4-7d8c-9c01-4d07219a0bdd
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Trident
+</Name>
+
+<Model>
+TRN-3V
+</Model>
+
+<mul id:>
+5278
+</mul id:>
+
+<year>
+3069
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Interceptor
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+12
+</SafeThrust>
+
+<cockpit_type>
+1
+</cockpit_type>
+
+<heatsinks>
+10
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+240
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+20
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+-1
+</armor_tech_level>
+
+<armor>
+12
+11
+11
+5
+</armor>
+
+<Nose Equipment>
+ISMediumPulseLaser
+</Nose Equipment>
+
+<Left Wing Equipment>
+ISERMediumLaser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+ISERMediumLaser
+</Right Wing Equipment>
+
+<Aft Equipment>
+ISERSmallLaser
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>At twenty tons, the Trident is among the lightest aerospace fighters in service, and its designers at Newhart Industries optimized every kilogram for performance. The Rawlings 200 power plant delivers excellent thrust relative to the airframe's mass, and the Newhall 3P5 frame is built to withstand the stresses of high-speed maneuvering without structural compromise. Two tons of StarGlo ferro-aluminum armor provide better protection than standard plating of equivalent weight, giving the design a meaningful survivability edge against ground-based anti-aircraft systems and opposing light fighters.</p><p>The primary armament consists of three Omicron-Plus medium lasers mounted in the nose, providing a concentrated energy punch ideal for strafing runs and close engagements. A single Maxell small laser covers the aft arc, discouraging pursuit while the pilot repositions for another attack pass. The all-energy configuration eliminates any concern about ammunition depletion in extended operations, though it demands careful heat management during sustained high-tempo combat. The O/P 3000 tracking and targeting system drew considerable praise for its responsiveness, earning the wry observation among Trident pilots that the system could nearly fly the fighter itself, leaving the pilot's only real job as pulling the trigger.</p>
+</capabilities>
+
+<overview>
+<p>Designed and produced by Newhart Industries beginning in 2717, the Trident served as a first-response aerospace fighter for planetary defense forces across the Inner Sphere during the height of the Star League. Valued for its combination of speed, durability, and an energy-based weapon suite free from logistical dependence on ammunition resupply, the design earned a reputation as a reliable and cost-effective light fighter suited to both atmospheric defense and carrier operations. Though eventually supplanted in front-line service by more capable designs, Newhart continued producing the Trident for years afterward, often selling units at or near cost to mercenary commands and smaller militaries that lacked access to more advanced equipment. The Trident's ease of maintenance and resilient airframe extended its operational life far beyond what contemporary assessments of its military prospects would have predicted.</p>
+</overview>
+
+<deployment>
+<p>The drone variant was developed and deployed exclusively by the Word of Blake during the Jihad, converted at Master's Wings Aerospace facilities on Mars from existing Trident airframes. It represented an advanced teleoperated platform intended to expand Blakist aerospace capabilities without requiring conventional pilots. Given the clandestine nature of the program and the collapse of the Blakist movement at the war's end, confirmed operational deployments are limited to Jihad-era actions, and no examples are known to have survived in organized military service.</p>
+</deployment>
+
+<history>
+<p>Newhart Industries introduced the Trident in 2717, initially marketing it to Star League member state planetary defense forces as an affordable, low-maintenance first-response fighter. The design achieved considerable success in this role, and Newhart secured sales to militaries across the Inner Sphere. When Imstar Aerospace debuted the Cheetah and rendered the Trident obsolete as a dedicated interceptor, the SLDF recognized the design's continued value in a fast ground attack and carrier support role, absorbing a significant portion of Newhart's ongoing production output. The SLDF's Royal units additionally received an uprated variant optimized for Star League-era technology standards.</p><p>The chaos of the Amaris Coup and the subsequent Succession Wars permanently altered the Trident's production history. The primary Newhart facility on Thorin was almost certainly destroyed during the conflict, though Newhart had already licensed production rights to Wangker AeroSpace on Lee and Orbisonia. These licensed lines kept the Trident in production through the opening phases of the Succession Wars, supplying mercenary commands and state aerospace wings across multiple factions. The defining blow came in 2810, when the destruction of the last known ferro-aluminum foundry in the Inner Sphere cut off the supply of advanced armor that had been among the Trident's most marketable advantages. Newhart and its remaining licensees adapted by substituting conventional armor plating, but the protection reduction, technically modest, became badly exaggerated among pilot communities, and the Trident's reputation suffered accordingly. The last unit rolled off the assembly lines in 2825 with little fanfare.</p><p>Surviving airframes drifted to the periphery of Inner Sphere military culture: backwater militias, independent frontier states, and Periphery realms that could not afford more capable designs. The Outworlds Alliance, with its tradition of maximizing limited aerospace resources, fielded the largest concentration of post-production Tridents, primarily as training platforms for cadet pilots. The design remained largely forgotten by the major powers until 3069, when intelligence reports confirmed that Word of Blake forces operating in the Orestes system had seized several partially assembled Trident hulls. None of the recovered airframes contained a recognizable cockpit assemblage, suggesting active experimentation with advanced teleoperated configurations, a development that raised significant concerns about what the Blakists intended for a resurrected Trident in an unmanned combat role.</p>
+</history>
+
+<manufacturer>
+Master's Wings Aerospace
+</manufacturer>
+
+<primaryFactory>
+Mars
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Newhart Industries
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Newhall 3P5
+ENGINE:Rawlings 200
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3050,TR:3050U
+</source>
+
+<published>
+RS:3050Uu-C
+</published>
+
+<tonnage>
+20.0
+</tonnage>
+

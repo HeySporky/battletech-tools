@@ -1,0 +1,161 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ebd1-7719-9704-2ce249702d41
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Partisan Hull Defense
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+2446
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<quirks>
+anti_air
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+3
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+47
+28
+28
+26
+47
+</armor>
+
+<Body Equipment>
+Blue Shield Particle Field Damper
+Environmental Sealed Chassis
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISLargeXPulseLaser
+ISLargeXPulseLaser
+ISC3BoostedSystemSlaveUnit
+</Turret Equipment>
+
+<capabilities>
+<p>The Hull Defense variant departs radically from the standard Partisan's design philosophy. Environmentally sealed to operate in vacuum, the vehicle can drive across a WarShip's hull to replace destroyed turrets or reinforce threatened sectors, functioning as a mobile weapon emplacement. A Blue Shield Particle Field Dampener and Compound RX-5 laser-reflective armor provide exceptional defense against the energy weapons typical of aerospace fighter armaments, significantly reducing damage from laser and PPC strikes. This specialized protection comes at a cost, as the reflective armor remains vulnerable to ballistic weapons. A single Gauss slug can penetrate the vehicle in all locations except the turret and front glacis.</p><p>The offensive armament consists of two Large X-Pulse Lasers, chosen for their effectiveness against fast-moving aerospace targets without requiring ammunition supply in vacuum operations. A Boosted C3 Slave allows coordination with other hull defense units and the host WarShip's fire control network. The engine was reduced to a GM 160 fusion plant, significantly cutting the vehicle's ground speed. This trade-off is acceptable for a platform that primarily operates at walking pace across a ship's hull rather than traversing planetary terrain.</p>
+</capabilities>
+
+<overview>
+<p>The Partisan Hull Defense is an experimental prototype developed by Kallon Industries at its Nanking facility in 3072, designed to operate on the exterior hull of a WarShip as a mobile anti-fighter turret. Conceived during the Jihad when WarShip engagements intensified and existing point defense systems proved inadequate against determined fighter attacks, the design represents an unconventional application of the Partisan platform to the vacuum combat environment. Only a small number of prototypes were constructed, and the concept remained experimental rather than entering mass production.</p>
+</overview>
+
+<deployment>
+<p>The Partisan Hull Defense exists only as a small number of experimental prototypes produced at Nanking before the Word of Blake occupation disrupted further development. No mass production or widespread deployment has occurred. The concept of mobile hull-mounted anti-fighter vehicles remains an intriguing but unproven tactical innovation.</p>
+</deployment>
+
+<history>
+<p>The concept of mounting ground vehicles on WarShip hulls as mobile anti-fighter turrets emerged during the Jihad, when the sudden proliferation of naval engagements exposed critical vulnerabilities in existing point defense systems. As WarShips on all sides suffered crippling fighter attacks that overwhelmed their fixed weapon emplacements, Kallon Industries' Nanking facility undertook an ambitious experiment: adapting the proven Partisan chassis for vacuum combat operations.</p><p>The project, supervised by technician Clarice Hemmingway, began in 3072 with the goal of creating a vehicle that could drive across a WarShip's hull to replace destroyed turrets or reinforce threatened sectors. The engineering challenges were formidable. Environmental sealing for vacuum operations added considerable mass, requiring a reduction from the standard GM 240 to a smaller GM 160 fusion plant. This cut ground speed significantly, though the trade-off was acceptable for a platform intended to traverse ship hulls rather than planetary terrain.</p><p>The choice of laser-reflective armor was driven by the threat profile. Aerospace fighters, the Hull Defense's primary targets, overwhelmingly employed energy weapons. The reflective plating dramatically reduced damage from laser and PPC strikes, while a Blue Shield Particle Field Dampener provided additional protection against incoming fire. Offensively, two Large X-Pulse Lasers were selected for their effectiveness against fast-moving targets without requiring ammunition resupply in vacuum, a critical logistics consideration for a vehicle operating far from conventional supply lines.</p><p>A Boosted C3 Slave allowed the Hull Defense to coordinate with other units and the host WarShip's fire control network, extending the networked air defense doctrine that had made the Partisan Air Defense Tank so effective in atmospheric operations. In theory, a company of Hull Defense vehicles stationed aboard a WarShip could provide a flexible, self-repairing point defense layer that fixed turrets could not match. Destroyed turret coverage could be restored simply by driving a Hull Defense vehicle to the gap.</p><p>The concept had significant limitations. The reflective armor that protected so well against energy weapons left the vehicle dangerously vulnerable to ballistic threats. A single Gauss slug could penetrate the vehicle in all locations except the turret and front glacis. As Gauss weaponry proliferated among both Inner Sphere and Clan forces, this vulnerability represented a growing tactical liability. The reduced speed also meant the Hull Defense could not rapidly reposition across a WarShip's hull during a fast-moving engagement, limiting its ability to respond to shifting attack vectors.</p><p>Only a small number of prototypes were constructed before the Word of Blake's seizure of Nanking terminated the project. The occupation scattered Kallon's engineering teams and destroyed development records, and the design was never resumed after the planet's liberation. The Hull Defense remains an experimental curiosity, a footnote in the broader Partisan family's history rather than a production success.</p><p>Even so, the Hull Defense represents an important moment in mobile air defense thinking. Where the original Partisan Heavy Tank had brought anti-aircraft capability to planetary battlefields, and the Air Defense Tank had elevated it through networking, the Hull Defense attempted to extend the same doctrine into space. That the attempt was made at all, during the chaos of the Jihad when resources were desperately scarce, speaks to how deeply the Partisan's air defense philosophy had embedded itself in military planning across the Inner Sphere.</p>
+</history>
+
+<manufacturer>
+Refit - Kallon Weapon Industries
+</manufacturer>
+
+<primaryFactory>
+Nanking
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:GM
+ARMOR:Unknown
+COMMUNICATIONS:Kallon
+TARGETING:Kallon
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:160
+ARMOR:Compound RX-5 Laser-Reflective
+COMMUNICATIONS:Secure Net with C3
+TARGETING:Sure-Shot
+</systemModels>
+
+<source>
+XTR:Corps
+</source>
+
+<published>
+XTR:Corps
+</published>
+
+<tonnage>
+80.0
+</tonnage>
+

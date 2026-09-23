@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ca90-70b8-be75-007dc2de2ec2
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Nightstar
+model:NSR-9J
+mul id:2286
+
+Config:Biped
+techbase:Inner Sphere
+era:2767
+source:TR:3058U,TR:SW
+published:RSFP:Wave 2
+rules level:2
+role:Juggernaut
+
+quirk:good_rep_1
+quirk:difficult_maintain
+quirk:command_mech
+quirk:variable_range_targeting
+
+mass:95
+engine:285 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:14 IS Double
+walk mp:3
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:32
+RA armor:32
+LT armor:32
+RT armor:32
+CT armor:50
+HD armor:9
+LL armor:40
+RL armor:40
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:6
+Gauss Rifle, Left Arm
+Medium Pulse Laser, Left Arm
+Gauss Rifle, Right Arm
+Medium Pulse Laser, Right Arm
+ER PPC, Right Torso
+Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISMediumPulseLaser
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISMediumPulseLaser
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Gauss Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISERPPC
+ISERPPC
+ISERPPC
+IS Gauss Ammo
+IS Gauss Ammo
+IS Gauss Ammo
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Gauss Ammo
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Small Laser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Nightstar was born in 2767 during the Amaris Civil War, commissioned by the Star League Defense Force after battlefield analysis revealed that unit commanders (particularly those piloting Marauder BattleMechs) were being systematically targeted by Amaris loyalist forces. Designed jointly by General Motors and Norse-Storm Technologies as a ninety-five-ton heavy support and command platform, the Nightstar entered production just eight months after its initial commission, evidence of the urgency of the SLDF's need. The design saw distinguished service during the liberation of Terra before becoming an early casualty of the technological regression that followed the Star League's collapse. It would take nearly three centuries before the Federated Commonwealth restored the Nightstar to active production, returning one of the Star League's most formidable assault 'Mechs to the battlefield.</p>
+
+capabilities:<p>The Nightstar shares a number of design features with its Marauder lineage, but at twenty tons heavier and powered by a Pitban 285-rated extralight fusion engine, the chassis carries over fifty tons of weapons and equipment atop eighteen tons of Kallon Royalstar heavy armor. This combination of firepower and protection makes the Nightstar one of the most dangerous stand-off combatants in the Inner Sphere, capable of engaging and destroying opponents at virtually any range bracket.</p><p>The primary armament consists of twin Norse-Storm Model 7D Gauss rifles mounted in each arm, backed by a Defiance 1001 extended-range PPC in the right torso. This trio of weapons delivers devastating long-range firepower, with each Gauss rifle capable of stripping nearly a ton of armor per shot. For close-range defense, a pair of Defiance P5M medium pulse lasers and a head-mounted ExoStar small laser provide supplemental firepower. Fourteen double heat sinks manage the thermal load with minimal difficulty.</p><p>Beyond its weapons array, the Nightstar's electronics suite is exceptional. The Tek BattleCom communications system provides superior command-and-control capability, while the DLK Phased Array Sensor System (widely regarded as the finest stock targeting and tracking system available prior to the development of dedicated targeting computers) grants pilots extraordinary accuracy. This combination of firepower, protection, and sophisticated electronics firmly establishes the Nightstar's role as a premier command assault 'Mech, though its modest top speed of fifty-four kilometers per hour leaves it vulnerable to faster opponents that can dictate engagement range.</p>
+
+deployment:<p>The original NSR-9J is the definitive Nightstar configuration, introduced in 2767 as the SLDF's answer to the targeted killing of Marauder-equipped commanders during the Amaris Civil War. Its combination of twin Gauss rifles, an extended-range PPC, and a sophisticated electronics suite established it as one of the premier command assault 'Mechs of the Star League era. Following the destruction of both factories in 2786, surviving examples became exceptionally rare battlefield prizes throughout the Succession Wars. When production resumed in 3057 at both Kathil and Solaris VII, this variant quickly became a common sight in both the Armed Forces of the Federated Suns and the Lyran Alliance Armed Forces, serving as the backbone of heavy assault lances across the former Federated Commonwealth.</p>
+
+history:<p>The Nightstar's origins trace directly to the chaos of the Amaris Civil War, when Stefan Amaris's forces made a deliberate practice of targeting SLDF unit commanders in their distinctive Marauder BattleMechs. The SLDF's response was swift, within eight months of commissioning, the first Nightstars rolled off production lines at General Motors on Kathil and Norse Technologies on Afleir, providing commanders with a vastly more survivable platform from which to lead their forces. The design saw distinguished service during the liberation of Terra and the final campaigns against Amaris.</p><p>The Nightstar became one of the earliest victims of the First Succession War. In 2786, a Free Worlds League raid savaged the Norse Technologies factory on Afleir, while a freak accident killed the General Motors engineering team on Kathil. With both production lines silenced and the technological expertise to rebuild them lost, the Nightstar joined the growing list of Star League designs that slipped beyond the Inner Sphere's ability to manufacture. Surviving examples became increasingly rare prizes, fought over by Successor State militaries desperate for any edge.</p><p>Nearly three centuries later, in 3057, the recovery of lostech and advances in manufacturing enabled both halves of the fracturing Federated Commonwealth to restart Nightstar production. General Motors reopened its Kathil line, while Norse-Storm Technologies (the corporate successor to Norse Technologies) established production on Solaris VII. The timing proved fortuitous, as the Nightstar entered service just as the Clan threat and internal divisions within the Federated Commonwealth created enormous demand for heavy assault platforms.</p><p>During the FedCom Civil War, the Nightstar served on both sides of the conflict, with its presence on the battlefield often marking the location of senior commanders. Reports from the war include accounts of Nightstar pilots employing extreme measures in the bitter fighting (including the use of atomic weapons on worlds such as Axton and Marlette) illustrating the desperate intensity of that conflict. The Lyran Alliance permitted mercenary sales early on, particularly to units deployed along the Clan Occupation Zones, while the Federated Suns restricted sales to its most trusted mercenary commands only after line units like the Davion Assault Guards received adequate numbers.</p><p>The design has continued to see active production and deployment through the Jihad and into the Dark Age. General Motors leveraged its experience with the successful Marauder MAD-9D to restart an updated Nightstar production line on Kathil, producing the NSR-10D variant beginning around 3144. The Nightstar remains a symbol of battlefield command authority, its distinctive silhouette marking the presence of senior officers and elite formations across the Inner Sphere.</p>
+
+manufacturer:Norse Technologies|General Motors|Norse-Storm Technologies Inc.
+
+primaryfactory:Afleir|Kathil|Solaris VII
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Norse-GM
+systemmode:CHASSIS:Heavy TRQ
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:285 XL
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:Royalstar Heavy Type K
+systemmanufacturer:COMMUNICATIONS:Tek
+systemmode:COMMUNICATIONS:BattleCom
+systemmanufacturer:TARGETING:DLK
+systemmode:TARGETING:Type Phased Array Sensors

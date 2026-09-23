@@ -1,0 +1,102 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-bc8c-7310-9337-54fa4e80f1a8
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Foot Platoon (FWLM)
+</Name>
+
+<Model>
+(SpecOps Fireteam 3050+)
+</Model>
+
+<year>
+3050
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+AntiMekGear
+Sneak Suit (Camo/IR/ECM)
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>New technology and creative tactical thinking have long featured in FWLM infantry deployment, with varied unit types and specialized formations treated as the norm rather than the exception. Foot infantry platoons form the garrison backbone of the League's provincial militaries, assigned to hold ground on worlds that BattleMech forces cannot permanently occupy. Quality varies with provincial investment, but even modest foot platoons benefit from the FWLM's tradition of equipping infantry with reliable, standardized kit. These special operations fireteams are small, highly trained units configured for reconnaissance, sabotage, and direct action missions operating independently behind enemy lines, relying on stealth and precise execution rather than conventional firepower.</p>
+</overview>
+
+<notes>
+Starfire ER Laser Rifle selected for range and factional availability. Intro date based on Starfire ER Laser Rifle prototype date. Slightly oversized squads selected for minimum anti-Mek capability.
+</notes>
+
+<squad_size>
+8
+</squad_size>
+
+<squadn>
+2
+</squadn>
+
+<secondn>
+2
+</secondn>
+
+<Primary>
+InfantryAssaultRifle
+</Primary>
+
+<Secondary>
+Laser Rifle (ER [Sunbeam Starfire])
+</Secondary>
+
+<sneakcamo>
+true
+</sneakcamo>
+
+<sneakir>
+true
+</sneakir>
+
+<sneakecm>
+true
+</sneakecm>
+
+<specialization>
+512
+</specialization>
+

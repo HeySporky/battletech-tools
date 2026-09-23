@@ -1,0 +1,371 @@
+{
+  "filename": "Hellion_D.hmp",
+  "size": 2173,
+  "header_hex": "56 35 2e 30 30 01 00 08 05 fd 07 17 00 00 00 00",
+  "raw_blocks": [
+    {
+      "type": "ascii",
+      "start": 0,
+      "end": 5,
+      "text": "V5.00"
+    },
+    {
+      "type": "len_string",
+      "start": 5,
+      "end": 8,
+      "length": 1,
+      "text": "\b"
+    },
+    {
+      "type": "byte",
+      "offset": 8,
+      "hex": "05"
+    },
+    {
+      "type": "byte",
+      "offset": 9,
+      "hex": "fd"
+    },
+    {
+      "type": "byte",
+      "offset": 10,
+      "hex": "07"
+    },
+    {
+      "type": "len_string",
+      "start": 11,
+      "end": 36,
+      "length": 23,
+      "text": "\u0000\u0000\u0000\u0000\u001e\u0000\t\u0000Hellion D\u0001\u0000 \u00fb\u000b\u0002"
+    },
+    {
+      "type": "byte",
+      "offset": 36,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 37,
+      "end": 40,
+      "text": "C+d"
+    },
+    {
+      "type": "byte",
+      "offset": 40,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 41,
+      "end": 1274,
+      "length": 1231,
+      "text": "\u0000\u0000xD\u0000\u0000xD\u0000\u0000\u00a8A\u0000\u0000pA\u0000\u0000\u00a0@\u001d\u0000ML 3 2 3 2 1\u0097 7 omni, if, tag\u0001\u0000\n\u0000\u0001\u0000\u00d2\u0000\u0001\u0000\u0007\u0000\u0000\u0000\n\u0000\u0001\u0000\u0001\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u000e\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0004\u0000\u0004\u0000\u0005\u0000\u0002\u0000\u0005\u0000\u0001\u00004\u0000\u0004\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u00004\u0000\u0001\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000M\u0000\u0005\u0000\b\u0000\u0005\u0000\t\u0000(Unknown)\u0001\u0000Y\u0000\u0002\u0000\f\u0000\u0002\u0000\t\u0000(Unknown)\u0001\u0000Z\u0000\u0007\u0000\u0000\u0000\u0000\u0000\t\u0000(Unknown)\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000Y\u0000\u0000\u0000\u00e9\u0001\u0006\b\u00e9\u0001\u0006\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0003\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0015\u0000\u0000\u0000\u0015\u0000\u0000\u00004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0017\u0000\u0000\u0000M\u0000\u0000\u0000M\u0000\u0000\u0000\u00dd\u0001\b\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0000\u0000\u0000\u0006\u0000\u0000\u0000\u0007\u0000\u0000\u0000\b\u0000\u0000\u0000\n\u0000\u0000\u0000\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\f\u0000\u0000\u0000\r\u0000\u0000\u0000\u000e\u0000\u0000\u0000Z\u0000\u0000\u0000\r\u0000\u0000\u0000\f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u0010\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u000f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00f6\u00ffi\u0000D\u0001The Hellion is the direct result of Clan Ice Hellion's philosophy of swift warfare. Using a heavier version fo the Mist Lynx chassis, the Ice Hellions created an effective blend of speed, armor and firepower. A fast and capable fighter, the Hellion can enter a battlefield, approach and strike a target before being touched.r\u0002The Hellion was designed to balance speed and firepower on the battlefield. Though slower than heavier models such as the Ice Ferret and Viper, it supports more pod space than either of them. The Hellion can also outpace lighter models that mount a larger weapons array, especially"
+    },
+    {
+      "type": "ascii",
+      "start": 1274,
+      "end": 1619,
+      "text": " when its MASC is engaged. The Hellion D is a new variant being produced by Clan Ice Hellion. In support of their shift in tactical doctrine, the Hellion D is a dedicated spotter, equipped with both Narc and TAG systems. The Hellion D also carries its own LRM-15 launcher to deliver supplemental fire, and two ER medium lasers as backup weapons."
+    },
+    {
+      "type": "len_string",
+      "start": 1619,
+      "end": 1622,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1622,
+      "end": 1625,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1625,
+      "end": 1628,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "ascii",
+      "start": 1628,
+      "end": 1629,
+      "text": "]"
+    },
+    {
+      "type": "byte",
+      "offset": 1629,
+      "hex": "01"
+    },
+    {
+      "type": "ascii",
+      "start": 1630,
+      "end": 1979,
+      "text": "The Hellion is popular among the Ice Hellions, appearing in nearly every light Star. In other Clans it is far less common, but appears periodically among the Toumans of all the Homeworld Clans. A surprising number have surfaced in the Clan OZ's, however, undoubtedly owing to the loss of an entire Hellion shipment from Hector to the Diamond Sharks."
+    },
+    {
+      "type": "len_string",
+      "start": 1979,
+      "end": 1982,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "len_string",
+      "start": 1982,
+      "end": 1985,
+      "length": 1,
+      "text": " "
+    },
+    {
+      "type": "byte",
+      "offset": 1985,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1986,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 1987,
+      "end": 1988,
+      "text": "\n"
+    },
+    {
+      "type": "byte",
+      "offset": 1988,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1989,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1990,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1991,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1992,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1993,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1994,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1995,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1996,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1997,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1998,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 1999,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2000,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2001,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2002,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2003,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2004,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2005,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2006,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2007,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2008,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2009,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2010,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2011,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2012,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2013,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2014,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2015,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2016,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2017,
+      "end": 2027,
+      "length": 8,
+      "text": "[ none ]"
+    },
+    {
+      "type": "byte",
+      "offset": 2027,
+      "hex": "00"
+    },
+    {
+      "type": "byte",
+      "offset": 2028,
+      "hex": "00"
+    },
+    {
+      "type": "len_string",
+      "start": 2029,
+      "end": 2062,
+      "length": 31,
+      "text": "Hector MechWorks Facility Alpha"
+    },
+    {
+      "type": "len_string",
+      "start": 2062,
+      "end": 2070,
+      "length": 6,
+      "text": "Hector"
+    },
+    {
+      "type": "len_string",
+      "start": 2070,
+      "end": 2078,
+      "length": 6,
+      "text": "210 XL"
+    },
+    {
+      "type": "len_string",
+      "start": 2078,
+      "end": 2108,
+      "length": 28,
+      "text": "Compound Gamma Ferro-Fibrous"
+    },
+    {
+      "type": "len_string",
+      "start": 2108,
+      "end": 2137,
+      "length": 27,
+      "text": "Hellion Light Endo Steel V5"
+    },
+    {
+      "type": "ascii",
+      "start": 2137,
+      "end": 2138,
+      "text": "\r"
+    },
+    {
+      "type": "byte",
+      "offset": 2138,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2139,
+      "end": 2153,
+      "text": "HCFA 3035 3.0\r"
+    },
+    {
+      "type": "byte",
+      "offset": 2153,
+      "hex": "00"
+    },
+    {
+      "type": "ascii",
+      "start": 2154,
+      "end": 2167,
+      "text": "HCFA 3047 1.5"
+    },
+    {
+      "type": "len_string",
+      "start": 2167,
+      "end": 2173,
+      "length": 4,
+      "text": "None"
+    }
+  ]
+}

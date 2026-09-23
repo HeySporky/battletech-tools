@@ -1,0 +1,235 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aafb-76fe-ae0d-d6317d13d276
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Excalibur
+</Name>
+
+<Model>
+(2786)
+</Model>
+
+<mul id:>
+4141
+</mul id:>
+
+<year>
+2786
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+heavyvehiclebay:90.0:1:1::-1:0
+mekbay:12.0:1:-1::-1:0
+infantrybay:12.0:1:3:Foot:-1:0
+cargobay:440.0:0:4::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+1stclassquarters:90.0:0:-1::-1:0
+crewquarters:287.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+145
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+9000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+200
+180
+180
+154
+</armor>
+
+<Nose Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) LRM 10
+IS Ammo LRM-10:24
+(B) Medium Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) PPC
+(B) LRM 10
+LRM 10
+IS Ammo LRM-10:24
+(B) Medium Laser
+Medium Laser
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) PPC
+(B) LRM 10
+LRM 10
+IS Ammo LRM-10:24
+(B) Medium Laser
+Medium Laser
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Large Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+14
+</structural_integrity>
+
+<capabilities>
+<p>The Excalibur's interior is dominated by five enormous bays that account for the majority of the vessel's internal volume. Four of these are configured as vehicle bays housing two full battalions of heavy combat vehicles, while the fifth accommodates a company of BattleMechs. The 'Mech bay especially lacks dedicated repair facilities or 'Mech-drop capability, requiring grounded deployment of all BattleMech assets. Six troop decks provide quarters for vehicle crews, MechWarriors, technical personnel, and a complete infantry battalion, with each infantry deck containing its own barracks, mess and recreation areas, training spaces, and medical facilities.</p><p>The fifty-member crew occupies quarters above the troop decks, comprising twenty-one double-occupancy rooms and eight single-occupancy suites for senior officers. A dedicated mess hall and recreation center occupy the deck's central portion, with three elevators providing access to other decks. The command deck is isolated above, accessible only through a security code-equipped elevator. The vessel's drive system provides a respectable acceleration profile, and the design's high mass-to-fuel consumption ratio makes it efficient and economical to operate. Four box-like structures along the hull's lower exterior serve as fixed landing pads and house the aft-facing weapons arrays. The armament, while adequate for deterring uncoordinated attacks, is widely considered insufficient for a vessel of this size.</p>
+</capabilities>
+
+<overview>
+<p>The Excalibur-class DropShip is the largest military transport in common service among the Successor State militaries, a massive spheroid vessel capable of delivering a complete combined-arms regiment comprising two vehicle battalions, an infantry battalion, and a BattleMech company in a single planetary deployment. Entering service in 2786 at the onset of the First Succession War, the Excalibur was selected as the replacement for the even larger Colossus-class following the devastating losses of the Amaris Civil War, offering comparable transport capacity at significantly lower production cost. Despite this relative affordability, the vessel remains expensive enough that only Great House militaries, major mercenary commands, and large transport corporations such as Akira Transport have historically been able to operate them, ensuring the Excalibur's presence on any battlefield marks the commitment as a major military undertaking of the very highest strategic significance.</p>
+</overview>
+
+<deployment>
+<p>The original Excalibur serves as the heavy transport backbone of every Successor State military, deployed whenever a planetary assault requires the commitment of a full combined-arms regiment. The vessel's slow unloading sequence limits it to operations where landing zones have been thoroughly secured in advance, and it is typically among the last craft to enter an assault area after forward elements have neutralized immediate threats. Once its forces have been deployed, the Excalibur continues to serve as a forward logistics hub, ferrying supplies in support of ongoing combat operations. The Draconis Combine has historically maintained one of the largest Excalibur fleets among the Successor States, a factor that drove Kurita's efforts to develop an alternative drive system.</p>
+</deployment>
+
+<history>
+<p>The Excalibur's genesis lies in the aftermath of the Amaris Civil War, when the Star League Defense Force found its fleet of Colossus-class assault transports devastated beyond recovery. The SLDF selected the Excalibur design as a more affordable replacement before the League's dissolution, and the first vessels entered service in 2786 as the First Succession War engulfed the Inner Sphere. The massive craft quickly became the premier heavy transport for planetary assault operations, though its considerable expense ensured that only the wealthiest organizations could maintain fleets of any significant size.</p><p>The Excalibur's continued service was threatened in 3022 when the last manufacturer capable of producing the vessel's original drive system ceased operations. Without spare parts, maintenance costs skyrocketed and many Excaliburs were scrapped or cannibalized to keep the remaining fleet operational. The Draconis Combine, which maintained one of the largest Excalibur fleets, commissioned an engineering team to develop an alternative propulsion solution. Their proposal to adapt the smaller drive system used in the Mule-class cargo vessel proved successful, and most Excaliburs produced after the early 3030s employed this replacement drive.</p><p>The design's weapons array has long been criticized as inadequate for a vessel of its size, leaving it vulnerable to coordinated fighter attacks and requiring escort protection during combat operations. The slow and cumbersome unloading process, which can take up to three hours to fully disembark the craft's complement, further limits its tactical flexibility. These weaknesses restrict the Excalibur to operations where landing zones have been secured in advance, typically entering an assault area only after forward elements have neutralized immediate threats.</p><p>Semier Data Tron of Tharkad attempted to address the firepower shortfall beginning in 3056, introducing an upgraded variant incorporating recovered Star League-era weapons technology. While the modifications improved range and accuracy, they came at the cost of increased heat generation and reduced transport capacity. Several different weapon configurations were trialed with mixed results before the most common arrangement was standardized.</p><p>The most dramatic transformation of the Excalibur hull came with the Pocket WarShip conversion, a program with a convoluted genesis involving the Draconis Combine Mustered Soldiery and the shipbuilder Federated-Boeing Interstellar. This radical refit gutted the vessel's transport capacity entirely, replacing vehicle and troop decks with capital-grade missile launchers and massive ammunition stores. The lowest vehicle deck was converted into an aerospace fighter bay, giving the vessel organic fighter support for the first time. While dramatically altering the Excalibur's role from transport to combatant, the Pocket WarShip conversion demonstrated the fundamental soundness of the hull design and its adaptability to radically different mission profiles.</p>
+</history>
+
+<manufacturer>
+BBP Industries|Rashpur-Owens Inc.|Semier Data Tron
+</manufacturer>
+
+<primaryFactory>
+Luthien|Capella|Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:GM 48000
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+16000.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+1130
+</crew>
+
+<officers>
+9
+</officers>
+
+<gunners>
+4
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+4
+</life_boat>
+
+<escape_pod>
+25
+</escape_pod>
+

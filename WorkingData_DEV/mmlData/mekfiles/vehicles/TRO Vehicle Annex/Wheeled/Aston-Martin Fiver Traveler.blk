@@ -1,0 +1,167 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb5d-7850-8b3f-6c542e769a19
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Aston-Martin Fiver Traveler
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3741
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+standardseats:8.0:0:-1::-1:0
+cargobay:0.21:1:2::-1:0
+</transporters>
+
+<cruiseMP>
+11
+</cruiseMP>
+
+<engine_type>
+11
+</engine_type>
+
+<armor_type>
+45
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+2
+2
+2
+2
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+4
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Traveler prioritizes passenger accommodation over outright performance, offering seating for a crew of one and seven additional passengers in a heavily reinforced 2,500-kilogram chassis. Despite its greater mass, an upgraded electric battery powertrain propels the vehicle to speeds exceeding 150 kilometers per hour, maintaining competitive performance in the luxury group transport category. Cargo capacity of 210 kilograms supplements the generous passenger cabin, making the Traveler suitable for extended journeys with luggage. Range is rated at 520 kilometers per charge, somewhat less than the Roadster but practical for the longer family and commercial trips the Traveler is designed to support.</p><p>The Traveler's reinforced frame, tested against a range of contingencies including light weapons effects, provides a BAR 4 protection rating that meaningfully exceeds the Roadster and offers real-world survivability in civil disorder or low-level conflict scenarios. This makes it a reasonable choice for security details and noble household transport on worlds less tranquil than Numenor. Both the Roadster and Traveler share significant drivetrain components and battery systems, which simplifies fleet maintenance for owners operating multiple vehicles and moderates the cost of spare parts across the product line.</p>
+</capabilities>
+
+<overview>
+<p>The Aston-Martin Fiver series represents the flagship product line of a small luxury automaker based in Connery, a port city on the peaceful Federated Suns world of Numenor. Produced beginning in 3064, the current Fiver models are battery-powered electric vehicles designed to appeal to Numenor's wealthy noble class, whose cultural values prize environmentally responsible and quiet transportation above combustion alternatives. The series consists of two complementary models, the compact two-seat Roadster aimed at performance-minded buyers and the larger eight-passenger Traveler targeting family and group transport. Both vehicles share a common electric drivetrain philosophy and are marketed together as a cohesive product family, with Aston-Martin positioning the pair as the definitive luxury vehicle choice for sophisticated buyers on Numenor and, the company hopes, across the broader Federated Suns.</p>
+</overview>
+
+<deployment>
+<p>The Traveler is aimed at family buyers and group transport applications, with Aston-Martin specifically targeting 'hockey dads' of Numenor in its advertising. The eight-passenger capacity, reinforced construction, and 210-kilogram cargo allowance make it serviceable for extended family journeys and small commercial hire operations. Its BAR 4 protection rating also makes it a practical choice for noble household transport and low-threat security escort duties. Like the Roadster, distribution is concentrated through the Connery dealership network, with limited availability outside Numenor.</p>
+</deployment>
+
+<history>
+<p>Aston-Martin has operated in Connery for generations predating the formation of the Federated Commonwealth, producing high-end vehicles for Numenor's noble class. The citizens of Numenor, insulated from the worst of the Succession Wars by their world's long peaceful history, developed a distinctive culture of wealth, erudition, and political consciousness that made battery-powered electric vehicles an obvious choice for the socially aware buyer. Combustion engines were seen as both polluting and politically retrograde, and the quiet operation of electric motors appealed even to those whose interest in environmental policy was primarily social rather than principled. Earlier Aston-Martin models catered to this sentiment and helped establish the brand as the aspirational choice for Numenoran elites.</p><p>The emergence of the Federated Commonwealth brought broader market competition to Numenor's luxury vehicle sector. Avanti hover vehicles produced in the Lyran Alliance aggressively expanded into Federated Suns markets during the FedCom era, capturing significant share through a campaign that linked Avanti ownership to political loyalty to the Archon. The strategy proved effective enough to displace Aston-Martin from New Avalon entirely, as Lyran-leaning buyers purchased Avanti vehicles to signal alignment with the Steiner half of the Commonwealth. Aston-Martin retreated to its Numenoran home market during this period, continuing sales of existing models while absorbing the competitive damage.</p><p>The FedCom Civil War reversed this dynamic. As Davion pride resurged and sentiment against Lyran-origin products grew across the Federated Suns, Aston-Martin moved quickly to capitalize. The company introduced the Fiver series in 3064, timing the launch to coincide with the cultural shift away from FedCom-era loyalties. The Roadster and Traveler were designed and marketed as a paired family, linked by a shared advertising campaign that explicitly positioned Avanti hover vehicles as the competition. Aston-Martin's marketing representatives compared the Fivers favorably to Avanti's latest models on range, comfort, and road-handling performance, arguing that wheeled electric vehicles were more practical for Numenor's developed road network than the hover technology favored in the Lyran Alliance. Three dealerships in Connery handle all Numenoran sales, and Aston-Martin salesmen are well known for their skill at appraising the social status of prospective buyers before tailoring their pitch accordingly.</p>
+</history>
+
+<manufacturer>
+Aston-Martin
+</manufacturer>
+
+<primaryFactory>
+Numenor
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Aston-Martin
+ENGINE:Aston-Martin
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:N/A
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Reinforced (2,500 kg)
+ENGINE:Electric Battery
+ARMOR:BAR 4 (8 pts)
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:N/A
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+2.5
+</tonnage>
+
+<fuel>
+0.244
+</fuel>
+

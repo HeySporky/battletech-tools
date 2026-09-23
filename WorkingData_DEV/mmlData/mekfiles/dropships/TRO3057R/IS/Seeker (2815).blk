@@ -1,0 +1,224 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab4a-7038-86e3-e1fb0f5945f8
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Seeker
+</Name>
+
+<Model>
+(2815)
+</Model>
+
+<mul id:>
+5013
+</mul id:>
+
+<year>
+2815
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+lightvehiclebay:40.0:1:1::-1:0
+infantrybay:9.0:1:2:Foot:-1:0
+cargobay:491.0:1:3::-1:0
+1stclassquarters:40.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:112.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+5
+</SafeThrust>
+
+<heatsinks>
+101
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+6450
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+140
+120
+120
+116
+</armor>
+
+<Nose Equipment>
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) PPC
+(R) (B) LRM 10
+(R) IS Ammo LRM-10:12
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) PPC
+(R) (B) LRM 10
+(R) IS Ammo LRM-10:12
+(R) (B) Large Laser
+(R) Medium Laser
+(R) Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Large Laser
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+10
+</structural_integrity>
+
+<capabilities>
+<p>The Seeker's Quad RanTech 720 fusion drive system accounts for almost a third of the vessel's mass and is the key to its performance. The drive consists of four small fusion reactors, each independently operated and shielded. Engineers can work on a single reactor without shutting down the entire system, and the Seeker can operate on two reactors for extended periods or a single reactor in emergencies, providing exceptional redundancy for long-range independent operations.</p><p>Energy weapons dominate the arsenal. Each side mounts a PPC, a large laser, two medium lasers, and an LRM-10 launcher. The aft arc carries a large laser and two medium lasers. One hundred and one single heat sinks manage the thermal output. The reconfigurable main bays normally carry forty light vehicles and nine infantry platoons, with 491 tons of cargo space holding spare parts, food, and water for four months of independent operations. Crew and passenger quarters are luxurious by military standards, and an extensive medical facility handles most field emergencies.</p>
+</capabilities>
+
+<overview>
+<p>The Seeker is a 4,700-ton Spheroid troop transport designed to carry a scout battalion into hostile territory and operate independently of support vessels for extended periods. Introduced in 2815 during the early Succession Wars, the design prioritizes speed, endurance, and crew comfort over raw firepower, reflecting its intended role as a deep reconnaissance platform rather than a front-line assault ship.</p><p>One of the fastest DropShips of its size class, the Seeker carries enough parts, food, and water to operate for up to four months without resupply. Relatively luxurious crew quarters and an extensive medical facility promote morale during lengthy independent deployments, making the design popular with scout commands and reconnaissance units across multiple Successor States.</p>
+</overview>
+
+<deployment>
+<p>The original Seeker has served in virtually every Inner Sphere military since 2815, typically assigned to scout battalions and reconnaissance commands requiring independent deep-penetration capability. Multiple manufacturers across the Inner Sphere ensured broad availability, and the design's four-month endurance made it the preferred transport for extended scouting missions where resupply was uncertain.</p>
+</deployment>
+
+<history>
+<p>The Seeker entered service in 2815 and was produced by multiple manufacturers across the Inner Sphere, ensuring widespread availability throughout the Succession Wars. The design's combination of speed, endurance, and versatile transport capacity made it a staple of scout and reconnaissance formations in every major military. Its reconfigurable cargo bays allowed field commanders to tailor the vessel's loadout to mission requirements, carrying light vehicles, BattleMechs, or even aerospace fighters as needed.</p><p>Refitted versions of the Seeker appeared following the rediscovery of Star League technology. The most common upgrade was jointly developed by Semier Data Tron and Salvatore Inc. for the Federated Commonwealth in 3054, incorporating extended-range energy weapons and improved fire control systems. Both the Free Worlds League and the Capellan Confederation were also reported to be developing their own upgraded variants, though these programs were not publicly confirmed. The Seeker has remained in continuous service across the Inner Sphere, its proven reliability and adaptable design ensuring relevance well beyond its original era.</p>
+</history>
+
+<manufacturer>
+Federated-Boeing Interstellar - Port Simon Shipyards|Kathil Shipworks - McKenna Shipyards|Salvatore Inc.|Semier Data Tron|Tengo Aerospace
+</manufacturer>
+
+<primaryFactory>
+Galax|Kathil|Layover|Tharkad|Sarna
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Quad RanTech 720
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+4700.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+472
+</crew>
+
+<officers>
+4
+</officers>
+
+<gunners>
+3
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+8
+</escape_pod>
+

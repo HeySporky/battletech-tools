@@ -1,0 +1,233 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aaf3-75fa-ab7b-cf2de6b2fb3a
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Condor
+</Name>
+
+<Model>
+(3054)
+</Model>
+
+<mul id:>
+3984
+</mul id:>
+
+<year>
+3054
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+infantrybay:12.0:1:1:Foot:-1:0
+lightvehiclebay:20.0:1:2::-1:0
+crewquarters:175.0:0:-1::-1:0
+2ndclassquarters:21.0:0:-1::-1:0
+1stclassquarters:60.0:0:-1::-1:0
+cargobay:1526.5:1:6::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+90
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+6240
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+150
+140
+140
+122
+</armor>
+
+<Nose Equipment>
+(B) ISERPPC
+(B) Autocannon/5
+IS Ammo AC/5:40
+(B) LRM 15
+IS Ammo LRM-15 Artemis-capable:24
+ISArtemisIV
+(B) Medium Laser
+Medium Laser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) ISERLargeLaser
+ISERLargeLaser
+Medium Laser
+Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Autocannon/5
+IS Ammo AC/5:20
+(B) ISERLargeLaser
+ISERLargeLaser
+Medium Laser
+Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISERLargeLaser
+Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+MASH Equipment:SIZE:1.0
+</Hull Equipment>
+
+<structural_integrity>
+10
+</structural_integrity>
+
+<capabilities>
+<p>The 3054 upgrade introduced by Nimakachi Fusion Products Limited replaces several of the original Condor's conventional weapons with recovered Star League-era technology. The nose-mounted particle projector cannon is exchanged for an extended-range model, and the large lasers in the wings and nose are similarly upgraded to extended-range variants. An Artemis IV fire control system is added to the nose-mounted long-range missile launcher, improving its accuracy against maneuvering targets.</p><p>Early production models of this upgrade suffered from a design flaw in which the proximity of the particle cannon to the missile launcher caused the Artemis system to malfunction whenever the cannon was fired. Models produced after November 3055 incorporated a special coolant circuit that resolved this electromagnetic interference issue. The improved weapons come at the cost of slightly reduced cargo capacity compared to the original, and the structural integrity of the airframe has been modestly improved. The infantry and vehicle transport capacity remains unchanged from the base model.</p>
+</capabilities>
+
+<overview>
+<p>The Condor-class DropShip is one of the largest vessels designed specifically for infantry transport, capable of delivering a full battalion of 336 troops along with twenty light support vehicles directly onto the battlefield. Entering service in 2801 during the opening years of the First Succession War, the Condor was built as a military aerodyne with unusually robust wing structures that proved far less susceptible to control surface damage than those of comparable designs. The vessel earned a strong reputation among infantry commanders for its spacious troop accommodations, well-equipped onboard medical facilities, and substantial cargo capacity, making it one of the most valued dedicated infantry transports in the Inner Sphere. Its distinctive broad-winged silhouette became a familiar sight above contested landing zones throughout the Succession Wars and beyond, and the design has since spawned both a hospital ship conversion and a civilian cargo variant, sign of the fundamental soundness of the original airframe.</p>
+</overview>
+
+<deployment>
+<p>The upgraded Condor has been produced by Nimakachi Fusion Products Limited since 3054 and has gradually replaced older models in frontline service across the Inner Sphere. The improved weapons range and accuracy make the upgraded variant particularly well suited to contested landing operations where infantry transports may face opposition during their final approach. Units operating in the Clan Occupation Zones and along contested borders have been among the first to receive the upgraded models, where the enhanced engagement envelope provides a meaningful edge in deterring harassing attacks from faster and better-armed Clan aerospace assets during transit and landing operations.</p>
+</deployment>
+
+<history>
+<p>The Condor entered service in 2801, early in the First Succession War, when the need for dedicated infantry transports capable of large-scale planetary assault operations became acute. The design's emphasis on troop comfort and medical capability reflected hard-won lessons from the Star League era about the importance of delivering infantry forces in fighting condition rather than merely ferrying bodies between worlds. The robust wing design, with its heavy structural bracing and integrated fuel bunkers, proved remarkably durable in combat conditions.</p><p>Throughout the Succession Wars, the Condor served in the fleets of every Great House, becoming a standard component of planetary assault forces wherever infantry operations were planned. The vessel's unique wing cavities, containing large amounts of accessible but undesignated space, became an open secret among Condor crews, who used these hidden areas to store additional equipment and supplies beyond the vessel's official manifest. This unofficial cargo capacity proved invaluable during extended campaigns where supply lines were uncertain.</p><p>The years following the Fourth Succession War saw two significant developments for the Condor class. Beginning in 3035, approximately two dozen vessels were converted into hospital ships, their cargo bays replaced with treatment wards and their operating theaters greatly expanded. These converted vessels, nicknamed Doves, became prized assets in every fleet that operated them. ComStar acquired the largest share, fielding twelve Doves, with the remainder distributed among the Successor State navies.</p><p>In 3054, Nimakachi Fusion Products Limited began production of an upgraded Condor featuring recovered Star League-era weapons technology. Early production models suffered from electromagnetic interference between the nose-mounted weapons systems, but models produced after late 3055 incorporated a redesigned coolant circuit that resolved the issue. The upgraded design slightly reduced cargo capacity in exchange for improved range and firepower.</p><p>By 3079, Nimakachi had introduced the Stork, a purpose-built civilian cargo variant of the Condor produced at their Dalton facility. The Stork represented a significant departure from the military-focused lineage of the Condor family, leveraging the design's proven airframe for commercial applications in the post-Jihad reconstruction era.</p>
+</history>
+
+<manufacturer>
+Hinsdale Elec|Nimakachi Fusion Products Ltd.
+</manufacturer>
+
+<primaryFactory>
+Dover|Dalton
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Pitban 1350-XRB
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r
+</source>
+
+<tonnage>
+4500.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+460
+</crew>
+
+<officers>
+4
+</officers>
+
+<gunners>
+3
+</gunners>
+
+<passengers>
+5
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+14
+</life_boat>
+
+<escape_pod>
+7
+</escape_pod>
+

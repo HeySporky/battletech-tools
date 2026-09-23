@@ -1,0 +1,176 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-acb7-7838-adf8-5c4724dda077
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Tomahawk
+</Name>
+
+<Model>
+THK-63-EC
+</Model>
+
+<mul id:>
+7688
+</mul id:>
+
+<year>
+2818
+</year>
+
+<type>
+Mixed (Clan Chassis) Experimental
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+8
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+14
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+0
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<armor>
+57
+42
+42
+38
+</armor>
+
+<Nose Equipment>
+Small Laser
+</Nose Equipment>
+
+<Left Wing Equipment>
+Improved Large Laser
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+Improved Large Laser
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+</Fuselage Equipment>
+
+<capabilities>
+<p>The THK-63 mounts two Maxell SR large lasers in its wing bays and an Exostar small laser in the nose, relying entirely on energy weapons to eliminate the logistical burden of ammunition resupply. Twelve double heat sinks manage the thermal output of the laser battery effectively, correcting the design's longstanding overheating problem. Ten tons of Fiber 10 Ferro-Aluminum armor provides above-average protection for a fighter of this weight class, exceeding the defensive capability of many comparable designs.</p><p>The PlasmaStar 270 fusion engine drives the Tomahawk to six Gs of safe thrust, delivering strong maneuverability in both space and atmospheric combat. Five tons of fuel support extended patrol and escort assignments. The Telestar Fortran communications system and IMB 5000 targeting suite provide solid situational awareness across all operational environments.</p><p>The design's primary weakness is thermal stress during sustained engagement. The large laser armament demands careful heat discipline in prolonged dogfights, and while the double heat sink configuration brought this within acceptable limits, pilots must still manage their firing rhythm to avoid compounding thermal load during high-intensity combat sequences. The nose laser contributes limited additional firepower but was included primarily to ensure pilots had a forward armament option during close-in maneuvering.</p>
+</capabilities>
+
+<overview>
+<p>The Tomahawk is a 45-ton light aerospace fighter designed by Wangker Aerospace as a dedicated dogfighter for the Star League Defense Force. First introduced in 2680, the THK-63 represented the culmination of nearly four decades of iterative development aimed at solving the chronic heat management problems that plagued earlier production models. Its all-energy armament, capable performance envelope, and generous fuel capacity made the design well suited to patrol and escort duties across the full range of Star League aerospace operations.</p><p>The Tomahawk earned a reputation as a reliable and capable light fighter during its long service with the SLDF, excelling in both atmospheric and space environments. Though far fewer survive than were originally produced, examples remained in widespread use among the Clans and select Inner Sphere factions for centuries after the Star League's fall, valued for their combination of maneuverability, fuel economy, and self-sufficient armament.</p>
+</overview>
+
+<deployment>
+<p>The THK-63-EC designation identifies early Clan field upgrades of captured or Exodus-era THK-63 airframes, replacing the standard large lasers with improved versions and adding additional double heat sinks using the weight recovered by the lighter weapons. The conversion was widespread among Clan second-line units in the generations following the Exodus, particularly within Clans that had inherited large populations of Star League-era fighters. The "EC" label was applied by later historians to distinguish these early Clan-technology conversions and was never used by Clan technicians themselves. Surviving examples circulate among Clan rear-echelon forces and occasionally appear in Inner Sphere units that have acquired Clan salvage.</p>
+</deployment>
+
+<history>
+<p>Wangker Aerospace began development of the Tomahawk line on Mars in the early 2640s, with the initial THK-33 prototype quickly revealing the core challenge that would define the design's early history: its laser-heavy armament generated more heat than the available heat sink technology could manage reliably. The THK-43 followed as the first full production model, introducing improved armor while making incremental gains in thermal capacity. The THK-53 attempted to address the problem by substituting the wing-mounted weapons for a lighter armament configuration, sacrificing range for thermal control. None of these iterations fully satisfied the SLDF's requirements.</p><p>The THK-63, introduced at the Wangker facility on Mars in 2680, finally resolved the problem through the adoption of a comprehensive double heat sink suite, restoring the original armament scheme while achieving acceptable thermal management. Wangker also produced a limited number of Royal variants for elite SLDF commands during this period, incorporating an XL engine to recover additional weight for enhanced firepower and protection.</p><p>The Tomahawk served as a mainstay of SLDF aerospace wings for over a century. The Amaris Civil War consumed a substantial portion of the surviving fleet, and Kerensky's Exodus carried much of the remainder beyond Inner Sphere reach. Clan forces absorbed these fighters into their second-line toumans, where the type would continue serving for generations. ComStar quietly maintained a stockpile through the Succession Wars, occasionally supplying examples to select Inner Sphere militaries through technology exchange programs. The Clan Invasion prompted ComStar to reactivate the Wangker plant on Mars in 3052, restarting production and initiating the development of new upgraded configurations. Control of the facility passed to the Word of Blake following the ComStar schism, supplying Militia aerospace wings through the Jihad before the Republic of the Sphere assumed control of the installation.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Shipil
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:N/A
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Shipil 35-B
+ENGINE:PlasmaStar 270
+ARMOR:Fiber 10 Ferro-Aluminum
+JUMP_JET:N/A
+COMMUNICATIONS:Telestar Fortran
+TARGETING:IMB 5000
+</systemModels>
+
+<source>
+TR:GC
+</source>
+
+<published>
+TR:GC
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

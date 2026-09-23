@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a8ae-7201-a96e-ded48033c6ed
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Resgate PA(L)
+</Name>
+
+<Model>
+(Spotter)(Sqd6)
+</Model>
+
+<mul id:>
+9169
+</mul id:>
+
+<year>
+3083
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Jump
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+35
+</armor_type>
+
+<armor_tech>
+2
+</armor_tech>
+
+<Point Equipment>
+BAArmoredGlove:RA
+CLBALightTAG:Body
+BAArmoredGlove:LA
+Clan BA Fire Resistant:RA
+Clan BA Fire Resistant:RA
+Clan BA Fire Resistant:Body
+Clan BA Fire Resistant:LA
+Clan BA Fire Resistant:LA
+</Point Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+</Trooper 6 Equipment>
+
+<slotless_equipment>
+BAJumpJet
+</slotless_equipment>
+
+<capabilities>
+<p>The Spotter configuration strips the Resgate's standard equipment in favor of a light TAG designator and armored gloves. This Jihad-era variant transforms the rescue exoskeleton into a forward targeting platform, capable of painting targets for artillery and missile strikes. The light TAG unit allows the operator to designate targets for semi-guided munitions from positions that heavier spotting platforms cannot reach.</p><p>Armored gloves provide adequate manual dexterity for field operations. The suit retains its fire-resistant armor and jump capability, giving it the thermal protection and mobility to operate in forward positions. Without sensors, the Spotter relies entirely on the operator's own situational awareness to locate and designate targets. The configuration sacrifices all rescue functionality for a single combat-support role, making it the most specialized of the Resgate variants.</p>
+</capabilities>
+
+<overview>
+<p>The Resgate is a Clan-manufactured light exoskeleton designed exclusively for search and rescue operations. Developed by Clan Cloud Cobra's scientist caste in the early thirtieth century, the suit was built to improve emergency response capabilities across Cobra-held worlds. Carrying no weapons, the Resgate prioritized sensor capability, debris-clearing tools, and operator protection over any form of combat effectiveness. The design earned a strong reputation among emergency services personnel for its reliability under harsh and dangerous field conditions.</p>
+</overview>
+
+<deployment>
+<p>ComStar and Word of Blake Level I formations equipped with the Spotter configuration could maintain multiple simultaneous TAG designations. Six operators provided the redundancy needed to sustain targeting operations even when individual spotters were forced to reposition or temporarily lost contact with their assigned fire support elements.</p>
+</deployment>
+
+<history>
+<p>In the late thirtieth century, a massive earthquake struck the Cloud Cobra enclave on Homer, killing over eight hundred merchant and laborer caste members and devastating a quarter of the settlement. The Warrior Council, shaken by the scale of the disaster, directed the scientist caste to develop improved emergency response tools. Working from castoff battle armor prototypes, Cloud Cobra scientists produced a compact light exoskeleton stripped down to the essentials needed for locating and extracting trapped or injured civilians.</p><p>The suit's protective capabilities expanded following a trial between Cloud Cobra and Clan Fire Mandrill scientists. Scientist Carl of the Cloud Cobras won access to fire-resistant armor technology through a magnetic belt experiment, and the material was quickly integrated into the Resgate design. The 849th Fire Response Unit validated the upgrade when the DropShip Dresden crashed on Babylon. Resgate operators pulled nearly the entire crew from the burning wreckage, losing only a single life.</p><p>During the Jihad, Cloud Cobra engineers developed four specialized variants that expanded the exoskeleton's role beyond rescue operations into electronic warfare, reconnaissance, target designation, and fire support. Production later spread to Olivetti Weaponry on Sudeten under Clan Jade Falcon control.</p>
+</history>
+
+<manufacturer>
+Clan Cloud Cobra|Olivetti Weapons
+</manufacturer>
+
+<primaryFactory>
+Homer|Sudeten
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+3
+</jumpingMP>
+
+<armor>
+2
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

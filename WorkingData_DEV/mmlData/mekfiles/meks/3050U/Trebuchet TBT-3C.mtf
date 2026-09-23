@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c6cb-7b22-95b1-583b5efde4e7
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Trebuchet
+model:TBT-3C
+mul id:3295
+
+Config:Biped
+techbase:Inner Sphere
+era:2780
+source:TR:3050,TR:3050U
+published:RS:3050Uu-I
+rules level:2
+role:Missile Boat
+
+quirk:easy_maintain
+weaponquirk:fast_reload:RT:3:LRM 15
+
+mass:50
+engine:300 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:6
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:10
+RT armor:10
+CT armor:20
+HD armor:9
+LL armor:13
+RL armor:13
+RTL armor:5
+RTR armor:5
+RTC armor:7
+
+Weapons:6
+LRM 15, Left Arm
+Medium Laser, Left Arm
+Medium Laser, Right Arm
+Medium Laser, Right Arm
+LRM 15, Right Torso
+Medium Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+LRM 15
+LRM 15
+LRM 15
+ISArtemisIV
+Medium Laser
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Medium Laser
+Medium Laser
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+ISCASE
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+LRM 15
+LRM 15
+LRM 15
+ISArtemisIV
+IS Ammo LRM-15 Artemis-capable
+IS Ammo LRM-15 Artemis-capable
+ISCASE
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+IS Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Trebuchet was one of a handful of BattleMech designs produced during the final years of the Star League, first walking off Corean Enterprises' assembly lines in 2780 for the SLDF. Originally designated the TBT-3C and equipped with advanced technology including an extralight engine, Artemis IV fire control, and double heat sinks, the design served as a medium fire support platform intended to operate as part of a well-balanced lance rather than independently. The devastation of the First Succession War forced Corean to redesign the 'Mech without lostech components, producing the simplified TBT-5N in 2799 that would become the standard production model.</p><p>Renowned for its effective blend of long-range missile fire and short-range laser support, the Trebuchet became an almost exclusive staple of the Free Worlds League during the Succession Wars, its surviving manufacturing sites on Stewart and Kalidasa falling within League territory. The design's reputation for easy maintenance and reliable performance ensured its continued production across multiple centuries and manufacturers.</p>
+
+capabilities:<p>Designed to serve as part of a well-balanced lance, the Trebuchet relies on an effective combination of good mobility and a weapons load that blends long-range missile support with close-in laser firepower. The primary armament consists of twin Zeus LRM-15 launchers, one mounted in the right torso and one in the left arm, capable of softening enemy formations at ranges beyond effective return fire. Three Magna Mk II medium lasers (two in the right arm and one in the left) provide credible close-range defense and discourage lighter 'Mechs from attempting interception.</p><p>The Magna 250 fusion engine drives the fifty-ton chassis to a respectable 86 kilometers per hour, adequate for keeping pace with most fire support formations. Seven and a half tons of Starshield armor provides reasonable protection for the weight class, though dedicated brawlers will outmatch the Trebuchet in sustained close combat. Ten heat sinks manage thermal output adequately when firing lasers at cruising speed, and the chassis has earned a reputation for easy maintenance and quick reloading of its torso-mounted weaponry.</p><p>The design's greatest weakness is endurance. Each LRM launcher carries only a single ton of ammunition, providing barely a minute of continuous fire before the Trebuchet must rely solely on its lasers, where it finds itself outgunned compared to dedicated close-combat 'Mechs of similar tonnage. This limited ammunition supply reflects the design philosophy of operating near friendly supply lines rather than on extended independent patrols.</p>
+
+deployment:<p>The original Trebuchet produced for the Star League Defense Force mounted a formidable array of advanced technology. A 300-rated extralight engine provided the same ground speed as later models while freeing tonnage for an endo-steel chassis, Artemis IV fire control on both LRM-15 launchers, CASE ammunition protection, four medium lasers, and double heat sinks. The 3C represented the design at its technological peak, but the rapid decline of the Succession Wars rendered its advanced components impossible to replace or manufacture. Corean Enterprises was forced to abandon the model before the end of the First Succession War, redesigning the chassis around more readily available components.</p>
+
+history:<p>The Trebuchet's origins trace to the twilight of the Star League, entering production in 2780 at Corean Enterprises' facilities during the brief period between Terra's liberation from Stefan Amaris and Aleksandr Kerensky's Exodus. The original TBT-3C was a sophisticated design featuring an extralight engine, Artemis IV-equipped LRM launchers, and double heat sinks, but the attrition of the First Succession War quickly rendered these advanced components irreplaceable. By 2799, Corean had redesigned the chassis as the simplified TBT-5N, sacrificing capability for manufacturability.</p><p>The Free Worlds League became the Trebuchet's primary operator during the Succession Wars, a consequence of geography rather than exclusive licensing, Corean's surviving MacAdams-Suharno plant on Stewart and Kali Yama's facilities on Kalidasa both fell within League borders. ComStar's records incorrectly suggested Corean ceased Trebuchet production in 2845, but in truth the MacAdams-Suharno facility maintained an average output of eight units annually throughout the Third Succession War. The confusion likely arose from the destruction of Corean's corporate headquarters and primary factory on Ramen II by Capellan forces that same year, after which the company relocated its headquarters to New Avalon.</p><p>The FWLM developed distinctive tactical doctrines around the Trebuchet, frequently pairing it with the heavier Archer for fire support operations. The Regulan Hussars perfected a siege lance configuration comprising an Archer, two Trebuchets, and a Centurion that proved devastatingly effective. Despite its Free Worlds origins, the design found its way into service with every Great House during the Succession Wars, serving with distinction in nearly every major operation and spawning variants to meet diverse tactical needs.</p><p>The technological renaissance of the 3030s proved transformative for the Trebuchet program. Kali Yama Weapons Industries and Irian BattleMechs Unlimited both began production, and upgraded variants incorporating recovered Star League technology debuted in the years preceding the Clan Invasion. The TBT-7M reintroduced endo-steel construction, an XL engine, and jump capability that the simplified 5N series had abandoned decades earlier. No fewer than three manufacturers produced the upgraded model, reflecting both the design's proven value and the expanding industrial base of the Inner Sphere.</p><p>The Trebuchet continued evolving through subsequent conflicts. House Kurita's adoption of MRM technology spawned field-refitted variants, while Kali Yama's TBT-8B of 3071 attempted to blend the best characteristics of every preceding model into a single chassis. The Word of Blake's use of advanced Trebuchet variants during the Jihad added a darker chapter to the design's distinguished service record. As late as the Dark Age era, Tvastar Enterprises on Regulus produced advanced models incorporating Clan-grade weaponry, demonstrating the enduring viability of a chassis concept first conceived in the dying days of the Star League.</p>
+
+manufacturer:Corean Enterprises|Tvastar Enterprises|Corean Enterprises - MacAdams-Suharno
+
+primaryfactory:Ramen II|Regulus|Stewart
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:with CASE
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

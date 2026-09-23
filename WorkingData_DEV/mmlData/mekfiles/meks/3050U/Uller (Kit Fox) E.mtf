@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c6d6-7b73-8c98-ee6e37dd208c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Uller
+clanname:Kit Fox
+model:E
+mul id:3344
+
+Config:Biped OmniMek
+techbase:Clan
+era:3054
+source:TR:3050,TR:CI
+published:RS:CI
+rules level:2
+role:Striker
+
+quirk:low_profile
+
+mass:30
+engine:180 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:12 Clan Double
+base chassis heat sinks:7
+walk mp:6
+jump mp:6
+
+armor:Ferro-Fibrous(Clan)
+LA armor:7
+RA armor:7
+LT armor:8
+RT armor:8
+CT armor:9
+HD armor:9
+LL armor:8
+RL armor:8
+RTL armor:4
+RTR armor:4
+RTC armor:4
+
+Weapons:3
+ATM 3, Left Arm
+ER PPC, Right Arm
+ER Small Laser, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLATM3 (OMNIPOD)
+CLATM3 (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERPPC (OMNIPOD)
+CLERSmallLaser (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Jump Jet (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Jump Jet (OMNIPOD)
+Clan Ammo ATM-3 (OMNIPOD)
+Clan Ammo ATM-3 ER (OMNIPOD)
+Clan Ammo ATM-3 HE (OMNIPOD)
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet (OMNIPOD)
+Jump Jet (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Kit Fox was introduced in 2890 by Clan Cloud Cobra, the first product of newly acquired resources from the Tanite Worlds. Designated the Uller by Inner Sphere forces after the Norse god of archery, the Kit Fox was designed as a heavily armed light OmniMech that prioritized firepower and protection over raw speed. This philosophy placed it in deliberate contrast to the Fire Moth, offering Clan commanders a complementary light chassis capable of engaging heavier opponents at range rather than relying on speed for survival.</p><p>The Kit Fox quickly proved its worth in combat, and Clan Jade Falcon secured production rights through a narrowly won Trial of Possession against the Cloud Cobras. Clan Snow Raven acquired manufacturing rights through trade, while Clan Blood Spirit received the design as a gift from the Ravens. All other Clans field the Kit Fox as isorla, making it one of the most widespread light OmniMechs in Clan service. The Jade Falcons became so closely associated with the design that a Clan Coyote adage warns warriors to double their caution when encountering a Falcon pilot outside a Summoner, Hellbringer, or Kit Fox.</p>
+
+capabilities:<p>The Kit Fox chassis mounts a Starfire 180 XL engine, providing a top speed of just over ninety-seven kilometers per hour. While this makes it one of the slower light OmniMechs in Clan inventories, the weight savings from the extralight engine, Process 12 endo-steel internal structure, and four tons of Compound H18 ferro-fibrous armor free an impressive sixteen tons of pod space. This generous payload capacity allows the Kit Fox to mount weapon loadouts rivaling many medium-weight designs, and ten fixed double heat sinks provide a solid thermal management foundation for energy-intensive configurations.</p><p>In its Primary configuration, the Kit Fox carries an ER large laser and small pulse laser in the left arm alongside an LB 5-X autocannon and Streak SRM-4 launcher in the right arm. This combination provides effective engagement capability from long range down to close quarters, with the LB-X offering tactical flexibility through its cluster and slug ammunition options. The design earns its archery-themed codename through configurations that consistently emphasize ranged precision over close-quarters brawling.</p><p>The Kit Fox suffers from its relatively low speed and lack of jump capability on the base chassis, and MechWarriors who allow faster opponents to close range can find themselves outmaneuvered despite superior firepower. The narrow, low-profile frame provides some compensation, making the Kit Fox a more difficult target than its tonnage might suggest.</p>
+
+deployment:<p>Alternate Configuration E appeared during the Civil War era, incorporating the Advanced Tactical Missile system in an ATM-3 rack that can optimize its warheads for specific engagement ranges. An ER PPC provides heavy long-range firepower, while an ER small laser handles point defense. Six jump jets grant the Kit Fox E a jump capability of one hundred eighty meters, dramatically improving its tactical mobility and allowing pilots to exploit the ATM system's range-dependent ammunition to maximum effect. The addition of jump capability addresses one of the base chassis's most significant tactical limitations.</p>
+
+history:<p>The Kit Fox emerged during a period of expansion for Clan Cloud Cobra, as newly secured resources from the Tanite Worlds enabled ambitious weapons development programs. First produced in 2890, the design saw immediate success in the Fang Clusters, where Cloud Cobra forces employed Kit Foxes to devastating effect against Clan Jade Falcon and Clan Coyote opponents. The string of Cloud Cobra victories attracted the attention of Jade Falcon Khan Bret Malthus, who issued a formal challenge for possession of the design. The resulting Trial was fought on the desolate wastelands of Babylon, where the Jade Falcons secured victory by the narrowest of margins.</p><p>Under Jade Falcon stewardship, the Kit Fox became a mainstay of the Clan's light second-line forces. Clan Snow Raven acquired manufacturing rights through trade rather than combat, choosing commerce over conflict as a means of securing the design. The Ravens subsequently gifted the Kit Fox to Clan Blood Spirit, an act viewed by some observers as either genuine generosity or a calculated political maneuver. All other Clans that field the Kit Fox do so through battlefield salvage, ensuring a broad but uneven distribution across Clan space.</p><p>During Operation Revival, the Kit Fox proved a nasty surprise for Inner Sphere forces who underestimated the small OmniMech. Configuration A's Gauss rifle was particularly shocking to Inner Sphere commanders, who did not expect such devastating firepower from a light chassis. The Federated Commonwealth was sufficiently impressed to commission the Hollander, a dedicated light Gauss rifle platform inspired by the Kit Fox A. Inner Sphere intelligence designated the OmniMech the Uller, and it quickly became one of the most recognized Clan designs among Spheroid military analysts.</p><p>In the Raven Alliance, the Kit Fox found renewed production at the Snow Raven Industrial Complex Beta on Mitchella, supplementing the traditional Clan homeworld factories. The 100th Raven Battle Cluster especially employed Kit Foxes configured for mobile artillery support during the seizure of Inner End from the Federated Suns in 3144, where the OmniMechs obliterated fixed anti-aircraft defenses and cleared the path for aerospace fighter strikes. Earlier, Kit Fox-anchored scout Stars had played a central role in destroying elements of the Third Crucis Lancers on Tellman IV in 3072, actions later dramatized in numerous books and holovids across Raven Alliance space.</p><p>Production of the Kit Fox has continued across multiple eras, with new configurations appearing to incorporate advancing weapons technology. Eagle Craft Group maintained Jade Falcon production on Erewhon until approximately 3070, when the line was shuttered as newer designs like the Hierofalcon and Ion Sparrow entered service. Mobile factory ships continued Kit Fox production for the Jade Falcons, ensuring the design remained available even as permanent facilities shifted to other chassis. The Kit Fox remains less common among Clans that must rely solely on battlefield captures, though those that do field it continue to value the design's combination of pod flexibility and surprising durability.</p>
+
+manufacturer:Babylon MechWorks V|Ironhold Plant 9|Production Line Gamma 2|Snow Raven Industrial Complex Beta
+
+primaryfactory:Babylon|Ironhold|Lum|Mitchella
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Process
+systemmode:CHASSIS:12 Endo-Steel
+systemmanufacturer:ENGINE:Starfire
+systemmode:ENGINE:180 XL
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:H18 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:CobraTalk
+systemmode:COMMUNICATIONS:12
+systemmanufacturer:TARGETING:Series XXX
+systemmode:TARGETING:MultiTrack

@@ -1,0 +1,156 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7ef-78aa-bdbd-b3170af76ba4
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Predator Tank Destroyer
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6441
+</mul id:>
+
+<year>
+3103
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Striker
+</role>
+
+<quirks>
+easy_maintain
+low_profile
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+6
+</cruiseMP>
+
+<engine_type>
+6
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+45
+16
+16
+12
+</armor>
+
+<Body Equipment>
+IS LB 20-X AC Ammo
+IS LB 20-X Cluster Ammo
+</Body Equipment>
+
+<Front Equipment>
+ISLBXAC20
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Predator's defining tactical advantage is its low vertical profile, which makes it a difficult target when stationary and an elusive one when moving. A thick frontal glacis concentrates the vehicle's modest armor budget forward, providing meaningful protection in head-on engagements while leaving the flanks and rear relatively vulnerable. This trade-off demands disciplined tactical handling; the Predator is poorly suited to fluid, multi-directional engagements where it cannot control approach angles.</p><p>The modern variant improves substantially on its predecessor by replacing an early autocannon with the Mydron Devastator LB 20-X, a weapon capable of engaging and disabling vehicles of any weight class at close range. The Ceres Motors 270 fuel-cell powerplant provides excellent sprint speed, though fuel-cell endurance is shorter than a fusion alternative, limiting sustained independent operations. The Magna-VOX KS2525 communications suite and TTS4000 targeting system are proven, low-maintenance components consistent with Capellan logistical priorities. The Predator is a specialist platform, best employed in coordination with combined-arms formations that can cover its flanks and exploit the immobilized targets it creates.</p>
+</capabilities>
+
+<overview>
+<p>The Predator Tank Destroyer is a low-slung casemate design developed by Ceres Metals Industries on Indicass, introduced in 2942 near the close of the Second Succession War. House Liao commissioned a series of inexpensive combat vehicles to compensate for critical BattleMech shortfalls along its contested borders, and the Predator was among the more capable of these designs, pairing a high-speed tracked hull with a powerful primary autocannon. Though an early service setback led to the design's discontinuation, the Predator was substantially revised and relaunched in 3103, emerging as one of the more formidable vehicle-mounted anti-armor platforms available to the Capellan Confederation Armed Forces. Its combination of speed, a thick frontal glacis, and a hard-hitting main gun has made it a valued ambush hunter in Capellan combined-arms formations.</p>
+</overview>
+
+<deployment>
+<p>The standard production Predator is the definitive expression of the design's philosophy. The Ceres Motors 270 fuel-cell engine delivers the sprint speed necessary for rapid displacement after a kill, while the Mydron Devastator LB 20-X autocannon provides reliable anti-armor firepower capable of disabling any vehicle within effective range. Hellespont Heavy Ferro-Fibrous armor concentrates protection on the frontal arc where the design's doctrine demands it. This variant has seen extensive deployment with elite CCAF combined-arms formations since its introduction, including on Victoria, Second Try, and other contested worlds throughout the Capellan Crusades and into the ilClan era. It remains the primary production variant at Ceres Metals Industries on Indicass.</p>
+</deployment>
+
+<history>
+<p>The Predator Tank Destroyer entered CCAF service in 2942, near the end of the Second Succession War. House Liao commissioned a series of low-cost vehicles to compensate for severe BattleMech shortfalls, and the Predator filled the role of a fast ambush tank destroyer. Its early service record was acceptable, and the design showed real promise when employed according to its intended doctrine.</p><p>A skirmish on Spica in 2974 exposed its vulnerabilities. Elements of the Fifth Syrtis Fusiliers cavalry engaged Predator units alongside supporting Vedettes, outmaneuvering the tank destroyers in open terrain and destroying most of them before relief arrived. The encounter underscored the Predator's limitations in fluid combat, and further contracts shifted to Quikscell's cheaper Hetzer. Production eventually ceased, and the design was largely forgotten for over a century.</p><p>The design was revisited during the tumult preceding the Victoria War, when the Confederation again needed affordable, high-performance vehicles to shore up a collapsing border. Ceres Metals Industries introduced a significantly upgraded version in 3103, replacing the original ICE powerplant with a fuel-cell engine, the autocannon with the devastating LB 20-X, and conventional armor with Hellespont ferro-fibrous plating. The upgraded Predator's baptism of fire came on Victoria itself, where Capellan tank crews demonstrated that disciplined ambush doctrine remained sound when the vehicle was properly employed.</p><p>The Battle of Second Try during the Capellan Crusades further refined the design's tactical reputation. When the Fifth Hastati Sentinels deployed the Hanse main battle tank in strength, Capellan Predator crews turned to harassment and flanking rather than direct assault. The resulting cat-and-mouse skirmishes demonstrated the vehicle's ability to immobilize opponents well above its own weight class. One of the more celebrated actions of this period occurred at Strausberg on Victoria, where Si-ben-bing Hyacinth Carius led a Predator platoon through an enemy fuel depot at low ammunition, enabling a surrounded Capellan force to escape encirclement and leaving more than half the opposing battalion disabled. Carius received both the Cluster of Conspicuous Heroism and the Liao Sunburst of Gallantry for the action.</p>
+</history>
+
+<manufacturer>
+Ceres Metals Industries
+</manufacturer>
+
+<primaryFactory>
+Indicass
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Ceres Motors
+ARMOR:Hellespont
+COMMUNICATIONS:Magna-VOX
+TARGETING:Magna-VOX
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:270 Fuel Cell
+ARMOR:Heavy Ferro-Fibrous
+COMMUNICATIONS:KS2525
+TARGETING:TTS4000
+</systemModels>
+
+<source>
+TR:3145:CC,TR:3150
+</source>
+
+<published>
+RS:3150
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

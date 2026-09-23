@@ -1,0 +1,322 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ee3f-758c-81df-bfb3ad387aa2
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Corone Destroyer
+</Name>
+
+<Model>
+(2915)
+</Model>
+
+<mul id:>
+4007
+</mul id:>
+
+<year>
+2915
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+mekbay:45.0:2:-1::-1:0
+asfbay:20.0:3:2::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+cargobay:35810.0:1:7::-1:0
+crewquarters:168.0:0:-1::-1:0
+2ndclassquarters:1162.0:0:-1::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+368
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+10000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+12
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+55
+55
+55
+54
+55
+55
+</armor>
+
+<Nose Equipment>
+(B) Naval Laser 35
+(B) Naval PPC (Light)
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) CLERPPC
+CLERPPC
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) Naval Laser 45
+Naval Laser 35
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) CLERPPC
+CLERPPC
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) Naval Laser 45
+Naval Laser 35
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) Naval PPC (Light)
+(B) Naval Laser 35
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) Naval Laser 45
+Naval Laser 35
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) CLERPPC
+CLERPPC
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/10)
+Ammo NAC/10:20
+(B) Naval Laser 45
+Naval Laser 35
+(B) ISERLargeLaser
+ISERLargeLaser
+(B) CLERPPC
+CLERPPC
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:40
+(B) Naval PPC (Light)
+(B) ISERLargeLaser
+ISERLargeLaser
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Autocannon (NAC/10)
+Naval Autocannon (NAC/10)
+Ammo NAC/10:40
+(B) Naval PPC (Light)
+(B) ISERLargeLaser
+ISERLargeLaser
+</Right Broadsides Equipment>
+
+<structural_integrity>
+47
+</structural_integrity>
+
+<capabilities>
+<p>Despite displacing only two hundred ninety thousand tons, the Corone carries armor protection and force projection capabilities more commonly associated with vessels of considerably greater mass. Two hundred seventy-two tons of Lamellor Ferro-Carbide armor provide substantial defensive coverage, while twenty aerospace fighter cubicles and forty-five BattleMech bays give the destroyer a ground combat capacity rivaling many cruisers. Four DropShip collars and over thirty-five thousand tons of cargo capacity allow it to sustain prolonged independent deployments far from friendly supply lines.</p><p>The Corone's weapons array distributes ten NAC/10 autocannons across all firing arcs, ensuring no approach vector is without capital-grade ballistic coverage. Four NL45 and six NL35 naval lasers are concentrated in the forward and aft quarter arcs to maximize firepower during pursuit and withdrawal maneuvers. Four Light Naval PPCs provide additional capital firepower from the nose, broadside, and aft arcs. Conventional weaponry includes sixteen ER Large Lasers and eight ER PPCs distributed throughout the vessel for anti-fighter screening and close-range defense. A lithium-fusion battery system enables rapid sequential jumps critical to raiding operations, while an onboard HPG allows the vessel to serve as a communications relay for larger fleet formations when independent operations are not required.</p>
+</capabilities>
+
+<overview>
+<p>The Corone-class destroyer emerged from the Lum Naval Yards during the closing decades of the Golden Century as the first WarShip designed and constructed entirely by Clan Snow Raven. Conceived as a self-sufficient light raider, the class was purpose-built for independent operations rather than the coordinated squadron tactics inherited from the Star League Defense Force. Each vessel carried sufficient aerospace and ground forces to prosecute Trials of Possession without external support, a capability that distinguished the design from its contemporaries and earned it a formidable reputation among rival Clans during the early trial era. Although resource constraints kept production modest, the Corone proved that a single well-equipped destroyer could achieve what had previously required multiple vessels, establishing a template for independent naval operations that would influence Clan shipbuilding for generations.</p>
+</overview>
+
+<deployment>
+<p>The CSR Eternal Flight was among the first Corones to see action, jumping to the Hellgate system in 2917 to contest Clan Steel Viper control of surface installations. The vessel participated in no fewer than ten Trials of Possession that slowed the Vipers' consolidation of the world. Three years later, the CSR Raven's Wing engaged a Steel Viper Essex-class destroyer and its DropShip escorts at Strato Domingo, using its fighter wing and assault craft to drive the Martial Legacy from orbit.</p><p>In 2926, the CSR Regal Claw was dispatched to the Bearclaw system in retaliation for a Ghost Bear raid on the Lum Naval Yards. The vessel's commanding officer found a Bear cruiser waiting in orbit, and despite the skill of the Raven crew, the heavier Ghost Bear vessel destroyed the Regal Claw.</p>
+</deployment>
+
+<history>
+<p>Developed during the final decades of the Golden Century, the Corone-class represented Clan Snow Raven's first independent WarShip design and a deliberate departure from the squadron-oriented thinking that had characterized Star League naval doctrine. Where the SLDF had deployed destroyers in coordinated groups to screen larger capital ships, the Snow Ravens designed the Corone to function alone as a self-contained expeditionary platform, carrying everything needed to prosecute a Trial of Possession from orbit without relying on accompanying vessels. The design concept drew upon the Snow Ravens' deep understanding of naval logistics and their recognition that the Clan trial system demanded a fundamentally different approach to force projection than the total-war doctrine of the fallen Star League.</p><p>Construction began at the Lum Naval Yards, the Snow Ravens' principal shipbuilding facility, with the first hull launching in 2915. Despite the class's proven effectiveness in trials throughout the early tenth century, the enormous resource investment required for each vessel limited total production to six hulls. The Corones served as the Snow Ravens' primary instruments of naval power projection for decades, demonstrating that a well-designed independent raider with sufficient fighter and ground force capacity could achieve results that had previously required multiple vessels operating in concert. The class fought engagements against several rival Clans and suffered losses during retaliatory operations.</p><p>The Corone's very success, however, ensured its eventual obsolescence. Other Clans studied the Snow Raven approach and began developing their own independent raider designs with the benefit of hindsight. Thirty-two years after the first Corone launched, the York-class destroyer refit entered service, offering superior speed, heavier armament, and nearly triple the fighter capacity. Fifteen years after the York, the Fredasa-class corvette provided comparable fighter strength in a faster and considerably less maintenance-intensive hull. Outclassed by these newer designs, the Snow Ravens mothballed their two surviving Corones in 2946. The design's legacy endured through the Nightlord-class battleship, which incorporated many of the independent operational principles first proven by the smaller destroyer.</p>
+</history>
+
+<manufacturer>
+Lum Naval Yards
+</manufacturer>
+
+<primaryFactory>
+Lum
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Lamellor Ferro-Carbide
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Destroyer
+</use>
+
+<length>
+670 m
+</length>
+
+<height>
+1000 m Sail
+</height>
+
+<source>
+TR:GC
+</source>
+
+<published>
+TR:GC
+</published>
+
+<tonnage>
+290000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+75
+75
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+286
+</crew>
+
+<officers>
+24
+</officers>
+
+<gunners>
+42
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+25
+</battlearmor>
+
+<life_boat>
+15
+</life_boat>
+
+<escape_pod>
+30
+</escape_pod>
+

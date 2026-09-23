@@ -1,0 +1,174 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e66e-7939-9125-398d08c4c0f2
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Jifty Transportable Field Repair Unit
+</Name>
+
+<Model>
+JI-50 (MG)
+</Model>
+
+<mul id:>
+4404
+</mul id:>
+
+<year>
+3072
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Brawler
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<transporters>
+cargobay:19.5:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+27
+20
+20
+25
+</armor>
+
+<Body Equipment>
+IS Machine Gun Ammo - Half
+Armored Chassis
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+Lift Hoist/Arresting Hoist
+Lift Hoist/Arresting Hoist
+</Rear Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Jifty's fusion engine drives the 60-ton tracked vehicle at a cruising speed of 32 kph with a flank speed of 48 kph. Its tracked motive system was selected to handle the rough terrain typically encountered when recovering damaged vehicles and BattleMechs. A pair of lift hoists mounted at the front can each handle loads of up to 60 tons, enabling the Jifty to manipulate and recover even assault-class BattleMechs. The vehicle carries 19.5 tons of cargo in an internal bay with a rear access door, providing ample space for spare parts, tools, and salvaged components.</p><p>Protection comes from 3.5 tons of industrial-grade BAR 6 armor, reflecting the vehicle's intended role behind the front lines rather than in direct combat. A pair of light machine guns provide minimal self-defense against infantry and unarmored threats, operated by two of the vehicle's four crew members. The Jifty is not designed for combat and relies on escorting forces for protection in contested areas. Its primary value lies in reducing the time and distance required to return damaged equipment to operational status, keeping combat formations at higher readiness than would otherwise be possible.</p>
+</capabilities>
+
+<overview>
+<p>The JI-50 Transportable Field Repair Unit, commonly known as the Jifty, is a Federated Suns support vehicle designed to bring repair and recovery capabilities directly to damaged units in the field. Manufactured by Johnston Industries on New Syrtis, the 60-ton tracked vehicle entered service in 3069 as an evolution of earlier field repair concepts pioneered by the Free Worlds League's Paramour MRV. The Jifty's combination of heavy cargo capacity, lift hoists, and fusion-powered mobility makes it a valuable force multiplier for military formations operating beyond the reach of fixed repair facilities. Its versatile chassis has spawned numerous field modifications adapted to the demands of frontline service during the Jihad.</p>
+</overview>
+
+<deployment>
+<p>The JI-50 (MG) field modification replaces the standard light machine guns with heavier-caliber weapons, providing improved defensive capability against infantry and light vehicles at close range. This has been the most common field alteration performed on the Jifty, reflecting the reality that recovery crews frequently encountered hostile forces during Jihad operations.</p>
+</deployment>
+
+<history>
+<p>Johnston Industries developed the Jifty at their New Syrtis facility, drawing heavily on design features from the Free Worlds League's Paramour MRV. The vehicle entered production in 3069, coinciding with the opening stages of the Jihad. Johnston's timing proved both fortunate and unfortunate. The desperate need for field repair capability during the widespread fighting ensured immediate demand, but the conflicts raging across the Federated Suns also threatened the factory itself.</p><p>The Capellan Confederation's Operation Thunderstrike in 3069 brought fighting to New Syrtis and the surrounding Capellan March worlds. While Johnston Industries' security forces helped the Fourth Donegal Guards defend the factory complex, the broader invasion spread captured Jiftys into Capellan hands. The Taurian Concordat similarly recovered nearly a dozen from Davion forces around the Pleiades Cluster during their 3067 incursion. These captures gave neighboring powers access to a vehicle that had been exclusively Federated Suns equipment.</p><p>By 3069, Johnston Industries had begun granting limited manufacturing licenses to smaller companies outside the Capellan March, recognizing that demand far exceeded what a single factory could supply during wartime. This expansion of production ensured the Jifty's wider adoption across the Inner Sphere, though the Federated Suns remained its primary operator. The various field modifications that emerged during the Jihad reflected the creativity of technicians adapting the vehicle to rapidly changing battlefield requirements.</p><p>The fighting on New Syrtis during the Jihad devastated the Johnston Industries facility in Cilitren on the continent of Mawreddog. The factory was heavily damaged, and the surrounding city was effectively destroyed. Johnston responded by expanding its facilities on Benet III to recover lost production capacity, though plans to restart at least partial production on New Syrtis continued throughout the rebuilding period. The damage to Johnston's primary facility had ripple effects across the company's entire product line, affecting production of vehicles far beyond the Jifty.</p><p>The corporate environment surrounding the Jifty also produced controversy. In the latter half of the 3060s, Blue Bull, Inc. produced a blatant copy of the JI-50 called the "Nifty," an ICE-powered knockoff that undercut the Jifty's market position. Johnston Industries attempted to pursue legal action for patent violations, but the chaos of the Jihad prevented any meaningful progress in the courts. The years since proved Johnston's concerns well-founded. The JI-100, a larger successor to the Jifty introduced in 3074, demonstrated that the original design concept was sound enough to scale upward, and military commands gradually upgraded from the JI-50 to the JI-100 where budgets permitted. The Nifty found no lasting place on Federated Suns equipment rosters.</p>
+</history>
+
+<manufacturer>
+Field Refit
+</manufacturer>
+
+<primaryFactory>
+Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion
+ARMOR:BAR 6
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

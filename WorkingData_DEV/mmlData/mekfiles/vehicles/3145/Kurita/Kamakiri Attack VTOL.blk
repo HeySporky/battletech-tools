@@ -1,0 +1,163 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e7cc-7273-ae70-928d92162fb4
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Kamakiri Attack VTOL
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6382
+</mul id:>
+
+<year>
+3100
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<quirks>
+vtol_rotor_dual
+hard_pilot
+</quirks>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<cruiseMP>
+7
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+3
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+36
+28
+28
+18
+2
+</armor>
+
+<Body Equipment>
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+IS Ammo Thunderbolt-10
+</Body Equipment>
+
+<Front Equipment>
+PPC
+Thunderbolt 10
+Thunderbolt 10
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Kamakiri carries a Tiegart Particle Projection Cannon for reliable long-range direct fire, paired with two Telos ThunderShot Thunderbolt 10 missile launchers that deliver high-damage cluster strikes against armored targets. The combination allows pilots to engage at range with the PPC while using Thunderbolt salvos to threaten heavier opponents, including BattleMechs. A top speed of 118 kilometers per hour gives the design the mobility to strike quickly and disengage before ground forces can respond.</p><p>The StarGuard Aurora Reflective armor reflects the DCMS preference for energy-resistant protection, providing improved survival rates against laser and PPC fire. This defensive choice introduces a notable vulnerability to concentrated ballistic and missile fire, requiring pilots to avoid static positions and flak-heavy opponents. The design is best employed in fast attack roles where its speed limits exposure to return fire.</p><p>The DAV 155 XL fusion engine powers both the high-speed rotor assembly and the energy weapon systems, but the XL configuration adds structural fragility that experienced pilots account for when taking fire. Overall, the Kamakiri trades baseline armor protection for a combination of speed, firepower, and energy resistance well suited to the mobile strike role it was built to fill.</p>
+</capabilities>
+
+<overview>
+<p>The Kamakiri Attack VTOL is a 55-ton air assault platform developed by Yan Manufacturing for the Draconis Combine Mustered Soldiery. Introduced in 3100, the design emerged from years of DCMS pressure for a dedicated strike craft capable of supporting combined-arms operations beyond the capabilities of conventional reconnaissance VTOLs. Named for the Japanese praying mantis, the Kamakiri was designed to pair strong direct-fire weaponry with high VTOL speed, offering field commanders a responsive strike asset capable of threatening both armored vehicles and BattleMechs. Yan Manufacturing secured the production contract through an extended Combine procurement process, delivering a platform that has since proven its value across frontier operations in Republic border regions and beyond.</p>
+</overview>
+
+<deployment>
+<p>The Kamakiri serves as a frontline strike and direct-fire support asset within DCMS combined-arms formations. Produced at Yan Manufacturing's New Samarkand facility, the design is distributed to elite and second-line Combine regiments operating along contested border zones. Standard doctrine groups Kamakiris in company-strength flights for concentrated fire support, though field commanders, particularly in the Arkab Legions, have adapted the design for embedded single-VTOL lance attachment roles.</p>
+</deployment>
+
+<history>
+<p>Yan Manufacturing secured the Kamakiri contract through what company records describe as a prolonged journey through the Combine's procurement bureaucracy. The design team presented its prototype to DCMS representatives just before 3100, and despite the first test flight lasting barely two minutes, procurement officers were sufficiently impressed to extend a long-term production agreement. The New Samarkand facility began full production the same year.</p><p>The Kamakiri's first high-profile combat operation came during the Combine's advance on Sakhara V, where a company of the VTOLs was assigned to the Seventh Ghost regiment ahead of the planetary assault. Coordinating with Ghost aerospace fighters, the Kamakiris circled behind the Sakhara Academy Training Battalion's position and fired wave after wave of Thunderbolt strikes into the exposed formation. Despite being outnumbered two-to-one on the ground, the Seventh Ghost overwhelmed the cadets, and the Kamakiris prevented the academy's counter-assault battalion from escaping, leaving fewer than a third of the defenders alive.</p><p>The First Arkab Legion took a different approach during the seizure of Ashio, distributing individual Kamakiris among 'Mech lances rather than flying them in concentrated flights. Rather than functioning as dedicated airstrike assets, the embedded VTOLs provided immediate reactive fire during Republic ambushes, with Thunderbolt strikes repeatedly rescuing Arkab warriors from prepared defensive positions. The Legion's MechWarriors began calling the buzzing VTOLs 'little buddies,' reflecting their near-constant presence in lance operations. This embedded-VTOL doctrine has since influenced combined-arms training in several DCMS commands.</p>
+</history>
+
+<manufacturer>
+Yan Manufacturing
+</manufacturer>
+
+<primaryFactory>
+New Samarkand
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:DAV
+ARMOR:StarGuard
+COMMUNICATIONS:Scuti
+TARGETING:Radcom
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:155 XL
+ARMOR:Aurora Reflective
+COMMUNICATIONS:Dualcom
+TARGETING:T11
+</systemModels>
+
+<source>
+TR:3145:DC,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+55.0
+</tonnage>
+

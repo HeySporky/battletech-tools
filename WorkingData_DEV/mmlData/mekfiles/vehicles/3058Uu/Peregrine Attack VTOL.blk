@@ -1,0 +1,158 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e45c-7bb2-8407-b8a289472806
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Peregrine Attack VTOL
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+2479
+</mul id:>
+
+<year>
+3021
+</year>
+
+<type>
+IS Level 1
+</type>
+
+<role>
+Striker
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<cruiseMP>
+12
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+2
+2
+2
+1
+1
+</armor>
+
+<Body Equipment>
+IS Ammo SRM-4
+IS Ammo MG - Full
+</Body Equipment>
+
+<Front Equipment>
+Machine Gun
+Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+SRM 4
+</Right Equipment>
+
+<Left Equipment>
+SRM 4
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Peregrine's offensive suite centers on a pair of Larkin SRM 4 launchers backed by two Blackwell B75 machine guns, providing concentrated short-range firepower for a vehicle of its weight class. Its Dalban StarLink IIa communications gear and Garret E2b targeting system are serviceable, and its DAV 220 fusion engine delivers flank speeds approaching 200 kph, enough velocity to close quickly on a target. Closing, however, requires entering small-arms range, where the Peregrine's ProTech Medium armor offers little protection. The plating is simply too thin to absorb meaningful punishment, and combat loss rates were consistently high.</p><p>A fundamental design flaw compounded the danger. The Peregrine uses an internal flywheel in place of a traditional tail rotor to counteract rotor torque. During hard emergency landings, the flywheel could break free of its mountings and tear through the fusion plant and into the cockpit, killing the crew. Maintenance was equally problematic. Poorly designed access hatches made routine servicing difficult, and preventative maintenance procedures were needlessly complex. Technicians working on the fusion plant were required to wear Level 1 protective garments. A particularly burdensome requirement mandated complete disassembly of the fusion plant and rotor system every 100 flight hours simply to replace a single drive belt, consuming enormous maintenance resources with every cycle. The combination of battlefield fragility, crew hazard, and high operating cost made the Peregrine widely regarded as more liability than asset.</p>
+</capabilities>
+
+<overview>
+<p>The Peregrine Attack VTOL is a 30-ton combat helicopter produced by Blackwell Corporation and introduced in 3021. Originally commissioned to escort troop transports and deliver suppressive fire during air assault operations, the design was quickly made available for open sale and found its way into the arsenals of Houses Kurita, Liao, and Marik throughout the 3020s. Wolf's Dragoons, for whom the vehicle was first developed, never pressed it into general service. That early indifference set the tone for the Peregrine's career. The design swiftly earned a reputation for mechanical unreliability, dangerously thin armor, and casualty rates that far exceeded those of comparable platforms. Most operators eventually transferred their Peregrines to reserve depots, local militias, or civilian paramilitary forces. The saying "gone watching Perries" entered common military slang as a euphemism for feigning injury to escape front-line duty, a phrase that captured the vehicle's near-universal absence from serious combat.</p>
+</overview>
+
+<deployment>
+<p>The Peregrine served in limited numbers across Houses Kurita, Liao, and Marik during the Late Succession Wars, produced from Blackwell Corporation facilities on both New Valencia and Outreach. Operators rarely committed the type to contested front-line airspace, instead assigning Peregrines to reserve formations, local militia garrisons, and civilian paramilitary units. The vehicle's speed made it acceptable for low-threat courier and patrol duties, but most commanders avoided it in any environment where it might face determined opposition. By the Clan Invasion era, most examples remaining in active service were concentrated in rear-echelon and support billets.</p>
+</deployment>
+
+<history>
+<p>Blackwell Corporation introduced the Peregrine in 3021 from their New Valencia production facility, building the type initially to meet requirements identified by Wolf's Dragoons for a dedicated close air support platform capable of operating alongside assault transports. The design entered the open market almost immediately, finding buyers across Houses Kurita, Liao, and Marik, though the Dragoons themselves declined to integrate it into their standard order of battle.</p><p>After 3030, Blackwell relocated production to Outreach, consolidating manufacturing at the Dragoons' mercenary enclave and continuing to supply the broader market. New Valencia remained active into the 3040s, with both lines operating in parallel through the early Renaissance period before the New Valencia facility wound down. By 3028, whatever prestige the Peregrine had borrowed from its Wolf's Dragoons association had eroded entirely in combat, and house militaries moved their stocks steadily toward reserve depots and local police forces. The Kurita Civilian Guidance Corps absorbed a significant number of the type, deploying them in support roles that suited the vehicle's limited practical combat value.</p><p>Peregrines serving with Kurita second-line units during the Clan Invasion fared no better against Clan opponents than they had against Inner Sphere forces. The FedCom Civil War prompted Houses Davion and Steiner to press stockpiled Peregrines back into service as stop-gap reinforcements for depleted armies, though commanders consistently confined them to rear-area and gap-filler roles well behind the front. Production at Outreach came to an end during the Jihad, when Word of Blake forces seized the world. The chronic unreliability, high maintenance burden, and genuine lethality the design posed to its own crews ultimately produced the resigned humor captured in the saying "gone watching Perries," a lasting evidence of the type's consistent absence from serious fighting throughout its operational career.</p>
+</history>
+
+<manufacturer>
+Blackwell Corporation|Blackwell Corporation
+</manufacturer>
+
+<primaryFactory>
+New Valencia|Outreach
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:DAV
+ARMOR:ProTech
+COMMUNICATIONS:Dalban
+TARGETING:Garret
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:220
+ARMOR:Medium
+COMMUNICATIONS:StarLink IIa
+TARGETING:E2b
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-I
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

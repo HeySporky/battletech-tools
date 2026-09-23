@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ca74-7cba-a596-87f28b481be7
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Maelstrom
+model:MTR-6E
+mul id:1989
+
+Config:Biped
+techbase:Inner Sphere
+era:3062
+source:TR:3058U
+published:RS:3058Uu-I
+rules level:2
+role:Skirmisher
+
+quirk:good_rep_1
+
+mass:75
+engine:375 XL Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:17 IS Double
+walk mp:5
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:24
+RA armor:24
+LT armor:26
+RT armor:26
+CT armor:38
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:6
+RTR armor:6
+RTC armor:8
+
+Weapons:8
+ER Large Laser, Left Arm
+ER PPC, Right Arm
+Small Laser, Left Torso
+Small Laser, Right Torso
+TAG, Right Torso
+Medium Laser, Center Torso
+Small Laser, Center Torso
+Medium Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERLargeLaser
+ISERLargeLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISERPPC
+ISERPPC
+ISERPPC
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Small Laser
+ISGuardianECMSuite
+ISGuardianECMSuite
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Small Laser
+BeagleActiveProbe
+BeagleActiveProbe
+ISTAG
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+Small Laser
+
+Head:
+Life Support
+Sensors
+Cockpit
+Medium Laser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Maelstrom was designed during the final years of the Star League as the third entry in the revolutionary Marauder series of heavy BattleMechs, incorporating the distinctive hunched-over pod-like torso and ball-and-socket construction that defined the lineage. The collapse of the Star League in 2781 left the design incomplete on the drawing board, where it languished for nearly three centuries until the rediscovery of the Helm Memory Core breathed new life into countless lost technologies. General Motors took the lead in bringing the Maelstrom to production in 3056, leveraging its extensive experience manufacturing the entire Marauder-series line at its Kathil facility. The Maelstrom stands as a reflection of lost Star League engineering, a heavy 'Mech purpose-built to anchor defensive lines against technologically superior adversaries.</p>
+
+capabilities:<p>The Maelstrom's Marauder heritage is unmistakable in its fundamental design, but most analysts agree the newer machine improves upon its progenitor in several significant ways. Built around a Ford 375 extra-light engine, the seventy-five-ton 'Mech achieves a top speed of 86 kph, making it impressively fleet of foot for a machine of its weight class. Nineteen double heat sinks provide the cooling capacity necessary for sustained energy combat, allowing MechWarriors to stay in the fight for protracted periods without dependence on ammunition resupply lines.</p><p>The primary armament centers on a Defiance 1001 extended-range PPC, providing devastating firepower at extreme distances. A Cyclops XII extended-range large laser serves as a powerful secondary weapon, while two Defiance P5M medium pulse lasers and a Jackson Model 12 small laser handle close-range engagements. The inclusion of a TAG laser designator adds a force-multiplier dimension, enabling the Maelstrom to guide Arrow IV artillery strikes and semi-guided LRM salvos onto targets. Fourteen and a half tons of Kallon Royalstar Heavy armor ensure that any attacker who manages to land a shot faces little chance of penetrating to vital systems, giving the design exceptional survivability for its intended role as a front-line combatant.</p>
+
+deployment:<p>Developed by Telfar BattleMechs at their Midway facility around 3062, this variant was a short-lived prototype that served as the testbed for the subsequent MTR-6K recon variant. The design retained the ER PPC and ER large laser of the original while incorporating the same equipment, heat sink, and armor modifications that would define the 6K. Testing quickly revealed a critical flaw: the reduced cooling system, down two double heat sinks from the base model, could not adequately manage the waste heat generated by the extended-range weapons suite. This overheating problem led directly to the decision to downgrade the main weapons to standard models in the production 6K variant. Few MTR-6E prototypes were produced, and those that were saw limited field deployment with Combine units before being superseded.</p>
+
+history:<p>The Maelstrom's origins trace back to the twilight of the Star League, where it was conceived as the next evolution of the celebrated Marauder series. Designed for the Star League Defense Force, the project was approved just as the Star League began its final collapse, leaving the Maelstrom forever associated with what might have been. The plans gathered dust for nearly three centuries until the Gray Death Legion's discovery of the Helm Memory Core in 3028 made the technology to produce the design understood once more.</p><p>General Motors wasted little time bringing the Maelstrom into production at its Kathil facility in 3056, recognizing the urgent need for heavy 'Mechs capable of standing against Clan technology. Demand proved overwhelming almost immediately, and GM determined that expanding or modifying its already over-capacity Kathil lines was impractical. In a decisive move, GM granted licensing rights to Norse-Storm BattleMechs, whose new plant on Solaris VII entered full production in early 3059. The spirit of cross-border cooperation that characterized the post-Clan Invasion era also saw GM license the design to the Combine manufacturer Telfar BattleMechs, whose Midway plant has continued to produce full runs of the Maelstrom despite shifting political circumstances.</p><p>The Maelstrom found its greatest champions among Draconis Combine units stationed along the Clan frontier, where its heavy armor and speed made it one of the Inner Sphere 'Mechs most capable of standing up to Clan weapons systems. Norse-Storm's sales to the Lyran Alliance Armed Forces proved equally brisk, with very few commands along the Clan border lacking at least one Maelstrom in their ranks. Both GM and Norse-Storm also marketed the design to mercenary units, further broadening its deployment base across the Inner Sphere.</p><p>During the Jihad, Telfar's Midway facilities suffered devastating damage, with half their plants destroyed and half their workforce killed. The company struggled to restore production, reaching only sixty percent of pre-Jihad capacity by 3079. Following the Jihad, the Midway facility was mothballed as part of broader military drawdowns, maintaining only limited spare parts production until the collapse of the HPG network in 3132 prompted its reactivation to full capacity. Through these turbulent decades, the Maelstrom has remained a valued asset in the arsenals of multiple successor states and independent commands.</p>
+
+manufacturer:Telfar Battlemechs
+
+primaryfactory:Midway
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Norse
+systemmode:CHASSIS:TRA34 Heavy
+systemmanufacturer:ENGINE:Ford
+systemmode:ENGINE:375 XL
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:Royalstar Heavy
+systemmanufacturer:COMMUNICATIONS:Sony
+systemmode:COMMUNICATIONS:MSF-21
+systemmanufacturer:TARGETING:Cirxese
+systemmode:TARGETING:BallistaCheck, Cirxese RockeCheck

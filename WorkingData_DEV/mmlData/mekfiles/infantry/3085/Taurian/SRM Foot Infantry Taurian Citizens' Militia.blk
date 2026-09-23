@@ -1,0 +1,93 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-b67e-7a28-8072-eda48e8b0186
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+SRM Foot Infantry
+</Name>
+
+<Model>
+Taurian Citizens' Militia
+</Model>
+
+<mul id:>
+5110
+</mul id:>
+
+<year>
+2500
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<Troopers Equipment>
+Clothing, Fatigues/Civilian/Non-Armored
+</Troopers Equipment>
+
+<Field Guns Equipment>
+</Field Guns Equipment>
+
+<overview>
+<p>The Citizens' Militia is the backbone of Taurian planetary defense, drawing on a tradition of citizen-soldiery older than the Concordat itself. Organized under the Concordat Constabulary, the paramilitary force responsible for reinforcing Taurian defenses in wartime, the Militia represents the armed populace that every Concordat world can call upon when threatened. Though last in priority behind the regular TDF, noble family regiments, and the Constabulary, the Militia's sheer numbers and stubborn determination have turned the tide on more than one occasion.</p><p>These foot platoons carry the Zeus heavy rifle, a hard-hitting ballistic weapon that compensates for the Militia's lack of advanced training with raw stopping power. Support squads operate light SRM launchers that give even these part-time soldiers a credible anti-armor punch at close range. The combination of heavy personal arms and missile support makes the Citizens' Militia a genuine threat to any attacker foolish enough to dismiss Taurian civilians as noncombatants. National service requirements ensure that most Taurian adults are qualified riflemen, and the fierce patriotism that has defined the Concordat since the Reunification War burns as hot in the Militia as in any TDF line regiment.</p>
+</overview>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<squad_size>
+10
+</squad_size>
+
+<squadn>
+3
+</squadn>
+
+<secondn>
+1
+</secondn>
+
+<Primary>
+Rifle (Zeus Heavy)
+</Primary>
+
+<Secondary>
+InfantrySRMLight
+</Secondary>
+

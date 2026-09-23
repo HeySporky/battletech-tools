@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dbf9-7ff7-a8ee-22f65f5fee71
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Cricket
+model:RWN-02
+mul id:9406
+
+Config:Biped
+techbase:Inner Sphere
+era:3142
+source:RG06
+published:RG06
+rules level:3
+role:Scout
+
+quirk:difficult_maintain
+quirk:low_profile
+quirk:weak_legs
+
+mass:30
+engine:270 XXL Engine
+structure:IS Composite
+myomer:Standard
+cockpit:Small Cockpit
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+walk mp:9
+jump mp:6
+
+armor:Ballistic-Reinforced(Inner Sphere)
+LA armor:10
+RA armor:10
+LT armor:11
+RT armor:11
+CT armor:17
+HD armor:9
+LL armor:14
+RL armor:14
+RTL armor:3
+RTR armor:3
+RTC armor:3
+
+Weapons:2
+Light PPC, Left Torso
+Light PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Light PPC
+Light PPC
+IS Ballistic-Reinforced
+IS Ballistic-Reinforced
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Jump Jet
+Jump Jet
+Light PPC
+Light PPC
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ISTargeting Computer
+ISTargeting Computer
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Ballistic-Reinforced
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Jump Jet
+IS Ballistic-Reinforced
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Cricket is a thirty-ton light BattleMech introduced in 3132 by Luthien Armor Works on New Samarkand for the Draconis Combine Mustered Soldiery. Designed as a dedicated raider and harassment platform, it follows in the tradition of earlier Kuritan skirmishers such as the Spider and Venom. Originally designated the Roweena after the legendary Roweena Kurita, the design was hastily renamed when the Internal Security Force suspected its lead designer of Black Dragon Society sympathies. Bureaucratic inertia preserved the original RWN model designation despite the change. Produced exclusively at the Luthien Armor Works facility on New Samarkand, the Cricket entered service during the turbulent post-Blackout era and quickly established itself as a capable skirmisher within DCMS forces, prized for its combination of speed and resilience on a light chassis.</p>
+
+capabilities:<p>The Cricket achieves its performance through aggressive application of weight-saving technologies considered too fragile for most frontline designs. Built on a New Samarkand Class 22 composite chassis with a small cockpit and XL gyro, the 'Mech mounts a GM 210 XXL engine providing a cruising speed of seventy-five kilometers per hour, supplemented by MASC that pushes top speed beyond one hundred and fifty kilometers per hour. Six Icarus 81 jump jets provide one hundred and eighty meters of jump capability, giving the Cricket exceptional tactical mobility.</p><p>Offensively, a pair of Lord's Light 4 light particle projection cannons linked to a Dynatec 990 targeting computer provide accurate long-range harassment fire that belies the 'Mech's light tonnage. This all-energy loadout frees the Cricket from ammunition dependency but limits engagement options against heavier opponents. Nine tons of Durallex ballistic-reinforced armor provides exceptional protection for a thirty-ton 'Mech, particularly effective against the ballistic weapons commonly fielded by the Armed Forces of the Federated Suns.</p><p>These advantages come at significant cost in reliability. The Cricket's delicate internals require frequent and expensive maintenance, earning it a reputation as a hangar queen. Its cramped cockpit makes extended deployments uncomfortable, rendering the design unpopular for traditional scouting despite its speed. Nonetheless, accurate long-range fire and exceptional mobility have made it a favorite among DCMS skirmish commanders.</p>
+
+deployment:<p>Introduced approximately a decade after the original, this variant represents Luthien Armor Works' concerted effort to resolve the Cricket's chronic reliability issues. The most significant change is the replacement of the original's GM 210 XXL engine and MASC system with a larger 270-rated XXL engine, achieving the same top speed as the MASC-boosted RWN-01 as a baseline without the associated mechanical complexity. This change eliminates one of the primary sources of maintenance problems while also simplifying the 'Mech's drive train considerably. The increased heat output of the larger engine is the primary trade-off, though the all-energy weapons loadout and existing double heat sinks help mitigate this concern. The remaining weapons suite, armor, and electronics package are retained from the original model.</p>
+
+history:<p>The Cricket first saw combat during the chaotic period following the HPG Blackout of 3132, when Luthien Armor Works secretly dispatched a lance of prototypes to Dieron to support Katana Tormark's Dragon's Fury. Though the DCMS officially provided no support to Tormark's forces, LAW used the opportunity to field-test their new design under actual combat conditions. The results were decidedly mixed. The prototypes spent nearly as much time undergoing repairs on their gantries as they did in actual combat, validating concerns about the design's maintenance-intensive nature. When operational, however, the Crickets proved exceptionally adept at harassing and distracting forces loyal to Exarch Redburn. In one notable incident, a Cricket absorbed a full salvo from a Republic Legionnaire's rotary autocannon, shrugged off the punishment, and leapt away unscathed, a dramatic proof of the effectiveness of its ballistic-reinforced armor. These early encounters helped convince the DCMS that the Cricket was worth committing to full-scale production.</p><p>The design proved its tactical value decisively during the battle for Franklin as part of Operation Perceval in the mid-3140s. When the First Davion Guards struck the garrisoning Fifth Ghost Regiment, the Combine forces found themselves pinned under heavy indirect fire from a screen of Davion Guards Antlions. With the bulk of their units suppressed by relentless shelling, the Fifth Ghost unleashed their complement of Crickets into the Davion ranks. The light 'Mechs dashed through enemy formations, hunting down ponderous support BattleMechs with their targeting computers and long-range particle fire. While the Crickets lacked the raw firepower to core through the Antlions' heavy armor, they concentrated on forcing the Davion 'Mechs to defend themselves rather than continue their artillery missions. The tactic proved decisive, terminating the Davion indirect fire campaign and restoring freedom of movement to the DCMS forces.</p><p>Following these successful deployments, Luthien Armor Works continued to refine the design, addressing the persistent reliability issues that had plagued the Cricket since its debut. The introduction of the RWN-02 variant represented the culmination of these engineering efforts, resolving the most problematic aspects of the original's temperamental frame while maintaining the performance characteristics that had proven so effective in combat. Production continues at the New Samarkand facility, with the Cricket firmly established as a key component of the DCMS light skirmisher doctrine.</p>
+
+manufacturer:Luthien Armor Works
+
+primaryfactory:New Samarkand
+
+fluffdate:2026-02-26 19:50:04
+
+systemmanufacturer:CHASSIS:New Samarkand
+systemmode:CHASSIS:Class 22 Composite
+systemmanufacturer:ENGINE:GM
+systemmode:ENGINE:270 XXL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Ballistic-Reinforced
+systemmanufacturer:JUMP_JET:Icarus
+systemmode:JUMP_JET:81
+systemmanufacturer:COMMUNICATIONS:Sipher
+systemmode:COMMUNICATIONS:CommSys 4
+systemmanufacturer:TARGETING:Dynatec
+systemmode:TARGETING:990 with Targeting Computer

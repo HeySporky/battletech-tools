@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d529-72e4-a075-2e2af341c186
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Celerity
+model:CLR-03-OD
+mul id:6707
+
+Config:Quad OmniMek
+techbase:Inner Sphere
+era:3138
+source:TR:3145:RotS,TR:3145
+published:RS:3145
+rules level:4
+role:Scout
+
+quirk:exp_actuator
+quirk:imp_com
+
+mass:15
+engine:240 XXL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Small Cockpit
+gyro:XL Gyro
+
+heat sinks:10 IS Double
+base chassis heat sinks:9
+walk mp:16
+jump mp:0
+
+armor:Standard(Inner Sphere)
+FLL armor:1
+FRL armor:1
+LT armor:4
+RT armor:4
+CT armor:5
+HD armor:4
+RLL armor:1
+RRL armor:1
+RTL armor:1
+RTR armor:1
+RTC armor:1
+
+Weapons:2
+ER Flamer, Head
+ER Flamer, Head
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMASC
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISDroneOperatingSystem
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+
+Head:
+Life Support
+Sensors
+Cockpit
+Sensors
+ER Flamer (OMNIPOD)
+ER Flamer (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Celerity is a fifteen-ton ultralight quadrupedal drone BattleMech originally conceived by ComStar's advanced research division in 3052. Born from the drone warfare experiments that followed the Battle of Tukayyid, the design represents an extreme approach to expendable reconnaissance, a four-legged chassis stripped to its mechanical essentials and controlled remotely from a modified Fury combat vehicle hub. The Republic of the Sphere later adopted the concept following the activation of the Fortress Protocols, creating a true OmniMech version from 3138 onward. Capable of speeds rivaling the fastest VTOLs in existence, the Celerity has served as a swift and disposable instrument of reconnaissance, electronic interdiction, and even direct combat.</p>
+
+capabilities:<p>The Celerity's defining characteristic is its extraordinary speed. A Republic 240-rated XXL fusion engine propels the fifteen-ton quadruped to cruising speeds of one hundred seventy-two kilometers per hour, with MASC pushing its maximum sprint to nearly three hundred forty-six kilometers per hour, performance that matches or exceeds most VTOLs and conventional aircraft on approach. This speed comes at severe cost: the design carries barely a ton and a half of Strasbourg Armaments Type 3 armor, rendering it catastrophically vulnerable to even glancing hits. The fragile XXL engine and XL gyro compound this vulnerability, as even a minor stumble at full speed could cripple the chassis.</p><p>The OmniMech version carries two tons of pod space, a modest allocation that nonetheless enables a surprising range of mission profiles. Configurations span from electronic warfare and sensor operations to direct-fire interdiction with Clan-specification weapons. The S-Equus Omicron endo steel frame provides structural efficiency while the ComStar Remote Link Theta communications system maintains the critical drone control link. RAF engineers equipped the OmniMech version with double heat sinks to support energy-intensive configurations, a practical enhancement over the original C3i-equipped prototype. The quadrupedal layout provides inherently stable footing at high speeds, though the consequences of any terrain misstep remain dire given the chassis's minimal protection.</p>
+
+deployment:<p>Alternate Configuration D mounts a pair of extended-range flamers, providing the drone with an anti-infantry and area-denial capability. Several smaller resistance cells within the Fortress Republic have been eliminated by Celerity drones operating in this configuration, where their extreme speed allows them to close on concealed infantry positions before defenders can react. The flamers' ability to ignite structures and vegetation also makes this variant effective at denying cover to guerrilla forces operating in urban or forested terrain.</p>
+
+history:<p>ComStar's drone warfare program began in earnest following the Battle of Tukayyid in 3052. The initial concept relied on existing platforms, swift hovercraft and VTOLs controlled remotely from modified Fury combat vehicles, but the program's ambitions quickly outpaced available technology. Under the guidance of Precentor Ashok Sethi, engineers pursued an increasingly radical approach, designing a purpose-built ultralight four-legged BattleMech frame optimized exclusively for drone operations. The resulting CLR-02-X-D prototype represented an extreme engineering exercise: a fifteen-ton quadruped built around an oversized engine, equipped with a C3i module and full-head ejection system to protect the expensive electronics in its expendable airframe.</p><p>Prototypes were produced in limited numbers, but the design never achieved full production under ComStar. The Jihad disrupted the program, and the Word of Blake's dissolution scattered much of the underlying research. ComStar's surviving remnants maintained a small cadre of operational Celeritys, most of which were destroyed during the Blessed Order's desperate last stand against the Republic of the Sphere at Epsilon Eridani in 3141.</p><p>The Republic's subsequent adoption of the Celerity represented a resurrection of long-abandoned technology. Following the activation of the Fortress Protocols, the RAF Manufacturing Center Providence on Terra began producing a true OmniMech version designated the CLR-03-O from approximately 3138. RAF engineers refined the original concept into a more versatile platform, and Stone's Fury became an early adopter, experimenting with packs of Celerity drones across the towns and villages of Liberty. The machines were carefully disguised to appear as pre-Republic ComStar units, creating deliberate confusion about their origin.</p><p>Reports of Celerity sightings in the Ghost Bear Dominion, the Draconis Combine, and the Capellan Confederation during this period generated considerable alarm, as intelligence analysts struggled to identify who was deploying these ultralight drones and to what purpose. Local intercepts indicated contacts with Word of Blake remnants, pirates, and even Homeworld Clan advance scouts, though the true source remained the Republic operating from behind the walls of Fortress Republic. The danger of discovery was deemed an acceptable risk given the strategic intelligence these expendable assets provided. The Celerity has since appeared in the Solaris VII arena circuit as a remote-controlled combat drone, suggesting that the concept of expendable drone warfare may be poised to enter a new era of development.</p>
+
+manufacturer:RAF Manufacturing Center Providence
+
+primaryfactory:Terra
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:S-Equus
+systemmode:CHASSIS:Omicron Endo Steel
+systemmanufacturer:ENGINE:Republic
+systemmode:ENGINE:240 XXL
+systemmanufacturer:ARMOR:Strasbourg Armaments
+systemmode:ARMOR:Type 3
+systemmanufacturer:COMMUNICATIONS:ComStar
+systemmode:COMMUNICATIONS:Remote Link Theta
+systemmanufacturer:TARGETING:Iota-Luminus
+systemmode:TARGETING:TCKM

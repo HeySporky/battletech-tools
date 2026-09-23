@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-ddb3-77b4-a7af-2d5f18144c03
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:MuckRaker
+model:GMMM-2 MiningMech
+mul id:4220
+
+Config:Biped
+techbase:Inner Sphere
+era:2737
+source:TR:I
+published:TR:I
+rules level:2
+role:None
+
+
+mass:70
+engine:140 ICE Engine
+structure:IS Industrial
+myomer:Standard
+cockpit:Industrial Cockpit
+gyro:Standard Gyro
+
+heat sinks:0 Single
+walk mp:2
+jump mp:0
+
+armor:Heavy Industrial(Inner Sphere)
+LA armor:8
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:30
+HD armor:9
+LL armor:30
+RL armor:30
+RTL armor:8
+RTR armor:8
+RTC armor:9
+
+Weapons:0
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Backhoe
+Backhoe
+Backhoe
+Backhoe
+Backhoe
+Backhoe
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Dumper (Front)
+
+Right Torso:
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Cargo:SIZE:11.0
+Dumper (Front)
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The MuckRaker is a 70-ton IndustrialMech introduced in 2737 by General Motors during the height of the Star League era. Designed as a "walking dump truck" capable of reaching terrain inaccessible to conventional hauling vehicles, the MuckRaker was built around a large truck bed mounted on a slow but exceptionally stable chassis. Originally intended for deployment at remote mining sites, the design's eminent usefulness and rugged simplicity ensured its survival through the Succession Wars when many other IndustrialMech classes disappeared entirely.</p><p>The MuckRaker has since spread to virtually every corner of the Inner Sphere and Periphery, finding employment in roles far beyond basic mining, from construction and archaeology to salvage and waste collection. Its reputation as the finest platform for ad-hoc weapon modifications has made it a favorite among irregular forces and civilian militias, with armed MuckRaker MODs becoming an increasingly common sight across the Republic and beyond.</p>
+
+capabilities:<p>The standard MuckRaker is built on the GM Specialheavy Industrial chassis and powered by a GM 140 Turbine internal combustion engine, giving it a top speed of just 32 kilometers per hour. What the design sacrifices in mobility it compensates for with exceptional stability, courtesy of a reinforced gyro system that keeps the platform steady even over rough terrain. The truck bed can carry and dump up to twenty-two tons of cargo, while a backhoe arm provides basic excavation capability. Durallex Heavy Industrial armor offers reasonable protection for a civilian machine.</p><p>The most commonly encountered MuckRaker MOD replaces the backhoe arm with a Mydron Tornado Rotary Autocannon/5, while a Sian/Ceres Puma MRM 20 launcher occupies the truck bed alongside banks of ammunition. This combination provides effective medium-range firepower, though the rotary autocannon's vibrations can create stress fractures in the industrial-grade internal structure over prolonged firing. The MuckRaker's slow speed and heavy industrial armor make it a poor choice for open-field engagements, but in confined spaces such as urban areas, mining tunnels, or mountain passes, modified MuckRakers have proven to be formidable opponents capable of ambushing and pinning down even dedicated combat units.</p>
+
+deployment:<p>The base GMMM-2 is the original MuckRaker MiningMech as designed by General Motors in 2737. Configured purely for industrial work, it mounts a backhoe arm for excavation and a large truck bed capable of hauling twenty-two tons of cargo. The design carries no weaponry, relying on its rugged construction and heavy industrial armor for incidental protection. Production has continued at multiple GM facilities across the Inner Sphere for centuries, ensuring the base model remains widely available for civilian operations ranging from mining and construction to salvage and waste management.</p>
+
+history:<p>General Motors introduced the MuckRaker in 2737 as part of a broader initiative to develop specialized IndustrialMechs for resource extraction in difficult terrain. The design drew heavily from the earlier Dig Lord concept, adapting the walking heavy-equipment philosophy for a dedicated hauling role. Production was established at GM facilities on El Dorado, New Valencia, and Talcott, all within Federated Suns space, and the design quickly found customers across the Inner Sphere.</p><p>The Succession Wars devastated IndustrialMech production lines across known space, but the MuckRaker's simple construction and use of widely available components ensured continued manufacture when more sophisticated designs were lost. By the Late Succession Wars era, MuckRakers had become ubiquitous on industrial worlds throughout the Inner Sphere and Periphery, performing an enormous variety of civilian tasks far beyond their original mining role.</p><p>The trend toward militarizing civilian IndustrialMechs accelerated dramatically during the Dark Age following the collapse of the HPG network in 3132. While General Motors bears some responsibility for on-site military modifications at its own facilities, third-party conversion shops and independent operators have been particularly active in producing armed MuckRaker MODs. The discovery of a Zhanzheng de Guang Terrorist Handbook recommending the MuckRaker above all other IndustrialMechs for weaponization reinforces the design's unfortunate reputation as the platform of choice for irregular forces.</p><p>The most celebrated engagement involving MuckRakers occurred on Addicks, when miners from the town of Marlinspike hastily modified their MiningMechs to repel a raid by Wyld's Jokers. Armed with homemade rocket launchers and harpoon guns fashioned from industrial air hammers, four MuckRakers managed to surprise and pin down the Bannson forces in the town's central square until the local Standing Guard arrived. The incident demonstrated both the versatility of the MuckRaker platform and the resourcefulness of civilian operators when faced with the chaos of the Dark Age.</p>
+
+manufacturer:General Motors|General Motors|General Motors|General Motors
+
+primaryfactory:Unknown|El Dorado|New Valencia|Talcott
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:General Motors
+systemmode:CHASSIS:Specialheavy Industrial
+systemmanufacturer:ENGINE:General Motors
+systemmode:ENGINE:140 Turbine
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Heavy Industrial
+systemmanufacturer:COMMUNICATIONS:Overlook
+systemmode:COMMUNICATIONS:J9
+systemmanufacturer:TARGETING:Kallon
+systemmode:TARGETING:Lock-On

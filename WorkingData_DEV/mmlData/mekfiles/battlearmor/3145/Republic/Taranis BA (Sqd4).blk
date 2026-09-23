@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a762-7010-b08b-08d8b400fbbf
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Taranis Battle Armor
+</Name>
+
+<Model>
+(Sqd4)
+</Model>
+
+<mul id:>
+6652
+</mul id:>
+
+<year>
+3123
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Ambusher
+</role>
+
+<quirks>
+distracting
+</quirks>
+
+<weaponQuirks>
+mod_weapons:Squad:2:CLBAHeavy Recoilless Rifle
+mod_weapons:Squad:4:ISBAMediumLaser
+</weaponQuirks>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+36
+</armor_type>
+
+<armor_tech>
+5
+</armor_tech>
+
+<Squad Equipment>
+BABasicManipulator:LA
+BABasicManipulator:RA
+CLBAHeavy Recoilless Rifle:DWP
+ISDetachableWeaponPack:RA
+ISBAMediumLaser:DWP
+ISDetachableWeaponPack:LA
+IS BA Mimetic:Body
+IS BA Mimetic:Body
+IS BA Mimetic:LA
+IS BA Mimetic:Body
+IS BA Mimetic:Body
+IS BA Mimetic:RA
+IS BA Mimetic:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<capabilities>
+<p>The Taranis is a 1,500-kilogram heavy battlesuit optimized for sustained close combat at the expense of speed. Its ground movement is limited to a walking pace, and the suit lacks any jump capability, relying instead on mechanized transport via OmniMech handholds to reach the fighting. Five hundred kilograms of mimetic armor provide both strong physical protection and a reduced visual signature, allowing troopers to set ambushes or approach defensive positions with less risk of detection.</p><p>The suit's primary armament consists of a heavy recoilless rifle and a medium laser, both mounted in detachable weapon packs. This configuration gives each trooper effective firepower against BattleMechs, vehicles, and infantry alike. When ammunition runs dry or the tactical situation demands greater mobility, troopers can jettison the weapon packs entirely. The design was built with future expansion in mind, and the modular weapon mounts leave room for alternative loadouts as new equipment becomes available.</p>
+</capabilities>
+
+<overview>
+<p>The Taranis is a heavy Inner Sphere battlesuit developed by Krupp Armament Works for the Republic of the Sphere's Armed Forces. Introduced in 3123, the design was purpose-built for close assault and defensive operations within the Republic's combined arms formations. Named after the Celtic god of thunder, the Taranis brought considerable toughness and firepower to the Republic's front-line infantry, filling a need for a heavyweight platform capable of keeping pace with OmniMech-equipped lances. Though its limited ground speed demanded creative tactical deployment, the suit quickly earned a place in the Republic's premier combat formations.</p>
+</overview>
+
+<deployment>
+<p>The Republic Armed Forces fielded the Taranis in standard four-trooper squads, the default formation for Inner Sphere battle armor doctrine. Within the Hastati Sentinels and Principes Guards, Taranis squads were allocated directly to OmniMech-equipped lances in formations that mirrored Clan Nova organization. These combined arms groupings placed the battle armor at the tip of the assault, using mechanized transport to keep pace with heavier units before dismounting into the thick of the fighting.</p>
+</deployment>
+
+<history>
+<p>Krupp Armament Works on Terra developed the Taranis for the Republic Armed Forces, introducing the heavy battlesuit in 3123. The design emerged from the Republic's emphasis on combined arms doctrine, filling a need for a heavyweight infantry platform capable of operating alongside OmniMech formations. Production at Krupp's Terran facilities supplied the suit in company-strength batches to front-line formations, with the Hastati Sentinels and Principes Guards receiving priority allocations.</p><p>The Taranis earned its reputation in several engagements during the Republic's turbulent later years. On Markab in 3134, troopers attached to the Third Principes Guards helped defeat a Spirit Cat force that had been terrorizing local militia. The battle armor's firepower pinned the Clan warriors in place while the rest of the Third maneuvered behind them, shattering what little unit cohesion remained. The suit saw heavier fighting on Epsilon Eridani in 3141, where Taranis troopers of the Fourteenth Hastati Sentinels deployed via combat drop directly onto renegade Com Guard positions. The assault captured a key artillery outpost, though the close-quarters fighting exacted a steep toll on the attackers.</p>
+</history>
+
+<manufacturer>
+Krupp Armament Works
+</manufacturer>
+
+<primaryFactory>
+Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3145:RotS,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+10
+</armor>
+
+<Trooper Count>
+4
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

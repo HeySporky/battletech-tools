@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d3b1-70af-924f-6e1364864a7a
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Jade Hawk
+model:2
+mul id:6567
+
+Config:Biped
+techbase:Clan
+era:3136
+source:TR:3145:Merc,TR:DA
+published:RS:DA
+rules level:3
+role:Skirmisher
+
+quirk:distracting
+quirk:reinforced_legs
+quirk:non_standard
+
+mass:75
+engine:375 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:15 Laser
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:24
+RA armor:24
+LT armor:24
+RT armor:24
+CT armor:35
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:9
+ER Large Laser, Left Arm
+ER Small Laser, Left Arm
+ER Large Laser, Right Arm
+ER Small Laser, Right Arm
+ATM 6, Left Torso
+ATM 6, Left Torso
+ATM 6, Right Torso
+ATM 6, Right Torso
+ER Small Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERLargeLaser
+CLERSmallLaser
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERLargeLaser
+CLERSmallLaser
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLATM6
+CLATM6
+CLATM6
+CLATM6
+CLATM6
+CLATM6
+Clan Ammo ATM-6
+Clan Ammo ATM-6 ER
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLATM6
+CLATM6
+CLATM6
+CLATM6
+CLATM6
+CLATM6
+Clan Ammo ATM-6
+Clan Ammo ATM-6 HE
+Clan Endo Steel
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLERSmallLaser
+Clan Ferro-Fibrous
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Jade Hawk is a 75-ton heavy BattleMech developed by Clan Jade Falcon's technician caste in the early 3130s at the urging of then-Galaxy Commander Malvina Hazen. Intended as a new totemic design to revitalize the Falcon touman, the Jade Hawk is a totemic descendant of the Flamberge, featuring distinctive birdlike talons and ornamental wings that double as heat dissipation aids. The design's exclusivity was short-lived when a technician opposed to Hazen's brutal Mongol Doctrine defected to Clan Sea Fox with the plans, sharing them on the condition they not be provided to any other Clan.</p><p>The Sea Foxes brokered an arrangement with Galatea-based Dynamic Ordnance and Ammunition Corp, which began producing an Inner Sphere-modified version for the mercenary market in early 3135. The Jade Falcons subsequently began production of their own purely Clan-specification version at Olivetti Weaponry on Sudeten by 3136, resulting in two distinct production lines for this powerful close-combat design.</p>
+
+capabilities:<p>The Jade Hawk's defining characteristic is its extraordinary speed for a heavy 'Mech. A Clan-manufactured Starfire 375 XL engine propels the seventy-five-ton frame to cruising speeds of fifty-four kilometers per hour, with a top speed of eighty-six, performance that rivals 'Mechs a third of its tonnage. A supercharger provides additional burst speed capability, while Triple Strength Myomers on the DOA-manufactured variant further enhance both speed and physical combat capability when the 'Mech runs hot.</p><p>The design carries maximum armor for its chassis, with thirteen and a half tons of Jolassa 325 plating providing exceptional survivability. Chilton 465 jump jets paired with a partial wing system grant ninety meters of jump capacity while the wing structure aids heat management. The partial wing also gives the Jade Hawk its distinctive silhouette, reinforcing the totemic raptor aesthetic.</p><p>Armament is deliberately focused on close-quarters combat. Four Series 1g Extended Range Small Lasers and four Mk. 22 Type III SRM-6 launchers provide withering short-range firepower, while a pair of reinforced combat claws make the Jade Hawk a devastating physical combatant. This combination creates a 'Mech that excels in urban environments and close engagements but is particularly vulnerable at range, a deliberate trade-off that demands aggressive piloting to close distance quickly. The reliance on Clan Sea Fox-supplied components also means maintenance outside established supply chains can be problematic.</p>
+
+deployment:<p>The second Clan Jade Falcon variant trades the Jade Hawk's signature mobility for substantial ranged firepower. The jump jets, partial wing, and supercharger are removed to accommodate two arm-mounted ER Large Lasers alongside four ATM-6 launchers that provide tactical flexibility across all engagement ranges. A fifth Extended Range Small Laser supplements the arsenal. Four tons of ATM ammunition (typically loaded with a mix of standard, extended-range, and high-explosive munitions) give the variant effective reach from extreme range through close combat, making it the most versatile of the Jade Hawk configurations at the cost of the mobility that defines the original design.</p>
+
+history:<p>The Jade Hawk emerged from Clan Jade Falcon's ambitious effort to create new totemic BattleMechs during the Dark Age era. Galaxy Commander Malvina Hazen championed the program as part of her broader campaign to revitalize the Falcon touman, but the design's path to production was complicated by internal dissent. A technician within the program, appalled by Hazen's increasingly brutal interpretation of the Mongol Doctrine, fled to Clan Sea Fox carrying a copy of the Jade Hawk's schematics. The defector shared the plans on the strict condition that they not be made available to any other Clan.</p><p>Clan Sea Fox, ever the merchants, found an ideal partner in Dynamic Ordnance and Ammunition Corp on Galatea. DOA began manufacturing an Inner Sphere-adapted version incorporating Triple Strength Myomers and combat claws, additions that gave the mercenary-market variant a distinctive close-combat character absent from the original Falcon design. Republic of the Sphere intelligence operatives quickly identified Clan Sea Fox as the source of the technological expertise behind DOA's production capabilities.</p><p>The Jade Hawk debuted to immediate commercial success in early 3135. The prestige of piloting a heavy Clan-derived 'Mech without requiring governmental sanctions made it enormously popular among freelance mercenaries and Solaris VII arena combatants alike. Mercenary commands such as the Ronin Group extensively field-tested the design in combat operations throughout 3135, providing feedback that would eventually lead to the development of the JHK-04 support variant.</p><p>A punitive raid led by then-Star Captain Alaric of Clan Wolf against Clan Jade Falcon forces on Koniz in October 3136 revealed that the Falcons had developed their own production version at Olivetti Weaponry on Sudeten. During the engagement on the plains outside Ogstrenburg, Jade Falcon Jade Hawks clashed directly with Clan Wolf elements, destroying several light 'Mechs and demonstrating the design's effectiveness even against Clan opponents before being overwhelmed by superior numbers.</p><p>The Jade Hawk has since seen continued service through the final years of the Republic of the Sphere and into the ilClan era. Both production lines (DOA on Galatea and Olivetti on Sudeten) have continued to supply their respective markets, with the design remaining a fixture among mercenary commands and within the Jade Falcon touman.</p>
+
+manufacturer:Olivetti Weaponry
+
+primaryfactory:Sudeten
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmanufacturer:ENGINE:Starfire
+systemmode:ENGINE:375 XL
+systemmanufacturer:ARMOR:Unknown
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

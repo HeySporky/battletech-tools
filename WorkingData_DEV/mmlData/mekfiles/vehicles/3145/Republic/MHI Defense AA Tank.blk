@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e874-79b3-a8db-87897a31693b
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+MHI Defense AA Tank
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+6670
+</mul id:>
+
+<year>
+3106
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Sniper
+</role>
+
+<quirks>
+anti_air
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+44
+31
+31
+37
+25
+</armor>
+
+<Body Equipment>
+ISCASE
+ISLimitedAmphibiousChassis
+IS Light Machine Gun Ammo - Half
+IS LB 10-X Cluster Ammo
+IS LB 10-X Cluster Ammo
+IS LB 10-X AC Ammo
+IS LB 10-X AC Ammo
+</Body Equipment>
+
+<Front Equipment>
+Light Machine Gun
+Light Machine Gun
+Light Machine Gun
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+ISLBXAC10
+ISLBXAC10
+</Turret Equipment>
+
+<capabilities>
+<p>The Defense AA Tank's primary armament consists of twin turret-mounted Armstrong Class-B LB 10-X Autocannons, a versatile pairing that gives the vehicle exceptional flexibility against both aerial and ground targets. Crews can load cluster munitions for devastating anti-aircraft barrages or solid slug rounds for engaging armored vehicles, with four tons of CASE-protected ammunition providing sustained endurance across extended operations. Three hull-mounted SperryBrowning Light Machine Guns offer close defense against infantry, backed by a half ton of CASE-protected machine gun ammunition.</p><p>A GM 240 XL fusion engine drives the tracked chassis to a maximum road speed of 64 kilometers per hour, keeping the tank competitive with the mechanized formations it supports. The extralight powerplant saves considerable weight but introduces vulnerability to side hits, a calculated trade-off for a vehicle expected to operate behind the forward line. Eight tons of StarSlab/7 Heavy Ferro-Fibrous armor provide solid durability for its weight class, though the protection falls short of what dedicated assault tanks carry. Limited amphibious equipment allows the Defense AA to ford shallow waterways, extending its operational reach across terrain that would stop purely land-bound vehicles. Mobile anti-air platforms are often the first targets enemy scouts designate during surprise attacks, and the ability to reposition across light water obstacles helps the Defense AA survive initial contact.</p>
+</capabilities>
+
+<overview>
+<p>The MHI Defense AA Tank entered service in 3106 as Michaelson Heavy Industries' purpose-built mobile anti-aircraft platform for the Republic Armed Forces. Designed to protect ground formations from airborne threats while providing supplemental fire support, the sixty-ton tracked vehicle represented Michaelson's ambitious expansion beyond the VTOL designs that had defined the company for decades. Produced at three facilities across the Inner Sphere, the Defense AA became a mainstay of Republic and Federated Suns armor formations. Its combination of versatile autocannon armament, respectable armor protection, and limited amphibious capability made it a flexible asset for combined-arms commanders operating across diverse terrain.</p>
+</overview>
+
+<deployment>
+<p>Defense AA Tanks are found across the Inner Sphere, serving in the armies of the Republic of the Sphere, the Federated Suns, and various other states whose worlds host Michaelson factories. The vehicle is a popular choice for irregular units the RAF deployed secretly beyond the Fortress for reconnaissance and harassment duties. Its versatile LB-X autocannons and amphibious capability make it attractive to formations operating on water-rich worlds where conventional anti-air assets struggle to maintain area coverage. Federated Suns commands have integrated the Defense AA into combined-arms air defense networks, pairing it with mobile sensor platforms and fighter screen elements. The large ammunition capacity allows crews to reserve a portion of their stowage for standard high-explosive shells in case ground units close to direct engagement range.</p>
+</deployment>
+
+<history>
+<p>Michaelson Heavy Industries developed the Defense AA Tank during a period of significant corporate transformation. Originally a smaller Federated Suns contractor specializing in VTOLs, the company nearly went bankrupt after the Jihad when the Word of Blake blockade of Ruchbah crippled its home manufacturing operations. Forced to sell intellectual property to remain solvent, Michaelson watched competitors flood the market with copies of its own designs. Recovery came through Republic of the Sphere contracts in the early 3080s, including the Trireme battle armor transport VTOL and the highly successful Bishop Transport VTOL introduced in 3093. These programs funded expansion to a new plant on Terra and a production line on June.</p><p>The Defense AA Tank filled a recognized capability gap in Republic formations that had grown reliant on air superiority but lacked sufficient ground-based air defense. Republican forces secretly deployed the vehicle among units operating beyond the Fortress Republic's walls, screening formations conducting reconnaissance and harassment in neighboring states. During the clash on Dyev in 3141, RAF resistance cells suffering from Combine close-air support arranged a bold operation against a concealed airbase. Defense AA Tanks smuggled to the world aboard JES I Tactical Missile Carriers ambushed returning fighters and then broke through the perimeter to destroy grounded aircraft on the tarmac, costing the Combine squadron more than half its strength.</p><p>Defense AA crews of the Com Guards claimed a fearsome toll during the organization's last stand on Epsilon Eridani. Though the final combat drop of the Fourteenth Hastati sealed the Com Guards' fate, several Defense AA tanks destroyed a number of the falling Hastati before ground forces could overrun their positions.</p>
+</history>
+
+<manufacturer>
+Michaelson Heavy Industries|Michaelson Heavy Industries|Michaelson Heavy Industries
+</manufacturer>
+
+<primaryFactory>
+June|Ruchbah|Terra
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Michaelson Heavy Industries
+ENGINE:GM
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:Garret
+TARGETING:Garret
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:240 XL
+ARMOR:StarSlab/7 Heavy Ferro-Fibrous
+COMMUNICATIONS:T12-S
+TARGETING:D2j
+</systemModels>
+
+<source>
+TR:3145:RotS,TR:3145
+</source>
+
+<published>
+RS:3145
+</published>
+
+<tonnage>
+60.0
+</tonnage>
+

@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-dbfc-7e22-95a6-420af5323721
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Linebacker
+model:G
+mul id:6880
+
+Config:Biped OmniMek
+techbase:Clan
+era:3114
+source:RG06
+published:RG06
+rules level:2
+role:Skirmisher
+
+quirk:stable
+
+mass:65
+engine:390 XL (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:18 Clan Double
+base chassis heat sinks:14
+walk mp:6
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:20
+RA armor:20
+LT armor:22
+RT armor:22
+CT armor:25
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:8
+RTR armor:8
+RTC armor:10
+
+Weapons:4
+Improved Heavy Large Laser, Left Arm
+Improved Heavy Large Laser, Right Arm
+Streak SRM 2 (I-OS), Right Torso
+Streak SRM 2 (I-OS), Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLStreakSRM2 (IOS) (OMNIPOD)
+CLStreakSRM2 (IOS) (OMNIPOD)
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Supercharger (OMNIPOD)
+Clan Endo Steel
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Endo Steel
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Linebacker was commissioned in 3052 by Clan Wolf Khans to address a critical gap in their heavy OmniMech roster. The venerable Timber Wolf, while devastating in stand-up engagements, struggled to keep pace with lighter Star-mates during running battles, limiting the tactical flexibility of front-line Clusters. Designed to pair the firepower expected of a sixty-five-ton OmniMech with the speed of designs ten tons lighter, the Linebacker was intended to supplement and eventually replace the Timber Wolf in Wolf offensive formations. Its distinctive hunched profile, said to resemble the players of ancient Terran American Football, earned it the codename that became its official designation. Though its Warden origins initially limited acceptance among Crusader Wolves, the Linebacker has proven itself across multiple theaters and Clans, establishing a reputation as one of the fastest heavy OmniMechs in production.</p>
+
+capabilities:<p>The Linebacker achieves its remarkable speed through a Heavy Force 390-rated XL engine, propelling the sixty-five-ton OmniMech to a top speed of ninety-seven kilometers per hour. This engine choice is the defining trade-off of the design, consuming significant mass that would otherwise be available for weapons and equipment. The result is 17.5 tons of pod space, roughly ten tons less than the Timber Wolf it was designed to complement. The Type W4 Endo Steel frame provides structural savings, while ten tons of Composite A-4 ferro-fibrous armor delivers respectable protection for a 'Mech expected to operate at the leading edge of an advance.</p><p>In its primary configuration, the Linebacker mounts a pair of ER PPCs that deliver devastating firepower at extreme range, backed by an LRM-5 launcher for supplementary bombardment. A Streak SRM-4 provides efficient close-range punch, while a rear-mounted ER Small Laser discourages pursuit. This loadout allows the Linebacker to engage effectively while maintaining the speed to choose its engagements. The low-slung, hunched torso profile provides an exceptionally stable firing platform, enabling accurate fire even at high speeds. Common configurations either exploit the Linebacker's speed to maintain standoff range while sniping, or leverage that same velocity to rapidly close distance and overwhelm enemy positions.</p>
+
+deployment:<p>Alternate Configuration G is a Dark Age-era design that pushes the Linebacker's speed envelope with an engine Supercharger capable of propelling the OmniMech to bursts of one hundred and twenty kilometers per hour. Its primary armament consists of paired Improved Heavy Large Lasers linked to a Targeting Computer for enhanced accuracy, delivering tremendous damage at medium range. A pair of Improved One-Shot Streak SRM-2 launchers provide supplementary close-range firepower. The combination of extreme speed and precise, heavy-hitting weaponry makes this configuration ideal for slashing attacks against high-value targets, though the Supercharger carries inherent mechanical risk during sustained use.</p>
+
+history:<p>The Linebacker was born from battlefield necessity during the Clan Invasion. Commissioned by Khans Ward and Kerensky in 3052, the design entered production at Wolf Clan Site 2 on Strana Mechty and WC Site 1 on Arc-Royal. A Trinary formed from the first production run deployed to Tukayyid with Gamma Galaxy, where the Linebacker saw its baptism of fire against ComStar defenders. Though the design performed admirably, the upheaval of the Refusal War and the Crusader Wolves' disdain for what they viewed as a Warden creation prevented the Linebacker from appearing in significant numbers until the mid-3060s.</p><p>Before the Refusal War, the Wolves had shared the Linebacker design with Clans Snow Raven and Coyote. As Wolf combat losses mounted in the years that followed, the design spread further through Clan politics and warfare. Clan Hell's Horses and the Jade Falcons acquired Linebackers through various means, while fighting on Lum allowed the Steel Vipers to seize several examples, many of which later fell to the Cloud Cobras following the Viper absorption on Homer.</p><p>Clan Wolf proper did not replace Linebackers lost during the Jihad, and the design became a common sight only among the Wolves-in-Exile, who maintained constant production at their Arc-Royal facilities. The loss of Arc-Royal to the Jade Falcons forced the Exiles to scramble, eventually relocating production to fall-back facilities on Donegal under the Assault Tech Industries banner.</p><p>The Linebacker experienced a dramatic resurgence when Khan Alaric Ward ordered the design back into mass production for the Wolf Empire. W-12 Facilities on Zosma joined the production effort as the Linebacker was recast as a mainstay of the Wolf Empire's heavy BattleMech forces, serving alongside the Timber Wolf, Warwolf, and Crossbow as the spearpoint of the Empire's advance toward Terra. During the conquest of the Republic Remnant, Linebackers of the 103rd Wolf Guard Striker Cluster played a decisive role in the May 3149 Battle of Alhena, where their superior speed allowed them to outflank Republic artillery positions and overrun defensive emplacements that had stalled a conventional assault.</p>
+
+manufacturer:WC Site 1|Wolf Clan Site 2|Assault Tech Industries|W-12 Facilities
+
+primaryfactory:Arc-Royal|Strana Mechty|Donegal|Zosma
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Type W4 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Heavy Force 390 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Composite A-4 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Khan Series (Type 3)
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Series V OPT

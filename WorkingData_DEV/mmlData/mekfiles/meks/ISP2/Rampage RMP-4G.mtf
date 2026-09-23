@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d6d6-7503-9d09-f81bcd32ab3c
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Rampage
+model:RMP-4G
+mul id:2636
+
+Config:Biped
+techbase:Inner Sphere
+era:2750
+source:ISP2,TR:SW
+published:RS:SW
+rules level:2
+role:Sniper
+
+quirk:bad_rep_is
+quirk:obsolete:2780
+quirk:bad_rep_clan
+quirk:vestigial_hands_ra
+
+mass:85
+engine:340 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:26
+RA armor:26
+LT armor:26
+RT armor:26
+CT armor:40
+HD armor:9
+LL armor:32
+RL armor:32
+RTL armor:9
+RTR armor:9
+RTC armor:13
+
+Weapons:6
+Gauss Rifle, Left Arm
+LB 10-X AC, Right Arm
+Flamer, Left Torso
+Medium Laser, Right Torso
+Anti-Missile System, Right Torso
+Large Pulse Laser, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+ISGaussRifle
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+ISLBXAC10
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Gauss Ammo
+IS Gauss Ammo
+Flamer
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Medium Laser
+ISAntiMissileSystem
+ISMASC
+ISMASC
+ISMASC
+ISMASC
+IS LB 10-X AC Ammo
+IS LB 10-X AC Ammo
+ISAMS Ammo
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISLargePulseLaser
+ISLargePulseLaser
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Rampage is an eighty-five-ton assault BattleMech originally designed for the Rim Worlds Republic, first entering service in 2735. Built by Weigel Armory and Munitions at their facility on Kwangjong-ni, the design served as a workhorse for Republican military forces for decades before being dramatically upgraded into a fast assault platform using captured Star League technology. The redesigned Rampage combined speed with hitting power, producing a chassis capable of keeping pace with much lighter units while delivering devastating volleys.</p><p>The Rampage earned a fearsome reputation during the final years of the Republic, and the destruction of its sole factory permanently ended production. Surviving examples became increasingly rare as the Succession Wars consumed irreplaceable machines, leaving the Rampage as a coveted relic of a bygone era.</p>
+
+capabilities:<p>The upgraded RMP-5G Rampage was built for speed unusual in an eighty-five ton chassis. Engineers settled on an AMC 340 XL engine augmented by a MASC system, enabling the design to reach nearly ninety kilometers per hour in short bursts. This combination of mass and mobility allows the Rampage to keep pace with medium-weight formations or serve as heavy support for fast strike units. Sixteen tons of PanzerSlab Type 9 armor provide substantial protection for its weight class.</p><p>The Rampage's armament centers on a Lubalin LB 10-X autocannon capable of switching between standard and cluster munitions, paired with an Artemis IV-guided Jackson Dart LRM-10 for accurate long-range fire. Three Marklin Mini Streak SRM-2 launchers and a Tronel XIII large pulse laser deliver punishing close-range salvos, while two Maxell DT medium lasers and a Zippo Mark X flamer round out the weapons suite. A Buzzsaw anti-missile system provides some defense against incoming ordnance. Thirteen double heat sinks manage the thermal load adequately, though sustained fire from all weapons simultaneously can strain the cooling system. The design's reliance on an XL engine stands as a significant vulnerability, as critical torso damage can disable the 'Mech entirely.</p>
+
+deployment:<p>Introduced in 2750 as a limited-production intermediate upgrade, this variant represented a step toward the technology that would be fully realized in the later RMP-5G. This variant traded all of the design's missile systems, one medium laser, three heat sinks, and half a ton of armor for a powerful gauss rifle, giving the Rampage devastating long-range precision firepower. The minimum complement of double heat sinks and advanced structural components foreshadowed the full Star League technology suite incorporated into the subsequent RMP-5G. Produced in small numbers before the Amaris coup, this variant saw limited deployment primarily with elite Republican formations.</p>
+
+history:<p>The Rampage was born from the Rim Worlds Republic's covert military buildup. Weigel Armory and Munitions constructed a secret factory half a kilometer beneath Kwangjong-ni's Lost Sea, using the body of water as both a power source and a means to disguise the facility's heat signature. Off-world workers lived inside the plant full-time to minimize security risks, while tunnels connected the factory to the nearby Britton mountains where the planetary garrison was stationed. This allowed newly produced 'Mechs and ammunition to be quietly added to Republic Army units before their rotation off-world.</p><p>The original RMP-2G served as one of the Republic's standard assault designs from 2735 onward, with the limited-production RMP-4G following in 2750 as an experimental upgrade incorporating emerging advanced technologies. When Stefan Amaris seized control of the Terran Hegemony in 2767, Republican engineers leveraged captured Star League research and development facilities to produce the dramatically upgraded RMP-5G. The factory on Kwangjong-ni was destroyed that same year.</p><p>During the Amaris Civil War, the Rampage earned a notorious reputation. Republican Guard units wielding the fast assault 'Mech were deployed in pacification operations across occupied Hegemony worlds, with the design's anti-personnel flamer seeing particularly grim use. The 'Mech proved effective in conventional combat as well, its combination of speed and firepower catching opponents who expected a slower assault platform off guard. More than one enemy commander misjudged a Rampage for a less mobile design and found themselves outmaneuvered and outgunned.</p><p>Republican holdouts destroyed access to the Kwangjong-ni facility during Operation ALMARIC to prevent it from falling into Lyran hands, permanently halting Rampage production. The design was classified as obsolete by 2780, and surviving examples became increasingly rare as the Succession Wars ground on without any source of replacement parts or new production. Though lostech prospectors discovered the defunct Weigel factory in 3062, no effort to restart Rampage production has been documented.</p>
+
+manufacturer:Weigel Armory and Munitions
+
+primaryfactory:Kwangjong-ni
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Stanwhich
+systemmode:CHASSIS:850
+systemmanufacturer:ENGINE:AMC
+systemmode:ENGINE:340 XL
+systemmanufacturer:ARMOR:PanzerSlab
+systemmode:ARMOR:Type 9
+systemmanufacturer:COMMUNICATIONS:Transcom
+systemmode:COMMUNICATIONS:Alpha
+systemmanufacturer:TARGETING:KBC
+systemmode:TARGETING:Starsight Model 3

@@ -1,0 +1,165 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ebd5-7f4d-bce8-e061a3846dc1
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+SturmFeur 'Kalki' Cruise Missile Launcher
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3112
+</mul id:>
+
+<year>
+3068
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+13
+12
+12
+12
+12
+7
+12
+</armor>
+
+<Body Equipment>
+ISCruiseMissile50Ammo
+IS Machine Gun Ammo - Half
+</Body Equipment>
+
+<Front Equipment>
+ISCruiseMissile50
+</Front Equipment>
+
+<Front Right Equipment>
+</Front Right Equipment>
+
+<Front Left Equipment>
+</Front Left Equipment>
+
+<Rear Right Equipment>
+</Rear Right Equipment>
+
+<Rear Left Equipment>
+</Rear Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Machine Gun
+Machine Gun
+</Turret Equipment>
+
+<capabilities>
+<p>The experimental Kalki mounted a single Cruise Missile/50 launcher on an enlarged SturmFeur chassis, powered by a 250-rated fusion engine that limited the vehicle to approximately 32 km/h. The vehicle carried only a single missile reload, requiring external resupply after every second firing. Five tons of StarSlab armor provided minimal protection for the 125-ton hull, with coverage stretched dangerously thin across the expanded chassis. Two machine guns mounted in the turret offered negligible defensive capability against anything more threatening than unarmored infantry.</p><p>The SturmFeur chassis proved fundamentally unsuited to the stresses imposed by the cruise missile system. Suspension components failed frequently when traversing rough terrain, the turret assembly suffered from rotation problems and weapon jams, and crew ergonomics were reportedly poor. Most critically, the cruise missile launcher itself proved unreliable during live-fire testing, with repeated firings significantly increasing the probability of catastrophic failure. Kallon recommended complete overhaul after approximately fifteen launches, a maintenance burden that made the design impractical for sustained field operations.</p>
+</capabilities>
+
+<overview>
+<p>The SturmFeur 'Kalki' was the experimental predecessor to the production Kalki Cruise Missile Launcher, developed by Kallon Industries in 3068 as a proof of concept for mobile cruise missile artillery. Built on a heavily modified and enlarged SturmFeur chassis expanded to 125 tons, the prototype demonstrated that ground-based cruise missile deployment was technically feasible but revealed severe engineering shortcomings. The vehicle was never intended for mass production, serving instead as a testbed to validate the concept before Kallon committed to a purpose-built design. Despite its numerous flaws, the experimental Kalki provided invaluable data that informed the successful production model nearly a decade later.</p>
+</overview>
+
+<deployment>
+<p>The experimental Kalki never entered operational service. Several prototypes were built and tested at the Kallon Industries facility on Kirklin between 3068 and the early 3070s before the program was suspended. The test data gathered during the experimental program directly informed the successful production Kalki Cruise Missile Launcher that entered AFFS service in 3079.</p>
+</deployment>
+
+<history>
+<p>The experimental Kalki emerged from Kallon Industries' facility on Kirklin shortly after the onset of the Jihad in 3068. The Federated Commonwealth had recognized cruise missile technology's potential during the 3060s, but the massive scale of the launchers and ammunition made ground vehicle integration an enormous engineering challenge. Kallon was the first company to attempt a mobile deployment, using a modified SturmFeur chassis as the foundation.</p><p>Testing revealed numerous critical deficiencies across the prototype's structural, mechanical, and weapons systems. Kallon reportedly lost several prototypes along with their crews during live-fire exercises. The company attempted to salvage the project by rebranding it as a proof of concept and reimbursing the families of lost test crews, but the AFFS remained unconvinced. When competing defense contractors learned of Kallon's true costs, they abandoned their own programs. The experimental Kalki was formally shelved in the early 3070s, its data archived for the production redesign that would follow later in the decade.</p>
+</history>
+
+<manufacturer>
+Kallon Industries
+</manufacturer>
+
+<primaryFactory>
+Kirklin
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:250 Fusion
+ARMOR:StarSlab
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+XTR:Corps
+</source>
+
+<published>
+XTR:Corps
+</published>
+
+<tonnage>
+125.0
+</tonnage>
+

@@ -1,0 +1,168 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eb90-7b4d-bfac-cb63d60e73fa
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Coanda Personal Sports Craft
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3970
+</mul id:>
+
+<year>
+3054
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+WiGE
+</motion_type>
+
+<transporters>
+cargobay:0.019:1:1::-1:0
+standardseats:2.0:0:-1::-1:0
+</transporters>
+
+<cruiseMP>
+11
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+1
+1
+1
+1
+</armor>
+
+<Body Equipment>
+AmphibiousChassis
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Coanda masses 3,500 kilograms, making it among the lightest Wing-in-Ground-Effect designs in production. Powered by an internal combustion engine, the craft skims the water surface using aerodynamic ground effect to achieve competitive racing speeds while maintaining a fuel range adequate for multi-kilometer championship courses. A BAR 6-rated armor shell provides minimal protection, intended for collision resistance and spray management rather than any combat application. The amphibious chassis modification enables operation across water and marginal coastal terrain, a practical feature for race courses that include shore transitions. No weapons are fitted. A single crew station is complemented by one passenger position, permitting a race observer or technical specialist to accompany the pilot without significantly affecting performance.</p>
+</capabilities>
+
+<overview>
+<p>The Coanda Personal Sports Craft is a lightweight Wing-in-Ground-Effect racing vehicle produced by Skye Pleasure Craft Ltd on the Lyran world of Skye, introduced in 3054. Built for competitive aquatic racing, the Coanda was developed to serve the commercial opportunities presented by high-profile racing events such as the Skye Water Racing Championship, held every four years and drawing competitors and spectators from across Lyran space. Technically an unarmed civilian utility vehicle, its purpose is purely competitive sport. Interstellar media coverage of the championship circuit gave the Coanda significant commercial visibility, establishing Skye Pleasure Craft as a recognized manufacturer within the recreational WiGE market.</p>
+</overview>
+
+<deployment>
+<p>The Coanda is produced at Skye Pleasure Craft's facility on Skye and is distributed primarily to professional racing teams and wealthy private buyers within the Lyran sphere. While technically capable of performing fast reconnaissance or liaison functions given its performance characteristics, the craft sees no meaningful military use. Its commercial prominence derives entirely from its racing profile, sustained by the Skye championship's interstellar media coverage. Distribution outside Lyran space remains limited, though the design's media visibility has created awareness in neighboring states.</p>
+</deployment>
+
+<history>
+<p>The Coanda was developed by Skye Pleasure Craft Ltd in direct response to the commercial potential of the Skye Water Racing Championship, a month-long aquatic competition held every four years that draws competitors and spectators from across the Lyran sphere and beyond. While the championship encompasses surfing, wind-powered sailing, and powerboat events, its most prestigious and dangerous competition is the speed and endurance WiGE race, an event that had driven competitors to abandon conventional watercraft in favor of Wing-in-Ground-Effect craft. Extensive media coverage of the championship, with sponsorship from aerospace and watercraft manufacturers, created an environment where producing the winning vehicle carried significant commercial value.</p><p>Skye Pleasure Craft introduced the Coanda in 3054 to immediate competitive success. Hans Moore, a veteran figure on the Skye racing circuit, won the championship at the craft's debut and repeated the victory in the 3058 race. Moore's run ended tragically during the 3062 championship when his Coanda broke apart mid-race. Post-race investigators concluded he had pushed his engines beyond safe limits during the final drive for the finishing line. Despite the incident, the Coanda had by then established Skye Pleasure Craft as the dominant manufacturer on the circuit, garnering considerable prestige and attracting sponsorship interest from throughout the Lyran sphere.</p><p>The Coanda's success drew competition from Lockheed/CBM Corporation, which entered the racing market with the Quicksilver design around 3058. The rivalry injected fresh energy into the championship and created ongoing development pressure on both sides. Skye Pleasure Craft subsequently announced the Coanda II, an improved design introduced during the Jihad era, as the company sought to maintain its position against Lockheed/CBM's continued investment in the circuit.</p>
+</history>
+
+<manufacturer>
+Skye Pleasure Craft Ltd
+</manufacturer>
+
+<primaryFactory>
+Skye
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:N/A
+TARGETING:N/A
+</systemManufacturers>
+
+<systemModels>
+ENGINE:ICE
+ARMOR:Unknown
+COMMUNICATIONS:N/A
+TARGETING:N/A
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+3.5
+</tonnage>
+
+<fuel>
+0.475
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

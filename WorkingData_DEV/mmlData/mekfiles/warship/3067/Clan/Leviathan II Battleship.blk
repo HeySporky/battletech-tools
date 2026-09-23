@@ -1,0 +1,821 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ed66-79da-a9a1-4592e3392488
+</UUID>
+
+<UnitType>
+Warship
+</UnitType>
+
+<Name>
+Leviathan II Battleship
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+4501
+</mul id:>
+
+<year>
+3066
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+asfbay:150.0:8:1::-1:0
+asfbay:150.0:8:2::-1:0
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+dockingcollar
+1stclassquarters:1950.0:0:-1::-1:0
+crewquarters:6825.0:0:-1::-1:0
+2ndclassquarters:1575.0:0:-1::-1:0
+cargobay:50293.0:10:14::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+9500
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+38250
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<clan_engine>
+false
+</clan_engine>
+
+<armor_type>
+11
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+6
+</armor_tech_level>
+
+<armor>
+1000
+1000
+1000
+1000
+1000
+1000
+</armor>
+
+<Nose Equipment>
+(B) Naval Gauss (Heavy)
+Naval Gauss (Heavy)
+Ammo Heavy N-Gauss:200
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:200
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo:600
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12 ER:500
+Clan Ammo ATM-12:250
+Clan Ammo ATM-12 HE:250
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+</Nose Equipment>
+
+<Left Front Side Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:200
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12 ER:500
+Clan Ammo ATM-12:250
+Clan Ammo ATM-12 HE:250
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+</Left Front Side Equipment>
+
+<Right Front Side Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:200
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12 ER:500
+Clan Ammo ATM-12:250
+Clan Ammo ATM-12 HE:250
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+</Right Front Side Equipment>
+
+<Aft Equipment>
+(B) Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+Naval PPC (Medium)
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+CLGaussRifle
+Clan Gauss Ammo:600
+(B) CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+CLERMediumLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12 ER:500
+Clan Ammo ATM-12:250
+Clan Ammo ATM-12 HE:250
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+</Aft Equipment>
+
+<Aft Left Side Equipment>
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:200
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12 ER:500
+Clan Ammo ATM-12:250
+Clan Ammo ATM-12 HE:250
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+</Aft Left Side Equipment>
+
+<Aft Right Side Equipment>
+(B) Naval Autocannon (NAC/30)
+Naval Autocannon (NAC/30)
+Ammo NAC/30:200
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Capital Missile Launcher (AR10 Launcher)
+Ammo AR10 Barracuda:100
+Ammo AR10 White Shark:50
+Ammo AR10 Killer Whale:25
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12 ER:500
+Clan Ammo ATM-12:250
+Clan Ammo ATM-12 HE:250
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+(B) CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAntiMissileSystem
+CLAMS Ammo:1008
+</Aft Right Side Equipment>
+
+<Hull Equipment>
+ISMobileHPG
+</Hull Equipment>
+
+<Left Broadsides Equipment>
+(B) Naval Gauss (Medium)
+Naval Gauss (Medium)
+Ammo Medium N-Gauss:200
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:600
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12 ER:500
+Clan Ammo ATM-12:250
+Clan Ammo ATM-12 HE:250
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+</Left Broadsides Equipment>
+
+<Right Broadsides Equipment>
+(B) Naval Gauss (Medium)
+Naval Gauss (Medium)
+Ammo Medium N-Gauss:200
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+Naval Laser 55
+(B) CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+CLERPPC
+(B) CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+CLERLargeLaser
+(B) CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLLargePulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+CLMediumPulseLaser
+(B) CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+CLLRM20
+Clan Ammo LRM-20 (Clan) Artemis-capable:600
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+CLArtemisIV
+(B) CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+CLATM12
+Clan Ammo ATM-12 ER:500
+Clan Ammo ATM-12:250
+Clan Ammo ATM-12 HE:250
+(B) CLStreakSRM6
+CLStreakSRM6
+CLStreakSRM6
+Clan Streak SRM 6 Ammo:300
+</Right Broadsides Equipment>
+
+<structural_integrity>
+150
+</structural_integrity>
+
+<capabilities>
+<p>The Leviathan II mounts an extraordinarily dense weapons suite across all firing arcs. The nose section carries heavy naval Gauss rifles, naval autocannons, seven medium naval particle projector cannons, twelve naval laser fifty-fives, and an AR-10 capital missile launcher. Extensive arrays of conventional Clan weapons including extended-range lasers, pulse lasers, Gauss rifles, and ATM-12 batteries provide layered defense against fighters and smaller craft. The broadside arcs concentrate the heaviest sustained firepower, with medium naval Gauss rifles backed by twenty-four naval laser fifty-fives per side and full batteries of extended-range PPCs, pulse lasers, and LRM-20 launchers with Artemis IV guidance. Anti-missile systems and Streak SRM-6 launchers protect the vessel from approaching ordnance at all angles.</p><p>The vessel maintains eight docking collars for DropShips and two massive fighter bays housing a combined three hundred aerospace fighters, giving the class organic carrier capability unmatched outside dedicated carrier designs. Nine thousand five hundred double heat sinks manage the staggering thermal output of the weapons suite. Structural integrity of one hundred fifty reflects the massively reinforced hull construction, while Ferro-Carbide armor provides outstanding protection across all arcs. A lithium-fusion battery permits consecutive hyperspace jumps, and a mobile HPG maintains independent interstellar communications. The one notable limitation is the vessel's modest thrust profile of safe three and maximum five, a trade-off imposed by the enormous mass that must be accelerated.</p>
+</capabilities>
+
+<overview>
+<p>The Leviathan II Battleship is the most powerful WarShip class ever fielded by Clan Ghost Bear and its successor state, the Rasalhague Dominion. Sharing the same two million four hundred thousand ton displacement as the earlier Leviathan Heavy Transport hull from which it was derived, the class emerged from the Alshain Naval Yards as a dedicated capital combatant in the mid-3060s. Armed with a dense capital weapons suite and carrying a substantial organic aerospace wing, the Leviathan II paired overwhelming offensive firepower with the ability to project force across an entire star system. The class served as the strategic centerpiece of the Dominion fleet, providing a deterrent unmatched by any WarShip operated by a Clan or successor state during the late thirty-first century. The sheer concentration of firepower aboard each vessel established the Leviathan II as the standard against which all other modern capital combatants were measured by naval strategists throughout the Inner Sphere.</p>
+</overview>
+
+<deployment>
+<p>The CGB Rasalhague was the only Leviathan II built directly to the battleship specification. Construction at the Alshain Naval Yards suffered repeated disruptions: the Draconis Combine's Alshain Avengers attacked the shipyard in 3064, helping trigger the Combine-Ghost Bear War, and in May 3067 Clan Nova Cat launched a Trial of Retribution to seize the incomplete hull. The resulting Naval Battle of Alshain lasted eight days, inflicting devastating losses on both Clans before the Ghost Bears retained possession. The vessel finally launched in December 3069 and entered combat almost immediately during the Jihad. At the Battle of Tukayyid in July 3070, the Rasalhague led a task force that knocked the Blakist McKenna-class Blake's Sword out of action, reportedly absorbing nuclear weapon impacts without critical damage. At the Battle of Dyev in July 3076, the vessel destroyed multiple Blakist WarShips during a seven-hour engagement alongside the Nightlord-class Ursa Major and the Aegis-class Scabbard. The Rasalhague subsequently served with Task Force EARTHBOUND during the liberation of Terra.</p><p>As the sole surviving Leviathan-class vessel after the Jihad, the Rasalhague remained the most powerful WarShip in the Dominion fleet for decades. In December 3099, the vessel led a flotilla in the Bikini Atoll Raid, destroying Combine factory ships. During the Dominion Civil War, Star Admiral Tanya Bourjon declared the navy neutral, keeping the Rasalhague stationed at Alshain while maintaining open JumpShip traffic until the conflict's resolution.</p><p>The CGB Leviathan and CGB Great Bear, both converted from the earlier Heavy Transport configuration, served as the first two Leviathan II-class vessels. The Leviathan supported operations at Kaus Borealis and Ascella before being lost at the Battle of Dieron on 20 November 3077, when Blakist WarShips concentrated fire on the vessel during Operation SCOUR. The Great Bear was destroyed during Task Force CRONUS's assault on the Titan Yards near Terra, overwhelmed by a concealed Dragon's Breath Multiple Capital Missile Launch System that claimed the vessel and five other Coalition WarShips in a devastating ambush.</p>
+</deployment>
+
+<history>
+<p>The Leviathan II class emerged from the decades-long Leviathan program initiated in 3044 by Clan Ghost Bear. After the two original hulls were completed as armed transports for the Third Exodus in 3055, plans commenced to convert them to their intended battleship configuration. The extensive mid-construction transport modifications meant the resulting combat vessels would differ materially from the original Leviathan battleship specifications. The transport-phase hull reinforcements, enlarged internal volumes, and revised compartmentalization all influenced the final design, creating the distinct Leviathan II designation rather than a return to the never-completed original blueprint. Both converted vessels were operational by 3061, giving Clan Ghost Bear two of the most powerful WarShips in the Inner Sphere.</p><p>Construction of a third vessel, built directly to the Leviathan II specification, commenced at the Alshain Naval Yards in the early 3060s. The project suffered repeated setbacks, including a Draconis Combine attack on the shipyard that helped trigger the Combine-Ghost Bear War and a contested Clan Trial over possession of the incomplete hull, both of which delayed progress by years. The vessel finally launched in December 3069, entering service during one of the most turbulent periods in Inner Sphere history as the Word of Blake Jihad engulfed the entire region.</p><p>All three Leviathan II vessels saw extensive combat during the Jihad, and the class proved to be an extraordinarily capable combatant. Ghost Bear fleet commanders deployed the class as the centerpiece of major task forces, with escort vessels screening the massive battleships while they engaged enemy capital assets directly. The vessels demonstrated the ability to absorb tremendous punishment, including nuclear weapon strikes, while delivering overwhelming firepower against even the largest opposing WarShips. The class played a decisive role in several of the Jihad's most important naval engagements, contributing to the liberation of key worlds held by the Word of Blake and proving that a sufficiently powerful capital combatant could dominate an entire system's orbital space.</p><p>The Jihad exacted a heavy toll on the class. Two of the three vessels were destroyed during the final stages of the conflict. One was lost in a fleet engagement during the liberation of a major world, while the other was destroyed by a concealed weapons platform during an assault on an orbital facility near Terra. The loss of two irreplaceable capital assets in rapid succession underscored both the vulnerability of even the largest WarShips to concentrated fire and the desperate intensity of the final campaigns against the Word of Blake. The destruction of two-thirds of the class in a matter of weeks marked one of the most significant naval losses suffered by any single power during the entire Jihad.</p><p>The sole surviving vessel continued to serve as the most powerful WarShip in the Rasalhague Dominion's fleet throughout the post-Jihad era and into the ilClan period. The vessel's continued operational availability shaped Dominion military planning for decades, providing a strategic deterrent that influenced the calculations of every neighboring state. No additional Leviathan II hulls were constructed, as the Alshain Naval Yards eventually shifted resources toward development of a successor design. The Leviathan II class left an enduring mark on Inner Sphere naval doctrine, demonstrating that a single capital combatant of sufficient power could anchor an entire nation's military strategy and project power across dozens of light years through its mere existence.</p>
+</history>
+
+<manufacturer>
+Alshain Naval Yards
+</manufacturer>
+
+<primaryFactory>
+Alshain
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Alshain Naval Yards
+ENGINE:Unknown
+ARMOR:Unknown
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Ferro-Carbide
+JUMP_JET:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+Battleship
+</use>
+
+<length>
+1623 m
+</length>
+
+<height>
+1560 m Sail
+</height>
+
+<source>
+TR:3067
+</source>
+
+<tonnage>
+2400000.0
+</tonnage>
+
+<kf_core>
+1
+</kf_core>
+
+<lithium-fusion>
+1
+</lithium-fusion>
+
+<sail>
+1
+</sail>
+
+<grav_decks>
+185
+185
+95
+95
+95
+95
+95
+95
+</grav_decks>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+1770
+</crew>
+
+<officers>
+195
+</officers>
+
+<gunners>
+211
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+225
+</battlearmor>
+
+<life_boat>
+150
+</life_boat>
+
+<escape_pod>
+150
+</escape_pod>
+

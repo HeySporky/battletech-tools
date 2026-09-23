@@ -1,0 +1,204 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df60-71fd-80f5-6328ae65a811
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Kraken-XR
+model:
+mul id:4463
+
+Config:Biped
+techbase:Clan
+era:3073
+source:XTR:Clans
+published:XTR:Clans
+rules level:4
+role:Sniper
+
+quirk:ext_twist
+quirk:difficult_maintain
+quirk:prototype
+quirk:poor_performance
+quirk:pro_actuator
+
+mass:100
+engine:300 XL (Clan) Engine
+structure:Clan Endo-Composite
+myomer:Standard
+
+heat sinks:16 Laser
+walk mp:3
+jump mp:0
+
+armor:Reflective(Clan)
+LA armor:34
+RA armor:34
+LT armor:32
+RT armor:32
+CT armor:46
+HD armor:9
+LL armor:42
+RL armor:42
+RTL armor:10
+RTR armor:10
+RTC armor:13
+
+Weapons:7
+Rotary AC/2, Left Arm
+Rotary AC/2, Left Arm
+Rotary AC/2, Right Arm
+Rotary AC/2, Right Arm
+Streak LRM 10, Left Torso
+ER Large Laser, Left Torso
+Streak LRM 10, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2 Ammo
+CLCASEII
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2
+CLRotaryAC2 Ammo
+CLCASEII
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Laser Heat Sink
+Laser Heat Sink
+Laser Heat Sink
+Laser Heat Sink
+CLStreakLRM10
+CLStreakLRM10
+CLERLargeLaser
+Clan Streak LRM 10 Ammo
+CLCASEII
+Clan Endo-Composite
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Laser Heat Sink
+Laser Heat Sink
+Laser Heat Sink
+Laser Heat Sink
+CLStreakLRM10
+CLStreakLRM10
+Clan Streak LRM 10 Ammo
+CLCASEII
+Clan Endo-Composite
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan Endo-Composite
+Clan Reflective
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo-Composite
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Reflective
+Clan Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Clan Reflective
+Clan Reflective
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Kraken-XR is an experimental refit of the venerable Bane assault BattleMech, developed by an adjunct wing of Clan Jade Falcon's Olivetti Weaponry factory on Sudeten. With a project start date of 3073, the Kraken-XR was designed as a technology demonstrator, incorporating numerous experimental systems that had not yet reached full production status. Like the Cougar-XR developed concurrently, the design was built on a proven chassis as a Clan standby platform for evaluating advanced technologies under field conditions.</p><p>The high resource cost and experimental nature of its components limited construction to no more than three prototypes, making the Kraken-XR one of the rarest Bane derivatives in existence. Whether the design will ever see full-scale production remains an open question, though several of the technologies it validated subsequently appeared in later production variants of the Bane.</p>
+
+capabilities:<p>The Kraken-XR replaces the standard Bane's internal structure with an endo-composite skeleton, reducing weight while maintaining structural integrity at the cost of increased bulk. The experimental chassis is protected by nineteen tons of laser reflective armor, which disperses laser energy across its surface but provides reduced protection against ballistic and missile weapons compared to standard plating. Sixteen laser heat sinks represent another experimental system, dissipating heat through focused light emission rather than traditional thermal exchange.</p><p>The weapons loadout combines elements of earlier Bane variants, four Rotary Autocannon/2s provide high-volume fire at range while two Streak LRM-10s add guided missile support. An extended-range large laser serves as an ammunition-independent backup weapon. CASE II protects each ammunition bay, a practical concession given the volatile experimental systems distributed throughout the chassis.</p><p>The combination of so many unproven technologies makes the Kraken-XR notoriously difficult to maintain and prone to intermittent performance issues, significantly limiting its tactical utility despite impressive theoretical capabilities on paper.</p>
+
+deployment:<p>The Kraken-XR emerged from Olivetti Weaponry's experimental refit division on Sudeten in 3073, built almost entirely from non-production components. The endo-composite structure, laser heat sinks, laser reflective armor, and rotary autocannons each represent advanced technologies being evaluated for potential future adoption. Only three Kraken-XR prototypes are believed to have been constructed, serving primarily as field test chassis to determine the viability of fitting multiple experimental systems into a single assault-weight platform. The Jade Falcons' use of reflective armor (previously observed only on the Night Gyr OmniMech) and the combination with other cutting-edge systems suggests the Kraken-XR's true purpose was technology validation rather than front-line combat deployment.</p>
+
+history:<p>The Kraken-XR's development began in 3073 at Olivetti Weaponry on Sudeten, part of a broader Clan Jade Falcon initiative to evaluate experimental technologies within established chassis designs. The concurrent Cougar-XR program suggests a systematic effort to test new systems across multiple weight classes simultaneously, gathering comparative data on how experimental components performed in both medium and assault platforms.</p><p>The Kraken-XR drew upon the proven Bane as a stable foundation for integrating endo-composite structure, laser heat sinks, laser reflective armor, and rotary autocannons, technologies that would individually find their way into later production designs. The extreme resource requirements and technological complexity limited construction to approximately three prototypes, which served the Falcon scientists' research needs during the Jihad era.</p><p>The engineering data gathered from the Kraken-XR program likely contributed to subsequent Bane variants. The Bane 5, introduced around 3105, incorporated several technologies first tested on the Kraken-XR (including endo-composite structure and rotary autocannons) in production-ready form. The refit line at Olivetti Weaponry that produced the Kraken-XR prototypes was destroyed during the Wars of Reaving and was never restored for this specific variant.</p>
+
+manufacturer:Refit - Olivetti Weaponry
+
+primaryfactory:Sudeten
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Endo Composite
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Laser Reflective
+systemmanufacturer:COMMUNICATIONS:JNE
+systemmode:COMMUNICATIONS:JNE Integrated
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Series VI TTS

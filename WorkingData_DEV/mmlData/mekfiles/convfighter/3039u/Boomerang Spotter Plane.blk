@@ -1,0 +1,182 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a9d9-7554-bc1d-24dbcc83ef80
+</UUID>
+
+<UnitType>
+FixedWingSupport
+</UnitType>
+
+<Name>
+Boomerang Spotter Plane
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+3854
+</mul id:>
+
+<year>
+2888
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Attack Fighter
+</role>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+ejectionseats:1.0:0:-1::-1:0
+cargobay:0.013:1:2::-1:0
+</transporters>
+
+<SafeThrust>
+4
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+0
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+273
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+43
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+0
+0
+0
+0
+</armor>
+
+<Nose Equipment>
+ISReconCamera
+</Nose Equipment>
+
+<Left Wing Equipment>
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+</Right Wing Equipment>
+
+<Aft Equipment>
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Body Equipment>
+PropChassisMod
+UltraLightChassisMod
+STOLChassisMod
+</Body Equipment>
+
+<barrating>
+2
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Boomerang's most obvious feature is its long wingspan. The tapering wings make it fuel-efficient and an excellent glide platform. Two forewings perched on thin spars of foamed aluminum promote control and stability, making the craft almost impervious to stalls. Two vertical stabilizers sit to either side of the cockpit; when in use, the entire stabilizer pivots rather than just the trailing edge, making the Boomerang extremely maneuverable.</p><p>The engine, a standard electric turbofan mounted below the cockpit floor, is highly efficient and quiet. Using over three thousand kilograms of fuel stored in the wings, the Boomerang achieves a range of almost five thousand kilometers, or more if the pilot glides. An unusual heat-bleeding system channels waste heat through slits on the upper wing edge, with the variable-pitched propeller dispersing it further, making the plane difficult to trace via infrared. The propeller can be feathered for virtually silent glide mode, and maximum ceiling with engine running is almost eighteen thousand meters.</p><p>The Boomerang carries over five hundred kilograms of reconnaissance gear, usually a pair of cameras with infrared and low-light capabilities that can work independently, locking on separate targets and relaying information to trailing radar planes or DropShips. The craft's major weakness is its complete lack of armament and armor, and pilots typically fly at three hundred meters or higher to stay out of danger.</p>
+</capabilities>
+
+<overview>
+<p>Named for its distinctive V-shape, the Boomerang is representative of the spy planes used by the armed forces of the five Successor States. Designed by Cal-Boeing of Dorwinion on Filtvelt, the Boomerang was introduced in 2888 as the Federated Suns' standard reconnaissance plane and the first aircraft designed expressly for aerial reconnaissance in the Succession States era. Until then, civilian planes and their pilots were pressed into military service with mixed results. The Boomerang serves as a mobile spotter for artillery units and as a forward observer for advancing BattleMek formations, filling a critical intelligence-gathering role that no ground asset can match.</p>
+</overview>
+
+<deployment>
+<p>The Boomerang has performed long and well in service to the Federated Suns. Built with lightweight, low-maintenance materials, the plane has an excellent repair history. Most active duty regiments and planetary militias have at least one Boomerang in operational condition. Heavy-action units such as the Davion Brigade of Guards typically deploy up to fifteen Boomerangs during operational engagements. The Boomerang and most of its House counterparts can be easily disassembled and stowed in the holds of even the smallest DropShip. The only common complaint from technicians is the delicacy of the camera sensors, as heavily ionized or irradiated atmospheres tend to corrode them faster and degrade performance.</p>
+</deployment>
+
+<history>
+<p>The lightweight Boomerang lacks many of the computer-guided systems common to larger aircraft, requiring its pilots to possess a natural flair for flying. The craft's unusual proportions posed challenges for its designers, particularly in developing suitable landing gear. Cal-Boeing chose to stow the nose gear below the fuselage and the long, thin landing wheels beneath the wings. Thanks to its large wingspan, the Boomerang requires only forty-four meters of landing space on a dry, level surface and seventy-five meters to take off.</p><p>As many variants exist as there are House militaries, with key differences lying mainly in silhouette and optics quality. The Capellan Dragonfly uses a knockoff Eo electric engine prone to shorting out after sustained G-force application. The Kuritan Shuriken has a smaller wingspan, necessitating longer runways. The Lyran Warbler mounts radio interception gear in place of one camera system, though without proper counterbalancing in the nose it tends to stall more easily. The Marik Hyperion forces the pilot to lie horizontally inside the wing-like fuselage, allowing rest during extremely long sorties but mandating complete reliance on instruments and sensors to fly the craft.</p>
+</history>
+
+<manufacturer>
+Cal-Boeing of Dorwinion|Cal-Boeing of Dorwinion
+</manufacturer>
+
+<primaryFactory>
+Belladonna|Filtvelt
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:GM
+COMMUNICATIONS:Achernar
+</systemManufacturers>
+
+<systemModels>
+ENGINE:AeroProp Turbine
+COMMUNICATIONS:Air Whistler
+</systemModels>
+
+<source>
+TR:3039
+</source>
+
+<published>
+RS:Aero2
+</published>
+
+<tonnage>
+4.999
+</tonnage>
+

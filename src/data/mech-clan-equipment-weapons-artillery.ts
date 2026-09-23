@@ -719,5 +719,61 @@ export const mechClanEquipmentArtillery: IEquipmentItem[] = [
         },
         heatAero: 5,
         rangeAero: "m" // Official Aero range classification is Medium (reaches up to 14 hexes)
+    },
+    {
+        name: "Thumper Artillery Piece",
+        altNames: ["Thumper"],
+        tag: "thumper-artillery",
+        altTags: [],
+        sort: "artillery, thumper",
+        category: "Artillery Weapons",
+        weaponType: ["ART"],
+        notes: "Indirect-fire tube artillery. Targets a physical map hex rather than a specific unit; damage resolves via area-burst radius templates across map sheets.",
+        damage: 15,
+        damageAero: 2,
+        accuracyModifier: 0,
+        cbills: 187500,
+        introduced: 2348, // Originally engineered as archaic field artillery during the Early Age of War
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 43,
+        heat: 5,
+        weight: 15,
+        range: {
+            min: 0,
+            short: 0,
+            medium: 0,
+            long: 0,
+            extreme: 0,
+            maxMapSheets: 21
+        },
+        space: {
+            battlemech: 15,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 15,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        ammoPerTon: 20,
+        minAmmoTons: 1,
+        explosive: false,
+        techRating: "b",
+        book: "TO",
+        page: 96,
+        alphaStrike: {
+            specialAbility: ["ARTTH"],
+            damageAoE: 1,
+            heat: 0,
+            rangeShort: 0,
+            rangeMedium: 0,
+            rangeLong: 1,
+            rangeExtreme: 1,
+            tc: false,
+            notes: ["Bypasses brackets via the ARTTH trait to place a 1-point AoE strike anywhere on the board."]
+        },
+        heatAero: 5,
+        rangeAero: "s" // Short-range tactical mapping for atmosphere/low-altitude strike rules
     }
 ];

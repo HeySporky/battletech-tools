@@ -1,0 +1,198 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-c725-7de7-8610-1175d05a5924
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Zeus-X
+model:ZEU-9WD
+mul id:3646
+
+Config:Biped
+techbase:Inner Sphere
+era:3067
+source:TR:3050,TR:3050U
+published:RS:3050Uu-I
+rules level:2
+role:Brawler
+
+quirk:difficult_maintain
+quirk:command_mech
+
+mass:80
+engine:320 Light Engine
+structure:IS Standard
+myomer:Standard
+
+heat sinks:15 IS Double
+walk mp:4
+jump mp:0
+
+armor:Light Ferro-Fibrous(Inner Sphere)
+LA armor:20
+RA armor:20
+LT armor:20
+RT armor:20
+CT armor:28
+HD armor:9
+LL armor:27
+RL armor:27
+RTL armor:7
+RTR armor:7
+RTC armor:10
+
+Weapons:4
+LB 20-X AC, Left Torso
+Heavy PPC, Right Arm
+Medium Pulse Laser, Left Torso
+Medium Pulse Laser, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+ISLBXAC20
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Light Ferro-Fibrous
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISLBXAC20
+ISLBXAC20
+ISMediumPulseLaser
+IS Light Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMediumPulseLaser
+IS LB 20-X AC Ammo
+IS LB 20-X Cluster Ammo
+IS LB 20-X Cluster Ammo
+ISCASE
+IS Light Ferro-Fibrous
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+IS Light Ferro-Fibrous
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Light Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The original ZEU-X was a technological milestone. It was also an unwieldy mess of patchwork armor, reactive composites, and illogical short-range weapons, the limited manufacturing of which during the Civil War functioned only as propaganda. The following model was a massive failure, as the marriage of armored components and composite structure frequently ended in a pile of intact internal components as the only remains of a defeated ZEU-X2. A 3080s model was an inefficient jumping monster informed by Solaris research on the enigmatic Sasquatch. Only the sub-variant ZEU-WD series, which combined X-series improvements with conventional Zeus chassis, was a success.</p>
+
+capabilities:<p>Manufactured by Defiance Industries, the Zeus X was both a poster child for excellence in production engineering and an innovative high-technology platform, while at the same time struggling with emerging technologies. The X-series is defined by its use of composite internal structure, a material that weighs half as much as standard skeleton components but provides only half the structural integrity. This weight savings allows the Zeus X to mount far heavier weapon systems and experimental armor composites than the standard Zeus chassis.</p><p>The defining characteristic of the Zeus X line is its use of oversized engines paired with experimental armor types. Early models employed patchwork reactive armor, while later variants progressed to full-coverage reactive plating. The XXL engine fitted to most X-series variants gives the eighty-ton design a top speed of eighty-six kilometers per hour, a remarkable figure for an assault 'Mech that grants significant tactical advantages in choosing engagement ranges. However, the XXL engine's extreme compactness comes at the cost of catastrophic vulnerability to internal hits, a tradeoff that contributed to the X2's notorious fragility.</p><p>The weapons loadouts vary dramatically across the X-series, from the original's LB-X AC/20 brawler configuration to the X3's energy sniper setup, but all share a common philosophy of leveraging the weight savings from composite structure and compact engines to mount firepower disproportionate to their tonnage.</p>
+
+deployment:<p>Starting life as one of Zeus-X testbeds, ZEUX0003 was gifted by the Kell Hounds to Black Widow Company commander Stacy Church. When Church landed on Outreach in 3071 it mounted a Light Fusion Engine and eleven and half tons of Light Ferro-Fibrous armor, and was armed with a Defiance 2002 Heavy PPC in its right arm, supported by an LB-X AC/20 mounted in the left arm and torso, and a pair of Medium Pulse Lasers. Two heat sinks were dropped to carry three tons of autocannon reloads.</p>
+
+history:<p>The Zeus personifies Steiner's "wall of steel." The LCAF's indigenous pride and joy was reportedly the ultimate demonstration that superior production quality could compensate for weak battlefield prowess. It was picked for a facelift after three centuries of steadfast service to demonstrate Defiance's reputation as one of the Inner Sphere's major manufacturers. The Zeus X is equal parts celebrity and cutting-edge high-tech platform. Its modifications bring the ancient BattleMech up to date, even by thirty-second-century standards.</p><p>The Zeus X-series is characterised structurally by a massive engine and a light yet brittle structure coated in layers of experimental armor. These qualities were carefully integrated with appropriate equipment when the ZEU-X4 was ready for manufacturing in the late 3110. The thick reactive plating is now production quality and completely covers the 'Mech. The LCAF received a command 'Mech when a roomy rumble seat was upgraded to a full console. Armed with modest but effective weapons, the ZEU-X4 attacks foes who are nothing more than approaching blots on the horizon.</p>
+
+manufacturer:Defiance Industries|Defiance Manufacturing Annex
+
+primaryfactory:Hesperus II|Kwangjong-ni
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Chariot Type III
+systemmanufacturer:ENGINE:Pitban
+systemmode:ENGINE:320 Light
+systemmanufacturer:ARMOR:Kallon
+systemmode:ARMOR:Light Ferro-Fibrous with CASE
+systemmanufacturer:COMMUNICATIONS:TharHes
+systemmode:COMMUNICATIONS:Calliope ZE-2
+systemmanufacturer:TARGETING:TharHes
+systemmode:TARGETING:Ares-7

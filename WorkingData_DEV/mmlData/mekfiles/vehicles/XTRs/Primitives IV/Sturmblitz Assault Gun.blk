@@ -1,0 +1,182 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec46-70f9-b001-8c48763f9513
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Sturmblitz Assault Gun
+</Name>
+
+<Model>
+
+</Model>
+
+<mul id:>
+7191
+</mul id:>
+
+<year>
+2488
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Juggernaut
+</role>
+
+<quirks>
+easy_maintain
+distracting
+obsolete:2488
+variable_range_targeting
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+51
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+40
+38
+38
+10
+</armor>
+
+<Body Equipment>
+Armored Chassis
+Advanced Fire Control
+IS Ammo AC/20 Primitive
+IS Ammo AC/20 Primitive
+IS Ammo AC/20 Primitive
+IS Ammo AC/20 Primitive
+</Body Equipment>
+
+<Front Equipment>
+Autocannon/20 Primitive
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+10
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The Sturmblitz is a primitive, turretless assault gun built around a single devastating weapon: a forward-mounted Prototype Autocannon/20. This weapon, the first of its kind, gives the vehicle the firepower to destroy heavy BattleMechs and tanks in just a few hits. However, the experimental nature of the autocannon brings significant reliability concerns, as the weapon is prone to jamming. Crews must manage four tons of ammunition carefully to maintain sustained fire.</p><p>The vehicle uses an internal combustion engine, giving it a top speed of 64 km/h for its class and era. Its armored chassis carries 8 tons of BAR 10-rated armor, equivalent in stopping power to standard armor used on later-era vehicles. Protection is concentrated heavily on the front hull and flanks, but the rear armor is dangerously thin, leaving the vehicle vulnerable to flanking attacks and infantry. Without a turret, the Sturmblitz must rotate its entire hull to engage targets outside its frontal arc, limiting tactical flexibility in fluid engagements.</p><p>An Advanced Fire Control System is fitted to compensate for the vehicle's reliance on its single weapon. The design carries the Distracting and Variable Range Targeting quirks, reflecting the massive noise and impact signature of the autocannon and the unusual accuracy characteristics of the prototype weapon. The Easy to Maintain quirk makes field servicing straightforward despite the vehicle's age and primitive construction.</p>
+</capabilities>
+
+<overview>
+<p>The Sturmblitz Assault Gun emerged from the Lyran Commonwealth's effort to perfect the prototype Class-20 Autocannon during the waning years of the Age of War. Tamar Arms, a Commonwealth defense contractor based on Tamar, built the original testbed vehicle in 2488 using a salvaged primitive chassis from the earlier part of that era. Though never intended as a frontline combat platform, the Sturmblitz proved brutally effective during the Lyran Civil War of the early twenty-sixth century, earning a fearsome reputation for destroying BattleMechs and heavy armor in just a few volleys.</p><p>Its performance prompted the Commonwealth to commission full production runs, even as Tamar Arms itself was dissolved as punishment for its association with the defeated faction. Three unnamed successor companies continued production throughout the remainder of the Age of War. The Sturmblitz served the Lyran Commonwealth Armed Forces until the founding of the Star League, when the last of the obsolete vehicles were finally retired.</p>
+</overview>
+
+<deployment>
+<p>The Sturmblitz is best employed in prepared assault positions and breakthrough operations where its frontal armor and devastating main gun can be brought to bear on stationary or slow-moving targets. Its turretless casemate design requires careful tactical placement, as it cannot engage threats outside its frontal arc without repositioning the entire hull. Commanders typically deploy it alongside lighter screening units capable of handling flanking threats and infantry, the vehicle's primary vulnerabilities.</p><p>In Lyran Commonwealth Armed Forces service, the Sturmblitz was valued as a 'Mech-killer and heavy bunker buster. Its Prototype AC/20 could strip the armor from most contemporary BattleMechs in a handful of hits, making it effective in ambush positions and deliberate assaults against prepared defensive lines. Crews were cautioned to manage ammunition carefully given the weapon's jam-prone nature, and engagement doctrine typically reserved fire for high-value targets rather than suppression roles.</p>
+</deployment>
+
+<history>
+<p>The origins of the Sturmblitz trace back to the Lyran Commonwealth's effort to perfect the prototype Class-20 Autocannon during the waning years of the Age of War. Tamar Arms, contracted to test the weapon, mounted it on an old primitive chassis that had served earlier in the era. Testing began in 2488, and crew evaluations were generally positive. Tamar Arms modified the chassis in 2500, proposing it as an inexpensive frontline vehicle, but the Lyran Commonwealth Armed Forces declined. Other designs were already in development, and the Commonwealth had little interest in deploying an obsolete testbed as a production combat vehicle.</p><p>That calculus changed in 2501 when the Lyran Civil War broke out between deposed Archon Margaret Olsen and Archon Robert Steiner's loyalist forces. The Duke of Tamar, supporting Olsen, fielded dozens of Sturmblitz Assault Guns against Steiner's columns. On Skye in 2504, these vehicles performed well beyond anyone's expectations, racking up scores of 'Mech kills against Steiner's assault forces. The sheer destructive output of the massed Prototype AC/20s overwhelmed Steiner's units on that world before they could adapt their tactics.</p><p>After Steiner's eventual victory, he ordered procurement of the Sturmblitz in quantity, impressed by its battlefield performance. However, as punishment for the Duke of Tamar's rebellion, Tamar Arms was broken up by order of the Archon and its assets sold to three separate Commonwealth manufacturers. These unnamed successor companies continued production throughout the remaining Age of War and into the early Star League period. The Sturmblitz served faithfully in Lyran assault roles, though its primitive technology grew increasingly obsolete as the Star League raised military standards across the Inner Sphere.</p><p>The last Sturmblitz Assault Guns were phased out of service following the conclusion of the Reunification War in 2597, quietly retired as the Star League absorbed the Commonwealth's older equipment into its standardized force structure. No examples are known to have survived into the Succession Wars era, and no functional vehicles are documented in any post-Star League inventory.</p>
+</history>
+
+<manufacturer>
+Tamar Arms
+</manufacturer>
+
+<primaryFactory>
+Tamar
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:ICE
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Advanced Fire Control System
+</systemModels>
+
+<source>
+XTR:Primitives IV
+</source>
+
+<published>
+XTR:Primitives IV
+</published>
+
+<tonnage>
+75.0
+</tonnage>
+
+<fuel>
+1.0
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

@@ -1,0 +1,200 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cbb5-7229-8eb1-86f96b283fbd
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Commando IIC
+model:
+mul id:678
+
+Config:Biped
+techbase:Clan
+era:2856
+source:TR:3060,TR:CI
+published:RS:CI
+rules level:2
+role:Striker
+
+quirk:exp_actuator
+quirk:low_profile
+
+mass:25
+engine:150 Fusion (Clan) Engine
+structure:Clan Endo Steel
+myomer:Standard
+
+heat sinks:10 Clan Double
+walk mp:6
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:6
+RA armor:6
+LT armor:8
+RT armor:8
+CT armor:10
+HD armor:9
+LL armor:9
+RL armor:9
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:6
+ER Medium Laser, Left Arm
+ER Medium Laser, Left Arm
+SRM 4, Right Arm
+SRM 4, Left Torso
+SRM 4, Right Torso
+SRM 6, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLERMediumLaser
+CLERMediumLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLSRM4
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLSRM4
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLSRM4
+Clan Ammo SRM-6
+Clan Ammo SRM-4
+Clan Endo Steel
+Clan Endo Steel
+Clan Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLSRM6
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Commando IIC traces its lineage to Lyran volunteers who brought their prized scout 'Mechs into Star League service during the Amaris Civil War. These machines survived the Exodus and became part of Nicholas Kerensky's Clan armies, where they were produced by Clans Smoke Jaguar and Goliath Scorpion.</p><p>Upgraded around 2856 by Clan Goliath Scorpion with lighter construction materials and improved weaponry, the Commando IIC emerged as a substantially more lethal platform than its Inner Sphere ancestor. Manufactured solely at the Marshall Light Assembly Station, the design remains rare and is most commonly found in Scorpion second-line and anti-bandit formations.</p>
+
+capabilities:<p>The Commando IIC stands as a substantial improvement over its Inner Sphere ancestor, mounting more than twice the weaponry and one-and-a-half times the armor protection. Two Series 2d ER medium lasers provide accurate energy fire, while a Pattern J7 SRM-6 and three SEP Class SRM-4 launchers deliver devastating barrages capable of challenging heavier Clan designs like the Ice Ferret. Pilots of Sharman's Boxers nicknamed the design the "Sucker Punch" for its ability to deliver unexpected damage from such a small chassis.</p><p>Ammunition efficiency remains the Commando IIC's most significant weakness. Unlike FedCom-era Inner Sphere variants incorporating Streak and Artemis technologies to improve accuracy, the Clan design relies on unguided launchers that rapidly deplete limited ammunition stores. Warriors must be sparing with their shots when operating far from supply. Despite this limitation, the IIC's responsive controls have earned praise from pilots, though most Scorpion warriors criticize the design for its "plethora of inelegant missile weapons."</p>
+
+deployment:<p>The standard Commando IIC serves primarily in Clan Goliath Scorpion second-line and garrison formations, where its heavy short-range firepower proves ideal for anti-bandit operations along the fringes of Clan space. Rare even among the Scorpions, the design is most often piloted by freeborn soldiers assigned to patrol duties in the Pentagon Worlds. Several examples have been sighted among the Thirty-third Grenadiers, and the design continues to fill roles where proven reliability outweighs the flexibility of modern OmniMech alternatives.</p>
+
+history:<p>The Commando IIC's combat history began in earnest during the early Clan period, when Clan Goliath Scorpion employed the upgraded design in operations across their Pentagon Worlds holdings. In 2872, Scorpion forces used the 'Mech in a lightning raid against Clan Hell's Horses' weakly defended Tokasha enclave. The Commando IICs outflanked and destroyed the more numerous Horse defenders, winning access to two of that Clan's genetic legacies in the process. This engagement demonstrated the design's effectiveness in the close-quarters, mountainous terrain that characterized much of the Pentagon Worlds.</p><p>The proliferation of OmniMechs in the late 2800s fundamentally altered the Commando IIC's role within Clan toumans. As first-line units transitioned to the more flexible OmniMech designs, the Commando IIC was increasingly relegated to reserve formations and second-line duties. The Goliath Scorpions, however, maintained a particular affinity for the design and continued to outfit their pirate hunter units with these 'Mechs, taking advantage of the IIC's reliability and firepower in operations along the fringes of Clan space.</p><p>Production has remained limited, with the Marshall Light Assembly Station on Marshall serving as the sole manufacturer. Rare even among the Scorpions, the Commando IIC is often piloted by freeborn soldiers assigned to anti-bandit operations where its heavy short-range armament proves ideal. Several examples have been sighted among the Scorpion's Thirty-third Grenadiers, and the design continues to serve in roles where its proven reliability outweighs the lack of modern OmniMech flexibility.</p>
+
+manufacturer:Marshall Light Assembly Station
+
+primaryfactory:Marshall (Queensland)
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Model ML-225 Endo Steel
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Fusion 150 Standard
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Forging OTR17b with CASE
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Build 1685/3 Tacticom
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:Mark 11 IHADS

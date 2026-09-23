@@ -1,0 +1,194 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-de1a-7076-a672-724b62ce3362
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Vampyr
+model:SC-V-1 SalvageMech
+mul id:5334
+
+Config:Quad
+techbase:Inner Sphere
+era:3066
+source:TR:VAr
+published:RS:VA
+rules level:2
+role:None
+
+quirk:exp_actuator
+quirk:rumble_seat
+
+mass:80
+engine:320 Fuel Cell Engine
+structure:IS Industrial
+myomer:Industrial Triple-Strength
+cockpit:Industrial Cockpit
+gyro:Standard Gyro
+
+heat sinks:2 Single
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+FLL armor:13
+FRL armor:13
+LT armor:10
+RT armor:10
+CT armor:15
+HD armor:8
+RLL armor:13
+RRL armor:13
+RTL armor:6
+RTR armor:6
+RTC armor:5
+
+Weapons:0
+
+Front Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Industrial Triple Strength Myomer
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Front Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Industrial Triple Strength Myomer
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+Extended Fuel Tank
+Extended Fuel Tank
+Extended Fuel Tank
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+Environmental Sealing (Mech)
+
+Right Torso:
+MechSprayer
+Fluid Suction System (Light - Mech)
+Liquid Storage:SIZE:1.0
+Liquid Storage:SIZE:1.0
+Cargo:SIZE:1.0
+Cargo:SIZE:1.0
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+Industrial Triple Strength Myomer
+Environmental Sealing (Mech)
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Industrial Triple Strength Myomer
+Environmental Sealing (Mech)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Environmental Sealing (Mech)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Industrial Triple Strength Myomer
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Rear Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Industrial Triple Strength Myomer
+Environmental Sealing (Mech)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Vampyr is an eighty-ton quadruped IndustrialMech introduced in 3066 by Bristol SalvageWorks of the Magistracy of Canopus, representing a significant technological upgrade of the venerable Scavenger salvage platform. Developed after the formation of the Trinity Alliance, the Vampyr incorporated advanced technologies previously unavailable to Canopian manufacturers, transforming the salvage platform's operational capabilities. The design serves the Magistracy Armed Forces' Canopian Salvage Corps, tasked with recovering weaponry, armor plating, electronics, and liquid coolant from wrecked BattleMechs.</p><p>While arguably a mere evolution of its predecessor, the Vampyr's technological enhancements represent a generational leap in salvage capability, allowing crews to operate in environments that would have been entirely inaccessible to the original Scavenger.</p>
+
+capabilities:<p>The Vampyr retains the Scavenger's proven Nissan 320-rated fuel cell engine and quadruped configuration, maintaining a top speed of sixty-four kilometers per hour while providing the stable platform essential for heavy salvage operations. An extended three-ton fuel tank ensures adequate range for prolonged missions. Seven tons of Humphries Heavy Industrial armor provides reasonable protection for a non-combat machine, a notable improvement over the Scavenger's standard industrial plating.</p><p>The most significant enhancement is the addition of industrial triple strength myomer, which dramatically increases the 'Mech's lifting and hauling capability. A Vampyr can move even assault-class BattleMech carcasses short distances, though the increased weight stresses the actuators and necessitates careful handling. Environmental sealing developed through Trinity Alliance technology sharing protects the crew and critical systems from vacuum, toxic atmospheres, and underwater conditions, vastly expanding the range of operational environments available to salvage teams.</p><p>The Vampyr carries two liquid storage containers and a complex pumping mechanism for recovering coolants and other valuable fluids, along with eight separate cargo bays for solid salvage. A Radial FlexiSprayer connected to the liquid storage can combat fires, manage hazardous spills, or cool overheated friendly BattleMechs in the field. The design mounts no weapons and no targeting system, relying entirely on escort forces for protection during recovery operations.</p>
+
+deployment:<p>The SC-V-1 represents Bristol SalvageWorks' definitive salvage platform, incorporating all the technological advances made available through the Trinity Alliance. Industrial triple strength myomer provides dramatically improved hauling capacity over the original Scavenger, while full environmental sealing allows operations in vacuum, hostile atmospheres, and underwater environments. The Vampyr's eight cargo bays and two liquid storage tanks give crews the flexibility to recover a wide variety of salvage types in a single sortie, from intact weapons systems and electronics to liquid coolants and petrochemical fuels. The addition of the Radial FlexiSprayer provides utility beyond pure salvage work, serving as a firefighting and hazmat response tool.</p>
+
+history:<p>The Vampyr's development is a direct consequence of the Trinity Alliance, the diplomatic and military partnership between the Magistracy of Canopus, the Capellan Confederation, and the Taurian Concordat formed in the early 3060s. Though the Magistracy was loathe to admit the benefits of this partnership, the flow of advanced technology from the Confederation proved transformative for Canopian industry. One area of particular impact was salvage technology, a field the Magistracy had long cultivated out of necessity. Bristol SalvageWorks seized the opportunity to modernize its aging Scavenger design, producing the Vampyr as a next-generation salvage platform.</p><p>Introduced in 3066 on the eve of the Jihad, the Vampyr arrived at a critical moment for the Magistracy Armed Forces. The Canopian Salvage Corps' ability to recover and recycle battlefield wreckage became even more vital as supply lines were disrupted and replacement equipment grew scarce across the Inner Sphere. The upgraded environmental sealing, a direct beneficiary of Capellan technology transfer, opened entirely new operational theaters. Recovery operations that once required specialized conventional vehicles and hazmat teams could now be conducted by a single Vampyr crew, dramatically improving efficiency.</p><p>The dual-layered sealing system around the 'Mech's actuators and critical systems allows the Vampyr to function in vacuum, hostile atmospheres, and even underwater, making it one of the most versatile industrial platforms in Periphery service. Care must be taken when collecting liquid coolants, as some heat sink coolants such as liquid nitrogen do not mix well with other recovered fluids, requiring dedicated storage containers.</p><p>Bristol SalvageWorks has continued production of the Vampyr on Canopus IV throughout the Dark Age and into the ilClan era. The design remains the backbone of the Canopian Salvage Corps' operations, and the enhancement of the aging Scavenger platform has only reinforced the Corps' reputation as one of the most capable salvage organizations operating in the Periphery.</p>
+
+manufacturer:Bristol SalvageWorks
+
+primaryfactory:Canopus IV
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Bristol
+systemmode:CHASSIS:Quadina-5E
+systemmanufacturer:ENGINE:Nissan
+systemmode:ENGINE:320 Fuel Cell
+systemmanufacturer:ARMOR:Humphries
+systemmode:ARMOR:Heavy Industrial
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Channel 80 Short

@@ -1,0 +1,153 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e42d-7738-8a4d-f5c465db8a37
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Maultier Hover APC
+</Name>
+
+<Model>
+(Fusion)
+</Model>
+
+<mul id:>
+2106
+</mul id:>
+
+<year>
+3070
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Hover
+</motion_type>
+
+<transporters>
+troopspace:4.0
+</transporters>
+
+<cruiseMP>
+10
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+1
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+18
+12
+12
+11
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+ISERMediumLaser
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<capabilities>
+<p>The Magna 50 internal combustion engine propels the Maultier to a top speed of 151 km/h, making it one of the fastest APCs available. This speed is the vehicle's greatest tactical asset, allowing crews to deliver infantry to objectives and withdraw before hostile forces can effectively engage. Star League-era hover technology enables the driver to lower the rear skirt at full speed, with the vehicle only needing to decelerate when troops are actually disembarking. This feature dramatically reduces the time the Maultier spends stationary and vulnerable during deployment operations.</p><p>Defensive armament is limited to a single Pinard Reaper Streak SRM-2 rack with one ton of ammunition. The Streak system's lock-on requirement prevents wasted shots, maximizing the limited ammunition supply, but the vehicle is clearly not designed for sustained combat. Durallex Light Ferro-Fibrous armor provides reasonable protection for a vehicle of this weight class, though any sustained engagement with dedicated combat vehicles will quickly overwhelm the Maultier's thin plating. The Neil 6000-x communications system and TracTex Alpha-1 targeting system round out the electronics suite, both proving simple enough for Periphery technicians to maintain and reproduce.</p>
+</capabilities>
+
+<overview>
+<p>The Maultier is a 15-ton hover APC originally designed for the Star League Defense Force as a fast infantry transport. Capable of deploying a full platoon at high speed, it was valued for its ability to insert troops quickly and withdraw before enemy forces could respond. The design was considered lost after the fall of the Star League until Taurian scientists rediscovered it in 3019, and Taurus Territorial Industries on Sterope successfully replicated the vehicle for the Taurian Defense Force. The Maultier has since become a mainstay infantry transport across the Periphery, with production expanding to include Marian Arms on Alphard. Its combination of speed, simplicity, and reliable troop-carrying capacity has made it a valued asset for commanders who prioritize rapid infantry deployment over heavy firepower.</p>
+</overview>
+
+<deployment>
+<p>Introduced in 3070, the Fusion variant replaces the standard internal combustion engine with a fusion power plant, eliminating the vehicle's dependence on conventional fuel supplies. This configuration also swaps the Streak SRM-2 for an extended-range medium laser, removing all ammunition dependencies and creating a logistics-friendly transport. The significantly higher cost of the fusion engine limits production numbers, making this the most expensive Maultier variant by a considerable margin.</p>
+</deployment>
+
+<history>
+<p>The Maultier entered service with the Star League Defense Force during the mid-twenty-sixth century as one of several standard hover APCs fielded by infantry divisions. Produced by Aldis Industries on Terra, it served as a complement to heavier transports like the Maxim, often operating as a point vehicle for APC lances tasked with securing beachheads ahead of main force elements. The design saw extensive action during the latter half of the Star League period and remained in frontline service until the collapse of the Star League.</p><p>The devastation of the Succession Wars effectively ended Maultier production. Aldis Industries ceased operations, and the technical knowledge required to produce the vehicle's advanced components was lost along with countless other Star League technologies. The design was presumed extinct until 3019, when a Taurian farmer on Celano discovered the remains of a Star League storehouse while plowing his fields. Among the recovered materials were several intact Maultiers and enough technical documentation for Concordat scientists to attempt replication.</p><p>Taurus Territorial Industries on Sterope undertook the reproduction effort, though the Concordat's limited technological base forced significant compromises. The ferro-fibrous armor and Streak missile system were beyond Taurian manufacturing capability at the time, requiring the initial production run to use standard armor and a conventional SRM launcher. The Taurian Defense Force fielded this downgraded variant against pirates along the Concordat's borders well before the Fourth Succession War. Gradual technological recovery allowed TTI to reintroduce ferro-fibrous armor in the early 3040s, and Pinard Protectorates Limited successfully duplicated the Streak system by 3054, enabling production of the full-specification Maultier.</p><p>The Capellan Confederation's need for a short-range escort during its operations against the St. Ives Compact created unexpected demand. The Confederation began purchasing Maultiers and organizing infantry companies with lances of three Maultiers supported by a single Blizzard hover APC for long-range covering fire. The Trinity Alliance further expanded the customer base, with both the Magistracy of Canopus and the Confederation placing regular orders. Marian Arms on Alphard eventually secured a production license, adding a second manufacturing source that broadened the vehicle's availability across the Periphery and near Periphery.</p>
+</history>
+
+<manufacturer>
+Taurus Territorial Industries
+</manufacturer>
+
+<primaryFactory>
+Sterope
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Durallex
+COMMUNICATIONS:Neil
+TARGETING:TracTex
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:50 Fusion
+ARMOR:Light Ferro-Fibrous
+COMMUNICATIONS:6000-x
+TARGETING:Alpha-1
+</systemModels>
+
+<source>
+TR:3058U
+</source>
+
+<published>
+RS:3058Uu-C
+</published>
+
+<tonnage>
+15.0
+</tonnage>
+

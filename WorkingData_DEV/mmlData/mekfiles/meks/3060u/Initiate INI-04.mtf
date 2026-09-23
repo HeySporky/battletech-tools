@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-cc26-71f8-b11f-9928c9fa2162
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Initiate
+model:INI-04
+mul id:1621
+
+Config:Biped
+techbase:Inner Sphere
+era:3068
+source:TR:3060,TR:J
+published:RS:3060u
+rules level:2
+role:Sniper
+
+quirk:bad_rep_is
+quirk:hyper_actuator
+
+mass:40
+engine:160 Light Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Compact Gyro
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:0
+
+armor:Standard(Inner Sphere)
+LA armor:12
+RA armor:12
+LT armor:15
+RT armor:15
+CT armor:18
+HD armor:9
+LL armor:20
+RL armor:20
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:6
+Light PPC, Left Arm
+Light PPC, Left Arm
+Small Pulse Laser, Right Arm
+Small Pulse Laser, Right Arm
+Small Pulse Laser, Right Arm
+MML 7, Center Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+Light PPC
+Light PPC
+Light PPC
+Light PPC
+IS Endo Steel
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISSmallPulseLaser
+ISSmallPulseLaser
+ISSmallPulseLaser
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+IS Ammo MML-7 LRM
+IS Ammo MML-7 SRM
+ISC3iUnit
+ISC3iUnit
+ISCASE
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+
+Head:
+Life Support
+Sensors
+Cockpit
+-Empty-
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+IS Endo Steel
+IS Endo Steel
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Initiate was the first new BattleMech to emerge from Terra following the Word of Blake's conquest of humanity's cradle world in 3058. Built by Martinson Armaments, the design drew inspiration from the Albatross assault 'Mech, borrowing that heavier machine's eclectic weapons philosophy and adapting it to a forty-ton medium chassis.</p><p>Classified as a general-purpose trooper, the Initiate filled a versatile frontline role within the Word of Blake's rapidly expanding military divisions. Its combination of solid armor protection, balanced weaponry, and reliable construction made it the workhorse of Blakist conventional forces throughout the Jihad era, serving in every theater of that devastating conflict.</p>
+
+capabilities:<p>The Initiate is built on a weight-saving Geometric 1000 endo steel chassis and powered by an LTV 160 fusion engine that provides a top speed of 65 kph. While this makes the design one of the slower medium 'Mechs in service, the trade-off delivers substantial defensive and offensive capability for its tonnage. Eight and a half tons of Strasbourg Armaments Type 3 standard armor gives the Initiate protection rivaling many heavier designs, while a CASE system guards against catastrophic ammunition explosions.</p><p>The weapons loadout reflects the design's versatile philosophy. An Irian Weapons Works V7 LRM-15 provides effective long-range firepower and indirect fire capability, allowing the Initiate to engage targets well beyond visual range. At medium distances, a pair of Irian Weapons Works Super 6 medium lasers and an Irian Weapons Works 60mm SRM-6 deliver concentrated damage capable of exploiting armor breaches. Three Diverse Optics extended-range small lasers supply close-range punch without ammunition dependency, while a McArthur anti-missile system rounds out the defensive suite against incoming missile barrages.</p><p>The Initiate's primary weakness is its lack of speed and maneuverability. Without jump jets and limited to a modest cruising speed, it cannot disengage from faster opponents or reposition quickly, and rough terrain can significantly restrict its tactical options.</p>
+
+deployment:<p>Introduced during the Jihad, this variant is a significant modernization of the Initiate chassis using advanced technologies available to Word of Blake engineers. The standard fusion engine was replaced with a light engine variant, freeing tonnage for both increased armor protection and a complete weapons redesign. The entire original weapons suite was stripped in favor of a pair of light PPCs for ranged engagement, an MML-7 providing flexible missile support, and three small pulse lasers for close combat. The addition of a C3i computer integrates the design into the Blakist networked combat doctrine, allowing lance-mates to share targeting data for improved accuracy. An additional double heat sink manages the increased heat burden from the energy-heavy loadout. Production of this variant was conducted at both the original Terra facility and the auxiliary Caph plant.</p>
+
+history:<p>The Initiate's history is inextricably tied to the Word of Blake's industrial resurrection of Terra. When Blakist forces conquered humanity's cradle world, their technicians immediately began reopening and repairing the planet's long-mothballed manufacturing infrastructure. Martinson Armaments' production center in Australia, which had produced the Spartan heavy 'Mech during the Star League era before being destroyed during Stefan Amaris's conquest of Terra in the 2770s, was among the first facilities to be restored.</p><p>The speed of the factory's rehabilitation surprised many observers, and by 3058 the first Initiates were rolling off the assembly lines. The design proved to be an effective workhorse, and production quickly ramped up to meet the Word of Blake's voracious demand for military hardware. Every Initiate produced was immediately assigned to a MechWarrior, proof of both the rapid pace of the Blakists' military expansion and the sheer volume being manufactured.</p><p>As the Word of Blake transitioned from a quasi-religious organization to an aggressive military power during the late 3060s, the Initiate served as a backbone of their conventional forces. The design saw extensive action during the Jihad, deployed across virtually every front of that devastating conflict. The Blakists supplemented their Terra production by establishing an auxiliary Martinson Armaments facility on Caph, further increasing output during this critical period.</p><p>The INI-04 variant emerged during the Jihad as Word of Blake engineers incorporated advanced technologies into the chassis, including weight-saving engine components and the networked combat systems that became a hallmark of Blakist tactical doctrine. The upgraded variant served alongside the original INI-02 in both Word of Blake Militia and Shadow Division formations throughout the conflict.</p><p>Following the Word of Blake's defeat during Operation SCOUR, the Martinson Armaments facilities on both Terra and Caph were seriously damaged by Coalition forces. The Republic of the Sphere inherited the battered production infrastructure, though the long-term viability of the factory remained uncertain in the aftermath of the devastating fighting. The Initiate's association with the Word of Blake left the design with a lingering stigma that has proven difficult to overcome, despite its solid mechanical performance.</p>
+
+manufacturer:Martinson Armaments|Martinson Armaments
+
+primaryfactory:Terra|Caph
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Geometric
+systemmode:CHASSIS:1000 Endo Steel
+systemmanufacturer:ENGINE:LTV
+systemmode:ENGINE:160 Light
+systemmanufacturer:ARMOR:Strasbourg Armaments
+systemmode:ARMOR:Type 3
+systemmanufacturer:COMMUNICATIONS:Blow
+systemmode:COMMUNICATIONS:55 Net
+systemmanufacturer:TARGETING:Scope
+systemmode:TARGETING:2000

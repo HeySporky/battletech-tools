@@ -1,0 +1,171 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a447-71fa-94a7-a32beaa1feb5
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Phalanx Battle Armor
+</Name>
+
+<Model>
+(B)(Sqd6)
+</Model>
+
+<mul id:>
+9020
+</mul id:>
+
+<year>
+3065
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Ambusher
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+2
+</cruiseMP>
+
+<armor_type>
+33
+</armor_type>
+
+<armor_tech>
+3
+</armor_tech>
+
+<Squad Equipment>
+ISBASRM4:Body
+BA-SRM4 Ammo:Body:Shots2#
+BABattleClaw:LA
+BAArmoredGlove:RA
+InfantryAssaultRifle:APM:RA
+IS BA Stealth (Improved):Body
+IS BA Stealth (Improved):Body
+IS BA Stealth (Improved):LA
+IS BA Stealth (Improved):LA
+IS BA Stealth (Improved):LA
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+ISBATaser:RA
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+ISBATaser:RA
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+ISBATaser:RA
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+ISBATaser:RA
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+ISBATaser:RA
+</Trooper 5 Equipment>
+
+<Trooper 6 Equipment>
+ISBATaser:RA
+</Trooper 6 Equipment>
+
+<capabilities>
+<p>The Blakist Phalanx variant replaces the King David light gauss rifle with a ’Mech Taser Rifle, giving troopers the ability to temporarily disable vehicles and BattleMechs through electrical disruption. The taser’s one-shot capability makes target selection critical, as a missed opportunity leaves the trooper reliant on the remaining SRM-4 rack for heavy firepower. Additional electronic hardening protects the suit’s internal systems from the feedback that taser discharge can produce, though the weapon still carries a risk of catastrophic overload.</p><p>The remaining equipment mirrors the standard configuration: a battle claw and armored glove for OmniMech mounting and infantry weapon handling, improved stealth armor for reduced targeting signature, and 22 km/h ground speed without jump capability. The taser’s specialized nature limits the configuration’s general combat utility, making it a precision tool for disabling high-value targets rather than a frontline combat platform.</p>
+</capabilities>
+
+<overview>
+<p>The Phalanx is a heavy battle armor suit developed by Irian Technologies for the Free Worlds League Military. Entering production in 3065, the design filled a gap in the FWLM’s battle armor roster for a heavier platform capable of delivering sustained ranged firepower. Weighing 1,500 kilograms, the suit trades jump capability for ground speed and mounting flexibility, allowing troopers to ride OmniMechs into combat while retaining the ability to handle infantry-scale weapons. Advanced stealth protection makes the suit considerably harder to detect and engage than most contemporary heavy designs, though this comes at the cost of reduced overall durability.</p>
+</overview>
+
+<deployment>
+<p>Word of Blake Level I formations made extensive use of the Phalanx B during the Jihad, employing six-trooper teams for targeted strikes against enemy command vehicles and key BattleMechs. The larger formation allowed for coordinated taser employment, with multiple troopers cycling fire to maximize the chances of a successful disabling shot against priority targets.</p>
+</deployment>
+
+<history>
+<p>The Free Worlds League Military began development of a heavy battle armor suit in 3059, seeking a domestic counter to designs like the Kanazuchi and Gnome. Irian Technologies led the effort, but persistent technical failures stalled the program for over two years. Processor malfunctions and myomer musculature breakdowns proved particularly resistant to resolution. The FWLM eventually permitted Word of Blake technical teams to join the project, and the Blakist scientists resolved the remaining issues with striking efficiency.</p><p>Production commenced in 3065 at Irian Technologies’ facilities on Irian, with the Word of Blake receiving purchasing rights as payment for their assistance. Free Worlds Defense Industries on Gibson began manufacturing shortly afterward, producing both the original configuration and a dedicated Blakist variant. During the Jihad, the Word of Blake expanded its use of the suit as a heavy fire support complement to lighter Purifier and Nighthawk designs. Alys Rousset-Marik’s resistance movement also acquired significant numbers of the original configuration, using them to provide fire support against protectorate militias.</p><p>Post-Jihad production continued under new political oversight. A second Irian BattleMechs Unlimited facility on Washburn came online around 3078, and the design remained in active service through the Dark Age. A modernized configuration appeared around 3132, proving popular with garrison and patrol commands across multiple successor states.</p>
+</history>
+
+<manufacturer>
+Free Worlds Defence Industries|Field Refit
+</manufacturer>
+
+<primaryFactory>
+Gibson|Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3075
+</source>
+
+<published>
+RS:3075u-CE
+</published>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+7
+</armor>
+
+<Trooper Count>
+6
+</Trooper Count>
+
+<weightclass>
+3
+</weightclass>
+

@@ -1,0 +1,151 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-a8ce-745a-8b8b-77a5d74a9a85
+</UUID>
+
+<UnitType>
+BattleArmor
+</UnitType>
+
+<Name>
+Smoothdavid PA(L)
+</Name>
+
+<Model>
+II(Sqd5)
+</Model>
+
+<mul id:>
+8675
+</mul id:>
+
+<year>
+3064
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Leg
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<armor_type>
+28
+</armor_type>
+
+<armor_tech>
+-1
+</armor_tech>
+
+<Squad Equipment>
+BAArmoredGlove:LA
+BAArmoredGlove:RA
+BASearchlight:Body
+</Squad Equipment>
+
+<Trooper 1 Equipment>
+</Trooper 1 Equipment>
+
+<Trooper 2 Equipment>
+</Trooper 2 Equipment>
+
+<Trooper 3 Equipment>
+</Trooper 3 Equipment>
+
+<Trooper 4 Equipment>
+</Trooper 4 Equipment>
+
+<Trooper 5 Equipment>
+</Trooper 5 Equipment>
+
+<capabilities>
+<p>The Smoothdavid II mounts a pair of modular anti-personnel weapon mounts, one on each arm, giving operators flexibility to tailor their loadout to the task at hand. Armored glove manipulators allow the wearer to handle standard infantry weapons and equipment without restriction, a critical feature for police work where officers must interact with civilians, operate vehicles, and manage evidence. A built-in searchlight rounds out the suit's standard equipment package.</p><p>The chassis employs an open-construction design with modular hardpoints marketed as the "Snap-On" system. Accessories such as armor vests, manipulator upgrades, and filtration breathers can be attached or removed quickly, allowing rapid reconfiguration between assignments. The suit carries an impressive 205 kilograms of mission equipment. Protection is minimal at just 50 kilograms of standard armor, leaving operators vulnerable to anything heavier than small arms fire. Despite this limitation, the lightweight frame maintains a respectable ground speed that keeps pace with foot patrols and crowd movements.</p>
+</capabilities>
+
+<overview>
+<p>The Smoothdavid is a light personal armor suit produced by TharHes Industries of Tharkad for law enforcement and government security applications. Introduced in 3064, the design filled a gap between industrial exoskeletons and military battle armor, providing a purpose-built platform for police and civil security forces who found conventional combat suits too heavy and cumbersome for their duties. The suit earned a reputation for practical versatility, with its modular construction allowing rapid reconfiguration across a range of security tasks.</p>
+</overview>
+
+<deployment>
+<p>Clan merchant and security castes acquired limited numbers of Smoothdavid suits through trade channels, organizing operators into standard five-trooper Points. The suits saw use in enclave security and civilian policing roles within Clan occupation zones, where Clan authorities found the lightweight design better suited to managing civilian populations than deploying Elemental Points for routine enforcement.</p>
+</deployment>
+
+<history>
+<p>Police forces across the Inner Sphere had coveted powered armor since the early 3050s, but military battle armor proved far too heavy and unwieldy for law enforcement work. Officers became trapped in stairwells, stuck in doorframes, and struggled with the limited fields of vision that combat suits imposed. Hand-to-hand encounters ended badly for everyone involved, and conventional sidearms mounted on armored gauntlets lacked the precision police work demanded. Only Lohengrin filed a formal request for anti-terrorist crowd control suits, a proposal the Estates General rejected unanimously given the corporation's controversial past.</p><p>TharHes Industries broke the impasse in the autumn of 3064, drawing on prototype techniques refined in the exoskeleton arenas of Solaris VII. The lightweight, open-construction chassis proved an immediate success with government customers. TharHes secured a prominent placement at the 3067 Whitting Conference, where conference guards equipped with the suit kept the assembly safe from protesters and assassins, though no amount of personal armor could prevent the catastrophe that followed. Competitors soon emerged with similar products, and TharHes answered during the Jihad with the heavier Smoothdavid III.</p>
+</history>
+
+<manufacturer>
+TharHes Industries
+</manufacturer>
+
+<primaryFactory>
+Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<chassis>
+biped
+</chassis>
+
+<jumpingMP>
+0
+</jumpingMP>
+
+<armor>
+1
+</armor>
+
+<Trooper Count>
+5
+</Trooper Count>
+
+<weightclass>
+0
+</weightclass>
+

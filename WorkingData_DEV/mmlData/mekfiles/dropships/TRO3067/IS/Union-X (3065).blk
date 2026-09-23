@@ -1,0 +1,272 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ab8f-7a2b-9d10-57505ea74d98
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Union-X
+</Name>
+
+<Model>
+(3065)
+</Model>
+
+<mul id:>
+5326
+</mul id:>
+
+<year>
+3065
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Spheroid
+</motion_type>
+
+<transporters>
+mekbay:8.0:4:-1::-1:0
+battlearmorbay:5.0:1:2::-1:0
+asfbay:4.0:2:3::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:84.0:0:-1::-1:0
+cargobay:280.0:1:7::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+120
+</heatsinks>
+
+<sink_type>
+1
+</sink_type>
+
+<fuel>
+6000
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+19
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+190
+184
+184
+179
+</armor>
+
+<Nose Equipment>
+(B) ISGaussRifle
+ISGaussRifle
+IS Gauss Ammo:60
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:80
+ISArtemisIV
+ISArtemisIV
+(B) ISERPPC
+ISERPPC
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+ISERMediumLaser
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) ISUltraAC5
+ISUltraAC5
+IS Ultra AC/5 Ammo:200
+(B) ISERPPC
+ISERPPC
+(B) ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+(R) (B) ISERLargeLaser
+(R) ISERLargeLaser
+(R) ISERMediumLaser
+(R) ISERMediumLaser
+ISArtemisIV
+ISArtemisIV
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:60
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) ISUltraAC5
+ISUltraAC5
+IS Ultra AC/5 Ammo:200
+(B) ISERPPC
+ISERPPC
+(B) ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+(R) (B) ISERLargeLaser
+(R) ISERLargeLaser
+(R) ISERMediumLaser
+(R) ISERMediumLaser
+ISArtemisIV
+ISArtemisIV
+(B) LRM 20
+LRM 20
+IS Ammo LRM-20 Artemis-capable:60
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) ISERLargeLaser
+ISERLargeLaser
+ISERMediumLaser
+ISERMediumLaser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+12
+</structural_integrity>
+
+<capabilities>
+<p>The Union-X designed by the Shipil Company on Skye stands as a 3,700-ton expansion of the basic Union hull, trading raw Mek capacity for a more versatile combined-arms configuration. Eight Mek cubicles replace the original twelve, while fighter bays double to four and five battle armor bays are added to support the evolving combined-arms doctrine of the post-Clan Invasion era. Structural integrity increases to 12 points, and armor coverage rises to 737 points with the additional tonnage.</p><p>The weapons array incorporates advanced technology throughout, with 120 double heat sinks managing the thermal load. Two hundred eighty tons of cargo space supports the logistical needs of the diverse embarked force. The Union-X fills a niche between the standard Union and larger combined-arms transports, offering commanders the ability to deploy a balanced force of Meks, fighters, and battle armor from a single hull without requiring the docking collar space of a much heavier vessel.</p>
+</capabilities>
+
+<overview>
+<p>The Union class DropShip is regarded as the yardstick against which all other military transports are measured. First launched in 2708, this 3,600-ton spheroid design has served as the standard company-level BattleMek carrier for over three centuries, capable of delivering twelve Meks and two aerospace fighters into the hottest landing zone. Produced in enormous numbers by shipyards across the Inner Sphere, the Union weathered the technological collapse of the Succession Wars far better than the larger and more complex transports it was often paired with, and has been in continuous production since its inception.</p><p>Smaller and more numerous than vessels like the Overlord or Colossus, the Union's combination of adequate capacity, proven reliability, and relative ease of manufacture has made it the most widely deployed military DropShip in the Inner Sphere. Its distinctive spheroid silhouette is recognized by soldiers and civilians alike on virtually every inhabited world, an enduring symbol of military power projection from the Periphery to the Clan homeworlds.</p>
+</overview>
+
+<deployment>
+<p>The Union-X entered service in 3065 from the Shipil Company's facilities on Skye, primarily serving Lyran Alliance and later Lyran Commonwealth forces that valued its combined-arms flexibility. The design's ability to deploy Meks, fighters, and battle armor from a single hull made it attractive for the combined-arms task forces that became increasingly common in the post-Clan Invasion military environment.</p>
+</deployment>
+
+<history>
+<p>The Union class entered service in 2708 during the Star League era, designed by Boeing Interstellar to provide a standardized company-level Mek transport for the Star League Defense Force. The original vessels featured comparatively luxurious crew facilities including double-occupancy quarters and spacious recreation areas, reflecting the standards of the era. The design proved immediately successful and was adopted across the SLDF, with multiple manufacturers licensed to meet demand.</p><p>The Succession Wars that followed the Star League's collapse tested the Union's durability to its limits. As technological capabilities declined, a series of hydraulic and electrical malfunctions on later production vessels led designers to replace the original crew amenities with communal bunkrooms and multipurpose areas. These modifications also degraded the air circulation system, giving the Union and its larger cousin the Overlord a distinctive stale atmospheric taint that became notorious among their crews. Despite these compromises, the Union's fundamental soundness ensured it remained in production throughout the Succession Wars, though shortages of drive system replacement parts during the Third Succession War nearly ended the class's dominance.</p><p>The Clan Invasion of 3049 brought renewed urgency to modernization efforts. In July 3055, Federated-Boeing Interstellar launched a comprehensive refit featuring significantly upgraded weapons and a return to Star League-era crew facilities with double-occupancy cabins and improved air filtration. A terrorist incident at the Galax shipyards curtailed initial production, but the upgraded model eventually entered widespread service. The Clans independently developed the Union C, scaling the hull up to 4,700 tons with improved thrust and Clan-grade weapons to carry fifteen Meks in the Clan Trinary structure.</p><p>The Word of Blake Jihad spawned the most radical Union variant yet when the Blakists developed the Pocket WarShip conversion, mounting capital-grade missile launchers on a hull that appeared outwardly identical to the standard Union. These vessels attracted infamy during the Jihad for their shock appearances in engagements where defenders expected nothing more than a conventional transport. Meanwhile, the Shipil Company on Skye produced the Union-X, a 3,700-ton expansion that traded Mek capacity for additional fighter and battle armor bays to support the evolving combined-arms doctrine of the post-Clan Invasion era. The Union remains the most produced and widely distributed military DropShip in the Inner Sphere, with no sign of its dominance waning.</p>
+</history>
+
+<manufacturer>
+Shipil Company
+</manufacturer>
+
+<primaryFactory>
+Skye
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Star League V250
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<use>
+'Mech/ASF carrier
+</use>
+
+<source>
+TR:3067
+</source>
+
+<published>
+RS:3067u
+</published>
+
+<tonnage>
+3700.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+66
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+7
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+5
+</escape_pod>
+

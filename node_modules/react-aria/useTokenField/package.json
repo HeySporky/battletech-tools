@@ -1,0 +1,5 @@
+{
+  "main": "../dist/exports/useTokenField.cjs",
+  "module": "../dist/exports/useTokenField.js",
+  "types": "../dist/types/exports/useTokenField.d.ts"
+}

@@ -1,0 +1,175 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-eafd-7785-87d2-d7d036befb00
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+Hesiod Utility Vehicle
+</Name>
+
+<Model>
+C (Crane)
+</Model>
+
+<mul id:>
+4322
+</mul id:>
+
+<year>
+3060
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+BattleArmorHandles - troopers:-1
+</transporters>
+
+<cruiseMP>
+4
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+45
+</armor_type>
+
+<armor_tech_rating>
+4
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+5
+5
+5
+3
+</armor>
+
+<Body Equipment>
+ISOffRoadChassis
+OmniChassisMod
+</Body Equipment>
+
+<Front Equipment>
+Lift Hoist/Arresting Hoist:OMNI
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+4
+</barrating>
+
+<structural_tech_rating>
+4
+</structural_tech_rating>
+
+<engine_tech_rating>
+4
+</engine_tech_rating>
+
+<capabilities>
+<p>The Hesiod's most significant technical feature is its OmniVehicle chassis, which provides three tons of OmniPod space for swapping between four distinct working modules. The 7-ton frame rides on an off-road wheeled chassis that handles unpaved terrain reliably, though the vehicle is not intended for high-speed operation. Its ICE engine delivers a cruise speed of 40 km/h and a top speed of 60 km/h, drawing on a 2,666 km range from its alcohol fuel supply. That extended range allows the vehicle to operate independently of fuel logistics for extended periods, a practical necessity on frontier worlds.</p><p>All configurations carry commercial armor at BAR 4, offering environmental protection against the elements but minimal resistance to deliberate weapons fire. The Hesiod is unarmed in its baseline configurations, and its crew of two enlisted operators shares the cab regardless of which module is installed.</p><p>The vehicle's principal limitation is its single-configuration operation. Swapping OmniPods requires ground crew support and downtime, meaning the flexibility advantage of the platform is realized across a deployment rather than moment to moment. Operators who expect to reconfigure frequently will need logistics support unavailable in austere frontier conditions. The light construction also limits the Hesiod to civilian workloads; it is not suited to heavy-duty operations alongside large construction equipment.</p>
+</capabilities>
+
+<overview>
+<p>The Hesiod Utility Vehicle is a civilian ultralight OmniVehicle introduced in 3060 by Earthwerks-FWL, Incorporated as a cost-effective alternative to fixed-configuration utility equipment. Leveraging OmniVehicle technology traditionally reserved for military applications, Earthwerks offered the Hesiod as a single platform capable of fulfilling multiple specialized roles through interchangeable working modules. The vehicle found immediate interest across the Inner Sphere, appealing to colonial administrators and agricultural operators looking to reduce fleet costs without sacrificing operational flexibility.</p><p>Its alcohol-fueled engine, off-road chassis, and modest footprint made it well-suited to frontier and developing-world environments where road infrastructure was limited and budget constraints were constant. Despite its civilian focus, the Hesiod proved adaptable enough that later configurations would extend its service into militarized support roles as well.</p>
+</overview>
+
+<deployment>
+<p>The Crane configuration mounts a front lift hoist in place of the cargo bay, suited for placement and retrieval tasks at height. It supports construction and maintenance operations on colonial settlements, handling prefabricated structural components, equipment positioning, and oversized loads too heavy for manual handling. The rear door is retained, allowing secondary load-carrying in situations where hoist operations and cargo transport are needed during the same work cycle.</p>
+</deployment>
+
+<history>
+<p>Earthwerks-FWL, Incorporated introduced the Hesiod Utility Vehicle in 3060 from its manufacturing facility on Bernardo, capitalizing on civilian demand for modular equipment that had grown alongside the Inner Sphere's post-Clan Invasion economic recovery. The design drew on OmniVehicle technology originally developed for military applications, adapting it to a cost-effective civilian platform accessible to colonial governments and agricultural cooperatives.</p><p>Initial sales were strong, with the Hesiod gaining buyers throughout the Inner Sphere. The Bernardo plant could not keep pace with demand, and Earthwerks eventually outsourced some production to its Capellan Confederation facilities. This decision triggered friction at the Bernardo plant, where workers staged strikes and circulated claims that the Capellan-built vehicles were substandard. Earthwerks maintained publicly that quality controls across all facilities were uniform, but the labor disputes and rumors persisted, complicating sales in some markets.</p><p>The FedCom Civil War proved damaging to Hesiod sales in the Federated Suns and Lyran space from the mid-3060s onward, cutting off a significant customer base and leaving the Free Worlds League as the primary revenue source. The vehicle survived these pressures and continued in production through subsequent political changes on Bernardo, which passed through Republic of the Sphere and Senate Alliance jurisdiction before returning to Free Worlds League control.</p><p>During the Jihad, Earthwerks released a weapons module for the platform carrying four Light Machine Guns, allowing the Hesiod to serve in rear-area militia and security roles. This development reflected the broader militarization of civilian platforms that characterized the era, when any available vehicle with weapons potential was pressed into service.</p>
+</history>
+
+<manufacturer>
+Earthwerks-FWL, Inc.
+</manufacturer>
+
+<primaryFactory>
+Bernardo
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Earthwerks-FWL, Inc.
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Commercial Armor BAR 4
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:VAr
+</source>
+
+<tonnage>
+7.0
+</tonnage>
+
+<baseChassisFireConWeight>
+0.0
+</baseChassisFireConWeight>
+
+<fuel>
+0.5
+</fuel>
+
+<fuelType>
+ALCOHOL
+</fuelType>
+

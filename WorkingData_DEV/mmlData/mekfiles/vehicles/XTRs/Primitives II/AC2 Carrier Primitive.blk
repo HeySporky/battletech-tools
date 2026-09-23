@@ -1,0 +1,179 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ec27-7c5f-83b1-dda0d2dad2d4
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+AC/2 Carrier
+</Name>
+
+<Model>
+(Primitive)
+</Model>
+
+<mul id:>
+5588
+</mul id:>
+
+<year>
+2440
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Sniper
+</role>
+
+<quirks>
+easy_maintain
+fast_reload
+obsolete:2580
+low_profile
+poor_performance
+</quirks>
+
+<motion_type>
+Tracked
+</motion_type>
+
+<cruiseMP>
+3
+</cruiseMP>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+47
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+22
+22
+22
+12
+</armor>
+
+<Body Equipment>
+Advanced Fire Control
+IS Ammo AC/2
+IS Ammo AC/2
+</Body Equipment>
+
+<Front Equipment>
+Autocannon/2
+Autocannon/2
+Autocannon/2
+Autocannon/2
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<barrating>
+6
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The primitive AC/2 Carrier represents the earliest member of the weapons carrier family to mount ballistic weapons, entering service around 2520. Built as a fifty-five-ton support vehicle using primitive construction methods, it mounts four Class 2 autocannons behind BAR 6 armor with advanced fire control systems that partially compensate for the crude platform.</p><p>The design's straightforward maintenance requirements made it accessible to militaries with limited technical infrastructure. These vehicles were rendered obsolete by modernized carriers around 2580 but served through the Age of War era, establishing the ballistic carrier concept alongside the earlier missile carrier designs.</p>
+</capabilities>
+
+<overview>
+<p>The AC/2 Carrier is a sixty-ton tracked combat vehicle designed to provide long-range ballistic fire support at minimal cost. Part of the broader family of weapons carrier vehicles that originated during the Age of War, the AC/2 Carrier dates back to approximately 2520 in its primitive form, with the modernized version entering service alongside its missile carrier cousins. Built by Quikscell and numerous other manufacturers across the Inner Sphere, the vehicle fills a niche as cheap, expendable suppressive fire support, using volume of autocannon fire to compensate for the relatively modest damage output of individual Class 2 weapons.</p>
+</overview>
+
+<deployment>
+<p>The primitive AC/2 Carrier served during the Age of War, providing long-range ballistic fire support for armies still relying on pre-spaceflight military technology. Quik Products Inc manufactured these vehicles alongside the primitive missile carriers, establishing the full weapons carrier family that would endure for centuries.</p>
+</deployment>
+
+<history>
+<p>The AC/2 Carrier traces its lineage to the Age of War, when Quik Products Inc developed a family of standardized tracked weapons platforms. The primitive ancestor entered service around 2520 mounting four Class 2 autocannons behind BAR 6 armor with advanced fire control systems. Despite crude construction, the design proved effective enough to inspire the modernized version that served through the Star League era and beyond. Like the missile carriers, the AC/2 Carrier suffered from widespread unauthorized copying during the Succession Wars, and Quikscell's post-Fourth Succession War legal campaign shut down many competitors.</p><p>Production spread across an extensive network. Quikscell plants on Ares, Kalidasa, Layover, Oliver, Pandora, and Richvale formed the core, supplemented by Hadrian Mechanized Industries on Pompey, Aldis Industries on Terra, Bordello Military Goods on Antwerp, and Joint Equipment Systems on Alshain. This distributed base mirrored the missile carrier network.</p><p>The AC/2 Carrier received its first major modernization in 3063 with the LB-X variant. This substantial redesign replaced the internal combustion engine with a fusion powerplant, doubled armor protection, and substituted the standard autocannons with LB-X Class 2 weapons capable of firing both solid slugs and cluster ammunition. A C3 slave computer enabled networked targeting. Quikscell produced the LB-X variant at most of its carrier plants.</p><p>Despite its long service history, the AC/2 Carrier has always occupied a somewhat ambiguous position within the weapons carrier family. The vehicle's similarity to the Pike support vehicle has caused persistent identification problems in the field. However, the AC/2 Carrier continues to fill its role as cheap long-range suppressive fire support, its simplicity and low cost ensuring continued relevance.</p>
+</history>
+
+<manufacturer>
+Joint Equipment Systems|Bordello Military Goods, Inc.|Quikscell Company|Quikscell Company|Quikscell Company|Quikscell Company|Quikscell Company|Hadrian Mechanized Industries|Quikscell Company|Aldis Industries
+</manufacturer>
+
+<primaryFactory>
+Alshain|Antwerp|Ares|Kalidasa|Layover|Oliver|Pandora|Pompey|Richvale|Terra
+</primaryFactory>
+
+<systemManufacturers>
+ENGINE:InterComBust
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+ENGINE:180 ICE
+ARMOR:BAR 6
+</systemModels>
+
+<source>
+XTR:Primitives II
+</source>
+
+<published>
+XTR:Primitives II
+</published>
+
+<tonnage>
+55.0
+</tonnage>
+
+<fuel>
+1.0
+</fuel>
+
+<fuelType>
+PETROCHEMICALS
+</fuelType>
+

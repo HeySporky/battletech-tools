@@ -1,0 +1,193 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-df4a-7271-aea8-5b9134c9a713
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Crosscut
+model:IIC SolahmaMech
+mul id:8099
+
+Config:Biped
+techbase:Clan
+era:3133
+source:XTR:Caveat
+published:XTR:Caveat
+rules level:5
+role:Striker
+
+quirk:illegal_design
+quirk:hard_pilot
+
+mass:30
+engine:300 XXL (Clan) Engine
+structure:Clan Industrial
+myomer:Standard
+
+heat sinks:11 Single
+walk mp:10
+jump mp:0
+
+armor:Heavy Industrial(Clan)
+LA armor:6
+RA armor:6
+LT armor:6
+RT armor:6
+CT armor:9
+HD armor:8
+LL armor:8
+RL armor:8
+RTL armor:2
+RTR armor:2
+RTC armor:3
+
+Weapons:1
+Improved Heavy Medium Laser, Left Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLImprovedMediumHeavyLaser
+CLImprovedMediumHeavyLaser
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Chainsaw
+Chainsaw
+Chainsaw
+Chainsaw
+Chainsaw
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+-Empty-
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+Ejection Seat (Industrial Mech)
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Crosscut is one of the most ubiquitous IndustrialMechs in existence, a thirty-ton LoggerMech that has dominated commercial forestry operations across the Inner Sphere for centuries. Originally designed by the Eden Corporation of Terra during the Star League era, the Crosscut was purpose-built for independent woodland operations, combining tree-felling capability with cargo transport in a single rugged platform. Eden's extensive licensing program ensured the design's survival long after the corporation itself was destroyed during the Amaris Coup, with dozens of manufacturers across the Inner Sphere producing their own variants by the late Succession Wars.</p><p>The Crosscut's reputation extends well beyond the timber industry. Its robust construction, ease of maintenance, and widespread availability have made it a perennial favorite for improvised military conversions, earning it a storied if unofficial role as a militia weapon and arena combatant from the Periphery to the Clan homeworlds.</p>
+
+capabilities:<p>Designed to both fell trees and transport them to a central processing point, the Crosscut is a hybrid platform built for small-scale independent operations rather than the large farming concerns that favor dedicated felling and transportation vehicles. The signature right-arm chainsaw can slice through hardwood timber with ease, while a rear-mounted lift hoist and cargo bay allow a single operator to haul cut lumber without additional support. The thirty-ton chassis rides on a reliable internal combustion engine that provides adequate speed for forestry work, though it leaves the 'Mech sluggish by military standards.</p><p>The Crosscut's industrial-grade armor is designed to absorb the routine impacts of logging operations rather than weapons fire, offering minimal protection against dedicated combat units. Despite this, the 'Mech's physical proportions are nearly identical to a light BattleMech, and its chainsaw is devastating in close quarters against any target. The design is notoriously difficult to pilot smoothly, requiring considerable skill to operate at full potential, though this very quality has led several MechWarrior academies in the Free Worlds League to adopt the Crosscut as a training platform before graduating cadets to dedicated BattleMech trainers.</p><p>The Crosscut's greatest tactical asset is arguably its adaptability. The straightforward construction and widespread parts availability make it exceptionally easy to maintain and equally easy to modify, a combination that has spawned countless improvised combat conversions over the centuries.</p>
+
+deployment:<p>Developed by Clan Sea Fox in early 3133, the Crosscut IIC represents an ambitious but ultimately failed attempt to capitalize on the growing market for combat-modified IndustrialMechs following the Blackout. Designed at Manufacturing Plant SFF-IT7 on Itabaiana, the IIC replaces the standard engine with a massive 300-rated XXL powerplant, achieving an impressive top speed of ninety kilometers per hour for a thirty-ton IndustrialMech. An improved heavy medium laser supplements the retained chainsaw, and heavy industrial armor provides genuine combat protection. However, the XXL engine proved difficult to control and made the design prohibitively expensive, priced closer to an actual BattleMech than the modified IndustrialMech it was marketed as. The Crosscut IIC sold poorly, and Clan Sea Fox scrapped the program shortly after its introduction.</p>
+
+history:<p>The Crosscut traces its origins to the Eden Corporation of Terra, which introduced the original ED-X1 model during the height of the Star League. Powered by a fusion engine and equipped with the now-standard chainsaw and lift hoist combination, the ED-X1 established the template that all subsequent Crosscut variants would follow. Eden licensed the design aggressively across the Inner Sphere, a decision that proved prescient when the corporation was destroyed during Stefan Amaris's seizure of Terra. The proliferation of licensed production facilities ensured the Crosscut's survival through the chaos that followed.</p><p>During the Succession Wars, the escalating destruction of advanced technology prompted a shift from the fusion-powered ED-X1 to simpler internal combustion variants. Scavengers stripped fusion engines from surviving ED-X1 models for use in BattleMechs, making the original configuration increasingly rare. The ED-X4 series, introduced in the late twenty-eighth century, became the standard production model, trading the fusion engine for a more economical and easily maintained ICE powerplant. This era also saw the first widespread military conversions, as desperate communities weaponized their forestry 'Mechs to defend against raiders and marauding forces.</p><p>The Crosscut's combat history is remarkably broad for a civilian design. During the Pentagon Civil War, colonists on the Clan homeworlds armed their Crosscuts with flamers and improvised rocket launchers, creating ad hoc militia forces that fought alongside proper BattleMechs. Centuries later, the Marian Hegemony would independently develop strikingly similar modifications during the Jihad, fielding entire formations of armed Crosscuts against Word of Blake forces on contested border worlds. These Marian conversions were notable for incorporating fuel cell and even fusion engines into the industrial chassis, producing machines that carried genuine military-grade weapons while remaining visually indistinguishable from their civilian counterparts.</p><p>The Dark Age brought renewed interest in the Crosscut as a combat platform. The collapse of the HPG network and the resulting economic disruption made IndustrialMech conversions attractive to cash-strapped planetary militias across the Inner Sphere. Earthwerks Limited on Victoria became a notable center for standardized combat modifications, while Wechsel Royal Industrial Repair and Heavy Machining on Kaumberg restarted Crosscut production with new purpose-built military variants. Even Clan Sea Fox attempted to capitalize on the trend with an experimental IIC conversion, though the design proved too expensive for the market it targeted.</p><p>Today, the Crosscut remains in production at numerous facilities across the Inner Sphere, with the civilian ED-X4 LoggerMech continuing to serve as the backbone of independent forestry operations on thousands of worlds. Its military legacy, born from centuries of improvisation and necessity, ensures that any Crosscut encountered in a conflict zone must be treated with caution regardless of its apparent configuration.</p>
+
+manufacturer:Manufacturing Plant SFF-IT7
+
+primaryfactory:Itabaiana
+
+fluffdate:2026-02-21 18:24:59
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Industrial
+systemmanufacturer:ENGINE:Model 39b
+systemmode:ENGINE:300 XXL
+systemmanufacturer:ARMOR:Unknown
+systemmode:ARMOR:Heavy Industrial
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmanufacturer:TARGETING:Unknown

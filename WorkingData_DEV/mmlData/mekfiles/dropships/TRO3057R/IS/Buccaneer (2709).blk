@@ -1,0 +1,216 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aae6-7c3f-92ac-9255cf5c7867
+</UUID>
+
+<UnitType>
+Dropship
+</UnitType>
+
+<Name>
+Buccaneer
+</Name>
+
+<Model>
+(2709) (Vehicle)
+</Model>
+
+<mul id:>
+3867
+</mul id:>
+
+<year>
+2709
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<transporters>
+lightvehiclebay:18.0:1:1::-1:0
+cargobay:100.0:0:2::-1:0
+lightvehiclebay:18.0:1:3::-1:0
+cargobay:100.0:0:4::-1:0
+1stclassquarters:30.0:0:-1::-1:0
+2ndclassquarters:0.0:0:-1::-1:0
+crewquarters:63.0:0:-1::-1:0
+cargobay:329.0:1:8::-1:0
+</transporters>
+
+<SafeThrust>
+3
+</SafeThrust>
+
+<heatsinks>
+58
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+4800
+</fuel>
+
+<engine_type>
+1
+</engine_type>
+
+<armor_type>
+41
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+70
+60
+60
+50
+</armor>
+
+<Nose Equipment>
+(B) Large Laser
+(B) LRM 5
+IS Ammo LRM-5:24
+</Nose Equipment>
+
+<Left Side Equipment>
+(B) Medium Laser
+Medium Laser
+</Left Side Equipment>
+
+<Right Side Equipment>
+(B) Medium Laser
+Medium Laser
+</Right Side Equipment>
+
+<Aft Equipment>
+(B) Medium Laser
+Medium Laser
+</Aft Equipment>
+
+<Hull Equipment>
+</Hull Equipment>
+
+<structural_integrity>
+8
+</structural_integrity>
+
+<capabilities>
+<p>The vehicle carrier variant modifies the Buccaneer's two main 1,000-ton cargo bays to accommodate up to thirty-six light vehicles, with 529 tons of remaining cargo capacity. This conversion retains the same hull and drive system as the standard model but removes all weapons to maximize transport efficiency. The crew complement expands dramatically to 197 personnel to support the embarked vehicle crews and maintenance staff. This unarmed configuration relies entirely on escort vessels for protection during transit, limiting its deployment to secure trade routes or well-defended convoy operations.</p>
+</capabilities>
+
+<overview>
+<p>The Buccaneer is one of the most widely used cargo haulers in the Inner Sphere. Originally designed in the early twenty-eighth century as a military transport, the 3,500-ton Aerodyne failed to secure a Star League Defense Force contract for a BattleMech carrier and was subsequently redesigned as a civilian merchant vessel. This commercial conversion proved far more successful than its military origins, and the Buccaneer quickly became a staple of interstellar commerce.</p><p>Known for its spacious crew accommodations and generous cargo capacity, the Buccaneer has earned a reputation as one of the most desirable postings in any merchant fleet. The vessel's robust construction and straightforward maintenance requirements have kept it in continuous service for centuries, a sign of the enduring quality of its fundamental design.</p>
+</overview>
+
+<deployment>
+<p>The vehicle carrier variant sees service primarily with military logistics commands and large mercenary organizations that need to transport light vehicle formations between deployment zones. Its lack of armament restricts operations to secure corridors or convoy formations with dedicated escort vessels.</p>
+</deployment>
+
+<history>
+<p>The Buccaneer was designed in the early 2700s to compete for a Star League Defense Force contract for a dedicated BattleMech transport. When the vessel failed to win the military bid, its designers pivoted to the civilian market, making modifications to optimize the hull for merchant cargo operations. This commercial variant proved immensely popular, establishing the Buccaneer as one of the most common cargo haulers in the Inner Sphere within a generation of its introduction.</p><p>The Buccaneer's popularity endured through the Succession Wars, as its rugged construction and ease of maintenance allowed even war-torn Successor States to keep their merchant fleets operational. The vessel's ubiquity made it a frequent target for pirates and raiders, but also ensured that spare parts and experienced crews remained readily available across known space. Despite the design's enduring success, no manufacturer launched an upgraded version incorporating recovered Star League technology for many years, a fact attributed to the Buccaneer's primarily civilian role and the low priority given to merchant vessel modernization during the post-Clan Invasion military buildup.</p>
+</history>
+
+<manufacturer>
+Brigadier Corporation|Dynamico Ltd.|Semier Data Tron
+</manufacturer>
+
+<primaryFactory>
+Gibson|Delavan|Tharkad
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3057r,D&J
+</source>
+
+<tonnage>
+3500.0
+</tonnage>
+
+<designtype>
+1
+</designtype>
+
+<crew>
+192
+</crew>
+
+<officers>
+3
+</officers>
+
+<gunners>
+2
+</gunners>
+
+<passengers>
+0
+</passengers>
+
+<marines>
+0
+</marines>
+
+<battlearmor>
+0
+</battlearmor>
+
+<otherpassenger>
+0
+</otherpassenger>
+
+<life_boat>
+0
+</life_boat>
+
+<escape_pod>
+2
+</escape_pod>
+

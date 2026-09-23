@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d814-7b06-881f-17ee2f233951
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Vulture
+clanname:Mad Dog
+model:T
+mul id:7726
+
+Config:Biped OmniMek
+techbase:Clan
+era:3142
+source:RG10
+published:RG10
+rules level:2
+role:Missile Boat
+
+quirk:imp_target_med
+
+mass:60
+engine:300 XL (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:13 Clan Double
+base chassis heat sinks:12
+walk mp:5
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:16
+RA armor:16
+LT armor:16
+RT armor:16
+CT armor:23
+HD armor:9
+LL armor:23
+RL armor:23
+RTL armor:7
+RTR armor:7
+RTC armor:7
+
+Weapons:6
+ER Large Laser, Left Arm
+ER Medium Laser, Left Arm
+ER Large Laser, Right Arm
+ER Medium Laser, Right Arm
+LRM 20, Left Torso
+LRM 20, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLERLargeLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+CLERLargeLaser (OMNIPOD)
+CLERMediumLaser (OMNIPOD)
+Clan Ferro-Fibrous
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLArtemisV (OMNIPOD)
+CLArtemisV (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Artemis V-capable (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Artemis V-capable (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLLRM20 (OMNIPOD)
+CLArtemisV (OMNIPOD)
+CLArtemisV (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Artemis V-capable (OMNIPOD)
+Clan Ammo LRM-20 (Clan) Artemis V-capable (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Mad Dog was designed by Clan Smoke Jaguar in 2963 as a second-generation OmniMech, built to replace the earlier Lupus heavy OmniMech originally produced by Clan Coyote. Sharing design molds and structural elements with the Timber Wolf, the Smoke Jaguars deliberately named their creation as an insult to Clans Wolf and Coyote. The sixty-ton design filled the role of a versatile heavy fire support platform, utilizing its generous twenty-eight tons of pod space to mount devastating long-range weaponry across a variety of configurations. When Inner Sphere forces first encountered the design during the Clan Invasion, its hunched shoulders, protruding head, and reverse-jointed legs immediately earned it the code-name Vulture (or Hagetaka in Japanese) a name that also captured its perceived battlefield role as a patient predator watching the field from elevated positions. Mass production across virtually all Clans made the Mad Dog one of the most ubiquitous OmniMechs in Clan toumans, with Clan Ghost Bear and Clan Hell's Horses maintaining particularly large inventories.</p>
+
+capabilities:<p>The Mad Dog's defining feature is its distinctive torso and arm pod arrangement. The side torso modules, angled high above the cockpit, serve as ideal mounting points for missile systems, while the elongated arm pods function as extended turrets for direct-fire energy or ballistic weapons. This configuration gives the design excellent fields of fire and allows it to maintain constant pressure on opponents from multiple angles simultaneously. In its Primary configuration, the Mad Dog carries paired LRM-20 racks in the shoulder-mounted torso pods, providing devastating long-range fire support, while twin large and medium pulse lasers (one of each per arm) deliver accurate close-range firepower for finishing crippled opponents.</p><p>Powered by a 300-rated XL engine, the Mad Dog achieves a respectable maximum speed of eighty-six kilometers per hour, granting sufficient mobility for repositioning between engagements. Eight and a half tons of ferro-fibrous armor provide adequate but not exceptional protection, making sustained close combat inadvisable against heavier designs. The pulse laser armament partially compensates for this vulnerability, allowing pilots to maintain effective fire while maneuvering at high speed. Rather than serving as a passive support platform (a role that would violate zellbrigen dueling conventions) the Mad Dog's configurations are universally designed to take the fight directly to the enemy at all ranges.</p>
+
+deployment:<p>The Tiburon Khanate-era refresh of the Prime configuration, Alternate Configuration T replaces the pulse lasers with ER large and ER medium lasers in each arm, sacrificing close-range accuracy for improved damage potential at extended ranges. The LRM-20s receive Artemis V fire control upgrades with doubled ammunition capacity, and an additional heat sink in the center torso helps manage the increased thermal load. The T configuration quickly became a favorite among Clan Hell's Horses MechWarriors, with a Star of T-configured Mad Dogs especially helping defeat a Jade Falcon probing raid on Vulcan through superior range and missile accuracy.</p>
+
+history:<p>The Mad Dog's origins trace to 2963 during the Golden Century, when Clan Smoke Jaguar scientists sought to improve upon the Lupus heavy OmniMech first developed by Clan Coyote. Drawing upon shared design molds with the increasingly successful Timber Wolf, the Jaguars created a lighter and more versatile fire support platform. The naming of the Mad Dog was a deliberate provocation, an insult directed at both the Wolf and Coyote Clans whose designs it built upon.</p><p>The design's combination of generous pod space, decent speed, and proven components led to rapid proliferation across the Clan homeworlds. Production facilities spanning multiple Clan territories ensured a steady supply, with factories on Huntress, Tokasha, Babylon, Homer, Lum, and Arcadia all contributing to the Mad Dog's growing numbers. By the time of Operation Revival in 3049, the Mad Dog had become one of the most common heavy OmniMechs in virtually every Clan touman.</p><p>During the Clan Invasion, the Mad Dog proved its worth across dozens of engagements in the Inner Sphere. Inner Sphere analysts initially misidentified the design's role as purely fire support, but Clan MechWarriors demonstrated its full versatility through aggressive offensive operations. The Battle of Tukayyid in 3052 saw the Mad Dog employed in particularly innovative fashion, with Clan Ghost Bear technicians hastily reconfiguring their Mad Dogs into the close-combat S variant overnight to meet the demands of urban warfare against the Com Guards.</p><p>Following the Smoke Jaguars' annihilation in 3060, their production facilities on Huntress were eventually absorbed by Clan Fire Mandrill and later Clan Goliath Scorpion. Clan Ghost Bear's Bergan Industries facility on Alshain began producing a locally manufactured variant (sometimes called the Mk II) with minor cosmetic differences resulting from Spheroid factory tooling, though these machines remained functionally identical to their homeworld counterparts.</p><p>In the ilClan era, the Mad Dog's production has consolidated significantly. Clan Hell's Horses established a dedicated factory at the Svarstaad Industriplex Beta, making them the primary Inner Sphere producer. With over twenty new worlds to garrison, the Hell's Horses chose the Mad Dog specifically because it represented a safe, well-known, and thoroughly proven design. New configurations including the T, G, I, and V variants emerged from this period, reflecting the evolving tactical requirements of garrison duty and ongoing border conflicts.</p>
+
+manufacturer:Bergan Industries|Arcadia BattleMech Plant CM-T15|Coyote Industrial|Complex H-1 CCC|Phan Industriplex|Industrial Complex Raven Alpha|Svarstaad Industriplex Beta|Tokasha MechWorks Alpha
+
+primaryfactory:Alshain|Arcadia (Rechlan)|Babylon (Abyssinia)|Homer|Huntress (Phan City)|Lum|Svarstaad|Tokasha
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Eden
+systemmode:CHASSIS:Mk 60-OM
+systemmanufacturer:ENGINE:Type I
+systemmode:ENGINE:300 XL
+systemmanufacturer:ARMOR:Compound
+systemmode:ARMOR:SJ6CW Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Build
+systemmode:COMMUNICATIONS:OSJ-41
+systemmanufacturer:TARGETING:Cat's Eye
+systemmode:TARGETING:MD6

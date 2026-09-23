@@ -1,0 +1,154 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-ebd3-7568-a4a1-dc1d1b511c2d
+</UUID>
+
+<UnitType>
+Tank
+</UnitType>
+
+<Name>
+Sea Skimmer Hydrofoil
+</Name>
+
+<Model>
+'Sniper'
+</Model>
+
+<mul id:>
+5005
+</mul id:>
+
+<year>
+3071
+</year>
+
+<type>
+IS Level 4
+</type>
+
+<role>
+Scout
+</role>
+
+<motion_type>
+Hydrofoil
+</motion_type>
+
+<cruiseMP>
+12
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+7
+</armor_tech_level>
+
+<armor>
+9
+8
+8
+8
+6
+</armor>
+
+<Body Equipment>
+IS Ammo Extended LRM-5
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Extended LRM 5
+</Turret Equipment>
+
+<capabilities>
+<p>The Sea Skimmer's defining characteristic is speed. Powered by a Skye Engines 150 Naval ICE power plant, the hydrofoil achieves a cruising speed of 129 kph and a flank speed of 194 kph, outrunning most armed naval vessels it is likely to encounter. This speed is the crew's primary defense. Glasgow Limited Standard armor provides reasonable protection for a 25-ton vessel, but the Sea Skimmer cannot absorb sustained punishment, and commanders are expected to use mobility rather than endurance to survive.</p><p>Armament centers on a turret-mounted Coventry 4 Tube Missile System SRM 4 launcher, supplemented by three Sperry Browning machine guns covering the sides and rear. This weapons fit is sufficient for patrol and interdiction missions against lightly armed opponents, but inadequate against most military-grade threats. The SRM 4 demands close engagement ranges, virtually guaranteeing exposure to return fire.</p><p>The ICE power plant and limited weapon range are the design's most significant weaknesses. Without the ability to engage at distance, flotillas of Sea Skimmers are vulnerable to artillery and air power. Their effectiveness is greatest in confined waterways where superior speed allows hit-and-run tactics, but in open water or against a prepared combined-arms force, the design is badly outmatched.</p>
+</capabilities>
+
+<overview>
+<p>The Sea Skimmer Hydrofoil is a light naval combat vehicle produced by Skye Pleasure Craft, Ltd. on Skye. First commissioned in 2867, the design traces its origins to a group of young Lyrans who proposed forming a self-funded military unit, eventually persuading the LCAF to establish the 348th Reserve Detachment around the new vessel. Armed with a turret-mounted SRM launcher and three machine guns, the Sea Skimmer fills a niche role in coastal patrol, riverine operations, and the control of inland waterways. Its speed advantage over most armed naval vessels gives it a practical edge in these environments.</p><p>Though never widely distributed beyond Skye's own defense forces in its early years, the design earned a reputation for agility and reliability. Skye Pleasure Craft continued refining the platform across multiple generations, eventually producing fusion-powered and extended-range missile variants to address the original model's shortcomings in standoff engagements.</p>
+</overview>
+
+<deployment>
+<p>The Sniper prototype was produced in only a handful of units, assigned to Skye Pleasure Craft's own drydock pending further evaluation. When the Word of Blake threatened Skye in 3073, the company brought the Snipers out to defend the coastline. Using their extreme missile range, the vessels struck Word of Blake artillery positions along the coast, forcing the enemy to disperse and allowing Coalition forces to close. Despite this operational success, the Sniper was declared a development failure. Its high production cost, complete lack of close-in weaponry, and the expense of the experimental Extended LRM launcher were cited as disqualifying factors, and the program was terminated after its evaluation period. The vessels were subsequently consigned to Skye Pleasure Craft's drydock as the company returned to refining its production-model designs.</p>
+</deployment>
+
+<history>
+<p>The Sea Skimmer's origin reflects the unusual intersection of wealth, military obligation, and political leverage that shaped Lyran society. In 2867, a group of young Lyrans of military age approached the LCAF with a proposal: they would form, equip, and fund their own military unit entirely from private resources, in exchange for operational autonomy and official recognition. The Archon had recently invoked the Military Disaster Act, and these youths sought to avoid being drafted as infantry replacements. With pressure from notable Skye families applied behind the scenes, the LCAF relented and established the 348th Reserve Detachment. Expecting a lightly armed infantry unit, the LCAF was unprepared when the group contracted Skye Pleasure Craft to design a new naval combat vessel. Within three months the 348th was patrolling the lakes and rivers around New Glasgow, conducting maneuvers under the cover of civilian observer exercises.</p><p>The design remained a local curiosity until the Kuritan invasion of 2895. When a Combine BattleMech battalion broke through to the Inverness floodplains and the Skye defenders found themselves outmatched, the garrison commander chose a drastic course of action. To flood the Combine lines and cut off the advance, he ordered one-kiloton nuclear demolition devices deployed against the Mantry River Dam. The task fell to two Sea Skimmers from the 348th, each crew carrying a device and facing what was openly acknowledged as a suicide mission. The two hydrofoils engaged Kuritan pursuit forces, toppling a Wasp with SRM salvos, before the surviving vessel reached the dam. The detonation flooded the Combine lines, and the Kuritan force withdrew within the week.</p><p>Following the invasion, the LCAF contracted Skye Pleasure Craft to produce the Sea Skimmer for broader distribution across border worlds. Production continued through the Succession Wars with few significant changes. When the Jihad brought Marik forces to Skye, the rebuilt 348th demonstrated both the hydrofoil's speed and the limits of its weapons fit against a modern military force. These engagements drove Skye Pleasure Craft's engineers to begin work on extended-range variants, culminating in the Sniper prototype and ultimately the ELRM production model.</p>
+</history>
+
+<manufacturer>
+Refit - Skye Pleasure Craft, Ltd.
+</manufacturer>
+
+<primaryFactory>
+Skye
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:ArcShield
+COMMUNICATIONS:TharHes
+TARGETING:TharHes
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:150 Fusion
+ARMOR:Heavy Ferro-Fibrous
+COMMUNICATIONS:Seaweed PG-2
+TARGETING:Nav Shark
+</systemModels>
+
+<source>
+XTR:Corps
+</source>
+
+<published>
+XTR:Corps
+</published>
+
+<tonnage>
+25.0
+</tonnage>
+

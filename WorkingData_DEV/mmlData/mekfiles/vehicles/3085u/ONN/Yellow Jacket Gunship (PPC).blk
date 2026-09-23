@@ -1,0 +1,154 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e789-7601-9fb2-80ebbccc49e5
+</UUID>
+
+<UnitType>
+VTOL
+</UnitType>
+
+<Name>
+Yellow Jacket Gunship
+</Name>
+
+<Model>
+(PPC)
+</Model>
+
+<mul id:>
+3615
+</mul id:>
+
+<year>
+3076
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+Sniper
+</role>
+
+<motion_type>
+VTOL
+</motion_type>
+
+<cruiseMP>
+9
+</cruiseMP>
+
+<engine_type>
+4
+</engine_type>
+
+<armor_type>
+6
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+5
+</armor_tech_level>
+
+<armor>
+27
+19
+19
+12
+2
+</armor>
+
+<Body Equipment>
+</Body Equipment>
+
+<Front Equipment>
+ISERPPC
+ISC3SlaveUnit
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Rotor Equipment>
+</Rotor Equipment>
+
+<capabilities>
+<p>The Yellow Jacket is built around the Poland Main Model C Gauss Rifle, a weapon whose range and damage output would be remarkable in any combat platform. Mounted centrally, the rifle allows the Yellow Jacket to engage targets well beyond effective counter-range for most ground-based autocannons. The Michaelson-Omni 40 internal combustion engine delivers a cruising speed of 64 kilometers per hour, with a flank speed of 97 kilometers per hour. While this is slower than many dedicated combat VTOLs, it exceeds the ground speed of nearly all BattleMechs and OmniMechs, giving the Yellow Jacket excellent disengagement options after each firing pass.</p><p>Survivability is a defining characteristic. The StarSlab/3 armor package provides frontal protection sufficient to absorb a Clan Particle Projector Cannon hit without downing the craft, exceptional endurance for a 30-ton VTOL. The Garret Supremesound communications system and Garret D2j targeting computer provide reliable data-sharing and fire control within a lance formation. Together, these systems support effective coordination across extended operational distances.</p><p>The Yellow Jacket's primary weakness is ammunition dependency. A single-weapon platform carrying a finite Gauss load can be rendered combat-ineffective during prolonged engagements, requiring rotation to rearming points. The internal combustion engine, while reliable and cheap to maintain, is also a vulnerability, as a single penetrating hit to the power plant can trigger a catastrophic fire. Crew comfort is limited, with the cockpit optimized for function over endurance on extended sorties.</p>
+</capabilities>
+
+<overview>
+<p>The Yellow Jacket Gunship is Michaelson Heavy Industries' flagship light combat vehicle, first produced on Ruchbah in 3058. Conceived as a highly mobile fire-support platform, the design married exceptional VTOL agility with the punishing range of a Poland Main Model C Gauss Rifle. Though a single-weapon design, the Yellow Jacket earned a reputation for sustained-fire capability that made a coordinated lance a genuine threat to BattleMechs and conventional forces alike. Michaelson initially targeted the Federated Suns market, but the combination of speed, armor, and long-range firepower attracted broader interest over time. Production later expanded beyond Ruchbah to additional facilities across the Inner Sphere, reflecting the design's growing acceptance as a versatile fire-support asset.</p>
+</overview>
+
+<deployment>
+<p>The PPC variant replaces the internal combustion engine with a light fusion engine, enabling a top speed of 151 kilometers per hour, nearly double the baseline. A Fusigon Shorttex ER Particle Projector Cannon replaces the Gauss Rifle, and a C3 slave unit compensates for the reduced firepower through network accuracy bonuses when operating in coordinated C3 lances. The light engine significantly changes the maintenance and logistics profile compared to the ICE variants. Entered service in 3076 and found primarily in well-equipped AFFS and LAAF formations with established C3 networks.</p>
+</deployment>
+
+<history>
+<p>Michaelson Heavy Industries introduced the Yellow Jacket Gunship to the AFFS in 3058, following several years of competitive development at their Ruchbah facility. Early marketing efforts produced modest results, as prospective buyers questioned the value of a single-weapon VTOL at the asking price. Initial sales remained below projections despite the concurrent introduction of an ammunition-configured operational variant.</p><p>The design's reputation changed substantially during the FedCom Civil War. Yellow Jacket squadrons attached to Loyalist commands in the Capellan March accumulated impressive combat records, particularly in combined-arms engagements where their speed and reach allowed them to strike fire-support positions that ground forces could not reach quickly. One notable action on Sheratan saw Yellow Jacket crews operating against Blakist Fifth Division elements, demonstrating the design's capacity for accurate, sustained fire against fortified defensive positions. The Civil War proved the design's market viability, and Michaelson expanded production capacity at Ruchbah with two additional factory lines. The AFFS became the primary customer, though the Com Guards, LAAF, and various Periphery buyers also placed substantial orders.</p><p>The Jihad era brought severe disruption to Ruchbah. Word of Blake forces occupied the planet during the conflict, and Michaelson's production output served Blakist operational requirements. After liberation, the Republic of the Sphere assumed administrative oversight of the system and factory under ROS governance from the early Dark Age through approximately 3130. Following the HPG Blackout and the political fragmentation of the late Dark Age, Ruchbah passed through independent and eventually Capellan Confederation control, with production continuing under each successive administration.</p><p>During the broader post-Jihad recovery, two additional production lines emerged under Michaelson licensing arrangements. Cal-Boeing of Dorwinion on Belladonna began producing Yellow Jackets for AFFS contracts starting around 3080, while Lockheed/CBM on Furillo followed with their own line shortly afterward. This proliferation of facilities reflected both the design's operational success and Michaelson's strategic response to the uncertain future of the Ruchbah facility under successive post-Jihad administrations.</p>
+</history>
+
+<manufacturer>
+Cal-Boeing of Dorwinion|Field Refit
+</manufacturer>
+
+<primaryFactory>
+Belladonna|Various
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Brooks, Inc.
+COMMUNICATIONS:Garret
+TARGETING:Garret
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:/3
+COMMUNICATIONS:Supremesound
+TARGETING:D2j
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-ONN
+</published>
+
+<tonnage>
+30.0
+</tonnage>
+

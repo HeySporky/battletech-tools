@@ -1,0 +1,201 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-d5d2-7628-bb9f-7c1b5b0c7030
+generator:MegaMek Suite 0.51.01 on 2026-07-12
+chassis:Osprey
+model:OSP-26 (Lawrence)
+mul id:2347
+
+Config:Biped
+techbase:Inner Sphere
+era:3085
+source:BD:LL,TR:J
+published:BD:LL
+rules level:2
+role:Skirmisher
+
+quirk:no_arms
+quirk:directional_torso_mount:RT
+
+mass:55
+engine:220 XL Engine
+structure:IS Endo Steel
+myomer:Standard
+cockpit:Standard Cockpit
+gyro:Compact Gyro
+
+heat sinks:10 IS Double
+walk mp:4
+jump mp:5
+
+armor:Standard(Inner Sphere)
+LA armor:16
+RA armor:16
+LT armor:22
+RT armor:22
+CT armor:30
+HD armor:9
+LL armor:24
+RL armor:24
+RTL armor:4
+RTR armor:4
+RTC armor:5
+
+Weapons:4
+Medium Pulse Laser, Left Arm
+Medium Pulse Laser, Right Arm
+MML 7, Left Torso
+Heavy PPC, Right Torso
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMediumPulseLaser
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISDoubleHeatSink
+ISMediumPulseLaser
+BeagleActiveProbe
+BeagleActiveProbe
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+ISMML7
+ISMML7
+ISMML7
+ISMML7
+IS Ammo MML-7 LRM
+IS Ammo MML-7 SRM
+ISCASE
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+Heavy PPC
+Heavy PPC
+Heavy PPC
+Heavy PPC
+IS Endo Steel
+IS Endo Steel
+IS Endo Steel
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Improved Jump Jet
+Improved Jump Jet
+ISC3SlaveUnit
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+IS Endo Steel
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+Improved Jump Jet
+Improved Jump Jet
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Osprey is a fifty-five-ton medium BattleMech originally designed in 2738 by Hollis Incorporated to fulfill a Star League Defense Force contract for a mobile, medium-weight fire support unit. When the primary contract was awarded to Blue Shot Weapons for their competing Lynx design, the Osprey was relegated to a limited production run for SLDF Royal units, serving in a specialized urban defense role. Fewer than a thousand were manufactured before the fall of the Star League, and the design was rendered virtually extinct during the Succession Wars.</p><p>The Osprey's fortunes changed dramatically during the Jihad when the Word of Blake commissioned Skobel MechWorks on Terra to revive the design for its Protectorate Militia forces. Massive production runs at Skobel and later at Achernar BattleMechs transformed the once-rare chassis into a frontline mainstay. Following the Jihad, both the Republic of the Sphere and the Capellan Confederation prioritized restarting Osprey production, ensuring the design's continued service well into the Dark Age and beyond.</p>
+
+capabilities:<p>Built around a dorsally mounted M-7 Gauss rifle, the Osprey delivers devastating long-range firepower unusual for a fifty-five-ton chassis. A Holly MML-7 rack supplements the Gauss rifle, providing flexible fire support with the ability to switch between long-range and short-range missile configurations depending on tactical needs. Two Diverse Optics ER medium lasers and an ER small laser round out the armament for close-quarters engagements. The design cleverly houses the small laser and a Beagle active probe in mountings identical to the medium laser assemblies, giving the visual impression of four arm-mounted lasers, a useful deception in urban combat scenarios.</p><p>To support this considerable weapons loadout on a medium chassis, the Osprey utilizes a Hollis Mk II Endo Steel frame and a DAV 220 XL extralight engine. While the extralight engine enables the necessary weight savings, it leaves the 'Mech vulnerable to catastrophic shutdown from torso breaches. Eleven tons of Durallex Heavy armor provides respectable protection, and CASE-protected ammunition bays in the torso mitigate the risk of internal explosions. Four Anderson Propulsion 25 jump jets compensate for the Osprey's modest ground speed of sixty-four kilometers per hour, granting the maneuverability essential for navigating the urban environments the design was built to fight in.</p>
+
+deployment:<p>A customized field modification created in 3085 for a MechWarrior serving with the mercenary unit Lamenkov's Liability, this variant strips most of the standard armament in favor of a heavy PPC for long-range striking power, supplemented by two medium pulse lasers for improved accuracy at closer ranges. The MML-7 launcher and Beagle active probe were retained, but a C3 slave unit was added to enhance coordination with lancemates. Five improved jump jets replace the standard models, granting superior cross-country mobility, while a compact gyro frees internal space for the upgraded equipment.</p>
+
+history:<p>During the Star League era, the Osprey was deployed in limited numbers, assigned to urban specialist units and Special Forces within the SLDF's Royal divisions. Designed by Hollis Incorporated on Corey, the 'Mech filled a niche role that the larger and more expensive Lynx could not, a mobile fire support platform optimized for the close confines of urban warfare. Fewer than a thousand were manufactured before the Star League's collapse, and the design saw limited but distinguished service in the defense of key urban centers across the Hegemony.</p><p>The Succession Wars proved devastating for the Osprey's survival. The few examples that escaped the Exodus were gradually lost to attrition over centuries of constant warfare, and without an active production line the design faded into obscurity. Only two examples were documented in the modern era, one discovered by a Federated Commonwealth mercenary unit in the 3020s, and a museum piece that would later serve as the prototype for the design's dramatic revival.</p><p>That revival began in the early 3070s when the Word of Blake, desperate for durable, high-firepower machines to equip its expanding Protectorate Militia, commissioned Skobel MechWorks on Terra to replicate the Osprey using ancient plans and the recovered museum specimen. The initial production run of OSP-25 models was quickly followed by the more comprehensive OSP-26 redesign, and both variants rolled off Skobel's assembly lines in significant numbers. The Word simultaneously established a second production line at the Achernar BattleMechs facility on Achernar, where old IndustrialMech lines were upgraded to produce the design.</p><p>The Osprey saw extensive combat during the closing stages of the Jihad. Images of a company of white Ospreys firing en masse to destroy a Wolf-in-Exile <i>Daishi</i> became a lasting symbol of the brutal battle to capture the Achernar complex. The Achernar facility itself was completely destroyed in 3077 when the Achernar Protectorate Militia refused to surrender to Stone's Coalition forces, fortifying the plant and forcing the allied task force to level the factory in order to root out the defenders. Though the factory was lost, the Coalition recovered several lances of intact Ospreys from the wreckage.</p><p>The nascent Republic of the Sphere was deeply impressed by the Osprey's durability and effectiveness in urban environments, and Victor Steiner-Davion personally designated the surviving Skobel production line on Terra as a priority for restoration. In the intervening years, a small but steady stream of Ospreys has continued to march off the line and into Republic Armed Forces frontline units. Seeing the renewed success of the design, Hollis Incorporated (the original manufacturer) retooled one of its <i>Catapult</i> production lines on Corey to produce the OSP-15E, a variant functionally identical to the OSP-25 that was quickly accepted by the Confederation Strategios. Capellan doctrine frequently pairs Ospreys with <i>Catapults</i> to form effective fire support teams.</p><p>The advantage of the OSP-26's MML system over the older LRM configuration was proven in a brief clash on Shipka, where two Ospreys from the Eighth Hastati Sentinels encountered a mixed Capellan <i>Osprey</i>/<i>Catapult</i> lance in broken terrain. Using the added short-range firepower of their MMLs, the two Hastati Ospreys destroyed both Capellan <i>Catapults</i> and one of the Capellan Ospreys in a running battle through the hills and gullies. By the Dark Age, the Osprey had firmly established itself as a valued fire support platform for both the Republic Armed Forces and the Capellan Confederation, a remarkable second life for a design that had been virtually extinct for centuries.</p>
+
+manufacturer:Hollis Incorporated
+
+primaryfactory:Corey
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Hollis
+systemmode:CHASSIS:Mk II Endo Steel
+systemmanufacturer:ENGINE:DAV
+systemmode:ENGINE:220 XL
+systemmanufacturer:ARMOR:Durallex
+systemmode:ARMOR:Heavy with CASE
+systemmanufacturer:JUMP_JET:Unknown
+systemmanufacturer:COMMUNICATIONS:O/P
+systemmode:COMMUNICATIONS:COM-211
+systemmanufacturer:TARGETING:O/P
+systemmode:TARGETING:1078 with Beagle Active Probe

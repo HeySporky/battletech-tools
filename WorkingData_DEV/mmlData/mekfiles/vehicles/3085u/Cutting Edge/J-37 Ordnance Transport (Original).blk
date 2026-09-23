@@ -1,0 +1,175 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-e6e0-7b06-a615-2b2abbb88cd6
+</UUID>
+
+<UnitType>
+SupportTank
+</UnitType>
+
+<Name>
+J-37 Ordnance Transport
+</Name>
+
+<Model>
+(Original)
+</Model>
+
+<mul id:>
+1648
+</mul id:>
+
+<year>
+2824
+</year>
+
+<type>
+IS Level 2
+</type>
+
+<role>
+None
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<transporters>
+cargobay:21.0:1:1::-1:0
+</transporters>
+
+<cruiseMP>
+5
+</cruiseMP>
+
+<engine_type>
+0
+</engine_type>
+
+<armor_type>
+46
+</armor_type>
+
+<armor_tech_rating>
+3
+</armor_tech_rating>
+
+<armor_tech_level>
+1
+</armor_tech_level>
+
+<armor>
+25
+24
+24
+10
+10
+</armor>
+
+<Body Equipment>
+Advanced Fire Control
+ISOffRoadChassis
+</Body Equipment>
+
+<Front Equipment>
+</Front Equipment>
+
+<Right Equipment>
+</Right Equipment>
+
+<Left Equipment>
+</Left Equipment>
+
+<Rear Equipment>
+</Rear Equipment>
+
+<Turret Equipment>
+Small Laser
+</Turret Equipment>
+
+<barrating>
+5
+</barrating>
+
+<structural_tech_rating>
+3
+</structural_tech_rating>
+
+<engine_tech_rating>
+3
+</engine_tech_rating>
+
+<capabilities>
+<p>The J-37 mounts 5.5 tons of BAR 10 armor on a wheeled chassis, providing far greater crew protection than the J-27's half-ton of plating. Its fusion engine drives the 50-ton vehicle at a cruising speed of 40 kph with a flank speed of 64 kph, making it respectably mobile for a vehicle of its size. The enclosed cargo hold carries seventeen tons of standard cargo with rear door access, supplemented by a one-ton infantry transport bay that allows the vehicle to deliver both munitions and a small security element simultaneously.</p><p>Armament consists of a single turret-mounted ER small laser operated by a dedicated gunner, providing limited self-defense capability. The original production model mounted only a standard small laser on a weaker frame with thinner armor. While the laser provides marginally better protection than the J-27's machine gun, the J-37 remains a support vehicle that should avoid direct combat. The vehicle's crew of three includes two enlisted personnel and one gunner, a modest complement that keeps operating costs manageable for a vehicle produced in large numbers.</p>
+</capabilities>
+
+<overview>
+<p>The J-37 Ordnance Transport is a Capellan Confederation support vehicle designed to address the chronic shortcomings of the ubiquitous J-27. Developed by Ceres Metals Industries in the late twenty-eighth century, the J-37 is five times the mass of its predecessor, replacing the fragile tractor-trailer configuration with a single enclosed wheeled vehicle. Capable of carrying seventeen tons of cargo with a dedicated infantry transport bay, the J-37 represented a dramatic improvement in both protection and capability for ordnance crews. A commercial fusion engine provides logistical independence from fossil fuel supply lines, while combat-grade armor offers meaningful protection that the J-27 never provided.</p>
+</overview>
+
+<deployment>
+<p>The (Original) variant represents the initial J-37 design produced from 2824, mounting a standard small laser and lighter armor on a less robust frame than the current model. These early vehicles were largely lost during the Succession Wars when Ceres Metals suspended production in favor of the cheaper J-27. Surviving examples from the original production run are extremely rare.</p>
+</deployment>
+
+<history>
+<p>Ceres Metals Industries developed the J-37 as a direct response to the J-27's abysmal reputation. Though the company was already producing J-27s in large quantities thanks to Acme Widgets' permissive licensing, the transport's death-trap status had become a serious public relations problem. Beginning production in the late twenty-eighth century, Ceres marketed the J-37 by stressing that life and machines were expensive, and so were munitions. The quintupled mass, enclosed cargo hold, and combat-grade armor represented a fundamentally different approach to ordnance transport.</p><p>Initial success was significant, but the J-37 faced near-extinction during the Succession Wars. The Capellan Confederation's deteriorating economy forced Ceres to revert production capacity back to the cheaper J-27 to meet volume demands. Single J-37 units survived the ages in scattered service, but it was not until the mid-3070s that the catastrophic loss of life during the Jihad thoroughly changed old doctrines regarding support crew expendability. The cultural shift was profound. Where once support crews were considered disposable, the post-Jihad military establishment recognized them as valuable members of the armed forces deserving adequate protection.</p><p>Production of the J-37 was restarted in 3076 in heavily modified form. The new model featured an upgraded frame, an ER laser replacing the original small laser, and improved armor over the original design. The restarted J-37 achieved record sales, first within the Confederation and then on the open Inner Sphere market by 3081. The vehicle's success vindicated Ceres Metals' original design philosophy, proving that the market would bear the additional cost of a proper ordnance transport when the alternative was measured in crew lives.</p><p>The J-37's revival also highlighted the broader shift in military logistics doctrine during the post-Jihad era. As nations rebuilt their shattered armed forces, investment in support infrastructure received attention it had historically been denied. The J-37 became a symbol of this changed attitude, its enclosed hull and fusion powerplant representing a commitment to treating logistics crews as assets worth protecting rather than costs to be minimized. By the ilClan era, the J-37 had established itself as the preferred ordnance transport for any military that could afford it, though the J-27 remained in widespread service among forces that could not.</p>
+</history>
+
+<manufacturer>
+Ceres Metals Industries
+</manufacturer>
+
+<primaryFactory>
+Unknown
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Ceres Motors
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Unknown
+ENGINE:Fusion
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemModels>
+
+<source>
+TR:3085
+</source>
+
+<published>
+RS:3085u-CE
+</published>
+
+<tonnage>
+50.0
+</tonnage>
+
+<fuel>
+0.0
+</fuel>
+

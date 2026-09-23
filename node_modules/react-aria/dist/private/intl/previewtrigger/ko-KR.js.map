@@ -1,0 +1,1 @@
+{"mappings":";AAAA,4BAAiB;IAAG,oBAAoB,CAAC,oFAAc,CAAC;AACxD","sources":["packages/react-aria/intl/previewtrigger/ko-KR.json"],"sourcesContent":["{\n  \"longPressMessage\": \"길게 눌러 미리 보기 열기\"\n}\n"],"names":[],"version":3,"file":"ko-KR.js.map"}

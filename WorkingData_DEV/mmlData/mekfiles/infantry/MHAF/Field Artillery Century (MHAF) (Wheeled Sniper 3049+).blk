@@ -1,0 +1,75 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-be1d-79c5-afc2-fbe168c6648d
+</UUID>
+
+<UnitType>
+Infantry
+</UnitType>
+
+<Name>
+Field Artillery Century (MHAF)
+</Name>
+
+<Model>
+(Wheeled Sniper 3049+)
+</Model>
+
+<year>
+3049
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<role>
+Missile Boat
+</role>
+
+<motion_type>
+Wheeled
+</motion_type>
+
+<Troopers Equipment>
+Marian Hegemony Infantry Kit
+</Troopers Equipment>
+
+<Field Guns Equipment>
+ISSniper
+ISSniperAmmo
+</Field Guns Equipment>
+
+<overview>
+<p>Infantry within the Legiones Marianes form the backbone of planetary garrison and territorial defense, freeing the Hegemony's limited BattleMech assets for offensive operations and prestige assignments. Marian field artillery centuries operate indirect fire weapons that deliver area bombardment at ranges measured in kilometers, providing the Legiones Marianes with fire support capability independent of their scarce aerospace assets. The century operates a Sniper artillery piece, a medium-weight gun that delivers heavier bombardment than a Thumper with greater blast radius against fortified positions.</p>
+</overview>
+
+<squad_size>
+5
+</squad_size>
+
+<squadn>
+4
+</squadn>
+
+<Primary>
+Submachine Gun
+</Primary>
+

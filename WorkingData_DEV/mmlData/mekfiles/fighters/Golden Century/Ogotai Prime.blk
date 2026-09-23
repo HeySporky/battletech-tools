@@ -1,0 +1,181 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+#Saved from version 0.51.01 on 2026-07-12
+<UUID>
+019f583e-aca4-7a48-a548-8f98daf1d936
+</UUID>
+
+<UnitType>
+AeroSpaceFighter
+</UnitType>
+
+<Name>
+Ogotai
+</Name>
+
+<Model>
+Prime
+</Model>
+
+<mul id:>
+7656
+</mul id:>
+
+<year>
+2874
+</year>
+
+<type>
+Clan Level 2
+</type>
+
+<role>
+Fast Dogfighter
+</role>
+
+<quirks>
+atmo_instability
+</quirks>
+
+<motion_type>
+Aerodyne
+</motion_type>
+
+<SafeThrust>
+8
+</SafeThrust>
+
+<cockpit_type>
+0
+</cockpit_type>
+
+<heatsinks>
+16
+</heatsinks>
+
+<sink_type>
+0
+</sink_type>
+
+<fuel>
+400
+</fuel>
+
+<engine_type>
+2
+</engine_type>
+
+<armor_type>
+0
+</armor_type>
+
+<armor_tech_rating>
+0
+</armor_tech_rating>
+
+<armor_tech_level>
+2
+</armor_tech_level>
+
+<omni>
+1
+</omni>
+
+<armor>
+56
+41
+41
+38
+</armor>
+
+<Nose Equipment>
+CLLRM10:OMNI
+</Nose Equipment>
+
+<Left Wing Equipment>
+CLERLargeLaser:OMNI
+</Left Wing Equipment>
+
+<Right Wing Equipment>
+CLERLargeLaser:OMNI
+</Right Wing Equipment>
+
+<Aft Equipment>
+CLERMediumLaser:OMNI
+</Aft Equipment>
+
+<Wings Equipment>
+</Wings Equipment>
+
+<Fuselage Equipment>
+Clan Ammo LRM-10:OMNI
+CLCASE
+</Fuselage Equipment>
+
+<capabilities>
+<p>The Ogotai is built around the Skypelt 4X airframe and a Fusion 270 XL engine, a combination that delivers competitive speed for a 45-ton fighter while freeing 16.5 tons for pod-mounted armament. The Formula Z5D Standard armor provides 176 points of protection, offering solid survivability for the design's weight class. Twelve permanently installed heat sinks establish the baseline for thermal management, with additional sinks commonly fitted in pod space depending on configuration. The S1G Gamma Series Communications system and Dexter 1 Sensor Suite provide reliable, if standard, electronics performance across the design's operational life.</p><p>The Ogotai's tactical strength was its flexibility within the zellbrigen bidding tradition. Standard configurations carried sufficient weapons that experienced pilots could bid away significant armament and still deliver decisive engagements, reflecting well on the efficiency of the design's pod space allocation. A skilled pilot could concentrate the available loadout into a single coordinated strike at the optimal engagement moment, a capability the design's configuration range supported across diverse mission profiles.</p><p>The Ogotai's persistent vulnerability was its Atmospheric Flight Instability, an inherent flaw in early OmniFighter engineering that caused serious handling degradation during atmospheric and low-altitude operations. This limitation made close-air support unreliable as operational demands increased, and Clans retaining the design in quantity generally reassigned their Ogotai Stars to orbital patrol and space interdiction duty, where the airframe's speed and armament flexibility translated into genuine effectiveness.</p>
+</capabilities>
+
+<overview>
+<p>Named for Genghis Khan's third son, the Ogotai was Clan Sea Fox's earliest serious commitment to OmniFighter design, entering service in 2874 from DS Aero Assembly Site Alpha on Babylon. Conceived as both an air superiority platform and a close-air support asset, the design offered pilots the tactical flexibility of a fully reconfigurable weapon bay at a time when OmniFighter technology was still being refined across Clan society. Though the Ogotai never fulfilled its original combined-role ambitions, it established a reliable identity as an escort craft for larger vessels and an effective interceptor in the orbital and space environments where it genuinely excelled. Production continued into the early 2990s, when advancing OmniFighter technology prompted the Sea Foxes to retire the line in favor of more capable airframes. The Ogotai's core design philosophies survived its retirement, carried forward in the Clan Wolf-produced Jagatai, introduced in 3016 and named for Genghis Khan's second son.</p>
+</overview>
+
+<deployment>
+<p>The Prime configuration provides a balanced ranged engagement package. An LRM-10 in the nose delivers indirect fire capability with one ton of reloads, and an ER large laser on each wing provides heavy direct fire at extended range. An ER medium laser covers the rear arc for defensive use against pursuing fighters. Four additional heat sinks, bringing the total to sixteen, allow sustained fire across the weapon mix. This well-rounded loadout proved well-suited to space interdiction and fleet escort duties, where the combination of reach and direct firepower let pilots engage threats before they closed to decisive range. The Prime remains the most commonly encountered configuration in historical records of Ogotai operations.</p>
+</deployment>
+
+<history>
+<p>The Ogotai entered service in 2874 as one of the earliest dedicated OmniFighter designs produced within Clan society, manufactured at DS Aero Assembly Site Alpha on Babylon by what was then still Clan Sea Fox. The design represented an ambitious early attempt to apply OmniPod technology to aerospace platforms, though the engineering difficulties that would define the first generation of Clan OmniFighters were quickly apparent. Atmospheric handling deficiencies relegated the Ogotai away from the close-air support assignments its designers intended, pushing it toward orbital interdiction and escort roles where those weaknesses were less damaging.</p><p>The Ogotai's capabilities in space combat were demonstrated in a well-documented engagement during the early Succession Wars era, when the Sea Foxes' Lambda Spina Galaxy stationed a full Star aboard the Aegis-class cruiser CSF Bloodlust. During a patrol in the Vinton system, the Star encountered a Clan Smoke Jaguar contingent that had arrived via pirate point and demanded safcon to the surface. When the request was refused and Jaguar DropShips and fighters launched in response, the Ogotai pilots used disciplined fire and careful timing to engage the assault, bidding away weapons in proper zellbrigen fashion while exploiting heat management advantages. A bold Jaguar Point of OmniFighters pursued the Sea Fox pilots all the way into the upper atmosphere in a dramatic maneuver, forcing an emergency landing far outside the designated Trial site. Both Jaguar pilots lost control in Vinton's lower atmosphere and crashed fatally into the planet's oceans. Enough Jaguar DropShips had been destroyed during the planetfall sequence that the assault commander lacked the forces to secure the surface, handing the engagement to the Sea Foxes.</p><p>The Ogotai continued in active service through the later Golden Century, demonstrating consistent reliability in its space-superiority role, but steadily improving OmniFighter technology left the design behind. Replacement parts and weapon modules ceased manufacture in the early 2990s, and the Sea Foxes formally abandoned the production line in favor of more versatile and dependable airframes. By that time the Ogotai had influenced a successor design: Clan Wolf developed the Jagatai using many of the Ogotai's design philosophies, introducing the new medium OmniFighter in 3016. Individual Ogotais continued operating long after factory support ended, their longevity a reflection of Clan maintenance skill. Some eventually passed into Dark Caste hands, their sustained operation a mystery given the complete absence of manufacturer support for parts and armament.</p>
+</history>
+
+<manufacturer>
+DS Aero Assembly Site Alpha
+</manufacturer>
+
+<primaryFactory>
+Babylon (Callandra)
+</primaryFactory>
+
+<systemManufacturers>
+CHASSIS:Unknown
+ENGINE:Unknown
+ARMOR:Unknown
+COMMUNICATIONS:Unknown
+TARGETING:Unknown
+</systemManufacturers>
+
+<systemModels>
+CHASSIS:Skypelt 4X
+ENGINE:Fusion 270 XL
+ARMOR:Formula Z5D Standard
+COMMUNICATIONS:S1G Gamma Series Communications
+TARGETING:Dexter 1 Sensor Suite
+</systemModels>
+
+<source>
+TR:GC
+</source>
+
+<published>
+TR:GC
+</published>
+
+<tonnage>
+45.0
+</tonnage>
+

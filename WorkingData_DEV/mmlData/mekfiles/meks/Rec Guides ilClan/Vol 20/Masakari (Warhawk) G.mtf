@@ -1,0 +1,199 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-da2d-7d2b-9de2-b879cbc45167
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Masakari
+clanname:Warhawk
+model:G
+mul id:8338
+
+Config:Biped OmniMek
+techbase:Clan
+era:3114
+source:RG20
+published:RG20
+rules level:2
+role:Juggernaut
+
+quirk:imp_target_long
+
+mass:85
+engine:340 XL (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:20 Clan Double
+base chassis heat sinks:13
+walk mp:4
+jump mp:0
+
+armor:Ferro-Fibrous(Clan)
+LA armor:28
+RA armor:28
+LT armor:26
+RT armor:26
+CT armor:42
+HD armor:9
+LL armor:35
+RL armor:35
+RTL armor:10
+RTR armor:10
+RTC armor:10
+
+Weapons:4
+Improved Heavy Large Laser, Left Arm
+Improved Heavy Large Laser, Left Arm
+Streak SRM 6, Left Arm
+LB 20-X AC, Right Arm
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLImprovedHeavyLargeLaser (OMNIPOD)
+CLStreakSRM6 (OMNIPOD)
+CLStreakSRM6 (OMNIPOD)
+Clan Streak SRM 6 Ammo (OMNIPOD)
+Clan Ferro-Fibrous
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+CLLBXAC20 (OMNIPOD)
+CLLBXAC20 (OMNIPOD)
+CLLBXAC20 (OMNIPOD)
+CLLBXAC20 (OMNIPOD)
+CLLBXAC20 (OMNIPOD)
+CLLBXAC20 (OMNIPOD)
+CLLBXAC20 (OMNIPOD)
+CLLBXAC20 (OMNIPOD)
+CLLBXAC20 (OMNIPOD)
+Clan Ferro-Fibrous
+
+Left Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Right Torso:
+Fusion Engine
+Fusion Engine
+CLDoubleHeatSink
+CLDoubleHeatSink
+Clan LB 20-X AC Ammo (OMNIPOD)
+Clan LB 20-X Cluster Ammo (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+CLTargeting Computer (OMNIPOD)
+Clan Ferro-Fibrous
+Clan Ferro-Fibrous
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Clan LB 20-X AC Ammo (OMNIPOD)
+Supercharger (OMNIPOD)
+
+Head:
+Life Support
+Sensors
+Cockpit
+Clan Ferro-Fibrous
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink
+CLDoubleHeatSink
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Warhawk, designated Masakari by Inner Sphere forces after a Japanese battle-axe of medieval Terra, is an 85-ton Clan assault OmniMech introduced by Clan Smoke Jaguar in 2999. Developed at the Phan Industriplex on Huntress, the design was conceived as part of the Jaguars' military buildup in anticipation of the long-awaited return to the Inner Sphere. When the Dragoon Compromise temporarily shelved invasion plans, the Smoke Jaguars instead turned the Warhawk against their Warden rivals, demonstrating its devastating firepower in inter-Clan conflicts. The design achieved its greatest notoriety during the Clan Invasion, where it became a symbol of Jaguar frontline power and was frequently deployed alongside the Dire Wolf in devastating assault formations. Production remained a jealously guarded Jaguar monopoly until the Clan's annihilation, after which manufacturing knowledge spread to the Fire Mandrills, Diamond Sharks, and Goliath Scorpions.</p>
+
+capabilities:<p>The Warhawk is built around a General Systems 340 XL engine providing a top speed of 64 km/h, adequate for an assault platform but unremarkable for its weight class. The chassis mounts thirteen and a half tons of Forging X85 ferro-fibrous armor, providing substantial protection while freeing weight for the design's impressive thirty-two and a half tons of pod space. Twenty fixed double heat sinks represent an over-engineered cooling system that enables the Warhawk to mount energy-heavy configurations without crippling heat buildup. The design lacks jump jets entirely, committing fully to the direct-fire assault role.</p><p>A distinctive feature of the Warhawk is the incorporation of an advanced Targeting Computer into virtually every configuration, granting exceptional accuracy to its direct-fire weapons. This combination of targeting precision and generous pod space makes the ER PPC the signature weapon across many loadouts. Space constraints imposed by the targeting computer and cooling infrastructure mean that large-bore autocannons are infrequently mounted, as the complex routing of ammunition feeds proves impractical within the remaining volume. Where the Warhawk excels is in delivering accurate direct-energy barrages that leave enemy 'Mechs crippled but salvageable, a quality prized by Clan warriors who value the spoils of combat.</p>
+
+deployment:<p>Alternate Configuration G abandons the Warhawk's traditional long-range philosophy entirely, transforming it into a devastating short-range juggernaut. A massive LB 20-X Autocannon dominates the right arm, capable of delivering either concentrated slugs or devastating cluster rounds at close range. The left arm mounts paired Improved Heavy Large Lasers and a Streak SRM-6, providing additional close-quarters firepower. A Supercharger allows the normally ponderous assault 'Mech to rapidly close to optimum engagement distance, where the Targeting Computer ensures maximum efficiency from every salvo. This configuration is designed to end engagements quickly and violently once it reaches its preferred range bracket.</p>
+
+history:<p>The Warhawk's history is inextricably linked to Clan Smoke Jaguar. Created in 2999 as the Jaguars prepared for the anticipated return to the Inner Sphere, the design was one of the most powerful OmniMechs of its era. The Dragoon Compromise of 3000 delayed those plans, and the Jaguars instead deployed their new weapon against Warden Clans to devastating effect. All examples of the Warhawk outside Jaguar toumans during this period were exclusively battlefield salvage, as the Jaguars maintained absolute control over the Phan Industriplex production line on Huntress.</p><p>The Warhawk truly came into its own during the Clan Invasion of 3049, where DCMS warriors of the Draconis Combine bestowed the codename Masakari upon the fearsome assault 'Mech. Deployed extensively along the Jaguar Invasion Corridor and frequently paired with the Dire Wolf, the Warhawk became the iconic symbol of Smoke Jaguar military dominance. Though other Clans such as the Ghost Bears and Jade Falcons fielded captured examples, the Jaguars' production monopoly held firm throughout the Invasion era.</p><p>The annihilation of Clan Smoke Jaguar during Operation Serpent and the Great Refusal fundamentally altered the Warhawk's production sphere. Inner Sphere forces made a cursory effort to raze the Phan Industriplex during the assault on Huntress, but enough of the complex survived that Clan Fire Mandrill's Kindraa Kline, which had maintained a separate production facility on Dagda, seized control and rebuilt one Warhawk production line. The Fire Mandrills subsequently traded the design to the Diamond Sharks, who established their own production at Manufacturing Plant DSF-94 on Vinton. The Goliath Scorpions also acquired production capability during this period.</p><p>The Jihad severed contact between the Inner Sphere Clans and the Homeworlds, cutting off any possibility of resupply. Warhawks among the Jade Falcons, Ghost Bears, and Wolves-in-Exile became increasingly rare, their numbers reduced by attrition as patchwork repairs and mismatched components became the norm for surviving examples. By the ilClan era, the once-powerful symbol of Smoke Jaguar dominance had become a rarity in the Inner Sphere.</p><p>In the Deep Periphery, the Goliath Scorpions took extraordinary measures to preserve their Warhawks following their Abjurement, cannibalizing severely damaged chassis to keep others operational. Cherishing the design for its pinpoint accuracy, the Scorpions revived production prior to the Hanseatic Crusade, where the Warhawk played a key role in the Escorpión Imperio's conquest of the Hanseatic League. The wealth of resources captured during the Crusade allowed the new Scorpion Empire to retool the factory on Antwerp at Imperial BattleMechs, fully resurrecting the Warhawk production line. Clan Sea Fox has expressed interest in purchasing the design, but the Scorpions have thus far refused all outside sales, prioritizing their own internal needs.</p>
+
+manufacturer:Phan Industriplex|Kindraa Kline Primary Production Facility|Manufacturing Plant DSF-94|Imperial BattleMechs
+
+primaryfactory:Huntress (Phan City)|Dagda (Salò)|Vinton|Antwerp
+
+fluffdate:2026-02-28 17:47:08
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:Huntress WH
+systemmanufacturer:ENGINE:General Systems
+systemmode:ENGINE:340 XL
+systemmanufacturer:ARMOR:Forging
+systemmode:ARMOR:X85 Ferro-Fibrous
+systemmanufacturer:COMMUNICATIONS:Unknown
+systemmode:COMMUNICATIONS:Series 10 CBS MultiFreq
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:HawkEye J360

@@ -1,0 +1,202 @@
+# MegaMek Data (C) 2025-2026 by The MegaMek Team is licensed under CC BY-NC-SA 4.0.
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+# NOTICE: The MegaMek organization is a non-profit group of volunteers
+# creating free software for the BattleTech community.
+#
+# MechWarrior, BattleMech, `Mech and AeroTech are registered trademarks
+# of The Topps Company, Inc. All Rights Reserved.
+#
+# Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of
+# InMediaRes Productions, LLC.
+#
+# MechWarrior Copyright Microsoft Corporation. MegaMek Data was created under
+# Microsoft's "Game Content Usage Rules"
+# <https://www.xbox.com/en-US/developers/rules> and it is not endorsed by or
+# affiliated with Microsoft.
+
+uuid:019f583e-deaf-79f5-b8b4-bf0cf15f96c4
+generator:MegaMek Suite 0.51.01 on 2026-07-20
+chassis:Spirit Walker
+model:Prime
+mul id:9237
+
+Config:Biped OmniMek
+techbase:Clan
+era:2866
+source:TP:Foster
+published:TP:Foster
+rules level:2
+role:Sniper
+
+
+mass:75
+engine:300 Fusion (Clan) Engine
+structure:Clan Standard
+myomer:Standard
+
+heat sinks:16 Clan Double
+base chassis heat sinks:12
+walk mp:4
+jump mp:0
+
+armor:Standard(Clan)
+LA armor:18
+RA armor:18
+LT armor:20
+RT armor:20
+CT armor:29
+HD armor:9
+LL armor:23
+RL armor:23
+RTL armor:5
+RTR armor:5
+RTC armor:6
+
+Weapons:9
+ER Large Laser, Left Arm
+Medium Pulse Laser, Left Arm
+ER Large Laser, Right Arm
+Medium Pulse Laser, Right Arm
+ER Large Laser, Left Torso
+Medium Pulse Laser, Left Torso
+ER Large Laser, Right Torso
+Medium Pulse Laser, Right Torso
+ER Small Laser, Head
+
+Left Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERLargeLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Arm:
+Shoulder
+Upper Arm Actuator
+Lower Arm Actuator
+Hand Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+CLERLargeLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Torso:
+CLERLargeLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Torso:
+CLERLargeLaser (OMNIPOD)
+CLMediumPulseLaser (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Center Torso:
+Fusion Engine
+Fusion Engine
+Fusion Engine
+Gyro
+Gyro
+Gyro
+Gyro
+Fusion Engine
+Fusion Engine
+Fusion Engine
+CLActiveProbe (OMNIPOD)
+-Empty-
+
+Head:
+Life Support
+Sensors
+Cockpit
+CLERSmallLaser
+Sensors
+Life Support
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Left Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+Right Leg:
+Hip
+Upper Leg Actuator
+Lower Leg Actuator
+Foot Actuator
+CLDoubleHeatSink (OMNIPOD)
+CLDoubleHeatSink (OMNIPOD)
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+-Empty-
+
+overview:<p>The Spirit Walker is a seventy-five-ton heavy OmniMech introduced by Clan Coyote in 2866 as part of the Pueblo Initiative. Based on the venerable Black Knight chassis, the Spirit Walker was one of the earliest efforts to convert proven Star League-era BattleMechs into OmniMech platforms. With twenty-four tons of pod space and a robust sensor suite, the design served as a versatile heavy fire support platform throughout the Coyote touman. Production at the Picuris 'Mech Production Complex on Londerholm continued until the line was phased out in favor of the Savage Coyote, though the Spirit Walker's popularity led several rival Clans to pursue it through Trials of Possession.</p>
+
+capabilities:<p>The Spirit Walker's design philosophy reflects the Coyote scientists' expectations of traditional Clan warfare under zellbrigen. Armor is concentrated heavily on the frontal arc using Clan Ferro-Fibrous plating, providing substantial protection for head-on dueling at the expense of significantly lighter rear coverage. This deliberate trade-off assumed that opponents would engage the 'Mech directly rather than employing hit-and-fade tactics, an assumption that would prove costly in less structured combat environments.</p><p>The chassis features a hardwired active probe inherited from its Black Knight ancestry, integrated into the CI-TransComm targeting system. This sensor package provides exceptional detection capabilities, particularly useful for identifying concealed enemies and neutralizing electronic warfare countermeasures. A single fixed Series 1 Extended-Range Small Laser supplements whatever pod-mounted weaponry commanders select, while sixteen double heat sinks manage thermal output across all configurations.</p><p>Driven by a Type 300 Standard Fusion engine, the Spirit Walker achieves a respectable cruising speed of roughly sixty-four kilometers per hour. The lack of jump jets limits tactical mobility, making the design reliant on its speed and firepower to maintain favorable positioning. The CI-Com 4 communications system provides reliable battlefield coordination, though the Spirit Walker's true tactical advantage lies in its sensor suite and the flexibility afforded by its generous pod capacity.</p>
+
+deployment:<p>The Primary configuration establishes the Spirit Walker as a formidable energy weapons platform. Four Extended-Range Large Lasers deliver punishing damage at extreme ranges while four Medium Pulse Lasers provide accurate close-range firepower, supplementing the fixed ER Small Laser. With no ammunition dependency, this variant configuration excels during extended deployments where resupply is unreliable, allowing sustained combat effectiveness long after ammunition-dependent opponents have exhausted their stores. The massive heat generated by sustained fire from eight primary weapons demands careful discipline, as even sixteen double heat sinks cannot fully manage a complete alpha strike.</p>
+
+history:<p>The Spirit Walker emerged during the Golden Century, a period of intense technological development among the Clans. When Clan Jade Falcon won a Trial of Possession for OmniMech technology in the 2850s, the innovation that had given Clan Coyote a decisive military advantage rapidly proliferated across Clan space. In response, the Coyotes launched the Pueblo Initiative to rapidly develop new OmniMech designs by converting proven Star League-era chassis into OmniMech platforms.</p><p>The Spirit Walker was among the first products of this initiative, with Coyote scientists requiring approximately two years to adapt the Black Knight's frame to accept OmniPods. The standard chassis was retained rather than upgrading to endo steel, prioritizing speed of development and ease of production over weight optimization. This pragmatic approach allowed the Coyotes to field Spirit Walkers quickly, distributing them throughout their touman to Clusters that lacked OmniMech assets. The design was popular for its ruggedness and ease of construction, and its acceptance of standard weapons pods in most locations made it a versatile addition to the Coyote order of battle.</p><p>The Spirit Walker's combat reputation was forged during the campaign against Kindraa Smythe-Jewel on Foster in 2872. Coyote forces initially dominated, with the Spirit Walker's energy-heavy loadouts and active probe proving devastating against ammunition-starved Fire Mandrill warriors. However, as the battle devolved beyond the bounds of formal zellbrigen, Smythe-Jewel hit-and-fade tactics exploited the Spirit Walker's thin rear armor with lethal efficiency. The Foster campaign demonstrated both the design's formidable frontal combat power and its critical vulnerability when denied the structured dueling conditions its creators had anticipated.</p><p>Production at the Picuris 'Mech Production Complex on Londerholm served Clan Coyote from the Late Succession Wars era through the Clan Invasion period. The facility remained active through the second wave of the Invasion before production was eventually phased out in favor of the Savage Coyote, a more modern design that better suited evolving Clan doctrine. By the Civil War era, Spirit Walker production had ceased entirely, leaving remaining frames to serve as second-line assets or be gradually replaced within Coyote Clusters.</p><p>Despite its relatively limited production run compared to more widespread Clan OmniMechs, the Spirit Walker holds an important place in Clan military history as one of the earliest Pueblo Initiative designs. Its development demonstrated that converting existing Star League chassis into functional OmniMechs was both practical and militarily effective, establishing a precedent that influenced subsequent Clan engineering programs.</p>
+
+manufacturer:Picuris 'Mech Production Complex
+
+primaryfactory:Londerholm
+
+fluffdate:2026-02-21 18:07:19
+
+systemmanufacturer:CHASSIS:Unknown
+systemmode:CHASSIS:TC-1X Modified
+systemmanufacturer:ENGINE:Unknown
+systemmode:ENGINE:Type 300 Standard Fusion
+systemmanufacturer:ARMOR:Coyote Industrial
+systemmode:ARMOR:CI Ferro
+systemmanufacturer:COMMUNICATIONS:Coyote Industrial
+systemmode:COMMUNICATIONS:CI-Com 4
+systemmanufacturer:TARGETING:Unknown
+systemmode:TARGETING:CI-TransComm with Active Probe
