@@ -3,6 +3,7 @@ import { BattleMech, IGATOR, ITargetToHit } from "./classes/battlemech";
 import { CONST_MUL_API_ENABLED } from "./configVars";
 import { IEquipmentItem } from "./data/data-interfaces";
 import { getEquipmentCatalogs, getEquipmentListByTech } from "./data/equipment-registry";
+import battleArmorMulListItems from "./data/mul-battle-armor";
 import { mulListItems } from "./data/mul-list-items";
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
@@ -38,6 +39,8 @@ interface IMULSearchTokens {
     minDefense: number;
     exactDamageProfile: { short: number; medium: number; long: number } | null;
 }
+
+const cachedMULListItems = [...mulListItems, ...battleArmorMulListItems];
 
 // Maps the "Rules" dropdown value to the set of MUL Rules-level labels it should match.
 const MUL_RULES_LEVEL_MAP: Record<string, string[]> = {
@@ -468,7 +471,7 @@ function getCachedMULSearchResults(
     }
 
     // Fall back to the bundled, verified MUL snapshot if the user's own session cache has nothing.
-    return mulListItems.filter(matchesAllFilters);
+    return cachedMULListItems.filter(matchesAllFilters);
 }
 
 function addMULUnavailableAlert(appGlobals: IAppGlobals | null, factionFilterActive: boolean): void {
