@@ -24,6 +24,9 @@ coverage/
 work/*
 work*
 work
+!.github/
+!.github/workflows/
+!.github/workflows/*.yml
 
 /cli-tools/*
 /cli-tools
