@@ -88,6 +88,19 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
         this.props.onChange( item );
     }
 
+    updateMaxMapSheets = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.range.maxMapSheets = +e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
     updateAero = (
         e: React.FormEvent<HTMLSelectElement>,
     ) => {
@@ -149,6 +162,14 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
                             min={0}
                             step={1}
                             label="Extreme"
+                        />
+                        <InputNumeric
+                            value={this.props.editingItem.range.maxMapSheets ? this.props.editingItem.range.maxMapSheets : 0}
+                            onChange={this.updateMaxMapSheets}
+                            min={0}
+                            step={1}
+                            label="Maximum Map Sheets"
+                            description="Artillery range in 17-hex map sheets; 0 means not applicable"
                         />
 
                         <label>

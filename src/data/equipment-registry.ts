@@ -13,6 +13,10 @@ import { mechCustomEquipmentBallistic } from "./mech-custom-equipment-weapons-ba
 import { mechCustomEquipmentEnergy } from "./mech-custom-equipment-weapons-energy";
 import { mechCustomEquipmentMisc } from "./mech-custom-equipment-weapons-misc";
 import { mechCustomEquipmentMissile } from "./mech-custom-equipment-weapons-missile";
+import { mechCustomAmmo } from "./mech-custom-ammo";
+import { mechISAmmo } from "./mech-is-ammo";
+import { mechClanAmmo } from "./mech-clan-ammo";
+import { mechUniversalAmmo } from "./mech-universal-ammo";
 import { isUniversalEquipment, mechUniversalEquipment } from "./mech-universal-equipment";
 
 export type EquipmentCatalog = "is" | "clan" | "custom" | "universal";
@@ -21,7 +25,7 @@ export interface IEquipmentCatalogDefinition {
     id: string;
     exportName: string;
     techBase: EquipmentCatalog;
-    category: "ballistic" | "energy" | "missile" | "misc" | "artillery";
+    category: "ballistic" | "energy" | "missile" | "misc" | "artillery" | "ammunition";
     equipment: IEquipmentItem[];
 }
 
@@ -42,16 +46,20 @@ const equipmentCatalogDefinitions: IEquipmentCatalogDefinition[] = [
     { id: "mech-is-equipment-weapons-missiles", exportName: "mechISEquipmentMissiles", techBase: "is", category: "missile", equipment: mechISEquipmentMissiles },
     { id: "mech-is-equipment-weapons-misc", exportName: "mechISEquipmentMisc", techBase: "is", category: "misc", equipment: mechISEquipmentMisc },
     { id: "mech-is-equipment-weapons-artillery", exportName: "mechISEquipmentArtillery", techBase: "is", category: "artillery", equipment: mechISEquipmentArtillery },
+    { id: "mech-is-ammo", exportName: "mechISAmmo", techBase: "is", category: "ammunition", equipment: mechISAmmo },
     { id: "mech-clan-equipment-weapons-ballistic", exportName: "mechClanEquipmentBallistic", techBase: "clan", category: "ballistic", equipment: mechClanEquipmentBallistic },
     { id: "mech-clan-equipment-weapons-energy", exportName: "mechClanEquipmentEnergy", techBase: "clan", category: "energy", equipment: mechClanEquipmentEnergy },
     { id: "mech-clan-equipment-weapons-missile", exportName: "mechClanEquipmentMissile", techBase: "clan", category: "missile", equipment: mechClanEquipmentMissile },
     { id: "mech-clan-equipment-weapons-misc", exportName: "mechClanEquipmentMisc", techBase: "clan", category: "misc", equipment: mechClanEquipmentMisc },
     { id: "mech-clan-equipment-weapons-artillery", exportName: "mechClanEquipmentArtillery", techBase: "clan", category: "artillery", equipment: mechClanEquipmentArtillery },
+    { id: "mech-clan-ammo", exportName: "mechClanAmmo", techBase: "clan", category: "ammunition", equipment: mechClanAmmo },
     { id: "mech-custom-equipment-weapons-ballistic", exportName: "mechCustomEquipmentBallistic", techBase: "custom", category: "ballistic", equipment: mechCustomEquipmentBallistic },
     { id: "mech-custom-equipment-weapons-energy", exportName: "mechCustomEquipmentEnergy", techBase: "custom", category: "energy", equipment: mechCustomEquipmentEnergy },
     { id: "mech-custom-equipment-weapons-missile", exportName: "mechCustomEquipmentMissile", techBase: "custom", category: "missile", equipment: mechCustomEquipmentMissile },
     { id: "mech-custom-equipment-weapons-misc", exportName: "mechCustomEquipmentMisc", techBase: "custom", category: "misc", equipment: mechCustomEquipmentMisc },
+    { id: "mech-custom-ammo", exportName: "mechCustomAmmo", techBase: "custom", category: "ammunition", equipment: mechCustomAmmo },
     { id: "mech-universal-equipment", exportName: "mechUniversalEquipment", techBase: "universal", category: "artillery", equipment: mechUniversalEquipment },
+    { id: "mech-universal-ammo", exportName: "mechUniversalAmmo", techBase: "universal", category: "ammunition", equipment: mechUniversalAmmo },
 ];
 
 function cloneEquipment(items: IEquipmentItem[]): IEquipmentItem[] {
@@ -76,6 +84,52 @@ export function getEquipmentCatalogById(catalogId: string): IEquipmentItem[] | n
 
 export function getEquipmentCatalogExportName(catalogId: string): string | null {
     return equipmentCatalogDefinitions.find((catalog) => catalog.id === catalogId)?.exportName ?? null;
+}
+
+export function equipmentMatchesIdentifier(item: IEquipmentItem, identifier: string): boolean {
+    const normalizedIdentifier = identifier.trim().toLowerCase();
+    const identifiers = [
+        item.tag,
+        item.name,
+        item.alternateName ?? "",
+        ...(item.altNames ?? []),
+        ...(item.altTags ?? []),
+    ];
+
+    return identifiers.some(value => value.trim().toLowerCase() === normalizedIdentifier);
+}
+
+export function getAlphaStrikeEquipmentAbilityCodes(item: IEquipmentItem): string[] {
+    return item.alphaStrike.specialAbility && item.alphaStrike.specialAbility.length > 0
+        ? item.alphaStrike.specialAbility
+        : item.weaponType ?? [];
+}
+
+export function getAlphaStrikeEquipmentDisplayAbilityCodes(item: IEquipmentItem): string[] {
+    const damageAoE = item.alphaStrike.damageAoE;
+    return getAlphaStrikeEquipmentAbilityCodes(item).map(abilityCode =>
+        damageAoE && damageAoE > 0 ? `${abilityCode} ${damageAoE}` : abilityCode
+    );
+}
+
+export function getEquipmentMaximumRangeInHexes(item: IEquipmentItem): number {
+    return (item.range.maxMapSheets ?? 0) * 17;
+}
+
+export function calculateShotsPerTon(totalRoundsPerTon: number, launcherSize: number): number {
+    if (!Number.isFinite(totalRoundsPerTon) || !Number.isFinite(launcherSize) || launcherSize <= 0) {
+        return 0;
+    }
+
+    return Math.floor(totalRoundsPerTon / launcherSize);
+}
+
+export function getCompatibleAmmo(weapon: IEquipmentItem, ammo: IEquipmentItem): boolean {
+    if (!ammo.isAmmo || !weapon.ammoTypes || weapon.ammoTypes.length === 0) {
+        return false;
+    }
+
+    return weapon.ammoTypes.some(ammoType => equipmentMatchesIdentifier(ammo, ammoType));
 }
 
 export function getEquipmentCatalogSummaries(): IEquipmentCatalogSummary[] {

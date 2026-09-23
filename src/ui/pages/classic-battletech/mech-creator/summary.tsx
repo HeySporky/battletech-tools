@@ -38,6 +38,14 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
       }
     }
 
+    setASSpecialAmmo = (event: React.FormEvent<HTMLSelectElement>): void => {
+      if (this.props.appGlobals.currentBattleMech) {
+        this.props.appGlobals.currentBattleMech.setAlphaStrikeSpecialAmmoTag(event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech(this.props.appGlobals.currentBattleMech);
+        this.setState({ updated: !this.state.updated });
+      }
+    }
+
     setPilotName = ( event: React.FormEvent<HTMLInputElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.setPilotName( event.currentTarget.value );
@@ -156,6 +164,21 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                                       value={this.props.appGlobals.currentBattleMech.getASRole()}
                                       onChange={this.setASRole}
                                     />
+
+                                  {this.props.appGlobals.currentBattleMech.getAlphaStrikeSpecialAmmoOptions().length > 0 ? (
+                                    <label>
+                                      Special Ammunition:<br />
+                                      <select
+                                        value={this.props.appGlobals.currentBattleMech.getAlphaStrikeSpecialAmmoTag()}
+                                        onChange={this.setASSpecialAmmo}
+                                      >
+                                        <option value="">Standard ammunition</option>
+                                        {this.props.appGlobals.currentBattleMech.getAlphaStrikeSpecialAmmoOptions().map(ammo => (
+                                          <option key={ammo.tag} value={ammo.tag}>{ammo.name}</option>
+                                        ))}
+                                      </select>
+                                    </label>
+                                  ) : null}
                               </fieldset>
                             </div>
                           </div>

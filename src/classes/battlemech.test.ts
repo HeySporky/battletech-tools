@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
 import { validateChassisCombination } from "../data/mech-internal-structure-types";
+import { getTargetToHitFromWeapon } from "../utils";
 
 describe("BattleMech engine availability by era", () => {
     it("shows the expected Inner Sphere engines for a Star League mech", () => {
@@ -61,6 +62,89 @@ describe("BattleMech engine availability by era", () => {
         expect(engineTags).toContain("clan_xl");
         expect((mech as any)._itemIsAvailable(2300, 2500, 3070, true)).toBe(true);
     });
+
+    it("selects and persists both mixed technology bases", () => {
+        const isBase = new BattleMech();
+        isBase.setTech("mis");
+        expect(isBase.getTech().tag).toBe("mis");
+        expect(new BattleMech(isBase.exportJSON(true)).getTech().tag).toBe("mis");
+
+        const clanBase = new BattleMech();
+        clanBase.setTech("mclan");
+        expect(clanBase.getTech().tag).toBe("mclan");
+        expect(new BattleMech(clanBase.exportJSON(true)).getTech().tag).toBe("mclan");
+    });
+
+    it("defaults mixed engines to the chassis base and permits the alternate technology", () => {
+        const isBase = new BattleMech();
+        isBase.setTech("mis");
+        expect(isBase.getEngineTechBase()).toBe("is");
+        expect(isBase.getAvailableEngines().some(engine => engine.tag === "clan_xl")).toBe(false);
+        isBase.setEngineTechBase("clan");
+        expect(isBase.getAvailableEngines().some(engine => engine.tag === "clan_xl")).toBe(true);
+        isBase.setEngineType("clan_xl");
+        expect(new BattleMech(isBase.exportJSON(true)).getEngineTechBase()).toBe("clan");
+
+        const clanBase = new BattleMech();
+        clanBase.setTech("mclan");
+        expect(clanBase.getEngineTechBase()).toBe("clan");
+        clanBase.setEngineTechBase("is");
+        expect(clanBase.getAvailableEngines().some(engine => engine.tag === "xl")).toBe(true);
+    });
+});
+
+describe("BattleMech equipment catalogs", () => {
+    it("exposes only the chassis-legal source catalogs plus Custom at Custom Homebrew", () => {
+        const isMech = new BattleMech();
+        expect(isMech.getAvailableEquipmentByCatalog("is").length).toBeGreaterThan(0);
+        expect(isMech.getAvailableEquipmentByCatalog("clan")).toEqual([]);
+        expect(isMech.getAvailableEquipmentByCatalog("universal").length).toBeGreaterThan(0);
+        expect(isMech.getAvailableEquipmentByCatalog("custom")).toEqual([]);
+        expect(isMech.getAvailableEquipmentByCatalog("custom", true).length).toBeGreaterThan(0);
+
+        const clanMech = new BattleMech();
+        clanMech.setTech("clan");
+        expect(clanMech.getAvailableEquipmentByCatalog("is")).toEqual([]);
+        expect(clanMech.getAvailableEquipmentByCatalog("clan").length).toBeGreaterThan(0);
+        expect(clanMech.getAvailableEquipmentByCatalog("universal").length).toBeGreaterThan(0);
+
+        const mixedMech = new BattleMech();
+        mixedMech.setTech("mis");
+        expect(mixedMech.getAvailableEquipmentByCatalog("is").length).toBeGreaterThan(0);
+        expect(mixedMech.getAvailableEquipmentByCatalog("clan").length).toBeGreaterThan(0);
+        expect(mixedMech.getAvailableEquipmentByCatalog("universal").length).toBeGreaterThan(0);
+        expect(new Set(mixedMech.getAvailableEquipment().map(item => item.tag)).size)
+            .toBe(mixedMech.getAvailableEquipment().length);
+    });
+});
+
+describe("BattleMech armor allocation", () => {
+    it("uses the selected armor tonnage when making a best-guess allocation", () => {
+        const mech = new BattleMech();
+        mech.setTonnage(50);
+        mech.setArmorWeight(5);
+        mech.allocateArmorClear();
+
+        mech.allocateArmorSane();
+
+        expect(mech.getTotalArmor()).toBeGreaterThan(0);
+        expect(mech.getTotalArmor()).toBeLessThanOrEqual(mech.getMaxArmor());
+        expect(mech.getUnallocatedArmor()).toBe(0);
+    });
+
+    it("keeps the chassis armor ceiling independent of selected tonnage and synchronizes Allocate Max", () => {
+        const mech = new BattleMech();
+        const maximumTonnage = mech.getMaxArmorTonnage();
+
+        mech.setArmorWeight(5);
+        expect(mech.getMaxArmorTonnage()).toBe(maximumTonnage);
+        mech.setArmorWeight(3);
+        expect(mech.getMaxArmorTonnage()).toBe(maximumTonnage);
+
+        mech.allocateArmorMax();
+        expect(mech.getArmorWeight()).toBe(maximumTonnage);
+        expect(mech.getUnallocatedArmor()).toBeGreaterThanOrEqual(0);
+    });
 });
 
 describe("BattleMech TRO anatomy", () => {
@@ -73,6 +157,66 @@ describe("BattleMech TRO anatomy", () => {
         expect(troHtml).toContain("Center Leg");
         expect(troHtml).not.toContain("Front Leg");
         expect(troHtml).not.toContain("Rear Leg");
+    });
+});
+
+describe("BattleMech Alpha Strike special ammunition", () => {
+    it("defaults to standard ammunition and permits one mounted special ammunition type", () => {
+        const mech = new BattleMech();
+        mech.addEquipmentFromTag("ammo-lrm-swarm-i", "is", "lt", false, undefined, "", false, [], undefined, undefined);
+
+        expect(mech.getAlphaStrikeSpecialAmmoOptions().map(ammo => ammo.tag)).toEqual(["ammo-lrm-swarm-i"]);
+        expect(mech.getAlphaStrikeForceStats().abilities).not.toContain("AOE#");
+
+        mech.setAlphaStrikeSpecialAmmoTag("ammo-lrm-swarm-i");
+        expect(mech.getAlphaStrikeForceStats().abilities).toContain("AOE#");
+
+        const restored = new BattleMech(mech.exportJSON(true));
+        expect(restored.getAlphaStrikeSpecialAmmoTag()).toBe("ammo-lrm-swarm-i");
+    });
+});
+
+describe("BattleMech ATM ammunition", () => {
+    it("exposes newly added ATM equipment and bins for critical allocation", () => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        const tags = ["atm-6", "ammo-atm-standard", "ammo-atm-er", "ammo-atm-he"];
+
+        for (const tag of tags) {
+            expect(mech.addEquipmentFromTag(tag, "clan", "", false, undefined, "", false, [], undefined, undefined)).not.toBeNull();
+        }
+
+        expect(mech.unallocatedCriticals.filter(item => tags.includes(item.tag)).map(item => item.tag).sort())
+            .toEqual([...tags].sort());
+    });
+
+    it("consumes a full ATM rack from the selected ammunition bin", () => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        const weapon = mech.addEquipmentFromTag("atm-6", "clan", "lt", false, undefined, "", false, [], undefined, undefined)!;
+        const ammo = mech.addEquipmentFromTag("ammo-atm-standard", "clan", "lt", false, undefined, "", false, [], undefined, undefined)!;
+        const weaponIndex = mech.equipmentList.findIndex(item => item.uuid === weapon.uuid);
+
+        mech.selectAmmoBin(weapon.uuid!, ammo.uuid!);
+        mech.toggleResolved(weaponIndex);
+
+        expect(ammo.currentAmmo).toBe(54);
+    });
+
+    it("uses the selected ATM profile for Classic range", () => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        const weapon = mech.addEquipmentFromTag("atm-6", "clan", "lt", false, undefined, "a", false, [], undefined, undefined)!;
+        const standardAmmo = mech.addEquipmentFromTag("ammo-atm-standard", "clan", "lt", false, undefined, "", false, [], undefined, undefined)!;
+        const extendedRangeAmmo = mech.addEquipmentFromTag("ammo-atm-er", "clan", "lt", false, undefined, "", false, [], undefined, undefined)!;
+        const weaponIndex = mech.equipmentList.findIndex(item => item.uuid === weapon.uuid);
+        const target = { name: "Target", active: true, range: 20, movement: 0, otherMods: 0, jumped: false, primary: true, inRearArc: false };
+
+        mech.selectAmmoBin(weapon.uuid!, standardAmmo.uuid!);
+        expect(getTargetToHitFromWeapon(mech, weaponIndex, target).finalToHit).toBe(-1);
+
+        mech.selectAmmoBin(weapon.uuid!, extendedRangeAmmo.uuid!);
+        expect(getTargetToHitFromWeapon(mech, weaponIndex, target).rangeExplanation).toBe("Long");
     });
 });
 

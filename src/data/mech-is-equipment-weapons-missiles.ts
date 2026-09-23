@@ -6,58 +6,6 @@ import { IEquipmentItem } from "./data-interfaces";
 export const mechISEquipmentMissiles: IEquipmentItem[] = [
     {
         isAmmo: true,
-        name: "Ammo (LRM 5)",
-        tag: "ammo-lrm-5",
-        sort: "ammo, lrm-a",
-        category: "Ammunition",
-        alternateName: "Ammo (LRM-5)",
-        damage: 0,
-        notes: "",
-        damageAero: 0,
-        accuracyModifier: 0,
-        cbills: 30000,
-        cbillsOneShot: 1250,
-        introduced: 2300,
-        extinct: 0,
-        reintroduced: 0,
-        battleValue: 6,
-        heat: 0,
-        weight: 1,
-        range: {
-            min: 0,
-            short: 0,
-            medium: 0,
-            long: 0
-        },
-        space: {
-            battlemech: 1,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 24,
-        minAmmoTons: 1,
-        explosive: true,
-        weaponType: [],
-        techRating: "c",
-        book: "TM",
-        page: 229,
-        alphaStrike: {
-            heat: 0,
-            rangeShort: 0,
-            rangeMedium: 0,
-            rangeLong: 0,
-            rangeExtreme: 0,
-            tc: false,
-            notes: []
-        },
-        heatAero: 0
-    },
-    {
-        isAmmo: true,
         name: "Ammo (LRM-5 (Artemis IV Capable))",
         tag: "ammo-lrm-5-artemis",
         sort: "ammo, lrm-a-artemis",

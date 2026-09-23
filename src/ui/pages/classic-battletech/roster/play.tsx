@@ -12,6 +12,7 @@ import { getClusterHitsPerRoll, getLocationName, getTargetToHitFromWeapon } from
 import { chunkRange } from '../../../../utils/chunkRange';
 import { makeRange } from '../../../../utils/makeRange';
 import { weaponNeedsAmmo } from '../../../../utils/weaponNeedsAmmo';
+import { getCompatibleAmmo } from '../../../../data/equipment-registry';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
@@ -1351,6 +1352,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
                       )
                       if( !attack.isAmmo && !attack.isEquipment && attackGATOR.target ) {
+                        const selectedAmmo = attack.selectedAmmoBinUUID
+                          ? unit.equipmentList.find(item => item.uuid === attack.selectedAmmoBinUUID)
+                          : undefined;
+                        const damagePerCluster = selectedAmmo?.ammoProfile?.damagePerMissile ?? attack.damagePerCluster;
 
                         let attackDamage = attack.damage ? attack.damage.toString() : "";
                         let attackDamageSecondLine = "";
@@ -1362,8 +1367,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         if( attack.damageClusters ) {
                           clusterChartButton = true;
                           attackDamage += attack.damageClusters.toString() + " clusters";
-                          if( attack.damagePerCluster )
-                            attackDamageSecondLine = attack.damagePerCluster.toString() + " damage/hit";
+                          if( damagePerCluster )
+                            attackDamageSecondLine = damagePerCluster.toString() + " damage/hit";
                         }
 
                         let attackUUID = "";
@@ -1386,7 +1391,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                     >
                                       <option value="">-Select Ammo Bin-</option>
                                       {unit.equipmentList.map( (eq, eqIndex) => {
-                                        if( eq.isAmmo ) {
+                                        if( getCompatibleAmmo(attack, eq) ) {
                                           return <option key={eqIndex} value={eq.uuid}>{eq.name} {eq.location} {eq.currentAmmo}/{eq.ammoPerTon}</option>
                                         } else {
                                           return <React.Fragment key={eqIndex} />
@@ -1436,7 +1441,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                     <button
                                       className="btn btn-primary btn-sm"
                                       title="Click here to open the Cluster Damage Chart"
-                                      onClick={(e) => this.openClusterDamageChart(e, attackGATOR, attack.damageClusters, attack.damagePerCluster, unit, attackIndex)}
+                                      onClick={(e) => this.openClusterDamageChart(e, attackGATOR, attack.damageClusters, damagePerCluster, unit, attackIndex)}
                                     >
                                       <MissileSwarmIcon />
                                     </button>

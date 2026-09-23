@@ -2,7 +2,8 @@ import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructurePerTon, IResolvedInternalStructure, ISplitLocation } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { getEquipmentListByTech } from "../data/equipment-registry";
+import { equipmentMatchesIdentifier, getAlphaStrikeEquipmentDisplayAbilityCodes, getEquipmentListByTech } from "../data/equipment-registry";
+import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
@@ -121,6 +122,8 @@ export interface IBattleMechExport {
     criticalDamage?: Record<string, number[]>;
     pilot?: IPilot,
     as_custom_nickname?: string;
+    as_special_ammo_tag?: string;
+    engineTechBase?: "is" | "clan";
 
     // basic properties
     omnimech: boolean;
@@ -359,6 +362,7 @@ export class BattleMech {
     private _gyro = mechGyroTypes[0];
     private _engine: IEngineOption | null = null;
     private _engineType = mechEngineTypes[0];
+    private _engineTechBase: "is" | "clan" = "is";
     private _jumpJetType = mechJumpJetTypes[0];
     // Movement Speeeds
     private _walkSpeed = 0;
@@ -378,6 +382,7 @@ export class BattleMech {
     private _offensiveBattleRating = 0;
     private _pilotAdjustedBattleValue = 0;
     private _alphaStrikeValue = 0;
+    private _alphaStrikeSpecialAmmoTag = "";
 
     private _calcLogBV = "";
     private _calcLogAS = "";
@@ -1747,6 +1752,17 @@ export class BattleMech {
             if (this._equipmentList[weapon_counter].explosive) {
                 has_explosive = true;
             }
+            const equipment = this._equipmentList[weapon_counter];
+            const appliesSelectedSpecialAmmo = equipment.isAmmo
+                && equipment.isSpecialAmmo
+                && equipment.tag === this._alphaStrikeSpecialAmmoTag;
+            if (!equipment.isAmmo || appliesSelectedSpecialAmmo) {
+                for (const displayAbilityCode of getAlphaStrikeEquipmentDisplayAbilityCodes(equipment)) {
+                if (!this._alphaStrikeForceStats.abilityCodes.includes(displayAbilityCode)) {
+                    this._alphaStrikeForceStats.abilityCodes.push(displayAbilityCode);
+                }
+                }
+            }
             if (this._equipmentList[weapon_counter].alphaStrike && !this._equipmentList[weapon_counter].isAmmo ) {
                 if (this._equipmentList[weapon_counter].alphaStrike.rangeLong > 0) {
                     total_weapon_heat_long += +this._equipmentList[weapon_counter].alphaStrike.heat;
@@ -1864,6 +1880,7 @@ export class BattleMech {
                     }
 
                 }
+
             }
         }
 
@@ -3295,7 +3312,7 @@ export class BattleMech {
         }
         // Define baseline structural data constraints for our vroomie vrooms...
         let engineCrits: ICriticalLocations = { ct: 0, rt: 0, lt: 0 };
-        const currentTechTag = this.getTech().tag;
+        const currentTechTag = this.getEngineTechBase();
 
         // Core Data Validation & Rollback Routing
         if (this._engineType.criticals && this._engineType.criticals[currentTechTag]) {
@@ -4314,6 +4331,7 @@ export class BattleMech {
         for( let technology of btTechOptions ) {
             if( techTag === technology.tag) {
                 this._tech = technology;
+                this._engineTechBase = technology.tag === "clan" || technology.tag === "mclan" ? "clan" : "is";
                 this._calc();
 
                 // set era to Clan Invasion (id 3) if the techID is 2 (Clan)
@@ -4333,6 +4351,27 @@ export class BattleMech {
 
     public getAlphaStrikeForceStats() {
         return this.calcAlphaStrike();
+    }
+
+    public getAlphaStrikeSpecialAmmoTag(): string {
+        return this._alphaStrikeSpecialAmmoTag;
+    }
+
+    public getAlphaStrikeSpecialAmmoOptions(): IEquipmentItem[] {
+        const availableAmmo = new Map<string, IEquipmentItem>();
+        for (const equipment of this._equipmentList) {
+            if (equipment.isAmmo && equipment.isSpecialAmmo) {
+                availableAmmo.set(equipment.tag, equipment);
+            }
+        }
+        return Array.from(availableAmmo.values());
+    }
+
+    public setAlphaStrikeSpecialAmmoTag(ammoTag: string): string {
+        const selectedAmmo = this.getAlphaStrikeSpecialAmmoOptions()
+            .find(ammo => ammo.tag === ammoTag);
+        this._alphaStrikeSpecialAmmoTag = selectedAmmo?.tag ?? "";
+        return this._alphaStrikeSpecialAmmoTag;
     }
 
     public getPilot() {
@@ -4439,6 +4478,27 @@ export class BattleMech {
 
     getEngineType() {
         return this._engineType;
+    }
+
+    public getEngineTechBase(): "is" | "clan" {
+        if (this._tech.tag === "clan") {
+            return "clan";
+        }
+        if (this._tech.tag === "is") {
+            return "is";
+        }
+        return this._engineTechBase;
+    }
+
+    public setEngineTechBase(techBase: "is" | "clan"): "is" | "clan" {
+        if (this._tech.tag === "mis" || this._tech.tag === "mclan") {
+            this._engineTechBase = techBase;
+            if (!this._engineType.criticals[techBase]) {
+                this._engineType = mechEngineTypes[0];
+            }
+            this._calc();
+        }
+        return this.getEngineTechBase();
     }
 
     getEngineName(): string {
@@ -4712,9 +4772,12 @@ export class BattleMech {
       return this._tonnage;
     }
 
-    public getMaxArmorTonnage(armorTag: string = "standard", techBase: "is" | "clan" = "is"): number {
+        public getMaxArmorTonnage(
+            armorTag: string = this.getArmorType(),
+            techBase: "is" | "clan" = this.getTech().tag === "clan" ? "clan" : "is"
+        ): number {
       // Dynamically retrieve the absolute maximum armor points configured for this chassis layout
-      const totalPoints = this.getMaxArmor();
+            const totalPoints = this.getChassisMaxArmor();
     
       // Locate the armor data object by its unique tag identifier from our data file
       const armorData = mechArmorTypes.find(a => a.tag === armorTag);
@@ -4731,11 +4794,10 @@ export class BattleMech {
     }
 
     public getMaxArmor(): number {
-      // If _maxArmor was already calculated and cached during setTonnage(), return it
-      if (this._maxArmor !== undefined && this._maxArmor > 0) {
-        return this._maxArmor;
-      }
+            return this.getChassisMaxArmor();
+        }
 
+        private getChassisMaxArmor(): number {
       // Dynamic fallback calculation: Head maximum is 9; Torso locations carry 2x internal structure
       let totalMaxArmor = 9 +
         (this._internalStructure.centerTorso * 2) + 
@@ -4987,6 +5049,7 @@ export class BattleMech {
             tonnage: this.getTonnage(),
             as_role: this._alphaStrikeForceStats.role,
             as_value: this.getAlphaStrikeValue(),
+            as_special_ammo_tag: this._alphaStrikeSpecialAmmoTag,
             battle_value: this.getBattleValue(),
             c_bills: this.getCBillCost(),
 
@@ -4998,6 +5061,7 @@ export class BattleMech {
             armor_type: this.getArmorType(),
             armor_weight: this._armorWeight,
             engineType: this.getEngineType().tag,
+            engineTechBase: this.getEngineTechBase(),
             equipment: [],
             era: this._era.tag,
             features: [],
@@ -5267,6 +5331,10 @@ export class BattleMech {
             if( importObject.tech)
                 this.setTech(importObject.tech);
 
+            if (importObject.engineTechBase) {
+                this.setEngineTechBase(importObject.engineTechBase);
+            }
+
             if( importObject.pilot)
                 this._pilot = new Pilot(importObject.pilot);
 
@@ -5278,6 +5346,10 @@ export class BattleMech {
 
             if( importObject.as_custom_nickname)
                 this.setASCustomName(importObject.as_custom_nickname);
+
+            if (importObject.as_special_ammo_tag) {
+                this._alphaStrikeSpecialAmmoTag = importObject.as_special_ammo_tag;
+            }
 
             if( importObject.is_type)
                 this.setInternalStructureType(importObject.is_type);
@@ -5495,6 +5567,7 @@ export class BattleMech {
     }
     // ---- ANATOMICAL LIMB SETTERS WITH DYNAMIC ROUTING BASED ON CHASSIS CHOICE ----
     public setLeftArmArmor(armorValue: number): number {
+        const typeTag = this._mechType.tag.toLowerCase();
         if (typeTag === "quad" || typeTag === "quadvee") {
             // Route directly to Front Left Leg allocation properties
             this._armorAllocation.frontLeftLeg = armorValue;
@@ -5689,7 +5762,7 @@ export class BattleMech {
         let equipmentList = this.getEquipmentList(equipmentListTag, includeCustom);
 
         for( let item of equipmentList ) {
-            if( equipmentTag === item.tag) {
+            if( equipmentMatchesIdentifier(item, equipmentTag)) {
                 let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify(item));
                 if( typeof(location) !== "undefined" )
                     equipmentItem.location = location;
@@ -5719,6 +5792,7 @@ export class BattleMech {
                 this._equipmentList.push(equipmentItem);
 
                 this._sortInstalledEquipment();
+                this._calc();
                 return equipmentItem;
             }
         }
@@ -6611,19 +6685,7 @@ export class BattleMech {
 
     public getAvailableEngines(): IEngineType[] {
         let returnValue: IEngineType[] = [];
-        // Map all four possible tech tags back to their baseline lookup keys
-        let lookupTag: "is" | "clan";
-        switch (this._tech.tag) {
-            case "clan":
-            case "mclan":
-                lookupTag = "clan";
-                break;
-            case "is":
-            case "mis":
-            default:
-                lookupTag = "is";
-                break;
-        }
+        const lookupTag = this.getEngineTechBase();
         for (let engine of mechEngineTypes) {
             // Enforce strict key verification against the normalized tech base
             if (engine.criticals && lookupTag in engine.criticals) {
@@ -6732,11 +6794,10 @@ export class BattleMech {
     }
 
     public allocateArmorSane(): void {
-        let totalArmor = this.getTotalArmor();
+        let totalArmor = Math.min(this._maxArmor, this.getChassisMaxArmor());
         const internalStructure = this.getInternalStructure();
-        const maximumArmor = this.getMaxArmor();
-        if (maximumArmor === 0 || totalArmor === 0) return;
-        const percentage = totalArmor / maximumArmor;
+        if (totalArmor === 0) return;
+        const percentage = totalArmor / this.getChassisMaxArmor();
         // Establish layout flags natively from our chassis choices
         const typeTag = this.getType().tag.toLowerCase();
         const hasArms = typeTag === "biped" || typeTag === "lam" || typeTag === "tripod";
@@ -6895,6 +6956,11 @@ export class BattleMech {
             }
         }
         this._armorAllocation = maxAllocation;
+        const armorMultiplier = this.getTech().tag === "clan"
+            ? this.getArmorObj().armorMultiplier.clan
+            : this.getArmorObj().armorMultiplier.is;
+        this._armorWeight = Math.ceil((this.getChassisMaxArmor() / armorMultiplier) * 2) / 2;
+        this._calc();
     }
 
     public getMaxCenterTorsoRearArmor(): number {
@@ -6926,22 +6992,29 @@ export class BattleMech {
         // Determine which equipment lists are eligible based on Tech base rules
         const includeClan = ["clan", "mclan", "mis"].includes(techTag); // We will want to watch this... 
         const includeIS = ["is", "mis", "mclan"].includes(techTag); // I may be doing these wrong
+        const addedTags = new Set<string>();
+        const addEquipment = (item: IEquipmentItem, catalog: "is" | "clan" | "custom" | "universal"): void => {
+            if (addedTags.has(item.tag)) {
+                return;
+            }
+            item.catalog = isUniversalEquipment(item) ? "universal" : item.catalog ?? catalog;
+            item.criticals = item.space.battlemech;
+            item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced, clanAvailability)
+                && this._isEquipmentAllowedForChassis(item);
+            addedTags.add(item.tag);
+            returnItems.push(item);
+        };
+
         // Process Clan items if active
         if (includeClan) {
             for (let item of getEquipmentListByTech("clan", includeCustom && !includeIS)) {
-                item.catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : "clan");
-                item.criticals = item.space.battlemech;
-                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced, clanAvailability) && this._isEquipmentAllowedForChassis(item);
-                returnItems.push(item);
+                addEquipment(item, item.category === "Custom Equipment" ? "custom" : "clan");
             }
         }
         // Process Inner Sphere items if active
         if (includeIS) {
             for (let item of getEquipmentListByTech("is", includeCustom)) {
-                item.catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : "is");
-                item.criticals = item.space.battlemech;
-                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced) && this._isEquipmentAllowedForChassis(item);
-                returnItems.push(item);
+                addEquipment(item, item.category === "Custom Equipment" ? "custom" : "is");
             }
         }
         // Sort compiled equipment strictly by the dataset sorting values
@@ -6954,7 +7027,7 @@ export class BattleMech {
     }  
 
     public getAvailableEquipmentByCatalog(
-        catalog: "all" | "is" | "clan" | "custom",
+        catalog: "all" | "is" | "clan" | "custom" | "universal",
         includeCustom: boolean = false,
     ): IEquipmentItem[] {
         const equipment = this.getAvailableEquipment(includeCustom);
@@ -7916,29 +7989,30 @@ export class BattleMech {
         if( this._equipmentList.length > eq_index ) {
             this._equipmentList[eq_index].resolved = !this._equipmentList[eq_index].resolved;
             if( this._equipmentList[eq_index].selectedAmmoBinUUID  ) {
+                const ammoPerShot = this._equipmentList[eq_index].ammoPerShot ?? 1;
                 if( this._equipmentList[eq_index].resolved )
-                    this._decrementAmmoBin( this._equipmentList[eq_index].selectedAmmoBinUUID );
+                    this._decrementAmmoBin( this._equipmentList[eq_index].selectedAmmoBinUUID, ammoPerShot );
                 else
-                    this._incrementAmmoBin( this._equipmentList[eq_index].selectedAmmoBinUUID );
+                    this._incrementAmmoBin( this._equipmentList[eq_index].selectedAmmoBinUUID, ammoPerShot );
             }
         }
     }
 
-    private _decrementAmmoBin( uuid: string | undefined ) {
+    private _decrementAmmoBin( uuid: string | undefined, amount: number = 1 ) {
         if( uuid ) {
             for( let eq of this._equipmentList ) {
-                if( eq.uuid === uuid && eq.isAmmo && typeof(eq.currentAmmo) !== "undefined" && eq.currentAmmo > 0 ) {
-                    eq.currentAmmo--;
+                if( eq.uuid === uuid && eq.isAmmo && typeof(eq.currentAmmo) !== "undefined" && eq.currentAmmo >= amount ) {
+                    eq.currentAmmo -= amount;
                 }
             }
         }
     }
 
-    private _incrementAmmoBin( uuid: string | undefined ) {
+    private _incrementAmmoBin( uuid: string | undefined, amount: number = 1 ) {
         if( uuid ) {
             for( let eq of this._equipmentList ) {
-                if( eq.uuid === uuid && eq.isAmmo && typeof(eq.currentAmmo) !== "undefined" && eq.currentAmmo > 0 ) {
-                    eq.currentAmmo++;
+                if( eq.uuid === uuid && eq.isAmmo && typeof(eq.currentAmmo) !== "undefined" ) {
+                    eq.currentAmmo += amount;
                 }
             }
         }

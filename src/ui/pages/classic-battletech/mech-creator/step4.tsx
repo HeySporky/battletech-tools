@@ -420,8 +420,8 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
   </label>
 
   {this.props.appGlobals.currentBattleMech.isTripod() ? (
-    <label className="armor-select-dropdown center-leg">
-      <div className="title">CENTER LEG</div>
+    <label className="armor-select-dropdown cl">
+      <div className="title">CL</div>
       <select
         value={this.props.appGlobals.currentBattleMech.getArmorAllocation().centerLeg ?? 0}
         onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue("cl", +event.currentTarget.value)}

@@ -89,6 +89,7 @@ export interface IRangeNumbers {
     medium: number;
     long: number;
     extreme?: number;
+    maxMapSheets?: number;
 }
 
 export interface ISplitLocation {
@@ -96,6 +97,18 @@ export interface ISplitLocation {
     index: number;
     size: number;
 }
+
+export interface IAmmoProfile {
+    damagePerMissile: number;
+    range: IRangeNumbers;
+    alphaStrikeDamage: {
+        short: number;
+        medium: number;
+        long: number;
+        extreme: number;
+    };
+}
+
 export interface IEquipmentItem {
     catalog?: "is" | "clan" | "custom" | "universal";
     metadata?: IEquipmentMetadata;
@@ -103,6 +116,7 @@ export interface IEquipmentItem {
     isRotary?: boolean;
     isStreak?: boolean;
     isUltra?: boolean;
+    isSpecialAmmo?: boolean;
     needsAmmo?: boolean;
     uuid?: string;
     resolved?: boolean;
@@ -116,7 +130,9 @@ export interface IEquipmentItem {
     isEquipment?: boolean;
     isAmmo?: boolean;
     alternateName?: string;
+    altNames?: string[];
     tag: string;
+    altTags?: string[];
     sort: string;
     category: string;
     currentAmmo?: number;
@@ -131,6 +147,9 @@ export interface IEquipmentItem {
     isOneShot?: boolean;
     damagePerCluster?: number;
     damageClusters?: number;
+    ammoPerShot?: number;
+    ammoTypes?: string[];
+    ammoProfile?: IAmmoProfile;
     accuracyModifier?: number | IAccuracyModifier;
     accuracyModifiier?: number;
     cbills: number;
@@ -156,6 +175,8 @@ export interface IEquipmentItem {
     book: string;
     page: number;
     alphaStrike: {
+        specialAbility?: string[];
+        damageAoE?: number;
         heat: number;
         rangeShort: number;
         rangeMedium: number;

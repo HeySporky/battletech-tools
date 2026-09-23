@@ -68,6 +68,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
         let currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setTech( e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
+        this.setState({ updated: !this.state.updated });
       }
     }
 

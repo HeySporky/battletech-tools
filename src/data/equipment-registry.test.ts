@@ -1,24 +1,74 @@
 import { describe, expect, it } from "vitest";
-import { mechClanEquipmentArtillery } from "./mech-clan-equipment-weapons-artillery";
-import { mechISEquipmentArtillery } from "./mech-is-equipment-weapons-artillery";
-import { getEquipmentCatalogDefinitions, getEquipmentCatalogSummaries, getEquipmentListByTech } from "./equipment-registry";
-import { hasUniversalEquipmentMetrics, mechUniversalEquipment } from "./mech-universal-equipment";
+import { calculateShotsPerTon, equipmentMatchesIdentifier, getAlphaStrikeEquipmentAbilityCodes, getAlphaStrikeEquipmentDisplayAbilityCodes, getCompatibleAmmo, getEquipmentCatalogDefinitions, getEquipmentCatalogSummaries, getEquipmentListByTech, getEquipmentMaximumRangeInHexes } from "./equipment-registry";
+import { mechUniversalEquipment } from "./mech-universal-equipment";
+import { mechUniversalAmmo } from "./mech-universal-ammo";
+import { mechCustomAmmo } from "./mech-custom-ammo";
+import { mechClanAmmo } from "./mech-clan-ammo";
 
 describe("equipment catalog provenance", () => {
-    it("defines a single universal catalog for shared artillery equipment", () => {
-        const universal = getEquipmentCatalogDefinitions().find(catalog => catalog.techBase === "universal");
+    it("resolves equipment aliases and preserves artillery map-sheet range", () => {
+        const thumper = mechUniversalEquipment.find(item => item.tag === "thumper-artillery")!;
+
+        expect(equipmentMatchesIdentifier(thumper, "Thumper")).toBe(true);
+        expect(equipmentMatchesIdentifier(thumper, "thumper-artillery")).toBe(true);
+        expect(getEquipmentMaximumRangeInHexes(thumper)).toBe(357);
+    });
+
+    it("prefers explicit Alpha Strike specials over weapon type codes", () => {
+        const thumper = mechUniversalEquipment.find(item => item.tag === "thumper-artillery")!;
+
+        expect(getAlphaStrikeEquipmentAbilityCodes(thumper)).toEqual(["ARTTH"]);
+        expect(getAlphaStrikeEquipmentDisplayAbilityCodes(thumper)).toEqual(["ARTTH 1"]);
+        expect(thumper.alphaStrike.damageAoE).toBe(1);
+    });
+
+    it("links launchers to consolidated ammo types and calculates shots per ton", () => {
+        const launcher = mechUniversalEquipment.find(item => item.tag === "rocket-launcher-20")!;
+        const ammo = mechCustomAmmo.find(item => item.tag === "ammo-rocket-launcher")!;
+
+        expect(calculateShotsPerTon(ammo.ammoPerTon!, 20)).toBe(12);
+        expect(getCompatibleAmmo({ ...launcher, ammoTypes: ["ammo-rocket-launcher"] }, ammo)).toBe(true);
+        expect(launcher.ammoPerTon).toBe(0);
+    });
+
+    it("keeps LRM special munitions distinct when weapons declare their supported ammunition", () => {
+        const standardLrmAmmo = mechUniversalAmmo.find(item => item.tag === "ammo-lrm")!;
+        const swarmILrmAmmo = mechUniversalAmmo.find(item => item.tag === "ammo-lrm-swarm-i")!;
+        const lrmLauncher = { ...mechUniversalEquipment[0], ammoTypes: ["ammo-lrm", "ammo-lrm-swarm-i"] };
+
+        expect(getCompatibleAmmo(lrmLauncher, standardLrmAmmo)).toBe(true);
+        expect(getCompatibleAmmo(lrmLauncher, swarmILrmAmmo)).toBe(true);
+        expect(getCompatibleAmmo({ ...lrmLauncher, ammoTypes: ["ammo-lrm"] }, swarmILrmAmmo)).toBe(false);
+    });
+
+    it("links ATM and iATM launchers to their supported ammunition profiles", () => {
+        const clanItems = getEquipmentListByTech("clan");
+        const atm6 = clanItems.find(item => item.tag === "atm-6")!;
+        const iatm6 = clanItems.find(item => item.tag === "iatm-6")!;
+        const standardAtm = mechClanAmmo.find(item => item.tag === "ammo-atm-standard")!;
+        const extendedRangeAtm = mechClanAmmo.find(item => item.tag === "ammo-atm-er")!;
+        const highExplosiveAtm = mechClanAmmo.find(item => item.tag === "ammo-atm-he")!;
+        const infernoIatm = mechClanAmmo.find(item => item.tag === "ammo-iatm-inferno")!;
+        const magPulseIatm = mechClanAmmo.find(item => item.tag === "ammo-iatm-mag-pulse")!;
+
+        expect(atm6.ammoPerShot).toBe(6);
+        expect([standardAtm, extendedRangeAtm, highExplosiveAtm].every(ammo => getCompatibleAmmo(atm6, ammo))).toBe(true);
+        expect(getCompatibleAmmo(atm6, infernoIatm)).toBe(false);
+        expect(iatm6.ammoPerShot).toBe(6);
+        expect([standardAtm, extendedRangeAtm, highExplosiveAtm, infernoIatm, magPulseIatm]
+            .every(ammo => getCompatibleAmmo(iatm6, ammo))).toBe(true);
+    });
+
+    it("defines filename-owned universal equipment and ammo catalogs", () => {
+        const universal = getEquipmentCatalogDefinitions().find(catalog => catalog.id === "mech-universal-equipment");
 
         expect(universal?.id).toBe("mech-universal-equipment");
         expect(universal?.equipment).toEqual(mechUniversalEquipment);
         expect(new Set(universal?.equipment.map(item => item.tag)).size).toBe(universal?.equipment.length);
-        expect(mechUniversalEquipment
-            .filter(item => mechISEquipmentArtillery.some(candidate => candidate.tag === item.tag))
-            .every(item => {
-            const isItem = mechISEquipmentArtillery.find(candidate => candidate.tag === item.tag);
-            const clanItem = mechClanEquipmentArtillery.find(candidate => candidate.tag === item.tag);
-            return isItem && clanItem
-                && hasUniversalEquipmentMetrics(isItem, clanItem);
-            })).toBe(true);
+        expect(mechUniversalEquipment.every(item => item.catalog === undefined)).toBe(true);
+        expect(mechUniversalAmmo).toHaveLength(3);
+        expect(getEquipmentCatalogDefinitions().find(catalog => catalog.id === "mech-universal-ammo")?.equipment).toEqual(mechUniversalAmmo);
+        expect(getEquipmentCatalogDefinitions().find(catalog => catalog.id === "mech-custom-ammo")?.equipment).toEqual(mechCustomAmmo);
     });
 
     it("includes universal equipment once in every tech-base list", () => {
@@ -26,8 +76,8 @@ describe("equipment catalog provenance", () => {
         const clanItems = getEquipmentListByTech("clan");
         const mixedItems = getEquipmentListByTech("mis");
         const universalTags = getEquipmentCatalogDefinitions()
-            .find(catalog => catalog.techBase === "universal")!
-            .equipment
+            .filter(catalog => catalog.techBase === "universal")
+            .flatMap(catalog => catalog.equipment)
             .map(item => item.tag);
 
         for (const tag of universalTags) {
@@ -37,32 +87,14 @@ describe("equipment catalog provenance", () => {
         }
     });
 
-    it("reports duplicate tags only when their ownership is universal", () => {
-        const occurrences = new Map<string, string[]>();
+    it("includes custom ammunition only when custom content is requested", () => {
+        expect(getEquipmentListByTech("is").some(item => item.tag === "ammo-rocket-launcher")).toBe(false);
+        expect(getEquipmentListByTech("is", true).filter(item => item.tag === "ammo-rocket-launcher")).toHaveLength(1);
+    });
 
-        for (const item of mechISEquipmentArtillery) {
-            const owners = occurrences.get(item.tag) ?? [];
-            owners.push("is");
-            occurrences.set(item.tag, owners);
-        }
-        for (const item of mechClanEquipmentArtillery) {
-            const owners = occurrences.get(item.tag) ?? [];
-            owners.push("clan");
-            occurrences.set(item.tag, owners);
-        }
-
-        const nonUniversalDuplicates = Array.from(occurrences.entries())
-            .filter(([, owners]) => new Set(owners).size > 1)
-            .filter(([tag]) => !mechUniversalEquipment.some(item => item.tag === tag));
-
-        for (const [tag] of nonUniversalDuplicates) {
-            const isItem = mechISEquipmentArtillery.find(item => item.tag === tag);
-            const clanItem = mechClanEquipmentArtillery.find(item => item.tag === tag);
-
-            expect(isItem).toBeDefined();
-            expect(clanItem).toBeDefined();
-            expect(hasUniversalEquipmentMetrics(isItem!, clanItem!)).toBe(false);
-        }
+    it("does not infer universal ownership from other catalogs", () => {
+        expect(mechUniversalEquipment.some(item => item.tag === "vehicle-flamer")).toBe(false);
+        expect(mechUniversalEquipment.some(item => item.tag === "ppc-capacitor")).toBe(false);
     });
 
     it("keeps every registered item structurally complete", () => {
@@ -114,7 +146,7 @@ describe("equipment catalog provenance", () => {
         expect(getEquipmentListByTech("is").filter(item => item.tag === "mrm-10")[0].alphaStrike.rangeShort).toBe(0.57);
         expect(getEquipmentListByTech("clan").filter(item => item.tag === "streak-lrm-20")[0].notes).toContain("workbook");
         expect(getEquipmentListByTech("is").filter(item => item.tag === "vehicle-flamer")).toHaveLength(1);
-        expect(getEquipmentCatalogDefinitions().find(catalog => catalog.techBase === "universal")?.equipment.some(item => item.tag === "vehicle-flamer")).toBe(true);
+        expect(getEquipmentCatalogDefinitions().find(catalog => catalog.techBase === "universal")?.equipment.some(item => item.tag === "vehicle-flamer")).toBe(false);
         expect(getEquipmentCatalogDefinitions().find(catalog => catalog.techBase === "universal")?.equipment.find(item => item.tag === "rocket-launcher-20")?.weight).toBe(1.5);
         expect(getEquipmentListByTech("is").filter(item => item.tag === "rocket-launcher-20")).toHaveLength(1);
         expect(getEquipmentListByTech("clan").find(item => item.tag === "clan-srm-2-artemis-iv")?.weight).toBe(1.5);
@@ -189,7 +221,7 @@ describe("equipment catalog provenance", () => {
             expect(clanItem("clan-autocannon-rac-2").weight).toBe(7);
             expect(clanItem("clan-autocannon-rac-5").space.battlemech).toBe(6);
             expect(clanItem("clan-autocannon-uac-2").space.battlemech).toBe(2);
-            expect(clanItem("nail-rivet-gun").weight).toBe(0.5);
-            expect(isItems.find(item => item.tag === "nail-rivet-gun")?.space.battlemech).toBe(1);
+            expect(clanItem("nail-gun").weight).toBe(0.5);
+            expect(isItems.find(item => item.tag === "nail-gun")?.space.battlemech).toBe(1);
         });
 });

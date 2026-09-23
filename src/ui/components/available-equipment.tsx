@@ -42,13 +42,13 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
             item.name.toLowerCase().trim().indexOf(
                 this.props.appGlobals.appSettings.equipmentFilter.toLowerCase().trim()
             ) > -1
-                || (
-                item.alternateName
-                &&
-                item.alternateName.toLowerCase().trim().indexOf(
+                || [
+                    item.alternateName ?? "",
+                    ...(item.altNames ?? []),
+                    ...(item.altTags ?? []),
+                ].some(alias => alias.toLowerCase().trim().indexOf(
                     this.props.appGlobals.appSettings.equipmentFilter.toLowerCase().trim()
-                ) > -1
-            )
+                ) > -1)
 
         ) {
             return true;

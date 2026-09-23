@@ -113,6 +113,11 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
+      const currentMech = this.props.appGlobals.currentBattleMech;
+      const techTag = currentMech.getTech().tag;
+      const includeClan = techTag === "clan" || techTag === "mis" || techTag === "mclan";
+      const includeIS = techTag === "is" || techTag === "mis" || techTag === "mclan";
+      const includeCustom = this.props.appGlobals.appSettings.mechRulesFilter === 5;
       return (
         <>
             <StandardModal
@@ -126,7 +131,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                   <div>
                       <AvailableEquipment
                         appGlobals={this.props.appGlobals}
-                        equipment={this.props.appGlobals.currentBattleMech.getAvailableEquipmentByCatalog(this.state.equipmentCatalog, this.props.appGlobals.appSettings.mechRulesFilter === 5)}
+                        equipment={currentMech.getAvailableEquipmentByCatalog(this.state.equipmentCatalog, includeCustom)}
                         addFunction={this.addEquipment}
                         hideUnavailable={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
                       />
@@ -168,9 +173,10 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                               onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setState({ equipmentCatalog: event.currentTarget.value as IHomeState["equipmentCatalog"] })}
                             >
                               <option value="all">All Available</option>
-                              <option value="is">Inner Sphere</option>
-                              <option value="clan">Clan</option>
-                              <option value="custom">Custom</option>
+                              {includeIS ? <option value="is">Inner Sphere</option> : null}
+                              {includeClan ? <option value="clan">Clan</option> : null}
+                              <option value="universal">Universal</option>
+                              {includeCustom ? <option value="custom">Custom</option> : null}
                             </select>
                           </label>
 
@@ -291,6 +297,6 @@ interface IHomeProps {
 interface IHomeState {
     updated: boolean;
     showAddDialog: boolean;
-  equipmentCatalog: "all" | "is" | "clan" | "custom";
+  equipmentCatalog: "all" | "is" | "clan" | "custom" | "universal";
 
 }

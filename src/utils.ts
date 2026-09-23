@@ -814,6 +814,11 @@ export function getTargetToHitFromWeapon(
     if( equipmentList === null ) {
         equipmentList = mech.equipmentList;
     }
+    const weapon = equipmentList[index];
+    const ammo = weapon?.selectedAmmoBinUUID
+        ? equipmentList.find(item => item.uuid === weapon.selectedAmmoBinUUID)
+        : undefined;
+    const weaponRange = ammo?.ammoProfile?.range ?? weapon?.range;
     gator.finalToHit = -1;
     if(
         equipmentList.length > index
@@ -821,7 +826,7 @@ export function getTargetToHitFromWeapon(
         && typeof( equipmentList[index].target ) !== "undefined"
         && equipmentList[index].target
     ) {
-        // @ts-expect-error Legacy compatibility type mismatch        let targetLetter: string = equipmentList[index].target;
+        const targetLetter = equipmentList[index].target as string;
 
         if( target === null && mech ) {
             target = mech.getTarget( targetLetter );
@@ -885,19 +890,19 @@ export function getTargetToHitFromWeapon(
             gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
 
             if(
-                target.range <= equipmentList[index].range.short
+                target.range <= weaponRange.short
             ) {
                 gator.rangeExplanation = "Short";
 
                 if(
-                    equipmentList[index].range.min
+                    weaponRange.min
                     &&
                     // @ts-expect-error Legacy compatibility type mismatch
-                    equipmentList[index].range.min > 0
+                    weaponRange.min > 0
                 ) {
                     let minRange: number = 0;
                     // @ts-expect-error Legacy compatibility type mismatch
-                    minRange = equipmentList[index].range.min;
+                    minRange = weaponRange.min;
 
                     if( target.range < minRange ) {
                         let rangeModifier = minRange - target.range;
@@ -907,12 +912,12 @@ export function getTargetToHitFromWeapon(
                     }
                 }
             } else if(
-                target.range <= equipmentList[index].range.medium
+                target.range <= weaponRange.medium
             ) {
                 gator.finalToHit += 2;
                 gator.rangeModifier = 2;
                 gator.rangeExplanation = "Medium";
-            } else if( target.range <= equipmentList[index].range.long ) {
+            } else if( target.range <= weaponRange.long ) {
                 gator.finalToHit += 4;
                 gator.rangeModifier = 4;
                 gator.rangeExplanation = "Long";

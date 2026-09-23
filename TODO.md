@@ -234,6 +234,14 @@ tool. Items are ordered by dependency, not by product marketing priority.
 - [ ] Add browser tests covering creation, equipment legality, record rendering,
   and Alpha Strike output for every category.
 
+## Phase 2b: ProtoMechs
+
+- [ ] Define the ProtoMech construction model and editor. Ammunition whose
+  `space.protomech` is `1` uses fractional, shot-based tonnage accounting rather
+  than a one-ton bin, and must not consume BattleMech-style critical slots. The
+  builder must let the user allocate the number of shots for each mounted weapon
+  and derive mass from that weapon's compatible ammunition.
+
 ## Phase 3: Aerospace
 
 - [ ] Define aerospace unit data and construction rules separately from ground

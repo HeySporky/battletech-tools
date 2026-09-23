@@ -97,6 +97,22 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
         this.props.onChange( item );
     }
 
+    updateSpecialAbility = (
+        e: React.FormEvent<HTMLTextAreaElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+
+        item.alphaStrike.specialAbility = e.currentTarget.value
+            .split("\n")
+            .map(value => value.trim())
+            .filter(value => value.length > 0);
+
+        this.props.onChange( item );
+    }
+
     render = (): JSX.Element => {
         return (
                     <>
@@ -141,6 +157,24 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
                             min={0}
                             step={1}
                             label="Damage Extreme"
+                        />
+                        <InputNumeric
+                            value={this.props.editingItem.alphaStrike.damageAoE ?? 0}
+                            onChange={(e) => {
+                                this.props.editingItem.alphaStrike.damageAoE = +e.currentTarget.value;
+                                this.props.onChange(this.props.editingItem);
+                            }}
+                            min={0}
+                            step={1}
+                            label="Area-of-Effect Damage"
+                            description="Damage dealt by an area-effect Alpha Strike attack"
+                        />
+
+                        <TextAreaField
+                            label="Special Abilities"
+                            description='One Alpha Strike ability code per line; overrides weapon type codes'
+                            value={(this.props.editingItem.alphaStrike.specialAbility ?? []).join("\n")}
+                            onChange={this.updateSpecialAbility}
                         />
 
                         <TextAreaField

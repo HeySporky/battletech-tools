@@ -45,6 +45,15 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    setEngineTechBase = (event: React.FormEvent<HTMLSelectElement>): void => {
+      if (this.props.appGlobals.currentBattleMech) {
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setEngineTechBase(event.currentTarget.value as "is" | "clan");
+        this.props.appGlobals.saveCurrentBattleMech(currentMech);
+        this.setState({ updated: !this.state.updated });
+      }
+    }
+
     setGyroType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -108,6 +117,18 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                               </select>
                             </label>
                             <h3>Engine Type</h3>
+                            {this.props.appGlobals.currentBattleMech.getTech().tag === "mis" || this.props.appGlobals.currentBattleMech.getTech().tag === "mclan" ? (
+                              <label>
+                                Engine Technology:
+                                <select
+                                  value={this.props.appGlobals.currentBattleMech.getEngineTechBase()}
+                                  onChange={this.setEngineTechBase}
+                                >
+                                  <option value="is">Inner Sphere</option>
+                                  <option value="clan">Clan</option>
+                                </select>
+                              </label>
+                            ) : null}
                             <label>
                               Select Engine Type:
                               <select
