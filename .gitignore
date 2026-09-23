@@ -52,3 +52,6 @@ as_lookup_results.jsonl
 batch_as_lookup.py
 ollama*
 cline_custom_modes.json
+node_modules
+node_modules
+node_modules
