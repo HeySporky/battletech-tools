@@ -2,7 +2,6 @@ import React from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { IVehicleArmorAllocation } from '../../../../data/data-interfaces';
-import { mechArmorTypes } from '../../../../data/mech-armor-types';
 import { IAppGlobals } from '../../../app-router';
 import InputNumeric from '../../../components/form_elements/input_numeric';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
@@ -92,7 +91,7 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                             <label>
                                 Armor Type:
                                 <select value={vehicle.getArmorType().tag} onChange={this.updateArmorType}>
-                                    {mechArmorTypes.map((option) => (
+                                    {vehicle.getAvailableArmorTypes().map((option) => (
                                         <option key={option.tag} value={option.tag}>{option.name}</option>
                                     ))}
                                 </select>

@@ -1,8 +1,30 @@
 import { IClusterHit } from "../classes/battlemech";
 
+export interface IArmorUnitTypes {
+    battlemech: boolean;
+    protomech: boolean;
+    combatVehicle: boolean;
+    supportVehicle: boolean;
+    aerospaceFighter: boolean;
+    smallCraft: boolean;
+    dropShip: boolean;
+    battleArmor: boolean;
+    jumpShip: boolean;
+    warShip: boolean;
+}
+
+export type ArmorCriticalLocationsByChassis = Partial<Record<
+    "biped" | "quad" | "tripod" | "lam" | "quadvee",
+    Partial<Record<keyof ICriticalLocations, number>>
+>>;
+
 export interface IArmorType {
 	tag: string;
 	name: string;
+    unitTypes: IArmorUnitTypes;
+    constructionStatus?: "implemented" | "deferred";
+    constructionMode?: "base" | "equipment";
+    alphaStrikeAbility?: string;
     crits: {
         [key: string]: number;
     },
@@ -14,9 +36,7 @@ export interface IArmorType {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
-	critLocs?: {
-		[key: string]: number;
-    };
+    critLocs?: ArmorCriticalLocationsByChassis;
     available?: boolean;
 }
 
@@ -117,6 +137,9 @@ export interface IEquipmentItem {
     isStreak?: boolean;
     isUltra?: boolean;
     isSpecialAmmo?: boolean;
+    isModularArmor?: boolean;
+    additionalArmor?: number;
+    currentAdditionalArmor?: number;
     needsAmmo?: boolean;
     uuid?: string;
     resolved?: boolean;

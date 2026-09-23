@@ -78,6 +78,13 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         if( this.props.inPlay ) {
             inPlay = this.props.inPlay;
         }
+        const modularArmorLabels = this.props.mechData.getModularArmorPacks()
+            .filter(pack => pack.allocationLocation && pack.allocationLocation !== "un")
+            .map(pack => `${pack.allocationLocation!.toUpperCase()}${pack.rear ? "(R)" : ""} ${this.props.mechData.getModularArmorCurrentPoints(pack)}/10`);
+        const modularArmorLines = Array.from(
+            { length: Math.ceil(modularArmorLabels.length / 4) },
+            (_, index) => modularArmorLabels.slice(index * 4, index * 4 + 4).join("   ")
+        );
 
         let currentPhaseGroupColor = "#00a";
 
@@ -829,6 +836,20 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             />
         </>
     )}
+    {modularArmorLines.map((line, index) => (
+        <text
+            key={`modular-armor-${index}`}
+            x={this.armorBoxLeft + this.armorBoxWidth / 2}
+            y={this.armorBoxTop + 1145 + index * 20}
+            textAnchor="middle"
+            fontFamily="sans-serif"
+            fill={strokeColor}
+            style={{fontWeight: 700}}
+            fontSize={16}
+        >
+            {index === 0 ? "MODULAR ARMOR: " : ""}{line}
+        </text>
+    ))}
     </RecordSheetGroupBoxSVG>
 
     <RecordSheetGroupBoxSVG

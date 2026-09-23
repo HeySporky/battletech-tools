@@ -31,6 +31,7 @@ export interface IVehicleEquipmentExport {
     uuid?: string;
     currentAmmo?: number;
     selectedAmmoBinUUID?: string;
+    currentAdditionalArmor?: number;
 }
 
 export interface IVehicleAlphaStrikeStats {
@@ -207,7 +208,7 @@ export default class Vehicle {
     }
 
     public getCruiseMP(): number {
-        return this._cruiseMP;
+        return Math.max(0, this._cruiseMP - (this.hasActiveModularArmor() ? 1 : 0));
     }
 
     // NOTE: rating = tonnage x Cruise MP mirrors the 'Mech walk-MP formula (TechManual).
@@ -220,7 +221,7 @@ export default class Vehicle {
     }
 
     public getFlankMP(): number {
-        return Math.ceil(this._cruiseMP * 1.5);
+        return Math.ceil(this.getCruiseMP() * 1.5);
     }
 
     public getEngineRating(): number {
@@ -239,8 +240,17 @@ export default class Vehicle {
         return this._armorType;
     }
 
+    public getAvailableArmorTypes(): IArmorType[] {
+        const techTag = this.getTech().tag;
+        const isMixed = techTag === "mis" || techTag === "mclan";
+        return mechArmorTypes.filter((armor) => armor.unitTypes.combatVehicle
+            && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && (isMixed
+            ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
+            : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0));
+    }
+
     public setArmorType(tag: string): IArmorType {
-        this._armorType = mechArmorTypes.find((a) => a.tag === tag) ?? this._armorType;
+        this._armorType = this.getAvailableArmorTypes().find((armor) => armor.tag === tag) ?? this._armorType;
         this._calc();
         return this._armorType;
     }
@@ -257,7 +267,11 @@ export default class Vehicle {
     }
 
     public getArmorPointsPerTon(): number {
-        return this._armorType.armorMultiplier[this.getTech().tag === "clan" ? "clan" : "is"] || 16;
+        const preferredBase = this.getTech().tag === "clan" || this.getTech().tag === "mclan" ? "clan" : "is";
+        const armorBase = this._armorType.armorMultiplier[preferredBase] > 0
+            ? preferredBase
+            : preferredBase === "clan" ? "is" : "clan";
+        return this._armorType.armorMultiplier[armorBase] || 16;
     }
 
     public getArmorWeight(): number {
@@ -398,6 +412,9 @@ export default class Vehicle {
 
     public addEquipment(item: IEquipmentItem, location?: string, rear?: boolean): IEquipmentItem[] {
         const equipmentCopy: IEquipmentItem = { ...item, location, rear, uuid: generateUUID() };
+        if (equipmentCopy.isModularArmor) {
+            equipmentCopy.currentAdditionalArmor = equipmentCopy.additionalArmor ?? 10;
+        }
         this._equipmentList.push(equipmentCopy);
         this._calc();
         return this._equipmentList;
@@ -406,7 +423,11 @@ export default class Vehicle {
     public addEquipmentFromTag(tag: string, location?: string, rear?: boolean, uuid?: string): IEquipmentItem[] {
         const catalogItem = getEquipmentListByTech(this._tech.tag, true).find((item) => item.tag === tag);
         if (catalogItem) {
-            this._equipmentList.push({ ...catalogItem, location, rear, uuid: uuid || generateUUID() });
+            const equipment = { ...catalogItem, location, rear, uuid: uuid || generateUUID() };
+            if (equipment.isModularArmor) {
+                equipment.currentAdditionalArmor = equipment.additionalArmor ?? 10;
+            }
+            this._equipmentList.push(equipment);
             this._calc();
         }
         return this._equipmentList;
@@ -421,10 +442,21 @@ export default class Vehicle {
     public setEquipmentLocation(uuid: string, location: string): IEquipmentItem[] {
         const item = this._equipmentList.find((equipment) => equipment.uuid === uuid);
         if (item) {
+            if (item.isModularArmor && location && this._equipmentList.some(equipment =>
+                equipment.uuid !== uuid && equipment.isModularArmor && equipment.location === location
+            )) {
+                return this._equipmentList;
+            }
             item.location = location;
             this._calc();
         }
         return this._equipmentList;
+    }
+
+    public hasActiveModularArmor(): boolean {
+        return this._equipmentList.some(item =>
+            item.isModularArmor && item.location && (item.currentAdditionalArmor ?? item.additionalArmor ?? 0) > 0
+        );
     }
 
     // Combat Vehicles allocate equipment against per-location slot capacity (space.combatVehicle)
@@ -630,6 +662,7 @@ export default class Vehicle {
                 uuid: item.uuid,
                 currentAmmo: item.currentAmmo,
                 selectedAmmoBinUUID: item.selectedAmmoBinUUID,
+                currentAdditionalArmor: item.currentAdditionalArmor,
             })),
         };
     }
@@ -664,6 +697,10 @@ export default class Vehicle {
             this._equipmentList = [];
             for (const equipmentItem of importObject.equipment || []) {
                 this.addEquipmentFromTag(equipmentItem.tag, equipmentItem.location, equipmentItem.rear, equipmentItem.uuid);
+                const restoredItem = this._equipmentList.find(item => item.uuid === equipmentItem.uuid);
+                if (restoredItem && typeof equipmentItem.currentAdditionalArmor === "number") {
+                    restoredItem.currentAdditionalArmor = equipmentItem.currentAdditionalArmor;
+                }
             }
         } catch (error) {
             console.error("Vehicle importJSON failed:", error);

@@ -343,14 +343,7 @@ export class AlphaStrikeUnit {
         
 
             if( incomingMechData.BFAbilities && incomingMechData.BFAbilities.trim() ) {
-                this.abilities = incomingMechData.BFAbilities.split(",");
-                if (!this.abilities){
-                    this.abilities = [];
-                } else {
-                    for( let abi of this.abilities ) {
-                        abi = abi.trim();
-                    }
-                }
+                this.abilities = incomingMechData.BFAbilities.split(",").map(ability => ability.trim());
             }
 
             this.overheat = +incomingMechData.BFOverheat;
@@ -466,10 +459,7 @@ export class AlphaStrikeUnit {
             this.move = incomingMechData.move;
 
             if( typeof(incomingMechData.abilities) === "string" ) {
-                this.abilities = incomingMechData.abilities.split(",");
-                for( let abi of this.abilities ) {
-                    abi = abi.trim();
-                }
+                this.abilities = incomingMechData.abilities.split(",").map(ability => ability.trim());
             } else {
                 this.abilities = incomingMechData.abilities;
             }

@@ -196,6 +196,19 @@ tool. Items are ordered by dependency, not by product marketing priority.
 
 ## Phase 1b: Wire in construction mechanics and rules for Colossal Mechs
 
+## Specialized Armor Construction
+
+- [ ] Implement Patchwork Armor as per-location armor selection with each
+  location's own technology base, points-per-ton, critical requirements, cost,
+  and rules-level validation. Do not expose the placeholder aggregate profile
+  until location-level accounting exists.
+- [ ] Add a dedicated Battle Armor construction model. Battle Armor purchases
+  armor by points per trooper and kilograms rather than BattleMech armor tons or
+  critical slots; its stealth and mimetic profiles require separate effects.
+- [ ] Add ProtoMech armor construction, including fractional mass and future
+  source verification for UltraProto armor and Electric Discharge ProtoMech
+  Armor. Keep these rules out of BattleMech armor accounting.
+
 ## Phase 2: Conventional Vehicles
 
 - [x] Define the vehicle domain model and vehicle location/damage schema.

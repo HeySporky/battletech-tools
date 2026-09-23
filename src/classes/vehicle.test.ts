@@ -62,6 +62,32 @@ describe("Vehicle construction basics", () => {
         expect(restored.getTonnage()).toBe(55);
         expect(restored.getMotiveType().tag).toBe("wheeled");
     });
+
+    it("offers only armor marked for combat vehicles", () => {
+        const vehicle = new Vehicle();
+        expect(vehicle.getAvailableArmorTypes().every(armor => armor.unitTypes.combatVehicle)).toBe(true);
+        expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "stealth-basic")).toBe(true);
+        expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "modular")).toBe(false);
+        vehicle.setArmorType("stealth-improved");
+        expect(vehicle.getArmorType().tag).toBe("standard");
+    });
+
+    it("mounts one Modular Armor pack per location and applies its cruise penalty", () => {
+        const vehicle = new Vehicle();
+        vehicle.setEra("ilClan");
+        vehicle.setCruiseMP(5);
+        vehicle.addEquipmentFromTag("modular-armor");
+        vehicle.addEquipmentFromTag("modular-armor");
+        const [firstPack, secondPack] = vehicle.getEquipmentList().filter(item => item.isModularArmor);
+
+        vehicle.setEquipmentLocation(firstPack.uuid!, "front");
+        vehicle.setEquipmentLocation(secondPack.uuid!, "front");
+
+        expect(firstPack.location).toBe("front");
+        expect(secondPack.location).not.toBe("front");
+        expect(vehicle.getCruiseMP()).toBe(4);
+        expect(new Vehicle(vehicle.exportJSON()).hasActiveModularArmor()).toBe(true);
+    });
 });
 
 describe("Vehicle Internal Structure Table and armor caps", () => {

@@ -98,6 +98,9 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
             let isEquipment = this.props.mechData.equipmentList[ eq_count].isEquipment ? true : false ;
             let location = this.props.mechData.equipmentList[eq_count].location;
             let uuid = this.props.mechData.equipmentList[ eq_count].uuid;
+            const modularArmorPoints = this.props.mechData.equipmentList[eq_count].isModularArmor
+                ? this.props.mechData.getModularArmorCurrentPoints(this.props.mechData.equipmentList[eq_count])
+                : null;
             let isDamaged = false;
             if( uuid && location )
                 isDamaged = this.props.mechData.isEquipmentDamaged( uuid,  location);
@@ -177,7 +180,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
             if( ammoPerTon && isAmmo )
                 equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "c"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation} {currentAmmo}/{this.props.mechData.equipmentList[ eq_count].ammoPerTon} </text> );
             else
-                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "d"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation}</text> );
+                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "d"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation}{modularArmorPoints !== null ? ` ${modularArmorPoints}/10` : ""}</text> );
 
 
             if( location ) {

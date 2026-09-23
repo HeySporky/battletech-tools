@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
 import { validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";
+import { mechArmorTypes } from "../data/mech-armor-types";
 
 describe("BattleMech engine availability by era", () => {
     it("shows the expected Inner Sphere engines for a Star League mech", () => {
@@ -104,6 +105,7 @@ describe("BattleMech equipment catalogs", () => {
 
         const clanMech = new BattleMech();
         clanMech.setTech("clan");
+        clanMech.setEra("ilClan");
         expect(clanMech.getAvailableEquipmentByCatalog("is")).toEqual([]);
         expect(clanMech.getAvailableEquipmentByCatalog("clan").length).toBeGreaterThan(0);
         expect(clanMech.getAvailableEquipmentByCatalog("universal").length).toBeGreaterThan(0);
@@ -115,6 +117,57 @@ describe("BattleMech equipment catalogs", () => {
         expect(mixedMech.getAvailableEquipmentByCatalog("universal").length).toBeGreaterThan(0);
         expect(new Set(mixedMech.getAvailableEquipment().map(item => item.tag)).size)
             .toBe(mixedMech.getAvailableEquipment().length);
+    });
+});
+
+describe("BattleMech armor technology availability", () => {
+    it("filters armor by multiplier for pure tech bases and permits both families for mixed bases", () => {
+        const clanMech = new BattleMech();
+        clanMech.setTech("clan");
+        expect(clanMech.getAvailableArmorTypes().filter(armor => armor.available).map(armor => armor.tag))
+            .toEqual(["standard", "ferro-fibrous"]);
+
+        const mixedClanMech = new BattleMech();
+        mixedClanMech.setTech("mclan");
+        mixedClanMech.setEra("ilClan");
+        const mixedArmorTags = mixedClanMech.getAvailableArmorTypes().filter(armor => armor.available).map(armor => armor.tag);
+        expect(mixedArmorTags).toEqual(expect.arrayContaining(["standard", "ferro-fibrous", "light-ferro-fibrous", "heavy-ferro-fibrous", "stealth-basic", "ferro-lamellor"]));
+        expect(mixedArmorTags).not.toContain("modular");
+        expect(mixedArmorTags).not.toContain("patchwork");
+        expect(mixedArmorTags).not.toContain("ferro-aluminum");
+    });
+
+    it("defines complete unit eligibility and Stealth locations for every Mech chassis", () => {
+        const unitTypeKeys = ["battlemech", "protomech", "combatVehicle", "supportVehicle", "aerospaceFighter", "smallCraft", "dropShip", "battleArmor", "jumpShip", "warShip"];
+        for (const armor of mechArmorTypes) {
+            expect(Object.keys(armor.unitTypes).sort()).toEqual([...unitTypeKeys].sort());
+            expect(Object.values(armor.unitTypes).every(value => typeof value === "boolean")).toBe(true);
+        }
+
+        const stealth = mechArmorTypes.find(armor => armor.tag === "stealth-basic")!;
+        expect(Object.keys(stealth.critLocs ?? {}).sort()).toEqual(["biped", "lam", "quad", "quadvee", "tripod"]);
+        expect(stealth.critLocs?.tripod?.cl).toBe(2);
+        expect(stealth.critLocs?.quad?.fll).toBe(2);
+        expect(stealth.critLocs?.quad?.frl).toBe(2);
+    });
+
+    it("places Stealth armor criticals according to Tripod anatomy", () => {
+        const tripod = new BattleMech();
+        tripod.setEra("ilClan");
+        tripod.setType("tripod");
+        tripod.setArmorType("stealth-basic");
+
+        const criticals = tripod.getCriticals();
+        for (const location of ["leftArm", "rightArm", "leftTorso", "rightTorso", "leftLeg", "rightLeg", "centerLeg"] as const) {
+            expect(criticals[location].some(item => item?.tag === "stealth-basic"), location).toBe(true);
+        }
+    });
+
+    it("adds specialty armor abilities to Alpha Strike conversion", () => {
+        const mech = new BattleMech();
+        mech.setEra("ilClan");
+        mech.setArmorType("reactive");
+        expect(mech.getAlphaStrikeForceStats().abilities).toContain("RCA");
     });
 });
 
@@ -144,6 +197,54 @@ describe("BattleMech armor allocation", () => {
         mech.allocateArmorMax();
         expect(mech.getArmorWeight()).toBe(maximumTonnage);
         expect(mech.getUnallocatedArmor()).toBeGreaterThanOrEqual(0);
+    });
+});
+
+describe("BattleMech Modular Armor", () => {
+    it("mounts one pack per location, absorbs damage, applies penalties, and persists remaining points", () => {
+        const mech = new BattleMech();
+        mech.setEra("ilClan");
+        mech.setTonnage(50);
+        mech.setWalkSpeed(5);
+        mech.setJumpSpeed(3);
+        mech.setArmorWeight(5);
+        mech.setLeftTorsoArmor(10);
+
+        const leftTorsoPack = mech.addEquipmentFromTag("modular-armor", "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const duplicatePack = mech.addEquipmentFromTag("modular-armor", "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const rightTorsoPack = mech.addEquipmentFromTag("modular-armor", "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const unallocatedIndex = (uuid: string) => mech.unallocatedCriticals.findIndex(item => item?.uuid === uuid);
+        const openSlot = (location: "leftTorso" | "rightTorso") => mech.getCriticals()[location].findIndex(item => !item);
+
+        expect(mech.moveCritical("un", unallocatedIndex(leftTorsoPack.uuid!), "lt", openSlot("leftTorso"))).toBe(true);
+        expect(mech.moveCritical("un", unallocatedIndex(duplicatePack.uuid!), "lt", openSlot("leftTorso"))).toBe(false);
+        expect(mech.moveCritical("un", unallocatedIndex(rightTorsoPack.uuid!), "rt", openSlot("rightTorso"))).toBe(true);
+        expect(mech.getWalkSpeed()).toBe(4);
+        expect(mech.getJumpSpeed()).toBe(2);
+        expect(mech.getPilotingSkillModifier()).toBe(1);
+
+        mech.takeDamage(6, "lt", false);
+        expect(mech.getModularArmorCurrentPoints(leftTorsoPack)).toBe(4);
+        expect(mech.armorDamaged("lt", 0)).toBe(false);
+
+        mech.takeDamage(7, "lt", false);
+        expect(mech.getModularArmorCurrentPoints(leftTorsoPack)).toBe(0);
+        expect(mech.armorDamaged("lt", 0)).toBe(true);
+        expect(mech.getWalkSpeed()).toBe(4);
+
+        const rightPackSlot = mech.getCriticals().rightTorso.findIndex(item => item?.uuid === rightTorsoPack.uuid);
+        mech.toggleCritical("rt", rightPackSlot);
+        expect(mech.getModularArmorCurrentPoints(rightTorsoPack)).toBe(0);
+        expect(mech.getWalkSpeed()).toBe(5);
+        expect(mech.getJumpSpeed()).toBe(3);
+        expect(mech.getPilotingSkillModifier()).toBe(0);
+
+        const restored = new BattleMech(mech.exportJSON());
+        expect(restored.getModularArmorPacks()).toHaveLength(3);
+        const restoredLeftPack = restored.getModularArmorPacks().find(pack => pack.uuid === leftTorsoPack.uuid)!;
+        const restoredRightPack = restored.getModularArmorPacks().find(pack => pack.uuid === rightTorsoPack.uuid)!;
+        expect(restored.getModularArmorCurrentPoints(restoredLeftPack)).toBe(0);
+        expect(restored.getModularArmorCurrentPoints(restoredRightPack)).toBe(0);
     });
 });
 

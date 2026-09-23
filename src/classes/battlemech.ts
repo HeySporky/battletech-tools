@@ -102,6 +102,7 @@ interface IBMEquipmentExport {
     split_location?: ISplitLocation[] | undefined;
     currentAmmo?: number | undefined;
     selectedAmmoBinUUID?: string | undefined;
+    currentAdditionalArmor?: number | undefined;
 }
 export interface IBattleMechExport {
 
@@ -530,11 +531,11 @@ export class BattleMech {
 
     private _calcBattleValue(): void {
         let hasCamo = false;
-        let hasBasicStealth = false;
+        let hasBasicStealth = this._armorType.tag === "stealth-basic" && !this.hasActiveModularArmor();
         let hasPrototypeStealth = false;
         let hasStandardStealth = false;
         let hasImprovedStealth = false;
-        let hasMimetic = false;
+        let hasMimetic = this._armorType.tag === "mimetic";
         this._battleValue = 0;
         this._calcLogBV = "";
         /* *************************************************************************
@@ -1515,6 +1516,9 @@ export class BattleMech {
         this._alphaStrikeForceStats.longHeat = 0;
         this._alphaStrikeForceStats.abilityCodes = [];
         this._alphaStrikeForceStats.specialUnitAbilities = [];
+        if (this._armorType.alphaStrikeAbility && !(this._armorType.tag === "stealth-basic" && this.hasActiveModularArmor())) {
+            this._alphaStrikeForceStats.abilityCodes.push(this._armorType.alphaStrikeAbility);
+        }
 
         // this._alphaStrikeForceStats.getAbilityCode(abilityCode) {
         //     for (let abiC = 0; abiC < this._alphaStrikeForceStats.abilityCodes.length; abiC++) {
@@ -2805,7 +2809,7 @@ export class BattleMech {
             });
         }
         this._totalArmor = 0;
-        if( this.getTech().tag === "clan" ) {
+        if( this.getArmorTechBase() === "clan" ) {
             this._maxArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.clan);
         } else {
             this._maxArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.is);
@@ -3410,7 +3414,7 @@ export class BattleMech {
             }
         }
         // Jump Jets
-        let jump_move = this.getJumpSpeed();
+        let jump_move = this._jumpSpeed;
         for( let jmc = 0; jmc < jump_move; jmc++) {
             this._unallocatedCriticals.push({
                 uuid: generateUUID(),
@@ -3424,66 +3428,27 @@ export class BattleMech {
         }
 
         // Armor
-        let armorObj = this.getArmorObj();
-        if( this.getTech().tag === "clan" ) {
-            if( armorObj.crits.clan > 0) {
-                // if( armorObj.critLocs) {
-                //     for( let nameLoc in armorObj.critLocs) {
-                //         this._addCriticalItem(
-                //             armorObj.tag, // item_tag
-                //             armorObj.name, // item_nickname
-                //             armorObj.critLocs[nameLoc], // criticalCount
-                //             nameLoc, // location
-                //             null,// slot
-                //             true, // movable
-                //         );
-                //     }
-                // } else {
-                    for( let aCounter = 0; aCounter < armorObj.crits.clan; aCounter++) {
-                        this._unallocatedCriticals.push({
-                            uuid: generateUUID(),
-                            name: armorObj.name,
-                            tag: armorObj.tag,
-                            rollAgain: true,
-                            rear: false,
-                            crits: 1,
-                            obj: armorObj,
-                            movable: true
-                        });
-                    }
-                // }
+        const armorObj = this.getArmorObj();
+        const armorTechBase = this.getArmorTechBase();
+        const armorCriticalLocations = armorObj.critLocs?.[typeTag];
+        if (armorCriticalLocations) {
+            for (const [location, criticalCount] of Object.entries(armorCriticalLocations)) {
+                if (criticalCount && criticalCount > 0) {
+                    this._addCriticalItem(armorObj.tag, armorObj.name, criticalCount, location, null, true);
+                }
             }
         } else {
-            if( armorObj.crits.is > 0) {
-                // if( armorObj.critLocs ) {
-                //     // console.log("Allocating Armor to first available slot", this.getName(), dontAllocateArmorCrits, armorObj.tag, )
-                //     for( let nameLoc in armorObj.critLocs) {
-                //         for( let count = 0; count < armorObj.critLocs[nameLoc]; count++) {
-                //             this._addCriticalItem(
-                //                 armorObj.tag, // item_tag
-                //                 armorObj.name, // item_nickname
-                //                 1, // criticalCount
-                //                 nameLoc, // location
-                //                 null,// slot
-                //                 true, // movable
-                //             );
-                //         }
-                //     }
-                // } else {
-                    // console.log("Adding Armor to unallocated", this.getName(), dontAllocateArmorCrits, armorObj.tag, )
-                    for( let aCounter = 0; aCounter < armorObj.crits.is; aCounter++) {
-                        this._unallocatedCriticals.push({
-                            uuid: generateUUID(),
-                            name: armorObj.name,
-                            tag: armorObj.tag,
-                            rear: false,
-                            rollAgain: true,
-                            crits: 1,
-                            obj: armorObj,
-                            movable: true,
-                        });
-                    }
-                // }
+            for (let armorCritical = 0; armorCritical < armorObj.crits[armorTechBase]; armorCritical++) {
+                this._unallocatedCriticals.push({
+                    uuid: generateUUID(),
+                    name: armorObj.name,
+                    tag: armorObj.tag,
+                    rear: false,
+                    rollAgain: true,
+                    crits: 1,
+                    obj: armorObj,
+                    movable: true,
+                });
             }
         }
 
@@ -3530,10 +3495,10 @@ export class BattleMech {
 
 
             this._unallocatedCriticals.push({
-                // @ts-expect-error Legacy compatibility type mismatch                uuid: this._equipmentList[elc].uuid ? this._equipmentList[elc].uuid : "undefined?",
+                uuid: this._equipmentList[elc].uuid ?? generateUUID(),
                 name: this._equipmentList[elc].name + rearTag,
                 tag: this._equipmentList[elc].tag,
-                // loc: this._equipmentList[elc].location,
+                loc: this._equipmentList[elc].location,
                 rear: isRear,
                 crits: this._equipmentList[elc].space.battlemech,
                 obj: this._equipmentList[elc],
@@ -3737,7 +3702,7 @@ export class BattleMech {
         }
 
         // Stealth Armor
-        if( this.getArmorType() === "stealth" ) {
+        if( this.getArmorType() === "stealth-basic" ) {
             maxMoveHeat += 10;
         }
 
@@ -4084,7 +4049,8 @@ export class BattleMech {
             : ["ll", "rl"];
         const destroyedLegCount = legLocations.filter(location => this._structureInLocation(location) <= 0).length;
         const destroyedLegs = this.isTripod() ? Math.max(0, destroyedLegCount - 1) : destroyedLegCount;
-        return Math.max(0, Math.floor(this._walkSpeed * Math.max(0, 1 - destroyedLegs * 0.25)));
+        const legAdjustedSpeed = Math.floor(this._walkSpeed * Math.max(0, 1 - destroyedLegs * 0.25));
+        return Math.max(0, legAdjustedSpeed - (this.hasActiveModularArmor() ? 1 : 0));
     }
 
     public setWalkSpeed(
@@ -4106,7 +4072,7 @@ export class BattleMech {
     }
 
     public getJumpSpeed() {
-        return this._jumpSpeed;
+        return Math.max(0, this._jumpSpeed - (this.hasActiveModularArmor() ? 1 : 0));
     }
 
     public setJumpSpeed(
@@ -4132,14 +4098,33 @@ export class BattleMech {
         return this._armorType;
     }
 
+    public getArmorTechBase(): "is" | "clan" {
+        const techTag = this.getTech().tag;
+        if (techTag === "clan") return "clan";
+        if (techTag === "is") return "is";
+        const preferredBase = techTag === "mclan" ? "clan" : "is";
+        if (this._armorType.armorMultiplier[preferredBase] > 0) return preferredBase;
+        return preferredBase === "clan" ? "is" : "clan";
+    }
+
     public setArmorType(armorTag: string) {
+        if (armorTag === "stealth") {
+            armorTag = "stealth-basic";
+        }
         if (this.isQuadVee() && armorTag !== "standard") {
             return this._armorType;
         }
         for( let aCount = 0; aCount < mechArmorTypes.length; aCount++) {
             if( mechArmorTypes[aCount].tag === armorTag) {
-                this._armorType = mechArmorTypes[aCount];
-                this._calc();
+                const armor = mechArmorTypes[aCount];
+                const techTag = this.getTech().tag;
+                const supportsTech = techTag === "mis" || techTag === "mclan"
+                    ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
+                    : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0;
+                if (armor.unitTypes.battlemech && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && supportsTech) {
+                    this._armorType = armor;
+                    this._calc();
+                }
             }
         }
         return this._armorType;
@@ -4157,7 +4142,7 @@ export class BattleMech {
         // _totalArmor = this._armorWeight * 16;
         // break;
         // }
-        if( this.getTech().tag === "clan" ) {
+        if( this.getArmorTechBase() === "clan" ) {
             // console.log("AW clan: ", this._totalArmor, this.getArmorObj().armorMultiplier.is, this._totalArmor / this.getArmorObj().armorMultiplier.clan, this.getArmorObj().name )
             this._armorWeight = this._totalArmor / this.getArmorObj().armorMultiplier.clan;
         } else {
@@ -4169,7 +4154,7 @@ export class BattleMech {
             // and odd weight, likely wasted armor
             // console.log("AW is an odd weight, likely wasted armor: ", this._armorWeight, this._totalArmor )
             this._armorWeight = Math.ceil(this._armorWeight*2)/2;
-            if( this.getTech().tag === "clan" ) {
+            if( this.getArmorTechBase() === "clan" ) {
                 // this._totalArmor = this._armorWeight * this.getArmorObj().armorMultiplier.clan;
                 this._maxArmor = this._armorWeight * this.getArmorObj().armorMultiplier.clan;
             } else {
@@ -4214,12 +4199,11 @@ export class BattleMech {
         for (const engine of mechEngineOptions) {
             if (engine.rating === parsedRating) {
                 this._engine = engine;
-                this._calc(); // Cascade down calculation rules only on a successful update
+                this._calc();
                 return this._engine;
             }
         }
 
-        // If an matching engine size doesn't exist in our catalog, alert the system and exit cleanly
         console.warn(`setEngine failed: Rating entry '${parsedRating}' could not be located in your options registry. Please submit a ticket on GitHub.`);
         return 0;
     }
@@ -4281,6 +4265,14 @@ export class BattleMech {
         let indexNumber = this.criticalDamage[location].indexOf( critSlotIndex );
         if( indexNumber === - 1 ) {
             this.criticalDamage[location].push( critSlotIndex );
+            const targetProp = BattleMech.MECH_LOCATION_MAP[location];
+            const critical = targetProp ? (this._criticals as any)[targetProp]?.[critSlotIndex] : null;
+            if (critical?.uuid) {
+                const modularArmor = this._equipmentList.find(item => item.uuid === critical.uuid && item.isModularArmor);
+                if (modularArmor) {
+                    modularArmor.currentAdditionalArmor = 0;
+                }
+            }
         } else {
             this.criticalDamage[location].splice( indexNumber, 1);
         }
@@ -4774,7 +4766,7 @@ export class BattleMech {
 
         public getMaxArmorTonnage(
             armorTag: string = this.getArmorType(),
-            techBase: "is" | "clan" = this.getTech().tag === "clan" ? "clan" : "is"
+            techBase: "is" | "clan" = this.getArmorTechBase()
         ): number {
       // Dynamically retrieve the absolute maximum armor points configured for this chassis layout
             const totalPoints = this.getChassisMaxArmor();
@@ -4853,7 +4845,8 @@ export class BattleMech {
             if (this.hasMotiveSystemDamage()) {
                 return 0;
             }
-            return this._walkSpeed + (this._quadVeeMotive === "wheeled" ? 1 : 0);
+            const cruiseMP = this._walkSpeed + (this._quadVeeMotive === "wheeled" ? 1 : 0);
+            return Math.max(0, cruiseMP - (this.hasActiveModularArmor() ? 1 : 0));
         }
 
         public getTransformationMode(): "mech" | "airmech" | "aerospace" | "vehicle" {
@@ -4888,7 +4881,7 @@ export class BattleMech {
         }
 
         public getPilotingSkillModifier(): number {
-            return this.isTripod() ? -1 : 0;
+            return (this.isTripod() ? -1 : 0) + (this.hasActiveModularArmor() ? 1 : 0);
         }
 
         public ignoresSecondaryTargetModifier(): boolean {
@@ -5113,6 +5106,7 @@ export class BattleMech {
                     uuid: this._equipmentList[countEQ].uuid,
                     weight: this._equipmentList[countEQ].weight,
                     split_location: this._equipmentList[countEQ].split_location,
+                    currentAdditionalArmor: this._equipmentList[countEQ].currentAdditionalArmor,
 
                 });
             } else {
@@ -5132,6 +5126,7 @@ export class BattleMech {
                     split_location: this._equipmentList[countEQ].split_location,
                     currentAmmo: this._equipmentList[countEQ].currentAmmo,
                     selectedAmmoBinUUID: this._equipmentList[countEQ].selectedAmmoBinUUID,
+                    currentAdditionalArmor: this._equipmentList[countEQ].currentAdditionalArmor,
                 });
             }
 
@@ -5436,7 +5431,7 @@ export class BattleMech {
                     }
 
                     // console.log("X", this.getName(), importItem.tag, importItem.split_location);
-                    this.addEquipmentFromTag(
+                    const restoredEquipment = this.addEquipmentFromTag(
                         importItem.tag,
                         this.getTech().tag,
                         importItem.loc,
@@ -5450,6 +5445,9 @@ export class BattleMech {
                         importItem.currentAmmo,
                         importItem.selectedAmmoBinUUID,
                     );
+                    if (restoredEquipment && typeof importItem.currentAdditionalArmor === "number") {
+                        restoredEquipment.currentAdditionalArmor = importItem.currentAdditionalArmor;
+                    }
                 }
             }
 
@@ -5777,6 +5775,9 @@ export class BattleMech {
                 } else {
                     equipmentItem.currentAmmo = currentAmmo;
                 }
+                if (equipmentItem.isModularArmor && typeof equipmentItem.currentAdditionalArmor !== "number") {
+                    equipmentItem.currentAdditionalArmor = equipmentItem.additionalArmor ?? 10;
+                }
 
                 equipmentItem.selectedAmmoBinUUID = selectedAmmoBinUUID;
 
@@ -5980,6 +5981,8 @@ export class BattleMech {
     private _locationHasArmor(
         location: string
     ): boolean {
+        if (this.getActiveModularArmorAtLocation(location))
+            return true;
         if( this._armorInLocation( location ) > 0 )
             return true;
 
@@ -6084,6 +6087,15 @@ export class BattleMech {
         }
 
         const normalizedLocation = location.toLowerCase().trim();
+        const modularArmor = this.getActiveModularArmorAtLocation(normalizedLocation);
+        if (modularArmor) {
+            const modularDamage = Math.min(modularArmor.currentAdditionalArmor ?? 0, amount);
+            modularArmor.currentAdditionalArmor = (modularArmor.currentAdditionalArmor ?? 0) - modularDamage;
+            amount -= modularDamage;
+            if (amount <= 0) {
+                return 0;
+            }
+        }
 
         // Core Architecture Armor Matrix Lookup Dictionary
         const armorMap: Record<string, boolean[] | undefined> = {
@@ -6360,6 +6372,16 @@ export class BattleMech {
             return false;
         }
         const fromItem = fromLocationObj[fromIndex];
+        if (fromItem.tag === "modular-armor" && destLoc !== "un") {
+            const duplicatePack = this._equipmentList.some(item =>
+                item.isModularArmor
+                && item.uuid !== fromItem.uuid
+                && item.allocationLocation === destLoc
+            );
+            if (duplicatePack) {
+                return false;
+            }
+        }
         // PATHWAY A: ADVANCED ITEM SPLIT ALLOCATION PROCESSING (e.g., Critical Item splits across multiple parts)
         if (split_location && split_location.length > 0) {
             let overallSuccess = true;
@@ -6416,6 +6438,7 @@ export class BattleMech {
             if( item && item.uuid === uuid ) {
                 item.allocationIndex = allocationIndex;
                 item.allocationLocation = allocationLocation;
+                item.location = allocationLocation;
             }
         }
     }
@@ -6540,6 +6563,7 @@ export class BattleMech {
             }
             this._removeUUIDFromUnallocated(toLocation[toIndex].uuid);
         }
+        this._setEquipmentAllocation(fromItem.uuid, toIndex, normalizedTag);
         // Force downstream tables updates
         this._updateCriticalAllocationTable();
         return true;
@@ -6715,9 +6739,16 @@ export class BattleMech {
 
     public getAvailableArmorTypes(): IArmorType[] {
         let returnValue: IArmorType[] = [];
+        const techTag = this.getTech().tag;
+        const isMixed = techTag === "mis" || techTag === "mclan";
 
         for(let armor of mechArmorTypes ) {
-            armor.available = this._itemIsAvailable( armor.introduced, armor.extinct, armor.reintroduced);
+            const hasCompatibleMultiplier = armor.unitTypes.battlemech
+                && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && (isMixed
+                ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
+                : (techTag === "clan" ? armor.armorMultiplier.clan : armor.armorMultiplier.is) > 0);
+            armor.available = hasCompatibleMultiplier
+                && this._itemIsAvailable( armor.introduced, armor.extinct, armor.reintroduced);
 
             returnValue.push( armor );
         }
@@ -6956,9 +6987,7 @@ export class BattleMech {
             }
         }
         this._armorAllocation = maxAllocation;
-        const armorMultiplier = this.getTech().tag === "clan"
-            ? this.getArmorObj().armorMultiplier.clan
-            : this.getArmorObj().armorMultiplier.is;
+        const armorMultiplier = this.getArmorObj().armorMultiplier[this.getArmorTechBase()];
         this._armorWeight = Math.ceil((this.getChassisMaxArmor() / armorMultiplier) * 2) / 2;
         this._calc();
     }
@@ -7091,6 +7120,38 @@ export class BattleMech {
             }
         }
         return false;
+    }
+
+    public getModularArmorPacks(): IEquipmentItem[] {
+        return this._equipmentList.filter(item => item.isModularArmor);
+    }
+
+    public getModularArmorCurrentPoints(item: IEquipmentItem): number {
+        if (!item.isModularArmor || !item.uuid || !item.allocationLocation) {
+            return 0;
+        }
+        if (this.isEquipmentDamaged(item.uuid, item.allocationLocation)) {
+            return 0;
+        }
+        return Math.max(0, item.currentAdditionalArmor ?? item.additionalArmor ?? 0);
+    }
+
+    public hasActiveModularArmor(): boolean {
+        return this.getModularArmorPacks().some(item => this.getModularArmorCurrentPoints(item) > 0);
+    }
+
+    public getActiveModularArmorAtLocation(location: string): IEquipmentItem | null {
+        const normalizedLocation = location.toLowerCase().trim();
+        const rearTorsoLocations: Record<string, string> = { ctr: "ct", ltr: "lt", rtr: "rt" };
+        const baseLocation = rearTorsoLocations[normalizedLocation] ?? normalizedLocation;
+        const rearHit = normalizedLocation in rearTorsoLocations;
+
+        return this.getModularArmorPacks().find(item => {
+            if (this.getModularArmorCurrentPoints(item) <= 0 || item.allocationLocation !== baseLocation) {
+                return false;
+            }
+            return ["ct", "lt", "rt"].includes(baseLocation) ? Boolean(item.rear) === rearHit : true;
+        }) ?? null;
     }
 
     public engineHits(): number {
@@ -8307,7 +8368,7 @@ export class BattleMech {
                     } else if( jObj.mech.armor.type === "Heavy Ferro-Fibrous" ) {
                         this.setArmorType( "heavy-ferro-fibrous" )
                     } else if( jObj.mech.armor.type.indexOf( "Stealth" )  > -1) {
-                        this.setArmorType( "stealth" )
+                        this.setArmorType( "stealth-basic" )
                     }
 
                     this.setArmorCount( totalArmor );
