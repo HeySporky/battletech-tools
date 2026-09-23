@@ -1226,7 +1226,7 @@ export class AlphaStrikeUnit {
                 let split = abi.split(/\d/);
 
 
-                let canBeCritAbilities = ['FLK', 'HT', 'IF', 'LRM', 'SRM', 'TUR(', 'TOR', 'REAR', 'AC','IATM']
+                let canBeCritAbilities = ['FLK', 'HT', 'IF', 'LRM', 'MSL', 'SRM', 'TUR(', 'TOR', 'REAR', 'AC','IATM']
                 // If there are no numbers, it's not got damage values
                 if (split.length === 1 || !canBeCritAbilities.includes(split[0].trim())) {
                     return abi;
@@ -1246,7 +1246,7 @@ export class AlphaStrikeUnit {
                     let damage = 0;
                     let minimal = false;
                     let dash = false;
-                    if (damageValue == "-") {
+                    if (damageValue === "-") {
                         dash = true;
                     } else {
                         [damage, minimal] = this.calculateDamage(+damageValue, currentWeaponHits, damageValue === "0*");
@@ -1671,54 +1671,54 @@ export class AlphaStrikeUnit {
 
     public applyRound() {
         this.currentHeat = this.roundHeat;
-        this.roundArmor.map( (point, pointIndex) => {
+        this.roundArmor.forEach((point, pointIndex) => {
             if (point) {
                 this.currentArmor[pointIndex] = !this.currentArmor[pointIndex];
                 this.roundArmor[pointIndex] = false;
             }
-        })
-        this.roundStructure.map( (point, pointIndex) => {
+        });
+        this.roundStructure.forEach((point, pointIndex) => {
             if (point) {
                 this.currentStructure[pointIndex] = !this.currentStructure[pointIndex];
                 this.roundStructure[pointIndex] = false;
             }
-        })
-        this.roundEngineHits.map( (point, pointIndex) => {
+        });
+        this.roundEngineHits.forEach((point, pointIndex) => {
             if (point) {
                 this.engineHits[pointIndex] = !this.engineHits[pointIndex];
                 this.roundEngineHits[pointIndex] = false;
             }
-        })
-        this.roundFireControlHits.map( (point, pointIndex) => {
+        });
+        this.roundFireControlHits.forEach((point, pointIndex) => {
             if (point) {
                 this.fireControlHits[pointIndex] = !this.fireControlHits[pointIndex];
                 this.roundFireControlHits[pointIndex] = false;
             }
-        })
-        this.roundMpControlHits.map( (point, pointIndex) => {
+        });
+        this.roundMpControlHits.forEach((point, pointIndex) => {
             if (point) {
                 this.mpControlHits[pointIndex] = !this.mpControlHits[pointIndex];
                 this.roundMpControlHits[pointIndex] = false;
             }
-        })
-        this.roundWeaponHits.map( (point, pointIndex) => {
+        });
+        this.roundWeaponHits.forEach((point, pointIndex) => {
             if (point) {
                 this.weaponHits[pointIndex] = !this.weaponHits[pointIndex];
                 this.roundWeaponHits[pointIndex] = false;
             }
-        })
-        this.roundVehicleMotive910.map( (point, pointIndex) => {
+        });
+        this.roundVehicleMotive910.forEach((point, pointIndex) => {
             if (point) {
                 this.vehicleMotive910[pointIndex] = !this.vehicleMotive910[pointIndex];
                 this.roundVehicleMotive910[pointIndex] = false;
             }
-        })
-        this.roundVehicleMotive11.map( (point, pointIndex) => {
+        });
+        this.roundVehicleMotive11.forEach((point, pointIndex) => {
             if (point) {
                 this.vehicleMotive11[pointIndex] = !this.vehicleMotive11[pointIndex];
                 this.roundVehicleMotive11[pointIndex] = false;
             }
-        })
+        });
         if (this.roundVehicleMotive12) {
             this.vehicleMotive12 = !this.vehicleMotive12;
         }
