@@ -1,4 +1,5 @@
 tools/.live-mul-battle-armor/
+/battletech-tools/
 node_modules*
 node_modules
 robots.txt
