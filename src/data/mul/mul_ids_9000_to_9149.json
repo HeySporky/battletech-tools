@@ -4684,7 +4684,7 @@
     "Name": "Djinn Battle Armor (Reflective)",
     "GroupName": null,
     "Class": "Djinn Battle Armor (Reflective)",
-    "Variant": "“Terrorizer” [MG]  (Sqd6)",
+    "Variant": "\u201cTerrorizer\u201d [MG]  (Sqd6)",
     "Tonnage": 0.8,
     "BattleValue": 327,
     "Technology": {
@@ -4744,7 +4744,7 @@
     "Name": "Djinn Battle Armor (Reflective)",
     "GroupName": null,
     "Class": "Djinn Battle Armor (Reflective)",
-    "Variant": "“Terrorizer” [Flamer] (Sqd6)",
+    "Variant": "\u201cTerrorizer\u201d [Flamer] (Sqd6)",
     "Tonnage": 0.8,
     "BattleValue": 327,
     "Technology": {
@@ -4804,7 +4804,7 @@
     "Name": "Djinn Battle Armor (Reflective)",
     "GroupName": null,
     "Class": "Djinn Battle Armor (Reflective)",
-    "Variant": "“Terrorizer” [Laser] (Sqd6)",
+    "Variant": "\u201cTerrorizer\u201d [Laser] (Sqd6)",
     "Tonnage": 0.8,
     "BattleValue": 382,
     "Technology": {

@@ -7013,10 +7013,10 @@
   },
   {
     "Id": 3693,
-    "Name": "Alfar AL-D1 \"Dökkálfar\"",
+    "Name": "Alfar AL-D1 \"D\u00f6kk\u00e1lfar\"",
     "GroupName": "",
     "Class": "Alfar",
-    "Variant": "AL-D1 \"Dökkálfar\"",
+    "Variant": "AL-D1 \"D\u00f6kk\u00e1lfar\"",
     "Tonnage": 55,
     "BattleValue": 0,
     "Technology": {

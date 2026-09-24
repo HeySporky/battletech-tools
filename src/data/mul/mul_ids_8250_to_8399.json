@@ -2119,10 +2119,10 @@
   },
   {
     "Id": 8290,
-    "Name": "Guillotine GLT-3N (Estriđsen)",
+    "Name": "Guillotine GLT-3N (Estri\u0111sen)",
     "GroupName": "",
     "Class": "Guillotine",
-    "Variant": "GLT-3N (Estriđsen)",
+    "Variant": "GLT-3N (Estri\u0111sen)",
     "Tonnage": 70,
     "BattleValue": 0,
     "Technology": {

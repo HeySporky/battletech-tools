@@ -7049,7 +7049,7 @@
   },
   {
     "Id": 5778,
-    "Title": "Şoarece Superheavy MBT",
+    "Title": "\u015eoarece Superheavy MBT",
     "Fields": {
       "Tonnage": "175",
       "Battle Value": "2,285",
@@ -7066,9 +7066,9 @@
   },
   {
     "Id": 5778,
-    "Name": "Şoarece Superheavy MBT  ",
+    "Name": "\u015eoarece Superheavy MBT  ",
     "GroupName": "",
-    "Class": "Şoarece Superheavy MBT",
+    "Class": "\u015eoarece Superheavy MBT",
     "Variant": " ",
     "Tonnage": 175,
     "BattleValue": 2285,
@@ -7446,10 +7446,10 @@
   },
   {
     "Id": 5783,
-    "Name": "Black Knight BL-X-KNT “Red Reaper”",
+    "Name": "Black Knight BL-X-KNT \u201cRed Reaper\u201d",
     "GroupName": "",
     "Class": "Black Knight",
-    "Variant": "BL-X-KNT “Red Reaper”",
+    "Variant": "BL-X-KNT \u201cRed Reaper\u201d",
     "Tonnage": 75,
     "BattleValue": 1858,
     "Technology": {
@@ -7506,10 +7506,10 @@
   },
   {
     "Id": 5784,
-    "Name": "Mauler MAL-4X “Todesbote”",
+    "Name": "Mauler MAL-4X \u201cTodesbote\u201d",
     "GroupName": "Mauler",
     "Class": "Mauler",
-    "Variant": "MAL-4X “Todesbote”",
+    "Variant": "MAL-4X \u201cTodesbote\u201d",
     "Tonnage": 90,
     "BattleValue": 1904,
     "Technology": {
@@ -8331,7 +8331,7 @@
   },
   {
     "Id": 5790,
-    "Title": "Mówáng-class Courier (Clandestine)",
+    "Title": "M\u00f3w\u00e1ng-class Courier (Clandestine)",
     "Fields": {
       "Tonnage": "100",
       "Battle Value": "272",
@@ -8355,7 +8355,7 @@
           "Era"
         ],
         [
-          "Mówáng-class Courier",
+          "M\u00f3w\u00e1ng-class Courier",
           "NA",
           "NA",
           "Standard",
@@ -8367,9 +8367,9 @@
   },
   {
     "Id": 5790,
-    "Name": "Mówáng-class Courier (Clandestine)",
+    "Name": "M\u00f3w\u00e1ng-class Courier (Clandestine)",
     "GroupName": "",
-    "Class": "Mówáng-class Courier",
+    "Class": "M\u00f3w\u00e1ng-class Courier",
     "Variant": "(Clandestine)",
     "Tonnage": 100,
     "BattleValue": 272,
@@ -8428,9 +8428,9 @@
   },
   {
     "Id": 5791,
-    "Name": "Groundhog Exoskeleton “Master Thief\"",
+    "Name": "Groundhog Exoskeleton \u201cMaster Thief\"",
     "GroupName": null,
-    "Class": "Groundhog Exoskeleton “Master Thief\"",
+    "Class": "Groundhog Exoskeleton \u201cMaster Thief\"",
     "Variant": "(Sqd1)",
     "Tonnage": 0.4,
     "BattleValue": 4,
@@ -8491,7 +8491,7 @@
     "Name": "Djinn Battle Armor (Reflective)",
     "GroupName": null,
     "Class": "Djinn Battle Armor (Reflective)",
-    "Variant": "“Terrorizer” [MG]  (Sqd4)",
+    "Variant": "\u201cTerrorizer\u201d [MG]  (Sqd4)",
     "Tonnage": 0.8,
     "BattleValue": 189,
     "Technology": {
@@ -8551,7 +8551,7 @@
     "Name": "Djinn Battle Armor (Reflective)",
     "GroupName": null,
     "Class": "Djinn Battle Armor (Reflective)",
-    "Variant": "“Terrorizer” [Flamer] (Sqd4)",
+    "Variant": "\u201cTerrorizer\u201d [Flamer] (Sqd4)",
     "Tonnage": 0.8,
     "BattleValue": 189,
     "Technology": {
@@ -8611,7 +8611,7 @@
     "Name": "Djinn Battle Armor (Reflective)",
     "GroupName": null,
     "Class": "Djinn Battle Armor (Reflective)",
-    "Variant": "“Terrorizer” [Laser] (Sqd4)",
+    "Variant": "\u201cTerrorizer\u201d [Laser] (Sqd4)",
     "Tonnage": 0.8,
     "BattleValue": 211,
     "Technology": {
@@ -8806,7 +8806,7 @@
   },
   {
     "Id": 5798,
-    "Title": "Araña ARA-S-1 MilitiaMech",
+    "Title": "Ara\u00f1a ARA-S-1 MilitiaMech",
     "Fields": {
       "Tonnage": "40",
       "Battle Value": "1,092",
@@ -8823,9 +8823,9 @@
   },
   {
     "Id": 5798,
-    "Name": "Araña ARA-S-1 MilitiaMech",
+    "Name": "Ara\u00f1a ARA-S-1 MilitiaMech",
     "GroupName": "",
-    "Class": "Araña",
+    "Class": "Ara\u00f1a",
     "Variant": "ARA-S-1 MilitiaMech",
     "Tonnage": 40,
     "BattleValue": 1092,

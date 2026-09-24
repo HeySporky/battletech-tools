@@ -7166,7 +7166,7 @@
   },
   {
     "Id": 5207,
-    "Title": "Teppō Artillery Vehicle",
+    "Title": "Tepp\u014d Artillery Vehicle",
     "Fields": {
       "Tonnage": "150",
       "Battle Value": "1,874",
@@ -7183,9 +7183,9 @@
   },
   {
     "Id": 5207,
-    "Name": "Teppō Artillery Vehicle  ",
+    "Name": "Tepp\u014d Artillery Vehicle  ",
     "GroupName": "",
-    "Class": "Teppō Artillery Vehicle",
+    "Class": "Tepp\u014d Artillery Vehicle",
     "Variant": " ",
     "Tonnage": 150,
     "BattleValue": 1874,

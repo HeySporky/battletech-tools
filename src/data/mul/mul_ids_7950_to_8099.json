@@ -6166,7 +6166,7 @@
   },
   {
     "Id": 8054,
-    "Title": "Schildkröte Line Tank (Light Gauss)",
+    "Title": "Schildkr\u00f6te Line Tank (Light Gauss)",
     "Fields": {
       "Tonnage": "50",
       "Battle Value": "954",
@@ -6190,7 +6190,7 @@
           "Era"
         ],
         [
-          "Schildkröte Line Tank",
+          "Schildkr\u00f6te Line Tank",
           "1,009",
           "28",
           "Advanced",
@@ -6198,7 +6198,7 @@
           ""
         ],
         [
-          "Schildkröte Line Tank (HPPC)",
+          "Schildkr\u00f6te Line Tank (HPPC)",
           "1,057",
           "28",
           "Advanced",
@@ -6206,7 +6206,7 @@
           ""
         ],
         [
-          "Schildkröte Line Tank (Plasma)",
+          "Schildkr\u00f6te Line Tank (Plasma)",
           "1,104",
           "29",
           "Advanced",
@@ -6218,9 +6218,9 @@
   },
   {
     "Id": 8054,
-    "Name": "Schildkröte Line Tank (Light Gauss)",
+    "Name": "Schildkr\u00f6te Line Tank (Light Gauss)",
     "GroupName": "",
-    "Class": "Schildkröte Line Tank",
+    "Class": "Schildkr\u00f6te Line Tank",
     "Variant": "(Light Gauss)",
     "Tonnage": 50,
     "BattleValue": 954,
@@ -6279,7 +6279,7 @@
   },
   {
     "Id": 8055,
-    "Title": "Schildkröte Line Tank (Plasma)",
+    "Title": "Schildkr\u00f6te Line Tank (Plasma)",
     "Fields": {
       "Tonnage": "50",
       "Battle Value": "1,104",
@@ -6303,7 +6303,7 @@
           "Era"
         ],
         [
-          "Schildkröte Line Tank",
+          "Schildkr\u00f6te Line Tank",
           "1,009",
           "28",
           "Advanced",
@@ -6311,7 +6311,7 @@
           ""
         ],
         [
-          "Schildkröte Line Tank (HPPC)",
+          "Schildkr\u00f6te Line Tank (HPPC)",
           "1,057",
           "28",
           "Advanced",
@@ -6319,7 +6319,7 @@
           ""
         ],
         [
-          "Schildkröte Line Tank (Light Gauss)",
+          "Schildkr\u00f6te Line Tank (Light Gauss)",
           "954",
           "24",
           "Advanced",
@@ -6331,9 +6331,9 @@
   },
   {
     "Id": 8055,
-    "Name": "Schildkröte Line Tank (Plasma)",
+    "Name": "Schildkr\u00f6te Line Tank (Plasma)",
     "GroupName": "",
-    "Class": "Schildkröte Line Tank",
+    "Class": "Schildkr\u00f6te Line Tank",
     "Variant": "(Plasma)",
     "Tonnage": 50,
     "BattleValue": 1104,
@@ -6885,9 +6885,9 @@
   },
   {
     "Id": 8061,
-    "Name": "Götterdämmerung GTD-20C",
+    "Name": "G\u00f6tterd\u00e4mmerung GTD-20C",
     "GroupName": "",
-    "Class": "Götterdämmerung",
+    "Class": "G\u00f6tterd\u00e4mmerung",
     "Variant": "GTD-20C",
     "Tonnage": 75,
     "BattleValue": 2285,
@@ -6945,9 +6945,9 @@
   },
   {
     "Id": 8062,
-    "Name": "Götterdämmerung GTD-30S",
+    "Name": "G\u00f6tterd\u00e4mmerung GTD-30S",
     "GroupName": "",
-    "Class": "Götterdämmerung",
+    "Class": "G\u00f6tterd\u00e4mmerung",
     "Variant": "GTD-30S",
     "Tonnage": 75,
     "BattleValue": 1574,

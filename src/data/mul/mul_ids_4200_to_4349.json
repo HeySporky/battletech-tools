@@ -3234,7 +3234,7 @@
   },
   {
     "Id": 4255,
-    "Title": "Gürteltier MBT (C3M)",
+    "Title": "G\u00fcrteltier MBT (C3M)",
     "Fields": {
       "Tonnage": "100",
       "Battle Value": "1,863",
@@ -3258,7 +3258,7 @@
           "Era"
         ],
         [
-          "Gürteltier MBT",
+          "G\u00fcrteltier MBT",
           "2,125",
           "54",
           "Standard",
@@ -3270,9 +3270,9 @@
   },
   {
     "Id": 4255,
-    "Name": "Gürteltier MBT (C3M)",
+    "Name": "G\u00fcrteltier MBT (C3M)",
     "GroupName": "",
-    "Class": "Gürteltier MBT",
+    "Class": "G\u00fcrteltier MBT",
     "Variant": "(C3M)",
     "Tonnage": 100,
     "BattleValue": 1863,
@@ -3331,7 +3331,7 @@
   },
   {
     "Id": 4256,
-    "Title": "Gürteltier MBT",
+    "Title": "G\u00fcrteltier MBT",
     "Fields": {
       "Tonnage": "100",
       "Battle Value": "2,125",
@@ -3355,7 +3355,7 @@
           "Era"
         ],
         [
-          "Gürteltier MBT (C3M)",
+          "G\u00fcrteltier MBT (C3M)",
           "1,863",
           "55",
           "Standard",
@@ -3367,9 +3367,9 @@
   },
   {
     "Id": 4256,
-    "Name": "Gürteltier MBT  ",
+    "Name": "G\u00fcrteltier MBT  ",
     "GroupName": "",
-    "Class": "Gürteltier MBT",
+    "Class": "G\u00fcrteltier MBT",
     "Variant": " ",
     "Tonnage": 100,
     "BattleValue": 2125,

@@ -1,9 +1,9 @@
 [
   {
     "Id": 6450,
-    "Name": "Gùn GN-2O",
+    "Name": "G\u00f9n GN-2O",
     "GroupName": "",
-    "Class": "Gùn",
+    "Class": "G\u00f9n",
     "Variant": "GN-2O",
     "Tonnage": 20,
     "BattleValue": 775,
@@ -61,9 +61,9 @@
   },
   {
     "Id": 6451,
-    "Name": "Gùn GN-2OA",
+    "Name": "G\u00f9n GN-2OA",
     "GroupName": "",
-    "Class": "Gùn",
+    "Class": "G\u00f9n",
     "Variant": "GN-2OA",
     "Tonnage": 20,
     "BattleValue": 685,
@@ -121,9 +121,9 @@
   },
   {
     "Id": 6452,
-    "Name": "Gùn GN-2OB",
+    "Name": "G\u00f9n GN-2OB",
     "GroupName": "",
-    "Class": "Gùn",
+    "Class": "G\u00f9n",
     "Variant": "GN-2OB",
     "Tonnage": 20,
     "BattleValue": 639,
@@ -1339,7 +1339,7 @@
   },
   {
     "Id": 6473,
-    "Title": "Yùn Y-2",
+    "Title": "Y\u00f9n Y-2",
     "Fields": {
       "Tonnage": "40",
       "Battle Value": "953",
@@ -1356,9 +1356,9 @@
   },
   {
     "Id": 6473,
-    "Name": "Yùn Y-2",
+    "Name": "Y\u00f9n Y-2",
     "GroupName": "",
-    "Class": "Yùn",
+    "Class": "Y\u00f9n",
     "Variant": "Y-2",
     "Tonnage": 40,
     "BattleValue": 953,
@@ -10211,7 +10211,7 @@
   },
   {
     "Id": 6599,
-    "Title": "Schildkröte Line Tank",
+    "Title": "Schildkr\u00f6te Line Tank",
     "Fields": {
       "Tonnage": "50",
       "Battle Value": "1,009",
@@ -10235,7 +10235,7 @@
           "Era"
         ],
         [
-          "Schildkröte Line Tank (HPPC)",
+          "Schildkr\u00f6te Line Tank (HPPC)",
           "1,057",
           "28",
           "Advanced",
@@ -10243,7 +10243,7 @@
           ""
         ],
         [
-          "Schildkröte Line Tank (Light Gauss)",
+          "Schildkr\u00f6te Line Tank (Light Gauss)",
           "954",
           "24",
           "Advanced",
@@ -10251,7 +10251,7 @@
           ""
         ],
         [
-          "Schildkröte Line Tank (Plasma)",
+          "Schildkr\u00f6te Line Tank (Plasma)",
           "1,104",
           "29",
           "Advanced",
@@ -10263,9 +10263,9 @@
   },
   {
     "Id": 6599,
-    "Name": "Schildkröte Line Tank  ",
+    "Name": "Schildkr\u00f6te Line Tank  ",
     "GroupName": "",
-    "Class": "Schildkröte Line Tank",
+    "Class": "Schildkr\u00f6te Line Tank",
     "Variant": " ",
     "Tonnage": 50,
     "BattleValue": 1009,

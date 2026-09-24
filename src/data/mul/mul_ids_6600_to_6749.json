@@ -1,7 +1,7 @@
 [
   {
     "Id": 6600,
-    "Title": "Schildkröte Line Tank (HPPC)",
+    "Title": "Schildkr\u00f6te Line Tank (HPPC)",
     "Fields": {
       "Tonnage": "50",
       "Battle Value": "1,057",
@@ -25,7 +25,7 @@
           "Era"
         ],
         [
-          "Schildkröte Line Tank",
+          "Schildkr\u00f6te Line Tank",
           "1,009",
           "28",
           "Advanced",
@@ -33,7 +33,7 @@
           ""
         ],
         [
-          "Schildkröte Line Tank (Light Gauss)",
+          "Schildkr\u00f6te Line Tank (Light Gauss)",
           "954",
           "24",
           "Advanced",
@@ -41,7 +41,7 @@
           ""
         ],
         [
-          "Schildkröte Line Tank (Plasma)",
+          "Schildkr\u00f6te Line Tank (Plasma)",
           "1,104",
           "29",
           "Advanced",
@@ -53,9 +53,9 @@
   },
   {
     "Id": 6600,
-    "Name": "Schildkröte Line Tank (HPPC)",
+    "Name": "Schildkr\u00f6te Line Tank (HPPC)",
     "GroupName": "",
-    "Class": "Schildkröte Line Tank",
+    "Class": "Schildkr\u00f6te Line Tank",
     "Variant": "(HPPC)",
     "Tonnage": 50,
     "BattleValue": 1057,
@@ -1919,9 +1919,9 @@
   },
   {
     "Id": 6629,
-    "Name": "Götterdämmerung GTD-20S",
+    "Name": "G\u00f6tterd\u00e4mmerung GTD-20S",
     "GroupName": "",
-    "Class": "Götterdämmerung",
+    "Class": "G\u00f6tterd\u00e4mmerung",
     "Variant": "GTD-20S",
     "Tonnage": 75,
     "BattleValue": 1727,
@@ -2654,7 +2654,7 @@
   },
   {
     "Id": 6640,
-    "Title": "Würger",
+    "Title": "W\u00fcrger",
     "Fields": {
       "Tonnage": "160",
       "Battle Value": "2,284",
@@ -2671,9 +2671,9 @@
   },
   {
     "Id": 6640,
-    "Name": "Würger  ",
+    "Name": "W\u00fcrger  ",
     "GroupName": "",
-    "Class": "Würger",
+    "Class": "W\u00fcrger",
     "Variant": " ",
     "Tonnage": 160,
     "BattleValue": 2284,

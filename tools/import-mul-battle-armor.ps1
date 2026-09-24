@@ -2,8 +2,10 @@ param(
     [string]$SourceCommit = "39d39699"
 )
 
+$root = Resolve-Path (Join-Path $PSScriptRoot "..")
+$mulDir = Join-Path $root "src/data/mul"
 $sourcePath = "WorkingData_DEV/MULdata/units_detailed.json"
-$sourceFile = Join-Path $PSScriptRoot "../$sourcePath"
+$sourceFile = Join-Path $root $sourcePath
 
 if (Test-Path $sourceFile) {
     $sourceJson = Get-Content -Raw $sourceFile
@@ -15,95 +17,111 @@ if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($sourceJson)) {
     throw "Unable to load $sourcePath from the working tree or commit $SourceCommit."
 }
 
-$eras = @{
-    "Star League (2571 - 2780)" = @{ Id = 10; Start = 2571 }
-    "Early Succession War (2781 - 2900)" = @{ Id = 11; Start = 2781 }
-    "Late Succession War - LosTech (2901 - 3019)" = @{ Id = 255; Start = 2901 }
-    "Clan Invasion (3050 - 3061)" = @{ Id = 13; Start = 3050 }
-    "Civil War (3062 - 3067)" = @{ Id = 247; Start = 3062 }
-    "Jihad (3068 - 3080)" = @{ Id = 14; Start = 3068 }
-    "Early Republic (3081 - 3100)" = @{ Id = 15; Start = 3081 }
-    "Late Republic (3101 - 3130)" = @{ Id = 254; Start = 3101 }
-    "Dark Age (3131 - 3150)" = @{ Id = 16; Start = 3131 }
+function Get-ChunkPathForId {
+    param([int]$Id)
+
+    $chunkFiles = Get-ChildItem -Path $mulDir -Filter "mul_ids_*.json" | Sort-Object Name
+    foreach ($chunkFile in $chunkFiles) {
+        if ($chunkFile.Name -match '^mul_ids_(\d+)_to_(\d+)\.json$') {
+            $start = [int]$Matches[1]
+            $end = [int]$Matches[2]
+            if ($Id -ge $start -and $Id -le $end) {
+                return $chunkFile.FullName
+            }
+        }
+    }
+
+    throw "No MUL chunk file covers Id $Id. Add the matching chunk range before updating the JSON bundle."
 }
 
-$technologies = @{ "Inner Sphere" = 1; "Clan" = 2; "Mixed" = 3 }
-$roles = @{ "None" = 104; "Scout" = 105; "Skirmisher" = 107; "Juggernaut" = 108; "Brawler" = 109; "Missile Boat" = 110; "Ambusher" = 111 }
+function Get-ChunkEntries {
+    param([string]$Path)
+
+    $payload = Get-Content -Raw -Path $Path | ConvertFrom-Json -Depth 100
+    if (-not ($payload -is [System.Collections.IEnumerable])) {
+        throw "$Path does not contain a JSON array."
+    }
+
+    return @($payload)
+}
+
+function Is-UnitRecord {
+    param($Record)
+
+    if ($null -eq $Record -or $Record -isnot [pscustomobject]) {
+        return $false
+    }
+
+    $idValue = $Record.PSObject.Properties['Id']?.Value
+    if ($null -eq $idValue) { $idValue = $Record.PSObject.Properties['id']?.Value }
+    if ($null -eq $idValue) { return $false }
+
+    $nameValue = $Record.PSObject.Properties['Name']?.Value
+    return ($idValue -is [int] -or $idValue -match '^-?\d+$') -and $null -ne $nameValue
+}
+
+function Get-RecordId {
+    param($Record)
+
+    $idValue = $Record.PSObject.Properties['Id']?.Value
+    if ($null -eq $idValue) { $idValue = $Record.PSObject.Properties['id']?.Value }
+
+    if ($null -eq $idValue) { return $null }
+    if ($idValue -is [int]) { return [int]$idValue }
+    if ($idValue -match '^-?\d+$') { return [int]$idValue }
+    return $null
+}
 
 $units = (ConvertFrom-Json $sourceJson).PSObject.Properties.Value
-$battleArmor = $units | Where-Object { $_.Fields."Unit Type" -eq "Infantry - Battle Armor" } | Sort-Object Id
+$liveRecords = @($units | Where-Object { $_ -and $_.PSObject.Properties['Id'] -and $_.Id -ne $null })
 
-if ($battleArmor.Count -eq 0) {
-    throw "No Battle Armor records were found in $sourcePath."
+if ($liveRecords.Count -eq 0) {
+    throw "No records with a numeric Id were found in $sourcePath."
 }
 
-$items = foreach ($unit in $battleArmor) {
-    $fields = $unit.Fields
-    $era = $eras[$fields.Era]
-    $technologyName = $fields.Technology
-    $roleName = $fields."Unit Role"
-    if ([string]::IsNullOrWhiteSpace($roleName)) {
-        $roleName = "None"
-    }
-    $tonnage = if ($fields.Tonnage -match '^\d+(\.\d+)?$') { [decimal]$fields.Tonnage } else { 0 }
-    $battleValue = if ($fields."Battle Value" -match '^\d+$') { [int]$fields."Battle Value" } else { 0 }
-    $cost = if ($fields.Cost -match '^\d+$') { [int]$fields.Cost } else { 0 }
-
-    if ($null -eq $era -or -not $technologies.ContainsKey($technologyName) -or -not $roles.ContainsKey($roleName)) {
-        throw "Unsupported MUL metadata for unit $($unit.Id): era '$($fields.Era)', technology '$technologyName', role '$roleName'."
-    }
-
-    [ordered]@{
-        Id = [int]$unit.Id
-        Name = $unit.Title
-        GroupName = $null
-        Class = $unit.Title
-        Variant = $null
-        Tonnage = $tonnage
-        BattleValue = $battleValue
-        Technology = [ordered]@{ Id = $technologies[$technologyName]; Name = $technologyName; Image = $null; SortOrder = 0 }
-        Cost = $cost
-        Rules = $fields."Rules Level"
-        TROId = 0
-        TRO = ""
-        RSId = 0
-        RS = ""
-        EraIcon = ""
-        DateIntroduced = $fields."Date Introduced"
-        EraId = $era.Id
-        EraStart = $era.Start
-        ImageUrl = ""
-        IsFeatured = $false
-        IsPublished = $true
-        Release = 1
-        Type = [ordered]@{ Id = 22; Name = "Battle Armor"; Image = "BattleArmor.gif"; SortOrder = 5 }
-        Role = [ordered]@{ Id = $roles[$roleName]; Name = $roleName; Image = $null; SortOrder = 0 }
-        BFType = $null
-        BFSize = 0
-        BFMove = ""
-        BFTMM = 0
-        BFArmor = 0
-        BFStructure = 0
-        BFThreshold = 0
-        BFDamageShort = 0
-        BFDamageShortMin = $false
-        BFDamageMedium = 0
-        BFDamageMediumMin = $false
-        BFDamageLong = 0
-        BFDamageLongMin = $false
-        BFDamageExtreme = 0
-        BFOverheat = 0
-        BFPointValue = 0
-        BFAbilities = $null
-        Skill = 0
-        FormatedTonnage = if ([string]::IsNullOrWhiteSpace($fields.Tonnage)) { $null } else { $fields.Tonnage }
-    }
+$missingIds = @($liveRecords | Where-Object { -not (Get-RecordId $_) })
+if ($missingIds.Count -gt 0) {
+    throw "One or more source records do not expose a numeric Id; we cannot safely map them into the chunked JSON bundle. The record is: $($missingIds[0] | ConvertTo-Json -Compress -Depth 6)"
 }
 
-$outputPath = Join-Path $PSScriptRoot "../src/data/mul-battle-armor.ts"
-$json = $items | ConvertTo-Json -Depth 6
-$module = "import { IASMULUnit } from `"../classes/alpha-strike-unit`";`n`nconst battleArmorMulListItems: IASMULUnit[] = $json;`n`nexport default battleArmorMulListItems;`n"
-[System.IO.File]::WriteAllText($outputPath, $module)
+$duplicateIds = @($liveRecords | Group-Object { (Get-RecordId $_) } | Where-Object { $_.Count -gt 1 })
+if ($duplicateIds.Count -gt 0) {
+    throw "The source contains duplicate unit IDs. Cannot safely update the chunked JSON bundle."
+}
 
-$elementalCount = @($items | Where-Object { $_.Name -match "Elemental" }).Count
-Write-Output "Generated $($items.Count) Battle Armor records, including $elementalCount Elemental variants."
+$chunkMap = @{}
+foreach ($chunkFile in (Get-ChildItem -Path $mulDir -Filter "mul_ids_*.json")) {
+    $chunkMap[$chunkFile.FullName] = @(Get-ChunkEntries -Path $chunkFile.FullName)
+}
+
+foreach ($record in $liveRecords) {
+    $unitId = Get-RecordId $record
+    $chunkPath = Get-ChunkPathForId -Id $unitId
+
+    if (-not $chunkMap.ContainsKey($chunkPath)) {
+        $chunkMap[$chunkPath] = @(Get-ChunkEntries -Path $chunkPath)
+    }
+
+    $chunkItems = @($chunkMap[$chunkPath])
+    $updated = $false
+    for ($i = 0; $i -lt $chunkItems.Count; $i++) {
+        if (Is-UnitRecord -Record $chunkItems[$i] -and (Get-RecordId -Record $chunkItems[$i]) -eq $unitId) {
+            $chunkItems[$i] = $record
+            $updated = $true
+            break
+        }
+    }
+
+    if (-not $updated) {
+        $chunkItems += $record
+    }
+
+    $chunkMap[$chunkPath] = $chunkItems
+}
+
+foreach ($entry in $chunkMap.GetEnumerator()) {
+    $json = ($entry.Value | ConvertTo-Json -Depth 100)
+    [System.IO.File]::WriteAllText($entry.Key, $json + "`n")
+}
+
+Write-Output "Updated $($chunkMap.Count) MUL chunk file(s) with $($liveRecords.Count) source records."

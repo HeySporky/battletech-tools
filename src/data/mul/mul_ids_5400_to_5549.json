@@ -3117,7 +3117,7 @@
       "Unit Role": "Ambusher",
       "Date Introduced": "2600",
       "Era": "Star League (2571 - 2780)",
-      "Notes": "Third Ueda Infantry, Third Drakøns"
+      "Notes": "Third Ueda Infantry, Third Drak\u00f8ns"
     },
     "AvailabilityTables": []
   },
@@ -3195,7 +3195,7 @@
       "Unit Role": "Ambusher",
       "Date Introduced": "2800",
       "Era": "Early Succession War (2781 - 2900)",
-      "Notes": "Skåret Assassins, JàrnFòlk"
+      "Notes": "Sk\u00e5ret Assassins, J\u00e0rnF\u00f2lk"
     },
     "AvailabilityTables": []
   },
@@ -3262,7 +3262,7 @@
   },
   {
     "Id": 5475,
-    "Title": "Büffel Engineering Support Vehicle VII (Cargo)",
+    "Title": "B\u00fcffel Engineering Support Vehicle VII (Cargo)",
     "Fields": {
       "Tonnage": "70",
       "Battle Value": "343",
@@ -3286,7 +3286,7 @@
           "Era"
         ],
         [
-          "Büffel Engineering Support Vehicle VII (Reverse)",
+          "B\u00fcffel Engineering Support Vehicle VII (Reverse)",
           "365",
           "4",
           "Advanced",
@@ -3294,7 +3294,7 @@
           ""
         ],
         [
-          "Büffel Engineering Support Vehicle VII",
+          "B\u00fcffel Engineering Support Vehicle VII",
           "365",
           "4",
           "Advanced",
@@ -3306,9 +3306,9 @@
   },
   {
     "Id": 5475,
-    "Name": "Büffel Engineering Support Vehicle VII (Cargo)",
+    "Name": "B\u00fcffel Engineering Support Vehicle VII (Cargo)",
     "GroupName": "",
-    "Class": "Büffel Engineering Support Vehicle VII",
+    "Class": "B\u00fcffel Engineering Support Vehicle VII",
     "Variant": "(Cargo)",
     "Tonnage": 70,
     "BattleValue": 343,
@@ -3367,7 +3367,7 @@
   },
   {
     "Id": 5476,
-    "Title": "Büffel Engineering Support Vehicle VII (Reverse)",
+    "Title": "B\u00fcffel Engineering Support Vehicle VII (Reverse)",
     "Fields": {
       "Tonnage": "70",
       "Battle Value": "365",
@@ -3391,7 +3391,7 @@
           "Era"
         ],
         [
-          "Büffel Engineering Support Vehicle VII (Cargo)",
+          "B\u00fcffel Engineering Support Vehicle VII (Cargo)",
           "343",
           "4",
           "Advanced",
@@ -3399,7 +3399,7 @@
           ""
         ],
         [
-          "Büffel Engineering Support Vehicle VII",
+          "B\u00fcffel Engineering Support Vehicle VII",
           "365",
           "4",
           "Advanced",
@@ -3411,9 +3411,9 @@
   },
   {
     "Id": 5476,
-    "Name": "Büffel Engineering Support Vehicle VII (Reverse)",
+    "Name": "B\u00fcffel Engineering Support Vehicle VII (Reverse)",
     "GroupName": "",
-    "Class": "Büffel Engineering Support Vehicle VII",
+    "Class": "B\u00fcffel Engineering Support Vehicle VII",
     "Variant": "(Reverse)",
     "Tonnage": 70,
     "BattleValue": 365,
@@ -3472,7 +3472,7 @@
   },
   {
     "Id": 5477,
-    "Title": "Büffel Engineering Support Vehicle VII",
+    "Title": "B\u00fcffel Engineering Support Vehicle VII",
     "Fields": {
       "Tonnage": "70",
       "Battle Value": "365",
@@ -3496,7 +3496,7 @@
           "Era"
         ],
         [
-          "Büffel Engineering Support Vehicle VII (Cargo)",
+          "B\u00fcffel Engineering Support Vehicle VII (Cargo)",
           "343",
           "4",
           "Advanced",
@@ -3504,7 +3504,7 @@
           ""
         ],
         [
-          "Büffel Engineering Support Vehicle VII (Reverse)",
+          "B\u00fcffel Engineering Support Vehicle VII (Reverse)",
           "365",
           "4",
           "Advanced",
@@ -3516,9 +3516,9 @@
   },
   {
     "Id": 5477,
-    "Name": "Büffel Engineering Support Vehicle VII  ",
+    "Name": "B\u00fcffel Engineering Support Vehicle VII  ",
     "GroupName": "",
-    "Class": "Büffel Engineering Support Vehicle VII",
+    "Class": "B\u00fcffel Engineering Support Vehicle VII",
     "Variant": " ",
     "Tonnage": 70,
     "BattleValue": 365,
@@ -3577,7 +3577,7 @@
   },
   {
     "Id": 5478,
-    "Title": "Büffel Engineering Support Vehicle VIII",
+    "Title": "B\u00fcffel Engineering Support Vehicle VIII",
     "Fields": {
       "Tonnage": "70",
       "Battle Value": "339",
@@ -3594,9 +3594,9 @@
   },
   {
     "Id": 5478,
-    "Name": "Büffel Engineering Support Vehicle VIII  ",
+    "Name": "B\u00fcffel Engineering Support Vehicle VIII  ",
     "GroupName": "",
-    "Class": "Büffel Engineering Support Vehicle VIII",
+    "Class": "B\u00fcffel Engineering Support Vehicle VIII",
     "Variant": " ",
     "Tonnage": 70,
     "BattleValue": 339,

@@ -1812,7 +1812,7 @@
   },
   {
     "Id": 4680,
-    "Title": "Mótuö Chë Shang No.2",
+    "Title": "M\u00f3tu\u00f6 Ch\u00eb Shang No.2",
     "Fields": {
       "Tonnage": "0.3",
       "Battle Value": "NA",
@@ -1829,9 +1829,9 @@
   },
   {
     "Id": 4680,
-    "Name": "Mótuö Chë Shang No.2",
+    "Name": "M\u00f3tu\u00f6 Ch\u00eb Shang No.2",
     "GroupName": "",
-    "Class": "Mótuö Chë Shang",
+    "Class": "M\u00f3tu\u00f6 Ch\u00eb Shang",
     "Variant": "No.2",
     "Tonnage": 0.32,
     "BattleValue": 0,
@@ -1890,7 +1890,7 @@
   },
   {
     "Id": 4681,
-    "Title": "Mówáng-class Courier",
+    "Title": "M\u00f3w\u00e1ng-class Courier",
     "Fields": {
       "Tonnage": "100",
       "Battle Value": "NA",
@@ -1914,7 +1914,7 @@
           "Era"
         ],
         [
-          "Mówáng-class Courier (Clandestine)",
+          "M\u00f3w\u00e1ng-class Courier (Clandestine)",
           "272",
           "15",
           "Experimental",
@@ -1926,9 +1926,9 @@
   },
   {
     "Id": 4681,
-    "Name": "Mówáng-class Courier  ",
+    "Name": "M\u00f3w\u00e1ng-class Courier  ",
     "GroupName": "",
-    "Class": "Mówáng-class Courier",
+    "Class": "M\u00f3w\u00e1ng-class Courier",
     "Variant": " ",
     "Tonnage": 100,
     "BattleValue": 0,

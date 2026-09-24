@@ -7113,7 +7113,7 @@
   },
   {
     "Id": 4620,
-    "Title": "Mĕngqín MNG-8L",
+    "Title": "M\u0115ngq\u00edn MNG-8L",
     "Fields": {
       "Tonnage": "95",
       "Battle Value": "2,298",
@@ -7130,9 +7130,9 @@
   },
   {
     "Id": 4620,
-    "Name": "Mĕngqín MNG-8L",
+    "Name": "M\u0115ngq\u00edn MNG-8L",
     "GroupName": "",
-    "Class": "Mĕngqín",
+    "Class": "M\u0115ngq\u00edn",
     "Variant": "MNG-8L",
     "Tonnage": 95,
     "BattleValue": 2298,
