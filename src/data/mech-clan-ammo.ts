@@ -7,27 +7,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: false,
-
-
-
-
-        name: "Ammo (Arrow IV Non-Homing) - Clan",
-        altNames: ["Clan Arrow IV Ammo", "Clan Arrow IV Non-Homing Missile", "c-Arrow IV Ammo"],
-        tag: "ammo-arrow-iv-non-homing-clan",
-        sort: "ammo, arrow iv, non-homing, clan",
-        category: "Ammunition",
-        cbills: 10000,
-        introduced: 2844,
-        extinct: 0,
-        reintroduced: 0,
-        battleValue: 30,
-
-
-
-
-        name: "Ammo (Arrow IV Standard) - Clan",
+        name: "Arrow IV - Standard Ammo (C)",
         altNames: ["Clan Arrow IV Non-Homing Ammo", "Clan Arrow IV HE Ammo"],
         tag: "ammo-clan-arrow-iv-standard",
+        altTags: [""],
         sort: "ammo, artillery, arrow iv standard, clan",
         category: "Ammunition",
         cbills: 10000,
@@ -35,10 +18,6 @@ export const mechClanAmmo: IEquipmentItem[] = [
         extinct: 0,
         reintroduced: 0,
         battleValue: 0,
-
-
-
-
         heat: 0,
         heatAero: 0,
         weight: 1,
@@ -47,47 +26,17 @@ export const mechClanAmmo: IEquipmentItem[] = [
         ammoPerTon: 5,
         explosive: true,
         techRating: "e",
-
-
-
-
         book: "TO:AU&E",
         page: 166,
-        alphaStrike: { specialAbility: ["ARTAC-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Clan variant unguided area-of-effect artillery missile payload."] }
-
-
-
-
-        book: "TW",
-        page: 141,
-        alphaStrike: { specialAbility: ["ART-AIV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deals standard area-effect artillery splash"] }
-
-
-
-
+        alphaStrike: { specialAbility: ["ARTAC-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deals standard area-effect artillery splash"] }
     },
     {
         isAmmo: true,
         isSpecialAmmo: true,
-
-
-
-        name: "Ammo (Arrow IV Homing) - Clan",
-        altNames: ["Arrow IV Guided Missile", "Arrow IV TAG Missile", "Homing Arrow Ammo"],
-        tag: "ammo-arrow-iv-homing-clan",
-        sort: "ammo, arrow iv, homing, clan",
-        category: "Ammunition",
-        cbills: 15000,
-        introduced: 2600,
-        extinct: 0,
-        reintroduced: 0,
-        battleValue: 44,
-
-
-
-        name: "Ammo (Arrow IV Cluster) - Clan",
+        name: "Arrow IV - Cluster Ammo (C)",
         altNames: ["Clan Arrow IV Cluster Ammo"],
         tag: "ammo-clan-arrow-iv-cluster",
+        altTags: [""],
         sort: "ammo, artillery, arrow iv cluster, clan",
         category: "Ammunition",
         cbills: 15000,
@@ -95,9 +44,6 @@ export const mechClanAmmo: IEquipmentItem[] = [
         extinct: 0,
         reintroduced: 0,
         battleValue: 0,
-
-
-
         heat: 0,
         heatAero: 0,
         weight: 1,
@@ -106,19 +52,17 @@ export const mechClanAmmo: IEquipmentItem[] = [
         ammoPerTon: 5,
         explosive: true,
         techRating: "e",
-
-
-
-        book: "TO:AU&E",
+        book: "TO",
         page: 166,
-        alphaStrike: { specialAbility: ["ARTAIS-1", "ARTAC-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires an active TAG laser designation. Automatically impacts the painted target for concentrated pinpoint damage rather than full area-of-effect spread."] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys high-density submunitions across target hex"] }    
     },
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (Arrow IV FASCAM)",
+        name: "Arrow IV - FASCAM Ammo (C)",
         altNames: ["FASCAM Arrow Missile", "Arrow IV Minefield Ammo - Clan"],
-        tag: "ammo-arrow-iv-fascam",
+        tag: "ammo-clan-arrow-iv-fascam",
+        altTags: [""],
         sort: "ammo, arrow iv, fascam",
         category: "Ammunition",
         cbills: 20000,
@@ -126,65 +70,51 @@ export const mechClanAmmo: IEquipmentItem[] = [
         extinct: 0,
         reintroduced: 0,
         battleValue: 30,
-
-
-
-
-        book: "TO",
-        page: 166,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys high-density submunitions across target hex"] }
-    },
-
-    {
-        isAmmo: true,
-        isSpecialAmmo: true,
-        name: "Ammo (Arrow IV Homing) - Clan",
-        altNames: ["Clan Arrow IV TAG Ammo", "Clan Arrow Homing Missile"],
-        tag: "ammo-clan-arrow-iv-homing",
-        sort: "ammo, artillery, arrow iv homing, clan",
-        category: "Ammunition",
-        cbills: 15000,
-        introduced: 2593,
-        extinct: 0,
-        reintroduced: 0,
-        battleValue: 0,
-
-
-
-
         heat: 0,
         heatAero: 0,
         weight: 1,
         range: { min: 0, short: 0, medium: 0, long: 0 },
-
-
-
-
-        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
         ammoPerTon: 5,
         explosive: true,
         techRating: "e",
         book: "TO:AU&E",
         page: 166,
-        alphaStrike: { specialAbility: ["ARTAIS-1", "ARTAC-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys a dense, instantly-armed 20-point conventional scatterable landmine field layout over the target area code impact."] }
-
-
-
-
-        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
-        ammoPerTon: 5,
-        explosive: true,
-        techRating: "e",
-        book: "TW",
-        page: 141,
-        alphaStrike: { specialAbility: ["AIVH"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires successful friendly TAG lock target painted"] }
+        alphaStrike: { specialAbility: ["ARTAIS-1", "ARTAC-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys a dense, instantly-armed 20-point conventional scatterable landmine field layout over the target area code impact."] }   
     },
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (Arrow IV Illumination) - Clan",
+        name: "Arrow IV - Homing Ammo (C)",
+        altNames: ["Arrow IV Guided Missile", "Arrow IV TAG Missile", "Homing Arrow Ammo"],
+        tag: "ammo-clan-arrow-iv-homing",
+        altTags: [""],
+        sort: "ammo, arrow iv, homing, clan",
+        category: "Ammunition",
+        cbills: 15000,
+        introduced: 2593,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 44,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 0, short: 0, medium: 0, long: 0 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        ammoPerTon: 5,
+        explosive: true,
+        techRating: "e",
+        book: "TO:AU&E",
+        page: 166,
+        alphaStrike: { specialAbility: ["ARTAIS-1", "ARTAC-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires an active TAG laser designation. Automatically impacts the painted target for concentrated pinpoint damage rather than full area-of-effect spread."] }
+    },
+    {
+        isAmmo: true,
+        isSpecialAmmo: true,
+        name: "Arrow IV - Illumination Ammo (C)",
         altNames: ["Arrow IV Lit Ammo", "Flare Arrow IV"],
         tag: "ammo-clan-arrow-iv-illumination",
+        altTags: [""],
         sort: "ammo, artillery, arrow iv illumination, clan",
         category: "Ammunition",
         cbills: 5000,
@@ -203,44 +133,15 @@ export const mechClanAmmo: IEquipmentItem[] = [
         book: "TO",
         page: 167,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Negates nighttime/low-visibility hit penalties in affected zones"] }
-
-
-
-
     },
     {
         isAmmo: true,
         isSpecialAmmo: false,
-        name: "Ammo (ATM Standard)",
-        altNames: ["ATM Standard Ammo", "ATM ER Ammo", "Ammo ATM ER"],
-        tag: "ammo-atm-standard",
-        sort: "ammo, atm, standard",
-        category: "Ammunition",
-        cbills: 35000,
-        introduced: 3054,
-        extinct: 0,
-        reintroduced: 0,
-        battleValue: 0,
-        heat: 0,
-        heatAero: 0,
-        weight: 1,
-        range: { min: 4, short: 5, medium: 10, long: 15 },
-        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
-        ammoPerTon: 60,
-        explosive: true,
-        techRating: "f",
-        book: "TM",
-        page: 229,
-        ammoProfile: { damagePerMissile: 2, range: { min: 4, short: 5, medium: 10, long: 15 }, alphaStrikeDamage: { short: 2, medium: 2, long: 2, extreme: 0 } },
-        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Standard ATM damage profile"] }
-    },
-    {
-        isAmmo: true,
-        isSpecialAmmo: false,
-        name: "Ammo (ATM Extended Range)",
+        name: "ATM - Extended Range Ammo (C)",
         altNames: ["ATM ER Ammo", "ER ATM Ammo"],
-        tag: "ammo-atm-er",
-        sort: "ammo, atm, er",
+        tag: "ammo-clan-atm-er",
+        altTags: [""],
+        sort: "ammo, atm, extended range, clan",
         category: "Ammunition",
         cbills: 60000,
         introduced: 3054,
@@ -263,10 +164,11 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: false,
-        name: "Ammo (ATM High Explosive)",
+        name: "ATM - High Explosive Ammo (C)",
         altNames: ["ATM HE Ammo", "HE ATM Ammo"],
-        tag: "ammo-atm-he",
-        sort: "ammo, atm, he",
+        tag: "ammo-clan-atm-he",
+        altTags: [""],
+        sort: "ammo, atm, high explosive, clan",
         category: "Ammunition",
         cbills: 60000,
         introduced: 3054,
@@ -288,11 +190,39 @@ export const mechClanAmmo: IEquipmentItem[] = [
     },
     {
         isAmmo: true,
+        isSpecialAmmo: false,
+        name: "ATM - Standard Ammo (C)",
+        altNames: ["ATM Standard Ammo", "ATM ER Ammo", "Ammo ATM ER", "ATM Clan Standard Ammo", "Clan ATM Standard Ammo"],
+        altTags: [""],
+        tag: "ammo-clan-atm-standard",
+        sort: "ammo, atm, standard, clan",
+        category: "Ammunition",
+        cbills: 35000,
+        introduced: 3054,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 0,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 4, short: 5, medium: 10, long: 15 },
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        ammoPerTon: 60,
+        explosive: true,
+        techRating: "f",
+        book: "TM",
+        page: 229,
+        ammoProfile: { damagePerMissile: 2, range: { min: 4, short: 5, medium: 10, long: 15 }, alphaStrikeDamage: { short: 2, medium: 2, long: 2, extreme: 0 } },
+        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Standard ATM damage profile"] }
+    },
+    {
+        isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (iATM Improved Inferno)",
+        name: "iATM - Improved Inferno Ammo (C)",
         altNames: ["iATM Inferno Ammo", "Improved Inferno Ammo", "Inferno iATM Ammo"],
-        tag: "ammo-iatm-inferno",
-        sort: "ammo, iatm, inferno",
+        tag: "ammo-clan-iatm-inferno",
+        altTags: [""],
+        sort: "ammo, iatm, inferno, clan",
         category: "Ammunition",
         cbills: 95000,
         introduced: 3070,
@@ -314,10 +244,11 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (iATM Improved Magnetic-Pulse)",
+        name: "iATM - Improved Magnetic-Pulse Ammo (C)",
         altNames: ["iATM Mag-Pulse Ammo", "Improved Mag-Pulse Ammo", "iATM EMP Ammo"],
-        tag: "ammo-iatm-mag-pulse",
-        sort: "ammo, iatm, magnetic-pulse",
+        tag: "ammo-clan-iatm-mag-pulse",
+        altTags: [""],
+        sort: "ammo, iatm, magnetic-pulse, clan",
         category: "Ammunition",
         cbills: 120000,
         introduced: 3070,
@@ -339,9 +270,88 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (LRM Artemis IV) - Clan",
+        name: "Long Tom Artillery - Cluster Ammo (C)",
+        altNames: ["Clan Long Tom Submunition Ammunition", "Cluster Artillery Shells"],
+        tag: "ammo-clan-long-tom-cluster",
+        altTags: [""],
+        sort: "ammo, long tom, cluster, clan",
+        category: "Ammunition",
+        cbills: 15000,
+        introduced: 2600,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 46,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 0, short: 0, medium: 0, long: 0 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        ammoPerTon: 5,
+        explosive: true,
+        techRating: "e",
+        book: "TO:AU&E",
+        page: 165,
+        alphaStrike: { specialAbility: ["ARTLT-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Bursters in mid-air to scatter submunitions, striking multiple adjacent ground elements while mitigating cover benefits."] }
+    },
+    {
+        isAmmo: true,
+        isSpecialAmmo: true,
+        name: "Long Tom Artillery - Copperhead Ammo (C)",
+        altNames: ["Long Tom Guided Artillery Ammo", "Long Tom Homing Ammo", "Copperhead Shells"],
+        tag: "ammo-clan-long-tom-copperhead",
+        altTags: [""],
+        sort: "ammo, long tom, copperhead",
+        category: "Ammunition",
+        cbills: 30000,
+        introduced: 2645,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 32,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 0, short: 0, medium: 0, long: 0 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        ammoPerTon: 5,
+        explosive: true,
+        techRating: "e",
+        book: "TO:AU&E",
+        page: 165,
+        alphaStrike: { specialAbility: ["ARTLT-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires active TAG target to lock on and home into a single ground unit."] }
+    },
+    {
+        isAmmo: true,
+        isSpecialAmmo: true,
+        name: "Long Tom Artillery - FASCAM Ammo (C)",
+        altNames: ["Clan Long Tom FASCAM Ammunition", "Clan Long Tom Minefield Ammo", "Clan Thunder Artillery Shells"],
+        tag: "ammo-clan-long-tom-fascam",
+        altTags: [""],
+        sort: "ammo, long tom, fascam, clan, thunder",
+        category: "Ammunition",
+        cbills: 20000,
+        introduced: 2621,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 46,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 0, short: 0, medium: 0, long: 0 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        ammoPerTon: 5,
+        explosive: true,
+        techRating: "e",
+        book: "TO:AU&E",
+        page: 169,
+        alphaStrike: { specialAbility: ["ARTLT-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys a standard 25-point density minefield onto the target hex layout upon impact."] }
+    },
+    {
+        isAmmo: true,
+        isSpecialAmmo: true,
+        name: "LRM - Artemis IV Ammo (C)",
         altNames: ["Clan Artemis IV LRM Ammo", "LRM Artemis Ammo Clan"],
-        tag: "ammo-lrm-clan-artemis-iv",
+        tag: "ammo-clan-lrm-artemis-iv",
+        altTags: [""],
         sort: "ammo, lrm, artemis iv, clan",
         category: "Ammunition",
         cbills: 60000,
@@ -364,9 +374,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (LRM Artemis V)",
-        altNames: ["Artemis V LRM Ammo", "LRM Artemis V Ammo"],
-        tag: "ammo-lrm-artemis-v",
+        name: "LRM - Artemis V Ammo (C)",
+        altNames: ["Clan Artemis V LRM Ammo", "LRM Artemis V Ammo Clan"],
+        tag: "ammo-clan-lrm-artemis-v",
+        altTags: [""],
         sort: "ammo, lrm, artemis v, clan",
         category: "Ammunition",
         cbills: 60000, // Matches special Artemis target ammunition profiles
@@ -389,9 +400,36 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (LRM Mag-Pulse)",
+        name: "LRM - FASCAM Ammo (C)",
+        altNames: ["FASCAM LRM Ammo", "LRM FASCAM Ammo", "FASCAM Ammo"],
+        tag: "ammo-clan-lrm-fascam",
+        altTags: [""],
+        sort: "ammo, lrm, fascam, clan",
+        category: "Ammunition",
+        cbills: 125000,
+        introduced: 2621,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 0,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 0, short: 0, medium: 0, long: 0 },
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        ammoPerTon: 120,
+        explosive: true,
+        techRating: "e",
+        book: "TO",
+        page: 185,
+        alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#", "MEL#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+    },
+    {
+        isAmmo: true,
+        isSpecialAmmo: true,
+        name: "LRM - Mag-Pulse Ammo (C)",
         altNames: ["Mag-Pulse LRM Ammo", "LRM Magnetic-Pulse Ammo", "EMP LRM Ammo"],
-        tag: "ammo-lrm-mag-pulse",
+        tag: "ammo-clan-lrm-mag-pulse",
+        altTags: [""],
         sort: "ammo, lrm, magnetic-pulse, clan, mag, emp",
         category: "Ammunition",
         cbills: 150000,
@@ -414,32 +452,14 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-
-
-
-
-        name: "Ammo (LRM Thunder)",
-        altNames: ["Thunder LRM Ammo", "LRM FASCAM Ammo", "FASCAM Ammo"],
-        tag: "ammo-lrm-thunder",
-        sort: "ammo, lrm, thunder",
-        category: "Ammunition",
-        cbills: 125000,
-        introduced: 2621,
-
-
-
-
-        name: "Ammo (LRM Narc-Capable) - Clan",
+        name: "LRM - Narc-Capable Ammo (C)",
         altNames: ["Clan Narc LRM Ammo", "Clan Narc-Capable LRM Ammo"],
         tag: "ammo-clan-lrm-narc",
-        sort: "ammo, lrm, narc, clan",
+        altTags: [""],
+        sort: "ammo, lrm, narc-capable, clan",
         category: "Ammunition",
         cbills: 60000,
         introduced: 2597,
-
-
-
-
         extinct: 0,
         reintroduced: 0,
         battleValue: 0,
@@ -448,52 +468,18 @@ export const mechClanAmmo: IEquipmentItem[] = [
         weight: 1,
         range: { min: 0, short: 0, medium: 0, long: 0 },
         space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
-        ammoPerTon: 120,
-        explosive: true,
-
-
-
-        techRating: "e",
-        book: "TO",
-        page: 185,
-        alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#", "MEL#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
-
-
-
-
         techRating: "d",
         book: "TW",
         page: 141,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Gains cluster modifiers when fired at Narc beacon targets"] }
-
-
-
     },
     {
         isAmmo: true,
         isSpecialAmmo: true,
-
-
-
-
-
-        name: "Ammo (Long Tom Cluster)",
-        altNames: ["Long Tom Submunition Ammunition", "Cluster Artillery Shells"],
-        tag: "ammo-long-tom-cluster",
-        sort: "ammo, long tom, cluster",
-        category: "Ammunition",
-        cbills: 15000,
-        introduced: 2600,
-        extinct: 0,
-        reintroduced: 0,
-        battleValue: 46,
-
-
-
-
-        name: "Ammo (LRM Swarm) - Clan",
+        name: "LRM - Swarm Ammo (C)",
         altNames: ["Standard Clan Swarm LRM Ammo", "Clan Swarm LRM Ammo"],
-        tag: "ammo-lrm-swarm-clan",
+        tag: "ammo-clan-lrm-swarm",
+        altTags: [""],
         sort: "ammo, lrm, swarm, clan",
         category: "Ammunition",
         cbills: 60000, // Twice the cost of standard LRM ammunition
@@ -501,31 +487,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         extinct: 0,
         reintroduced: 0,
         battleValue: 0,
-
-
-
         heat: 0,
         heatAero: 0,
         weight: 1,
         range: { min: 0, short: 0, medium: 0, long: 0 },
-
-
-
-        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
-        ammoPerTon: 5,
-        explosive: true,
-        techRating: "e",
-        book: "TO:AU&E",
-        page: 165,
-        alphaStrike: { specialAbility: ["ARTLT-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Bursters in mid-air to scatter submunitions, striking multiple adjacent ground elements while mitigating cover benefits."] }
-
-
-
-
-
-
-
-
         space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
         ammoPerTon: 120,
         explosive: true,
@@ -533,34 +498,14 @@ export const mechClanAmmo: IEquipmentItem[] = [
         book: "TW",
         page: 141,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Salvo splashes onto any target in the same/adjacent hexes on a miss"] }
-
-
-
     },
     {
         isAmmo: true,
         isSpecialAmmo: true,
-
-
-
-
-        name: "Ammo (Long Tom Copperhead)",
-        altNames: ["Long Tom Guided Artillery Ammo", "Long Tom Homing Ammo", "Copperhead Shells"],
-        tag: "ammo-long-tom-copperhead",
-        sort: "ammo, long tom, copperhead",
-        category: "Ammunition",
-        cbills: 30000,
-        introduced: 2645,
-        extinct: 0,
-        reintroduced: 0,
-        battleValue: 32,
-
-
-
-
-        name: "Ammo (LRT Artemis IV) - Clan",
+        name: "LRT - Artemis IV Ammo (C)",
         altNames: ["Clan Artemis IV LRT Ammo", "Clan Long Range Torpedo Artemis Ammo"],
-        tag: "ammo-lrt-artemis-iv-clan",
+        tag: "ammo-clan-lrt-artemis-iv",
+        altTags: [""],
         sort: "ammo, torpedo, lrt, artemis iv, clan",
         category: "Ammunition",
         cbills: 60000, // Double standard LRT payload tracking
@@ -568,30 +513,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         extinct: 0,
         reintroduced: 0,
         battleValue: 0,
-
-
-
-
         heat: 0,
         heatAero: 0,
         weight: 1,
         range: { min: 0, short: 0, medium: 0, long: 0 },
-
-
-
-
-        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
-        ammoPerTon: 5,
-        explosive: true,
-        techRating: "e",
-        book: "TO:AU&E",
-        page: 165,
-        alphaStrike: { specialAbility: ["ARTLT-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires active TAG target to lock on and home into a single ground unit."] }
-
-
-
-
-
         space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: 1, dropShip: 1 },
         ammoPerTon: 120,
         explosive: true,
@@ -603,35 +528,11 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (Long Tom Thunder)",
-        altNames: ["Long Tom FASCAM Ammunition", "Long Tom Minefield Ammo", "Thunder Artillery Shells"],
-        tag: "ammo-long-tom-thunder",
-        sort: "ammo, long tom, thunder",
-        category: "Ammunition",
-        cbills: 20000,
-        introduced: 2621,
-        extinct: 0,
-        reintroduced: 0,
-        battleValue: 46,
-        heat: 0,
-        heatAero: 0,
-        weight: 1,
-        range: { min: 0, short: 0, medium: 0, long: 0 },
-        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
-        ammoPerTon: 5,
-        explosive: true,
-        techRating: "e",
-        book: "TO:AU&E",
-        page: 169,
-        alphaStrike: { specialAbility: ["ARTLT-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys a standard 25-point density minefield onto the target hex layout upon impact."] }
-    },
-    {
-        isAmmo: true,
-        isSpecialAmmo: true,
-        name: "Ammo (Sniper Cluster)",
+        name: "Sniper Artillery - Cluster Ammo (C)",
         altNames: ["Sniper Submunition Ammunition", "Cluster Sniper Shells"],
-        tag: "ammo-sniper-cluster",
-        sort: "ammo, sniper, cluster",
+        tag: "ammo-clan-sniper-cluster",
+        altTags: [""],
+        sort: "ammo, sniper, cluster, clan",
         category: "Ammunition",
         cbills: 9000,
         introduced: 2600,
@@ -653,9 +554,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (LRT Artemis V)",
+        name: "LRT - Artemis V Ammo (C)",
         altNames: ["Artemis V LRT Ammo", "Clan Artemis V LRT Ammo"],
-        tag: "ammo-lrt-artemis-v",
+        tag: "ammo-clan-lrt-artemis-v",
+        altTags: [""],
         sort: "ammo, torpedo, lrt, artemis v",
         category: "Ammunition",
         cbills: 150000, // Clan advanced infrastructure multiplier
@@ -676,17 +578,12 @@ export const mechClanAmmo: IEquipmentItem[] = [
         alphaStrike: { specialAbility: ["ARTV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Advanced Clan Artemis V LRT launcher installation"] }
     },
     {
-
-        
-
-
-    }, 
-    {
         isAmmo: true,
         isSpecialAmmo: false,
-        name: "Ammo (Narc Homing) - Clan",
+        name: "Narc - Homing Pods (C)",
         altNames: ["Clan Narc Homing Pod", "Standard Clan Narc Ammo"],
         tag: "ammo-clan-narc-homing",
+        altTags: [""],
         sort: "ammo, beacon, narc homing, clan",
         category: "Ammunition",
         cbills: 10000,
@@ -709,10 +606,11 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (Sniper Copperhead)",
-        altNames: ["Sniper Guided Artillery Ammo", "Sniper Homing Ammo", "Sniper Copperhead Shells"],
-        tag: "ammo-sniper-copperhead",
-        sort: "ammo, sniper, copperhead",
+        name: "Sniper Artillery - Copperhead Ammo (C)",
+        altNames: ["Clan Sniper Guided Artillery Ammo", "Clan Sniper Homing Ammo", "Clan Sniper Copperhead Shells"],
+        tag: "ammo-clan-sniper-copperhead",
+        altTags: [""],
+        sort: "ammo, sniper, copperhead, clan",
         category: "Ammunition",
         cbills: 18000,
         introduced: 2645,
@@ -734,9 +632,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (SRM Artemis IV) - Clan",
+        name: "SRM - Artemis IV Ammo (Clan)",
         altNames: ["Clan Artemis IV SRM Ammo", "SRM Artemis Ammo Clan"],
         tag: "ammo-clan-srm-artemis-iv",
+        altTags: [""],
         sort: "ammo, srm, artemis iv, clan",
         category: "Ammunition",
         cbills: 54000,
@@ -759,10 +658,11 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (Sniper Thunder)",
-        altNames: ["Sniper FASCAM Ammunition", "Sniper Minefield Ammo", "Thunder Sniper Shells"],
-        tag: "ammo-sniper-thunder",
-        sort: "ammo, sniper, thunder",
+        name: "Sniper Artillery - FASCAM Ammo (C)",
+        altNames: ["Clan Sniper FASCAM Ammunition", "Clan Sniper Minefield Ammo", "Clan Thunder Sniper Shells"],
+        tag: "ammo-clan-sniper-fascam",
+        altTags: ["ammo-clan-sniper-minefield", "ammo-clan-sniper-thunder"],
+        sort: "ammo, sniper, fascam, clan",
         category: "Ammunition",
         cbills: 12000,
         introduced: 2621,
@@ -784,10 +684,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (SRM Artemis V)",
-        altNames: ["Artemis V SRM Ammo", "Artemis V SRM Ammo"],
-        tag: "ammo-srm-artemis-v",
-        sort: "ammo, srm, artemis v",
+        name: "SRM - Artemis V Ammo (C)",
+        altNames: ["Clan Artemis V SRM Ammo", "Clan ArtV SRM Ammo"],
+        tag: "ammo-clan-srm-artemis-v",
+        sort: "ammo, srm, artemis v, clan",
         category: "Ammunition",
         cbills: 54000,
         introduced: 3061,
@@ -809,32 +709,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (Thumper Copperhead)",
-        altNames: ["Thumper Guided Artillery Ammo", "Thumper Homing Ammo", "Thumper Copperhead Shells"],
-        tag: "ammo-thumper-copperhead",
-        sort: "ammo, thumper, copperhead",
-        category: "Ammunition",
-        cbills: 12000,
-        introduced: 2645,
-        extinct: 0,
-        reintroduced: 0,
-        battleValue: 8,
-        heat: 0,
-        heatAero: 0,
-        weight: 1,
-        range: { min: 0, short: 0, medium: 0, long: 0 },
-        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
-        ammoPerTon: 20,
-        explosive: true,
-        techRating: "e",
-        book: "TO:AU&E",
-        page: 165,
-        alphaStrike: { specialAbility: ["ARTTH-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires active TAG target to lock on and home into a single ground unit."] }
-    },
-    {
-        isAmmo: true,
-        isSpecialAmmo: true,
-        name: "Ammo (SRM Fragmentation) - Clan",
+        name: "SRM - Fragmentation Ammo (C)",
         altNames: ["Clan Frag SRM Ammo", "Clan Anti-Infantry SRM Ammo"],
         tag: "ammo-clan-srm-frag",
         sort: "ammo, srm, fragmentation, clan",
@@ -859,9 +734,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (SRM Narc-Capable) - Clan",
+        name: "SRM - Narc-Capable Ammo (C)",
         altNames: ["Clan Narc SRM Ammo", "Clan Narc-Capable SRM Ammo"],
         tag: "ammo-clan-srm-narc",
+        altTags: ["ammo-clan-srm-narc"],
         sort: "ammo, srm, narc, clan",
         category: "Ammunition",
         cbills: 54000, // Twice the cost of standard SRM tracking arrays
@@ -884,34 +760,9 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (Thumper Cluster)",
-        altNames: ["Thumper Submunition Ammunition", "Cluster Thumper Shells"],
-        tag: "ammo-thumper-cluster",
-        sort: "ammo, thumper, cluster",
-        category: "Ammunition",
-        cbills: 6000,
-        introduced: 2600,
-        extinct: 0,
-        reintroduced: 0,
-        battleValue: 12,
-        heat: 0,
-        heatAero: 0,
-        weight: 1,
-        range: { min: 0, short: 0, medium: 0, long: 0 },
-        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
-        ammoPerTon: 20,
-        explosive: true,
-        techRating: "e",
-        book: "TO:AU&E",
-        page: 165,
-        alphaStrike: { specialAbility: ["ARTTH-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys submunitions over a tight spread pattern to reliably tag targets and circumvent physical cover."] }
-    },
-    {
-        isAmmo: true,
-        isSpecialAmmo: true,
-        name: "Ammo (SRT Artemis IV) - Clan",
-        altNames: ["Clan Artemis IV SRT Ammo", "Short Range Torpedo Artemis Ammo Clan"],
-        tag: "ammo-srt-artemis-iv-clan",
+        name: "SRT Artemis IV Ammo (C)",
+        altNames: ["Clan Artemis IV SRT Ammo", "Clan Short Range Torpedo Artemis Ammo"],
+        tag: "ammo-clan-srt-artemis-iv",
         sort: "ammo, torpedo, srt, artemis iv, clan",
         category: "Ammunition",
         cbills: 54000,
@@ -934,9 +785,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (SRT Artemis V)",
-        altNames: ["Artemis V SRT Ammo", "SRT Artemis V Ammo"],
-        tag: "ammo-srt-artemis-v",
+        name: "SRT Artemis V Ammo (C)",
+        altNames: ["Artemis V SRT Ammo", "SRT Artemis V Ammo", "Clan Short Range Torpedo Artemis V Ammo"],
+        tag: "ammo-clan-srt-artemis-v",
+        altTags: [""],
         sort: "ammo, torpedo, srt, artemis v, clan",
         category: "Ammunition",
         cbills: 135000,
@@ -959,10 +811,63 @@ export const mechClanAmmo: IEquipmentItem[] = [
     {
         isAmmo: true,
         isSpecialAmmo: true,
-        name: "Ammo (Thumper Thunder)",
-        altNames: ["Thumper FASCAM Ammunition", "Thumper Minefield Ammo", "Thunder Thumper Shells"],
-        tag: "ammo-thumper-thunder",
-        sort: "ammo, thumper, thunder",
+        name: "Thumper Artillery - Cluster Ammo (C)",
+        altNames: ["Clan Thumper Submunition Ammunition", "Clan Cluster Thumper Shells"],
+        tag: "ammo-clan-thumper-cluster",
+        altTags: [""],
+        sort: "ammo, thumper, cluster, clan",
+        category: "Ammunition",
+        cbills: 6000,
+        introduced: 2600,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 12,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 0, short: 0, medium: 0, long: 0 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        ammoPerTon: 20,
+        explosive: true,
+        techRating: "e",
+        book: "TO:AU&E",
+        page: 165,
+        alphaStrike: { specialAbility: ["ARTTH-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys submunitions over a tight spread pattern to reliably tag targets and circumvent physical cover."] }
+    },
+    {
+        isAmmo: true,
+        isSpecialAmmo: true,
+        name: "Thumper Artillery - Copperhead Ammo (C)",
+        altNames: ["Clan Thumper Guided Artillery Ammo", "Clan Thumper Homing Ammo", "Clan Thumper Copperhead Shells"],
+        tag: "ammo-clan-thumper-copperhead",
+        altTags: ["ammo-clan-thumper-submunition"],
+        sort: "ammo, thumper, copperhead, clan",
+        category: "Ammunition",
+        cbills: 12000,
+        introduced: 2645,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 8,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 0, short: 0, medium: 0, long: 0 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        ammoPerTon: 20,
+        explosive: true,
+        techRating: "e",
+        book: "TO:AU&E",
+        page: 165,
+        alphaStrike: { specialAbility: ["ARTTH-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires active TAG target to lock on and home into a single ground unit."] }
+    },
+    {
+        isAmmo: true,
+        isSpecialAmmo: true,
+        name: "Thumper Artillery - FASCAM Ammo (C)",
+        altNames: ["Clan Thumper Thunder Ammunition", "Clan Thumper Minefield Ammo", "Clan FASCAM Thumper Shells"],
+        tag: "ammo-clan-thumper-fascam",
+        altTags: ["ammo-clan-thumper-minefield", "ammo-clan-thumper-thunder"],
+        sort: "ammo, thumper, fascam, artillery, clan",
         category: "Ammunition",
         cbills: 8000,
         introduced: 2621,
