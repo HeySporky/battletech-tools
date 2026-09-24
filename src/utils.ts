@@ -3,8 +3,7 @@ import { BattleMech, IGATOR, ITargetToHit } from "./classes/battlemech";
 import { CONST_MUL_API_ENABLED } from "./configVars";
 import { IEquipmentItem } from "./data/data-interfaces";
 import { getEquipmentCatalogs, getEquipmentListByTech } from "./data/equipment-registry";
-import battleArmorMulListItems from "./data/mul-battle-armor";
-import { mulListItems } from "./data/mul-list-items";
+import { loadMULListItems } from "./data/mul-list-items";
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
 
@@ -39,8 +38,6 @@ interface IMULSearchTokens {
     minDefense: number;
     exactDamageProfile: { short: number; medium: number; long: number } | null;
 }
-
-const cachedMULListItems = [...mulListItems, ...battleArmorMulListItems];
 
 // Maps the "Rules" dropdown value to the set of MUL Rules-level labels it should match.
 const MUL_RULES_LEVEL_MAP: Record<string, string[]> = {
@@ -450,7 +447,7 @@ function matchesMULSearchTokens(unit: IASMULUnit, tokens: IMULSearchTokens): boo
     return true;
 }
 
-function getCachedMULSearchResults(
+async function getCachedMULSearchResults(
     searchTerm: string,
     mechRules: string,
     techFilter: string,
@@ -458,7 +455,7 @@ function getCachedMULSearchResults(
     eraFilter: number,
     typeFilter: number,
     appGlobals: IAppGlobals | null,
-): IASMULUnit[] {
+): Promise<IASMULUnit[]> {
     const tokens = parseMULSearchTokens(searchTerm);
     const matchesAllFilters = (unit: IASMULUnit) =>
         matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter) &&
@@ -470,7 +467,8 @@ function getCachedMULSearchResults(
         return cachedMatches;
     }
 
-    // Fall back to the bundled, verified MUL snapshot if the user's own session cache has nothing.
+    // Fall back to the chunked MUL snapshot if the user's own session cache has nothing.
+    const cachedMULListItems = await loadMULListItems();
     return cachedMULListItems.filter(matchesAllFilters);
 }
 
@@ -631,7 +629,7 @@ export async function getMULASSearchResults(
         } catch (err) {
             console.error('MUL Fetch Error: ', err);
             addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
-            return getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
+            return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
         }
     } else {
         if( offLine ) {
@@ -640,7 +638,7 @@ export async function getMULASSearchResults(
             console.warn("MUL API is disabled, using bundled fallback data.");
         }
         addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
-        return getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
+        return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
     }
 
     return returnUnits;
