@@ -4,59 +4,6 @@ import { IEquipmentItem } from "./data-interfaces";
 */
 export const mechClanEquipmentBallistic: IEquipmentItem[] = [
     {
-        isAmmo: true,
-        name: "Ammo (Clan LB 5-X AC)",
-        tag: "ammo-clan-autocannon-lbx-5",
-        sort: "ammo, clan, lb, 5-x, ac",
-        category: "Ammunition",
-        damage: 0,
-        notes: "",
-        damageAero: 0,
-        accuracyModifier: 0,
-        cbills: 5000,
-        introduced: 2900,
-        extinct: null,
-        reintroduced: null,
-        battleValue: 16,
-        heat: 0,
-        weight: 1,
-        range: {
-            min: 0,
-            short: 6,
-            medium: 12,
-            long: 18
-        },
-        space: {
-            battlemech: 1,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 45,
-        minAmmoTons: 1,
-        explosive: true,
-        weaponType: [
-            "DB",
-            "S"
-        ],
-        techRating: "e",
-        book: "TM",
-        page: 284,
-        alphaStrike: {
-            heat: 0,
-            rangeShort: 0,
-            rangeMedium: 0,
-            rangeLong: 0,
-            rangeExtreme: 0,
-            tc: false,
-            notes: []
-        },
-        heatAero: 0
-    },
-    {
         name: "Clan LB 5-X AC",
         tag: "clan-autocannon-lbx-5",
         sort: "lb, 5-x, ac",
@@ -108,9 +55,6 @@ export const mechClanEquipmentBallistic: IEquipmentItem[] = [
         heatAero: 1,
         rangeAero: "m"
     },
-    { isAmmo: true, name: "Ammo (Clan LB 2-X AC)", tag: "ammo-clan-autocannon-lbx-2", sort: "ammo, clan, lb, 2-x, ac", category: "Ammunition", damage: 0, notes: "Clan LB-X autocannon ammunition.", damageAero: 0, accuracyModifier: 0, cbills: 5000, introduced: 2823, extinct: 0, reintroduced: 0, battleValue: 6, heat: 0, heatAero: 0, weight: 1, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 45, minAmmoTons: 1, explosive: true, weaponType: ["DB", "S"], techRating: "e", book: "TM", page: 284, alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] } },
-    { isAmmo: true, name: "Ammo (Clan LB 10-X AC)", tag: "ammo-clan-autocannon-lbx-10", sort: "ammo, clan, lb, 10-x, ac", category: "Ammunition", damage: 0, notes: "Clan LB-X autocannon ammunition.", damageAero: 0, accuracyModifier: 0, cbills: 5000, introduced: 2823, extinct: 0, reintroduced: 0, battleValue: 19, heat: 0, heatAero: 0, weight: 1, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 10, minAmmoTons: 1, explosive: true, weaponType: ["DB", "S"], techRating: "e", book: "TM", page: 284, alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] } },
-    { isAmmo: true, name: "Ammo (Clan LB 20-X AC)", tag: "ammo-clan-autocannon-lbx-20", sort: "ammo, clan, lb, 20-x, ac", category: "Ammunition", damage: 0, notes: "Clan LB-X autocannon ammunition.", damageAero: 0, accuracyModifier: 0, cbills: 5000, introduced: 2823, extinct: 0, reintroduced: 0, battleValue: 30, heat: 0, heatAero: 0, weight: 1, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 5, minAmmoTons: 1, explosive: true, weaponType: ["DB", "S"], techRating: "e", book: "TM", page: 284, alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] } },
     { name: "Clan LB 2-X AC", tag: "clan-autocannon-lbx-2", sort: "lb, 2-x, ac", category: "Ballistic Weapons", damage: 2, notes: "", damageAero: 2, accuracyModifier: 0, cbills: 150000, introduced: 2823, extinct: 0, reintroduced: 0, battleValue: 47, heat: 1, heatAero: 1, weight: 5, range: { min: 4, short: 10, medium: 20, long: 30 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 45, minAmmoTons: 1, explosive: false, weaponType: ["DB", "S"], techRating: "e", book: "TM", page: 287, alphaStrike: { heat: 1, rangeShort: 0.069, rangeMedium: 0.105, rangeLong: 0.105, rangeExtreme: 0.105, tc: true, notes: ["flak"] }, rangeAero: "e" },
     { name: "Clan LB 10-X AC", tag: "clan-autocannon-lbx-10", sort: "lb, 10-x, ac", category: "Ballistic Weapons", damage: 10, notes: "", damageAero: 10, accuracyModifier: 0, cbills: 400000, introduced: 2823, extinct: 0, reintroduced: 0, battleValue: 148, heat: 2, heatAero: 2, weight: 10, range: { min: 0, short: 6, medium: 12, long: 18 }, space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 10, minAmmoTons: 1, explosive: false, weaponType: ["DB", "S"], techRating: "e", book: "TM", page: 287, alphaStrike: { heat: 2, rangeShort: 0.63, rangeMedium: 0.63, rangeLong: 0.63, rangeExtreme: 0, tc: true, notes: ["flak"] }, rangeAero: "m" },
     { name: "Clan LB 20-X AC", tag: "clan-autocannon-lbx-20", sort: "lb, 20-x, ac", category: "Ballistic Weapons", damage: 20, notes: "", damageAero: 20, accuracyModifier: 0, cbills: 600000, introduced: 2823, extinct: 0, reintroduced: 0, battleValue: 237, heat: 6, heatAero: 6, weight: 12, range: { min: 0, short: 4, medium: 8, long: 12 }, space: { battlemech: 9, protomech: -1, combatVehicle: 1, supportVehicle: 9, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 5, minAmmoTons: 1, explosive: false, weaponType: ["DB", "S"], techRating: "e", book: "TM", page: 287, alphaStrike: { heat: 6, rangeShort: 1.26, rangeMedium: 1.26, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["flak"] }, rangeAero: "s" },
