@@ -4,67 +4,7 @@ import { IASMULUnit } from "../classes/alpha-strike-unit";
 * The data here is definitely copyrighted and NOT included in the GPLv3 license.
 */
 
-const curatedMulListItems: IASMULUnit[] = [
-    {
-      Id: 653,
-      Name: "Eagle",
-      GroupName: "",
-      Class: "Eagle",
-      Variant: " ",
-      Tonnage: 1500,
-      BattleValue: 1200,
-      Technology: {
-        Id: 1,
-        Name: "Inner Sphere",
-        Image: null,
-        SortOrder: 0
-      },
-      Cost: 2500000,
-      Rules: "Standard",
-      TROId: 193,
-      TRO: "TR:3075",
-      RSId: 228,
-      RS: "RS:3075",
-      EraIcon: "https://i.ibb.co/4jf2wfz/era05-jihad.png",
-      DateIntroduced: "2718",
-      EraId: 10,
-      EraStart: 2571,
-      ImageUrl: "https://i.ibb.co/KrKdKJL/eagle-3075.png",
-      IsFeatured: true,
-      IsPublished: true,
-      Release: 1.3,
-      Type: {
-        Id: 17,
-        Name: "Aerospace",
-        Image: "Aerospace.gif",
-        SortOrder: 2
-      },
-      Role: {
-        Id: 104,
-        Name: "None",
-        Image: null,
-        SortOrder: 0
-      },
-      BFType: null,
-      BFSize: 0,
-      BFMove: "",
-      BFTMM: 0,
-      BFArmor: 0,
-      BFStructure: 0,
-      BFThreshold: 0,
-      BFDamageShort: 0,
-      BFDamageShortMin: false,
-      BFDamageMedium: 0,
-      BFDamageMediumMin: false,
-      BFDamageLong: 0,
-      BFDamageLongMin: false,
-      BFDamageExtreme: 0,
-      BFOverheat: 0,
-      BFPointValue: 0,
-      BFAbilities: null,
-      Skill: 0,
-      FormatedTonnage: "1,500"
-    },
+const curatedMulListItems: IASMULUnit[] = 
     {
       Id: 654,
       Name: "Cloud Ten Carrier AirShip  ",

@@ -23,5 +23,5 @@
   },
   "include": [
     "src"
-  ]
+, "tools/append_chunker.js", "tools/range_chunker.js"  ]
 }

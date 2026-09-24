@@ -1,0 +1,8827 @@
+[
+  {
+    "Id": 7804,
+    "Title": "Monocycle",
+    "Fields": {
+      "Tonnage": "0.8",
+      "Battle Value": "74",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - Wheeled",
+      "Unit Role": "Striker",
+      "Date Introduced": "3068",
+      "Era": "Jihad (3068 - 3080)",
+      "Notes": ""
+    },
+    "AvailabilityTables": []
+  },
+  {
+    "Id": 7804,
+    "Name": "Monocycle  ",
+    "GroupName": "",
+    "Class": "Monocycle",
+    "Variant": " ",
+    "Tonnage": 0.75,
+    "BattleValue": 74,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/4jf2wfz/era05-jihad.png",
+    "DateIntroduced": "3068",
+    "EraId": 14,
+    "EraStart": 3068,
+    "ImageUrl": "https://i.ibb.co/1QttmLf/monocycle-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "SV",
+    "BFSize": 1,
+    "BFMove": "16\"w(m)",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 9,
+    "BFAbilities": "AFC,ARM,EE,ORO",
+    "Skill": 0,
+    "FormatedTonnage": "0.8"
+  },
+  {
+    "Id": 7805,
+    "Title": "Minigun Cycle",
+    "Fields": {
+      "Tonnage": "0.4",
+      "Battle Value": "18",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - Wheeled",
+      "Unit Role": "Striker",
+      "Date Introduced": "2603",
+      "Era": "Star League (2571 - 2780)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Minigun Cycle (SRM)",
+          "18",
+          "6",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7805,
+    "Name": "Minigun Cycle  ",
+    "GroupName": "",
+    "Class": "Minigun Cycle",
+    "Variant": " ",
+    "Tonnage": 0.35,
+    "BattleValue": 18,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/fr2Wdf0/era01-age-of-war-star-league.png",
+    "DateIntroduced": "2603",
+    "EraId": 10,
+    "EraStart": 2571,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "SV",
+    "BFSize": 1,
+    "BFMove": "14\"w(b)",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 6,
+    "BFAbilities": "AFC,EE,ORO",
+    "Skill": 0,
+    "FormatedTonnage": "0.4"
+  },
+  {
+    "Id": 7806,
+    "Title": "Minigun Cycle (SRM)",
+    "Fields": {
+      "Tonnage": "0.4",
+      "Battle Value": "18",
+      "Cost": "8,184",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - Wheeled",
+      "Unit Role": "Striker",
+      "Date Introduced": "2603",
+      "Era": "Star League (2571 - 2780)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Minigun Cycle",
+          "18",
+          "6",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7806,
+    "Name": "Minigun Cycle (SRM)",
+    "GroupName": "",
+    "Class": "Minigun Cycle",
+    "Variant": "(SRM)",
+    "Tonnage": 0.35,
+    "BattleValue": 18,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 8184,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/fr2Wdf0/era01-age-of-war-star-league.png",
+    "DateIntroduced": "2603",
+    "EraId": 10,
+    "EraStart": 2571,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "SV",
+    "BFSize": 1,
+    "BFMove": "14\"w(b)",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 6,
+    "BFAbilities": "AFC,EE,ORO",
+    "Skill": 0,
+    "FormatedTonnage": "0.4"
+  },
+  {
+    "Id": 7807,
+    "Title": "Hoverbike",
+    "Fields": {
+      "Tonnage": "1.2",
+      "Battle Value": "42",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - Hover",
+      "Unit Role": "Scout",
+      "Date Introduced": "3087",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Hoverbike (Laser)",
+          "45",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Hoverbike (MG)",
+          "38",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Hoverbike JI-002",
+          "NA",
+          "NA",
+          "Standard",
+          "AToW Companion",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7807,
+    "Name": "Hoverbike  ",
+    "GroupName": "",
+    "Class": "Hoverbike",
+    "Variant": " ",
+    "Tonnage": 1.2,
+    "BattleValue": 42,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3087",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 105,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 6
+    },
+    "BFType": "SV",
+    "BFSize": 1,
+    "BFMove": "24\"w(b)",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "AFC,FC",
+    "Skill": 0,
+    "FormatedTonnage": "1.2"
+  },
+  {
+    "Id": 7808,
+    "Title": "Hoverbike (Laser)",
+    "Fields": {
+      "Tonnage": "1.2",
+      "Battle Value": "45",
+      "Cost": "28,858",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - Hover",
+      "Unit Role": "Striker",
+      "Date Introduced": "3088",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Hoverbike",
+          "42",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Hoverbike (MG)",
+          "38",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Hoverbike JI-002",
+          "NA",
+          "NA",
+          "Standard",
+          "AToW Companion",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7808,
+    "Name": "Hoverbike (Laser)",
+    "GroupName": "",
+    "Class": "Hoverbike",
+    "Variant": "(Laser)",
+    "Tonnage": 1.2,
+    "BattleValue": 45,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 28858,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3088",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "SV",
+    "BFSize": 1,
+    "BFMove": "24\"w(b)",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "AFC,ENE,FC",
+    "Skill": 0,
+    "FormatedTonnage": "1.2"
+  },
+  {
+    "Id": 7809,
+    "Title": "Hoverbike (MG)",
+    "Fields": {
+      "Tonnage": "1.2",
+      "Battle Value": "38",
+      "Cost": "10,273",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - Hover",
+      "Unit Role": "Striker",
+      "Date Introduced": "3088",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Hoverbike",
+          "42",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Hoverbike (Laser)",
+          "45",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Hoverbike JI-002",
+          "NA",
+          "NA",
+          "Standard",
+          "AToW Companion",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7809,
+    "Name": "Hoverbike (MG)",
+    "GroupName": "",
+    "Class": "Hoverbike",
+    "Variant": "(MG)",
+    "Tonnage": 1.2,
+    "BattleValue": 38,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 10273,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3088",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "SV",
+    "BFSize": 1,
+    "BFMove": "24\"w(b)",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "AFC,FC",
+    "Skill": 0,
+    "FormatedTonnage": "1.2"
+  },
+  {
+    "Id": 7810,
+    "Title": "Trike",
+    "Fields": {
+      "Tonnage": "0.5",
+      "Battle Value": "11",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - Wheeled",
+      "Unit Role": "Striker",
+      "Date Introduced": "2513",
+      "Era": "Age of War (2005 - 2570)",
+      "Notes": ""
+    },
+    "AvailabilityTables": []
+  },
+  {
+    "Id": 7810,
+    "Name": "Trike  ",
+    "GroupName": "",
+    "Class": "Trike",
+    "Variant": " ",
+    "Tonnage": 0.5,
+    "BattleValue": 11,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/fr2Wdf0/era01-age-of-war-star-league.png",
+    "DateIntroduced": "2513",
+    "EraId": 9,
+    "EraStart": 2005,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "SV",
+    "BFSize": 1,
+    "BFMove": "12\"w(b)",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 3,
+    "BFAbilities": "AFC,EE,ORO",
+    "Skill": 0,
+    "FormatedTonnage": "0.5"
+  },
+  {
+    "Id": 7811,
+    "Title": "TrackBike",
+    "Fields": {
+      "Tonnage": "2",
+      "Battle Value": "19",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - Tracked",
+      "Unit Role": "Striker",
+      "Date Introduced": "2544",
+      "Era": "Age of War (2005 - 2570)",
+      "Notes": ""
+    },
+    "AvailabilityTables": []
+  },
+  {
+    "Id": 7811,
+    "Name": "TrackBike  ",
+    "GroupName": "",
+    "Class": "TrackBike",
+    "Variant": " ",
+    "Tonnage": 2,
+    "BattleValue": 19,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/fr2Wdf0/era01-age-of-war-star-league.png",
+    "DateIntroduced": "2544",
+    "EraId": 9,
+    "EraStart": 2005,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "SV",
+    "BFSize": 1,
+    "BFMove": "14\"t",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "AFC,EE",
+    "Skill": 0,
+    "FormatedTonnage": "2"
+  },
+  {
+    "Id": 7812,
+    "Title": "Scout ATV",
+    "Fields": {
+      "Tonnage": "1",
+      "Battle Value": "25",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - Wheeled",
+      "Unit Role": "None",
+      "Date Introduced": "2813",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": ""
+    },
+    "AvailabilityTables": []
+  },
+  {
+    "Id": 7812,
+    "Name": "Scout ATV  ",
+    "GroupName": "",
+    "Class": "Scout ATV",
+    "Variant": " ",
+    "Tonnage": 1,
+    "BattleValue": 25,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2813",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "SV",
+    "BFSize": 1,
+    "BFMove": "18\"w",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "AFC,EE,ORO",
+    "Skill": 0,
+    "FormatedTonnage": "1"
+  },
+  {
+    "Id": 7813,
+    "Title": "Sturmvogel Maritime Patrol WiGE",
+    "Fields": {
+      "Tonnage": "50",
+      "Battle Value": "523",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - WiGE",
+      "Unit Role": "Striker",
+      "Date Introduced": "3063",
+      "Era": "Civil War (3062 - 3067)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Sturmvogel Maritime Patrol WiGE (LB-2X)",
+          "323",
+          "16",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Sturmvogel Maritime Patrol WiGE (LB-10X)",
+          "624",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Sturmvogel Gunship WiGE",
+          "614",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7813,
+    "Name": "Sturmvogel Maritime Patrol WiGE  ",
+    "GroupName": "sturmvogel",
+    "Class": "Sturmvogel Maritime Patrol WiGE",
+    "Variant": " ",
+    "Tonnage": 50,
+    "BattleValue": 523,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/QjhjKwr/era04-civil-war.png",
+    "DateIntroduced": "3063",
+    "EraId": 247,
+    "EraStart": 3062,
+    "ImageUrl": "https://i.ibb.co/ZdfN09z/sturmvogel-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "SV",
+    "BFSize": 2,
+    "BFMove": "16\"g",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 19,
+    "BFAbilities": "AFC,AMP,ARS,CT3.5,RSD,MDS4",
+    "Skill": 0,
+    "FormatedTonnage": "50"
+  },
+  {
+    "Id": 7814,
+    "Title": "Sturmvogel Maritime Patrol WiGE (LB-2X)",
+    "Fields": {
+      "Tonnage": "50",
+      "Battle Value": "323",
+      "Cost": "1,887,525",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - WiGE",
+      "Unit Role": "Sniper",
+      "Date Introduced": "3065",
+      "Era": "Civil War (3062 - 3067)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Sturmvogel Maritime Patrol WiGE",
+          "523",
+          "19",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Sturmvogel Maritime Patrol WiGE (LB-10X)",
+          "624",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Sturmvogel Gunship WiGE",
+          "614",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7814,
+    "Name": "Sturmvogel Maritime Patrol WiGE (LB-2X)",
+    "GroupName": "sturmvogel",
+    "Class": "Sturmvogel Maritime Patrol WiGE",
+    "Variant": "(LB-2X)",
+    "Tonnage": 50,
+    "BattleValue": 323,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1887525,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/QjhjKwr/era04-civil-war.png",
+    "DateIntroduced": "3065",
+    "EraId": 247,
+    "EraStart": 3062,
+    "ImageUrl": "https://i.ibb.co/ZdfN09z/sturmvogel-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "SV",
+    "BFSize": 2,
+    "BFMove": "16\"g",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": true,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 16,
+    "BFAbilities": "AFC,AMP,ARS,CT3.5,FLK0*/0*/0*,RSD,MDS4",
+    "Skill": 0,
+    "FormatedTonnage": "50"
+  },
+  {
+    "Id": 7815,
+    "Title": "Sturmvogel Maritime Patrol WiGE (LB-10X)",
+    "Fields": {
+      "Tonnage": "50",
+      "Battle Value": "624",
+      "Cost": "2,822,625",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - WiGE",
+      "Unit Role": "Striker",
+      "Date Introduced": "3059",
+      "Era": "Clan Invasion (3050 - 3061)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Sturmvogel Maritime Patrol WiGE",
+          "523",
+          "19",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Sturmvogel Maritime Patrol WiGE (LB-2X)",
+          "323",
+          "16",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Sturmvogel Gunship WiGE",
+          "614",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7815,
+    "Name": "Sturmvogel Maritime Patrol WiGE (LB-10X)",
+    "GroupName": "sturmvogel",
+    "Class": "Sturmvogel Maritime Patrol WiGE",
+    "Variant": "(LB-10X)",
+    "Tonnage": 50,
+    "BattleValue": 624,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 2822625,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/k6ySqKN/era03-clan-invasion.png",
+    "DateIntroduced": "3059",
+    "EraId": 13,
+    "EraStart": 3050,
+    "ImageUrl": "https://i.ibb.co/ZdfN09z/sturmvogel-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "SV",
+    "BFSize": 2,
+    "BFMove": "16\"g",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 18,
+    "BFAbilities": "AFC,AMP,ARS,FLK1/1/1,MDS3",
+    "Skill": 0,
+    "FormatedTonnage": "50"
+  },
+  {
+    "Id": 7816,
+    "Title": "Sturmvogel Gunship WiGE",
+    "Fields": {
+      "Tonnage": "50",
+      "Battle Value": "614",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - WiGE",
+      "Unit Role": "Sniper",
+      "Date Introduced": "3059",
+      "Era": "Clan Invasion (3050 - 3061)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Sturmvogel Maritime Patrol WiGE",
+          "523",
+          "19",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Sturmvogel Maritime Patrol WiGE (LB-2X)",
+          "323",
+          "16",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Sturmvogel Maritime Patrol WiGE (LB-10X)",
+          "624",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7816,
+    "Name": "Sturmvogel Gunship WiGE  ",
+    "GroupName": "Sturmvogel",
+    "Class": "Sturmvogel Gunship WiGE",
+    "Variant": " ",
+    "Tonnage": 50,
+    "BattleValue": 614,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/k6ySqKN/era03-clan-invasion.png",
+    "DateIntroduced": "3059",
+    "EraId": 13,
+    "EraStart": 3050,
+    "ImageUrl": "https://i.ibb.co/ZdfN09z/sturmvogel-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "SV",
+    "BFSize": 2,
+    "BFMove": "16\"g",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 18,
+    "BFAbilities": "AFC,AMP,ARS,MDS3",
+    "Skill": 0,
+    "FormatedTonnage": "50"
+  },
+  {
+    "Id": 7817,
+    "Title": "Prime Mover",
+    "Fields": {
+      "Tonnage": "60",
+      "Battle Value": "173",
+      "Cost": "511,550",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - Wheeled",
+      "Unit Role": "None",
+      "Date Introduced": "2420",
+      "Era": "Age of War (2005 - 2570)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Prime Mover (LRM)",
+          "284",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Prime Mover (Succession Wars)",
+          "NA",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7817,
+    "Name": "Prime Mover  ",
+    "GroupName": "",
+    "Class": "Prime Mover",
+    "Variant": " ",
+    "Tonnage": 60,
+    "BattleValue": 173,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 511550,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/fr2Wdf0/era01-age-of-war-star-league.png",
+    "DateIntroduced": "2420",
+    "EraId": 9,
+    "EraStart": 2005,
+    "ImageUrl": "https://i.ibb.co/7Gh7vqn/prime-mover-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "SV",
+    "BFSize": 2,
+    "BFMove": "10\"w",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 11,
+    "BFAbilities": "AFC,BAR,CT20,ORO,TUR(1/1/0)",
+    "Skill": 0,
+    "FormatedTonnage": "60"
+  },
+  {
+    "Id": 7818,
+    "Title": "Prime Mover (LRM)",
+    "Fields": {
+      "Tonnage": "60",
+      "Battle Value": "284",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Support Vehicle - Wheeled",
+      "Unit Role": "None",
+      "Date Introduced": "3050",
+      "Era": "Clan Invasion (3050 - 3061)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Prime Mover",
+          "173",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Prime Mover (Succession Wars)",
+          "NA",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7818,
+    "Name": "Prime Mover (LRM)",
+    "GroupName": "",
+    "Class": "Prime Mover",
+    "Variant": "(LRM)",
+    "Tonnage": 60,
+    "BattleValue": 284,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/k6ySqKN/era03-clan-invasion.png",
+    "DateIntroduced": "3050",
+    "EraId": 13,
+    "EraStart": 3050,
+    "ImageUrl": "https://i.ibb.co/7Gh7vqn/prime-mover-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": "NonStandard.gif",
+      "SortOrder": 6
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "SV",
+    "BFSize": 2,
+    "BFMove": "10\"w",
+    "BFTMM": 0,
+    "BFArmor": 4,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": true,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 11,
+    "BFAbilities": "AFC,BAR,CT20,IF0*,ORO,TUR(0*/0*/0*,IF0*)",
+    "Skill": 0,
+    "FormatedTonnage": "60"
+  },
+  {
+    "Id": 7819,
+    "Title": "Wheeled Scout (Camera)",
+    "Fields": {
+      "Tonnage": "20",
+      "Battle Value": "291",
+      "Cost": "204,600",
+      "Rules Level": "Advanced",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Combat Vehicle - Wheeled",
+      "Unit Role": "Scout",
+      "Date Introduced": "2510",
+      "Era": "Age of War (2005 - 2570)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Wheeled Scout",
+          "291",
+          "14",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Wheeled Scout (Sensors)",
+          "291",
+          "16",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7819,
+    "Name": "Wheeled Scout (Camera)",
+    "GroupName": "",
+    "Class": "Wheeled Scout",
+    "Variant": "(Camera)",
+    "Tonnage": 20,
+    "BattleValue": 291,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 204600,
+    "Rules": "Advanced",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/fr2Wdf0/era01-age-of-war-star-league.png",
+    "DateIntroduced": "2510",
+    "EraId": 9,
+    "EraStart": 2005,
+    "ImageUrl": "https://i.ibb.co/KsHY4DS/wheeled-scout-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": "CombatVehicle.gif",
+      "SortOrder": 1
+    },
+    "Role": {
+      "Id": 105,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 6
+    },
+    "BFType": "CV",
+    "BFSize": 1,
+    "BFMove": "14\"w",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 16,
+    "BFAbilities": "EE,RCN,SRCH",
+    "Skill": 0,
+    "FormatedTonnage": "20"
+  },
+  {
+    "Id": 7820,
+    "Title": "Wheeled Scout (Sensors)",
+    "Fields": {
+      "Tonnage": "20",
+      "Battle Value": "291",
+      "Cost": "249,700",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Combat Vehicle - Wheeled",
+      "Unit Role": "Scout",
+      "Date Introduced": "2596",
+      "Era": "Star League (2571 - 2780)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Wheeled Scout",
+          "291",
+          "14",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Wheeled Scout (Camera)",
+          "291",
+          "16",
+          "Advanced",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7820,
+    "Name": "Wheeled Scout (Sensors)",
+    "GroupName": "",
+    "Class": "Wheeled Scout",
+    "Variant": "(Sensors)",
+    "Tonnage": 20,
+    "BattleValue": 291,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 249700,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/fr2Wdf0/era01-age-of-war-star-league.png",
+    "DateIntroduced": "2596",
+    "EraId": 10,
+    "EraStart": 2571,
+    "ImageUrl": "https://i.ibb.co/KsHY4DS/wheeled-scout-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": "CombatVehicle.gif",
+      "SortOrder": 1
+    },
+    "Role": {
+      "Id": 105,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 6
+    },
+    "BFType": "CV",
+    "BFSize": 1,
+    "BFMove": "14\"w",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 16,
+    "BFAbilities": "EE,RCN,RSD1,SRCH",
+    "Skill": 0,
+    "FormatedTonnage": "20"
+  },
+  {
+    "Id": 7823,
+    "Title": "Guard GS-107X SecurityMech",
+    "Fields": {
+      "Tonnage": "15",
+      "Battle Value": "367",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3068",
+      "Era": "Jihad (3068 - 3080)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Guard GS-54 SecurityMech",
+          "156",
+          "4",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7823,
+    "Name": "Guard GS-107X SecurityMech",
+    "GroupName": "",
+    "Class": "Guard",
+    "Variant": "GS-107X SecurityMech",
+    "Tonnage": 15,
+    "BattleValue": 367,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/4jf2wfz/era05-jihad.png",
+    "DateIntroduced": "3068",
+    "EraId": 14,
+    "EraStart": 3068,
+    "ImageUrl": "https://i.ibb.co/R6hF7jV/guard-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1.2,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 10,
+    "BFAbilities": "AFC,ENE,ES",
+    "Skill": 0,
+    "FormatedTonnage": "15"
+  },
+  {
+    "Id": 7824,
+    "Title": "Pacifier CCU-40 SecurityMech",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "356",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3087",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Pacifier CCU-36 SecurityMech",
+          "299",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7824,
+    "Name": "Pacifier CCU-40 SecurityMech",
+    "GroupName": "",
+    "Class": "Pacifier",
+    "Variant": "CCU-40 SecurityMech",
+    "Tonnage": 30,
+    "BattleValue": 356,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3087",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/FYFpXWN/pacifier-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1.2,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": true,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 14,
+    "BFAbilities": "AFC, ES, FC, IF0*",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7825,
+    "Title": "Inquisitor ITW-85 SecurityMech",
+    "Fields": {
+      "Tonnage": "35",
+      "Battle Value": "664",
+      "Cost": "2,279,545",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Scout",
+      "Date Introduced": "3122",
+      "Era": "Late Republic (3101 - 3130)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Inquisitor ITW-80 SecurityMech",
+          "613",
+          "25",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7825,
+    "Name": "Inquisitor ITW-85 SecurityMech",
+    "GroupName": "",
+    "Class": "Inquisitor",
+    "Variant": "ITW-85 SecurityMech",
+    "Tonnage": 35,
+    "BattleValue": 664,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 2279545,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3122",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/hVKqXVg/inquisitor-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1.2,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 105,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 6
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "10\"",
+    "BFTMM": 0,
+    "BFArmor": 4,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 24,
+    "BFAbilities": "AFC, CASEII, ES, PRB, RCN, SRCH",
+    "Skill": 0,
+    "FormatedTonnage": "35"
+  },
+  {
+    "Id": 7826,
+    "Title": "St. Florian FLN-366-M FireMech MOD",
+    "Fields": {
+      "Tonnage": "90",
+      "Battle Value": "1,266",
+      "Cost": "5,191,121",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3133",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "St. Florian FLN-366 FireMech",
+          "833",
+          "20",
+          "Advanced",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7826,
+    "Name": "St. Florian FLN-366-M FireMech MOD",
+    "GroupName": "",
+    "Class": "St. Florian",
+    "Variant": "FLN-366-M FireMech MOD",
+    "Tonnage": 90,
+    "BattleValue": 1266,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 5191121,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3133",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/CMdvCNs/st-florian-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1.2,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 6,
+    "BFStructure": 7,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 2,
+    "BFPointValue": 30,
+    "BFAbilities": "AFC, HT2/1/-, SEAL, SOA, SRCH",
+    "Skill": 0,
+    "FormatedTonnage": "90"
+  },
+  {
+    "Id": 7827,
+    "Title": "MuckRaker GMMM-2M MiningMech MOD",
+    "Fields": {
+      "Tonnage": "70",
+      "Battle Value": "1,001",
+      "Cost": "2,276,954",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3100",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "MuckRaker GMMM-2 MiningMech",
+          "709",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "MuckRaker GMMM-2M-B MiningMech MOD",
+          "815",
+          "27",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7827,
+    "Name": "MuckRaker GMMM-2M MiningMech MOD",
+    "GroupName": "",
+    "Class": "MuckRaker",
+    "Variant": "GMMM-2M MiningMech MOD",
+    "Tonnage": 70,
+    "BattleValue": 1001,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 2276954,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3100",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/vmpfkL1/muckraker-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1.2,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 3,
+    "BFMove": "4\"",
+    "BFTMM": 0,
+    "BFArmor": 6,
+    "BFStructure": 6,
+    "BFThreshold": 0,
+    "BFDamageShort": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 4,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 22,
+    "BFAbilities": "AFC,EE",
+    "Skill": 0,
+    "FormatedTonnage": "70"
+  },
+  {
+    "Id": 7828,
+    "Title": "MuckRaker GMMM-2M-B MiningMech MOD",
+    "Fields": {
+      "Tonnage": "70",
+      "Battle Value": "815",
+      "Cost": "2,283,417",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Missile Boat",
+      "Date Introduced": "3133",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "MuckRaker GMMM-2 MiningMech",
+          "709",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "MuckRaker GMMM-2M MiningMech MOD",
+          "1,001",
+          "22",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7828,
+    "Name": "MuckRaker GMMM-2M-B MiningMech MOD",
+    "GroupName": "",
+    "Class": "MuckRaker",
+    "Variant": "GMMM-2M-B MiningMech MOD",
+    "Tonnage": 70,
+    "BattleValue": 815,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 2283417,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3133",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/vmpfkL1/muckraker-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1.2,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 110,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFType": "IM",
+    "BFSize": 3,
+    "BFMove": "4\"",
+    "BFTMM": 0,
+    "BFArmor": 6,
+    "BFStructure": 6,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 2,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 27,
+    "BFAbilities": "AFC, EE, IF1",
+    "Skill": 0,
+    "FormatedTonnage": "70"
+  },
+  {
+    "Id": 7829,
+    "Title": "Dig Lord RCL-4M-B MiningMech MOD",
+    "Fields": {
+      "Tonnage": "65",
+      "Battle Value": "699",
+      "Cost": "2,565,638",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Juggernaut",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Dig Lord RCL-4 MiningMech",
+          "599",
+          "12",
+          "Advanced",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Dig Lord RCL-4M MiningMech MOD",
+          "706",
+          "20",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Dig Lord RCL-Z1 Armed MiningMech",
+          "681",
+          "22",
+          "Experimental",
+          "XTR:Periphery",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7829,
+    "Name": "Dig Lord RCL-4M-B MiningMech MOD",
+    "GroupName": "",
+    "Class": "Dig Lord",
+    "Variant": "RCL-4M-B MiningMech MOD",
+    "Tonnage": 65,
+    "BattleValue": 699,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 2565638,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/TbRpb8T/dig-king-trva.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 108,
+      "Name": "Juggernaut",
+      "Image": null,
+      "SortOrder": 3
+    },
+    "BFType": "IM",
+    "BFSize": 3,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 4,
+    "BFStructure": 5,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 22,
+    "BFAbilities": "AFC,ENG,FC,MEL,SRM1/1",
+    "Skill": 0,
+    "FormatedTonnage": "65"
+  },
+  {
+    "Id": 7830,
+    "Title": "Deep Lord RCL-Z1M-B MilitiaMech",
+    "Fields": {
+      "Tonnage": "65",
+      "Battle Value": "773",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Juggernaut",
+      "Date Introduced": "3118",
+      "Era": "Late Republic (3101 - 3130)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Deep Lord RCL-Z1M MilitiaMech",
+          "715",
+          "21",
+          "Advanced",
+          "TR:Proto",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7830,
+    "Name": "Deep Lord RCL-Z1M-B MilitiaMech",
+    "GroupName": "Deep Lord",
+    "Class": "Deep Lord",
+    "Variant": "RCL-Z1M-B MilitiaMech",
+    "Tonnage": 65,
+    "BattleValue": 773,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3118",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/Pz4FbnP/deep-lord-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1.1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 108,
+      "Name": "Juggernaut",
+      "Image": null,
+      "SortOrder": 3
+    },
+    "BFType": "IM",
+    "BFSize": 3,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 4,
+    "BFStructure": 5,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 21,
+    "BFAbilities": "AFC, ES, FC, MEL, TUR(1/1/1)",
+    "Skill": 0,
+    "FormatedTonnage": "65"
+  },
+  {
+    "Id": 7831,
+    "Title": "Haruspex Military Surveillance Satellite",
+    "Fields": {
+      "Tonnage": "100",
+      "Battle Value": "375",
+      "Cost": "NA",
+      "Rules Level": "Advanced",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Advanced Support - Satellite",
+      "Unit Role": "None",
+      "Date Introduced": "3065",
+      "Era": "Civil War (3062 - 3067)",
+      "Notes": ""
+    },
+    "AvailabilityTables": []
+  },
+  {
+    "Id": 7831,
+    "Name": "Haruspex Military Surveillance Satellite  ",
+    "GroupName": "",
+    "Class": "Haruspex Military Surveillance Satellite",
+    "Variant": " ",
+    "Tonnage": 100,
+    "BattleValue": 375,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Advanced",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/QjhjKwr/era04-civil-war.png",
+    "DateIntroduced": "3065",
+    "EraId": 247,
+    "EraStart": 3062,
+    "ImageUrl": "https://i.ibb.co/sKMp0r9/haruspex-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 79,
+      "Name": "Advanced Support",
+      "Image": "NonStandard.gif",
+      "SortOrder": 9
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "SS",
+    "BFSize": 1,
+    "BFMove": "0.2k",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 1,
+    "BFDamageShort": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 5,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 3,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 22,
+    "BFAbilities": "ARS,RBT",
+    "Skill": 0,
+    "FormatedTonnage": "100"
+  },
+  {
+    "Id": 7837,
+    "Title": "Pompier GM-4P PoliceMech",
+    "Fields": {
+      "Tonnage": "15",
+      "Battle Value": "148",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3085",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Pompier GM-3A FireMech",
+          "106",
+          "4",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Pompier GM-3CD FireMech",
+          "118",
+          "7",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Pompier GM-3HT FireMech",
+          "106",
+          "4",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Pompier GM-FL FireMech",
+          "88",
+          "2",
+          "Experimental",
+          "XTR:Most Wanted",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7837,
+    "Name": "Pompier GM-4P PoliceMech",
+    "GroupName": "",
+    "Class": "Pompier",
+    "Variant": "GM-4P PoliceMech",
+    "Tonnage": 15,
+    "BattleValue": 148,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3085",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/p4pWY8V/pompier-xtr.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "AFC, ES",
+    "Skill": 0,
+    "FormatedTonnage": "15"
+  },
+  {
+    "Id": 7838,
+    "Title": "Firebee WI-WAM MilitiaMech",
+    "Fields": {
+      "Tonnage": "35",
+      "Battle Value": "456",
+      "Cost": "1,679,426",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Missile Boat",
+      "Date Introduced": "3133",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": []
+  },
+  {
+    "Id": 7838,
+    "Name": "Firebee WI-WAM MilitiaMech",
+    "GroupName": "",
+    "Class": "Firebee",
+    "Variant": "WI-WAM MilitiaMech",
+    "Tonnage": 35,
+    "BattleValue": 456,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1679426,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3133",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/4FyvZbY/firebee-prim.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 110,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 2,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 15,
+    "BFAbilities": "AFC,ES,IF1,FC",
+    "Skill": 0,
+    "FormatedTonnage": "35"
+  },
+  {
+    "Id": 7839,
+    "Title": "DemolitionMech WI-DMM MOD",
+    "Fields": {
+      "Tonnage": "35",
+      "Battle Value": "444",
+      "Cost": "1,525,762",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3134",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "DemolitionMech WI-DM",
+          "380",
+          "8",
+          "Standard",
+          "TR:3075",
+          ""
+        ],
+        [
+          "DemolitionMech WI-DM2",
+          "345",
+          "10",
+          "Standard",
+          "TR:3075",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7839,
+    "Name": "DemolitionMech WI-DMM MOD",
+    "GroupName": "",
+    "Class": "DemolitionMech",
+    "Variant": "WI-DMM MOD",
+    "Tonnage": 35,
+    "BattleValue": 444,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1525762,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3134",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/FqJ2BSX/demolitionmech-trva.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 13,
+    "BFAbilities": "AFC, ENG, FC, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "35"
+  },
+  {
+    "Id": 7840,
+    "Title": "Exo HMX-1 HaulerMech",
+    "Fields": {
+      "Tonnage": "10",
+      "Battle Value": "96",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "None",
+      "Date Introduced": "3081",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Exo HMX-2 HaulerMech",
+          "98",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Exo HMX-3 HaulerMech",
+          "107",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Exo HMX-3M HaulerMech",
+          "108",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7840,
+    "Name": "Exo HMX-1 HaulerMech",
+    "GroupName": "",
+    "Class": "Exo",
+    "Variant": "HMX-1 HaulerMech",
+    "Tonnage": 10,
+    "BattleValue": 96,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3081",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/r7f04sz/exo-haulermech-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "BFC, EE, ENE",
+    "Skill": 0,
+    "FormatedTonnage": "10"
+  },
+  {
+    "Id": 7841,
+    "Title": "Exo HMX-2 HaulerMech",
+    "Fields": {
+      "Tonnage": "10",
+      "Battle Value": "98",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "None",
+      "Date Introduced": "3082",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Exo HMX-1 HaulerMech",
+          "96",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Exo HMX-3 HaulerMech",
+          "107",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Exo HMX-3M HaulerMech",
+          "108",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7841,
+    "Name": "Exo HMX-2 HaulerMech",
+    "GroupName": "",
+    "Class": "Exo",
+    "Variant": "HMX-2 HaulerMech",
+    "Tonnage": 10,
+    "BattleValue": 98,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3082",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/r7f04sz/exo-haulermech-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "BFC, EE, ENE, I-TSM",
+    "Skill": 0,
+    "FormatedTonnage": "10"
+  },
+  {
+    "Id": 7842,
+    "Title": "Exo HMX-3 HaulerMech",
+    "Fields": {
+      "Tonnage": "10",
+      "Battle Value": "107",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "None",
+      "Date Introduced": "3082",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Exo HMX-1 HaulerMech",
+          "96",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Exo HMX-2 HaulerMech",
+          "98",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Exo HMX-3M HaulerMech",
+          "108",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7842,
+    "Name": "Exo HMX-3 HaulerMech",
+    "GroupName": "",
+    "Class": "Exo",
+    "Variant": "HMX-3 HaulerMech",
+    "Tonnage": 10,
+    "BattleValue": 107,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3082",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/r7f04sz/exo-haulermech-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "BFC, ENE, FC, I-TSM, SEAL, SOA",
+    "Skill": 0,
+    "FormatedTonnage": "10"
+  },
+  {
+    "Id": 7843,
+    "Title": "Exo HMX-3M HaulerMech",
+    "Fields": {
+      "Tonnage": "10",
+      "Battle Value": "108",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "None",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Exo HMX-1 HaulerMech",
+          "96",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Exo HMX-2 HaulerMech",
+          "98",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Exo HMX-3 HaulerMech",
+          "107",
+          "5",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7843,
+    "Name": "Exo HMX-3M HaulerMech",
+    "GroupName": "",
+    "Class": "Exo",
+    "Variant": "HMX-3M HaulerMech",
+    "Tonnage": 10,
+    "BattleValue": 108,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/r7f04sz/exo-haulermech-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "AFC, ENE, FC, I-TSM, SEAL, SOA",
+    "Skill": 0,
+    "FormatedTonnage": "10"
+  },
+  {
+    "Id": 7844,
+    "Title": "Gulon GLN-1A MiningMech",
+    "Fields": {
+      "Tonnage": "25",
+      "Battle Value": "352",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3020",
+      "Era": "Late Succession War - Renaissance (3020 - 3049)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Gulon GLN-1B SecurityMech",
+          "410",
+          "14",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Gulon C SolahmaMech",
+          "533",
+          "16",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7844,
+    "Name": "Gulon GLN-1A MiningMech",
+    "GroupName": "",
+    "Class": "Gulon",
+    "Variant": "GLN-1A MiningMech",
+    "Tonnage": 25,
+    "BattleValue": 352,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "3020",
+    "EraId": 256,
+    "EraStart": 3020,
+    "ImageUrl": "https://i.ibb.co/mz7kHsn/gulon-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "BFC, ENE, ENG, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 7845,
+    "Title": "Gulon GLN-1B SecurityMech",
+    "Fields": {
+      "Tonnage": "25",
+      "Battle Value": "410",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3026",
+      "Era": "Late Succession War - Renaissance (3020 - 3049)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Gulon GLN-1A MiningMech",
+          "352",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Gulon C SolahmaMech",
+          "533",
+          "16",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7845,
+    "Name": "Gulon GLN-1B SecurityMech",
+    "GroupName": "",
+    "Class": "Gulon",
+    "Variant": "GLN-1B SecurityMech",
+    "Tonnage": 25,
+    "BattleValue": 410,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "3026",
+    "EraId": 256,
+    "EraStart": 3020,
+    "ImageUrl": "https://i.ibb.co/mz7kHsn/gulon-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 14,
+    "BFAbilities": "AFC, ENE, ENG, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 7846,
+    "Title": "Gulon C SolahmaMech",
+    "Fields": {
+      "Tonnage": "25",
+      "Battle Value": "533",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3113",
+      "Era": "Late Republic (3101 - 3130)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Gulon GLN-1A MiningMech",
+          "352",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Gulon GLN-1B SecurityMech",
+          "410",
+          "14",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7846,
+    "Name": "Gulon C SolahmaMech",
+    "GroupName": "",
+    "Class": "Gulon",
+    "Variant": "C SolahmaMech",
+    "Tonnage": 25,
+    "BattleValue": 533,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3113",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/mz7kHsn/gulon-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 16,
+    "BFAbilities": "AFC, ENE, ENG, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 7847,
+    "Title": "Opossum OPO-2 SalvageMech",
+    "Fields": {
+      "Tonnage": "25",
+      "Battle Value": "240",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "None",
+      "Date Introduced": "3110",
+      "Era": "Late Republic (3101 - 3130)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Opossum OPO-3 SalvageMech MOD",
+          "239",
+          "9",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7847,
+    "Name": "Opossum OPO-2 SalvageMech",
+    "GroupName": "",
+    "Class": "Opossum",
+    "Variant": "OPO-2 SalvageMech",
+    "Tonnage": 25,
+    "BattleValue": 240,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3110",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/LhSmWKh/opossum-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 10,
+    "BFAbilities": "AFC,EE,ENE,MEL,PRB,RCN",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 7848,
+    "Title": "Opossum OPO-3 SalvageMech MOD",
+    "Fields": {
+      "Tonnage": "25",
+      "Battle Value": "239",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Sniper",
+      "Date Introduced": "3131",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Opossum OPO-2 SalvageMech",
+          "240",
+          "10",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7848,
+    "Name": "Opossum OPO-3 SalvageMech MOD",
+    "GroupName": "",
+    "Class": "Opossum",
+    "Variant": "OPO-3 SalvageMech MOD",
+    "Tonnage": 25,
+    "BattleValue": 239,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3131",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/LhSmWKh/opossum-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": true,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 9,
+    "BFAbilities": "AFC,EE",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 7849,
+    "Title": "Carbine CON-9M-J ConstructionMech MOD",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "271",
+      "Cost": "1,043,288",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Carbine CON-1 ConstructionMech",
+          "198",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-1 ConstructionMech (RL)",
+          "296",
+          "8",
+          "Experimental",
+          "His:OK",
+          ""
+        ],
+        [
+          "Carbine CON-7M ConstructionMech MOD",
+          "306",
+          "8",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-8H HaulerMech",
+          "177",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9 ConstructionMech",
+          "246",
+          "8",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9M ConstructionMech MOD",
+          "289",
+          "10",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9M-B ConstructionMech MOD",
+          "293",
+          "11",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9M-JB ConstructionMech MOD",
+          "302",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Carbine CON-9M (Karenna)",
+          "280",
+          "10",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Carbine CON-9M-D ConstructionMech Mod",
+          "257",
+          "NA",
+          "Advanced",
+          "XTR:Caveat",
+          ""
+        ],
+        [
+          "Carbine CON-7 ConstructionMech",
+          "198",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-8 ConstructionMech",
+          "185",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7849,
+    "Name": "Carbine CON-9M-J ConstructionMech MOD",
+    "GroupName": "",
+    "Class": "Carbine",
+    "Variant": "CON-9M-J ConstructionMech MOD",
+    "Tonnage": 30,
+    "BattleValue": 271,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1043288,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/SmKtZ5V/carbine-9m-j-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 11,
+    "BFAbilities": "AFC, EE, SRM1/1/-",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7850,
+    "Title": "Carbine CON-9M-JB ConstructionMech MOD",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "302",
+      "Cost": "1,212,761",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Carbine CON-1 ConstructionMech",
+          "198",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-1 ConstructionMech (RL)",
+          "296",
+          "8",
+          "Experimental",
+          "His:OK",
+          ""
+        ],
+        [
+          "Carbine CON-7M ConstructionMech MOD",
+          "306",
+          "8",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-8H HaulerMech",
+          "177",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9 ConstructionMech",
+          "246",
+          "8",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9M ConstructionMech MOD",
+          "289",
+          "10",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9M-B ConstructionMech MOD",
+          "293",
+          "11",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9M-J ConstructionMech MOD",
+          "271",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Carbine CON-9M (Karenna)",
+          "280",
+          "10",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Carbine CON-9M-D ConstructionMech Mod",
+          "257",
+          "NA",
+          "Advanced",
+          "XTR:Caveat",
+          ""
+        ],
+        [
+          "Carbine CON-7 ConstructionMech",
+          "198",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-8 ConstructionMech",
+          "185",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7850,
+    "Name": "Carbine CON-9M-JB ConstructionMech MOD",
+    "GroupName": "",
+    "Class": "Carbine",
+    "Variant": "CON-9M-JB ConstructionMech MOD",
+    "Tonnage": 30,
+    "BattleValue": 302,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1212761,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/jJYYrFr/carbine-9m-jb-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "10\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "AFC, EE",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7851,
+    "Title": "Carbine CON-9M (Karenna)",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "280",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Sniper",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Carbine CON-1 ConstructionMech",
+          "198",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-1 ConstructionMech (RL)",
+          "296",
+          "8",
+          "Experimental",
+          "His:OK",
+          ""
+        ],
+        [
+          "Carbine CON-7M ConstructionMech MOD",
+          "306",
+          "8",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-8H HaulerMech",
+          "177",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9 ConstructionMech",
+          "246",
+          "8",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9M ConstructionMech MOD",
+          "289",
+          "10",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9M-B ConstructionMech MOD",
+          "293",
+          "11",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-9M-J ConstructionMech MOD",
+          "271",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Carbine CON-9M-JB ConstructionMech MOD",
+          "302",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Carbine CON-9M-D ConstructionMech Mod",
+          "257",
+          "NA",
+          "Advanced",
+          "XTR:Caveat",
+          ""
+        ],
+        [
+          "Carbine CON-7 ConstructionMech",
+          "198",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Carbine CON-8 ConstructionMech",
+          "185",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7851,
+    "Name": "Carbine CON-9M (Karenna)",
+    "GroupName": "",
+    "Class": "Carbine",
+    "Variant": "CON-9M (Karenna)",
+    "Tonnage": 30,
+    "BattleValue": 280,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/SmKtZ5V/carbine-9m-j-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 10,
+    "BFAbilities": "AFC, EE",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7852,
+    "Title": "Crosscut ED-X4M-A LoggerMech MOD",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "279",
+      "Cost": "1,007,275",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Sniper",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Crosscut ED-X2 LoggerMech",
+          "223",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-XX \"Ichabod\"",
+          "442",
+          "10",
+          "Experimental",
+          "XTR:Gladiators",
+          ""
+        ],
+        [
+          "Crosscut ED-X4X LoggerMech",
+          "230",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X2 LoggerMech (RL)",
+          "422",
+          "11",
+          "Standard",
+          "His:OK",
+          ""
+        ],
+        [
+          "Crosscut ED-X1 LoggerMech",
+          "251",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X2M LoggerMech MOD / ED-X2 (Flamer)",
+          "248",
+          "6",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X4B DemolitionMech",
+          "224",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X4M LoggerMech MOD",
+          "430",
+          "11",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X5M LoggerMech MOD",
+          "317",
+          "10",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X5M-B DemolitionMech MOD",
+          "460",
+          "11",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X4K LoggerMech",
+          "367",
+          "13",
+          "Standard",
+          "TtS:Kaumberg",
+          ""
+        ],
+        [
+          "Crosscut ED-X4M-E LoggerMech MOD",
+          "480",
+          "12",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X4M-L LoggerMech MOD",
+          "230",
+          "7",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut IIC SolahmaMech",
+          "571",
+          "NA",
+          "Advanced",
+          "XTR:Caveat",
+          ""
+        ],
+        [
+          "Crosscut ED-X4 LoggerMech",
+          "223",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X4D DemolitionMech",
+          "225",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7852,
+    "Name": "Crosscut ED-X4M-A LoggerMech MOD",
+    "GroupName": "",
+    "Class": "Crosscut",
+    "Variant": "ED-X4M-A LoggerMech MOD",
+    "Tonnage": 30,
+    "BattleValue": 279,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1007275,
+    "Rules": "Standard",
+    "TROId": 514,
+    "TRO": "TR:DA",
+    "RSId": 535,
+    "RS": "RS:DA",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/3zpsn5W/crosscut-mod-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "4\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": true,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 9,
+    "BFAbilities": "AFC, EE, MEL, SAW",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7853,
+    "Title": "Crosscut ED-X4M-E LoggerMech MOD",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "480",
+      "Cost": "1,710,325",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Sniper",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Crosscut ED-X2 LoggerMech",
+          "223",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-XX \"Ichabod\"",
+          "442",
+          "10",
+          "Experimental",
+          "XTR:Gladiators",
+          ""
+        ],
+        [
+          "Crosscut ED-X4X LoggerMech",
+          "230",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X2 LoggerMech (RL)",
+          "422",
+          "11",
+          "Standard",
+          "His:OK",
+          ""
+        ],
+        [
+          "Crosscut ED-X1 LoggerMech",
+          "251",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X2M LoggerMech MOD / ED-X2 (Flamer)",
+          "248",
+          "6",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X4B DemolitionMech",
+          "224",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X4M LoggerMech MOD",
+          "430",
+          "11",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X5M LoggerMech MOD",
+          "317",
+          "10",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X5M-B DemolitionMech MOD",
+          "460",
+          "11",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X4K LoggerMech",
+          "367",
+          "13",
+          "Standard",
+          "TtS:Kaumberg",
+          ""
+        ],
+        [
+          "Crosscut ED-X4M-A LoggerMech MOD",
+          "279",
+          "9",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X4M-L LoggerMech MOD",
+          "230",
+          "7",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut IIC SolahmaMech",
+          "571",
+          "NA",
+          "Advanced",
+          "XTR:Caveat",
+          ""
+        ],
+        [
+          "Crosscut ED-X4 LoggerMech",
+          "223",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X4D DemolitionMech",
+          "225",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7853,
+    "Name": "Crosscut ED-X4M-E LoggerMech MOD",
+    "GroupName": "",
+    "Class": "Crosscut",
+    "Variant": "ED-X4M-E LoggerMech MOD",
+    "Tonnage": 30,
+    "BattleValue": 480,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1710325,
+    "Rules": "Standard",
+    "TROId": 514,
+    "TRO": "TR:DA",
+    "RSId": 535,
+    "RS": "RS:DA",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/3zpsn5W/crosscut-mod-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 12,
+    "BFAbilities": "AFC, ENE, MEL, SAW",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7854,
+    "Title": "Crosscut ED-X4M-L LoggerMech MOD",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "230",
+      "Cost": "1,182,500",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Sniper",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Crosscut ED-X2 LoggerMech",
+          "223",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-XX \"Ichabod\"",
+          "442",
+          "10",
+          "Experimental",
+          "XTR:Gladiators",
+          ""
+        ],
+        [
+          "Crosscut ED-X4X LoggerMech",
+          "230",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X2 LoggerMech (RL)",
+          "422",
+          "11",
+          "Standard",
+          "His:OK",
+          ""
+        ],
+        [
+          "Crosscut ED-X1 LoggerMech",
+          "251",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X2M LoggerMech MOD / ED-X2 (Flamer)",
+          "248",
+          "6",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X4B DemolitionMech",
+          "224",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X4M LoggerMech MOD",
+          "430",
+          "11",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X5M LoggerMech MOD",
+          "317",
+          "10",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X5M-B DemolitionMech MOD",
+          "460",
+          "11",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X4K LoggerMech",
+          "367",
+          "13",
+          "Standard",
+          "TtS:Kaumberg",
+          ""
+        ],
+        [
+          "Crosscut ED-X4M-A LoggerMech MOD",
+          "279",
+          "9",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut ED-X4M-E LoggerMech MOD",
+          "480",
+          "12",
+          "Standard",
+          "TR:DA",
+          ""
+        ],
+        [
+          "Crosscut IIC SolahmaMech",
+          "571",
+          "NA",
+          "Advanced",
+          "XTR:Caveat",
+          ""
+        ],
+        [
+          "Crosscut ED-X4 LoggerMech",
+          "223",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Crosscut ED-X4D DemolitionMech",
+          "225",
+          "6",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7854,
+    "Name": "Crosscut ED-X4M-L LoggerMech MOD",
+    "GroupName": "",
+    "Class": "Crosscut",
+    "Variant": "ED-X4M-L LoggerMech MOD",
+    "Tonnage": 30,
+    "BattleValue": 230,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1182500,
+    "Rules": "Standard",
+    "TROId": 514,
+    "TRO": "TR:DA",
+    "RSId": 535,
+    "RS": "RS:DA",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/3zpsn5W/crosscut-mod-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "4\"",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": true,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 7,
+    "BFAbilities": "AFC, EE, FLK0*/0*/0*, MEL, SAW",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7855,
+    "Title": "Demeter WLD-1 AgroMech",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "321",
+      "Cost": "1,163,580",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "None",
+      "Date Introduced": "3116",
+      "Era": "Late Republic (3101 - 3130)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Demeter WLD-1-M AgroMech MOD",
+          "327",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7855,
+    "Name": "Demeter WLD-1 AgroMech",
+    "GroupName": "",
+    "Class": "Demeter",
+    "Variant": "WLD-1 AgroMech",
+    "Tonnage": 30,
+    "BattleValue": 321,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1163580,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3116",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/3pJD4V6/demeter-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 11,
+    "BFAbilities": "BFC, CT0.5, EE, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7856,
+    "Title": "Demeter WLD-1-M AgroMech MOD",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "327",
+      "Cost": "1,275,488",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Demeter WLD-1 AgroMech",
+          "321",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7856,
+    "Name": "Demeter WLD-1-M AgroMech MOD",
+    "GroupName": "",
+    "Class": "Demeter",
+    "Variant": "WLD-1-M AgroMech MOD",
+    "Tonnage": 30,
+    "BattleValue": 327,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1275488,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/3pJD4V6/demeter-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "BFC, EE, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7857,
+    "Title": "StrongArm SC CV ConstructionMech",
+    "Fields": {
+      "Tonnage": "35",
+      "Battle Value": "315",
+      "Cost": "1,228,513",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "None",
+      "Date Introduced": "3094",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "StrongArm SC CV-M ConstructionMech  MOD",
+          "315",
+          "9",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "StrongArm SC CVI ConstructionMech",
+          "315",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7857,
+    "Name": "StrongArm SC CV ConstructionMech",
+    "GroupName": "",
+    "Class": "StrongArm",
+    "Variant": "SC CV ConstructionMech",
+    "Tonnage": 35,
+    "BattleValue": 315,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1228513,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3094",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/b33mt9Q/strongarm.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "BFC, CT0.5, EE, ENE",
+    "Skill": 0,
+    "FormatedTonnage": "35"
+  },
+  {
+    "Id": 7858,
+    "Title": "StrongArm SC CV-M ConstructionMech  MOD",
+    "Fields": {
+      "Tonnage": "35",
+      "Battle Value": "315",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3126",
+      "Era": "Late Republic (3101 - 3130)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "StrongArm SC CV ConstructionMech",
+          "315",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "StrongArm SC CVI ConstructionMech",
+          "315",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7858,
+    "Name": "StrongArm SC CV-M ConstructionMech  MOD",
+    "GroupName": "",
+    "Class": "StrongArm",
+    "Variant": "SC CV-M ConstructionMech  MOD",
+    "Tonnage": 35,
+    "BattleValue": 315,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3126",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/b33mt9Q/strongarm.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 9,
+    "BFAbilities": "BFC, EE",
+    "Skill": 0,
+    "FormatedTonnage": "35"
+  },
+  {
+    "Id": 7859,
+    "Title": "StrongArm SC CVI ConstructionMech",
+    "Fields": {
+      "Tonnage": "35",
+      "Battle Value": "315",
+      "Cost": "1,228,513",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "None",
+      "Date Introduced": "3094",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "StrongArm SC CV ConstructionMech",
+          "315",
+          "8",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "StrongArm SC CV-M ConstructionMech  MOD",
+          "315",
+          "9",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7859,
+    "Name": "StrongArm SC CVI ConstructionMech",
+    "GroupName": "",
+    "Class": "StrongArm",
+    "Variant": "SC CVI ConstructionMech",
+    "Tonnage": 35,
+    "BattleValue": 315,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1228513,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3094",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/b33mt9Q/strongarm.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "IM",
+    "BFSize": 1,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "BFC, CT0.5, EE, ENE",
+    "Skill": 0,
+    "FormatedTonnage": "35"
+  },
+  {
+    "Id": 7860,
+    "Title": "Harvester HVR-199 AgroMech",
+    "Fields": {
+      "Tonnage": "40",
+      "Battle Value": "490",
+      "Cost": "1,377,053",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "None",
+      "Date Introduced": "3128",
+      "Era": "Late Republic (3101 - 3130)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Harvester HVR-199M AgroMech MOD",
+          "406",
+          "12",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-A AgroMech MOD",
+          "605",
+          "12",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-B AgroMech MOD",
+          "462",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-M AgroMech MOD",
+          "438",
+          "16",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-99 AgroMech",
+          "339",
+          "11",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7860,
+    "Name": "Harvester HVR-199 AgroMech",
+    "GroupName": "",
+    "Class": "Harvester",
+    "Variant": "HVR-199 AgroMech",
+    "Tonnage": 40,
+    "BattleValue": 490,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1377053,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3128",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/HPGYRXk/harvester-trva.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "IM",
+    "BFSize": 2,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 4,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 13,
+    "BFAbilities": "BFC,CT2,EE,ENE,MEL",
+    "Skill": 0,
+    "FormatedTonnage": "40"
+  },
+  {
+    "Id": 7861,
+    "Title": "Harvester HVR-199M AgroMech MOD",
+    "Fields": {
+      "Tonnage": "40",
+      "Battle Value": "406",
+      "Cost": "1,510,850",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Sniper",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Harvester HVR-199 AgroMech",
+          "490",
+          "13",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-A AgroMech MOD",
+          "605",
+          "12",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-B AgroMech MOD",
+          "462",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-M AgroMech MOD",
+          "438",
+          "16",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-99 AgroMech",
+          "339",
+          "11",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7861,
+    "Name": "Harvester HVR-199M AgroMech MOD",
+    "GroupName": "",
+    "Class": "Harvester",
+    "Variant": "HVR-199M AgroMech MOD",
+    "Tonnage": 40,
+    "BattleValue": 406,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1510850,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/Y8hPD3w/harvester-mod-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "IM",
+    "BFSize": 2,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 12,
+    "BFAbilities": "AFC, CT2, EE, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "40"
+  },
+  {
+    "Id": 7862,
+    "Title": "Harvester HVR-199M-A AgroMech MOD",
+    "Fields": {
+      "Tonnage": "40",
+      "Battle Value": "605",
+      "Cost": "1,684,100",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Harvester HVR-199 AgroMech",
+          "490",
+          "13",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M AgroMech MOD",
+          "406",
+          "12",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-B AgroMech MOD",
+          "462",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-M AgroMech MOD",
+          "438",
+          "16",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-99 AgroMech",
+          "339",
+          "11",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7862,
+    "Name": "Harvester HVR-199M-A AgroMech MOD",
+    "GroupName": "",
+    "Class": "Harvester",
+    "Variant": "HVR-199M-A AgroMech MOD",
+    "Tonnage": 40,
+    "BattleValue": 605,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1684100,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/Y8hPD3w/harvester-mod-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 2,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 1,
+    "BFPointValue": 12,
+    "BFAbilities": "AFC,EE,MEL",
+    "Skill": 0,
+    "FormatedTonnage": "40"
+  },
+  {
+    "Id": 7863,
+    "Title": "Harvester HVR-199M-B AgroMech MOD",
+    "Fields": {
+      "Tonnage": "40",
+      "Battle Value": "462",
+      "Cost": "1,564,200",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Sniper",
+      "Date Introduced": "3133",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Harvester HVR-199 AgroMech",
+          "490",
+          "13",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M AgroMech MOD",
+          "406",
+          "12",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-A AgroMech MOD",
+          "605",
+          "12",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-M AgroMech MOD",
+          "438",
+          "16",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-99 AgroMech",
+          "339",
+          "11",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7863,
+    "Name": "Harvester HVR-199M-B AgroMech MOD",
+    "GroupName": "",
+    "Class": "Harvester",
+    "Variant": "HVR-199M-B AgroMech MOD",
+    "Tonnage": 40,
+    "BattleValue": 462,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1564200,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3133",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/NYLvkVG/harvester-mod-b-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "IM",
+    "BFSize": 2,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": true,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 11,
+    "BFAbilities": "AFC, ARM, EE, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "40"
+  },
+  {
+    "Id": 7864,
+    "Title": "Harvester HVR-199M-M AgroMech MOD",
+    "Fields": {
+      "Tonnage": "40",
+      "Battle Value": "438",
+      "Cost": "1,598,850",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Sniper",
+      "Date Introduced": "3134",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Harvester HVR-199 AgroMech",
+          "490",
+          "13",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M AgroMech MOD",
+          "406",
+          "12",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-A AgroMech MOD",
+          "605",
+          "12",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-199M-B AgroMech MOD",
+          "462",
+          "11",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Harvester HVR-99 AgroMech",
+          "339",
+          "11",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7864,
+    "Name": "Harvester HVR-199M-M AgroMech MOD",
+    "GroupName": "",
+    "Class": "Harvester",
+    "Variant": "HVR-199M-M AgroMech MOD",
+    "Tonnage": 40,
+    "BattleValue": 438,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1598850,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3134",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/Y8hPD3w/harvester-mod-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "IM",
+    "BFSize": 2,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 16,
+    "BFAbilities": "AFC, EE, MDS4, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "40"
+  },
+  {
+    "Id": 7865,
+    "Title": "Buster BC XXI-M HaulerMech MOD",
+    "Fields": {
+      "Tonnage": "50",
+      "Battle Value": "504",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Buster BC XV HaulerMech",
+          "222",
+          "5",
+          "Standard",
+          "His:OK",
+          ""
+        ],
+        [
+          "Buster BC XV-M HaulerMech MOD / BC XV (AC)",
+          "443",
+          "14",
+          "Standard",
+          "His:OK",
+          ""
+        ],
+        [
+          "Buster BC XV-M-B HaulerMech MOD / BC XV (PPC)",
+          "475",
+          "10",
+          "Standard",
+          "His:OK",
+          ""
+        ],
+        [
+          "Buster BC XV-M-C HaulerMech MOD",
+          "726",
+          "14",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Buster BC XV-M-W HaulerMech MOD",
+          "713",
+          "19",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Buster BC XXI HaulerMech",
+          "228",
+          "5",
+          "Standard",
+          "TR:VAr",
+          ""
+        ],
+        [
+          "Gauss-Buster MillitiaMech",
+          "675",
+          "NA",
+          "Standard",
+          "XTR:Caveat",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7865,
+    "Name": "Buster BC XXI-M HaulerMech MOD",
+    "GroupName": "Buster",
+    "Class": "Buster",
+    "Variant": "BC XXI-M HaulerMech MOD",
+    "Tonnage": 50,
+    "BattleValue": 504,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/FsbghJH/buster-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 2,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 4,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 14,
+    "BFAbilities": "AFC, EE, I-TSM",
+    "Skill": 0,
+    "FormatedTonnage": "50"
+  },
+  {
+    "Id": 7866,
+    "Title": "Centurion CN9-H2",
+    "Fields": {
+      "Tonnage": "50",
+      "Battle Value": "799",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Brawler",
+      "Date Introduced": "3084",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Centurion CN9-H2H MilitiaMech",
+          "919",
+          "22",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Centurion CN9-H3 MilitiaMech",
+          "962",
+          "24",
+          "Experimental",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7866,
+    "Name": "Centurion CN9-H2",
+    "GroupName": "",
+    "Class": "Centurion",
+    "Variant": "CN9-H2",
+    "Tonnage": 50,
+    "BattleValue": 799,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3084",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/74nKGys/centurion-prim.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 109,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 2
+    },
+    "BFType": "IM",
+    "BFSize": 2,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 4,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 18,
+    "BFAbilities": "AFC, FLK1/1/1, REAR1/1/-",
+    "Skill": 0,
+    "FormatedTonnage": "50"
+  },
+  {
+    "Id": 7867,
+    "Title": "Centurion CN9-H2H MilitiaMech",
+    "Fields": {
+      "Tonnage": "50",
+      "Battle Value": "919",
+      "Cost": "2,798,625",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Brawler",
+      "Date Introduced": "3106",
+      "Era": "Late Republic (3101 - 3130)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Centurion CN9-H2",
+          "799",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Centurion CN9-H3 MilitiaMech",
+          "962",
+          "24",
+          "Experimental",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7867,
+    "Name": "Centurion CN9-H2H MilitiaMech",
+    "GroupName": "",
+    "Class": "Centurion",
+    "Variant": "CN9-H2H MilitiaMech",
+    "Tonnage": 50,
+    "BattleValue": 919,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 2798625,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3106",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/74nKGys/centurion-prim.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 109,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 2
+    },
+    "BFType": "IM",
+    "BFSize": 2,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 5,
+    "BFStructure": 4,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 22,
+    "BFAbilities": "AFC, ES, FLK1/1/1, REAR1/1/-",
+    "Skill": 0,
+    "FormatedTonnage": "50"
+  },
+  {
+    "Id": 7868,
+    "Title": "Centurion CN9-H3 MilitiaMech",
+    "Fields": {
+      "Tonnage": "50",
+      "Battle Value": "962",
+      "Cost": "2,727,750",
+      "Rules Level": "Experimental",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Brawler",
+      "Date Introduced": "3131",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Centurion CN9-H2",
+          "799",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Centurion CN9-H2H MilitiaMech",
+          "919",
+          "22",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7868,
+    "Name": "Centurion CN9-H3 MilitiaMech",
+    "GroupName": "",
+    "Class": "Centurion",
+    "Variant": "CN9-H3 MilitiaMech",
+    "Tonnage": 50,
+    "BattleValue": 962,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 2727750,
+    "Rules": "Experimental",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3131",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/74nKGys/centurion-prim.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 109,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 2
+    },
+    "BFType": "IM",
+    "BFSize": 2,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 4,
+    "BFStructure": 4,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 3,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 2,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 24,
+    "BFAbilities": "AFC, ES",
+    "Skill": 0,
+    "FormatedTonnage": "50"
+  },
+  {
+    "Id": 7869,
+    "Title": "Heavy Lifter HCL-1M CargoMech MOD",
+    "Fields": {
+      "Tonnage": "60",
+      "Battle Value": "915",
+      "Cost": "3,827,200",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Brawler",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Heavy Lifter HCL-1MM MilitiaMech",
+          "991",
+          "26",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Heavy Lifter HCL-1 CargoMech",
+          "667",
+          "17",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7869,
+    "Name": "Heavy Lifter HCL-1M CargoMech MOD",
+    "GroupName": "",
+    "Class": "Heavy Lifter",
+    "Variant": "HCL-1M CargoMech MOD",
+    "Tonnage": 60,
+    "BattleValue": 915,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 3827200,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/2vn5H87/heavy-lifter-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 109,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 2
+    },
+    "BFType": "IM",
+    "BFSize": 3,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 5,
+    "BFStructure": 5,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 23,
+    "BFAbilities": "AFC, ENE, I-TSM, SEAL, SOA, SRCH",
+    "Skill": 0,
+    "FormatedTonnage": "60"
+  },
+  {
+    "Id": 7870,
+    "Title": "Heavy Lifter HCL-1MM MilitiaMech",
+    "Fields": {
+      "Tonnage": "60",
+      "Battle Value": "991",
+      "Cost": "3,924,662",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Brawler",
+      "Date Introduced": "3133",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Heavy Lifter HCL-1M CargoMech MOD",
+          "915",
+          "23",
+          "Standard",
+          "TR:I",
+          ""
+        ],
+        [
+          "Heavy Lifter HCL-1 CargoMech",
+          "667",
+          "17",
+          "Standard",
+          "TR:VAr",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7870,
+    "Name": "Heavy Lifter HCL-1MM MilitiaMech",
+    "GroupName": "",
+    "Class": "Heavy Lifter",
+    "Variant": "HCL-1MM MilitiaMech",
+    "Tonnage": 60,
+    "BattleValue": 991,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 3924662,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3133",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/2vn5H87/heavy-lifter-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 109,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 2
+    },
+    "BFType": "IM",
+    "BFSize": 3,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 5,
+    "BFStructure": 5,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 3,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 26,
+    "BFAbilities": "AFC, ENE, I-TSM, REAR0*/0*/-, SEAL, SOA, SRCH",
+    "Skill": 0,
+    "FormatedTonnage": "60"
+  },
+  {
+    "Id": 7871,
+    "Title": "Heavy Forester HFL-1M LoggerMech MOD",
+    "Fields": {
+      "Tonnage": "60",
+      "Battle Value": "465",
+      "Cost": "1,765,825",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Sniper",
+      "Date Introduced": "3025",
+      "Era": "Late Succession War - Renaissance (3020 - 3049)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Heavy Forester HFL-1 LoggerMech",
+          "433",
+          "9",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7871,
+    "Name": "Heavy Forester HFL-1M LoggerMech MOD",
+    "GroupName": "",
+    "Class": "Heavy Forester",
+    "Variant": "HFL-1M LoggerMech MOD",
+    "Tonnage": 60,
+    "BattleValue": 465,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1765825,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "3025",
+    "EraId": 256,
+    "EraStart": 3020,
+    "ImageUrl": "https://i.ibb.co/2vn5H87/heavy-lifter-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "IM",
+    "BFSize": 3,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 5,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": true,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 10,
+    "BFAbilities": "BAR, BFC, EE, ES",
+    "Skill": 0,
+    "FormatedTonnage": "60"
+  },
+  {
+    "Id": 7872,
+    "Title": "Ground Pounder DVM-2 MiningMech",
+    "Fields": {
+      "Tonnage": "65",
+      "Battle Value": "465",
+      "Cost": "1,785,600",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3125",
+      "Era": "Late Republic (3101 - 3130)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Ground Pounder DVM-2M MiningMech MOD",
+          "548",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7872,
+    "Name": "Ground Pounder DVM-2 MiningMech",
+    "GroupName": "",
+    "Class": "Ground Pounder",
+    "Variant": "DVM-2 MiningMech",
+    "Tonnage": 65,
+    "BattleValue": 465,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1785600,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3125",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/n3FB6nb/ground-pounder-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 3,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 5,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 12,
+    "BFAbilities": "BFC, EE, ENE, ENG, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "65"
+  },
+  {
+    "Id": 7873,
+    "Title": "Ground Pounder DVM-2M MiningMech MOD",
+    "Fields": {
+      "Tonnage": "65",
+      "Battle Value": "548",
+      "Cost": "2,082,909",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Ground Pounder DVM-2 MiningMech",
+          "465",
+          "12",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7873,
+    "Name": "Ground Pounder DVM-2M MiningMech MOD",
+    "GroupName": "",
+    "Class": "Ground Pounder",
+    "Variant": "DVM-2M MiningMech MOD",
+    "Tonnage": 65,
+    "BattleValue": 548,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 2082909,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/n3FB6nb/ground-pounder-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 3,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 5,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 18,
+    "BFAbilities": "AFC, EE, ENG, MEL, SRM1/1",
+    "Skill": 0,
+    "FormatedTonnage": "65"
+  },
+  {
+    "Id": 7874,
+    "Title": "Burrower DTM-1 MiningMech",
+    "Fields": {
+      "Tonnage": "65",
+      "Battle Value": "482",
+      "Cost": "1,988,166",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "None",
+      "Date Introduced": "3115",
+      "Era": "Late Republic (3101 - 3130)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Burrower DTM-1M MiningMech MOD",
+          "556",
+          "18",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7874,
+    "Name": "Burrower DTM-1 MiningMech",
+    "GroupName": "",
+    "Class": "Burrower",
+    "Variant": "DTM-1 MiningMech",
+    "Tonnage": 65,
+    "BattleValue": 482,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1988166,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3115",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/c2TsMcc/burrower-irreg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": "IM",
+    "BFSize": 3,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 5,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 12,
+    "BFAbilities": "BFC, EE, ENE, ENG, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "65"
+  },
+  {
+    "Id": 7875,
+    "Title": "Burrower DTM-1M MiningMech MOD",
+    "Fields": {
+      "Tonnage": "65",
+      "Battle Value": "556",
+      "Cost": "2,128,247",
+      "Rules Level": "Standard",
+      "Technology": "Inner Sphere",
+      "Unit Type": "IndustrialMech",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3132",
+      "Era": "Dark Age (3131 - 3150)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Burrower DTM-1 MiningMech",
+          "482",
+          "12",
+          "Standard",
+          "TR:I",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7875,
+    "Name": "Burrower DTM-1M MiningMech MOD",
+    "GroupName": "",
+    "Class": "Burrower",
+    "Variant": "DTM-1M MiningMech MOD",
+    "Tonnage": 65,
+    "BattleValue": 556,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 2128247,
+    "Rules": "Standard",
+    "TROId": 460,
+    "TRO": "TR:I",
+    "RSId": 460,
+    "RS": "TR:I",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3132",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/c2TsMcc/burrower-irreg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 4
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "IM",
+    "BFSize": 3,
+    "BFMove": "6\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 5,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 18,
+    "BFAbilities": "AFC, EE, ENG, IF1, MEL",
+    "Skill": 0,
+    "FormatedTonnage": "65"
+  },
+  {
+    "Id": 7878,
+    "Name": "Snow Fox (Omni) Prime",
+    "GroupName": "",
+    "Class": "Snow Fox (Omni)",
+    "Variant": "Prime",
+    "Tonnage": 20,
+    "BattleValue": 1464,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 4190000,
+    "Rules": "Standard",
+    "TROId": 461,
+    "TRO": "OTP:HC",
+    "RSId": 461,
+    "RS": "OTP:HC",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3111",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/Brn6ywT/snow-fox-3060.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 105,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 6
+    },
+    "BFType": "BM",
+    "BFSize": 1,
+    "BFMove": "20\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 3,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 36,
+    "BFAbilities": "ECM,ENE,OMNI,PRB,RCN",
+    "Skill": 0,
+    "FormatedTonnage": "20"
+  },
+  {
+    "Id": 7879,
+    "Name": "Snow Fox (Omni) A",
+    "GroupName": "",
+    "Class": "Snow Fox (Omni)",
+    "Variant": "A",
+    "Tonnage": 20,
+    "BattleValue": 831,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 3515000,
+    "Rules": "Standard",
+    "TROId": 461,
+    "TRO": "OTP:HC",
+    "RSId": 461,
+    "RS": "OTP:HC",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3111",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/Brn6ywT/snow-fox-3060.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "BM",
+    "BFSize": 1,
+    "BFMove": "20\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 23,
+    "BFAbilities": "CASE,HT1/-/-,IF1,OMNI",
+    "Skill": 0,
+    "FormatedTonnage": "20"
+  },
+  {
+    "Id": 7880,
+    "Name": "Snow Fox (Omni) B",
+    "GroupName": "",
+    "Class": "Snow Fox (Omni)",
+    "Variant": "B",
+    "Tonnage": 20,
+    "BattleValue": 1249,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 3605000,
+    "Rules": "Standard",
+    "TROId": 461,
+    "TRO": "OTP:HC",
+    "RSId": 461,
+    "RS": "OTP:HC",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3111",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/Brn6ywT/snow-fox-3060.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "BM",
+    "BFSize": 1,
+    "BFMove": "20\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 26,
+    "BFAbilities": "ENE,OMNI",
+    "Skill": 0,
+    "FormatedTonnage": "20"
+  },
+  {
+    "Id": 7881,
+    "Name": "Cazador  ",
+    "GroupName": "",
+    "Class": "Cazador",
+    "Variant": " ",
+    "Tonnage": 35,
+    "BattleValue": 921,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 5151780,
+    "Rules": "Standard",
+    "TROId": 461,
+    "TRO": "OTP:HC",
+    "RSId": 461,
+    "RS": "OTP:HC",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3102",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/prFyT1W/reptar-isp3.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "BM",
+    "BFSize": 1,
+    "BFMove": "12\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 22,
+    "BFAbilities": "CASE,FLK1/1/1",
+    "Skill": 0,
+    "FormatedTonnage": "35"
+  },
+  {
+    "Id": 7882,
+    "Name": "Tolva  ",
+    "GroupName": "",
+    "Class": "Tolva",
+    "Variant": " ",
+    "Tonnage": 40,
+    "BattleValue": 1449,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 3114067,
+    "Rules": "Advanced",
+    "TROId": 461,
+    "TRO": "OTP:HC",
+    "RSId": 461,
+    "RS": "OTP:HC",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3101",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/x8DXdq2/arana-militiamech-isp3.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 107,
+      "Name": "Skirmisher",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFType": "BM",
+    "BFSize": 2,
+    "BFMove": "10\"j",
+    "BFTMM": 0,
+    "BFArmor": 5,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 3,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 30,
+    "BFAbilities": "ENE,TUR(3/3/-)",
+    "Skill": 0,
+    "FormatedTonnage": "40"
+  },
+  {
+    "Id": 7883,
+    "Name": "Rhino  ",
+    "GroupName": "",
+    "Class": "Rhino",
+    "Variant": " ",
+    "Tonnage": 50,
+    "BattleValue": 2124,
+    "Technology": {
+      "Id": 3,
+      "Name": "Mixed",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 10574250,
+    "Rules": "Experimental",
+    "TROId": 461,
+    "TRO": "OTP:HC",
+    "RSId": 461,
+    "RS": "OTP:HC",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3137",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/qWBdbTq/goliath-silo.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 107,
+      "Name": "Skirmisher",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFType": "BM",
+    "BFSize": 2,
+    "BFMove": "16\"",
+    "BFTMM": 0,
+    "BFArmor": 6,
+    "BFStructure": 6,
+    "BFThreshold": 0,
+    "BFDamageShort": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 4,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 55,
+    "BFAbilities": "ENE,MEL",
+    "Skill": 0,
+    "FormatedTonnage": "50"
+  },
+  {
+    "Id": 7884,
+    "Name": "Surtur SUR-T1",
+    "GroupName": "",
+    "Class": "Surtur",
+    "Variant": "SUR-T1",
+    "Tonnage": 55,
+    "BattleValue": 1203,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 16156115,
+    "Rules": "Standard",
+    "TROId": 461,
+    "TRO": "OTP:HC",
+    "RSId": 461,
+    "RS": "OTP:HC",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3139",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/QbCYLRS/surtur-otphc.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 107,
+      "Name": "Skirmisher",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFType": "BM",
+    "BFSize": 2,
+    "BFMove": "16\"",
+    "BFTMM": 0,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 43,
+    "BFAbilities": "HT2/-/-,MEL,SRM1/1",
+    "Skill": 0,
+    "FormatedTonnage": "55"
+  },
+  {
+    "Id": 7885,
+    "Title": "Hipparch Cavalry Tank (MG)",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "NA",
+      "Cost": "NA",
+      "Rules Level": "Introductory",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Combat Vehicle - Hover",
+      "Unit Role": "None",
+      "Date Introduced": "2575",
+      "Era": "Star League (2571 - 2780)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Hipparch Cavalry Tank",
+          "382",
+          "17",
+          "Introductory",
+          "His:RW",
+          ""
+        ],
+        [
+          "Hipparch Cavalry Tank (SRM)",
+          "NA",
+          "NA",
+          "Introductory",
+          "His:RW",
+          ""
+        ],
+        [
+          "Hipparch Cavalry Tank Hellhorse",
+          "NA",
+          "NA",
+          "Introductory",
+          "His:RW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7885,
+    "Name": "Hipparch Cavalry Tank (MG)",
+    "GroupName": "",
+    "Class": "Hipparch Cavalry Tank",
+    "Variant": "(MG)",
+    "Tonnage": 30,
+    "BattleValue": 0,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Introductory",
+    "TROId": 261,
+    "TRO": "His:RW",
+    "RSId": 192,
+    "RS": "None",
+    "EraIcon": "https://i.ibb.co/fr2Wdf0/era01-age-of-war-star-league.png",
+    "DateIntroduced": "2575",
+    "EraId": 10,
+    "EraStart": 2571,
+    "ImageUrl": "https://i.ibb.co/jHCg9B2/hipparch-hrw.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": "CombatVehicle.gif",
+      "SortOrder": 1
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": null,
+    "BFSize": 0,
+    "BFMove": "0",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 0,
+    "BFAbilities": null,
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7886,
+    "Title": "Hipparch Cavalry Tank (SRM)",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "NA",
+      "Cost": "NA",
+      "Rules Level": "Introductory",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Combat Vehicle - Hover",
+      "Unit Role": "None",
+      "Date Introduced": "2577",
+      "Era": "Star League (2571 - 2780)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Hipparch Cavalry Tank",
+          "382",
+          "17",
+          "Introductory",
+          "His:RW",
+          ""
+        ],
+        [
+          "Hipparch Cavalry Tank (MG)",
+          "NA",
+          "NA",
+          "Introductory",
+          "His:RW",
+          ""
+        ],
+        [
+          "Hipparch Cavalry Tank Hellhorse",
+          "NA",
+          "NA",
+          "Introductory",
+          "His:RW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7886,
+    "Name": "Hipparch Cavalry Tank (SRM)",
+    "GroupName": "",
+    "Class": "Hipparch Cavalry Tank",
+    "Variant": "(SRM)",
+    "Tonnage": 30,
+    "BattleValue": 0,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Introductory",
+    "TROId": 261,
+    "TRO": "His:RW",
+    "RSId": 192,
+    "RS": "None",
+    "EraIcon": "https://i.ibb.co/fr2Wdf0/era01-age-of-war-star-league.png",
+    "DateIntroduced": "2577",
+    "EraId": 10,
+    "EraStart": 2571,
+    "ImageUrl": "https://i.ibb.co/jHCg9B2/hipparch-hrw.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": "CombatVehicle.gif",
+      "SortOrder": 1
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": null,
+    "BFSize": 0,
+    "BFMove": "0",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 0,
+    "BFAbilities": null,
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7887,
+    "Title": "Hipparch Cavalry Tank Hellhorse",
+    "Fields": {
+      "Tonnage": "30",
+      "Battle Value": "NA",
+      "Cost": "NA",
+      "Rules Level": "Introductory",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Combat Vehicle - Hover",
+      "Unit Role": "None",
+      "Date Introduced": "2577",
+      "Era": "Star League (2571 - 2780)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Hipparch Cavalry Tank",
+          "382",
+          "17",
+          "Introductory",
+          "His:RW",
+          ""
+        ],
+        [
+          "Hipparch Cavalry Tank (MG)",
+          "NA",
+          "NA",
+          "Introductory",
+          "His:RW",
+          ""
+        ],
+        [
+          "Hipparch Cavalry Tank (SRM)",
+          "NA",
+          "NA",
+          "Introductory",
+          "His:RW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7887,
+    "Name": "Hipparch Cavalry Tank Hellhorse",
+    "GroupName": "",
+    "Class": "Hipparch Cavalry Tank",
+    "Variant": "Hellhorse",
+    "Tonnage": 30,
+    "BattleValue": 0,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Introductory",
+    "TROId": 261,
+    "TRO": "His:RW",
+    "RSId": 192,
+    "RS": "None",
+    "EraIcon": "https://i.ibb.co/fr2Wdf0/era01-age-of-war-star-league.png",
+    "DateIntroduced": "2577",
+    "EraId": 10,
+    "EraStart": 2571,
+    "ImageUrl": "https://i.ibb.co/jHCg9B2/hipparch-hrw.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": "CombatVehicle.gif",
+      "SortOrder": 1
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": null,
+    "BFSize": 0,
+    "BFMove": "0",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 0,
+    "BFAbilities": null,
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7923,
+    "Title": "Danai Support Vehicle (Original Arrow)",
+    "Fields": {
+      "Tonnage": "45",
+      "Battle Value": "NA",
+      "Cost": "NA",
+      "Rules Level": "Experimental",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Combat Vehicle - Wheeled",
+      "Unit Role": "None",
+      "Date Introduced": "3075",
+      "Era": "Jihad (3068 - 3080)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Danai Support Vehicle",
+          "576",
+          "21",
+          "Advanced",
+          "TR:3075",
+          ""
+        ],
+        [
+          "Danai Support Vehicle (Arrow)",
+          "855",
+          "30",
+          "Experimental",
+          "XTR:Periphery",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7923,
+    "Name": "Danai Support Vehicle (Original Arrow)",
+    "GroupName": "",
+    "Class": "Danai Support Vehicle",
+    "Variant": "(Original Arrow)",
+    "Tonnage": 45,
+    "BattleValue": 0,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Experimental",
+    "TROId": 361,
+    "TRO": "XTR:Periphery",
+    "RSId": 361,
+    "RS": "XTR:Periphery",
+    "EraIcon": "https://i.ibb.co/4jf2wfz/era05-jihad.png",
+    "DateIntroduced": "3075",
+    "EraId": 14,
+    "EraStart": 3068,
+    "ImageUrl": "https://i.ibb.co/8B5SJwV/danai-3075.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": "CombatVehicle.gif",
+      "SortOrder": 1
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": null,
+    "BFSize": 0,
+    "BFMove": "0",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 0,
+    "BFAbilities": null,
+    "Skill": 0,
+    "FormatedTonnage": "45"
+  },
+  {
+    "Id": 7924,
+    "Name": "Night Hawk NTK-2P",
+    "GroupName": "",
+    "Class": "Night Hawk",
+    "Variant": "NTK-2P",
+    "Tonnage": 35,
+    "BattleValue": 0,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Unknown",
+    "TROId": 233,
+    "TRO": "HB:HS",
+    "RSId": 192,
+    "RS": "None",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2853",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/g6RYRK6/night-hawk-3058u.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": null,
+    "BFSize": 0,
+    "BFMove": "0",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 0,
+    "BFAbilities": null,
+    "Skill": 0,
+    "FormatedTonnage": "35"
+  },
+  {
+    "Id": 7925,
+    "Name": "Hatamoto-Chi HTM-27T2",
+    "GroupName": "Hatamoto",
+    "Class": "Hatamoto-Chi",
+    "Variant": "HTM-27T2",
+    "Tonnage": 80,
+    "BattleValue": 0,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Unknown",
+    "TROId": 415,
+    "TRO": "XTR:RotS 2",
+    "RSId": 192,
+    "RS": "None",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3114",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/BKPsfV6/hatamoto-rg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": null,
+    "BFSize": 0,
+    "BFMove": "0",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 0,
+    "BFAbilities": null,
+    "Skill": 0,
+    "FormatedTonnage": "80"
+  },
+  {
+    "Id": 7926,
+    "Name": "Hatamoto-Kaze HTM-27V2",
+    "GroupName": "Hatamoto",
+    "Class": "Hatamoto-Kaze",
+    "Variant": "HTM-27V2",
+    "Tonnage": 80,
+    "BattleValue": 1725,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 441,
+    "TRO": "TR:3150",
+    "RSId": 467,
+    "RS": "RS:3150",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3115",
+    "EraId": 254,
+    "EraStart": 3101,
+    "ImageUrl": "https://i.ibb.co/BKPsfV6/hatamoto-rg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "BM",
+    "BFSize": 4,
+    "BFMove": "8\"",
+    "BFTMM": 0,
+    "BFArmor": 8,
+    "BFStructure": 6,
+    "BFThreshold": 0,
+    "BFDamageShort": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 3,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 3,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 44,
+    "BFAbilities": "C3S,CASE,IF1,MHQ1",
+    "Skill": 0,
+    "FormatedTonnage": "80"
+  },
+  {
+    "Id": 7927,
+    "Title": "Kinnol MBT (Reactive)",
+    "Fields": {
+      "Tonnage": "70",
+      "Battle Value": "NA",
+      "Cost": "NA",
+      "Rules Level": "Advanced",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Combat Vehicle - Tracked",
+      "Unit Role": "None",
+      "Date Introduced": "Unknown",
+      "Era": "Early Republic (3081 - 3100)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Kinnol MBT (PPC)",
+          "1,212",
+          "40",
+          "Standard",
+          "TR:3085",
+          ""
+        ],
+        [
+          "Kinnol MBT",
+          "1,200",
+          "36",
+          "Standard",
+          "TR:3085",
+          ""
+        ],
+        [
+          "Kinnol MBT (RAC)",
+          "1,671",
+          "38",
+          "Advanced",
+          "TR:3145",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7927,
+    "Name": "Kinnol MBT (Reactive)",
+    "GroupName": "",
+    "Class": "Kinnol MBT",
+    "Variant": "(Reactive)",
+    "Tonnage": 70,
+    "BattleValue": 0,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Advanced",
+    "TROId": 202,
+    "TRO": "TR:3085",
+    "RSId": 192,
+    "RS": "None",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "Unknown",
+    "EraId": 15,
+    "EraStart": 3081,
+    "ImageUrl": "https://i.ibb.co/yh4Ct19/kinnol-3085.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": "CombatVehicle.gif",
+      "SortOrder": 1
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": null,
+    "BFSize": 3,
+    "BFMove": "",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 0,
+    "BFAbilities": null,
+    "Skill": 0,
+    "FormatedTonnage": "70"
+  },
+  {
+    "Id": 7928,
+    "Name": "SuburbanMech UM-R90",
+    "GroupName": "",
+    "Class": "SuburbanMech",
+    "Variant": "UM-R90",
+    "Tonnage": 30,
+    "BattleValue": 773,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 1690325,
+    "Rules": "Introductory",
+    "TROId": 462,
+    "TRO": "Shrap04",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "3018",
+    "EraId": 255,
+    "EraStart": 2901,
+    "ImageUrl": "https://i.ibb.co/yPv4pnB/urbanmech-rg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "BM",
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 19,
+    "BFAbilities": "ENE",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7929,
+    "Name": "SuburbanMech UM-R100",
+    "GroupName": "",
+    "Class": "SuburbanMech",
+    "Variant": "UM-R100",
+    "Tonnage": 30,
+    "BattleValue": 915,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 2419625,
+    "Rules": "Standard",
+    "TROId": 462,
+    "TRO": "Shrap04",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "3045",
+    "EraId": 256,
+    "EraStart": 3020,
+    "ImageUrl": "https://i.ibb.co/yPv4pnB/urbanmech-rg.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 111,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFType": "BM",
+    "BFSize": 1,
+    "BFMove": "8\"j",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 1,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 20,
+    "BFAbilities": "ENE",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 7930,
+    "Name": "Rifleman RFL-4DA1",
+    "GroupName": "",
+    "Class": "Rifleman",
+    "Variant": "RFL-4DA1",
+    "Tonnage": 60,
+    "BattleValue": 0,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Introductory",
+    "TROId": 462,
+    "TRO": "Shrap04",
+    "RSId": 192,
+    "RS": "None",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "3021",
+    "EraId": 256,
+    "EraStart": 3020,
+    "ImageUrl": "https://i.ibb.co/gvYpr3f/rifleman-rg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": null,
+    "BFSize": 3,
+    "BFMove": "0",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 0,
+    "BFAbilities": "ENE",
+    "Skill": 0,
+    "FormatedTonnage": "60"
+  },
+  {
+    "Id": 7940,
+    "Title": "Ares Assault Craft Mk. VI",
+    "Fields": {
+      "Tonnage": "200",
+      "Battle Value": "NA",
+      "Cost": "NA",
+      "Rules Level": "Unknown",
+      "Technology": "Inner Sphere",
+      "Unit Type": "Aerospace - Small Craft",
+      "Unit Role": "None",
+      "Date Introduced": "2476",
+      "Era": "Age of War (2005 - 2570)",
+      "Notes": ""
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Ares Assault Craft Mk. VII",
+          "NA",
+          "NA",
+          "Unknown",
+          "TR:3085",
+          ""
+        ],
+        [
+          "Ares Assault Craft Mk. III",
+          "NA",
+          "NA",
+          "Advanced",
+          "XTR:Primitives II",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 7940,
+    "Name": "Ares Assault Craft Mk. VI",
+    "GroupName": "",
+    "Class": "Ares Assault Craft",
+    "Variant": "Mk. VI",
+    "Tonnage": 200,
+    "BattleValue": 0,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Unknown",
+    "TROId": 276,
+    "TRO": "XTR:Primitives II",
+    "RSId": 192,
+    "RS": "None",
+    "EraIcon": "https://i.ibb.co/fr2Wdf0/era01-age-of-war-star-league.png",
+    "DateIntroduced": "2476",
+    "EraId": 9,
+    "EraStart": 2005,
+    "ImageUrl": "https://i.ibb.co/yNRpdH2/close-assault-landing-craft-dj.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1.1,
+    "Type": {
+      "Id": 17,
+      "Name": "Aerospace",
+      "Image": "Aerospace.gif",
+      "SortOrder": 2
+    },
+    "Role": {
+      "Id": 104,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFType": null,
+    "BFSize": 0,
+    "BFMove": "",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 0,
+    "BFAbilities": null,
+    "Skill": 0,
+    "FormatedTonnage": "200"
+  }
+]

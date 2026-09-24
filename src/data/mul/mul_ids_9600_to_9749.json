@@ -1,0 +1,3818 @@
+[
+  {
+    "Id": 9600,
+    "Title": "Clan Motorized Point (Basic) (Flamer)",
+    "Fields": {
+      "Tonnage": "6",
+      "Battle Value": "57",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Motorized",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Motorized Point (Basic) (LRM)",
+          "86",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (MG)",
+          "57",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (Rifle, Ballistic)",
+          "78",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (Rifle, Energy)",
+          "73",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (SRM)",
+          "81",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9600,
+    "Name": "Clan Motorized Point (Basic) (Flamer)",
+    "GroupName": "",
+    "Class": "Clan Motorized Point (Basic)",
+    "Variant": "(Flamer)",
+    "Tonnage": 6,
+    "BattleValue": 57,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "4\"m",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 9,
+    "BFAbilities": "AM,CAR6,HT1/-/-",
+    "Skill": 0,
+    "FormatedTonnage": "6"
+  },
+  {
+    "Id": 9601,
+    "Title": "Clan Motorized Point (Basic) (LRM)",
+    "Fields": {
+      "Tonnage": "6",
+      "Battle Value": "86",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Motorized",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3064",
+      "Era": "Civil War (3062 - 3067)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Motorized Point (Basic) (Flamer)",
+          "57",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (MG)",
+          "57",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (Rifle, Ballistic)",
+          "78",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (Rifle, Energy)",
+          "73",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (SRM)",
+          "81",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9601,
+    "Name": "Clan Motorized Point (Basic) (LRM)",
+    "GroupName": "",
+    "Class": "Clan Motorized Point (Basic)",
+    "Variant": "(LRM)",
+    "Tonnage": 6,
+    "BattleValue": 86,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/QjhjKwr/era04-civil-war.png",
+    "DateIntroduced": "3064",
+    "EraId": 247,
+    "EraStart": 3062,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "4\"m",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 10,
+    "BFAbilities": "AM,CAR6",
+    "Skill": 0,
+    "FormatedTonnage": "6"
+  },
+  {
+    "Id": 9602,
+    "Title": "Clan Motorized Point (Basic) (MG)",
+    "Fields": {
+      "Tonnage": "6",
+      "Battle Value": "57",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Motorized",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Motorized Point (Basic) (Flamer)",
+          "57",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (LRM)",
+          "86",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (Rifle, Ballistic)",
+          "78",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (Rifle, Energy)",
+          "73",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (SRM)",
+          "81",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9602,
+    "Name": "Clan Motorized Point (Basic) (MG)",
+    "GroupName": "",
+    "Class": "Clan Motorized Point (Basic)",
+    "Variant": "(MG)",
+    "Tonnage": 6,
+    "BattleValue": 57,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "4\"m",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 9,
+    "BFAbilities": "AM,CAR6",
+    "Skill": 0,
+    "FormatedTonnage": "6"
+  },
+  {
+    "Id": 9603,
+    "Title": "Clan Motorized Point (Basic) (Rifle, Ballistic)",
+    "Fields": {
+      "Tonnage": "6",
+      "Battle Value": "78",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Motorized",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Motorized Point (Basic) (Flamer)",
+          "57",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (LRM)",
+          "86",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (MG)",
+          "57",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (Rifle, Energy)",
+          "73",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (SRM)",
+          "81",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9603,
+    "Name": "Clan Motorized Point (Basic) (Rifle, Ballistic)",
+    "GroupName": "",
+    "Class": "Clan Motorized Point (Basic)",
+    "Variant": "(Rifle, Ballistic)",
+    "Tonnage": 6,
+    "BattleValue": 78,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"m",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "AM,CAR6",
+    "Skill": 0,
+    "FormatedTonnage": "6"
+  },
+  {
+    "Id": 9604,
+    "Title": "Clan Motorized Point (Basic) (Rifle, Energy)",
+    "Fields": {
+      "Tonnage": "6",
+      "Battle Value": "73",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Motorized",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Motorized Point (Basic) (Flamer)",
+          "57",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (LRM)",
+          "86",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (MG)",
+          "57",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (Rifle, Ballistic)",
+          "78",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (SRM)",
+          "81",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9604,
+    "Name": "Clan Motorized Point (Basic) (Rifle, Energy)",
+    "GroupName": "",
+    "Class": "Clan Motorized Point (Basic)",
+    "Variant": "(Rifle, Energy)",
+    "Tonnage": 6,
+    "BattleValue": 73,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"m",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 10,
+    "BFAbilities": "AM,CAR6",
+    "Skill": 0,
+    "FormatedTonnage": "6"
+  },
+  {
+    "Id": 9605,
+    "Title": "Clan Motorized Point (Basic) (SRM)",
+    "Fields": {
+      "Tonnage": "6",
+      "Battle Value": "81",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Motorized",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Motorized Point (Basic) (Flamer)",
+          "57",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (LRM)",
+          "86",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (MG)",
+          "57",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (Rifle, Ballistic)",
+          "78",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Motorized Point (Basic) (Rifle, Energy)",
+          "73",
+          "10",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9605,
+    "Name": "Clan Motorized Point (Basic) (SRM)",
+    "GroupName": "",
+    "Class": "Clan Motorized Point (Basic)",
+    "Variant": "(SRM)",
+    "Tonnage": 6,
+    "BattleValue": 81,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "4\"m",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 10,
+    "BFAbilities": "AM,CAR6",
+    "Skill": 0,
+    "FormatedTonnage": "6"
+  },
+  {
+    "Id": 9606,
+    "Title": "Clan Mechanized Hover Point (Basic) (SRM)",
+    "Fields": {
+      "Tonnage": "20",
+      "Battle Value": "37",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Hover)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Flamer)",
+          "37",
+          "6",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (LRM)",
+          "39",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (MG)",
+          "45",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Rifle, Ballistic)",
+          "47",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Rifle, Energy)",
+          "45",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9606,
+    "Name": "Clan Mechanized Hover Point (Basic) (SRM)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Hover Point (Basic)",
+    "Variant": "(SRM)",
+    "Tonnage": 20,
+    "BattleValue": 37,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "8\"h",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 9,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "20"
+  },
+  {
+    "Id": 9607,
+    "Title": "Clan Mechanized Hover Point (Basic) (Flamer)",
+    "Fields": {
+      "Tonnage": "20",
+      "Battle Value": "37",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Hover)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (SRM)",
+          "37",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (LRM)",
+          "39",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (MG)",
+          "45",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Rifle, Ballistic)",
+          "47",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Rifle, Energy)",
+          "45",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9607,
+    "Name": "Clan Mechanized Hover Point (Basic) (Flamer)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Hover Point (Basic)",
+    "Variant": "(Flamer)",
+    "Tonnage": 20,
+    "BattleValue": 37,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "8\"h",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 6,
+    "BFAbilities": "CAR20,HT1/-/-",
+    "Skill": 0,
+    "FormatedTonnage": "20"
+  },
+  {
+    "Id": 9608,
+    "Title": "Clan Mechanized Hover Point (Basic) (LRM)",
+    "Fields": {
+      "Tonnage": "20",
+      "Battle Value": "39",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Hover)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3064",
+      "Era": "Civil War (3062 - 3067)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (SRM)",
+          "37",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Flamer)",
+          "37",
+          "6",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (MG)",
+          "45",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Rifle, Ballistic)",
+          "47",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Rifle, Energy)",
+          "45",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9608,
+    "Name": "Clan Mechanized Hover Point (Basic) (LRM)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Hover Point (Basic)",
+    "Variant": "(LRM)",
+    "Tonnage": 20,
+    "BattleValue": 39,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/QjhjKwr/era04-civil-war.png",
+    "DateIntroduced": "3064",
+    "EraId": 247,
+    "EraStart": 3062,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "8\"h",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 9,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "20"
+  },
+  {
+    "Id": 9609,
+    "Title": "Clan Mechanized Hover Point (Basic) (MG)",
+    "Fields": {
+      "Tonnage": "20",
+      "Battle Value": "45",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Hover)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (SRM)",
+          "37",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Flamer)",
+          "37",
+          "6",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (LRM)",
+          "39",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Rifle, Ballistic)",
+          "47",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Rifle, Energy)",
+          "45",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9609,
+    "Name": "Clan Mechanized Hover Point (Basic) (MG)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Hover Point (Basic)",
+    "Variant": "(MG)",
+    "Tonnage": 20,
+    "BattleValue": 45,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "8\"h",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "20"
+  },
+  {
+    "Id": 9610,
+    "Title": "Clan Mechanized Hover Point (Basic) (Rifle, Ballistic)",
+    "Fields": {
+      "Tonnage": "20",
+      "Battle Value": "47",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Hover)",
+      "Unit Role": "Scout",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (SRM)",
+          "37",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Flamer)",
+          "37",
+          "6",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (LRM)",
+          "39",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (MG)",
+          "45",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Rifle, Energy)",
+          "45",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9610,
+    "Name": "Clan Mechanized Hover Point (Basic) (Rifle, Ballistic)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Hover Point (Basic)",
+    "Variant": "(Rifle, Ballistic)",
+    "Tonnage": 20,
+    "BattleValue": 47,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 105,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 6
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "10\"h",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "20"
+  },
+  {
+    "Id": 9611,
+    "Title": "Clan Mechanized Hover Point (Basic) (Rifle, Energy)",
+    "Fields": {
+      "Tonnage": "20",
+      "Battle Value": "45",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Hover)",
+      "Unit Role": "Striker",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (SRM)",
+          "37",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Flamer)",
+          "37",
+          "6",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (LRM)",
+          "39",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (MG)",
+          "45",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Hover Point (Basic) (Rifle, Ballistic)",
+          "47",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9611,
+    "Name": "Clan Mechanized Hover Point (Basic) (Rifle, Energy)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Hover Point (Basic)",
+    "Variant": "(Rifle, Energy)",
+    "Tonnage": 20,
+    "BattleValue": 45,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "10\"h",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "20"
+  },
+  {
+    "Id": 9612,
+    "Title": "Clan Mechanized Tracked Point (Basic) (Rifle, Energy)",
+    "Fields": {
+      "Tonnage": "28",
+      "Battle Value": "65",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Tracked)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (SRM)",
+          "74",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Rifle, Ballistic)",
+          "65",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (MG)",
+          "67",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (LRM)",
+          "62",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Flamer)",
+          "57",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9612,
+    "Name": "Clan Mechanized Tracked Point (Basic) (Rifle, Energy)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Tracked Point (Basic)",
+    "Variant": "(Rifle, Energy)",
+    "Tonnage": 28,
+    "BattleValue": 65,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "28"
+  },
+  {
+    "Id": 9613,
+    "Title": "Clan Mechanized Tracked Point (Basic) (SRM)",
+    "Fields": {
+      "Tonnage": "28",
+      "Battle Value": "74",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Tracked)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Rifle, Energy)",
+          "65",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Rifle, Ballistic)",
+          "65",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (MG)",
+          "67",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (LRM)",
+          "62",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Flamer)",
+          "57",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9613,
+    "Name": "Clan Mechanized Tracked Point (Basic) (SRM)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Tracked Point (Basic)",
+    "Variant": "(SRM)",
+    "Tonnage": 28,
+    "BattleValue": 74,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "28"
+  },
+  {
+    "Id": 9614,
+    "Title": "Clan Mechanized Tracked Point (Basic) (Rifle, Ballistic)",
+    "Fields": {
+      "Tonnage": "28",
+      "Battle Value": "65",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Tracked)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Rifle, Energy)",
+          "65",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (SRM)",
+          "74",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (MG)",
+          "67",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (LRM)",
+          "62",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Flamer)",
+          "57",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9614,
+    "Name": "Clan Mechanized Tracked Point (Basic) (Rifle, Ballistic)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Tracked Point (Basic)",
+    "Variant": "(Rifle, Ballistic)",
+    "Tonnage": 28,
+    "BattleValue": 65,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "28"
+  },
+  {
+    "Id": 9615,
+    "Title": "Clan Mechanized Tracked Point (Basic) (MG)",
+    "Fields": {
+      "Tonnage": "28",
+      "Battle Value": "67",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Tracked)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Rifle, Energy)",
+          "65",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (SRM)",
+          "74",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Rifle, Ballistic)",
+          "65",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (LRM)",
+          "62",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Flamer)",
+          "57",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9615,
+    "Name": "Clan Mechanized Tracked Point (Basic) (MG)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Tracked Point (Basic)",
+    "Variant": "(MG)",
+    "Tonnage": 28,
+    "BattleValue": 67,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "28"
+  },
+  {
+    "Id": 9616,
+    "Title": "Clan Mechanized Tracked Point (Basic) (LRM)",
+    "Fields": {
+      "Tonnage": "28",
+      "Battle Value": "62",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Tracked)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3064",
+      "Era": "Civil War (3062 - 3067)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Rifle, Energy)",
+          "65",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (SRM)",
+          "74",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Rifle, Ballistic)",
+          "65",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (MG)",
+          "67",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Flamer)",
+          "57",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9616,
+    "Name": "Clan Mechanized Tracked Point (Basic) (LRM)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Tracked Point (Basic)",
+    "Variant": "(LRM)",
+    "Tonnage": 28,
+    "BattleValue": 62,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/QjhjKwr/era04-civil-war.png",
+    "DateIntroduced": "3064",
+    "EraId": 247,
+    "EraStart": 3062,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "28"
+  },
+  {
+    "Id": 9617,
+    "Title": "Clan Mechanized Tracked Point (Basic) (Flamer)",
+    "Fields": {
+      "Tonnage": "28",
+      "Battle Value": "57",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Tracked)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Rifle, Energy)",
+          "65",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (SRM)",
+          "74",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (Rifle, Ballistic)",
+          "65",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (MG)",
+          "67",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Tracked Point (Basic) (LRM)",
+          "62",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9617,
+    "Name": "Clan Mechanized Tracked Point (Basic) (Flamer)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Tracked Point (Basic)",
+    "Variant": "(Flamer)",
+    "Tonnage": 28,
+    "BattleValue": 57,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "CAR20,HT1/-/-",
+    "Skill": 0,
+    "FormatedTonnage": "28"
+  },
+  {
+    "Id": 9618,
+    "Title": "Clan Mechanized Wheeled Point (Basic) (Flamer)",
+    "Fields": {
+      "Tonnage": "24",
+      "Battle Value": "41",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Wheeled)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (LRM)",
+          "41",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (MG)",
+          "48",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Rifle, Ballistic)",
+          "49",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Rifle, Energy)",
+          "47",
+          "7",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (SRM)",
+          "52",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9618,
+    "Name": "Clan Mechanized Wheeled Point (Basic) (Flamer)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Wheeled Point (Basic)",
+    "Variant": "(Flamer)",
+    "Tonnage": 24,
+    "BattleValue": 41,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"w",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "CAR20,HT1/-/-",
+    "Skill": 0,
+    "FormatedTonnage": "24"
+  },
+  {
+    "Id": 9619,
+    "Title": "Clan Mechanized Wheeled Point (Basic) (LRM)",
+    "Fields": {
+      "Tonnage": "24",
+      "Battle Value": "41",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Wheeled)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "3064",
+      "Era": "Civil War (3062 - 3067)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Flamer)",
+          "41",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (MG)",
+          "48",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Rifle, Ballistic)",
+          "49",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Rifle, Energy)",
+          "47",
+          "7",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (SRM)",
+          "52",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9619,
+    "Name": "Clan Mechanized Wheeled Point (Basic) (LRM)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Wheeled Point (Basic)",
+    "Variant": "(LRM)",
+    "Tonnage": 24,
+    "BattleValue": 41,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/QjhjKwr/era04-civil-war.png",
+    "DateIntroduced": "3064",
+    "EraId": 247,
+    "EraStart": 3062,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"w",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 9,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "24"
+  },
+  {
+    "Id": 9620,
+    "Title": "Clan Mechanized Wheeled Point (Basic) (MG)",
+    "Fields": {
+      "Tonnage": "24",
+      "Battle Value": "48",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Wheeled)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Flamer)",
+          "41",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (LRM)",
+          "41",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Rifle, Ballistic)",
+          "49",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Rifle, Energy)",
+          "47",
+          "7",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (SRM)",
+          "52",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9620,
+    "Name": "Clan Mechanized Wheeled Point (Basic) (MG)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Wheeled Point (Basic)",
+    "Variant": "(MG)",
+    "Tonnage": 24,
+    "BattleValue": 48,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"w",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "24"
+  },
+  {
+    "Id": 9621,
+    "Title": "Clan Mechanized Wheeled Point (Basic) (Rifle, Ballistic)",
+    "Fields": {
+      "Tonnage": "24",
+      "Battle Value": "49",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Wheeled)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Flamer)",
+          "41",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (LRM)",
+          "41",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (MG)",
+          "48",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Rifle, Energy)",
+          "47",
+          "7",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (SRM)",
+          "52",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9621,
+    "Name": "Clan Mechanized Wheeled Point (Basic) (Rifle, Ballistic)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Wheeled Point (Basic)",
+    "Variant": "(Rifle, Ballistic)",
+    "Tonnage": 24,
+    "BattleValue": 49,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "8\"w",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 5,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "24"
+  },
+  {
+    "Id": 9622,
+    "Title": "Clan Mechanized Wheeled Point (Basic) (Rifle, Energy)",
+    "Fields": {
+      "Tonnage": "24",
+      "Battle Value": "47",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Wheeled)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Flamer)",
+          "41",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (LRM)",
+          "41",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (MG)",
+          "48",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Rifle, Ballistic)",
+          "49",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (SRM)",
+          "52",
+          "8",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9622,
+    "Name": "Clan Mechanized Wheeled Point (Basic) (Rifle, Energy)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Wheeled Point (Basic)",
+    "Variant": "(Rifle, Energy)",
+    "Tonnage": 24,
+    "BattleValue": 47,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "8\"w",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 0,
+    "BFDamageShortMin": true,
+    "BFDamageMedium": 0,
+    "BFDamageMediumMin": true,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 7,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "24"
+  },
+  {
+    "Id": 9623,
+    "Title": "Clan Mechanized Wheeled Point (Basic) (SRM)",
+    "Fields": {
+      "Tonnage": "24",
+      "Battle Value": "52",
+      "Cost": "NA",
+      "Rules Level": "Standard",
+      "Technology": "Clan",
+      "Unit Type": "Infantry - Conventional Infantry - Mechanized (Wheeled)",
+      "Unit Role": "Ambusher",
+      "Date Introduced": "2815",
+      "Era": "Early Succession War (2781 - 2900)",
+      "Notes": "Generic Armor. Follow conventional infantry damage found in TW."
+    },
+    "AvailabilityTables": [
+      [
+        [
+          "Name",
+          "BV",
+          "PV",
+          "Rules",
+          "TRO",
+          "Era"
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Flamer)",
+          "41",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (LRM)",
+          "41",
+          "9",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (MG)",
+          "48",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Rifle, Ballistic)",
+          "49",
+          "5",
+          "Standard",
+          "TW",
+          ""
+        ],
+        [
+          "Clan Mechanized Wheeled Point (Basic) (Rifle, Energy)",
+          "47",
+          "7",
+          "Standard",
+          "TW",
+          ""
+        ]
+      ]
+    ]
+  },
+  {
+    "Id": 9623,
+    "Name": "Clan Mechanized Wheeled Point (Basic) (SRM)",
+    "GroupName": "",
+    "Class": "Clan Mechanized Wheeled Point (Basic)",
+    "Variant": "(SRM)",
+    "Tonnage": 24,
+    "BattleValue": 52,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 198,
+    "TRO": "TW",
+    "RSId": 296,
+    "RS": "TM",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "2815",
+    "EraId": 11,
+    "EraStart": 2781,
+    "ImageUrl": "https://i.ibb.co/5TGJ8px/mul-blank.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": "Infantry.gif",
+      "SortOrder": 3
+    },
+    "Role": {
+      "Id": 112,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFType": "CI",
+    "BFSize": 1,
+    "BFMove": "6\"w",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFDamageExtemeMin": false,
+    "BFOverheat": 0,
+    "BFPointValue": 8,
+    "BFAbilities": "CAR20",
+    "Skill": 0,
+    "FormatedTonnage": "24"
+  },
+  {
+    "Id": 9626,
+    "Name": "Commando COM-7Y",
+    "GroupName": "",
+    "Class": "Commando",
+    "Variant": "COM-7Y",
+    "Tonnage": 25,
+    "BattleValue": 684,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Introductory",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "3022",
+    "EraId": 256,
+    "EraStart": 3020,
+    "ImageUrl": "https://i.ibb.co/tcxdcYf/commando-rg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "bm",
+    "BFSize": 1,
+    "BFMove": "12\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 3,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 24,
+    "BFAbilities": null,
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 9627,
+    "Name": "Commando COM-7Y2 \"Blazing Inferno\"",
+    "GroupName": "",
+    "Class": "Commando",
+    "Variant": "COM-7Y2 \"Blazing Inferno\"",
+    "Tonnage": 25,
+    "BattleValue": 728,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Introductory",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/MB09bVm/era02-succession-wars.png",
+    "DateIntroduced": "3025",
+    "EraId": 256,
+    "EraStart": 3020,
+    "ImageUrl": "https://i.ibb.co/bdCyTzT/commando-blazing-inferno-shrap.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "bm",
+    "BFSize": 1,
+    "BFMove": "12\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 21,
+    "BFAbilities": "ENE",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 9628,
+    "Name": "Commando COM-7Z",
+    "GroupName": "",
+    "Class": "Commando",
+    "Variant": "COM-7Z",
+    "Tonnage": 25,
+    "BattleValue": 661,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/k6ySqKN/era03-clan-invasion.png",
+    "DateIntroduced": "3051",
+    "EraId": 13,
+    "EraStart": 3050,
+    "ImageUrl": "https://i.ibb.co/tcxdcYf/commando-rg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "bm",
+    "BFSize": 1,
+    "BFMove": "12\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 20,
+    "BFAbilities": "CASE",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 9629,
+    "Name": "Commando COM-7Z2",
+    "GroupName": "",
+    "Class": "Commando",
+    "Variant": "COM-7Z2",
+    "Tonnage": 25,
+    "BattleValue": 543,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/k6ySqKN/era03-clan-invasion.png",
+    "DateIntroduced": "3051",
+    "EraId": 13,
+    "EraStart": 3050,
+    "ImageUrl": "https://i.ibb.co/tcxdcYf/commando-rg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 105,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 6
+    },
+    "BFType": "bm",
+    "BFSize": 1,
+    "BFMove": "12\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 20,
+    "BFAbilities": "PRB,RCN",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 9630,
+    "Name": "Commando COM-7A",
+    "GroupName": "",
+    "Class": "Commando",
+    "Variant": "COM-7A",
+    "Tonnage": 25,
+    "BattleValue": 625,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/k6ySqKN/era03-clan-invasion.png",
+    "DateIntroduced": "3056",
+    "EraId": 13,
+    "EraStart": 3050,
+    "ImageUrl": "https://i.ibb.co/tcxdcYf/commando-rg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "BM",
+    "BFSize": 1,
+    "BFMove": "12\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 20,
+    "BFAbilities": "CASE,SRM1/1",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 9631,
+    "Name": "Commando COM-7J",
+    "GroupName": "",
+    "Class": "Commando",
+    "Variant": "COM-7J",
+    "Tonnage": 25,
+    "BattleValue": 599,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/k6ySqKN/era03-clan-invasion.png",
+    "DateIntroduced": "3056",
+    "EraId": 13,
+    "EraStart": 3050,
+    "ImageUrl": "https://i.ibb.co/tcxdcYf/commando-rg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "bm",
+    "BFSize": 1,
+    "BFMove": "12\"/10\"j",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 18,
+    "BFAbilities": "CASE,SRM1/1",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 9632,
+    "Name": "Commando COM-7W",
+    "GroupName": "",
+    "Class": "Commando",
+    "Variant": "COM-7W",
+    "Tonnage": 25,
+    "BattleValue": 608,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/k6ySqKN/era03-clan-invasion.png",
+    "DateIntroduced": "3056",
+    "EraId": 13,
+    "EraStart": 3050,
+    "ImageUrl": "https://i.ibb.co/tcxdcYf/commando-rg.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "BM",
+    "BFSize": 1,
+    "BFMove": "12\"",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 17,
+    "BFAbilities": "CASE",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  },
+  {
+    "Id": 9634,
+    "Name": "Jackalope JLP-KB",
+    "GroupName": "",
+    "Class": "Jackalope",
+    "Variant": "JLP-KB",
+    "Tonnage": 30,
+    "BattleValue": 1259,
+    "Technology": {
+      "Id": 3,
+      "Name": "Mixed",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Advanced",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3139",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/mv6yJBt/jackalope-shrap.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "bm",
+    "BFSize": 1,
+    "BFMove": "16\"j",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 3,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 33,
+    "BFAbilities": "CASE,RAMS,SRM1/1",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 9635,
+    "Name": "Jackalope JLP-BD-L \"Harvey\"",
+    "GroupName": "",
+    "Class": "Jackalope",
+    "Variant": "JLP-BD-L \"Harvey\"",
+    "Tonnage": 30,
+    "BattleValue": 1028,
+    "Technology": {
+      "Id": 3,
+      "Name": "Mixed",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Advanced",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3136",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/mv6yJBt/jackalope-shrap.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "bm",
+    "BFSize": 1,
+    "BFMove": "24\"/8\"j",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 1,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 27,
+    "BFAbilities": "CASE,JMPW3,RAMS",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 9636,
+    "Name": "Jackalope JLP-IC",
+    "GroupName": "",
+    "Class": "Jackalope",
+    "Variant": "JLP-IC",
+    "Tonnage": 30,
+    "BattleValue": 1337,
+    "Technology": {
+      "Id": 2,
+      "Name": "Clan",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Advanced",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3143",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/cCTFQC0/jackalope-3145.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "bm",
+    "BFSize": 1,
+    "BFMove": "16\"j",
+    "BFTMM": 0,
+    "BFArmor": 4,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 1,
+    "BFPointValue": 33,
+    "BFAbilities": "AMS,CASE,CR",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 9637,
+    "Name": "Jackalope JLP-NH \"Tepoztēcatl\"",
+    "GroupName": "",
+    "Class": "Jackalope",
+    "Variant": "JLP-NH \"Tepoztēcatl\"",
+    "Tonnage": 30,
+    "BattleValue": 1208,
+    "Technology": {
+      "Id": 3,
+      "Name": "Mixed",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Advanced",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
+    "DateIntroduced": "3137",
+    "EraId": 16,
+    "EraStart": 3131,
+    "ImageUrl": "https://i.ibb.co/cCTFQC0/jackalope-3145.png",
+    "IsFeatured": false,
+    "IsPublished": true,
+    "Release": 1,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "bm",
+    "BFSize": 1,
+    "BFMove": "16\"/12\"j",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 2,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": true,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 0,
+    "BFPointValue": 32,
+    "BFAbilities": "CASE,ECM,IF0*,JMPW1,STL",
+    "Skill": 0,
+    "FormatedTonnage": "30"
+  },
+  {
+    "Id": 9638,
+    "Name": "Commando COM-7T \"Blazing Inferno II\"",
+    "GroupName": "",
+    "Class": "Commando",
+    "Variant": "COM-7T \"Blazing Inferno II\"",
+    "Tonnage": 25,
+    "BattleValue": 1018,
+    "Technology": {
+      "Id": 1,
+      "Name": "Inner Sphere",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "Cost": 0,
+    "Rules": "Standard",
+    "TROId": 544,
+    "TRO": "Shrap16",
+    "RSId": 464,
+    "RS": "ShrapRS",
+    "EraIcon": "https://i.ibb.co/QjhjKwr/era04-civil-war.png",
+    "DateIntroduced": "3062",
+    "EraId": 247,
+    "EraStart": 3062,
+    "ImageUrl": "https://i.ibb.co/bdCyTzT/commando-blazing-inferno-shrap.png",
+    "IsFeatured": true,
+    "IsPublished": true,
+    "Release": 2,
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": "BattleMech.gif",
+      "SortOrder": 0
+    },
+    "Role": {
+      "Id": 106,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFType": "bm",
+    "BFSize": 1,
+    "BFMove": "12\"",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFThreshold": 0,
+    "BFDamageShort": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMedium": 3,
+    "BFDamageMediumMin": false,
+    "BFDamageLong": 0,
+    "BFDamageLongMin": false,
+    "BFDamageExtreme": 0,
+    "BFOverheat": 1,
+    "BFPointValue": 26,
+    "BFAbilities": "ENE,TSM",
+    "Skill": 0,
+    "FormatedTonnage": "25"
+  }
+]
