@@ -163,7 +163,7 @@ async function loadLegacyNameIndex() {
     for (const file of files) {
         const items = await loadJson(path.join(legacyMulDir, file), []);
         for (const item of items) {
-            const key = unitIdentity(item?.Name, item?.Variant);
+            const key = unitIdentity(item?.Class || item?.Name, item?.Variant);
             if (key && !index.has(key)) {
                 index.set(key, { file, Id: item.Id, Name: item.Name, Variant: item.Variant });
             }
@@ -192,7 +192,7 @@ async function archiveExactLegacyMatches(liveRecords) {
         const kept = [];
 
         for (const item of items) {
-            const identity = typeof item?.Class === "string" ? unitIdentity(item.Name, item.Variant) : null;
+            const identity = typeof item?.Class === "string" ? unitIdentity(item.Class, item.Variant) : null;
             const liveRecord = identity ? liveByIdentity.get(identity) : null;
             if (!liveRecord) {
                 kept.push(item);
