@@ -1,46 +1,61 @@
-tools/.live-mul-battle-armor/
-/battletech-tools/
-node_modules*
-node_modules
-robots.txt
-node_modules/*
-npm-debug.log
-.htaccess
+# ---------------------------------------------------------------------------
+# Dependencies
+# ---------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-error.log*
 .eslintcache
 
 
-old
-old/*
-old*
-
-boneyard
-boneyard/*
-
+# ---------------------------------------------------------------------------
+# Build output
+# ---------------------------------------------------------------------------
 build/
 dist/
 dist-ssr/
 coverage/
+*.tsbuildinfo
 
-work/*
-work*
-work
-!.github/
-!.github/workflows/
-!.github/workflows/*.yml
+# node_modules/.vite is already covered; this catches caches outside it.
+.vite/
 
-/cli-tools/*
-/cli-tools
+# Nested project copy that the build/deploy tooling keeps recreating.
+/battletech-tools/
 
+# ---------------------------------------------------------------------------
+# Local scratch directories (root-anchored so they cannot swallow source files
+# such as .github/workflows or src/work*.ts)
+# ---------------------------------------------------------------------------
+/old*
+/work*
+/boneyard*
+/cli-tools/
+/SSW-Master/
+/SSW-Equipment/
+tools/.live-mul-battle-armor/
+
+# ---------------------------------------------------------------------------
+# Python helper tooling byproducts
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+
+# ---------------------------------------------------------------------------
+# Scratch and backup artifacts
+# ---------------------------------------------------------------------------
+*.bak
+*.tmp
+
+# ---------------------------------------------------------------------------
+# Editor / OS / miscellaneous local files
+# ---------------------------------------------------------------------------
+.vscode/
+.idea/
 .DS_Store
+Thumbs.db
 .gitlab-ci.yml
-
-/SSW-Master
-/SSW-Master/*
-/SSW-Equipment
-/SSW-Equipment/*
-
-.vscode
-.vscode/*
+.htaccess
+robots.txt
 
 # Local environment files; keep shareable .env.example files trackable.
 .env
@@ -50,13 +65,17 @@ work
 # Local development workspaces are never part of the synchronized source.
 *_DEV/
 
-# Ollama AI engine rules and helpers
-.clinerules
-as_lookup_results.jsonl
-batch_as_lookup.py
-ollama*
-cline_custom_modes.json
-node_modules
-node_modules
-node_modules
-node_modules
+# ---------------------------------------------------------------------------
+# Ollama AI engine rules and helpers (root-anchored; the committed equivalents
+# under tools/ are intentional project tooling and must stay tracked)
+# ---------------------------------------------------------------------------
+/.clinerules
+/as_lookup_results.jsonl
+/batch_as_lookup.py
+/ollama*
+/cline_custom_modes.json
+
+# GitHub Actions workflows are required; guard against the broad patterns above.
+!.github/
+!.github/workflows/
+!.github/workflows/*.yml
