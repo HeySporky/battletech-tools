@@ -3392,7 +3392,7 @@
     },
     "021YGSF86K": {
       "summaryHash": "[\"Shedu Assault Battle Armor\",\"(Support) (Sqd4)\",2,3,4,1,2,18,364,3072,5,[2,38],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:38:47.769Z",
       "record": {
         "Id": 100031,
         "MulUnitKey": "021YGSF86K",
@@ -3413,12 +3413,27 @@
         "BFType": "BA",
         "EraId": 5,
         "EraStart": 3068,
-        "Availability": []
+        "Availability": [],
+        "BFOverheat": 0,
+        "BFDamageShort": 2,
+        "BFDamageMedium": 0,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 1,
+        "BFMove": "6\"f",
+        "BFTMM": 1,
+        "BFArmor": 2,
+        "BFStructure": 2,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": true,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "CAR 4,LMAS"
       }
     },
     "02293RBPSZ": {
       "summaryHash": "[\"Ostroc\",\"OSR-2M\",1,4,6,1,60,29,1239,2793,3,[18],1]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:39:07.255Z",
       "record": {
         "Id": 100032,
         "MulUnitKey": "02293RBPSZ",
@@ -3476,12 +3491,27 @@
               30
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 2,
+        "BFDamageMedium": 2,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 3,
+        "BFMove": "10\"j",
+        "BFTMM": 2,
+        "BFArmor": 5,
+        "BFStructure": 5,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "ENE"
       }
     },
     "023VV3B52D": {
       "summaryHash": "[\"Goliath\",\"GOL-5D\",1,4,3,1,80,45,1975,3067,8,[27,29],1]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:39:23.232Z",
       "record": {
         "Id": 100033,
         "MulUnitKey": "023VV3B52D",
@@ -3540,12 +3570,27 @@
               29
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 5,
+        "BFDamageMedium": 5,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 4,
+        "BFMove": "8\"",
+        "BFTMM": 1,
+        "BFArmor": 9,
+        "BFStructure": 6,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "CASE,REAR 0*/-/-"
       }
     },
     "025MCSX9F0": {
       "summaryHash": "[\"Watchman\",\"WTC-4DM2\",1,4,9,1,40,26,1063,3145,7,[135],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:39:38.945Z",
       "record": {
         "Id": 100034,
         "MulUnitKey": "025MCSX9F0",
@@ -3579,12 +3624,27 @@
               29
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 2,
+        "BFDamageMedium": 2,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 2,
+        "BFMove": "10\"j",
+        "BFTMM": 2,
+        "BFArmor": 5,
+        "BFStructure": 3,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "REL"
       }
     },
     "026DBK563D": {
       "summaryHash": "[\"Daedalus\",\"DAD-3D\",1,4,9,1,45,32,1729,3062,8,[18,37],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:39:54.682Z",
       "record": {
         "Id": 100035,
         "MulUnitKey": "026DBK563D",
@@ -3642,12 +3702,27 @@
               43
             ]
           }
-        ]
+        ],
+        "BFOverheat": 1,
+        "BFDamageShort": 3,
+        "BFDamageMedium": 3,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 2,
+        "BFMove": "12\"j",
+        "BFTMM": 2,
+        "BFArmor": 5,
+        "BFStructure": 2,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "ENE,TSM"
       }
     },
     "02AA16HE1Z": {
       "summaryHash": "[\"Aqueduct Liquid Carrier\",null,10,46,1,1,45000,36,0,2638,2,[],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:40:10.359Z",
       "record": {
         "Id": 100036,
         "MulUnitKey": "02AA16HE1Z",
@@ -3815,12 +3890,27 @@
               75
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 0,
+        "BFDamageMedium": 0,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 3,
+        "BFMove": "3p",
+        "BFTMM": 0,
+        "BFArmor": 8,
+        "BFStructure": 15,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "TH 1"
       }
     },
     "02BCH35DF6": {
       "summaryHash": "[\"Ostsol\",\"OTL-9M\",1,4,6,1,60,49,1871,3079,5,[17,18],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:40:26.482Z",
       "record": {
         "Id": 100037,
         "MulUnitKey": "02BCH35DF6",
@@ -3893,12 +3983,27 @@
               53
             ]
           }
-        ]
+        ],
+        "BFOverheat": 1,
+        "BFDamageShort": 3,
+        "BFDamageMedium": 3,
+        "BFDamageLong": 1,
+        "BFDamageExtreme": 0,
+        "BFSize": 3,
+        "BFMove": "16\"",
+        "BFTMM": 3,
+        "BFArmor": 6,
+        "BFStructure": 3,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "ECM,ENE"
       }
     },
     "02C5C2QVVS": {
       "summaryHash": "[\"Titan II\",\"TI-2PA\",1,4,4,1,100,57,2468,3076,5,[11,13,19,29],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:40:45.326Z",
       "record": {
         "Id": 100038,
         "MulUnitKey": "02C5C2QVVS",
@@ -3950,12 +4055,27 @@
               5
             ]
           }
-        ]
+        ],
+        "BFOverheat": 1,
+        "BFDamageShort": 7,
+        "BFDamageMedium": 5,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 4,
+        "BFMove": "6\"j",
+        "BFTMM": 1,
+        "BFArmor": 10,
+        "BFStructure": 8,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "CASE,HT 1/1/-,PRB,RCN"
       }
     },
     "02EPCDBY7K": {
       "summaryHash": "[\"Cauldron-Born (Ebon Jaguar)\",\"X\",1,19,6,2,65,52,2435,3075,5,[34,52,68],1]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:41:01.534Z",
       "record": {
         "Id": 100039,
         "MulUnitKey": "02EPCDBY7K",
@@ -4036,12 +4156,27 @@
               79
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 6,
+        "BFDamageMedium": 6,
+        "BFDamageLong": 3,
+        "BFDamageExtreme": 0,
+        "BFSize": 3,
+        "BFMove": "10\"",
+        "BFTMM": 2,
+        "BFArmor": 6,
+        "BFStructure": 4,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "AECM,CASEII,OMNI"
       }
     },
     "02JCWMNGH9": {
       "summaryHash": "[\"Boeing Jump Bomber\",null,5,5,1,1,20,15,64,3037,12,[8,15,20,25],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:41:19.772Z",
       "record": {
         "Id": 100040,
         "MulUnitKey": "02JCWMNGH9",
@@ -4155,12 +4290,27 @@
               29
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 0,
+        "BFDamageMedium": 0,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 1,
+        "BFMove": "9a",
+        "BFTMM": 0,
+        "BFArmor": 1,
+        "BFStructure": 5,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "TH 1,ATMO,BOMB 1,EE,VSTOL"
       }
     },
     "02PW1V18YF": {
       "summaryHash": "[\"Dragoon\",\"AEM-03\",1,4,1,1,70,0,0,2771,2,[],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:41:35.948Z",
       "record": {
         "Id": 100041,
         "MulUnitKey": "02PW1V18YF",
@@ -4188,12 +4338,27 @@
               41
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 0,
+        "BFDamageMedium": 0,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 0,
+        "BFMove": "—",
+        "BFTMM": 0,
+        "BFArmor": 0,
+        "BFStructure": 0,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": ""
       }
     },
     "034EB7KG3A": {
       "summaryHash": "[\"Jump Platoon, Marian 3049+\",\"(1/2) (Flamer)\",6,9,2,1,4,12,0,3049,4,[1,2,13],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:41:51.581Z",
       "record": {
         "Id": 100042,
         "MulUnitKey": "034EB7KG3A",
@@ -4257,12 +4422,27 @@
               35
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 1,
+        "BFDamageMedium": 0,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 1,
+        "BFMove": "4\"j",
+        "BFTMM": 0,
+        "BFArmor": 3,
+        "BFStructure": 1,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "AM,CAR 4,HT 1/-/-"
       }
     },
     "036NQ9TQS2": {
       "summaryHash": "[\"Trebuchet\",\"TBT-5S\",1,4,6,1,50,33,984,2864,3,[55],1]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:42:07.290Z",
       "record": {
         "Id": 100043,
         "MulUnitKey": "036NQ9TQS2",
@@ -4422,12 +4602,27 @@
               64
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 4,
+        "BFDamageMedium": 4,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 2,
+        "BFMove": "10\"",
+        "BFTMM": 2,
+        "BFArmor": 4,
+        "BFStructure": 4,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "SRM 2/2"
       }
     },
     "0381ENWJF4": {
       "summaryHash": "[\"Fortified Command Post\",\"(Age of War)\",12,38,1,1,90,37,400,2350,1,[5,16,27,41,73,74,75],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:42:23.929Z",
       "record": {
         "Id": 100044,
         "MulUnitKey": "0381ENWJF4",
@@ -4693,12 +4888,27 @@
               83
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 4,
+        "BFDamageMedium": 3,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 4,
+        "BFMove": "0\"",
+        "BFTMM": 0,
+        "BFArmor": 6,
+        "BFStructure": 6,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "CT 70,IT 18,MASH 2,MFB,MHQ 7,REAR 0*/0/0,SLG,TUR1 (1/1/1,AC0*/1/1),TUR2 (1/1/1,AC0*/1/1,ARTT-1)"
       }
     },
     "0382R62MW5": {
       "summaryHash": "[\"Tokugawa Heavy Tank\",\"(Streak)\",4,24,3,1,60,29,921,3063,8,[4,6,33],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:42:41.147Z",
       "record": {
         "Id": 100045,
         "MulUnitKey": "0382R62MW5",
@@ -4771,12 +4981,27 @@
               79
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 4,
+        "BFDamageMedium": 4,
+        "BFDamageLong": 1,
+        "BFDamageExtreme": 0,
+        "BFSize": 3,
+        "BFMove": "8\"w",
+        "BFTMM": 1,
+        "BFArmor": 6,
+        "BFStructure": 3,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "FLK 1/1/1,SRCH,TUR (3/2/1,FLK1/1/1)"
       }
     },
     "03CWQ9K5AR": {
       "summaryHash": "[\"Scavenger\",\"SC-V SalvageMech\",7,17,2,1,80,15,528,2613,2,[6,16,58,59],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:42:56.829Z",
       "record": {
         "Id": 100046,
         "MulUnitKey": "03CWQ9K5AR",
@@ -4892,12 +5117,27 @@
               73
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 0,
+        "BFDamageMedium": 0,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 4,
+        "BFMove": "8\"",
+        "BFTMM": 1,
+        "BFArmor": 4,
+        "BFStructure": 6,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "BFC,CT 12,FC,SRCH"
       }
     },
     "03NHEAWE87": {
       "summaryHash": "[\"Ku Wheeled Assault Tank\",\"(IFV) \\\"Turhan II\\\"\",4,24,9,2,50,34,1042,3074,5,[6,17,29,33,41],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:43:12.580Z",
       "record": {
         "Id": 100047,
         "MulUnitKey": "03NHEAWE87",
@@ -4955,12 +5195,27 @@
               190
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 2,
+        "BFDamageMedium": 2,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 2,
+        "BFMove": "14\"w",
+        "BFTMM": 3,
+        "BFArmor": 5,
+        "BFStructure": 3,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "CASE,ECM,IT 10,SRCH,TUR (2/2/-)"
       }
     },
     "03YY0505A7": {
       "summaryHash": "[\"Engineering Vehicle\",\"(Flamer)\",4,22,7,1,40,9,196,2570,1,[6,8,13,33,48,70],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:43:28.452Z",
       "record": {
         "Id": 100048,
         "MulUnitKey": "03YY0505A7",
@@ -5262,12 +5517,27 @@
               83
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 1,
+        "BFDamageMedium": 0,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 2,
+        "BFMove": "12\"t",
+        "BFTMM": 2,
+        "BFArmor": 1,
+        "BFStructure": 2,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "EE,ENG,HT 1/-/-,MEL,SRCH,TUR (0*/-/-)"
       }
     },
     "044DPJ6ZD5": {
       "summaryHash": "[\"Hardened Command Fort\",\"(Jihad)\",12,38,1,1,150,0,1376,3072,5,[],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:43:44.298Z",
       "record": {
         "Id": 100049,
         "MulUnitKey": "044DPJ6ZD5",
@@ -5416,12 +5686,27 @@
               83
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 0,
+        "BFDamageMedium": 0,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 0,
+        "BFMove": "—",
+        "BFTMM": 0,
+        "BFArmor": 0,
+        "BFStructure": 0,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": ""
       }
     },
     "047SG05MSA": {
       "summaryHash": "[\"Tatsu\",\"MIK-O\",5,18,10,1,70,42,1541,3063,8,[20,22,24,25,27],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:44:00.030Z",
       "record": {
         "Id": 100050,
         "MulUnitKey": "047SG05MSA",
@@ -5488,12 +5773,27 @@
               27
             ]
           }
-        ]
+        ],
+        "BFOverheat": 1,
+        "BFDamageShort": 4,
+        "BFDamageMedium": 4,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 2,
+        "BFMove": "5a",
+        "BFTMM": 0,
+        "BFArmor": 9,
+        "BFStructure": 4,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "TH 3,BOMB 2,FUEL 20,REAR 2/2/-,SPC,VSTOL"
       }
     },
     "04DXW4VKNR": {
       "summaryHash": "[\"Quirinus Battle Armor\",\"[MG] (Sqd5)\",2,3,2,1,1,13,323,3093,6,[1,2,10,14,81],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:44:15.844Z",
       "record": {
         "Id": 100051,
         "MulUnitKey": "04DXW4VKNR",
@@ -5523,12 +5823,27 @@
               76
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 1,
+        "BFDamageMedium": 0,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 1,
+        "BFMove": "6\"j",
+        "BFTMM": 1,
+        "BFArmor": 1,
+        "BFStructure": 2,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "AM,CAR 5,LTAG,MEC,RCA"
       }
     },
     "04MR28AMDD": {
       "summaryHash": "[\"Ontos Heavy Tank\",\"(LRM)\",4,22,5,1,95,33,1164,2876,3,[6,8,30,33,40],1]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:44:34.442Z",
       "record": {
         "Id": 100052,
         "MulUnitKey": "04MR28AMDD",
@@ -5634,12 +5949,27 @@
               64
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 2,
+        "BFDamageMedium": 4,
+        "BFDamageLong": 4,
+        "BFDamageExtreme": 0,
+        "BFSize": 4,
+        "BFMove": "6\"t",
+        "BFTMM": 1,
+        "BFArmor": 5,
+        "BFStructure": 5,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "EE,IF 3,LRM 2/3/3,SRCH,TUR (LRM2/3/3,IF3)"
       }
     },
     "04RMBM08M7": {
       "summaryHash": "[\"Firefly\",\"FFL-3PP2\",1,4,9,1,30,23,873,2801,3,[17,30,44],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:44:50.490Z",
       "record": {
         "Id": 100053,
         "MulUnitKey": "04RMBM08M7",
@@ -5667,12 +5997,27 @@
               74
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 3,
+        "BFDamageMedium": 2,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 1,
+        "BFMove": "10\"/8\"j",
+        "BFTMM": 2,
+        "BFArmor": 3,
+        "BFStructure": 1,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": true,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "ECM,IF 0*,JMPW 1"
       }
     },
     "04YM19K1R1": {
       "summaryHash": "[\"Drillson Heavy Hover Tank\",\"C 2\",4,16,9,2,50,37,1516,3138,7,[6,29,33],1]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:45:07.685Z",
       "record": {
         "Id": 100054,
         "MulUnitKey": "04YM19K1R1",
@@ -5710,12 +6055,27 @@
               190
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 4,
+        "BFDamageMedium": 3,
+        "BFDamageLong": 2,
+        "BFDamageExtreme": 0,
+        "BFSize": 2,
+        "BFMove": "18\"h",
+        "BFTMM": 3,
+        "BFArmor": 4,
+        "BFStructure": 3,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "CASE,SRCH,TUR (3/2/2)"
       }
     },
     "0503S4DCSP": {
       "summaryHash": "[\"Prometheus\",null,1,4,8,3,75,47,2401,3053,4,[30],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:45:24.149Z",
       "record": {
         "Id": 100055,
         "MulUnitKey": "0503S4DCSP",
@@ -5743,12 +6103,27 @@
               29
             ]
           }
-        ]
+        ],
+        "BFOverheat": 2,
+        "BFDamageShort": 5,
+        "BFDamageMedium": 4,
+        "BFDamageLong": 4,
+        "BFDamageExtreme": 0,
+        "BFSize": 3,
+        "BFMove": "10\"",
+        "BFTMM": 2,
+        "BFArmor": 7,
+        "BFStructure": 3,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "IF 1"
       }
     },
     "051WY8F1SS": {
       "summaryHash": "[\"Phoenix Hawk IIC\",\"8\",1,4,6,2,80,59,2881,3086,6,[17,18,56],1]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:45:39.835Z",
       "record": {
         "Id": 100056,
         "MulUnitKey": "051WY8F1SS",
@@ -5795,12 +6170,27 @@
               79
             ]
           }
-        ]
+        ],
+        "BFOverheat": 1,
+        "BFDamageShort": 4,
+        "BFDamageMedium": 4,
+        "BFDamageLong": 3,
+        "BFDamageExtreme": 0,
+        "BFSize": 4,
+        "BFMove": "10\"/14\"j",
+        "BFTMM": 2,
+        "BFArmor": 8,
+        "BFStructure": 3,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "ECM,ENE,JMPS 1"
       }
     },
     "0560E34BQF": {
       "summaryHash": "[\"Battle Cobra\",\"Prime\",1,19,8,2,40,31,1487,2873,3,[18,52],1]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:45:56.752Z",
       "record": {
         "Id": 100057,
         "MulUnitKey": "0560E34BQF",
@@ -5931,12 +6321,27 @@
               190
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 3,
+        "BFDamageMedium": 3,
+        "BFDamageLong": 3,
+        "BFDamageExtreme": 0,
+        "BFSize": 2,
+        "BFMove": "12\"",
+        "BFTMM": 2,
+        "BFArmor": 4,
+        "BFStructure": 3,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "ENE,OMNI"
       }
     },
     "05CHEJ0P85": {
       "summaryHash": "[\"Trireme Infantry Transport\",\"(CS)\",9,53,1,1,60,18,417,3086,6,[5,15,17,41,61,102],null]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:46:12.401Z",
       "record": {
         "Id": 100058,
         "MulUnitKey": "05CHEJ0P85",
@@ -5988,12 +6393,27 @@
               29
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 0,
+        "BFDamageMedium": 0,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 3,
+        "BFMove": "14\"v",
+        "BFTMM": 3,
+        "BFArmor": 2,
+        "BFStructure": 3,
+        "BFDamageShortMin": true,
+        "BFDamageMediumMin": true,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "AFC,ATMO,ECM,IT 16,LG,MHQ 1"
       }
     },
     "05EY9Y5N4J": {
       "summaryHash": "[\"Dervish\",\"DV-6M (Mauck)\",1,4,1,1,55,0,0,3060,4,[],1]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:46:28.223Z",
       "record": {
         "Id": 100059,
         "MulUnitKey": "05EY9Y5N4J",
@@ -6033,12 +6453,27 @@
               27
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 0,
+        "BFDamageMedium": 0,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 0,
+        "BFMove": "—",
+        "BFTMM": 0,
+        "BFArmor": 0,
+        "BFStructure": 0,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": ""
       }
     },
     "05QXDZF44E": {
       "summaryHash": "[\"Ostscout\",\"OTT-10CS\",1,4,7,1,35,27,862,3071,5,[5,18,51,56],1]",
-      "detailScrapedAt": null,
+      "detailScrapedAt": "2026-09-25T15:46:44.100Z",
       "record": {
         "Id": 100060,
         "MulUnitKey": "05QXDZF44E",
@@ -6081,7 +6516,22 @@
               39
             ]
           }
-        ]
+        ],
+        "BFOverheat": 0,
+        "BFDamageShort": 1,
+        "BFDamageMedium": 1,
+        "BFDamageLong": 0,
+        "BFDamageExtreme": 0,
+        "BFSize": 1,
+        "BFMove": "16\"/20\"j",
+        "BFTMM": 3,
+        "BFArmor": 3,
+        "BFStructure": 2,
+        "BFDamageShortMin": false,
+        "BFDamageMediumMin": false,
+        "BFDamageLongMin": false,
+        "BFDamageExtremeMin": false,
+        "BFAbilities": "C3I,ENE,JMPS 1,MHQ 2"
       }
     },
     "05R0NHYYSC": {
