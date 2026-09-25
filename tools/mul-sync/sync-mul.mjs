@@ -42,6 +42,14 @@ const CRAWL_DELAY_MS = 10_000; // robots.txt: Crawl-delay: 10
 const MAX_DETAIL_PER_RUN = Number(process.env.MUL_SYNC_MAX_DETAIL ?? 300);
 const CHUNK_SIZE = 200;
 const SYNTHETIC_ID_START = 100000;
+const MAX_CONSECUTIVE_CLOUDFLARE_BLOCKS = 3;
+
+// Distinguishes "the site actively blocked us" from an ordinary bug so CI can report it clearly.
+class CloudflareBlockError extends Error {}
+
+function isCloudflareChallenge(bodyText = "") {
+    return /just a moment|cloudflare|security verification|checking your browser/i.test(bodyText);
+}
 
 // Standard Alpha Strike movement-type abbreviations (not present in the live site's data — this is
 // fixed rules knowledge, keyed off the site's unit_types.json `name`).
@@ -132,8 +140,8 @@ async function scrapeUnitDetail(page, opaqueId) {
     await page.goto(`${SITE}/u/${opaqueId}`, { waitUntil: "domcontentloaded" });
 
     const bodyText = await page.locator("body").innerText();
-    if (/just a moment|cloudflare|security verification/i.test(bodyText)) {
-        throw new Error(`Cloudflare challenge blocked detail scrape for ${opaqueId}`);
+    if (isCloudflareChallenge(bodyText)) {
+        throw new CloudflareBlockError(`Cloudflare challenge blocked detail scrape for ${opaqueId}`);
     }
 
     return page.evaluate(() => {
@@ -214,14 +222,21 @@ async function main() {
     const existingIds = Object.values(store.units).map((u) => u.record?.Id ?? 0);
     let nextSyntheticId = Math.max(SYNTHETIC_ID_START, ...existingIds, 0) + 1;
 
-    const browser = await chromium.launch();
-    const page = await browser.newPage();
+    const browser = await chromium.launch({
+        args: ["--disable-blink-features=AutomationControlled"],
+    });
+    // A generic bare headless UA is more likely to trip Cloudflare's bot check than an ordinary desktop UA.
+    const page = await (await browser.newContext({
+        userAgent:
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        viewport: { width: 1280, height: 800 },
+    })).newPage();
 
     try {
         await page.goto(SITE, { waitUntil: "networkidle" });
         const bodyText = await page.locator("body").innerText();
-        if (/just a moment|cloudflare|security verification/i.test(bodyText)) {
-            throw new Error("Cloudflare challenge blocked the initial site load.");
+        if (isCloudflareChallenge(bodyText)) {
+            throw new CloudflareBlockError("Cloudflare challenge blocked the initial site load.");
         }
 
         const manifest = await fetchJson(page, "/data/manifest.json");
@@ -262,7 +277,6 @@ async function main() {
 
             const unitTypeName = unitTypeById.get(unit.t)?.name ?? "n/a";
             const roleName = roleById.get(unit.r)?.name ?? "None";
-            const eraName = eraById.get(unit.ie)?.name ?? "";
             const techName = techById.get(unit.te)?.name ?? "n/a";
 
             const record = {
@@ -297,6 +311,7 @@ async function main() {
         const batch = needsDetail.slice(0, MAX_DETAIL_PER_RUN);
         console.log(`${needsDetail.length} units need a detail scrape; processing ${batch.length} this run.`);
 
+        let consecutiveCloudflareBlocks = 0;
         for (const [index, opaqueId] of batch.entries()) {
             const entry = store.units[opaqueId];
             try {
@@ -304,9 +319,18 @@ async function main() {
                 const detailFields = parseDetailIntoRecord(detail, entry.record.Role);
                 Object.assign(entry.record, detailFields);
                 entry.detailScrapedAt = new Date().toISOString();
+                consecutiveCloudflareBlocks = 0;
                 console.log(`[${index + 1}/${batch.length}] scraped ${entry.record.Name} ${entry.record.Variant ?? ""}`.trim());
             } catch (error) {
-                console.warn(`Failed to scrape detail for ${opaqueId}: ${error.message}`);
+                if (error instanceof CloudflareBlockError) {
+                    consecutiveCloudflareBlocks += 1;
+                    console.warn(`Cloudflare blocked ${opaqueId} (${consecutiveCloudflareBlocks}/${MAX_CONSECUTIVE_CLOUDFLARE_BLOCKS} consecutive).`);
+                    if (consecutiveCloudflareBlocks >= MAX_CONSECUTIVE_CLOUDFLARE_BLOCKS) {
+                        throw new CloudflareBlockError("Repeated Cloudflare challenges during detail scrape — aborting the rest of this run's batch.");
+                    }
+                } else {
+                    console.warn(`Failed to scrape detail for ${opaqueId}: ${error.message}`);
+                }
             }
 
             if (index < batch.length - 1) {
@@ -340,7 +364,22 @@ async function main() {
     console.log(`${dupeCandidates.length} potential legacy duplicates logged to ${path.relative(repoRoot, dupeReportPath)} for manual review.`);
 }
 
+function setGithubActionsOutput(name, value) {
+    const outputFile = process.env.GITHUB_OUTPUT;
+    if (!outputFile) return; // not running inside GitHub Actions (e.g. local dev)
+    fs.appendFile(outputFile, `${name}=${value}\n`).catch(() => undefined);
+}
+
 main().catch((error) => {
+    if (error instanceof CloudflareBlockError) {
+        console.log(`::error::Blocked by Cloudflare — ${error.message}`);
+        console.log("::error::This is a site-side bot challenge, not a code bug. Nothing was scraped/committed this run; it will retry next scheduled run.");
+        setGithubActionsOutput("failure-reason", "cloudflare-block");
+        process.exitCode = 2;
+        return;
+    }
+    console.log(`::error::MUL sync failed unexpectedly: ${error.message}`);
+    setGithubActionsOutput("failure-reason", "error");
     console.error(error);
     process.exitCode = 1;
 });

@@ -12,16 +12,19 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    outputs:
+      failure-reason: ${{ steps.mulsync.outputs.failure-reason }}
     steps:
       - name: Check out MUL
         uses: actions/checkout@v4
         with:
           ref: MUL
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies
         run: npm ci
@@ -30,6 +33,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Sync from masterunitlist.battletech.com
+        id: mulsync
         run: npm run mul:sync
 
       - name: Commit and push updates
@@ -39,9 +43,13 @@ jobs:
           git add tools/mul-sync/live-units.json tools/mul-sync/legacy-duplicate-candidates.json src/data/mul/live
           if git diff --cached --quiet; then
             echo "No changes to commit."
-          else
-            git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
-            git push origin HEAD:MUL
+            exit 0
+          fi
+          git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
+          if ! git push origin HEAD:MUL; then
+            echo "::error::git push failed. This almost always means the workflow's GITHUB_TOKEN is read-only."
+            echo "::error::Fix: Settings -> Actions -> General -> Workflow permissions -> select 'Read and write permissions', then save."
+            exit 1
           fi
 
   alert-on-failure:
@@ -53,11 +61,18 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const title = "Weekly MUL sync failed";
+            const failureReason = "${{ needs.sync.outputs.failure-reason }}";
+            const isCloudflareBlock = failureReason === "cloudflare-block";
+            const title = isCloudflareBlock ? "Weekly MUL sync blocked by Cloudflare" : "Weekly MUL sync failed";
+            const detail = isCloudflareBlock
+              ? "masterunitlist.battletech.com's Cloudflare bot check blocked the sync this run. No code changes needed unless this keeps happening every week — it will simply retry next scheduled run."
+              : "This looks like a real bug (not a Cloudflare block) — check the job log for the actual error.";
             const body = [
               `@${context.repo.owner} the scheduled sync from masterunitlist.battletech.com failed.`,
               "",
-              `Inspect the [workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) — this is often a Cloudflare challenge blocking the bot, or a change in the site's page structure/data schema.`,
+              detail,
+              "",
+              `Inspect the [workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).`,
             ].join("\n");
             const { data: issues } = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
