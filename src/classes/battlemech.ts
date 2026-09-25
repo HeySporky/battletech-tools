@@ -2,7 +2,7 @@ import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructurePerTon, IResolvedInternalStructure, ISplitLocation } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { equipmentMatchesIdentifier, getAlphaStrikeEquipmentDisplayAbilityCodes, getEquipmentListByTech } from "../data/equipment-registry";
+import { equipmentMatchesIdentifier, getAlphaStrikeEquipmentDisplayAbilityCodes, getEquipmentListByTech, getEquipmentListForChassis } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
@@ -7018,9 +7018,6 @@ export class BattleMech {
         const techTag = this.getTech().tag;
         const clanAvailability = techTag === "clan" || techTag === "mclan";
 
-        // Determine which equipment lists are eligible based on Tech base rules
-        const includeClan = ["clan", "mclan", "mis"].includes(techTag); // We will want to watch this... 
-        const includeIS = ["is", "mis", "mclan"].includes(techTag); // I may be doing these wrong
         const addedTags = new Set<string>();
         const addEquipment = (item: IEquipmentItem, catalog: "is" | "clan" | "custom" | "universal"): void => {
             if (addedTags.has(item.tag)) {
@@ -7034,17 +7031,9 @@ export class BattleMech {
             returnItems.push(item);
         };
 
-        // Process Clan items if active
-        if (includeClan) {
-            for (let item of getEquipmentListByTech("clan", includeCustom && !includeIS)) {
-                addEquipment(item, item.category === "Custom Equipment" ? "custom" : "clan");
-            }
-        }
-        // Process Inner Sphere items if active
-        if (includeIS) {
-            for (let item of getEquipmentListByTech("is", includeCustom)) {
-                addEquipment(item, item.category === "Custom Equipment" ? "custom" : "is");
-            }
+        for (const item of getEquipmentListForChassis(techTag, includeCustom)) {
+            const catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : techTag === "clan" ? "clan" : "is");
+            addEquipment(item, catalog);
         }
         // Sort compiled equipment strictly by the dataset sorting values
         returnItems.sort((a, b) => {

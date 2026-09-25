@@ -183,3 +183,18 @@ export function getEquipmentListByTech(techTag: string, includeCustom: boolean =
             return cloneEquipment([...getCatalogByTech("is"), ...customEquipment, ...universalEquipment]);
     }
 }
+
+export function getEquipmentListForChassis(techTag: string, includeCustom: boolean = false): IEquipmentItem[] {
+    const normalizedTech = techTag.toLowerCase();
+    const techCatalogs: EquipmentCatalog[] = normalizedTech === "clan"
+        ? ["clan"]
+        : normalizedTech === "mis"
+            ? ["is", "clan"]
+            : normalizedTech === "mclan"
+                ? ["clan", "is"]
+                : ["is"];
+    const specific = techCatalogs.flatMap(getCatalogByTech);
+    const custom = includeCustom ? getCatalogByTech("custom") : [];
+
+    return cloneEquipment([...specific, ...custom, ...getCatalogByTech("universal")]);
+}

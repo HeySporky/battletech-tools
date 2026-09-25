@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateShotsPerTon, equipmentMatchesIdentifier, getAlphaStrikeEquipmentAbilityCodes, getAlphaStrikeEquipmentDisplayAbilityCodes, getCompatibleAmmo, getEquipmentCatalogDefinitions, getEquipmentCatalogSummaries, getEquipmentListByTech, getEquipmentMaximumRangeInHexes } from "./equipment-registry";
+import { calculateShotsPerTon, equipmentMatchesIdentifier, getAlphaStrikeEquipmentAbilityCodes, getAlphaStrikeEquipmentDisplayAbilityCodes, getCompatibleAmmo, getEquipmentCatalogDefinitions, getEquipmentCatalogSummaries, getEquipmentListByTech, getEquipmentListForChassis, getEquipmentMaximumRangeInHexes } from "./equipment-registry";
 import { mechUniversalEquipment } from "./mech-universal-equipment";
 import { mechUniversalAmmo } from "./mech-universal-ammo";
 import { mechCustomAmmo } from "./mech-custom-ammo";
@@ -91,6 +91,20 @@ describe("equipment catalog provenance", () => {
     it("includes custom ammunition only when custom content is requested", () => {
         expect(getEquipmentListByTech("is").some(item => item.tag === "ammo-rocket-launcher")).toBe(false);
         expect(getEquipmentListByTech("is", true).filter(item => item.tag === "ammo-rocket-launcher")).toHaveLength(1);
+    });
+
+    it("adds chassis-tech, custom, and universal ammunition for custom-rule machines", () => {
+        const innerSphere = getEquipmentListForChassis("is", true);
+        const clan = getEquipmentListForChassis("clan", true);
+        const mixed = getEquipmentListForChassis("mis", true);
+
+        expect(innerSphere.some(item => item.tag === "ammo-rocket-launcher")).toBe(true);
+        expect(innerSphere.some(item => item.tag === "ammo-atm-standard")).toBe(false);
+        expect(clan.some(item => item.tag === "ammo-atm-standard")).toBe(true);
+        expect(clan.some(item => item.tag === "ammo-rocket-launcher")).toBe(true);
+        expect(mixed.some(item => item.tag === "ammo-atm-standard")).toBe(true);
+        expect(mixed.some(item => item.tag === "ammo-rocket-launcher")).toBe(true);
+        expect(mixed.some(item => item.tag === "ammo-lrm")).toBe(true);
     });
 
     it("does not infer universal ownership from other catalogs", () => {
