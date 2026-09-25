@@ -524,7 +524,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
       book: "TO",
       page: 185,
       alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Sub-surface SRT installation only. Latches an extraction cable anchor directly to target maritime hulls."] }
-    },,
+    },
     {
             isAmmo: true,
             name: "Ammo (Plasma Cannon)",
