@@ -73,6 +73,34 @@ const BF_TYPE_BY_UNIT_TYPE_NAME = {
     Buildings: "CF",
 };
 
+const LEGACY_TYPE_ID_BY_NAME = {
+    BattleMech: 18,
+    "Combat Vehicle": 19,
+    OmniVehicle: 19,
+    "Fighter Craft": 17,
+    "Aerospace Craft": 17,
+    "Battle Armor": 22,
+    Infantry: 21,
+    ProtoMech: 23,
+    IndustrialMech: 20,
+    "Support Vehicle": 24,
+    "Advanced Support": 24,
+};
+
+const LEGACY_ERA_ID_BY_LIVE_ID = {
+    2: 10,
+    3: 11,
+    4: 13,
+    5: 14,
+    6: 15,
+    7: 16,
+    8: 247,
+    10: 254,
+    11: 255,
+    12: 256,
+    13: 257,
+};
+
 function normalizeIdentityPart(value) {
     return String(value ?? "").trim().replace(/\s+/g, " ").toLowerCase();
 }
@@ -142,7 +170,7 @@ function decodeAvailability(availability, opaqueId) {
     const entries = availability?.u?.[opaqueId];
     if (!entries) return [];
     return entries.map(([eraId, dictIndex]) => ({
-        EraId: eraId,
+        EraId: LEGACY_ERA_ID_BY_LIVE_ID[eraId] ?? eraId,
         FactionIds: availability.d[dictIndex] ?? [],
     }));
 }
@@ -430,10 +458,16 @@ async function main() {
                 BattleValue: unit.bv ?? 0,
                 BFPointValue: unit.pv ?? 0,
                 DateIntroduced: String(unit.iy ?? ""),
-                Role: roleName,
+                Role: { Id: unit.r, Name: roleName, Image: null, SortOrder: 0 },
                 Technology: { Id: unit.te, Name: techName, Image: null, SortOrder: 0 },
+                Type: {
+                    Id: LEGACY_TYPE_ID_BY_NAME[unitTypeName] ?? 0,
+                    Name: unitTypeName,
+                    Image: null,
+                    SortOrder: unitTypeById.get(unit.t)?.sort ?? 0,
+                },
                 BFType: BF_TYPE_BY_UNIT_TYPE_NAME[unitTypeName] ?? null,
-                EraId: unit.ie ?? 0,
+                EraId: LEGACY_ERA_ID_BY_LIVE_ID[unit.ie] ?? unit.ie ?? 0,
                 EraStart: eraById.get(unit.ie)?.ys ?? 0,
                 Availability: decodeAvailability(availability, opaqueId),
             };

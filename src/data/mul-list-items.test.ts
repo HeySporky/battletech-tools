@@ -8,5 +8,10 @@ describe("MUL chunk loader", () => {
         expect(items.length).toBeGreaterThan(0);
         expect(items.some((item) => item.Id === 2 && item.Name?.trim() === "AA Jump Infantry")).toBe(true);
         expect(items.some((item) => item.Id === 2 && "Title" in item)).toBe(false);
+
+        const blackKnight = items.find((item) => item.MulUnitKey === "000RM4HYJ9");
+        expect(blackKnight?.Role.Name).toBe("Brawler");
+        expect(blackKnight?.Type).toMatchObject({ Id: 18, Name: "BattleMech" });
+        expect(blackKnight?.EraId).toBe(11);
     }, 30_000);
 });
