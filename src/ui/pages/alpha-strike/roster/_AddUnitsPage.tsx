@@ -43,6 +43,12 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         }
     }
 
+      componentDidMount() {
+        if (this.props.appGlobals.appSettings.alphaStrikeSearchTerm.trim().length >= 3) {
+          void this.updateSearchResults();
+        }
+      }
+
     componentWillUnmount() {
         // Clean up timeout when component unmounts
         if (this.searchTimeout) {
