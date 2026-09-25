@@ -172,9 +172,36 @@ async function loadLegacyNameIndex() {
     return index;
 }
 
+// Every stat the unit detail page supplies. A record missing any of these is still index-only
+// (name/model/era/faction availability), which is less data than the legacy entry already holds.
+const REQUIRED_DETAIL_FIELDS = [
+    "BFSize",
+    "BFMove",
+    "BFTMM",
+    "BFArmor",
+    "BFStructure",
+    "BFPointValue",
+    "BFOverheat",
+    "BFAbilities",
+    "BFDamageShort",
+    "BFDamageMedium",
+    "BFDamageLong",
+    "BFDamageExtreme",
+];
+
+// Zero and "" are legitimate values, so test for presence rather than truthiness.
+function isFullyDetailed(record) {
+    return REQUIRED_DETAIL_FIELDS.every((field) => record?.[field] !== undefined && record[field] !== null);
+}
+
+// Archives a legacy entry only when the live replacement carries the complete Alpha Strike card,
+// so a partially synced unit can never displace richer legacy data.
 async function archiveExactLegacyMatches(liveRecords) {
     const liveByIdentity = new Map();
     for (const record of liveRecords) {
+        if (!isFullyDetailed(record)) {
+            continue;
+        }
         const identity = unitIdentity(record.Name, record.Variant);
         if (identity && !liveByIdentity.has(identity)) {
             liveByIdentity.set(identity, record);
@@ -423,7 +450,9 @@ async function main() {
         }
 
         const archivedLegacyCount = await archiveExactLegacyMatches(
-            Object.values(store.units).map((entry) => entry.record)
+            Object.values(store.units)
+                .filter((entry) => entry.detailScrapedAt)
+                .map((entry) => entry.record)
         );
         if (archivedLegacyCount > 0) {
             console.log(`Archived ${archivedLegacyCount} exact Name+Model legacy record(s).`);
