@@ -461,15 +461,23 @@ async function getCachedMULSearchResults(
         matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter) &&
         matchesMULSearchTokens(unit, tokens);
 
-    const cachedUnits = appGlobals?.appSettings.alphasStrikeCachedSearchResults ?? [];
-    const cachedMatches = cachedUnits.filter(matchesAllFilters);
-    if (cachedMatches.length > 0) {
-        return cachedMatches;
-    }
+    const bundledMatches = (await loadMULListItems()).filter(matchesAllFilters);
+    const sessionMatches = (appGlobals?.appSettings.alphasStrikeCachedSearchResults ?? [])
+        .filter(matchesAllFilters);
+    const seen = new Set(
+        bundledMatches.map((unit) => unit.MulUnitKey ?? `${unit.Name}\u001f${unit.Variant ?? ""}\u001f${unit.Class}`)
+    );
 
-    // Fall back to the chunked MUL snapshot if the user's own session cache has nothing.
-    const cachedMULListItems = await loadMULListItems();
-    return cachedMULListItems.filter(matchesAllFilters);
+    // Bundled deployment data is authoritative. Session-only records supplement it without
+    // replacing newer records shipped by a subsequent deployment.
+    return bundledMatches.concat(sessionMatches.filter((unit) => {
+        const key = unit.MulUnitKey ?? `${unit.Name}\u001f${unit.Variant ?? ""}\u001f${unit.Class}`;
+        if (seen.has(key)) {
+            return false;
+        }
+        seen.add(key);
+        return true;
+    }));
 }
 
 function addMULUnavailableAlert(appGlobals: IAppGlobals | null, factionFilterActive: boolean): void {

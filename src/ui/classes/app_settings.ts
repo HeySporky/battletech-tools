@@ -54,10 +54,6 @@ export class AppSettings {
                 this.installEquipCategory = io.installEquipCategory;
             }
 
-            if ( typeof( io.alphasStrikeCachedSearchResults ) !== "undefined" ) {
-                this.alphasStrikeCachedSearchResults = io.alphasStrikeCachedSearchResults;
-            }
-
             if ( typeof( io.alphaStrikeSearchRules ) !== "undefined" ) {
                 this.alphaStrikeSearchRules = io.alphaStrikeSearchRules;
             }
@@ -114,7 +110,6 @@ export class AppSettings {
             developerMenu: this.developerMenu,
             equipmentFilter: this.equipmentFilter,
             installEquipCategory: this.installEquipCategory,
-            alphasStrikeCachedSearchResults: this.alphasStrikeCachedSearchResults,
             alphaStrikeSearchTerm: this.alphaStrikeSearchTerm,
             alphaStrikeInPlayColumns: this.alphaStrikeInPlayColumns,
             equipmentEditorFile: this.equipmentEditorFile,
@@ -141,7 +136,6 @@ export interface IAppSettingsExport {
     equipmentFilter: string;
     installEquipCategory: string;
 
-    alphasStrikeCachedSearchResults: IASMULUnit[];
     alphaStrikeSearchTerm: string;
     alphaStrikeSearchRules: string;
     alphaStrikeSearchTech: string;

@@ -34,7 +34,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
 
         this.state = {
-            searchResults: this.props.appGlobals.appSettings.alphasStrikeCachedSearchResults,
+          searchResults: [],
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
             searchSort: 'Name',
@@ -239,6 +239,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       let appSettings = this.props.appGlobals.appSettings;
 
       appSettings.alphasStrikeCachedSearchResults = data;
+      // Search results stay in memory; saveAppSettings persists preferences and user work, not
+      // deployment data that could hide fresher bundled MUL records after a reload.
       this.props.appGlobals.saveAppSettings( appSettings );
 
       } catch (error) {
