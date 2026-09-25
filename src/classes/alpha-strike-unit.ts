@@ -83,6 +83,9 @@ export interface IASMULUnit {
     Type: ASMULType;
     Variant: string | null;
 
+    // Opaque public_uid from masterunitlist.battletech.com — the only stable join key the live site exposes.
+    MulUnitKey?: string;
+
     BFDamageShortMin?: boolean;
     BFDamageMediumMin?: boolean;
     BFDamageLongMin?: boolean;

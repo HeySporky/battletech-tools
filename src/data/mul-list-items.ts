@@ -7,7 +7,8 @@ type MULChunkEntry = Partial<IASMULUnit> & {
     Variant?: string;
 };
 
-const mulChunkModules = import.meta.glob("./mul/*.json", {
+// Recursive so it also picks up ./mul/live/*.json (weekly sync output from tools/mul-sync).
+const mulChunkModules = import.meta.glob("./mul/**/*.json", {
     eager: false,
     import: "default",
 }) as Record<string, () => Promise<unknown>>;

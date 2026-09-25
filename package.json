@@ -28,6 +28,7 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
+    "mul:sync": "node tools/mul-sync/sync-mul.mjs",
     "deploy-dev": "gh-pages -d build --dotfiles",
     "deploy-prod": "gh-pages -d build --dotfiles -r https://github.com/heysporky/battletech-tools.git"
   },
