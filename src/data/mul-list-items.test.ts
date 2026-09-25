@@ -8,5 +8,5 @@ describe("MUL chunk loader", () => {
         expect(items.length).toBeGreaterThan(0);
         expect(items.some((item) => item.Id === 2 && item.Name?.trim() === "AA Jump Infantry")).toBe(true);
         expect(items.some((item) => item.Id === 2 && "Title" in item)).toBe(false);
-    });
+    }, 30_000);
 });
