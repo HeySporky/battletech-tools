@@ -9,14 +9,17 @@ on:
         description: "Max units to detail-scrape this run (700 is about five hours at the observed rate)"
         required: false
         default: "700"
-      runner:
-        description: "Where to run this. Only pick self-hosted if you have your own runner registered and online."
-        required: false
-        type: choice
-        options:
-          - github-hosted
-          - self-hosted
-        default: github-hosted
+      # Self-hosted execution is retired; the GitHub-hosted runner handles this reliably now that
+      # sync-mul.mjs launches full Chromium. Re-enable this input and the Windows steps below if
+      # Cloudflare ever starts blocking the hosted runners again.
+      # runner:
+      #   description: "Where to run this. Only pick self-hosted if you have your own runner registered and online."
+      #   required: false
+      #   type: choice
+      #   options:
+      #     - github-hosted
+      #     - self-hosted
+      #   default: github-hosted
 
 permissions:
   contents: write
@@ -28,9 +31,7 @@ concurrency:
 
 jobs:
   sync:
-    # Scheduled runs (no inputs) and the default dispatch choice both land on the GitHub-hosted runner;
-    # only an explicit "self-hosted" choice uses your own registered runner.
-    runs-on: ${{ github.event.inputs.runner == 'self-hosted' && 'self-hosted' || 'ubuntu-latest' }}
+    runs-on: ubuntu-latest
     outputs:
       failure-reason: ${{ steps.mulsync.outputs.failure-reason }}
     steps:
@@ -48,17 +49,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright browser (Linux)
-        if: runner.os == 'Linux'
+      - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 
-      # playwright-core's own downloader consistently times out fetching from cdn.playwright.dev on
-      # this Windows runner's network (root cause unconfirmed), even though a plain https request to
-      # the same URL succeeds instantly — so we fetch/place the browser ourselves instead of using
-      # `npx playwright install` here. See tools/mul-sync/ensure-chromium-windows.mjs for details.
-      - name: Install Playwright browser (Windows self-hosted)
-        if: runner.os == 'Windows'
-        run: node tools/mul-sync/ensure-chromium-windows.mjs
+      # Retired with the self-hosted runner. playwright-core's own downloader timed out against
+      # cdn.playwright.dev on that Windows network, so the browser was fetched manually instead.
+      # - name: Install Playwright browser (Windows self-hosted)
+      #   if: runner.os == 'Windows'
+      #   run: node tools/mul-sync/ensure-chromium-windows.mjs
 
       - name: Sync from masterunitlist.battletech.com
         id: mulsync
@@ -66,8 +64,7 @@ jobs:
           MUL_SYNC_MAX_DETAIL: ${{ github.event.inputs.max_detail || '700' }}
         run: npm run mul:sync
 
-      - name: Commit and push updates (Linux)
-        if: runner.os == 'Linux'
+      - name: Commit and push updates
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
@@ -84,25 +81,25 @@ jobs:
             exit 1
           fi
 
-      # Use PowerShell on Windows so shell discovery cannot select the WSL bash app-execution alias.
-      - name: Commit and push updates (Windows self-hosted)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tools/mul-sync/live-units.json tools/mul-sync/legacy-duplicate-candidates.json src/data/mul
-          if (git diff --cached --quiet) {
-            Write-Host "No changes to commit."
-            exit 0
-          }
-          git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
-          git push origin HEAD:MUL
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "::error::git push failed. This almost always means the workflow's GITHUB_TOKEN is read-only."
-            Write-Host "::error::Fix: Settings -> Actions -> General -> Workflow permissions -> select 'Read and write permissions', then save."
-            exit 1
-          }
+      # Retired with the self-hosted runner. Windows shell discovery could select the WSL bash
+      # app-execution alias instead of Git Bash, so this step used PowerShell.
+      # - name: Commit and push updates (Windows self-hosted)
+      #   if: runner.os == 'Windows'
+      #   shell: pwsh
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #     git add tools/mul-sync/live-units.json tools/mul-sync/legacy-duplicate-candidates.json src/data/mul
+      #     if (git diff --cached --quiet) {
+      #       Write-Host "No changes to commit."
+      #       exit 0
+      #     }
+      #     git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
+      #     git push origin HEAD:MUL
+      #     if ($LASTEXITCODE -ne 0) {
+      #       Write-Host "::error::git push failed. This almost always means the workflow's GITHUB_TOKEN is read-only."
+      #       exit 1
+      #     }
 
   alert-on-failure:
     needs: sync
