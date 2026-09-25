@@ -52,9 +52,13 @@ jobs:
         if: runner.os == 'Linux'
         run: npx playwright install --with-deps chromium
 
-      - name: Install Playwright browser (non-Linux self-hosted)
-        if: runner.os != 'Linux'
-        run: npx playwright install chromium
+      # playwright-core's own downloader consistently times out fetching from cdn.playwright.dev on
+      # this Windows runner's network (root cause unconfirmed), even though a plain https request to
+      # the same URL succeeds instantly — so we fetch/place the browser ourselves instead of using
+      # `npx playwright install` here. See tools/mul-sync/ensure-chromium-windows.mjs for details.
+      - name: Install Playwright browser (Windows self-hosted)
+        if: runner.os == 'Windows'
+        run: node tools/mul-sync/ensure-chromium-windows.mjs
 
       - name: Sync from masterunitlist.battletech.com
         id: mulsync
