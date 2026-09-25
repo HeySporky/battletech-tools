@@ -84,28 +84,25 @@ jobs:
             exit 1
           fi
 
-      # Windows' bash-on-PATH is often the WSL app-execution-alias stub, not Git Bash. GitHub's custom
-      # `shell:` field can't handle the space in "C:\Program Files\Git\bin\bash.exe" (it truncates at
-      # the first space and crashes), so prepend Git's bin dir to PATH instead and use plain `shell: bash`.
+      # Use PowerShell on Windows so shell discovery cannot select the WSL bash app-execution alias.
       - name: Commit and push updates (Windows self-hosted)
         if: runner.os == 'Windows'
-        shell: bash
-        env:
-          PATH: "C:\\Program Files\\Git\\bin;${{ env.PATH }}"
+        shell: pwsh
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add tools/mul-sync/live-units.json tools/mul-sync/legacy-duplicate-candidates.json src/data/mul/live
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
+          if (git diff --cached --quiet) {
+            Write-Host "No changes to commit."
             exit 0
-          fi
+          }
           git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
-          if ! git push origin HEAD:MUL; then
-            echo "::error::git push failed. This almost always means the workflow's GITHUB_TOKEN is read-only."
-            echo "::error::Fix: Settings -> Actions -> General -> Workflow permissions -> select 'Read and write permissions', then save."
+          git push origin HEAD:MUL
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "::error::git push failed. This almost always means the workflow's GITHUB_TOKEN is read-only."
+            Write-Host "::error::Fix: Settings -> Actions -> General -> Workflow permissions -> select 'Read and write permissions', then save."
             exit 1
-          fi
+          }
 
   alert-on-failure:
     needs: sync
