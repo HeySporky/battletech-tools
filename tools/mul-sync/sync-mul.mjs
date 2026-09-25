@@ -34,6 +34,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..", "..");
 const legacyMulDir = path.join(repoRoot, "src", "data", "mul");
 const liveMulDir = path.join(legacyMulDir, "live");
+const legacyArchivePath = path.join(legacyMulDir, "archive", "replaced-legacy-records.json");
 const storePath = path.join(__dirname, "live-units.json");
 const dupeReportPath = path.join(__dirname, "legacy-duplicate-candidates.json");
 
@@ -72,12 +73,14 @@ const BF_TYPE_BY_UNIT_TYPE_NAME = {
     Buildings: "CF",
 };
 
-function canonicalTitle(name, model) {
-    const title = `${name ?? ""} ${model ?? ""}`.trim().toLowerCase();
-    return title
-        .replace(/[\u2018\u2019]/g, "'")
-        .replace(/[\u2013\u2014]/g, "-")
-        .replace(/[^a-z0-9]+/g, "");
+function normalizeIdentityPart(value) {
+    return String(value ?? "").trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+function unitIdentity(name, model) {
+    const normalizedName = normalizeIdentityPart(name);
+    if (!normalizedName) return null;
+    return `${normalizedName}\u001f${normalizeIdentityPart(model)}`;
 }
 
 async function loadJson(filePath, fallback) {
@@ -160,13 +163,64 @@ async function loadLegacyNameIndex() {
     for (const file of files) {
         const items = await loadJson(path.join(legacyMulDir, file), []);
         for (const item of items) {
-            const key = canonicalTitle(item?.Name, item?.Variant);
+            const key = unitIdentity(item?.Name, item?.Variant);
             if (key && !index.has(key)) {
                 index.set(key, { file, Id: item.Id, Name: item.Name, Variant: item.Variant });
             }
         }
     }
     return index;
+}
+
+async function archiveExactLegacyMatches(liveRecords) {
+    const liveByIdentity = new Map();
+    for (const record of liveRecords) {
+        const identity = unitIdentity(record.Name, record.Variant);
+        if (identity && !liveByIdentity.has(identity)) {
+            liveByIdentity.set(identity, record);
+        }
+    }
+
+    const archived = await loadJson(legacyArchivePath, []);
+    const archivedKeys = new Set(archived.map((entry) => entry.archiveKey));
+    let archivedCount = 0;
+    const files = (await fs.readdir(legacyMulDir)).filter((file) => file.endsWith(".json"));
+
+    for (const file of files) {
+        const filePath = path.join(legacyMulDir, file);
+        const items = await loadJson(filePath, []);
+        const kept = [];
+
+        for (const item of items) {
+            const identity = typeof item?.Class === "string" ? unitIdentity(item.Name, item.Variant) : null;
+            const liveRecord = identity ? liveByIdentity.get(identity) : null;
+            if (!liveRecord) {
+                kept.push(item);
+                continue;
+            }
+
+            const archiveKey = `${file}\u001f${item.Id}\u001f${identity}`;
+            if (!archivedKeys.has(archiveKey)) {
+                archived.push({
+                    archiveKey,
+                    sourceFile: file,
+                    replacedBy: liveRecord.MulUnitKey,
+                    record: item,
+                });
+                archivedKeys.add(archiveKey);
+            }
+            archivedCount += 1;
+        }
+
+        if (kept.length !== items.length) {
+            await saveJson(filePath, kept);
+        }
+    }
+
+    if (archivedCount > 0) {
+        await saveJson(legacyArchivePath, archived);
+    }
+    return archivedCount;
 }
 
 async function scrapeUnitDetail(page, opaqueId) {
@@ -326,7 +380,7 @@ async function main() {
 
             let numericId = existing?.record?.Id;
             if (numericId === undefined) {
-                const nameKey = canonicalTitle(unit.n, unit.m);
+                const nameKey = unitIdentity(unit.n, unit.m);
                 const legacyMatch = legacyNameIndex.get(nameKey);
                 if (legacyMatch) {
                     dupeCandidates.push({ opaqueId, name: unit.n, model: unit.m, legacy: legacyMatch });
@@ -366,6 +420,13 @@ async function main() {
             if (changed || !existing?.detailScrapedAt) {
                 needsDetail.push(opaqueId);
             }
+        }
+
+        const archivedLegacyCount = await archiveExactLegacyMatches(
+            Object.values(store.units).map((entry) => entry.record)
+        );
+        if (archivedLegacyCount > 0) {
+            console.log(`Archived ${archivedLegacyCount} exact Name+Model legacy record(s).`);
         }
 
         const batch = needsDetail.slice(0, MAX_DETAIL_PER_RUN);
