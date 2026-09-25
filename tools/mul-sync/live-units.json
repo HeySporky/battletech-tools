@@ -2,7 +2,7 @@
   "units": {
     "000RM4HYJ9": {
       "summaryHash": "[\"Black Knight\",\"BL-7-KNT\",1,4,3,1,75,34,1443,2809,3,[18],1]",
-      "detailScrapedAt": "2026-09-25T13:08:29.865Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100001,
         "MulUnitKey": "000RM4HYJ9",
@@ -33,7 +33,7 @@
     },
     "002JQKJ7MB": {
       "summaryHash": "[\"J-27 Ordnance Transport\",null,4,22,1,1,20,2,47,2650,2,[6,8,16,33,95],null]",
-      "detailScrapedAt": "2026-09-25T13:08:44.913Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100002,
         "MulUnitKey": "002JQKJ7MB",
@@ -64,7 +64,7 @@
     },
     "002X9EAQNR": {
       "summaryHash": "[\"Hermes II\",\"HER-2M \\\"Mercury\\\"\",1,4,9,1,40,33,910,2802,3,[],1]",
-      "detailScrapedAt": "2026-09-25T13:08:59.960Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100003,
         "MulUnitKey": "002X9EAQNR",
@@ -95,7 +95,7 @@
     },
     "003GH3PFXF": {
       "summaryHash": "[\"Kanazuchi Assault Battle Armor (Support)\",\"(Sqd5)\",2,3,4,1,2,17,491,3120,10,[2],null]",
-      "detailScrapedAt": "2026-09-25T13:09:15.016Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100004,
         "MulUnitKey": "003GH3PFXF",
@@ -126,7 +126,7 @@
     },
     "007YRTMJ3H": {
       "summaryHash": "[\"Mechanized Wheeled Level I\",\"(SRM)\",6,13,2,1,24,10,0,2933,11,[2],null]",
-      "detailScrapedAt": "2026-09-25T13:09:30.074Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100005,
         "MulUnitKey": "007YRTMJ3H",
@@ -157,7 +157,7 @@
     },
     "00CCRNHJ2Z": {
       "summaryHash": "[\"Alacorn Heavy Tank\",\"Mk. VI\",4,22,8,1,95,39,1850,2590,2,[6,33],null]",
-      "detailScrapedAt": "2026-09-25T13:09:45.159Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100006,
         "MulUnitKey": "00CCRNHJ2Z",
@@ -188,7 +188,7 @@
     },
     "00G7M1TF1W": {
       "summaryHash": "[\"Wendigo\",\"A\",1,19,8,2,50,39,2072,3135,7,[29,30,43,52],1]",
-      "detailScrapedAt": "2026-09-25T13:10:00.207Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100007,
         "MulUnitKey": "00G7M1TF1W",
@@ -219,7 +219,7 @@
     },
     "00GEHTEZ4E": {
       "summaryHash": "[\"Valkyrie\",\"VLK-QD\",1,4,5,1,30,25,807,3049,4,[29,30],1]",
-      "detailScrapedAt": "2026-09-25T13:10:15.259Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100008,
         "MulUnitKey": "00GEHTEZ4E",
@@ -250,7 +250,7 @@
     },
     "00KTZWMNXE": {
       "summaryHash": "[\"Osprey\",\"OSP-15\",1,4,8,1,55,35,1564,2738,2,[29,30],null]",
-      "detailScrapedAt": "2026-09-25T13:10:30.312Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100009,
         "MulUnitKey": "00KTZWMNXE",
@@ -281,7 +281,7 @@
     },
     "00KZE1X8MW": {
       "summaryHash": "[\"Goth\",\"Prime\",5,18,13,2,60,0,1993,2873,3,[],null]",
-      "detailScrapedAt": "2026-09-25T13:10:45.363Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100010,
         "MulUnitKey": "00KZE1X8MW",
@@ -312,7 +312,7 @@
     },
     "00QP70GF6H": {
       "summaryHash": "[\"Thor (Summoner)\",\"(Aidan)\",1,19,1,2,70,0,0,3049,12,[],1]",
-      "detailScrapedAt": "2026-09-25T13:11:00.420Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100011,
         "MulUnitKey": "00QP70GF6H",
@@ -343,7 +343,7 @@
     },
     "00XYNFG1ZH": {
       "summaryHash": "[\"Raptor\",\"RTX1-O\",1,19,5,1,25,24,721,3052,4,[30,52],null]",
-      "detailScrapedAt": "2026-09-25T13:11:15.475Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100012,
         "MulUnitKey": "00XYNFG1ZH",
@@ -374,7 +374,7 @@
     },
     "00Z4R54P4X": {
       "summaryHash": "[\"Karhu\",\"B\",1,19,6,2,65,51,2787,3079,5,[17,29,52],null]",
-      "detailScrapedAt": "2026-09-25T13:11:30.547Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100013,
         "MulUnitKey": "00Z4R54P4X",
@@ -405,7 +405,7 @@
     },
     "011QX8TKS5": {
       "summaryHash": "[\"Revenant\",\"UBM-2R4\",1,4,7,1,30,25,615,3142,7,[3,5,11,17,18,19,21,39,45],null]",
-      "detailScrapedAt": "2026-09-25T13:11:45.600Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100014,
         "MulUnitKey": "011QX8TKS5",
@@ -436,7 +436,7 @@
     },
     "012X1RSVTT": {
       "summaryHash": "[\"Protector High-Speed Medevac\",\"C-790\",9,15,1,1,90,0,0,2997,11,[],null]",
-      "detailScrapedAt": "2026-09-25T13:12:00.654Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100015,
         "MulUnitKey": "012X1RSVTT",
@@ -467,7 +467,7 @@
     },
     "017EK6QDGD": {
       "summaryHash": "[\"Grenadier II Battle Armor\",\"A (Sqd6)\",2,3,2,3,1.5,20,653,3137,7,[2,10,12],null]",
-      "detailScrapedAt": "2026-09-25T13:12:15.705Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100016,
         "MulUnitKey": "017EK6QDGD",
@@ -498,7 +498,7 @@
     },
     "0181SRN79G": {
       "summaryHash": "[\"Thor (Summoner)\",\"AA\",1,19,8,2,70,41,2216,3086,6,[29,52],1]",
-      "detailScrapedAt": "2026-09-25T13:12:30.752Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100017,
         "MulUnitKey": "0181SRN79G",
@@ -554,7 +554,7 @@
     },
     "01CY43B687": {
       "summaryHash": "[\"Warrior Attack Helicopter\",\"H-7C\",4,23,8,1,21,20,446,2974,11,[6,8,15,30],1]",
-      "detailScrapedAt": "2026-09-25T13:13:00.932Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100019,
         "MulUnitKey": "01CY43B687",
@@ -585,7 +585,7 @@
     },
     "01DEDECRM8": {
       "summaryHash": "[\"Balac Strike VTOL\",\"(Spotter)\",4,23,9,2,25,34,934,3079,5,[6,11,15,17,19,29,45],null]",
-      "detailScrapedAt": "2026-09-25T13:13:15.986Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100020,
         "MulUnitKey": "01DEDECRM8",
@@ -616,7 +616,7 @@
     },
     "01J5W5SQ8K": {
       "summaryHash": "[\"Wasp LAM Mk I\",\"WSP-100\",1,34,7,1,30,19,0,2690,2,[20,22,44,124],null]",
-      "detailScrapedAt": "2026-09-25T13:13:31.041Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100021,
         "MulUnitKey": "01J5W5SQ8K",
@@ -647,7 +647,7 @@
     },
     "01KJSKD0KQ": {
       "summaryHash": "[\"Huron Warrior\",\"HUR-WO-R3L\",1,4,1,1,50,0,0,3051,4,[],null]",
-      "detailScrapedAt": "2026-09-25T13:13:46.091Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100022,
         "MulUnitKey": "01KJSKD0KQ",
@@ -678,7 +678,7 @@
     },
     "01QDS27AY9": {
       "summaryHash": "[\"Hi-Scout Drone\",\"(PathTrak)\",9,52,7,1,3,4,36,3000,11,[8,18,21],null]",
-      "detailScrapedAt": "2026-09-25T13:14:01.145Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100023,
         "MulUnitKey": "01QDS27AY9",
@@ -709,7 +709,7 @@
     },
     "01R2FS6NT2": {
       "summaryHash": "[\"Mongoose\",\"MON-69\",1,4,9,1,25,27,737,2819,3,[],1]",
-      "detailScrapedAt": "2026-09-25T13:14:16.196Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100024,
         "MulUnitKey": "01R2FS6NT2",
@@ -765,7 +765,7 @@
     },
     "01SE6HMCQ2": {
       "summaryHash": "[\"Behemoth (Stone Rhino)\",null,1,4,8,2,100,56,3001,2847,3,[29,54],1]",
-      "detailScrapedAt": "2026-09-25T13:14:46.384Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100026,
         "MulUnitKey": "01SE6HMCQ2",
@@ -796,7 +796,7 @@
     },
     "01TFZKXW62": {
       "summaryHash": "[\"Achileus Light Battle Armor\",\"[Laser] (Sqd6)\",2,3,2,1,0.8,15,355,3057,4,[1,2,10,12],null]",
-      "detailScrapedAt": "2026-09-25T13:15:01.438Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100027,
         "MulUnitKey": "01TFZKXW62",
@@ -827,7 +827,7 @@
     },
     "01TTGS3509": {
       "summaryHash": "[\"Cattlemaster\",\"CTL-3R3 SecurityMech\",7,17,9,1,25,12,358,3072,5,[30,59,61],null]",
-      "detailScrapedAt": "2026-09-25T13:15:16.492Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100028,
         "MulUnitKey": "01TTGS3509",
@@ -858,7 +858,7 @@
     },
     "01VMPJSJV6": {
       "summaryHash": "[\"Fire Falcon\",\"H\",1,19,9,2,25,36,1162,3062,8,[18,52],1]",
-      "detailScrapedAt": "2026-09-25T13:15:31.547Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100029,
         "MulUnitKey": "01VMPJSJV6",
@@ -889,7 +889,7 @@
     },
     "01VYTBXB57": {
       "summaryHash": "[\"Falcon\",\"FLC-5P\",1,4,9,1,30,27,945,3065,8,[18,44],null]",
-      "detailScrapedAt": "2026-09-25T13:15:46.598Z",
+      "detailScrapedAt": null,
       "record": {
         "Id": 100030,
         "MulUnitKey": "01VYTBXB57",

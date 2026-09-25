@@ -166,6 +166,14 @@ async function scrapeUnitDetail(page, opaqueId) {
         throw new CloudflareBlockError(`Cloudflare challenge blocked detail scrape for ${opaqueId}`);
     }
 
+    // The stats grid is rendered client-side (Alpine.js) after the JSON fetch resolves, so it isn't
+    // there yet at domcontentloaded — wait for it explicitly instead of racing it.
+    try {
+        await page.waitForSelector(".u-statgrid .v", { timeout: 10_000 });
+    } catch {
+        throw new Error(`Alpha Strike stats grid never rendered for ${opaqueId} (page may have changed shape).`);
+    }
+
     return page.evaluate(() => {
         const stats = {};
         document.querySelectorAll(".u-statgrid > div").forEach((row) => {
