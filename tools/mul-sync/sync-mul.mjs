@@ -133,6 +133,17 @@ function buildLookup(records, keyField = "id") {
     return map;
 }
 
+// availability.json: { d: [[factionId,...], ...] (a shared dictionary of faction-sets), u: { publicUid: [[eraId, dictIndex], ...] } }.
+// Faction ids use the same taxonomy as the legacy getMULFactionLabels() ids (verified against the live site).
+function decodeAvailability(availability, opaqueId) {
+    const entries = availability?.u?.[opaqueId];
+    if (!entries) return [];
+    return entries.map(([eraId, dictIndex]) => ({
+        EraId: eraId,
+        FactionIds: availability.d[dictIndex] ?? [],
+    }));
+}
+
 function summaryHashOf(unit) {
     // Cheap change-detector for the fields the index actually carries.
     return JSON.stringify([unit.n, unit.m, unit.t, unit.st, unit.r, unit.te, unit.ton, unit.pv, unit.bv, unit.iy, unit.ie, unit.ab, unit.hp]);
@@ -273,12 +284,15 @@ async function main() {
         const manifest = await fetchJson(page, "/data/manifest.json");
         const files = manifest.files;
 
-        const [units, unitTypes, roles, eras, technologies] = await Promise.all([
+        // Faction ids in availability.json match the legacy getMULFactionLabels() taxonomy (verified
+        // against the live site), so we only need the availability index itself, not factions.json.
+        const [units, unitTypes, roles, eras, technologies, availability] = await Promise.all([
             fetchJson(page, `/data/${files.units}`),
             fetchJson(page, `/data/${files.unit_types}`),
             fetchJson(page, `/data/${files.roles}`),
             fetchJson(page, `/data/${files.eras}`),
             fetchJson(page, `/data/${files.technologies}`),
+            fetchJson(page, `/data/${files.availability}`),
         ]);
 
         const unitTypeById = buildLookup(unitTypes);
@@ -326,6 +340,7 @@ async function main() {
                 BFType: BF_TYPE_BY_UNIT_TYPE_NAME[unitTypeName] ?? null,
                 EraId: unit.ie ?? 0,
                 EraStart: eraById.get(unit.ie)?.ys ?? 0,
+                Availability: decodeAvailability(availability, opaqueId),
             };
 
             store.units[opaqueId] = {
